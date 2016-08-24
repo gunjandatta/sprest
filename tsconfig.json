@@ -1,0 +1,12 @@
+// TypeScript configuration file
+{
+    "compilerOptions": {
+        "outFile": "dst/sprest.js",
+        "sourceMap": true,
+        "target": "es5"
+    },
+    "files": [
+        "src/core.ts",
+        "src/web.ts"
+    ]
+}
