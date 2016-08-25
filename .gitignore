@@ -1,2 +1,4 @@
+*.log
 .vscode
-src/*.js
+js
+node_modules

@@ -1,0 +1,15 @@
+{
+    "author": "Gunjan Datta",
+    "name": "sprest",
+    "version": "0.1.0",
+    "description": "An easy way to interact with the SharePoint REST API.",
+    "devDependencies": {
+        "gulp": "*",
+        "gulp-concat": "*",
+        "gulp-rename": "*",
+        "gulp-uglify": "*"
+    },
+    "scripts": {
+        "build": "tsc && gulp"
+    }
+}

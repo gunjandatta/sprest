@@ -1,98 +1,112 @@
-import {Core} from './core.ts';
+/// <reference path="./base.d.ts" />
+module $REST {
+    /*********************************************************************************************************************************/
+    // The web class.
+    /*********************************************************************************************************************************/
+    export class Web extends Base {
+        /*********************************************************************************************************************************/
+        // Public Properties
+        /*********************************************************************************************************************************/
 
-// Web Class
-export class Web extends Core {
-    /******************************************************************************************************************************** */
-    // Public Methods
-    /******************************************************************************************************************************** */
+        // The endpoint for this object
+        public get endpoint():string { return "web"; }
 
-    // Applies the theme specified by the contents of each of the files specified in the arguments to the site.
-    public applyTheme() {}
+        // Flag to target the current web by default
+        public get defaultUrlToWeb():boolean { return true; }
 
-    // Applies the specified site definition or site template to the Web site that has no template applied to it.
-    public applyWebTemplate() {}
+        /*********************************************************************************************************************************/
+        // Public Methods
+        /*********************************************************************************************************************************/
 
-    // Deletes the Web site.
-    public deleteObject() {}
+        // Applies the theme specified by the contents of each of the files specified in the arguments to the site.
+        public applyTheme(colorPaletteUrl?:string, fontSchemeUrl?:string, backgroundImageUrl?:string, shareGenerated?:boolean) {
+        }
 
-    // Checks whether the push notification subscriber exist for the current user with the given device application instance ID.
-    public doesPushNotificationSubscriberExist() {}
+        // Applies the specified site definition or site template to the Web site that has no template applied to it.
+        public applyWebTemplate() {}
 
-    // Returns whether the current user has the given set of permissions.
-    public doesUserHavePermissions() {}
+        // Deletes the Web site.
+        public deleteObject() {}
 
-    // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
-    public ensureUser() {}
+        // Checks whether the push notification subscriber exist for the current user with the given device application instance ID.
+        public doesPushNotificationSubscriberExist() {}
 
-    //
-    public getAppBdcCatalog() {}
+        // Returns whether the current user has the given set of permissions.
+        public doesUserHavePermissions() {}
 
-    // 
-    public getAppBdcCatalogForAppInstance() {}
+        // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
+        public ensureUser() {}
 
-    // Retrieves an AppInstance installed on this Site.
-    public getAppInstanceById() {}
+        //
+        public getAppBdcCatalog() {}
 
-    // Retrieves all AppInstances installed on this site that are instances of the specified App.
-    public getAppInstancesByProductId() {}
+        // 
+        public getAppBdcCatalogForAppInstance() {}
 
-    // Returns a collection of site templates available for the site.
-    public getAvailableWebTemplates() {}
+        // Retrieves an AppInstance installed on this Site.
+        public getAppInstanceById() {}
 
-    // Gets the list template gallery, site template gallery, or Web Part gallery for the Web site.
-    public getCatalog() {}
+        // Retrieves all AppInstances installed on this site that are instances of the specified App.
+        public getAppInstancesByProductId() {}
 
-    // Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
-    public getChanges() {}
+        // Returns a collection of site templates available for the site.
+        public getAvailableWebTemplates() {}
 
-    // Gets the specified external content type in a line-of-business (LOB) system application.
-    public getEntity() {}
+        // Gets the list template gallery, site template gallery, or Web Part gallery for the Web site.
+        public getCatalog() {}
 
-    // Returns the file object located at the specified server-relative URL.
-    public getFileByServerRelativeUrl() {}
+        // Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
+        public getChanges() {}
 
-    // Returns the folder object located at the specified server-relative URL.
-    public getFolderByServerRelativeUrl() {}
+        // Gets the specified external content type in a line-of-business (LOB) system application.
+        public getEntity() {}
 
-    // Gets the push notification subscriber over the site for the specified device application instance ID.
-    public getPushNotificationSubscriber() {}
+        // Returns the file object located at the specified server-relative URL.
+        public getFileByServerRelativeUrl() {}
 
-    // Queries for the push notification subscribers over the site for the specified value of custom arguments. Null or empty custom arguments will return subscribers without any filtering.
-    public getPushNotificationSubscribersByArgs() {}
+        // Returns the folder object located at the specified server-relative URL.
+        public getFolderByServerRelativeUrl() {}
 
-    // Queries for the push notification subscribers over the site for the specified user.
-    public getPushNotificationSubscribersByUser() {}
+        // Gets the push notification subscriber over the site for the specified device application instance ID.
+        public getPushNotificationSubscriber() {}
 
-    // Returns the collection of child sites of the current site based on the specified query.
-    public getSubwebsForCurrentUser() {}
+        // Queries for the push notification subscribers over the site for the specified value of custom arguments. Null or empty custom arguments will return subscribers without any filtering.
+        public getPushNotificationSubscribersByArgs() {}
 
-    // Returns the user corresponding to the specified member identifier for the current site.
-    public getUserById() {}
+        // Queries for the push notification subscribers over the site for the specified user.
+        public getPushNotificationSubscribersByUser() {}
 
-    // Gets the effective permissions that the specified user has within the current application scope.
-    public getUserEffectivePermissions() {}
+        // Returns the collection of child sites of the current site based on the specified query.
+        public getSubwebsForCurrentUser() {}
 
-    //
-    public initPropertiesFromJson() {}
+        // Returns the user corresponding to the specified member identifier for the current site.
+        public getUserById() {}
 
-    // Uploads and installs an app package to this site.
-    public loadAndInstallApp() {}
+        // Gets the effective permissions that the specified user has within the current application scope.
+        public getUserEffectivePermissions() {}
 
-    // Uploads and installs an App package on the site in a specified locale.
-    public loadAndInstallAppInSpecifiedLocale() {}
+        //
+        public initPropertiesFromJson() {}
 
-    // Uploads an App package and creates an instance from it.
-    public loadApp() {}
+        // Uploads and installs an app package to this site.
+        public loadAndInstallApp() {}
 
-    // Returns the name of the image file for the icon that is used to represent the specified file.
-    public mapToIcon() {}
+        // Uploads and installs an App package on the site in a specified locale.
+        public loadAndInstallAppInSpecifiedLocale() {}
 
-    // Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
-    public registerPushNotificationSubscriber() {}
+        // Uploads an App package and creates an instance from it.
+        public loadApp() {}
 
-    // Unregisters the subscriber for push notifications from the site.
-    public unregisterPushNotificationSubscriber() {}
+        // Returns the name of the image file for the icon that is used to represent the specified file.
+        public mapToIcon() {}
 
-    // Updates the database with changes that are made to the Web site.
-    public update() {}
+        // Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
+        public registerPushNotificationSubscriber() {}
+
+        // Unregisters the subscriber for push notifications from the site.
+        public unregisterPushNotificationSubscriber() {}
+
+        // Updates the database with changes that are made to the Web site.
+        public update() {}
+    }
 }
