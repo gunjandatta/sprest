@@ -4,12 +4,7 @@
 
 declare module $REST {
     /***********************************************************************/
-    // The request object will execute the xml http requests to the api.
+    // This class will ensure the dependent scripts are loaded.
     /***********************************************************************/
-    interface IDependencies {
-        /***********************************************************************/
-        // Public Properties
-        /***********************************************************************/
-        isLoaded:boolean;
-    }
+    interface IDependencies { }
 }

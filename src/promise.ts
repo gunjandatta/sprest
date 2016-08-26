@@ -1,61 +1,68 @@
-/*********************************************************************************************************************************/
-// REST Namespace
-/*********************************************************************************************************************************/
+/// <reference path="promise.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
-    // The request class.
+    // Promise
+    // This is a lightweight promise library.
     /*********************************************************************************************************************************/
     export class Promise implements IPromise {
-
-        /******************************************************************************************************************************** */
-        // Public Variables
-        /******************************************************************************************************************************** */
-
-        // Optional arguments to pass to the callback function
-        public args:any;
-
-        // Method to call after the promise is resolved
-        public callback:void;
-
-        // Flag to determine if the promise has been resolved
-        public resolveFl:boolean;
-
-        /******************************************************************************************************************************** */
+        /*********************************************************************************************************************************/
         // Constructor
-        /******************************************************************************************************************************** */
-        constructor() {
-            // Default the Variables
-            this.resolveFl = false;
+        /*********************************************************************************************************************************/
+        constructor(callback?:() => void) {
+            // Default the properties
+            this.callback = callback
+            this.resolvedFl = false;
         }
-
+        
         /******************************************************************************************************************************** */
         // Public Methods
         /******************************************************************************************************************************** */
 
-        // Executes the callback method after the promise is resolved
-        public Done(callback:() => any) {
-            // Set the callback method
-            this.callback = callback;
+        // Method to execute after the promise is resolved
+        public done(callback?:() => void) {
+            // Set the callback
+            this.callback = callback || this.callback;
 
-            // See if this promise has been resolved
-            if(this.resolveFl) {
-                // Resolve this promise
-                this.Resolve(this.arguments);
+            // See if the promise is resolved
+            if(this.resolvedFl) {
+                // Execute the callback
+                this.executeMethod();
             }
         }
 
         // Method to resolve the promise
-        public Resolve(...args:any[]) {
-            // Set the arguments
-            this.arguments = args;
+        public resolve(...args) {
+            // Set the properties
+            this.args = args;
+            this.resolvedFl = true;
 
-            // Set the flag
-            this.resolveFl = true;
+            // Execute the callback
+            this.executeMethod();
+        }
 
+        /*********************************************************************************************************************************/
+        // Private Variables
+        /*********************************************************************************************************************************/
+
+        // The arguments to pass back
+        private args:any[];
+
+        // The callback
+        private callback:any;
+
+        // Flag to determine if the promise is resolved
+        private resolvedFl:boolean;
+
+        /*********************************************************************************************************************************/
+        // Private Methods
+        /*********************************************************************************************************************************/
+
+        // Method to execute the callback method
+        private executeMethod() {
             // See if callback function exists
             if(this.callback && typeof(this.callback) == "function") {
-                // Execute the method
-                this.callback.apply(this.arguments);
+                // Execute the callback method
+                this.callback.apply(this, this.args);
             }
         }
     }

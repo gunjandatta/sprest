@@ -1,63 +1,59 @@
 /// <reference path="targetInfo.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
-    // The target information class.
+    // Target Information
+    // This class will take the target information and create the request url.
     /*********************************************************************************************************************************/
     export class TargetInfo implements ITargetInfo {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(url:string, endPoint:string, defaultToCurrentWeb:boolean) {
+        constructor(targetInfo:ITargetInfoType) {
             // Default the properties
-            this.endPoint = endPoint;
-            this.url = url ? url : this.context[defaultToCurrentWeb ? "webAbsoluteUrl" : "siteAbsoluteUrl"];
+            this.targetInfo = targetInfo || {};
+            this.targetInfo.asyncFl = this.targetInfo.asyncFl ? true : false;
 
-            // Set the domain
-            if(this.url.indexOf("http") != 0) {
-                this.url = this.getDomainUrl() + this.url;
-            }
-
-            // See if this is the app web
-            if(this.isAppWeb) {
-                // Set the request url template
-                this.template = this.context.webAbsoluteUrl + "/_api/" + "SP.AppContextSite(@target)/{{EndPoint}}" +
-                (this.endPoint.indexOf('?') > 0 ? "&" : "?") + "@target='{{Url}}'";
-            }
-            else {
-                // Set the request url template
-                this.template = this.url + "/_api/{{EndPoint}}";
-            }
+            // Set the request url
+            this.setRequestUrl()
         }
 
         /*********************************************************************************************************************************/
         // Public Properties
         /*********************************************************************************************************************************/
 
+        // Flag to determine if the request should be asynchronous or synchronous
+        public get asyncFl():boolean { return this.targetInfo.asyncFl; }
+
+        // Flag to determine if the request returns an array buffer
+        public get bufferFl():boolean { return this.targetInfo.bufferFl; }
+
+        // The callback method to execute after the asynchronous request completes
+        public get callback():() => void { return this.targetInfo.callback; }
+
+        // The request data
+        public requestData:any;
+
+        // The request header
+        public requestHeaders:string[];
+
+        // The request method
+        requestMethod:string;
+
         // The request url
-        public get requestUrl():string {
-            return this.template
-            .replace("{{EndPoint}}", this.endPoint)
-            .replace("{{Url}}", this.url);
-        }
+        public requestUrl:string;
 
         /*********************************************************************************************************************************/
-        // Private Properties
+        // Private Variables
         /*********************************************************************************************************************************/
+
+        // The target information
+        private targetInfo:ITargetInfoType;
 
         // Reference to the page context information
         private get context():any { return window["_spPageContextInfo"]; }
 
-        // The target endpoint of the api
-        private endPoint:string;
-
         // Flag to determine if we are currently in an app web
         private get isAppWeb():boolean { return this.context.isAppWeb; }
-
-        // The target url
-        private url:string;
-
-        // The template for the url
-        private template:string;
 
         /*********************************************************************************************************************************/
         // Private Methods
@@ -106,6 +102,41 @@ module $REST {
 
             // Key was not found
             return null;
+        }
+
+        // Method to set the request url
+        private setRequestUrl() {
+            let template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
+
+            // Ensure the url exists
+            if(this.targetInfo.url == null) {
+                // Default the url to the current site/web url
+                this.targetInfo.url = this.context[this.targetInfo.defaultToWebFl ? "webAbsoluteUrl" : "siteAbsoluteUrl"];
+            }
+
+            // See if this is a relative url
+            if(this.targetInfo.url.indexOf("http") != 0) {
+                // Add the domain
+                this.targetInfo.url = this.getDomainUrl() + this.targetInfo.url;
+            }
+
+            // See if this is the app web
+            if(this.isAppWeb) {
+                // Append the start character for the query string
+                let endpoint = this.targetInfo.endpoint.indexOf("?") > 0 ? "&" : "?";
+
+                // Set the request url
+                this.requestUrl = template
+                    .replace("{{Url}}", this.context["webAbsoluteUrl"])
+                    .replace("{{EndPoint}}", endpoint)
+                    .replace("{{TargetUrl}}", "@target='" + this.targetInfo.url + "'");
+            } else {
+                // Set the request url
+                this.requestUrl = template
+                    .replace("{{Url}}", this.targetInfo.url)
+                    .replace("{{EndPoint}}", this.targetInfo.endpoint)
+                    .replace("{{TargetUrl}}", "");
+            }
         }
     }
 }

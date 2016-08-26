@@ -3,9 +3,9 @@
 // Definitions by: Gunjan Datta <https://github.com/gunjandatta>
 
 declare module $REST {
-    /*********************************************************************************************************************************/
+    /***********************************************************************/
     // Enumerators
-    /*********************************************************************************************************************************/
+    /***********************************************************************/
 
     // Request Type
     export enum RequestType {
@@ -23,20 +23,6 @@ declare module $REST {
     }
 
     /***********************************************************************/
-    // The input parameters for the request class.
-    /***********************************************************************/
-    interface IRequestType {
-        asyncFl?:boolean,
-        bufferFl?:boolean,
-        callback?:any,
-        data?:any,
-        headers?:any,
-        method?:string,
-        requestType?:number,
-        url?:string
-    }
-
-    /***********************************************************************/
     // The request object will execute the xml http requests to the api.
     /***********************************************************************/
     interface IRequest {
@@ -46,6 +32,5 @@ declare module $REST {
         asyncFl:boolean;
         response:any;
         request:any;
-        url:string;
     }
 }

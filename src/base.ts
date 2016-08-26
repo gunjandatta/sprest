@@ -1,21 +1,19 @@
 /// <reference path="base.d.ts" />
-/// <reference path="request.d.ts" />
-/// <reference path="targetInfo.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
-    // The base object class.
+    // Base
+    // This is the base class for all objects.
     /*********************************************************************************************************************************/
     export class Base implements IBase {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(settings:IRequestType) {
-            console.log("[Dev] Base constructor called...");
+        constructor(targetInfo:ITargetInfoType, executeRequestFl?:boolean) {
             // Default the properties
-            this.settings = settings;
+            this.targetInfo = targetInfo || {};
 
-            // Load the dependencies
-            let dependencies = new Dependencies(() => { this.execute(this.settings); });
+            // Default the flag, if it's not defined
+            this.executeRequestFl = typeof(executeRequestFl) === "boolean" ? executeRequestFl : true;
         }
 
         /*********************************************************************************************************************************/
@@ -23,13 +21,11 @@ module $REST {
         /*********************************************************************************************************************************/
 
         // Flag to determine if the request should be asynchronous
-        public asyncFl:boolean;
+        public get asyncFl():boolean { return this.request ? this.request.asyncFl : false; }
+        public set asyncFl(value) { this.targetInfo.asyncFl = value; }
 
-        // Flag to target the current web by default
-        public get defaultUrlToWeb():boolean { return false; }
-
-        // The endpoint for the object
-        public get endpoint():string { return ""; };
+        // The parent
+        public get parent():Base { return this.oParent; }
 
         // Method to return the xml http request's response
         public get response():any { return this.request ? this.request.response : null; }
@@ -39,30 +35,32 @@ module $REST {
         /*********************************************************************************************************************************/
 
         // Method to execute a child request
-        public execute(settings:IRequestType):any {
-            debugger;
-            // Create the target information
-            this.targetInfo = new TargetInfo(settings.url, this.endpoint, this.defaultUrlToWeb);
-
-            // Update the url
-            settings.url = this.targetInfo.requestUrl;
-
+        public execute():void {
             // Create the request
-            return new Request(settings);
+            this.request = new Request(new TargetInfo(this.targetInfo));
         }
         
         /*********************************************************************************************************************************/
         // Private Variables
         /*********************************************************************************************************************************/
 
+        // Flag to determine if we should execute the request on creation
+        protected executeRequestFl:boolean;
+
+        // Flag to default the url to the current web url, site otherwise
+        protected defaultToWebFl;
+
+        // The parent
+        protected oParent:Base;
+
+        // The promise
+        private promise:Promise;
+
         // The request
         protected request:Request;
 
         // The base settings
-        private settings:IRequestType;
-
-        // The target information
-        private targetInfo:TargetInfo;
+        protected targetInfo:ITargetInfoType;
 
         /*********************************************************************************************************************************/
         // Private Methods
@@ -85,11 +83,6 @@ module $REST {
 
             // Return the data object
             return data;
-        }
-
-        // Method to initialize the class
-        private init() {
-            // Default the url
         }
     }
 }

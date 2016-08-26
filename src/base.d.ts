@@ -11,13 +11,12 @@ declare module $REST {
         // Public Properties
         /***********************************************************************/
         asyncFl:boolean;
-        defaultUrlToWeb:boolean;
-        endpoint:string;
-        response: any;
+        parent:any;
+        response:any;
 
         /***********************************************************************/
         // Public Methods
         /***********************************************************************/
-        execute(settings:any):any;
+        execute(settings:ITargetInfoType):any;
     }
 }

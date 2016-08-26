@@ -4,12 +4,30 @@
 
 declare module $REST {
     /***********************************************************************/
-    // The target information of the request.
+    // The input parameters for the target information class.
+    /***********************************************************************/
+    interface ITargetInfoType {
+        asyncFl?:boolean;
+        bufferFl?:boolean;
+        callback?:() => void;
+        defaultToWebFl?:boolean;
+        endpoint?:string;
+        url?:string;
+    }
+
+    /***********************************************************************/
+    // The target information of the target information.
     /***********************************************************************/
     interface ITargetInfo {
         /***********************************************************************/
         // Public Properties
         /***********************************************************************/
+        asyncFl:boolean;
+        bufferFl:boolean;
+        callback:() => void;
+        requestData:any;
+        requestHeaders:any;
+        requestMethod:string;
         requestUrl:string;
    }
 }
