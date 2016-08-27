@@ -1,6 +1,12 @@
 /// <reference path="base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
+    // Library
+    // The base library containing the method information for each object
+    /*********************************************************************************************************************************/
+    export var Library:any = {};
+
+    /*********************************************************************************************************************************/
     // Base
     // This is the base class for all objects.
     /*********************************************************************************************************************************/
@@ -79,6 +85,65 @@ module $REST {
         // Private Methods
         /*********************************************************************************************************************************/
 
+        // Method to add the methods to this object
+        private addMethods(data:any) {
+            // Determine the object type
+            let type = (data.__metadata && data.__metadata.type ? data.__metadata.type : this.targetInfo.endpoint).split('.');
+            type = (type[type.length - 1]).toLowerCase();
+
+            // Get the methods for this object
+            var methods = Library[type];
+            if(methods) {
+                debugger;
+                // Parse the request types
+                for(let requestType in methods) {
+                    // Determine the function type to generate
+                    switch(requestType) {
+                        // Custom function
+                        case RequestType.Custom.toString():
+                            // Parse the custom methods
+                            for(let i=0; i<methods[requestType].length; i++) {
+                                let method = methods[requestType][i];
+
+                                // Add the custom method to this object
+                                this[method.name] = method["function"];
+                            }
+                        break;
+                        default:
+                            // Parse the methods
+                            for(let i=0; i<methods[requestType].length; i++) {
+                                let methodName = methods[requestType][i];
+
+                                // Add the custom method to this object
+                                this[methodName] = new Function("return true;");
+                            }
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Method to add properties to this object
+        private addProperties(data:any) {
+            // Parse the data properties
+            for(var key in data) {
+                let value = data[key];
+
+                // Skip properties
+                if(key == "__metadata" || key == "results") { continue; }
+
+                // See if this is a collection property
+                if(value && value.__deferred && value.__deferred.uri) {
+                    // Generate a method for this property
+                    this["get_" + key] = new Function("return this.getCollection('" + key + "', arguments);");
+                }
+                else {
+                    // Append the property to this object
+                    this[key] = value;
+                }
+            }
+        }
+
         // Method to return a collection
         private getCollection(method:string, args?:any) {
             // Copy the target information
@@ -103,36 +168,49 @@ module $REST {
             return obj;
         }
 
+        // Method to update a collection object
+        private updateDataCollection(results:any) {
+            // Ensure this is a collection
+            if(results) {
+                // Save the property
+                this["results"] = results;
+
+                // Update the flag
+                this["existsFl"] = results.length > 0;
+
+                // See if only one object exists
+                if(results.length == 1) {
+                    // Apply the properties to the object
+                    this.addProperties(results[0]);
+                } else {
+                    // Apply the methods to the results
+                    // Should I do this asynchronously? For large objects?
+                    // TO DO
+                }
+            }            
+        }
+
         // Method to convert the input arguments into an object
         protected updateDataObject(...args) {
             let response = args && args.length > 0 ? args[0] : "{}";
 
             // Convert the response
             let data = JSON.parse(response);
-            data.existsFl = data.error == null;
+            this["existsFl"] = data.error == null;
 
             // See if the data properties exists
             if(data.d) {
                 // Save a reference to it
                 this["d"] = data.d;
-                
-                // Parse the data properties
-                for(var key in data.d) {
-                    let value = data.d[key];
 
-                    // Skip properties
-                    if(key == "__metadata") { continue; }
+                // Update this object's properties
+                this.addProperties(data.d);
 
-                    // See if this is a collection property
-                    if(value && value.__deferred && value.__deferred.uri) {
-                        // Generate a method for this property
-                        this["get_" + key] = new Function("return this.getCollection('" + key + "', arguments);");
-                    }
-                    else {
-                        // Append the property to this object
-                        this[key] = value;
-                    }
-                }
+                // Add the methods
+                this.addMethods(data.d);
+
+                // Update the data collection
+                this.updateDataCollection(data.d.results);
             }
 
             // Resolve the promise

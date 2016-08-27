@@ -11,6 +11,6 @@
         "src/promise.ts",
         "src/request.ts",
         "src/targetInfo.ts",
-        "src/web.ts"
+        "src/lib/web.ts"
     ]
 }

@@ -1,5 +1,25 @@
 /// <reference path="./request.d.ts" />
 module $REST {
+    /***********************************************************************/
+    // Enumerators
+    /***********************************************************************/
+
+    // Request Type
+    export enum RequestType {
+        Custom = 0,
+        Get = 1,
+        GetAppendMethodToEndPoint = 2,
+        GetBuffer = 3,
+        GetDataAsParameter = 4,
+        GetDataInBody = 5,
+        GetDataInBodyNoArgs = 6,
+        Post = 7,
+        PostAppendMethodToEndPoint = 8,
+        PostDataAsParameter = 9,
+        PostDataInBody = 10,
+        PostDataInBodyNoArgs = 11
+    }
+
     /*********************************************************************************************************************************/
     // Request
     // This class will execute the xml http request.
