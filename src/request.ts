@@ -8,9 +8,9 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(targetInfo:TargetInfo) {
+        constructor(targetInfo:TargetInfo, callback?:(...args) => void) {
             // Default the properties
-            this.promise = new Promise(targetInfo.callback);
+            this.promise = new Promise(callback || targetInfo.callback);
             this.targetInfo = targetInfo;
             this.xhr = this.createXHR();
 
@@ -24,7 +24,7 @@ module $REST {
 
         // Flag to determine if the request is asynchronous
         public get asyncFl():boolean { return this.targetInfo.asyncFl; }
-        
+
         // Method to return the xml http request's response
         public get response():any { return this.xhr ? this.xhr.response : null; }
 

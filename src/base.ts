@@ -35,11 +35,24 @@ module $REST {
         /*********************************************************************************************************************************/
 
         // Method to execute a child request
-        public execute():void {
-            // Create the request
-            this.request = new Request(new TargetInfo(this.targetInfo));
+        public execute() {
+            // See if this is an asynchronous request
+            if(this.targetInfo.asyncFl || this.targetInfo.bufferFl) {
+                // Create a promise
+                this.promise = new Promise(this.targetInfo.callback);
+
+                // Create the request
+                this.request = new Request(new TargetInfo(this.targetInfo), this.updateDataObject);
+            }
+            else {
+                // Create the request
+                this.request = new Request(new TargetInfo(this.targetInfo));
+
+                // Update the data object
+                this.updateDataObject(this.request.response);
+            }
         }
-        
+
         /*********************************************************************************************************************************/
         // Private Variables
         /*********************************************************************************************************************************/
@@ -48,10 +61,10 @@ module $REST {
         protected executeRequestFl:boolean;
 
         // Flag to default the url to the current web url, site otherwise
-        protected defaultToWebFl;
-
+        protected defaultToWebFl:boolean;
+        
         // The parent
-        protected oParent:Base;
+        private oParent:Base;
 
         // The promise
         private promise:Promise;
@@ -66,23 +79,64 @@ module $REST {
         // Private Methods
         /*********************************************************************************************************************************/
 
+        // Method to return a collection
+        private getCollection(method:string, args?:any) {
+            // Copy the target information
+            let targetInfo = Object.create(this.targetInfo);
+
+            // Append the method to the endpoint
+            targetInfo.endpoint += "/" + method;
+
+            // Update the callback
+            targetInfo.callback = args && typeof(args[0]) === "function" ? args[0] : null;
+
+            // Create a new object
+            let obj = new Base(targetInfo, true);
+
+            // Set the parent
+            obj.oParent = this;
+
+            // Execute the request
+            obj.execute();
+
+            // Return the object
+            return obj;
+        }
+
         // Method to convert the input arguments into an object
-        protected createDataObject(...args) {
-            let data = null;
+        protected updateDataObject(...args) {
+            let response = args && args.length > 0 ? args[0] : "{}";
 
-            // Ensure arguments exist
-            if(args && args.length > 0) {
-                data = {};
+            // Convert the response
+            let data = JSON.parse(response);
+            data.existsFl = data.error == null;
 
-                // Parse the arguments
-                for(var arg in args) {
-                    // Append the argument
-                    data[arg] = args[arg];
+            // See if the data properties exists
+            if(data.d) {
+                // Save a reference to it
+                this["d"] = data.d;
+                
+                // Parse the data properties
+                for(var key in data.d) {
+                    let value = data.d[key];
+
+                    // Skip properties
+                    if(key == "__metadata") { continue; }
+
+                    // See if this is a collection property
+                    if(value && value.__deferred && value.__deferred.uri) {
+                        // Generate a method for this property
+                        this["get_" + key] = new Function("return this.getCollection('" + key + "', arguments);");
+                    }
+                    else {
+                        // Append the property to this object
+                        this[key] = value;
+                    }
                 }
             }
 
-            // Return the data object
-            return data;
+            // Resolve the promise
+            this.promise ? this.promise.resolve() : null;
         }
     }
 }

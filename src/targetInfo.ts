@@ -10,6 +10,7 @@ module $REST {
         /*********************************************************************************************************************************/
         constructor(targetInfo:ITargetInfoType) {
             // Default the properties
+            this.requestMethod = "GET";
             this.targetInfo = targetInfo || {};
             this.targetInfo.asyncFl = this.targetInfo.asyncFl ? true : false;
 
@@ -37,7 +38,7 @@ module $REST {
         public requestHeaders:string[];
 
         // The request method
-        requestMethod:string;
+        public requestMethod:string;
 
         // The request url
         public requestUrl:string;
@@ -56,7 +57,7 @@ module $REST {
         private get isAppWeb():boolean { return this.context.isAppWeb; }
 
         /*********************************************************************************************************************************/
-        // Private Methods
+        // Methods
         /*********************************************************************************************************************************/
 
         // Method to get the domain url
