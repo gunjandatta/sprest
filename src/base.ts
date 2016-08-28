@@ -86,7 +86,7 @@ module $REST {
         /*********************************************************************************************************************************/
 
         // Method to add the methods to this object
-        private addMethods(data:any) {
+        private addMethods(obj:any, data:any) {
             // Determine the object type
             let type = (data.__metadata && data.__metadata.type ? data.__metadata.type : this.targetInfo.endpoint).split('.');
             type = (type[type.length - 1]).toLowerCase();
@@ -106,7 +106,7 @@ module $REST {
                                 let method = methods[requestType][i];
 
                                 // Add the custom method to this object
-                                this[method.name] = method["function"];
+                                obj[method.name] = method["function"];
                             }
                         break;
                         default:
@@ -115,7 +115,7 @@ module $REST {
                                 let methodName = methods[requestType][i];
 
                                 // Add the custom method to this object
-                                this[methodName] = new Function("return true;");
+                                obj[methodName] = new Function("return true;");
                             }
                         break;
                     }
@@ -124,7 +124,7 @@ module $REST {
         }
 
         // Method to add properties to this object
-        private addProperties(data:any) {
+        private addProperties(obj:any, data:any) {
             // Parse the data properties
             for(var key in data) {
                 let value = data[key];
@@ -135,11 +135,11 @@ module $REST {
                 // See if this is a collection property
                 if(value && value.__deferred && value.__deferred.uri) {
                     // Generate a method for this property
-                    this["get_" + key] = new Function("return this.getCollection('" + key + "', arguments);");
+                    obj["get_" + key] = new Function("return this.getCollection('" + key + "', arguments);");
                 }
                 else {
                     // Append the property to this object
-                    this[key] = value;
+                    obj[key] = value;
                 }
             }
         }
@@ -181,11 +181,16 @@ module $REST {
                 // See if only one object exists
                 if(results.length == 1) {
                     // Apply the properties to the object
-                    this.addProperties(results[0]);
+                    this.addProperties(this, results[0]);
                 } else {
-                    // Apply the methods to the results
-                    // Should I do this asynchronously? For large objects?
-                    // TO DO
+                    // Apply the methods to the results asynchronously
+                    setTimeout(() => {
+                        // Parse the results
+                        for(let i=0; i<results.length; i++) {
+                            // Add the methods
+                            this.addMethods(results[i], results[i])
+                        }
+                    }, 10);
                 }
             }            
         }
@@ -204,10 +209,10 @@ module $REST {
                 this["d"] = data.d;
 
                 // Update this object's properties
-                this.addProperties(data.d);
+                this.addProperties(this, data.d);
 
                 // Add the methods
-                this.addMethods(data.d);
+                this.addMethods(this, data.d);
 
                 // Update the data collection
                 this.updateDataCollection(data.d.results);

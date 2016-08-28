@@ -1,0 +1,3 @@
+                get: ["getById"],
+
+                post: ["clear"]

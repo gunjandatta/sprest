@@ -1,0 +1,1 @@
+                post: ["addViewField", "moveViewFieldTo", "removeAllViewFields", "removeViewField"]

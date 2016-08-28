@@ -1,0 +1,1 @@
+                get: ["getById", "getByName", "getByType"]
