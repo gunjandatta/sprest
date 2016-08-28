@@ -21,7 +21,7 @@
         "src/lib/fields.ts",
         "src/lib/file.ts",
         "src/lib/files.ts",
-        "src/lib/fileVersions.ts",
+        "src/lib/fileVersion.ts",
         "src/lib/folder.ts",
         "src/lib/folders.ts",
         "src/lib/group.ts",

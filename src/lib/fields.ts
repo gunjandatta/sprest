@@ -1,14 +1,10 @@
 /// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
-    // Library Methods
+    // Fields
     /*********************************************************************************************************************************/
-    Library. = {};
-    Library.[RequestType] = [
-    ];
+    Library.fields = {};
+    Library.fields[RequestType.Get] = ["getById", "getByInternalNameOrTitle"];
+    Library.fields[RequestType.Post] = ["addDependentLookup"];
+    Library.fields[RequestType.PostDataInBodyNoArgs] = ["addField", "createFieldAsXml"];
 }
-                get: ["getById", "getByInternalNameOrTitle"],
-
-                post: ["addDependentLookup"],
-
-                postDataInBodyNoArgs: ["addField", "createFieldAsXml"]

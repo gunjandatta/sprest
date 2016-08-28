@@ -1,1 +1,8 @@
-                get: ["getById", "getByName", "getByType"]
+/// <reference path="../base.d.ts" />
+module $REST {
+    /*********************************************************************************************************************************/
+    // Role Definitions
+    /*********************************************************************************************************************************/
+    Library.roledefinitions = {};
+    Library.roledefinitions[RequestType.Get] = ["getById", "getByName", "getByType"];
+}

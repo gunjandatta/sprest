@@ -1,7 +1,7 @@
 /// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
-    // Library Methods
+    // Field
     /*********************************************************************************************************************************/
     Library.field = {};
     Library.field[RequestType.Post] = ["deleteObject", "setShowInDisplayForm", "setShowInEditForm", "setShowInNewForm"];

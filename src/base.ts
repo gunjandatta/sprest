@@ -86,7 +86,7 @@ module $REST {
         /*********************************************************************************************************************************/
 
         // Method to add the methods to this object
-        private addMethods(obj:any, data:any) {
+        protected addMethods(obj:any, data:any) {
             // Determine the object type
             let type = (data.__metadata && data.__metadata.type ? data.__metadata.type : this.targetInfo.endpoint).split('.');
             type = (type[type.length - 1]).toLowerCase();
@@ -94,7 +94,6 @@ module $REST {
             // Get the methods for this object
             var methods = Library[type];
             if(methods) {
-                debugger;
                 // Parse the request types
                 for(let requestType in methods) {
                     // Determine the function type to generate

@@ -18,6 +18,9 @@ module $REST {
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "web";
 
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "web" } } );
+
             // See if we are executing the request
             if(this.executeRequestFl) {
                 // Execute the request
@@ -27,7 +30,7 @@ module $REST {
     }
 
     /*********************************************************************************************************************************/
-    // Library Methods
+    // Web
     /*********************************************************************************************************************************/
     Library.web = {};
     Library.web[RequestType.Get] = [
