@@ -2,9 +2,17 @@
 module $REST {
     /*********************************************************************************************************************************/
     // Webs
+    // The SPWebCollection object.
     /*********************************************************************************************************************************/
-    Library.webs = {};
-    Library.webs[RequestType.Custom] = [
-        { name: "add", "function": function (data) { data = { parameters: data }; data.parameters.__metadata = { type: "SP.WebCreationInformation" }; return this.executePost("add", null, data, true); } },
-    ];
+
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    Library.webs = {
+        add: {
+            argNames: ["parameters"],
+            metadataType: "SP.WebCreationInformation",
+            requestType: RequestType.PostWithArgsInBody
+        }
+    };
 }

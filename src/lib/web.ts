@@ -9,7 +9,6 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-
         constructor(settings:ITargetInfoType, executeRequestFl?:boolean) {
             // Call the base constructor
             super(settings, executeRequestFl);
@@ -18,19 +17,20 @@ module $REST {
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "web";
 
-            // Add the methods
-            this.addMethods(this, { __metadata: { type: "web" } } );
-
             // See if we are executing the request
             if(this.executeRequestFl) {
                 // Execute the request
                 this.execute();
             }
+            else {
+                // Add the methods
+                this.addMethods(this, { __metadata: { type: "web" } } );
+            }
         }
     }
 
     /*********************************************************************************************************************************/
-    // Web
+    // Methods
     /*********************************************************************************************************************************/
     Library.web = {
         // Applies the theme specified by the contents of each of the files specified in the arguments to the site.
@@ -110,6 +110,7 @@ module $REST {
         
         // Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
         getChanges: {
+            argNames: ["query"],
             metadataType: "SP.ChangeQuery",
             requestType: RequestType.PostWithArgsInBody
         },
