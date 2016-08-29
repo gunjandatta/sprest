@@ -1,10 +1,11 @@
 /// <reference path="base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
-    // Library
-    // The base library containing the method information for each object
+    // Global Variables
     /*********************************************************************************************************************************/
     export var Library:any = {};
+    export var ScriptMode:boolean = false;
+    var SP:any;
 
     /*********************************************************************************************************************************/
     // Base
@@ -19,7 +20,8 @@ module $REST {
             this.targetInfo = targetInfo || {};
 
             // Default the flag, if it's not defined
-            this.executeRequestFl = typeof(executeRequestFl) === "boolean" ? executeRequestFl : true;
+            this.executeRequestFl = typeof(executeRequestFl) === "boolean" ? executeRequestFl : this.targetInfo.asyncFl;
+            this.executeRequestFl = $REST.ScriptMode ? false : this.executeRequestFl ? true : false;
         }
 
         /*********************************************************************************************************************************/
@@ -97,7 +99,7 @@ module $REST {
                 // Parse the methods
                 for(let methodName in methods) {
                     // Add the method to the object
-                    obj[methodName] = new Function("return this.executeMethod('" + methodName + "', '" + JSON.stringify(methods[methodName] ? methods[methodName] : {}) + "', arguments);");
+                    obj[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methods[methodName] ? methods[methodName] : {}) + ", arguments);");
                 }
             }
         }
@@ -124,7 +126,7 @@ module $REST {
         }
 
         // Method to execute a method
-        private executeMethod(methodName:string, methodConfig:string, args:any) {
+        private executeMethod(methodName:string, methodConfig:IMethodInfoType, args:any) {
             // Copy the target information
             let targetInfo:ITargetInfoType = Object.create(this.targetInfo);
 
@@ -140,7 +142,8 @@ module $REST {
                 // Replace the endpoint
                 targetInfo.endpoint = methodInfo.url;
             }
-            else {
+            // Else, ensure the method url exists
+            else if(methodInfo.url && methodInfo.url.length > 0) {
                 // Append the method to the endpoint
                 targetInfo.endpoint += "/" + methodInfo.url;
             }

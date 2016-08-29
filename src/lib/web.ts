@@ -27,12 +27,98 @@ module $REST {
                 this.addMethods(this, { __metadata: { type: "web" } } );
             }
         }
+
+        // Method to determine if the current user has access, based on the permissions.
+        public hasAccess(permissions) {
+            // TO DO
+            return true;
+        };
     }
 
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     Library.web = {
+        // Adds a content type content type collection.
+        addContentType: {
+            argNames: ["data"],
+            metadataType: "SP.ContentType",
+            name: "contenttypes",
+            requestType: RequestType.PostWithArgsInBody
+        },
+
+        // Adds a custom action to the user custom action collection.
+        addCustomAction: {
+            argNames: ["data"],
+            metadataType: "SP.UserCustomAction",
+            name: "usercustomactions",
+            requestType: RequestType.PostWithArgsInBody
+        },
+
+        // Adds an existing content type to content type collection.
+        addExistingContentType: {
+            argNames: ["data"],
+            name: "contenttypes/addAvailableContentType",
+            requestType: RequestType.PostWithArgsInBody
+        },
+
+        // Adds a field to it's collection.
+        addField: {
+            argNames: ["data"],
+            metadataType: "SP.Field",
+            name: "fields/add",
+            requestType: RequestType.PostWithArgsInBody
+        },
+
+        // Adds a field, using it's Schema XML, to the field collection.
+        addFieldAsXml: {
+            argNames: ["parameters"],
+            name: "fields/createFieldAsXml",
+            requestType: RequestType.PostWithArgsInBody,
+            data: `{
+                parameters: {
+                     __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
+                     Options: SP.AddFieldOptions.addFieldInternalNameHint,
+                     SchemaXml: [[data]]
+                }
+            }`
+        },
+
+        // Adds a file to the root folder.
+        addFile: {
+            argNames: ["url", "overwrite"],
+            name: "rootfolder/files/add",
+            requestType: RequestType.PostWithArgs
+        },
+
+        // Adds a list to the list collection.
+        addList: {
+            metadataType: "SP.List",
+            name: "lists",
+            requestType: RequestType.PostWithArgsInBody
+        },
+
+        // Adds a permission to the role definitions.
+        addPermission: {
+            metadataType: "SP.RoleDefinition",
+            name: "roledefinitions",
+            requestType: RequestType.PostWithArgsInBody
+        },
+
+        // Adds a site group to the site group collection.
+        addSiteGroup: {
+            argNames: ["Title"],
+            metadataType: "SP.Group",
+            name: "sitegroups",
+            requestType: RequestType.PostWithArgsInBody,
+        },
+
+        // Adds a sub-folder to the root folder.
+        addSubFolder: {
+            name: "rootfolder/folders/add",
+            requestType: RequestType.PostWithArgsValueOnly
+        },
+
         // Applies the theme specified by the contents of each of the files specified in the arguments to the site.
         applyTheme: {
             argNames: ["colorpaletteurl", "fontschemeurl", "backgroundimageurl", "sharegenerated"],
@@ -84,16 +170,19 @@ module $REST {
         
         // Gets the app BDC catalog for the specified app instance.
         getAppBdcCatalogForAppInstance: {
+            argNames: ["id"],
             requestType: RequestType.PostWithArgsValueOnly
         },
         
         // Retrieves an AppInstance installed on this Site.
         getAppInstanceById: {
+            argNames: ["id"],
             requestType: RequestType.GetWithArgsValueOnly
         },
         
         // Retrieves all AppInstances installed on this site that are instances of the specified App.
         getAppInstancesByProductId: {
+            argNames: ["id"],
             requestType: RequestType.GetWithArgsValueOnly
         },
         
@@ -105,14 +194,8 @@ module $REST {
         
         // Returns the list gallery on the site.
         getCatalog: {
+            argNames: ["galleryType"],
             requestType: RequestType.GetWithArgsValueOnly
-        },
-        
-        // Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
-        getChanges: {
-            argNames: ["query"],
-            metadataType: "SP.ChangeQuery",
-            requestType: RequestType.PostWithArgsInBody
         },
         
         // Gets the context information for the site. Static method.
@@ -120,6 +203,13 @@ module $REST {
             name: "contextInfo",
             replaceEndpointFl: true,
             requestType: RequestType.Post
+        },
+
+        // Gets a custom action by it's name or title.
+        getCustomAction: {
+            argNames: ["title"],
+            name: "usercustomactions?$filter=Name eq '[[title]]' or Title eq '[[title]]'",
+            requestType: RequestType.Filter
         },
         
         // Gets the custom list templates for the site.
@@ -140,18 +230,70 @@ module $REST {
             requestType: RequestType.PostWithArgs
         },
 
+        // Gets a field by it's title, internal name or static name.
+        getField: {
+            argNames: ["title"],
+            name: "fields?$filter=Title eq '[[title]]' or InternalName eq '[[title]]' or StaticName eq '[[title]]'",
+            requestType: RequestType.Filter
+        },
+
+        // Gets a field by it's id.
+        getFieldById: {
+            argNames: ["id"],
+            name: "fields/getById",
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Gets a field by it's internal name.
+        getFieldByInternalName: {
+            argNames: ["name"],
+            name: "fields?$filter=InternalName eq '[[name]]'",
+            requestType: RequestType.Filter
+        },
+
+        // Gets a field by it's static name.
+        getFieldByStaticName: {
+            argNames: ["name"],
+            name: "fields?$filter=StaticName eq '[[name]]'",
+            requestType: RequestType.Filter
+        },
+
+        // Gets a field by it's title.
+        getFieldByTitle: {
+            argNames: ["title"],
+            name: "fields?$filter=Title eq '[[title]]'",
+            requestType: RequestType.Filter
+        },
+
+        // Gets a file by it's name, in the root folder.
+        getFile: {
+            argNames: ["name"],
+            name: "rootfolder/files?$filter=Name eq '[[name]]'",
+            requestType: RequestType.Filter
+        },
+        
         // Returns the file object located at the specified server-relative URL.
         getFileByServerRelativeUrl: {
+            argNames: ["url"],
             requestType: RequestType.GetWithArgsValueOnly
         },
 
         // Returns the folder object located at the specified server-relative URL.
         getFolderByServerRelativeUrl: {
+            argNames: ["url"],
             requestType: RequestType.GetWithArgsValueOnly
         },
 
         // Gets the list at the specified site-relative URL. (SharePoint Online only)
         getList: {
+            argNames: ["url"],
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Gets a list by it's id.
+        getListById: {
+            argNames: ["id"],
+            name: "lists/getById",
             requestType: RequestType.GetWithArgsValueOnly
         },
 
@@ -164,17 +306,41 @@ module $REST {
 
         // Gets the push notification subscriber over the site for the specified device application instance ID.
         getPushNotificationSubscriber: {
+            argNames: ["id"],
             requestType: RequestType.GetWithArgsValueOnly
         },
 
         // Queries for the push notification subscribers over the site for the specified value of custom arguments. Null or empty custom arguments will return subscribers without any filtering.
         getPushNotificationSubscribersByArgs: {
+            argNames: ["args"],
             requestType: RequestType.GetWithArgsValueOnly
         },
 
         // Queries for the push notification subscribers over the site for the specified user.
         getPushNotificationSubscribersByUser: {
+            argNames: ["loginName"],
             requestType: RequestType.GetWithArgsAsQS
+        },
+
+        // Gets a sub-folder by it's name, from the root folder.
+        getSubFolder: {
+            argNames: ["name"],
+            name: "rootfolder/folders?$filter=Name eq '[[name]]'",
+            requestType: RequestType.Filter
+        },
+
+        // Gets a site group by it's id.
+        getSiteGroupById: {
+            argNames: ["id"],
+            name: "sitegroups/getById",
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Gets a site group by it's name.
+        getSiteGroupByName: {
+            argNames: ["name"],
+            name: "sitegroups/getByName",
+            requestType: RequestType.GetWithArgsValueOnly
         },
 
         // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
@@ -183,8 +349,23 @@ module $REST {
             requestType: RequestType.GetWithArgs
         },
 
+        // Gets a user by login name.
+        getUserByEmail: {
+            argNames: ["email"],
+            name: "siteusers/getByEmail",
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
         // Returns the user corresponding to the specified member identifier for the current site.
         getUserById: {
+            argNames: ["id"],
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Gets a user by login name.
+        getUserByLogin: {
+            argNames: ["loginName"],
+            name: "siteusers/getByLoginName",
             requestType: RequestType.GetWithArgsValueOnly
         },
 
@@ -239,40 +420,25 @@ module $REST {
             requestType: RequestType.Post
         },
 
+        // Method to send an email.
+        sendEmail: {
+            argNames: ["properties"],
+            name: "SP.Utilities.Utility.SendEmail",
+            metadataType: "SP.Utilities.EmailProperties",
+            requestType: RequestType.PostWithArgsInBody
+        },
+
         // Unregisters the subscriber for push notifications from the site.
         unregisterPushNotificationSubscriber: {
             requestType: RequestType.PostWithArgsValueOnly
+        },
+
+        // Updates it's properties.
+        update: {
+            metadataType: "SP.Web",
+            name: "",
+            requestMethod: "MERGE",
+            requestType: RequestType.PostWithArgsInBody
         }
     };
-    Library.web[RequestType.Custom] = [
-        { name: "addContentType", "function": function (data) { return this.executePost("contenttypes", null, data, true, "SP.ContentType"); } },
-        { name: "addCustomAction", "function": function (data) { return this.executePost("usercustomactions", null, data, true, "SP.UserCustomAction"); } },
-        { name: "addExistingContentType", "function": function (data) { return this.executePost("contenttypes/addAvailableContentType", data); } },
-        { name: "addField", "function": function (data) { return this.executePost("fields/add", null, data, true, "SP.Field"); } },
-        { name: "addFieldAsXml", "function": function (data) { return this.executePost("fields/createFieldAsXml", null, { parameters: { __metadata: { type: "SP.XmlSchemaFieldCreationInformation" }, Options: window["SP"].AddFieldOptions.addFieldInternalNameHint, SchemaXml: data } }, true); } },
-        { name: "addFile", "function": function (data, content) { return this.executePost("rootfolder/files/add", data, content, true); } },
-        { name: "addList", "function": function (data) { return this.executePost("lists", null, data, true, "SP.List"); } },
-        { name: "addPermission", "function": function (data) { data.__metadata = { type: "SP.RoleDefinition" }; return this.executePost("roledefinitions", null, data, true, "SP.RoleDefinition"); } },
-        { name: "addSiteGroup", "function": function (name) { return this.executePost("sitegroups", null, { Title: name }, true, "SP.Group"); } },
-        { name: "addSubFolder", "function": function (name) { return this.executePost("rootfolder/folders/add", name); } },
-        { name: "addWeb", "function": function (data) { return this.get_Webs().add(data); } },
-        { name: "getContentType", "function": function (title) { title = encodeURIComponent(title); return this.executeGet("contenttypes?$filter=Name eq '" + title + "'"); } },
-        { name: "getContentTypeById", "function": function (id) { return this.executeGet("contenttypes/getById", id); } },
-        { name: "getCustomAction", "function": function (title) { title = encodeURIComponent(title); return this.executeGet("usercustomactions?$filter=Name eq '" + title + "' or Title eq '" + title + "'"); } },
-        { name: "getField", "function": function (title) { title = encodeURIComponent(title); return this.executeGet("fields?$filter=Title eq '" + title + "' or InternalName eq '" + title + "' or StaticName eq '" + title + "'"); } },
-        { name: "getFieldById", "function": function (id) { return this.executeGet("fields/getById", id); } },
-        { name: "getFieldByInternalName", "function": function (name) { name = encodeURIComponent(name); return this.executeGet("fields?$filter=InternalName eq '" + name + "'"); } },
-        { name: "getFieldByStaticName", "function": function (name) { name = encodeURIComponent(name); return this.executeGet("fields?$filter=StaticName eq '" + name + "'"); } },
-        { name: "getFieldByTitle", "function": function (title) { title = encodeURIComponent(title); return this.executeGet("fields?$filter=Title eq '" + title + "'"); } },
-        { name: "getFile", "function": function (name) { name = encodeURIComponent(name); return this.executeGet("rootfolder/files?$filter=Name eq '" + name + "'"); } },
-        { name: "getListById", "function": function (id) { return this.executeGet("lists/getById", id); } },
-        { name: "getSiteGroupById", "function": function (id) { return this.executeGet("sitegroups/getById", id); } },
-        { name: "getSiteGroupByName", "function": function (name) { return this.executeGet("sitegroups/getByName", name); } },
-        { name: "getSubFolder", "function": function (name) { name = encodeURIComponent(name); return this.executeGet("rootfolder/folders?$filter=Name eq '" + name + "'"); } },
-        { name: "getUserById", "function": function (id) { return this.executeGet("siteusers?$filter=Id eq " + id); } },
-        { name: "getUserByLogin", "function": function (login) { return this.executeGet("siteusers/getByLoginName", null, login); } },
-        { name: "hasAccess", "function": function (permissions) { return /*hasAccess(this, permissions);*/ } },
-        { name: "sendEmail", "function": function (data) { data = { properties: data }; data.properties.__metadata = { type: "SP.Utilities.EmailProperties" }; return this.executePost("_api/SP.Utilities.Utility.SendEmail", null, data, true); } },
-        { name: "update", "function": function (data) { return this.executePost(null, null, data, true, "SP.Web", "MERGE"); } }
-    ];
 }

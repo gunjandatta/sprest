@@ -9,7 +9,8 @@ module $REST {
         // Requests
         Custom = 0,
         Delete = 1,
-        Merge = 2,
+        Filter = 2,
+        Merge = 3,
         // Get Requests
         Get = 10,
         GetWithArgs = 11,

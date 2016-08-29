@@ -9,6 +9,7 @@ declare module $REST {
     interface IMethodInfoType {
         argNames:[string];
         argValues:[any];
+        data?:any;
         metadataType:string;
         name:string;
         replaceEndpointFl?:boolean;

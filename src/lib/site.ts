@@ -27,12 +27,29 @@ module $REST {
                 this.addMethods(this, { __metadata: { type: "site" } } );
             }
         }
+
+        // Method to get the root web
+        public getRootWeb() { return new Web(this.targetInfo); }
+
+        // Method to determine if the current user has access, based on the permissions.
+        public hasAccess(permissions) {
+            // TO DO
+            return true;
+        };
     }
 
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     Library.site = {
+        // Adds a custom action to the user custom action collection.
+        addCustomAction: {
+            argNames: ["data"],
+            metadataType: "SP.UserCustomAction",
+            name: "usercustomactions",
+            requestType: RequestType.PostWithArgsInBody
+        },
+
         // Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
         createPreviewSPSite: {
             argNames: ["upgrade", "sendemail"],
@@ -55,6 +72,13 @@ module $REST {
             argNames: ["query"],
             metadataType: "SP.ChangeQuery",
             requestType: RequestType.PostWithArgsInBody
+        },
+
+        // Gets a custom action by it's name or title.
+        getCustomAction: {
+            argNames: ["title"],
+            name: "usercustomactions?$filter=Name eq '[[title]]' or Title eq '[[title]]'",
+            requestType: RequestType.Filter
         },
         
         // Specifies the collection of custom list templates for a given site.
@@ -103,6 +127,22 @@ module $REST {
             argNames: ["versionUpgrade", "queueOnly", "sendEmail"],
             requestType: RequestType.PostWithArgs
         },
+
+        // Method to send an email.
+        sendEmail: {
+            argNames: ["properties"],
+            name: "SP.Utilities.Utility.SendEmail",
+            metadataType: "SP.Utilities.EmailProperties",
+            requestType: RequestType.PostWithArgsInBody
+        },
+
+        // Updates it's properties.
+        update: {
+            metadataType: "SP.Site",
+            name: "",
+            requestMethod: "MERGE",
+            requestType: RequestType.PostWithArgsInBody
+        },
         
         // Sets whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
         updateClientObjectModelUseRemoteAPIsPermissionSetting: {
@@ -110,13 +150,4 @@ module $REST {
             requestType: RequestType.PostWithArgs
         }        
     };
-    
-    Library.site[RequestType.Custom] = [
-        { name: "addCustomAction", "function": function (data) { return this.executePost("usercustomactions", null, data, true, "SP.UserCustomAction"); } },
-        { name: "getCustomAction", "function": function (title) { title = encodeURIComponent(title); return this.executeGet("usercustomactions?$filter=Name eq '" + title + "' or Title eq '" + title + "'"); } },
-        //{ name: "getRootWeb", "function": function () { this._rootWeb = this._rootWeb || new Web(this.ServerRelativeUrl, this.asyncFl); return this._rootWeb; } },
-        //{ name: "hasAccess", "function": function (permissions) { return hasAccess(this, permissions); } },
-        { name: "sendEmail", "function": function (data) { data = { properties: data }; data.properties.__metadata = { type: "SP.Utilities.EmailProperties" }; return this.executePost("_api/SP.Utilities.Utility.SendEmail", null, data, true); } },
-        { name: "update", "function": function (data) { return this.executePost(null, null, data, true, "SP.Site", "MERGE"); } }
-    ];
 }

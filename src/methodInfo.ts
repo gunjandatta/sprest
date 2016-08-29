@@ -12,9 +12,9 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(methodName:string, methodInfo:string, args:any) {
+        constructor(methodName:string, methodInfo:IMethodInfoType, args:any) {
             // Default the properties
-            this.methodInfo = JSON.parse(methodInfo);
+            this.methodInfo = methodInfo;
             this.methodInfo.argValues = args;
             this.methodInfo.name = this.methodInfo.name ? this.methodInfo.name : methodName;
 
@@ -98,26 +98,36 @@ module $REST {
                 }
             }
 
-            // See if the metadata type exists
-            if(this.methodInfo.metadataType) {
-                // See if parameters exist
-                if(this.methodInfo.argNames) {
-                    // Append the metadata to the first parameter
-                    params[this.methodInfo.argNames[0]]["__metadata"] = { "type": this.methodInfo.metadataType };
-                }
-                else {
-                    // Append the metadata to the parameters
-                    params["__metadata"] = { "type": this.methodInfo.metadataType };
-                }
-            }
-
             // See if the method has parameters
             let isEmpty = true;
             for(let k in params) { isEmpty = false; break; }
             this.methodParams = isEmpty ? null : params;
 
+            // See if method parameters exist
+            if(this.methodParams) {
+                // See if a template is defined for the method data
+                if(this.methodInfo.data) {
+                    // Set the params to the template
+                    this.methodParams = JSON.parse(
+                        this.methodInfo.data.replace("{{data}}", JSON.stringify(this.methodParams))
+                    );
+                }            
+                // Else, see if the metadata type exists
+                else if(this.methodInfo.metadataType) {
+                    // See if parameters exist
+                    if(this.methodInfo.argNames) {
+                        // Append the metadata to the first parameter
+                        params[this.methodInfo.argNames[0]]["__metadata"] = { "type": this.methodInfo.metadataType };
+                    }
+                    else {
+                        // Append the metadata to the parameters
+                        params["__metadata"] = { "type": this.methodInfo.metadataType };
+                    }
+                }
+            }
+
             // See if the argument values exist
-            if(this.methodInfo.argValues && (this.methodInfo.argNames == null || this.methodInfo.argValues.length > this.methodInfo.argNames.length)) {                
+            if(this.methodInfo.argValues && (this.methodInfo.argNames == null || this.methodInfo.argValues.length > this.methodInfo.argNames.length)) {
                 // Set the method data to be passed in the body of the request
                 this.methodData = this.methodInfo.argValues[(this.methodInfo.argNames ? this.methodInfo.argNames.length : -1) + 1];
             }
@@ -143,8 +153,16 @@ module $REST {
                 url += "(@v)?@v=" + (typeof(data) === "string" ? "'" + encodeURIComponent(data) + "'" : JSON.stringify(data));
             }
 
-            // See if we are not passing the data in the body or query string
-            if(!this.passDataInBody && !this.passDataInQS) {
+            // See if we are filtering data
+            if(this.methodInfo.requestType == RequestType.Filter) {
+                // Parse the arguments
+                for(let key in this.methodParams) {
+                    // Replace the argument in the url
+                    url = url.replace("[[" + key + "]]", encodeURIComponent(this.methodParams[key]));
+                }
+            }
+            // Else, see if we are not passing the data in the body or query string
+            else if(!this.passDataInBody && !this.passDataInQS) {
                 let params = "";
 
                 // Ensure data exists
