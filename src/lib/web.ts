@@ -129,14 +129,14 @@ module $REST {
         
         // Gets the document libraries on a site. Static method. (SharePoint Online only)
         getDocumentLibraries: {
-            params: ["url"],
+            argNames: ["url"],
             name: "sp.web.getDocumentLibraries",
             requestType: RequestType.GetWithArgsAsQS
         },
 
         // Gets the specified external content type in a line-of-business (LOB) system application.
         getEntity: {
-            params: ["namespace", "name"],
+            argNames: ["namespace", "name"],
             requestType: RequestType.PostWithArgs
         },
 
@@ -152,6 +152,13 @@ module $REST {
 
         // Gets the list at the specified site-relative URL. (SharePoint Online only)
         getList: {
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Gets the list for the specified title
+        getListByTitle: {
+            argNames: ["title"],
+            name: "lists/getByTitle",
             requestType: RequestType.GetWithArgsValueOnly
         },
 
@@ -172,7 +179,7 @@ module $REST {
 
         // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
         getSubwebsFilteredForCurrentUser: {
-            params: ["nwebtemplatefilter", "nconfigurationfilter"],
+            argNames: ["nwebtemplatefilter", "nconfigurationfilter"],
             requestType: RequestType.GetWithArgs
         },
 
@@ -199,19 +206,19 @@ module $REST {
 
         // Uploads and installs an App package on the site in a specified locale.
         loadAndInstallAppInSpecifiedLocale: {
-            params: ["appPackageStream", "installationLocaleLCID"],
+            argNames: ["appPackageStream", "installationLocaleLCID"],
             requestType: RequestType.PostWithArgsInBody
         },
 
         // Uploads an App package and creates an instance from it.
         loadApp: {
-            params: ["appPackageStream", "installationLocaleLCID"],
+            argNames: ["appPackageStream", "installationLocaleLCID"],
             requestType: RequestType.PostWithArgsInBody
         },
 
         // Returns the name of the image file for the icon that is used to represent the specified file.
         mapToIcon: {
-            params: ["filename", "progid", "size"],
+            argNames: ["filename", "progid", "size"],
             requestType: RequestType.GetWithArgs
         },
 
@@ -222,13 +229,13 @@ module $REST {
 
         // Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
         registerPushNotificationSubscriber: {
-            params: ["deviceappinstanceid", "servicetoken"],
+            argNames: ["deviceappinstanceid", "servicetoken"],
             requestType: RequestType.PostWithArgs
         },
 
         // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
         resetRoleInheritance: {
-            params: [],
+            argNames: [],
             requestType: RequestType.Post
         },
 
@@ -259,7 +266,6 @@ module $REST {
         { name: "getFieldByTitle", "function": function (title) { title = encodeURIComponent(title); return this.executeGet("fields?$filter=Title eq '" + title + "'"); } },
         { name: "getFile", "function": function (name) { name = encodeURIComponent(name); return this.executeGet("rootfolder/files?$filter=Name eq '" + name + "'"); } },
         { name: "getListById", "function": function (id) { return this.executeGet("lists/getById", id); } },
-        { name: "getListByTitle", "function": function (title) { return this.executeGet("lists/getByTitle", title); } },
         { name: "getSiteGroupById", "function": function (id) { return this.executeGet("sitegroups/getById", id); } },
         { name: "getSiteGroupByName", "function": function (name) { return this.executeGet("sitegroups/getByName", name); } },
         { name: "getSubFolder", "function": function (name) { name = encodeURIComponent(name); return this.executeGet("rootfolder/folders?$filter=Name eq '" + name + "'"); } },
