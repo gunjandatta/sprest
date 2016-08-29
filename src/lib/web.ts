@@ -32,20 +32,210 @@ module $REST {
     /*********************************************************************************************************************************/
     // Web
     /*********************************************************************************************************************************/
-    Library.web = {};
-    Library.web[RequestType.Get] = [
-        "doesPushNotificationSubscriberExist", "getAppInstanceById", "getAppInstancesByProductId", "getAvailableWebTemplates",
-        "getCatalog", "getContextWebInformation", "getCustomListTemplates", "getDocumentLibraries", "getFileByServerRelativeUrl",
-        "getFolderByServerRelativeUrl", "getList", "getPushNotificationSubscriber", "getPushNotificationSubscribersByArgs",
-        "getPushNotificationSubscribersByUser", "getSubwebsFilteredForCurrentUser", "getUserById", "getWebUrlFromPageUrl", "mapsToIcon"
-    ];
-    Library.web[RequestType.GetDataAsParameter] = ["doesUserHavePermissions", "getUserEffectivePermissions"];
-    Library.web[RequestType.Post] = [
-        "applyTheme", "applyWebTemplate", "breakRoleInheritance", "deleteObject", "getAppBdcCatalog", "getAppBdcCatalogForAppInstance", "getEntity",
-        "registerPushNotificationSubscriber", "resetRoleInheritance", "unregisterPushNotificationSubscriber"
-    ];
-    Library.web[RequestType.PostDataAsParameter] = ["addCustomAction", "ensureUser"];
-    Library.web[RequestType.PostDataInBodyNoArgs] = ["executeRemoteLOB", "getChanges", "loadAndInstallApp", "loadAndInstallAppInSpecifiedLocale", "loadApp", "processExternalNotification"];
+    Library.web = {
+        // Applies the theme specified by the contents of each of the files specified in the arguments to the site.
+        applyTheme: {
+            argNames: ["colorpaletteurl", "fontschemeurl", "backgroundimageurl", "sharegenerated"],
+            requestType: RequestType.PostWithArgs
+        },
+
+        // Applies the specified site definition or site template to the Web site that has no template applied to it.
+        applyWebTemplate: {
+            requestType: RequestType.PostWithArgsAsQS
+        },
+
+        // Creates unique role assignments for the securable object.
+        breakRoleInheritance: {
+            argNames: ["copyroleassignments", "clearsubscopes"],
+            requestType: RequestType.PostWithArgs
+        },
+
+        // Deletes the object
+        delete: {
+            requestType: RequestType.Delete
+        },
+
+        // Checks whether the push notification subscriber exist for the current user with the given device application instance ID.
+        doesPushNotificationSubscriberExist: {
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+        
+        // Returns whether the current user has the given set of permissions.
+        doesUserHavePermissions: {
+            argNames: ["High", "Low"],
+            requestType: RequestType.GetWithArgsAsQS
+        },
+
+        // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
+        ensureUser: {
+            argNames: ["logonName"],
+            requestType: RequestType.PostWithArgsInBody
+        },
+        
+        // Sends data to an OData service.
+        executeRemoteLOB: {
+            requestType: RequestType.PostWithArgsInBody
+        },
+        
+        // Gets the app BDC catalog.
+        getAppBdcCatalog: {
+            requestType: RequestType.Post
+        },
+        
+        // Gets the app BDC catalog for the specified app instance.
+        getAppBdcCatalogForAppInstance: {
+            requestType: RequestType.PostWithArgsValueOnly
+        },
+        
+        // Retrieves an AppInstance installed on this Site.
+        getAppInstanceById: {
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+        
+        // Retrieves all AppInstances installed on this site that are instances of the specified App.
+        getAppInstancesByProductId: {
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+        
+        // Returns a collection of site templates available for the site.
+        getAvailableWebTemplates: {
+            argNames: ["lcid", "doincludecrosslanguage"],
+            requestType: RequestType.GetWithArgs
+        },
+        
+        // Returns the list gallery on the site.
+        getCatalog: {
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+        
+        // Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
+        getChanges: {
+            metadataType: "SP.ChangeQuery",
+            requestType: RequestType.PostWithArgsInBody
+        },
+        
+        // Gets the context information for the site. Static method.
+        getContextWebInformation: {
+            name: "contextInfo",
+            replaceEndpointFl: true,
+            requestType: RequestType.Post
+        },
+        
+        // Gets the custom list templates for the site.
+        getCustomListTemplates: {
+            requestType: RequestType.Get
+        },
+        
+        // Gets the document libraries on a site. Static method. (SharePoint Online only)
+        getDocumentLibraries: {
+            params: ["url"],
+            name: "sp.web.getDocumentLibraries",
+            requestType: RequestType.GetWithArgsAsQS
+        },
+
+        // Gets the specified external content type in a line-of-business (LOB) system application.
+        getEntity: {
+            params: ["namespace", "name"],
+            requestType: RequestType.PostWithArgs
+        },
+
+        // Returns the file object located at the specified server-relative URL.
+        getFileByServerRelativeUrl: {
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Returns the folder object located at the specified server-relative URL.
+        getFolderByServerRelativeUrl: {
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Gets the list at the specified site-relative URL. (SharePoint Online only)
+        getList: {
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Gets the push notification subscriber over the site for the specified device application instance ID.
+        getPushNotificationSubscriber: {
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Queries for the push notification subscribers over the site for the specified value of custom arguments. Null or empty custom arguments will return subscribers without any filtering.
+        getPushNotificationSubscribersByArgs: {
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Queries for the push notification subscribers over the site for the specified user.
+        getPushNotificationSubscribersByUser: {
+            requestType: RequestType.GetWithArgsAsQS
+        },
+
+        // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
+        getSubwebsFilteredForCurrentUser: {
+            params: ["nwebtemplatefilter", "nconfigurationfilter"],
+            requestType: RequestType.GetWithArgs
+        },
+
+        // Returns the user corresponding to the specified member identifier for the current site.
+        getUserById: {
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Gets the effective permissions that the specified user has within the current application scope.
+        getUserEffectivePermissions: {
+            requestType: RequestType.GetWithArgsAsQS
+        },
+
+        // Gets the site URL from a page URL. Static method.
+        getWebUrlFromPageUrl: {
+            name: "sp.web.getWebUrlFromPageUrl",
+            requestType: RequestType.GetWithArgsAsQS
+        },
+
+        // Uploads and installs an app package to this site.
+        loadAndInstallApp: {
+            requestType: RequestType.PostWithArgsInBody
+        },
+
+        // Uploads and installs an App package on the site in a specified locale.
+        loadAndInstallAppInSpecifiedLocale: {
+            params: ["appPackageStream", "installationLocaleLCID"],
+            requestType: RequestType.PostWithArgsInBody
+        },
+
+        // Uploads an App package and creates an instance from it.
+        loadApp: {
+            params: ["appPackageStream", "installationLocaleLCID"],
+            requestType: RequestType.PostWithArgsInBody
+        },
+
+        // Returns the name of the image file for the icon that is used to represent the specified file.
+        mapToIcon: {
+            params: ["filename", "progid", "size"],
+            requestType: RequestType.GetWithArgs
+        },
+
+        // Processes a notification from an external system.
+        processExternalNotification: {
+            requestType: RequestType.PostWithArgsInBody
+        },
+
+        // Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
+        registerPushNotificationSubscriber: {
+            params: ["deviceappinstanceid", "servicetoken"],
+            requestType: RequestType.PostWithArgs
+        },
+
+        // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+        resetRoleInheritance: {
+            params: [],
+            requestType: RequestType.Post
+        },
+
+        // Unregisters the subscriber for push notifications from the site.
+        unregisterPushNotificationSubscriber: {
+            requestType: RequestType.PostWithArgsValueOnly
+        }
+    };
     Library.web[RequestType.Custom] = [
         { name: "addContentType", "function": function (data) { return this.executePost("contenttypes", null, data, true, "SP.ContentType"); } },
         { name: "addCustomAction", "function": function (data) { return this.executePost("usercustomactions", null, data, true, "SP.UserCustomAction"); } },

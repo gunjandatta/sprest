@@ -13,5 +13,7 @@ declare module $REST {
         asyncFl:boolean;
         response:any;
         request:any;
+        requestData:any;
+        requestUrl:string;
     }
 }

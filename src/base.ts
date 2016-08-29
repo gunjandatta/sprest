@@ -94,30 +94,10 @@ module $REST {
             // Get the methods for this object
             var methods = Library[type];
             if(methods) {
-                // Parse the request types
-                for(let requestType in methods) {
-                    // Determine the function type to generate
-                    switch(requestType) {
-                        // Custom function
-                        case RequestType.Custom.toString():
-                            // Parse the custom methods
-                            for(let i=0; i<methods[requestType].length; i++) {
-                                let method = methods[requestType][i];
-
-                                // Add the custom method to this object
-                                obj[method.name] = method["function"];
-                            }
-                        break;
-                        default:
-                            // Parse the methods
-                            for(let i=0; i<methods[requestType].length; i++) {
-                                let methodName = methods[requestType][i];
-
-                                // Add the custom method to this object
-                                obj[methodName] = new Function("return true;");
-                            }
-                        break;
-                    }
+                // Parse the methods
+                for(let methodName in methods) {
+                    // Add the method to the object
+                    obj[methodName] = new Function("return this.executeMethod('" + methodName + "', '" + JSON.stringify(methods[methodName] ? methods[methodName] : {}) + "', arguments);");
                 }
             }
         }
@@ -141,6 +121,41 @@ module $REST {
                     obj[key] = value;
                 }
             }
+        }
+
+        // Method to execute a method
+        private executeMethod(methodName:string, methodConfig:string, args:any) {
+            // Copy the target information
+            let targetInfo:ITargetInfoType = Object.create(this.targetInfo);
+
+            // Get the method information
+            var methodInfo = new MethodInfo(methodName, methodConfig, args);
+
+            // Update the target information
+            targetInfo.data = methodInfo.body;
+            targetInfo.method = methodInfo.requestMethod;
+
+            // See if we are replacing the endpoint
+            if(methodInfo.replaceEndpointFl) {
+                // Replace the endpoint
+                targetInfo.endpoint = methodInfo.url;
+            }
+            else {
+                // Append the method to the endpoint
+                targetInfo.endpoint += "/" + methodInfo.url;
+            }
+
+            // Create a new object
+            let obj = new Base(targetInfo, true);
+
+            // Set the parent
+            obj.oParent = this;
+
+            // Execute the request
+            obj.execute();
+
+            // Return the object
+            return obj;
         }
 
         // Method to return a collection

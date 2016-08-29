@@ -6,18 +6,32 @@ module $REST {
 
     // Request Type
     export enum RequestType {
+        // Requests
         Custom = 0,
-        Get = 1,
-        GetAppendMethodToEndPoint = 2,
-        GetBuffer = 3,
-        GetDataAsParameter = 4,
-        GetDataInBody = 5,
-        GetDataInBodyNoArgs = 6,
-        Post = 7,
-        PostAppendMethodToEndPoint = 8,
-        PostDataAsParameter = 9,
-        PostDataInBody = 10,
-        PostDataInBodyNoArgs = 11
+        Delete = 1,
+        Merge = 2,
+        // Get Requests
+        Get = 10,
+        GetWithArgs = 11,
+        GetWithArgsAsQS = 12,
+        GetWithArgsInBody = 13,
+        GetWithArgsValueOnly = 14,
+        // Post Requests
+        Post = 20,
+        PostWithArgs = 21,
+        PostWithArgsAsQS = 22,
+        PostWithArgsInBody = 23,
+        PostWithArgsValueOnly = 24,
+        // Remove if no longer needed
+        GetAppendMethodToEndPoint = 30,
+        GetBuffer = 31,
+        GetDataAsParameter = 32,
+        GetDataInBody = 33,
+        GetDataInBodyNoArgs = 34,
+        PostAppendMethodToEndPoint = 35,
+        PostDataAsParameter = 36,
+        PostDataInBody = 37,
+        PostDataInBodyNoArgs = 38
     }
 
     /*********************************************************************************************************************************/
@@ -45,11 +59,17 @@ module $REST {
         // Flag to determine if the request is asynchronous
         public get asyncFl():boolean { return this.targetInfo.asyncFl; }
 
-        // Method to return the xml http request's response
+        // The response
         public get response():any { return this.xhr ? this.xhr.response : null; }
 
-        // Method to return the xml http request
+        // The xml http request
         public get request():any { return this.xhr ? this.xhr : null; }
+
+        // The data send in the body of the request
+        public get requestData():any { return this.targetInfo.requestData; }
+
+        // The reqest url
+        public get requestUrl():string { return this.xhr ? this.xhr.responseURL : null; }
 
         /*********************************************************************************************************************************/
         // Private Variables
@@ -143,9 +163,9 @@ module $REST {
                 // Default the headers
                 this.defaultHeaders();
 
-                // See if arguments are being passed
-                if(this.targetInfo.requestData) {
-                    // Stringify the data object
+                // Ensure the arguments passed is defaulted as a string, unless it's an array buffer
+                if(this.targetInfo.requestData && typeof(this.targetInfo.requestData) !== "string") {
+                    // Stringify the data object, if it's not an array buffer
                     this.targetInfo.requestData = this.targetInfo.requestData.byteLength ? this.targetInfo.requestData : JSON.stringify(this.targetInfo.requestData);
                 }
             }

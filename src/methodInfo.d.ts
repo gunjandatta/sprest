@@ -1,4 +1,4 @@
-// Type definitions for targetInfo.js
+// Type definitions for methodInfo.js
 // Project: https://github.com/gunjandatta/sprest
 // Definitions by: Gunjan Datta <https://github.com/gunjandatta>
 
@@ -6,30 +6,25 @@ declare module $REST {
     /***********************************************************************/
     // The input parameters for the target information class.
     /***********************************************************************/
-    interface ITargetInfoType {
-        asyncFl?:boolean;
-        bufferFl?:boolean;
-        callback?:() => void;
-        data?:any;
-        defaultToWebFl?:boolean;
-        method?:string;
-        endpoint?:string;
-        url?:string;
+    interface IMethodInfoType {
+        argNames:[string];
+        argValues:[any];
+        metadataType:string;
+        name:string;
+        replaceEndpointFl?:boolean;
+        requestType:RequestType;
     }
 
     /***********************************************************************/
-    // The target information of the target information.
+    // The method information.
     /***********************************************************************/
-    interface ITargetInfo {
+    interface IMethodInfo {
         /***********************************************************************/
         // Public Properties
         /***********************************************************************/
-        asyncFl:boolean;
-        bufferFl:boolean;
-        callback:() => void;
-        requestData:any;
-        requestHeaders:any;
+        body:any;
+        replaceEndpointFl:boolean;
         requestMethod:string;
-        requestUrl:string;
+        url:string;
    }
 }

@@ -8,6 +8,7 @@
     "files": [
         "src/base.ts",
         "src/dependencies.ts",
+        "src/methodInfo.ts",
         "src/promise.ts",
         "src/request.ts",
         "src/targetInfo.ts",
