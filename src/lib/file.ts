@@ -8,13 +8,13 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(serverRelativeUrl:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+        constructor(serverRelativeUrl:string, listName?:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
             // Call the base constructor
             super(settings, executeRequestFl);
 
             // Default the properties
             this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/files/getbyurl('" + serverRelativeUrl + "')";
+            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/rootfolder/files/getByUrl('" : "getFileByServerRelativeUrl('") + serverRelativeUrl + "')";
 
             // See if we are executing the request
             if(this.executeRequestFl) {
@@ -57,6 +57,12 @@ module $REST {
         // Checks out the file from a document library based on the check-out type.
         checkout: {
             requestType: RequestType.Post
+        },
+
+        // Returns the file content.
+        content: {
+            name: "$value",
+            requestType: RequestType.GetBuffer
         },
 
         // Continues the chunk upload session with an additional fragment. The current file content is not changed.
