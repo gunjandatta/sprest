@@ -4,11 +4,29 @@ module $REST {
     // File
     // The SPFile object.
     /*********************************************************************************************************************************/
-    //export class File extends Base {
+    export class File extends Base {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-    //}
+        constructor(serverRelativeUrl:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Call the base constructor
+            super(settings, executeRequestFl);
+
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.targetInfo.endpoint = "web/files/getbyurl('" + serverRelativeUrl + "')";
+
+            // See if we are executing the request
+            if(this.executeRequestFl) {
+                // Execute the request
+                this.execute();
+            }
+            else {
+                // Add the methods
+                this.addMethods(this, { __metadata: { type: "file" } } );
+            }
+        }
+    }
 
     /*********************************************************************************************************************************/
     // Methods

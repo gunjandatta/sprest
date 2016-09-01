@@ -4,11 +4,29 @@ module $REST {
     // Users
     // The SPUserCollection object.
     /*********************************************************************************************************************************/
-    //export class Users extends Base {
+    export class Users extends Base {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-    //}
+        constructor(settings:ITargetInfoType, executeRequestFl?:boolean) {
+            // Call the base constructor
+            super(settings, executeRequestFl);
+
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.targetInfo.endpoint = "web/users";
+
+            // See if we are executing the request
+            if(this.executeRequestFl) {
+                // Execute the request
+                this.execute();
+            }
+            else {
+                // Add the methods
+                this.addMethods(this, { __metadata: { type: "users" } } );
+            }
+        }
+    }
 
     /*********************************************************************************************************************************/
     // Methods

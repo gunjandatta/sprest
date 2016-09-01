@@ -4,11 +4,29 @@ module $REST {
     // Role Assignments
     // The SPRoleAssignmentCollection object.
     /*********************************************************************************************************************************/
-    //export class RoleAssignments extends Base {
+    export class RoleAssignments extends Base {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-    //}
+        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Call the base constructor
+            super(settings, executeRequestFl);
+
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.targetInfo.endpoint = "web/roleassignments";
+
+            // See if we are executing the request
+            if(this.executeRequestFl) {
+                // Execute the request
+                this.execute();
+            }
+            else {
+                // Add the methods
+                this.addMethods(this, { __metadata: { type: "roleassignments" } } );
+            }
+        }
+    }
 
     /*********************************************************************************************************************************/
     // Methods
