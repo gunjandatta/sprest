@@ -93,8 +93,11 @@ module $REST {
                         case "number":
                             params[name] = this.methodInfo.argValues[i];
                         break;
+                        case "string":
+                            params[name] = this.replace ? value : "'" + value + "'";
+                        break;
                         default:
-                            params[name] = this.passDataInBody || this.passDataInQS ? value : "'" + value + "'";
+                            params[name] = value;
                         break;
                     }
                 }
