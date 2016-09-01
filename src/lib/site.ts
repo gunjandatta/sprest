@@ -78,7 +78,7 @@ module $REST {
         getCustomAction: {
             argNames: ["title"],
             name: "usercustomactions?$filter=Name eq '[[title]]' or Title eq '[[title]]'",
-            requestType: RequestType.Filter
+            requestType: RequestType.GetReplace
         },
         
         // Specifies the collection of custom list templates for a given site.

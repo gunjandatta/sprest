@@ -2,9 +2,23 @@
 module $REST {
     /*********************************************************************************************************************************/
     // Limited WebPart Manager
+    // The SPLimitedWebPartManager object.
     /*********************************************************************************************************************************/
-    Library.limitedwebpartmanager = {};
-    Library.limitedwebpartmanager[RequestType.Custom] = [
-        //{ name: "get_WebParts", "function": function () { return new Base(this.TargetUrl, this.TargetEndPoint + "/WebParts?$expand=WebPart", this.asyncFl); } }
-    ];
+    //export class LimitedWebPartManager extends Base {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+    //}
+
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    Library.limitedwebpartmanager = {
+        // Gets an item by its id.
+        get_WebParts: {
+            argNames: ["id"],
+            name: "webparts?expand=WebPart",
+            requestType: RequestType.GetReplace
+        }
+    };
 }

@@ -2,14 +2,67 @@
 module $REST {
     /*********************************************************************************************************************************/
     // List Item
+    // The SPListItem object.
     /*********************************************************************************************************************************/
-    Library.listitem = {};
-    Library.listitem[RequestType.GetDataAsParameter] = ["getUserEffectivePermissions"];
-    Library.listitem[RequestType.Post] = ["breakRoleInheritance", "deleteObject", "recycle", "resetRoleInheritance"];
-    Library.listitem[RequestType.PostDataInBodyNoArgs] = ["validateUpdateListItem"];
-    Library.listitem[RequestType.Custom] = [
-        { name: "addAttachment", "function": function (fileName, content) { return this.executePost("attachmentfiles/add", { FileName: fileName }, content, true); } },
+    //export class ListItem extends Base {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+    //}
+
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    Library.listitem = {
+        // Adds the attachment that is represented by the specified file name and byte array to the list item.
+        addAttachment: {
+            argNames: ["name"],
+            name: "attachmentfiles/add",
+            requestType: RequestType.PostWithArgs
+        },
+
+        // Adds the attachment that is represented by the specified file name and byte array to the list item.
         //{ name: "addAttachmentFile", "function": function (file) { var thisObj = this; var promise = new Promise(); getFileInfo(file).done(function (name, buffer) { if (name && buffer) { thisObj.addAttachment(name, buffer).done(function (file) { promise.resolve(file); }); } else { promise.resolve(); } }); return promise; } },
-        { name: "update", "function": function (data) { return this.executePost(null, null, data, true, this.__metadata.type, "MERGE"); } }
-    ];
+
+        // Creates unique role assignments for the securable object.
+        breakRoleInheritance: {
+            argNames: ["copyroleassignments", "clearsubscopes"],
+            requestType: RequestType.PostWithArgs
+        },
+
+        // Deletes the object
+        delete: {
+            requestType: RequestType.Delete
+        },
+
+        // Gets the effective permissions that a specified user has on the list item.
+        getUserEffectivePermissions: {            
+            argNames: ["loginName"],
+            requestType: RequestType.GetWithArgsInQS
+        },
+
+        // Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+        recycle: {
+            requestType: RequestType.Post
+        },
+
+        // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+        resetRoleInheritance: {
+            requestType: RequestType.Post
+        },
+
+        // Updates it's properties.
+        update: {
+            inheritMetadataType: true,
+            name: "",
+            requestMethod: "MERGE",
+            requestType: RequestType.PostWithArgsInBody
+        },
+
+        // Validates and sets the values of the specified collection of fields for the list item.
+        validateUpdateListItem: {
+            argNames: ["formValues", "bNewDocumentUpdate"],
+            requestType: RequestType.PostWithArgsInBody
+        }
+    };
 }

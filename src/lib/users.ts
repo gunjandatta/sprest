@@ -2,10 +2,46 @@
 module $REST {
     /*********************************************************************************************************************************/
     // Users
+    // The SPUserCollection object.
     /*********************************************************************************************************************************/
-    Library.users = {};
-    Library.users[RequestType.Get] = ["getByEmail", "getById"];
-    Library.users[RequestType.GetDataAsParameter] = ["getByLoginName"];
-    Library.users[RequestType.Post] = ["removeById"];
-    Library.users[RequestType.PostDataAsParameter] = ["removeByLoginName"];
+    //export class Users extends Base {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+    //}
+
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    Library.users = {
+        // Gets the user with the specified email address.
+        getByEmail: {
+            argNames: ["email"],
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Gets the user with the specified member identifier (ID).
+        getById: {
+            argNames: ["id"],
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Gets the user with the specified login name.
+        getByLoginName: {
+            argNames: ["loginName"],
+            requestType: RequestType.GetWithArgsInQS
+        },
+
+        // Removes the user with the specified ID.
+        removeById: {
+            argNames: ["id"],
+            requestType: RequestType.PostWithArgsValueOnly
+        },
+
+        // Removes the user with the specified login name.
+        removeByLoginName: {
+            argNames: ["loginName"],
+            requestType: RequestType.PostWithArgsValueOnly
+        }
+    }
 }

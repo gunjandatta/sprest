@@ -127,7 +127,7 @@ module $REST {
 
         // Applies the specified site definition or site template to the Web site that has no template applied to it.
         applyWebTemplate: {
-            requestType: RequestType.PostWithArgsAsQS
+            requestType: RequestType.PostWithArgsInQS
         },
 
         // Creates unique role assignments for the securable object.
@@ -149,7 +149,7 @@ module $REST {
         // Returns whether the current user has the given set of permissions.
         doesUserHavePermissions: {
             argNames: ["High", "Low"],
-            requestType: RequestType.GetWithArgsAsQS
+            requestType: RequestType.GetWithArgsInQS
         },
 
         // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
@@ -197,6 +197,13 @@ module $REST {
             argNames: ["galleryType"],
             requestType: RequestType.GetWithArgsValueOnly
         },
+
+        // Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
+        getChanges: {
+            argNames: ["query"],
+            metadataType: "SP.ChangeQuery",
+            requestType: RequestType.PostWithArgsInBody
+        },
         
         // Gets the context information for the site. Static method.
         getContextWebInformation: {
@@ -209,7 +216,7 @@ module $REST {
         getCustomAction: {
             argNames: ["title"],
             name: "usercustomactions?$filter=Name eq '[[title]]' or Title eq '[[title]]'",
-            requestType: RequestType.Filter
+            requestType: RequestType.GetReplace
         },
         
         // Gets the custom list templates for the site.
@@ -221,7 +228,7 @@ module $REST {
         getDocumentLibraries: {
             argNames: ["url"],
             name: "sp.web.getDocumentLibraries",
-            requestType: RequestType.GetWithArgsAsQS
+            requestType: RequestType.GetWithArgsInQS
         },
 
         // Gets the specified external content type in a line-of-business (LOB) system application.
@@ -234,7 +241,7 @@ module $REST {
         getField: {
             argNames: ["title"],
             name: "fields?$filter=Title eq '[[title]]' or InternalName eq '[[title]]' or StaticName eq '[[title]]'",
-            requestType: RequestType.Filter
+            requestType: RequestType.GetReplace
         },
 
         // Gets a field by it's id.
@@ -248,28 +255,28 @@ module $REST {
         getFieldByInternalName: {
             argNames: ["name"],
             name: "fields?$filter=InternalName eq '[[name]]'",
-            requestType: RequestType.Filter
+            requestType: RequestType.GetReplace
         },
 
         // Gets a field by it's static name.
         getFieldByStaticName: {
             argNames: ["name"],
             name: "fields?$filter=StaticName eq '[[name]]'",
-            requestType: RequestType.Filter
+            requestType: RequestType.GetReplace
         },
 
         // Gets a field by it's title.
         getFieldByTitle: {
             argNames: ["title"],
             name: "fields?$filter=Title eq '[[title]]'",
-            requestType: RequestType.Filter
+            requestType: RequestType.GetReplace
         },
 
         // Gets a file by it's name, in the root folder.
         getFile: {
             argNames: ["name"],
             name: "rootfolder/files?$filter=Name eq '[[name]]'",
-            requestType: RequestType.Filter
+            requestType: RequestType.GetReplace
         },
         
         // Returns the file object located at the specified server-relative URL.
@@ -319,14 +326,14 @@ module $REST {
         // Queries for the push notification subscribers over the site for the specified user.
         getPushNotificationSubscribersByUser: {
             argNames: ["loginName"],
-            requestType: RequestType.GetWithArgsAsQS
+            requestType: RequestType.GetWithArgsInQS
         },
 
         // Gets a sub-folder by it's name, from the root folder.
         getSubFolder: {
             argNames: ["name"],
             name: "rootfolder/folders?$filter=Name eq '[[name]]'",
-            requestType: RequestType.Filter
+            requestType: RequestType.GetReplace
         },
 
         // Gets a site group by it's id.
@@ -371,13 +378,13 @@ module $REST {
 
         // Gets the effective permissions that the specified user has within the current application scope.
         getUserEffectivePermissions: {
-            requestType: RequestType.GetWithArgsAsQS
+            requestType: RequestType.GetWithArgsInQS
         },
 
         // Gets the site URL from a page URL. Static method.
         getWebUrlFromPageUrl: {
             name: "sp.web.getWebUrlFromPageUrl",
-            requestType: RequestType.GetWithArgsAsQS
+            requestType: RequestType.GetWithArgsInQS
         },
 
         // Uploads and installs an app package to this site.

@@ -42,9 +42,10 @@ module $REST {
                 case RequestType.Delete:
                 case RequestType.Post:
                 case RequestType.PostWithArgs:
-                case RequestType.PostWithArgsAsQS:
                 case RequestType.PostWithArgsInBody:
+                case RequestType.PostWithArgsInQS:
                 case RequestType.PostWithArgsValueOnly:
+                case RequestType.PostReplace:
                     return "POST";
                 default:
                     return "GET";
@@ -59,7 +60,8 @@ module $REST {
         /*********************************************************************************************************************************/
 
         private get passDataInBody():boolean { return this.methodInfo.requestType == RequestType.GetWithArgsInBody || this.methodInfo.requestType == RequestType.PostWithArgsInBody; }
-        private get passDataInQS():boolean { return this.methodInfo.requestType == RequestType.GetWithArgsAsQS || this.methodInfo.requestType == RequestType.PostWithArgsAsQS; }
+        private get passDataInQS():boolean { return this.methodInfo.requestType == RequestType.GetWithArgsInQS || this.methodInfo.requestType == RequestType.PostWithArgsInQS; }
+        private get replace():boolean { return this.methodInfo.requestType == RequestType.GetReplace || this.methodInfo.requestType == RequestType.PostReplace; }
         private methodData:any;
         private methodInfo:IMethodInfoType;
         private methodParams:any;
@@ -153,8 +155,8 @@ module $REST {
                 url += "(@v)?@v=" + (typeof(data) === "string" ? "'" + encodeURIComponent(data) + "'" : JSON.stringify(data));
             }
 
-            // See if we are filtering data
-            if(this.methodInfo.requestType == RequestType.Filter) {
+            // See if we are replacing the arguments
+            if(this.replace) {
                 // Parse the arguments
                 for(let key in this.methodParams) {
                     // Replace the argument in the url

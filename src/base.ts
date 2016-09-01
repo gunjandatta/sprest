@@ -4,7 +4,7 @@ module $REST {
     // Global Variables
     /*********************************************************************************************************************************/
     export var Library:any = {};
-    export var ScriptMode:boolean = false;
+    export var ExecuteOnCreationFl:boolean = true;
     var SP:any;
 
     /*********************************************************************************************************************************/
@@ -20,8 +20,7 @@ module $REST {
             this.targetInfo = targetInfo || {};
 
             // Default the flag, if it's not defined
-            this.executeRequestFl = typeof(executeRequestFl) === "boolean" ? executeRequestFl : this.targetInfo.asyncFl;
-            this.executeRequestFl = $REST.ScriptMode ? false : this.executeRequestFl ? true : false;
+            this.executeRequestFl = typeof(executeRequestFl) === "boolean" ? executeRequestFl : ExecuteOnCreationFl;
         }
 
         /*********************************************************************************************************************************/
@@ -31,9 +30,9 @@ module $REST {
         // Flag to determine if the request should be asynchronous
         public get asyncFl():boolean { return this.request ? this.request.asyncFl : false; }
         public set asyncFl(value) { this.targetInfo.asyncFl = value; }
-
+        
         // The parent
-        public get parent():Base { return this.oParent; }
+        public parent:Base;
 
         // Method to return the xml http request's response
         public get response():any { return this.request ? this.request.response : null; }
@@ -70,9 +69,6 @@ module $REST {
 
         // Flag to default the url to the current web url, site otherwise
         protected defaultToWebFl:boolean;
-        
-        // The parent
-        private oParent:Base;
 
         // The promise
         private promise:Promise;
@@ -152,7 +148,7 @@ module $REST {
             let obj = new Base(targetInfo, true);
 
             // Set the parent
-            obj.oParent = this;
+            obj.parent = this;
 
             // Execute the request
             obj.execute();
@@ -176,7 +172,7 @@ module $REST {
             let obj = new Base(targetInfo, true);
 
             // Set the parent
-            obj.oParent = this;
+            obj.parent = this;
 
             // Execute the request
             obj.execute();

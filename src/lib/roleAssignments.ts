@@ -2,8 +2,34 @@
 module $REST {
     /*********************************************************************************************************************************/
     // Role Assignments
+    // The SPRoleAssignmentCollection object.
     /*********************************************************************************************************************************/
-    Library.roleAssignments = {};
-    Library.roleAssignments[RequestType.Get] = ["getByPrincipalId"];
-    Library.roleAssignments[RequestType.Post] = ["addRoleAssignment", "removeRoleAssignment"];
+    //export class RoleAssignments extends Base {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+    //}
+
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    Library.roleAssignments = {
+        // Adds a new role assignment with the specified principal and role definitions to the collection.
+        addRoleAssignment: {
+            argNames: ["principalid", "roledefid"],
+            requestType: RequestType.PostWithArgs
+        },
+
+        // Gets the role assignment associated with the specified principal ID from the collection.
+        getByPrincipalId: {
+            argNames: ["id"],
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Gets the role definition with the specified role type.
+        removeRoleAssignment: {
+            argNames: ["principalid", "roledefid"],
+            requestType: RequestType.PostWithArgs
+        }
+    };
 }

@@ -9,20 +9,21 @@ module $REST {
         // Requests
         Custom = 0,
         Delete = 1,
-        Filter = 2,
-        Merge = 3,
+        Merge = 2,
         // Get Requests
         Get = 10,
         GetWithArgs = 11,
-        GetWithArgsAsQS = 12,
-        GetWithArgsInBody = 13,
+        GetWithArgsInBody = 12,
+        GetWithArgsInQS = 13,
         GetWithArgsValueOnly = 14,
+        GetReplace = 15,
         // Post Requests
         Post = 20,
         PostWithArgs = 21,
-        PostWithArgsAsQS = 22,
-        PostWithArgsInBody = 23,
+        PostWithArgsInBody = 22,
+        PostWithArgsInQS = 23,
         PostWithArgsValueOnly = 24,
+        PostReplace = 25,
         // Remove if no longer needed
         GetAppendMethodToEndPoint = 30,
         GetBuffer = 31,

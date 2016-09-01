@@ -3,7 +3,17 @@ module $REST {
     /*********************************************************************************************************************************/
     // Profile Loader
     /*********************************************************************************************************************************/
-    Library.profileloader = {};
-    Library.profileloader[RequestType.Post] = ["getOwnerUserProfile", "getUserProfile"];
-    Library.profileloader[RequestType.PostDataInBody] = ["createPersonalSiteEnqueueBulk"];
+    //export class ProfileLoader extends Base {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+    //}
+
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    Library.profileloader = {
+        //Library.[RequestType.Post] = ["getOwnerUserProfile", "getUserProfile"];
+        //Library.profileloader[RequestType.PostDataInBody] = ["createPersonalSiteEnqueueBulk"];
+    };
 }

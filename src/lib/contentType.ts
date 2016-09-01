@@ -1,16 +1,66 @@
 /// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
-    // Content Type
+    // Content Types
+    // The SPContentType object.
     /*********************************************************************************************************************************/
-    Library.contenttype = {};
-    Library.contenttype[RequestType.Post] = ["deleteObject"];
-    Library.contenttype[RequestType.Custom] = [
-        { name: "addFieldLink", "function": function (data) { this.executePost("fieldlinks", null, data, true, "SP.FieldLink"); } },
-        { name: "getFieldByInternalName", "function": function (name) { name = encodeURIComponent(name); return this.executeGet("fields?$filter=InternalName eq '" + name + "'"); } },
-        { name: "getFieldByStaticName", "function": function (name) { name = encodeURIComponent(name); return this.executeGet("fields?$filter=StaticName eq '" + name + "'"); } },
-        { name: "getFieldByTitle", "function": function (title) { title = encodeURIComponent(title); return this.executeGet("fields?$filter=Title eq '" + title + "'"); } },
-        { name: "getFieldLinkByName", "function": function (name) { name = encodeURIComponent(name); return this.executeGet("fieldlinks?$filter=Name eq '" + name + "'"); } },
-        { name: "update", "function": function (data) { return this.executePost(null, null, data, true, "SP.ContentType", "MERGE"); } }
-    ];
+    //export class ContentType extends Base {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+    //}
+
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    Library.contenttype = {
+        // Adds a field link to the content type.
+        addFieldLink: {
+            argNames: ["data"],
+            name: "fieldlinks",
+            metadataType: "SP.FieldLink",
+            requestType: RequestType.GetWithArgsInBody
+        },
+
+        // Deletes the content type.
+        delete: {
+            requestType: RequestType.Delete
+        },
+
+        // Gets a field by it's internal name.
+        getFieldByInternalName: {
+            argNames: ["name"],
+            name: "fields?$filter=InternalName eq '[[name]]'",
+            requestType: RequestType.GetReplace
+        },
+
+        // Gets a field by it's static name.
+        getFieldByStaticName: {
+            argNames: ["name"],
+            name: "fields?$filter=StaticName eq '[[name]]'",
+            requestType: RequestType.GetReplace
+        },
+
+        // Gets a field by it's title.
+        getFieldByTitle: {
+            argNames: ["title"],
+            name: "fields?$filter=Title eq '[[title]]'",
+            requestType: RequestType.GetReplace
+        },
+
+        // Gets a field by it's internal name.
+        getFieldLinkByName: {
+            argNames: ["name"],
+            name: "fields?$filter=Name eq '[[name]]'",
+            requestType: RequestType.GetReplace
+        },
+
+        // Updates it's properties.
+        update: {
+            metadataType: "SP.ContentType",
+            name: "",
+            requestMethod: "MERGE",
+            requestType: RequestType.PostWithArgsInBody
+        }
+    };
 }

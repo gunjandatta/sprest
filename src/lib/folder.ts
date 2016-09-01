@@ -2,14 +2,75 @@
 module $REST {
     /*********************************************************************************************************************************/
     // Folder
+    // The SPFolder object.
     /*********************************************************************************************************************************/
-    Library.folder = {};
-    Library.folder[RequestType.Post] = ["deleteObject", "recycle", "uniqueContentTypeOrder"];
-    Library.folder[RequestType.Custom] = [
-        { name: "addFile", "function": function (data, content) { return this.executePost("files/add", data, content, true); } },
-        { name: "addSubFolder", "function": function (name) { return this.executePost("folders/add", name); } },
-        { name: "getFile", "function": function (name) { return this.executeGet("files?$filter=Name eq '" + name + "'"); } },
-        { name: "getSubFolder", "function": function (name) { return this.executeGet("folders?$filter=Name eq '" + name + "'"); } },
-        { name: "update", "function": function (data) { return this.executePost(null, null, data, true, "SP.Folder", "MERGE"); } }
-    ];
+    //export class Folder extends Base {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+    //}
+
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    Library.folder = {
+        // Adds a file to this folder.
+        addFile: {
+            argNames: ["content", "overwrite", "url"],
+            name: "files/add",
+            requestType: RequestType.PostWithArgsInQS
+        },
+
+        // Adds a ghosted file to this list or document library.
+        // Template File Types: StandardPage = 0; WikiPage = 1; FormPage = 2
+        addTemplateFile: {
+            argNames: ["urlOfFile", "templateFileType"],
+            name: "files/addtemplatefile",
+            requestType: RequestType.PostReplace
+        },
+
+        // Adds the sub-folder that is located at the specified URL to the collection.
+        addSubFolder: {
+            argNames: ["url"],
+            requestType: RequestType.PostWithArgs
+        },
+
+        // Deletes the object
+        delete: {
+            requestType: RequestType.Delete
+        },
+
+        // Gets the file for the specified name
+        getFile: {
+            argNames: ["name"],
+            name: "files?$filter=Name eq '[[name]]'",
+            requestType: RequestType.GetReplace
+        },
+
+        // Gets the folder for the specified name
+        getSubFolder: {
+            argNames: ["name"],
+            name: "folders?$filter=Name eq '[[name]]'",
+            requestType: RequestType.GetReplace
+        },
+
+        // Get the file at the specified URL.
+        getByUrl: {
+            argNames: ["serverRelativeUrl"],
+            requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+        recycle: {
+            requestType: RequestType.Post
+        },
+
+        // Updates it's properties.
+        update: {
+            metadataType: "SP.Folder",
+            name: "",
+            requestMethod: "MERGE",
+            requestType: RequestType.PostWithArgsInBody
+        }
+    };
 }

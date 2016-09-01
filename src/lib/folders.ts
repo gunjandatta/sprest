@@ -2,8 +2,28 @@
 module $REST {
     /*********************************************************************************************************************************/
     // Folders
+    // The SPFolderCollection object.
     /*********************************************************************************************************************************/
-    Library.folders = {};
-    Library.folders[RequestType.Get] = ["getByUrl"];
-    Library.folders[RequestType.Post] = ["add"];
+    //export class Folders extends Base {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+    //}
+
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    Library.folders = {
+        // Adds the folder that is located at the specified URL to the collection.
+        add: {
+            argNames: ["url"],
+            requestType: RequestType.PostWithArgs
+        },
+
+        // Get the file at the specified URL.
+        getbyurl: {
+            argNames: ["serverRelativeUrl"],
+            requestType: RequestType.GetWithArgsValueOnly
+        }
+    };
 }

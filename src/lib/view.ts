@@ -2,11 +2,34 @@
 module $REST {
     /*********************************************************************************************************************************/
     // View
+    // The SPView object.
     /*********************************************************************************************************************************/
-    Library.view = {};
-    Library.view[RequestType.Get] = ["renderAsHtml"];
-    Library.view[RequestType.Post] = ["deleteObject"];
-    Library.view[RequestType.Custom] = [
-        { name: "update", "function": function (data) { return this.executePost(null, null, data, true, "SP.View", "MERGE"); } }
-    ];
+    //export class View extends Base {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+    //}
+
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    Library.view = {
+        // Deletes the object
+        delete: {
+            requestType: RequestType.Delete
+        },
+
+        // Returns the list view as HTML.
+        renderAsHtml: {
+            requestType: RequestType.Get
+        },
+
+        // Updates it's properties.
+        update: {
+            metadataType: "SP.View",
+            name: "",
+            requestMethod: "MERGE",
+            requestType: RequestType.PostWithArgsInBody
+        }
+    };
 }
