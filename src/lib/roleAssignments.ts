@@ -15,7 +15,6 @@ module $REST {
             // Default the properties
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')" : "") + "roleassignments";
-            this.targetInfo.endpoint = "web/roleassignments";
 
             // See if we are executing the request
             if(this.executeRequestFl) {
