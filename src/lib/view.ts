@@ -8,7 +8,7 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(viewName:string, listName:string, settings:ITargetInfoType, executeRequestFl?:boolean) {
+        constructor(viewName:string, listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
             // Call the base constructor
             super(settings, executeRequestFl);
 
