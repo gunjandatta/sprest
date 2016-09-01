@@ -8,13 +8,13 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
+        constructor(webFl?:boolean, settings?:ITargetInfoType, executeRequestFl?:boolean) {
             // Call the base constructor
             super(settings, executeRequestFl);
 
             // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/usercustomactions";
+            this.defaultToWebFl = typeof(webFl) === "boolean" ? webFl : false;
+            this.targetInfo.endpoint = (this.defaultToWebFl ? "web" : "site") + "/usercustomactions";
 
             // See if we are executing the request
             if(this.executeRequestFl) {

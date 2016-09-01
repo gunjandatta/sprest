@@ -23,7 +23,7 @@ module $REST {
             }
             else {
                 // Add the methods
-                this.addMethods(this, { __metadata: { type: "users" } } );
+                this.addMethods(this, { __metadata: { type: "sitegroups" } } );
             }
         }
     }
