@@ -8,13 +8,13 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(listName?:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
             // Call the base constructor
             super(settings, executeRequestFl);
 
             // Default the properties
             this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')" : "") + "roledefinitions";
+            this.targetInfo.endpoint = "web/roledefinitions";
 
             // See if we are executing the request
             if(this.executeRequestFl) {
