@@ -3,7 +3,7 @@ An easy way to develop against the SharePoint REST api.
 
 *Note - This library is still in development.*
 
-## Benefits
+## Benefits:
 * Constructors similar to the SSOM object model.
 * Generates the REST api url and formats it for app webs automatically.
 * Global flag to execute requests on creation, to reduce the number of calls to the server.
@@ -11,7 +11,7 @@ An easy way to develop against the SharePoint REST api.
 * Switch between asynchronous and synchronous requests by the object's property.
 * Written in **TypeScript** with definition files.
 
-## Documentation
+## Documentation:
 ### Asynchronous/Synchronous requests
 All objects have the following constructors [Object] and [Object]_Async.
 
@@ -57,7 +57,7 @@ The target information consists of the following properties:
 #### Execute Request Flag
 The executeRequestFl parameter will default to the global $REST.ExecuteOnCreationFl value.
 
-## Examples
+## Examples:
 ### Content Types
 _**List**_
 ```
