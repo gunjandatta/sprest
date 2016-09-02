@@ -4,20 +4,6 @@ module $REST {
     // Web
     // The SPWeb object.
     /*********************************************************************************************************************************/
-    export class Web_Async extends Web {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
-            // Default the asynchronous flag
-            settings = settings ? settings : {};
-            settings.asyncFl = true;
-
-            // Call the base constructor
-            super(settings, executeRequestFl);
-        }
-    }
-
     export class Web extends Base {
 
         /*********************************************************************************************************************************/
@@ -47,6 +33,20 @@ module $REST {
             // TO DO
             return true;
         };
+    }
+
+    export class Web_Async extends Web {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(settings, executeRequestFl);
+        }
     }
 
     /*********************************************************************************************************************************/
@@ -86,14 +86,14 @@ module $REST {
 
         // Adds a field, using it's Schema XML, to the field collection.
         addFieldAsXml: {
-            argNames: ["parameters"],
+            argNames: ["schemaXml"],
             name: "fields/createFieldAsXml",
             requestType: RequestType.PostWithArgsInBody,
             data: `{
                 parameters: {
                      __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
                      Options: SP.AddFieldOptions.addFieldInternalNameHint,
-                     SchemaXml: [[data]]
+                     SchemaXml: [[schemaXml]]
                 }
             }`
         },

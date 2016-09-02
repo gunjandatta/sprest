@@ -4,20 +4,6 @@ module $REST {
     // File
     // The SPFile object.
     /*********************************************************************************************************************************/
-    export class File_Async extends File {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(serverRelativeUrl:string, listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
-            // Default the asynchronous flag
-            settings = settings ? settings : {};
-            settings.asyncFl = true;
-
-            // Call the base constructor
-            super(serverRelativeUrl, listName, settings, executeRequestFl);
-        }
-    }
-
     export class File extends Base {
         /*********************************************************************************************************************************/
         // Constructor
@@ -39,6 +25,20 @@ module $REST {
                 // Add the methods
                 this.addMethods(this, { __metadata: { type: "file" } } );
             }
+        }
+    }
+
+    export class File_Async extends File {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(serverRelativeUrl:string, listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(serverRelativeUrl, listName, settings, executeRequestFl);
         }
     }
 

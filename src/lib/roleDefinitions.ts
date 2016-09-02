@@ -4,20 +4,6 @@ module $REST {
     // Role Definitions
     // The SPRoleDefinitionCollection object.
     /*********************************************************************************************************************************/
-    export class RoleDefinitions_Async extends RoleDefinitions {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
-            // Default the asynchronous flag
-            settings = settings ? settings : {};
-            settings.asyncFl = true;
-
-            // Call the base constructor
-            super(settings, executeRequestFl);
-        }
-    }
-
     export class RoleDefinitions extends Base {
         /*********************************************************************************************************************************/
         // Constructor
@@ -39,6 +25,20 @@ module $REST {
                 // Add the methods
                 this.addMethods(this, { __metadata: { type: "roledefinitions" } } );
             }
+        }
+    }
+
+    export class RoleDefinitions_Async extends RoleDefinitions {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(settings, executeRequestFl);
         }
     }
 

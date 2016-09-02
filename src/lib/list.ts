@@ -4,20 +4,6 @@ module $REST {
     // List
     // The SPList object.
     /*********************************************************************************************************************************/
-    export class List_Async extends List {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
-            // Default the asynchronous flag
-            settings = settings ? settings : {};
-            settings.asyncFl = true;
-
-            // Call the base constructor
-            super(listName, settings, executeRequestFl);
-        }
-    }
-
     export class List extends Base {
         /*********************************************************************************************************************************/
         // Constructor
@@ -39,6 +25,20 @@ module $REST {
                 // Add the methods
                 this.addMethods(this, { __metadata: { type: "list" } } );
             }
+        }
+    }
+
+    export class List_Async extends List {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(listName, settings, executeRequestFl);
         }
     }
 
@@ -217,24 +217,24 @@ module $REST {
             requestType: RequestType.GetReplace
         },
 
-        // Returns a collection of items based on the filter.
-        getItemsByFilter: {
-            argNames: ["filter"],
-            name: "items?$filter=[[filter]]",
-            requestType: RequestType.GetWithArgsValueOnly
-        },
-
         // Returns a collection of items from the list based on the specified query.
         getItems: {
-            argNames: ["query"],
+            argNames: ["camlQuery"],
             name: "fields/createFieldAsXml",
             requestType: RequestType.PostWithArgsInBody,
             data: `{
                 query: {
                      __metadata: { type: "SP.CamlQuery" },
-                     ViewXml: "<View>[[query]]</View>"
+                     ViewXml: "<View>[[camlQuery]]</View>"
                 }
             }`
+        },
+
+        // Returns a collection of items based on the filter.
+        getItemsByFilter: {
+            argNames: ["filter"],
+            name: "items?$filter=[[filter]]",
+            requestType: RequestType.GetWithArgsValueOnly
         },
 
         // Returns a collection of items from the list based on the specified query.

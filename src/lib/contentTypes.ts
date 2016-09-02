@@ -4,20 +4,6 @@ module $REST {
     // Content Types
     // The SPContentTypeCollection object.
     /*********************************************************************************************************************************/
-    export class ContentTypes_Async extends ContentTypes {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
-            // Default the asynchronous flag
-            settings = settings ? settings : {};
-            settings.asyncFl = true;
-
-            // Call the base constructor
-            super(listName, settings, executeRequestFl);
-        }
-    }
-
     export class ContentTypes extends Base {
         /*********************************************************************************************************************************/
         // Constructor
@@ -39,6 +25,20 @@ module $REST {
                 // Add the methods
                 this.addMethods(this, { __metadata: { type: "contenttypes" } } );
             }
+        }
+    }
+
+    export class ContentTypes_Async extends ContentTypes {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(listName, settings, executeRequestFl);
         }
     }
 

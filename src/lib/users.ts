@@ -4,20 +4,6 @@ module $REST {
     // Users
     // The SPUserCollection object.
     /*********************************************************************************************************************************/
-    export class Users_Async extends Users {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
-            // Default the asynchronous flag
-            settings = settings ? settings : {};
-            settings.asyncFl = true;
-
-            // Call the base constructor
-            super(settings, executeRequestFl);
-        }
-    }
-
     export class Users extends Base {
         /*********************************************************************************************************************************/
         // Constructor
@@ -39,6 +25,20 @@ module $REST {
                 // Add the methods
                 this.addMethods(this, { __metadata: { type: "users" } } );
             }
+        }
+    }
+
+    export class Users_Async extends Users {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(settings, executeRequestFl);
         }
     }
 

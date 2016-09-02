@@ -4,20 +4,6 @@ module $REST {
     // Site Groups
     // The SPSiteGroupCollection object.
     /*********************************************************************************************************************************/
-    export class SiteGroups_Async extends SiteGroups {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
-            // Default the asynchronous flag
-            settings = settings ? settings : {};
-            settings.asyncFl = true;
-
-            // Call the base constructor
-            super(settings, executeRequestFl);
-        }
-    }
-
     export class SiteGroups extends Base {
         /*********************************************************************************************************************************/
         // Constructor
@@ -39,6 +25,20 @@ module $REST {
                 // Add the methods
                 this.addMethods(this, { __metadata: { type: "sitegroups" } } );
             }
+        }
+    }
+
+    export class SiteGroups_Async extends SiteGroups {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(settings, executeRequestFl);
         }
     }
 

@@ -4,20 +4,6 @@ module $REST {
     // Site
     // The SPSite object.
     /*********************************************************************************************************************************/
-    export class Site_Async extends Site {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
-            // Default the asynchronous flag
-            settings = settings ? settings : {};
-            settings.asyncFl = true;
-
-            // Call the base constructor
-            super(settings, executeRequestFl);
-        }
-    }
-
     export class Site extends Base {
         /*********************************************************************************************************************************/
         // Constructor
@@ -49,6 +35,20 @@ module $REST {
             // TO DO
             return true;
         };
+    }
+
+    export class Site_Async extends Site {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(settings, executeRequestFl);
+        }
     }
 
     /*********************************************************************************************************************************/

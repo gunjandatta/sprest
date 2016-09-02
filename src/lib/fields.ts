@@ -4,20 +4,6 @@ module $REST {
     // Fields
     // The SPFieldCollection object.
     /*********************************************************************************************************************************/
-    export class Fields_Async extends Fields {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
-            // Default the asynchronous flag
-            settings = settings ? settings : {};
-            settings.asyncFl = true;
-
-            // Call the base constructor
-            super(listName, settings, executeRequestFl);
-        }
-    }
-
     export class Fields extends Base {
         /*********************************************************************************************************************************/
         // Constructor
@@ -42,6 +28,20 @@ module $REST {
         }
     }
 
+    export class Fields_Async extends Fields {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(listName, settings, executeRequestFl);
+        }
+    }
+
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -61,9 +61,15 @@ module $REST {
 
         // Creates a field based on the specified schema, Boolean value, and field options.
         createFieldAsXml: {
-            argNames: ["parameters"],
-            metadataType: "SP.XmlSchemaFieldCreationInformation",
-            requestType: RequestType.PostWithArgsInBody
+            argNames: ["schemaXml"],
+            requestType: RequestType.PostWithArgsInBody,
+            data: `{
+                parameters: {
+                     __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
+                     Options: SP.AddFieldOptions.addFieldInternalNameHint,
+                     SchemaXml: [[schemaXml]]
+                }
+            }`
         },
 
         // Gets the field with the specified ID.

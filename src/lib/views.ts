@@ -4,20 +4,6 @@ module $REST {
     // Views
     // The SPViewCollection object.
     /*********************************************************************************************************************************/
-    export class Views_Async extends Views {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
-            // Default the asynchronous flag
-            settings = settings ? settings : {};
-            settings.asyncFl = true;
-
-            // Call the base constructor
-            super(listName, settings, executeRequestFl);
-        }
-    }
-
     export class Views extends Base {
         /*********************************************************************************************************************************/
         // Constructor
@@ -39,6 +25,20 @@ module $REST {
                 // Add the methods
                 this.addMethods(this, { __metadata: { type: "views" } } );
             }
+        }
+    }
+
+    export class Views_Async extends Views {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(listName, settings, executeRequestFl);
         }
     }
 
