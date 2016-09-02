@@ -8,7 +8,7 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+        constructor(listName:string, camlQuery?:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
             // Call the base constructor
             super(settings, executeRequestFl);
 
@@ -16,14 +16,24 @@ module $REST {
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')/items";
 
-            // See if we are executing the request
-            if(this.executeRequestFl) {
-                // Execute the request
-                this.execute();
+            // See if the caml query exists
+            if(camlQuery) {
+                // Create a list
+                var list = new List(listName, settings, false);
+
+                // Query the items
+                return list["getItems"](camlQuery);
             }
             else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "items" } } );
+                // See if we are executing the request
+                if(this.executeRequestFl) {
+                    // Execute the request
+                    this.execute();
+                }
+                else {
+                    // Add the methods
+                    this.addMethods(this, { __metadata: { type: "items" } } );
+                }
             }
         }
     }
@@ -32,13 +42,13 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+        constructor(listName:string, camlQuery?:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
             // Default the asynchronous flag
             settings = settings ? settings : {};
             settings.asyncFl = true;
 
             // Call the base constructor
-            super(listName, settings, executeRequestFl);
+            super(listName, camlQuery, settings, executeRequestFl);
         }
     }
 

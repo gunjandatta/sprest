@@ -17,6 +17,8 @@ An easy way to develop against the SharePoint REST api.
 All objects have the following constructors [Object] and [Object]_Async.
 
 #### Examples
+*Note - The examples below will execute one request to the server.*
+
 _**Asynchronous Request**_
 ```
 new Web_Async(
@@ -147,8 +149,14 @@ new $REST.ListItems(1, "documents");
 ```
 
 ### List Items
+_**All Items**_
 ```
 new $REST.ListItems("documents");
+```
+
+_**CAML Query**_
+```
+new $REST.ListItems("documents", "<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>");
 ```
 
 ### Role Assignments
