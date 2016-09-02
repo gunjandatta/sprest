@@ -220,14 +220,13 @@ module $REST {
         // Returns a collection of items from the list based on the specified query.
         getItems: {
             argNames: ["camlQuery"],
-            name: "fields/createFieldAsXml",
             requestType: RequestType.PostWithArgsInBody,
-            data: `{
+            data: {
                 query: {
                      __metadata: { type: "SP.CamlQuery" },
                      ViewXml: "<View>[[camlQuery]]</View>"
                 }
-            }`
+            }
         },
 
         // Returns a collection of items based on the filter.

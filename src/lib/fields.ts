@@ -60,16 +60,17 @@ module $REST {
         },
 
         // Creates a field based on the specified schema, Boolean value, and field options.
+        // Set the option to addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
         createFieldAsXml: {
             argNames: ["schemaXml"],
             requestType: RequestType.PostWithArgsInBody,
-            data: `{
+            data: {
                 parameters: {
                      __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
-                     Options: SP.AddFieldOptions.addFieldInternalNameHint,
-                     SchemaXml: [[schemaXml]]
+                     Options: 8,
+                     SchemaXml: "[[schemaXml]]"
                 }
-            }`
+            }
         },
 
         // Gets the field with the specified ID.

@@ -61,6 +61,7 @@ module $REST {
 
         private get passDataInBody():boolean { return this.methodInfo.requestType == RequestType.GetWithArgsInBody || this.methodInfo.requestType == RequestType.PostWithArgsInBody; }
         private get passDataInQS():boolean { return this.methodInfo.requestType == RequestType.GetWithArgsInQS || this.methodInfo.requestType == RequestType.PostWithArgsInQS; }
+        private get isTemplate():boolean { return this.methodInfo.data ? true : false; }
         private get replace():boolean { return this.methodInfo.requestType == RequestType.GetReplace || this.methodInfo.requestType == RequestType.PostReplace; }
         private methodData:any;
         private methodInfo:IMethodInfoType;
@@ -94,7 +95,7 @@ module $REST {
                             params[name] = this.methodInfo.argValues[i];
                         break;
                         case "string":
-                            params[name] = this.replace ? value : "'" + value + "'";
+                            params[name] = this.isTemplate || this.replace ? value : "'" + value + "'";
                         break;
                         default:
                             params[name] = value;
@@ -111,11 +112,21 @@ module $REST {
             // See if method parameters exist
             if(this.methodParams) {
                 // See if a template is defined for the method data
-                if(this.methodInfo.data) {
-                    // Set the params to the template
-                    this.methodParams = JSON.parse(
-                        this.methodInfo.data.replace("{{data}}", JSON.stringify(this.methodParams))
-                    );
+                if(this.isTemplate) {
+                    // Ensure the object is a string
+                    if(typeof(this.methodInfo.data) !== "string") {
+                        // Stringify the object
+                        this.methodInfo.data = JSON.stringify(this.methodInfo.data);
+                    }
+
+                    // Parse the arguments
+                    for(let key in this.methodParams) {
+                        // Replace the argument in the template
+                        this.methodInfo.data = this.methodInfo.data.replace("[[" + key + "]]", this.methodParams[key]);
+                    }
+                    
+                    // Set the method data
+                    this.methodData = JSON.parse(this.methodInfo.data);
                 }            
                 // Else, see if the metadata type exists
                 else if(this.methodInfo.metadataType) {

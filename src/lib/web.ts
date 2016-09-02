@@ -85,17 +85,18 @@ module $REST {
         },
 
         // Adds a field, using it's Schema XML, to the field collection.
+        // Set the option to SP.AddFieldOptions.addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
         addFieldAsXml: {
             argNames: ["schemaXml"],
             name: "fields/createFieldAsXml",
             requestType: RequestType.PostWithArgsInBody,
-            data: `{
+            data: {
                 parameters: {
                      __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
-                     Options: SP.AddFieldOptions.addFieldInternalNameHint,
-                     SchemaXml: [[schemaXml]]
+                     Options: 8,
+                     SchemaXml: "[[schemaXml]]"
                 }
-            }`
+            }
         },
 
         // Adds a file to the root folder.
