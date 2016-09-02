@@ -1,6 +1,8 @@
 # SharePoint 2013/Online REST Library
 An easy way to develop against the SharePoint REST api.
 
+*Note - This library is still in development*
+
 ## Benefits
 * Constructors similar to the SSOM object model.
 * Generates the REST api url and formats it for app webs automatically.
