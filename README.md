@@ -17,8 +17,6 @@ An easy way to develop against the SharePoint REST api.
 All objects have the following constructors [Object] and [Object]_Async.
 
 #### Examples
-*Note - The examples below will execute one request to the server.*
-
 _**Asynchronous Request**_
 ```
 new Web_Async(
@@ -67,6 +65,8 @@ Since the library can be executed synchronously, the user can execute commands i
 *Note - SharePoint online may reject synchronous requests. It's better to use asynchronous requests.*
 
 ## Examples:
+*Note - The examples below will execute one request to the server.*
+
 ### Content Types
 _**List**_
 ```
