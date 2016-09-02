@@ -3,7 +3,10 @@
     "name": "sprest",
     "version": "0.1.0",
     "description": "An easy way to interact with the SharePoint REST API.",
-    "license": "MIT",
+    "license": {
+        "type": "MIT",
+        "url": "sprest/LICENSE"
+    },
     "devDependencies": {
         "gulp": "*",
         "gulp-concat": "*",
