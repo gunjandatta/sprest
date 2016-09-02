@@ -16,7 +16,7 @@ An easy way to develop against the SharePoint REST api.
 All objects have the following constructors [Object] and [Object]_Async.
 
 #### Examples
-**Asynchronous Request**
+_**Asynchronous Request**_
 ```
 new Web_Async(
     {
@@ -25,7 +25,7 @@ new Web_Async(
 );
 ```
 
-**Synchronous Request**
+_**Synchronous Request**_
 ```
 var web = new Web();
 ```
@@ -59,67 +59,67 @@ The executeRequestFl parameter will default to the global $REST.ExecuteOnCreatio
 
 ## Examples
 ### Content Types
-**List**
+_**List**_
 ```
 new $REST.ContentTypes("documents");
 ```
 
-**Web**
+_**Web**_
 ```
 new $REST.ContentTypes();
 ```
 
 ### Fields
-**List**
+_**List**_
 ```
 new $REST.Fields("documents");
 ```
 
-**Web**
+_**Web**_
 ```
 new $REST.Fields();
 ```
 
 ### File
-**List**
+_**List**_
 ```
 new $REST.File("sprest.js", "documents");
 ```
 
-**Web**
+_**Web**_
 ```
 new $REST.File("/sites/dev/shared documents/sprest.js");
 ```
 
 ### Files
-**List**
+_**List**_
 ```
 new $REST.Files("documents");
 ```
 
-**Web**
+_**Web**_
 ```
 new $REST.Files();
 ```
 
 ### Folder
-**List**
+_**List**_
 ```
 new $REST.Folder("sprest.js", "documents");
 ```
 
-**Web**
+_**Web**_
 ```
 new $REST.Folder("/sites/dev/shared documents/sprest.js");
 ```
 
 ### Folders
-**List**
+_**List**_
 ```
 new $REST.Folders("documents");
 ```
 
-**Web**
+_**Web**_
 ```
 new $REST.Folders();
 ```
@@ -145,12 +145,12 @@ new $REST.ListItems("documents");
 ```
 
 ### Role Assignments
-**List**
+_**List**_
 ```
 new $REST.RoleAssignments("documents");
 ```
 
-**Web**
+_**Web**_
 ```
 new $REST.RoleAssignments();
 ```
@@ -171,12 +171,12 @@ new $REST.SiteGroups();
 ```
 
 ### User Custom Actions
-**Site**
+_**Site**_
 ```
 new $REST.UserCustomActions();
 ```
 
-**Web**
+_**Web**_
 ```
 new $REST.UserCustomActions(true);
 ```
