@@ -89,6 +89,17 @@ module $REST {
             let type = (data.__metadata && data.__metadata.type ? data.__metadata.type : this.targetInfo.endpoint).split('.');
             type = (type[type.length - 1]).toLowerCase();
 
+            // See if this is a field
+            if(/^field/.test(type)) {
+                // Update the type
+                type = "field"
+            }
+            // Else, see if this is an item
+            else if(/item$/.test(type)) {
+                // Update the type
+                type = "listitem"
+            }
+
             // Get the methods for this object
             var methods = Library[type];
             if(methods) {
