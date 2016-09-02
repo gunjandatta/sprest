@@ -22,7 +22,7 @@ module $REST {
                 var list = new List(listName, settings, false);
 
                 // Query the items
-                return list["getItems"](camlQuery);
+                return list["existsFl"] ? list["getItems"](camlQuery) : list;
             }
             else {
                 // See if we are executing the request
