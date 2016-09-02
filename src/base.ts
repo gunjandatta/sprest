@@ -92,7 +92,7 @@ module $REST {
             // See if this is a field
             if(/^field/.test(type)) {
                 // Update the type
-                type = "field"
+                type = "field";
             }
             // Else, see if this is an item
             else if(/item$/.test(type)) {
