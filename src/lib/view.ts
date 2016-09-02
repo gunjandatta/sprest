@@ -4,6 +4,20 @@ module $REST {
     // View
     // The SPView object.
     /*********************************************************************************************************************************/
+    export class View_Async extends View {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(viewName:string, listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(viewName, listName, settings, executeRequestFl);
+        }
+    }
+
     export class View extends Base {
         /*********************************************************************************************************************************/
         // Constructor

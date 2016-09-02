@@ -4,6 +4,20 @@ module $REST {
     // Role Assignments
     // The SPRoleAssignmentCollection object.
     /*********************************************************************************************************************************/
+    export class RoleAssignments_Async extends RoleAssignments {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(listName?:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(listName, settings, executeRequestFl);
+        }
+    }
+
     export class RoleAssignments extends Base {
         /*********************************************************************************************************************************/
         // Constructor

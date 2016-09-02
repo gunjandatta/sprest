@@ -4,6 +4,20 @@ module $REST {
     // Files
     // The SPFileCollection object.
     /*********************************************************************************************************************************/
+    export class Files_Async extends Files {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(listName, settings, executeRequestFl);
+        }
+    }
+
     export class Files extends Base {
         /*********************************************************************************************************************************/
         // Constructor

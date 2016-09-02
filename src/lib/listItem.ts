@@ -4,6 +4,20 @@ module $REST {
     // List Item
     // The SPListItem object.
     /*********************************************************************************************************************************/
+    export class ListItem_Async extends ListItem {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(itemId:number, listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(itemId, listName, settings, executeRequestFl);
+        }
+    }
+
     export class ListItem extends Base {
         /*********************************************************************************************************************************/
         // Constructor

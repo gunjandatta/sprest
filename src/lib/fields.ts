@@ -4,6 +4,20 @@ module $REST {
     // Fields
     // The SPFieldCollection object.
     /*********************************************************************************************************************************/
+    export class Fields_Async extends Fields {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(listName, settings, executeRequestFl);
+        }
+    }
+
     export class Fields extends Base {
         /*********************************************************************************************************************************/
         // Constructor

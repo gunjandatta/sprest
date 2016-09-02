@@ -4,6 +4,20 @@ module $REST {
     // List
     // The SPList object.
     /*********************************************************************************************************************************/
+    export class List_Async extends List {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(listName, settings, executeRequestFl);
+        }
+    }
+
     export class List extends Base {
         /*********************************************************************************************************************************/
         // Constructor

@@ -4,6 +4,20 @@ module $REST {
     // User Custom Actions
     // The SPUserCustomActionCollection object.
     /*********************************************************************************************************************************/
+    export class UserCustomActions_Async extends UserCustomActions {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(webFl?:boolean, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(webFl, settings, executeRequestFl);
+        }
+    }
+
     export class UserCustomActions extends Base {
         /*********************************************************************************************************************************/
         // Constructor

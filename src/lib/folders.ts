@@ -4,6 +4,20 @@ module $REST {
     // Folders
     // The SPFolderCollection object.
     /*********************************************************************************************************************************/
+    export class Folders_Async extends Folders {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(listName, settings, executeRequestFl);
+        }
+    }
+
     export class Folders extends Base {
         /*********************************************************************************************************************************/
         // Constructor

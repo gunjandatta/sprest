@@ -1,10 +1,24 @@
 /// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
-    // Items
+    // List Items
     // The SPItemCollection object.
     /*********************************************************************************************************************************/
-    export class Items extends Base {
+    export class ListItems_Async extends ListItems {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(listName:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+            // Default the asynchronous flag
+            settings = settings ? settings : {};
+            settings.asyncFl = true;
+
+            // Call the base constructor
+            super(listName, settings, executeRequestFl);
+        }
+    }
+
+    export class ListItems extends Base {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
