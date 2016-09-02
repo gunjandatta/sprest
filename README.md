@@ -8,6 +8,7 @@ An easy way to develop against the SharePoint REST api.
 * Generates the REST api url and formats it for app webs automatically.
 * Global flag to execute requests on creation, to reduce the number of calls to the server.
 * Parent property for easier development.
+* PowerShell-Like experience in the browser console.
 * Switch between asynchronous and synchronous requests by the object's property.
 * Written in **TypeScript** with definition files.
 
@@ -56,6 +57,12 @@ The target information consists of the following properties:
 
 #### Execute Request Flag
 The executeRequestFl parameter will default to the global $REST.ExecuteOnCreationFl value.
+
+### PowerShell-Like Experience
+Since the library can be executed synchronously, the user can execute commands in the browser's console window and interact with the SharePoint site in a command-line interface.
+
+*Note - The commands will execute under the security of the current user.*
+*Note - SharePoint online may reject synchronous requests. It's better to use asynchronous requests.*
 
 ## Examples:
 ### Content Types
