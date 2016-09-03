@@ -3,10 +3,10 @@ var concat = require("gulp-concat");
 var rename = require("gulp-rename");
 var uglify = require("gulp-uglify");
 
-// Task
-gulp.task("default", function() {
+// Build
+gulp.task("build", function() {
     // Log
-    console.log("Bundling and minifying the js files.")
+    console.log("Bundling and minifying the project.");
 
     // Bundle and minify the js files
     return gulp.src(["js/*.js", "js/lib/*.js"])
@@ -16,3 +16,16 @@ gulp.task("default", function() {
         .pipe(uglify())
         .pipe(gulp.dest("lib"));
 });
+
+// Copy the files to the output directories
+gulp.task("copy", function() {
+    // Log
+    console.log("Copying the files.");
+
+    // Copy the files to the test directory
+    return gulp.src(["lib/*.js"])
+        .pipe(gulp.dest("test"));
+});
+
+// Main
+gulp.task("default", ["build", "copy"]);

@@ -135,18 +135,19 @@ module $REST {
         // Method to execute a method
         private executeMethod(methodName:string, methodConfig:IMethodInfoType, args:any) {
             let targetInfo:ITargetInfoType = null;
-            
-            // Ensure the target information exists
-            if(this.targetInfo == null) {
+
+            // See if the uri for this object exists
+            let metadata = this["d"] ? this["d"].__metadata : null;
+            if(metadata && metadata.uri) {
                 // Create the target information and use the url defined for this object
                 targetInfo = {
-                    url:  this["__metadata"].uri
+                    url: metadata.uri
                 };
 
                 // See if we are inheriting the metadata type
                 if(methodConfig.inheritMetadataType) {
                     // Copy the metadata type
-                    methodConfig.metadataType = this["__metadata"].type;
+                    methodConfig.metadataType = metadata.type;
                 }
             }
             else {
@@ -169,7 +170,7 @@ module $REST {
             // Else, ensure the method url exists
             else if(methodInfo.url && methodInfo.url.length > 0) {
                 // Append the method to the endpoint
-                targetInfo.endpoint += "/" + methodInfo.url;
+                targetInfo.endpoint = (targetInfo.endpoint ? targetInfo.endpoint + "/" : "") + methodInfo.url;
             }
 
             // Create a new object

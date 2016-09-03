@@ -157,6 +157,12 @@ module $REST {
         private generateUrl():string {
             let url = this.methodInfo.name;
 
+            // See if we are deleting the object
+            if(this.methodInfo.requestType == RequestType.Delete) {
+                // Update the url
+                url = "deleteObject";
+            }
+
             // See if we are passing the data in the body
             if(this.passDataInBody) {
                 let data = this.methodData || this.methodParams;

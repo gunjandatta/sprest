@@ -118,7 +118,7 @@ module $REST {
             // Else, see if the url already contains the full request
             else if(/\/_api\//.test(this.targetInfo.url)) {
                 // Set the request url
-                this.requestUrl = this.targetInfo.url;
+                this.requestUrl = this.targetInfo.url + (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "");
                 return;
             }
 
