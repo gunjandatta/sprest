@@ -62,7 +62,10 @@ var $REST;
         // Method to add the methods to this object
         Base.prototype.addMethods = function (obj, data) {
             // Determine the object type
-            var type = (data.__metadata && data.__metadata.type ? data.__metadata.type : this.targetInfo.endpoint).split('.');
+            var type = (data.__metadata && data.__metadata.type ? data.__metadata.type : this.targetInfo.endpoint);
+            type = type.split('/');
+            type = (type[type.length - 1]);
+            type = type.split('.');
             type = (type[type.length - 1]).toLowerCase();
             // See if this is a field
             if (/^field/.test(type)) {
@@ -106,8 +109,8 @@ var $REST;
         // Method to execute a method
         Base.prototype.executeMethod = function (methodName, methodConfig, args) {
             var targetInfo = null;
-            // See if the uri for this object exists
-            var metadata = this["d"] ? this["d"].__metadata : null;
+            // See if the metadata is defined for this object
+            var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
             if (metadata && metadata.uri) {
                 // Create the target information and use the url defined for this object
                 targetInfo = {
@@ -1060,8 +1063,7 @@ var $REST;
         // Gets a content type by id.
         getById: {
             argNames: ["id"],
-            name: "getById([[id]])",
-            requestType: $REST.RequestType.GetReplace
+            requestType: $REST.RequestType.GetWithArgsValueOnly
         }
     };
 })($REST || ($REST = {}));
@@ -3300,27 +3302,23 @@ var $REST;
     $REST.Library.web = {
         // Adds a content type content type collection.
         addContentType: {
-            argNames: ["data"],
             metadataType: "SP.ContentType",
             name: "contenttypes",
             requestType: $REST.RequestType.PostWithArgsInBody
         },
         // Adds a custom action to the user custom action collection.
         addCustomAction: {
-            argNames: ["data"],
             metadataType: "SP.UserCustomAction",
             name: "usercustomactions",
             requestType: $REST.RequestType.PostWithArgsInBody
         },
         // Adds an existing content type to content type collection.
         addExistingContentType: {
-            argNames: ["data"],
             name: "contenttypes/addAvailableContentType",
             requestType: $REST.RequestType.PostWithArgsInBody
         },
         // Adds a field to it's collection.
         addField: {
-            argNames: ["data"],
             metadataType: "SP.Field",
             name: "fields/add",
             requestType: $REST.RequestType.PostWithArgsInBody

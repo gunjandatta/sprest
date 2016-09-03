@@ -55,7 +55,6 @@ module $REST {
     Library.web = {
         // Adds a content type content type collection.
         addContentType: {
-            argNames: ["data"],
             metadataType: "SP.ContentType",
             name: "contenttypes",
             requestType: RequestType.PostWithArgsInBody
@@ -63,7 +62,6 @@ module $REST {
 
         // Adds a custom action to the user custom action collection.
         addCustomAction: {
-            argNames: ["data"],
             metadataType: "SP.UserCustomAction",
             name: "usercustomactions",
             requestType: RequestType.PostWithArgsInBody
@@ -71,14 +69,12 @@ module $REST {
 
         // Adds an existing content type to content type collection.
         addExistingContentType: {
-            argNames: ["data"],
             name: "contenttypes/addAvailableContentType",
             requestType: RequestType.PostWithArgsInBody
         },
 
         // Adds a field to it's collection.
         addField: {
-            argNames: ["data"],
             metadataType: "SP.Field",
             name: "fields/add",
             requestType: RequestType.PostWithArgsInBody

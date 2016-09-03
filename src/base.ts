@@ -86,7 +86,10 @@ module $REST {
         // Method to add the methods to this object
         protected addMethods(obj:any, data:any) {
             // Determine the object type
-            let type = (data.__metadata && data.__metadata.type ? data.__metadata.type : this.targetInfo.endpoint).split('.');
+            let type = (data.__metadata && data.__metadata.type ? data.__metadata.type : this.targetInfo.endpoint);
+            type = type.split('/');
+            type = (type[type.length - 1]);
+            type = type.split('.');
             type = (type[type.length - 1]).toLowerCase();
 
             // See if this is a field
@@ -136,8 +139,8 @@ module $REST {
         private executeMethod(methodName:string, methodConfig:IMethodInfoType, args:any) {
             let targetInfo:ITargetInfoType = null;
 
-            // See if the uri for this object exists
-            let metadata = this["d"] ? this["d"].__metadata : null;
+            // See if the metadata is defined for this object
+            let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
             if(metadata && metadata.uri) {
                 // Create the target information and use the url defined for this object
                 targetInfo = {

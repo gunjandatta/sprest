@@ -42,7 +42,51 @@ function testContentType(runAllFl) {
     runAllFl ? null : log.innerHTML = "";
 
     // Log
-    writeToLog("Testing Content Type");
+    writeToLog("Content Type", LogType.Header);
+
+    // Log
+    writeToLog("Creating the content type", LogType.SubHeader);
+
+    // Create the content type
+    var web = new $REST.Web(null, false);
+    ct = web.addContentType({
+        Name: "SPRest" + SP.Guid.newGuid().toString()
+    });
+
+    // Test
+    assert(ct, "create", "existsFl", true);
+
+    // See if the content type exists
+    if(ct.existsFl) {
+        // Log
+        writeToLog("Updating the content type", LogType.SubHeader);
+
+        // Update the content type
+        ct.update({
+            Group: "Dev"
+        });
+
+        // Read the content types
+        var cts = new $REST.ContentTypes();
+        ct = cts.getById(ct.Id.StringValue);
+
+        // Test
+        assert(ct, "update", "Group", "Dev");
+
+        // Log
+        writeToLog("Deleting the content type", LogType.SubHeader);
+
+        // Delete the content type
+        ct = ct.delete();
+
+        // Test
+        assert(ct.d, "delete", "DeleteObject", null);
+    }
+    else {
+        // Log
+        writeToLog("Content Type was not created.", LogType.Error);
+        writeToLog(ct.response, LogType.Error);
+    }
 }
 
 function testFile(runAllFl) {
@@ -50,7 +94,7 @@ function testFile(runAllFl) {
     runAllFl ? null : log.innerHTML = "";
 
     // Log
-    writeToLog("Testing File");
+    writeToLog("File", LogType.Header);
 }
 
 function testList(runAllFl) {
@@ -58,7 +102,7 @@ function testList(runAllFl) {
     runAllFl ? null : log.innerHTML = "";
 
     // Log
-    writeToLog("Testing List", LogType.Header);
+    writeToLog("List", LogType.Header);
 
     // Log
     writeToLog("Creating the list", LogType.SubHeader);
@@ -111,7 +155,7 @@ function testList(runAllFl) {
 
 function testListItem(list) {
     // Log
-    writeToLog("Testing List Item", LogType.Header);
+    writeToLog("List Item", LogType.Header);
 
     // Log
     writeToLog("Creating the list item", LogType.SubHeader);

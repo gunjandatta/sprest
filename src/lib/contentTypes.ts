@@ -62,8 +62,7 @@ module $REST {
         // Gets a content type by id.
         getById: {
             argNames: ["id"],
-            name: "getById([[id]])",
-            requestType: RequestType.GetReplace
+            requestType: RequestType.GetWithArgsValueOnly
         }
     };
 }
