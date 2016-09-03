@@ -63,42 +63,35 @@ function testList(runAllFl) {
     // Log
     writeToLog("Creating the list", LogType.SubHeader);
 
-    // See if the list already exists
-    var list = new $REST.List("SPRest Test");
-    if(list.existsFl) {
-        // Skip this test
-        writeToLog("Skip: List already exists.", LogType.Warning);
-    }
-    else {
-        // Create the list
-        var web = new $REST.Web(null, false);
-        list = web.addList({
-            BaseTemplate: 100,
-            Description: "This is a test list.",
-            Title: "SPRest Test"
-        });
-    }
+    // Create the list
+    var web = new $REST.Web(null, false);
+    list = web.addList({
+        BaseTemplate: 100,
+        Description: "This is a test list.",
+        Title: "SPRest" + SP.Guid.newGuid().toString()
+    });
 
     // Test
     assert(list, "create", "existsFl", true);
 
+    // See if the list exists
     if(list.existsFl) {
-        writeToLog("Success: List created successfully.");
-
-        // Log
-        writeToLog("Creating the list item", LogType.SubHeader);
-
-        // Log
-        writeToLog("Read the list item", LogType.SubHeader);
-
-        // Log
-        writeToLog("Update the list item", LogType.SubHeader);
-
-        // Log
-        writeToLog("Deleting the list item", LogType.SubHeader);
-
         // Log
         writeToLog("Updating the list", LogType.SubHeader);
+
+        // Update the list
+        list.update({
+            Description: "Updated description"
+        });
+
+        // Read the updated list
+        list = new $REST.List(list.Title);
+
+        // Test
+        assert(list, "update", "Description", "Updated description");
+
+        // Test the list item
+        testListItem(list);
 
         // Log
         writeToLog("Deleting the list", LogType.SubHeader);
@@ -107,13 +100,50 @@ function testList(runAllFl) {
         list = list.delete();
 
         // Test
-        assert(list, "delete", list.d.DeleteObject, null);
+        assert(list.d, "delete", "DeleteObject", null);
     }
     else {
         // Log
-        writeToLog("Error: List was not created.", LogType.Error);
+        writeToLog("List was not created.", LogType.Error);
         writeToLog(list.response, LogType.Error);
     }
+}
+
+function testListItem(list) {
+    // Log
+    writeToLog("Testing List Item", LogType.Header);
+
+    // Log
+    writeToLog("Creating the list item", LogType.SubHeader);
+
+    // Create the item
+    item = list.addItem({
+        Title: "New Item"
+    });
+    assert(item, "create", "existsFl", true);
+
+    // Log
+    writeToLog("Update the list item", LogType.SubHeader);
+
+    // Update the item
+    item.update({
+        Title: "Updated Item"
+    });
+
+    // Read the updated item
+    item = new $REST.ListItem(item.ID, list.Title);
+
+    // Test
+    assert(item, "update", "Title", "Updated Item");
+
+    // Log
+    writeToLog("Deleting the list item", LogType.SubHeader);
+
+    // Delete the item
+    item = item.delete();
+
+    // Test
+    assert(item.d, "delete", "DeleteObject", null);
 }
 
 function writeToLog(text, logType) {
