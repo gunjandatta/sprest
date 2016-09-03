@@ -131,12 +131,34 @@ function testFile(runAllFl) {
 
     // Test
     assert(fileContent, "read file buffer", "existsFl", true);
-    debugger;
+
+    // Note - The content will be a string, since I'm executing this synchronously.
+    // We will need to convert the content to a buffer
+    var buffer = new ArrayBuffer(fileContent.length * 2);
+    var bufferView = new Uint16Array(buffer);
+    for(var i=0; i<fileContent.length; i++) {
+        bufView[i] = fileContent.charCodeAt(i);
+    }
+
+    // Copy the file
+    file = subFolder.addFile("test.aspx", true, buffer);
+
+    // Test
+    assert(file, "copy file", "Exists", true);
+
+    // Log
+    writeToLog("Delete the file", LogType.SubHeader);
+
+    // Delete the file
+    file = file.delete();
+
+    // Test
+    assert(file.d, "delete file", "DeleteObject", null);
 
     // Log
     writeToLog("Delete the folder", LogType.SubHeader);
 
-    // Create a sub-folder
+    // Delete the sub-folder
     subFolder = subFolder.delete();
 
     // Test

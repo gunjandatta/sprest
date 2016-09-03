@@ -49,7 +49,7 @@ module $REST {
         // Approves the file submitted for content approval with the specified comment.
         approve: {
             argNames: ["comment"],
-            requestType: RequestType.PostWithArgsInQS
+            requestType: RequestType.PostWithArgs
         },
 
         // Stops the chunk upload session without saving the uploaded data. If the file doesn’t already exist in the library, the partially uploaded file will be deleted. Use this in response to user action (as in a request to cancel an upload) or an error or exception.

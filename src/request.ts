@@ -163,7 +163,8 @@ module $REST {
             }
 
             // See if we the response type is an array buffer
-            if(this.targetInfo.bufferFl) {
+            // Note - Updating the response type is only allow for asynchronous requests. Any error will be thrown otherwise.
+            if(this.targetInfo.bufferFl && this.targetInfo.asyncFl) {
                 // Set the response type
                 this.xhr.responseType = "arraybuffer";
             }

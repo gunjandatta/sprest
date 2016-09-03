@@ -48,9 +48,9 @@ module $REST {
     Library.folder = {
         // Adds a file to this folder.
         addFile: {
-            argNames: ["content", "overwrite", "url"],
+            argNames: ["url", "overwrite"],
             name: "files/add",
-            requestType: RequestType.PostWithArgsInQS
+            requestType: RequestType.PostWithArgs
         },
 
         // Adds a ghosted file to this list or document library.
@@ -58,7 +58,7 @@ module $REST {
         addTemplateFile: {
             argNames: ["urlOfFile", "templateFileType"],
             name: "files/addtemplatefile",
-            requestType: RequestType.PostReplace
+            requestType: RequestType.PostWithArgs
         },
 
         // Adds the sub-folder that is located at the specified URL to the collection.

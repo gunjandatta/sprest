@@ -48,7 +48,7 @@ module $REST {
         // Method to execute a child request
         public execute() {
             // See if this is an asynchronous request
-            if(this.targetInfo.asyncFl || this.targetInfo.bufferFl) {
+            if(this.targetInfo.asyncFl) {
                 // Create a promise
                 this.promise = new Promise(this.targetInfo.callback);
 
@@ -166,6 +166,7 @@ module $REST {
             var methodInfo = new MethodInfo(methodName, methodConfig, args);
 
             // Update the target information
+            targetInfo.bufferFl = methodConfig.requestType == RequestType.GetBuffer;
             targetInfo.data = methodInfo.body;
             targetInfo.method = methodInfo.requestMethod;
 

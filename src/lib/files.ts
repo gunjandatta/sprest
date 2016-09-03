@@ -48,7 +48,7 @@ module $REST {
     Library.files = {
         // Adds a file to this collection.
         add: {
-            argNames: ["content", "overwrite", "url"],
+            argNames: ["overwrite", "url"],
             requestType: RequestType.PostWithArgs
         },
 

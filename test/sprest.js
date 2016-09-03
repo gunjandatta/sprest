@@ -44,7 +44,7 @@ var $REST;
         // Method to execute a child request
         Base.prototype.execute = function () {
             // See if this is an asynchronous request
-            if (this.targetInfo.asyncFl || this.targetInfo.bufferFl) {
+            if (this.targetInfo.asyncFl) {
                 // Create a promise
                 this.promise = new $REST.Promise(this.targetInfo.callback);
                 // Create the request
@@ -130,6 +130,7 @@ var $REST;
             // Get the method information
             var methodInfo = new $REST.MethodInfo(methodName, methodConfig, args);
             // Update the target information
+            targetInfo.bufferFl = methodConfig.requestType == $REST.RequestType.GetBuffer;
             targetInfo.data = methodInfo.body;
             targetInfo.method = methodInfo.requestMethod;
             // See if we are replacing the endpoint
@@ -759,7 +760,8 @@ var $REST;
                 };
             }
             // See if we the response type is an array buffer
-            if (this.targetInfo.bufferFl) {
+            // Note - Updating the response type is only allow for asynchronous requests. Any error will be thrown otherwise.
+            if (this.targetInfo.bufferFl && this.targetInfo.asyncFl) {
                 // Set the response type
                 this.xhr.responseType = "arraybuffer";
             }
@@ -1309,7 +1311,7 @@ var $REST;
         // Approves the file submitted for content approval with the specified comment.
         approve: {
             argNames: ["comment"],
-            requestType: $REST.RequestType.PostWithArgsInQS
+            requestType: $REST.RequestType.PostWithArgs
         },
         // Stops the chunk upload session without saving the uploaded data. If the file doesn’t already exist in the library, the partially uploaded file will be deleted. Use this in response to user action (as in a request to cancel an upload) or an error or exception.
         // Use the uploadId value that was passed to the StartUpload method that started the upload session.
@@ -1481,7 +1483,7 @@ var $REST;
     $REST.Library.files = {
         // Adds a file to this collection.
         add: {
-            argNames: ["content", "overwrite", "url"],
+            argNames: ["overwrite", "url"],
             requestType: $REST.RequestType.PostWithArgs
         },
         // Adds a ghosted file to an existing list or document library.
@@ -1584,16 +1586,16 @@ var $REST;
     $REST.Library.folder = {
         // Adds a file to this folder.
         addFile: {
-            argNames: ["content", "overwrite", "url"],
+            argNames: ["url", "overwrite"],
             name: "files/add",
-            requestType: $REST.RequestType.PostWithArgsInQS
+            requestType: $REST.RequestType.PostWithArgs
         },
         // Adds a ghosted file to this list or document library.
         // Template File Types: StandardPage = 0; WikiPage = 1; FormPage = 2
         addTemplateFile: {
             argNames: ["urlOfFile", "templateFileType"],
             name: "files/addtemplatefile",
-            requestType: $REST.RequestType.PostReplace
+            requestType: $REST.RequestType.PostWithArgs
         },
         // Adds the sub-folder that is located at the specified URL to the collection.
         addSubFolder: {
