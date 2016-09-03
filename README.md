@@ -65,9 +65,9 @@ Since the library can be executed synchronously, the user can execute commands i
 *Note - SharePoint online may reject synchronous requests. It's better to use asynchronous requests.*
 
 ## Test:
-To test this library, upload the "test" folder contents to a SharePoint library and access to the "test.aspx" page. This will test the basic functionality of the library.
+To test this library, upload the [test folder](https://github.com/gunjandatta/sprest/tree/master/test) contents to a SharePoint library and access to the "test.aspx" page. This will test the basic functionality of the library.
 
-Refer to the "test.js" file for detailed examples of using the library.
+Refer to the [test script](https://github.com/gunjandatta/sprest/blob/master/test/test.js) file for detailed examples of using the library.
 
 ## Examples:
 *Note - The examples below will execute one request to the server.*
