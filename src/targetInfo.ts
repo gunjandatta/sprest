@@ -10,9 +10,9 @@ module $REST {
         /*********************************************************************************************************************************/
         constructor(targetInfo:ITargetInfoType) {
             // Default the properties
-            this.requestData = targetInfo.data;
             this.targetInfo = targetInfo || {};
-            this.requestMethod = targetInfo.method ? targetInfo.method : "GET";
+            this.requestData = this.targetInfo.data;
+            this.requestMethod = this.targetInfo.method ? this.targetInfo.method : "GET";
             this.targetInfo.asyncFl = this.targetInfo.asyncFl ? true : false;
 
             // Set the request url

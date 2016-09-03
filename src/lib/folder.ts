@@ -64,6 +64,7 @@ module $REST {
         // Adds the sub-folder that is located at the specified URL to the collection.
         addSubFolder: {
             argNames: ["url"],
+            name: "folders/add",
             requestType: RequestType.PostWithArgs
         },
 

@@ -95,6 +95,52 @@ function testFile(runAllFl) {
 
     // Log
     writeToLog("File", LogType.Header);
+
+    // Log
+    writeToLog("Getting this file.", LogType.SubHeader);
+
+    // Get this file
+    var file = new $REST.File(_spPageContextInfo.serverRequestPath);
+
+    // Test
+    assert(file, "read file", "Exists", true);
+
+    // Log
+    writeToLog("Getting the parent folder", LogType.SubHeader);
+
+    // Get the parent folder
+    var folder = new $REST.Folder(file.ServerRelativeUrl.substr(0, file.ServerRelativeUrl.length - file.Name.length - 1));
+
+    // Test
+    assert(folder, "read folder", "Exists", true);
+
+    // Log
+    writeToLog("Create a folder", LogType.SubHeader);
+
+    // Create a sub-folder
+    var subFolder = folder.addSubFolder("Test");
+
+    // Test
+    assert(subFolder, "create folder", "Exists", true);
+
+    // Log
+    writeToLog("Copy a file", LogType.SubHeader);
+
+    // Read the content types of this file
+    var fileContent = file.content();
+
+    // Test
+    assert(fileContent, "read file buffer", "existsFl", true);
+    debugger;
+
+    // Log
+    writeToLog("Delete the folder", LogType.SubHeader);
+
+    // Create a sub-folder
+    subFolder = subFolder.delete();
+
+    // Test
+    assert(subFolder.d, "delete folder", "DeleteObject", null);
 }
 
 function testList(runAllFl) {

@@ -13,6 +13,7 @@ declare module $REST {
         asyncFl:boolean;
         parent:any;
         response:any;
+        requestType:RequestType;
 
         /***********************************************************************/
         // Public Methods

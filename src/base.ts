@@ -18,6 +18,7 @@ module $REST {
         constructor(targetInfo:ITargetInfoType, executeRequestFl?:boolean) {
             // Default the properties
             this.targetInfo = targetInfo || {};
+            this.requestType = 0;
 
             // Default the flag, if it's not defined
             this.executeRequestFl = typeof(executeRequestFl) === "boolean" ? executeRequestFl : ExecuteOnCreationFl;
@@ -33,6 +34,9 @@ module $REST {
         
         // The parent
         public parent:Base;
+
+        // The request type
+        public requestType:RequestType;
 
         // Method to return the xml http request's response
         public get response():any { return this.request ? this.request.response : null; }
@@ -56,7 +60,7 @@ module $REST {
                 this.request = new Request(new TargetInfo(this.targetInfo));
 
                 // Update the data object
-                this.updateDataObject(this.request.response);
+                this.updateDataObject();
             }
         }
 
@@ -179,8 +183,9 @@ module $REST {
             // Create a new object
             let obj = new Base(targetInfo, this.executeRequestFl);
 
-            // Set the parent
+            // Set the and parent and request type
             obj.parent = this;
+            obj.requestType = methodConfig.requestType;
 
             // Execute the request
             obj.execute();
@@ -245,31 +250,39 @@ module $REST {
         }
 
         // Method to convert the input arguments into an object
-        protected updateDataObject(...args) {
-            let response = args && args.length > 0 ? args[0] : "{}";
-            response = response === "" ? "{}" : response;
+        protected updateDataObject() {
+            // Return if we are expecting a buffer
+            if(this.requestType == RequestType.GetBuffer) {
+                // Set the exists flag
+                this["existsFl"] = this.request.response != null;
+            }
+            else {
+                // Get the response
+                let response = this.request.response;
+                response = response === "" ? "{}" : response;
 
-            // Convert the response
-            let data = JSON.parse(response);
-            this["existsFl"] = data.error == null;
+                // Convert the response
+                let data = JSON.parse(response);
+                this["existsFl"] = typeof(this["Exists"]) === "boolean" ? this["Exists"] : data.error == null;
 
-            // See if the data properties exists
-            if(data.d) {
-                // Save a reference to it
-                this["d"] = data.d;
+                // See if the data properties exists
+                if(data.d) {
+                    // Save a reference to it
+                    this["d"] = data.d;
 
-                // Update this object's properties
-                this.addProperties(this, data.d);
+                    // Update this object's properties
+                    this.addProperties(this, data.d);
 
-                // Add the methods
-                this.addMethods(this, data.d);
+                    // Add the methods
+                    this.addMethods(this, data.d);
 
-                // Update the data collection
-                this.updateDataCollection(data.d.results);
+                    // Update the data collection
+                    this.updateDataCollection(data.d.results);
+                }
             }
 
             // Resolve the promise
-            this.promise ? this.promise.resolve() : null;
+            this.promise ? this.promise.resolve(this) : null;
         }
     }
 }
