@@ -16,7 +16,7 @@ module $REST {
             // Default the properties
             this.methodInfo = methodInfo;
             this.methodInfo.argValues = args;
-            this.methodInfo.name = this.methodInfo.name ? this.methodInfo.name : methodName;
+            this.methodInfo.name = typeof(this.methodInfo.name) === "string" ? this.methodInfo.name : methodName;
 
             // Generate the parameters
             this.generateParams();
@@ -37,6 +37,9 @@ module $REST {
 
         // The request method
         public get requestMethod():string {
+            // Return the request method if it exists
+            if(typeof(this.methodInfo.requestMethod) === "string") { return this.methodInfo.requestMethod; }
+
             // Determine the request method, based on the request type
             switch(this.methodInfo.requestType) {
                 case RequestType.Delete:
@@ -128,24 +131,25 @@ module $REST {
                     // Set the method data
                     this.methodData = JSON.parse(this.methodInfo.data);
                 }            
-                // Else, see if the metadata type exists
-                else if(this.methodInfo.metadataType) {
-                    // See if parameters exist
-                    if(this.methodInfo.argNames) {
-                        // Append the metadata to the first parameter
-                        params[this.methodInfo.argNames[0]]["__metadata"] = { "type": this.methodInfo.metadataType };
-                    }
-                    else {
-                        // Append the metadata to the parameters
-                        params["__metadata"] = { "type": this.methodInfo.metadataType };
-                    }
-                }
             }
 
             // See if the argument values exist
             if(this.methodInfo.argValues && (this.methodInfo.argNames == null || this.methodInfo.argValues.length > this.methodInfo.argNames.length)) {
                 // Set the method data to be passed in the body of the request
                 this.methodData = this.methodInfo.argValues[(this.methodInfo.argNames ? this.methodInfo.argNames.length : -1) + 1];
+            }
+
+            // See if the metadata type exists
+            if(this.methodInfo.metadataType) {
+                // See if parameters exist
+                if(this.methodInfo.argNames) {
+                    // Append the metadata to the first parameter
+                    this.methodData[this.methodInfo.argNames[0]]["__metadata"] = { "type": this.methodInfo.metadataType };
+                }
+                else {
+                    // Append the metadata to the parameters
+                    this.methodData["__metadata"] = { "type": this.methodInfo.metadataType };
+                }
             }
         }
 

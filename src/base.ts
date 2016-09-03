@@ -134,8 +134,25 @@ module $REST {
 
         // Method to execute a method
         private executeMethod(methodName:string, methodConfig:IMethodInfoType, args:any) {
-            // Copy the target information
-            let targetInfo:ITargetInfoType = Object.create(this.targetInfo);
+            let targetInfo:ITargetInfoType = null;
+            
+            // Ensure the target information exists
+            if(this.targetInfo == null) {
+                // Create the target information and use the url defined for this object
+                targetInfo = {
+                    url:  this["__metadata"].uri
+                };
+
+                // See if we are inheriting the metadata type
+                if(methodConfig.inheritMetadataType) {
+                    // Copy the metadata type
+                    methodConfig.metadataType = this["__metadata"].type;
+                }
+            }
+            else {
+                // Copy the target information
+                targetInfo = Object.create(this.targetInfo);
+            }
 
             // Get the method information
             var methodInfo = new MethodInfo(methodName, methodConfig, args);
@@ -156,7 +173,7 @@ module $REST {
             }
 
             // Create a new object
-            let obj = new Base(targetInfo, true);
+            let obj = new Base(targetInfo, this.executeRequestFl);
 
             // Set the parent
             obj.parent = this;
@@ -211,6 +228,10 @@ module $REST {
                     setTimeout(() => {
                         // Parse the results
                         for(let i=0; i<results.length; i++) {
+                            // Add the execute method and parent reference
+                            results[i]["executeMethod"] = this.executeMethod;
+                            results[i]["parent"] = this;
+
                             // Add the methods
                             this.addMethods(results[i], results[i])
                         }
@@ -222,6 +243,7 @@ module $REST {
         // Method to convert the input arguments into an object
         protected updateDataObject(...args) {
             let response = args && args.length > 0 ? args[0] : "{}";
+            response = response === "" ? "{}" : response;
 
             // Convert the response
             let data = JSON.parse(response);
@@ -247,4 +269,3 @@ module $REST {
         }
     }
 }
-    

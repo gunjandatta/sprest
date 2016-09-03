@@ -115,6 +115,12 @@ module $REST {
                 // Default the url to the current site/web url
                 this.targetInfo.url = this.context[this.targetInfo.defaultToWebFl ? "webAbsoluteUrl" : "siteAbsoluteUrl"];
             }
+            // Else, see if the url already contains the full request
+            else if(/\/_api\//.test(this.targetInfo.url)) {
+                // Set the request url
+                this.requestUrl = this.targetInfo.url;
+                return;
+            }
 
             // See if this is a relative url
             if(this.targetInfo.url.indexOf("http") != 0) {

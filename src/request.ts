@@ -126,6 +126,12 @@ module $REST {
             this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
             this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
 
+            // See if we are deleting or updating the data
+            if(this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE") {
+                // Append the header for deleting/updating
+                this.xhr.setRequestHeader("IF-MATCH", "*");
+            }
+
             // See if the custom headers exist
             if (this.targetInfo.requestHeaders) {
                 // Parse the custom headers
