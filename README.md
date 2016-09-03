@@ -64,6 +64,11 @@ Since the library can be executed synchronously, the user can execute commands i
 *Note - The commands will execute under the security of the current user.*
 *Note - SharePoint online may reject synchronous requests. It's better to use asynchronous requests.*
 
+## Test:
+To test this library, upload the "test" folder contents to a SharePoint library and access to the "test.aspx" page. This will test the basic functionality of the library.
+
+Refer to the "test.js" file for detailed examples of using the library.
+
 ## Examples:
 *Note - The examples below will execute one request to the server.*
 
