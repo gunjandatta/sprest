@@ -27,20 +27,45 @@ function assert(obj, action, property, value) {
     }
 }
 
-function testAll() {
+function cbAll_Click(cb) {
+    var isChecked = cb.checked;
+
+    // Parse the check boxes
+    var checkboxes = document.querySelectorAll("input[name='test']");
+    for(var i=0; i<checkboxes.length; i++) {
+        checkboxes[i].checked = isChecked;
+    }
+}
+
+function runTests() {
     // Clear the log
     document.querySelector("#log").innerHTML = "";
 
-    // Run all the tests
-    testContentType(true);
-    testFile(true);
-    testList(true);
+    // Parse the check boxes
+    var checkboxes = document.querySelectorAll("input[name='test']");
+    for(var i=0; i<checkboxes.length; i++) {
+        // Ensure it's checked
+        if(checkboxes[i].checked) {
+            // Run the selected test
+            switch(checkboxes[i].value) {
+                case "contenttype":
+                    testContentType();
+                break;
+                case "file":
+                    testFile();
+                break;
+                case "list":
+                    testList();
+                break;
+                case "listitems":
+                    testListItems();
+                break;
+            }
+        }
+    }
 }
 
-function testContentType(runAllFl) {
-    // Clear the log
-    runAllFl ? null : log.innerHTML = "";
-
+function testContentType() {
     // Log
     writeToLog("Content Type", LogType.Header);
 
@@ -89,10 +114,7 @@ function testContentType(runAllFl) {
     }
 }
 
-function testFile(runAllFl) {
-    // Clear the log
-    runAllFl ? null : log.innerHTML = "";
-
+function testFile() {
     // Log
     writeToLog("File", LogType.Header);
 
@@ -165,10 +187,7 @@ function testFile(runAllFl) {
     assert(subFolder.d, "delete folder", "DeleteObject", null);
 }
 
-function testList(runAllFl) {
-    // Clear the log
-    runAllFl ? null : log.innerHTML = "";
-
+function testList() {
     // Log
     writeToLog("List", LogType.Header);
 
@@ -256,6 +275,9 @@ function testListItem(list) {
 
     // Test
     assert(item.d, "delete", "DeleteObject", null);
+}
+
+function testListItems() {
 }
 
 function writeToLog(text, logType) {

@@ -12,17 +12,13 @@
     Placeholder Page Description
 </asp:Content>
 <asp:Content ContentPlaceHolderId="PlaceHolderMain" runat="server">
-    <!-- Main Table -->
-    <table class="ms-core-tableNoSpace ms-webpartPage-root" width="100%">
-        <tr>
-            <td><input type="button" value="Test All" onclick="testAll();" /></td>
-        </tr>
-        <tr>
-            <td><input type="button" value="Test Content Type" onclick="testContentType();" /></td>
-            <td><input type="button" value="Test File" onclick="testFile();" /></td>
-            <td><input type="button" value="Test List" onclick="testList();" /></td>
-        </tr>
-    </table>
+    <!-- Checkboxes -->
+    <input type="checkbox" value="All" onclick="cbAll_Click(this);" />Select All<br/>
+    <input type="checkbox" name="test" value="contenttype" />Test Content Type<br/>
+    <input type="checkbox" name="test" value="file" />Test File<br/>
+    <input type="checkbox" name="test" value="list" />Test List<br/>
+    <input type="checkbox" name="test" value="listitems" />Test List Items<br/>
+    <br/><input type="button" value="Run" onclick="runTests();" />
 
     <!-- Log -->
     <div style="width:100%" id="log"></div>
