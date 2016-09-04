@@ -57,9 +57,6 @@ function runTests() {
                 case "list":
                     testList();
                 break;
-                case "listitems":
-                    testListItems();
-                break;
             }
         }
     }
