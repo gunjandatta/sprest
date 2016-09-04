@@ -69,6 +69,15 @@ To test this library, upload the [test folder](https://github.com/gunjandatta/sp
 
 Refer to the [test script](https://github.com/gunjandatta/sprest/blob/master/test/test.js) file for detailed examples of using the library.
 
+### File/Folder
+![File/Folder Test](https://github.com/gunjandatta/sprest/blob/master/images/test-file.png)
+
+### List/Item
+![List/Item Test](https://github.com/gunjandatta/sprest/blob/master/images/test-list.png)
+
+### Content Type/Field
+![Content Type/Field Test](https://github.com/gunjandatta/sprest/blob/master/images/test-field.png)
+
 ## Examples:
 *Note - The examples below will execute one request to the server.*
 
