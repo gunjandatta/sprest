@@ -38,6 +38,30 @@ A global flag is used to determine if the request should be executed on creation
 $REST.ExecuteOnCreationFl = false;
 ```
 
+### Fewer Requests to the server
+Having the execute on creation boolean option, if set to false will construct the url of the base object without making a request to the server.
+
+#### Example - Creating a List
+```
+// This will create the web object, but not execute the request.
+var web = new $REST.Web(null, false);
+
+// This will execute the request to create a list
+var list = web.addList({
+    BaseTemplate: 100,
+    Description: "This is a test list.",
+    Title: "Test"
+});
+```
+
+#### Example - Query a List
+```
+// This will execute one request to the server to get list items
+// new $REST.ListItems("[List Name]", "[View XML or CAML Query]");
+new $REST.ListItems("Site Assets", "<View Scope='RecursiveAll'><Query><Where><Eq><FieldRef Name='FileLeafRef' /><Value Type='File'>sprest.js</Value></Eq></Where></Query></View>");
+new $REST.ListItems("Site Assets", "<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Eq></Where></Query>");
+```
+
 ### Optional Input
 All constructors take have the following optional parameters:
 ```

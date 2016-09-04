@@ -1769,7 +1769,7 @@ var $REST;
                 // Create a list
                 var list = new $REST.List(listName, settings, false);
                 // Query the items
-                return list["getItems"](camlQuery);
+                return list[/^<View/.test(camlQuery) ? "getItems" : "getItemsByQuery"](camlQuery);
             }
             else {
                 // See if we are executing the request
@@ -2051,14 +2051,14 @@ var $REST;
             name: "items?$filter Title eq '[[title]]'",
             requestType: $REST.RequestType.GetReplace
         },
-        // Returns a collection of items from the list based on the specified query.
+        // Returns a collection of items from the list based on the view xml.
         getItems: {
-            argNames: ["camlQuery"],
+            argNames: ["viewXml"],
             requestType: $REST.RequestType.PostWithArgsInBody,
             data: {
                 query: {
                     __metadata: { type: "SP.CamlQuery" },
-                    ViewXml: "<View>[[camlQuery]]</View>"
+                    ViewXml: "[[viewXml]]"
                 }
             }
         },
@@ -2067,6 +2067,18 @@ var $REST;
             argNames: ["filter"],
             name: "items?$filter=[[filter]]",
             requestType: $REST.RequestType.GetWithArgsValueOnly
+        },
+        // Returns a collection of items from the list based on the specified query.
+        getItemsByQuery: {
+            argNames: ["camlQuery"],
+            name: "getItems",
+            requestType: $REST.RequestType.PostWithArgsInBody,
+            data: {
+                query: {
+                    __metadata: { type: "SP.CamlQuery" },
+                    ViewXml: "<View>[[camlQuery]]</View>"
+                }
+            }
         },
         // Returns a collection of items from the list based on the specified query.
         getListItemChangesSinceToken: {

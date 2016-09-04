@@ -224,14 +224,14 @@ module $REST {
             requestType: RequestType.GetReplace
         },
 
-        // Returns a collection of items from the list based on the specified query.
+        // Returns a collection of items from the list based on the view xml.
         getItems: {
-            argNames: ["camlQuery"],
+            argNames: ["viewXml"],
             requestType: RequestType.PostWithArgsInBody,
             data: {
                 query: {
                      __metadata: { type: "SP.CamlQuery" },
-                     ViewXml: "<View>[[camlQuery]]</View>"
+                     ViewXml: "[[viewXml]]"
                 }
             }
         },
@@ -241,6 +241,19 @@ module $REST {
             argNames: ["filter"],
             name: "items?$filter=[[filter]]",
             requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Returns a collection of items from the list based on the specified query.
+        getItemsByQuery: {
+            argNames: ["camlQuery"],
+            name: "getItems",
+            requestType: RequestType.PostWithArgsInBody,
+            data: {
+                query: {
+                     __metadata: { type: "SP.CamlQuery" },
+                     ViewXml: "<View>[[camlQuery]]</View>"
+                }
+            }
         },
 
         // Returns a collection of items from the list based on the specified query.

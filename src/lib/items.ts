@@ -22,7 +22,7 @@ module $REST {
                 var list = new List(listName, settings, false);
 
                 // Query the items
-                return list["getItems"](camlQuery);
+                return list[/^<View/.test(camlQuery) ? "getItems" : "getItemsByQuery"](camlQuery);
             }
             else {
                 // See if we are executing the request
