@@ -135,15 +135,15 @@ module $REST {
 
                 // Set the request url
                 this.requestUrl = template
-                    .replace("{{Url}}", this.context["webAbsoluteUrl"])
-                    .replace("{{EndPoint}}", endpoint)
-                    .replace("{{TargetUrl}}", "@target='" + this.targetInfo.url + "'");
+                    .replace(/{{Url}}/g, this.context["webAbsoluteUrl"])
+                    .replace(/{{EndPoint}}/g, endpoint)
+                    .replace(/{{TargetUrl}}/g, "@target='" + this.targetInfo.url + "'");
             } else {
                 // Set the request url
                 this.requestUrl = template
-                    .replace("{{Url}}", this.targetInfo.url)
-                    .replace("{{EndPoint}}", this.targetInfo.endpoint)
-                    .replace("{{TargetUrl}}", "");
+                    .replace(/{{Url}}/g, this.targetInfo.url)
+                    .replace(/{{EndPoint}}/g, this.targetInfo.endpoint)
+                    .replace(/{{TargetUrl}}/g, "");
             }
         }
     }

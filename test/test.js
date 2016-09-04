@@ -224,6 +224,9 @@ function testList() {
         // Test the list item
         testListItem(list);
 
+        // Test the list items
+        testListItems(list);
+
         // Log
         writeToLog("Deleting the list", LogType.SubHeader);
 
@@ -277,7 +280,46 @@ function testListItem(list) {
     assert(item.d, "delete", "DeleteObject", null);
 }
 
-function testListItems() {
+function testListItems(list) {
+    var items = [];
+    var maxNumber = 5;
+
+    // Log
+    writeToLog("List Items", LogType.Header);
+
+    // Log
+    writeToLog("Creating the list items", LogType.SubHeader);
+
+    // Create the items
+    for(var i=1; i<=maxNumber; i++) {
+        var title = "New Item " + i;
+
+        // Create the item
+        var item = list.addItem({
+            Title: title
+        });
+
+        // Test
+        assert(item, "create item " + i, "Title", title);
+
+        // Save a reference to the items
+        items.push(item);
+    }
+
+    // Log
+    writeToLog("Query the list items", LogType.SubHeader);
+
+    // Generate the caml query
+    var template = "<{{Type}}><FieldRef Name='ID' /><Value Type='Integer'>{{Value}}</Value></{{Type}}>";
+    var caml = "<Query><Where><And>{{Min}}{{Max}}</And></Where></Query>"
+        .replace(/{{Min}}/g, template.replace(/{{Type}}/g, "Geq").replace(/{{Value}}/g, items[0].ID))
+        .replace(/{{Max}}/g, template.replace(/{{Type}}/g, "Leq").replace(/{{Value}}/g, items[items.length-1].ID));
+
+    // Get the items
+    items = new $REST.ListItems(list.Title, caml);
+
+    // Test
+    assert(items.results, "query list items", "length", maxNumber);
 }
 
 function writeToLog(text, logType) {
