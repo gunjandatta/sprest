@@ -59,7 +59,7 @@ var list = web.addList({
 // This will execute one request to the server to get list items
 // new $REST.ListItems("[List Name]", "[View XML or CAML Query]");
 new $REST.ListItems("Site Assets", "<View Scope='RecursiveAll'><Query><Where><Eq><FieldRef Name='FileLeafRef' /><Value Type='File'>sprest.js</Value></Eq></Where></Query></View>");
-new $REST.ListItems("Site Assets", "<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Eq></Where></Query>");
+new $REST.ListItems("Site Assets", "<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>");
 ```
 
 ### Optional Input
