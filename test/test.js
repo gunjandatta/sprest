@@ -48,9 +48,6 @@ function runTests() {
         if(checkboxes[i].checked) {
             // Run the selected test
             switch(checkboxes[i].value) {
-                case "contenttype":
-                    testContentType();
-                break;
                 case "file":
                     testFile();
                 break;
@@ -62,7 +59,7 @@ function runTests() {
     }
 }
 
-function testContentType() {
+function testContentType(list) {
     // Log
     writeToLog("Content Type", LogType.Header);
 
@@ -95,8 +92,57 @@ function testContentType() {
         // Test
         assert(ct, "update", "Group", "Dev");
 
-        // Test the field
-        testField(ct);
+        // Log
+        writeToLog("Creating a field", LogType.SubHeader);
+
+        // Get the test field
+        var field = web.getFieldByInternalName("SPRestText");
+        if(!field.existsFl) {
+            // Create the test field
+            field = web.addFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />');
+        }
+
+        // Test
+        assert(field, "create field", "existsFl", true);
+
+        // Log
+        writeToLog("Add List Field", LogType.SubHeader);
+
+        // Add the field to the list
+        var listField = list.addFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />');
+
+        // Test
+        assert(listField, "add list field", "existsFl", true);
+
+        // Log
+        writeToLog("Add Field Link", LogType.SubHeader);
+
+        // Note - This is a bug with the REST api
+        writeToLog("Note - Failure to add a field link is a known bug with the REST API.", LogType.Info);
+
+        // Add the field to the content type
+        var fieldLink = ct.addFieldLink({ FieldInternalName: field.InternalName });
+
+        // Test
+        assert(fieldLink, "add field link", "existsFl", true);
+
+        // Log
+        writeToLog("Add List Content Type", LogType.SubHeader);
+
+        // Add the content type to the list
+        var ctList = list.addAvailableContentType(ct.Id.StringValue);
+
+        // Test
+        assert(ctList, "add list content type", "existsFl", true);
+
+        // Log
+        writeToLog("Deleting the list content type", LogType.SubHeader);
+
+        // Delete the content type from the list
+        ctList.delete();
+
+        // Test
+        assert(ctList.d, "delete", "DeleteObject", null);
 
         // Log
         writeToLog("Deleting the content type", LogType.SubHeader);
@@ -106,36 +152,21 @@ function testContentType() {
 
         // Test
         assert(ct.d, "delete", "DeleteObject", null);
+
+        // Log
+        writeToLog("Deleting the field", LogType.SubHeader);
+
+        // Delete the content type
+        field = field.delete();
+
+        // Test
+        assert(field.d, "delete", "DeleteObject", null);
     }
     else {
         // Log
         writeToLog("Content Type was not created.", LogType.Error);
         writeToLog(ct.response, LogType.Error);
     }
-}
-
-function testField(ct) {
-    // Log
-    writeToLog("Field", LogType.Header);
-
-    // Log
-    writeToLog("Creating the field", LogType.SubHeader);
-
-    // Create a field
-    var web = new $REST.Web(null, false);
-    var field = web.addFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />');
-
-    // Test
-    assert(field, "create field", "existsFl", true);
-
-    // Log
-    writeToLog("Deleting the field", LogType.SubHeader);
-
-    // Delete the content type
-    field = field.delete();
-
-    // Test
-    assert(field.d, "delete", "DeleteObject", null);
 }
 
 function testFile() {
@@ -250,6 +281,9 @@ function testList() {
 
         // Test the list items
         testListItems(list);
+
+        // Test the content type
+        testContentType(list);
 
         // Log
         writeToLog("Deleting the list", LogType.SubHeader);

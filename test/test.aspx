@@ -14,7 +14,6 @@
 <asp:Content ContentPlaceHolderId="PlaceHolderMain" runat="server">
     <!-- Checkboxes -->
     <input type="checkbox" value="All" onclick="cbAll_Click(this);" />Select All<br/>
-    <input type="checkbox" name="test" value="contenttype" />Test Content Type<br/>
     <input type="checkbox" name="test" value="file" />Test File<br/>
     <input type="checkbox" name="test" value="list" />Test List<br/>
     <br/><input type="button" value="Run" onclick="runTests();" />

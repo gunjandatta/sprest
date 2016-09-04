@@ -97,9 +97,9 @@ module $REST {
                         case "number":
                             params[name] = this.methodInfo.argValues[i];
                         break;
-                        case "string":
-                            params[name] = this.isTemplate || this.replace ? value : "'" + value + "'";
-                        break;
+                        //case "string":
+                            //params[name] = this.isTemplate || this.replace ? value : "'" + value + "'";
+                        //break;
                         default:
                             params[name] = value;
                         break;
@@ -199,15 +199,18 @@ module $REST {
 
                     // Parse the parameters
                     for(let name in data) {
+                        let value = data[name];
+                        value = typeof(value) === "string" ? "'" + value + "'" : value;
+
                         switch(this.methodInfo.requestType) {
                             // Append the value only
                             case RequestType.GetWithArgsValueOnly:
                             case RequestType.PostWithArgsValueOnly:
-                                params += data[name] + ", ";
+                                params += value + ", ";
                             break;
                             // Append the parameter and value
                             default:
-                                params += name + "=" + data[name] + ", ";
+                                params += name + "=" + value + ", ";
                             break;
                         }
                     }

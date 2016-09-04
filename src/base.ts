@@ -239,6 +239,12 @@ module $REST {
                 if(results.length == 1) {
                     // Apply the properties to the object
                     this.addProperties(this, results[0]);
+
+                    // Add the methods
+                    this.addMethods(results[0], results[0])
+
+                    // Copy the metadata
+                    this["d"].__metadata = results[0].__metadata;
                 } else {
                     // Apply the methods to the results asynchronously
                     setTimeout(() => {

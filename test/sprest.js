@@ -187,6 +187,10 @@ var $REST;
                 if (results.length == 1) {
                     // Apply the properties to the object
                     this.addProperties(this, results[0]);
+                    // Add the methods
+                    this.addMethods(results[0], results[0]);
+                    // Copy the metadata
+                    this["d"].__metadata = results[0].__metadata;
                 }
                 else {
                     // Apply the methods to the results asynchronously
@@ -435,9 +439,9 @@ var $REST;
                         case "number":
                             params[name_1] = this.methodInfo.argValues[i];
                             break;
-                        case "string":
-                            params[name_1] = this.isTemplate || this.replace ? value : "'" + value + "'";
-                            break;
+                        //case "string":
+                        //params[name] = this.isTemplate || this.replace ? value : "'" + value + "'";
+                        //break;
                         default:
                             params[name_1] = value;
                             break;
@@ -524,15 +528,17 @@ var $REST;
                     data = data && typeof (data) === "object" ? data : { value: data };
                     // Parse the parameters
                     for (var name_2 in data) {
+                        var value = data[name_2];
+                        value = typeof (value) === "string" ? "'" + value + "'" : value;
                         switch (this.methodInfo.requestType) {
                             // Append the value only
                             case $REST.RequestType.GetWithArgsValueOnly:
                             case $REST.RequestType.PostWithArgsValueOnly:
-                                params += data[name_2] + ", ";
+                                params += value + ", ";
                                 break;
                             // Append the parameter and value
                             default:
-                                params += name_2 + "=" + data[name_2] + ", ";
+                                params += name_2 + "=" + value + ", ";
                                 break;
                         }
                     }
@@ -964,10 +970,9 @@ var $REST;
     $REST.Library.contenttype = {
         // Adds a field link to the content type.
         addFieldLink: {
-            argNames: ["data"],
             name: "fieldlinks",
             metadataType: "SP.FieldLink",
-            requestType: $REST.RequestType.GetWithArgsInBody
+            requestType: $REST.RequestType.PostWithArgsInBody
         },
         // Deletes the content type.
         delete: {
@@ -1914,6 +1919,20 @@ var $REST;
             name: "fields/add",
             requestType: $REST.RequestType.PostWithArgsInBody
         },
+        // Adds a field, using it's Schema XML, to the field collection.
+        // Set the option to SP.AddFieldOptions.addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
+        addFieldAsXml: {
+            argNames: ["schemaXml"],
+            name: "fields/createFieldAsXml",
+            requestType: $REST.RequestType.PostWithArgsInBody,
+            data: {
+                parameters: {
+                    __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
+                    Options: 8,
+                    SchemaXml: "[[schemaXml]]"
+                }
+            }
+        },
         // Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
         addDependentLookupField: {
             argNames: ["displayname", "primarylookupfieldid", "showfield"],
@@ -1942,13 +1961,6 @@ var $REST;
         addView: {
             metadataType: "SP.View",
             name: "views",
-            requestType: $REST.RequestType.PostWithArgsInBody
-        },
-        // Creates a field based on the specified schema, Boolean value, and field options.
-        createFieldAsXml: {
-            argNames: ["parameters"],
-            metadataType: "SP.XmlSchemaFieldCreationInformation",
-            name: "fields/createFieldAsXml",
             requestType: $REST.RequestType.PostWithArgsInBody
         },
         // Creates unique role assignments for the securable object.

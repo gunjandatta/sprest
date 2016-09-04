@@ -70,6 +70,21 @@ module $REST {
             requestType: RequestType.PostWithArgsInBody
         },
 
+        // Adds a field, using it's Schema XML, to the field collection.
+        // Set the option to SP.AddFieldOptions.addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
+        addFieldAsXml: {
+            argNames: ["schemaXml"],
+            name: "fields/createFieldAsXml",
+            requestType: RequestType.PostWithArgsInBody,
+            data: {
+                parameters: {
+                     __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
+                     Options: 8,
+                     SchemaXml: "[[schemaXml]]"
+                }
+            }
+        },
+
         // Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
         addDependentLookupField: {
             argNames: ["displayname", "primarylookupfieldid", "showfield"],
@@ -102,14 +117,6 @@ module $REST {
         addView: {
             metadataType: "SP.View",
             name: "views",
-            requestType: RequestType.PostWithArgsInBody
-        },
-
-        // Creates a field based on the specified schema, Boolean value, and field options.
-        createFieldAsXml: {
-            argNames: ["parameters"],
-            metadataType: "SP.XmlSchemaFieldCreationInformation",
-            name: "fields/createFieldAsXml",
             requestType: RequestType.PostWithArgsInBody
         },
 
