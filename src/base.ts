@@ -151,6 +151,12 @@ module $REST {
                     url: metadata.uri
                 };
 
+                // See if this is a field
+                if(/^SP.Field/.test(metadata.type)) {
+                    // Fix the uri reference
+                    targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
+                }
+
                 // See if we are inheriting the metadata type
                 if(methodConfig.inheritMetadataType) {
                     // Copy the metadata type

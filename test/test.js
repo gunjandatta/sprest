@@ -98,6 +98,9 @@ function testContentType() {
         // Test
         assert(ct, "update", "Group", "Dev");
 
+        // Test the field
+        testField(ct);
+
         // Log
         writeToLog("Deleting the content type", LogType.SubHeader);
 
@@ -112,6 +115,30 @@ function testContentType() {
         writeToLog("Content Type was not created.", LogType.Error);
         writeToLog(ct.response, LogType.Error);
     }
+}
+
+function testField(ct) {
+    // Log
+    writeToLog("Field", LogType.Header);
+
+    // Log
+    writeToLog("Creating the field", LogType.SubHeader);
+
+    // Create a field
+    var web = new $REST.Web(null, false);
+    var field = web.addFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />');
+
+    // Test
+    assert(field, "create field", "existsFl", true);
+
+    // Log
+    writeToLog("Deleting the field", LogType.SubHeader);
+
+    // Delete the content type
+    field = field.delete();
+
+    // Test
+    assert(field.d, "delete", "DeleteObject", null);
 }
 
 function testFile() {
