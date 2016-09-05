@@ -157,7 +157,7 @@ module $REST {
                     // See if the request has finished
                     if(this.xhr.readyState == 4) {
                         // Resolve the promise
-                        this.promise.resolve(this.response);
+                        this.promise.resolve(this);
                     }
                 }
             }

@@ -43,12 +43,16 @@ var $REST;
         /*********************************************************************************************************************************/
         // Method to execute a child request
         Base.prototype.execute = function () {
+            var _this = this;
             // See if this is an asynchronous request
             if (this.targetInfo.asyncFl) {
                 // Create a promise
                 this.promise = new $REST.Promise(this.targetInfo.callback);
                 // Create the request
-                this.request = new $REST.Request(new $REST.TargetInfo(this.targetInfo), this.updateDataObject);
+                this.request = new $REST.Request(new $REST.TargetInfo(this.targetInfo), function () {
+                    // Update the data object
+                    _this.updateDataObject();
+                });
             }
             else {
                 // Create the request
@@ -62,23 +66,31 @@ var $REST;
         /*********************************************************************************************************************************/
         // Method to add the methods to this object
         Base.prototype.addMethods = function (obj, data) {
+            var isCollection = data.results && data.results.length > 0;
+            // Determine the metadata
+            var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
             // Determine the object type
-            var type = (data.__metadata && data.__metadata.type ? data.__metadata.type : this.targetInfo.endpoint);
-            type = type.split('/');
-            type = (type[type.length - 1]);
-            type = type.split('.');
-            type = (type[type.length - 1]).toLowerCase();
+            var objType = metadata && metadata.type ? metadata.type : this.targetInfo.endpoint;
+            objType = objType.split('/');
+            objType = (objType[objType.length - 1]);
+            objType = objType.split('.');
+            objType = (objType[objType.length - 1]).toLowerCase();
+            objType += isCollection ? "s" : "";
             // See if this is a field
-            if (/^field/.test(type)) {
+            if (/^field/.test(objType)) {
                 // Update the type
-                type = "field";
+                objType = "field";
             }
-            else if (/item$/.test(type)) {
+            else if (/item$/.test(objType)) {
                 // Update the type
-                type = "listitem";
+                objType = "listitem";
+            }
+            else if (/items$/.test(objType)) {
+                // Update the type
+                objType = "items";
             }
             // Get the methods for this object
-            var methods = $REST.Library[type];
+            var methods = $REST.Library[objType];
             if (methods) {
                 // Parse the methods
                 for (var methodName in methods) {
@@ -766,7 +778,7 @@ var $REST;
                     // See if the request has finished
                     if (_this.xhr.readyState == 4) {
                         // Resolve the promise
-                        _this.promise.resolve(_this.response);
+                        _this.promise.resolve(_this);
                     }
                 };
             }

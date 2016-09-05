@@ -53,7 +53,10 @@ module $REST {
                 this.promise = new Promise(this.targetInfo.callback);
 
                 // Create the request
-                this.request = new Request(new TargetInfo(this.targetInfo), this.updateDataObject);
+                this.request = new Request(new TargetInfo(this.targetInfo), () => {
+                    // Update the data object
+                    this.updateDataObject();
+                });
             }
             else {
                 // Create the request
@@ -89,26 +92,37 @@ module $REST {
 
         // Method to add the methods to this object
         protected addMethods(obj:any, data:any) {
+            let isCollection = data.results && data.results.length > 0;
+
+            // Determine the metadata
+            let metadata = isCollection ? data.results[0].__metadata : data.__metadata;
+
             // Determine the object type
-            let type = (data.__metadata && data.__metadata.type ? data.__metadata.type : this.targetInfo.endpoint);
-            type = type.split('/');
-            type = (type[type.length - 1]);
-            type = type.split('.');
-            type = (type[type.length - 1]).toLowerCase();
+            let objType = metadata && metadata.type ? metadata.type : this.targetInfo.endpoint;
+            objType = objType.split('/');
+            objType = (objType[objType.length - 1]);
+            objType = objType.split('.');
+            objType = (objType[objType.length - 1]).toLowerCase();
+            objType += isCollection ? "s" : "";
 
             // See if this is a field
-            if(/^field/.test(type)) {
+            if(/^field/.test(objType)) {
                 // Update the type
-                type = "field";
+                objType = "field";
             }
             // Else, see if this is an item
-            else if(/item$/.test(type)) {
+            else if(/item$/.test(objType)) {
                 // Update the type
-                type = "listitem"
+                objType = "listitem";
+            }
+            // Else, see if this is an item collection
+            else if(/items$/.test(objType)) {
+                // Update the type
+                objType = "items";
             }
 
             // Get the methods for this object
-            var methods = Library[type];
+            var methods = Library[objType];
             if(methods) {
                 // Parse the methods
                 for(let methodName in methods) {
