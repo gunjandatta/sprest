@@ -1,12 +1,16 @@
 {
   "author": "Gunjan Datta <me@dattabase.com> (https://github.com/gunjandatta/sprest)",
   "name": "gd-sprest",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "An easy way to develop against the SharePoint REST API.",
   "license": "<LICENSE>",
   "keywords": [
     "sharepoint"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gunjandatta/sprest.git"
+  },
   "devDependencies": {
     "gulp": "*",
     "gulp-concat": "*",
@@ -15,9 +19,5 @@
   },
   "scripts": {
     "build": "tsc && gulp"
-  },
-  "dependencies": {
-    "bootstrap": "^3.3.7",
-    "jquery": "^3.1.0"
   }
 }
