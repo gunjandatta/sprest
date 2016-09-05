@@ -1,14 +1,21 @@
 /// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
-    // Content Types
+    // Content Type
     // The SPContentType object.
     /*********************************************************************************************************************************/
-    //export class ContentType extends Base {
+    export class ContentType extends Base {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-    //}
+        constructor(contentTypeName:string, listName?:string, ...args) {
+            // Call the base constructor
+            super(Base.getInputParmeters.apply(null, args));
+
+            // Query for the content type
+            return (new ContentTypes(listName, this.targetInfo, false))["getByName"](contentTypeName);
+        }
+    }
 
     /*********************************************************************************************************************************/
     // Methods

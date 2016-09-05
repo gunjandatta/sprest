@@ -101,6 +101,17 @@ Refer to the [test script](https://github.com/gunjandatta/sprest/blob/master/tes
 ## Examples:
 *Note - The examples below will execute one request to the server.*
 
+### Content Type
+_**List**_
+```
+new $REST.ContentTypes("Document", "documents");
+```
+
+_**Web**_
+```
+new $REST.ContentTypes("Document");
+```
+
 ### Content Types
 _**List**_
 ```
@@ -110,6 +121,17 @@ new $REST.ContentTypes("documents");
 _**Web**_
 ```
 new $REST.ContentTypes();
+```
+
+### Field
+_**List**_
+```
+new $REST.Fields("Title", "documents");
+```
+
+_**Web**_
+```
+new $REST.Fields("Title");
 ```
 
 ### Fields

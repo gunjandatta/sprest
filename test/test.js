@@ -96,7 +96,7 @@ function testContentType(list) {
         writeToLog("Creating a field", LogType.SubHeader);
 
         // Get the test field
-        var field = web.getFieldByInternalName("SPRestText");
+        var field = new $REST.Field("SPRestText");
         if(!field.existsFl) {
             // Create the test field
             field = web.addFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />');
@@ -167,6 +167,10 @@ function testContentType(list) {
         writeToLog("Content Type was not created.", LogType.Error);
         writeToLog(ct.response, LogType.Error);
     }
+}
+
+function testField() {
+    // TO DO
 }
 
 function testFile() {

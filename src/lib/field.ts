@@ -4,11 +4,18 @@ module $REST {
     // Field
     // The SPField object.
     /*********************************************************************************************************************************/
-    //export class Field extends Base {
+    export class Field extends Base {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-    //}
+        constructor(internalNameOrTitle:string, listName?:string, ...args) {
+            // Call the base constructor
+            super(Base.getInputParmeters.apply(null, args));
+
+            // Query for the field
+            return (new Fields(listName, this.targetInfo, false))["getByInternalNameOrTitle"](internalNameOrTitle);
+        }
+    }
 
     /*********************************************************************************************************************************/
     // Methods

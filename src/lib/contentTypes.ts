@@ -59,6 +59,13 @@ module $REST {
         getById: {
             argNames: ["id"],
             requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Gets a content type by name.
+        getByName: {
+            argNames: ["name"],
+            name: "?$filter=Name eq '[[name]]'",
+            requestType: RequestType.GetReplace
         }
     };
 }

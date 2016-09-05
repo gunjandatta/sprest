@@ -13,7 +13,7 @@ module $REST {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    Library.attahmentfiles = {
+    Library.attachmentfiles = {
         // Adds the attachment that is represented by the specified file name and byte array to the list item.
         add: {
             argNames: ["name"],

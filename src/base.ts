@@ -170,9 +170,9 @@ module $REST {
             objType += isCollection ? "s" : "";
 
             // See if this is a field
-            if(/^field/.test(objType)) {
+            if(/^field/.test(objType) && objType != "fields") {
                 // Update the type
-                objType = "field";
+                objType = "field" + (isCollection ? "s" : "");
             }
             // Else, see if this is an item
             else if(/item$/.test(objType)) {
