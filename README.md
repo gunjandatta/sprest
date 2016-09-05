@@ -38,7 +38,7 @@ A global flag is used to determine if the request should be executed on creation
 $REST.ExecuteOnCreationFl = false;
 ```
 
-### Fewer Requests to the server
+### Fewer Requests to the Server
 Having the execute on creation boolean option, if set to false will construct the url of the base object without making a request to the server.
 
 #### Example - Creating a List
