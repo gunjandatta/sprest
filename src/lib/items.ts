@@ -8,9 +8,9 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(listName:string, camlQuery?:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
+        constructor(listName:string, camlQuery?:string, ...args) {
             // Call the base constructor
-            super(settings, executeRequestFl);
+            super(Base.getInputParmeters.apply(null, args));
 
             // Default the properties
             this.defaultToWebFl = true;
@@ -19,7 +19,7 @@ module $REST {
             // See if the caml query exists
             if(camlQuery) {
                 // Create a list
-                var list = new List(listName, settings, false);
+                var list = new List(listName, this.targetInfo, false);
 
                 // Query the items
                 return list[/^<View/.test(camlQuery) ? "getItems" : "getItemsByQuery"](camlQuery);
@@ -42,13 +42,9 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(listName:string, camlQuery?:string, settings?:ITargetInfoType, executeRequestFl?:boolean) {
-            // Default the asynchronous flag
-            settings = settings ? settings : {};
-            settings.asyncFl = true;
-
+        constructor(listName:string, camlQuery?:string, ...args) {
             // Call the base constructor
-            super(listName, camlQuery, settings, executeRequestFl);
+            super(listName, camlQuery, Base.getAsyncInputParmeters.apply(null, args));
         }
     }
 

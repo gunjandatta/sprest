@@ -8,9 +8,9 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
+        constructor(...args) {
             // Call the base constructor
-            super(settings, executeRequestFl);
+            super(Base.getInputParmeters(args));
 
             // Default the properties
             this.defaultToWebFl = true;
@@ -41,13 +41,9 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(settings?:ITargetInfoType, executeRequestFl?:boolean) {
-            // Default the asynchronous flag
-            settings = settings ? settings : {};
-            settings.asyncFl = true;
-
+        constructor(...args) {
             // Call the base constructor
-            super(settings, executeRequestFl);
+            super(Base.getAsyncInputParmeters.apply(null, args));
         }
     }
 

@@ -4,6 +4,14 @@
 
 declare module $REST {
     /***********************************************************************/
+    // The input parameters for the target information class.
+    /***********************************************************************/
+    interface IBaseType {
+        executeRequestFl?:boolean;
+        settings?:ITargetInfoType;
+    }
+
+    /***********************************************************************/
     // The base object for all requests.
     /***********************************************************************/
     interface IBase {

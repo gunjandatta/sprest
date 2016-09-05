@@ -15,13 +15,13 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(targetInfo:ITargetInfoType, executeRequestFl?:boolean) {
+        constructor(params:IBaseType) {
             // Default the properties
-            this.targetInfo = targetInfo || {};
+            this.targetInfo = params.settings;
             this.requestType = 0;
 
             // Default the flag, if it's not defined
-            this.executeRequestFl = typeof(executeRequestFl) === "boolean" ? executeRequestFl : ExecuteOnCreationFl;
+            this.executeRequestFl = typeof(params.executeRequestFl) === "boolean" ? params.executeRequestFl : ExecuteOnCreationFl;
         }
 
         /*********************************************************************************************************************************/
@@ -65,6 +65,70 @@ module $REST {
                 // Update the data object
                 this.updateDataObject();
             }
+        }
+
+        // Method to get the input parameters for an asynchronous request
+        public static getAsyncInputParmeters(...args):IBaseType {
+            // Get the input parameters
+            let params = Base.getInputParmeters.apply(null, args);
+
+            // Set the asynchronous flag
+            params.settings.asyncFl = true;
+
+            // Return the parameters
+            return params;
+        }
+
+        // Method to get the input parameters
+        public static getInputParmeters(...args):IBaseType {
+            let settings = null;
+            let params:IBaseType = {
+                executeRequestFl: null,
+                settings: null
+            };
+
+            // Ensure arguments exist
+            if(args && args.length > 0) {
+                // Determine if this is an IBaseType
+                if(args.length == 1 && args[0].hasOwnProperty("executeRequestFl") && args[0].hasOwnProperty("settings")) {
+                    // Return it
+                    return args[0];
+                }
+
+                // See if the first parameter is the flag
+                if(typeof(args[0]) === "boolean") {
+                    // Set the parameters
+                    params.executeRequestFl = args[0];
+                    settings = args[1];
+                }
+                else {
+                    // Set the parameters
+                    params.executeRequestFl = args[1];
+                    settings = args[0];
+                }
+            }
+
+            // See if settings exist
+            if(settings) {
+                params.settings = {};
+
+                // See if it's a callback
+                if(typeof(settings) === "function") {
+                    // Set the callback
+                    params.settings.callback = settings;
+                }
+                else {
+                    // Set the settings
+                    params.settings = settings;
+                }
+            }
+            else {
+                // Create them
+                params.settings = {};
+            }
+
+            // Return the parameters
+            return params;
         }
 
         /*********************************************************************************************************************************/
@@ -202,7 +266,7 @@ module $REST {
             }
 
             // Create a new object
-            let obj = new Base(targetInfo, this.executeRequestFl);
+            let obj = new Base({ settings: targetInfo, executeRequestFl: this.executeRequestFl });
 
             // Set the and parent and request type
             obj.parent = this;
@@ -227,7 +291,7 @@ module $REST {
             targetInfo.callback = args && typeof(args[0]) === "function" ? args[0] : null;
 
             // Create a new object
-            let obj = new Base(targetInfo, true);
+            let obj = new Base({ settings: targetInfo, executeRequestFl: true });
 
             // Set the parent
             obj.parent = this;
