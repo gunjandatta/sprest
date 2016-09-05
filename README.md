@@ -17,11 +17,7 @@ All objects have the following constructors [Object] and [Object]_Async.
 #### Examples
 _**Asynchronous Request**_
 ```
-new Web_Async(
-    {
-        callback: function(web) { ... }
-    }
-);
+new Web_Async(function(web) { ... });
 ```
 
 _**Synchronous Request**_
@@ -63,7 +59,9 @@ new $REST.ListItems("Site Assets", "<Query><Where><Gt><FieldRef Name='ID' /><Val
 ### Optional Input
 All constructors take have the following optional parameters:
 ```
-new Object([Object Specific Input Parameters], targetInfo, executeRequestFl)
+new Object([Object Specific Input Parameters], targetInfo, executeRequestFl);
+new Object_Async([Object Specific Input Parameters], targetInfo, executeRequestFl);
+new Object_Async([Object Specific Input Parameters], function(obj) { ... }, executeRequestFl);
 ```
 
 #### Target Information
