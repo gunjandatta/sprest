@@ -36,6 +36,7 @@ $REST.ExecuteOnCreationFl = false;
 Having the execute on creation boolean option, if set to false will construct the url of the base object without making a request to the server.
 
 #### Example - Creating a List
+##### Synchronously
 ```
 // This will create the web object, but not execute the request.
 var web = new $REST.Web(null, false);
@@ -45,6 +46,22 @@ var list = web.addList({
     BaseTemplate: 100,
     Description: "This is a test list.",
     Title: "Test"
+});
+```
+
+##### Asynchronously
+```
+// This will create the web object, set the async flag and not execute a request to the server
+(new $REST.Web_Async(false))
+// This will execute a request to the server to create a list
+.addList({
+    BaseTemplate: 100,
+    Description: "This is a test list.",
+    Title: "Test"
+})
+// This will execute after the list is created
+.done(function(list) {
+    // Additional code goes here
 });
 ```
 
