@@ -45,6 +45,12 @@ module $REST {
         // Public Methods
         /*********************************************************************************************************************************/
 
+        // Method to execute after the asynchronous request completes
+        public done(callback:() => void) {
+            // Execute the promise
+            this.promise ? this.promise.done(callback) : null;
+        }
+
         // Method to execute a child request
         public execute() {
             // See if this is an asynchronous request
@@ -266,7 +272,7 @@ module $REST {
             }
 
             // Create a new object
-            let obj = new Base({ settings: targetInfo, executeRequestFl: this.executeRequestFl });
+            let obj = new Base({ settings: targetInfo, executeRequestFl: true });
 
             // Set the and parent and request type
             obj.parent = this;

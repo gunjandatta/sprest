@@ -26,6 +26,7 @@ declare module $REST {
         /***********************************************************************/
         // Public Methods
         /***********************************************************************/
+        done(callback:() => void);
         execute(settings:ITargetInfoType):any;
     }
 }

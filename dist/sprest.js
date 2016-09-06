@@ -41,6 +41,11 @@ var $REST;
         /*********************************************************************************************************************************/
         // Public Methods
         /*********************************************************************************************************************************/
+        // Method to execute after the asynchronous request completes
+        Base.prototype.done = function (callback) {
+            // Execute the promise
+            this.promise ? this.promise.done(callback) : null;
+        };
         // Method to execute a child request
         Base.prototype.execute = function () {
             var _this = this;
@@ -223,7 +228,7 @@ var $REST;
                 targetInfo.endpoint = (targetInfo.endpoint ? targetInfo.endpoint + "/" : "") + methodInfo.url;
             }
             // Create a new object
-            var obj = new Base({ settings: targetInfo, executeRequestFl: this.executeRequestFl });
+            var obj = new Base({ settings: targetInfo, executeRequestFl: true });
             // Set the and parent and request type
             obj.parent = this;
             obj.requestType = methodConfig.requestType;
