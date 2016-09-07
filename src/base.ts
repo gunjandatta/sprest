@@ -253,7 +253,7 @@ module $REST {
             }
 
             // Inherit the asynchronous flag
-            targetInfo.asyncFl = this.asyncFl;
+            targetInfo.asyncFl = this.targetInfo ? this.targetInfo.asyncFl : this.asyncFl;
 
             // Get the method information
             var methodInfo = new MethodInfo(methodName, methodConfig, args);
