@@ -10,6 +10,9 @@ An easy way to develop against the SharePoint REST api.
 * Switch between asynchronous and synchronous requests by the object's property.
 * Written in **TypeScript** with definition files.
 
+## Example Projects
+[Bootstrap List](https://github.com/gunjandatta/sprest-list)
+
 ## Documentation:
 ### Asynchronous/Synchronous requests
 All objects have the following constructors [Object] and [Object]_Async.
