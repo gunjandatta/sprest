@@ -212,6 +212,8 @@ var $REST;
                 // Copy the target information
                 targetInfo = Object.create(this.targetInfo);
             }
+            // Inherit the asynchronous flag
+            targetInfo.asyncFl = this.asyncFl;
             // Get the method information
             var methodInfo = new $REST.MethodInfo(methodName, methodConfig, args);
             // Update the target information
@@ -278,6 +280,7 @@ var $REST;
                         // Parse the results
                         for (var i = 0; i < results.length; i++) {
                             // Add the execute method and parent reference
+                            results[i]["asyncFl"] = _this.asyncFl;
                             results[i]["executeMethod"] = _this.executeMethod;
                             results[i]["parent"] = _this;
                             // Add the methods

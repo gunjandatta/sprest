@@ -252,6 +252,9 @@ module $REST {
                 targetInfo = Object.create(this.targetInfo);
             }
 
+            // Inherit the asynchronous flag
+            targetInfo.asyncFl = this.asyncFl;
+
             // Get the method information
             var methodInfo = new MethodInfo(methodName, methodConfig, args);
 
@@ -335,6 +338,7 @@ module $REST {
                         // Parse the results
                         for(let i=0; i<results.length; i++) {
                             // Add the execute method and parent reference
+                            results[i]["asyncFl"] = this.asyncFl;
                             results[i]["executeMethod"] = this.executeMethod;
                             results[i]["parent"] = this;
 
