@@ -51,7 +51,7 @@ var list = web.addList({
 
 ##### Asynchronously
 ```
-// This will create the web object, set the async flag and not execute a request to the server
+// This will create the web object, set the asynchronous flag and not execute a request to the server
 (new $REST.Web_Async(false))
 // This will execute a request to the server to create a list
 .addList({
@@ -69,14 +69,19 @@ var list = web.addList({
 ```
 // This will execute one request to the server to get list items
 // new $REST.ListItems("[List Name]", "[View XML or CAML Query]");
-new $REST.ListItems("Site Assets", "<View Scope='RecursiveAll'><Query><Where><Eq><FieldRef Name='FileLeafRef' /><Value Type='File'>sprest.js</Value></Eq></Where></Query></View>");
+
+// The query will default the parent to "<View>"
 new $REST.ListItems("Site Assets", "<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>");
+new $REST.ListItems("Site Assets", "<View Scope='RecursiveAll'><Query><Where><Eq><FieldRef Name='FileLeafRef' /><Value Type='File'>sprest.js</Value></Eq></Where></Query></View>");
 ```
 
 ### Optional Input
 All constructors take have the following optional parameters:
 ```
+// The target information and execute request flags are optional
 new Object([Object Specific Input Parameters], targetInfo, executeRequestFl);
+
+// Asynchronous methods can take either a target information object, or the callback function
 new Object_Async([Object Specific Input Parameters], targetInfo, executeRequestFl);
 new Object_Async([Object Specific Input Parameters], function(obj) { ... }, executeRequestFl);
 ```
