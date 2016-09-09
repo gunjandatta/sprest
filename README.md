@@ -10,7 +10,7 @@ An easy way to develop against the SharePoint REST api.
 * Parent property for easier development.
 * PowerShell-Like experience in the browser console.
 * Switch between asynchronous and synchronous requests by the object's property.
-* Written in **TypeScript** with definition files.
+* Written in TypeScript.
 
 ## Example Projects
 [Bootstrap List](https://github.com/gunjandatta/sprest-list)
