@@ -991,11 +991,12 @@ var $REST;
             // See if this is the app web
             if (this.isAppWeb) {
                 // Append the start character for the query string
-                var endpoint = this.targetInfo.endpoint.indexOf("?") > 0 ? "&" : "?";
+                var endpoint = this.targetInfo.endpoint +
+                    (this.targetInfo.endpoint.indexOf("?") > 0 ? "&" : "?");
                 // Set the request url
                 this.requestUrl = template
                     .replace(/{{Url}}/g, this.context["webAbsoluteUrl"])
-                    .replace(/{{EndPoint}}/g, endpoint)
+                    .replace(/{{EndPoint}}/g, "SP.AppContextSite(@target)/" + endpoint)
                     .replace(/{{TargetUrl}}/g, "@target='" + this.targetInfo.url + "'");
             }
             else {
@@ -1222,12 +1223,30 @@ var $REST;
             }
             // Call the base constructor
             _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
+            // Get the Fields
+            var fields = new $REST.Fields(listName, this.targetInfo, false);
             // Query for the field
-            return (new $REST.Fields(listName, this.targetInfo, false))["getByInternalNameOrTitle"](internalNameOrTitle);
+            return fields["getByInternalNameOrTitle"](internalNameOrTitle);
         }
         return Field;
     }($REST.Base));
     $REST.Field = Field;
+    var Field_Async = (function (_super) {
+        __extends(Field_Async, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function Field_Async(internalNameOrTitle, listName) {
+            var args = [];
+            for (var _i = 2; _i < arguments.length; _i++) {
+                args[_i - 2] = arguments[_i];
+            }
+            // Call the base constructor
+            _super.call(this, internalNameOrTitle, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
+        }
+        return Field_Async;
+    }(Field));
+    $REST.Field_Async = Field_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
