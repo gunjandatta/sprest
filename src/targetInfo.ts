@@ -131,12 +131,13 @@ module $REST {
             // See if this is the app web
             if(this.isAppWeb) {
                 // Append the start character for the query string
-                let endpoint = this.targetInfo.endpoint.indexOf("?") > 0 ? "&" : "?";
+                let endpoint = this.targetInfo.endpoint +
+                    (this.targetInfo.endpoint.indexOf("?") > 0 ? "&" : "?");
 
                 // Set the request url
                 this.requestUrl = template
                     .replace(/{{Url}}/g, this.context["webAbsoluteUrl"])
-                    .replace(/{{EndPoint}}/g, endpoint)
+                    .replace(/{{EndPoint}}/g, "SP.AppContextSite(@target)/" + endpoint)
                     .replace(/{{TargetUrl}}/g, "@target='" + this.targetInfo.url + "'");
             } else {
                 // Set the request url

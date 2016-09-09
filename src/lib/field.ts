@@ -12,8 +12,21 @@ module $REST {
             // Call the base constructor
             super(Base.getInputParmeters.apply(null, args));
 
+            // Get the Fields
+            var fields = new Fields(listName, this.targetInfo, false);
+
             // Query for the field
-            return (new Fields(listName, this.targetInfo, false))["getByInternalNameOrTitle"](internalNameOrTitle);
+            return fields["getByInternalNameOrTitle"](internalNameOrTitle);
+        }
+    }
+
+    export class Field_Async extends Field {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(internalNameOrTitle:string, listName:string, ...args) {
+            // Call the base constructor
+            super(internalNameOrTitle, listName, Base.getAsyncInputParmeters.apply(null, args));
         }
     }
 
