@@ -59,7 +59,7 @@ module $REST {
 
         // Updates it's properties.
         update: {
-            metadataType: "SP.Field",
+            inheritMetadataType: true,
             name: "",
             requestMethod: "MERGE",
             requestType: RequestType.PostWithArgsInBody
