@@ -11,6 +11,12 @@ An easy way to develop against the SharePoint REST api.
 * Switch between asynchronous and synchronous requests by the object's property.
 * Written in TypeScript.
 
+## Get Started:
+### Node Package Manager (NPM)
+```
+npm install gd-sprest --save-dev
+```
+
 ## Example Projects
 [Bootstrap List](https://github.com/gunjandatta/sprest-list)
 
