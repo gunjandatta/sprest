@@ -4,9 +4,9 @@ var $REST;
     /*********************************************************************************************************************************/
     // Global Variables
     /*********************************************************************************************************************************/
-    $REST.Library = {};
-    $REST.ExecuteOnCreationFl = true;
     $REST.DefaultRequestToHostWebFl = false;
+    $REST.ExecuteOnCreationFl = true;
+    $REST.Library = {};
     var SP;
     /*********************************************************************************************************************************/
     // Base
@@ -44,7 +44,7 @@ var $REST;
         /*********************************************************************************************************************************/
         // Method to execute after the asynchronous request completes
         Base.prototype.done = function (callback) {
-            // Execute the promise
+            // Execute the promise callback, if it exists
             this.promise ? this.promise.done(callback) : null;
         };
         // Method to execute a child request

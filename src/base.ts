@@ -3,9 +3,9 @@ module $REST {
     /*********************************************************************************************************************************/
     // Global Variables
     /*********************************************************************************************************************************/
-    export var Library:any = {};
-    export var ExecuteOnCreationFl:boolean = true;
     export var DefaultRequestToHostWebFl:boolean = false;
+    export var ExecuteOnCreationFl:boolean = true;
+    export var Library:any = {};
     var SP:any;
 
     /*********************************************************************************************************************************/
@@ -48,7 +48,7 @@ module $REST {
 
         // Method to execute after the asynchronous request completes
         public done(callback:() => void) {
-            // Execute the promise
+            // Execute the promise callback, if it exists
             this.promise ? this.promise.done(callback) : null;
         }
 

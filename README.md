@@ -15,6 +15,13 @@ An easy way to develop against the SharePoint REST api.
 [Bootstrap List](https://github.com/gunjandatta/sprest-list)
 
 ## Documentation:
+### Executing Requests from the App Web
+A global flag is used to determine if an app web request should execute requests against the host web. The host web will default to the SPHostUrl query string value.
+*Note - This value is false by default*
+```
+$REST.DefaultRequestToHostWebFl = true;
+```
+
 ### Asynchronous/Synchronous requests
 All objects have the following constructors [Object] and [Object]_Async.
 
