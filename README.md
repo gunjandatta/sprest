@@ -17,7 +17,7 @@ An easy way to develop against the SharePoint REST api.
 npm install gd-sprest --save-dev
 ```
 
-## Example Projects
+### Example Projects
 [Bootstrap List](https://github.com/gunjandatta/sprest-list)
 
 ## Documentation:
