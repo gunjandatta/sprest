@@ -6,6 +6,7 @@ var $REST;
     /*********************************************************************************************************************************/
     $REST.Library = {};
     $REST.ExecuteOnCreationFl = true;
+    $REST.DefaultRequestToHostWebFl = false;
     var SP;
     /*********************************************************************************************************************************/
     // Base
@@ -19,7 +20,7 @@ var $REST;
             // Default the properties
             this.targetInfo = params.settings;
             this.requestType = 0;
-            // Default the flag, if it's not defined
+            // Default the properties
             this.executeRequestFl = typeof (params.executeRequestFl) === "boolean" ? params.executeRequestFl : $REST.ExecuteOnCreationFl;
         }
         Object.defineProperty(Base.prototype, "asyncFl", {
@@ -973,6 +974,11 @@ var $REST;
         // Method to set the request url
         TargetInfo.prototype.setRequestUrl = function () {
             var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
+            // See if we are defaulting the url for the app web
+            if ($REST.DefaultRequestToHostWebFl && this.isAppWeb && this.targetInfo.url == null) {
+                // Default the url to the host web
+                this.targetInfo.url = this.getQueryStringValue("SPHostUrl");
+            }
             // Ensure the url exists
             if (this.targetInfo.url == null) {
                 // Default the url to the current site/web url

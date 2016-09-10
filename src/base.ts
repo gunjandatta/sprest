@@ -5,6 +5,7 @@ module $REST {
     /*********************************************************************************************************************************/
     export var Library:any = {};
     export var ExecuteOnCreationFl:boolean = true;
+    export var DefaultRequestToHostWebFl:boolean = false;
     var SP:any;
 
     /*********************************************************************************************************************************/
@@ -20,7 +21,7 @@ module $REST {
             this.targetInfo = params.settings;
             this.requestType = 0;
 
-            // Default the flag, if it's not defined
+            // Default the properties
             this.executeRequestFl = typeof(params.executeRequestFl) === "boolean" ? params.executeRequestFl : ExecuteOnCreationFl;
         }
 

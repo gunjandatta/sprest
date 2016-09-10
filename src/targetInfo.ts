@@ -110,6 +110,12 @@ module $REST {
         private setRequestUrl() {
             let template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
 
+            // See if we are defaulting the url for the app web
+            if($REST.DefaultRequestToHostWebFl && this.isAppWeb && this.targetInfo.url == null) {
+                // Default the url to the host web
+                this.targetInfo.url = this.getQueryStringValue("SPHostUrl");
+            }
+
             // Ensure the url exists
             if(this.targetInfo.url == null) {
                 // Default the url to the current site/web url
