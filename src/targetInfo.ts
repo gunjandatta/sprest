@@ -108,12 +108,13 @@ module $REST {
 
         // Method to set the request url
         private setRequestUrl() {
+            let hostUrl = this.getQueryStringValue("SPHostUrl");
             let template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
 
             // See if we are defaulting the url for the app web
             if($REST.DefaultRequestToHostWebFl && this.isAppWeb && this.targetInfo.url == null) {
                 // Default the url to the host web
-                this.targetInfo.url = this.getQueryStringValue("SPHostUrl");
+                this.targetInfo.url = hostUrl;
             }
 
             // Ensure the url exists
@@ -128,9 +129,9 @@ module $REST {
                     var url = this.targetInfo.url.split("/_api/");
 
                     // Set the request url
-                    this.requestUrl = url[0] + "/_api/SP.AppContextSite(@target)/" + url[1] +
+                    this.requestUrl = this.context["webAbsoluteUrl"] + "/_api/SP.AppContextSite(@target)/" + url[1] +
                         (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") +
-                        "?@target='" + this.getQueryStringValue("SPHostUrl") + "'";
+                        "?@target='" + url[0] + "'";
                 }
                 else {
                     // Set the request url

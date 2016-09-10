@@ -973,11 +973,12 @@ var $REST;
         };
         // Method to set the request url
         TargetInfo.prototype.setRequestUrl = function () {
+            var hostUrl = this.getQueryStringValue("SPHostUrl");
             var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
             // See if we are defaulting the url for the app web
             if ($REST.DefaultRequestToHostWebFl && this.isAppWeb && this.targetInfo.url == null) {
                 // Default the url to the host web
-                this.targetInfo.url = this.getQueryStringValue("SPHostUrl");
+                this.targetInfo.url = hostUrl;
             }
             // Ensure the url exists
             if (this.targetInfo.url == null) {
@@ -989,9 +990,9 @@ var $REST;
                 if (this.isAppWeb) {
                     var url = this.targetInfo.url.split("/_api/");
                     // Set the request url
-                    this.requestUrl = url[0] + "/_api/SP.AppContextSite(@target)/" + url[1] +
+                    this.requestUrl = this.context["webAbsoluteUrl"] + "/_api/SP.AppContextSite(@target)/" + url[1] +
                         (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") +
-                        "?@target='" + this.getQueryStringValue("SPHostUrl") + "'";
+                        "?@target='" + url[0] + "'";
                 }
                 else {
                     // Set the request url
@@ -1288,7 +1289,7 @@ var $REST;
         },
         // Updates it's properties.
         update: {
-            metadataType: "SP.Field",
+            inheritMetadataType: true,
             name: "",
             requestMethod: "MERGE",
             requestType: $REST.RequestType.PostWithArgsInBody
