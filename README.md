@@ -4,11 +4,10 @@ An easy way to develop against the SharePoint REST api.
 *This library is still being tested...*
 
 ## Benefits:
-* Constructors similar to the SSOM object model.
 * Generates the REST api url and formats it for app webs automatically.
 * Global flag to execute requests on creation, to reduce the number of calls to the server.
 * Parent property for easier development.
-* PowerShell-Like experience in the browser console.
+* PowerShell-Like experience in the browser console. (Synchronous Requests)
 * Switch between asynchronous and synchronous requests by the object's property.
 * Written in TypeScript.
 
