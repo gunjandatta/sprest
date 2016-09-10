@@ -43,7 +43,7 @@ Having the execute on creation boolean option, if set to false will construct th
 ##### Synchronously
 ```
 // This will create the web object, but not execute the request.
-var web = new $REST.Web(null, false);
+var web = new $REST.Web(false);
 
 // This will execute the request to create a list
 var list = web.addList({
@@ -83,6 +83,8 @@ new $REST.ListItems("Site Assets", "<View Scope='RecursiveAll'><Query><Where><Eq
 All constructors take have the following optional parameters:
 ```
 // The target information and execute request flags are optional
+new Object([Object Specific Input Parameters], executeRequestFl);
+new Object([Object Specific Input Parameters], targetInfo);
 new Object([Object Specific Input Parameters], targetInfo, executeRequestFl);
 
 // Asynchronous methods can take either a target information object, or the callback function
