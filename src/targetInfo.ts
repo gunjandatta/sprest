@@ -117,8 +117,19 @@ module $REST {
             }
             // Else, see if the url already contains the full request
             else if(/\/_api\//.test(this.targetInfo.url)) {
-                // Set the request url
-                this.requestUrl = this.targetInfo.url + (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "");
+                // See if this is the app web
+                if(this.isAppWeb) {
+                    var url = this.targetInfo.url.split("/_api/");
+
+                    // Set the request url
+                    this.requestUrl = url[0] + "/_api/SP.AppContextSite(@target)/" + url[1] +
+                        (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") +
+                        "?@target='" + this.getQueryStringValue("SPHostUrl") + "'";
+                }
+                else {
+                    // Set the request url
+                    this.requestUrl = this.targetInfo.url + (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "");
+                }
                 return;
             }
 

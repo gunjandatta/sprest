@@ -979,8 +979,18 @@ var $REST;
                 this.targetInfo.url = this.context[this.targetInfo.defaultToWebFl ? "webAbsoluteUrl" : "siteAbsoluteUrl"];
             }
             else if (/\/_api\//.test(this.targetInfo.url)) {
-                // Set the request url
-                this.requestUrl = this.targetInfo.url + (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "");
+                // See if this is the app web
+                if (this.isAppWeb) {
+                    var url = this.targetInfo.url.split("/_api/");
+                    // Set the request url
+                    this.requestUrl = url[0] + "/_api/SP.AppContextSite(@target)/" + url[1] +
+                        (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") +
+                        "?@target='" + this.getQueryStringValue("SPHostUrl") + "'";
+                }
+                else {
+                    // Set the request url
+                    this.requestUrl = this.targetInfo.url + (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "");
+                }
                 return;
             }
             // See if this is a relative url
@@ -2203,19 +2213,19 @@ var $REST;
         // Gets the field with the specified ID.
         getFieldById: {
             argNames: ["id"],
-            name: "fields/getFieldById",
+            name: "fields/getById",
             requestType: $REST.RequestType.PostWithArgsValueOnly
         },
         // Returns the first Field object with the specified internal name or title from the collection.
         getFieldByInternalNameOrTitle: {
             argNames: ["internalNameOrTitle"],
-            name: "fields/getFieldByInternalNameOrTitle",
+            name: "fields/getByInternalNameOrTitle",
             requestType: $REST.RequestType.PostWithArgsValueOnly
         },
         // Returns the first field object in the collection based on the title of the specified field.
         getFieldByTitle: {
             argNames: ["title"],
-            name: "fields/getFieldByTitle",
+            name: "fields/getByTitle",
             requestType: $REST.RequestType.PostWithArgsValueOnly
         },
         // Get the file at the specified URL.
