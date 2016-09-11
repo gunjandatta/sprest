@@ -268,6 +268,8 @@ var $REST;
                 this["existsFl"] = results.length > 0;
                 // See if only one object exists
                 if (results.length == 1) {
+                    // Update the metadata
+                    this.updateMetadata(results[0]);
                     // Apply the properties to the object
                     this.addProperties(this, results[0]);
                     // Add the methods
@@ -284,6 +286,8 @@ var $REST;
                             results[i]["asyncFl"] = _this.asyncFl;
                             results[i]["executeMethod"] = _this.executeMethod;
                             results[i]["parent"] = _this;
+                            // Update the metadata
+                            _this.updateMetadata(results[i]);
                             // Add the methods
                             _this.addMethods(results[i], results[i]);
                         }
@@ -309,6 +313,8 @@ var $REST;
                 if (data.d) {
                     // Save a reference to it
                     this["d"] = data.d;
+                    // Update the metadata
+                    this.updateMetadata(data.d);
                     // Update this object's properties
                     this.addProperties(this, data.d);
                     // Add the methods
@@ -319,6 +325,18 @@ var $REST;
             }
             // Resolve the promise
             this.promise ? this.promise.resolve(this) : null;
+        };
+        // Method to update the metadata
+        Base.prototype.updateMetadata = function (data) {
+            var hostUrl = window["_spPageContextInfo"].webAbsoluteUrl.toLowerCase();
+            var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
+            var targetUrl = this.targetInfo && this.targetInfo.url ? this.targetInfo.url.toLowerCase() : null;
+            // Ensure the urls exist
+            if (hostUrl == null || requestUrl == null || targetUrl == null) {
+                return;
+            }
+            // Update the metadata uri
+            data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
         };
         return Base;
     }());

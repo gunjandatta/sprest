@@ -325,6 +325,9 @@ module $REST {
 
                 // See if only one object exists
                 if(results.length == 1) {
+                    // Update the metadata
+                    this.updateMetadata(results[0]);
+
                     // Apply the properties to the object
                     this.addProperties(this, results[0]);
 
@@ -342,6 +345,9 @@ module $REST {
                             results[i]["asyncFl"] = this.asyncFl;
                             results[i]["executeMethod"] = this.executeMethod;
                             results[i]["parent"] = this;
+
+                            // Update the metadata
+                            this.updateMetadata(results[i]);
 
                             // Add the methods
                             this.addMethods(results[i], results[i])
@@ -372,6 +378,9 @@ module $REST {
                     // Save a reference to it
                     this["d"] = data.d;
 
+                    // Update the metadata
+                    this.updateMetadata(data.d);
+
                     // Update this object's properties
                     this.addProperties(this, data.d);
 
@@ -385,6 +394,19 @@ module $REST {
 
             // Resolve the promise
             this.promise ? this.promise.resolve(this) : null;
+        }
+
+        // Method to update the metadata
+        private updateMetadata(data:any) {
+            let hostUrl = window["_spPageContextInfo"].webAbsoluteUrl.toLowerCase();
+            let requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
+            let targetUrl = this.targetInfo && this.targetInfo.url ? this.targetInfo.url.toLowerCase() : null;
+            
+            // Ensure the urls exist
+            if(hostUrl == null || requestUrl == null || targetUrl == null) { return; }
+
+            // Update the metadata uri
+            data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
         }
     }
 }
