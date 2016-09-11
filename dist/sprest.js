@@ -135,7 +135,7 @@ var $REST;
         /*********************************************************************************************************************************/
         // Method to add the methods to this object
         Base.prototype.addMethods = function (obj, data) {
-            var isCollection = data.results && data.results.length > 0;
+            var isCollection = data.results && data.results.length > 1;
             // Determine the metadata
             var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
             // Determine the object type

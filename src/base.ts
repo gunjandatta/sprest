@@ -163,7 +163,7 @@ module $REST {
 
         // Method to add the methods to this object
         protected addMethods(obj:any, data:any) {
-            let isCollection = data.results && data.results.length > 0;
+            let isCollection = data.results && data.results.length > 1;
 
             // Determine the metadata
             let metadata = isCollection ? data.results[0].__metadata : data.__metadata;
