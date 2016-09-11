@@ -133,10 +133,24 @@ module $REST {
                 }            
             }
 
-            // See if the argument values exist
-            if(this.methodInfo.argValues && (this.methodInfo.argNames == null || this.methodInfo.argValues.length > this.methodInfo.argNames.length)) {
-                // Set the method data to be passed in the body of the request
-                this.methodData = this.methodInfo.argValues[(this.methodInfo.argNames ? this.methodInfo.argNames.length : -1) + 1];
+            // See if argument values exist
+            if(this.methodInfo.argValues && this.methodInfo.argValues.length > 0) {
+                // See if argument names exist
+                if(this.methodInfo.argNames == null) {
+                    // Set the method data to first argument value
+                    this.methodData = this.methodInfo.argValues[0];
+                }
+                // Else, see if we are passing arguments outside of the parameters
+                else if(this.methodInfo.argValues.length > this.methodInfo.argNames.length) {
+                    // Set the method data to the next available argument value
+                    this.methodData = this.methodInfo.argValues[this.methodInfo.argNames.length];
+                }
+            }
+
+            // See if we are passing an argument in the body of the request
+            if(this.methodInfo.argValues && ((this.methodInfo.argNames == null && this.methodInfo.argValues.length > 0) || this.methodInfo.argValues.length > this.methodInfo.argNames.length)) {
+                // Set the method data object
+                this.methodData = this.methodInfo.argValues[this.methodInfo.argNames ? this.methodInfo.argNames.length : 0];
             }
 
             // See if the metadata type exists
