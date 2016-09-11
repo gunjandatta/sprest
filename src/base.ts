@@ -163,7 +163,7 @@ module $REST {
 
         // Method to add the methods to this object
         protected addMethods(obj:any, data:any) {
-            let isCollection = data.results && data.results.length > 1;
+            let isCollection = data.results && data.results.length > 0;
 
             // Determine the metadata
             let metadata = isCollection ? data.results[0].__metadata : data.__metadata;
@@ -174,7 +174,7 @@ module $REST {
             objType = (objType[objType.length - 1]);
             objType = objType.split('.');
             objType = (objType[objType.length - 1]).toLowerCase();
-            objType += isCollection ? "s" : "";
+            objType += isCollection && data.results.length > 1 ? "s" : "";
 
             // See if this is a field
             if(/^field/.test(objType) && objType != "fields") {

@@ -135,7 +135,7 @@ var $REST;
         /*********************************************************************************************************************************/
         // Method to add the methods to this object
         Base.prototype.addMethods = function (obj, data) {
-            var isCollection = data.results && data.results.length > 1;
+            var isCollection = data.results && data.results.length > 0;
             // Determine the metadata
             var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
             // Determine the object type
@@ -144,7 +144,7 @@ var $REST;
             objType = (objType[objType.length - 1]);
             objType = objType.split('.');
             objType = (objType[objType.length - 1]).toLowerCase();
-            objType += isCollection ? "s" : "";
+            objType += isCollection && data.results.length > 1 ? "s" : "";
             // See if this is a field
             if (/^field/.test(objType) && objType != "fields") {
                 // Update the type
