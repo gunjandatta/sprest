@@ -147,12 +147,6 @@ module $REST {
                 }
             }
 
-            // See if we are passing an argument in the body of the request
-            if(this.methodInfo.argValues && ((this.methodInfo.argNames == null && this.methodInfo.argValues.length > 0) || this.methodInfo.argValues.length > this.methodInfo.argNames.length)) {
-                // Set the method data object
-                this.methodData = this.methodInfo.argValues[this.methodInfo.argNames ? this.methodInfo.argNames.length : 0];
-            }
-
             // See if the metadata type exists
             if(this.methodInfo.metadataType) {
                 // See if parameters exist
