@@ -188,13 +188,26 @@ new $REST.Fields();
 
 ### File
 _**List**_
+#### Asynchronously
 ```
+// This will get the Forms subfolder of the documents library, set the asynchronous flag, and not execute request
+new $REST.Folder_Async("Forms", "Documents", false)
+// This will get the file asynchronously
+.getFile("EditForm.aspx")
+.done(function(file) {
+    // Code executes after we have the file object
+});
+```
+
+#### Synchronously
+```
+// This will get the file synchronously
 new $REST.File("sprest.js", "documents");
 ```
 
 _**Web**_
 ```
-new $REST.File("/sites/dev/shared documents/sprest.js");
+new $REST.File("/sites/dev/shared documents/forms/EditForm.aspx");
 ```
 
 ### Files
