@@ -328,6 +328,11 @@ var $REST;
         };
         // Method to update the metadata
         Base.prototype.updateMetadata = function (data) {
+            // Ensure this is the app web
+            if (!window["_spPageContextInfo"].isAppWeb) {
+                return;
+            }
+            // Get the url information
             var hostUrl = window["_spPageContextInfo"].webAbsoluteUrl.toLowerCase();
             var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
             var targetUrl = this.targetInfo && this.targetInfo.url ? this.targetInfo.url.toLowerCase() : null;

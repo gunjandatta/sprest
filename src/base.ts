@@ -398,10 +398,14 @@ module $REST {
 
         // Method to update the metadata
         private updateMetadata(data:any) {
+            // Ensure this is the app web
+            if(!window["_spPageContextInfo"].isAppWeb) { return; }
+
+            // Get the url information
             let hostUrl = window["_spPageContextInfo"].webAbsoluteUrl.toLowerCase();
             let requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
             let targetUrl = this.targetInfo && this.targetInfo.url ? this.targetInfo.url.toLowerCase() : null;
-            
+
             // Ensure the urls exist
             if(hostUrl == null || requestUrl == null || targetUrl == null) { return; }
 
