@@ -24,7 +24,7 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(internalNameOrTitle:string, listName:string, ...args) {
+        constructor(internalNameOrTitle:string, listName?:string, ...args) {
             // Call the base constructor
             super(internalNameOrTitle, listName, Base.getAsyncInputParmeters.apply(null, args));
         }

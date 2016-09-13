@@ -32,7 +32,7 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(listName:string, ...args) {
+        constructor(listName?:string, ...args) {
             // Call the base constructor
             super(listName, Base.getAsyncInputParmeters.apply(null, args));
         }
