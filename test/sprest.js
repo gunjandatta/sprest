@@ -180,7 +180,7 @@ var $REST;
                 // See if this is a collection property
                 if (value && value.__deferred && value.__deferred.uri) {
                     // Generate a method for this property
-                    obj["get_" + key] = new Function("return this.getCollection('" + key + "', arguments);");
+                    obj["get_" + key] = obj["get_" + key] ? obj["get_" + key] : new Function("return this.getCollection('" + key + "', arguments);");
                 }
                 else {
                     // Append the property to this object
@@ -248,6 +248,21 @@ var $REST;
             targetInfo.endpoint += "/" + method;
             // Update the callback
             targetInfo.callback = args && typeof (args[0]) === "function" ? args[0] : null;
+            // Create a new object
+            var obj = new Base({ settings: targetInfo, executeRequestFl: true });
+            // Set the parent
+            obj.parent = this;
+            // Execute the request
+            obj.execute();
+            // Return the object
+            return obj;
+        };
+        // Method to return a property of this object
+        Base.prototype.getProperty = function (propertyName) {
+            // Copy the target information
+            var targetInfo = Object.create(this.targetInfo);
+            // Append the method to the endpoint
+            targetInfo.endpoint += "/" + propertyName;
             // Create a new object
             var obj = new Base({ settings: targetInfo, executeRequestFl: true });
             // Set the parent
@@ -1075,7 +1090,11 @@ var $REST;
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.attachmentfiles = {
-        // Adds the attachment that is represented by the specified file name and byte array to the list item.
+        /**
+         * Adds the attachment that is represented by the specified file name and byte array to the list item.
+         @param name - The name of the file to add.
+         @param contents - The file contents as an array buffer.
+        **/
         add: {
             argNames: ["name"],
             requestType: $REST.RequestType.PostWithArgs
@@ -3601,6 +3620,161 @@ var $REST;
             return true;
         };
         ;
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        /**
+         * Gets a collection of metadata for the Web site.
+         */
+        Web.prototype.get_AllProperties = function () { return this.getProperty("AllProperties"); };
+        /**
+         *
+         */
+        Web.prototype.get_AppTiles = function () { return this.getProperty("AppTiles"); };
+        /**
+         * Gets or sets the group of users who have been given contribute permissions to the Web site.
+         */
+        Web.prototype.get_AssociatedMemberGroup = function () { return this.getProperty("AssociatedMemberGroup"); };
+        /**
+         * Gets or sets the associated owner group of the Web site.
+         */
+        Web.prototype.get_AssociatedOwnerGroup = function () { return this.getProperty("AssociatedOwnerGroup"); };
+        /**
+         * Gets or sets the associated visitor group of the Web site.
+         */
+        Web.prototype.get_AssociatedVisitorGroup = function () { return this.getProperty("AssociatedVisitorGroup"); };
+        /**
+         *
+         */
+        Web.prototype.get_Author = function () { return this.getProperty("Author"); };
+        /**
+         * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
+         */
+        Web.prototype.get_AvailableContentTypes = function () { return this.getProperty("AvailableContentTypes"); };
+        /**
+         * Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
+         */
+        Web.prototype.get_AvailableFields = function () { return this.getProperty("AvailableFields"); };
+        /**
+         *
+         */
+        Web.prototype.get_ClientWebParts = function () { return this.getProperty("ClientWebParts"); };
+        /**
+         * Gets the collection of content types for the Web site.
+         */
+        Web.prototype.get_ContentTypes = function () { return this.getProperty("ContentTypes"); };
+        /**
+         * Gets the current user of the site.
+         */
+        Web.prototype.get_CurrentUser = function () { return this.getProperty("CurrentUser"); };
+        /**
+         *
+         */
+        Web.prototype.get_DataLeakagePreventionStatusInfo = function () { return this.getProperty("DataLeakagePreventionStatusInfo"); };
+        /**
+         *
+         */
+        Web.prototype.get_DescriptionResource = function () { return this.getProperty("DescriptionResource"); };
+        /**
+         * Gets the collection of event receiver definitions that are currently available on the website.
+         */
+        Web.prototype.get_EventReceivers = function () { return this.getProperty("EventReceivers"); };
+        /**
+         * Gets a value that specifies the collection of features that are currently activated in the site.
+         */
+        Web.prototype.get_Features = function () { return this.getProperty("Features"); };
+        /**
+         * Gets the collection of field objects that represents all the fields in the Web site.
+         */
+        Web.prototype.get_Fields = function () { return this.getProperty("Fields"); };
+        /**
+         * Gets the collection of all first-level files in the Web site.
+         */
+        Web.prototype.get_Files = function () { return this.getProperty("rootfolder/files"); };
+        /**
+         * Gets the collection of all first-level folders in the Web site.
+         */
+        Web.prototype.get_Folders = function () { return this.getProperty("Folders"); };
+        /**
+         * Gets the collection of all lists that are contained in the Web site available to the current user based on the permissions of the current user.
+         */
+        Web.prototype.get_Lists = function () { return this.getProperty("Lists"); };
+        /**
+         * Gets a value that specifies the collection of list definitions and list templates available for creating lists on the site.
+         */
+        Web.prototype.get_ListTemplates = function () { return this.getProperty("ListTemplates"); };
+        /**
+         * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
+         */
+        Web.prototype.get_Navigation = function () { return this.getProperty("Navigation"); };
+        /**
+         * Gets the parent website of the specified website.
+         */
+        Web.prototype.get_ParentWeb = function () { return this.getProperty("ParentWeb"); };
+        /**
+         * Gets the collection of push notification subscribers over the site.
+         */
+        Web.prototype.get_PushNotificationSubscribers = function () { return this.getProperty("PushNotificationSubscribers"); };
+        /**
+         * Gets the collection of push notification subscribers over the site.
+         */
+        Web.prototype.get_RecycleBin = function () { return this.getProperty("RecycleBin"); };
+        /**
+         * Gets the regional settings that are currently implemented on the website.
+         */
+        Web.prototype.get_RegionalSettings = function () { return this.getProperty("RegionalSettings"); };
+        /**
+         * Gets the collection of role assignments for the Web site.
+         */
+        Web.prototype.get_RoleAssignments = function () { return this.getProperty("RoleAssignments"); };
+        /**
+         * Gets the collection of role definitions for the Web site.
+         */
+        Web.prototype.get_RoleDefinitions = function () { return this.getProperty("RoleDefinitions"); };
+        /**
+         * Gets the root folder for the Web site.
+         */
+        Web.prototype.get_RootFolder = function () { return this.getProperty("RootFolder"); };
+        /**
+         * Gets the collection of groups for the site collection.
+         */
+        Web.prototype.get_SiteGroups = function () { return this.getProperty("SiteGroups"); };
+        /**
+         * Gets the UserInfo list of the site collection that contains the Web site.
+         */
+        Web.prototype.get_SiteUserInfoList = function () { return this.getProperty("SiteUserInfoList"); };
+        /**
+         * Gets the collection of all users that belong to the site collection.
+         */
+        Web.prototype.get_SiteUsers = function () { return this.getProperty("SiteUsers"); };
+        /**
+         * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
+         */
+        Web.prototype.get_ThemeInfo = function () { return this.getProperty("ThemeInfo"); };
+        /**
+         *
+         */
+        Web.prototype.get_TitleResource = function () { return this.getProperty("TitleResource"); };
+        /**
+         * Gets a value that specifies the collection of user custom actions for the site.
+         */
+        Web.prototype.get_UserCustomActions = function () { return this.getProperty("UserCustomActions"); };
+        /**
+         * Represents key properties of the subsites of a site.
+         */
+        Web.prototype.get_WebInfos = function () { return this.getProperty("WebInfos"); };
+        /**
+         * Gets a Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
+         */
+        Web.prototype.get_Webs = function () { return this.getProperty("Webs"); };
+        /**
+         * Gets a value that specifies the collection of all workflow associations for the site.
+         */
+        Web.prototype.get_WorkflowAssociations = function () { return this.getProperty("WorkflowAssociations"); };
+        /**
+         * Gets a value that specifies the collection of workflow templates associated with the site.
+         */
+        Web.prototype.get_WorkflowTemplates = function () { return this.getProperty("WorkflowTemplates"); };
         return Web;
     }($REST.Base));
     $REST.Web = Web;

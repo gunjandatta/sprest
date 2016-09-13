@@ -7,11 +7,11 @@ declare module $REST {
     // The input parameters for the target information class.
     /***********************************************************************/
     interface IMethodInfoType {
-        argNames:[string];
-        argValues:[any];
+        argNames?:[string];
+        argValues?:[any];
         data?:any;
         inheritMetadataType?:boolean;        
-        metadataType:string;
+        metadataType?:string;
         name:string;
         replaceEndpointFl?:boolean;
         requestMethod?:string;

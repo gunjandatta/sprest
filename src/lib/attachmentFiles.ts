@@ -14,7 +14,11 @@ module $REST {
     // Methods
     /*********************************************************************************************************************************/
     Library.attachmentfiles = {
-        // Adds the attachment that is represented by the specified file name and byte array to the list item.
+        /**
+         * Adds the attachment that is represented by the specified file name and byte array to the list item.
+         @param name - The name of the file to add.
+         @param contents - The file contents as an array buffer.
+        **/
         add: {
             argNames: ["name"],
             requestType: RequestType.PostWithArgs

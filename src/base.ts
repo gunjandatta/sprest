@@ -215,7 +215,7 @@ module $REST {
                 // See if this is a collection property
                 if(value && value.__deferred && value.__deferred.uri) {
                     // Generate a method for this property
-                    obj["get_" + key] = new Function("return this.getCollection('" + key + "', arguments);");
+                    obj["get_" + key] = obj["get_" + key] ? obj["get_" + key] : new Function("return this.getCollection('" + key + "', arguments);");
                 }
                 else {
                     // Append the property to this object
@@ -225,7 +225,7 @@ module $REST {
         }
 
         // Method to execute a method
-        private executeMethod(methodName:string, methodConfig:IMethodInfoType, args:any) {
+        protected executeMethod(methodName:string, methodConfig:IMethodInfoType, args:any) {
             let targetInfo:ITargetInfoType = null;
 
             // See if the metadata is defined for this object
@@ -299,6 +299,27 @@ module $REST {
 
             // Update the callback
             targetInfo.callback = args && typeof(args[0]) === "function" ? args[0] : null;
+
+            // Create a new object
+            let obj = new Base({ settings: targetInfo, executeRequestFl: true });
+
+            // Set the parent
+            obj.parent = this;
+
+            // Execute the request
+            obj.execute();
+
+            // Return the object
+            return obj;
+        }
+
+        // Method to return a property of this object
+        protected getProperty(propertyName:string) {
+            // Copy the target information
+            let targetInfo = Object.create(this.targetInfo);
+
+            // Append the method to the endpoint
+            targetInfo.endpoint += "/" + propertyName;
 
             // Create a new object
             let obj = new Base({ settings: targetInfo, executeRequestFl: true });
