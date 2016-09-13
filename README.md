@@ -2,6 +2,7 @@
 An easy way to develop against the SharePoint REST api.
 
 *This library is still being tested...*
+*Please report issues. I am constantly updating/fixing/testing to make this library better.*
 
 ## Benefits:
 * Generates the REST api url and formats it for app webs automatically.
