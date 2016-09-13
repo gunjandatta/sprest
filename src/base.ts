@@ -48,8 +48,15 @@ module $REST {
 
         // Method to execute after the asynchronous request completes
         public done(callback:() => void) {
-            // Execute the promise callback, if it exists
-            this.promise ? this.promise.done(callback) : null;
+            // See if the promise exists
+            if(this.promise) {
+                // Execute the callback
+                this.promise.done(callback);
+            }
+            else {
+                // Set the callback in the target information
+                this.targetInfo.callback = callback;
+            }
         }
 
         // Method to execute a child request
@@ -355,6 +362,11 @@ module $REST {
                     // Add the methods
                     this.addMethods(results[0], results[0])
 
+                    // Add the asyncFl, execute method, and parent reference
+                    results[0]["asyncFl"] = this.asyncFl;
+                    results[0]["executeMethod"] = this.executeMethod;
+                    results[0]["parent"] = this;
+
                     // Copy the metadata
                     this["d"].__metadata = results[0].__metadata;
                 } else {
@@ -362,7 +374,7 @@ module $REST {
                     setTimeout(() => {
                         // Parse the results
                         for(let i=0; i<results.length; i++) {
-                            // Add the execute method and parent reference
+                            // Add the asyncFl, execute method, and parent reference
                             results[i]["asyncFl"] = this.asyncFl;
                             results[i]["executeMethod"] = this.executeMethod;
                             results[i]["parent"] = this;

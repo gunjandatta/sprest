@@ -44,8 +44,15 @@ var $REST;
         /*********************************************************************************************************************************/
         // Method to execute after the asynchronous request completes
         Base.prototype.done = function (callback) {
-            // Execute the promise callback, if it exists
-            this.promise ? this.promise.done(callback) : null;
+            // See if the promise exists
+            if (this.promise) {
+                // Execute the callback
+                this.promise.done(callback);
+            }
+            else {
+                // Set the callback in the target information
+                this.targetInfo.callback = callback;
+            }
         };
         // Method to execute a child request
         Base.prototype.execute = function () {
@@ -289,6 +296,10 @@ var $REST;
                     this.addProperties(this, results[0]);
                     // Add the methods
                     this.addMethods(results[0], results[0]);
+                    // Add the asyncFl, execute method, and parent reference
+                    results[0]["asyncFl"] = this.asyncFl;
+                    results[0]["executeMethod"] = this.executeMethod;
+                    results[0]["parent"] = this;
                     // Copy the metadata
                     this["d"].__metadata = results[0].__metadata;
                 }
@@ -297,7 +308,7 @@ var $REST;
                     setTimeout(function () {
                         // Parse the results
                         for (var i = 0; i < results.length; i++) {
-                            // Add the execute method and parent reference
+                            // Add the asyncFl, execute method, and parent reference
                             results[i]["asyncFl"] = _this.asyncFl;
                             results[i]["executeMethod"] = _this.executeMethod;
                             results[i]["parent"] = _this;
@@ -1132,6 +1143,22 @@ var $REST;
         return ContentType;
     }($REST.Base));
     $REST.ContentType = ContentType;
+    var ContentType_Async = (function (_super) {
+        __extends(ContentType_Async, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function ContentType_Async(contentTypeName, listName) {
+            var args = [];
+            for (var _i = 2; _i < arguments.length; _i++) {
+                args[_i - 2] = arguments[_i];
+            }
+            // Call the base constructor
+            _super.call(this, contentTypeName, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
+        }
+        return ContentType_Async;
+    }(ContentType));
+    $REST.ContentType_Async = ContentType_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -1559,7 +1586,7 @@ var $REST;
         // Checks the file in to a document library based on the check-in type.
         // Check-In Types: MinorCheckIn = 0; MajorCheckIn = 1; OverwriteCheckIn = 2
         checkin: {
-            argNames: ["checkin", "checkInType"],
+            argNames: ["comment", "checkInType"],
             requestType: $REST.RequestType.PostWithArgs
         },
         // Checks out the file from a document library based on the check-out type.
