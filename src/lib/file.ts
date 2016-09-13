@@ -60,7 +60,7 @@ module $REST {
         // Checks the file in to a document library based on the check-in type.
         // Check-In Types: MinorCheckIn = 0; MajorCheckIn = 1; OverwriteCheckIn = 2
         checkin: {
-            argNames: ["checkin", "checkInType"],
+            argNames: ["comment", "checkInType"],
             requestType: RequestType.PostWithArgs
         },
 
