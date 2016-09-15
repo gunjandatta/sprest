@@ -1818,11 +1818,37 @@ var $REST;
             for (var _i = 2; _i < arguments.length; _i++) {
                 args[_i - 2] = arguments[_i];
             }
+            var endpoint = "";
+            var getRootFolder = serverRelativeUrl == null || serverRelativeUrl == "" ? true : false;
             // Call the base constructor
             _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
+            // See if the list name exists
+            if (listName) {
+                // Update the endpoint
+                endpoint = "/lists/getByTitle('" + listName + "')";
+            }
+            // See if we are getting the root folder
+            if (getRootFolder || listName) {
+                // Update the endpoint
+                endpoint += "/rootfolder";
+            }
+            // See if the list name exists
+            if (listName) {
+                // Split the url
+                var url = serverRelativeUrl ? serverRelativeUrl.split("/") : [];
+                // Parse the url
+                for (var i = 0; i < url.length; i++) {
+                    // Update the endpoint
+                    endpoint += "/folders/getByUrl('" + url[i] + "')";
+                }
+            }
+            else {
+                // Update the endpoint
+                endpoint += getRootFolder ? "" : "/getFolderByServerRelativeUrl('" + serverRelativeUrl + "')";
+            }
             // Default the properties
             this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/rootfolder/folders/getByUrl('" : "getFolderByServerRelativeUrl('") + serverRelativeUrl + "')";
+            this.targetInfo.endpoint = "web" + endpoint;
             // See if we are executing the request
             if (this.executeRequestFl) {
                 // Execute the request
