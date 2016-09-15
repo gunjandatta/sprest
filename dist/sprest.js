@@ -1532,11 +1532,30 @@ var $REST;
             for (var _i = 2; _i < arguments.length; _i++) {
                 args[_i - 2] = arguments[_i];
             }
+            var endpoint = "";
             // Call the base constructor
             _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
+            // See if the list name exists
+            if (listName) {
+                // Update the endpoint
+                endpoint = "/lists/getByTitle('" + listName + "')/rootfolder";
+                // Split the url
+                var url = serverRelativeUrl ? serverRelativeUrl.split("/") : [];
+                // Parse the folders
+                for (var i = 0; i < url.length - 1; i++) {
+                    // Update the endpoint
+                    endpoint += "/folders/getByUrl('" + url[i] + "')";
+                }
+                // Add the file
+                endpoint += "/files/getByUrl('" + url[url.length - 1] + "')";
+            }
+            else {
+                // Update the endpoint
+                endpoint += "/getFileByServerRelativeUrl('" + serverRelativeUrl + "')";
+            }
             // Default the properties
             this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/rootfolder/files/getByUrl('" : "getFileByServerRelativeUrl('") + serverRelativeUrl + "')";
+            this.targetInfo.endpoint = "web" + endpoint;
             // See if we are executing the request
             if (this.executeRequestFl) {
                 // Execute the request
