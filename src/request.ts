@@ -180,7 +180,7 @@ module $REST {
             }
 
             // Execute the request
-            this.targetInfo.bufferFl ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+            this.targetInfo.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
         }
     }
 }
