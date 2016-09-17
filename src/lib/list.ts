@@ -267,7 +267,8 @@ module $REST {
         // Gets the effective user permissions for the current user.
         getUserEffectivePermissions: {
             argNames: ["loginName"],
-            requestType: RequestType.PostWithArgsInQS
+            name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
+            requestType: RequestType.GetReplace
         },
 
         // Returns the list view with the specified view identifier.

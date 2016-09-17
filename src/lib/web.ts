@@ -583,7 +583,9 @@ module $REST {
 
         // Gets the effective permissions that the specified user has within the current application scope.
         getUserEffectivePermissions: {
-            requestType: RequestType.GetWithArgsInQS
+            argNames: ["loginName"],
+            name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
+            requestType: RequestType.GetReplace
         },
 
         // Gets the site URL from a page URL. Static method.

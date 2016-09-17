@@ -66,7 +66,8 @@ module $REST {
         // Gets the effective permissions that a specified user has on the list item.
         getUserEffectivePermissions: {            
             argNames: ["loginName"],
-            requestType: RequestType.GetWithArgsInQS
+            name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
+            requestType: RequestType.GetReplace
         },
 
         // Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.

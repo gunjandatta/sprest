@@ -2415,7 +2415,8 @@ var $REST;
         // Gets the effective user permissions for the current user.
         getUserEffectivePermissions: {
             argNames: ["loginName"],
-            requestType: $REST.RequestType.PostWithArgsInQS
+            name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
+            requestType: $REST.RequestType.GetReplace
         },
         // Returns the list view with the specified view identifier.
         getViewById: {
@@ -2543,7 +2544,8 @@ var $REST;
         // Gets the effective permissions that a specified user has on the list item.
         getUserEffectivePermissions: {
             argNames: ["loginName"],
-            requestType: $REST.RequestType.GetWithArgsInQS
+            name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
+            requestType: $REST.RequestType.GetReplace
         },
         // Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
         recycle: {
@@ -4155,7 +4157,9 @@ var $REST;
         },
         // Gets the effective permissions that the specified user has within the current application scope.
         getUserEffectivePermissions: {
-            requestType: $REST.RequestType.GetWithArgsInQS
+            argNames: ["loginName"],
+            name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
+            requestType: $REST.RequestType.GetReplace
         },
         // Gets the site URL from a page URL. Static method.
         getWebUrlFromPageUrl: {
