@@ -57,6 +57,40 @@ module $REST {
                 this.addMethods(this, { __metadata: { type: "folder" } } );
             }
         }
+
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+
+        /**
+         * Gets the collection of all files contained in the list folder. You can add a file to a folder by using the Add method on the folder’s FileCollection resource.
+         */
+        public get_Files() { return this.getProperty("Files"); }
+
+        /**
+         * Gets the collection of list folders contained in the list folder.
+         */
+        public get_Folders() { return this.getProperty("Folders"); }
+
+        /**
+         * Specifies the list item field (2) values for the list item corresponding to the file.
+         */
+        public get_ListItemAllFields() { return this.getProperty("ListItemAllFields"); }
+
+        /**
+         * Gets the parent list folder of the folder.
+         */
+        public get_ParentFolder() { return this.getProperty("ParentFolder"); }
+
+        /**
+         * Gets the collection of all files contained in the folder.
+         */
+        public get_Properties() { return this.getProperty("Properties"); }
+
+        /**
+         * 
+         */
+        public get_StorageMetrics() { return this.getProperty("StorageMetrics"); }
     }
 
     export class Folder_Async extends Folder {

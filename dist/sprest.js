@@ -1566,6 +1566,49 @@ var $REST;
                 this.addMethods(this, { __metadata: { type: "file" } });
             }
         }
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        /**
+         * Gets a value that specifies the user who added the file.
+         */
+        File.prototype.get_Author = function () { return this.getProperty("Author"); };
+        /**
+         * Gets a value that returns the user who has checked out the file.
+         */
+        File.prototype.get_CheckedOutByUser = function () { return this.getProperty("CheckedOutByUser"); };
+        /**
+         *
+         */
+        File.prototype.get_EffectiveInformationRightsManagementSettings = function () { return this.getProperty("EffectiveInformationRightsManagementSettings"); };
+        /**
+         *
+         */
+        File.prototype.get_InformationRightsManagementSettings = function () { return this.getProperty("InformationRightsManagementSettings"); };
+        /**
+         * Gets a value that specifies the list item field values for the list item corresponding to the file.
+         */
+        File.prototype.get_ListItemAllFields = function () { return this.getProperty("ListItemAllFields"); };
+        /**
+         * Gets a value that returns the user that owns the current lock on the file.
+         */
+        File.prototype.get_LockedByUser = function () { return this.getProperty("LockedByUser"); };
+        /**
+         * Gets a value that returns the user who last modified the file.
+         */
+        File.prototype.get_ModifiedBy = function () { return this.getProperty("ModifiedBy"); };
+        /**
+         *
+         */
+        File.prototype.get_Properties = function () { return this.getProperty("Properties"); };
+        /**
+         *
+         */
+        File.prototype.get_VersionEvents = function () { return this.getProperty("VersionEvents"); };
+        /**
+         * Gets a value that returns a collection of file version objects that represent the versions of the file.
+         */
+        File.prototype.get_Versions = function () { return this.getProperty("Versions"); };
         return File;
     }($REST.Base));
     $REST.File = File;
@@ -1878,6 +1921,33 @@ var $REST;
                 this.addMethods(this, { __metadata: { type: "folder" } });
             }
         }
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        /**
+         * Gets the collection of all files contained in the list folder. You can add a file to a folder by using the Add method on the folder’s FileCollection resource.
+         */
+        Folder.prototype.get_Files = function () { return this.getProperty("Files"); };
+        /**
+         * Gets the collection of list folders contained in the list folder.
+         */
+        Folder.prototype.get_Folders = function () { return this.getProperty("Folders"); };
+        /**
+         * Specifies the list item field (2) values for the list item corresponding to the file.
+         */
+        Folder.prototype.get_ListItemAllFields = function () { return this.getProperty("ListItemAllFields"); };
+        /**
+         * Gets the parent list folder of the folder.
+         */
+        Folder.prototype.get_ParentFolder = function () { return this.getProperty("ParentFolder"); };
+        /**
+         * Gets the collection of all files contained in the folder.
+         */
+        Folder.prototype.get_Properties = function () { return this.getProperty("Properties"); };
+        /**
+         *
+         */
+        Folder.prototype.get_StorageMetrics = function () { return this.getProperty("StorageMetrics"); };
         return Folder;
     }($REST.Base));
     $REST.Folder = Folder;
@@ -2197,6 +2267,81 @@ var $REST;
                 this.addMethods(this, { __metadata: { type: "list" } });
             }
         }
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        /**
+         * Gets the content types that are associated with the list.
+         */
+        List.prototype.get_ContentTypes = function () { return this.getProperty("ContentTypes"); };
+        /**
+         *
+         */
+        List.prototype.get_CreatablesInfo = function () { return this.getProperty("CreatablesInfo"); };
+        /**
+         * Gets the default view for the list.
+         */
+        List.prototype.get_DefaultView = function () { return this.getProperty("DefaultView"); };
+        /**
+         *
+         */
+        List.prototype.get_DescriptionResource = function () { return this.getProperty("DescriptionResource"); };
+        /**
+         * Gets the collection of event receiver definitions associated with the list.
+         */
+        List.prototype.get_EventReceivers = function () { return this.getProperty("EventReceivers"); };
+        /**
+         * Gets the collection of field objects associated with the list.
+         */
+        List.prototype.get_Fields = function () { return this.getProperty("Fields"); };
+        /**
+         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+         */
+        List.prototype.get_FirstUniqueAncestorSecurableObject = function () { return this.getProperty("FirstUniqueAncestorSecurableObject"); };
+        /**
+         * Gets the collection of forms associated with the list.
+         */
+        List.prototype.get_Forms = function () { return this.getProperty("Forms"); };
+        /**
+         *
+         */
+        List.prototype.get_InformationRightsManagementSettings = function () { return this.getProperty("InformationRightsManagementSettings"); };
+        /**
+         * Gets all the items in the list.
+         */
+        List.prototype.get_Items = function () { return this.getProperty("Items"); };
+        /**
+         * Gets a value that specifies the site that contains the list.
+         */
+        List.prototype.get_ParentWeb = function () { return this.getProperty("ParentWeb"); };
+        /**
+         * Gets the collection of role assignments associated with the list.
+         */
+        List.prototype.get_RoleAssignments = function () { return this.getProperty("RoleAssignments"); };
+        /**
+         * Gets the root folder for the list.
+         */
+        List.prototype.get_RootFolder = function () { return this.getProperty("RootFolder"); };
+        /**
+         *
+         */
+        List.prototype.get_Subscriptions = function () { return this.getProperty("Subscriptions"); };
+        /**
+         *
+         */
+        List.prototype.get_TitleResource = function () { return this.getProperty("TitleResource"); };
+        /**
+         * Gets a value that specifies the collection of user custom actions associate with the list.
+         */
+        List.prototype.get_UserCustomActions = function () { return this.getProperty("UserCustomActions"); };
+        /**
+         * Gets a value that specifies the collection of all views associated with the list.
+         */
+        List.prototype.get_Views = function () { return this.getProperty("Views"); };
+        /**
+         * Gets a value that specifies the collection of all workflow associations for the list.
+         */
+        List.prototype.get_WorkflowAssociations = function () { return this.getProperty("WorkflowAssociations"); };
         return List;
     }($REST.Base));
     $REST.List = List;
@@ -2501,6 +2646,53 @@ var $REST;
                 this.addMethods(this, { __metadata: { type: "listItem" } });
             }
         }
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        /**
+         * Specifies the collection of attachments that are associated with the list item.
+         */
+        ListItem.prototype.get_AttachmentFiles = function () { return this.getProperty("AttachmentFiles"); };
+        /**
+         * Gets a value that specifies the content type of the list item.
+         */
+        ListItem.prototype.get_ContentType = function () { return this.getProperty("ContentType"); };
+        /**
+         * Gets the values for the list item as HTML.
+         */
+        ListItem.prototype.get_FieldValuesAsHtml = function () { return this.getProperty("FieldValuesAsHtml"); };
+        /**
+         * Gets the list item's field values as a collection of string values.
+         */
+        ListItem.prototype.get_FieldValuesAsText = function () { return this.getProperty("FieldValuesAsText"); };
+        /**
+         * Gets the formatted values to be displayed in an edit form.
+         */
+        ListItem.prototype.get_FieldValuesForEdit = function () { return this.getProperty("FieldValuesForEdit"); };
+        /**
+         * Gets the file that is represented by the item from a document library.
+         */
+        ListItem.prototype.get_File = function () { return this.getProperty("File"); };
+        /**
+         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+         */
+        ListItem.prototype.get_FirstUniqueAncestorSecurableObject = function () { return this.getProperty("FirstUniqueAncestorSecurableObject"); };
+        /**
+         * Gets a folder object that is associated with a folder item.
+         */
+        ListItem.prototype.get_Folder = function () { return this.getProperty("Folder"); };
+        /**
+         *
+         */
+        ListItem.prototype.get_GetDlpPolicyTip = function () { return this.getProperty("GetDlpPolicyTip"); };
+        /**
+         * Gets the parent list that contains the list item.
+         */
+        ListItem.prototype.get_ParentList = function () { return this.getProperty("ParentList"); };
+        /**
+         * Gets the role assignments for the securable object.
+         */
+        ListItem.prototype.get_RoleAssignments = function () { return this.getProperty("RoleAssignments"); };
         return ListItem;
     }($REST.Base));
     $REST.ListItem = ListItem;
@@ -3765,6 +3957,10 @@ var $REST;
          * Gets the collection of all first-level files in the Web site.
          */
         Web.prototype.get_Files = function () { return this.getProperty("rootfolder/files"); };
+        /**
+         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+         */
+        Web.prototype.get_FirstUniqueAncestorSecurableObject = function () { return this.getProperty("FirstUniqueAncestorSecurableObject"); };
         /**
          * Gets the collection of all first-level folders in the Web site.
          */

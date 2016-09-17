@@ -26,6 +26,100 @@ module $REST {
                 this.addMethods(this, { __metadata: { type: "list" } } );
             }
         }
+
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+
+        /**
+         * Gets the content types that are associated with the list.
+         */
+        public get_ContentTypes() { return this.getProperty("ContentTypes"); }
+
+        /**
+         * 
+         */
+        public get_CreatablesInfo() { return this.getProperty("CreatablesInfo"); }
+
+        /**
+         * Gets the default view for the list.
+         */
+        public get_DefaultView() { return this.getProperty("DefaultView"); }
+
+        /**
+         * 
+         */
+        public get_DescriptionResource() { return this.getProperty("DescriptionResource"); }
+
+        /**
+         * Gets the collection of event receiver definitions associated with the list.
+         */
+        public get_EventReceivers() { return this.getProperty("EventReceivers"); }
+
+        /**
+         * Gets the collection of field objects associated with the list.
+         */
+        public get_Fields() { return this.getProperty("Fields"); }
+
+        /**
+         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+         */
+        public get_FirstUniqueAncestorSecurableObject() { return this.getProperty("FirstUniqueAncestorSecurableObject"); }
+
+        /**
+         * Gets the collection of forms associated with the list.
+         */
+        public get_Forms() { return this.getProperty("Forms"); }
+
+        /**
+         *
+         */
+        public get_InformationRightsManagementSettings() { return this.getProperty("InformationRightsManagementSettings"); }
+
+        /**
+         * Gets all the items in the list.
+         */
+        public get_Items() { return this.getProperty("Items"); }
+
+        /**
+         * Gets a value that specifies the site that contains the list.
+         */
+        public get_ParentWeb() { return this.getProperty("ParentWeb"); }
+
+        /**
+         * Gets the collection of role assignments associated with the list.
+         */
+        public get_RoleAssignments() { return this.getProperty("RoleAssignments"); }
+
+        /**
+         * Gets the root folder for the list.
+         */
+        public get_RootFolder() { return this.getProperty("RootFolder"); }
+
+        /**
+         * 
+         */
+        public get_Subscriptions() { return this.getProperty("Subscriptions"); }
+
+        /**
+         * 
+         */
+        public get_TitleResource() { return this.getProperty("TitleResource"); }
+
+        /**
+         * Gets a value that specifies the collection of user custom actions associate with the list.
+         */
+        public get_UserCustomActions() { return this.getProperty("UserCustomActions"); }
+
+        /**
+         * Gets a value that specifies the collection of all views associated with the list.
+         */
+        public get_Views() { return this.getProperty("Views"); }
+
+        /**
+         * Gets a value that specifies the collection of all workflow associations for the list.
+         */
+        public get_WorkflowAssociations() { return this.getProperty("WorkflowAssociations"); }
     }
 
     export class List_Async extends List {

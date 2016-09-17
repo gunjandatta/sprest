@@ -124,6 +124,11 @@ module $REST {
         public get_Files() { return this.getProperty("rootfolder/files"); }
 
         /**
+         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+         */
+        public get_FirstUniqueAncestorSecurableObject() { return this.getProperty("FirstUniqueAncestorSecurableObject"); }
+
+        /**
          * Gets the collection of all first-level folders in the Web site.
          */
         public get_Folders() { return this.getProperty("Folders"); }
