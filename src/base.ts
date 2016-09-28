@@ -209,8 +209,11 @@ module $REST {
 
                     // See if this object has a dynamic metadata type
                     if(typeof(methodInfo.metadataType) === "function") {
-                        // Update the metadata type
-                        methodInfo.metadataType = methodInfo.metadataType(this);
+                        // Clone the object properties
+                        methodInfo = JSON.parse(JSON.stringify(methodInfo));
+
+                        // Set the metadata type
+                        methodInfo.metadataType = methods[methodName].metadataType(obj);
                     }
 
                     // Add the method to the object
