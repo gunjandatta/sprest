@@ -184,7 +184,7 @@ module $REST {
 
         // Adds an item to the list item collection.
         addItem: {
-            metadataType: "SP.ListItem",
+            metadataType: function(obj) { return obj["ListItemEntityTypeFullName"] || "SP.ListItem" },
             name: "items",
             requestType: RequestType.PostWithArgsInBody
         },

@@ -204,8 +204,17 @@ module $REST {
             if(methods) {
                 // Parse the methods
                 for(let methodName in methods) {
+                    // Get the method information
+                    let methodInfo = methods[methodName] ? methods[methodName] : {};
+
+                    // See if this object has a dynamic metadata type
+                    if(typeof(methodInfo.metadataType) === "function") {
+                        // Update the metadata type
+                        methodInfo.metadataType = methodInfo.metadataType(this);
+                    }
+
                     // Add the method to the object
-                    obj[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methods[methodName] ? methods[methodName] : {}) + ", arguments);");
+                    obj[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
                 }
             }
         }
@@ -232,7 +241,7 @@ module $REST {
         }
 
         // Method to execute a method
-        protected executeMethod(methodName:string, methodConfig:IMethodInfoType, args:any) {
+        protected executeMethod(methodName:string, methodConfig:IMethodInfoType, args?:any) {
             let targetInfo:ITargetInfoType = null;
 
             // See if the metadata is defined for this object

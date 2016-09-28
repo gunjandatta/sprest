@@ -170,8 +170,15 @@ var $REST;
             if (methods) {
                 // Parse the methods
                 for (var methodName in methods) {
+                    // Get the method information
+                    var methodInfo = methods[methodName] ? methods[methodName] : {};
+                    // See if this object has a dynamic metadata type
+                    if (typeof (methodInfo.metadataType) === "function") {
+                        // Update the metadata type
+                        methodInfo.metadataType = methodInfo.metadataType(this);
+                    }
                     // Add the method to the object
-                    obj[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methods[methodName] ? methods[methodName] : {}) + ", arguments);");
+                    obj[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
                 }
             }
         };
@@ -2408,7 +2415,7 @@ var $REST;
         },
         // Adds an item to the list item collection.
         addItem: {
-            metadataType: "SP.ListItem",
+            metadataType: function (obj) { return obj["ListItemEntityTypeFullName"] || "SP.ListItem"; },
             name: "items",
             requestType: $REST.RequestType.PostWithArgsInBody
         },
