@@ -217,6 +217,11 @@ module $REST {
             requestType: RequestType.PostWithArgs
         },
 
+        // Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+        recycle: {
+            requestType: RequestType.Get
+        },
+
         // Saves the file as a stream.
         saveBinaryStream: {
             requestType: RequestType.PostWithArgsInBody
@@ -229,11 +234,6 @@ module $REST {
             argNames: ["uploadId"],
             name: "startupload(uploadId=guid'[[uploadId]]')",
             requestType: RequestType.PostReplace
-        },
-
-        // Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-        recycle: {
-            requestType: RequestType.Get
         },
 
         // Reverts an existing checkout for the file.

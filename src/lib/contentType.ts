@@ -33,7 +33,7 @@ module $REST {
     Library.contenttype = {
         // Adds a field link to the content type.
         addFieldLink: {
-            name: "fieldlinks",
+            name: "fieldlink",
             metadataType: "SP.FieldLink",
             requestType: RequestType.PostWithArgsInBody
         },

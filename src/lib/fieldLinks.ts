@@ -21,6 +21,7 @@ module $REST {
             requestType: RequestType.PostWithArgsInBody
         },
 
+        // Gets a field link by it's id.
         getById: {
             argNames: ["id"],
             requestType: RequestType.GetWithArgsValueOnly
