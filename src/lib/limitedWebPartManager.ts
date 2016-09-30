@@ -14,7 +14,7 @@ module $REST {
     // Methods
     /*********************************************************************************************************************************/
     Library.limitedwebpartmanager = {
-        // Gets an item by its id.
+        // Gets a webpart by its id.
         get_WebParts: {
             argNames: ["id"],
             name: "webparts?expand=WebPart",

@@ -203,7 +203,7 @@ module $REST {
             requestType: RequestType.PostWithArgs
         },
 
-        // Adds an item to the list item collection.
+        // Adds a view to the list view collection.
         addView: {
             metadataType: "SP.View",
             name: "views",
@@ -219,12 +219,6 @@ module $REST {
         // Deletes the object
         delete: {
             requestType: RequestType.Delete
-        },
-
-        // Returns the list item with the specified list item identifier.
-        getById: {
-            argNames: ["id"],
-            requestType: RequestType.GetWithArgsValueOnly
         },
 
         // Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
@@ -294,7 +288,7 @@ module $REST {
             requestType: RequestType.PostWithArgsValueOnly
         },
 
-        // Get the file at the specified URL.
+        // Get the folder at the specified URL.
         getSubFolder: {
             argNames: ["serverRelativeUrl"],
             name: "folders/getbyurl",
