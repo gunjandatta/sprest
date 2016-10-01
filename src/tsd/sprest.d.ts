@@ -1,7 +1,7 @@
 // Type definitions for gd-sprest
 // Project: https://github.com/gunjandatta/sprest
 // Definitions by: Gunjan Datta <https://github.com/gunjandatta/>
-// Definitions: TBD
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /***************************************************************************************************
 MIT License

@@ -1868,6 +1868,29 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
+/// <reference path="../base.d.ts" />
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // File Versions
+    // The SPFileVersionCollection object.
+    /*********************************************************************************************************************************/
+    //export class FileVersions extends Base {
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    //}
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    $REST.Library.fileversions = {
+        // Deletes the object
+        delete: {
+            requestType: $REST.RequestType.Delete
+        }
+    };
+})($REST || ($REST = {}));
+
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -3407,6 +3430,73 @@ var $REST;
         { name: "unlike", "function": function (id) { return this.executePost("unlike", null, { ID: id || this.ID }, true); } },
         { name: "unlock", "function": function (id) { return this.executePost("unlock", null, { ID: id || this.ID }, true); } },
     ];
+})($REST || ($REST = {}));
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+/// <reference path="../base.d.ts" />
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // User
+    // The SPUser object.
+    /*********************************************************************************************************************************/
+    var User = (function (_super) {
+        __extends(User, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function User(userId) {
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+            // Call the base constructor
+            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.targetInfo.endpoint = "web/getUserById(" + userId + ")";
+            // See if we are executing the request
+            if (this.executeRequestFl) {
+                // Execute the request
+                this.execute();
+            }
+            else {
+                // Add the methods
+                this.addMethods(this, { __metadata: { type: "user" } });
+            }
+        }
+        return User;
+    }($REST.Base));
+    $REST.User = User;
+    var User_Async = (function (_super) {
+        __extends(User_Async, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function User_Async(userId) {
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+            // Call the base constructor
+            _super.call(this, userId, $REST.Base.getAsyncInputParmeters.apply(null, args));
+        }
+        return User_Async;
+    }(User));
+    $REST.User_Async = User_Async;
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    $REST.Library.user = {
+        // Deletes the object
+        delete: {
+            requestType: $REST.RequestType.Delete
+        }
+    };
 })($REST || ($REST = {}));
 
 /// <reference path="../base.d.ts" />
