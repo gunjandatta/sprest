@@ -44,19 +44,19 @@ module $REST {
     Library.roleAssignments = {
         // Adds a new role assignment with the specified principal and role definitions to the collection.
         addRoleAssignment: {
-            argNames: ["principalid", "roledefid"],
+            argNames: ["principalId", "roleDefId"],
             requestType: RequestType.PostWithArgs
         },
 
         // Gets the role assignment associated with the specified principal ID from the collection.
         getByPrincipalId: {
-            argNames: ["id"],
+            argNames: ["principalId"],
             requestType: RequestType.GetWithArgsValueOnly
         },
 
         // Gets the role definition with the specified role type.
         removeRoleAssignment: {
-            argNames: ["principalid", "roledefid"],
+            argNames: ["principalId", "roleDefId"],
             requestType: RequestType.PostWithArgs
         }
     };

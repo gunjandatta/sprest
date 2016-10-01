@@ -268,6 +268,7 @@ module $REST {
 
         // Adds an existing content type to content type collection.
         addExistingContentType: {
+            argNames: ["contentTypeId"],
             name: "contenttypes/addAvailableContentType",
             requestType: RequestType.PostWithArgsInBody
         },
@@ -325,6 +326,7 @@ module $REST {
 
         // Adds a sub-folder to the root folder.
         addSubFolder: {
+            argNames: ["url"],
             name: "rootfolder/folders/add",
             requestType: RequestType.PostWithArgsValueOnly
         },
@@ -337,6 +339,7 @@ module $REST {
 
         // Applies the specified site definition or site template to the Web site that has no template applied to it.
         applyWebTemplate: {
+            argName: ["name"],
             requestType: RequestType.PostWithArgsInQS
         },
 
@@ -353,6 +356,7 @@ module $REST {
 
         // Checks whether the push notification subscriber exist for the current user with the given device application instance ID.
         doesPushNotificationSubscriberExist: {
+            argNames: ["id"],
             requestType: RequestType.GetWithArgsValueOnly
         },
         
@@ -635,7 +639,6 @@ module $REST {
 
         // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
         resetRoleInheritance: {
-            argNames: [],
             requestType: RequestType.Post
         },
 

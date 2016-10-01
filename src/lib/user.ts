@@ -1,20 +1,20 @@
 /// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
-    // Role Definitions
-    // The SPRoleDefinitionCollection object.
+    // User
+    // The SPUser object.
     /*********************************************************************************************************************************/
-    export class RoleDefinitions extends Base {
+    export class User extends Base {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(...args) {
+        constructor(userId:number, ...args) {
             // Call the base constructor
             super(Base.getInputParmeters.apply(null, args));
 
             // Default the properties
             this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/roledefinitions";
+            this.targetInfo.endpoint = "web/getUserById(" + userId + ")";
 
             // See if we are executing the request
             if(this.executeRequestFl) {
@@ -23,41 +23,28 @@ module $REST {
             }
             else {
                 // Add the methods
-                this.addMethods(this, { __metadata: { type: "roledefinitions" } } );
+                this.addMethods(this, { __metadata: { type: "user" } } );
             }
         }
     }
 
-    export class RoleDefinitions_Async extends RoleDefinitions {
+    export class User_Async extends User {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(...args) {
+        constructor(userId:number, ...args) {
             // Call the base constructor
-            super(Base.getAsyncInputParmeters.apply(null, args));
+            super(userId, Base.getAsyncInputParmeters.apply(null, args));
         }
     }
 
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    Library.roledefinitions = {
-        // Gets the role definition with the specified ID from the collection.
-        getById: {
-            argNames: ["roleDefId"],
-            requestType: RequestType.GetWithArgsValueOnly
-        },
-
-        // Gets the role definition with the specified name.
-        getByName: {
-            argNames: ["name"],
-            requestType: RequestType.GetWithArgsValueOnly
-        },
-
-        // Gets the role definition with the specified role type.
-        getByType: {
-            argNames: ["type"],
-            requestType: RequestType.GetWithArgsValueOnly
+    Library.user = {
+        // Deletes the object
+        delete: {
+            requestType: RequestType.Delete
         }
-    };
+    }
 }

@@ -62,7 +62,7 @@ module $REST {
 
         // Removes the cross-site group with the specified name from the collection.
         removeByLoginName: {
-            argNames: ["loginName"],
+            argNames: ["name"],
             requestType: RequestType.PostWithArgsValueOnly
         },
     }

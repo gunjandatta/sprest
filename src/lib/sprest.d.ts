@@ -358,7 +358,7 @@ declare module $REST {
          * Adds a file to this collection.
          * @param overwrite - true to overwrite the file if it already exists; otherwise false.
          * @param url - The folder-relative URL of the file.
-         * @param content - The contents of the file. Pass the content parameter in the request body. The maximum size of a binary file that you can add by using the REST API is 2 GB.
+         * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
          */
         add(overwrite, url, content): File;
 
@@ -406,7 +406,7 @@ declare module $REST {
          * Adds a file to this folder.
          * @param overwrite - true to overwrite the file if it already exists; otherwise false.
          * @param url - The folder-relative URL of the file.
-         * @param content - The contents of the file. Pass the content parameter in the request body. The maximum size of a binary file that you can add by using the REST API is 2 GB.
+         * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
          */
         addFile(url, overwrite, content): File;
 
@@ -734,13 +734,86 @@ declare module $REST {
      * Lists
      */
     interface Lists {
+        /**
+         * Adds a list to the list collection.
+         * @param data - The list creation information.
+         */
+        add(data): List;
 
+        /**
+         * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
+         */
+        ensureSiteAssetsLibrary(): any;
+
+        /**
+         * Gets a list that is the default location for wiki pages.
+         */
+        ensureSitePagesLibrary(): any;
+
+        /**
+         * Returns the list with the specified list identifier.
+         * @param id - The list id.
+         */
+        getById(id): List;
+
+        /**
+         * Returns the list with the specified title from the collection.
+         * @param title - The list title.
+         */
+        getByTitle(title): List;
     }
 
     /**
      * List Item
      */
     interface ListItem {
+        /**
+         * Adds the attachment that is represented by the specified file name and byte array to the list item.
+         * @param name - The name of the attachment.
+         * @param content - The contents of the file. Pass the content parameter in the request body. The maximum size of a binary file that you can add by using the REST API is 2 GB.
+         */
+        addAttachment(name, content): any;
+
+        /**
+         * Creates unique role assignments for the securable object.
+         * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
+         * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
+         */
+        breakRoleInheritance(copyRoleAssignments, clearSubScopes): any;
+
+        /**
+         * Deletes the list item.
+         */
+        delete(): any;
+
+        /**
+         * Gets the effective permissions that a specified user has on the list item.
+         * @param loginName - The login name.
+         */
+        getUserEffectivePermissions(loginName): any;
+
+        /**
+         * Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+         */
+        recycle(): any;
+
+        /**
+         * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+         */
+        resetRoleInheritance(): any;
+
+        /**
+         * Updates it's properties.
+         * @param data - The list properties to update.
+         */
+        update(data): any;
+
+        /**
+         * Validates and sets the values of the specified collection of fields for the list item.
+         * @param formValues - The fields to change and their new values. Pass this parameter in the request body, as shown in the request example.
+         * @param bNewDocumentUpdate - True if the list item is a document being updated after upload; otherwise false. Pass this parameter in the request body, as shown in the request example, or in the URI path.
+         */
+        validateUpdateListItem(formValues, bNewDocumentUpdate);
     }
 
     /**
@@ -761,9 +834,814 @@ declare module $REST {
     }
 
     /**
+     * Role Assignment
+     */
+    interface RoleAssignment {
+        /**
+         * Deletes the role assignment.
+         */
+        delete(): any;
+    }
+
+    /**
+     * RoleAssignments
+     */
+    interface RoleAssignments {
+        /**
+         * Adds a new role assignment with the specified principal and role definitions to the collection.
+         * @param principalId - The ID of the user or group to assign permissions to.
+         * @param roleDefId - The ID of the role definition that defines the permissions to assign.
+         */
+        addRoleAssignment(principalId, roleDefId): RoleAssignment;
+
+        /**
+         * Gets the role assignment associated with the specified principal ID from the collection.
+         * @param principalId - The ID of the user or group to assign permissions to.
+         */
+        getByPrincipalId(principalId): RoleAssignment;
+
+        /**
+         * Gets the role definition with the specified role type.
+         * @param principalId - The ID of the user or group to assign permissions to.
+         * @param roleDefId - The ID of the role definition that defines the permissions to assign.
+         */
+        removeRoleAssignment(principalId, roleDefId): any;
+    }
+
+    /**
+     * Role Definition
+     */
+    interface RoleDefinition {
+        /**
+         * Deletes the role definition.
+         */
+        delete(): any;
+    }
+
+    /**
+     * Role Definitions
+     */
+    interface RoleDefinitions {
+        /**
+         * Gets the role definition with the specified ID from the collection.
+         * @param roleDefId - The ID of the role definition that defines the permissions to assign.
+         */
+        getById(roleDefId): RoleDefinition;
+
+        /**
+         * Gets the role definition with the specified name.
+         * @param name -
+         */
+        getByName(name): RoleDefinition;
+
+        /**
+         * Gets the role definition with the specified role type.
+         * @param type - The RoleTypeKind of the role definition.
+         * Role Definition Types:
+         * 0 - None
+         * 1 - Gues
+         * 2 - Reader
+         * 3 - Contributor
+         * 4 - Web Designer
+         * 5 - Administrator
+         * 6 - Editor
+         */
+        getByType(type): RoleDefinition;
+    }
+
+    /**
+     * Site
+     */
+    interface Site {
+        /**
+         * Adds a custom action to the user custom action collection.
+         * data - The user custom action information.
+         */
+        addCustomAction(data): UserCustomAction;
+
+        /**
+         * Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
+         * @param upgrade - If true, the evaluation site collection MUST be upgraded when it is created. If false, the evaluation site collection MUST NOT be upgraded when it is created.
+         * @param sendEmail - If true, a notification email MUST be sent to the requestor and the site collection administrators at the completion of the creation of the evaluation site collection. If false, such notification MUST NOT be sent.
+         */
+        createPreviewSPSite(upgrade, sendEmail): any;
+        
+        /**
+         * Extend the upgrade reminder date for this SPSite by the days specified at WebApplication.UpgradeReminderDelay.
+         */
+        extendUpgradeReminderDate(): any;
+        
+        /**
+         * Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
+         * @param typeCatalog - Specifies the list template type for the gallery.
+         */
+        getCatalog(typeCatalog): any;
+        
+        /**
+         * Specifies the collection of the site collection changes from the change log that have occurred within the scope of the site collection, based on the specified query.
+         * @param query - The change query.
+         */
+        getChanges(query): any;
+
+        /**
+         * Gets a custom action by it's name or title.
+         * @param title - THe user custom action title.
+         */
+        getCustomAction(title): UserCustomAction;
+        
+        /**
+         * Specifies the collection of custom list templates for a given site.
+         * @param web - Specifies the site that contains the custom list templates to be returned.
+         */
+        getCustomListTemplates(web): any;
+        
+        /**
+         * Returns the collection of site definitions that are available for creating Web sites within the site collection.
+         * @param LCID - A 32-bit unsigned integer that specifies the language of the site definitions that are returned from the site collection.
+         * @param overrideCompatLevel - Specifies the compatibility level of the site to return from the site collection. If this value is 0, the compatibility level of the site is used.
+         */
+        getWebTemplates(LCID, overrideCompatLevel): any;
+        
+        /**
+         * Invalidates cached upgrade information about the site collection so that this information will be recomputed the next time it is needed.
+         */
+        invalidate(): any;
+        
+        /**
+         * Returns true if the object needs to be upgraded; otherwise, false.
+         * @param versionUpgrade - If true, version-to-version site collection upgrade is requested; otherwise false for build-to-build site collection upgrade.
+         * @param recursive - If true, child upgradable objects will be inspected; otherwise false.
+         */
+        needsUpgradeByType(versionUpgrade, recursive): any;
+        
+        /**
+         * Returns the site at the specified URL.
+         * @param strUrl - The server-relative URL or site-relative URL of the site to return. If strUrl is empty, the top-level site is returned.
+         */
+        openWeb(strUrl): Web;
+        
+        /**
+         * Returns the site with the specified GUID.
+         * @param gWebId - A GUID that specifies which site to return.
+         */
+        openWebById(gWebId): Web;
+        
+        /**
+         * Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
+         * @param ruleId - Specifies the rule or rules to be run. If the value is an empty GUID, all rules are run, otherwise only the specified rule is run.
+         * @param bRepair - Specifies whether repairable rules are to be run in repair mode.
+         * @param bRunAlays - Specifies whether the rules will be run as a result of this call or cached results from a previous run can be returned.
+         */
+        runHealthCheck(ruleId, bRepair, bRunAlways): any;
+        
+        /**
+         * Either runs a site collection upgrade, or schedules it to be run in the future, depending on available system resources and the value of the queueOnly parameter. The user executing this method MUST be a farm administrator or a site collection administrator.
+         * @param versionUpgrade - If true, specifies that a version-to-version upgrade will be performed. If false, specifies that a build-to-build upgrade will be performed.
+         * @param queueOnly - If true, specifies that the upgrade will not be run immediately; it will be queued for a later run.
+         * @param sendEmail - If true, a notification email will be sent to the requestor and the site collection administrators at the completion of the site collection upgrade. If false, such notification will not be sent.
+         */
+        runUpgradeSiteSession(versionUpgrade, queueOnly, sendEmail): any;
+
+        /**
+         * Method to send an email.
+         * @param properties - The email information.
+         */
+        sendEmail(properties): any;
+
+        /**
+         * Updates it's properties.
+         * @param data - The list properties to update.
+         */
+        update(data): any;
+        
+        /**
+         * Sets whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
+         * @param requireUseRemoteAPIs - Specifies whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
+         */
+        updateClientObjectModelUseRemoteAPIsPermissionSetting(requireUseRemoteAPIs): any;
+    }
+
+    /**
+     * Site Groups
+     */
+    interface SiteGroups {
+        /**
+         * Returns a group from the collection based on the member ID of the group.
+         * @param id - The site group id.
+         */
+        getById(id): Group;
+
+        /**
+         * Returns a cross-site group from the collection based on the name of the group.
+         * @param name - The name of the group. The group name is specified in its LoginName property.
+         */
+        getByName(name): Group;
+
+        /**
+         * Removes the group with the specified member ID from the collection.
+         * @param id - The ID of the group to remove.
+         */
+        removeById(id): any;
+
+        /**
+         * Removes the cross-site group with the specified name from the collection.
+         * @param name - The name of the group to remove. The group name is specified in its LoginName property.
+         */
+        removeByLoginName(name): any;
+    }
+
+    /**
+     * User
+     */
+    interface User {
+        /**
+         * Deletes the user custom action.
+         */
+        delete(): any;
+    }
+
+    /**
+     * User Custom Action
+     */
+    interface UserCustomAction {
+        /**
+         * Deletes the user custom action.
+         */
+        delete(): any;
+    }
+
+    /**
+     * User Custom Actions
+     */
+    interface UserCustomActions {
+        /**
+         * Adds a custom actino to the user custom action collection. 
+         * @param data - The user custom action information.
+         */
+        add(data): UserCustomAction;
+
+        /**
+         * Deletes all custom actions in the collection.
+         */
+        clear(): any;
+
+        /**
+         * Returns the custom action with the specified identifier.
+         * @param id - The ID of the user custom action to get.
+         */
+        getById(id): UserCustomAction;
+
+        /**
+         * Returns the user custom action based on the name of the specified user custom action.
+         * @param name - The user custom action name.
+         */
+        getByName(name): UserCustomAction;
+
+        /**
+         * Returns the user custom action based on the title of the specified user custom action.
+         * @param title - The user custom action title.
+         */
+        getByTitle(title): UserCustomAction;
+    }
+
+    /**
+     * Users
+     */
+    interface Users {
+        /**
+         * Gets the user with the specified email address.
+         * @param email - The email of the user to get.
+         */
+        getByEmail(email): User;
+
+        /**
+         * Gets the user with the specified member identifier (ID).
+         * @param id - The ID of the user to get.
+         */
+        getById(id): User;
+
+        /**
+         * Gets the user with the specified login name.
+         * @param loginName - The login name of the user to get, passed as an alias in the query string.
+         */
+        getByLoginName(loginName): User;
+
+        /**
+         * Removes the user with the specified ID.
+         * @param id - The ID of the user to remove.
+         */
+        removeById(id): any;
+
+        /**
+         * Removes the user with the specified login name.
+         * @param loginName - The login name of the user to remove.
+         */
+        removeByLoginName(loginName): any;
+    }
+
+    /**
+     * Versions
+     */
+    interface Version {
+        /**
+         * Gets the version with the specified ID.
+         * @param id - The version id to get.
+         */
+        getById(id): any;
+
+        /**
+         * Deletes all versions in the collection.
+         */
+        deleteAll(): any;
+
+        /**
+         * Deletes a version, by the specified id.
+         * @param id - The version id to delete.
+         */
+        deleteById(id): any;
+
+        /**
+         * Deletes a version, by the specified label.
+         * @param label - The version label to delete.
+         */
+        deleteByLabel(label): any;
+
+        /**
+         * Restores a version, by the specified label.
+         * @param label - The version label to restore.
+         */
+        restoreByLabel(label): any;
+    }
+
+    /**
      * View
      */
     interface View {
+        /**
+         * Deletes the view.
+         */
+        delete(): any;
 
+        /**
+         * Returns the list view as HTML.
+         */
+        renderAsHtml(): any;
+
+        /**
+         * Updates it's properties.
+         * @param data - The list properties to update.
+         */
+        update(data): any;
+    }
+
+    /**
+     * View Fields
+     */
+    interface ViewFields {
+        /**
+         * Adds the field with the specified field internal name or display name to the collection.
+         * @param fieldName - The case-sensitive internal name or display name of the field to add.
+         */
+        addViewField(fieldName): any;
+
+        /**
+         * Moves the field with the specified field internal name to the specified position in the collection.
+         * @param field - The case-sensitive internal name of the field to move. Send this parameter and the index parameter in the request body, as shown in the example.
+         * @param index - The zero-based index of the new position for the field. Send this parameter and the field parameter in the request body, as shown in the example.
+         */
+        moveViewFieldTo(field, index): any;
+
+        /**
+         * Removes all the fields from the collection.
+         */
+        removeAllViewFields(): any;
+
+        /**
+         * Removes the field with the specified field internal name from the collection.
+         * @param fieldName - The case-sensitive internal name or display name of the field to add.
+         */
+        removeViewField(fieldName): any;
+    }
+
+    /**
+     * Views
+     */
+    interface Views {
+        /**
+         * Gets the list view with the specified ID.
+         * @param id - The ID of the view.
+         */
+        getById(id): View;
+
+        /**
+         * Gets the list view with the specified title.
+         * @param title - The case-sensitive title of the view.
+         */
+        getByTitle(title): View;
+    }
+
+    /**
+     * Web
+     */
+    interface Web {
+        /**
+         * Adds a content type content type collection.
+         * @param data - The content type creation information.
+         */
+        addContentType(data): ContentType;
+
+        /**
+         * Adds a custom action to the user custom action collection.
+         * @param data - The content type creation information.
+         */
+        addCustomAction(data): UserCustomAction;
+
+        /**
+         * Adds an existing content type to content type collection.
+         * @param contentTypeId - The content type id to add.
+         */
+        addExistingContentType(contentTypeId): ContentType;
+
+        /**
+         * Adds a field to it's collection.
+         * @param parameters - The field creation information.
+         */
+        addField(parameters): Field;
+
+        /**
+         * Adds a field, using it's Schema XML, to the field collection.
+         * Set the option to addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
+         * @param schemaXml - The schema XML definition of the field.
+         */
+        addFieldAsXml(schemaXml): Field;
+
+        /**
+         * Adds a file to the root folder.
+         * @param overwrite - true to overwrite the file if it already exists; otherwise false.
+         * @param url - The folder-relative URL of the file.
+         * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
+         */
+        addFile(overwrite, url, content): File;
+
+        /**
+         * Adds a list to the list collection.
+         * @param data - The list creation information.
+         */
+        addList(data): List;
+
+        /**
+         * Adds a permission to the role definitions.
+         * @param data - The role definition information.
+         */
+        addPermission(data);
+
+        /**
+         * Adds a site group to the site group collection.
+         * @param title - The site group title.
+         */
+        addSiteGroup(title): Group;
+
+        /**
+         * Adds a sub-folder to the root folder.
+         * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.
+         */
+        addSubFolder(url): Folder;
+
+        /**
+         * Applies the theme specified by the contents of each of the files specified in the arguments to the site.
+         * @param colorpaletteurl - The server-relative URL of the color palette file.
+         * @param fontschemeurl - The server-relative URL of the font scheme.
+         * @param backgroundimageurl - The server-relative URL of the background image.
+         * @param sharegenerated - True to store the generated theme files in the root site, or false to store them in this site.
+         */
+        applyTheme(colorpaletteurl, fontschemeurl, backgroundimageurl, sharegenerated): any;
+
+        /**
+         * Applies the specified site definition or site template to the Web site that has no template applied to it.
+         * @param name - The site definition or web template name to apply.
+         */
+        applyWebTemplate(name): any;
+
+        /**
+         * Creates unique role assignments for the securable object.
+         * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
+         * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
+         */
+        breakRoleInheritance(copyRoleAssignments, clearSubScopes): any;
+
+        /**
+         * Deletes the web.
+         */
+        delete(): any;
+
+        /**
+         * Checks whether the push notification subscriber exist for the current user with the given device application instance ID.
+         * @param id - The ID of the device app instance.
+         */
+        doesPushNotificationSubscriberExist(id): any;
+        
+        /**
+         * Returns whether the current user has the given set of permissions.
+         * @param high - The highest permission range value.
+         * @param low - The lowest permission range value.
+         */
+        doesUserHavePermissions(high, low): any;
+
+        /**
+         * Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
+         * @param logonName - The login name of the user. Pass the logonName parameter in the request body, as shown in the request example.
+         */
+        ensureUser(logonName): any;
+        
+        /**
+         * Sends data to an OData service.
+         * @param inputStream - The OData input object. Used for create or update operations only.
+         */
+        executeRemoteLOB(inputStream): any;
+        
+        /**
+         * Gets the app BDC catalog.
+         */
+        getAppBdcCatalog(): any;
+        
+        /**
+         * Gets the app BDC catalog for the specified app instance.
+         * @param id - The ID of the app instance.
+         */
+        getAppBdcCatalogForAppInstance(id): any;
+        
+        /**
+         * Retrieves an AppInstance installed on this Site.
+         * @param id - The ID of the app instance.
+         */
+        getAppInstanceById(id): any;
+        
+        /**
+         * Retrieves all AppInstances installed on this site that are instances of the specified App.
+         * @param id - The product ID of the app.
+         */
+        getAppInstancesByProductId(id): any;
+        
+        /**
+         * Returns a collection of site templates available for the site.
+         * @param lcid - The LCID of the site templates to get.
+         * @param doIncludeCrossLanguage - True to include language-neutral site templates; otherwise false.
+         */
+        getAvailableWebTemplates(lcid, doIncludeCrossLanguage): any;
+        
+        /**
+         * Returns the list gallery on the site.
+         * @param galleryType - The gallery type. Represents a ListTemplateType value such as WebTemplateCatalog = 111, WebPartCatalog = 113 ListTemplateCatalog = 114, MasterPageCatalog = 116, SolutionCatalog = 121, ThemeCatalog = 123, DesignCatalog = 124, AppDataCatalog = 125.
+         */
+        getCatalog(galleryType): any;
+
+        /**
+         * Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
+         * @param query - The change query.
+         */
+        getChanges(query): any;
+        
+        /**
+         * Gets the context information for the site. Static method.
+         */
+        getContextWebInformation(): any;
+
+        /**
+         * Gets a custom action by it's name or title.
+         * @param title - The user custom action title.
+         */
+        getCustomAction(title): UserCustomAction;
+        
+        /**
+         * Gets the custom list templates for the site.
+         */
+        getCustomListTemplates(): any;
+        
+        /**
+         * Gets the document libraries on a site. Static method. (SharePoint Online only)
+         * @param url - The full URL of the site.
+         */
+        getDocumentLibraries(url): any;
+
+        /**
+         * Gets the specified external content type in a line-of-business (LOB) system application.
+         * @param namespace - The namespace of the external content type.
+         * @param name - The name of the external content type.
+         */
+        getEntity(namespace, name): any;
+
+        /**
+         * Gets a field by it's title, internal name or static name.
+         * @param title - The field title.
+         */
+        getField(title): Field;
+
+        /**
+         * Gets a field by it's id.
+         * @param id - The field id.
+         */
+        getFieldById(id): Field;
+
+        /**
+         * Gets a field by it's internal name.
+         * @param name - The internal field name.
+         */
+        getFieldByInternalName(name): Field;
+
+        /**
+         * Gets a field by it's static name.
+         * @param staticName - The static field name.
+         */
+        getFieldByStaticName(name): Field;
+
+        /**
+         * Gets a field by it's title.
+         * @param title - The field title.
+         */
+        getFieldByTitle(title): Field;
+
+        /**
+         * Gets a file by it's name, in the root folder.
+         * @param name - The file name.
+         */
+        getFile(name): File;
+        
+        /**
+         * Returns the file object located at the specified server-relative URL.
+         * @param url - The server relative url of the file.
+         */
+        getFileByServerRelativeUrl(url): File;
+
+        /**
+         * Returns the folder object located at the specified server-relative URL.
+         * @param url - The server relative url of the folder.
+         */
+        getFolderByServerRelativeUrl(url): Folder;
+
+        /**
+         * Gets the list at the specified site-relative URL. (SharePoint Online only)
+         * @param url - The server relative url of the list.
+         */
+        getList(url): List;
+
+        /**
+         * Gets a list by it's id.
+         * @param id - The list id.
+         */
+        getListById(id): List;
+
+        /**
+         * Gets the list for the specified title.
+         * @param title - The list title.
+         */
+        getListByTitle(title): List;
+
+        /**
+         * Gets the push notification subscriber over the site for the specified device application instance ID.
+         * @param id - The ID of the device app instance.
+         */
+        getPushNotificationSubscriber(id): any;
+
+        /**
+         * Queries for the push notification subscribers over the site for the specified value of custom arguments. Null or empty custom arguments will return subscribers without any filtering.
+         * @param args - Arguments to filter the results. Passed arguments are compared to the subscribers' custom arguments in the store. Pass null or empty arguments to return unfiltered results.
+         */
+        getPushNotificationSubscribersByArgs(args): any;
+
+        /**
+         * Queries for the push notification subscribers over the site for the specified user.
+         * @param loginName - The login name of the user.
+         */
+        getPushNotificationSubscribersByUser(loginName): any;
+
+        /**
+         * Gets a sub-folder by it's name, from the root folder.
+         * @param name - The folder name.
+         */
+        getSubFolder(name): Folder;
+
+        /**
+         * Gets a site group by it's id.
+         * @param id - The site group id.
+         */
+        getSiteGroupById(id): Group;
+
+        /**
+         * Gets a site group by it's name.
+         * @param name - The site group name.
+         */
+        getSiteGroupByName(name): Group;
+
+        /**
+         * Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
+         * @param nWebTemplateFilter - The ID of the template used in the site definition of the sites.
+         * @param nConfigurationFilter - The ID of the site template used to provision the sites.
+         */
+        getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): any;
+
+        /**
+         * Gets a user by login name.
+         * @param email - The user email.
+         */
+        getUserByEmail(email): User;
+
+        /**
+         * Returns the user corresponding to the specified member identifier for the current site.
+         * @param id - The user id.
+         */
+        getUserById(id): User;
+
+        /**
+         * Gets a user by login name.
+         * @param loginName - The user login name.
+         */
+        getUserByLogin(loginName): User;
+
+        /**
+         * Gets the effective permissions that the specified user has within the current application scope.
+         * @param loginName - The user login name.
+         */
+        getUserEffectivePermissions(loginName): any;
+
+        /**
+         * Gets the site URL from a page URL. Static method.
+         * @param url - The full URL of the SharePoint page, with URL encoded characters as needed.
+         */
+        getWebUrlFromPageUrl(url);
+
+        /**
+         * Uploads and installs an app package to this site.
+         * @param appPackageStream - The app package stream.
+         */
+        loadAndInstallApp(appPackageStream): any;
+
+        /**
+         * Uploads and installs an App package on the site in a specified locale.
+         * @param appPackageStream - The app package stream.
+         * @param installationLocaleLCID - The LCID of the locale to use to create the app instance.
+         */
+        loadAndInstallAppInSpecifiedLocale(appPackageStream, installationLocaleLCID): any;
+
+        /**
+         * Uploads an App package and creates an instance from it.
+         * @param appPackageStream - The app package stream.
+         * @param installationLocaleLCID - The LCID of the locale to use to create the app instance.
+         */
+        loadApp(appPackageStream, installationLocaleLCID): any;
+
+        /**
+         * Returns the name of the image file for the icon that is used to represent the specified file.
+         * @param filename - The file name. If this parameter is empty, the server returns an empty string.
+         * @param progid - The ProgID of the application that was used to create the file, in the form OLEServerName.ObjectName (for example, Excel.Sheet or PowerPoint.Slide). This is the ID used by the Windows registry to uniquely identify an object.
+         * @param size - The size of the icon: 16x16 pixels = 0, 32x32 pixels = 1.
+         */
+        mapToIcon(filename, progid, size): any;
+
+        /**
+         * Processes a notification from an external system.
+         * @param stream - The notification message from the external system.
+         */
+        processExternalNotification(stream): any;
+
+        /**
+         * Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
+         * @param deviceAppInstanceId - The ID of the device app instance.
+         * @param serviceToken - The token provided by the notification service to the device to receive notifications.
+         */
+        registerPushNotificationSubscriber(deviceAppInstanceId, serviceToken): any;
+
+        /**
+         * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+         */
+        resetRoleInheritance(): any;
+
+        /**
+         * Method to send an email.
+         * @param properties - The email information.
+         */
+        sendEmail(properties): any;
+
+        /**
+         * Unregisters the subscriber for push notifications from the site.
+         * @param id - The ID of the device app instance.
+         */
+        unregisterPushNotificationSubscriber(id): any;
+
+        /**
+         * Updates it's properties.
+         * @param data - The list properties to update.
+         */
+        update(data): any;
+    }
+
+    /**
+     * Webs
+     */
+    interface Webs {
+        /**
+         * Adds a site to the site collection.
+         * @param parameters - The web creation information.
+         */
+        add(parameters);
     }
 }

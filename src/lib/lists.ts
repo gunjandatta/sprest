@@ -42,6 +42,7 @@ module $REST {
     // Methods
     /*********************************************************************************************************************************/
     Library.lists = {
+        // Adds a list to the list collection.
         add: {
             metadataType: "SP.List",
             requestType: RequestType.PostWithArgs

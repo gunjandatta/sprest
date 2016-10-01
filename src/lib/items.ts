@@ -54,7 +54,7 @@ module $REST {
     Library.items = {
         // Adds an item to the list item collection.
         add: {
-            metadataType: "SP.ListItem",
+            metadataType: function(obj) { return obj.Parent && obj.Parent["ListItemEntityTypeFullName"] ? obj.Parent["ListItemEntityTypeFullName"] : "SP.ListItem" },
             requestType: RequestType.PostWithArgsInBody
         },
 

@@ -1112,8 +1112,8 @@ var $REST;
     $REST.Library.attachmentfiles = {
         /**
          * Adds the attachment that is represented by the specified file name and byte array to the list item.
-         @param name - The name of the file to add.
-         @param contents - The file contents as an array buffer.
+         * @param name - The name of the file to add.
+         * @param contents - The file contents as an array buffer.
         **/
         add: {
             argNames: ["name"],
@@ -1174,7 +1174,7 @@ var $REST;
     $REST.Library.contenttype = {
         // Adds a field link to the content type.
         addFieldLink: {
-            name: "fieldlinks",
+            name: "fieldlink",
             metadataType: "SP.FieldLink",
             requestType: $REST.RequestType.PostWithArgsInBody
         },
@@ -1404,6 +1404,7 @@ var $REST;
             metadataType: "SP.FieldLink",
             requestType: $REST.RequestType.PostWithArgsInBody
         },
+        // Gets a field link by it's id.
         getById: {
             argNames: ["id"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
@@ -1724,6 +1725,10 @@ var $REST;
             argNames: ["comment"],
             requestType: $REST.RequestType.PostWithArgs
         },
+        // Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+        recycle: {
+            requestType: $REST.RequestType.Get
+        },
         // Saves the file as a stream.
         saveBinaryStream: {
             requestType: $REST.RequestType.PostWithArgsInBody
@@ -1735,10 +1740,6 @@ var $REST;
             argNames: ["uploadId"],
             name: "startupload(uploadId=guid'[[uploadId]]')",
             requestType: $REST.RequestType.PostReplace
-        },
-        // Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-        recycle: {
-            requestType: $REST.RequestType.Get
         },
         // Reverts an existing checkout for the file.
         undoCheckOut: {
@@ -1848,7 +1849,7 @@ var $REST;
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
-    // Attachment Files
+    // File Version
     // The SPFileVersion object.
     /*********************************************************************************************************************************/
     //export class FileVersion extends Base {
@@ -2123,8 +2124,8 @@ var $REST;
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.group = {
-        // Deletes the object
-        containsUser: {
+        // Gets the user by the specified user id.
+        getUserById: {
             argNames: ["userId"],
             name: "users?$filter=Id eq [[userId]]",
             requestType: $REST.RequestType.GetReplace
@@ -2203,7 +2204,7 @@ var $REST;
     $REST.Library.items = {
         // Adds an item to the list item collection.
         add: {
-            metadataType: "SP.ListItem",
+            metadataType: function (obj) { return obj.Parent && obj.Parent["ListItemEntityTypeFullName"] ? obj.Parent["ListItemEntityTypeFullName"] : "SP.ListItem"; },
             requestType: $REST.RequestType.PostWithArgsInBody
         },
         // Gets an item by its id.
@@ -2230,7 +2231,7 @@ var $REST;
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.limitedwebpartmanager = {
-        // Gets an item by its id.
+        // Gets a webpart by its id.
         get_WebParts: {
             argNames: ["id"],
             name: "webparts?expand=WebPart",
@@ -2433,7 +2434,7 @@ var $REST;
             name: "folders/add",
             requestType: $REST.RequestType.PostWithArgs
         },
-        // Adds an item to the list item collection.
+        // Adds a view to the list view collection.
         addView: {
             metadataType: "SP.View",
             name: "views",
@@ -2447,11 +2448,6 @@ var $REST;
         // Deletes the object
         delete: {
             requestType: $REST.RequestType.Delete
-        },
-        // Returns the list item with the specified list item identifier.
-        getById: {
-            argNames: ["id"],
-            requestType: $REST.RequestType.GetWithArgsValueOnly
         },
         // Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
         getChanges: {
@@ -2510,7 +2506,7 @@ var $REST;
             name: "fields/getByTitle",
             requestType: $REST.RequestType.PostWithArgsValueOnly
         },
-        // Get the file at the specified URL.
+        // Get the folder at the specified URL.
         getSubFolder: {
             argNames: ["serverRelativeUrl"],
             name: "folders/getbyurl",
@@ -2831,6 +2827,7 @@ var $REST;
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.lists = {
+        // Adds a list to the list collection.
         add: {
             metadataType: "SP.List",
             requestType: $REST.RequestType.PostWithArgs
@@ -2974,17 +2971,17 @@ var $REST;
     $REST.Library.roleAssignments = {
         // Adds a new role assignment with the specified principal and role definitions to the collection.
         addRoleAssignment: {
-            argNames: ["principalid", "roledefid"],
+            argNames: ["principalId", "roleDefId"],
             requestType: $REST.RequestType.PostWithArgs
         },
         // Gets the role assignment associated with the specified principal ID from the collection.
         getByPrincipalId: {
-            argNames: ["id"],
+            argNames: ["principalId"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
         },
         // Gets the role definition with the specified role type.
         removeRoleAssignment: {
-            argNames: ["principalid", "roledefid"],
+            argNames: ["principalId", "roleDefId"],
             requestType: $REST.RequestType.PostWithArgs
         }
     };
@@ -3075,7 +3072,7 @@ var $REST;
     $REST.Library.roledefinitions = {
         // Gets the role definition with the specified ID from the collection.
         getById: {
-            argNames: ["id"],
+            argNames: ["roleDefId"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
         },
         // Gets the role definition with the specified name.
@@ -3348,7 +3345,7 @@ var $REST;
         },
         // Removes the cross-site group with the specified name from the collection.
         removeByLoginName: {
-            argNames: ["loginName"],
+            argNames: ["name"],
             requestType: $REST.RequestType.PostWithArgsValueOnly
         },
     };
@@ -4091,6 +4088,7 @@ var $REST;
         },
         // Adds an existing content type to content type collection.
         addExistingContentType: {
+            argNames: ["contentTypeId"],
             name: "contenttypes/addAvailableContentType",
             requestType: $REST.RequestType.PostWithArgsInBody
         },
@@ -4141,6 +4139,7 @@ var $REST;
         },
         // Adds a sub-folder to the root folder.
         addSubFolder: {
+            argNames: ["url"],
             name: "rootfolder/folders/add",
             requestType: $REST.RequestType.PostWithArgsValueOnly
         },
@@ -4151,6 +4150,7 @@ var $REST;
         },
         // Applies the specified site definition or site template to the Web site that has no template applied to it.
         applyWebTemplate: {
+            argName: ["name"],
             requestType: $REST.RequestType.PostWithArgsInQS
         },
         // Creates unique role assignments for the securable object.
@@ -4164,6 +4164,7 @@ var $REST;
         },
         // Checks whether the push notification subscriber exist for the current user with the given device application instance ID.
         doesPushNotificationSubscriberExist: {
+            argNames: ["id"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
         },
         // Returns whether the current user has the given set of permissions.
@@ -4401,7 +4402,6 @@ var $REST;
         },
         // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
         resetRoleInheritance: {
-            argNames: [],
             requestType: $REST.RequestType.Post
         },
         // Method to send an email.
