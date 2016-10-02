@@ -33,6 +33,17 @@ declare module $REST {
      */
     class AttachmentFiles {
         /**
+         * Properties
+         */
+
+        /** The attachment file collection. */
+        results: Array<any>;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Adds the attachment that is represented by the specified file name and byte array to the list item.
          * @param name - The name of the file to add.
          * @param contents - The file contents as an array buffer.
@@ -51,6 +62,86 @@ declare module $REST {
          * @param args - (Optional) executeRequestFl and/or targetInfo.
          */
         constructor(contentTypeName:string, listName?:string, ...args);
+
+        /**
+         * Properties
+         */
+
+        /** Gets or sets a description of the content type. */
+        Description: string;
+
+        /** Gets or sets a value that specifies the name of a custom display form template to use for list items that have been assigned the content type. */
+        DisplayFormTemplateName: string;
+
+        /** Gets or sets a value that specifies the URL of a custom display form to use for list items that have been assigned the content type. */
+        DisplayFormUrl: string;
+
+        /** Gets or sets a value that specifies the file path to the document template used for a new list item that has been assigned the content type. */
+        DocumentTemplate: string;
+
+        /** Gets a value that specifies the URL of the document template assigned to the content type. */
+        DocumentTemplateUrl: string;
+
+        /** Gets or sets a value that specifies the name of a custom edit form template to use for list items that have been assigned the content type. */
+        EditFormTemplateName: string;
+
+        /** Gets or sets a value that specifies the URL of a custom edit form to use for list items that have been assigned the content type. */
+        EditFormUrl: string;
+
+        /** Gets the column (also known as field) references in the content type. */
+        get_FieldLinks(): FieldLinks;
+
+        /** Gets a value that specifies the collection of fields for the content type. */
+        get_Fields(): Fields;
+
+        /** Gets or sets a value that specifies the content type group for the content type. */
+        Group: string;
+
+        /** Gets or sets a value that specifies whether the content type is unavailable for creation or usage directly from a user interface. */
+        Hidden: string;
+
+        /** Gets a value that specifies an identifier for the content type. */
+        Id: string;
+
+        /** Gets or sets the JSLink for the content type custom form template. The JSLink property is not supported on Survey or Events lists. A SharePoint calendar is an Events list. */
+        Jslink: string;
+
+        /** Gets or sets a value that specifies the name of the content type. */
+        Name: string;
+
+        /** Gets or sets a value that specifies the name of the content type. */
+        NewFormTemplateName: string;
+
+        /** Gets or sets a value that specifies the name of the content type. */
+        NewFormUrl: string;
+
+        /** Gets the parent content type of the content type. */
+        Parent: string;
+
+        /** Gets or sets a value that specifies whether changes to the content type properties are denied. */
+        Readonly: string;
+
+        /** Gets a value that specifies the XML Schema representing the content type. */
+        SchemaXml: string;
+
+        /** Gets a non-localized version of the XML schema that defines the content type. */
+        SchemaXmlWithResourceTokens: string;
+
+        /** Gets a value that specifies a server-relative path to the content type scope of the content type. */
+        Scope: string;
+
+        /** Gets or sets whether the content type can be modified. */
+        Sealed: string;
+
+        /** A string representation of the value of the Id. */
+        StringId: string;
+
+        /** Gets a value that specifies the collection of workflow associations for the content type. */
+        get_WorkflowAssociations(): any;
+
+        /**
+         * Methods
+         */
 
         /**
          * Adds a field link to the content type.
@@ -110,6 +201,17 @@ declare module $REST {
         constructor(listName?:string, ...args);
 
         /**
+         * Properties
+         */
+
+        /** The content type collection. */
+        results: Array<ContentType>;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Adds a content type to the collection.
          * @param data - The content type creation information.
          */
@@ -152,6 +254,98 @@ declare module $REST {
         constructor(internalNameOrTitle:string, listName?:string, ...args);
 
         /**
+         * Properties
+         */
+
+        /** Gets a value that specifies whether the field can be deleted. */
+        CanBeDeleted: string;
+
+        /** Gets or sets a value that specifies the default value for the field. */
+        DefaultValue: string;
+
+        /** Gets or sets a value that specifies the description of the field. */
+        Description: string;
+
+        /** Gets or sets a value that specifies the reading order of the field. */
+        Direction: string;
+
+        /** Gets or sets a value that specifies whether to require unique field values in a list or library column. */
+        EnforceUniqueValues: string;
+
+        /** Gets the name of the entity property for the list item entity that uses this field. */
+        EntityPropertyName: string;
+
+        /** Gets or sets a value that specifies the type of the field. Represents a FieldType value. See FieldType in the .NET client object model reference for a list of field type values. */
+        FieldTypeKind: string;
+
+        /** Gets a value that specifies whether list items in the list can be filtered by the field value. */
+        Filterable: string;
+
+        /** Gets a Boolean value that indicates whether the field derives from a base field type. */
+        FromBaseType: string;
+
+        /** Gets or sets a value that specifies the field group. */
+        Group: string;
+
+        /** Gets or sets a value that specifies whether the field is hidden in list views and list forms. */
+        Hidden: string;
+
+        /** Gets a value that specifies the field identifier. */
+        Id: string;
+
+        /** Gets or sets a Boolean value that specifies whether the field is indexed. */
+        Indexed: string;
+
+        /** Gets a value that specifies the field internal name. */
+        InternalName: string;
+
+        /** Gets or sets the name of an external JS file containing any client rendering logic for fields of this type. */
+        JSLink: string;
+
+        /** Gets or sets a value that specifies whether the value of the field is read-only. */
+        ReadOnlyField: string;
+
+        /** Gets or sets a value that specifies whether the field requires a value. */
+        Required: string;
+
+        /** Gets or sets a value that specifies the XML schema that defines the field. */
+        Schemaxml: string;
+
+        /** Gets a value that specifies the server-relative URL of the list or the site to which the field belongs. */
+        Scope: string;
+
+        /** Gets a value that specifies whether properties on the field cannot be changed and whether the field cannot be deleted. */
+        Sealed: string;
+
+        /** Gets a value that specifies whether list items in the list can be sorted by the field value. */
+        Sortable: string;
+
+        /** Gets or sets a value that specifies a customizable identifier of the field. */
+        StaticName: string;
+
+        /** Gets or sets value that specifies the display name of the field. */
+        Title: string;
+
+        /** Gets or sets a value that specifies the type of the field. */
+        TypeAsString: string;
+
+        /** Gets a value that specifies the display name for the type of the field. */
+        TypeDisplayName: string;
+
+        /** Gets a value that specifies the description for the type of the field. */
+        TypeShortDescription: string;
+
+        /** Gets or sets a value that specifies the data validation criteria for the value of the field. */
+        ValidationFormula: string;
+
+        /** Gets or sets a value that specifies the error message returned when data validation fails for the field. */
+        ValidationMessage: string;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Deletes the field.
          */
         delete(): any;
@@ -191,6 +385,17 @@ declare module $REST {
      */
     class FieldLinks {
         /**
+         * Properties
+         */
+
+        /** The field link collection. */
+        results: Array<any>;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Adds a content type to the collection.
          * @param data - The field link properties.
          */
@@ -219,6 +424,17 @@ declare module $REST {
          * @param args - (Optional) executeRequestFl and/or targetInfo.
          */
         constructor(listName?:string, ...args);
+
+        /**
+         * Properties
+         */
+
+        /** The field collection. */
+        results: Array<Field>;
+
+        /**
+         * Methods
+         */
 
         /**
          * Adds a field to the field collection.
@@ -276,6 +492,83 @@ declare module $REST {
          * @param args - (Optional) executeRequestFl and/or targetInfo.
          */
         constructor(serverRelativeUrl:string, listName?:string, ...args);
+
+        /**
+         * Properties
+         */
+
+        /** Gets a value that specifies the user who added the file. */
+        get_Author(): User;
+
+        /** Gets a value that returns the user who has checked out the file. */
+        get_CheckedOutByUser(): User;
+
+        /** Gets a value that returns the comment used when a document is checked in to a document library. */
+        CheckInComment: string;
+
+        /** Gets a value that indicates how the file is checked out of a document library. Represents an SP.CheckOutType value: Online = 0; Offline = 1; None = 2. The checkout state of a file is independent of its locked state. */
+        CheckOutType: string;
+
+        /** Returns internal version of content, used to validate document equality for read purposes. */
+        ContentTag: string;
+
+        /** Gets a value that specifies the customization status of the file. Represents an SP.CustomizedPageStatus value: None = 0; Uncustomized = 1; Customized = 2. */
+        CustomizedPageStatus: string;
+
+        /** Gets a value that specifies the ETag value. */
+        ETag: string;
+
+        /** Gets a value that specifies whether the file exists. */
+        Exists: string;
+
+        /** Gets the size of the file in bytes, excluding the size of any Web Parts that are used in the file. */
+        Length: string;
+
+        /** Gets a value that specifies the publishing level of the file. Represents an SP.FileLevel value: Published = 1; Draft = 2; Checkout = 255. */
+        Level: string;
+
+        /** Gets a value that specifies the list item field values for the list item corresponding to the file. */
+        get_ListItemAllFields(): any;
+
+        /** Gets a value that returns the user that owns the current lock on the file. */
+        get_LockedByUser(): User;
+
+        /** Gets a value that specifies the major version of the file. */
+        MajorVersion: string;
+
+        /** Gets a value that specifies the minor version of the file. */
+        MinorVersion: string;
+
+        /** Gets a value that returns the user who last modified the file. */
+        get_ModifiedBy(): User;
+
+        /** Gets the name of the file including the extension. */
+        Name: string;
+
+        /** Gets the relative URL of the file based on the URL for the server. */
+        ServerRelativeUrl: string;
+
+        /** Gets a value that specifies when the file was created. */
+        TimeCreated: string;
+
+        /** Gets a value that specifies when the file was last modified. */
+        TimeLastModified: string;
+
+        /** Gets a value that specifies the display name of the file. */
+        Title: string;
+
+        /** Gets a value that specifies the implementation-specific version identifier of the file. */
+        UiVersion: string;
+
+        /** Gets a value that specifies the implementation-specific version identifier of the file. */
+        UiVersionLabel: string;
+
+        /** Gets a value that returns a collection of file version objects that represent the versions of the file. */
+        get_Versions(): FileVersions;
+
+        /**
+         * Methods
+         */
 
         /**
          * Approves the file submitted for content approval with the specified comment.
@@ -344,56 +637,6 @@ declare module $REST {
          * @param fileOffset - The size of the offset into the file where the fragment starts.
          */        
         finishUpload(uploadId, fileOffset): any;
-
-        /**
-         * Gets a value that specifies the user who added the file.
-         */
-        get_Author(): User;
-
-        /**
-         * Gets a value that returns the user who has checked out the file.
-         */
-        get_CheckedOutByUser(): any;
-
-        /**
-         * 
-         */
-        get_EffectiveInformationRightsManagementSettings(): any;
-
-        /**
-         * 
-         */
-        get_InformationRightsManagementSettings(): any;
-
-        /**
-         * Gets a value that specifies the list item field values for the list item corresponding to the file.
-         */
-        get_ListItemAllFields(): any;
-
-        /**
-         * Gets a value that returns the user that owns the current lock on the file.
-         */
-        get_LockedByUser(): any;
-
-        /**
-         * Gets a value that returns the user who last modified the file.
-         */
-        get_ModifiedBy(): any;
-
-        /**
-         * 
-         */
-        get_Properties(): any;
-
-        /**
-         * 
-         */
-        get_VersionEvents(): any;
-
-        /**
-         * Gets a value that returns a collection of file version objects that represent the versions of the file.
-         */
-        get_Versions(): any;
 
         /**
          * Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
@@ -474,6 +717,17 @@ declare module $REST {
         constructor(listName?:string, ...args);
 
         /**
+         * Properties
+         */
+
+        /** The file collection. */
+        results: Array<File>;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Adds a file to this collection.
          * @param overwrite - true to overwrite the file if it already exists; otherwise false.
          * @param url - The folder-relative URL of the file.
@@ -506,6 +760,38 @@ declare module $REST {
      */
     class FileVersion {
         /**
+         * Properties
+         */
+
+        /** Gets a value that specifies the check-in comment. */
+        CheckInComment: string;
+
+        /** Gets a value that specifies the creation date and time for the file version. */
+        Created: string;
+
+        /** Gets a value that specifies the user that represents the creator of the file version. */
+        get_CreatedBy(): User;
+
+        /** Gets the internal identifier for the file version. */
+        ID: string;
+
+        /** Gets a value that specifies whether the file version is the current version. */
+        IsCurrentVersion: string;
+
+        /**  */
+        Size: string;
+
+        /** Gets a value that specifies the relative URL of the file version based on the URL for the site or subsite. */
+        Url: string;
+
+        /** Gets a value that specifies the implementation specific identifier of the file. Uses the majorVersionNumber.minorVersionNumber format, for example: 1.2. */
+        VersionLabel: string;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Deletes the file version.
          */
         delete():any;
@@ -520,6 +806,12 @@ declare module $REST {
      * File Versions
      */
     class FileVersions {
+        /**
+         * Properties
+         */
+
+        /** The file version collection. */
+        results: Array<FileVersion>;
     }
 
     /**
@@ -533,6 +825,47 @@ declare module $REST {
          * @param args - (Optional) executeRequestFl and/or targetInfo.
          */
         constructor(serverRelativeUrl:string, listName?:string, ...args);
+
+        /**
+         * Properties
+         */
+
+        /** Specifies the sequence in which content types are displayed. */
+        ContentTypeOrder: string;
+
+        /** Gets the collection of all files contained in the list folder. You can add a file to a folder by using the Add method on the folder’s FileCollection resource. */
+        get_Files(): Files;
+
+        /** Gets the collection of list folders contained in the list folder. */
+        get_Folders(): Folders;
+
+        /** Gets a value that specifies the count of items in the list folder. */
+        ItemCount: string;
+
+        /** Specifies the list item field (2) values for the list item corresponding to the file. */
+        get_ListItemAllFields(): any;
+
+        /** Gets the name of the folder. */
+        Name: string;
+
+        /** Gets the parent list folder of the folder. */
+        get_ParentFolder(): Folder;
+
+        /** Gets the collection of all files contained in the folder. */
+        get_Properties(): any;
+
+        /** Gets the server-relative URL of the list folder. */
+        ServerRelativeUrl: string;
+
+        /** Gets or sets a value that specifies the content type order. */
+        UniqueContentTypeOrder: string;
+
+        /** Gets or sets a value that specifies folder-relative URL for the list folder welcome page. */
+        WelcomePage: string;
+
+        /**
+         * Methods
+         */
 
         /**
          * Adds a file to this folder.
@@ -559,36 +892,6 @@ declare module $REST {
          * Deletes the folder.
          */
         delete(): any;
-
-        /**
-         * Gets the collection of all files contained in the list folder. You can add a file to a folder by using the Add method on the folder’s FileCollection resource.
-         */
-        get_Files(): Files;
-
-        /**
-         * Gets the collection of list folders contained in the list folder.
-         */
-        get_Folders(): Folders;
-
-        /**
-         * Specifies the list item field (2) values for the list item corresponding to the file.
-         */
-        get_ListItemAllFields(): any;
-
-        /**
-         * Gets the parent list folder of the folder.
-         */
-        get_ParentFolder(): Folder;
-
-        /**
-         * Gets the collection of all files contained in the folder.
-         */
-        get_Properties(): any;
-
-        /**
-         * 
-         */
-        get_StorageMetrics(): any;
 
         /**
          * Gets the file for the specified name.
@@ -637,6 +940,17 @@ declare module $REST {
         constructor(listName?:string, ...args);
 
         /**
+         * Properties
+         */
+
+        /** The folder collection. */
+        results: Array<Folder>;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Adds the folder that is located at the specified URL to the collection.
          * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.
          */
@@ -658,6 +972,65 @@ declare module $REST {
      * Group
      */
     class Group {
+        /**
+         * Properties
+         */
+
+        /** Gets or sets a value that indicates whether the group members can edit membership in the group. */
+        AllowMembersEditMembership: string;
+
+        /** Gets or sets a value that indicates whether to allow users to request membership in the group and request to leave the group. */
+        AllowRequestToJoinLeave: string;
+
+        /** Gets or sets a value that indicates whether the request to join or leave the group can be accepted automatically. */
+        get_AutoAcceptRequestToJoinLeave(): string;
+
+        /** Gets a value that indicates whether the current user can edit the membership of the group. */
+        get_CanCurrentUserEditMembership(): string;
+
+        /** Gets a value that indicates whether the current user can manage the group. */
+        get_CanCurrentUserManageGroup(): string;
+
+        /** Gets a value that indicates whether the current user can view the membership of the group. */
+        get_CanCurrentUserViewMembership(): string;
+
+        /** Gets or sets the description of the group. */
+        Description: string;
+
+        /** Gets a value that specifies the member identifier for the user or group. */
+        Id: string;
+
+        /** Gets a value that indicates whether this member should be hidden in the UI. */
+        IsHiddenInUI: string;
+
+        /** Gets the name of the group. */
+        LoginName: string;
+
+        /** Gets or sets a value that indicates whether only group members are allowed to view the membership of the group. */
+        OnlyAllowMembersViewMembership: string;
+
+        /** Gets or sets the owner of the group which can be a user or another group assigned permissions to control security. */
+        get_Owner(): User;
+
+        /** Gets the name for the owner of this group. */
+        OwnerTitle: string;
+
+        /** Gets or sets the email address to which the requests of the membership are sent. */
+        RequestToJoinLeaveEmailSetting: string;
+
+        /** Gets a value containing the type of the principal. Represents a bitwise SP.PrincipalType value: None = 0; User = 1; DistributionList = 2; SecurityGroup = 4; SharePointGroup = 8; All = 15. */
+        PrincipalType: string;
+
+        /** Gets or sets a value that specifies the name of the principal. */
+        Title: string;
+
+        /** Gets a collection of user objects that represents all of the users in the group. */
+        get_Users(): Users;
+
+        /**
+         * Methods
+         */
+
         /**
          * Gets the user by the specified user id.
          * @param userId - The user id.
@@ -685,6 +1058,209 @@ declare module $REST {
          * @param args - (Optional) executeRequestFl and/or targetInfo.
          */
         constructor(listName:string, ...args);
+
+        /**
+         * Properties
+         */
+
+        /** Gets a value that specifies whether the list supports content types. */
+        AllowContentTypes: string;
+
+        /** Gets the list definition type on which the list is based. Represents a ListTemplateType value. See ListTemplateType in the .NET client object model reference for template type values. */
+        BaseTemplate: string;
+
+        /** Gets the base type for the list. Represents an SP.BaseType value: Generic List = 0; Document Library = 1; Discussion Board = 3; Survey = 4; Issue = 5. */
+        BaseType: string;
+
+        /** Gets a value that specifies the override of the web application's BrowserFileHandling property at the list level. Represents an SP.BrowserFileHandling value: Permissive = 0; Strict = 1. */
+        get_BrowserFileHandling(): string;
+
+        /** Gets the content types that are associated with the list. */
+        get_ContentTypes(): ContentTypes;
+
+        /** Gets or sets a value that specifies whether content types are enabled for the list. */
+        ContentTypesEnabled: string;
+
+        /** Gets a value that specifies when the list was created. */
+        Created: string;
+
+        /** Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false. */
+        get_DataSource(): string;
+
+        /** Gets or sets a value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
+        DefaultContentApprovalWorkflowId: string;
+
+        /** Gets or sets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL */
+        get_DefaultDisplayFormUrl(): string;
+
+        /** Gets or sets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL. */
+        get_DefaultEditFormUrl(): string;
+
+        /** Gets or sets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL. */
+        get_DefaultNewFormUrl(): string;
+
+        /**  */
+        get_DefaultView(): View;
+
+        /** Gets the URL of the default view for the list. */
+        get_DefaultViewUrl(): string;
+
+        /** Gets or sets a value that specifies the description of the list. */
+        Description: string;
+
+        /** Gets or sets a value that specifies the reading order of the list. Returns ""NONE"", ""LTR"", or ""RTL"". */
+        Direction: string;
+
+        /** Gets or sets a value that specifies the server-relative URL of the document template for the list. Returns a server-relative URL if the base type is DocumentLibrary, otherwise returns null. */
+        DocumentTemplateUrl: string;
+
+        /** Gets or sets a value that specifies the minimum permission required to view minor versions and drafts within the list. Represents an SP.DraftVisibilityType value: Reader = 0; Author = 1; Approver = 2. */
+        DraftVersionVisibility: string;
+
+        /** Gets a value that specifies the effective permissions on the list that are assigned to the current user. */
+        get_EffectiveBasePermissions(): any;
+
+        /**  */
+        get_EffectiveBasePermissionsForUI(): any;
+
+        /** Gets or sets a value that specifies whether list item attachments are enabled for the list. */
+        EnableAttachments: string;
+
+        /** Gets or sets a value that specifies whether new list folders can be added to the list. */
+        EnableFolderCreation: string;
+
+        /** Gets or sets a value that specifies whether minor versions are enabled for the list. */
+        EnableMinorVersions: string;
+
+        /** Gets or sets a value that specifies whether content approval is enabled for the list. */
+        EnableModeration: string;
+
+        /** Gets or sets a value that specifies whether historical versions of list items and documents can be created in the list. */
+        EnableVersioning: string;
+
+        /**  */
+        EntityTypeName: string;
+
+        /**  */
+        get_EventReceivers(): any;
+
+        /** Gets a value that specifies the collection of all fields in the list. */
+        get_Fields(): Fields;
+
+        /** Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned. */
+        get_FirstUniqueAncestorSecurableObject(): string;
+
+        /** Gets or sets a value that indicates whether forced checkout is enabled for the document library. */
+        ForceCheckout: string;
+
+        /** Gets a value that specifies the collection of all list forms in the list. */
+        get_Forms(): any;
+
+        /** Gets a value that specifies whether the list is an external list. */
+        HasExternalDataSource: string;
+
+        /** Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object. */
+        get_HasUniqueRoleAssignments(): any;
+
+        /** Gets or sets a Boolean value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
+        Hidden: string;
+
+        /** Gets the GUID that identifies the list in the database. */
+        Id: string;
+
+        /** Gets a value that specifies the URI for the icon of the list. */
+        ImageUrl: string;
+
+        /**  */
+        get_InformationRightsManagementSettings(): any;
+
+        /**  */
+        IrmEnabled: string;
+
+        /**  */
+        IrmExpire: string;
+
+        /**  */
+        IrmReject: string;
+
+        /** Gets or sets a value that specifies a flag that a client application can use to determine whether to display the list. */
+        IsApplicationList: string;
+
+        /** Gets a value that specifies whether the list is a gallery. */
+        IsCatalog: string;
+
+        /**  */
+        IsPrivate: string;
+
+        /** Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages. */
+        get_IsSiteAssetsLibrary(): string;
+
+        /** Gets a value that specifies the number of list items in the list. */
+        ItemCount: string;
+
+        /** Gets all the items in the list. */
+        get_Items(): ListItems;
+
+        /** Gets a value that specifies the last time a list item was deleted from the list. */
+        LastItemDeletedDate: string;
+
+        /** Gets a value that specifies the last time a list item, field, or property of the list was modified. */
+        LastItemModifiedDate: string;
+
+        /**  */
+        ListItemEntityTypeFullName: string;
+
+        /** Gets or sets a value that indicates whether the list in a Meeting Workspace site contains data for multiple meeting instances within the site. */
+        MultipleDataList: string;
+
+        /** Gets or sets a value that specifies that the crawler must not crawl the list. */
+        NoCrawl: string;
+
+        /** Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false. */
+        get_OnQuickLaunch(): string;
+
+        /** Gets a value that specifies the site that contains the list. */
+        get_ParentWeb(): any;
+
+        /** Gets a value that specifies the server-relative URL of the site that contains the list. */
+        ParentWebUrl: string;
+
+        /** Gets the role assignments for the securable object. */
+        get_RoleAssignments(): RoleAssignments;
+
+        /** Gets the root folder that contains the files in the list and any related files. */
+        get_RootFolder(): Folder;
+
+        /** Gets a value that specifies the list schema of the list. */
+        get_SchemaXml(): string;
+
+        /** Gets a value that indicates whether folders can be created within the list. */
+        ServerTemplateCanCreateFolders: string;
+
+        /** Gets a value that specifies the feature identifier of the feature that contains the list schema for the list. Returns an empty GUID if the list schema is not contained within a feature. */
+        TemplateFeatureId: string;
+
+        /** Gets or sets the displayed title for the list. Its length must be <= 255 characters. */
+        Title: string;
+
+        /** Gets a value that specifies the collection of all user custom actions for the list. */
+        get_UserCustomActions(): UserCustomActions;
+
+        /** Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023. */
+        get_ValidationFormula(): string;
+
+        /** Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023. */
+        get_ValidationMessage(): string;
+
+        /** Gets a value that specifies the collection of all public views on the list and personal views of the current user on the list. */
+        get_Views(): Views;
+
+        /** Gets a value that specifies the collection of all workflow associations for the list. */
+        get_WorkflowAssociations(): string;
+
+        /**
+         * Methods
+         */
 
         /**
          * Adds an existing content type to this collection.
@@ -755,96 +1331,6 @@ declare module $REST {
          * Deletes the list.
          */
         delete(): any;
-
-        /**
-         * Gets the content types that are associated with the list.
-         */
-        get_ContentTypes(): ContentTypes;
-
-        /**
-         * 
-         */
-        get_CreatablesInfo(): any;
-
-        /**
-         * Gets the default view for the list.
-         */
-        get_DefaultView(): View;
-
-        /**
-         * 
-         */
-        get_DescriptionResource(): any;
-
-        /**
-         * Gets the collection of event receiver definitions associated with the list.
-         */
-        get_EventReceivers(): any;
-
-        /**
-         * Gets the collection of field objects associated with the list.
-         */
-        get_Fields(): Fields;
-
-        /**
-         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-         */
-        get_FirstUniqueAncestorSecurableObject(): any;
-
-        /**
-         * Gets the collection of forms associated with the list.
-         */
-        get_Forms(): any;
-
-        /**
-         *
-         */
-        get_InformationRightsManagementSettings(): any;
-
-        /**
-         * Gets all the items in the list.
-         */
-        get_Items(): ListItems;
-
-        /**
-         * Gets a value that specifies the site that contains the list.
-         */
-        get_ParentWeb(): any;
-
-        /**
-         * Gets the collection of role assignments associated with the list.
-         */
-        get_RoleAssignments(): RoleAssignments;
-
-        /**
-         * Gets the root folder for the list.
-         */
-        get_RootFolder(): Folder;
-
-        /**
-         * 
-         */
-        get_Subscriptions(): any;
-
-        /**
-         * 
-         */
-        get_TitleResource(): any;
-
-        /**
-         * Gets a value that specifies the collection of user custom actions associate with the list.
-         */
-        get_UserCustomActions(): UserCustomActions;
-
-        /**
-         * Gets a value that specifies the collection of all views associated with the list.
-         */
-        get_Views(): Views;
-
-        /**
-         * Gets a value that specifies the collection of all workflow associations for the list.
-         */
-        get_WorkflowAssociations(): any;
 
         /**
          * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
@@ -1024,6 +1510,62 @@ declare module $REST {
         constructor(itemId:number, listName:string, ...args);
 
         /**
+         * Properties
+         */
+
+        /** Specifies the collection of attachments that are associated with the list item. */
+        get_AttachmentFiles(): AttachmentFiles;
+
+        /** Gets a value that specifies the content type of the list item. */
+        get_ContentType(): ContentType;
+
+        /** Gets a value that specifies the display name of the list item. */
+        get_DisplayName(): string;
+
+        /** Gets a value that specifies the effective permissions on the list item that are assigned to the current user. */
+        EffectiveBasePermissions: string;
+
+        /** Gets the effective base permissions for the current user, as they should be displayed in UI. */
+        EffectiveBasePermissionsForUI: string;
+
+        /** Gets the values for the list item as HTML. */
+        get_FieldValuesAsHtml(): string;
+
+        /** Gets the list item's field values as a collection of string values. */
+        get_FieldValuesAsText(): string;
+
+        /** Gets the formatted values to be displayed in an edit form. */
+        get_FieldValuesForEdit(): string;
+
+        /** Gets the file that is represented by the item from a document library. */
+        get_File(): File;
+
+        /** Gets a value that specifies whether the list item is a file or a list folder. Represents an SP.FileSystemObjectType value: Invalid = -1; File = 0; Folder = 1; Web = 2. */
+        FileSystemObjectType: string;
+
+        /** Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned. */
+        get_FirstUniqueAncestorSecurableObject(): string;
+
+        /** Gets a folder object that is associated with a folder item. */
+        get_Folder(): Folder;
+
+        /** Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object. */
+        get_HasUniqueRoleAssignments(): string;
+
+        /** Gets a value that specifies the list item identifier. */
+        Id: string;
+
+        /** Gets the parent list that contains the list item. */
+        get_ParentList(): List;
+
+        /** Gets the role assignments for the securable object. */
+        get_RoleAssignments(): RoleAssignments;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Adds the attachment that is represented by the specified file name and byte array to the list item.
          * @param name - The name of the attachment.
          * @param content - The contents of the file. Pass the content parameter in the request body. The maximum size of a binary file that you can add by using the REST API is 2 GB.
@@ -1041,61 +1583,6 @@ declare module $REST {
          * Deletes the list item.
          */
         delete(): any;
-
-        /**
-         * Specifies the collection of attachments that are associated with the list item.
-         */
-        get_AttachmentFiles(): AttachmentFiles;
-
-        /**
-         * Gets a value that specifies the content type of the list item.
-         */
-        get_ContentType(): ContentType;
-
-        /**
-         * Gets the values for the list item as HTML.
-         */
-        get_FieldValuesAsHtml(): any;
-
-        /**
-         * Gets the list item's field values as a collection of string values.
-         */
-        get_FieldValuesAsText(): any;
-
-        /**
-         * Gets the formatted values to be displayed in an edit form.
-         */
-        get_FieldValuesForEdit(): any;
-
-        /**
-         * Gets the file that is represented by the item from a document library.
-         */
-        get_File(): File;
-
-        /**
-         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-         */
-        get_FirstUniqueAncestorSecurableObject(): any;
-
-        /**
-         * Gets a folder object that is associated with a folder item.
-         */
-        get_Folder(): Folder;
-
-        /**
-         * 
-         */
-        get_GetDlpPolicyTip(): any;
-
-        /**
-         * Gets the parent list that contains the list item.
-         */
-        get_ParentList(): List;
-
-        /**
-         * Gets the role assignments for the securable object.
-         */
-        get_RoleAssignments(): RoleAssignment;
 
         /**
          * Gets the effective permissions that a specified user has on the list item.
@@ -1145,6 +1632,17 @@ declare module $REST {
         constructor(listName:string, camlQuery?:string, ...args);
         
         /**
+         * Properties
+         */
+
+        /** The list item collection. */
+        results: Array<ListItem>;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Adds an item to the list item collection.
          * @param data - The item properties.
          */
@@ -1171,6 +1669,17 @@ declare module $REST {
          * @param args - (Optional) executeRequestFl and/or targetInfo.
          */
         constructor(...args);
+
+        /**
+         * Properties
+         */
+
+        /** The list collection. */
+        results: Array<List>;
+
+        /**
+         * Methods
+         */
 
         /**
          * Adds a list to the list collection.
@@ -1211,6 +1720,23 @@ declare module $REST {
      */
     class RoleAssignment {
         /**
+         * Properties
+         */
+
+        /** Gets the user or group that corresponds to the Role Assignment. */
+        get_Member(): any;
+
+        /** The unique identifier of the role assignment. */
+        PrincipalId: string;
+
+        /** Gets the collection of role definition bindings for the role assignment. */
+        get_RoleDefinitionBindings(): RoleDefinitions;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Deletes the role assignment.
          */
         delete(): any;
@@ -1226,6 +1752,17 @@ declare module $REST {
          * @param args - (Optional) executeRequestFl and/or targetInfo.
          */
         constructor(listName?:string, ...args);
+
+        /**
+         * Properties
+         */
+
+        /** The role assignment collection. */
+        results: Array<RoleAssignment>;
+
+        /**
+         * Methods
+         */
 
         /**
          * Adds a new role assignment with the specified principal and role definitions to the collection.
@@ -1258,6 +1795,35 @@ declare module $REST {
      */
     class RoleDefinition {
         /**
+         * Properties
+         */
+
+        /** Gets or sets a value that specifies the base permissions for the role definition. */
+        BasePermissions: any;
+
+        /** Gets or sets a value that specifies the description of the role definition. */
+        Description: string;
+
+        /** Gets a value that specifies whether the role definition is displayed. */
+        Hidden: string;
+
+        /** Gets a value that specifies the Id of the role definition. */
+        Id: string;
+
+        /** Gets or sets a value that specifies the role definition name. */
+        Name: string;
+
+        /** Gets or sets a value that specifies the order position of the object in the site collection Permission Levels page. */
+        Order: string;
+
+        /** Gets a value that specifies the type of the role definition. Represents an SP.RoleType value. See RoleType in the .NET client object model reference for a list of role type values. */
+        RoleTypeKind: string;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Deletes the role definition.
          */
         delete(): any;
@@ -1272,6 +1838,17 @@ declare module $REST {
          * @param args - (Optional) executeRequestFl and/or targetInfo.
          */
         constructor(...args);
+
+        /**
+         * Properties
+         */
+
+        /** The role definition collection */
+        results: Array<RoleDefinition>;
+
+        /**
+         * Methods
+         */
 
         /**
          * Gets the role definition with the specified ID from the collection.
@@ -1314,6 +1891,95 @@ declare module $REST {
          * @param args - (Optional) executeRequestFl and/or targetInfo.
          */
         constructor(...args);
+
+        /**
+         * Properties
+         */
+
+        /** Gets or sets a value that specifies whether a designer can be used on this site collection. */
+        AllowDesigner: string;
+
+        /** Gets or sets a value that specifies whether master page editing is allowed on this site collection. */
+        AllowMasterPageEditing: string;
+
+        /** Gets or sets a value that specifies whether this site collection can be reverted to its base template. */
+        AllowRevertFromTemplate: string;
+
+        /** Whether version to version upgrade is allowed on this site. */
+        AllowSelfServiceUpgrade: string;
+
+        /** Whether upgrade evaluation site collection is allowed. */
+        AllowSelfServiceUpgradeEvaluation: string;
+
+        /** Property indicating whether or not this object can be upgraded. */
+        CanUpgrade: string;
+
+        /** Gets the major version of this site collection for purposes of major version-level compatibility checks. */
+        CompatibilityLevel: string;
+
+        /** Provides event receivers for events that occur at the scope of the site collection. */
+        get_EventReceivers: any;
+
+        /** Gets a value that specifies the collection of the site collection features for the site collection that contains the site. */
+        get_Features: any;
+
+        /** Gets the GUID that identifies the site collection. */
+        Id: string;
+
+        /** Gets or sets the comment that is used in locking a site collection. */
+        LockIssue: string;
+
+        /** Gets a value that specifies the maximum number of list items allowed per operation before throttling will occur. */
+        MaxItemsPerThrottledOperation: string;
+
+        /** Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.) */
+        get_Owner(): User;
+
+        /** Specifies the primary URI of this site collection, including the host name, port number, and path. */
+        PrimaryUri: string;
+
+        /** Gets or sets a Boolean value that specifies whether the site collection is read-only, locked, and unavailable for write access. */
+        ReadOnly: string;
+
+        /** Gets a value that specifies the collection of recycle bin items for the site collection. */
+        RecycleBin: string;
+
+        /** Gets a value that returns the top-level site of the site collection. */
+        get_RootWeb(): Web;
+
+        /** Gets the server-relative URL of the root Web site in the site collection. */
+        ServerRelativeUrl: string;
+
+        /** Property that indicates whether users will be able to share links to documents that can be accessed without logging in. */
+        ShareByLinkEnabled: string;
+
+        /** Gets or sets a value that specifies whether the URL structure of this site collection is viewable. */
+        ShowUrlStructure: string;
+
+        /** Gets or sets a value that specifies whether the Visual Upgrade UI of this site collection is displayed. */
+        UiVersionConfigurationEnabled: string;
+
+        /** Specifies the upgrade information of this site collection. */
+        UpgradeInfo: string;
+
+        /** Specifies a date, after which site collection administrators will be reminded to upgrade the site collection. */
+        UpgradeReminderDate: string;
+
+        /** Specifies whether the site is currently upgrading. */
+        Upgrading: string;
+
+        /** Gets the full URL to the root Web site of the site collection, including host name, port number, and path. */
+        Url: string;
+
+        /** Gets a value that specifies usage information about the site, including bandwidth, storage, and the number of visits to the site collection. */
+        Usage: string;
+
+        /** Gets a value that specifies the collection of user custom actions for the site collection. */
+        get_UserCustomActions(): UserCustomActions;
+
+        /**
+         * Methods
+         */
 
         /**
          * Adds a custom action to the user custom action collection.
@@ -1439,6 +2105,17 @@ declare module $REST {
         constructor(...args);
 
         /**
+         * Properties
+         */
+
+        /** The site group collection. */
+        results: Array<Group>;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Returns a group from the collection based on the member ID of the group.
          * @param id - The site group id.
          */
@@ -1480,6 +2157,41 @@ declare module $REST {
         constructor(userId:number, ...args);
 
         /**
+         * Properties
+         */
+
+        /** Gets or sets the email address of the user. */
+        Email: string;
+
+        /** Gets the collection of groups of which the user is a member. */
+        get_Groups(): SiteGroups;
+
+        /** Gets a value that specifies the member identifier for the user or group. */
+        Id: string;
+
+        /** Gets a value that indicates whether this member should be hidden in the UI. */
+        IsHiddenInUI: string;
+
+        /** Gets or sets a Boolean value that specifies whether the user is a site collection administrator. */
+        IsSiteAdmin: string;
+
+        /** Gets the login name of the user. */
+        LoginName: string;
+
+        /** Gets a value containing the type of the principal. Represents a bitwise SP.PrincipalType value: None = 0; User = 1; DistributionList = 2; SecurityGroup = 4; SharePointGroup = 8; All = 15. */
+        PrincipalType: string;
+
+        /** Gets or sets a value that specifies the name of the principal. */
+        Title: string;
+
+        /** Gets the information of the user that contains the user's name identifier and the issuer of the user's name identifier. */
+        UserId: string;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Deletes the user custom action.
          */
         delete(): any;
@@ -1494,6 +2206,65 @@ declare module $REST {
      * User Custom Action
      */
     class UserCustomAction {
+        /**
+         * Properties
+         */
+
+        /** Gets or sets a value that specifies an implementation specific XML fragment that determines user interface properties of the custom action. */
+        CommandUIExtension: string;
+
+        /** Gets or sets the description of the custom action. */
+        Description: string;
+
+        /** Gets or sets a value that specifies an implementation-specific value that determines the position of the custom action in the page. */
+        Group: string;
+
+        /** Gets a value that specifies the identifier of the custom action. */
+        Id: string;
+
+        /** Gets or sets the URL of the image associated with the custom action. */
+        ImageUrl: string;
+
+        /** Gets or sets the location of the custom action. */
+        Location: string;
+
+        /** Gets or sets the name of the custom action. */
+        Name: string;
+
+        /** Gets or sets the value that specifies the identifier of the object associated with the custom action. */
+        RegistrationId: string;
+
+        /** Gets or sets the value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value: None = 0; List = 1; ContentType = 2; ProgId = 3; FileType = 4. */
+        RegistrationType: string;
+
+        /** Gets or sets the value that specifies the permissions needed for the custom action. */
+        Rights: string;
+
+        /** Gets a value that specifies the scope of the custom action. */
+        Scope: string;
+
+        /** Gets or sets the value that specifies the ECMAScript to be executed when the custom action is performed. */
+        ScriptBlock: string;
+
+        /** Gets or sets a value that specifies the URI of a file which contains the ECMAScript to execute on the page. */
+        ScriptSrc: string;
+
+        /** Gets or sets the value that specifies an implementation-specific value that determines the order of the custom action that appears on the page. */
+        Sequence: string;
+
+        /** Gets or sets the display title of the custom action. */
+        Title: string;
+
+        /** Gets or sets the URL, URI, or ECMAScript (JScript, JavaScript) function associated with the action. */
+        Url: string;
+
+        /** Gets a value that specifies an implementation specific version identifier. */
+        VersionOfUserCustomAction: string;
+
+        /**
+         * Methods
+         */
+
         /**
          * Deletes the user custom action.
          */
@@ -1510,6 +2281,17 @@ declare module $REST {
          * @param args - (Optional) executeRequestFl and/or targetInfo.
          */
         constructor(webFl?:boolean, ...args);
+
+        /**
+         * Properties
+         */
+
+        /** The user custom action collection. */
+        results: Array<UserCustomAction>;
+
+        /**
+         * Methods
+         */
 
         /**
          * Adds a custom actino to the user custom action collection. 
@@ -1557,6 +2339,17 @@ declare module $REST {
         constructor(...args);
 
         /**
+         * Properties
+         */
+
+        /** The user collection. */
+        results: Array<User>;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Gets the user with the specified email address.
          * @param email - The email of the user to get.
          */
@@ -1596,6 +2389,14 @@ declare module $REST {
      * Versions
      */
     class Version {
+        /**
+         * Properties
+         */
+
+        /**
+         * Methods
+         */
+
         /**
          * Gets the version with the specified ID.
          * @param id - The version id to get.
@@ -1639,6 +2440,128 @@ declare module $REST {
         constructor(viewName:string, listName:string, ...args);
 
         /**
+         * Properties
+         */
+
+        /** Gets or sets a value that specifies fields and functions that define totals shown in a list view. If not null, the XML must conform to FieldRefDefinitionAggregation, as specified in [MS-WSSCAML]. */
+        Aggregations: string;
+
+        /** Gets or sets a value that specifies whether totals are shown in the list view. */
+        AggregationsStatus: string;
+
+        /** Gets a value that specifies the base view identifier of the list view. */
+        BaseViewId: string;
+
+        /** Gets or sets the identifier of the content type with which the view is associated so that the view is available only on folders of this content type. */
+        ContentTypeId: string;
+
+        /** Gets or sets a value that specifies whether the list view is the default list view. */
+        DefaultView: string;
+
+        /** Gets or sets a value that specifies whether the list view is the default list view for the content type specified by contentTypeId. */
+        DefaultViewForContentType: string;
+
+        /** Gets or sets a value that specifies whether the list view was modified in an editor. */
+        EditorModified: string;
+
+        /** Gets or sets a value that specifies the column and row formatting for the list view. If not null, the XML must conform to ViewFormatDefinitions, as specified in [MS-WSSCAML]. */
+        Formats: string;
+
+        /** Gets or sets a value that specifies whether the list view is hidden. */
+        Hidden: string;
+
+        /** Gets a value that specifies the XML document that represents the list view. */
+        HtmlSchemaXml: string;
+
+        /** Gets a value that specifies the view identifier of the list view. */
+        Id: string;
+
+        /** Gets a value that specifies the URI (Uniform Resource Identifier) of the image for the list view. */
+        ImageUrl: string;
+
+        /** Gets or sets a value that specifies whether the current folder is displayed in the list view. */
+        IncludeRootFolder: string;
+
+        /** Gets or sets the name of the JavaScript file used for the view. */
+        JsLink: string;
+
+        /** Gets or sets a string that represents the view XML. */
+        ListViewXml: string;
+
+        /** Gets or sets a value that specifies the view method for the list view. If not null, the XML must conform to Method, as specified in [MS-WSSCAP]. */
+        Method: string;
+
+        /** Gets or sets a value that specifies whether the list view is the default mobile list view. */
+        MobileDefaultView: string;
+
+        /** Gets or sets a value that specifies whether the list view is a mobile list view. */
+        MobileView: string;
+
+        /** Gets a value that specifies the content approval type for the list view. */
+        ModerationType: string;
+
+        /** Gets a value that specifies whether list items can be reordered in the list view. */
+        OrderedView: string;
+
+        /** Gets or sets a value that specifies whether the list view is a paged view. */
+        Paged: string;
+
+        /** Gets a value that specifies whether the list view is a personal view. */
+        PersonalView: string;
+
+        /** Gets a value that specifies whether the list view is read-only. */
+        ReadOnlyView: string;
+
+        /** Gets a value that specifies whether the list view requires client integration rights. */
+        RequiresClientIntegration: string;
+
+        /** Gets or sets a value that specifies the maximum number of list items to display in a visual page of the list view. */
+        RowLimit: string;
+
+        /** Gets or sets a value that specifies the scope for the list view. Represents a ViewScope value. DefaultValue = 0, Recursive = 1, RecursiveAll = 2, FilesOnly = 3. */
+        Scope: string;
+
+        /** Gets a value that specifies the server-relative URL of the list view page. */
+        ServerRelativeUrl: string;
+
+        /** Gets a value that specifies the identifier of the view style for the list view. */
+        StyleId: string;
+
+        /** Gets a value that specifies whether the list view is a threaded view. */
+        Threaded: string;
+
+        /** Gets or sets a value that specifies the display name of the list view. */
+        Title: string;
+
+        /** Gets or sets a value that specifies the toolbar for the list view. */
+        Toolbar: string;
+
+        /** Gets a value that specifies the name of the template for the toolbar that is used in the list view. */
+        ToolbarTemplateName: string;
+
+        /** Gets or sets a value that specifies the view data for the list view. If not null, the XML must conform to FieldRefDefinitionViewData, as specified in [MS-WSSCAML]. */
+        ViewData: string;
+
+        /** Gets a value that specifies the collection of fields in the list view. */
+        get_ViewFields(): ViewFields;
+
+        /** Gets or sets a value that specifies the joins that are used in the list view. If not null, the XML must conform to ListJoinsDefinition, as specified in [MS-WSSCAML]. */
+        ViewJoins: string;
+
+        /** Gets or sets a value that specifies the projected fields that will be used by the list view. If not null, the XML must conform to ProjectedFieldsDefinitionType, as specified in [MS-WSSCAML]. */
+        ViewProjectedFields: string;
+
+        /** Gets or sets a value that specifies the query that is used by the list view. If not null, the XML must conform to CamlQueryRoot, as specified in [MS-WSSCAML]. */
+        ViewQuery: string;
+
+        /** Gets a value that specifies the type of the list view. Can be HTML, GRID, CALENDAR, RECURRENCE, CHART, or GANTT. */
+        ViewType: string;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Deletes the view.
          */
         delete(): any;
@@ -1664,6 +2587,23 @@ declare module $REST {
      * View Fields
      */
     class ViewFields {
+        /**
+         * Properties
+         */
+
+        /** Gets a value that specifies the XML schema that represents the collection. */
+        SchemaXml: string;
+
+        /** Specifies the XML schema of the collection of fields. The Items property is returned with the resource, but it doesn't have a URI-addressable endpoint. */
+        Items: string;
+
+        /** The view field collection. */
+        results: Array<ViewFields>;
+
+        /**
+         * Methods
+         */
+
         /**
          * Adds the field with the specified field internal name or display name to the collection.
          * @param fieldName - The case-sensitive internal name or display name of the field to add.
@@ -1701,6 +2641,17 @@ declare module $REST {
         constructor(listName:string, ...args);
 
         /**
+         * Properties
+         */
+
+        /** The view collection. */
+        results: Array<View>;
+
+        /**
+         * Methods
+         */
+
+        /**
          * Gets the list view with the specified ID.
          * @param id - The ID of the view.
          */
@@ -1727,6 +2678,203 @@ declare module $REST {
          * @param args - (Optional) executeRequestFl and/or targetInfo.
          */
         constructor(...args);
+
+        /**
+         * Properties
+         */
+
+        /** Specifies whether the current user can create declarative workflows. If not disabled on the Web application, the value is the same as the AllowCreateDeclarativeWorkflow property of the site collection. Default value: true. */
+        get_AllowCreateDeclarativeWorkflowForCurrentUser(): any;
+
+        /** Gets a value that specifies whether the current user is allowed to use a designer application to customize this site. */
+        get_AllowDesignerForCurrentUser(): any;
+
+        /** Gets a value that specifies whether the current user is allowed to edit the master page. */
+        get_AllowMasterPageEditingForCurrentUser(): any;
+
+        /** Gets a value that specifies whether the current user is allowed to revert the site to a default site template. */
+        get_AllowRevertFromTemplateForCurrentUser(): any;
+
+        /** Gets a value that specifies whether the site allows RSS feeds. */
+        AllowRssFeeds: string;
+
+        /** Specifies whether the current user can save declarative workflows as a template. If not disabled on the Web application, the value is the same as the AllowSaveDeclarativeWorkflowAsTemplate property of the site collection. Default value: true. */
+        get_AllowSaveDeclarativeWorkflowAsTemplateForCurrentUser(): any;
+
+        /** Specifies whether the current user can save or publish declarative workflows. If not disabled on the Web application, the value is the same as the AllowSavePublishDeclarativeWorkflowAsTemplate property of the site collection. When enabled, can only be set by a site collection administrator. Default value: true. */
+        get_AllowSavePublishDeclarativeWorkflowForCurrentUser(): any;
+
+        /** Gets a collection of metadata for the Web site. */
+        get_AllProperties(): any;
+
+        /** The instance Id of the App Instance that this web represents. */
+        AppInstanceId: string;
+
+        /** Gets or sets the group of users who have been given contribute permissions to the Web site. */
+        get_AssociatedMemberGroup(): Group;
+
+        /** Gets or sets the associated owner group of the Web site. */
+        get_AssociatedOwnerGroup(): Group;
+
+        /** Gets or sets the associated visitor group of the Web site. */
+        get_AssociatedVisitorGroup(): Group;
+
+        /** Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites. */
+        get_AvailableContentTypes(): any;
+
+        /** Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites. */
+        get_AvailableFields(): any;
+
+        /** Gets either the identifier (ID) of the site definition configuration that was used to create the site, or the ID of the site definition configuration from which the site template used to create the site was derived. */
+        Configuration: string;
+
+        /** Gets the collection of content types for the Web site. */
+        get_ContentTypes(): ContentTypes;
+
+        /** Gets a value that specifies when the site was created. */
+        Created: string;
+
+        /** Gets the current user of the site. */
+        get_CurrentUser(): User;
+
+        /** Gets or sets the URL for a custom master page file to apply to the website. */
+        CustomMasterUrl: string;
+
+        /** Gets or sets the description for the site. */
+        Description: string;
+
+        /** Gets the URL where the current user can download SharePoint Designer. */
+        get_DesignerDownloadUrlForCurrentUser(): any;
+
+        /** Determines if the Document Library Callout's WAC previewers are enabled or not. */
+        DocumentLibraryCalloutOfficeWebAppPreviewersDisabled: string;
+
+        /** Represents the intersection of permissions of the app principal and the user principal. In the app-only case, this property returns only the permissions of the app principal. To check only user permissions (ignoring app permissions), use the GetUserEffectivePermissions method. */
+        get_EffectiveBasePermissions(): string;
+
+        /** Gets or sets a Boolean value that specifies whether the Web site should use Minimal Download Strategy. */
+        EnableMinimalDownload: string;
+
+        /** Gets the collection of event receiver definitions that are currently available on the website. */
+        get_EventReceivers(): any;
+
+        /** Gets a value that specifies the collection of features that are currently activated in the site. */
+        get_Features(): any;
+
+        /** Gets the collection of field objects that represents all the fields in the Web site. */
+        get_Fields(): Fields;
+
+        /** Gets the collection of all first-level folders in the Web site. */
+        get_Folders(): Folders;
+
+        /** Gets a value that specifies the site identifier for the site. */
+        Id: string;
+
+        /** Gets a value that specifies the LCID for the language that is used on the site. */
+        Language: string;
+
+        /** Gets a value that specifies when an item was last modified in the site. */
+        LastItemModifiedDate: string;
+
+        /** Gets the collection of all lists that are contained in the Web site available to the current user based on the permissions of the current user. */
+        get_Lists(): Lists;
+
+        /** Gets a value that specifies the collection of list definitions and list templates available for creating lists on the site. */
+        get_ListTemplates(): any;
+
+        /** Gets or sets the URL of the master page that is used for the website. */
+        MasterUrl: string;
+
+        /** Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar. */
+        get_Navigation(): any;
+
+        /** Gets the parent website of the specified website. */
+        get_ParentWeb(): any;
+
+        /** Gets the collection of push notification subscribers over the site. */
+        get_PushNotificationSubscribers(): any;
+
+        /** Gets or sets a value that specifies whether the Quick Launch area is enabled on the site. */
+        QuickLaunchEnabled: string;
+
+        /** Specifies the collection of recycle bin items of the recycle bin of the site. */
+        get_RecycleBin(): any;
+
+        /** Gets or sets a value that determines whether the recycle bin is enabled for the website. */
+        RecycleBinEnabled: string;
+
+        /** Gets the regional settings that are currently implemented on the website. */
+        get_RegionalSettings(): any;
+
+        /** Gets the collection of role definitions for the Web site. */
+        get_RoleDefinitions(): RoleDefinitions;
+
+        /** Gets the root folder for the Web site. */
+        get_RootFolder(): Folder;
+
+        /** Gets or sets a Boolean value that specifies whether the Web site can be saved as a site template. */
+        get_SaveSiteAsTemplateEnabled(): any;
+
+        /** Gets or sets the server-relative URL for the Web site. */
+        ServerRelativeUrl: string;
+
+        /** Gets a value that specifies whether the current user is able to view the file system structure of this site. */
+        get_ShowUrlStructureForCurrentUser(): any;
+
+        /** Gets the collection of groups for the site collection. */
+        get_SiteGroups(): SiteGroups;
+
+        /** Gets the UserInfo list of the site collection that contains the Web site. */
+        get_SiteUserInfoList(): any;
+
+        /** Gets the collection of all users that belong to the site collection. */
+        get_SiteUsers(): Users;
+
+        /** Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site. */
+        get_SupportedUILanguageIds(): any;
+
+        /** Gets or sets a value that specifies whether the RSS feeds are enabled on the site. */
+        SyndicationEnabled: string;
+
+        /** The theming information for this site. This includes information like colors, fonts, border radii sizes etc. */
+        get_ThemeInfo(): any;
+
+        /** Gets or sets the title for the Web site. */
+        Title: string;
+
+        /** Gets or sets value that specifies whether the tree view is enabled on the site. */
+        TreeViewEnabled: string;
+
+        /** Gets or sets the user interface (UI) version of the Web site. */
+        UIVersion: string;
+
+        /** Gets or sets a value that specifies whether the settings UI for visual upgrade is shown or hidden. */
+        UIVersionConfigurationEnabled: string;
+
+        /** Gets the absolute URL for the website. */
+        Url: string;
+
+        /** Gets a value that specifies the collection of user custom actions for the site. */
+        get_UserCustomActions(): UserCustomActions;
+
+        /** Represents key properties of the subsites of a site. */
+        get_WebInfos(): any;
+
+        /** Gets a Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites. */
+        get_Webs(): Webs;
+
+        /** Gets the name of the site definition or site template that was used to create the site. */
+        WebTemplate: string;
+
+        /** Gets a value that specifies the collection of all workflow associations for the site. */
+        get_WorkflowAssociations(): any;
+
+        /** Gets a value that specifies the collection of workflow templates associated with the site. */
+        get_WorkflowTemplates(): any;
+
+        /**
+         * Methods
+         */
 
         /**
          * Adds a content type content type collection.
@@ -1842,201 +2990,6 @@ declare module $REST {
          * @param inputStream - The OData input object. Used for create or update operations only.
          */
         executeRemoteLOB(inputStream): any;
-
-        /**
-         * Gets a collection of metadata for the Web site.
-         */
-        get_AllProperties(): any;
-
-        /**
-         * 
-         */
-        get_AppTiles(): any;
-
-        /**
-         * Gets or sets the group of users who have been given contribute permissions to the Web site.
-         */
-        get_AssociatedMemberGroup(): any;
-
-        /**
-         * Gets or sets the associated owner group of the Web site.
-         */
-        get_AssociatedOwnerGroup(): any;
-
-        /**
-         * Gets or sets the associated visitor group of the Web site.
-         */
-        get_AssociatedVisitorGroup(): any;
-
-        /**
-         * 
-         */
-        get_Author(): any;
-
-        /**
-         * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
-         */
-        get_AvailableContentTypes(): any;
-
-        /**
-         * Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
-         */
-        get_AvailableFields(): any;
-
-        /**
-         * 
-         */
-        get_ClientWebParts(): any;
-
-        /**
-         * Gets the collection of content types for the Web site.
-         */
-        get_ContentTypes(): ContentTypes;
-
-        /**
-         * Gets the current user of the site.
-         */
-        get_CurrentUser(): User;
-
-        /**
-         * 
-         */
-        get_DataLeakagePreventionStatusInfo(): any;
-
-        /**
-         * 
-         */
-        get_DescriptionResource(): any;
-
-        /**
-         * Gets the collection of event receiver definitions that are currently available on the website.
-         */
-        get_EventReceivers(): any;
-
-        /**
-         * Gets a value that specifies the collection of features that are currently activated in the site.
-         */
-        get_Features(): any;
-
-        /**
-         * Gets the collection of field objects that represents all the fields in the Web site.
-         */
-        get_Fields(): Fields;
-
-        /**
-         * Gets the collection of all first-level files in the Web site.
-         */
-        get_Files(): Files;
-
-        /**
-         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-         */
-        get_FirstUniqueAncestorSecurableObject(): any;
-
-        /**
-         * Gets the collection of all first-level folders in the Web site.
-         */
-        get_Folders(): Folders;
-
-        /**
-         * Gets the collection of all lists that are contained in the Web site available to the current user based on the permissions of the current user.
-         */
-        get_Lists(): Lists;
-
-        /**
-         * Gets a value that specifies the collection of list definitions and list templates available for creating lists on the site.
-         */
-        get_ListTemplates(): any;
-
-        /**
-         * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
-         */
-        get_Navigation(): any;
-
-        /**
-         * Gets the parent website of the specified website.
-         */
-        get_ParentWeb(): any;
-
-        /**
-         * Gets the collection of push notification subscribers over the site.
-         */
-        get_PushNotificationSubscribers(): any;
-
-        /**
-         * Gets the collection of push notification subscribers over the site.
-         */
-        get_RecycleBin(): any;
-
-        /**
-         * Gets the regional settings that are currently implemented on the website.
-         */
-        get_RegionalSettings(): any;
-
-        /**
-         * Gets the collection of role assignments for the Web site.
-         */
-        get_RoleAssignments(): RoleAssignments;
-
-        /**
-         * Gets the collection of role definitions for the Web site.
-         */
-        get_RoleDefinitions(): RoleDefinitions;
-
-        /**
-         * Gets the root folder for the Web site.
-         */
-        get_RootFolder(): Folder;
-
-        /**
-         * Gets the collection of groups for the site collection.
-         */
-        get_SiteGroups(): SiteGroups;
-
-        /**
-         * Gets the UserInfo list of the site collection that contains the Web site.
-         */
-        get_SiteUserInfoList() : any;
-
-        /**
-         * Gets the collection of all users that belong to the site collection.
-         */
-        get_SiteUsers(): Users;
-
-        /**
-         * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
-         */
-        get_ThemeInfo(): any;
-
-        /**
-         * 
-         */
-        get_TitleResource(): any;
-
-        /**
-         * Gets a value that specifies the collection of user custom actions for the site.
-         */
-        get_UserCustomActions(): UserCustomActions;
-
-        /**
-         * Represents key properties of the subsites of a site.
-         */
-        get_WebInfos(): any;
-
-        /**
-         * Gets a Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
-         */
-        get_Webs(): Webs;
-
-        /**
-         * Gets a value that specifies the collection of all workflow associations for the site.
-         */
-        get_WorkflowAssociations(): any;
-
-        /**
-         * Gets a value that specifies the collection of workflow templates associated with the site.
-         */
-        get_WorkflowTemplates(): any;
         
         /**
          * Gets the app BDC catalog.
@@ -2322,6 +3275,17 @@ declare module $REST {
      * Webs
      */
     class Webs {
+        /**
+         * Properties
+         */
+
+        /** The web collection. */
+        results: Array<Web>;
+
+        /**
+         * Methods
+         */
+
         /**
          * Adds a site to the site collection.
          * @param parameters - The web creation information.
