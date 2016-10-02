@@ -17,10 +17,20 @@ gulp.task("build", function() {
         .pipe(gulp.dest("dist"));
 });
 
-// Copy the files to the output directories
-gulp.task("copy", function() {
+// Copy the typescript definition file
+gulp.task("copyTSD", function() {
     // Log
-    console.log("Copying the files.");
+    console.log("Copying the typescript definition file.");
+
+    // Copy the definition file
+    return gulp.src(["src/tsd/sprest.d.ts"])
+        .pipe(gulp.dest("dist"));
+});
+
+// Copy the files to the test directory
+gulp.task("updateTestDir", function() {
+    // Log
+    console.log("Updating the test directory.");
 
     // Copy the files to the test directory
     return gulp.src(["dist/*.js"])
@@ -28,4 +38,4 @@ gulp.task("copy", function() {
 });
 
 // Main
-gulp.task("default", ["build", "copy"]);
+gulp.task("default", ["build", "copyTSD", "updateTestDir"]);
