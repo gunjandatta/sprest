@@ -31,7 +31,7 @@ declare module $REST {
     /**
      * Attachment Files
      */
-    interface AttachmentFiles {
+    class AttachmentFiles {
         /**
          * Adds the attachment that is represented by the specified file name and byte array to the list item.
          * @param name - The name of the file to add.
@@ -43,7 +43,15 @@ declare module $REST {
     /**
      * Content Type
      */
-    interface ContentType {
+    class ContentType {
+        /**
+         * Constructor
+         * @param contentTypeName - The content type name to get.
+         * @param listName - (Optional) The list name to search.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(contentTypeName:string, listName?:string, ...args);
+
         /**
          * Adds a field link to the content type.
          * @param fieldLink - The field link.
@@ -87,9 +95,20 @@ declare module $REST {
     }
 
     /**
+     * Content Type (Asynchronous)
+     */
+    class ContentType_Async extends ContentType { }
+
+    /**
      * Content Types
      */
-    interface ContentTypes {
+    class ContentTypes {
+        /**
+         * Constructor
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(listName?:string, ...args);
+
         /**
          * Adds a content type to the collection.
          * @param data - The content type creation information.
@@ -116,9 +135,22 @@ declare module $REST {
     }
 
     /**
+     * Content Types (Async)
+     */
+    class ContentTypes_Async extends ContentTypes { }
+
+    /**
      * Field
      */
-    interface Field {
+    class Field {
+        /**
+         * Constructor
+         * @param internalNameOrTitle - The internal name or title of the field.
+         * @param listName - (Optional) The list name to search.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(internalNameOrTitle:string, listName?:string, ...args);
+
         /**
          * Deletes the field.
          */
@@ -150,9 +182,14 @@ declare module $REST {
     }
 
     /**
+     * Field (Async)
+     */
+    class Field_Async extends Field { }
+
+    /**
      * Field Links
      */
-    interface FieldLinks {
+    class FieldLinks {
         /**
          * Adds a content type to the collection.
          * @param data - The field link properties.
@@ -175,7 +212,14 @@ declare module $REST {
     /**
      * Fields
      */
-    interface Fields {
+    class Fields {
+        /**
+         * Constructor
+         * @param listName - (Optional) The list name to search.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(listName?:string, ...args);
+
         /**
          * Adds a field to the field collection.
          * @param parameters - The field creation information.
@@ -217,9 +261,22 @@ declare module $REST {
     }
 
     /**
+     * Fields (Async)
+     */
+    class Fields_Async extends Fields { }
+
+    /**
      * File
      */
-    interface File {
+    class File {
+        /**
+         * Constructor
+         * @param serverRelativeUrl - The server relative url of the file.
+         * @param listName - (Optional) The list name to search.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(serverRelativeUrl:string, listName?:string, ...args);
+
         /**
          * Approves the file submitted for content approval with the specified comment.
          * @param comment - The comment for the approval. It's length must be <= 1023.
@@ -289,6 +346,56 @@ declare module $REST {
         finishUpload(uploadId, fileOffset): any;
 
         /**
+         * Gets a value that specifies the user who added the file.
+         */
+        get_Author(): User;
+
+        /**
+         * Gets a value that returns the user who has checked out the file.
+         */
+        get_CheckedOutByUser(): any;
+
+        /**
+         * 
+         */
+        get_EffectiveInformationRightsManagementSettings(): any;
+
+        /**
+         * 
+         */
+        get_InformationRightsManagementSettings(): any;
+
+        /**
+         * Gets a value that specifies the list item field values for the list item corresponding to the file.
+         */
+        get_ListItemAllFields(): any;
+
+        /**
+         * Gets a value that returns the user that owns the current lock on the file.
+         */
+        get_LockedByUser(): any;
+
+        /**
+         * Gets a value that returns the user who last modified the file.
+         */
+        get_ModifiedBy(): any;
+
+        /**
+         * 
+         */
+        get_Properties(): any;
+
+        /**
+         * 
+         */
+        get_VersionEvents(): any;
+
+        /**
+         * Gets a value that returns a collection of file version objects that represent the versions of the file.
+         */
+        get_Versions(): any;
+
+        /**
          * Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
          * An exception is thrown if the file is not an ASPX page.
          * @param scope - The webpart personalization scope: User - 0; Shared - 1
@@ -351,9 +458,21 @@ declare module $REST {
     }
 
     /**
+     * File (Async)
+     */
+    class File_Async extends File { }
+
+    /**
      * Files
      */
-    interface Files {
+    class Files {
+        /**
+         * Constructor
+         * @param listName - (Optional) The list name to search.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(listName?:string, ...args);
+
         /**
          * Adds a file to this collection.
          * @param overwrite - true to overwrite the file if it already exists; otherwise false.
@@ -385,7 +504,7 @@ declare module $REST {
     /**
      * File Version
      */
-    interface FileVersion {
+    class FileVersion {
         /**
          * Deletes the file version.
          */
@@ -393,15 +512,28 @@ declare module $REST {
     }
 
     /**
+     * Files (Async)
+     */
+    class Files_Async extends Files { }
+
+    /**
      * File Versions
      */
-    interface FileVersions {
+    class FileVersions {
     }
 
     /**
      * Folder
      */
-    interface Folder {
+    class Folder {
+        /**
+         * Constructor
+         * @param serverRelativeUrl - The server relative url of the folder.
+         * @param listName - (Optional) The list name to search.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(serverRelativeUrl:string, listName?:string, ...args);
+
         /**
          * Adds a file to this folder.
          * @param overwrite - true to overwrite the file if it already exists; otherwise false.
@@ -427,6 +559,36 @@ declare module $REST {
          * Deletes the folder.
          */
         delete(): any;
+
+        /**
+         * Gets the collection of all files contained in the list folder. You can add a file to a folder by using the Add method on the folder’s FileCollection resource.
+         */
+        get_Files(): Files;
+
+        /**
+         * Gets the collection of list folders contained in the list folder.
+         */
+        get_Folders(): Folders;
+
+        /**
+         * Specifies the list item field (2) values for the list item corresponding to the file.
+         */
+        get_ListItemAllFields(): any;
+
+        /**
+         * Gets the parent list folder of the folder.
+         */
+        get_ParentFolder(): Folder;
+
+        /**
+         * Gets the collection of all files contained in the folder.
+         */
+        get_Properties(): any;
+
+        /**
+         * 
+         */
+        get_StorageMetrics(): any;
 
         /**
          * Gets the file for the specified name.
@@ -459,9 +621,21 @@ declare module $REST {
     }
 
     /**
+     * Folder (Async)
+     */
+    class Folder_Async extends Folder { }
+
+    /**
      * Folders
      */
-    interface Folders {
+    class Folders {
+        /**
+         * Constructor
+         * @param listName - (Optional) The list name to search.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(listName?:string, ...args);
+
         /**
          * Adds the folder that is located at the specified URL to the collection.
          * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.
@@ -476,9 +650,14 @@ declare module $REST {
     }
 
     /**
+     * Folders (Async)
+     */
+    class Folders_Async extends Folders { }
+
+    /**
      * Group
      */
-    interface Group {
+    class Group {
         /**
          * Gets the user by the specified user id.
          * @param userId - The user id.
@@ -489,7 +668,7 @@ declare module $REST {
     /**
      * Limited Web Part Manager
      */
-    interface LimitedWebPartManager {
+    class LimitedWebPartManager {
         /**
          * Gets a webpart by its id.
          */
@@ -499,7 +678,14 @@ declare module $REST {
     /**
      * List
      */
-    interface List {
+    class List {
+        /**
+         * Constructor
+         * @param listName - The list name.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(listName:string, ...args);
+
         /**
          * Adds an existing content type to this collection.
          * @param contentTypeId - The content type id.
@@ -569,6 +755,96 @@ declare module $REST {
          * Deletes the list.
          */
         delete(): any;
+
+        /**
+         * Gets the content types that are associated with the list.
+         */
+        get_ContentTypes(): ContentTypes;
+
+        /**
+         * 
+         */
+        get_CreatablesInfo(): any;
+
+        /**
+         * Gets the default view for the list.
+         */
+        get_DefaultView(): View;
+
+        /**
+         * 
+         */
+        get_DescriptionResource(): any;
+
+        /**
+         * Gets the collection of event receiver definitions associated with the list.
+         */
+        get_EventReceivers(): any;
+
+        /**
+         * Gets the collection of field objects associated with the list.
+         */
+        get_Fields(): Fields;
+
+        /**
+         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+         */
+        get_FirstUniqueAncestorSecurableObject(): any;
+
+        /**
+         * Gets the collection of forms associated with the list.
+         */
+        get_Forms(): any;
+
+        /**
+         *
+         */
+        get_InformationRightsManagementSettings(): any;
+
+        /**
+         * Gets all the items in the list.
+         */
+        get_Items(): ListItems;
+
+        /**
+         * Gets a value that specifies the site that contains the list.
+         */
+        get_ParentWeb(): any;
+
+        /**
+         * Gets the collection of role assignments associated with the list.
+         */
+        get_RoleAssignments(): RoleAssignments;
+
+        /**
+         * Gets the root folder for the list.
+         */
+        get_RootFolder(): Folder;
+
+        /**
+         * 
+         */
+        get_Subscriptions(): any;
+
+        /**
+         * 
+         */
+        get_TitleResource(): any;
+
+        /**
+         * Gets a value that specifies the collection of user custom actions associate with the list.
+         */
+        get_UserCustomActions(): UserCustomActions;
+
+        /**
+         * Gets a value that specifies the collection of all views associated with the list.
+         */
+        get_Views(): Views;
+
+        /**
+         * Gets a value that specifies the collection of all workflow associations for the list.
+         */
+        get_WorkflowAssociations(): any;
 
         /**
          * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
@@ -731,42 +1007,22 @@ declare module $REST {
     }
 
     /**
-     * Lists
+     * List (Async)
      */
-    interface Lists {
-        /**
-         * Adds a list to the list collection.
-         * @param data - The list creation information.
-         */
-        add(data): List;
-
-        /**
-         * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
-         */
-        ensureSiteAssetsLibrary(): any;
-
-        /**
-         * Gets a list that is the default location for wiki pages.
-         */
-        ensureSitePagesLibrary(): any;
-
-        /**
-         * Returns the list with the specified list identifier.
-         * @param id - The list id.
-         */
-        getById(id): List;
-
-        /**
-         * Returns the list with the specified title from the collection.
-         * @param title - The list title.
-         */
-        getByTitle(title): List;
-    }
+    class List_Async extends List { }
 
     /**
      * List Item
      */
-    interface ListItem {
+    class ListItem {
+        /**
+         * Constructor
+         * @param itemId - The item id.
+         * @param listName - The list name.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(itemId:number, listName:string, ...args);
+
         /**
          * Adds the attachment that is represented by the specified file name and byte array to the list item.
          * @param name - The name of the attachment.
@@ -785,6 +1041,61 @@ declare module $REST {
          * Deletes the list item.
          */
         delete(): any;
+
+        /**
+         * Specifies the collection of attachments that are associated with the list item.
+         */
+        get_AttachmentFiles(): AttachmentFiles;
+
+        /**
+         * Gets a value that specifies the content type of the list item.
+         */
+        get_ContentType(): ContentType;
+
+        /**
+         * Gets the values for the list item as HTML.
+         */
+        get_FieldValuesAsHtml(): any;
+
+        /**
+         * Gets the list item's field values as a collection of string values.
+         */
+        get_FieldValuesAsText(): any;
+
+        /**
+         * Gets the formatted values to be displayed in an edit form.
+         */
+        get_FieldValuesForEdit(): any;
+
+        /**
+         * Gets the file that is represented by the item from a document library.
+         */
+        get_File(): File;
+
+        /**
+         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+         */
+        get_FirstUniqueAncestorSecurableObject(): any;
+
+        /**
+         * Gets a folder object that is associated with a folder item.
+         */
+        get_Folder(): Folder;
+
+        /**
+         * 
+         */
+        get_GetDlpPolicyTip(): any;
+
+        /**
+         * Gets the parent list that contains the list item.
+         */
+        get_ParentList(): List;
+
+        /**
+         * Gets the role assignments for the securable object.
+         */
+        get_RoleAssignments(): RoleAssignment;
 
         /**
          * Gets the effective permissions that a specified user has on the list item.
@@ -817,9 +1128,22 @@ declare module $REST {
     }
 
     /**
+     * List Item (Async)
+     */
+    class ListItem_Async extends ListItem { }
+
+    /**
      * List Items
      */
-    interface ListItems {
+    class ListItems {
+        /**
+         * Constructor
+         * @param listName - The list name.
+         * @param camlQuery - (Optional) The caml query.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(listName:string, camlQuery?:string, ...args);
+        
         /**
          * Adds an item to the list item collection.
          * @param data - The item properties.
@@ -834,9 +1158,58 @@ declare module $REST {
     }
 
     /**
+     * List Items (Async)
+     */
+    class ListItems_Async extends ListItems { }
+
+    /**
+     * Lists
+     */
+    class Lists {
+        /**
+         * Constructor
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(...args);
+
+        /**
+         * Adds a list to the list collection.
+         * @param data - The list creation information.
+         */
+        add(data): List;
+
+        /**
+         * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
+         */
+        ensureSiteAssetsLibrary(): any;
+
+        /**
+         * Gets a list that is the default location for wiki pages.
+         */
+        ensureSitePagesLibrary(): any;
+
+        /**
+         * Returns the list with the specified list identifier.
+         * @param id - The list id.
+         */
+        getById(id): List;
+
+        /**
+         * Returns the list with the specified title from the collection.
+         * @param title - The list title.
+         */
+        getByTitle(title): List;
+    }
+
+    /**
+     * Lists (Async)
+     */
+    class Lists_Async extends Lists { }
+
+    /**
      * Role Assignment
      */
-    interface RoleAssignment {
+    class RoleAssignment {
         /**
          * Deletes the role assignment.
          */
@@ -846,7 +1219,14 @@ declare module $REST {
     /**
      * RoleAssignments
      */
-    interface RoleAssignments {
+    class RoleAssignments {
+        /**
+         * Constructor
+         * @param listName - (Optional) The list name to search.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(listName?:string, ...args);
+
         /**
          * Adds a new role assignment with the specified principal and role definitions to the collection.
          * @param principalId - The ID of the user or group to assign permissions to.
@@ -869,9 +1249,14 @@ declare module $REST {
     }
 
     /**
+     * Role Assignments (Async)
+     */
+    class RoleAssignments_Async extends RoleAssignments { }
+
+    /**
      * Role Definition
      */
-    interface RoleDefinition {
+    class RoleDefinition {
         /**
          * Deletes the role definition.
          */
@@ -881,7 +1266,13 @@ declare module $REST {
     /**
      * Role Definitions
      */
-    interface RoleDefinitions {
+    class RoleDefinitions {
+        /**
+         * Constructor
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(...args);
+
         /**
          * Gets the role definition with the specified ID from the collection.
          * @param roleDefId - The ID of the role definition that defines the permissions to assign.
@@ -910,9 +1301,20 @@ declare module $REST {
     }
 
     /**
+     * Role Definitions (Async)
+     */
+    class RoleDefinitions_Async extends RoleDefinitions { }
+
+    /**
      * Site
      */
-    interface Site {
+    class Site {
+        /**
+         * Constructor
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(...args);
+
         /**
          * Adds a custom action to the user custom action collection.
          * data - The user custom action information.
@@ -1022,9 +1424,20 @@ declare module $REST {
     }
 
     /**
+     * Site (Async)
+     */
+    class Site_Async extends Site { }
+
+    /**
      * Site Groups
      */
-    interface SiteGroups {
+    class SiteGroups {
+        /**
+         * Constructor
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(...args);
+
         /**
          * Returns a group from the collection based on the member ID of the group.
          * @param id - The site group id.
@@ -1051,9 +1464,21 @@ declare module $REST {
     }
 
     /**
+     * Site Groups (Async)
+     */
+    class SiteGroups_Async extends SiteGroups { }
+
+    /**
      * User
      */
-    interface User {
+    class User {
+        /**
+         * Constructor
+         * @param userId - The user id.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(userId:number, ...args);
+
         /**
          * Deletes the user custom action.
          */
@@ -1061,9 +1486,14 @@ declare module $REST {
     }
 
     /**
+     * User (Async)
+     */
+    class User_Async extends User { }
+
+    /**
      * User Custom Action
      */
-    interface UserCustomAction {
+    class UserCustomAction {
         /**
          * Deletes the user custom action.
          */
@@ -1073,7 +1503,14 @@ declare module $REST {
     /**
      * User Custom Actions
      */
-    interface UserCustomActions {
+    class UserCustomActions {
+        /**
+         * Constructor
+         * @param webFl - True to search the web, false to search the site.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(webFl?:boolean, ...args);
+
         /**
          * Adds a custom actino to the user custom action collection. 
          * @param data - The user custom action information.
@@ -1105,9 +1542,20 @@ declare module $REST {
     }
 
     /**
+     * User Custom Actions (Async)
+     */
+    class UserCustomActions_Async extends UserCustomActions { }
+
+    /**
      * Users
      */
-    interface Users {
+    class Users {
+        /**
+         * Constructor
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(...args);
+
         /**
          * Gets the user with the specified email address.
          * @param email - The email of the user to get.
@@ -1140,9 +1588,14 @@ declare module $REST {
     }
 
     /**
+     * Users (Async)
+     */
+    class Users_Async extends Users { }
+
+    /**
      * Versions
      */
-    interface Version {
+    class Version {
         /**
          * Gets the version with the specified ID.
          * @param id - The version id to get.
@@ -1176,7 +1629,15 @@ declare module $REST {
     /**
      * View
      */
-    interface View {
+    class View {
+        /**
+         * Constructor
+         * @param viewName - The view name.
+         * @param listName - The list name.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(viewName:string, listName:string, ...args);
+
         /**
          * Deletes the view.
          */
@@ -1195,9 +1656,14 @@ declare module $REST {
     }
 
     /**
+     * View (Async)
+     */
+    class View_Async extends View { }
+
+    /**
      * View Fields
      */
-    interface ViewFields {
+    class ViewFields {
         /**
          * Adds the field with the specified field internal name or display name to the collection.
          * @param fieldName - The case-sensitive internal name or display name of the field to add.
@@ -1226,7 +1692,14 @@ declare module $REST {
     /**
      * Views
      */
-    interface Views {
+    class Views {
+        /**
+         * Constructor
+         * @param listName - The list name.
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(listName:string, ...args);
+
         /**
          * Gets the list view with the specified ID.
          * @param id - The ID of the view.
@@ -1241,9 +1714,20 @@ declare module $REST {
     }
 
     /**
+     * Views (Async)
+     */
+    class Views_Async extends Views { }
+
+    /**
      * Web
      */
-    interface Web {
+    class Web {
+        /**
+         * Constructor
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(...args);
+
         /**
          * Adds a content type content type collection.
          * @param data - The content type creation information.
@@ -1358,6 +1842,201 @@ declare module $REST {
          * @param inputStream - The OData input object. Used for create or update operations only.
          */
         executeRemoteLOB(inputStream): any;
+
+        /**
+         * Gets a collection of metadata for the Web site.
+         */
+        get_AllProperties(): any;
+
+        /**
+         * 
+         */
+        get_AppTiles(): any;
+
+        /**
+         * Gets or sets the group of users who have been given contribute permissions to the Web site.
+         */
+        get_AssociatedMemberGroup(): any;
+
+        /**
+         * Gets or sets the associated owner group of the Web site.
+         */
+        get_AssociatedOwnerGroup(): any;
+
+        /**
+         * Gets or sets the associated visitor group of the Web site.
+         */
+        get_AssociatedVisitorGroup(): any;
+
+        /**
+         * 
+         */
+        get_Author(): any;
+
+        /**
+         * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
+         */
+        get_AvailableContentTypes(): any;
+
+        /**
+         * Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
+         */
+        get_AvailableFields(): any;
+
+        /**
+         * 
+         */
+        get_ClientWebParts(): any;
+
+        /**
+         * Gets the collection of content types for the Web site.
+         */
+        get_ContentTypes(): ContentTypes;
+
+        /**
+         * Gets the current user of the site.
+         */
+        get_CurrentUser(): User;
+
+        /**
+         * 
+         */
+        get_DataLeakagePreventionStatusInfo(): any;
+
+        /**
+         * 
+         */
+        get_DescriptionResource(): any;
+
+        /**
+         * Gets the collection of event receiver definitions that are currently available on the website.
+         */
+        get_EventReceivers(): any;
+
+        /**
+         * Gets a value that specifies the collection of features that are currently activated in the site.
+         */
+        get_Features(): any;
+
+        /**
+         * Gets the collection of field objects that represents all the fields in the Web site.
+         */
+        get_Fields(): Fields;
+
+        /**
+         * Gets the collection of all first-level files in the Web site.
+         */
+        get_Files(): Files;
+
+        /**
+         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+         */
+        get_FirstUniqueAncestorSecurableObject(): any;
+
+        /**
+         * Gets the collection of all first-level folders in the Web site.
+         */
+        get_Folders(): Folders;
+
+        /**
+         * Gets the collection of all lists that are contained in the Web site available to the current user based on the permissions of the current user.
+         */
+        get_Lists(): Lists;
+
+        /**
+         * Gets a value that specifies the collection of list definitions and list templates available for creating lists on the site.
+         */
+        get_ListTemplates(): any;
+
+        /**
+         * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
+         */
+        get_Navigation(): any;
+
+        /**
+         * Gets the parent website of the specified website.
+         */
+        get_ParentWeb(): any;
+
+        /**
+         * Gets the collection of push notification subscribers over the site.
+         */
+        get_PushNotificationSubscribers(): any;
+
+        /**
+         * Gets the collection of push notification subscribers over the site.
+         */
+        get_RecycleBin(): any;
+
+        /**
+         * Gets the regional settings that are currently implemented on the website.
+         */
+        get_RegionalSettings(): any;
+
+        /**
+         * Gets the collection of role assignments for the Web site.
+         */
+        get_RoleAssignments(): RoleAssignments;
+
+        /**
+         * Gets the collection of role definitions for the Web site.
+         */
+        get_RoleDefinitions(): RoleDefinitions;
+
+        /**
+         * Gets the root folder for the Web site.
+         */
+        get_RootFolder(): Folder;
+
+        /**
+         * Gets the collection of groups for the site collection.
+         */
+        get_SiteGroups(): SiteGroups;
+
+        /**
+         * Gets the UserInfo list of the site collection that contains the Web site.
+         */
+        get_SiteUserInfoList() : any;
+
+        /**
+         * Gets the collection of all users that belong to the site collection.
+         */
+        get_SiteUsers(): Users;
+
+        /**
+         * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
+         */
+        get_ThemeInfo(): any;
+
+        /**
+         * 
+         */
+        get_TitleResource(): any;
+
+        /**
+         * Gets a value that specifies the collection of user custom actions for the site.
+         */
+        get_UserCustomActions(): UserCustomActions;
+
+        /**
+         * Represents key properties of the subsites of a site.
+         */
+        get_WebInfos(): any;
+
+        /**
+         * Gets a Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
+         */
+        get_Webs(): Webs;
+
+        /**
+         * Gets a value that specifies the collection of all workflow associations for the site.
+         */
+        get_WorkflowAssociations(): any;
+
+        /**
+         * Gets a value that specifies the collection of workflow templates associated with the site.
+         */
+        get_WorkflowTemplates(): any;
         
         /**
          * Gets the app BDC catalog.
@@ -1635,9 +2314,14 @@ declare module $REST {
     }
 
     /**
+     * Web (Async)
+     */
+    class Web_Async extends Web { }
+
+    /**
      * Webs
      */
-    interface Webs {
+    class Webs {
         /**
          * Adds a site to the site collection.
          * @param parameters - The web creation information.
