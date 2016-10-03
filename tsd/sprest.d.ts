@@ -38,6 +38,9 @@ declare module $REST {
 
         /** True, if the object exists, false otherwise. */
         existsFl: boolean;
+
+        /** Method executed after the asynchronous request completes. */
+        done(callback:(...args) => void);
     }
 
     /**
