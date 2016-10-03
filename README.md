@@ -10,13 +10,17 @@ An easy way to develop against the SharePoint REST api.
 * Parent property for easier development.
 * PowerShell-Like experience in the browser console. (Synchronous Requests)
 * Switch between asynchronous and synchronous requests by the object's property.
-* Written in TypeScript.
+* Written in TypeScript with definition file for intellisense.
 
 ## Get Started:
 ### Node Package Manager (NPM)
 ```
 npm install gd-sprest --save-dev
 ```
+
+## TypeScript Definition (Intellisense)
+I was finally able to put the definition file together, to ensure intellisense is available.
+![Intellisense](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/intellisense.png)
 
 ### Example Projects
 [Bootstrap List](https://github.com/gunjandatta/sprest-list)
@@ -127,7 +131,7 @@ Since the library can be executed synchronously, the user can execute commands i
 *Note - SharePoint online may reject synchronous requests. It's better to use asynchronous requests.*
 
 ## Test:
-To test this library, upload the [test folder](https://github.com/gunjandatta/sprest/tree/master/test) contents to a SharePoint library and access to the "test.aspx" page. This will test the basic functionality of the library.
+I wrote a sample test file. To run it, upload the [test folder](https://github.com/gunjandatta/sprest/tree/master/test) contents to a SharePoint library and access to the "test.aspx" page. This will test the basic functionality of the library.
 
 Refer to the [test script](https://github.com/gunjandatta/sprest/blob/master/test/test.js) file for detailed examples of using the library.
 
