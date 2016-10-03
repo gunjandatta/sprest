@@ -29,9 +29,21 @@ SOFTWARE.
 
 declare module $REST {
     /**
+     * The base class
+     */
+    class Base {
+        /**
+         * Properties
+         */
+
+        /** True, if the object exists, false otherwise. */
+        existsFl: boolean;
+    }
+
+    /**
      * Attachment Files
      */
-    class AttachmentFiles {
+    class AttachmentFiles extends Base {
         /**
          * Properties
          */
@@ -54,7 +66,7 @@ declare module $REST {
     /**
      * Content Type
      */
-    class ContentType {
+    class ContentType extends Base {
         /**
          * Constructor
          * @param contentTypeName - The content type name to get.
@@ -193,7 +205,7 @@ declare module $REST {
     /**
      * Content Types
      */
-    class ContentTypes {
+    class ContentTypes extends Base {
         /**
          * Constructor
          * @param args - (Optional) executeRequestFl and/or targetInfo.
@@ -244,7 +256,7 @@ declare module $REST {
     /**
      * Field
      */
-    class Field {
+    class Field extends Base {
         /**
          * Constructor
          * @param internalNameOrTitle - The internal name or title of the field.
@@ -383,7 +395,7 @@ declare module $REST {
     /**
      * Field Links
      */
-    class FieldLinks {
+    class FieldLinks extends Base {
         /**
          * Properties
          */
@@ -417,7 +429,7 @@ declare module $REST {
     /**
      * Fields
      */
-    class Fields {
+    class Fields extends Base {
         /**
          * Constructor
          * @param listName - (Optional) The list name to search.
@@ -484,7 +496,7 @@ declare module $REST {
     /**
      * File
      */
-    class File {
+    class File extends Base {
         /**
          * Constructor
          * @param serverRelativeUrl - The server relative url of the file.
@@ -708,7 +720,7 @@ declare module $REST {
     /**
      * Files
      */
-    class Files {
+    class Files extends Base {
         /**
          * Constructor
          * @param listName - (Optional) The list name to search.
@@ -758,7 +770,7 @@ declare module $REST {
     /**
      * File Version
      */
-    class FileVersion {
+    class FileVersion extends Base {
         /**
          * Properties
          */
@@ -805,7 +817,7 @@ declare module $REST {
     /**
      * File Versions
      */
-    class FileVersions {
+    class FileVersions extends Base {
         /**
          * Properties
          */
@@ -817,7 +829,7 @@ declare module $REST {
     /**
      * Folder
      */
-    class Folder {
+    class Folder extends Base {
         /**
          * Constructor
          * @param serverRelativeUrl - The server relative url of the folder.
@@ -931,7 +943,7 @@ declare module $REST {
     /**
      * Folders
      */
-    class Folders {
+    class Folders extends Base {
         /**
          * Constructor
          * @param listName - (Optional) The list name to search.
@@ -971,7 +983,7 @@ declare module $REST {
     /**
      * Group
      */
-    class Group {
+    class Group extends Base {
         /**
          * Properties
          */
@@ -1041,7 +1053,7 @@ declare module $REST {
     /**
      * Limited Web Part Manager
      */
-    class LimitedWebPartManager {
+    class LimitedWebPartManager extends Base {
         /**
          * Gets a webpart by its id.
          */
@@ -1051,7 +1063,7 @@ declare module $REST {
     /**
      * List
      */
-    class List {
+    class List extends Base {
         /**
          * Constructor
          * @param listName - The list name.
@@ -1500,7 +1512,7 @@ declare module $REST {
     /**
      * List Item
      */
-    class ListItem {
+    class ListItem extends Base {
         /**
          * Constructor
          * @param itemId - The item id.
@@ -1622,7 +1634,7 @@ declare module $REST {
     /**
      * List Items
      */
-    class ListItems {
+    class ListItems extends Base {
         /**
          * Constructor
          * @param listName - The list name.
@@ -1663,7 +1675,7 @@ declare module $REST {
     /**
      * Lists
      */
-    class Lists {
+    class Lists extends Base {
         /**
          * Constructor
          * @param args - (Optional) executeRequestFl and/or targetInfo.
@@ -1718,7 +1730,7 @@ declare module $REST {
     /**
      * Role Assignment
      */
-    class RoleAssignment {
+    class RoleAssignment extends Base {
         /**
          * Properties
          */
@@ -1745,7 +1757,7 @@ declare module $REST {
     /**
      * RoleAssignments
      */
-    class RoleAssignments {
+    class RoleAssignments extends Base {
         /**
          * Constructor
          * @param listName - (Optional) The list name to search.
@@ -1793,7 +1805,7 @@ declare module $REST {
     /**
      * Role Definition
      */
-    class RoleDefinition {
+    class RoleDefinition extends Base {
         /**
          * Properties
          */
@@ -1832,7 +1844,7 @@ declare module $REST {
     /**
      * Role Definitions
      */
-    class RoleDefinitions {
+    class RoleDefinitions extends Base {
         /**
          * Constructor
          * @param args - (Optional) executeRequestFl and/or targetInfo.
@@ -1885,7 +1897,7 @@ declare module $REST {
     /**
      * Site
      */
-    class Site {
+    class Site extends Base {
         /**
          * Constructor
          * @param args - (Optional) executeRequestFl and/or targetInfo.
@@ -2097,7 +2109,7 @@ declare module $REST {
     /**
      * Site Groups
      */
-    class SiteGroups {
+    class SiteGroups extends Base {
         /**
          * Constructor
          * @param args - (Optional) executeRequestFl and/or targetInfo.
@@ -2148,7 +2160,7 @@ declare module $REST {
     /**
      * User
      */
-    class User {
+    class User extends Base {
         /**
          * Constructor
          * @param userId - The user id.
@@ -2205,7 +2217,7 @@ declare module $REST {
     /**
      * User Custom Action
      */
-    class UserCustomAction {
+    class UserCustomAction extends Base {
         /**
          * Properties
          */
@@ -2274,7 +2286,7 @@ declare module $REST {
     /**
      * User Custom Actions
      */
-    class UserCustomActions {
+    class UserCustomActions extends Base {
         /**
          * Constructor
          * @param webFl - True to search the web, false to search the site.
@@ -2331,7 +2343,7 @@ declare module $REST {
     /**
      * Users
      */
-    class Users {
+    class Users extends Base {
         /**
          * Constructor
          * @param args - (Optional) executeRequestFl and/or targetInfo.
@@ -2388,7 +2400,7 @@ declare module $REST {
     /**
      * Versions
      */
-    class Version {
+    class Version extends Base {
         /**
          * Properties
          */
@@ -2430,7 +2442,7 @@ declare module $REST {
     /**
      * View
      */
-    class View {
+    class View extends Base {
         /**
          * Constructor
          * @param viewName - The view name.
@@ -2586,7 +2598,7 @@ declare module $REST {
     /**
      * View Fields
      */
-    class ViewFields {
+    class ViewFields extends Base {
         /**
          * Properties
          */
@@ -2632,7 +2644,7 @@ declare module $REST {
     /**
      * Views
      */
-    class Views {
+    class Views extends Base {
         /**
          * Constructor
          * @param listName - The list name.
@@ -2672,7 +2684,7 @@ declare module $REST {
     /**
      * Web
      */
-    class Web {
+    class Web extends Base {
         /**
          * Constructor
          * @param args - (Optional) executeRequestFl and/or targetInfo.
@@ -3274,7 +3286,7 @@ declare module $REST {
     /**
      * Webs
      */
-    class Webs {
+    class Webs extends Base {
         /**
          * Properties
          */
