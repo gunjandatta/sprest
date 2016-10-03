@@ -23,7 +23,7 @@ gulp.task("copyTSD", function() {
     console.log("Copying the typescript definition file.");
 
     // Copy the definition file
-    return gulp.src(["src/tsd/sprest.d.ts"])
+    return gulp.src(["tsd/sprest.d.ts"])
         .pipe(gulp.dest("dist"));
 });
 
