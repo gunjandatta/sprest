@@ -152,7 +152,7 @@ var $REST;
             objType = (objType[objType.length - 1]).toLowerCase();
             objType += isCollection && data.results.length > 1 ? "s" : "";
             // See if this is a field
-            if (/^field/.test(objType) && objType != "fields") {
+            if ((/^field/.test(objType) || /field$/.test(objType)) && objType != "fields") {
                 // Update the type
                 objType = "field" + (isCollection ? "s" : "");
             }
@@ -214,7 +214,7 @@ var $REST;
                     url: metadata.uri
                 };
                 // See if this is a field
-                if (/^SP.Field/.test(metadata.type)) {
+                if (/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
                     // Fix the uri reference
                     targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
                 }
