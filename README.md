@@ -1,7 +1,6 @@
 # SharePoint 2013/Online REST Library
 An easy way to develop against the SharePoint REST api.
 
-*This library is still being tested...*
 *Please report issues. I am constantly updating/fixing/testing to make this library better.*
 
 ## Benefits:
