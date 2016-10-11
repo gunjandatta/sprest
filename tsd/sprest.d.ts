@@ -29,6 +29,24 @@ SOFTWARE.
 
 declare module $REST {
     /**
+     * Global Variables
+     */
+
+    /**
+     * Flag to execute requests against the host web. This is relevent to the app web only, and defaults to the SPHostUrl querystring value.
+     */
+    var DefaultRequestToHostWebFl:boolean;
+
+    /**
+     * Flag to execute the request by default on creation of an object.
+     */
+    var ExecuteOnCreationFl:boolean;
+
+    /**
+     * Public Interface
+     */
+
+    /**
      * The base class
      */
     class Base {
@@ -36,8 +54,14 @@ declare module $REST {
          * Properties
          */
 
+        /** True to execute the request asynchronously, synchronously otherwise. */
+        asyncFl: boolean;
+
         /** True, if the object exists, false otherwise. */
         existsFl: boolean;
+
+        /** The parent object, which created this object. */
+        parent: any;
 
         /** Method executed after the asynchronous request completes. */
         done(callback:(...args) => void);
