@@ -245,6 +245,17 @@ module $REST {
     }
 
     /**
+     * Event Receiver Synchronization Type
+     */
+    enum EventReceiverSynchronizationType {
+        /** Event to be triggered asynchronously. */
+        Asynchronous = 2,
+
+        /** Event to be triggered synchronously. */
+        Synchronization = 1
+    }
+
+    /**
      * Field Types
      */
     enum FieldType {

@@ -1277,7 +1277,7 @@ var $REST;
     $REST.Library.contenttypes = {
         // Adds a content type to the collection.
         add: {
-            argNames: ["data"],
+            argNames: ["parameters"],
             metadataType: "SP.ContentType",
             requestType: $REST.RequestType.PostWithArgsInBody
         },
@@ -2406,7 +2406,7 @@ var $REST;
         },
         // Adds a content type to the collection.
         addContentType: {
-            argNames: ["data"],
+            argNames: ["parameters"],
             metadataType: "SP.ContentType",
             name: "contenttypes/add",
             requestType: $REST.RequestType.PostWithArgsInBody
@@ -3925,6 +3925,11 @@ var $REST;
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.views = {
+        // Adds a view to the view collection.
+        add: {
+            metadataType: "SP.View",
+            requestType: $REST.RequestType.PostWithArgs
+        },
         // Gets the list view with the specified ID.
         getById: {
             argNames: ["id"],

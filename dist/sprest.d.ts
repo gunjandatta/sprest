@@ -291,6 +291,17 @@ declare module $REST {
     }
 
     /**
+     * Event Receiver Synchronization Type
+     */
+    enum EventReceiverSynchronizationType {
+        /** Event to be triggered asynchronously. */
+        Asynchronous = 2,
+
+        /** Event to be triggered synchronously. */
+        Synchronization = 1
+    }
+
+    /**
      * Field Types
      */
     enum FieldType {
@@ -602,7 +613,7 @@ declare module $REST {
     /**
      * Base Permissions
      */
-    class BasePermissions {
+    interface BasePermissions {
         /** The bitwise high-order boundary (higher 32 bits) of the permission. */
         High:number;
 
@@ -613,15 +624,15 @@ declare module $REST {
     /**
      * CAML Query
      */
-    class CamlQuery {
+    interface CamlQuery {
         /** Gets or sets a value that indicates whether the query returns dates in Coordinated Universal Time (UTC) format. */
-        DatesInUtc: boolean;
+        DatesInUtc?: boolean;
 
         /** Gets or sets a value that specifies the server relative URL of a list folder from which results will be returned. */
-        FolderServerRelativeUrl: string;
+        FolderServerRelativeUrl?: string;
 
         /** Gets or sets a value that specifies the information required to get the next page of data for the list view. */
-        ListItemCollectionPosition: any;
+        ListItemCollectionPosition?: any;
 
         /** Gets or sets value that specifies the XML schema that defines the list view. */
         ViewXml: string;
@@ -630,15 +641,15 @@ declare module $REST {
     /**
      * Content Type Creation Information
      */
-    class ContentTypeCreationInformation {
+    interface ContentTypeCreationInformation {
         /** Gets or sets a value that specifies the description of the content type that will be constructed. */
-        Description: string;
+        Description?: string;
 
         /** Gets or sets a value that specifies the content type group of the content type that will be constructed. */
-        Group: string;
+        Group?: string;
 
         /** The content type id. */
-        Id: string;
+        Id?: string;
 
         /** Gets or sets a value that specifies the name of the content type that will be constructed. */
         Name: string;
@@ -647,53 +658,50 @@ declare module $REST {
     /**
      * Event Receiver Definition Creation Information
      */
-    class EventReceiverDefinitionCreationInformation {
+    interface EventReceiverDefinitionCreationInformation {
         /** The type of event. See EventReceiverType in the .NET client object model reference for a list of values. */
         EventType: EventReceiverType;
 
         /** Specifies the strong name of the assembly that is used for receiving events. */        
-        ReceiverAssembly: string;
+        ReceiverAssembly?: string;
 
         /** Specifies a string that represents the class that is used for receiving events. */
-        ReceiverClass: string;
+        ReceiverClass?: string;
 
         /** Specifies the name of the event receiver. */
         ReceiverName: string;
 
         /** Specifies the URL of a web service that is used for receiving events. */
-        ReceiverUrl: string;
+        ReceiverUrl?: string;
 
         /** Specifies an integer that represents the relative sequence of the event. */        
-        SequenceNumber: number;
+        SequenceNumber?: number;
         
         /** Specifies the execution synchronization of the event receiver. */
-        Synchronization: number;
+        Synchronization?: number;
     }
 
     /**
      * Field Creation Information 
      */
-    class FieldCreationInformation {
-        /** The values that are available for selection in the field. */
-        Choices: Array<any>;
-        
+    interface FieldCreationInformation {
         /** A value that specifies the type of the field. */
         FieldTypeKind: FieldType;
 
         /** Indicates whether only the first eight characters are used for the field name. */
-        IsCompactName: boolean;
+        IsCompactName?: boolean;
 
         /** The name of the source lookup field. */
-        LookupFieldName: string;
+        LookupFieldName?: string;
         
         /** The ID of the target list for the source lookup field. */
-        LookupListId: any;
+        LookupListId?: any;
         
         /** The ID of the site that contains the list that is the source for the lookup field value. */
-        LookupWebId: any;
+        LookupWebId?: any;
         
         /** A value that specifies whether the field requires a value. */
-        Required: boolean;
+        Required?: boolean;
         
         /** A value that specifies the display name of the field. */
         Title: string;
@@ -702,12 +710,12 @@ declare module $REST {
     /**
      * File Creation Information
     */
-    class FileCreationInformation {
+    interface FileCreationInformation {
         /** The binary content of the file. */
         Content: any;
 
         /** Indicates whether to overwrite an existing file with the same name and in the same location as the one being added. */
-        Overwrite: boolean;
+        Overwrite?: boolean;
 
         /** The URL of the file. */
         Url: string;
@@ -716,110 +724,110 @@ declare module $REST {
     /**
      * List Creation Information
      */
-    class ListCreationInformation {
+    interface ListCreationInformation {
         /** A value that specifies whether the list supports content types. */
-        AllowContentTypes: boolean;
+        AllowContentTypes?: boolean;
 
         /** The list definition type on which the list is based. */
         BaseTemplate: ListTemplateType;
 
         /** A value that specifies whether content types are enabled for the list. */        
-        ContentTypesEnabled: boolean;
+        ContentTypesEnabled?: boolean;
 
         /** A value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
-        DefaultContentApprovalWorkflowId: any;
+        DefaultContentApprovalWorkflowId?: any;
 
         /** A value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL */
-        DefaultDisplayFormUrl: string;
+        DefaultDisplayFormUrl?: string;
 
         /** A value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL. */
-        DefaultEditFormUrl: string;
+        DefaultEditFormUrl?: string;
 
         /** A value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL. */
-        DefaultNewFormUrl: string;
+        DefaultNewFormUrl?: string;
 
         /** A value that specifies the description of the list. */
-        Description: string;
+        Description?: string;
 
         /** A value that specifies the reading order of the list. Returns "NONE", "LTR", or "RTL". */
-        Direction: string;
+        Direction?: string;
 
         /** A value that specifies the server-relative URL of the document template for the list. */
-        DocumentTemplateUrl: string;
+        DocumentTemplateUrl?: string;
 
         /** A value that specifies the minimum permission required to view minor versions and drafts within the list. */
-        DraftVersionVisibility: DraftVisibilityType;
+        DraftVersionVisibility?: DraftVisibilityType;
 
         /** A value that specifies whether list item attachments are enabled for the list. */
-        EnableAttachments: boolean;
+        EnableAttachments?: boolean;
 
         /** A value that specifies whether new list folders can be added to the list. */
-        EnableFolderCreation: boolean;
+        EnableFolderCreation?: boolean;
 
         /** A value that specifies whether minor versions are enabled for the list. */
-        EnableMinorVersions: boolean;
+        EnableMinorVersions?: boolean;
 
         /** A value that specifies whether content approval is enabled for the list. */
-        EnableModeration: boolean;
+        EnableModeration?: boolean;
 
         /** A value that specifies whether historical versions of list items and documents can be created in the list. */
-        EnableVersioning: boolean;
+        EnableVersioning?: boolean;
 
         /** A value that indicates whether forced checkout is enabled for the document library. */
-        ForceCheckout: boolean;
+        ForceCheckout?: boolean;
 
         /** A value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
-        Hidden: boolean;
+        Hidden?: boolean;
 
         /** */
-        IrmEnabled: boolean;
+        IrmEnabled?: boolean;
 
         /** */
-        IrmExpire: boolean;
+        IrmExpire?: boolean;
 
         /** */
-        IrmReject: boolean;
+        IrmReject?: boolean;
 
         /** A value that specifies a flag that a client application can use to determine whether to display the list. */
-        IsApplicationList: boolean;
+        IsApplicationList?: boolean;
 
         /** A value that indicates whether the list in a Meeting Workspace site contains data for multiple meeting instances within the site. */
-        MultipleDataList: boolean;
+        MultipleDataList?: boolean;
 
         /** A value that specifies that the crawler must not crawl the list. */
-        NoCrawl: boolean;
+        NoCrawl?: boolean;
 
         /** A value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false. */
-        OnQuickLaunch: boolean;
+        OnQuickLaunch?: boolean;
 
         /** The displayed title for the list. Its length must be <= 255 characters. */
         Title: string;
 
         /** A value that specifies the data validation criteria for a list item. Its length must be <= 1023. */
-        ValidationFormula: string;
+        ValidationFormula?: string;
 
         /** A value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023. */
-        ValidationMessage: string;
+        ValidationMessage?: string;
     }
 
     /**
      * View Creation Information
      */
-    class ViewCreationInformation {
+    interface ViewCreationInformation {
         /** A value that specifies whether the new list view is a paged view. */
-        Paged: boolean;
+        Paged?: boolean;
 
         /** A value that specifies whether the new list view is a personal view. If the value is false, the new list view is a public view. */
-        PersonalView: boolean;
+        PersonalView?: boolean;
 
         /** A value that specifies the query for the new list view. */
-        Query: string;
+        Query?: string;
 
         /** A value that specifies the maximum number of list items that the new list view displays on a visual page of the list view. */
-        RowLimit: number;
+        RowLimit?: number;
 
         /** A value that specifies whether the new list view is the default list view. */
-        SetAsDefaultView: boolean;
+        SetAsDefaultView?: boolean;
 
         /** A value that specifies the display name of the new list view. */
         Title: string;
@@ -831,12 +839,12 @@ declare module $REST {
     /**
      * Web Creation Information
      */
-    class WebCreationInformation {
+    interface WebCreationInformation {
         /** The description of the new site. */
-        Description: string;
+        Description?: string;
 
         /** The locale ID that specifies the language of the new site. */
-        Language: number;
+        Language?: number;
 
         /** A value that specifies the title of the new site. */
         Title: string;
@@ -851,7 +859,7 @@ declare module $REST {
         Url: string;
 
         /** A value that specifies whether the new site will inherit permissions from its parent site. */
-        UseSamePermissionsAsParentSite: boolean;
+        UseSamePermissionsAsParentSite?: boolean;
 
         /** A value that specifies the name of the site template to be used for creating the new site. Use the GetAvailableWebTemplates method to get the names of available web templates on the site. */
         WebTemplate: string;
@@ -1067,9 +1075,9 @@ declare module $REST {
 
         /**
          * Adds a content type to the collection.
-         * @param data - The content type creation information.
+         * @param parameters - The content type creation information.
          */
-        add(ContentTypeCreationInformation): ContentType;
+        add(parameters:ContentTypeCreationInformation): ContentType;
 
         /**
          * Adds an existing content type to this collection.
@@ -1294,7 +1302,7 @@ declare module $REST {
          * Adds a field to the field collection.
          * @param parameters - The field creation information.
          */
-        add(FieldCreationInformation): Field;
+        add(parameters:FieldCreationInformation): Field;
 
         /**
          * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
@@ -2124,15 +2132,15 @@ declare module $REST {
 
         /**
          * Adds a content type to the collection.
-         * @param data - The content type creation information.
+         * @param parameters - The content type creation information.
          */
-        addContentType(ContentTypeCreationInformation): ContentType;
+        addContentType(parameters:ContentTypeCreationInformation): ContentType;
 
         /**
          * Adds a field to the field collection.
          * @param parameters - The field creation information.
          */
-        addField(FieldCreationInformation): Field;
+        addField(parameters:FieldCreationInformation): Field;
 
         /**
          * Adds a field, using it's Schema XML, to the field collection.
@@ -2537,9 +2545,9 @@ declare module $REST {
 
         /**
          * Adds a list to the list collection.
-         * @param data - The list creation information.
+         * @param parameters - The list creation information.
          */
-        add(ListCreationInformation): List;
+        add(parameters:ListCreationInformation): List;
 
         /**
          * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
@@ -3506,6 +3514,11 @@ declare module $REST {
          */
 
         /**
+         * Adds a list view to the view collection.
+         */
+        add(parameters:ViewCreationInformation): View;
+
+        /**
          * Gets the list view with the specified ID.
          * @param id - The ID of the view.
          */
@@ -3732,9 +3745,9 @@ declare module $REST {
 
         /**
          * Adds a content type content type collection.
-         * @param data - The content type creation information.
+         * @param parameters - The content type creation information.
          */
-        addContentType(ContentTypeCreationInformation): ContentType;
+        addContentType(parameters:ContentTypeCreationInformation): ContentType;
 
         /**
          * Adds a custom action to the user custom action collection.
@@ -3752,7 +3765,7 @@ declare module $REST {
          * Adds a field to it's collection.
          * @param parameters - The field creation information.
          */
-        addField(FieldCreationInformation): Field;
+        addField(parameters:FieldCreationInformation): Field;
 
         /**
          * Adds a field, using it's Schema XML, to the field collection.
@@ -3771,9 +3784,9 @@ declare module $REST {
 
         /**
          * Adds a list to the list collection.
-         * @param data - The list creation information.
+         * @param parameters - The list creation information.
          */
-        addList(ListCreationInformation): List;
+        addList(parameters:ListCreationInformation): List;
 
         /**
          * Adds a permission to the role definitions.

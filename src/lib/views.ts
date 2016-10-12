@@ -42,6 +42,12 @@ module $REST {
     // Methods
     /*********************************************************************************************************************************/
     Library.views = {
+        // Adds a view to the view collection.
+        add: {
+            metadataType: "SP.View",
+            requestType: RequestType.PostWithArgs
+        },
+
         // Gets the list view with the specified ID.
         getById: {
             argNames: ["id"],

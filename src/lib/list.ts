@@ -146,7 +146,7 @@ module $REST {
 
         // Adds a content type to the collection.
         addContentType: {
-            argNames: ["data"],
+            argNames: ["parameters"],
             metadataType: "SP.ContentType",
             name: "contenttypes/add",
             requestType: RequestType.PostWithArgsInBody
