@@ -642,14 +642,6 @@ module $REST {
             requestType: RequestType.Post
         },
 
-        // Method to send an email.
-        sendEmail: {
-            argNames: ["properties"],
-            name: "SP.Utilities.Utility.SendEmail",
-            metadataType: "SP.Utilities.EmailProperties",
-            requestType: RequestType.PostWithArgsInBody
-        },
-
         // Unregisters the subscriber for push notifications from the site.
         unregisterPushNotificationSubscriber: {
             requestType: RequestType.PostWithArgsValueOnly

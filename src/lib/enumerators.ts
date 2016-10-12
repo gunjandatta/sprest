@@ -1,6 +1,23 @@
 /// <reference path="../base.d.ts" />
 module $REST {
     /**
+     * Control Modes
+     */
+    enum ControlMode {
+        /** A placeholder value in the enumeration indicating that it has no valid display mode from one of the other enumeration values. */
+        Invalid = 0,
+
+        /** Specifies that the control is in display mode. */
+        Display = 1,
+
+        /** Specifies that the control is in edit mode. */
+        Edit = 2,
+
+        /** Specifies that the control is in New mode. */
+        New = 3
+    }
+
+    /**
      * Draft Visibility Types
      */
     enum DraftVisibilityType {
@@ -245,7 +262,7 @@ module $REST {
     }
 
     /**
-     * Event Receiver Synchronization Type
+     * Event Receiver Synchronization Types
      */
     enum EventReceiverSynchronizationType {
         /** Event to be triggered asynchronously. */
@@ -357,6 +374,20 @@ module $REST {
         /** Specifies that the field indicates the status of a workflow instance on a list item. */
         WorkflowStatus = 28
      }
+
+     /**
+      * File Template Types
+      */
+      enum FileTemplateType {
+        /** Enumeration whose value specifies default form template. */
+        FormPage = 2,
+
+        /** Enumeration whose value specifies default view template. */ 
+        StandardPage = 0,
+
+        /** Enumeration whose value specifies default wiki template. */ 
+        WikiPage = 1
+      }
 
      /**
       * List Template Types
@@ -535,6 +566,96 @@ module $REST {
 
         /** XML Form library */
         XMLForm = 115
+    }
+
+    /**
+     * Page Types
+     */
+    enum PageType {
+        /** Enumeration whose values specify a page that is the default view for a list. */
+        DefaultView = 0,
+
+        /** Enumeration whose values specify a page suitable for display within a dialog box on a client computer. */ 
+        DialogView = 2,
+
+        /** Enumeration whose values specify a list form for displaying a list item. */ 
+        DisplayForm = 4,
+
+        /** Enumeration whose values specify a list form for displaying a list item, suitable for display within a dialog box on a client computer. */ 
+        DisplayFormDialog = 5,
+
+        /** Enumeration whose values specify a list form for editing a list item. */ 
+        EditForm = 6,
+
+        /** Enumeration whose values specify a list form for editing a list item, suitable for display within a dialog box on a client computer. */ 
+        EditFormDialog = 7,
+
+        /** Enumeration whose values specify a page that does not correspond to a list view or a list form. */ 
+        Invalid = -1,
+
+        /** Enumeration whose values specify a list form for creating a new list item. */ 
+        NewForm = 8,
+
+        /** Enumeration whose values specify a list form for creating a new list item, suitable for display within a dialog box on a client computer. */ 
+        NewFormDialog = 9,
+
+        /** Enumeration whose values specify a page that is a list view and is not the default view for a list. */ 
+        NormalView = 1,
+
+        /** Enumeration whose values specify the total number of valid page types. */ 
+        Page_MAXITEMS = 11,
+
+        /** Enumeration whose values specify a list form for displaying or editing a list item and represented by a form template (.xsn) file. */ 
+        SolutionForm = 10,
+
+        /** Enumeration whose values specify a page that is a list view. */ 
+        View = 3
+    }
+
+    /**
+     * Role Types
+     */
+    enum RoleType {
+        /** Has all rights from other roles, plus rights to manage roles and view usage analysis data. Includes all rights in the WebDesigner role, plus the following: ManageListPermissions, ManageRoles, ManageSubwebs, ViewUsageData. The Administrator role cannot be customized or deleted, and must always contain at least one member. Members of the Administrator role always have access to, or can grant themselves access to, any item in the Web site. */
+        Administrator = 5,
+
+        /** Has Reader rights, plus rights to add items, edit items, delete items, manage list permissions, manage personal views, personalize Web Part Pages, and browse directories. Includes all rights in the Reader role, plus the following: AddDelPrivateWebParts, AddListItems, BrowseDirectories, CreatePersonalGroups, DeleteListItems, EditListItems, ManagePersonalViews, UpdatePersonalWebParts. Contributors cannot create new lists or document libraries, but they can add content to existing lists and document libraries. */
+        Contributor = 3,
+
+        /** Has Contributor rights, plus rights to manage lists. Includes all rights in the Contributor role. Editors can create new lists or document libraries. */
+        Editor = 6,
+
+        /** Has limited rights to view pages and specific page elements. This role is used to give users access to a particular page, list, or item in a list, without granting rights to view the entire site. Users cannot be added explicitly to the Guest role; users who are given access to lists or document libraries by way of per-list permissions are added automatically to the Guest role. The Guest role cannot be customized or deleted. */
+        Guest = 1,
+
+        /** Enumeration whose values specify that there are no rights on the Web site. */
+        None = 0,
+
+        /** Has rights to view items, personalize Web parts, use alerts, and create a top-level Web site using Self-Service Site Creation. A reader can only read a site; the reader cannot add content. When a reader creates a site using Self-Service Site Creation, the reader becomes the site owner and a member of the Administrator role for the new site. This does not affect the user's role membership for any other site. Rights included: CreateSSCSite, ViewListItems, ViewPages. */
+        Reader = 2,
+
+        /** Has Contributor rights, plus rights to cancel check out, delete items, manage lists, add and customize pages, define and apply themes and borders, and link style sheets. Includes all rights in the Contributor role, plus the following: AddAndCustomizePages, ApplyStyleSheets, ApplyThemeAndBorder, CancelCheckout, ManageLists.WebDesigners can modify the structure of the site and create new lists or document libraries. */
+        WebDesigner = 4
+    }
+
+    /**
+     * User Custom Action Registration Types
+     */
+    enum UserCustomActionRegistrationType {
+        /** Enumeration whose values specify that the object association is not specified. */
+        None = 0,
+
+        /** Enumeration whose values specify that the custom action is associated with a list. */
+        List = 1,
+
+        /** Enumeration whose values specify that the custom action is associated with a content type. */
+        ContentType = 2,
+
+        /** Enumeration whose values specify that the custom action is associated with a ProgID. */
+        ProgId = 3,
+
+        /** Enumeration whose values specify that the custom action is associated with a file extension. */
+        FileType = 4
     }
 
     /**

@@ -47,6 +47,23 @@ declare module $REST {
      **********************************************************************************************/
 
     /**
+     * Control Modes
+     */
+    enum ControlMode {
+        /** A placeholder value in the enumeration indicating that it has no valid display mode from one of the other enumeration values. */
+        Invalid = 0,
+
+        /** Specifies that the control is in display mode. */
+        Display = 1,
+
+        /** Specifies that the control is in edit mode. */
+        Edit = 2,
+
+        /** Specifies that the control is in New mode. */
+        New = 3
+    }
+
+    /**
      * Draft Visibility Types
      */
     enum DraftVisibilityType {
@@ -291,7 +308,7 @@ declare module $REST {
     }
 
     /**
-     * Event Receiver Synchronization Type
+     * Event Receiver Synchronization Types
      */
     enum EventReceiverSynchronizationType {
         /** Event to be triggered asynchronously. */
@@ -403,6 +420,20 @@ declare module $REST {
         /** Specifies that the field indicates the status of a workflow instance on a list item. */
         WorkflowStatus = 28
      }
+
+     /**
+      * File Template Types
+      */
+      enum FileTemplateType {
+        /** Enumeration whose value specifies default form template. */
+        FormPage = 2,
+
+        /** Enumeration whose value specifies default view template. */ 
+        StandardPage = 0,
+
+        /** Enumeration whose value specifies default wiki template. */ 
+        WikiPage = 1
+      }
 
      /**
       * List Template Types
@@ -584,6 +615,96 @@ declare module $REST {
     }
 
     /**
+     * Page Types
+     */
+    enum PageType {
+        /** Enumeration whose values specify a page that is the default view for a list. */
+        DefaultView = 0,
+
+        /** Enumeration whose values specify a page suitable for display within a dialog box on a client computer. */ 
+        DialogView = 2,
+
+        /** Enumeration whose values specify a list form for displaying a list item. */ 
+        DisplayForm = 4,
+
+        /** Enumeration whose values specify a list form for displaying a list item, suitable for display within a dialog box on a client computer. */ 
+        DisplayFormDialog = 5,
+
+        /** Enumeration whose values specify a list form for editing a list item. */ 
+        EditForm = 6,
+
+        /** Enumeration whose values specify a list form for editing a list item, suitable for display within a dialog box on a client computer. */ 
+        EditFormDialog = 7,
+
+        /** Enumeration whose values specify a page that does not correspond to a list view or a list form. */ 
+        Invalid = -1,
+
+        /** Enumeration whose values specify a list form for creating a new list item. */ 
+        NewForm = 8,
+
+        /** Enumeration whose values specify a list form for creating a new list item, suitable for display within a dialog box on a client computer. */ 
+        NewFormDialog = 9,
+
+        /** Enumeration whose values specify a page that is a list view and is not the default view for a list. */ 
+        NormalView = 1,
+
+        /** Enumeration whose values specify the total number of valid page types. */ 
+        Page_MAXITEMS = 11,
+
+        /** Enumeration whose values specify a list form for displaying or editing a list item and represented by a form template (.xsn) file. */ 
+        SolutionForm = 10,
+
+        /** Enumeration whose values specify a page that is a list view. */ 
+        View = 3
+    }
+
+    /**
+     * Role Types
+     */
+    enum RoleType {
+        /** Has all rights from other roles, plus rights to manage roles and view usage analysis data. Includes all rights in the WebDesigner role, plus the following: ManageListPermissions, ManageRoles, ManageSubwebs, ViewUsageData. The Administrator role cannot be customized or deleted, and must always contain at least one member. Members of the Administrator role always have access to, or can grant themselves access to, any item in the Web site. */
+        Administrator = 5,
+
+        /** Has Reader rights, plus rights to add items, edit items, delete items, manage list permissions, manage personal views, personalize Web Part Pages, and browse directories. Includes all rights in the Reader role, plus the following: AddDelPrivateWebParts, AddListItems, BrowseDirectories, CreatePersonalGroups, DeleteListItems, EditListItems, ManagePersonalViews, UpdatePersonalWebParts. Contributors cannot create new lists or document libraries, but they can add content to existing lists and document libraries. */
+        Contributor = 3,
+
+        /** Has Contributor rights, plus rights to manage lists. Includes all rights in the Contributor role. Editors can create new lists or document libraries. */
+        Editor = 6,
+
+        /** Has limited rights to view pages and specific page elements. This role is used to give users access to a particular page, list, or item in a list, without granting rights to view the entire site. Users cannot be added explicitly to the Guest role; users who are given access to lists or document libraries by way of per-list permissions are added automatically to the Guest role. The Guest role cannot be customized or deleted. */
+        Guest = 1,
+
+        /** Enumeration whose values specify that there are no rights on the Web site. */
+        None = 0,
+
+        /** Has rights to view items, personalize Web parts, use alerts, and create a top-level Web site using Self-Service Site Creation. A reader can only read a site; the reader cannot add content. When a reader creates a site using Self-Service Site Creation, the reader becomes the site owner and a member of the Administrator role for the new site. This does not affect the user's role membership for any other site. Rights included: CreateSSCSite, ViewListItems, ViewPages. */
+        Reader = 2,
+
+        /** Has Contributor rights, plus rights to cancel check out, delete items, manage lists, add and customize pages, define and apply themes and borders, and link style sheets. Includes all rights in the Contributor role, plus the following: AddAndCustomizePages, ApplyStyleSheets, ApplyThemeAndBorder, CancelCheckout, ManageLists.WebDesigners can modify the structure of the site and create new lists or document libraries. */
+        WebDesigner = 4
+    }
+
+    /**
+     * User Custom Action Registration Types
+     */
+    enum UserCustomActionRegistrationType {
+        /** Enumeration whose values specify that the object association is not specified. */
+        None = 0,
+
+        /** Enumeration whose values specify that the custom action is associated with a list. */
+        List = 1,
+
+        /** Enumeration whose values specify that the custom action is associated with a content type. */
+        ContentType = 2,
+
+        /** Enumeration whose values specify that the custom action is associated with a ProgID. */
+        ProgId = 3,
+
+        /** Enumeration whose values specify that the custom action is associated with a file extension. */
+        FileType = 4
+    }
+
+    /**
      * View Types
      */
     enum ViewType {
@@ -609,17 +730,6 @@ declare module $REST {
     /***********************************************************************************************
      * Complex Types
      **********************************************************************************************/
-
-    /**
-     * Base Permissions
-     */
-    interface BasePermissions {
-        /** The bitwise high-order boundary (higher 32 bits) of the permission. */
-        High:number;
-
-        /** The bitwise low-order boundary (lower 32 bits) of the permission. */
-        Log: number;
-    }
 
     /**
      * CAML Query
@@ -653,6 +763,23 @@ declare module $REST {
 
         /** Gets or sets a value that specifies the name of the content type that will be constructed. */
         Name: string;
+    }
+
+    /**
+     * Email Creation Information
+     */
+    interface EmailCreationInformation {
+        /** A value that specifies the body of the email. */
+        Body:string;
+
+        /** A value that specifies the email address of the sender. */
+        From:string;
+
+        /** A value that specifies the email addresses to send the email to. This value must be in the following format: { 'results': [emails] } */
+        To:any;
+
+        /** A value that specifies the email subject. */
+        Subject:string;
     }
 
     /**
@@ -705,20 +832,6 @@ declare module $REST {
         
         /** A value that specifies the display name of the field. */
         Title: string;
-    }
-
-    /**
-     * File Creation Information
-    */
-    interface FileCreationInformation {
-        /** The binary content of the file. */
-        Content: any;
-
-        /** Indicates whether to overwrite an existing file with the same name and in the same location as the one being added. */
-        Overwrite?: boolean;
-
-        /** The URL of the file. */
-        Url: string;
     }
 
     /**
@@ -808,6 +921,53 @@ declare module $REST {
 
         /** A value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023. */
         ValidationMessage?: string;
+    }
+
+    /**
+     * User Custom Action Information
+     */
+    interface UserCustomActionCreationInformation {
+        /** A value that specifies an implementation specific XML fragment that determines user interface properties of the custom action. */
+        CommandUIExtension?: string;
+
+        /** The description of the custom action. */
+        Description?: string;
+
+        /** A value that specifies an implementation-specific value that determines the position of the custom action in the page. */
+        Group?: string;
+
+        /** The URL of the image associated with the custom action. */
+        ImageUrl?: string;
+
+        /** The location of the custom action. */
+        Location?: string;
+
+        /** The name of the custom action. */
+        Name?: string;
+
+        /** The value that specifies the identifier of the object associated with the custom action. */
+        RegistrationId?: string;
+
+        /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
+        RegistrationType?: UserCustomActionRegistrationType;
+
+        /** The value that specifies the permissions needed for the custom action. */
+        Rights?: any;
+
+        /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
+        ScriptBlock?: string;
+
+        /** A value that specifies the URI of a file which contains the ECMAScript to execute on the page. */
+        ScriptSrc?: string;
+
+        /** The value that specifies an implementation-specific value that determines the order of the custom action that appears on the page. */
+        Sequence?: number;
+
+        /** The display title of the custom action. */
+        Title?: string;
+
+        /** The URL, URI, or ECMAScript (JScript, JavaScript) function associated with the action. */
+        Url?: string;
     }
 
     /**
@@ -1058,6 +1218,7 @@ declare module $REST {
     class ContentTypes extends Base {
         /**
          * Constructor
+         * @param listName - (Optional) The list name.
          * @param args - (Optional) executeRequestFl and/or targetInfo.
          */
         constructor(listName?:string, ...args);
@@ -1102,6 +1263,36 @@ declare module $REST {
      * Content Types (Async)
      */
     class ContentTypes_Async extends ContentTypes { }
+
+    /**
+     * Email
+     */
+    class Email {
+        /**
+         * Constructor
+         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         */
+        constructor(...args);
+
+        /**
+         * Properties
+         */
+
+        /**
+         * Methods
+         */
+
+        /**
+         * Method to send an email.
+         * @param properties - The email information.
+         */
+        send(properties:EmailCreationInformation): any;
+    }
+
+    /**
+     * Email (Async)
+     */
+    class Email_Async extends Email { }
 
     /**
      * Field
@@ -1600,9 +1791,9 @@ declare module $REST {
         /**
          * Adds a ghosted file to an existing list or document library.
          * @param urlOfFile - The server-relative URL where you want to save the file.
-         * @param templateFileType - The SP.TemplateFileType to use to create the file: StandardPage = 0; WikiPage = 1; FormPage = 2.
+         * @param templateFileType - The SP.TemplateFileType to use to create the file.
          */
-        addTemplateFile(urlOfFile, templateFileType): any;
+        addTemplateFile(urlOfFile, templateFileType:FileTemplateType): any;
 
         /**
          * Gets the file for the specified name
@@ -1740,9 +1931,9 @@ declare module $REST {
         /**
          * Adds a ghosted file to this list or document library.
          * @param urlOfFile - The server-relative URL where you want to save the file.
-         * @param templateFileType - The SP.TemplateFileType to use to create the file: StandardPage = 0; WikiPage = 1; FormPage = 2.
+         * @param templateFileType - The SP.TemplateFileType to use to create the file.
          */
-        addTemplateFile(urlOfFile, templateFileType): any;
+        addTemplateFile(urlOfFile, templateFileType:FileTemplateType): any;
 
         /**
          * Adds the sub-folder that is located at the specified URL to the collection.
@@ -2231,7 +2422,7 @@ declare module $REST {
          * Returns the list form based on the form type.
          * @formType - The form type.
          */
-        getForm(formType): File;
+        getForm(formType:PageType): File;
         
         /**
          * Gets the field with the specified field id.
@@ -2333,9 +2524,9 @@ declare module $REST {
          * Renders the list form data.
          * @param itemId - The item id.
          * @param formId - The identifier of the form.
-         * @param mode - The SP.ControlMode of the control used to display the item: 1 = Display; 2 = Edit; 3 = New.
+         * @param mode - The SP.ControlMode of the control used to display the item.
          */
-        renderListFormData(itemId, formId, mode): any;
+        renderListFormData(itemId, formId, mode:ControlMode): any;
 
         /**
          * Reserves a list item ID for idempotent list item creation.
@@ -2726,17 +2917,9 @@ declare module $REST {
 
         /**
          * Gets the role definition with the specified role type.
-         * @param type - The RoleTypeKind of the role definition.
-         * Role Definition Types:
-         * 0 - None
-         * 1 - Gues
-         * 2 - Reader
-         * 3 - Contributor
-         * 4 - Web Designer
-         * 5 - Administrator
-         * 6 - Editor
+         * @param roleType - The RoleTypeKind of the role definition.
          */
-        getByType(type): RoleDefinition;
+        getByType(roleType:RoleType): RoleDefinition;
     }
 
     /**
@@ -2845,9 +3028,9 @@ declare module $REST {
 
         /**
          * Adds a custom action to the user custom action collection.
-         * data - The user custom action information.
+         * parameters - The user custom action information.
          */
-        addCustomAction(data): UserCustomAction;
+        addCustomAction(parameters:UserCustomActionCreationInformation): UserCustomAction;
 
         /**
          * Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
@@ -2931,12 +3114,6 @@ declare module $REST {
          * @param sendEmail - If true, a notification email will be sent to the requestor and the site collection administrators at the completion of the site collection upgrade. If false, such notification will not be sent.
          */
         runUpgradeSiteSession(versionUpgrade, queueOnly, sendEmail): any;
-
-        /**
-         * Method to send an email.
-         * @param properties - The email information.
-         */
-        sendEmail(properties): any;
 
         /**
          * Updates it's properties.
@@ -3157,9 +3334,9 @@ declare module $REST {
 
         /**
          * Adds a custom actino to the user custom action collection. 
-         * @param data - The user custom action information.
+         * @param parameters - The user custom action information.
          */
-        add(data): UserCustomAction;
+        add(parameters:UserCustomActionCreationInformation): UserCustomAction;
 
         /**
          * Deletes all custom actions in the collection.
@@ -3751,9 +3928,9 @@ declare module $REST {
 
         /**
          * Adds a custom action to the user custom action collection.
-         * @param data - The content type creation information.
+         * @param parameters - The content type creation information.
          */
-        addCustomAction(data): UserCustomAction;
+        addCustomAction(parameters:UserCustomActionCreationInformation): UserCustomAction;
 
         /**
          * Adds an existing content type to content type collection.
@@ -4115,12 +4292,6 @@ declare module $REST {
         resetRoleInheritance(): any;
 
         /**
-         * Method to send an email.
-         * @param properties - The email information.
-         */
-        sendEmail(properties): any;
-
-        /**
          * Unregisters the subscriber for push notifications from the site.
          * @param id - The ID of the device app instance.
          */
@@ -4157,6 +4328,6 @@ declare module $REST {
          * Adds a site to the site collection.
          * @param parameters - The web creation information.
          */
-        add(parameters);
+        add(parameters:WebCreationInformation);
     }
 }

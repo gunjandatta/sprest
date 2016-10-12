@@ -53,7 +53,6 @@ module $REST {
     Library.site = {
         // Adds a custom action to the user custom action collection.
         addCustomAction: {
-            argNames: ["data"],
             metadataType: "SP.UserCustomAction",
             name: "usercustomactions",
             requestType: RequestType.PostWithArgsInBody
@@ -135,14 +134,6 @@ module $REST {
         runUpgradeSiteSession: {
             argNames: ["versionUpgrade", "queueOnly", "sendEmail"],
             requestType: RequestType.PostWithArgs
-        },
-
-        // Method to send an email.
-        sendEmail: {
-            argNames: ["properties"],
-            name: "SP.Utilities.Utility.SendEmail",
-            metadataType: "SP.Utilities.EmailProperties",
-            requestType: RequestType.PostWithArgsInBody
         },
 
         // Updates it's properties.

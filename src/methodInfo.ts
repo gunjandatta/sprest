@@ -152,11 +152,11 @@ module $REST {
                 // See if parameters exist
                 if(this.methodInfo.argNames) {
                     // Append the metadata to the first parameter
-                    this.methodData[this.methodInfo.argNames[0]]["__metadata"] = { "type": this.methodInfo.metadataType };
+                    (this.methodData || this.methodParams)[this.methodInfo.argNames[0]]["__metadata"] = { "type": this.methodInfo.metadataType };
                 }
                 else {
                     // Append the metadata to the parameters
-                    this.methodData["__metadata"] = { "type": this.methodInfo.metadataType };
+                    (this.methodData || this.methodParams)["__metadata"] = { "type": this.methodInfo.metadataType };
                 }
             }
         }

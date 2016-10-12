@@ -42,6 +42,13 @@ module $REST {
     // Methods
     /*********************************************************************************************************************************/
     Library.usercustomactions = {
+        // Adds a user custom action to the collection.
+        add: {
+            metadataType: "SP.UserCustomAction",
+            name: "",
+            requestType: RequestType.PostWithArgsInBody
+        },
+
         // Deletes all custom actions in the collection.
         clear: {
             requestType: RequestType.Post

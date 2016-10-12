@@ -631,11 +631,11 @@ var $REST;
                 // See if parameters exist
                 if (this.methodInfo.argNames) {
                     // Append the metadata to the first parameter
-                    this.methodData[this.methodInfo.argNames[0]]["__metadata"] = { "type": this.methodInfo.metadataType };
+                    (this.methodData || this.methodParams)[this.methodInfo.argNames[0]]["__metadata"] = { "type": this.methodInfo.metadataType };
                 }
                 else {
                     // Append the metadata to the parameters
-                    this.methodData["__metadata"] = { "type": this.methodInfo.metadataType };
+                    (this.methodData || this.methodParams)["__metadata"] = { "type": this.methodInfo.metadataType };
                 }
             }
         };
@@ -1298,6 +1298,558 @@ var $REST;
             requestType: $REST.RequestType.GetReplace
         }
     };
+})($REST || ($REST = {}));
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+/// <reference path="../base.d.ts" />
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // Email
+    // The SP.Utilities.Utility.SendEmail object.
+    /*********************************************************************************************************************************/
+    var Email = (function (_super) {
+        __extends(Email, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function Email() {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i - 0] = arguments[_i];
+            }
+            // Call the base constructor
+            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.targetInfo.endpoint = "SP.Utilities.Utility.SendEmail";
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "email" } });
+        }
+        return Email;
+    }($REST.Base));
+    $REST.Email = Email;
+    var Email_Async = (function (_super) {
+        __extends(Email_Async, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function Email_Async() {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i - 0] = arguments[_i];
+            }
+            // Call the base constructor
+            _super.call(this, $REST.Base.getAsyncInputParmeters.apply(null, args));
+        }
+        return Email_Async;
+    }(Email));
+    $REST.Email_Async = Email_Async;
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    $REST.Library.email = {
+        // Method to send an email.
+        send: {
+            argNames: ["properties"],
+            name: "",
+            metadataType: "SP.Utilities.EmailProperties",
+            requestType: $REST.RequestType.PostWithArgsInBody
+        }
+    };
+})($REST || ($REST = {}));
+
+/// <reference path="../base.d.ts" />
+var $REST;
+(function ($REST) {
+    /**
+     * Control Modes
+     */
+    var ControlMode;
+    (function (ControlMode) {
+        /** A placeholder value in the enumeration indicating that it has no valid display mode from one of the other enumeration values. */
+        ControlMode[ControlMode["Invalid"] = 0] = "Invalid";
+        /** Specifies that the control is in display mode. */
+        ControlMode[ControlMode["Display"] = 1] = "Display";
+        /** Specifies that the control is in edit mode. */
+        ControlMode[ControlMode["Edit"] = 2] = "Edit";
+        /** Specifies that the control is in New mode. */
+        ControlMode[ControlMode["New"] = 3] = "New";
+    })(ControlMode || (ControlMode = {}));
+    /**
+     * Draft Visibility Types
+     */
+    var DraftVisibilityType;
+    (function (DraftVisibilityType) {
+        /** Enumeration whose values specify that the minimum permission is approver. */
+        DraftVisibilityType[DraftVisibilityType["Approver"] = 2] = "Approver";
+        /** Enumeration whose values specify that the minimum permission is author. */
+        DraftVisibilityType[DraftVisibilityType["Author"] = 1] = "Author";
+        /** Enumeration whose values specify that the minimum permission is reader. */
+        DraftVisibilityType[DraftVisibilityType["Reader"] = 0] = "Reader";
+    })(DraftVisibilityType || (DraftVisibilityType = {}));
+    /**
+     * Event Receiver Types
+     */
+    var EventReceiverType;
+    (function (EventReceiverType) {
+        /** Event that occurs before an item has been added. */
+        EventReceiverType[EventReceiverType["ItemAdding"] = 1] = "ItemAdding";
+        /** Event that occurs before an item is updated. */
+        EventReceiverType[EventReceiverType["ItemUpdating"] = 2] = "ItemUpdating";
+        /** Event that occurs before an item is deleted. */
+        EventReceiverType[EventReceiverType["ItemDeleting"] = 3] = "ItemDeleting";
+        /** Event that occurs before an item has been checked in. */
+        EventReceiverType[EventReceiverType["ItemCheckingIn"] = 4] = "ItemCheckingIn";
+        /** Event that occurs before an item is checked out. */
+        EventReceiverType[EventReceiverType["ItemCheckingOut"] = 5] = "ItemCheckingOut";
+        /** Event that occurs before an item is unchecked out. */
+        EventReceiverType[EventReceiverType["ItemUncheckingOut"] = 6] = "ItemUncheckingOut";
+        /** Event that occurs before an attachment has been added to an item. */
+        EventReceiverType[EventReceiverType["ItemAttachmentAdding"] = 7] = "ItemAttachmentAdding";
+        /** Event that occurs before an attachment has been removed from the item. */
+        EventReceiverType[EventReceiverType["ItemAttachmentDeleting"] = 8] = "ItemAttachmentDeleting";
+        /** Event that occurs before a file is moved. */
+        EventReceiverType[EventReceiverType["ItemFileMoving"] = 9] = "ItemFileMoving";
+        /** Event that occurs before a document version is deleted. */
+        EventReceiverType[EventReceiverType["ItemVersionDeleting"] = 11] = "ItemVersionDeleting";
+        /** Event that occurs before a field is added to a list. */
+        EventReceiverType[EventReceiverType["FieldAdding"] = 101] = "FieldAdding";
+        /** Event that occurs before a field is updated. */
+        EventReceiverType[EventReceiverType["FieldUpdating"] = 102] = "FieldUpdating";
+        /** Event that occurs before a field is removed from a list. */
+        EventReceiverType[EventReceiverType["FieldDeleting"] = 103] = "FieldDeleting";
+        /** Event that occurs before a list is created. */
+        EventReceiverType[EventReceiverType["ListAdding"] = 104] = "ListAdding";
+        /** Event that occurs before a list is deleted. */
+        EventReceiverType[EventReceiverType["ListDeleting"] = 105] = "ListDeleting";
+        /** Event that occurs before a site collection is deleted. */
+        EventReceiverType[EventReceiverType["SiteDeleting"] = 201] = "SiteDeleting";
+        /** Event that occurs before a site is deleted. */
+        EventReceiverType[EventReceiverType["WebDeleting"] = 202] = "WebDeleting";
+        /** Event that occurs before a site URL has been changed. */
+        EventReceiverType[EventReceiverType["WebMoving"] = 203] = "WebMoving";
+        /** Event that occurs before a new site is created. */
+        EventReceiverType[EventReceiverType["WebAdding"] = 204] = "WebAdding";
+        /** Event that occurs before a security group is added. */
+        EventReceiverType[EventReceiverType["GroupAdding"] = 301] = "GroupAdding";
+        /** Event that occurs before a security group is updated. */
+        EventReceiverType[EventReceiverType["GroupUpdating"] = 302] = "GroupUpdating";
+        /** Event that occurs before a security group is deleted. */
+        EventReceiverType[EventReceiverType["GroupDeleting"] = 303] = "GroupDeleting";
+        /** Event that occurs before a user is added to a security group. */
+        EventReceiverType[EventReceiverType["GroupUserAdding"] = 304] = "GroupUserAdding";
+        /** Event that occurs before a user is deleted from a security group. */
+        EventReceiverType[EventReceiverType["GroupUserDeleting"] = 305] = "GroupUserDeleting";
+        /** Event that occurs before a role definition is added. */
+        EventReceiverType[EventReceiverType["RoleDefinitionAdding"] = 306] = "RoleDefinitionAdding";
+        /** Event that occurs before a role definition is updated. */
+        EventReceiverType[EventReceiverType["RoleDefinitionUpdating"] = 307] = "RoleDefinitionUpdating";
+        /** Event that occurs before a role definition is deleted. */
+        EventReceiverType[EventReceiverType["RoleDefinitionDeleting"] = 308] = "RoleDefinitionDeleting";
+        /** Event that occurs before a role assignment is added. */
+        EventReceiverType[EventReceiverType["RoleAssignmentAdding"] = 309] = "RoleAssignmentAdding";
+        /** Event that occurs before a role assignment is deleted. */
+        EventReceiverType[EventReceiverType["RoleAssignmentDeleting"] = 310] = "RoleAssignmentDeleting";
+        /** Event that occurs before an inheritance is broken. */
+        EventReceiverType[EventReceiverType["InheritanceBreaking"] = 311] = "InheritanceBreaking";
+        /** Event that occurs before an inheritance is restored. */
+        EventReceiverType[EventReceiverType["InheritanceResetting"] = 312] = "InheritanceResetting";
+        /** Event that occurs before a workflow starts running. */
+        EventReceiverType[EventReceiverType["WorkflowStarting"] = 501] = "WorkflowStarting";
+        /** Event that occurs after an item has been added. */
+        EventReceiverType[EventReceiverType["ItemAdded"] = 10001] = "ItemAdded";
+        /** Event that occurs after an item has been updated. */
+        EventReceiverType[EventReceiverType["ItemUpdated"] = 10002] = "ItemUpdated";
+        /** Event that occurs after an item has been deleted. */
+        EventReceiverType[EventReceiverType["ItemDeleted"] = 10003] = "ItemDeleted";
+        /** Event that occurs after an item has been checked in. */
+        EventReceiverType[EventReceiverType["ItemCheckedIn"] = 10004] = "ItemCheckedIn";
+        /** Event that occurs after an item has been checked out. */
+        EventReceiverType[EventReceiverType["ItemCheckedOut"] = 10005] = "ItemCheckedOut";
+        /** Event that occurs after an item has been unchecked out. */
+        EventReceiverType[EventReceiverType["ItemUncheckedOut"] = 10006] = "ItemUncheckedOut";
+        /** Event that occurs after an attachment has been added to the item. */
+        EventReceiverType[EventReceiverType["ItemAttachmentAdded"] = 10007] = "ItemAttachmentAdded";
+        /** Event that occurs after an attachment has been removed from the item. */
+        EventReceiverType[EventReceiverType["ItemAttachmentDeleted"] = 10008] = "ItemAttachmentDeleted";
+        /** Event that occurs after a file has been moved. */
+        EventReceiverType[EventReceiverType["ItemFileMoved"] = 10009] = "ItemFileMoved";
+        /** Event that occurs after a file is transformed from one type to another. */
+        EventReceiverType[EventReceiverType["ItemFileConverted"] = 10010] = "ItemFileConverted";
+        /** Event that occurs after a document version is deleted. */
+        EventReceiverType[EventReceiverType["ItemVersionDeleted"] = 10011] = "ItemVersionDeleted";
+        /** Event that occurs after a field has been added. */
+        EventReceiverType[EventReceiverType["FieldAdded"] = 10101] = "FieldAdded";
+        /** Event that occurs after a field has been updated. */
+        EventReceiverType[EventReceiverType["FieldUpdated"] = 10102] = "FieldUpdated";
+        /** Event that occurs after a field has been removed. */
+        EventReceiverType[EventReceiverType["FieldDeleted"] = 10103] = "FieldDeleted";
+        /** Event that occurs after a list has been created. */
+        EventReceiverType[EventReceiverType["ListAdded"] = 10104] = "ListAdded";
+        /** Event that occurs after a list has been deleted. */
+        EventReceiverType[EventReceiverType["ListDeleted"] = 10105] = "ListDeleted";
+        /** Event that occurs after a site collection has been deleted. */
+        EventReceiverType[EventReceiverType["SiteDeleted"] = 10201] = "SiteDeleted";
+        /** Event that occurs after a site has been deleted. */
+        EventReceiverType[EventReceiverType["WebDeleted"] = 10202] = "WebDeleted";
+        /** Event that occurs after a site URL has been changed. */
+        EventReceiverType[EventReceiverType["WebMoved"] = 10203] = "WebMoved";
+        /** Event that occurs after a new site has been created, but before that new site is provisioned. */
+        EventReceiverType[EventReceiverType["WebProvisioned"] = 10204] = "WebProvisioned";
+        /** Event that occurs happens after a security group is added. */
+        EventReceiverType[EventReceiverType["GroupAdded"] = 10301] = "GroupAdded";
+        /** Event that occurs after a security group is updated. */
+        EventReceiverType[EventReceiverType["GroupUpdated"] = 10302] = "GroupUpdated";
+        /** Event that occurs after a security group is deleted. */
+        EventReceiverType[EventReceiverType["GroupDeleted"] = 10303] = "GroupDeleted";
+        /** Event that occurs after a user is added to a security group. */
+        EventReceiverType[EventReceiverType["GroupUserAdded"] = 10304] = "GroupUserAdded";
+        /** Event that occurs after a user is deleted from a security group. */
+        EventReceiverType[EventReceiverType["GroupUserDeleted"] = 10305] = "GroupUserDeleted";
+        /** Event that occurs after a role definition is added. */
+        EventReceiverType[EventReceiverType["RoleDefinitionAdded"] = 10306] = "RoleDefinitionAdded";
+        /** Event that occurs after a role definition is updated. */
+        EventReceiverType[EventReceiverType["RoleDefinitionUpdated"] = 10307] = "RoleDefinitionUpdated";
+        /** Event that occurs after a role definition is deleted. */
+        EventReceiverType[EventReceiverType["RoleDefinitionDeleted"] = 10308] = "RoleDefinitionDeleted";
+        /** Event that occurs after a role assignment is added. */
+        EventReceiverType[EventReceiverType["RoleAssignmentAdded"] = 10309] = "RoleAssignmentAdded";
+        /** Event that occurs after a role definition is deleted. */
+        EventReceiverType[EventReceiverType["RoleAssignmentDeleted"] = 10310] = "RoleAssignmentDeleted";
+        /** Event that occurs after an inheritance is broken. */
+        EventReceiverType[EventReceiverType["InheritanceBroken"] = 10311] = "InheritanceBroken";
+        /** Event that occurs after an inheritance is restored. */
+        EventReceiverType[EventReceiverType["InheritanceReset"] = 10312] = "InheritanceReset";
+        /** Event that occurs after a workflow has started running. */
+        EventReceiverType[EventReceiverType["WorkflowStarted"] = 10501] = "WorkflowStarted";
+        /** Event that occurs after a workflow has been postponed. */
+        EventReceiverType[EventReceiverType["WorkflowPostponed"] = 10502] = "WorkflowPostponed";
+        /** Event that occurs after a workflow has completed running. */
+        EventReceiverType[EventReceiverType["WorkflowCompleted"] = 10503] = "WorkflowCompleted";
+        /** Event that occurs when an instance of an external content type has been added. */
+        EventReceiverType[EventReceiverType["EntityInstanceAdded"] = 10601] = "EntityInstanceAdded";
+        /** Event that occurs when an instance of an external content type has been updated. */
+        EventReceiverType[EventReceiverType["EntityInstanceUpdated"] = 10602] = "EntityInstanceUpdated";
+        /** Event that occurs when an instance of an external content type has been deleted. */
+        EventReceiverType[EventReceiverType["EntityInstanceDeleted"] = 10603] = "EntityInstanceDeleted";
+        /** Event that occurs after an app is installed. */
+        EventReceiverType[EventReceiverType["AppInstalled"] = 10701] = "AppInstalled";
+        /** Event that occurs after an app is upgraded. */
+        EventReceiverType[EventReceiverType["AppUpgraded"] = 10702] = "AppUpgraded";
+        /** Event that occurs before an app is uninstalled. */
+        EventReceiverType[EventReceiverType["AppUninstalling"] = 10703] = "AppUninstalling";
+        /** Event that occurs after a list receives an e-mail message. */
+        EventReceiverType[EventReceiverType["EmailReceived"] = 20000] = "EmailReceived";
+        /** Identifies workflow event receivers, and is therefore not a true event type. */
+        EventReceiverType[EventReceiverType["ContextEvent"] = 32766] = "ContextEvent";
+    })(EventReceiverType || (EventReceiverType = {}));
+    /**
+     * Event Receiver Synchronization Types
+     */
+    var EventReceiverSynchronizationType;
+    (function (EventReceiverSynchronizationType) {
+        /** Event to be triggered asynchronously. */
+        EventReceiverSynchronizationType[EventReceiverSynchronizationType["Asynchronous"] = 2] = "Asynchronous";
+        /** Event to be triggered synchronously. */
+        EventReceiverSynchronizationType[EventReceiverSynchronizationType["Synchronization"] = 1] = "Synchronization";
+    })(EventReceiverSynchronizationType || (EventReceiverSynchronizationType = {}));
+    /**
+     * Field Types
+     */
+    var FieldType;
+    (function (FieldType) {
+        /** Specifies that the field indicates whether a meeting in a calendar list is an all-day event. */
+        FieldType[FieldType["AllDayEvent"] = 29] = "AllDayEvent";
+        /** Specifies that the field indicates whether the list item has attachments. */
+        FieldType[FieldType["Attachments"] = 19] = "Attachments";
+        /** Specifies that the field contains a Boolean value. */
+        FieldType[FieldType["Boolean"] = 8] = "Boolean";
+        /** Specifies that the field is a calculated field. */
+        FieldType[FieldType["Calculated"] = 17] = "Calculated";
+        /** Specifies that the field contains a single value from a set of specified values. */
+        FieldType[FieldType["Choice"] = 6] = "Choice";
+        /** Specifies that the field is a computed field. */
+        FieldType[FieldType["Computed"] = 12] = "Computed";
+        /** Specifies that the field contains a content type identifier as a value. */
+        FieldType[FieldType["ContentTypeId"] = 25] = "ContentTypeId";
+        /** Specifies that the field contains a monotonically increasing integer. */
+        FieldType[FieldType["Counter"] = 5] = "Counter";
+        /** Specifies that the field contains a link between projects in a Meeting Workspace site. */
+        FieldType[FieldType["CrossProjectLink"] = 22] = "CrossProjectLink";
+        /** Specifies that the field contains a currency value. */
+        FieldType[FieldType["Currency"] = 10] = "Currency";
+        /** Specifies that the field contains a date and time value or a date-only value. */
+        FieldType[FieldType["DateTime"] = 4] = "DateTime";
+        /** Specifies that the type of the field was set to an invalid value. */
+        FieldType[FieldType["Error"] = 24] = "Error";
+        /** Specifies that the field contains the leaf name of a document as a value. */
+        FieldType[FieldType["File"] = 18] = "File";
+        /** Specifies that the field contains geographical location values. */
+        FieldType[FieldType["Geolocation"] = 31] = "Geolocation";
+        /** Specifies that the field contains rating scale values for a survey list. */
+        FieldType[FieldType["GridChoice"] = 16] = "GridChoice";
+        /** Specifies that the field contains a GUID value. */
+        FieldType[FieldType["Guid"] = 14] = "Guid";
+        /** Specifies that the field contains an integer value. */
+        FieldType[FieldType["Integer"] = 1] = "Integer";
+        /** Must not be used. */
+        FieldType[FieldType["Invalid"] = 0] = "Invalid";
+        /** Specifies that the field is a lookup field. */
+        FieldType[FieldType["Lookup"] = 7] = "Lookup";
+        /** Must not be used. */
+        FieldType[FieldType["MaxItems"] = 31] = "MaxItems";
+        /** Specifies that the field indicates moderation status. */
+        FieldType[FieldType["ModStat"] = 23] = "ModStat";
+        /** Specifies that the field contains one or more values from a set of specified values. */
+        FieldType[FieldType["MultiChoice"] = 15] = "MultiChoice";
+        /** Specifies that the field contains multiple lines of text. */
+        FieldType[FieldType["Note"] = 3] = "Note";
+        /** Specifies that the field contains a floating-point number value. */
+        FieldType[FieldType["Number"] = 9] = "Number";
+        /** Specifies that the field separates questions in a survey list onto multiple pages. */
+        FieldType[FieldType["PageSeparator"] = 26] = "PageSeparator";
+        /** Specifies that the field indicates whether a meeting in a calendar list recurs. */
+        FieldType[FieldType["Recurrence"] = 21] = "Recurrence";
+        /** Specifies that the field contains a single line of text. */
+        FieldType[FieldType["Text"] = 2] = "Text";
+        /** Specifies that the field indicates the position of a discussion item in a threaded view of a discussion board. */
+        FieldType[FieldType["ThreadIndex"] = 27] = "ThreadIndex";
+        /** Specifies that the field indicates the thread for a discussion item in a threaded view of a discussion board. */
+        FieldType[FieldType["Threading"] = 13] = "Threading";
+        /** Specifies that the field contains a URI and an optional description of the URI. */
+        FieldType[FieldType["URL"] = 11] = "URL";
+        /** Specifies that the field contains one or more users and groups as values. */
+        FieldType[FieldType["User"] = 20] = "User";
+        /** Specifies that the field contains the most recent event in a workflow instance. */
+        FieldType[FieldType["WorkflowEventType"] = 30] = "WorkflowEventType";
+        /** Specifies that the field indicates the status of a workflow instance on a list item. */
+        FieldType[FieldType["WorkflowStatus"] = 28] = "WorkflowStatus";
+    })(FieldType || (FieldType = {}));
+    /**
+     * File Template Types
+     */
+    var FileTemplateType;
+    (function (FileTemplateType) {
+        /** Enumeration whose value specifies default form template. */
+        FileTemplateType[FileTemplateType["FormPage"] = 2] = "FormPage";
+        /** Enumeration whose value specifies default view template. */
+        FileTemplateType[FileTemplateType["StandardPage"] = 0] = "StandardPage";
+        /** Enumeration whose value specifies default wiki template. */
+        FileTemplateType[FileTemplateType["WikiPage"] = 1] = "WikiPage";
+    })(FileTemplateType || (FileTemplateType = {}));
+    /**
+     * List Template Types
+     */
+    var ListTemplateType;
+    (function (ListTemplateType) {
+        /** Access Request List */
+        ListTemplateType[ListTemplateType["AccessRequest"] = 160] = "AccessRequest";
+        /** Administrator Tasks */
+        ListTemplateType[ListTemplateType["AdminTasks"] = 1200] = "AdminTasks";
+        /** Agenda (Meeting) */
+        ListTemplateType[ListTemplateType["Agenda"] = 201] = "Agenda";
+        /** App Data Catalog */
+        ListTemplateType[ListTemplateType["AppDataCatalog"] = 125] = "AppDataCatalog";
+        /** Announcements */
+        ListTemplateType[ListTemplateType["Announcements"] = 104] = "Announcements";
+        /** Call Track */
+        ListTemplateType[ListTemplateType["CallTrack"] = 404] = "CallTrack";
+        /** Categories (Blog) */
+        ListTemplateType[ListTemplateType["Categories"] = 303] = "Categories";
+        /** Circulation */
+        ListTemplateType[ListTemplateType["Circulation"] = 405] = "Circulation";
+        /** Comments (Blog) */
+        ListTemplateType[ListTemplateType["Comments"] = 302] = "Comments";
+        /** Contacts */
+        ListTemplateType[ListTemplateType["Contacts"] = 105] = "Contacts";
+        /** Custom grid for a list */
+        ListTemplateType[ListTemplateType["CustomGrid"] = 120] = "CustomGrid";
+        /** Data connection library for sharing information about external data connections */
+        ListTemplateType[ListTemplateType["DataConnectionLibrary"] = 130] = "DataConnectionLibrary";
+        /** Data sources for a site */
+        ListTemplateType[ListTemplateType["DataSources"] = 110] = "DataSources";
+        /** Decisions (Meeting) */
+        ListTemplateType[ListTemplateType["Decision"] = 204] = "Decision";
+        /** Design Catalog */
+        ListTemplateType[ListTemplateType["DesignCatalog"] = 124] = "DesignCatalog";
+        /** Draft Apps library in Developer Site */
+        ListTemplateType[ListTemplateType["DeveloperSiteDraftApps"] = 1230] = "DeveloperSiteDraftApps";
+        /** Discussion board */
+        ListTemplateType[ListTemplateType["DiscussionBoard"] = 108] = "DiscussionBoard";
+        /** Document library */
+        ListTemplateType[ListTemplateType["DocumentLibrary"] = 101] = "DocumentLibrary";
+        /** Calendar */
+        ListTemplateType[ListTemplateType["Events"] = 106] = "Events";
+        /** External */
+        ListTemplateType[ListTemplateType["ExternalList"] = 600] = "ExternalList";
+        /** Facility */
+        ListTemplateType[ListTemplateType["Facility"] = 402] = "Facility";
+        /** Project Tasks */
+        ListTemplateType[ListTemplateType["GanttTasks"] = 150] = "GanttTasks";
+        /** Custom list */
+        ListTemplateType[ListTemplateType["GenericList"] = 100] = "GenericList";
+        /** Health Reports */
+        ListTemplateType[ListTemplateType["HealthReports"] = 1221] = "HealthReports";
+        /** Health Rules */
+        ListTemplateType[ListTemplateType["HealthRules"] = 1220] = "HealthRules";
+        /** Help Library */
+        ListTemplateType[ListTemplateType["HelpLibrary"] = 151] = "HelpLibrary";
+        /** Holidays */
+        ListTemplateType[ListTemplateType["Holidays"] = 421] = "Holidays";
+        /** Workspace Pages (Meeting) */
+        ListTemplateType[ListTemplateType["HomePageLibrary"] = 212] = "HomePageLibrary";
+        /** IME (Input Method Editor) Dictionary */
+        ListTemplateType[ListTemplateType["IMEDic"] = 499] = "IMEDic";
+        /** Issue tracking */
+        ListTemplateType[ListTemplateType["IssueTracking"] = 1100] = "IssueTracking";
+        /** Links */
+        ListTemplateType[ListTemplateType["Links"] = 103] = "Links";
+        /** List Template gallery */
+        ListTemplateType[ListTemplateType["ListTemplateCatalog"] = 114] = "ListTemplateCatalog";
+        /** Master Page gallery */
+        ListTemplateType[ListTemplateType["MasterPageCatalog"] = 116] = "MasterPageCatalog";
+        /** Maintenance Logs Library */
+        ListTemplateType[ListTemplateType["MaintenanceLogs"] = 175] = "MaintenanceLogs";
+        /** Objectives (Meeting) */
+        ListTemplateType[ListTemplateType["MeetingObjective"] = 207] = "MeetingObjective";
+        /** Meeting Series (Meeting) */
+        ListTemplateType[ListTemplateType["Meetings"] = 200] = "Meetings";
+        /** Attendees (Meeting) */
+        ListTemplateType[ListTemplateType["MeetingUser"] = 202] = "MeetingUser";
+        /** My Site Document Library */
+        ListTemplateType[ListTemplateType["MySiteDocumentLibrary"] = 700] = "MySiteDocumentLibrary";
+        /** Posts (Blog) */
+        ListTemplateType[ListTemplateType["Posts"] = 301] = "Posts";
+        /** No Code Public Workflow */
+        ListTemplateType[ListTemplateType["NoCodePublic"] = 122] = "NoCodePublic";
+        /** No Code Workflows */
+        ListTemplateType[ListTemplateType["NoCodeWorkflows"] = 117] = "NoCodeWorkflows";
+        /** Picture library */
+        ListTemplateType[ListTemplateType["PictureLibrary"] = 109] = "PictureLibrary";
+        /** Solutions */
+        ListTemplateType[ListTemplateType["SolutionCatalog"] = 121] = "SolutionCatalog";
+        /** Survey */
+        ListTemplateType[ListTemplateType["Survey"] = 102] = "Survey";
+        /** Tasks */
+        ListTemplateType[ListTemplateType["Tasks"] = 107] = "Tasks";
+        /** Tasks with Timeline and Hierarchy */
+        ListTemplateType[ListTemplateType["TasksWithTimelineAndHierarchy"] = 171] = "TasksWithTimelineAndHierarchy";
+        /** Text Box (Meeting) */
+        ListTemplateType[ListTemplateType["TextBox"] = 210] = "TextBox";
+        /** Themes */
+        ListTemplateType[ListTemplateType["ThemeCatalog"] = 123] = "ThemeCatalog";
+        /** Things To Bring (Meeting) */
+        ListTemplateType[ListTemplateType["ThingsToBring"] = 211] = "ThingsToBring";
+        /** Timecard */
+        ListTemplateType[ListTemplateType["Timecard"] = 420] = "Timecard";
+        /** User Information */
+        ListTemplateType[ListTemplateType["UserInformation"] = 112] = "UserInformation";
+        /** Wiki Page Library */
+        ListTemplateType[ListTemplateType["WebPageLibrary"] = 119] = "WebPageLibrary";
+        /** Web Part gallery */
+        ListTemplateType[ListTemplateType["WebPartCatalog"] = 113] = "WebPartCatalog";
+        /** Site template gallery */
+        ListTemplateType[ListTemplateType["WebTemplateCatalog"] = 111] = "WebTemplateCatalog";
+        /** Whereabouts */
+        ListTemplateType[ListTemplateType["Whereabouts"] = 403] = "Whereabouts";
+        /** Workflow History */
+        ListTemplateType[ListTemplateType["WorkflowHistory"] = 140] = "WorkflowHistory";
+        /** Custom Workflow Process */
+        ListTemplateType[ListTemplateType["WorkflowProcess"] = 118] = "WorkflowProcess";
+        /** XML Form library */
+        ListTemplateType[ListTemplateType["XMLForm"] = 115] = "XMLForm";
+    })(ListTemplateType || (ListTemplateType = {}));
+    /**
+     * Page Types
+     */
+    var PageType;
+    (function (PageType) {
+        /** Enumeration whose values specify a page that is the default view for a list. */
+        PageType[PageType["DefaultView"] = 0] = "DefaultView";
+        /** Enumeration whose values specify a page suitable for display within a dialog box on a client computer. */
+        PageType[PageType["DialogView"] = 2] = "DialogView";
+        /** Enumeration whose values specify a list form for displaying a list item. */
+        PageType[PageType["DisplayForm"] = 4] = "DisplayForm";
+        /** Enumeration whose values specify a list form for displaying a list item, suitable for display within a dialog box on a client computer. */
+        PageType[PageType["DisplayFormDialog"] = 5] = "DisplayFormDialog";
+        /** Enumeration whose values specify a list form for editing a list item. */
+        PageType[PageType["EditForm"] = 6] = "EditForm";
+        /** Enumeration whose values specify a list form for editing a list item, suitable for display within a dialog box on a client computer. */
+        PageType[PageType["EditFormDialog"] = 7] = "EditFormDialog";
+        /** Enumeration whose values specify a page that does not correspond to a list view or a list form. */
+        PageType[PageType["Invalid"] = -1] = "Invalid";
+        /** Enumeration whose values specify a list form for creating a new list item. */
+        PageType[PageType["NewForm"] = 8] = "NewForm";
+        /** Enumeration whose values specify a list form for creating a new list item, suitable for display within a dialog box on a client computer. */
+        PageType[PageType["NewFormDialog"] = 9] = "NewFormDialog";
+        /** Enumeration whose values specify a page that is a list view and is not the default view for a list. */
+        PageType[PageType["NormalView"] = 1] = "NormalView";
+        /** Enumeration whose values specify the total number of valid page types. */
+        PageType[PageType["Page_MAXITEMS"] = 11] = "Page_MAXITEMS";
+        /** Enumeration whose values specify a list form for displaying or editing a list item and represented by a form template (.xsn) file. */
+        PageType[PageType["SolutionForm"] = 10] = "SolutionForm";
+        /** Enumeration whose values specify a page that is a list view. */
+        PageType[PageType["View"] = 3] = "View";
+    })(PageType || (PageType = {}));
+    /**
+     * Role Types
+     */
+    var RoleType;
+    (function (RoleType) {
+        /** Has all rights from other roles, plus rights to manage roles and view usage analysis data. Includes all rights in the WebDesigner role, plus the following: ManageListPermissions, ManageRoles, ManageSubwebs, ViewUsageData. The Administrator role cannot be customized or deleted, and must always contain at least one member. Members of the Administrator role always have access to, or can grant themselves access to, any item in the Web site. */
+        RoleType[RoleType["Administrator"] = 5] = "Administrator";
+        /** Has Reader rights, plus rights to add items, edit items, delete items, manage list permissions, manage personal views, personalize Web Part Pages, and browse directories. Includes all rights in the Reader role, plus the following: AddDelPrivateWebParts, AddListItems, BrowseDirectories, CreatePersonalGroups, DeleteListItems, EditListItems, ManagePersonalViews, UpdatePersonalWebParts. Contributors cannot create new lists or document libraries, but they can add content to existing lists and document libraries. */
+        RoleType[RoleType["Contributor"] = 3] = "Contributor";
+        /** Has Contributor rights, plus rights to manage lists. Includes all rights in the Contributor role. Editors can create new lists or document libraries. */
+        RoleType[RoleType["Editor"] = 6] = "Editor";
+        /** Has limited rights to view pages and specific page elements. This role is used to give users access to a particular page, list, or item in a list, without granting rights to view the entire site. Users cannot be added explicitly to the Guest role; users who are given access to lists or document libraries by way of per-list permissions are added automatically to the Guest role. The Guest role cannot be customized or deleted. */
+        RoleType[RoleType["Guest"] = 1] = "Guest";
+        /** Enumeration whose values specify that there are no rights on the Web site. */
+        RoleType[RoleType["None"] = 0] = "None";
+        /** Has rights to view items, personalize Web parts, use alerts, and create a top-level Web site using Self-Service Site Creation. A reader can only read a site; the reader cannot add content. When a reader creates a site using Self-Service Site Creation, the reader becomes the site owner and a member of the Administrator role for the new site. This does not affect the user's role membership for any other site. Rights included: CreateSSCSite, ViewListItems, ViewPages. */
+        RoleType[RoleType["Reader"] = 2] = "Reader";
+        /** Has Contributor rights, plus rights to cancel check out, delete items, manage lists, add and customize pages, define and apply themes and borders, and link style sheets. Includes all rights in the Contributor role, plus the following: AddAndCustomizePages, ApplyStyleSheets, ApplyThemeAndBorder, CancelCheckout, ManageLists.WebDesigners can modify the structure of the site and create new lists or document libraries. */
+        RoleType[RoleType["WebDesigner"] = 4] = "WebDesigner";
+    })(RoleType || (RoleType = {}));
+    /**
+     * User Custom Action Registration Types
+     */
+    var UserCustomActionRegistrationType;
+    (function (UserCustomActionRegistrationType) {
+        /** Enumeration whose values specify that the object association is not specified. */
+        UserCustomActionRegistrationType[UserCustomActionRegistrationType["None"] = 0] = "None";
+        /** Enumeration whose values specify that the custom action is associated with a list. */
+        UserCustomActionRegistrationType[UserCustomActionRegistrationType["List"] = 1] = "List";
+        /** Enumeration whose values specify that the custom action is associated with a content type. */
+        UserCustomActionRegistrationType[UserCustomActionRegistrationType["ContentType"] = 2] = "ContentType";
+        /** Enumeration whose values specify that the custom action is associated with a ProgID. */
+        UserCustomActionRegistrationType[UserCustomActionRegistrationType["ProgId"] = 3] = "ProgId";
+        /** Enumeration whose values specify that the custom action is associated with a file extension. */
+        UserCustomActionRegistrationType[UserCustomActionRegistrationType["FileType"] = 4] = "FileType";
+    })(UserCustomActionRegistrationType || (UserCustomActionRegistrationType = {}));
+    /**
+     * View Types
+     */
+    var ViewType;
+    (function (ViewType) {
+        /** Enumeration whose values specify a calendar list view type. */
+        ViewType[ViewType["Calendar"] = 524288] = "Calendar";
+        /** Enumeration whose values specify a chart list view type. */
+        ViewType[ViewType["Chart"] = 131072] = "Chart";
+        /** Enumeration whose values specify a Gantt chart list view type. */
+        ViewType[ViewType["Gantt"] = 67108864] = "Gantt";
+        /** Enumeration whose values specify a datasheet list view type. */
+        ViewType[ViewType["Grid"] = 2048] = "Grid";
+        /** Enumeration whose values specify an HTML list view type. */
+        ViewType[ViewType["Html"] = 1] = "Html";
+        /** Enumeration whose values specify a list view type that displays recurring events. */
+        ViewType[ViewType["Recurrence"] = 8193] = "Recurrence";
+    })(ViewType || (ViewType = {}));
 })($REST || ($REST = {}));
 
 var __extends = (this && this.__extends) || function (d, b) {
@@ -3104,7 +3656,7 @@ var $REST;
         },
         // Gets the role definition with the specified role type.
         getByType: {
-            argNames: ["type"],
+            argNames: ["roleType"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
         }
     };
@@ -3198,7 +3750,6 @@ var $REST;
     $REST.Library.site = {
         // Adds a custom action to the user custom action collection.
         addCustomAction: {
-            argNames: ["data"],
             metadataType: "SP.UserCustomAction",
             name: "usercustomactions",
             requestType: $REST.RequestType.PostWithArgsInBody
@@ -3267,13 +3818,6 @@ var $REST;
         runUpgradeSiteSession: {
             argNames: ["versionUpgrade", "queueOnly", "sendEmail"],
             requestType: $REST.RequestType.PostWithArgs
-        },
-        // Method to send an email.
-        sendEmail: {
-            argNames: ["properties"],
-            name: "SP.Utilities.Utility.SendEmail",
-            metadataType: "SP.Utilities.EmailProperties",
-            requestType: $REST.RequestType.PostWithArgsInBody
         },
         // Updates it's properties.
         update: {
@@ -3581,6 +4125,11 @@ var $REST;
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.usercustomactions = {
+        // Adds a user custom action to the collection.
+        add: {
+            metadataType: "SP.UserCustomAction",
+            requestType: $REST.RequestType.PostWithArgsInBody
+        },
         // Deletes all custom actions in the collection.
         clear: {
             requestType: $REST.RequestType.Post
@@ -4497,13 +5046,6 @@ var $REST;
         // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
         resetRoleInheritance: {
             requestType: $REST.RequestType.Post
-        },
-        // Method to send an email.
-        sendEmail: {
-            argNames: ["properties"],
-            name: "SP.Utilities.Utility.SendEmail",
-            metadataType: "SP.Utilities.EmailProperties",
-            requestType: $REST.RequestType.PostWithArgsInBody
         },
         // Unregisters the subscriber for push notifications from the site.
         unregisterPushNotificationSubscriber: {

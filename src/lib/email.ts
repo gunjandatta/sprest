@@ -1,10 +1,11 @@
 /// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
-    // Role Definitions
-    // The SPRoleDefinitionCollection object.
+    // Email
+    // The SP.Utilities.Utility.SendEmail object.
     /*********************************************************************************************************************************/
-    export class RoleDefinitions extends Base {
+    export class Email extends Base {
+
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
@@ -14,21 +15,14 @@ module $REST {
 
             // Default the properties
             this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/roledefinitions";
+            this.targetInfo.endpoint = "SP.Utilities.Utility.SendEmail";
 
-            // See if we are executing the request
-            if(this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "roledefinitions" } } );
-            }
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "email" } } );
         }
     }
 
-    export class RoleDefinitions_Async extends RoleDefinitions {
+    export class Email_Async extends Email {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
@@ -41,23 +35,13 @@ module $REST {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    Library.roledefinitions = {
-        // Gets the role definition with the specified ID from the collection.
-        getById: {
-            argNames: ["roleDefId"],
-            requestType: RequestType.GetWithArgsValueOnly
-        },
-
-        // Gets the role definition with the specified name.
-        getByName: {
-            argNames: ["name"],
-            requestType: RequestType.GetWithArgsValueOnly
-        },
-
-        // Gets the role definition with the specified role type.
-        getByType: {
-            argNames: ["roleType"],
-            requestType: RequestType.GetWithArgsValueOnly
+    Library.email = {
+        // Method to send an email.
+        send: {
+            argNames: ["properties"],
+            name: "",
+            metadataType: "SP.Utilities.EmailProperties",
+            requestType: RequestType.PostWithArgsInBody
         }
     };
 }
