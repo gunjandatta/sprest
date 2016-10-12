@@ -1327,9 +1327,30 @@ var $REST;
             // Default the properties
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "SP.Utilities.Utility.SendEmail";
-            // Add the methods
-            this.addMethods(this, { __metadata: { type: "email" } });
         }
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
+        // Method to send an email
+        Email.prototype.send = function (properties) {
+            // Ensure the "To" property exists, and is formatted correctly
+            if (properties.To) {
+                // See if it's a string
+                if (typeof (properties.To) === "string") {
+                    properties.To = { 'results': [properties.To] };
+                }
+                else {
+                    properties.To = { 'results': properties.To };
+                }
+            }
+            // Execute the method
+            this.executeMethod("send", {
+                argNames: ["properties"],
+                name: "",
+                metadataType: "SP.Utilities.EmailProperties",
+                requestType: $REST.RequestType.PostWithArgsInBody
+            }, [properties]);
+        };
         return Email;
     }($REST.Base));
     $REST.Email = Email;
@@ -1349,18 +1370,6 @@ var $REST;
         return Email_Async;
     }(Email));
     $REST.Email_Async = Email_Async;
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    $REST.Library.email = {
-        // Method to send an email.
-        send: {
-            argNames: ["properties"],
-            name: "",
-            metadataType: "SP.Utilities.EmailProperties",
-            requestType: $REST.RequestType.PostWithArgsInBody
-        }
-    };
 })($REST || ($REST = {}));
 
 /// <reference path="../base.d.ts" />
@@ -4128,6 +4137,7 @@ var $REST;
         // Adds a user custom action to the collection.
         add: {
             metadataType: "SP.UserCustomAction",
+            name: "",
             requestType: $REST.RequestType.PostWithArgsInBody
         },
         // Deletes all custom actions in the collection.

@@ -16,9 +16,33 @@ module $REST {
             // Default the properties
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "SP.Utilities.Utility.SendEmail";
+        }
 
-            // Add the methods
-            this.addMethods(this, { __metadata: { type: "email" } } );
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
+
+        // Method to send an email
+        send(properties:any) {
+            // Ensure the "To" property exists, and is formatted correctly
+            if(properties.To) {
+                // See if it's a string
+                if(typeof(properties.To) === "string") {
+                    properties.To = { 'results': [properties.To] };
+                }
+                // Else, assume it's an array
+                else {
+                    properties.To = { 'results': properties.To };
+                }
+            }
+
+            // Execute the method
+            this.executeMethod("send", {
+                argNames: ["properties"],
+                name: "",
+                metadataType: "SP.Utilities.EmailProperties",
+                requestType: RequestType.PostWithArgsInBody
+            }, [properties]);
         }
     }
 
@@ -31,17 +55,4 @@ module $REST {
             super(Base.getAsyncInputParmeters.apply(null, args));
         }
     }
-
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    Library.email = {
-        // Method to send an email.
-        send: {
-            argNames: ["properties"],
-            name: "",
-            metadataType: "SP.Utilities.EmailProperties",
-            requestType: RequestType.PostWithArgsInBody
-        }
-    };
 }

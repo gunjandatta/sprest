@@ -775,8 +775,8 @@ declare module $REST {
         /** A value that specifies the email address of the sender. */
         From:string;
 
-        /** A value that specifies the email addresses to send the email to. This value must be in the following format: { 'results': [emails] } */
-        To:any;
+        /** A value that specifies the email addresses to send the email to. */
+        To:Array<string>;
 
         /** A value that specifies the email subject. */
         Subject:string;
