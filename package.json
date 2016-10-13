@@ -14,6 +14,7 @@
   "bugs": {
     "url": "https://github.com/gunjandatta/sprest/issues"
   },
+  "homepage": "https://github.com/gunjandatta/sprest",
   "devDependencies": {
     "gulp": "*",
     "gulp-concat": "*",
