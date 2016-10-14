@@ -924,6 +924,35 @@ declare module $REST {
     }
 
     /**
+     * Target Information
+     */
+    interface ITargetInfoType {
+        /** True to execute the request asynchronously, synchronously otherwise. */
+        asyncFl?:boolean;
+
+        /** True if the expected request returns an array buffer. */
+        bufferFl?:boolean;
+
+        /** The method to execute after the asynchronous request executes. */
+        callback?:() => void;
+
+        /** The data to be passed in the body of the request. */
+        data?:any;
+
+        /** True to default the request to the web api, site api otherwise. */
+        defaultToWebFl?:boolean;
+
+        /** The method to execute. */
+        method?:string;
+
+        /** The endpoint of the request. */
+        endpoint?:string;
+
+        /** The url of the site/web to execute the request against. */
+        url?:string;
+    }
+
+    /**
      * User Custom Action Information
      */
     interface UserCustomActionCreationInformation {
@@ -1081,9 +1110,10 @@ declare module $REST {
          * Constructor
          * @param contentTypeName - The content type name to get.
          * @param listName - (Optional) The list name to search.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(contentTypeName:string, listName?:string, ...args);
+        constructor(contentTypeName:string, listName?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -1219,9 +1249,10 @@ declare module $REST {
         /**
          * Constructor
          * @param listName - (Optional) The list name.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName?:string, ...args);
+        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -1270,9 +1301,10 @@ declare module $REST {
     class Email {
         /**
          * Constructor
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(...args);
+        constructor(executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -1302,9 +1334,10 @@ declare module $REST {
          * Constructor
          * @param internalNameOrTitle - The internal name or title of the field.
          * @param listName - (Optional) The list name to search.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(internalNameOrTitle:string, listName?:string, ...args);
+        constructor(internalNameOrTitle:string, listName?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -1474,9 +1507,10 @@ declare module $REST {
         /**
          * Constructor
          * @param listName - (Optional) The list name to search.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName?:string, ...args);
+        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -1542,9 +1576,10 @@ declare module $REST {
          * Constructor
          * @param serverRelativeUrl - The server relative url of the file.
          * @param listName - (Optional) The list name to search.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(serverRelativeUrl:string, listName?:string, ...args);
+        constructor(serverRelativeUrl:string, listName?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -1765,9 +1800,10 @@ declare module $REST {
         /**
          * Constructor
          * @param listName - (Optional) The list name to search.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName?:string, ...args);
+        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -1875,9 +1911,10 @@ declare module $REST {
          * Constructor
          * @param serverRelativeUrl - The server relative url of the folder.
          * @param listName - (Optional) The list name to search.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(serverRelativeUrl:string, listName?:string, ...args);
+        constructor(serverRelativeUrl:string, listName?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -1988,9 +2025,10 @@ declare module $REST {
         /**
          * Constructor
          * @param listName - (Optional) The list name to search.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName?:string, ...args);
+        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -2108,9 +2146,10 @@ declare module $REST {
         /**
          * Constructor
          * @param listName - The list name.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName:string, ...args);
+        constructor(listName:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -2558,9 +2597,10 @@ declare module $REST {
          * Constructor
          * @param itemId - The item id.
          * @param listName - The list name.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(itemId:number, listName:string, ...args);
+        constructor(itemId:number, listName:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -2680,9 +2720,10 @@ declare module $REST {
          * Constructor
          * @param listName - The list name.
          * @param camlQuery - (Optional) The caml query.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName:string, camlQuery?:string, ...args);
+        constructor(listName:string, camlQuery?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
         
         /**
          * Properties
@@ -2719,9 +2760,10 @@ declare module $REST {
     class Lists extends Base {
         /**
          * Constructor
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(...args);
+        constructor(executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -2802,9 +2844,10 @@ declare module $REST {
         /**
          * Constructor
          * @param listName - (Optional) The list name to search.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName?:string, ...args);
+        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -2888,9 +2931,10 @@ declare module $REST {
     class RoleDefinitions extends Base {
         /**
          * Constructor
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(...args);
+        constructor(executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -2933,9 +2977,10 @@ declare module $REST {
     class Site extends Base {
         /**
          * Constructor
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(...args);
+        constructor(executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -3139,9 +3184,10 @@ declare module $REST {
     class SiteGroups extends Base {
         /**
          * Constructor
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(...args);
+        constructor(executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -3191,9 +3237,10 @@ declare module $REST {
         /**
          * Constructor
          * @param userId - The user id.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(userId:number, ...args);
+        constructor(userId:number, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -3317,9 +3364,10 @@ declare module $REST {
         /**
          * Constructor
          * @param webFl - True to search the web, false to search the site.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(webFl?:boolean, ...args);
+        constructor(webFl?:boolean, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -3373,9 +3421,10 @@ declare module $REST {
     class Users extends Base {
         /**
          * Constructor
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(...args);
+        constructor(executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -3474,9 +3523,10 @@ declare module $REST {
          * Constructor
          * @param viewName - The view name.
          * @param listName - The list name.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(viewName:string, listName:string, ...args);
+        constructor(viewName:string, listName:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -3675,9 +3725,10 @@ declare module $REST {
         /**
          * Constructor
          * @param listName - The list name.
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName:string, ...args);
+        constructor(listName:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
@@ -3719,9 +3770,10 @@ declare module $REST {
     class Web extends Base {
         /**
          * Constructor
-         * @param args - (Optional) executeRequestFl and/or targetInfo.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
          */
-        constructor(...args);
+        constructor(executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties
