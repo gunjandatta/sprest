@@ -1327,6 +1327,109 @@ declare module $REST {
     class Email_Async extends Email { }
 
     /**
+     * Event Receiver
+     */
+    class EventReceiver extends Base {
+        /**
+         * Constructor
+         * @param id - The id of the event receiver.
+         * @param listName - (Optional) The list name to search.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
+         */
+        constructor(id:string, listName?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
+
+        /**
+         * Properties
+         */
+
+        /** Specifies the type of event. */
+        EventType: EventReceiverType;
+
+        /** The strong name of the assembly that is used for receiving events. */
+        ReceiverAssembly: string;
+
+        /** A string that represents the class that is used for receiving events. */
+        ReceiverClass: string;
+
+        /** The unique identifier of the event receiver. */
+        ReceiverId: string;
+
+        /** The name of the event receiver. */
+        ReceiverName: string;
+
+        /** The URL of a web service that is used for receiving events. */
+        ReceiverUrl: string;
+
+        /** An integer that represents the relative sequence of the event. */
+        SequenceNumber: number;
+
+        /** The execution synchronization of the event receiver. */
+        Synchronization: EventReceiverSynchronizationType;
+
+        /**
+         * Methods
+         */
+
+        /**
+         * Deletes the event receiver.
+         */
+        delete(): any;
+
+        /**
+         * Updates it's properties.
+         * @param data - The field properties to update.
+         */
+        update(data): any;
+    }
+
+    /**
+     * Event Receiver (Async)
+     */
+    class EventReceiver_Async extends EventReceiver { }
+
+    /**
+     * Event Receivers
+     */
+    class EventReceivers extends Base {
+        /**
+         * Constructor
+         * @param listName - (Optional) The list name to search.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
+         */
+        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
+
+        /**
+         * Properties
+         */
+
+        /** The event receiver collection. */
+        results: Array<EventReceiver>;
+
+        /**
+         * Methods
+         */
+
+        /**
+         * Adds an event receiver to the collection.
+         * @param parameters - The event receiver definition creation information.
+         */
+        add(parameters:EventReceiverDefinitionCreationInformation): EventReceiver;
+
+        /**
+         * Gets an event receiver in the collection.
+         * @param id - The id of the event receiver.
+         */
+        getById(id:string): EventReceiver;
+    }
+
+    /**
+     * Event Receivers (Async)
+     */
+    class EventReceivers_Async extends EventReceivers { }
+
+    /**
      * Field
      */
     class Field extends Base {
@@ -2365,6 +2468,12 @@ declare module $REST {
          * @param parameters - The content type creation information.
          */
         addContentType(parameters:ContentTypeCreationInformation): ContentType;
+
+        /**
+         * Adds an event receiver to the collection.
+         * @param parameters - The event receiver creation information.
+         */
+        addEventReceiver(parameters:EventReceiverDefinitionCreationInformation): EventReceiver;
 
         /**
          * Adds a field to the field collection.

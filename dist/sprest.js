@@ -218,6 +218,10 @@ var $REST;
                     // Fix the uri reference
                     targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
                 }
+                else if (/SP.EventReceiverDefinition/.test(metadata.type)) {
+                    // Fix the uri reference
+                    targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
+                }
                 // See if we are inheriting the metadata type
                 if (methodConfig.inheritMetadataType) {
                     // Copy the metadata type
@@ -1870,6 +1874,154 @@ var __extends = (this && this.__extends) || function (d, b) {
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
+    // Event Receiver
+    // The SPEventReceiverDefinition object.
+    /*********************************************************************************************************************************/
+    var EventReceiver = (function (_super) {
+        __extends(EventReceiver, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function EventReceiver(id, listName) {
+            var args = [];
+            for (var _i = 2; _i < arguments.length; _i++) {
+                args[_i - 2] = arguments[_i];
+            }
+            // Call the base constructor
+            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "eventreceivers/getById(guid'" + id + "')";
+            // See if we are executing the request
+            if (this.executeRequestFl) {
+                // Execute the request
+                this.execute();
+            }
+            else {
+                // Add the methods
+                this.addMethods(this, { __metadata: { type: "eventreceiverdefinition" } });
+            }
+        }
+        return EventReceiver;
+    }($REST.Base));
+    $REST.EventReceiver = EventReceiver;
+    var EventReceiver_Async = (function (_super) {
+        __extends(EventReceiver_Async, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function EventReceiver_Async(id, listName) {
+            var args = [];
+            for (var _i = 2; _i < arguments.length; _i++) {
+                args[_i - 2] = arguments[_i];
+            }
+            // Call the base constructor
+            _super.call(this, id, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
+        }
+        return EventReceiver_Async;
+    }(EventReceiver));
+    $REST.EventReceiver_Async = EventReceiver_Async;
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    $REST.Library.eventreceiverdefinition = {
+        // Deletes the object
+        delete: {
+            requestType: $REST.RequestType.Delete
+        },
+        // Updates it's properties.
+        update: {
+            metadataType: "SP.EventReceiverDefinition",
+            name: "",
+            requestMethod: "MERGE",
+            requestType: $REST.RequestType.PostWithArgsInBody
+        }
+    };
+})($REST || ($REST = {}));
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+/// <reference path="../base.d.ts" />
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // Event Receivers
+    // The SPEventReceiverDefinitionCollection object.
+    /*********************************************************************************************************************************/
+    var EventReceivers = (function (_super) {
+        __extends(EventReceivers, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function EventReceivers(listName) {
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+            // Call the base constructor
+            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "eventreceivers";
+            // See if we are executing the request
+            if (this.executeRequestFl) {
+                // Execute the request
+                this.execute();
+            }
+            else {
+                // Add the methods
+                this.addMethods(this, { __metadata: { type: "eventreceiverdefinitions" } });
+            }
+        }
+        return EventReceivers;
+    }($REST.Base));
+    $REST.EventReceivers = EventReceivers;
+    var EventReceivers_Async = (function (_super) {
+        __extends(EventReceivers_Async, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function EventReceivers_Async(listName) {
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+            // Call the base constructor
+            _super.call(this, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
+        }
+        return EventReceivers_Async;
+    }(EventReceivers));
+    $REST.EventReceivers_Async = EventReceivers_Async;
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    $REST.Library.eventreceiverdefinitions = {
+        // Adds an event receiver to the collection.
+        add: {
+            metadataType: "SP.EventReceiverDefinition",
+            name: "",
+            requestType: $REST.RequestType.PostWithArgsInBody
+        },
+        // Gets an event receiver by it's id.
+        getById: {
+            argNames: ["id"],
+            requestType: $REST.RequestType.GetWithArgsValueOnly
+        }
+    };
+})($REST || ($REST = {}));
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+/// <reference path="../base.d.ts" />
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
     // Field
     // The SPField object.
     /*********************************************************************************************************************************/
@@ -1958,7 +2110,7 @@ var $REST;
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.fieldlinks = {
-        // Adds a content type to the collection.
+        // Adds a field link to the collection.
         add: {
             argNames: ["data"],
             metadataType: "SP.FieldLink",
@@ -2970,6 +3122,12 @@ var $REST;
             argNames: ["parameters"],
             metadataType: "SP.ContentType",
             name: "contenttypes/add",
+            requestType: $REST.RequestType.PostWithArgsInBody
+        },
+        // Adds an event receiver to the collection.
+        addEventReceiver: {
+            metadataType: "SP.EventReceiverDefinition",
+            name: "eventreceivers",
             requestType: $REST.RequestType.PostWithArgsInBody
         },
         // Adds a field to the field collection.

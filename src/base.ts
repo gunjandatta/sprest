@@ -259,6 +259,11 @@ module $REST {
                     // Fix the uri reference
                     targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
                 }
+                // Else, see if this is an event receiver
+                else if(/SP.EventReceiverDefinition/.test(metadata.type)) {
+                    // Fix the uri reference
+                    targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
+                }
 
                 // See if we are inheriting the metadata type
                 if(methodConfig.inheritMetadataType) {

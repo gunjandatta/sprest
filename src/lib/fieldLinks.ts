@@ -14,7 +14,7 @@ module $REST {
     // Methods
     /*********************************************************************************************************************************/
     Library.fieldlinks = {
-        // Adds a content type to the collection.
+        // Adds a field link to the collection.
         add: {
             argNames: ["data"],
             metadataType: "SP.FieldLink",

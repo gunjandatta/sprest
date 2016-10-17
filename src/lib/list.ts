@@ -152,6 +152,13 @@ module $REST {
             requestType: RequestType.PostWithArgsInBody
         },
 
+        // Adds an event receiver to the collection.
+        addEventReceiver: {
+            metadataType: "SP.EventReceiverDefinition",
+            name: "eventreceivers",
+            requestType: RequestType.PostWithArgsInBody
+        },
+
         // Adds a field to the field collection.
         addField: {
             argNames: ["parameters"],
