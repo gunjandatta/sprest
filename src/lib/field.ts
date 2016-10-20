@@ -12,11 +12,19 @@ module $REST {
             // Call the base constructor
             super(Base.getInputParmeters.apply(null, args));
 
-            // Get the Fields
-            var fields = new Fields(listName, this.targetInfo, false);
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "fields/getByInternalNameOrTitle('" + internalNameOrTitle + "')";
 
-            // Query for the field
-            return fields["getByInternalNameOrTitle"](internalNameOrTitle);
+            // See if we are executing the request
+            if(this.executeRequestFl) {
+                // Execute the request
+                this.execute();
+            }
+            else {
+                // Add the methods
+                this.addMethods(this, { __metadata: { type: "field" } } );
+            }
         }
     }
 

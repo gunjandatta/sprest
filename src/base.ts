@@ -254,22 +254,14 @@ module $REST {
                     url: metadata.uri
                 };
 
-                // See if this is a field
-                if(/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
-                    // Fix the uri reference
-                    targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
-                }
-                // Else, see if this is an event receiver
-                else if(/SP.EventReceiverDefinition/.test(metadata.type)) {
-                    // Fix the uri reference
-                    targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
-                }
-
                 // See if we are inheriting the metadata type
                 if(methodConfig.inheritMetadataType) {
                     // Copy the metadata type
                     methodConfig.metadataType = metadata.type;
                 }
+
+                // Update the metadata uri
+                this.updateMetadataUri(metadata, targetInfo);
             }
             else {
                 // Copy the target information
@@ -317,8 +309,22 @@ module $REST {
             // Copy the target information
             let targetInfo = Object.create(this.targetInfo);
 
-            // Append the method to the endpoint
-            targetInfo.endpoint += "/" + method;
+            // See if the metadata is defined for this object
+            let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
+            if(metadata && metadata.uri) {
+                // Update the url of the target information
+                targetInfo.url = metadata.uri;
+
+                // Update the metadata uri
+                this.updateMetadataUri(metadata, targetInfo);
+
+                // Set the endpoint
+                targetInfo.endpoint = method;
+            }
+            else {
+                // Append the method to the endpoint
+                targetInfo.endpoint += "/" + method;
+            }
 
             // Update the callback
             targetInfo.callback = args && typeof(args[0]) === "function" ? args[0] : null;
@@ -388,18 +394,20 @@ module $REST {
                 } else {
                     // Apply the methods to the results asynchronously
                     setTimeout(() => {
+                        let results = this["results"];
+                        
                         // Parse the results
-                        for(let i=0; i<results.length; i++) {
+                        for(let result of results) {
                             // Add the asyncFl, execute method, and parent reference
-                            results[i]["asyncFl"] = this.asyncFl;
-                            results[i]["executeMethod"] = this.executeMethod;
-                            results[i]["parent"] = this;
+                            result["asyncFl"] = this.asyncFl;
+                            result["executeMethod"] = this.executeMethod;
+                            result["parent"] = this;
 
                             // Update the metadata
-                            this.updateMetadata(results[i]);
+                            this.updateMetadata(result);
 
                             // Add the methods
-                            this.addMethods(results[i], results[i])
+                            this.addMethods(result, result);
                         }
                     }, 10);
                 }
@@ -460,6 +468,20 @@ module $REST {
 
             // Update the metadata uri
             data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
+        }
+
+        // Method to update the metadata uri
+        private updateMetadataUri(metadata:any, targetInfo:ITargetInfoType) {
+            // See if this is a field
+            if(/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
+                // Fix the uri reference
+                targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
+            }
+            // Else, see if this is an event receiver
+            else if(/SP.EventReceiverDefinition/.test(metadata.type)) {
+                // Fix the uri reference
+                targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
+            }
         }
     }
 }

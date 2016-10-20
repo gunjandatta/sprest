@@ -1108,12 +1108,12 @@ declare module $REST {
     class ContentType extends Base {
         /**
          * Constructor
-         * @param contentTypeName - The content type name to get.
+         * @param id - The content type id.
          * @param listName - (Optional) The list name to search.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(contentTypeName:string, listName?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
+        constructor(id:string, listName?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
 
         /**
          * Properties

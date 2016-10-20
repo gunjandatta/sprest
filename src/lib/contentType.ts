@@ -8,12 +8,23 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(contentTypeName:string, listName?:string, ...args) {
+        constructor(id:string, listName?:string, ...args) {
             // Call the base constructor
             super(Base.getInputParmeters.apply(null, args));
 
-            // Query for the content type
-            return (new ContentTypes(listName, this.targetInfo, false))["getByName"](contentTypeName);
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "contenttypes('" + id + "')";
+
+            // See if we are executing the request
+            if(this.executeRequestFl) {
+                // Execute the request
+                this.execute();
+            }
+            else {
+                // Add the methods
+                this.addMethods(this, { __metadata: { type: "contenttype" } } );
+            }
         }
     }
 

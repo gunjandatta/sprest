@@ -213,20 +213,13 @@ var $REST;
                 targetInfo = {
                     url: metadata.uri
                 };
-                // See if this is a field
-                if (/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
-                    // Fix the uri reference
-                    targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
-                }
-                else if (/SP.EventReceiverDefinition/.test(metadata.type)) {
-                    // Fix the uri reference
-                    targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
-                }
                 // See if we are inheriting the metadata type
                 if (methodConfig.inheritMetadataType) {
                     // Copy the metadata type
                     methodConfig.metadataType = metadata.type;
                 }
+                // Update the metadata uri
+                this.updateMetadataUri(metadata, targetInfo);
             }
             else {
                 // Copy the target information
@@ -263,8 +256,20 @@ var $REST;
         Base.prototype.getCollection = function (method, args) {
             // Copy the target information
             var targetInfo = Object.create(this.targetInfo);
-            // Append the method to the endpoint
-            targetInfo.endpoint += "/" + method;
+            // See if the metadata is defined for this object
+            var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
+            if (metadata && metadata.uri) {
+                // Update the url of the target information
+                targetInfo.url = metadata.uri;
+                // Update the metadata uri
+                this.updateMetadataUri(metadata, targetInfo);
+                // Set the endpoint
+                targetInfo.endpoint = method;
+            }
+            else {
+                // Append the method to the endpoint
+                targetInfo.endpoint += "/" + method;
+            }
             // Update the callback
             targetInfo.callback = args && typeof (args[0]) === "function" ? args[0] : null;
             // Create a new object
@@ -318,16 +323,18 @@ var $REST;
                 else {
                     // Apply the methods to the results asynchronously
                     setTimeout(function () {
+                        var results = _this["results"];
                         // Parse the results
-                        for (var i = 0; i < results.length; i++) {
+                        for (var _i = 0, results_1 = results; _i < results_1.length; _i++) {
+                            var result = results_1[_i];
                             // Add the asyncFl, execute method, and parent reference
-                            results[i]["asyncFl"] = _this.asyncFl;
-                            results[i]["executeMethod"] = _this.executeMethod;
-                            results[i]["parent"] = _this;
+                            result["asyncFl"] = _this.asyncFl;
+                            result["executeMethod"] = _this.executeMethod;
+                            result["parent"] = _this;
                             // Update the metadata
-                            _this.updateMetadata(results[i]);
+                            _this.updateMetadata(result);
                             // Add the methods
-                            _this.addMethods(results[i], results[i]);
+                            _this.addMethods(result, result);
                         }
                     }, 10);
                 }
@@ -380,6 +387,18 @@ var $REST;
             }
             // Update the metadata uri
             data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
+        };
+        // Method to update the metadata uri
+        Base.prototype.updateMetadataUri = function (metadata, targetInfo) {
+            // See if this is a field
+            if (/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
+                // Fix the uri reference
+                targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
+            }
+            else if (/SP.EventReceiverDefinition/.test(metadata.type)) {
+                // Fix the uri reference
+                targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
+            }
         };
         return Base;
     }());
@@ -1142,15 +1161,25 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function ContentType(contentTypeName, listName) {
+        function ContentType(id, listName) {
             var args = [];
             for (var _i = 2; _i < arguments.length; _i++) {
                 args[_i - 2] = arguments[_i];
             }
             // Call the base constructor
             _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Query for the content type
-            return (new $REST.ContentTypes(listName, this.targetInfo, false))["getByName"](contentTypeName);
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "contenttypes('" + id + "')";
+            // See if we are executing the request
+            if (this.executeRequestFl) {
+                // Execute the request
+                this.execute();
+            }
+            else {
+                // Add the methods
+                this.addMethods(this, { __metadata: { type: "contenttype" } });
+            }
         }
         return ContentType;
     }($REST.Base));
@@ -2037,10 +2066,18 @@ var $REST;
             }
             // Call the base constructor
             _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Get the Fields
-            var fields = new $REST.Fields(listName, this.targetInfo, false);
-            // Query for the field
-            return fields["getByInternalNameOrTitle"](internalNameOrTitle);
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "fields/getByInternalNameOrTitle('" + internalNameOrTitle + "')";
+            // See if we are executing the request
+            if (this.executeRequestFl) {
+                // Execute the request
+                this.execute();
+            }
+            else {
+                // Add the methods
+                this.addMethods(this, { __metadata: { type: "field" } });
+            }
         }
         return Field;
     }($REST.Base));

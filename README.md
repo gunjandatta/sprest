@@ -149,22 +149,36 @@ Refer to the [test script](https://github.com/gunjandatta/sprest/blob/master/tes
 ### Content Type
 _**List**_
 ```
-new $REST.ContentTypes("Document", "documents");
+// Get the content type in the 'Documents' library by its id
+new $REST.ContentType("[Content Type ID]", "documents");
+
+// Get the content types of the 'Documents' list, but do not execute a request to the server
+new $REST.ContentTypes("documents", false)
+// Get the 'Document' content type
+.getByName("Document");
 ```
 
 _**Web**_
 ```
-new $REST.ContentTypes("Document");
+// Get the 'Item' content type
+new $REST.ContentType("0x01");
+
+// Get the content types of the web, but do not execute a request to the server
+new $REST.ContentTypes(false)
+// Get the 'Document' content type
+.getByName("Document");
 ```
 
 ### Content Types
 _**List**_
 ```
+// Get the content types in the 'Documents' library
 new $REST.ContentTypes("documents");
 ```
 
 _**Web**_
 ```
+// Get the content types in the current web
 new $REST.ContentTypes();
 ```
 
