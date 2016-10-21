@@ -51,11 +51,6 @@ var $REST;
             else {
                 // Set the callback in the target information
                 this.targetInfo.callback = callback;
-                // See if we are executing this request asynchronously
-                if (this.targetInfo.asyncFl) {
-                    // Create the promise
-                    this.promise = new $REST.Promise(this.targetInfo.callback);
-                }
             }
         };
         // Method to execute a child request
@@ -300,6 +295,18 @@ var $REST;
             obj.execute();
             // Return the object
             return obj;
+        };
+        // Method to resolve the parent request
+        Base.prototype.resolveParentRequest = function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i - 0] = arguments[_i];
+            }
+            // See if the call back exists
+            if (this.targetInfo.callback) {
+                // Execute the callback
+                this.targetInfo.callback.apply(this, args);
+            }
         };
         // Method to update a collection object
         Base.prototype.updateDataCollection = function (results) {
@@ -2929,6 +2936,7 @@ var $REST;
         // Constructor
         /*********************************************************************************************************************************/
         function ListItems(listName, camlQuery) {
+            var _this = this;
             var args = [];
             for (var _i = 2; _i < arguments.length; _i++) {
                 args[_i - 2] = arguments[_i];
@@ -2940,10 +2948,19 @@ var $REST;
             this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')/items";
             // See if the caml query exists
             if (camlQuery) {
-                // Create a list
-                var list = new $REST.List(listName, this.targetInfo, false);
+                // Create the parent
+                this.parent = new $REST.List(listName, false, { asyncFl: this.targetInfo.asyncFl });
                 // Query the items
-                return list[/^<View/.test(camlQuery) ? "getItems" : "getItemsByQuery"](camlQuery);
+                var items = this.parent[/^<View/.test(camlQuery) ? "getItems" : "getItemsByQuery"](camlQuery);
+                // See if this is an asynchronous request
+                if (this.targetInfo.asyncFl) {
+                    // Resolve the parent request for asynchronous requests
+                    items.done(function (items) { _this.resolveParentRequest(items); });
+                }
+                else {
+                    // Return the items
+                    return items;
+                }
             }
             else {
                 // See if we are executing the request

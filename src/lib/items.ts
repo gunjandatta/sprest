@@ -18,11 +18,21 @@ module $REST {
 
             // See if the caml query exists
             if(camlQuery) {
-                // Create a list
-                var list = new List(listName, this.targetInfo, false);
+                // Create the parent
+                this.parent = new $REST.List(listName, false, { asyncFl: this.targetInfo.asyncFl });
 
                 // Query the items
-                return list[/^<View/.test(camlQuery) ? "getItems" : "getItemsByQuery"](camlQuery);
+                let items = this.parent[/^<View/.test(camlQuery) ? "getItems" : "getItemsByQuery"](camlQuery);
+
+                // See if this is an asynchronous request
+                if(this.targetInfo.asyncFl) {
+                    // Resolve the parent request for asynchronous requests
+                    items.done((items) => { this.resolveParentRequest(items); });
+                }
+                else {
+                    // Return the items
+                    return items;
+                }
             }
             else {
                 // See if we are executing the request

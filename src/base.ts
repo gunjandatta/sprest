@@ -363,6 +363,15 @@ module $REST {
             return obj;
         }
 
+        // Method to resolve the parent request
+        protected resolveParentRequest(...args) {
+            // See if the call back exists
+            if(this.targetInfo.callback) {
+                // Execute the callback
+                this.targetInfo.callback.apply(this, args);
+            }
+        }
+
         // Method to update a collection object
         private updateDataCollection(results:any) {
             // Ensure this is a collection
