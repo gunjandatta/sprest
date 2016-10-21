@@ -51,6 +51,11 @@ var $REST;
             else {
                 // Set the callback in the target information
                 this.targetInfo.callback = callback;
+                // See if we are executing this request asynchronously
+                if (this.targetInfo.asyncFl) {
+                    // Create the promise
+                    this.promise = new $REST.Promise(this.targetInfo.callback);
+                }
             }
         };
         // Method to execute a child request
@@ -1070,12 +1075,13 @@ var $REST;
             // Ensure the url exists
             if (this.targetInfo.url == null) {
                 // Default the url to the current site/web url
-                this.targetInfo.url = this.context[this.targetInfo.defaultToWebFl ? "webAbsoluteUrl" : "siteAbsoluteUrl"];
+                this.targetInfo.url = this.context[this.targetInfo.defaultToWebFl == false ? "siteAbsoluteUrl" : "webAbsoluteUrl"];
             }
             else if (/\/_api\//.test(this.targetInfo.url)) {
-                // See if this is the app web
-                if (this.isAppWeb) {
-                    var url = this.targetInfo.url.split("/_api/");
+                // Get the url
+                var url = this.targetInfo.url.split("/_api/");
+                // See if this is the app web and we are executing against a different web
+                if (this.isAppWeb && url[0] != this.context["webAbsoluteUrl"]) {
                     // Set the request url
                     this.requestUrl = this.context["webAbsoluteUrl"] + "/_api/SP.AppContextSite(@target)/" + url[1] +
                         (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") +
@@ -1092,8 +1098,8 @@ var $REST;
                 // Add the domain
                 this.targetInfo.url = this.getDomainUrl() + this.targetInfo.url;
             }
-            // See if this is the app web
-            if (this.isAppWeb) {
+            // See if this is the app web, and we are executing against a different web
+            if (this.isAppWeb && this.targetInfo.url != this.context["webAbsoluteUrl"]) {
                 // Append the start character for the query string
                 var endpoint = this.targetInfo.endpoint +
                     (this.targetInfo.endpoint.indexOf("?") > 0 ? "&" : "?");
