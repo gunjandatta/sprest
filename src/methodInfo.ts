@@ -125,7 +125,7 @@ module $REST {
                     // Parse the arguments
                     for(let key in this.methodParams) {
                         // Replace the argument in the template
-                        this.methodInfo.data = this.methodInfo.data.replace("[[" + key + "]]", this.methodParams[key].replace(/"/g, '\\"'));
+                        this.methodInfo.data = this.methodInfo.data.replace("[[" + key + "]]", this.methodParams[key].replace(/"/g, '\\"').replace(/\n/g, ""));
                     }
                     
                     // Set the method data

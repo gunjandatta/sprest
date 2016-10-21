@@ -631,7 +631,7 @@ var $REST;
                     // Parse the arguments
                     for (var key in this.methodParams) {
                         // Replace the argument in the template
-                        this.methodInfo.data = this.methodInfo.data.replace("[[" + key + "]]", this.methodParams[key].replace(/"/g, '\\"'));
+                        this.methodInfo.data = this.methodInfo.data.replace("[[" + key + "]]", this.methodParams[key].replace(/"/g, '\\"').replace(/\n/g, ""));
                     }
                     // Set the method data
                     this.methodData = JSON.parse(this.methodInfo.data);
@@ -1073,18 +1073,25 @@ var $REST;
                 this.targetInfo.url = this.context[this.targetInfo.defaultToWebFl ? "webAbsoluteUrl" : "siteAbsoluteUrl"];
             }
             else if (/\/_api\//.test(this.targetInfo.url)) {
+                var requestUrl = null;
                 // See if this is the app web
                 if (this.isAppWeb) {
                     var url = this.targetInfo.url.split("/_api/");
-                    // Set the request url
-                    this.requestUrl = this.context["webAbsoluteUrl"] + "/_api/SP.AppContextSite(@target)/" + url[1] +
-                        (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") +
-                        "?@target='" + url[0] + "'";
+                    // See if the request is not being executed against the app web
+                    if (url[0] != this.context["webAbsoluteUrl"]) {
+                        // Set the request url
+                        requestUrl = this.context["webAbsoluteUrl"] + "/_api/SP.AppContextSite(@target)/" + url[1] +
+                            (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") +
+                            "?@target='" + url[0] + "'";
+                    }
                 }
-                else {
+                // Ensure the request url exists
+                if (requestUrl == null) {
                     // Set the request url
-                    this.requestUrl = this.targetInfo.url + (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "");
+                    requestUrl = this.targetInfo.url + (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "");
                 }
+                // Set the request url and return
+                this.requestUrl = requestUrl;
                 return;
             }
             // See if this is a relative url

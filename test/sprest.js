@@ -631,7 +631,7 @@ var $REST;
                     // Parse the arguments
                     for (var key in this.methodParams) {
                         // Replace the argument in the template
-                        this.methodInfo.data = this.methodInfo.data.replace("[[" + key + "]]", this.methodParams[key].replace(/"/g, '\\"'));
+                        this.methodInfo.data = this.methodInfo.data.replace("[[" + key + "]]", this.methodParams[key].replace(/"/g, '\\"').replace(/\n/g, ""));
                     }
                     // Set the method data
                     this.methodData = JSON.parse(this.methodInfo.data);
