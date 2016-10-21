@@ -1174,7 +1174,8 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function ContentType(id, listName) {
+        function ContentType(name, listName) {
+            var _this = this;
             var args = [];
             for (var _i = 2; _i < arguments.length; _i++) {
                 args[_i - 2] = arguments[_i];
@@ -1183,15 +1184,18 @@ var $REST;
             _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
             // Default the properties
             this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "contenttypes('" + id + "')";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
+            // Create the parent
+            this.parent = new $REST.ContentTypes(listName, false, { asyncFl: this.targetInfo.asyncFl });
+            // Get the content type
+            var contentType = this.parent["getByName"](name);
+            // See if this is an asynchronous request
+            if (this.targetInfo.asyncFl) {
+                // Resolve the parent request for asynchronous requests
+                contentType.done(function (ct) { _this.resolveParentRequest(ct); });
             }
             else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "contenttype" } });
+                // Return the content type
+                return contentType;
             }
         }
         return ContentType;

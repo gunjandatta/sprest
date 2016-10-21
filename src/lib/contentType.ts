@@ -8,22 +8,27 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(id:string, listName?:string, ...args) {
+        constructor(name:string, listName?:string, ...args) {
             // Call the base constructor
             super(Base.getInputParmeters.apply(null, args));
 
             // Default the properties
             this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "contenttypes('" + id + "')";
 
-            // See if we are executing the request
-            if(this.executeRequestFl) {
-                // Execute the request
-                this.execute();
+            // Create the parent
+            this.parent = new $REST.ContentTypes(listName, false, { asyncFl: this.targetInfo.asyncFl });
+
+            // Get the content type
+            let contentType = this.parent["getByName"](name);
+
+            // See if this is an asynchronous request
+            if(this.targetInfo.asyncFl) {
+                // Resolve the parent request for asynchronous requests
+                contentType.done((ct) => { this.resolveParentRequest(ct); });
             }
             else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "contenttype" } } );
+                // Return the content type
+                return contentType;
             }
         }
     }
