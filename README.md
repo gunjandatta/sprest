@@ -91,7 +91,7 @@ var list = web.addList({
 ```
 // This will execute one request to the server to get list items
 var items = (new $REST.ListItems("[List Name]", false)).query({
-    // OData properties
+    // OData properties - Refer to the OData section for additional details
 });
 
 // Examples of getting items by CAML queries
@@ -156,7 +156,7 @@ lists.query({
 #### Query List Item Collection
 ```
 // Get the 'Dev' list, but don't execute a request to the server
-(new $REST.ListItems_Async("Dev", null, false))
+(new $REST.ListItems_Async("Dev", false))
 // Query for my items, expanding the created by information
 .query({
     Select: ["Title", "Author/Id", "Author/Title"],
