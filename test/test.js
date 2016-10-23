@@ -1,3 +1,11 @@
+/// <reference path="../tsd/sprest.d.ts" />
+
+(new $REST.Lists(false).query({
+    Select: ["Title", "ID"],
+    Filter: ["Title eq 'Dev'"],
+    Top: 3
+}));
+
 var log = document.querySelector("#log");
 var LogType = {
     Error: 0,
@@ -378,7 +386,7 @@ function testListItems(list) {
         .replace(/{{Max}}/g, template.replace(/{{Type}}/g, "Leq").replace(/{{Value}}/g, items[items.length-1].ID));
 
     // Get the items
-    items = new $REST.ListItems(list.Title, caml);
+    items = (new $REST.List(list.Title, false)).getItemsByQuery(caml);
 
     // Test
     assert(items.results, "query list items", "length", maxNumber);

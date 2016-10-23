@@ -66,6 +66,12 @@ module $REST {
             argNames: ["name"],
             name: "?$filter=Name eq '[[name]]'",
             requestType: RequestType.GetReplace
+        },
+
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: RequestType.OData
         }
     };
 }

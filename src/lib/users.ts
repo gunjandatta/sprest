@@ -60,6 +60,12 @@ module $REST {
             requestType: RequestType.GetWithArgsInQS
         },
 
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: RequestType.OData
+        },
+
         // Removes the user with the specified ID.
         removeById: {
             argNames: ["id"],

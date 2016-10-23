@@ -23,6 +23,12 @@ module $REST {
             argNames: ["name"],
             requestType: RequestType.PostWithArgs
         },
+
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: RequestType.OData
+        }
     };
 
     //        { name: "addFile", "function": function (file) { var thisObj = this; var promise = new Promise(); window["dev"].getFileInfo(file).done(function (name, buffer) { if (name && buffer) { thisObj.add(name, buffer).done(function (file) { promise.resolve(file); }); } else { promise.resolve(); } }); return promise; } },

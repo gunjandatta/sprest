@@ -206,6 +206,18 @@ module $REST {
                     // Get the method information
                     let methodInfo = methods[methodName] ? methods[methodName] : {};
 
+                    // See if this is the "Properties" definition for the object
+                    if(methodName == "properties") {
+                        // Parse the properties
+                        for(let property of methodInfo) {
+                            // Add the property
+                            obj["get_" + property] = new Function("return this.getProperty('" + property + "');");
+                        }
+                        
+                        // Continue the loop
+                        continue;
+                    }
+
                     // See if this object has a dynamic metadata type
                     if(typeof(methodInfo.metadataType) === "function") {
                         // Clone the object properties

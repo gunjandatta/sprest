@@ -85,6 +85,12 @@ module $REST {
         getByTitle: {
             argNames: ["title"],
             requestType: RequestType.PostWithArgsValueOnly
+        },
+
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: RequestType.OData
         }
     };
 }

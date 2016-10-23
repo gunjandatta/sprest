@@ -54,6 +54,12 @@ module $REST {
             requestType: RequestType.GetWithArgsValueOnly
         },
 
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: RequestType.OData
+        },
+
         // Removes the group with the specified member ID from the collection.
         removeById: {
             argNames: ["id"],

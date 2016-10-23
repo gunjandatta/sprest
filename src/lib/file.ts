@@ -50,60 +50,6 @@ module $REST {
                 this.addMethods(this, { __metadata: { type: "file" } } );
             }
         }
-
-        /*********************************************************************************************************************************/
-        // Properties
-        /*********************************************************************************************************************************/
-
-        /**
-         * Gets a value that specifies the user who added the file.
-         */
-        public get_Author() { return this.getProperty("Author"); }
-
-        /**
-         * Gets a value that returns the user who has checked out the file.
-         */
-        public get_CheckedOutByUser() { return this.getProperty("CheckedOutByUser"); }
-
-        /**
-         * 
-         */
-        public get_EffectiveInformationRightsManagementSettings() { return this.getProperty("EffectiveInformationRightsManagementSettings"); }
-
-        /**
-         * 
-         */
-        public get_InformationRightsManagementSettings() { return this.getProperty("InformationRightsManagementSettings"); }
-
-        /**
-         * Gets a value that specifies the list item field values for the list item corresponding to the file.
-         */
-        public get_ListItemAllFields() { return this.getProperty("ListItemAllFields"); }
-
-        /**
-         * Gets a value that returns the user that owns the current lock on the file.
-         */
-        public get_LockedByUser() { return this.getProperty("LockedByUser"); }
-
-        /**
-         * Gets a value that returns the user who last modified the file.
-         */
-        public get_ModifiedBy() { return this.getProperty("ModifiedBy"); }
-
-        /**
-         * 
-         */
-        public get_Properties() { return this.getProperty("Properties"); }
-
-        /**
-         * 
-         */
-        public get_VersionEvents() { return this.getProperty("VersionEvents"); }
-
-        /**
-         * Gets a value that returns a collection of file version objects that represent the versions of the file.
-         */
-        public get_Versions() { return this.getProperty("Versions"); }
     }
 
     export class File_Async extends File {
@@ -117,9 +63,23 @@ module $REST {
     }
 
     /*********************************************************************************************************************************/
-    // Methods
+    // Library
     /*********************************************************************************************************************************/
     Library.file = {
+
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+
+        properties: [
+            "Author", "CheckedOutByUser", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
+            "ListItemAllFields", "LockedByUser", "ModifiedBy", "Properties", "VersionEvents", "Versions"
+        ],
+
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
+
         // Approves the file submitted for content approval with the specified comment.
         approve: {
             argNames: ["comment"],

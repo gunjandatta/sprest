@@ -9,6 +9,7 @@
         "src/base.ts",
         "src/dependencies.ts",
         "src/methodInfo.ts",
+        "src/oData.ts",
         "src/promise.ts",
         "src/request.ts",
         "src/targetInfo.ts",

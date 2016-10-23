@@ -924,6 +924,32 @@ declare module $REST {
     }
 
     /**
+     * OData
+     */
+    interface IOData {
+        /** The fields to expand. */
+        Expand: Array<ListItem>;
+
+        /** The filters. */
+        Filter: Array<string>;
+
+        /** The order by fields. */
+        OrderBy: Array<string>;
+
+        /** The query string value. */
+        readonly QueryString: string;
+
+        /** The fields to select. */
+        Select: Array<string>;
+
+        /** The number of results to skip. */
+        Skip: number;
+
+        /** The max number of results to return. */
+        Top: number;
+    }
+
+    /**
      * Target Information
      */
     interface ITargetInfoType {
@@ -1100,6 +1126,12 @@ declare module $REST {
          * @param contents - The file contents as an array buffer.
         **/
         add(name): any;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): AttachmentFiles;
     }
 
     /**
@@ -1288,6 +1320,12 @@ declare module $REST {
          * @param name - The name of the content type.
          */
         getByName(name);
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): ContentTypes;
     }
 
     /**
@@ -1422,6 +1460,12 @@ declare module $REST {
          * @param id - The id of the event receiver.
          */
         getById(id:string): EventReceiver;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): EventReceivers;
     }
 
     /**
@@ -1601,6 +1645,12 @@ declare module $REST {
          * @param name - The internal name of the field.
          */
         getFieldLinkByName(name): any;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): FieldLinks;
     }
 
     /**
@@ -1664,6 +1714,12 @@ declare module $REST {
          * @param title - The title of the field.
          */
         getByTitle(title): Field;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): Fields;
     }
 
     /**
@@ -1945,7 +2001,18 @@ declare module $REST {
          * @param serverRelativeUrl - The name or server relative url of the file.
          */
         getByUrl(serverRelativeUrl): File;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): Files;
     }
+
+    /**
+     * Files (Async)
+     */
+    class Files_Async extends Files { }
 
     /**
      * File Version
@@ -1990,11 +2057,6 @@ declare module $REST {
     }
 
     /**
-     * Files (Async)
-     */
-    class Files_Async extends Files { }
-
-    /**
      * File Versions
      */
     class FileVersions extends Base {
@@ -2004,6 +2066,12 @@ declare module $REST {
 
         /** The file version collection. */
         results: Array<FileVersion>;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): FileVersions;
     }
 
     /**
@@ -2155,6 +2223,12 @@ declare module $REST {
          * @param serverRelativeUrl - The server-relative URL of the folder.
          */
         getbyurl(serverRelativeUrl);
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): Folders;
     }
 
     /**
@@ -2828,11 +2902,10 @@ declare module $REST {
         /**
          * Constructor
          * @param listName - The list name.
-         * @param camlQuery - (Optional) The caml query.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName:string, camlQuery?:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
+        constructor(listName:string, executeRequestFl?:boolean, targetInfo?:ITargetInfoType);
         
         /**
          * Properties
@@ -2856,6 +2929,12 @@ declare module $REST {
          * @param id - The item id.
          */
         getById(id): ListItem;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): ListItems;
     }
 
     /**
@@ -2912,6 +2991,12 @@ declare module $REST {
          * @param title - The list title.
          */
         getByTitle(title): List;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): Lists;
     }
 
     /**
@@ -2988,6 +3073,12 @@ declare module $REST {
          * @param roleDefId - The ID of the role definition that defines the permissions to assign.
          */
         removeRoleAssignment(principalId, roleDefId): any;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): RoleAssignments;
     }
 
     /**
@@ -3073,6 +3164,12 @@ declare module $REST {
          * @param roleType - The RoleTypeKind of the role definition.
          */
         getByType(roleType:RoleType): RoleDefinition;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): RoleDefinitions;
     }
 
     /**
@@ -3332,6 +3429,12 @@ declare module $REST {
          * @param name - The name of the group to remove. The group name is specified in its LoginName property.
          */
         removeByLoginName(name): any;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): SiteGroups;
     }
 
     /**
@@ -3517,6 +3620,12 @@ declare module $REST {
          * @param title - The user custom action title.
          */
         getByTitle(title): UserCustomAction;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): UserCustomActions;
     }
 
     /**
@@ -3575,6 +3684,12 @@ declare module $REST {
          * @param loginName - The login name of the user to remove.
          */
         removeByLoginName(loginName): any;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): Users;
     }
 
     /**
@@ -3825,6 +3940,12 @@ declare module $REST {
          * @param fieldName - The case-sensitive internal name or display name of the field to add.
          */
         removeViewField(fieldName): any;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): ViewFields;
     }
 
     /**
@@ -3866,6 +3987,12 @@ declare module $REST {
          * @param title - The case-sensitive title of the view.
          */
         getByTitle(title): View;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): Views;
     }
 
     /**
@@ -4490,5 +4617,11 @@ declare module $REST {
          * @param parameters - The web creation information.
          */
         add(parameters:WebCreationInformation);
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:IOData): Webs;
     }
 }

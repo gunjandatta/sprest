@@ -33,209 +33,6 @@ module $REST {
             // TO DO
             return true;
         };
-
-        /*********************************************************************************************************************************/
-        // Properties
-        /*********************************************************************************************************************************/
-
-        /**
-         * Gets a collection of metadata for the Web site.
-         */
-        public get_AllProperties() { return this.getProperty("AllProperties"); }
-
-        /**
-         * 
-         */
-        public get_AppTiles() { return this.getProperty("AppTiles"); }
-
-        /**
-         * Gets or sets the group of users who have been given contribute permissions to the Web site.
-         */
-        public get_AssociatedMemberGroup() { return this.getProperty("AssociatedMemberGroup"); }
-
-        /**
-         * Gets or sets the associated owner group of the Web site.
-         */
-        public get_AssociatedOwnerGroup() { return this.getProperty("AssociatedOwnerGroup"); }
-
-        /**
-         * Gets or sets the associated visitor group of the Web site.
-         */
-        public get_AssociatedVisitorGroup() { return this.getProperty("AssociatedVisitorGroup"); }
-
-        /**
-         * 
-         */
-        public get_Author() { return this.getProperty("Author"); }
-
-        /**
-         * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
-         */
-        public get_AvailableContentTypes() { return this.getProperty("AvailableContentTypes"); }
-
-        /**
-         * Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
-         */
-        public get_AvailableFields() { return this.getProperty("AvailableFields"); }
-
-        /**
-         * 
-         */
-        public get_ClientWebParts() { return this.getProperty("ClientWebParts"); }
-
-        /**
-         * Gets the collection of content types for the Web site.
-         */
-        public get_ContentTypes() { return this.getProperty("ContentTypes"); }
-
-        /**
-         * Gets the current user of the site.
-         */
-        public get_CurrentUser() { return this.getProperty("CurrentUser"); }
-
-        /**
-         * 
-         */
-        public get_DataLeakagePreventionStatusInfo() { return this.getProperty("DataLeakagePreventionStatusInfo"); }
-
-        /**
-         * 
-         */
-        public get_DescriptionResource() { return this.getProperty("DescriptionResource"); }
-
-        /**
-         * Gets the collection of event receiver definitions that are currently available on the website.
-         */
-        public get_EventReceivers() { return this.getProperty("EventReceivers"); }
-
-        /**
-         * Gets a value that specifies the collection of features that are currently activated in the site.
-         */
-        public get_Features() { return this.getProperty("Features"); }
-
-        /**
-         * Gets the collection of field objects that represents all the fields in the Web site.
-         */
-        public get_Fields() { return this.getProperty("Fields"); }
-
-        /**
-         * Gets the collection of all first-level files in the Web site.
-         */
-        public get_Files() { return this.getProperty("rootfolder/files"); }
-
-        /**
-         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-         */
-        public get_FirstUniqueAncestorSecurableObject() { return this.getProperty("FirstUniqueAncestorSecurableObject"); }
-
-        /**
-         * Gets the collection of all first-level folders in the Web site.
-         */
-        public get_Folders() { return this.getProperty("Folders"); }
-
-        /**
-         * Gets the collection of all lists that are contained in the Web site available to the current user based on the permissions of the current user.
-         */
-        public get_Lists() { return this.getProperty("Lists"); }
-
-        /**
-         * Gets a value that specifies the collection of list definitions and list templates available for creating lists on the site.
-         */
-        public get_ListTemplates() { return this.getProperty("ListTemplates"); }
-
-        /**
-         * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
-         */
-        public get_Navigation() { return this.getProperty("Navigation"); }
-
-        /**
-         * Gets the parent website of the specified website.
-         */
-        public get_ParentWeb() { return this.getProperty("ParentWeb"); }
-
-        /**
-         * Gets the collection of push notification subscribers over the site.
-         */
-        public get_PushNotificationSubscribers() { return this.getProperty("PushNotificationSubscribers"); }
-
-        /**
-         * Gets the collection of push notification subscribers over the site.
-         */
-        public get_RecycleBin() { return this.getProperty("RecycleBin"); }
-
-        /**
-         * Gets the regional settings that are currently implemented on the website.
-         */
-        public get_RegionalSettings() { return this.getProperty("RegionalSettings"); }
-
-        /**
-         * Gets the collection of role assignments for the Web site.
-         */
-        public get_RoleAssignments() { return this.getProperty("RoleAssignments"); }
-
-        /**
-         * Gets the collection of role definitions for the Web site.
-         */
-        public get_RoleDefinitions() { return this.getProperty("RoleDefinitions"); }
-
-        /**
-         * Gets the root folder for the Web site.
-         */
-        public get_RootFolder() { return this.getProperty("RootFolder"); }
-
-        /**
-         * Gets the collection of groups for the site collection.
-         */
-        public get_SiteGroups() { return this.getProperty("SiteGroups"); }
-
-        /**
-         * Gets the UserInfo list of the site collection that contains the Web site.
-         */
-        public get_SiteUserInfoList() { return this.getProperty("SiteUserInfoList"); }
-
-        /**
-         * Gets the collection of all users that belong to the site collection.
-         */
-        public get_SiteUsers() { return this.getProperty("SiteUsers"); }
-
-        /**
-         * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
-         */
-        public get_ThemeInfo() { return this.getProperty("ThemeInfo"); }
-
-        /**
-         * 
-         */
-        public get_TitleResource() { return this.getProperty("TitleResource"); }
-
-        /**
-         * Gets a value that specifies the collection of user custom actions for the site.
-         */
-        public get_UserCustomActions() { return this.getProperty("UserCustomActions"); }
-
-        /**
-         * Represents key properties of the subsites of a site.
-         */
-        public get_WebInfos() { return this.getProperty("WebInfos"); }
-
-        /**
-         * Gets a Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
-         */
-        public get_Webs() { return this.getProperty("Webs"); }
-
-        /**
-         * Gets a value that specifies the collection of all workflow associations for the site.
-         */
-        public get_WorkflowAssociations() { return this.getProperty("WorkflowAssociations"); }
-
-        /**
-         * Gets a value that specifies the collection of workflow templates associated with the site.
-         */
-        public get_WorkflowTemplates() { return this.getProperty("WorkflowTemplates"); }
-
-        /*********************************************************************************************************************************/
-        // Methods
-        /*********************************************************************************************************************************/
     }
 
     export class Web_Async extends Web {
@@ -249,9 +46,26 @@ module $REST {
     }
 
     /*********************************************************************************************************************************/
-    // Methods
+    // Library
     /*********************************************************************************************************************************/
     Library.web = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+
+        properties: [
+            "AllProperties", "AppTiles", "AssociatedMemberGroup", "AssociatedOwnerGroup", "AssociatedVisitorGroup", "Author",
+            "AvailableContentTypes", "AvailableFields", "ClientWebParts", "ContentTypes", "CurrentUser", "DataLeakagePreventionStatusInfo",
+            "DescriptionResource", "EventReceivers", "Features", "Fields", "FirstUniqueAncestorSecurableObject", "Folders", "Lists",
+            "ListTemplates", "Navigation", "ParentWeb", "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments",
+            "RoleDefinitions", "RootFolder", "SiteGroups", "SiteUserInfoList", "SiteUsers", "ThemeInfo", "TitleResource",
+            "UserCustomActions", "WebInfos", "Webs", "WorkflowAssociations", "WorkflowTemplates"
+        ],
+
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
+
         // Adds a content type content type collection.
         addContentType: {
             metadataType: "SP.ContentType",

@@ -195,6 +195,13 @@ module $REST {
                     url = url.replace("[[" + key + "]]", encodeURIComponent(this.methodParams[key]));
                 }
             }
+            // Else, see if this is an odata request
+            else if(this.methodInfo.requestType == RequestType.OData) {
+                let oData = new OData(this.methodParams["oData"]);
+
+                // Update the url
+                url = "?" + oData.QueryString;
+            }
             // Else, see if we are not passing the data in the body or query string
             else if(!this.passDataInBody && !this.passDataInQS) {
                 let params = "";

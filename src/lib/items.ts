@@ -8,7 +8,7 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(listName:string, camlQuery?:string, ...args) {
+        constructor(listName:string, ...args) {
             // Call the base constructor
             super(Base.getInputParmeters.apply(null, args));
 
@@ -16,34 +16,14 @@ module $REST {
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')/items";
 
-            // See if the caml query exists
-            if(camlQuery) {
-                // Create the parent
-                this.parent = new $REST.List(listName, false, { asyncFl: this.targetInfo.asyncFl });
-
-                // Query the items
-                let items = this.parent[/^<View/.test(camlQuery) ? "getItems" : "getItemsByQuery"](camlQuery);
-
-                // See if this is an asynchronous request
-                if(this.targetInfo.asyncFl) {
-                    // Resolve the parent request for asynchronous requests
-                    items.done((items) => { this.resolveParentRequest(items); });
-                }
-                else {
-                    // Return the items
-                    return items;
-                }
+            // See if we are executing the request
+            if(this.executeRequestFl) {
+                // Execute the request
+                this.execute();
             }
             else {
-                // See if we are executing the request
-                if(this.executeRequestFl) {
-                    // Execute the request
-                    this.execute();
-                }
-                else {
-                    // Add the methods
-                    this.addMethods(this, { __metadata: { type: "items" } } );
-                }
+                // Add the methods
+                this.addMethods(this, { __metadata: { type: "items" } } );
             }
         }
     }
@@ -52,9 +32,9 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(listName:string, camlQuery?:string, ...args) {
+        constructor(listName:string, ...args) {
             // Call the base constructor
-            super(listName, camlQuery, Base.getAsyncInputParmeters.apply(null, args));
+            super(listName, Base.getAsyncInputParmeters.apply(null, args));
         }
     }
 
@@ -72,6 +52,12 @@ module $REST {
         getById: {
             argNames: ["id"],
             requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: RequestType.OData
         }
     };
 }

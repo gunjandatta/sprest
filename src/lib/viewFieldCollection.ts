@@ -26,6 +26,12 @@ module $REST {
             requestType: RequestType.PostWithArgsInBody
         },
 
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: RequestType.OData
+        },
+
         // Removes all the fields from the collection.
         removeAllViewFields: {
             requestType: RequestType.Post

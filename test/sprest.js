@@ -171,6 +171,17 @@ var $REST;
                 for (var methodName in methods) {
                     // Get the method information
                     var methodInfo = methods[methodName] ? methods[methodName] : {};
+                    // See if this is the "Properties" definition for the object
+                    if (methodName == "properties") {
+                        // Parse the properties
+                        for (var _i = 0, methodInfo_1 = methodInfo; _i < methodInfo_1.length; _i++) {
+                            var property = methodInfo_1[_i];
+                            // Add the property
+                            obj["get_" + property] = new Function("return this.getProperty('" + property + "');");
+                        }
+                        // Continue the loop
+                        continue;
+                    }
                     // See if this object has a dynamic metadata type
                     if (typeof (methodInfo.metadataType) === "function") {
                         // Clone the object properties
@@ -702,6 +713,11 @@ var $REST;
                     url = url.replace("[[" + key + "]]", encodeURIComponent(this.methodParams[key]));
                 }
             }
+            else if (this.methodInfo.requestType == $REST.RequestType.OData) {
+                var oData = new $REST.OData(this.methodParams["oData"]);
+                // Update the url
+                url = "?" + oData.QueryString;
+            }
             else if (!this.passDataInBody && !this.passDataInQS) {
                 var params = "";
                 // Ensure data exists
@@ -735,6 +751,112 @@ var $REST;
         return MethodInfo;
     }());
     $REST.MethodInfo = MethodInfo;
+})($REST || ($REST = {}));
+
+/// <reference path="oData.d.ts" />
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // OData
+    // Class for generating the OData query string.
+    /*********************************************************************************************************************************/
+    var OData = (function () {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        // The class constructor
+        function OData(oData) {
+            // Default the Variables
+            this._expand = oData && oData.Expand ? oData.Expand : [];
+            this._filter = oData && oData.Filter ? oData.Filter : [];
+            this._orderBy = oData && oData.OrderBy ? oData.OrderBy : [];
+            this._select = oData && oData.Select ? oData.Select : [];
+            this._skip = oData && oData.Skip ? oData.Skip : null;
+            this._top = oData && oData.Top ? oData.Top : null;
+        }
+        Object.defineProperty(OData.prototype, "Expand", {
+            /*********************************************************************************************************************************/
+            // Properties
+            /*********************************************************************************************************************************/
+            // Expand
+            get: function () { return this._expand; },
+            set: function (value) { this._expand = value; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(OData.prototype, "Filter", {
+            // Filter
+            get: function () { return this._filter; },
+            set: function (value) { this._filter = value; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(OData.prototype, "OrderBy", {
+            // Order By
+            get: function () { return this._orderBy; },
+            set: function (value) { this._orderBy = value; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(OData.prototype, "QueryString", {
+            // Query String
+            get: function () {
+                var qs = "";
+                var values = [];
+                // Get the query string values for the properties
+                values.push(this.getQSValue("$select", this._select));
+                values.push(this.getQSValue("$orderby", this._orderBy));
+                this._top ? values.push("$top=" + this._top) : null;
+                this._skip ? values.push("$skip=" + this._skip) : null;
+                values.push(this.getQSValue("$filter", this._filter));
+                values.push(this.getQSValue("$expand", this._expand));
+                // Parse the values
+                for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
+                    var value = values_1[_i];
+                    // Ensure a value exists
+                    if (value && value != "") {
+                        // Append the query string value
+                        qs += (qs == "" ? "" : "&") + value;
+                    }
+                }
+                // Return the query string
+                return qs;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(OData.prototype, "Select", {
+            // Select
+            get: function () { return this._select; },
+            set: function (value) { this._select = value; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(OData.prototype, "Skip", {
+            // Skip
+            get: function () { return this._skip; },
+            set: function (value) { this._skip = value; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(OData.prototype, "Top", {
+            // Top
+            get: function () { return this._top; },
+            set: function (value) { this._top = value; },
+            enumerable: true,
+            configurable: true
+        });
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
+        // Method to convert the array of strings to a query string value.
+        OData.prototype.getQSValue = function (qsKey, keys) {
+            // Return the query string
+            return keys.length > 0 ? qsKey + "=" + keys.join(",") : "";
+        };
+        return OData;
+    }());
+    $REST.OData = OData;
 })($REST || ($REST = {}));
 
 /// <reference path="promise.d.ts" />
@@ -806,6 +928,7 @@ var $REST;
         RequestType[RequestType["Custom"] = 0] = "Custom";
         RequestType[RequestType["Delete"] = 1] = "Delete";
         RequestType[RequestType["Merge"] = 2] = "Merge";
+        RequestType[RequestType["OData"] = 3] = "OData";
         // Get Requests
         RequestType[RequestType["Get"] = 10] = "Get";
         RequestType[RequestType["GetWithArgs"] = 11] = "GetWithArgs";
@@ -1154,6 +1277,11 @@ var $REST;
             argNames: ["name"],
             requestType: $REST.RequestType.PostWithArgs
         },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
+        }
     };
 })($REST || ($REST = {}));
 
@@ -1346,6 +1474,11 @@ var $REST;
             argNames: ["name"],
             name: "?$filter=Name eq '[[name]]'",
             requestType: $REST.RequestType.GetReplace
+        },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
         }
     };
 })($REST || ($REST = {}));
@@ -2055,6 +2188,11 @@ var $REST;
         getById: {
             argNames: ["id"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
+        },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
         }
     };
 })($REST || ($REST = {}));
@@ -2181,6 +2319,11 @@ var $REST;
             name: "fields?$filter=Name eq '[[name]]'",
             requestType: $REST.RequestType.GetReplace
         },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
+        }
     };
 })($REST || ($REST = {}));
 
@@ -2282,6 +2425,11 @@ var $REST;
         getByTitle: {
             argNames: ["title"],
             requestType: $REST.RequestType.PostWithArgsValueOnly
+        },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
         }
     };
 })($REST || ($REST = {}));
@@ -2342,49 +2490,6 @@ var $REST;
                 this.addMethods(this, { __metadata: { type: "file" } });
             }
         }
-        /*********************************************************************************************************************************/
-        // Properties
-        /*********************************************************************************************************************************/
-        /**
-         * Gets a value that specifies the user who added the file.
-         */
-        File.prototype.get_Author = function () { return this.getProperty("Author"); };
-        /**
-         * Gets a value that returns the user who has checked out the file.
-         */
-        File.prototype.get_CheckedOutByUser = function () { return this.getProperty("CheckedOutByUser"); };
-        /**
-         *
-         */
-        File.prototype.get_EffectiveInformationRightsManagementSettings = function () { return this.getProperty("EffectiveInformationRightsManagementSettings"); };
-        /**
-         *
-         */
-        File.prototype.get_InformationRightsManagementSettings = function () { return this.getProperty("InformationRightsManagementSettings"); };
-        /**
-         * Gets a value that specifies the list item field values for the list item corresponding to the file.
-         */
-        File.prototype.get_ListItemAllFields = function () { return this.getProperty("ListItemAllFields"); };
-        /**
-         * Gets a value that returns the user that owns the current lock on the file.
-         */
-        File.prototype.get_LockedByUser = function () { return this.getProperty("LockedByUser"); };
-        /**
-         * Gets a value that returns the user who last modified the file.
-         */
-        File.prototype.get_ModifiedBy = function () { return this.getProperty("ModifiedBy"); };
-        /**
-         *
-         */
-        File.prototype.get_Properties = function () { return this.getProperty("Properties"); };
-        /**
-         *
-         */
-        File.prototype.get_VersionEvents = function () { return this.getProperty("VersionEvents"); };
-        /**
-         * Gets a value that returns a collection of file version objects that represent the versions of the file.
-         */
-        File.prototype.get_Versions = function () { return this.getProperty("Versions"); };
         return File;
     }($REST.Base));
     $REST.File = File;
@@ -2405,9 +2510,19 @@ var $REST;
     }(File));
     $REST.File_Async = File_Async;
     /*********************************************************************************************************************************/
-    // Methods
+    // Library
     /*********************************************************************************************************************************/
     $REST.Library.file = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [
+            "Author", "CheckedOutByUser", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
+            "ListItemAllFields", "LockedByUser", "ModifiedBy", "Properties", "VersionEvents", "Versions"
+        ],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
         // Approves the file submitted for content approval with the specified comment.
         approve: {
             argNames: ["comment"],
@@ -2607,6 +2722,11 @@ var $REST;
         getByUrl: {
             argNames: ["serverRelativeUrl"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
+        },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
         }
     };
 })($REST || ($REST = {}));
@@ -2653,6 +2773,11 @@ var $REST;
         // Deletes the object
         delete: {
             requestType: $REST.RequestType.Delete
+        },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
         }
     };
 })($REST || ($REST = {}));
@@ -2720,33 +2845,6 @@ var $REST;
                 this.addMethods(this, { __metadata: { type: "folder" } });
             }
         }
-        /*********************************************************************************************************************************/
-        // Properties
-        /*********************************************************************************************************************************/
-        /**
-         * Gets the collection of all files contained in the list folder. You can add a file to a folder by using the Add method on the folder’s FileCollection resource.
-         */
-        Folder.prototype.get_Files = function () { return this.getProperty("Files"); };
-        /**
-         * Gets the collection of list folders contained in the list folder.
-         */
-        Folder.prototype.get_Folders = function () { return this.getProperty("Folders"); };
-        /**
-         * Specifies the list item field (2) values for the list item corresponding to the file.
-         */
-        Folder.prototype.get_ListItemAllFields = function () { return this.getProperty("ListItemAllFields"); };
-        /**
-         * Gets the parent list folder of the folder.
-         */
-        Folder.prototype.get_ParentFolder = function () { return this.getProperty("ParentFolder"); };
-        /**
-         * Gets the collection of all files contained in the folder.
-         */
-        Folder.prototype.get_Properties = function () { return this.getProperty("Properties"); };
-        /**
-         *
-         */
-        Folder.prototype.get_StorageMetrics = function () { return this.getProperty("StorageMetrics"); };
         return Folder;
     }($REST.Base));
     $REST.Folder = Folder;
@@ -2767,9 +2865,18 @@ var $REST;
     }(Folder));
     $REST.Folder_Async = Folder_Async;
     /*********************************************************************************************************************************/
-    // Methods
+    // Library
     /*********************************************************************************************************************************/
     $REST.Library.folder = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [
+            "Files", "Folders", "ListItemAllFields", "ParentFolder", "Properties", "StorageMetrics"
+        ],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
         // Adds a file to this folder.
         addFile: {
             argNames: ["url", "overwrite"],
@@ -2893,6 +3000,11 @@ var $REST;
         getbyurl: {
             argNames: ["serverRelativeUrl"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
+        },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
         }
     };
 })($REST || ($REST = {}));
@@ -2939,43 +3051,24 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function ListItems(listName, camlQuery) {
-            var _this = this;
+        function ListItems(listName) {
             var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
             }
             // Call the base constructor
             _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
             // Default the properties
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')/items";
-            // See if the caml query exists
-            if (camlQuery) {
-                // Create the parent
-                this.parent = new $REST.List(listName, false, { asyncFl: this.targetInfo.asyncFl });
-                // Query the items
-                var items = this.parent[/^<View/.test(camlQuery) ? "getItems" : "getItemsByQuery"](camlQuery);
-                // See if this is an asynchronous request
-                if (this.targetInfo.asyncFl) {
-                    // Resolve the parent request for asynchronous requests
-                    items.done(function (items) { _this.resolveParentRequest(items); });
-                }
-                else {
-                    // Return the items
-                    return items;
-                }
+            // See if we are executing the request
+            if (this.executeRequestFl) {
+                // Execute the request
+                this.execute();
             }
             else {
-                // See if we are executing the request
-                if (this.executeRequestFl) {
-                    // Execute the request
-                    this.execute();
-                }
-                else {
-                    // Add the methods
-                    this.addMethods(this, { __metadata: { type: "items" } });
-                }
+                // Add the methods
+                this.addMethods(this, { __metadata: { type: "items" } });
             }
         }
         return ListItems;
@@ -2986,13 +3079,13 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function ListItems_Async(listName, camlQuery) {
+        function ListItems_Async(listName) {
             var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
             }
             // Call the base constructor
-            _super.call(this, listName, camlQuery, $REST.Base.getAsyncInputParmeters.apply(null, args));
+            _super.call(this, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
         }
         return ListItems_Async;
     }(ListItems));
@@ -3010,6 +3103,11 @@ var $REST;
         getById: {
             argNames: ["id"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
+        },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
         }
     };
 })($REST || ($REST = {}));
@@ -3076,81 +3174,6 @@ var $REST;
                 this.addMethods(this, { __metadata: { type: "list" } });
             }
         }
-        /*********************************************************************************************************************************/
-        // Properties
-        /*********************************************************************************************************************************/
-        /**
-         * Gets the content types that are associated with the list.
-         */
-        List.prototype.get_ContentTypes = function () { return this.getProperty("ContentTypes"); };
-        /**
-         *
-         */
-        List.prototype.get_CreatablesInfo = function () { return this.getProperty("CreatablesInfo"); };
-        /**
-         * Gets the default view for the list.
-         */
-        List.prototype.get_DefaultView = function () { return this.getProperty("DefaultView"); };
-        /**
-         *
-         */
-        List.prototype.get_DescriptionResource = function () { return this.getProperty("DescriptionResource"); };
-        /**
-         * Gets the collection of event receiver definitions associated with the list.
-         */
-        List.prototype.get_EventReceivers = function () { return this.getProperty("EventReceivers"); };
-        /**
-         * Gets the collection of field objects associated with the list.
-         */
-        List.prototype.get_Fields = function () { return this.getProperty("Fields"); };
-        /**
-         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-         */
-        List.prototype.get_FirstUniqueAncestorSecurableObject = function () { return this.getProperty("FirstUniqueAncestorSecurableObject"); };
-        /**
-         * Gets the collection of forms associated with the list.
-         */
-        List.prototype.get_Forms = function () { return this.getProperty("Forms"); };
-        /**
-         *
-         */
-        List.prototype.get_InformationRightsManagementSettings = function () { return this.getProperty("InformationRightsManagementSettings"); };
-        /**
-         * Gets all the items in the list.
-         */
-        List.prototype.get_Items = function () { return this.getProperty("Items"); };
-        /**
-         * Gets a value that specifies the site that contains the list.
-         */
-        List.prototype.get_ParentWeb = function () { return this.getProperty("ParentWeb"); };
-        /**
-         * Gets the collection of role assignments associated with the list.
-         */
-        List.prototype.get_RoleAssignments = function () { return this.getProperty("RoleAssignments"); };
-        /**
-         * Gets the root folder for the list.
-         */
-        List.prototype.get_RootFolder = function () { return this.getProperty("RootFolder"); };
-        /**
-         *
-         */
-        List.prototype.get_Subscriptions = function () { return this.getProperty("Subscriptions"); };
-        /**
-         *
-         */
-        List.prototype.get_TitleResource = function () { return this.getProperty("TitleResource"); };
-        /**
-         * Gets a value that specifies the collection of user custom actions associate with the list.
-         */
-        List.prototype.get_UserCustomActions = function () { return this.getProperty("UserCustomActions"); };
-        /**
-         * Gets a value that specifies the collection of all views associated with the list.
-         */
-        List.prototype.get_Views = function () { return this.getProperty("Views"); };
-        /**
-         * Gets a value that specifies the collection of all workflow associations for the list.
-         */
-        List.prototype.get_WorkflowAssociations = function () { return this.getProperty("WorkflowAssociations"); };
         return List;
     }($REST.Base));
     $REST.List = List;
@@ -3171,10 +3194,21 @@ var $REST;
     }(List));
     $REST.List_Async = List_Async;
     /*********************************************************************************************************************************/
-    // Methods
+    // Library
     /*********************************************************************************************************************************/
     //{ name: "hasAccess", "function": function (userName, permissions) { return hasAccess(this, permissions, userName); } },
     $REST.Library.list = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [
+            "ContentTypes", "CreatablesInfo", "DefaultView", "DescriptionResource", "EventReceivers", "Fields", "FirstUniqueAncestorSecurableObject",
+            "Forms", "InformationRightsManagementSettings", "Items", "ParentWeb", "RoleAssignments", "RootFolder", "Subscriptions", "TitleResource",
+            "UserCustomActions", "Views", "WorkflowAssociations"
+        ],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
         // Adds an existing content type to this collection.
         addAvailableContentType: {
             argNames: ["contentTypeId"],
@@ -3456,53 +3490,6 @@ var $REST;
                 this.addMethods(this, { __metadata: { type: "listItem" } });
             }
         }
-        /*********************************************************************************************************************************/
-        // Properties
-        /*********************************************************************************************************************************/
-        /**
-         * Specifies the collection of attachments that are associated with the list item.
-         */
-        ListItem.prototype.get_AttachmentFiles = function () { return this.getProperty("AttachmentFiles"); };
-        /**
-         * Gets a value that specifies the content type of the list item.
-         */
-        ListItem.prototype.get_ContentType = function () { return this.getProperty("ContentType"); };
-        /**
-         * Gets the values for the list item as HTML.
-         */
-        ListItem.prototype.get_FieldValuesAsHtml = function () { return this.getProperty("FieldValuesAsHtml"); };
-        /**
-         * Gets the list item's field values as a collection of string values.
-         */
-        ListItem.prototype.get_FieldValuesAsText = function () { return this.getProperty("FieldValuesAsText"); };
-        /**
-         * Gets the formatted values to be displayed in an edit form.
-         */
-        ListItem.prototype.get_FieldValuesForEdit = function () { return this.getProperty("FieldValuesForEdit"); };
-        /**
-         * Gets the file that is represented by the item from a document library.
-         */
-        ListItem.prototype.get_File = function () { return this.getProperty("File"); };
-        /**
-         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-         */
-        ListItem.prototype.get_FirstUniqueAncestorSecurableObject = function () { return this.getProperty("FirstUniqueAncestorSecurableObject"); };
-        /**
-         * Gets a folder object that is associated with a folder item.
-         */
-        ListItem.prototype.get_Folder = function () { return this.getProperty("Folder"); };
-        /**
-         *
-         */
-        ListItem.prototype.get_GetDlpPolicyTip = function () { return this.getProperty("GetDlpPolicyTip"); };
-        /**
-         * Gets the parent list that contains the list item.
-         */
-        ListItem.prototype.get_ParentList = function () { return this.getProperty("ParentList"); };
-        /**
-         * Gets the role assignments for the securable object.
-         */
-        ListItem.prototype.get_RoleAssignments = function () { return this.getProperty("RoleAssignments"); };
         return ListItem;
     }($REST.Base));
     $REST.ListItem = ListItem;
@@ -3523,9 +3510,19 @@ var $REST;
     }(ListItem));
     $REST.ListItem_Async = ListItem_Async;
     /*********************************************************************************************************************************/
-    // Methods
+    // Library
     /*********************************************************************************************************************************/
     $REST.Library.listitem = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [
+            "AttachmentFiles", "ContentType", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit", "File",
+            "FirstUniqueAncestorSecurableObject", "Folder", "GetDlpPolicyTip", "ParentList", "RoleAssignments"
+        ],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
         // Adds the attachment that is represented by the specified file name and byte array to the list item.
         addAttachment: {
             argNames: ["name"],
@@ -3655,6 +3652,11 @@ var $REST;
             argNames: ["title"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
         },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
+        }
     };
 })($REST || ($REST = {}));
 
@@ -3784,6 +3786,11 @@ var $REST;
             argNames: ["principalId"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
         },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
+        },
         // Gets the role definition with the specified role type.
         removeRoleAssignment: {
             argNames: ["principalId", "roleDefId"],
@@ -3889,6 +3896,11 @@ var $REST;
         getByType: {
             argNames: ["roleType"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
+        },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
         }
     };
 })($REST || ($REST = {}));
@@ -4134,6 +4146,11 @@ var $REST;
         getByName: {
             argNames: ["name"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
+        },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
         },
         // Removes the group with the specified member ID from the collection.
         removeById: {
@@ -4382,6 +4399,11 @@ var $REST;
             argNames: ["title"],
             name: "?filter=Title eq '[[title]]'",
             requestType: $REST.RequestType.PostReplace
+        },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
         }
     };
 })($REST || ($REST = {}));
@@ -4473,6 +4495,11 @@ var $REST;
         getByLoginName: {
             argNames: ["loginName"],
             requestType: $REST.RequestType.GetWithArgsInQS
+        },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
         },
         // Removes the user with the specified ID.
         removeById: {
@@ -4634,6 +4661,11 @@ var $REST;
             argNames: ["field", "index"],
             requestType: $REST.RequestType.PostWithArgsInBody
         },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
+        },
         // Removes all the fields from the collection.
         removeAllViewFields: {
             requestType: $REST.RequestType.Post
@@ -4720,6 +4752,11 @@ var $REST;
         getByTitle: {
             argNames: ["title"],
             requestType: $REST.RequestType.GetWithArgsValueOnly
+        },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
         }
     };
 })($REST || ($REST = {}));
@@ -4767,165 +4804,6 @@ var $REST;
             return true;
         };
         ;
-        /*********************************************************************************************************************************/
-        // Properties
-        /*********************************************************************************************************************************/
-        /**
-         * Gets a collection of metadata for the Web site.
-         */
-        Web.prototype.get_AllProperties = function () { return this.getProperty("AllProperties"); };
-        /**
-         *
-         */
-        Web.prototype.get_AppTiles = function () { return this.getProperty("AppTiles"); };
-        /**
-         * Gets or sets the group of users who have been given contribute permissions to the Web site.
-         */
-        Web.prototype.get_AssociatedMemberGroup = function () { return this.getProperty("AssociatedMemberGroup"); };
-        /**
-         * Gets or sets the associated owner group of the Web site.
-         */
-        Web.prototype.get_AssociatedOwnerGroup = function () { return this.getProperty("AssociatedOwnerGroup"); };
-        /**
-         * Gets or sets the associated visitor group of the Web site.
-         */
-        Web.prototype.get_AssociatedVisitorGroup = function () { return this.getProperty("AssociatedVisitorGroup"); };
-        /**
-         *
-         */
-        Web.prototype.get_Author = function () { return this.getProperty("Author"); };
-        /**
-         * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
-         */
-        Web.prototype.get_AvailableContentTypes = function () { return this.getProperty("AvailableContentTypes"); };
-        /**
-         * Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
-         */
-        Web.prototype.get_AvailableFields = function () { return this.getProperty("AvailableFields"); };
-        /**
-         *
-         */
-        Web.prototype.get_ClientWebParts = function () { return this.getProperty("ClientWebParts"); };
-        /**
-         * Gets the collection of content types for the Web site.
-         */
-        Web.prototype.get_ContentTypes = function () { return this.getProperty("ContentTypes"); };
-        /**
-         * Gets the current user of the site.
-         */
-        Web.prototype.get_CurrentUser = function () { return this.getProperty("CurrentUser"); };
-        /**
-         *
-         */
-        Web.prototype.get_DataLeakagePreventionStatusInfo = function () { return this.getProperty("DataLeakagePreventionStatusInfo"); };
-        /**
-         *
-         */
-        Web.prototype.get_DescriptionResource = function () { return this.getProperty("DescriptionResource"); };
-        /**
-         * Gets the collection of event receiver definitions that are currently available on the website.
-         */
-        Web.prototype.get_EventReceivers = function () { return this.getProperty("EventReceivers"); };
-        /**
-         * Gets a value that specifies the collection of features that are currently activated in the site.
-         */
-        Web.prototype.get_Features = function () { return this.getProperty("Features"); };
-        /**
-         * Gets the collection of field objects that represents all the fields in the Web site.
-         */
-        Web.prototype.get_Fields = function () { return this.getProperty("Fields"); };
-        /**
-         * Gets the collection of all first-level files in the Web site.
-         */
-        Web.prototype.get_Files = function () { return this.getProperty("rootfolder/files"); };
-        /**
-         * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-         */
-        Web.prototype.get_FirstUniqueAncestorSecurableObject = function () { return this.getProperty("FirstUniqueAncestorSecurableObject"); };
-        /**
-         * Gets the collection of all first-level folders in the Web site.
-         */
-        Web.prototype.get_Folders = function () { return this.getProperty("Folders"); };
-        /**
-         * Gets the collection of all lists that are contained in the Web site available to the current user based on the permissions of the current user.
-         */
-        Web.prototype.get_Lists = function () { return this.getProperty("Lists"); };
-        /**
-         * Gets a value that specifies the collection of list definitions and list templates available for creating lists on the site.
-         */
-        Web.prototype.get_ListTemplates = function () { return this.getProperty("ListTemplates"); };
-        /**
-         * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
-         */
-        Web.prototype.get_Navigation = function () { return this.getProperty("Navigation"); };
-        /**
-         * Gets the parent website of the specified website.
-         */
-        Web.prototype.get_ParentWeb = function () { return this.getProperty("ParentWeb"); };
-        /**
-         * Gets the collection of push notification subscribers over the site.
-         */
-        Web.prototype.get_PushNotificationSubscribers = function () { return this.getProperty("PushNotificationSubscribers"); };
-        /**
-         * Gets the collection of push notification subscribers over the site.
-         */
-        Web.prototype.get_RecycleBin = function () { return this.getProperty("RecycleBin"); };
-        /**
-         * Gets the regional settings that are currently implemented on the website.
-         */
-        Web.prototype.get_RegionalSettings = function () { return this.getProperty("RegionalSettings"); };
-        /**
-         * Gets the collection of role assignments for the Web site.
-         */
-        Web.prototype.get_RoleAssignments = function () { return this.getProperty("RoleAssignments"); };
-        /**
-         * Gets the collection of role definitions for the Web site.
-         */
-        Web.prototype.get_RoleDefinitions = function () { return this.getProperty("RoleDefinitions"); };
-        /**
-         * Gets the root folder for the Web site.
-         */
-        Web.prototype.get_RootFolder = function () { return this.getProperty("RootFolder"); };
-        /**
-         * Gets the collection of groups for the site collection.
-         */
-        Web.prototype.get_SiteGroups = function () { return this.getProperty("SiteGroups"); };
-        /**
-         * Gets the UserInfo list of the site collection that contains the Web site.
-         */
-        Web.prototype.get_SiteUserInfoList = function () { return this.getProperty("SiteUserInfoList"); };
-        /**
-         * Gets the collection of all users that belong to the site collection.
-         */
-        Web.prototype.get_SiteUsers = function () { return this.getProperty("SiteUsers"); };
-        /**
-         * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
-         */
-        Web.prototype.get_ThemeInfo = function () { return this.getProperty("ThemeInfo"); };
-        /**
-         *
-         */
-        Web.prototype.get_TitleResource = function () { return this.getProperty("TitleResource"); };
-        /**
-         * Gets a value that specifies the collection of user custom actions for the site.
-         */
-        Web.prototype.get_UserCustomActions = function () { return this.getProperty("UserCustomActions"); };
-        /**
-         * Represents key properties of the subsites of a site.
-         */
-        Web.prototype.get_WebInfos = function () { return this.getProperty("WebInfos"); };
-        /**
-         * Gets a Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
-         */
-        Web.prototype.get_Webs = function () { return this.getProperty("Webs"); };
-        /**
-         * Gets a value that specifies the collection of all workflow associations for the site.
-         */
-        Web.prototype.get_WorkflowAssociations = function () { return this.getProperty("WorkflowAssociations"); };
-        /**
-         * Gets a value that specifies the collection of workflow templates associated with the site.
-         */
-        Web.prototype.get_WorkflowTemplates = function () { return this.getProperty("WorkflowTemplates"); };
         return Web;
     }($REST.Base));
     $REST.Web = Web;
@@ -4946,9 +4824,23 @@ var $REST;
     }(Web));
     $REST.Web_Async = Web_Async;
     /*********************************************************************************************************************************/
-    // Methods
+    // Library
     /*********************************************************************************************************************************/
     $REST.Library.web = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [
+            "AllProperties", "AppTiles", "AssociatedMemberGroup", "AssociatedOwnerGroup", "AssociatedVisitorGroup", "Author",
+            "AvailableContentTypes", "AvailableFields", "ClientWebParts", "ContentTypes", "CurrentUser", "DataLeakagePreventionStatusInfo",
+            "DescriptionResource", "EventReceivers", "Features", "Fields", "FirstUniqueAncestorSecurableObject", "Folders", "Lists",
+            "ListTemplates", "Navigation", "ParentWeb", "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments",
+            "RoleDefinitions", "RootFolder", "SiteGroups", "SiteUserInfoList", "SiteUsers", "ThemeInfo", "TitleResource",
+            "UserCustomActions", "WebInfos", "Webs", "WorkflowAssociations", "WorkflowTemplates"
+        ],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
         // Adds a content type content type collection.
         addContentType: {
             metadataType: "SP.ContentType",
@@ -5313,6 +5205,11 @@ var $REST;
             argNames: ["parameters"],
             metadataType: "SP.WebCreationInformation",
             requestType: $REST.RequestType.PostWithArgsInBody
+        },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.RequestType.OData
         }
     };
 })($REST || ($REST = {}));

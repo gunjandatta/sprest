@@ -66,6 +66,12 @@ module $REST {
         getByUrl: {
             argNames: ["serverRelativeUrl"],
             requestType: RequestType.GetWithArgsValueOnly
+        },
+
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: RequestType.OData
         }
     };
 }

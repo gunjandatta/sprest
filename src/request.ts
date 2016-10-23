@@ -10,6 +10,7 @@ module $REST {
         Custom = 0,
         Delete = 1,
         Merge = 2,
+        OData = 3,
         // Get Requests
         Get = 10,
         GetWithArgs = 11,

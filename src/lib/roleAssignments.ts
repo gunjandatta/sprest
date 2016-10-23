@@ -54,6 +54,12 @@ module $REST {
             requestType: RequestType.GetWithArgsValueOnly
         },
 
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: RequestType.OData
+        },
+
         // Gets the role definition with the specified role type.
         removeRoleAssignment: {
             argNames: ["principalId", "roleDefId"],

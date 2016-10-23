@@ -23,6 +23,7 @@ I was finally able to put the definition file together, to ensure intellisense i
 
 ### Example Projects
 [Bootstrap List](https://github.com/gunjandatta/sprest-list)
+_Note - This is still in dev_
 
 ## Documentation:
 ### Executing Requests from the App Web
@@ -89,11 +90,13 @@ var list = web.addList({
 #### Example - Query a List
 ```
 // This will execute one request to the server to get list items
-// new $REST.ListItems("[List Name]", "[View XML or CAML Query]");
+var items = (new $REST.ListItems("[List Name]", false)).query({
+    // OData properties
+});
 
-// The query will default the parent to "<View>"
-new $REST.ListItems("Site Assets", "<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>");
-new $REST.ListItems("Site Assets", "<View Scope='RecursiveAll'><Query><Where><Eq><FieldRef Name='FileLeafRef' /><Value Type='File'>sprest.js</Value></Eq></Where></Query></View>");
+// Examples of getting items by CAML queries
+(new $REST.List("Site Assets", false)).getItemsByQuery("<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>");
+(new $REST.List("Site Assets", false)).getItems("<View Scope='RecursiveAll'><Query><Where><Eq><FieldRef Name='FileLeafRef' /><Value Type='File'>sprest.js</Value></Eq></Where></Query></View>");
 ```
 
 ### Optional Input
@@ -128,6 +131,43 @@ Since the library can be executed synchronously, the user can execute commands i
 
 *Note - The commands will execute under the security of the current user.*
 *Note - SharePoint online may reject synchronous requests. It's better to use asynchronous requests.*
+
+### OData Queries
+Each collection will have a generic "query" method with the input of the OData query operations. The oData object consists of the following properties:
+* Expand - A collection of strings representing the field names to expand.
+* Filter - A collection of strings representing the filters to apply.
+* OrderBy - A collection of strings representing the fields to order by.
+* QueryString - A read-only property representing the query string value of the oData object.
+* Select - A collection of strings representing the field names to select.
+* Skip - The number of objects to skip.
+* Top - The maximum number of objects to return.
+
+#### Query List Collection
+```
+// Get the lists for the current web, but don't execute a request to the server
+var lists = new $REST.Lists(false);
+
+// Query for the 'Dev' list
+lists.query({
+    Filter: ["Title eq 'Dev'"]
+});
+```
+
+#### Query List Item Collection
+```
+// Get the 'Dev' list, but don't execute a request to the server
+(new $REST.ListItems_Async("Dev", null, false))
+// Query for my items, expanding the created by information
+.query({
+    Select: ["Title", "Author/Id", "Author/Title"],
+    Expand: ["Author"],
+    Filter: ["AuthorId eq 11"]
+})
+// Execute code after the request is complete
+.done(function(items:$REST.ListItems) {
+    // Code goes here
+});
+```
 
 ## Test:
 I wrote a sample test file. To run it, upload the [test folder](https://github.com/gunjandatta/sprest/tree/master/test) contents to a SharePoint library and access to the "test.aspx" page. This will test the basic functionality of the library.
@@ -274,7 +314,14 @@ new $REST.ListItems("documents");
 
 _**CAML Query**_
 ```
-new $REST.ListItems("documents", "<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>");
+// Get the list items, but do not execute a request to the server
+(new $REST.ListItems_Async("documents", false))
+// Get the items
+.getItemsByQuery("<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>")
+// Execute after the request completes
+.done(function(items)) {
+    // Code goes here
+}
 ```
 
 ### Role Assignments
