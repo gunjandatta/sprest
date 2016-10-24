@@ -797,7 +797,7 @@ declare module $REST.Types {
     /**
      * Field Creation Information 
      */
-    export interface FieldCreationInformation {
+    interface FieldCreationInformation {
         /** A value that specifies the type of the field. */
         FieldTypeKind: Types.FieldType;
 
@@ -910,9 +910,9 @@ declare module $REST.Types {
     }
 
     /**
-     * OData
+     * OData Settings
      */
-    interface OData {
+    interface ODataSettings {
         /** The fields to expand. */
         Expand?: Array<string>;
 
@@ -1133,7 +1133,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): AttachmentFiles;
+        query(oData:Types.ODataSettings): AttachmentFiles;
     }
 
     /**
@@ -1327,7 +1327,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): ContentTypes;
+        query(oData:Types.ODataSettings): ContentTypes;
     }
 
     /**
@@ -1467,7 +1467,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): EventReceivers;
+        query(oData:Types.ODataSettings): EventReceivers;
     }
 
     /**
@@ -1652,7 +1652,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): FieldLinks;
+        query(oData:Types.ODataSettings): FieldLinks;
     }
 
     /**
@@ -1721,7 +1721,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): Fields;
+        query(oData:Types.ODataSettings): Fields;
     }
 
     /**
@@ -2008,7 +2008,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): Files;
+        query(oData:Types.ODataSettings): Files;
     }
 
     /**
@@ -2073,7 +2073,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): FileVersions;
+        query(oData:Types.ODataSettings): FileVersions;
     }
 
     /**
@@ -2230,7 +2230,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): Folders;
+        query(oData:Types.ODataSettings): Folders;
     }
 
     /**
@@ -2936,7 +2936,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): ListItems;
+        query(oData:Types.ODataSettings): ListItems;
     }
 
     /**
@@ -2998,7 +2998,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): Lists;
+        query(oData:Types.ODataSettings): Lists;
     }
 
     /**
@@ -3080,7 +3080,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): RoleAssignments;
+        query(oData:Types.ODataSettings): RoleAssignments;
     }
 
     /**
@@ -3171,7 +3171,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): RoleDefinitions;
+        query(oData:Types.ODataSettings): RoleDefinitions;
     }
 
     /**
@@ -3436,7 +3436,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): SiteGroups;
+        query(oData:Types.ODataSettings): SiteGroups;
     }
 
     /**
@@ -3627,7 +3627,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): UserCustomActions;
+        query(oData:Types.ODataSettings): UserCustomActions;
     }
 
     /**
@@ -3691,7 +3691,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): Users;
+        query(oData:Types.ODataSettings): Users;
     }
 
     /**
@@ -3947,7 +3947,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): ViewFields;
+        query(oData:Types.ODataSettings): ViewFields;
     }
 
     /**
@@ -3994,7 +3994,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): Views;
+        query(oData:Types.ODataSettings): Views;
     }
 
     /**
@@ -4624,6 +4624,6 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Types.OData): Webs;
+        query(oData:Types.ODataSettings): Webs;
     }
 }
