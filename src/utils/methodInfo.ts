@@ -1,18 +1,13 @@
-/// <reference path="methodInfo.d.ts" />
 module $REST.Utils {
     /*********************************************************************************************************************************/
     // Method Information
     // This class will create the method information for the request.
-    // name - The method name.
-    // requestType - The request type.
-    // argNames - The method input parameter names.
-    // argValues - The data passed with the method.
     /*********************************************************************************************************************************/
-    export class MethodInfo implements IMethodInfo {
+    export class MethodInfo {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(methodName:string, methodInfo:IMethodInfoSettings, args:any) {
+        constructor(methodName:string, methodInfo:Types.MethodInfoSettings, args:any) {
             // Default the properties
             this.methodInfo = methodInfo;
             this.methodInfo.argValues = args;
@@ -67,7 +62,7 @@ module $REST.Utils {
         private get isTemplate():boolean { return this.methodInfo.data ? true : false; }
         private get replace():boolean { return this.methodInfo.requestType == Types.RequestType.GetReplace || this.methodInfo.requestType == Types.RequestType.PostReplace; }
         private methodData:any;
-        private methodInfo:IMethodInfoSettings;
+        private methodInfo:Types.MethodInfoSettings;
         private methodParams:any;
         private methodUrl:string;
  

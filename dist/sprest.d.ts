@@ -27,10 +27,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
 
-/***********************************************************************************************
- * Enumerator Types
- **********************************************************************************************/
 declare module $REST.Types {
+    /***********************************************************************************************
+     * Enumerators
+     **********************************************************************************************/
+
     /**
      * Control Modes
      */
@@ -711,12 +712,11 @@ declare module $REST.Types {
         /** Enumeration whose values specify a list view type that displays recurring events. */
         Recurrence = 8193,
     }
-}
 
-/***********************************************************************************************
- * Settings
- **********************************************************************************************/
-declare module $REST.Settings {
+    /***********************************************************************************************
+     * Settings
+     **********************************************************************************************/
+
     /**
      * CAML Query
      */
@@ -797,7 +797,7 @@ declare module $REST.Settings {
     /**
      * Field Creation Information 
      */
-    interface FieldCreationInformation {
+    export interface FieldCreationInformation {
         /** A value that specifies the type of the field. */
         FieldTypeKind: Types.FieldType;
 
@@ -912,9 +912,9 @@ declare module $REST.Settings {
     /**
      * OData
      */
-    interface IOData {
+    interface OData {
         /** The fields to expand. */
-        Expand?: Array<ListItem>;
+        Expand?: Array<string>;
 
         /** The filters. */
         Filter?: Array<string>;
@@ -935,7 +935,7 @@ declare module $REST.Settings {
     /**
      * Target Information
      */
-    interface ITargetInfoSettings {
+    interface TargetInfoSettings {
         /** True to execute the request asynchronously, synchronously otherwise. */
         asyncFl?:boolean;
 
@@ -1083,7 +1083,7 @@ declare module $REST {
     var ExecuteOnCreationFl:boolean;
     
     /***********************************************************************************************
-     * Public Classes
+     * Classes
      **********************************************************************************************/
 
     /**
@@ -1133,7 +1133,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): AttachmentFiles;
+        query(oData:Types.OData): AttachmentFiles;
     }
 
     /**
@@ -1147,7 +1147,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(name:string, listName?:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(name:string, listName?:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -1286,7 +1286,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -1303,7 +1303,7 @@ declare module $REST {
          * Adds a content type to the collection.
          * @param parameters - The content type creation information.
          */
-        add(parameters:Settings.ContentTypeCreationInformation): ContentType;
+        add(parameters:Types.ContentTypeCreationInformation): ContentType;
 
         /**
          * Adds an existing content type to this collection.
@@ -1327,7 +1327,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): ContentTypes;
+        query(oData:Types.OData): ContentTypes;
     }
 
     /**
@@ -1344,7 +1344,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -1358,7 +1358,7 @@ declare module $REST {
          * Method to send an email.
          * @param properties - The email information.
          */
-        send(properties:Settings.EmailCreationInformation): any;
+        send(properties:Types.EmailCreationInformation): any;
     }
 
     /**
@@ -1377,7 +1377,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(id:string, listName?:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(id:string, listName?:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -1438,7 +1438,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -1455,7 +1455,7 @@ declare module $REST {
          * Adds an event receiver to the collection.
          * @param parameters - The event receiver definition creation information.
          */
-        add(parameters:Settings.EventReceiverDefinitionCreationInformation): EventReceiver;
+        add(parameters:Types.EventReceiverDefinitionCreationInformation): EventReceiver;
 
         /**
          * Gets an event receiver in the collection.
@@ -1467,7 +1467,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): EventReceivers;
+        query(oData:Types.OData): EventReceivers;
     }
 
     /**
@@ -1486,7 +1486,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(internalNameOrTitle:string, listName?:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(internalNameOrTitle:string, listName?:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -1652,7 +1652,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): FieldLinks;
+        query(oData:Types.OData): FieldLinks;
     }
 
     /**
@@ -1665,7 +1665,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -1682,7 +1682,7 @@ declare module $REST {
          * Adds a field to the field collection.
          * @param parameters - The field creation information.
          */
-        add(parameters:Settings.FieldCreationInformation): Field;
+        add(parameters:Types.FieldCreationInformation): Field;
 
         /**
          * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
@@ -1721,7 +1721,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): Fields;
+        query(oData:Types.OData): Fields;
     }
 
     /**
@@ -1740,7 +1740,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(serverRelativeUrl:string, listName?:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(serverRelativeUrl:string, listName?:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -1964,7 +1964,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -2008,7 +2008,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): Files;
+        query(oData:Types.OData): Files;
     }
 
     /**
@@ -2073,7 +2073,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): FileVersions;
+        query(oData:Types.OData): FileVersions;
     }
 
     /**
@@ -2087,7 +2087,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(serverRelativeUrl:string, listName?:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(serverRelativeUrl:string, listName?:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -2201,7 +2201,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -2230,7 +2230,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): Folders;
+        query(oData:Types.OData): Folders;
     }
 
     /**
@@ -2328,7 +2328,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(listName:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -2543,19 +2543,19 @@ declare module $REST {
          * Adds a content type to the collection.
          * @param parameters - The content type creation information.
          */
-        addContentType(parameters:Settings.ContentTypeCreationInformation): ContentType;
+        addContentType(parameters:Types.ContentTypeCreationInformation): ContentType;
 
         /**
          * Adds an event receiver to the collection.
          * @param parameters - The event receiver creation information.
          */
-        addEventReceiver(parameters:Settings.EventReceiverDefinitionCreationInformation): EventReceiver;
+        addEventReceiver(parameters:Types.EventReceiverDefinitionCreationInformation): EventReceiver;
 
         /**
          * Adds a field to the field collection.
          * @param parameters - The field creation information.
          */
-        addField(parameters:Settings.FieldCreationInformation): Field;
+        addField(parameters:Types.FieldCreationInformation): Field;
 
         /**
          * Adds a field, using it's Schema XML, to the field collection.
@@ -2785,7 +2785,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(itemId:number, listName:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(itemId:number, listName:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -2907,7 +2907,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(listName:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
         
         /**
          * Properties
@@ -2936,7 +2936,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): ListItems;
+        query(oData:Types.OData): ListItems;
     }
 
     /**
@@ -2953,7 +2953,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -2970,7 +2970,7 @@ declare module $REST {
          * Adds a list to the list collection.
          * @param parameters - The list creation information.
          */
-        add(parameters:Settings.ListCreationInformation): List;
+        add(parameters:Types.ListCreationInformation): List;
 
         /**
          * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
@@ -2998,7 +2998,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): Lists;
+        query(oData:Types.OData): Lists;
     }
 
     /**
@@ -3043,7 +3043,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(listName?:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -3080,7 +3080,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): RoleAssignments;
+        query(oData:Types.OData): RoleAssignments;
     }
 
     /**
@@ -3136,7 +3136,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -3171,7 +3171,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): RoleDefinitions;
+        query(oData:Types.OData): RoleDefinitions;
     }
 
     /**
@@ -3188,7 +3188,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -3283,7 +3283,7 @@ declare module $REST {
          * Adds a custom action to the user custom action collection.
          * parameters - The user custom action information.
          */
-        addCustomAction(parameters:Settings.UserCustomActionCreationInformation): UserCustomAction;
+        addCustomAction(parameters:Types.UserCustomActionCreationInformation): UserCustomAction;
 
         /**
          * Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
@@ -3395,7 +3395,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -3436,7 +3436,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): SiteGroups;
+        query(oData:Types.OData): SiteGroups;
     }
 
     /**
@@ -3454,7 +3454,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(userId:number, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(userId:number, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -3581,7 +3581,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(webFl?:boolean, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(webFl?:boolean, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -3598,7 +3598,7 @@ declare module $REST {
          * Adds a custom actino to the user custom action collection. 
          * @param parameters - The user custom action information.
          */
-        add(parameters:Settings.UserCustomActionCreationInformation): UserCustomAction;
+        add(parameters:Types.UserCustomActionCreationInformation): UserCustomAction;
 
         /**
          * Deletes all custom actions in the collection.
@@ -3627,7 +3627,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): UserCustomActions;
+        query(oData:Types.OData): UserCustomActions;
     }
 
     /**
@@ -3644,7 +3644,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -3691,7 +3691,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): Users;
+        query(oData:Types.OData): Users;
     }
 
     /**
@@ -3752,7 +3752,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(viewName:string, listName:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(viewName:string, listName:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -3947,7 +3947,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): ViewFields;
+        query(oData:Types.OData): ViewFields;
     }
 
     /**
@@ -3960,7 +3960,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(listName:string, executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(listName:string, executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -3976,7 +3976,7 @@ declare module $REST {
         /**
          * Adds a list view to the view collection.
          */
-        add(parameters:Settings.ViewCreationInformation): View;
+        add(parameters:Types.ViewCreationInformation): View;
 
         /**
          * Gets the list view with the specified ID.
@@ -3994,7 +3994,7 @@ declare module $REST {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): Views;
+        query(oData:Types.OData): Views;
     }
 
     /**
@@ -4011,7 +4011,7 @@ declare module $REST {
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        constructor(executeRequestFl?:boolean, targetInfo?:Settings.ITargetInfoSettings);
+        constructor(executeRequestFl?:boolean, targetInfo?:Types.TargetInfoSettings);
 
         /**
          * Properties
@@ -4214,13 +4214,13 @@ declare module $REST {
          * Adds a content type content type collection.
          * @param parameters - The content type creation information.
          */
-        addContentType(parameters:Settings.ContentTypeCreationInformation): ContentType;
+        addContentType(parameters:Types.ContentTypeCreationInformation): ContentType;
 
         /**
          * Adds a custom action to the user custom action collection.
          * @param parameters - The content type creation information.
          */
-        addCustomAction(parameters:Settings.UserCustomActionCreationInformation): UserCustomAction;
+        addCustomAction(parameters:Types.UserCustomActionCreationInformation): UserCustomAction;
 
         /**
          * Adds an existing content type to content type collection.
@@ -4232,7 +4232,7 @@ declare module $REST {
          * Adds a field to it's collection.
          * @param parameters - The field creation information.
          */
-        addField(parameters:Settings.FieldCreationInformation): Field;
+        addField(parameters:Types.FieldCreationInformation): Field;
 
         /**
          * Adds a field, using it's Schema XML, to the field collection.
@@ -4253,7 +4253,7 @@ declare module $REST {
          * Adds a list to the list collection.
          * @param parameters - The list creation information.
          */
-        addList(parameters:Settings.ListCreationInformation): List;
+        addList(parameters:Types.ListCreationInformation): List;
 
         /**
          * Adds a permission to the role definitions.
@@ -4618,12 +4618,12 @@ declare module $REST {
          * Adds a site to the site collection.
          * @param parameters - The web creation information.
          */
-        add(parameters:Settings.WebCreationInformation);
+        add(parameters:Types.WebCreationInformation);
 
         /**
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.IOData): Webs;
+        query(oData:Types.OData): Webs;
     }
 }

@@ -1,4 +1,3 @@
-/// <reference path="base.d.ts" />
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
@@ -428,6 +427,11 @@ var $REST;
     }());
     $REST.Base = Base;
 })($REST || ($REST = {}));
+
+/// <reference path="targetInfo.ts" />
+
+/// <reference path="requestType.ts" />
+
 
 var $REST;
 (function ($REST) {
@@ -960,6 +964,7 @@ var $REST;
     })(Types = $REST.Types || ($REST.Types = {}));
 })($REST || ($REST = {}));
 
+
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
@@ -1040,7 +1045,6 @@ var $REST;
     $REST.Dependencies = Dependencies;
 })($REST || ($REST = {}));
 
-/// <reference path="methodInfo.d.ts" />
 var $REST;
 (function ($REST) {
     var Utils;
@@ -1048,10 +1052,6 @@ var $REST;
         /*********************************************************************************************************************************/
         // Method Information
         // This class will create the method information for the request.
-        // name - The method name.
-        // requestType - The request type.
-        // argNames - The method input parameter names.
-        // argValues - The data passed with the method.
         /*********************************************************************************************************************************/
         var MethodInfo = (function () {
             /*********************************************************************************************************************************/
@@ -1287,7 +1287,6 @@ var $REST;
     })(Utils = $REST.Utils || ($REST.Utils = {}));
 })($REST || ($REST = {}));
 
-/// <reference path="oData.d.ts" />
 var $REST;
 (function ($REST) {
     var Utils;
@@ -1396,7 +1395,6 @@ var $REST;
     })(Utils = $REST.Utils || ($REST.Utils = {}));
 })($REST || ($REST = {}));
 
-/// <reference path="promise.d.ts" />
 var $REST;
 (function ($REST) {
     var Utils;
@@ -1456,7 +1454,6 @@ var $REST;
     })(Utils = $REST.Utils || ($REST.Utils = {}));
 })($REST || ($REST = {}));
 
-/// <reference path="./request.d.ts" />
 var $REST;
 (function ($REST) {
     var Utils;
@@ -1606,7 +1603,6 @@ var $REST;
     })(Utils = $REST.Utils || ($REST.Utils = {}));
 })($REST || ($REST = {}));
 
-/// <reference path="targetInfo.d.ts" />
 var $REST;
 (function ($REST) {
     var Utils;

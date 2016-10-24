@@ -1,4 +1,3 @@
-/// <reference path="base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Global Variables
@@ -12,11 +11,11 @@ module $REST {
     // Base
     // This is the base class for all objects.
     /*********************************************************************************************************************************/
-    export class Base implements IBase {
+    export class Base {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(params:IBaseSettings) {
+        constructor(params:Types.BaseSettings) {
             // Default the properties
             this.targetInfo = params.settings;
             this.requestType = 0;
@@ -82,7 +81,7 @@ module $REST {
         }
 
         // Method to get the input parameters for an asynchronous request
-        public static getAsyncInputParmeters(...args):IBaseSettings {
+        public static getAsyncInputParmeters(...args):Types.BaseSettings {
             // Get the input parameters
             let params = Base.getInputParmeters.apply(null, args);
 
@@ -94,9 +93,9 @@ module $REST {
         }
 
         // Method to get the input parameters
-        public static getInputParmeters(...args):IBaseSettings {
+        public static getInputParmeters(...args):Types.BaseSettings {
             let settings = null;
-            let params:IBaseSettings = {
+            let params:Types.BaseSettings = {
                 executeRequestFl: null,
                 settings: null
             };
@@ -162,7 +161,7 @@ module $REST {
         protected request:Utils.Request;
 
         // The base settings
-        protected targetInfo:Utils.ITargetInfoSettings;
+        protected targetInfo:Types.TargetInfoSettings;
 
         /*********************************************************************************************************************************/
         // Private Methods
@@ -256,8 +255,8 @@ module $REST {
         }
 
         // Method to execute a method
-        protected executeMethod(methodName:string, methodConfig:Utils.IMethodInfoSettings, args?:any) {
-            let targetInfo:Utils.ITargetInfoSettings = null;
+        protected executeMethod(methodName:string, methodConfig:Types.MethodInfoSettings, args?:any) {
+            let targetInfo:Types.TargetInfoSettings = null;
 
             // See if the metadata is defined for this object
             let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
@@ -493,7 +492,7 @@ module $REST {
         }
 
         // Method to update the metadata uri
-        private updateMetadataUri(metadata:any, targetInfo:Utils.ITargetInfoSettings) {
+        private updateMetadataUri(metadata:any, targetInfo:Types.TargetInfoSettings) {
             // See if this is a field
             if(/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
                 // Fix the uri reference

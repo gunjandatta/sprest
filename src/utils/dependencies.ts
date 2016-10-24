@@ -27,7 +27,7 @@ module $REST {
         /*********************************************************************************************************************************/
 
         // The promise
-        private promise:Utils.IPromise;
+        private promise:Utils.Promise;
 
         // Flag to determine if the page context information exists
         private get pageContextExistsFl():boolean { return window.hasOwnProperty("_spPageContextInfo"); }

@@ -1,14 +1,13 @@
-/// <reference path="targetInfo.d.ts" />
 module $REST.Utils {
     /*********************************************************************************************************************************/
     // Target Information
     // This class will take the target information and create the request url.
     /*********************************************************************************************************************************/
-    export class TargetInfo implements ITargetInfo {
+    export class TargetInfo {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(targetInfo:ITargetInfoSettings) {
+        constructor(targetInfo:Types.TargetInfoSettings) {
             // Default the properties
             this.targetInfo = targetInfo || {};
             this.requestData = this.targetInfo.data;
@@ -49,7 +48,7 @@ module $REST.Utils {
         /*********************************************************************************************************************************/
 
         // The target information
-        private targetInfo:ITargetInfoSettings;
+        private targetInfo:Types.TargetInfoSettings;
 
         // Reference to the page context information
         private get context():any { return window["_spPageContextInfo"]; }

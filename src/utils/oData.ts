@@ -1,4 +1,3 @@
-/// <reference path="oData.d.ts" />
 module $REST.Utils {
     /*********************************************************************************************************************************/
     // OData
@@ -20,7 +19,7 @@ module $REST.Utils {
         /*********************************************************************************************************************************/
 
         // The class constructor
-        constructor(oData:IOData) {
+        constructor(oData:Types.ODataSettings) {
             // Default the Variables
             this._expand = oData && oData.Expand ? oData.Expand : [];
             this._filter = oData && oData.Filter ? oData.Filter : [];
