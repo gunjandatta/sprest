@@ -1,11 +1,5 @@
 /// <reference path="../tsd/sprest.d.ts" />
 
-(new $REST.Lists(false).query({
-    Select: ["Title", "ID"],
-    Filter: ["Title eq 'Dev'"],
-    Top: 3
-}));
-
 var log = document.querySelector("#log");
 var LogType = {
     Error: 0,
