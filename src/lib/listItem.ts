@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // List Item
@@ -59,7 +58,7 @@ module $REST {
         addAttachment: {
             argNames: ["name"],
             name: "attachmentfiles/add",
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Adds the attachment that is represented by the specified file name and byte array to the list item.
@@ -68,29 +67,29 @@ module $REST {
         // Creates unique role assignments for the securable object.
         breakRoleInheritance: {
             argNames: ["copyroleassignments", "clearsubscopes"],
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Deletes the object
         delete: {
-            requestType: RequestType.Delete
+            requestType: Types.RequestType.Delete
         },
 
         // Gets the effective permissions that a specified user has on the list item.
         getUserEffectivePermissions: {            
             argNames: ["loginName"],
             name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
         recycle: {
-            requestType: RequestType.Post
+            requestType: Types.RequestType.Post
         },
 
         // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
         resetRoleInheritance: {
-            requestType: RequestType.Post
+            requestType: Types.RequestType.Post
         },
 
         // Updates it's properties.
@@ -98,13 +97,13 @@ module $REST {
             inheritMetadataType: true,
             name: "",
             requestMethod: "MERGE",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Validates and sets the values of the specified collection of fields for the list item.
         validateUpdateListItem: {
             argNames: ["formValues", "bNewDocumentUpdate"],
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         }
     };
 }

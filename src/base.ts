@@ -1,3 +1,4 @@
+/// <reference path="base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Global Variables
@@ -15,7 +16,7 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(params:IBaseType) {
+        constructor(params:IBaseSettings) {
             // Default the properties
             this.targetInfo = params.settings;
             this.requestType = 0;
@@ -36,7 +37,7 @@ module $REST {
         public parent:Base;
 
         // The request type
-        public requestType:RequestType;
+        public requestType:Types.RequestType;
 
         // Method to return the xml http request's response
         public get response():any { return this.request ? this.request.response : null; }
@@ -63,17 +64,17 @@ module $REST {
             // See if this is an asynchronous request
             if(this.targetInfo.asyncFl) {
                 // Create a promise
-                this.promise = new Promise(this.targetInfo.callback);
+                this.promise = new Utils.Promise(this.targetInfo.callback);
 
                 // Create the request
-                this.request = new Request(new TargetInfo(this.targetInfo), () => {
+                this.request = new Utils.Request(new Utils.TargetInfo(this.targetInfo), () => {
                     // Update the data object
                     this.updateDataObject();
                 });
             }
             else {
                 // Create the request
-                this.request = new Request(new TargetInfo(this.targetInfo));
+                this.request = new Utils.Request(new Utils.TargetInfo(this.targetInfo));
 
                 // Update the data object
                 this.updateDataObject();
@@ -81,7 +82,7 @@ module $REST {
         }
 
         // Method to get the input parameters for an asynchronous request
-        public static getAsyncInputParmeters(...args):IBaseType {
+        public static getAsyncInputParmeters(...args):IBaseSettings {
             // Get the input parameters
             let params = Base.getInputParmeters.apply(null, args);
 
@@ -93,9 +94,9 @@ module $REST {
         }
 
         // Method to get the input parameters
-        public static getInputParmeters(...args):IBaseType {
+        public static getInputParmeters(...args):IBaseSettings {
             let settings = null;
-            let params:IBaseType = {
+            let params:IBaseSettings = {
                 executeRequestFl: null,
                 settings: null
             };
@@ -155,13 +156,13 @@ module $REST {
         protected defaultToWebFl:boolean;
 
         // The promise
-        private promise:Promise;
+        private promise:Utils.Promise;
 
         // The request
-        protected request:Request;
+        protected request:Utils.Request;
 
         // The base settings
-        protected targetInfo:ITargetInfoType;
+        protected targetInfo:Utils.ITargetInfoSettings;
 
         /*********************************************************************************************************************************/
         // Private Methods
@@ -255,8 +256,8 @@ module $REST {
         }
 
         // Method to execute a method
-        protected executeMethod(methodName:string, methodConfig:IMethodInfoType, args?:any) {
-            let targetInfo:ITargetInfoType = null;
+        protected executeMethod(methodName:string, methodConfig:Utils.IMethodInfoSettings, args?:any) {
+            let targetInfo:Utils.ITargetInfoSettings = null;
 
             // See if the metadata is defined for this object
             let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
@@ -284,10 +285,10 @@ module $REST {
             targetInfo.asyncFl = this.targetInfo ? this.targetInfo.asyncFl : this.asyncFl;
 
             // Get the method information
-            var methodInfo = new MethodInfo(methodName, methodConfig, args);
+            var methodInfo = new Utils.MethodInfo(methodName, methodConfig, args);
 
             // Update the target information
-            targetInfo.bufferFl = methodConfig.requestType == RequestType.GetBuffer;
+            targetInfo.bufferFl = methodConfig.requestType == Types.RequestType.GetBuffer;
             targetInfo.data = methodInfo.body;
             targetInfo.method = methodInfo.requestMethod;
 
@@ -438,7 +439,7 @@ module $REST {
         // Method to convert the input arguments into an object
         protected updateDataObject() {
             // Return if we are expecting a buffer
-            if(this.requestType == RequestType.GetBuffer) {
+            if(this.requestType == Types.RequestType.GetBuffer) {
                 // Set the exists flag
                 this["existsFl"] = this.request.response != null;
             }
@@ -492,7 +493,7 @@ module $REST {
         }
 
         // Method to update the metadata uri
-        private updateMetadataUri(metadata:any, targetInfo:ITargetInfoType) {
+        private updateMetadataUri(metadata:any, targetInfo:Utils.ITargetInfoSettings) {
             // See if this is a field
             if(/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
                 // Fix the uri reference

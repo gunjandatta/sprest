@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Attachment Files
@@ -21,13 +20,13 @@ module $REST {
         **/
         add: {
             argNames: ["name"],
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: RequestType.OData
+            requestType: Types.RequestType.OData
         }
     };
 

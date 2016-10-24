@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Event Receivers
@@ -46,19 +45,19 @@ module $REST {
         add: {
             metadataType: "SP.EventReceiverDefinition",
             name: "",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Gets an event receiver by it's id.
         getById: {
             argNames: ["id"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: RequestType.OData
+            requestType: Types.RequestType.OData
         }
     };
 }

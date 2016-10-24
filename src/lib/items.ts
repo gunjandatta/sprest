@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // List Items
@@ -45,19 +44,19 @@ module $REST {
         // Adds an item to the list item collection.
         add: {
             metadataType: function(obj) { return obj.Parent && obj.Parent["ListItemEntityTypeFullName"] ? obj.Parent["ListItemEntityTypeFullName"] : "SP.ListItem" },
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Gets an item by its id.
         getById: {
             argNames: ["id"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: RequestType.OData
+            requestType: Types.RequestType.OData
         }
     };
 }

@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // User
@@ -44,7 +43,7 @@ module $REST {
     Library.user = {
         // Deletes the object
         delete: {
-            requestType: RequestType.Delete
+            requestType: Types.RequestType.Delete
         }
     }
 }

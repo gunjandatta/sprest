@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Lists
@@ -45,35 +44,35 @@ module $REST {
         // Adds a list to the list collection.
         add: {
             metadataType: "SP.List",
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
         ensureSiteAssetsLibrary: {
-            requestType: RequestType.Post
+            requestType: Types.RequestType.Post
         },
 
         // Gets a list that is the default location for wiki pages.
         ensureSitePagesLibrary: {
-            requestType: RequestType.Post
+            requestType: Types.RequestType.Post
         },
 
         // Returns the list with the specified list identifier.
         getById: {
             argNames: ["id"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Returns the list with the specified title from the collection.
         getByTitle: {
             argNames: ["title"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: RequestType.OData
+            requestType: Types.RequestType.OData
         }
     };
 }

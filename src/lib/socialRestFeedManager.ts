@@ -1,10 +1,9 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Social REST Feed Manager
     /*********************************************************************************************************************************/
     Library.socialrestfeedmanager = {};
-    Library.socialrestfeedmanager[RequestType.Custom] = [
+    Library.socialrestfeedmanager[Types.RequestType.Custom] = [
         { name: "createPost", "function": function (data) { data = { restCreationData: { __metadata: { type: "SP.Social.SocialRestPostCreationData" }, ID: null, creationData: data } }; data.restCreationData.creationData.__metadata = { type: "SP.Social.SocialPostCreationData" }; return this.executePost("my/feed/post", null, data, true); } },
         { name: "deletePost", "function": function (id) { return this.executePost("post/delete", null, { ID: id }, true); } },
         { name: "getMyFeed", "function": function () { return this.executeGet("my/feed"); } },

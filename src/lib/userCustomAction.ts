@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // User Custom Action
@@ -16,7 +15,7 @@ module $REST {
     Library.usercustomaction = {
         // Deletes the object
         delete: {
-            requestType: RequestType.Delete
+            requestType: Types.RequestType.Delete
         }
     }
 }

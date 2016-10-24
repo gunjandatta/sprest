@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Users
@@ -45,37 +44,37 @@ module $REST {
         // Gets the user with the specified email address.
         getByEmail: {
             argNames: ["email"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Gets the user with the specified member identifier (ID).
         getById: {
             argNames: ["id"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Gets the user with the specified login name.
         getByLoginName: {
             argNames: ["loginName"],
-            requestType: RequestType.GetWithArgsInQS
+            requestType: Types.RequestType.GetWithArgsInQS
         },
 
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: RequestType.OData
+            requestType: Types.RequestType.OData
         },
 
         // Removes the user with the specified ID.
         removeById: {
             argNames: ["id"],
-            requestType: RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly
         },
 
         // Removes the user with the specified login name.
         removeByLoginName: {
             argNames: ["loginName"],
-            requestType: RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly
         }
     }
 }

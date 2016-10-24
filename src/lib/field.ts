@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Field
@@ -44,25 +43,25 @@ module $REST {
     Library.field = {
         // Deletes the object
         delete: {
-            requestType: RequestType.Delete
+            requestType: Types.RequestType.Delete
         },
 
         // Sets the value of the ShowInDisplayForm property for this field.
         setShowInDisplayForm: {
             argNames: ["showInForm"],
-            requestType: RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly
         },
 
         // Sets the value of the ShowInEditForm property for this field.
         setShowInEditForm: {
             argNames: ["showInForm"],
-            requestType: RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly
         },
 
         // Sets the value of the ShowInNewForm property for this field.
         setShowInNewForm: {
             argNames: ["showInForm"],
-            requestType: RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly
         },
 
         // Updates it's properties.
@@ -70,7 +69,7 @@ module $REST {
             inheritMetadataType: true,
             name: "",
             requestMethod: "MERGE",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         }
     };
 }

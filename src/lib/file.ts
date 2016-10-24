@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // File
@@ -83,7 +82,7 @@ module $REST {
         // Approves the file submitted for content approval with the specified comment.
         approve: {
             argNames: ["comment"],
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Stops the chunk upload session without saving the uploaded data. If the file doesn’t already exist in the library, the partially uploaded file will be deleted. Use this in response to user action (as in a request to cancel an upload) or an error or exception.
@@ -92,25 +91,25 @@ module $REST {
         cancelupload: {
             argNames: ["uploadId"],
             name: "cancelupload(guid'[[uploadId]]')",
-            requestType: RequestType.PostReplace
+            requestType: Types.RequestType.PostReplace
         },
 
         // Checks the file in to a document library based on the check-in type.
         // Check-In Types: MinorCheckIn = 0; MajorCheckIn = 1; OverwriteCheckIn = 2
         checkin: {
             argNames: ["comment", "checkInType"],
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Checks out the file from a document library based on the check-out type.
         checkout: {
-            requestType: RequestType.Post
+            requestType: Types.RequestType.Post
         },
 
         // Returns the file content.
         content: {
             name: "$value",
-            requestType: RequestType.GetBuffer
+            requestType: Types.RequestType.GetBuffer
         },
 
         // Continues the chunk upload session with an additional fragment. The current file content is not changed.
@@ -119,25 +118,25 @@ module $REST {
         continueUpload: {
             argNames: ["uploadId", "fileOffset"],
             name: "cancelupload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
-            requestType: RequestType.PostReplace
+            requestType: Types.RequestType.PostReplace
         },
 
         // Copies the file to the destination URL.
         copyTo: {
             argNames: ["strNewUrl", "bOverWrite"],
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Deletes the object
         delete: {
-            requestType: RequestType.Delete
+            requestType: Types.RequestType.Delete
         },
 
         // Denies approval for a file that was submitted for content approval.
         // Only documents in lists that are enabled for content approval can be denied.
         deny: {
             argNames: ["comment"],
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Uploads the last file fragment and commits the file. The current file content is changed when this method completes.
@@ -146,7 +145,7 @@ module $REST {
         finishUpload: {
             argNames: ["uploadId", "fileOffset"],
             name: "cancelupload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
-            requestType: RequestType.PostReplace
+            requestType: Types.RequestType.PostReplace
         },
 
         // Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
@@ -155,7 +154,7 @@ module $REST {
         getlimitedwebpartmanager: {
             argNames: ["scope"],
             name: "getLimitedWebPartManager(scope=[[scope]])",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Moves the file to the specified destination URL.
@@ -163,28 +162,28 @@ module $REST {
         moveTo: {
             argNames: ["newUrl", "flags"],
             name: "moveTo(newUrl='[[newUrl]]', flags=[[flags]])",
-            requestType: RequestType.PostReplace
+            requestType: Types.RequestType.PostReplace
         },
 
         // Opens the file as a stream.
         openBinaryStream: {
-            requestType: RequestType.GetBuffer
+            requestType: Types.RequestType.GetBuffer
         },
 
         // Submits the file for content approval with the specified comment.
         publish: {
             argNames: ["comment"],
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
         recycle: {
-            requestType: RequestType.Get
+            requestType: Types.RequestType.Get
         },
 
         // Saves the file as a stream.
         saveBinaryStream: {
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Starts a new chunk upload session and uploads the first fragment. The current file content is not changed when this method completes.
@@ -193,18 +192,18 @@ module $REST {
         startUpload: {
             argNames: ["uploadId"],
             name: "startupload(uploadId=guid'[[uploadId]]')",
-            requestType: RequestType.PostReplace
+            requestType: Types.RequestType.PostReplace
         },
 
         // Reverts an existing checkout for the file.
         undoCheckOut: {
-            requestType: RequestType.Post
+            requestType: Types.RequestType.Post
         },
 
         // Removes the file from content approval or unpublish a major version.
         unpublish: {
             argNames: ["comment"],
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Updates it's properties.
@@ -212,7 +211,7 @@ module $REST {
             metadataType: "SP.File",
             name: "",
             requestMethod: "MERGE",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         }
     };
 }

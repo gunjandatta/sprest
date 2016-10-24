@@ -1,16 +1,19 @@
-// Type definitions for promise.js
+// Type definitions for request.js
 // Project: https://github.com/gunjandatta/sprest
 // Definitions by: Gunjan Datta <https://github.com/gunjandatta>
 
-declare module $REST {
+declare module $REST.Utils {
     /***********************************************************************/
-    // The promise class.
+    // The request object will execute the xml http requests to the api.
     /***********************************************************************/
-    interface IPromise {
+    interface IRequest {
         /***********************************************************************/
-        // Public Methods
+        // Public Properties
         /***********************************************************************/
-        done(callback?:() => void):void;
-        resolve():void;
+        asyncFl:boolean;
+        response:any;
+        request:any;
+        requestData:any;
+        requestUrl:string;
     }
 }

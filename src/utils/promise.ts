@@ -1,5 +1,5 @@
 /// <reference path="promise.d.ts" />
-module $REST {
+module $REST.Utils {
     /*********************************************************************************************************************************/
     // Promise
     // This is a lightweight promise library.

@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Folders
@@ -45,19 +44,19 @@ module $REST {
         // Adds the folder that is located at the specified URL to the collection.
         add: {
             argNames: ["url"],
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Get the file at the specified URL.
         getbyurl: {
             argNames: ["serverRelativeUrl"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: RequestType.OData
+            requestType: Types.RequestType.OData
         }
     };
 }

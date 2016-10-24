@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // List
@@ -60,7 +59,7 @@ module $REST {
         addAvailableContentType: {
             argNames: ["contentTypeId"],
             name: "contenttypes/addAvailableContentType",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Adds a content type to the collection.
@@ -68,14 +67,14 @@ module $REST {
             argNames: ["parameters"],
             metadataType: "SP.ContentType",
             name: "contenttypes/add",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Adds an event receiver to the collection.
         addEventReceiver: {
             metadataType: "SP.EventReceiverDefinition",
             name: "eventreceivers",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Adds a field to the field collection.
@@ -83,7 +82,7 @@ module $REST {
             argNames: ["parameters"],
             metadataType: "SP.FieldCreationInformation",
             name: "fields/add",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Adds a field, using it's Schema XML, to the field collection.
@@ -91,7 +90,7 @@ module $REST {
         addFieldAsXml: {
             argNames: ["schemaXml"],
             name: "fields/createFieldAsXml",
-            requestType: RequestType.PostWithArgsInBody,
+            requestType: Types.RequestType.PostWithArgsInBody,
             data: {
                 parameters: {
                      __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
@@ -105,139 +104,139 @@ module $REST {
         addDependentLookupField: {
             argNames: ["displayname", "primarylookupfieldid", "showfield"],
             name: "fields/addDependentLookupField",
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Adds an item to the list item collection.
         addItem: {
             metadataType: function(obj) { return obj["ListItemEntityTypeFullName"] || "SP.ListItem" },
             name: "items",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Adds a new role assignment with the specified principal and role definitions to the collection.
         addSiteGroup: {
             argNames: ["principalid", "roledefid"],
             name: "roleassignments/addroleassignment",
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Adds the folder that is located at the specified URL to the collection.
         addSubFolder: {
             argNames: ["url"],
             name: "folders/add",
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Adds a view to the list view collection.
         addView: {
             metadataType: "SP.View",
             name: "views",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Creates unique role assignments for the securable object.
         breakRoleInheritance: {
             argNames: ["copyroleassignments", "clearsubscopes"],
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Deletes the object
         delete: {
-            requestType: RequestType.Delete
+            requestType: Types.RequestType.Delete
         },
 
         // Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
         getChanges: {
             argNames: ["query"],
             metadataType: "SP.ChangeQuery",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Gets a content type by it's name.
         getContentType: {
             argNames: ["name"],
             name: "contenttypes?$filter=Name eq '[[name]]'",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Gets a content type by id.
         getContentTypeById: {
             argNames: ["id"],
             name: "contenttypes/getById([[id]])",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Returns the display form.
         getDefaultDisplayForm: {
             name: "forms?$filter=FormType eq 4",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Returns the edit form.
         getDefaultEditForm: {
             name: "forms?$filter=FormType eq 6",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Returns the new form.
         getDefaultNewForm: {
             name: "forms?$filter=FormType eq 8",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
         
         // Returns the list form based on the form type.
         getForm: {
             argNames: ["formType"],
             name: "forms?$filter=FormType eq [[formType]]",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
         
         // Gets the field with the specified ID.
         getFieldById: {
             argNames: ["id"],
             name: "fields/getById",
-            requestType: RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly
         },
 
         // Returns the first Field object with the specified internal name or title from the collection.
         getFieldByInternalNameOrTitle: {
             argNames: ["internalNameOrTitle"],
             name: "fields/getByInternalNameOrTitle",
-            requestType: RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly
         },
 
         // Returns the first field object in the collection based on the title of the specified field.
         getFieldByTitle: {
             argNames: ["title"],
             name: "fields/getByTitle",
-            requestType: RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly
         },
 
         // Get the folder at the specified URL.
         getSubFolder: {
             argNames: ["serverRelativeUrl"],
             name: "folders/getbyurl",
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
         
         // Returns an item based on the id.
         getItemById: {
             argNames: ["id"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Returns an item based on the title.
         getItemByTitle: {
             argNames: ["title"],
             name: "items?$filter Title eq '[[title]]'",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Returns a collection of items from the list based on the view xml.
         getItems: {
             argNames: ["viewXml"],
-            requestType: RequestType.PostWithArgsInBody,
+            requestType: Types.RequestType.PostWithArgsInBody,
             data: {
                 query: {
                      __metadata: { type: "SP.CamlQuery" },
@@ -250,14 +249,14 @@ module $REST {
         getItemsByFilter: {
             argNames: ["filter"],
             name: "items?$filter=[[filter]]",
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Returns a collection of items from the list based on the specified query.
         getItemsByQuery: {
             argNames: ["camlQuery"],
             name: "getItems",
-            requestType: RequestType.PostWithArgsInBody,
+            requestType: Types.RequestType.PostWithArgsInBody,
             data: {
                 query: {
                      __metadata: { type: "SP.CamlQuery" },
@@ -270,62 +269,62 @@ module $REST {
         getListItemChangesSinceToken: {
             argNames: ["query"],
             metadataType: "SP.ChangeLogItemQuery",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
         getRelatedFields: {
-            requestType: RequestType.Get
+            requestType: Types.RequestType.Get
         },
 
         // Gets the effective user permissions for the current user.
         getUserEffectivePermissions: {
             argNames: ["loginName"],
             name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Returns the list view with the specified view identifier.
         getViewById: {
             argNames: ["viewId"],
             name: "getView",
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Returns the list view with the specified view identifier.
         getViewByTitle: {
             argNames: ["title"],
             name: "views?$filter=Title eq '[[title]]'",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
         recycle: {
-            requestType: RequestType.Post
+            requestType: Types.RequestType.Post
         },
 
         // Renders the list data.
         renderListData: {
             argNames: ["viewXml"],
             name: "renderListData(@v)?@v='<View>[[viewXml]]</View>'",
-            requestType: RequestType.PostReplace
+            requestType: Types.RequestType.PostReplace
         },
 
         // Renders the list form data.
         // Types of modes: 1 - Display, 2 - Edit, 3 - New
         renderListFormData: {
             argNames: ["itemid", "formid", "mode"],
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Reserves a list item ID for idempotent list item creation.
         reserveListItemId: {
-            requestType: RequestType.Post
+            requestType: Types.RequestType.Post
         },
 
         // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
         resetRoleInheritance: {
-            requestType: RequestType.Post
+            requestType: Types.RequestType.Post
         },
 
         // Updates it's properties.
@@ -333,7 +332,7 @@ module $REST {
             metadataType: "SP.List",
             name: "",
             requestMethod: "MERGE",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         }
     };
 }

@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Content Types
@@ -46,32 +45,32 @@ module $REST {
         add: {
             argNames: ["parameters"],
             metadataType: "SP.ContentType",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Adds an existing content type to this collection.
         addAvailableContentType: {
             argNames: ["contentTypeId"],
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Gets a content type by id.
         getById: {
             argNames: ["id"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Gets a content type by name.
         getByName: {
             argNames: ["name"],
             name: "?$filter=Name eq '[[name]]'",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: RequestType.OData
+            requestType: Types.RequestType.OData
         }
     };
 }

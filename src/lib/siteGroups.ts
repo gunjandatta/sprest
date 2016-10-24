@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Site Groups
@@ -45,31 +44,31 @@ module $REST {
         // Returns a group from the collection based on the member ID of the group.
         getById: {
             argNames: ["id"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Returns a cross-site group from the collection based on the name of the group.
         getByName: {
             argNames: ["name"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: RequestType.OData
+            requestType: Types.RequestType.OData
         },
 
         // Removes the group with the specified member ID from the collection.
         removeById: {
             argNames: ["id"],
-            requestType: RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly
         },
 
         // Removes the cross-site group with the specified name from the collection.
         removeByLoginName: {
             argNames: ["name"],
-            requestType: RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly
         },
     }
 }

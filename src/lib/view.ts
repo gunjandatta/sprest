@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // View
@@ -44,12 +43,12 @@ module $REST {
     Library.view = {
         // Deletes the object
         delete: {
-            requestType: RequestType.Delete
+            requestType: Types.RequestType.Delete
         },
 
         // Returns the list view as HTML.
         renderAsHtml: {
-            requestType: RequestType.Get
+            requestType: Types.RequestType.Get
         },
 
         // Updates it's properties.
@@ -57,7 +56,7 @@ module $REST {
             metadataType: "SP.View",
             name: "",
             requestMethod: "MERGE",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         }
     };
 }

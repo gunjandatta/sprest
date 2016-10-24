@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Group
@@ -18,7 +17,7 @@ module $REST {
         getUserById: {
             argNames: ["userId"],
             name: "users?$filter=Id eq [[userId]]",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         }
     };
 }

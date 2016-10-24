@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Folder
@@ -89,7 +88,7 @@ module $REST {
         addFile: {
             argNames: ["url", "overwrite"],
             name: "files/add",
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Adds a ghosted file to this list or document library.
@@ -97,44 +96,44 @@ module $REST {
         addTemplateFile: {
             argNames: ["urlOfFile", "templateFileType"],
             name: "files/addtemplatefile",
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Adds the sub-folder that is located at the specified URL to the collection.
         addSubFolder: {
             argNames: ["url"],
             name: "folders/add",
-            requestType: RequestType.PostWithArgs
+            requestType: Types.RequestType.PostWithArgs
         },
 
         // Deletes the object
         delete: {
-            requestType: RequestType.Delete
+            requestType: Types.RequestType.Delete
         },
 
         // Gets the file for the specified name
         getFile: {
             argNames: ["name"],
             name: "files?$filter=Name eq '[[name]]'",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Gets the folder for the specified name
         getSubFolder: {
             argNames: ["name"],
             name: "folders?$filter=Name eq '[[name]]'",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Get the file at the specified URL.
         getByUrl: {
             argNames: ["serverRelativeUrl"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
         recycle: {
-            requestType: RequestType.Post
+            requestType: Types.RequestType.Post
         },
 
         // Updates it's properties.
@@ -142,7 +141,7 @@ module $REST {
             metadataType: "SP.Folder",
             name: "",
             requestMethod: "MERGE",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         }
     };
 }

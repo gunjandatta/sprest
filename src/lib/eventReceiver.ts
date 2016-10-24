@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Event Receiver
@@ -44,7 +43,7 @@ module $REST {
     Library.eventreceiverdefinition = {
         // Deletes the object
         delete: {
-            requestType: RequestType.Delete
+            requestType: Types.RequestType.Delete
         },
 
         // Updates it's properties.
@@ -52,7 +51,7 @@ module $REST {
             metadataType: "SP.EventReceiverDefinition",
             name: "",
             requestMethod: "MERGE",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         }
     };
 }

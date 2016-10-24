@@ -1,5 +1,5 @@
 /// <reference path="oData.d.ts" />
-module $REST {
+module $REST.Utils {
     /*********************************************************************************************************************************/
     // OData
     // Class for generating the OData query string.

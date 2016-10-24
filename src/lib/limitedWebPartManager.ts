@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Limited WebPart Manager
@@ -18,7 +17,7 @@ module $REST {
         get_WebParts: {
             argNames: ["id"],
             name: "webparts?expand=WebPart",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         }
     };
 }

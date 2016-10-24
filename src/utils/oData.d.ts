@@ -2,7 +2,7 @@
 // Project: https://github.com/gunjandatta/sprest
 // Definitions by: Gunjan Datta <https://github.com/gunjandatta>
 
-declare module $REST {
+declare module $REST.Utils {
     /***********************************************************************/
     // The OData class.
     /***********************************************************************/
@@ -13,7 +13,6 @@ declare module $REST {
         Expand?:Array<string>;
         Filter?:Array<string>;
         OrderBy?:Array<string>;
-        readonly QueryString:string;
         Select?:Array<string>;
         Skip?:number;
         Top?:number;

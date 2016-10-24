@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // User Custom Actions
@@ -46,38 +45,38 @@ module $REST {
         add: {
             metadataType: "SP.UserCustomAction",
             name: "",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Deletes all custom actions in the collection.
         clear: {
-            requestType: RequestType.Post
+            requestType: Types.RequestType.Post
         },
 
         // Returns the custom action with the specified identifier.
         getById: {
             argNames: ["id"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
         // Returns the user custom action based on the name of the specified user custom action.
         getByName: {
             argNames: ["name"],
             name: "?filter=Name eq '[[name]]'",
-            requestType: RequestType.PostReplace
+            requestType: Types.RequestType.PostReplace
         },
 
         // Returns the user custom action based on the title of the specified user custom action.
         getByTitle: {
             argNames: ["title"],
             name: "?filter=Title eq '[[title]]'",
-            requestType: RequestType.PostReplace
+            requestType: Types.RequestType.PostReplace
         },
 
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: RequestType.OData
+            requestType: Types.RequestType.OData
         }
     };
 }

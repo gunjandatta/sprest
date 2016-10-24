@@ -1,10 +1,9 @@
-/// <reference path="dependencies.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Dependencies
     // This class will ensure the core SP scripts are loaded on the page.
     /*********************************************************************************************************************************/
-    export class Dependencies implements IDependencies {
+    export class Dependencies {
 
         /*********************************************************************************************************************************/
         // Constants
@@ -17,7 +16,7 @@ module $REST {
         /*********************************************************************************************************************************/
         constructor(callback?:() => void) {
             // Default the properties
-            this.promise = new Promise(callback);
+            this.promise = new Utils.Promise(callback);
 
             // Load the dependencies
             this.loadDependencies();
@@ -28,7 +27,7 @@ module $REST {
         /*********************************************************************************************************************************/
 
         // The promise
-        private promise:Promise;
+        private promise:Utils.IPromise;
 
         // Flag to determine if the page context information exists
         private get pageContextExistsFl():boolean { return window.hasOwnProperty("_spPageContextInfo"); }

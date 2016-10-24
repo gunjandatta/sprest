@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // View Fields
@@ -17,30 +16,30 @@ module $REST {
         // Adds the field with the specified field internal name or display name to the collection.
         addViewField: {
             argNames: ["fieldName"],
-            requestType: RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly
         },
 
         // Moves the field with the specified field internal name to the specified position in the collection.
         moveViewFieldTo: {
             argNames: ["field", "index"],
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: RequestType.OData
+            requestType: Types.RequestType.OData
         },
 
         // Removes all the fields from the collection.
         removeAllViewFields: {
-            requestType: RequestType.Post
+            requestType: Types.RequestType.Post
         },
 
         // Removes the field with the specified field internal name from the collection.
         removeViewField: {
             argNames: ["fieldName"],
-            requestType: RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly
         }
     };
 }

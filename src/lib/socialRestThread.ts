@@ -1,10 +1,9 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Social REST Thread
     /*********************************************************************************************************************************/
     Library.socialrestthread = {};
-    Library.socialrestthread[RequestType.Custom] = [
+    Library.socialrestthread[Types.RequestType.Custom] = [
         { name: "delete", "function": function (id) { return this.executePost("delete", null, { ID: id || this.ID }, true); } },
         { name: "like", "function": function (id) { return this.executePost("like", null, { ID: id || this.ID }, true); } },
         { name: "lock", "function": function (id) { return this.executePost("lock", null, { ID: id || this.ID }, true); } },

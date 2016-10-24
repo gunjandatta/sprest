@@ -7,17 +7,10 @@
     },
     "files": [
         "src/base.ts",
-        "src/dependencies.ts",
-        "src/methodInfo.ts",
-        "src/oData.ts",
-        "src/promise.ts",
-        "src/request.ts",
-        "src/targetInfo.ts",
         "src/lib/attachmentFiles.ts",
         "src/lib/contentType.ts",
         "src/lib/contentTypes.ts",
         "src/lib/email.ts",
-        "src/lib/enumerators.ts",
         "src/lib/eventReceiver.ts",
         "src/lib/eventReceivers.ts",
         "src/lib/field.ts",
@@ -57,6 +50,14 @@
         "src/lib/viewFieldCollection.ts",
         "src/lib/views.ts",
         "src/lib/web.ts",
-        "src/lib/webs.ts"
+        "src/lib/webs.ts",
+        "src/types/requestType.ts",
+        "src/types/sp.ts",
+        "src/utils/dependencies.ts",
+        "src/utils/methodInfo.ts",
+        "src/utils/oData.ts",
+        "src/utils/promise.ts",
+        "src/utils/request.ts",
+        "src/utils/targetInfo.ts"
     ]
 }

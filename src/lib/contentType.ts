@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Content Type
@@ -51,40 +50,40 @@ module $REST {
         addFieldLink: {
             name: "fieldlink",
             metadataType: "SP.FieldLink",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Deletes the content type.
         delete: {
-            requestType: RequestType.Delete
+            requestType: Types.RequestType.Delete
         },
 
         // Gets a field by it's internal name.
         getFieldByInternalName: {
             argNames: ["name"],
             name: "fields?$filter=InternalName eq '[[name]]'",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Gets a field by it's static name.
         getFieldByStaticName: {
             argNames: ["name"],
             name: "fields?$filter=StaticName eq '[[name]]'",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Gets a field by it's title.
         getFieldByTitle: {
             argNames: ["title"],
             name: "fields?$filter=Title eq '[[title]]'",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Gets a field by it's internal name.
         getFieldLinkByName: {
             argNames: ["name"],
             name: "fields?$filter=Name eq '[[name]]'",
-            requestType: RequestType.GetReplace
+            requestType: Types.RequestType.GetReplace
         },
 
         // Updates it's properties.
@@ -92,7 +91,7 @@ module $REST {
             metadataType: "SP.ContentType",
             name: "",
             requestMethod: "MERGE",
-            requestType: RequestType.PostWithArgsInBody
+            requestType: Types.RequestType.PostWithArgsInBody
         }
     };
 }

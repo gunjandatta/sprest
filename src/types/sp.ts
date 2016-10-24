@@ -1,9 +1,8 @@
-/// <reference path="../base.d.ts" />
-module $REST {
+module $REST.Types {
     /**
      * Control Modes
      */
-    enum ControlMode {
+    export enum ControlMode {
         /** A placeholder value in the enumeration indicating that it has no valid display mode from one of the other enumeration values. */
         Invalid = 0,
 
@@ -20,7 +19,7 @@ module $REST {
     /**
      * Draft Visibility Types
      */
-    enum DraftVisibilityType {
+    export enum DraftVisibilityType {
         /** Enumeration whose values specify that the minimum permission is approver. */
         Approver = 2,
 
@@ -34,7 +33,7 @@ module $REST {
     /**
      * Event Receiver Types
      */
-    enum EventReceiverType {
+    export enum EventReceiverType {
         /** Event that occurs before an item has been added. */
         ItemAdding = 1,
 
@@ -264,7 +263,7 @@ module $REST {
     /**
      * Event Receiver Synchronization Types
      */
-    enum EventReceiverSynchronizationType {
+    export enum EventReceiverSynchronizationType {
         /** Event to be triggered asynchronously. */
         Asynchronous = 2,
 
@@ -275,7 +274,7 @@ module $REST {
     /**
      * Field Types
      */
-    enum FieldType {
+    export enum FieldType {
         /** Specifies that the field indicates whether a meeting in a calendar list is an all-day event. */
         AllDayEvent = 29,
 
@@ -378,7 +377,7 @@ module $REST {
      /**
       * File Template Types
       */
-      enum FileTemplateType {
+      export enum FileTemplateType {
         /** Enumeration whose value specifies default form template. */
         FormPage = 2,
 
@@ -392,7 +391,7 @@ module $REST {
      /**
       * List Template Types
       */
-    enum ListTemplateType {
+    export enum ListTemplateType {
         /** Access Request List */
         AccessRequest = 160,
 
@@ -571,7 +570,7 @@ module $REST {
     /**
      * Page Types
      */
-    enum PageType {
+    export enum PageType {
         /** Enumeration whose values specify a page that is the default view for a list. */
         DefaultView = 0,
 
@@ -615,7 +614,7 @@ module $REST {
     /**
      * Role Types
      */
-    enum RoleType {
+    export enum RoleType {
         /** Has all rights from other roles, plus rights to manage roles and view usage analysis data. Includes all rights in the WebDesigner role, plus the following: ManageListPermissions, ManageRoles, ManageSubwebs, ViewUsageData. The Administrator role cannot be customized or deleted, and must always contain at least one member. Members of the Administrator role always have access to, or can grant themselves access to, any item in the Web site. */
         Administrator = 5,
 
@@ -641,7 +640,7 @@ module $REST {
     /**
      * User Custom Action Registration Types
      */
-    enum UserCustomActionRegistrationType {
+    export enum UserCustomActionRegistrationType {
         /** Enumeration whose values specify that the object association is not specified. */
         None = 0,
 
@@ -661,7 +660,7 @@ module $REST {
     /**
      * View Types
      */
-    enum ViewType {
+    export enum ViewType {
         /** Enumeration whose values specify a calendar list view type. */
         Calendar = 524288,
 

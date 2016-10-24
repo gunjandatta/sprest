@@ -1,5 +1,5 @@
 /// <reference path="methodInfo.d.ts" />
-module $REST {
+module $REST.Utils {
     /*********************************************************************************************************************************/
     // Method Information
     // This class will create the method information for the request.
@@ -12,7 +12,7 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(methodName:string, methodInfo:IMethodInfoType, args:any) {
+        constructor(methodName:string, methodInfo:IMethodInfoSettings, args:any) {
             // Default the properties
             this.methodInfo = methodInfo;
             this.methodInfo.argValues = args;
@@ -42,13 +42,13 @@ module $REST {
 
             // Determine the request method, based on the request type
             switch(this.methodInfo.requestType) {
-                case RequestType.Delete:
-                case RequestType.Post:
-                case RequestType.PostWithArgs:
-                case RequestType.PostWithArgsInBody:
-                case RequestType.PostWithArgsInQS:
-                case RequestType.PostWithArgsValueOnly:
-                case RequestType.PostReplace:
+                case Types.RequestType.Delete:
+                case Types.RequestType.Post:
+                case Types.RequestType.PostWithArgs:
+                case Types.RequestType.PostWithArgsInBody:
+                case Types.RequestType.PostWithArgsInQS:
+                case Types.RequestType.PostWithArgsValueOnly:
+                case Types.RequestType.PostReplace:
                     return "POST";
                 default:
                     return "GET";
@@ -62,12 +62,12 @@ module $REST {
         // Private Variables
         /*********************************************************************************************************************************/
 
-        private get passDataInBody():boolean { return this.methodInfo.requestType == RequestType.GetWithArgsInBody || this.methodInfo.requestType == RequestType.PostWithArgsInBody; }
-        private get passDataInQS():boolean { return this.methodInfo.requestType == RequestType.GetWithArgsInQS || this.methodInfo.requestType == RequestType.PostWithArgsInQS; }
+        private get passDataInBody():boolean { return this.methodInfo.requestType == Types.RequestType.GetWithArgsInBody || this.methodInfo.requestType == Types.RequestType.PostWithArgsInBody; }
+        private get passDataInQS():boolean { return this.methodInfo.requestType == Types.RequestType.GetWithArgsInQS || this.methodInfo.requestType == Types.RequestType.PostWithArgsInQS; }
         private get isTemplate():boolean { return this.methodInfo.data ? true : false; }
-        private get replace():boolean { return this.methodInfo.requestType == RequestType.GetReplace || this.methodInfo.requestType == RequestType.PostReplace; }
+        private get replace():boolean { return this.methodInfo.requestType == Types.RequestType.GetReplace || this.methodInfo.requestType == Types.RequestType.PostReplace; }
         private methodData:any;
-        private methodInfo:IMethodInfoType;
+        private methodInfo:IMethodInfoSettings;
         private methodParams:any;
         private methodUrl:string;
  
@@ -166,7 +166,7 @@ module $REST {
             let url = this.methodInfo.name;
 
             // See if we are deleting the object
-            if(this.methodInfo.requestType == RequestType.Delete) {
+            if(this.methodInfo.requestType == Types.RequestType.Delete) {
                 // Update the url
                 url = "deleteObject";
             }
@@ -196,7 +196,7 @@ module $REST {
                 }
             }
             // Else, see if this is an odata request
-            else if(this.methodInfo.requestType == RequestType.OData) {
+            else if(this.methodInfo.requestType == Types.RequestType.OData) {
                 let oData = new OData(this.methodParams["oData"]);
 
                 // Update the url
@@ -219,8 +219,8 @@ module $REST {
 
                         switch(this.methodInfo.requestType) {
                             // Append the value only
-                            case RequestType.GetWithArgsValueOnly:
-                            case RequestType.PostWithArgsValueOnly:
+                            case Types.RequestType.GetWithArgsValueOnly:
+                            case Types.RequestType.PostWithArgsValueOnly:
                                 params += value + ", ";
                             break;
                             // Append the parameter and value

@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Email
@@ -41,7 +40,7 @@ module $REST {
                 argNames: ["properties"],
                 name: "",
                 metadataType: "SP.Utilities.EmailProperties",
-                requestType: RequestType.PostWithArgsInBody
+                requestType: Types.RequestType.PostWithArgsInBody
             }, [properties]);
         }
     }

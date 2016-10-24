@@ -9,7 +9,7 @@ gulp.task("build", function() {
     console.log("Bundling and minifying the project.");
 
     // Bundle and minify the js files
-    return gulp.src(["js/*.js", "js/lib/*.js"])
+    return gulp.src(["js/*.js", "js/types/*.js", "js/utils/*.js", "js/lib/*.js"])
         .pipe(concat("sprest.js"))
         .pipe(gulp.dest("dist"))
         .pipe(rename("sprest.min.js"))

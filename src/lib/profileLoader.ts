@@ -1,4 +1,3 @@
-/// <reference path="../base.d.ts" />
 module $REST {
     /*********************************************************************************************************************************/
     // Profile Loader
@@ -13,7 +12,7 @@ module $REST {
     // Methods
     /*********************************************************************************************************************************/
     Library.profileloader = {
-        //Library.[RequestType.Post] = ["getOwnerUserProfile", "getUserProfile"];
-        //Library.profileloader[RequestType.PostDataInBody] = ["createPersonalSiteEnqueueBulk"];
+        //Library.[Types.RequestType.Post] = ["getOwnerUserProfile", "getUserProfile"];
+        //Library.profileloader[Types.RequestType.PostDataInBody] = ["createPersonalSiteEnqueueBulk"];
     };
 }
