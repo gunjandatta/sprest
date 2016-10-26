@@ -3038,16 +3038,21 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function Site() {
+        function Site(url) {
             var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
             }
             // Call the base constructor
             _super.call(this, $REST.Base.getInputParmeters(args));
             // Default the properties
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "site";
+            // See if the web url exists
+            if (url) {
+                // Set the settings
+                this.targetInfo.url = url;
+            }
             // See if we are executing the request
             if (this.executeRequestFl) {
                 // Execute the request
@@ -3059,7 +3064,7 @@ var $REST;
             }
         }
         // Method to get the root web
-        Site.prototype.getRootWeb = function () { return new $REST.Web(this.targetInfo); };
+        Site.prototype.getRootWeb = function () { return new $REST.Web(null, this.targetInfo); };
         // Method to determine if the current user has access, based on the permissions.
         Site.prototype.hasAccess = function (permissions) {
             // TO DO
@@ -3074,13 +3079,13 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function Site_Async() {
+        function Site_Async(url) {
             var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
             }
             // Call the base constructor
-            _super.call(this, $REST.Base.getAsyncInputParmeters.apply(null, args));
+            _super.call(this, url, $REST.Base.getAsyncInputParmeters.apply(null, args));
         }
         return Site_Async;
     }(Site));
@@ -3538,16 +3543,21 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function Web() {
+        function Web(url) {
             var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
             }
             // Call the base constructor
             _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
             // Default the properties
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "web";
+            // See if the web url exists
+            if (url) {
+                // Set the settings
+                this.targetInfo.url = url;
+            }
             // See if we are executing the request
             if (this.executeRequestFl) {
                 // Execute the request
@@ -3572,13 +3582,13 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function Web_Async() {
+        function Web_Async(url) {
             var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
             }
             // Call the base constructor
-            _super.call(this, $REST.Base.getAsyncInputParmeters.apply(null, args));
+            _super.call(this, url, $REST.Base.getAsyncInputParmeters.apply(null, args));
         }
         return Web_Async;
     }(Web));

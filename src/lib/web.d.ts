@@ -5,10 +5,11 @@ declare module $REST.Types {
     interface IWeb extends IBase {
         /**
          * Constructor
+         * @param url - (Optional) The web url.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        new(executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IWeb;
+        new(url?:string, executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IWeb;
 
         /**
          * Properties

@@ -5,10 +5,11 @@ declare module $REST.Types {
     interface IList extends IBase {
         /**
          * Constructor
+         * @param listName - The name of the list.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        new(executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IList;
+        new(listName:string, executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IList;
 
         /**
          * Properties

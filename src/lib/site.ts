@@ -7,13 +7,19 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(...args) {
+        constructor(url?:string, ...args) {
             // Call the base constructor
             super(Base.getInputParmeters(args));
 
             // Default the properties
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "site";
+
+            // See if the web url exists
+            if(url) {
+                // Set the settings
+                this.targetInfo.url = url;
+            }
 
             // See if we are executing the request
             if(this.executeRequestFl) {
@@ -27,7 +33,7 @@ module $REST {
         }
 
         // Method to get the root web
-        public getRootWeb() { return new Web(this.targetInfo); }
+        public getRootWeb() { return new Web(null, this.targetInfo); }
 
         // Method to determine if the current user has access, based on the permissions.
         public hasAccess(permissions) {
@@ -40,9 +46,9 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(...args) {
+        constructor(url?:string, ...args) {
             // Call the base constructor
-            super(Base.getAsyncInputParmeters.apply(null, args));
+            super(url, Base.getAsyncInputParmeters.apply(null, args));
         }
     }
     

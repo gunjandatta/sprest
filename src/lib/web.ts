@@ -8,13 +8,19 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(...args) {
+        constructor(url?:string, ...args) {
             // Call the base constructor
             super(Base.getInputParmeters.apply(null, args));
 
             // Default the properties
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "web";
+
+            // See if the web url exists
+            if(url) {
+                // Set the settings
+                this.targetInfo.url = url;
+            }
 
             // See if we are executing the request
             if(this.executeRequestFl) {
@@ -38,9 +44,9 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(...args) {
+        constructor(url?:string, ...args) {
             // Call the base constructor
-            super(Base.getAsyncInputParmeters.apply(null, args));
+            super(url, Base.getAsyncInputParmeters.apply(null, args));
         }
     }
 

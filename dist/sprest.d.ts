@@ -2514,10 +2514,11 @@ declare module $REST.Types {
     interface IList extends IBase {
         /**
          * Constructor
+         * @param listName - The name of the list.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        new(executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IList;
+        new(listName:string, executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IList;
 
         /**
          * Properties
@@ -3456,10 +3457,11 @@ declare module $REST.Types {
     interface ISite extends IBase {
         /**
          * Constructor
+         * @param url - (Optional) The web url.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        new(executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): ISite;
+        new(url?:string, executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): ISite;
 
         /**
          * Properties
@@ -4302,10 +4304,11 @@ declare module $REST.Types {
     interface IWeb extends IBase {
         /**
          * Constructor
+         * @param url - (Optional) The web url.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        new(executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IWeb;
+        new(url?:string, executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IWeb;
 
         /**
          * Properties

@@ -72,7 +72,7 @@ function testContentType(list) {
     writeToLog("Creating the content type", LogType.SubHeader);
 
     // Create the content type
-    var web = new $REST.Web(null, false);
+    var web = new $REST.Web();
     ct = web.addContentType({
         Name: "SPRest" + SP.Guid.newGuid().toString()
     });
@@ -91,7 +91,7 @@ function testContentType(list) {
         });
 
         // Read the content types
-        var cts = new $REST.ContentTypes();
+        var cts = (new $REST.Web()).ContentTypes();
         ct = cts.getById(ct.Id.StringValue);
 
         // Test
@@ -101,7 +101,7 @@ function testContentType(list) {
         writeToLog("Creating a field", LogType.SubHeader);
 
         // Get the test field
-        var field = new $REST.Field("SPRestText");
+        var field = (new $REST.Web()).Fields().getByInternalNameOrTitle("SPRestText");
         if(!field.existsFl) {
             // Create the test field
             field = web.addFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />');
@@ -186,7 +186,7 @@ function testFile() {
     writeToLog("Getting this file.", LogType.SubHeader);
 
     // Get this file
-    var file = new $REST.File(_spPageContextInfo.serverRequestPath);
+    var file = (new $REST.Web()).getFileByServerRelativeUrl(_spPageContextInfo.serverRequestPath);
 
     // Test
     assert(file, "read file", "Exists", true);
@@ -195,7 +195,7 @@ function testFile() {
     writeToLog("Getting the parent folder", LogType.SubHeader);
 
     // Get the parent folder
-    var folder = new $REST.Folder(file.ServerRelativeUrl.substr(0, file.ServerRelativeUrl.length - file.Name.length - 1));
+    var folder = (new $REST.Web()).getFolderByServerRelativeUrl(file.ServerRelativeUrl.substr(0, file.ServerRelativeUrl.length - file.Name.length - 1));
 
     // Test
     assert(folder, "read folder", "Exists", true);
@@ -259,7 +259,7 @@ function testList() {
     writeToLog("Creating the list", LogType.SubHeader);
 
     // Create the list
-    var web = new $REST.Web(null, false);
+    var web = new $REST.Web();
     list = web.addList({
         BaseTemplate: 100,
         Description: "This is a test list.",
@@ -332,7 +332,7 @@ function testListItem(list) {
     });
 
     // Read the updated item
-    item = new $REST.ListItem(item.ID, list.Title);
+    item = (new $REST.List(list.Title)).getItemById(item.ID);
 
     // Test
     assert(item, "update", "Title", "Updated Item");
