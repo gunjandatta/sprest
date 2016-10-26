@@ -1,45 +1,53 @@
-/**
- * Site Groups
- */
-interface ISiteGroups extends IBase {
+declare module $REST.Types {
     /**
-     * Properties
+     * Site Groups
      */
+    interface ISiteGroups extends IBase {
+        /**
+         * Properties
+         */
 
-    /** The site group collection. */
-    results: Array<IGroup>;
+        /** The site group collection. */
+        results: Array<IGroup>;
 
-    /**
-     * Methods
-     */
+        /**
+         * Methods
+         */
 
-    /**
-     * Returns a group from the collection based on the member ID of the group.
-     * @param id - The site group id.
-     */
-    getById(id): IGroup;
+        /**
+         * Method to execute the request.
+         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         */
+        execute(callback?:(ISiteGroups) => void): ISiteGroups;
 
-    /**
-     * Returns a cross-site group from the collection based on the name of the group.
-     * @param name - The name of the group. The group name is specified in its LoginName property.
-     */
-    getByName(name): IGroup;
+        /**
+         * Returns a group from the collection based on the member ID of the group.
+         * @param id - The site group id.
+         */
+        getById(id): IGroup;
 
-    /**
-     * Removes the group with the specified member ID from the collection.
-     * @param id - The ID of the group to remove.
-     */
-    removeById(id): any;
+        /**
+         * Returns a cross-site group from the collection based on the name of the group.
+         * @param name - The name of the group. The group name is specified in its LoginName property.
+         */
+        getByName(name): IGroup;
 
-    /**
-     * Removes the cross-site group with the specified name from the collection.
-     * @param name - The name of the group to remove. The group name is specified in its LoginName property.
-     */
-    removeByLoginName(name): any;
+        /**
+         * Removes the group with the specified member ID from the collection.
+         * @param id - The ID of the group to remove.
+         */
+        removeById(id): any;
 
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(oData:$REST.Types.ODataSettings): ISiteGroups;
+        /**
+         * Removes the cross-site group with the specified name from the collection.
+         * @param name - The name of the group to remove. The group name is specified in its LoginName property.
+         */
+        removeByLoginName(name): any;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:Settings.ODataSettings): ISiteGroups;
+    }
 }

@@ -1,12 +1,12 @@
-declare module $REST.Types {
-    /***********************************************************************************************
-     * Enumerators
-     **********************************************************************************************/
+/***********************************************************************************************
+ * Enumerators
+ **********************************************************************************************/
 
+declare module $REST.Types {
     /**
      * Control Modes
      */
-    export enum ControlMode {
+    enum ControlMode {
         /** A placeholder value in the enumeration indicating that it has no valid display mode from one of the other enumeration values. */
         Invalid = 0,
 
@@ -23,7 +23,7 @@ declare module $REST.Types {
     /**
      * Draft Visibility Types
      */
-    export enum DraftVisibilityType {
+    enum DraftVisibilityType {
         /** Enumeration whose values specify that the minimum permission is approver. */
         Approver = 2,
 
@@ -37,7 +37,7 @@ declare module $REST.Types {
     /**
      * Event Receiver Types
      */
-    export enum EventReceiverType {
+    enum EventReceiverType {
         /** Event that occurs before an item has been added. */
         ItemAdding = 1,
 
@@ -267,7 +267,7 @@ declare module $REST.Types {
     /**
      * Event Receiver Synchronization Types
      */
-    export enum EventReceiverSynchronizationType {
+    enum EventReceiverSynchronizationType {
         /** Event to be triggered asynchronously. */
         Asynchronous = 2,
 
@@ -278,7 +278,7 @@ declare module $REST.Types {
     /**
      * Field Types
      */
-    export enum FieldType {
+    enum FieldType {
         /** Specifies that the field indicates whether a meeting in a calendar list is an all-day event. */
         AllDayEvent = 29,
 
@@ -381,7 +381,7 @@ declare module $REST.Types {
      /**
       * File Template Types
       */
-      export enum FileTemplateType {
+      enum FileTemplateType {
         /** Enumeration whose value specifies default form template. */
         FormPage = 2,
 
@@ -395,7 +395,7 @@ declare module $REST.Types {
      /**
       * List Template Types
       */
-    export enum ListTemplateType {
+    enum ListTemplateType {
         /** Access Request List */
         AccessRequest = 160,
 
@@ -574,7 +574,7 @@ declare module $REST.Types {
     /**
      * Page Types
      */
-    export enum PageType {
+    enum PageType {
         /** Enumeration whose values specify a page that is the default view for a list. */
         DefaultView = 0,
 
@@ -618,7 +618,7 @@ declare module $REST.Types {
     /**
      * Role Types
      */
-    export enum RoleType {
+    enum RoleType {
         /** Has all rights from other roles, plus rights to manage roles and view usage analysis data. Includes all rights in the WebDesigner role, plus the following: ManageListPermissions, ManageRoles, ManageSubwebs, ViewUsageData. The Administrator role cannot be customized or deleted, and must always contain at least one member. Members of the Administrator role always have access to, or can grant themselves access to, any item in the Web site. */
         Administrator = 5,
 
@@ -644,7 +644,7 @@ declare module $REST.Types {
     /**
      * User Custom Action Registration Types
      */
-    export enum UserCustomActionRegistrationType {
+    enum UserCustomActionRegistrationType {
         /** Enumeration whose values specify that the object association is not specified. */
         None = 0,
 
@@ -664,7 +664,7 @@ declare module $REST.Types {
     /**
      * View Types
      */
-    export enum ViewType {
+    enum ViewType {
         /** Enumeration whose values specify a calendar list view type. */
         Calendar = 524288,
 
@@ -683,11 +683,13 @@ declare module $REST.Types {
         /** Enumeration whose values specify a list view type that displays recurring events. */
         Recurrence = 8193,
     }
+}
 
-    /***********************************************************************************************
-     * Settings
-     **********************************************************************************************/
+/***********************************************************************************************
+ * Settings
+ **********************************************************************************************/
 
+declare module $REST.Settings {
     /**
      * CAML Query
      */

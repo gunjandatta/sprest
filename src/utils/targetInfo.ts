@@ -7,7 +7,7 @@ module $REST.Utils {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(targetInfo:Types.TargetInfoSettings) {
+        constructor(targetInfo:Settings.TargetInfoSettings) {
             // Default the properties
             this.targetInfo = targetInfo || {};
             this.requestData = this.targetInfo.data;
@@ -48,7 +48,7 @@ module $REST.Utils {
         /*********************************************************************************************************************************/
 
         // The target information
-        private targetInfo:Types.TargetInfoSettings;
+        private targetInfo:Settings.TargetInfoSettings;
 
         // Reference to the page context information
         private get context():any { return window["_spPageContextInfo"]; }

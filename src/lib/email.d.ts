@@ -1,5 +1,4 @@
-declare module $REST.Types {
-
+declare module $REST.Settings {
     /**
      * Email Creation Information
      */
@@ -18,28 +17,30 @@ declare module $REST.Types {
     }
 }
 
-/**
- * Email
- */
-interface IEmail {
+declare module $REST.Types {
     /**
-     * Constructor
-     * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
-     * @param targetInfo - (Optional) The target information.
+     * Email
      */
-    new(executeRequestFl?:boolean, targetInfo?:$REST.Types.TargetInfoSettings): IEmail;
+    interface IEmail {
+        /**
+         * Constructor
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param targetInfo - (Optional) The target information.
+         */
+        new(executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IEmail;
 
-    /**
-     * Properties
-     */
+        /**
+         * Properties
+         */
 
-    /**
-     * Methods
-     */
+        /**
+         * Methods
+         */
 
-    /**
-     * Method to send an email.
-     * @param properties - The email information.
-     */
-    send(properties:$REST.Types.EmailCreationInformation): any;
+        /**
+         * Method to send an email.
+         * @param properties - The email information.
+         */
+        send(properties:Settings.EmailCreationInformation): any;
+    }
 }

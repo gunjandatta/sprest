@@ -218,7 +218,7 @@ module $REST {
         // Get the folder at the specified URL.
         getSubFolder: {
             argNames: ["serverRelativeUrl"],
-            name: "folders/getbyurl",
+            name: "rootfolder/folders/getbyurl",
             requestType: Types.RequestType.GetWithArgsValueOnly
         },
         

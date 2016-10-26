@@ -1,39 +1,47 @@
-/**
- * Role Definitions
- */
-interface IRoleDefinitions extends IBase {
+declare module $REST.Types {
     /**
-     * Properties
+     * Role Definitions
      */
+    interface IRoleDefinitions extends IBase {
+        /**
+         * Properties
+         */
 
-    /** The role definition collection */
-    results: Array<IRoleDefinition>;
+        /** The role definition collection */
+        results: Array<IRoleDefinition>;
 
-    /**
-     * Methods
-     */
+        /**
+         * Methods
+         */
 
-    /**
-     * Gets the role definition with the specified ID from the collection.
-     * @param roleDefId - The ID of the role definition that defines the permissions to assign.
-     */
-    getById(roleDefId): IRoleDefinition;
+        /**
+         * Method to execute the request.
+         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         */
+        execute(callback?:(IRoleDefinitions) => void): IRoleDefinitions;
 
-    /**
-     * Gets the role definition with the specified name.
-     * @param name -
-     */
-    getByName(name): IRoleDefinition;
+        /**
+         * Gets the role definition with the specified ID from the collection.
+         * @param roleDefId - The ID of the role definition that defines the permissions to assign.
+         */
+        getById(roleDefId): IRoleDefinition;
 
-    /**
-     * Gets the role definition with the specified role type.
-     * @param roleType - The RoleTypeKind of the role definition.
-     */
-    getByType(roleType:$REST.Types.RoleType): IRoleDefinition;
+        /**
+         * Gets the role definition with the specified name.
+         * @param name -
+         */
+        getByName(name): IRoleDefinition;
 
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(oData:$REST.Types.ODataSettings): IRoleDefinitions;
+        /**
+         * Gets the role definition with the specified role type.
+         * @param roleType - The RoleTypeKind of the role definition.
+         */
+        getByType(roleType:Types.RoleType): IRoleDefinition;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:Settings.ODataSettings): IRoleDefinitions;
+    }
 }

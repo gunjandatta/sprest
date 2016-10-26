@@ -45,18 +45,18 @@ declare module $REST {
      */
     var ExecuteOnCreationFl:boolean;
 
-    /**
-     * Email
-     */
-    var Email:IEmail;
+    /** Email */
+    var Email:Types.IEmail;
 
-    /**
-     * List
-     */
-    var List:IList;
+    /** List */
+    var List:Types.IList;
+    var List_Async:Types.IList;
     
-    /**
-     * Web
-     */
-    var Web:IWeb;
+    /** Site */
+    var Site:Types.ISite;
+    var Site_Async:Types.ISite;
+    
+    /** Web */
+    var Web:Types.IWeb;
+    var Web_Async:Types.IWeb;
 }

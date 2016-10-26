@@ -1,33 +1,41 @@
-/**
- * List Items
- */
-interface IListItems extends IBase {
+declare module $REST.Types {
     /**
-     * Properties
+     * List Items
      */
+    interface IListItems extends IBase {
+        /**
+         * Properties
+         */
 
-    /** The list item collection. */
-    results: Array<IListItem>;
+        /** The list item collection. */
+        results: Array<IListItem>;
 
-    /**
-     * Methods
-     */
+        /**
+         * Methods
+         */
 
-    /**
-     * Adds an item to the list item collection.
-     * @param data - The item properties.
-     */
-    add(data): IListItem;
+        /**
+         * Adds an item to the list item collection.
+         * @param data - The item properties.
+         */
+        add(data): IListItem;
 
-    /**
-     * Gets an item by the specified id.
-     * @param id - The item id.
-     */
-    getById(id): IListItem;
+        /**
+         * Method to execute the request.
+         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         */
+        execute(callback?:(IListItems) => void): IListItems;
 
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(oData:$REST.Types.ODataSettings): IListItems;
+        /**
+         * Gets an item by the specified id.
+         * @param id - The item id.
+         */
+        getById(id): IListItem;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:Settings.ODataSettings): IListItems;
+    }
 }

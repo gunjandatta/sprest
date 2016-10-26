@@ -1,6 +1,6 @@
 declare module $REST.Types {
     // Request Type
-    export enum RequestType {
+    enum RequestType {
         // Requests
         Custom = 0,
         Delete = 1,

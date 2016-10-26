@@ -1,8 +1,7 @@
 /// <reference path="../dist/sprest.d.ts" />
 
-var field = (new $REST.Web(false)).Lists(false).getByTitle("Dev").Fields(false).query({
-    Filter: ["InternalName eq 'Title'"]
-});
+// Set the global flag
+$REST.ExecuteOnCreationFl = true;
 
 var log = document.querySelector("#log");
 var LogType = {

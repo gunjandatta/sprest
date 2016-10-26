@@ -1,33 +1,41 @@
-/**
- * Event Receivers
- */
-interface IEventReceivers extends IBase {
+declare module $REST.Types {
     /**
-     * Properties
+     * Event Receivers
      */
+    interface IEventReceivers extends IBase {
+        /**
+         * Properties
+         */
 
-    /** The event receiver collection. */
-    results: Array<IEventReceiver>;
+        /** The event receiver collection. */
+        results: Array<IEventReceiver>;
 
-    /**
-     * Methods
-     */
+        /**
+         * Methods
+         */
 
-    /**
-     * Adds an event receiver to the collection.
-     * @param parameters - The event receiver definition creation information.
-     */
-    add(parameters:$REST.Types.EventReceiverDefinitionCreationInformation): IEventReceiver;
+        /**
+         * Adds an event receiver to the collection.
+         * @param parameters - The event receiver definition creation information.
+         */
+        add(parameters:Settings.EventReceiverDefinitionCreationInformation): IEventReceiver;
 
-    /**
-     * Gets an event receiver in the collection.
-     * @param id - The id of the event receiver.
-     */
-    getById(id:string): IEventReceiver;
+        /**
+         * Method to execute the request.
+         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         */
+        execute(callback?:(IEventReceivers) => void): IEventReceivers;
 
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(oData:$REST.Types.ODataSettings): IEventReceivers;
+        /**
+         * Gets an event receiver in the collection.
+         * @param id - The id of the event receiver.
+         */
+        getById(id:string): IEventReceiver;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:Settings.ODataSettings): IEventReceivers;
+    }
 }

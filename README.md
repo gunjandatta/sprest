@@ -33,25 +33,29 @@ A global flag is used to determine if an app web request should execute requests
 $REST.DefaultRequestToHostWebFl = true;
 ```
 
+### Execute on Creation
+A global flag is used to determine if the request should be executed on creation. This option can save a request to the server.
+*Note - This value is false by default.*
+```
+$REST.ExecuteOnCreationFl = true;
+```
+
 ### Asynchronous/Synchronous requests
 All objects have the following constructors [Object] and [Object]_Async.
 
 #### Examples
 _**Asynchronous Request**_
 ```
-new Web_Async(function(web) { ... });
+(new Web_Async(function(web) { ... }))
+    .execute(function(obj) {
+        // Code to execute after the request completes
+    });
 ```
 
 _**Synchronous Request**_
 ```
+$REST.ExecuteOnCreationFl = true;
 var web = new Web();
-```
-
-### Execute on Creation
-A global flag is used to determine if the request should be executed on creation. This option can save a request to the server.
-*Note - This value is true by default.*
-```
-$REST.ExecuteOnCreationFl = false;
 ```
 
 ### Fewer Requests to the Server
@@ -61,42 +65,51 @@ Having the execute on creation boolean option, if set to false will construct th
 ##### Synchronously
 ```
 // This will create the web object, but not execute the request.
-var web = new $REST.Web(false);
-
-// This will execute the request to create a list
-var list = web.addList({
-    BaseTemplate: 100,
-    Description: "This is a test list.",
-    Title: "Test"
-});
+var list = (new $REST.Web())
+    // Create a list
+    .web.addList({
+        BaseTemplate: 100,
+        Description: "This is a test list.",
+        Title: "Test"
+    })
+    // Execute the request
+    .execute();
 ```
 
 ##### Asynchronously
 ```
 // This will create the web object, set the asynchronous flag and not execute a request to the server
-(new $REST.Web_Async(false))
-// This will execute a request to the server to create a list
-.addList({
-    BaseTemplate: 100,
-    Description: "This is a test list.",
-    Title: "Test"
-})
-// This will execute after the list is created
-.done(function(list) {
-    // Additional code goes here
-});
+(new $REST.Web_Async())
+    // Create the list
+    .addList({
+        BaseTemplate: 100,
+        Description: "This is a test list.",
+        Title: "Test"
+    })
+    // This will execute after the list is created
+    .execute(function(list) {
+        // Additional code goes here
+    });
 ```
 
 #### Example - Query a List
 ```
 // This will execute one request to the server to get list items
-var items = (new $REST.ListItems("[List Name]", false)).query({
-    // OData properties - Refer to the OData section for additional details
-});
+var items = (new $REST.List("[List Name]"))
+    .query({
+        // OData properties - Refer to the OData section for additional details
+    })
+    .execute();
 
-// Examples of getting items by CAML queries
-(new $REST.List("Site Assets", false)).getItemsByQuery("<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>");
-(new $REST.List("Site Assets", false)).getItems("<View Scope='RecursiveAll'><Query><Where><Eq><FieldRef Name='FileLeafRef' /><Value Type='File'>sprest.js</Value></Eq></Where></Query></View>");
+// Example of getting items by a CAML Query
+(new $REST.List("Site Assets"))
+    .getItemsByQuery("<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>")
+    .execute();
+
+// Example of getting items by a CAML View Query
+(new $REST.List("Site Assets"))
+    .getItems("<View Scope='RecursiveAll'><Query><Where><Eq><FieldRef Name='FileLeafRef' /><Value Type='File'>sprest.js</Value></Eq></Where></Query></View>")
+    .execute();
 ```
 
 ### Optional Input
@@ -105,10 +118,10 @@ All constructors take have the following optional parameters:
 // The target information and execute request flags are optional
 new Object([Object Specific Input Parameters], executeRequestFl);
 new Object([Object Specific Input Parameters], targetInfo);
-new Object([Object Specific Input Parameters], targetInfo, executeRequestFl);
+new Object([Object Specific Input Parameters], executeRequestFl, targetInfo);
 
 // Asynchronous methods can take either a target information object, or the callback function
-new Object_Async([Object Specific Input Parameters], targetInfo, executeRequestFl);
+new Object_Async([Object Specific Input Parameters], executeRequestFl, targetInfo);
 new Object_Async([Object Specific Input Parameters], function(obj) { ... }, executeRequestFl);
 ```
 
@@ -145,28 +158,27 @@ Each collection will have a generic "query" method with the input of the OData q
 #### Query List Collection
 ```
 // Get the lists for the current web, but don't execute a request to the server
-var lists = new $REST.Lists(false);
-
-// Query for the 'Dev' list
-lists.query({
-    Filter: ["Title eq 'Dev'"]
-});
+var list = new $REST.Lists(false)
+    // Query for the 'Dev' list
+    .query({
+        Filter: ["Title eq 'Dev'"]
+    });
 ```
 
 #### Query List Item Collection
 ```
 // Get the 'Dev' list, but don't execute a request to the server
 (new $REST.ListItems_Async("Dev", false))
-// Query for my items, expanding the created by information
-.query({
-    Select: ["Title", "Author/Id", "Author/Title"],
-    Expand: ["Author"],
-    Filter: ["AuthorId eq 11"]
-})
-// Execute code after the request is complete
-.done(function(items:$REST.ListItems) {
-    // Code goes here
-});
+    // Query for my items, expanding the created by information
+    .query({
+        Select: ["Title", "Author/Id", "Author/Title"],
+        Expand: ["Author"],
+        Filter: ["AuthorId eq 11"]
+    })
+    // Execute code after the request is complete
+    .execute(function(items:$REST.ListItems) {
+        // Code goes here
+    });
 ```
 
 ## Test:
@@ -190,193 +202,275 @@ Refer to the [test script](https://github.com/gunjandatta/sprest/blob/master/tes
 _**List**_
 ```
 // Get the 'Document' content type in the 'Documents' library
-new $REST.ContentType("Document", "Documents");
+var ct = (new $REST.List("Document"))
+    .ContentTypes()
+    .getByName("Documents")
+    .execute();
 ```
 
 _**Web**_
 ```
 // Get the 'Item' content type in the current web
-new $REST.ContentType("Item");
+var ct = (new $REST.Web())
+    .ContentTypes()
+    .getByName("Item")
+    .execute();
 ```
 
 ### Content Types
 _**List**_
 ```
 // Get the content types in the 'Documents' library
-new $REST.ContentTypes("documents");
+var cts = (new $REST.List("documents"))
+    .ContentTypes()
+    .execute();
 ```
 
 _**Web**_
 ```
 // Get the content types in the current web
-new $REST.ContentTypes();
+(new $REST.Web_Async())
+    .ContentTypes()
+    .execute(function(cts) {
+        // Additional code goes here
+    })
 ```
 
 ### Field
 _**List**_
 ```
-new $REST.Fields("Title", "documents");
+var field = (new $REST.List("documents"))
+    .Fields()
+    .query({
+        Filter: ["InternalName eq 'Title'"]
+    })
+    .execute();
 ```
 
 _**Web**_
 ```
-new $REST.Fields("Title");
+(new $REST.Web())
+    .Fields()
+    .query({
+        Filter: ["InternalName eq 'Title'"]
+    })
+    .execute(function(field) {
+        // Additional code goes here
+    });
 ```
 
 ### Fields
 _**List**_
 ```
-new $REST.Fields("documents");
+var fields = (new $REST.List("documents"))
+    .Fields()
+    .execute();
 ```
 
 _**Web**_
 ```
-new $REST.Fields();
+(new $REST.Web())
+    .Fields()
+    .execute(function(fields) {
+        // Additional code goes here
+    });
 ```
 
 ### File
 _**List**_
 #### Asynchronously
 ```
-// This will get the Forms subfolder of the documents library, set the asynchronous flag, and not execute request
-new $REST.Folder_Async("Forms", "Documents", false)
-// This will get the file asynchronously
-.getFile("EditForm.aspx")
-.done(function(file) {
-    // Code executes after we have the file object
-});
+(new $REST.List_Async("Documents"))
+    .RootFolder()
+    .getByUrl("Forms/EditForm.aspx")
+    .execute(function(folder) {
+        folder.Files()
+            .getByUrl('EditForm.aspx')
+            .execute(function(file) {
+                // Additional code goes here
+            });
+    })
 ```
 
 #### Synchronously
 ```
-// This will get the file synchronously
-new $REST.File("sprest.js", "documents");
+var file = (new $REST.List("Documents"))
+    .RootFolder()
+    .getByUrl("Forms/EditForm.aspx")
+    .execute()
+    .Files()
+    .getByUrl('EditForm.aspx')
+    .execute();
 ```
 
 _**Web**_
 ```
-new $REST.File("/sites/dev/shared documents/forms/EditForm.aspx");
+var file = (new $REST.Web())
+    .getFileByServerRelativeUrl("/sites/dev/shared documents/forms/EditForm.aspx")
+    .execute();
 ```
 
 ### Files
 _**List**_
 ```
-new $REST.Files("documents");
+var files = (new $REST.List("documents"))
+    .RootFolder()
+    .Files()
+    .execute();
 ```
 
 _**Web**_
 ```
-new $REST.Files();
+(new $REST.Web())
+    .Files()
+    .execute();
 ```
 
 ### Folder
 _**List**_
 ```
-new $REST.Folder("sprest.js", "documents");
+var folder = (new $REST.List("Documents"))
+    .RootFolder()
+    .getByUrl("Forms")
+    .execute()
 ```
 
 _**Web**_
 ```
-new $REST.Folder("/sites/dev/shared documents/sprest.js");
+var folder = (new $REST.Web())
+    .getFolderByServerRelativeUrl("/sites/dev/shared documents/forms")
+    .execute();
 ```
 
 ### Folders
 _**List**_
 ```
-new $REST.Folders("documents");
+var folders = (new $REST.List("documents"))
+    .Folders()
+    .execute();
 ```
 
 _**Web**_
 ```
-new $REST.Folders();
+var folders = (new $REST.Web())
+    .Folders()
+    .execute();
 ```
 
 ### List
 ```
-new $REST.List("documents");
+var list = (new $REST.List("documents"))
+    .execute();
 ```
 
 ### Lists
 ```
-new $REST.Lists();
+var lists = (new $REST.Web())
+    .Lists()
+    .execute();
 ```
 
 ### List Item
 ```
-new $REST.ListItems(1, "documents");
+var item = (new $REST.List("documents"))
+    .Items()
+    .getById(1)
+    .execute();
 ```
 
 ### List Items
 _**All Items**_
 ```
-new $REST.ListItems("documents");
+var items = (new $REST.List("documents"))
+    .Items()
+    .execute();
 ```
 
 _**CAML Query**_
 ```
-// Get the list items, but do not execute a request to the server
-(new $REST.ListItems_Async("documents", false))
-// Get the items
-.getItemsByQuery("<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>")
-// Execute after the request completes
-.done(function(items)) {
-    // Code goes here
-}
+(new $REST.List("documents"))
+    // Get the items
+    .getItemsByQuery("<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>")
+    // Execute after the request completes
+    .execute(function(items)) {
+        // Code goes here
+    }
 ```
 
 ### Role Assignments
 _**List**_
 ```
-new $REST.RoleAssignments("documents");
+var roleAssignments = (new $REST.List("documents"))
+    .RoleAssignments()
+    .execute();
 ```
 
 _**Web**_
 ```
-new $REST.RoleAssignments();
+var roleAssignments = (new $REST.Web())
+    .RoleAssignments()
+    .execute();
 ```
 
 ### Role Definitions
 ```
-new $REST.RoleDefinitions();
+var roleDefinitions = (new $REST.List("documents"))
+    .RoleDefinitions()
+    .execute();
 ```
 
 ### Site
 ```
-new $REST.Site();
+var site = (new $REST.Site()).execute();
 ```
 
 ### Site Groups
 ```
-new $REST.SiteGroups();
+var siteGroups = (new $REST.Web())
+    .SiteGroups()
+    .execute();
 ```
 
 ### User Custom Actions
 _**Site**_
 ```
-new $REST.UserCustomActions();
+var customActions = (new $REST.Site())
+    .UserCustomActions()
+    .execute();
 ```
 
 _**Web**_
 ```
-new $REST.UserCustomActions(true);
+var customActions = (new $REST.Web())
+    .UserCustomActions()
+    .execute();
 ```
 
 ### Users
 ```
-new $REST.Users();
+var users = (new $REST.Web())
+    .Users()
+    .execute();
 ```
 
 ### View
 ```
-new $REST.View("all items", "documents");
+var view = (new $REST.List("dev"))
+    .Views()
+    .query({
+        Filter: ["Name eq 'All Items']
+    })
+    .execute();
 ```
 
 ### Views
 ```
-new $REST.Views("documents");
+var views = (new $REST.List("documents"))
+    .Lists()
+    .execute();
 ```
 
 ### Web
 ```
-new $REST.Web();
+var web = (new $REST.Web()).execute();
 ```

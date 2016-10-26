@@ -3,7 +3,7 @@ module $REST {
     // Global Variables
     /*********************************************************************************************************************************/
     export var DefaultRequestToHostWebFl:boolean = false;
-    export var ExecuteOnCreationFl:boolean = true;
+    export var ExecuteOnCreationFl:boolean = false;
     export var Library:any = {};
     var SP:any;
 
@@ -11,11 +11,11 @@ module $REST {
     // Base
     // This is the base class for all objects.
     /*********************************************************************************************************************************/
-    export class Base implements IBase {
+    export class Base implements Types.IBase {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(params:Types.BaseSettings) {
+        constructor(params:Settings.BaseSettings) {
             // Default the properties
             this.targetInfo = params.settings;
             this.requestType = 0;
@@ -62,11 +62,11 @@ module $REST {
         }
 
         // Method to execute a child request
-        public execute() {
+        public execute(callback?:(...args) => void) {
             // See if this is an asynchronous request
             if(this.targetInfo.asyncFl) {
                 // Create a promise
-                this.promise = new Utils.Promise(this.targetInfo.callback);
+                this.promise = new Utils.Promise(callback || this.targetInfo.callback);
 
                 // Create the request
                 this.request = new Utils.Request(new Utils.TargetInfo(this.targetInfo), () => {
@@ -87,7 +87,7 @@ module $REST {
         }
 
         // Method to get the input parameters for an asynchronous request
-        public static getAsyncInputParmeters(...args):Types.BaseSettings {
+        public static getAsyncInputParmeters(...args):Settings.BaseSettings {
             // Get the input parameters
             let params = Base.getInputParmeters.apply(null, args);
 
@@ -99,9 +99,9 @@ module $REST {
         }
 
         // Method to get the input parameters
-        public static getInputParmeters(...args):Types.BaseSettings {
+        public static getInputParmeters(...args):Settings.BaseSettings {
             let settings = null;
-            let params:Types.BaseSettings = {
+            let params:Settings.BaseSettings = {
                 executeRequestFl: null,
                 settings: null
             };
@@ -167,7 +167,7 @@ module $REST {
         protected request:Utils.Request;
 
         // The base settings
-        protected targetInfo:Types.TargetInfoSettings;
+        protected targetInfo:Settings.TargetInfoSettings;
 
         /*********************************************************************************************************************************/
         // Private Methods
@@ -189,7 +189,7 @@ module $REST {
             objType += isCollection && data.results.length > 1 ? "s" : "";
 
             // See if this is a field
-            if((/^field/.test(objType) || /field$/.test(objType)) && objType != "fields") {
+            if((/^field/.test(objType) || /field$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
                 // Update the type
                 objType = "field" + (isCollection ? "s" : "");
             }
@@ -267,8 +267,8 @@ module $REST {
         }
 
         // Method to execute a method
-        protected executeMethod(methodName:string, methodConfig:Types.MethodInfoSettings, args?:any) {
-            let targetInfo:Types.TargetInfoSettings = null;
+        protected executeMethod(methodName:string, methodConfig:Settings.MethodInfoSettings, args?:any) {
+            let targetInfo:Settings.TargetInfoSettings = null;
 
             // See if the metadata is defined for this object
             let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
@@ -315,14 +315,14 @@ module $REST {
             }
 
             // Create a new object
-            let obj = new Base({ settings: targetInfo, executeRequestFl: true });
+            let obj = new Base({ settings: targetInfo, executeRequestFl: this.executeRequestFl });
 
-            // Set the and parent and request type
+            // Set the parent and request type
             obj.parent = this;
             obj.requestType = methodConfig.requestType;
 
             // Execute the request
-            obj.execute();
+            obj.executeRequestFl ? obj.execute() : null;
 
             // Return the object
             return obj;
@@ -354,13 +354,13 @@ module $REST {
             targetInfo.callback = args && typeof(args[0]) === "function" ? args[0] : null;
 
             // Create a new object
-            let obj = new Base({ settings: targetInfo, executeRequestFl: true });
+            let obj = new Base({ settings: targetInfo, executeRequestFl: this.executeRequestFl });
 
             // Set the parent
             obj.parent = this;
 
             // Execute the request
-            obj.execute();
+            obj.executeRequestFl ? obj.execute() : null;
 
             // Return the object
             return obj;
@@ -371,20 +371,34 @@ module $REST {
             // Copy the target information
             let targetInfo = Object.create(this.targetInfo);
 
-            // Append the method to the endpoint
-            targetInfo.endpoint += "/" + propertyName;
+            // See if the metadata is defined for this object
+            let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
+            if(metadata && metadata.uri) {
+                // Update the url of the target information
+                targetInfo.url = metadata.uri;
 
-            // Create a new object
-            let obj = new Base({ settings: targetInfo, executeRequestFl: true });
+                // Update the metadata uri
+                this.updateMetadataUri(metadata, targetInfo);
 
-            // Set the parent
-            obj.parent = this;
+                // Set the endpoint
+                targetInfo.endpoint = propertyName;
+            }
+            else {
+                // Append the property name to the endpoint
+                targetInfo.endpoint += "/" + propertyName;
+            }
 
             // Default the request flag
             executeRequestFl = executeRequestFl == null ? this.executeRequestFl : executeRequestFl;
 
+            // Create a new object
+            let obj = new Base({ settings: targetInfo, executeRequestFl: executeRequestFl });
+
+            // Set the parent
+            obj.parent = this;
+
             // Execute the request
-            executeRequestFl ? obj.execute() : this.addMethods(obj, { __metadata: { type: requestType } });
+            obj.executeRequestFl ? obj.execute() : this.addMethods(obj, { __metadata: { type: requestType } });
 
             // Return the object
             return obj;
@@ -507,7 +521,7 @@ module $REST {
         }
 
         // Method to update the metadata uri
-        private updateMetadataUri(metadata:any, targetInfo:Types.TargetInfoSettings) {
+        private updateMetadataUri(metadata:any, targetInfo:Settings.TargetInfoSettings) {
             // See if this is a field
             if(/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
                 // Fix the uri reference

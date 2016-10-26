@@ -4,7 +4,7 @@ var $REST;
     // Global Variables
     /*********************************************************************************************************************************/
     $REST.DefaultRequestToHostWebFl = false;
-    $REST.ExecuteOnCreationFl = true;
+    $REST.ExecuteOnCreationFl = false;
     $REST.Library = {};
     var SP;
     /*********************************************************************************************************************************/
@@ -54,12 +54,12 @@ var $REST;
             }
         };
         // Method to execute a child request
-        Base.prototype.execute = function () {
+        Base.prototype.execute = function (callback) {
             var _this = this;
             // See if this is an asynchronous request
             if (this.targetInfo.asyncFl) {
                 // Create a promise
-                this.promise = new $REST.Utils.Promise(this.targetInfo.callback);
+                this.promise = new $REST.Utils.Promise(callback || this.targetInfo.callback);
                 // Create the request
                 this.request = new $REST.Utils.Request(new $REST.Utils.TargetInfo(this.targetInfo), function () {
                     // Update the data object
@@ -154,7 +154,7 @@ var $REST;
             objType = (objType[objType.length - 1]).toLowerCase();
             objType += isCollection && data.results.length > 1 ? "s" : "";
             // See if this is a field
-            if ((/^field/.test(objType) || /field$/.test(objType)) && objType != "fields") {
+            if ((/^field/.test(objType) || /field$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
                 // Update the type
                 objType = "field" + (isCollection ? "s" : "");
             }
@@ -260,12 +260,12 @@ var $REST;
                 targetInfo.endpoint = (targetInfo.endpoint ? targetInfo.endpoint + "/" : "") + methodInfo.url;
             }
             // Create a new object
-            var obj = new Base({ settings: targetInfo, executeRequestFl: true });
-            // Set the and parent and request type
+            var obj = new Base({ settings: targetInfo, executeRequestFl: this.executeRequestFl });
+            // Set the parent and request type
             obj.parent = this;
             obj.requestType = methodConfig.requestType;
             // Execute the request
-            obj.execute();
+            obj.executeRequestFl ? obj.execute() : null;
             // Return the object
             return obj;
         };
@@ -290,11 +290,11 @@ var $REST;
             // Update the callback
             targetInfo.callback = args && typeof (args[0]) === "function" ? args[0] : null;
             // Create a new object
-            var obj = new Base({ settings: targetInfo, executeRequestFl: true });
+            var obj = new Base({ settings: targetInfo, executeRequestFl: this.executeRequestFl });
             // Set the parent
             obj.parent = this;
             // Execute the request
-            obj.execute();
+            obj.executeRequestFl ? obj.execute() : null;
             // Return the object
             return obj;
         };
@@ -302,16 +302,28 @@ var $REST;
         Base.prototype.getProperty = function (propertyName, requestType, executeRequestFl) {
             // Copy the target information
             var targetInfo = Object.create(this.targetInfo);
-            // Append the method to the endpoint
-            targetInfo.endpoint += "/" + propertyName;
-            // Create a new object
-            var obj = new Base({ settings: targetInfo, executeRequestFl: true });
-            // Set the parent
-            obj.parent = this;
+            // See if the metadata is defined for this object
+            var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
+            if (metadata && metadata.uri) {
+                // Update the url of the target information
+                targetInfo.url = metadata.uri;
+                // Update the metadata uri
+                this.updateMetadataUri(metadata, targetInfo);
+                // Set the endpoint
+                targetInfo.endpoint = propertyName;
+            }
+            else {
+                // Append the property name to the endpoint
+                targetInfo.endpoint += "/" + propertyName;
+            }
             // Default the request flag
             executeRequestFl = executeRequestFl == null ? this.executeRequestFl : executeRequestFl;
+            // Create a new object
+            var obj = new Base({ settings: targetInfo, executeRequestFl: executeRequestFl });
+            // Set the parent
+            obj.parent = this;
             // Execute the request
-            executeRequestFl ? obj.execute() : this.addMethods(obj, { __metadata: { type: requestType } });
+            obj.executeRequestFl ? obj.execute() : this.addMethods(obj, { __metadata: { type: requestType } });
             // Return the object
             return obj;
         };
@@ -2678,7 +2690,7 @@ var $REST;
         // Get the folder at the specified URL.
         getSubFolder: {
             argNames: ["serverRelativeUrl"],
-            name: "folders/getbyurl",
+            name: "rootfolder/folders/getbyurl",
             requestType: $REST.Types.RequestType.GetWithArgsValueOnly
         },
         // Returns an item based on the id.

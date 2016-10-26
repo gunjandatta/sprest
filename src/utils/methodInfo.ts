@@ -7,7 +7,7 @@ module $REST.Utils {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(methodName:string, methodInfo:Types.MethodInfoSettings, args:any) {
+        constructor(methodName:string, methodInfo:Settings.MethodInfoSettings, args:any) {
             // Default the properties
             this.methodInfo = methodInfo;
             this.methodInfo.argValues = args;
@@ -62,7 +62,7 @@ module $REST.Utils {
         private get isTemplate():boolean { return this.methodInfo.data ? true : false; }
         private get replace():boolean { return this.methodInfo.requestType == Types.RequestType.GetReplace || this.methodInfo.requestType == Types.RequestType.PostReplace; }
         private methodData:any;
-        private methodInfo:Types.MethodInfoSettings;
+        private methodInfo:Settings.MethodInfoSettings;
         private methodParams:any;
         private methodUrl:string;
  

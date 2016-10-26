@@ -1,4 +1,4 @@
-declare module $REST.Types {
+declare module $REST.Settings {
     /**
      * Method Information Settings
      */

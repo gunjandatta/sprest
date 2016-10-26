@@ -1,27 +1,35 @@
-/**
- * Webs
- */
-interface IWebs extends IBase {
+declare module $REST.Types {
     /**
-     * Properties
+     * Webs
      */
+    interface IWebs extends IBase {
+        /**
+         * Properties
+         */
 
-    /** The web collection. */
-    results: Array<IWeb>;
+        /** The web collection. */
+        results: Array<IWeb>;
 
-    /**
-     * Methods
-     */
+        /**
+         * Methods
+         */
 
-    /**
-     * Adds a site to the site collection.
-     * @param parameters - The web creation information.
-     */
-    add(parameters:$REST.Types.WebCreationInformation);
+        /**
+         * Adds a site to the site collection.
+         * @param parameters - The web creation information.
+         */
+        add(parameters:Settings.WebCreationInformation);
 
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(oData:$REST.Types.ODataSettings): IWebs;
+        /**
+         * Method to execute the request.
+         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         */
+        execute(callback?:(IWebs) => void): IWebs;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:Settings.ODataSettings): IWebs;
+    }
 }

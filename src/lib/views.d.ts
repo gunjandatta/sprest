@@ -1,38 +1,46 @@
-/**
- * Views
- */
-interface IViews extends IBase {
+declare module $REST.Types {
     /**
-     * Properties
+     * Views
      */
+    interface IViews extends IBase {
+        /**
+         * Properties
+         */
 
-    /** The view collection. */
-    results: Array<IView>;
+        /** The view collection. */
+        results: Array<IView>;
 
-    /**
-     * Methods
-     */
+        /**
+         * Methods
+         */
 
-    /**
-     * Adds a list view to the view collection.
-     */
-    add(parameters:$REST.Types.ViewCreationInformation): IView;
+        /**
+         * Adds a list view to the view collection.
+         */
+        add(parameters:Settings.ViewCreationInformation): IView;
 
-    /**
-     * Gets the list view with the specified ID.
-     * @param id - The ID of the view.
-     */
-    getById(id): IView;
+        /**
+         * Method to execute the request.
+         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         */
+        execute(callback?:(IViews) => void): IViews;
 
-    /**
-     * Gets the list view with the specified title.
-     * @param title - The case-sensitive title of the view.
-     */
-    getByTitle(title): IView;
+        /**
+         * Gets the list view with the specified ID.
+         * @param id - The ID of the view.
+         */
+        getById(id): IView;
 
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(oData:$REST.Types.ODataSettings): IViews;
+        /**
+         * Gets the list view with the specified title.
+         * @param title - The case-sensitive title of the view.
+         */
+        getByTitle(title): IView;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:Settings.ODataSettings): IViews;
+    }
 }

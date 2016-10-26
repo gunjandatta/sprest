@@ -1,47 +1,55 @@
-/**
- * Event Receiver
- */
-interface IEventReceiver extends IBase {
+declare module $REST.Types {
     /**
-     * Properties
+     * Event Receiver
      */
+    interface IEventReceiver extends IBase {
+        /**
+         * Properties
+         */
 
-    /** Specifies the type of event. */
-    EventType: $REST.Types.EventReceiverType;
+        /** Specifies the type of event. */
+        EventType: Types.EventReceiverType;
 
-    /** The strong name of the assembly that is used for receiving events. */
-    ReceiverAssembly: string;
+        /** The strong name of the assembly that is used for receiving events. */
+        ReceiverAssembly: string;
 
-    /** A string that represents the class that is used for receiving events. */
-    ReceiverClass: string;
+        /** A string that represents the class that is used for receiving events. */
+        ReceiverClass: string;
 
-    /** The unique identifier of the event receiver. */
-    ReceiverId: string;
+        /** The unique identifier of the event receiver. */
+        ReceiverId: string;
 
-    /** The name of the event receiver. */
-    ReceiverName: string;
+        /** The name of the event receiver. */
+        ReceiverName: string;
 
-    /** The URL of a web service that is used for receiving events. */
-    ReceiverUrl: string;
+        /** The URL of a web service that is used for receiving events. */
+        ReceiverUrl: string;
 
-    /** An integer that represents the relative sequence of the event. */
-    SequenceNumber: number;
+        /** An integer that represents the relative sequence of the event. */
+        SequenceNumber: number;
 
-    /** The execution synchronization of the event receiver. */
-    Synchronization: $REST.Types.EventReceiverSynchronizationType;
+        /** The execution synchronization of the event receiver. */
+        Synchronization: Types.EventReceiverSynchronizationType;
 
-    /**
-     * Methods
-     */
+        /**
+         * Methods
+         */
 
-    /**
-     * Deletes the event receiver.
-     */
-    delete(): any;
+        /**
+         * Deletes the event receiver.
+         */
+        delete(): any;
 
-    /**
-     * Updates it's properties.
-     * @param data - The field properties to update.
-     */
-    update(data): any;
+        /**
+         * Method to execute the request.
+         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         */
+        execute(callback?:(IEventReceiver) => void): IEventReceiver;
+
+        /**
+         * Updates it's properties.
+         * @param data - The field properties to update.
+         */
+        update(data): any;
+    }
 }

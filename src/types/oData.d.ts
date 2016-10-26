@@ -1,8 +1,8 @@
-declare module $REST.Types {
+declare module $REST.Settings {
     /**
      * OData Settings
      */
-    export interface ODataSettings {
+    interface ODataSettings {
         /** The fields to expand. */
         Expand?: Array<string>;
 

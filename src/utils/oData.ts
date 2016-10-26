@@ -19,7 +19,7 @@ module $REST.Utils {
         /*********************************************************************************************************************************/
 
         // The class constructor
-        constructor(oData:Types.ODataSettings) {
+        constructor(oData:Settings.ODataSettings) {
             // Default the Variables
             this._expand = oData && oData.Expand ? oData.Expand : [];
             this._filter = oData && oData.Filter ? oData.Filter : [];
