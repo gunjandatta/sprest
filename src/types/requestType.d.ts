@@ -1,4 +1,4 @@
-module $REST.Types {
+declare module $REST.Types {
     // Request Type
     export enum RequestType {
         // Requests

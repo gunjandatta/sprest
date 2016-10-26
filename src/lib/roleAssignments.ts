@@ -1,43 +1,5 @@
 module $REST {
     /*********************************************************************************************************************************/
-    // Role Assignments
-    // The SPRoleAssignmentCollection object.
-    /*********************************************************************************************************************************/
-    export class RoleAssignments extends Base {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(listName?:string, ...args) {
-            // Call the base constructor
-            super(Base.getInputParmeters.apply(null, args));
-
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "roleassignments";
-
-            // See if we are executing the request
-            if(this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "roleassignments" } } );
-            }
-        }
-    }
-
-    export class RoleAssignments_Async extends RoleAssignments {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(listName?:string, ...args) {
-            // Call the base constructor
-            super(listName, Base.getAsyncInputParmeters.apply(null, args));
-        }
-    }
-
-    /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     Library.roleAssignments = {

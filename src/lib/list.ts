@@ -41,14 +41,16 @@ module $REST {
     // Library
     /*********************************************************************************************************************************/
     //{ name: "hasAccess", "function": function (userName, permissions) { return hasAccess(this, permissions, userName); } },
+
     Library.list = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "ContentTypes", "CreatablesInfo", "DefaultView", "DescriptionResource", "EventReceivers", "Fields", "FirstUniqueAncestorSecurableObject",
-            "Forms", "InformationRightsManagementSettings", "Items", "ParentWeb", "RoleAssignments", "RootFolder", "Subscriptions", "TitleResource",
-            "UserCustomActions", "Views", "WorkflowAssociations"
+            "BrowserFileHandling", "ContentTypes|contenttypes", "CreatablesInfo", "DefaultView|view", "DescriptionResource",
+            "EventReceivers|eventreceivers", "Fields|fields", "FirstUniqueAncestorSecurableObject", "Forms", "InformationRightsManagementSettings",
+            "Items|items", "ParentWeb", "RoleAssignments|roleassignments", "RootFolder|folder", "Subscriptions", "TitleResource",
+            "UserCustomActions|usercustomactions", "Views|views", "WorkflowAssociations"
         ],
 
         /*********************************************************************************************************************************/

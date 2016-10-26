@@ -1,43 +1,5 @@
 module $REST {
     /*********************************************************************************************************************************/
-    // Content Types
-    // The SPContentTypeCollection object.
-    /*********************************************************************************************************************************/
-    export class ContentTypes extends Base {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(listName?:string, ...args) {
-            // Call the base constructor
-            super(Base.getInputParmeters.apply(null, args));
-
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "contenttypes";
-
-            // See if we are executing the request
-            if(this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "contenttypes" } } );
-            }
-        }
-    }
-
-    export class ContentTypes_Async extends ContentTypes {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(listName?:string, ...args) {
-            // Call the base constructor
-            super(listName, Base.getAsyncInputParmeters.apply(null, args));
-        }
-    }
-
-    /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     Library.contenttypes = {

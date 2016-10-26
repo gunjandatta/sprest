@@ -72,6 +72,8 @@ var $REST;
                 // Update the data object
                 this.updateDataObject();
             }
+            // Return this object
+            return this;
         };
         // Method to get the input parameters for an asynchronous request
         Base.getAsyncInputParmeters = function () {
@@ -176,8 +178,12 @@ var $REST;
                         // Parse the properties
                         for (var _i = 0, methodInfo_1 = methodInfo; _i < methodInfo_1.length; _i++) {
                             var property = methodInfo_1[_i];
+                            var propInfo = property.split("|");
+                            // Get the metadata type
+                            var propName = propInfo[0];
+                            var propType = propInfo.length > 1 ? propInfo[1] : null;
                             // Add the property
-                            obj["get_" + property] = new Function("return this.getProperty('" + property + "');");
+                            obj[propName] = new Function("executeRequestFl", "return this.getProperty('" + propName + "', '" + propType + "', executeRequestFl);");
                         }
                         // Continue the loop
                         continue;
@@ -293,7 +299,7 @@ var $REST;
             return obj;
         };
         // Method to return a property of this object
-        Base.prototype.getProperty = function (propertyName) {
+        Base.prototype.getProperty = function (propertyName, requestType, executeRequestFl) {
             // Copy the target information
             var targetInfo = Object.create(this.targetInfo);
             // Append the method to the endpoint
@@ -302,8 +308,10 @@ var $REST;
             var obj = new Base({ settings: targetInfo, executeRequestFl: true });
             // Set the parent
             obj.parent = this;
+            // Default the request flag
+            executeRequestFl = executeRequestFl == null ? this.executeRequestFl : executeRequestFl;
             // Execute the request
-            obj.execute();
+            executeRequestFl ? obj.execute() : this.addMethods(obj, { __metadata: { type: requestType } });
             // Return the object
             return obj;
         };
@@ -428,9 +436,7 @@ var $REST;
     $REST.Base = Base;
 })($REST || ($REST = {}));
 
-/// <reference path="targetInfo.ts" />
 
-/// <reference path="requestType.ts" />
 
 
 var $REST;
@@ -1761,15 +1767,6 @@ var $REST;
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
-    // Attachment Files
-    // The SPAttachmentCollection object.
-    /*********************************************************************************************************************************/
-    //export class AttachmentFiles extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
-    /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.attachmentfiles = {
@@ -1790,69 +1787,18 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Content Type
-    // The SPContentType object.
-    /*********************************************************************************************************************************/
-    var ContentType = (function (_super) {
-        __extends(ContentType, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function ContentType(name, listName) {
-            var _this = this;
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            // Create the parent
-            this.parent = new $REST.ContentTypes(listName, false, { asyncFl: this.targetInfo.asyncFl });
-            // Get the content type
-            var contentType = this.parent["getByName"](name);
-            // See if this is an asynchronous request
-            if (this.targetInfo.asyncFl) {
-                // Resolve the parent request for asynchronous requests
-                contentType.done(function (ct) { _this.resolveParentRequest(ct); });
-            }
-            else {
-                // Return the content type
-                return contentType;
-            }
-        }
-        return ContentType;
-    }($REST.Base));
-    $REST.ContentType = ContentType;
-    var ContentType_Async = (function (_super) {
-        __extends(ContentType_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function ContentType_Async(contentTypeName, listName) {
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, contentTypeName, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return ContentType_Async;
-    }(ContentType));
-    $REST.ContentType_Async = ContentType_Async;
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
     $REST.Library.contenttype = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [
+            "FieldLinks|fieldlinks", "Fields|fields", "WorkflowAssociations"
+        ],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
         // Adds a field link to the content type.
         addFieldLink: {
             name: "fieldlink",
@@ -1897,61 +1843,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Content Types
-    // The SPContentTypeCollection object.
-    /*********************************************************************************************************************************/
-    var ContentTypes = (function (_super) {
-        __extends(ContentTypes, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function ContentTypes(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "contenttypes";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "contenttypes" } });
-            }
-        }
-        return ContentTypes;
-    }($REST.Base));
-    $REST.ContentTypes = ContentTypes;
-    var ContentTypes_Async = (function (_super) {
-        __extends(ContentTypes_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function ContentTypes_Async(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return ContentTypes_Async;
-    }(ContentTypes));
-    $REST.ContentTypes_Async = ContentTypes_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -2057,61 +1950,8 @@ var $REST;
     $REST.Email_Async = Email_Async;
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Event Receiver
-    // The SPEventReceiverDefinition object.
-    /*********************************************************************************************************************************/
-    var EventReceiver = (function (_super) {
-        __extends(EventReceiver, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function EventReceiver(id, listName) {
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "eventreceivers/getById(guid'" + id + "')";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "eventreceiverdefinition" } });
-            }
-        }
-        return EventReceiver;
-    }($REST.Base));
-    $REST.EventReceiver = EventReceiver;
-    var EventReceiver_Async = (function (_super) {
-        __extends(EventReceiver_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function EventReceiver_Async(id, listName) {
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, id, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return EventReceiver_Async;
-    }(EventReceiver));
-    $REST.EventReceiver_Async = EventReceiver_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -2130,61 +1970,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Event Receivers
-    // The SPEventReceiverDefinitionCollection object.
-    /*********************************************************************************************************************************/
-    var EventReceivers = (function (_super) {
-        __extends(EventReceivers, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function EventReceivers(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "eventreceivers";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "eventreceiverdefinitions" } });
-            }
-        }
-        return EventReceivers;
-    }($REST.Base));
-    $REST.EventReceivers = EventReceivers;
-    var EventReceivers_Async = (function (_super) {
-        __extends(EventReceivers_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function EventReceivers_Async(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return EventReceivers_Async;
-    }(EventReceivers));
-    $REST.EventReceivers_Async = EventReceivers_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -2208,61 +1995,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Field
-    // The SPField object.
-    /*********************************************************************************************************************************/
-    var Field = (function (_super) {
-        __extends(Field, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Field(internalNameOrTitle, listName) {
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "fields/getByInternalNameOrTitle('" + internalNameOrTitle + "')";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "field" } });
-            }
-        }
-        return Field;
-    }($REST.Base));
-    $REST.Field = Field;
-    var Field_Async = (function (_super) {
-        __extends(Field_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Field_Async(internalNameOrTitle, listName) {
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, internalNameOrTitle, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return Field_Async;
-    }(Field));
-    $REST.Field_Async = Field_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -2299,15 +2033,6 @@ var $REST;
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
-    // Field Link Collection
-    // The SPFieldLinkCollection object.
-    /*********************************************************************************************************************************/
-    //export class FieldLinks extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
-    /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.fieldlinks = {
@@ -2336,61 +2061,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Fields
-    // The SPFieldCollection object.
-    /*********************************************************************************************************************************/
-    var Fields = (function (_super) {
-        __extends(Fields, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Fields(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "fields";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "fields" } });
-            }
-        }
-        return Fields;
-    }($REST.Base));
-    $REST.Fields = Fields;
-    var Fields_Async = (function (_super) {
-        __extends(Fields_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Fields_Async(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return Fields_Async;
-    }(Fields));
-    $REST.Fields_Async = Fields_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -2442,80 +2114,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // File
-    // The SPFile object.
-    /*********************************************************************************************************************************/
-    var File = (function (_super) {
-        __extends(File, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function File(serverRelativeUrl, listName) {
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            var endpoint = "";
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // See if the list name exists
-            if (listName) {
-                // Update the endpoint
-                endpoint = "/lists/getByTitle('" + listName + "')/rootfolder";
-                // Split the url
-                var url = serverRelativeUrl ? serverRelativeUrl.split("/") : [];
-                // Parse the folders
-                for (var i = 0; i < url.length - 1; i++) {
-                    // Update the endpoint
-                    endpoint += "/folders/getByUrl('" + url[i] + "')";
-                }
-                // Add the file
-                endpoint += "/files/getByUrl('" + url[url.length - 1] + "')";
-            }
-            else {
-                // Update the endpoint
-                endpoint += "/getFileByServerRelativeUrl('" + serverRelativeUrl + "')";
-            }
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web" + endpoint;
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "file" } });
-            }
-        }
-        return File;
-    }($REST.Base));
-    $REST.File = File;
-    var File_Async = (function (_super) {
-        __extends(File_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function File_Async(serverRelativeUrl, listName) {
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, serverRelativeUrl, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return File_Async;
-    }(File));
-    $REST.File_Async = File_Async;
     /*********************************************************************************************************************************/
     // Library
     /*********************************************************************************************************************************/
@@ -2524,8 +2124,8 @@ var $REST;
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "Author", "CheckedOutByUser", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
-            "ListItemAllFields", "LockedByUser", "ModifiedBy", "Properties", "VersionEvents", "Versions"
+            "Author|user", "CheckedOutByUser|user", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
+            "ListItemAllFields", "LockedByUser|user", "ModifiedBy|user", "Properties", "VersionEvents", "Versions|fileversions"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -2648,61 +2248,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Files
-    // The SPFileCollection object.
-    /*********************************************************************************************************************************/
-    var Files = (function (_super) {
-        __extends(Files, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Files(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "rootfolder/files";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "files" } });
-            }
-        }
-        return Files;
-    }($REST.Base));
-    $REST.Files = Files;
-    var Files_Async = (function (_super) {
-        __extends(Files_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Files_Async(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return Files_Async;
-    }(Files));
-    $REST.Files_Async = Files_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -2739,19 +2286,14 @@ var $REST;
 
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // File Version
-    // The SPFileVersion object.
-    /*********************************************************************************************************************************/
-    //export class FileVersion extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
     $REST.Library.fileversion = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
         // Deletes the object
         delete: {
             requestType: $REST.Types.RequestType.Delete
@@ -2761,15 +2303,6 @@ var $REST;
 
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // File Versions
-    // The SPFileVersionCollection object.
-    /*********************************************************************************************************************************/
-    //export class FileVersions extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -2786,96 +2319,14 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Folder
-    // The SPFolder object.
-    /*********************************************************************************************************************************/
-    var Folder = (function (_super) {
-        __extends(Folder, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Folder(serverRelativeUrl, listName) {
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            var endpoint = "";
-            var getRootFolder = serverRelativeUrl == null || serverRelativeUrl == "" ? true : false;
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // See if the list name exists
-            if (listName) {
-                // Update the endpoint
-                endpoint = "/lists/getByTitle('" + listName + "')";
-            }
-            // See if we are getting the root folder
-            if (getRootFolder || listName) {
-                // Update the endpoint
-                endpoint += "/rootfolder";
-            }
-            // See if the list name exists
-            if (listName) {
-                // Split the url
-                var url = serverRelativeUrl ? serverRelativeUrl.split("/") : [];
-                // Parse the url
-                for (var i = 0; i < url.length; i++) {
-                    // Update the endpoint
-                    endpoint += "/folders/getByUrl('" + url[i] + "')";
-                }
-            }
-            else {
-                // Update the endpoint
-                endpoint += getRootFolder ? "" : "/getFolderByServerRelativeUrl('" + serverRelativeUrl + "')";
-            }
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web" + endpoint;
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "folder" } });
-            }
-        }
-        return Folder;
-    }($REST.Base));
-    $REST.Folder = Folder;
-    var Folder_Async = (function (_super) {
-        __extends(Folder_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Folder_Async(serverRelativeUrl, listName) {
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, serverRelativeUrl, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return Folder_Async;
-    }(Folder));
-    $REST.Folder_Async = Folder_Async;
-    /*********************************************************************************************************************************/
-    // Library
-    /*********************************************************************************************************************************/
     $REST.Library.folder = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "Files", "Folders", "ListItemAllFields", "ParentFolder", "Properties", "StorageMetrics"
+            "Files|files", "Folders|folders", "ListItemAllFields", "ParentFolder|folder", "Properties", "StorageMetrics"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -2934,61 +2385,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Folders
-    // The SPFolderCollection object.
-    /*********************************************************************************************************************************/
-    var Folders = (function (_super) {
-        __extends(Folders, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Folders(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/rootfolder/" : "") + "folders";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "folders" } });
-            }
-        }
-        return Folders;
-    }($REST.Base));
-    $REST.Folders = Folders;
-    var Folders_Async = (function (_super) {
-        __extends(Folders_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Folders_Async(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return Folders_Async;
-    }(Folders));
-    $REST.Folders_Async = Folders_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -3013,19 +2411,14 @@ var $REST;
 
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Group
-    // The SPGroup object.
-    /*********************************************************************************************************************************/
-    //export class Group extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
     $REST.Library.group = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
         // Gets the user by the specified user id.
         getUserById: {
             argNames: ["userId"],
@@ -3035,61 +2428,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // List Items
-    // The SPItemCollection object.
-    /*********************************************************************************************************************************/
-    var ListItems = (function (_super) {
-        __extends(ListItems, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function ListItems(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')/items";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "items" } });
-            }
-        }
-        return ListItems;
-    }($REST.Base));
-    $REST.ListItems = ListItems;
-    var ListItems_Async = (function (_super) {
-        __extends(ListItems_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function ListItems_Async(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return ListItems_Async;
-    }(ListItems));
-    $REST.ListItems_Async = ListItems_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -3114,15 +2454,6 @@ var $REST;
 
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Limited WebPart Manager
-    // The SPLimitedWebPartManager object.
-    /*********************************************************************************************************************************/
-    //export class LimitedWebPartManager extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -3200,9 +2531,10 @@ var $REST;
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "ContentTypes", "CreatablesInfo", "DefaultView", "DescriptionResource", "EventReceivers", "Fields", "FirstUniqueAncestorSecurableObject",
-            "Forms", "InformationRightsManagementSettings", "Items", "ParentWeb", "RoleAssignments", "RootFolder", "Subscriptions", "TitleResource",
-            "UserCustomActions", "Views", "WorkflowAssociations"
+            "BrowserFileHandling", "ContentTypes|contenttypes", "CreatablesInfo", "DefaultView|view", "DescriptionResource",
+            "EventReceivers|eventreceivers", "Fields|fields", "FirstUniqueAncestorSecurableObject", "Forms", "InformationRightsManagementSettings",
+            "Items|items", "ParentWeb", "RoleAssignments|roleassignments", "RootFolder|folder", "Subscriptions", "TitleResource",
+            "UserCustomActions|usercustomactions", "Views|views", "WorkflowAssociations"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -3451,71 +2783,16 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // List Item
-    // The SPListItem object.
-    /*********************************************************************************************************************************/
-    var ListItem = (function (_super) {
-        __extends(ListItem, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function ListItem(itemId, listName) {
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')/items(" + itemId + ")";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "listItem" } });
-            }
-        }
-        return ListItem;
-    }($REST.Base));
-    $REST.ListItem = ListItem;
-    var ListItem_Async = (function (_super) {
-        __extends(ListItem_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function ListItem_Async(itemId, listName) {
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, itemId, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return ListItem_Async;
-    }(ListItem));
-    $REST.ListItem_Async = ListItem_Async;
-    /*********************************************************************************************************************************/
-    // Library
-    /*********************************************************************************************************************************/
     $REST.Library.listitem = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "AttachmentFiles", "ContentType", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit", "File",
-            "FirstUniqueAncestorSecurableObject", "Folder", "GetDlpPolicyTip", "ParentList", "RoleAssignments"
+            "AttachmentFiles|attachmentfiles", "ContentType|contenttype", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
+            "File|file", "FirstUniqueAncestorSecurableObject", "Folder|folder", "GetDlpPolicyTip", "ParentList|list",
+            "RoleAssignments|roleassignments"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -3566,61 +2843,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Lists
-    // The SPListCollection object.
-    /*********************************************************************************************************************************/
-    var Lists = (function (_super) {
-        __extends(Lists, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Lists() {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/lists";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "lists" } });
-            }
-        }
-        return Lists;
-    }($REST.Base));
-    $REST.Lists = Lists;
-    var Lists_Async = (function (_super) {
-        __extends(Lists_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Lists_Async() {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return Lists_Async;
-    }(Lists));
-    $REST.Lists_Async = Lists_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -3674,14 +2898,6 @@ var $REST;
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
-    // Profile Loader
-    /*********************************************************************************************************************************/
-    //export class ProfileLoader extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
-    /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.profileloader = {};
@@ -3689,19 +2905,16 @@ var $REST;
 
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Role Assignment
-    // The SPRoleAssignment object.
-    /*********************************************************************************************************************************/
-    //export class RoleAssignment extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
     $REST.Library.roleAssignment = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [
+            "Member", "RoleDefinitionBindings|roledefinitions"
+        ],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
         // Deletes the object
         delete: {
             requestType: $REST.Types.RequestType.Delete
@@ -3709,61 +2922,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Role Assignments
-    // The SPRoleAssignmentCollection object.
-    /*********************************************************************************************************************************/
-    var RoleAssignments = (function (_super) {
-        __extends(RoleAssignments, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function RoleAssignments(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/" + (listName ? "lists/getByTitle('" + listName + "')/" : "") + "roleassignments";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "roleassignments" } });
-            }
-        }
-        return RoleAssignments;
-    }($REST.Base));
-    $REST.RoleAssignments = RoleAssignments;
-    var RoleAssignments_Async = (function (_super) {
-        __extends(RoleAssignments_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function RoleAssignments_Async(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return RoleAssignments_Async;
-    }(RoleAssignments));
-    $REST.RoleAssignments_Async = RoleAssignments_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -3794,15 +2954,6 @@ var $REST;
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
-    // Role Definition
-    // The SPRoleDefinition object.
-    /*********************************************************************************************************************************/
-    //export class RoleDefinition extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
-    /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.roledefinition = {
@@ -3813,61 +2964,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Role Definitions
-    // The SPRoleDefinitionCollection object.
-    /*********************************************************************************************************************************/
-    var RoleDefinitions = (function (_super) {
-        __extends(RoleDefinitions, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function RoleDefinitions() {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/roledefinitions";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "roledefinitions" } });
-            }
-        }
-        return RoleDefinitions;
-    }($REST.Base));
-    $REST.RoleDefinitions = RoleDefinitions;
-    var RoleDefinitions_Async = (function (_super) {
-        __extends(RoleDefinitions_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function RoleDefinitions_Async() {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return RoleDefinitions_Async;
-    }(RoleDefinitions));
-    $REST.RoleDefinitions_Async = RoleDefinitions_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -3976,9 +3074,18 @@ var $REST;
     }(Site));
     $REST.Site_Async = Site_Async;
     /*********************************************************************************************************************************/
-    // Methods
+    // Library
     /*********************************************************************************************************************************/
     $REST.Library.site = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [
+            "EventReceivers|eventreceivers", "Features", "Owner|user", "RootWeb|web", "UserCustomActions|usercustomactions"
+        ],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
         // Adds a custom action to the user custom action collection.
         addCustomAction: {
             metadataType: "SP.UserCustomAction",
@@ -4065,61 +3172,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Site Groups
-    // The SPSiteGroupCollection object.
-    /*********************************************************************************************************************************/
-    var SiteGroups = (function (_super) {
-        __extends(SiteGroups, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function SiteGroups() {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/sitegroups";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "sitegroups" } });
-            }
-        }
-        return SiteGroups;
-    }($REST.Base));
-    $REST.SiteGroups = SiteGroups;
-    var SiteGroups_Async = (function (_super) {
-        __extends(SiteGroups_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function SiteGroups_Async(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return SiteGroups_Async;
-    }(SiteGroups));
-    $REST.SiteGroups_Async = SiteGroups_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -4207,65 +3261,18 @@ var $REST;
     ];
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // User
-    // The SPUser object.
-    /*********************************************************************************************************************************/
-    var User = (function (_super) {
-        __extends(User, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function User(userId) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/getUserById(" + userId + ")";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "user" } });
-            }
-        }
-        return User;
-    }($REST.Base));
-    $REST.User = User;
-    var User_Async = (function (_super) {
-        __extends(User_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function User_Async(userId) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, userId, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return User_Async;
-    }(User));
-    $REST.User_Async = User_Async;
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
     $REST.Library.user = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [
+            "Groups|sitegroups"
+        ],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
         // Deletes the object
         delete: {
             requestType: $REST.Types.RequestType.Delete
@@ -4275,15 +3282,6 @@ var $REST;
 
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // User Custom Action
-    // The SPUserCustomAction object.
-    /*********************************************************************************************************************************/
-    //export class UserCustomAction extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -4295,61 +3293,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // User Custom Actions
-    // The SPUserCustomActionCollection object.
-    /*********************************************************************************************************************************/
-    var UserCustomActions = (function (_super) {
-        __extends(UserCustomActions, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function UserCustomActions(webFl) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = typeof (webFl) === "boolean" ? webFl : false;
-            this.targetInfo.endpoint = (this.defaultToWebFl ? "web" : "site") + "/usercustomactions";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "usercustomactions" } });
-            }
-        }
-        return UserCustomActions;
-    }($REST.Base));
-    $REST.UserCustomActions = UserCustomActions;
-    var UserCustomActions_Async = (function (_super) {
-        __extends(UserCustomActions_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function UserCustomActions_Async(webFl) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, webFl, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return UserCustomActions_Async;
-    }(UserCustomActions));
-    $REST.UserCustomActions_Async = UserCustomActions_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -4401,61 +3346,8 @@ var $REST;
     ];
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Users
-    // The SPUserCollection object.
-    /*********************************************************************************************************************************/
-    var Users = (function (_super) {
-        __extends(Users, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Users() {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/users";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "users" } });
-            }
-        }
-        return Users;
-    }($REST.Base));
-    $REST.Users = Users;
-    var Users_Async = (function (_super) {
-        __extends(Users_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Users_Async() {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return Users_Async;
-    }(Users));
-    $REST.Users_Async = Users_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -4496,15 +3388,6 @@ var $REST;
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
-    // Versions
-    // The SPVersionCollection object.
-    /*********************************************************************************************************************************/
-    //export class Versions extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
-    /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.versions = {
@@ -4535,65 +3418,18 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // View
-    // The SPView object.
-    /*********************************************************************************************************************************/
-    var View = (function (_super) {
-        __extends(View, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function View(viewName, listName) {
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')/views/getByTitle('" + viewName + "')";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "view" } });
-            }
-        }
-        return View;
-    }($REST.Base));
-    $REST.View = View;
-    var View_Async = (function (_super) {
-        __extends(View_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function View_Async(viewName, listName) {
-            var args = [];
-            for (var _i = 2; _i < arguments.length; _i++) {
-                args[_i - 2] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, viewName, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return View_Async;
-    }(View));
-    $REST.View_Async = View_Async;
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
     $REST.Library.view = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [
+            "ViewFields|viewfieldcollection"
+        ],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
         // Deletes the object
         delete: {
             requestType: $REST.Types.RequestType.Delete
@@ -4614,15 +3450,6 @@ var $REST;
 
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // View Fields
-    // The SPViewFieldCollection object.
-    /*********************************************************************************************************************************/
-    //export class ViewFieldCollection extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -4654,61 +3481,8 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Views
-    // The SPViewCollection object.
-    /*********************************************************************************************************************************/
-    var Views = (function (_super) {
-        __extends(Views, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Views(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')/views";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "views" } });
-            }
-        }
-        return Views;
-    }($REST.Base));
-    $REST.Views = Views;
-    var Views_Async = (function (_super) {
-        __extends(Views_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Views_Async(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return Views_Async;
-    }(Views));
-    $REST.Views_Async = Views_Async;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -4805,12 +3579,14 @@ var $REST;
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "AllProperties", "AppTiles", "AssociatedMemberGroup", "AssociatedOwnerGroup", "AssociatedVisitorGroup", "Author",
-            "AvailableContentTypes", "AvailableFields", "ClientWebParts", "ContentTypes", "CurrentUser", "DataLeakagePreventionStatusInfo",
-            "DescriptionResource", "EventReceivers", "Features", "Fields", "FirstUniqueAncestorSecurableObject", "Folders", "Lists",
-            "ListTemplates", "Navigation", "ParentWeb", "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments",
-            "RoleDefinitions", "RootFolder", "SiteGroups", "SiteUserInfoList", "SiteUsers", "ThemeInfo", "TitleResource",
-            "UserCustomActions", "WebInfos", "Webs", "WorkflowAssociations", "WorkflowTemplates"
+            "AllProperties", "AppTiles", "AssociatedMemberGroup|group", "AssociatedOwnerGroup|group", "AssociatedVisitorGroup|group",
+            "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields", "ClientWebParts", "ContentTypes|contenttypes",
+            "CurrentUser|user", "DataLeakagePreventionStatusInfo", "DescriptionResource", "EventReceivers|eventreceivers", "Features",
+            "Fields|fields", "FirstUniqueAncestorSecurableObject", "Folders|folders", "Lists|lists", "ListTemplates", "Navigation",
+            "ParentWeb", "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|roleassignments",
+            "RoleDefinitions|roledefinitions", "RootFolder|folder", "SiteGroups|sitegroups", "SiteUserInfoList", "SiteUsers|users",
+            "ThemeInfo", "TitleResource", "UserCustomActions|usercustomactions", "WebInfos", "Webs|webs", "WorkflowAssociations",
+            "WorkflowTemplates"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -5161,15 +3937,6 @@ var $REST;
 
 var $REST;
 (function ($REST) {
-    /*********************************************************************************************************************************/
-    // Webs
-    // The SPWebCollection object.
-    /*********************************************************************************************************************************/
-    //export class Webs extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/

@@ -27,6 +27,17 @@ gulp.task("copyTSD", function() {
         .pipe(gulp.dest("dist"));
 });
 
+// Create the definition file
+gulp.task("createDefinitionFile", function() {
+    // Log
+    console.log("Creating the definition file.");
+
+    // Copy the files
+    return gulp.src(["tsd/sprest.d.ts", "src/*.d.ts", "src/types/*.d.ts", "src/utils/*.d.ts", "src/lib/*.d.ts"])
+        .pipe(concat("sprest.d.ts"))
+        .pipe(gulp.dest("dist"));
+});
+
 // Copy the files to the test directory
 gulp.task("updateTestDir", function() {
     // Log
@@ -38,4 +49,4 @@ gulp.task("updateTestDir", function() {
 });
 
 // Main
-gulp.task("default", ["build", "copyTSD", "updateTestDir"]);
+gulp.task("default", ["build", "createDefinitionFile", "updateTestDir"]);

@@ -1,4 +1,4 @@
-module $REST.Types {
+declare module $REST.Types {
     /**
      * OData Settings
      */

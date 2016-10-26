@@ -1,9 +1,8 @@
-/// <reference path="requestType.ts" />
-module $REST.Types {
+declare module $REST.Types {
     /**
      * Method Information Settings
      */
-    export interface MethodInfoSettings {
+    interface MethodInfoSettings {
         argNames?:[string];
         argValues?:[any];
         data?:any;

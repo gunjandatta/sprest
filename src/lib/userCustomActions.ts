@@ -1,43 +1,5 @@
 module $REST {
     /*********************************************************************************************************************************/
-    // User Custom Actions
-    // The SPUserCustomActionCollection object.
-    /*********************************************************************************************************************************/
-    export class UserCustomActions extends Base {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(webFl?:boolean, ...args) {
-            // Call the base constructor
-            super(Base.getInputParmeters.apply(null, args));
-
-            // Default the properties
-            this.defaultToWebFl = typeof(webFl) === "boolean" ? webFl : false;
-            this.targetInfo.endpoint = (this.defaultToWebFl ? "web" : "site") + "/usercustomactions";
-
-            // See if we are executing the request
-            if(this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "usercustomactions" } } );
-            }
-        }
-    }
-
-    export class UserCustomActions_Async extends UserCustomActions {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(webFl?:boolean, ...args) {
-            // Call the base constructor
-            super(webFl, Base.getAsyncInputParmeters.apply(null, args));
-        }
-    }
-
-    /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     Library.usercustomactions = {

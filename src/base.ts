@@ -11,7 +11,7 @@ module $REST {
     // Base
     // This is the base class for all objects.
     /*********************************************************************************************************************************/
-    export class Base {
+    export class Base implements IBase {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
@@ -31,6 +31,9 @@ module $REST {
         // Flag to determine if the request should be asynchronous
         public get asyncFl():boolean { return this.request ? this.request.asyncFl : false; }
         public set asyncFl(value) { this.targetInfo.asyncFl = value; }
+
+        // Flag to determine if the requested object exists
+        public existsFl:boolean;
         
         // The parent
         public parent:Base;
@@ -78,6 +81,9 @@ module $REST {
                 // Update the data object
                 this.updateDataObject();
             }
+
+            // Return this object
+            return this;
         }
 
         // Method to get the input parameters for an asynchronous request
@@ -210,8 +216,14 @@ module $REST {
                     if(methodName == "properties") {
                         // Parse the properties
                         for(let property of methodInfo) {
+                            let propInfo = property.split("|");
+
+                            // Get the metadata type
+                            let propName = propInfo[0];
+                            let propType = propInfo.length > 1 ? propInfo[1] : null;
+
                             // Add the property
-                            obj["get_" + property] = new Function("return this.getProperty('" + property + "');");
+                            obj[propName] = new Function("executeRequestFl", "return this.getProperty('" + propName + "', '" + propType + "', executeRequestFl);");
                         }
                         
                         // Continue the loop
@@ -355,7 +367,7 @@ module $REST {
         }
 
         // Method to return a property of this object
-        protected getProperty(propertyName:string) {
+        protected getProperty(propertyName:string, requestType?:string, executeRequestFl?:boolean) {
             // Copy the target information
             let targetInfo = Object.create(this.targetInfo);
 
@@ -368,8 +380,11 @@ module $REST {
             // Set the parent
             obj.parent = this;
 
+            // Default the request flag
+            executeRequestFl = executeRequestFl == null ? this.executeRequestFl : executeRequestFl;
+
             // Execute the request
-            obj.execute();
+            executeRequestFl ? obj.execute() : this.addMethods(obj, { __metadata: { type: requestType } });
 
             // Return the object
             return obj;

@@ -1,4 +1,8 @@
-/// <reference path="../tsd/sprest.d.ts" />
+/// <reference path="../dist/sprest.d.ts" />
+
+var field = (new $REST.Web(false)).Lists(false).getByTitle("Dev").Fields(false).query({
+    Filter: ["InternalName eq 'Title'"]
+});
 
 var log = document.querySelector("#log");
 var LogType = {

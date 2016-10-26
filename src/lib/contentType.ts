@@ -1,51 +1,16 @@
 module $REST {
-    /*********************************************************************************************************************************/
-    // Content Type
-    // The SPContentType object.
-    /*********************************************************************************************************************************/
-    export class ContentType extends Base {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(name:string, listName?:string, ...args) {
-            // Call the base constructor
-            super(Base.getInputParmeters.apply(null, args));
-
-            // Default the properties
-            this.defaultToWebFl = true;
-
-            // Create the parent
-            this.parent = new $REST.ContentTypes(listName, false, { asyncFl: this.targetInfo.asyncFl });
-
-            // Get the content type
-            let contentType = this.parent["getByName"](name);
-
-            // See if this is an asynchronous request
-            if(this.targetInfo.asyncFl) {
-                // Resolve the parent request for asynchronous requests
-                contentType.done((ct) => { this.resolveParentRequest(ct); });
-            }
-            else {
-                // Return the content type
-                return contentType;
-            }
-        }
-    }
-
-    export class ContentType_Async extends ContentType {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(contentTypeName:string, listName?:string, ...args) {
-            // Call the base constructor
-            super(contentTypeName, listName, Base.getAsyncInputParmeters.apply(null, args));
-        }
-    }
-
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
     Library.contenttype = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [
+            "FieldLinks|fieldlinks", "Fields|fields", "WorkflowAssociations"
+        ],
+
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
+
         // Adds a field link to the content type.
         addFieldLink: {
             name: "fieldlink",

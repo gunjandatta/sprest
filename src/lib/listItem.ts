@@ -1,53 +1,13 @@
 module $REST {
-    /*********************************************************************************************************************************/
-    // List Item
-    // The SPListItem object.
-    /*********************************************************************************************************************************/
-    export class ListItem extends Base {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(itemId:number, listName:string, ...args) {
-            // Call the base constructor
-            super(Base.getInputParmeters.apply(null, args));
-
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')/items(" + itemId + ")";
-
-            // See if we are executing the request
-            if(this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "listItem" } } );
-            }
-        }
-    }
-
-    export class ListItem_Async extends ListItem {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(itemId:number, listName:string, ...args) {
-            // Call the base constructor
-            super(itemId, listName, Base.getAsyncInputParmeters.apply(null, args));
-        }
-    }
-
-    /*********************************************************************************************************************************/
-    // Library
-    /*********************************************************************************************************************************/
     Library.listitem = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
 
         properties: [
-            "AttachmentFiles", "ContentType", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit", "File",
-            "FirstUniqueAncestorSecurableObject", "Folder", "GetDlpPolicyTip", "ParentList", "RoleAssignments"
+            "AttachmentFiles|attachmentfiles", "ContentType|contenttype", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
+            "File|file", "FirstUniqueAncestorSecurableObject", "Folder|folder", "GetDlpPolicyTip", "ParentList|list",
+            "RoleAssignments|roleassignments"
         ],
 
         /*********************************************************************************************************************************/

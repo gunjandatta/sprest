@@ -1,83 +1,11 @@
 module $REST {
-    /*********************************************************************************************************************************/
-    // Folder
-    // The SPFolder object.
-    /*********************************************************************************************************************************/
-    export class Folder extends Base {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(serverRelativeUrl:string, listName?:string, ...args) {
-            var endpoint = "";
-            var getRootFolder = serverRelativeUrl == null || serverRelativeUrl == "" ? true : false;
-
-            // Call the base constructor
-            super(Base.getInputParmeters.apply(null, args));
-
-            // See if the list name exists
-            if(listName) {
-                // Update the endpoint
-                endpoint = "/lists/getByTitle('" + listName + "')";
-            }
-
-            // See if we are getting the root folder
-            if(getRootFolder || listName) {
-                // Update the endpoint
-                endpoint += "/rootfolder";
-            }
-
-            // See if the list name exists
-            if(listName) {
-                // Split the url
-                var url = serverRelativeUrl ? serverRelativeUrl.split("/") : [];
-
-                // Parse the url
-                for(var i=0; i < url.length; i++) {
-                    // Update the endpoint
-                    endpoint += "/folders/getByUrl('" + url[i] + "')";
-                }
-            }
-            else {
-                // Update the endpoint
-                endpoint += getRootFolder ? "" : "/getFolderByServerRelativeUrl('" + serverRelativeUrl + "')";
-            }
-
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web" + endpoint;
-
-            // See if we are executing the request
-            if(this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "folder" } } );
-            }
-        }
-    }
-
-    export class Folder_Async extends Folder {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(serverRelativeUrl:string, listName?:string, ...args) {
-            // Call the base constructor
-            super(serverRelativeUrl, listName, Base.getAsyncInputParmeters.apply(null, args));
-        }
-    }
-
-    /*********************************************************************************************************************************/
-    // Library
-    /*********************************************************************************************************************************/
     Library.folder = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
 
         properties: [
-            "Files", "Folders", "ListItemAllFields", "ParentFolder", "Properties", "StorageMetrics"
+            "Files|files", "Folders|folders", "ListItemAllFields", "ParentFolder|folder", "Properties", "StorageMetrics"
         ],
 
         /*********************************************************************************************************************************/

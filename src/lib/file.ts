@@ -1,67 +1,5 @@
 module $REST {
     /*********************************************************************************************************************************/
-    // File
-    // The SPFile object.
-    /*********************************************************************************************************************************/
-    export class File extends Base {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(serverRelativeUrl:string, listName?:string, ...args) {
-            var endpoint = "";
-
-            // Call the base constructor
-            super(Base.getInputParmeters.apply(null, args));
-
-            // See if the list name exists
-            if(listName) {
-                // Update the endpoint
-                endpoint = "/lists/getByTitle('" + listName + "')/rootfolder";
-
-                // Split the url
-                var url = serverRelativeUrl ? serverRelativeUrl.split("/") : [];
-
-                // Parse the folders
-                for(var i=0; i < url.length - 1; i++) {
-                    // Update the endpoint
-                    endpoint += "/folders/getByUrl('" + url[i] + "')";
-                }
-
-                // Add the file
-                endpoint += "/files/getByUrl('" + url[url.length-1] + "')";
-            }
-            else {
-                // Update the endpoint
-                endpoint += "/getFileByServerRelativeUrl('" + serverRelativeUrl + "')";
-            }
-
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web" + endpoint;
-
-            // See if we are executing the request
-            if(this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "file" } } );
-            }
-        }
-    }
-
-    export class File_Async extends File {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(serverRelativeUrl:string, listName?:string, ...args) {
-            // Call the base constructor
-            super(serverRelativeUrl, listName, Base.getAsyncInputParmeters.apply(null, args));
-        }
-    }
-
-    /*********************************************************************************************************************************/
     // Library
     /*********************************************************************************************************************************/
     Library.file = {
@@ -71,8 +9,8 @@ module $REST {
         /*********************************************************************************************************************************/
 
         properties: [
-            "Author", "CheckedOutByUser", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
-            "ListItemAllFields", "LockedByUser", "ModifiedBy", "Properties", "VersionEvents", "Versions"
+            "Author|user", "CheckedOutByUser|user", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
+            "ListItemAllFields", "LockedByUser|user", "ModifiedBy|user", "Properties", "VersionEvents", "Versions|fileversions"
         ],
 
         /*********************************************************************************************************************************/

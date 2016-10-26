@@ -53,12 +53,14 @@ module $REST {
         /*********************************************************************************************************************************/
 
         properties: [
-            "AllProperties", "AppTiles", "AssociatedMemberGroup", "AssociatedOwnerGroup", "AssociatedVisitorGroup", "Author",
-            "AvailableContentTypes", "AvailableFields", "ClientWebParts", "ContentTypes", "CurrentUser", "DataLeakagePreventionStatusInfo",
-            "DescriptionResource", "EventReceivers", "Features", "Fields", "FirstUniqueAncestorSecurableObject", "Folders", "Lists",
-            "ListTemplates", "Navigation", "ParentWeb", "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments",
-            "RoleDefinitions", "RootFolder", "SiteGroups", "SiteUserInfoList", "SiteUsers", "ThemeInfo", "TitleResource",
-            "UserCustomActions", "WebInfos", "Webs", "WorkflowAssociations", "WorkflowTemplates"
+            "AllProperties", "AppTiles", "AssociatedMemberGroup|group", "AssociatedOwnerGroup|group", "AssociatedVisitorGroup|group",
+            "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields", "ClientWebParts", "ContentTypes|contenttypes",
+            "CurrentUser|user", "DataLeakagePreventionStatusInfo", "DescriptionResource", "EventReceivers|eventreceivers", "Features",
+            "Fields|fields", "FirstUniqueAncestorSecurableObject", "Folders|folders", "Lists|lists", "ListTemplates", "Navigation",
+            "ParentWeb", "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|roleassignments",
+            "RoleDefinitions|roledefinitions", "RootFolder|folder", "SiteGroups|sitegroups", "SiteUserInfoList", "SiteUsers|users",
+            "ThemeInfo", "TitleResource", "UserCustomActions|usercustomactions", "WebInfos", "Webs|webs", "WorkflowAssociations",
+            "WorkflowTemplates"
         ],
 
         /*********************************************************************************************************************************/

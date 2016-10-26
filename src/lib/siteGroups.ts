@@ -1,43 +1,5 @@
 module $REST {
     /*********************************************************************************************************************************/
-    // Site Groups
-    // The SPSiteGroupCollection object.
-    /*********************************************************************************************************************************/
-    export class SiteGroups extends Base {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(...args) {
-            // Call the base constructor
-            super(Base.getInputParmeters.apply(null, args));
-
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/sitegroups";
-
-            // See if we are executing the request
-            if(this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "sitegroups" } } );
-            }
-        }
-    }
-
-    export class SiteGroups_Async extends SiteGroups {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(listName?:string, ...args) {
-            // Call the base constructor
-            super(listName, Base.getAsyncInputParmeters.apply(null, args));
-        }
-    }
-
-    /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     Library.siteGroups = {
