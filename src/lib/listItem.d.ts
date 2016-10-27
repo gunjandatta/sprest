@@ -75,10 +75,15 @@ declare module $REST.Types {
         ParentList(): IList;
 
         /**
-         * Gets the role assignment(s) for the securable object.
-         * @param id - (Optional) The role assignment id.
+         * Gets the role assignments for the securable object.
          */
-        RoleAssignments(id?:string): IRoleAssignment | IRoleAssignments;
+        RoleAssignments(): IRoleAssignments;
+
+        /**
+         * Gets the role assignment(s) for the securable object.
+         * @param id - The role assignment id.
+         */
+        RoleAssignments(id:string): IRoleAssignment;
 
         /**
          * Methods

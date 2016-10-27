@@ -11,10 +11,15 @@ declare module $REST.Types {
         Email: string;
 
         /**
-         * Gets the group(s) of which the user is a member.
-         * @param id - (Optional) The group id.
+         * Gets the groups of which the user is a member.
          */
-        Groups(id?:number): IGroup | ISiteGroups;
+        Groups(): ISiteGroups;
+
+        /**
+         * Gets the group of which the user is a member.
+         * @param id - The group id.
+         */
+        Groups(id:number): IGroup;
 
         /** Gets a value that specifies the member identifier for the user or group. */
         Id: string;

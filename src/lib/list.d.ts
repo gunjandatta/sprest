@@ -29,10 +29,15 @@ declare module $REST.Types {
         BrowserFileHandling(): string;
 
         /**
-         * Gets the content type(s) that are associated with the list.
-         * @param id - (Optional) The id of the content type.
+         * Gets the content types that are associated with the list.
          */
-        ContentTypes(id?:string, ): IContentType | IContentTypes;
+        ContentTypes(): IContentTypes;
+
+        /**
+         * Gets the content types that are associated with the list.
+         * @param id - The id of the content type.
+         */
+        ContentTypes(id:string): IContentType;
 
         /** Gets or sets a value that specifies whether content types are enabled for the list. */
         ContentTypesEnabled: string;
@@ -114,16 +119,26 @@ declare module $REST.Types {
         EntityTypeName: string;
 
         /**
-         * Gets the event receiver(s) associated with the list.
-         * @param id - (Optional) The id of the event receiver.
+         * Gets the event receivers associated with the list.
         */
-        EventReceivers(id?:string): IEventReceiver | IEventReceivers;
+        EventReceivers(): IEventReceivers;
 
         /**
-         * Gets the field(s) in the list.
-         * @param internalNameOrTitle - (Optional) The internal name or title of the field.
+         * Gets the event receiver associated with the list.
+         * @param id - The id of the event receiver.
+        */
+        EventReceivers(id:string): IEventReceiver;
+
+        /**
+         * Gets the fields in the list.
          */
-        Fields(internalNameOrTitle?:string): IField | IFields;
+        Fields(): IFields;
+
+        /**
+         * Gets the field in the list.
+         * @param internalNameOrTitle - The internal name or title of the field.
+         */
+        Fields(internalNameOrTitle:string): IField;
 
         /**
          * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
@@ -134,10 +149,15 @@ declare module $REST.Types {
         ForceCheckout: string;
 
         /**
-         * Gets the list form(s) in the list.
-         * @param id - (Optional) The id of the form.
+         * Gets the list forms in the list.
          */
-        Forms(id?:string): any;
+        Forms(): any;
+
+        /**
+         * Gets the list form in the list.
+         * @param id - The id of the form.
+         */
+        Forms(id:string): any;
 
         /** Gets a value that specifies whether the list is an external list. */
         HasExternalDataSource: string;
@@ -188,10 +208,15 @@ declare module $REST.Types {
         ItemCount: string;
 
         /**
-         * Gets the list item(s) in the list.
-         * @param id - (Optional) The id of the list item.
+         * Gets the list items in the list.
          */
-        Items(id?:number): IListItem | IListItems;
+        Items(): IListItems;
+
+        /**
+         * Gets the list item in the list.
+         * @param id - The id of the list item.
+         */
+        Items(id:number): IListItem;
 
         /** Gets a value that specifies the last time a list item was deleted from the list. */
         LastItemDeletedDate: string;
@@ -222,16 +247,26 @@ declare module $REST.Types {
         ParentWebUrl: string;
 
         /**
-         * Gets the role assignment(s) for the securable object.
-         * @param id - (Optional) The role assignment id.
+         * Gets the role assignments for the securable object.
          */
-        RoleAssignments(id?:string): IRoleAssignment | IRoleAssignments;
+        RoleAssignments(): IRoleAssignments;
 
         /**
-         * Gets the root folder or file in the list.
-         * @param url - (Optional) The url of the file within the root folder.
+         * Gets the role assignments for the securable object.
+         * @param id - The role assignment id.
          */
-        RootFolder(url?:string): IFile | IFolder;
+        RoleAssignments(id:string): IRoleAssignment;
+
+        /**
+         * Gets the root folder of the list.
+         */
+        RootFolder(): IFolder;
+
+        /**
+         * Gets the file in the root folder of the list.
+         * @param url - The url of the file within the root folder.
+         */
+        RootFolder(url:string): IFile;
 
         /**
          * Gets a value that specifies the list schema of the list.
@@ -248,10 +283,15 @@ declare module $REST.Types {
         Title: string;
 
         /**
-         * Gets the user custom action(s) for the list.
-         * @param id - (Optional) The id of the user custom action.
+         * Gets the user custom actions for the list.
          */
-        UserCustomActions(id?:string): IUserCustomAction | IUserCustomActions;
+        UserCustomActions(): IUserCustomActions;
+
+        /**
+         * Gets the user custom action(s) for the list.
+         * @param id - The id of the user custom action.
+         */
+        UserCustomActions(id:string): IUserCustomAction;
 
         /**
          * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
@@ -264,10 +304,15 @@ declare module $REST.Types {
         ValidationMessage(): string;
 
         /**
-         * Gets the view(s) in the list.
-         * @param id - (Optional) The id of the view.
+         * Gets the views in the list.
          */
-        Views(id?:string): IView | IViews;
+        Views(): IViews;
+
+        /**
+         * Gets the view in the list.
+         * @param id - The id of the view.
+         */
+        Views(id:string): IView;
 
         /**
          * Gets a value that specifies the collection of all workflow associations for the list.

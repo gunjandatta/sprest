@@ -84,10 +84,15 @@ declare module $REST.Types {
         Configuration: string;
 
         /**
-         * Gets the content type(s) that are associated with the web.
-         * @param id - (Optional) The id of the content type.
+         * Gets the content types that are associated with the web.
          */
-        ContentTypes(id?:string): IContentType | IContentTypes;
+        ContentTypes(): IContentTypes;
+
+        /**
+         * Gets the content type that are associated with the web.
+         * @param id - The id of the content type.
+         */
+        ContentTypes(id:string): IContentType;
 
         /** Gets a value that specifies when the site was created. */
         Created: string;
@@ -120,10 +125,15 @@ declare module $REST.Types {
         EnableMinimalDownload: string;
 
         /**
-         * Gets the event receiver(s) associated with the web.
-         * @param id - (Optional) The id of the event receiver.
+         * Gets the event receivers associated with the web.
         */
-        EventReceivers(id?:string): IEventReceiver | IEventReceivers;
+        EventReceivers(): IEventReceivers;
+
+        /**
+         * Gets the event receiver associated with the web.
+         * @param id - The id of the event receiver.
+        */
+        EventReceivers(id:string): IEventReceiver;
 
         /**
          * Gets a value that specifies the collection of features that are currently activated in the site.
@@ -131,16 +141,26 @@ declare module $REST.Types {
         Features(): any;
 
         /**
-         * Gets the field(s) in the web.
-         * @param internalNameOrTitle - (Optional) The internal name or title of the field.
+         * Gets the fields in the web.
          */
-        Fields(internalNameOrTitle?:string): IField | IFields;
+        Fields(): IFields;
 
         /**
-         * Gets the folder(s) contained in the root folder.
-         * @param url - (Optional) The url of the sub-folder within the current folder.
+         * Gets the field in the web.
+         * @param internalNameOrTitle - The internal name or title of the field.
          */
-        Folders(url?:string): IFolder | IFolders;
+        Fields(internalNameOrTitle:string): IField;
+
+        /**
+         * Gets the folders contained in the root folder.
+         */
+        Folders(): IFolders;
+
+        /**
+         * Gets the folder contained in the root folder.
+         * @param url - The url of the sub-folder within the current folder.
+         */
+        Folders(url:string): IFolder;
 
         /** Gets a value that specifies the site identifier for the site. */
         Id: string;
@@ -152,16 +172,26 @@ declare module $REST.Types {
         LastItemModifiedDate: string;
 
         /**
-         * Gets the list(s) in the Web.
-         * @param name - (Optional) The list name.
+         * Gets the lists in the Web.
          */
-        Lists(name?:string): IList | ILists;
+        Lists(): ILists;
 
         /**
-         * Gets the list definition(s) and/or list template(s) available for creating lists on the site.
-         * @param name - (Optional) The list template form name.
+         * Gets the list in the Web.
+         * @param name - The list name.
          */
-        ListTemplates(name?:string): any;
+        Lists(name:string): IList;
+
+        /**
+         * Gets the list definitions and list templates available for creating lists on the site.
+         */
+        ListTemplates(): any;
+
+        /**
+         * Gets the list definition or list template available for creating lists on the site.
+         * @param name - The list template form name.
+         */
+        ListTemplates(name:string): any;
 
         /** Gets or sets the URL of the master page that is used for the website. */
         MasterUrl: string;
@@ -198,16 +228,26 @@ declare module $REST.Types {
         RegionalSettings(): any;
 
         /**
-         * Gets the role definition(s) for the web.
-         * @param id - (Optional) The role definition id.
+         * Gets the role definitions for the web.
          */
-        RoleDefinitions(id?:number): IRoleDefinition | IRoleDefinitions;
+        RoleDefinitions(): IRoleDefinitions;
 
         /**
-         * Gets the root folder or file in the web.
+         * Gets the role definitions for the web.
+         * @param id - The role definition id.
+         */
+        RoleDefinitions(id:number): IRoleDefinition;
+
+        /**
+         * Gets the root folder in the web.
+         */
+        RootFolder(): IFolder;
+
+        /**
+         * Gets the file in the web's root folder.
          * @param url - (Optional) The url of the file within the root folder.
          */
-        RootFolder(url?:string): IFile | IFolder;
+        RootFolder(url:string): IFile;
 
         /**
          * Gets or sets a Boolean value that specifies whether the Web site can be saved as a site template.
@@ -223,10 +263,15 @@ declare module $REST.Types {
         ShowUrlStructureForCurrentUser(): any;
 
         /**
-         * Gets the site group(s) for the web.
-         * @param id - (Optional) The group id.
+         * Gets the site groups for the web.
          */
-        SiteGroups(id?:number): IGroup | ISiteGroups;
+        SiteGroups(): ISiteGroups;
+
+        /**
+         * Gets the site groups for the web.
+         * @param id - The group id.
+         */
+        SiteGroups(id:number): IGroup;
 
         /**
          * Gets the UserInfo list of the site collection that contains the Web site.
@@ -267,10 +312,15 @@ declare module $REST.Types {
         Url: string;
 
         /**
-         * Gets the user custom action(s) for the web.
-         * @param id - (Optional) The id of the user custom action.
+         * Gets the user custom actions for the web.
          */
-        UserCustomActions(id?:string): IUserCustomAction | IUserCustomActions;
+        UserCustomActions(): IUserCustomActions;
+
+        /**
+         * Gets the user custom action for the web.
+         * @param id - The id of the user custom action.
+         */
+        UserCustomActions(id:string): IUserCustomAction;
 
         /**
          * Represents key properties of the subsites of a site.

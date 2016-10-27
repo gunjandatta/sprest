@@ -1229,16 +1229,26 @@ declare module $REST.Types {
         EditFormUrl: string;
 
         /**
-         * Gets the column (also known as field) reference(s) in the content type.
-         * @param guid - (Optional) The guid of the field link.
+         * Gets the column (also known as field) references in the content type.
          */
-        FieldLinks(guid?:string): IFieldLinks;
+        FieldLinks(): IFieldLinks;
 
         /**
-         * Gets field(s) for the content type.
-         * @param internalNameOrTitle - (Optional) The internal name or title of the field.
+         * Gets the column (also known as field) reference in the content type.
+         * @param guid - The guid of the field link.
          */
-        Fields(internalNameOrTitle?:string): IField | IFields;
+        FieldLinks(guid:string): any;
+
+        /**
+         * Gets the fields for the content type.
+         */
+        Fields(): IFields;
+
+        /**
+         * Gets the field for the content type.
+         * @param internalNameOrTitle - The internal name or title of the field.
+         */
+        Fields(internalNameOrTitle:string): IField;
 
         /** Gets or sets a value that specifies the content type group for the content type. */
         Group: string;
@@ -2172,16 +2182,26 @@ declare module $REST.Types {
         ContentTypeOrder: string;
 
         /**
-         * Gets the file(s) contained in the folder.
-         * @param url - (Optional) The url of the file within the current folder.
+         * Gets the files contained in the folder.
          */
-        Files(url?:string): IFile | IFiles;
+        Files(): IFiles;
 
         /**
-         * Gets the folder(s) contained in the list folder.
-         * @param url - (Optional) The url of the sub-folder within the current folder.
+         * Gets the file contained in the folder.
+         * @param url - The url of the file within the current folder.
          */
-        Folders(url?:string): IFolder | IFolders;
+        Files(url:string): IFile;
+
+        /**
+         * Gets the folders contained in the list folder.
+         */
+        Folders(): IFolders;
+
+        /**
+         * Gets the folder contained in the list folder.
+         * @param url - The url of the sub-folder within the current folder.
+         */
+        Folders(url:string): IFolder;
 
         /** Gets a value that specifies the count of items in the list folder. */
         ItemCount: string;
@@ -2504,10 +2524,15 @@ declare module $REST.Types {
         BrowserFileHandling(): string;
 
         /**
-         * Gets the content type(s) that are associated with the list.
-         * @param id - (Optional) The id of the content type.
+         * Gets the content types that are associated with the list.
          */
-        ContentTypes(id?:string, ): IContentType | IContentTypes;
+        ContentTypes(): IContentTypes;
+
+        /**
+         * Gets the content types that are associated with the list.
+         * @param id - The id of the content type.
+         */
+        ContentTypes(id:string): IContentType;
 
         /** Gets or sets a value that specifies whether content types are enabled for the list. */
         ContentTypesEnabled: string;
@@ -2589,16 +2614,26 @@ declare module $REST.Types {
         EntityTypeName: string;
 
         /**
-         * Gets the event receiver(s) associated with the list.
-         * @param id - (Optional) The id of the event receiver.
+         * Gets the event receivers associated with the list.
         */
-        EventReceivers(id?:string): IEventReceiver | IEventReceivers;
+        EventReceivers(): IEventReceivers;
 
         /**
-         * Gets the field(s) in the list.
-         * @param internalNameOrTitle - (Optional) The internal name or title of the field.
+         * Gets the event receiver associated with the list.
+         * @param id - The id of the event receiver.
+        */
+        EventReceivers(id:string): IEventReceiver;
+
+        /**
+         * Gets the fields in the list.
          */
-        Fields(internalNameOrTitle?:string): IField | IFields;
+        Fields(): IFields;
+
+        /**
+         * Gets the field in the list.
+         * @param internalNameOrTitle - The internal name or title of the field.
+         */
+        Fields(internalNameOrTitle:string): IField;
 
         /**
          * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
@@ -2609,10 +2644,15 @@ declare module $REST.Types {
         ForceCheckout: string;
 
         /**
-         * Gets the list form(s) in the list.
-         * @param id - (Optional) The id of the form.
+         * Gets the list forms in the list.
          */
-        Forms(id?:string): any;
+        Forms(): any;
+
+        /**
+         * Gets the list form in the list.
+         * @param id - The id of the form.
+         */
+        Forms(id:string): any;
 
         /** Gets a value that specifies whether the list is an external list. */
         HasExternalDataSource: string;
@@ -2663,10 +2703,15 @@ declare module $REST.Types {
         ItemCount: string;
 
         /**
-         * Gets the list item(s) in the list.
-         * @param id - (Optional) The id of the list item.
+         * Gets the list items in the list.
          */
-        Items(id?:number): IListItem | IListItems;
+        Items(): IListItems;
+
+        /**
+         * Gets the list item in the list.
+         * @param id - The id of the list item.
+         */
+        Items(id:number): IListItem;
 
         /** Gets a value that specifies the last time a list item was deleted from the list. */
         LastItemDeletedDate: string;
@@ -2697,16 +2742,26 @@ declare module $REST.Types {
         ParentWebUrl: string;
 
         /**
-         * Gets the role assignment(s) for the securable object.
-         * @param id - (Optional) The role assignment id.
+         * Gets the role assignments for the securable object.
          */
-        RoleAssignments(id?:string): IRoleAssignment | IRoleAssignments;
+        RoleAssignments(): IRoleAssignments;
 
         /**
-         * Gets the root folder or file in the list.
-         * @param url - (Optional) The url of the file within the root folder.
+         * Gets the role assignments for the securable object.
+         * @param id - The role assignment id.
          */
-        RootFolder(url?:string): IFile | IFolder;
+        RoleAssignments(id:string): IRoleAssignment;
+
+        /**
+         * Gets the root folder of the list.
+         */
+        RootFolder(): IFolder;
+
+        /**
+         * Gets the file in the root folder of the list.
+         * @param url - The url of the file within the root folder.
+         */
+        RootFolder(url:string): IFile;
 
         /**
          * Gets a value that specifies the list schema of the list.
@@ -2723,10 +2778,15 @@ declare module $REST.Types {
         Title: string;
 
         /**
-         * Gets the user custom action(s) for the list.
-         * @param id - (Optional) The id of the user custom action.
+         * Gets the user custom actions for the list.
          */
-        UserCustomActions(id?:string): IUserCustomAction | IUserCustomActions;
+        UserCustomActions(): IUserCustomActions;
+
+        /**
+         * Gets the user custom action(s) for the list.
+         * @param id - The id of the user custom action.
+         */
+        UserCustomActions(id:string): IUserCustomAction;
 
         /**
          * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
@@ -2739,10 +2799,15 @@ declare module $REST.Types {
         ValidationMessage(): string;
 
         /**
-         * Gets the view(s) in the list.
-         * @param id - (Optional) The id of the view.
+         * Gets the views in the list.
          */
-        Views(id?:string): IView | IViews;
+        Views(): IViews;
+
+        /**
+         * Gets the view in the list.
+         * @param id - The id of the view.
+         */
+        Views(id:string): IView;
 
         /**
          * Gets a value that specifies the collection of all workflow associations for the list.
@@ -3073,10 +3138,15 @@ declare module $REST.Types {
         ParentList(): IList;
 
         /**
-         * Gets the role assignment(s) for the securable object.
-         * @param id - (Optional) The role assignment id.
+         * Gets the role assignments for the securable object.
          */
-        RoleAssignments(id?:string): IRoleAssignment | IRoleAssignments;
+        RoleAssignments(): IRoleAssignments;
+
+        /**
+         * Gets the role assignment(s) for the securable object.
+         * @param id - The role assignment id.
+         */
+        RoleAssignments(id:string): IRoleAssignment;
 
         /**
          * Methods
@@ -3421,10 +3491,15 @@ declare module $REST.Types {
         CompatibilityLevel: string;
 
         /**
-         * Gets the event receiver(s) associated with the site.
-         * @param id - (Optional) The id of the event receiver.
+         * Gets the event receivers associated with the site.
         */
-        EventReceivers(id?:string): IEventReceiver | IEventReceivers;
+        EventReceivers(): IEventReceivers;
+
+        /**
+         * Gets the event receiver associated with the site.
+         * @param id - The id of the event receiver.
+        */
+        EventReceivers(id:string): IEventReceiver;
 
         /**
          * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
@@ -3487,10 +3562,15 @@ declare module $REST.Types {
         Usage: string;
 
         /**
-         * Gets the user custom action(s) for the list.
-         * @param id - (Optional) The id of the user custom action.
+         * Gets the user custom action for the list.
          */
-        UserCustomActions(id?:string): IUserCustomAction | IUserCustomActions;
+        UserCustomAction(): IUserCustomActions;
+
+        /**
+         * Gets the user custom action(s) for the list.
+         * @param id - The id of the user custom action.
+         */
+        UserCustomActions(id:string): IUserCustomAction;
 
         /**
          * Methods
@@ -3675,10 +3755,15 @@ declare module $REST.Types {
         Email: string;
 
         /**
-         * Gets the group(s) of which the user is a member.
-         * @param id - (Optional) The group id.
+         * Gets the groups of which the user is a member.
          */
-        Groups(id?:number): IGroup | ISiteGroups;
+        Groups(): ISiteGroups;
+
+        /**
+         * Gets the group of which the user is a member.
+         * @param id - The group id.
+         */
+        Groups(id:number): IGroup;
 
         /** Gets a value that specifies the member identifier for the user or group. */
         Id: string;
@@ -4311,10 +4396,15 @@ declare module $REST.Types {
         Configuration: string;
 
         /**
-         * Gets the content type(s) that are associated with the web.
-         * @param id - (Optional) The id of the content type.
+         * Gets the content types that are associated with the web.
          */
-        ContentTypes(id?:string): IContentType | IContentTypes;
+        ContentTypes(): IContentTypes;
+
+        /**
+         * Gets the content type that are associated with the web.
+         * @param id - The id of the content type.
+         */
+        ContentTypes(id:string): IContentType;
 
         /** Gets a value that specifies when the site was created. */
         Created: string;
@@ -4347,10 +4437,15 @@ declare module $REST.Types {
         EnableMinimalDownload: string;
 
         /**
-         * Gets the event receiver(s) associated with the web.
-         * @param id - (Optional) The id of the event receiver.
+         * Gets the event receivers associated with the web.
         */
-        EventReceivers(id?:string): IEventReceiver | IEventReceivers;
+        EventReceivers(): IEventReceivers;
+
+        /**
+         * Gets the event receiver associated with the web.
+         * @param id - The id of the event receiver.
+        */
+        EventReceivers(id:string): IEventReceiver;
 
         /**
          * Gets a value that specifies the collection of features that are currently activated in the site.
@@ -4358,16 +4453,26 @@ declare module $REST.Types {
         Features(): any;
 
         /**
-         * Gets the field(s) in the web.
-         * @param internalNameOrTitle - (Optional) The internal name or title of the field.
+         * Gets the fields in the web.
          */
-        Fields(internalNameOrTitle?:string): IField | IFields;
+        Fields(): IFields;
 
         /**
-         * Gets the folder(s) contained in the root folder.
-         * @param url - (Optional) The url of the sub-folder within the current folder.
+         * Gets the field in the web.
+         * @param internalNameOrTitle - The internal name or title of the field.
          */
-        Folders(url?:string): IFolder | IFolders;
+        Fields(internalNameOrTitle:string): IField;
+
+        /**
+         * Gets the folders contained in the root folder.
+         */
+        Folders(): IFolders;
+
+        /**
+         * Gets the folder contained in the root folder.
+         * @param url - The url of the sub-folder within the current folder.
+         */
+        Folders(url:string): IFolder;
 
         /** Gets a value that specifies the site identifier for the site. */
         Id: string;
@@ -4379,16 +4484,26 @@ declare module $REST.Types {
         LastItemModifiedDate: string;
 
         /**
-         * Gets the list(s) in the Web.
-         * @param name - (Optional) The list name.
+         * Gets the lists in the Web.
          */
-        Lists(name?:string): IList | ILists;
+        Lists(): ILists;
 
         /**
-         * Gets the list definition(s) and/or list template(s) available for creating lists on the site.
-         * @param name - (Optional) The list template form name.
+         * Gets the list in the Web.
+         * @param name - The list name.
          */
-        ListTemplates(name?:string): any;
+        Lists(name:string): IList;
+
+        /**
+         * Gets the list definitions and list templates available for creating lists on the site.
+         */
+        ListTemplates(): any;
+
+        /**
+         * Gets the list definition or list template available for creating lists on the site.
+         * @param name - The list template form name.
+         */
+        ListTemplates(name:string): any;
 
         /** Gets or sets the URL of the master page that is used for the website. */
         MasterUrl: string;
@@ -4425,16 +4540,26 @@ declare module $REST.Types {
         RegionalSettings(): any;
 
         /**
-         * Gets the role definition(s) for the web.
-         * @param id - (Optional) The role definition id.
+         * Gets the role definitions for the web.
          */
-        RoleDefinitions(id?:number): IRoleDefinition | IRoleDefinitions;
+        RoleDefinitions(): IRoleDefinitions;
 
         /**
-         * Gets the root folder or file in the web.
+         * Gets the role definitions for the web.
+         * @param id - The role definition id.
+         */
+        RoleDefinitions(id:number): IRoleDefinition;
+
+        /**
+         * Gets the root folder in the web.
+         */
+        RootFolder(): IFolder;
+
+        /**
+         * Gets the file in the web's root folder.
          * @param url - (Optional) The url of the file within the root folder.
          */
-        RootFolder(url?:string): IFile | IFolder;
+        RootFolder(url:string): IFile;
 
         /**
          * Gets or sets a Boolean value that specifies whether the Web site can be saved as a site template.
@@ -4450,10 +4575,15 @@ declare module $REST.Types {
         ShowUrlStructureForCurrentUser(): any;
 
         /**
-         * Gets the site group(s) for the web.
-         * @param id - (Optional) The group id.
+         * Gets the site groups for the web.
          */
-        SiteGroups(id?:number): IGroup | ISiteGroups;
+        SiteGroups(): ISiteGroups;
+
+        /**
+         * Gets the site groups for the web.
+         * @param id - The group id.
+         */
+        SiteGroups(id:number): IGroup;
 
         /**
          * Gets the UserInfo list of the site collection that contains the Web site.
@@ -4494,10 +4624,15 @@ declare module $REST.Types {
         Url: string;
 
         /**
-         * Gets the user custom action(s) for the web.
-         * @param id - (Optional) The id of the user custom action.
+         * Gets the user custom actions for the web.
          */
-        UserCustomActions(id?:string): IUserCustomAction | IUserCustomActions;
+        UserCustomActions(): IUserCustomActions;
+
+        /**
+         * Gets the user custom action for the web.
+         * @param id - The id of the user custom action.
+         */
+        UserCustomActions(id:string): IUserCustomAction;
 
         /**
          * Represents key properties of the subsites of a site.

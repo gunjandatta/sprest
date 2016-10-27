@@ -11,16 +11,26 @@ declare module $REST.Types {
         ContentTypeOrder: string;
 
         /**
-         * Gets the file(s) contained in the folder.
-         * @param url - (Optional) The url of the file within the current folder.
+         * Gets the files contained in the folder.
          */
-        Files(url?:string): IFile | IFiles;
+        Files(): IFiles;
 
         /**
-         * Gets the folder(s) contained in the list folder.
-         * @param url - (Optional) The url of the sub-folder within the current folder.
+         * Gets the file contained in the folder.
+         * @param url - The url of the file within the current folder.
          */
-        Folders(url?:string): IFolder | IFolders;
+        Files(url:string): IFile;
+
+        /**
+         * Gets the folders contained in the list folder.
+         */
+        Folders(): IFolders;
+
+        /**
+         * Gets the folder contained in the list folder.
+         * @param url - The url of the sub-folder within the current folder.
+         */
+        Folders(url:string): IFolder;
 
         /** Gets a value that specifies the count of items in the list folder. */
         ItemCount: string;

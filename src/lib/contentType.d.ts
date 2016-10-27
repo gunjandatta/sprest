@@ -29,16 +29,26 @@ declare module $REST.Types {
         EditFormUrl: string;
 
         /**
-         * Gets the column (also known as field) reference(s) in the content type.
-         * @param guid - (Optional) The guid of the field link.
+         * Gets the column (also known as field) references in the content type.
          */
-        FieldLinks(guid?:string): IFieldLinks;
+        FieldLinks(): IFieldLinks;
 
         /**
-         * Gets field(s) for the content type.
-         * @param internalNameOrTitle - (Optional) The internal name or title of the field.
+         * Gets the column (also known as field) reference in the content type.
+         * @param guid - The guid of the field link.
          */
-        Fields(internalNameOrTitle?:string): IField | IFields;
+        FieldLinks(guid:string): any;
+
+        /**
+         * Gets the fields for the content type.
+         */
+        Fields(): IFields;
+
+        /**
+         * Gets the field for the content type.
+         * @param internalNameOrTitle - The internal name or title of the field.
+         */
+        Fields(internalNameOrTitle:string): IField;
 
         /** Gets or sets a value that specifies the content type group for the content type. */
         Group: string;
