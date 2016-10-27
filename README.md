@@ -170,7 +170,7 @@ var list = (new $REST.List())
     .query({
         Select: ["Title", "Author/Id", "Author/Title"],
         Expand: ["Author"],
-        Filter: ["AuthorId eq 11"]
+        Filter: "AuthorId eq 11"
     })
     // Execute the request
     .execute(function(items) {
@@ -243,7 +243,7 @@ var field = (new $REST.List("documents"))
 
 _**Web**_
 ```
-(new $REST.Web())
+(new $REST.Web_Async())
     .Fields("Title")
     .execute(function(field) {
         // Additional code goes here
@@ -260,7 +260,7 @@ var fields = (new $REST.List("documents"))
 
 _**Web**_
 ```
-(new $REST.Web())
+(new $REST.Web_Async())
     .Fields()
     .execute(function(fields) {
         // Additional code goes here
@@ -307,7 +307,7 @@ var files = (new $REST.List("documents"))
 
 _**Web**_
 ```
-(new $REST.Web())
+var files = (new $REST.Web())
     .Files()
     .execute();
 ```
@@ -372,7 +372,7 @@ var items = (new $REST.List("documents"))
 
 _**CAML Query**_
 ```
-(new $REST.List("documents"))
+(new $REST.List_Async("documents"))
     // Get the items
     .getItemsByQuery("<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>")
     // Execute after the request completes
@@ -442,7 +442,7 @@ var users = (new $REST.Web())
 var view = (new $REST.List("dev"))
     .Views()
     .query({
-        Filter: ["Name eq 'All Items']
+        Filter: "Name eq 'All Items'"
     })
     .execute();
 ```
