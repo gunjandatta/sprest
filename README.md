@@ -74,7 +74,7 @@ var list = (new $REST.Web())
 
 ##### Asynchronously
 ```
-// This will create the web object, set the asynchronous flag and not execute a request to the server
+// This will create the web object
 (new $REST.Web_Async())
     // Get the list collection
     .Lists()
@@ -92,7 +92,7 @@ var list = (new $REST.Web())
 
 #### Example - Query a List
 ```
-// This will execute one request to the server to get list items
+// Get the list
 var items = (new $REST.List("[List Name]"))
     // Query using OData
     .query({
