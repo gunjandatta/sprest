@@ -11,7 +11,7 @@ declare module $REST.Types {
 
         /**
          * Gets a webpart by its id.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param id - The web part id.
          */
         WebParts(id);
     }

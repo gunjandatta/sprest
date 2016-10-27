@@ -5,11 +5,10 @@ declare module $REST.Types {
     interface ISite extends IBase {
         /**
          * Constructor
-         * @param url - (Optional) The web url.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param url - (Optional) The site url.
          * @param targetInfo - (Optional) The target information.
          */
-        new(url?:string, executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): ISite;
+        new(url?:string, targetInfo?:Settings.TargetInfoSettings): ISite;
 
         /**
          * Properties
@@ -39,15 +38,13 @@ declare module $REST.Types {
         /**
          * Gets the event receiver(s) associated with the site.
          * @param id - (Optional) The id of the event receiver.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
         */
-        EventReceivers(id?:string, executeRequestFl?:boolean): IEventReceiver | IEventReceivers;
+        EventReceivers(id?:string): IEventReceiver | IEventReceivers;
 
         /**
          * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Features(executeRequestFl?:boolean): any;
+        Features(): any;
 
         /** Gets the GUID that identifies the site collection. */
         Id: string;
@@ -60,9 +57,8 @@ declare module $REST.Types {
 
         /**
          * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Owner(executeRequestFl?:boolean): IUser;
+        Owner(): IUser;
 
         /** Specifies the primary URI of this site collection, including the host name, port number, and path. */
         PrimaryUri: string;
@@ -75,9 +71,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that returns the top-level site of the site collection.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        RootWeb(executeRequestFl?:boolean): IWeb;
+        RootWeb(): IWeb;
 
         /** Gets the server-relative URL of the root Web site in the site collection. */
         ServerRelativeUrl: string;
@@ -109,9 +104,8 @@ declare module $REST.Types {
         /**
          * Gets the user custom action(s) for the list.
          * @param id - (Optional) The id of the user custom action.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        UserCustomActions(id?:string, executeRequestFl?:boolean): IUserCustomAction | IUserCustomActions;
+        UserCustomActions(id?:string): IUserCustomAction | IUserCustomActions;
 
         /**
          * Methods

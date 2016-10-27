@@ -8,9 +8,9 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(...args) {
+        constructor(targetInfo?:Settings.TargetInfoSettings) {
             // Call the base constructor
-            super(Base.getInputParmeters.apply(null, args));
+            super(targetInfo);
 
             // Default the properties
             this.defaultToWebFl = true;
@@ -49,9 +49,9 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(...args) {
+        constructor(targetInfo?:Settings.TargetInfoSettings) {
             // Call the base constructor
-            super(Base.getAsyncInputParmeters.apply(null, args));
+            super(Base.getAsyncInputParmeters.apply(null, targetInfo));
         }
     }
 }

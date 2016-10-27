@@ -33,41 +33,37 @@ A global flag is used to determine if an app web request should execute requests
 $REST.DefaultRequestToHostWebFl = true;
 ```
 
-### Execute on Creation
-A global flag is used to determine if the request should be executed on creation. This option can save a request to the server.
-*Note - This value is false by default.*
-```
-$REST.ExecuteOnCreationFl = true;
-```
-
 ### Asynchronous/Synchronous requests
-All objects have the following constructors [Object] and [Object]_Async.
+All availabe objects having an api entry point, will have the following constructors [Object] and [Object]_Async.
 
 #### Examples
 _**Asynchronous Request**_
 ```
-(new Web_Async(function(web) { ... }))
-    .execute(function(obj) {
+// Get the current web
+(new Web_Async())
+    // Execute the request
+    .execute(function(web) {
         // Code to execute after the request completes
     });
 ```
 
 _**Synchronous Request**_
 ```
-$REST.ExecuteOnCreationFl = true;
-var web = new Web();
+var web = (new $REST.Web()).execute();
 ```
 
 ### Fewer Requests to the Server
-Having the execute on creation boolean option, if set to false will construct the url of the base object without making a request to the server.
+Having the ability to chain the 'Properties', it allows for the developer to get the target object with one request to the server.
 
 #### Example - Creating a List
 ##### Synchronously
 ```
-// This will create the web object, but not execute the request.
+// This will create the web object
 var list = (new $REST.Web())
+    // Get the list collection
+    .Lists()
     // Create a list
-    .web.addList({
+    .add({
         BaseTemplate: 100,
         Description: "This is a test list.",
         Title: "Test"
@@ -80,13 +76,15 @@ var list = (new $REST.Web())
 ```
 // This will create the web object, set the asynchronous flag and not execute a request to the server
 (new $REST.Web_Async())
+    // Get the list collection
+    .Lists()
     // Create the list
-    .addList({
+    .add({
         BaseTemplate: 100,
         Description: "This is a test list.",
         Title: "Test"
     })
-    // This will execute after the list is created
+    // Execute the request
     .execute(function(list) {
         // Additional code goes here
     });
@@ -96,33 +94,33 @@ var list = (new $REST.Web())
 ```
 // This will execute one request to the server to get list items
 var items = (new $REST.List("[List Name]"))
+    // Query using OData
     .query({
         // OData properties - Refer to the OData section for additional details
     })
+    // Execute the request
     .execute();
 
 // Example of getting items by a CAML Query
 (new $REST.List("Site Assets"))
+    // Get the items by a CAML Query
     .getItemsByQuery("<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>")
+    // Execute the request
     .execute();
 
 // Example of getting items by a CAML View Query
 (new $REST.List("Site Assets"))
+    // Get the items by a CAML View Query
     .getItems("<View Scope='RecursiveAll'><Query><Where><Eq><FieldRef Name='FileLeafRef' /><Value Type='File'>sprest.js</Value></Eq></Where></Query></View>")
+    // Execute the request
     .execute();
 ```
 
 ### Optional Input
 All constructors take have the following optional parameters:
 ```
-// The target information and execute request flags are optional
-new Object([Object Specific Input Parameters], executeRequestFl);
+// The target information is optional
 new Object([Object Specific Input Parameters], targetInfo);
-new Object([Object Specific Input Parameters], executeRequestFl, targetInfo);
-
-// Asynchronous methods can take either a target information object, or the callback function
-new Object_Async([Object Specific Input Parameters], executeRequestFl, targetInfo);
-new Object_Async([Object Specific Input Parameters], function(obj) { ... }, executeRequestFl);
 ```
 
 #### Target Information
@@ -135,9 +133,6 @@ The target information consists of the following properties:
 * method - The request method type.
 * endpoint - The api endpoint.
 * url - The server relative site/web url to execute the request against.
-
-#### Execute Request Flag
-The executeRequestFl parameter will default to the global $REST.ExecuteOnCreationFl value.
 
 ### PowerShell-Like Experience
 Since the library can be executed synchronously, the user can execute commands in the browser's console window and interact with the SharePoint site in a command-line interface.
@@ -157,8 +152,8 @@ Each collection will have a generic "query" method with the input of the OData q
 
 #### Query List Collection
 ```
-// Get the lists for the current web, but don't execute a request to the server
-var list = new $REST.Lists(false)
+// Get the current web's list collection
+var list = (new $REST.List())
     // Query for the 'Dev' list
     .query({
         Filter: ["Title eq 'Dev'"]
@@ -167,16 +162,18 @@ var list = new $REST.Lists(false)
 
 #### Query List Item Collection
 ```
-// Get the 'Dev' list, but don't execute a request to the server
-(new $REST.ListItems_Async("Dev", false))
+// Get the 'Dev' list
+(new $REST.List_Async("Dev"))
+    // Get the item collection
+    .Items()
     // Query for my items, expanding the created by information
     .query({
         Select: ["Title", "Author/Id", "Author/Title"],
         Expand: ["Author"],
         Filter: ["AuthorId eq 11"]
     })
-    // Execute code after the request is complete
-    .execute(function(items:$REST.ListItems) {
+    // Execute the request
+    .execute(function(items) {
         // Code goes here
     });
 ```
@@ -240,20 +237,14 @@ _**Web**_
 _**List**_
 ```
 var field = (new $REST.List("documents"))
-    .Fields()
-    .query({
-        Filter: ["InternalName eq 'Title'"]
-    })
+    .Fields("Title")
     .execute();
 ```
 
 _**Web**_
 ```
 (new $REST.Web())
-    .Fields()
-    .query({
-        Filter: ["InternalName eq 'Title'"]
-    })
+    .Fields("Title")
     .execute(function(field) {
         // Additional code goes here
     });
@@ -282,13 +273,10 @@ _**List**_
 ```
 (new $REST.List_Async("Documents"))
     .RootFolder()
-    .getByUrl("Forms/EditForm.aspx")
-    .execute(function(folder) {
-        folder.Files()
-            .getByUrl('EditForm.aspx')
-            .execute(function(file) {
-                // Additional code goes here
-            });
+    .Folders("forms")
+    .Files("EditForm.aspx")
+    .execute(function(file) {
+        // Additional code goes here
     })
 ```
 
@@ -296,17 +284,15 @@ _**List**_
 ```
 var file = (new $REST.List("Documents"))
     .RootFolder()
-    .getByUrl("Forms/EditForm.aspx")
-    .execute()
-    .Files()
-    .getByUrl('EditForm.aspx')
-    .execute();
+    .Folders("forms")
+    .Files("editform.aspx")
+    execute();
 ```
 
 _**Web**_
 ```
 var file = (new $REST.Web())
-    .getFileByServerRelativeUrl("/sites/dev/shared documents/forms/EditForm.aspx")
+    .getFileByServerRelativeUrl("/sites/dev/shared documents/forms/editform.aspx")
     .execute();
 ```
 
@@ -330,8 +316,7 @@ _**Web**_
 _**List**_
 ```
 var folder = (new $REST.List("Documents"))
-    .RootFolder()
-    .getByUrl("Forms")
+    .RootFolder("Forms")
     .execute()
 ```
 
@@ -373,8 +358,7 @@ var lists = (new $REST.Web())
 ### List Item
 ```
 var item = (new $REST.List("documents"))
-    .Items()
-    .getById(1)
+    .Items(1)
     .execute();
 ```
 

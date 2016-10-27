@@ -15,9 +15,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the user that represents the creator of the file version.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        CreatedBy(executeRequestFl?:boolean): IUser;
+        CreatedBy(): IUser;
 
         /** Gets the internal identifier for the file version. */
         ID: string;

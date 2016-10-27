@@ -13,40 +13,35 @@ declare module $REST.Types {
         /**
          * Gets the file(s) contained in the folder.
          * @param url - (Optional) The url of the file within the current folder.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Files(url?:string, executeRequestFl?:boolean): IFile | IFiles;
+        Files(url?:string): IFile | IFiles;
 
         /**
          * Gets the folder(s) contained in the list folder.
          * @param url - (Optional) The url of the sub-folder within the current folder.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Folders(url?:string, executeRequestFl?:boolean): IFolder | IFolders;
+        Folders(url?:string): IFolder | IFolders;
 
         /** Gets a value that specifies the count of items in the list folder. */
         ItemCount: string;
 
         /**
          * Specifies the list item field (2) values for the list item corresponding to the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ListItemAllFields(executeRequestFl?:boolean): any;
+        ListItemAllFields(): any;
 
         /** Gets the name of the folder. */
         Name: string;
 
         /**
          * Gets the parent list folder of the folder.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ParentFolder(executeRequestFl?:boolean): IFolder;
+        ParentFolder(): IFolder;
 
         /**
          * Gets the collection of all files contained in the folder.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Properties(executeRequestFl?:boolean): any;
+        Properties(): any;
 
         /** Gets the server-relative URL of the list folder. */
         ServerRelativeUrl: string;

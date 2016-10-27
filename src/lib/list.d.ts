@@ -6,10 +6,9 @@ declare module $REST.Types {
         /**
          * Constructor
          * @param listName - The name of the list.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        new(listName:string, executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IList;
+        new(listName:string, targetInfo?:Settings.TargetInfoSettings): IList;
 
         /**
          * Properties
@@ -26,16 +25,14 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the override of the web application's BrowserFileHandling property at the list level. Represents an SP.BrowserFileHandling value: Permissive = 0; Strict = 1.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        BrowserFileHandling(executeRequestFl?:boolean): string;
+        BrowserFileHandling(): string;
 
         /**
          * Gets the content type(s) that are associated with the list.
          * @param id - (Optional) The id of the content type.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ContentTypes(id?:string, executeRequestFl?:boolean): IContentType | IContentTypes;
+        ContentTypes(id?:string, ): IContentType | IContentTypes;
 
         /** Gets or sets a value that specifies whether content types are enabled for the list. */
         ContentTypesEnabled: string;
@@ -45,42 +42,36 @@ declare module $REST.Types {
 
         /**
          * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        DataSource(executeRequestFl?:boolean): string;
+        DataSource(): string;
 
         /** Gets a value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
         DefaultContentApprovalWorkflowId: string;
 
         /**
          * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        DefaultDisplayFormUrl(executeRequestFl?:boolean): string;
+        DefaultDisplayFormUrl(): string;
 
         /**
          * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        DefaultEditFormUrl(executeRequestFl?:boolean): string;
+        DefaultEditFormUrl(): string;
 
         /**
          * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        DefaultNewFormUrl(executeRequestFl?:boolean): string;
+        DefaultNewFormUrl(): string;
 
         /**
          * Gets the default list view.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
         */
-        DefaultView(executeRequestFl?:boolean): IView;
+        DefaultView(): IView;
 
         /**
          * Gets the URL of the default view for the list.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        DefaultViewUrl(executeRequestFl?:boolean): string;
+        DefaultViewUrl(): string;
 
         /** Gets or sets a value that specifies the description of the list. */
         Description: string;
@@ -96,15 +87,13 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        EffectiveBasePermissions(executeRequestFl?:boolean): any;
+        EffectiveBasePermissions(): any;
 
         /**
          * Gets a value that specifies the effective permissions on the list that are for the user interface.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
         */
-        EffectiveBasePermissionsForUI(executeRequestFl?:boolean): any;
+        EffectiveBasePermissionsForUI(): any;
 
         /** Gets or sets a value that specifies whether list item attachments are enabled for the list. */
         EnableAttachments: string;
@@ -127,22 +116,19 @@ declare module $REST.Types {
         /**
          * Gets the event receiver(s) associated with the list.
          * @param id - (Optional) The id of the event receiver.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
         */
-        EventReceivers(id?:string, executeRequestFl?:boolean): IEventReceiver | IEventReceivers;
+        EventReceivers(id?:string): IEventReceiver | IEventReceivers;
 
         /**
          * Gets the field(s) in the list.
          * @param internalNameOrTitle - (Optional) The internal name or title of the field.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Fields(internalNameOrTitle?:string, executeRequestFl?:boolean): IField | IFields;
+        Fields(internalNameOrTitle?:string): IField | IFields;
 
         /**
          * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        FirstUniqueAncestorSecurableObject(executeRequestFl?:boolean): string;
+        FirstUniqueAncestorSecurableObject(): string;
 
         /** Gets or sets a value that indicates whether forced checkout is enabled for the document library. */
         ForceCheckout: string;
@@ -150,18 +136,16 @@ declare module $REST.Types {
         /**
          * Gets the list form(s) in the list.
          * @param id - (Optional) The id of the form.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Forms(id?:string, executeRequestFl?:boolean): any;
+        Forms(id?:string): any;
 
         /** Gets a value that specifies whether the list is an external list. */
         HasExternalDataSource: string;
 
         /**
          * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        HasUniqueRoleAssignments(executeRequestFl?:boolean): any;
+        HasUniqueRoleAssignments(): any;
 
         /** Gets or sets a Boolean value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
         Hidden: string;
@@ -174,9 +158,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the information rights management settings.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
         */
-        InformationRightsManagementSettings(executeRequestFl?:boolean): any;
+        InformationRightsManagementSettings(): any;
 
         /**  */
         IrmEnabled: string;
@@ -198,9 +181,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        IsSiteAssetsLibrary(executeRequestFl?:boolean): string;
+        IsSiteAssetsLibrary(): string;
 
         /** Gets a value that specifies the number of list items in the list. */
         ItemCount: string;
@@ -208,9 +190,8 @@ declare module $REST.Types {
         /**
          * Gets the list item(s) in the list.
          * @param id - (Optional) The id of the list item.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Items(id?:number, executeRequestFl?:boolean): IListItem | IListItems;
+        Items(id?:number): IListItem | IListItems;
 
         /** Gets a value that specifies the last time a list item was deleted from the list. */
         LastItemDeletedDate: string;
@@ -229,15 +210,13 @@ declare module $REST.Types {
 
         /**
          * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        OnQuickLaunch(executeRequestFl?:boolean): string;
+        OnQuickLaunch(): string;
 
         /**
          * Gets a value that specifies the site that contains the list.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ParentWeb(executeRequestFl?:boolean): any;
+        ParentWeb(): any;
 
         /** Gets a value that specifies the server-relative URL of the site that contains the list. */
         ParentWebUrl: string;
@@ -245,22 +224,19 @@ declare module $REST.Types {
         /**
          * Gets the role assignment(s) for the securable object.
          * @param id - (Optional) The role assignment id.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        RoleAssignments(id?:string, executeRequestFl?:boolean): IRoleAssignment | IRoleAssignments;
+        RoleAssignments(id?:string): IRoleAssignment | IRoleAssignments;
 
         /**
          * Gets the root folder or file in the list.
          * @param url - (Optional) The url of the file within the root folder.
-         * @param targetInfo - (Optional) The target information.
          */
-        RootFolder(url?:string, executeRequestFl?:boolean): IFile | IFolder;
+        RootFolder(url?:string): IFile | IFolder;
 
         /**
          * Gets a value that specifies the list schema of the list.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        SchemaXml(executeRequestFl?:boolean): string;
+        SchemaXml(): string;
 
         /** Gets a value that indicates whether folders can be created within the list. */
         ServerTemplateCanCreateFolders: string;
@@ -274,34 +250,29 @@ declare module $REST.Types {
         /**
          * Gets the user custom action(s) for the list.
          * @param id - (Optional) The id of the user custom action.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        UserCustomActions(id?:string, executeRequestFl?:boolean): IUserCustomAction | IUserCustomActions;
+        UserCustomActions(id?:string): IUserCustomAction | IUserCustomActions;
 
         /**
          * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ValidationFormula(executeRequestFl?:boolean): string;
+        ValidationFormula(): string;
 
         /**
          * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ValidationMessage(executeRequestFl?:boolean): string;
+        ValidationMessage(): string;
 
         /**
          * Gets the view(s) in the list.
          * @param id - (Optional) The id of the view.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Views(id?:string, executeRequestFl?:boolean): IView | IViews;
+        Views(id?:string): IView | IViews;
 
         /**
          * Gets a value that specifies the collection of all workflow associations for the list.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        WorkflowAssociations(executeRequestFl?:boolean): string;
+        WorkflowAssociations(): string;
 
         /**
          * Methods

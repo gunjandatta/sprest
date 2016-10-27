@@ -7,23 +7,16 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(listName:string, ...args) {
+        constructor(listName:string, targetInfo?:Settings.TargetInfoSettings) {
             // Call the base constructor
-            super(Base.getInputParmeters.apply(null, args));
+            super(targetInfo);
 
             // Default the properties
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "lists/getByTitle('" + listName + "')";
 
-            // See if we are executing the request
-            if(this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "list" } } );
-            }
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "list" } } );
         }
     }
 

@@ -4,7 +4,6 @@ var $REST;
     // Global Variables
     /*********************************************************************************************************************************/
     $REST.DefaultRequestToHostWebFl = false;
-    $REST.ExecuteOnCreationFl = false;
     $REST.Library = {};
     var SP;
     /*********************************************************************************************************************************/
@@ -15,12 +14,10 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function Base(params) {
+        function Base(targetInfo) {
             // Default the properties
-            this.targetInfo = params.settings;
+            this.targetInfo = targetInfo || {};
             this.requestType = 0;
-            // Default the properties
-            this.executeRequestFl = typeof (params.executeRequestFl) === "boolean" ? params.executeRequestFl : $REST.ExecuteOnCreationFl;
         }
         Object.defineProperty(Base.prototype, "asyncFl", {
             /*********************************************************************************************************************************/
@@ -64,67 +61,13 @@ var $REST;
             return this;
         };
         // Method to get the input parameters for an asynchronous request
-        Base.getAsyncInputParmeters = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
-            }
-            // Get the input parameters
-            var params = Base.getInputParmeters.apply(null, args);
+        Base.getAsyncInputParmeters = function (targetInfo) {
+            // Ensure the target information exists
+            targetInfo = targetInfo ? targetInfo : {};
             // Set the asynchronous flag
-            params.settings.asyncFl = true;
-            // Return the parameters
-            return params;
-        };
-        // Method to get the input parameters
-        Base.getInputParmeters = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
-            }
-            var settings = null;
-            var params = {
-                executeRequestFl: null,
-                settings: null
-            };
-            // Ensure arguments exist
-            if (args && args.length > 0) {
-                // Determine if this is an IBaseType
-                if (args.length == 1 && args[0].hasOwnProperty("executeRequestFl") && args[0].hasOwnProperty("settings")) {
-                    // Return it
-                    return args[0];
-                }
-                // See if the first parameter is the flag
-                if (typeof (args[0]) === "boolean") {
-                    // Set the parameters
-                    params.executeRequestFl = args[0];
-                    settings = args[1];
-                }
-                else {
-                    // Set the parameters
-                    params.executeRequestFl = args[1];
-                    settings = args[0];
-                }
-            }
-            // See if settings exist
-            if (settings) {
-                params.settings = {};
-                // See if it's a callback
-                if (typeof (settings) === "function") {
-                    // Set the callback
-                    params.settings.callback = settings;
-                }
-                else {
-                    // Set the settings
-                    params.settings = settings;
-                }
-            }
-            else {
-                // Create them
-                params.settings = {};
-            }
-            // Return the parameters
-            return params;
+            targetInfo.asyncFl = true;
+            // Return the target information
+            return targetInfo;
         };
         /*********************************************************************************************************************************/
         // Private Methods
@@ -177,12 +120,12 @@ var $REST;
                                 // Update the ' char in the property name
                                 subPropName = subPropName.replace(/'/g, "\\'");
                                 // Add the property
-                                obj[propName] = new Function("name", "executeRequestFl", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
-                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "', executeRequestFl);");
+                                obj[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
+                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             }
                             else {
                                 // Add the property
-                                obj[propName] = new Function("executeRequestFl", "return this.getProperty('" + propName + "', '" + propType + "', executeRequestFl);");
+                                obj[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
                             }
                         }
                         // Continue the loop
@@ -272,12 +215,10 @@ var $REST;
                 targetInfo.endpoint = (targetInfo.endpoint ? targetInfo.endpoint + "/" : "") + methodInfo.url;
             }
             // Create a new object
-            var obj = new Base({ settings: targetInfo, executeRequestFl: this.executeRequestFl });
+            var obj = new Base(targetInfo);
             // Set the parent and request type
             obj.parent = this;
             obj.requestType = methodConfig.requestType;
-            // Execute the request
-            obj.executeRequestFl ? obj.execute() : null;
             // Return the object
             return obj;
         };
@@ -302,16 +243,14 @@ var $REST;
             // Update the callback
             targetInfo.callback = args && typeof (args[0]) === "function" ? args[0] : null;
             // Create a new object
-            var obj = new Base({ settings: targetInfo, executeRequestFl: this.executeRequestFl });
+            var obj = new Base(targetInfo);
             // Set the parent
             obj.parent = this;
-            // Execute the request
-            obj.executeRequestFl ? obj.execute() : null;
             // Return the object
             return obj;
         };
         // Method to return a property of this object
-        Base.prototype.getProperty = function (propertyName, requestType, executeRequestFl) {
+        Base.prototype.getProperty = function (propertyName, requestType) {
             // Copy the target information
             var targetInfo = Object.create(this.targetInfo);
             // See if the metadata is defined for this object
@@ -328,14 +267,12 @@ var $REST;
                 // Append the property name to the endpoint
                 targetInfo.endpoint += "/" + propertyName;
             }
-            // Default the request flag
-            executeRequestFl = executeRequestFl == null ? this.executeRequestFl : executeRequestFl;
             // Create a new object
-            var obj = new Base({ settings: targetInfo, executeRequestFl: executeRequestFl });
+            var obj = new Base(targetInfo);
             // Set the parent
             obj.parent = this;
-            // Execute the request
-            obj.executeRequestFl ? obj.execute() : this.addMethods(obj, { __metadata: { type: requestType } });
+            // Add the methods
+            requestType ? this.addMethods(obj, { __metadata: { type: requestType } }) : null;
             // Return the object
             return obj;
         };
@@ -1920,13 +1857,9 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function Email() {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
-            }
+        function Email(targetInfo) {
             // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
+            _super.call(this, targetInfo);
             // Default the properties
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "SP.Utilities.Utility.SendEmail";
@@ -1962,13 +1895,9 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function Email_Async() {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
-            }
+        function Email_Async(targetInfo) {
             // Call the base constructor
-            _super.call(this, $REST.Base.getAsyncInputParmeters.apply(null, args));
+            _super.call(this, $REST.Base.getAsyncInputParmeters.apply(null, targetInfo));
         }
         return Email_Async;
     }(Email));
@@ -2522,25 +2451,14 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function List(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
+        function List(listName, targetInfo) {
             // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
+            _super.call(this, targetInfo);
             // Default the properties
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "lists/getByTitle('" + listName + "')";
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "list" } });
-            }
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "list" } });
         }
         return List;
     }($REST.Base));
@@ -3068,13 +2986,9 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function Site(url) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
+        function Site(url, targetInfo) {
             // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters(args));
+            _super.call(this, targetInfo);
             // Default the properties
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "site";
@@ -3083,15 +2997,8 @@ var $REST;
                 // Set the settings
                 this.targetInfo.url = url;
             }
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "site" } });
-            }
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "site" } });
         }
         // Method to get the root web
         Site.prototype.getRootWeb = function () { return new $REST.Web(null, this.targetInfo); };
@@ -3574,13 +3481,9 @@ var $REST;
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function Web(url) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
+        function Web(url, targetInfo) {
             // Call the base constructor
-            _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
+            _super.call(this, targetInfo);
             // Default the properties
             this.defaultToWebFl = true;
             this.targetInfo.endpoint = "web";
@@ -3589,15 +3492,8 @@ var $REST;
                 // Set the settings
                 this.targetInfo.url = url;
             }
-            // See if we are executing the request
-            if (this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "web" } });
-            }
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "web" } });
         }
         // Method to determine if the current user has access, based on the permissions.
         Web.prototype.hasAccess = function (permissions) {

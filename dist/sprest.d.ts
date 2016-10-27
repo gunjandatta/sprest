@@ -61,19 +61,6 @@ declare module $REST {
     var Web_Async:Types.IWeb;
 }
 
-declare module $REST.Settings {
-    /**
-     * Base Settings
-     */
-    interface BaseSettings {
-        /** True to execute the request to the server, false to construct the object only. */
-        executeRequestFl?:boolean;
-
-        /** The target information settings. */
-        settings?:TargetInfoSettings;
-    }
-}
-
 declare module $REST.Types {
     /**
      * The base class
@@ -1244,16 +1231,14 @@ declare module $REST.Types {
         /**
          * Gets the column (also known as field) reference(s) in the content type.
          * @param guid - (Optional) The guid of the field link.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        FieldLinks(guid?:string, executeRequestFl?:boolean): IFieldLinks;
+        FieldLinks(guid?:string): IFieldLinks;
 
         /**
          * Gets field(s) for the content type.
          * @param internalNameOrTitle - (Optional) The internal name or title of the field.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Fields(internalNameOrTitle?:string, executeRequestFl?:boolean): IField | IFields;
+        Fields(internalNameOrTitle?:string): IField | IFields;
 
         /** Gets or sets a value that specifies the content type group for the content type. */
         Group: string;
@@ -1299,9 +1284,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the collection of workflow associations for the content type.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        WorkflowAssociations(executeRequestFl?:boolean): any;
+        WorkflowAssociations(): any;
 
         /**
          * Methods
@@ -1436,10 +1420,9 @@ declare module $REST.Types {
     interface IEmail {
         /**
          * Constructor
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        new(executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IEmail;
+        new(targetInfo?:Settings.TargetInfoSettings): IEmail;
 
         /**
          * Properties
@@ -1817,15 +1800,13 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the user who added the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Author(executeRequestFl?:boolean): IUser;
+        Author(): IUser;
 
         /**
          * Gets a value that returns the user who has checked out the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        CheckedOutByUser(executeRequestFl?:boolean): IUser;
+        CheckedOutByUser(): IUser;
 
         /** Gets a value that returns the comment used when a document is checked in to a document library. */
         CheckInComment: string;
@@ -1853,15 +1834,13 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the list item field values for the list item corresponding to the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ListItemAllFields(executeRequestFl?:boolean): any;
+        ListItemAllFields(): any;
 
         /**
          * Gets a value that returns the user that owns the current lock on the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        LockedByUser(executeRequestFl?:boolean): IUser;
+        LockedByUser(): IUser;
 
         /** Gets a value that specifies the major version of the file. */
         MajorVersion: string;
@@ -1871,9 +1850,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that returns the user who last modified the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ModifiedBy(executeRequestFl?:boolean): IUser;
+        ModifiedBy(): IUser;
 
         /** Gets the name of the file including the extension. */
         Name: string;
@@ -1898,9 +1876,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that returns a collection of file version objects that represent the versions of the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Versions(executeRequestFl?:boolean): IFileVersions;
+        Versions(): IFileVersions;
 
         /**
          * Methods
@@ -2117,9 +2094,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the user that represents the creator of the file version.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        CreatedBy(executeRequestFl?:boolean): IUser;
+        CreatedBy(): IUser;
 
         /** Gets the internal identifier for the file version. */
         ID: string;
@@ -2198,40 +2174,35 @@ declare module $REST.Types {
         /**
          * Gets the file(s) contained in the folder.
          * @param url - (Optional) The url of the file within the current folder.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Files(url?:string, executeRequestFl?:boolean): IFile | IFiles;
+        Files(url?:string): IFile | IFiles;
 
         /**
          * Gets the folder(s) contained in the list folder.
          * @param url - (Optional) The url of the sub-folder within the current folder.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Folders(url?:string, executeRequestFl?:boolean): IFolder | IFolders;
+        Folders(url?:string): IFolder | IFolders;
 
         /** Gets a value that specifies the count of items in the list folder. */
         ItemCount: string;
 
         /**
          * Specifies the list item field (2) values for the list item corresponding to the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ListItemAllFields(executeRequestFl?:boolean): any;
+        ListItemAllFields(): any;
 
         /** Gets the name of the folder. */
         Name: string;
 
         /**
          * Gets the parent list folder of the folder.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ParentFolder(executeRequestFl?:boolean): IFolder;
+        ParentFolder(): IFolder;
 
         /**
          * Gets the collection of all files contained in the folder.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Properties(executeRequestFl?:boolean): any;
+        Properties(): any;
 
         /** Gets the server-relative URL of the list folder. */
         ServerRelativeUrl: string;
@@ -2368,27 +2339,23 @@ declare module $REST.Types {
 
         /**
          * Gets or sets a value that indicates whether the request to join or leave the group can be accepted automatically.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AutoAcceptRequestToJoinLeave(executeRequestFl?:boolean): string;
+        AutoAcceptRequestToJoinLeave(): string;
 
         /**
          * Gets a value that indicates whether the current user can edit the membership of the group.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        CanCurrentUserEditMembership(executeRequestFl?:boolean): string;
+        CanCurrentUserEditMembership(): string;
 
         /**
          * Gets a value that indicates whether the current user can manage the group.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        CanCurrentUserManageGroup(executeRequestFl?:boolean): string;
+        CanCurrentUserManageGroup(): string;
 
         /**
          * Gets a value that indicates whether the current user can view the membership of the group.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        CanCurrentUserViewMembership(executeRequestFl?:boolean): string;
+        CanCurrentUserViewMembership(): string;
 
         /** Gets or sets the description of the group. */
         Description: string;
@@ -2407,9 +2374,8 @@ declare module $REST.Types {
 
         /**
          * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Owner(executeRequestFl?:boolean): IUser;
+        Owner(): IUser;
 
         /** Gets the name for the owner of this group. */
         OwnerTitle: string;
@@ -2425,9 +2391,8 @@ declare module $REST.Types {
 
         /**
          * Gets a collection of user objects that represents all of the users in the group.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Users(executeRequestFl?:boolean): IUsers;
+        Users(): IUsers;
 
         /**
          * Methods
@@ -2502,7 +2467,7 @@ declare module $REST.Types {
 
         /**
          * Gets a webpart by its id.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param id - The web part id.
          */
         WebParts(id);
     }
@@ -2516,10 +2481,9 @@ declare module $REST.Types {
         /**
          * Constructor
          * @param listName - The name of the list.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        new(listName:string, executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IList;
+        new(listName:string, targetInfo?:Settings.TargetInfoSettings): IList;
 
         /**
          * Properties
@@ -2536,16 +2500,14 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the override of the web application's BrowserFileHandling property at the list level. Represents an SP.BrowserFileHandling value: Permissive = 0; Strict = 1.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        BrowserFileHandling(executeRequestFl?:boolean): string;
+        BrowserFileHandling(): string;
 
         /**
          * Gets the content type(s) that are associated with the list.
          * @param id - (Optional) The id of the content type.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ContentTypes(id?:string, executeRequestFl?:boolean): IContentType | IContentTypes;
+        ContentTypes(id?:string, ): IContentType | IContentTypes;
 
         /** Gets or sets a value that specifies whether content types are enabled for the list. */
         ContentTypesEnabled: string;
@@ -2555,42 +2517,36 @@ declare module $REST.Types {
 
         /**
          * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        DataSource(executeRequestFl?:boolean): string;
+        DataSource(): string;
 
         /** Gets a value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
         DefaultContentApprovalWorkflowId: string;
 
         /**
          * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        DefaultDisplayFormUrl(executeRequestFl?:boolean): string;
+        DefaultDisplayFormUrl(): string;
 
         /**
          * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        DefaultEditFormUrl(executeRequestFl?:boolean): string;
+        DefaultEditFormUrl(): string;
 
         /**
          * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        DefaultNewFormUrl(executeRequestFl?:boolean): string;
+        DefaultNewFormUrl(): string;
 
         /**
          * Gets the default list view.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
         */
-        DefaultView(executeRequestFl?:boolean): IView;
+        DefaultView(): IView;
 
         /**
          * Gets the URL of the default view for the list.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        DefaultViewUrl(executeRequestFl?:boolean): string;
+        DefaultViewUrl(): string;
 
         /** Gets or sets a value that specifies the description of the list. */
         Description: string;
@@ -2606,15 +2562,13 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        EffectiveBasePermissions(executeRequestFl?:boolean): any;
+        EffectiveBasePermissions(): any;
 
         /**
          * Gets a value that specifies the effective permissions on the list that are for the user interface.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
         */
-        EffectiveBasePermissionsForUI(executeRequestFl?:boolean): any;
+        EffectiveBasePermissionsForUI(): any;
 
         /** Gets or sets a value that specifies whether list item attachments are enabled for the list. */
         EnableAttachments: string;
@@ -2637,22 +2591,19 @@ declare module $REST.Types {
         /**
          * Gets the event receiver(s) associated with the list.
          * @param id - (Optional) The id of the event receiver.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
         */
-        EventReceivers(id?:string, executeRequestFl?:boolean): IEventReceiver | IEventReceivers;
+        EventReceivers(id?:string): IEventReceiver | IEventReceivers;
 
         /**
          * Gets the field(s) in the list.
          * @param internalNameOrTitle - (Optional) The internal name or title of the field.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Fields(internalNameOrTitle?:string, executeRequestFl?:boolean): IField | IFields;
+        Fields(internalNameOrTitle?:string): IField | IFields;
 
         /**
          * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        FirstUniqueAncestorSecurableObject(executeRequestFl?:boolean): string;
+        FirstUniqueAncestorSecurableObject(): string;
 
         /** Gets or sets a value that indicates whether forced checkout is enabled for the document library. */
         ForceCheckout: string;
@@ -2660,18 +2611,16 @@ declare module $REST.Types {
         /**
          * Gets the list form(s) in the list.
          * @param id - (Optional) The id of the form.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Forms(id?:string, executeRequestFl?:boolean): any;
+        Forms(id?:string): any;
 
         /** Gets a value that specifies whether the list is an external list. */
         HasExternalDataSource: string;
 
         /**
          * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        HasUniqueRoleAssignments(executeRequestFl?:boolean): any;
+        HasUniqueRoleAssignments(): any;
 
         /** Gets or sets a Boolean value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
         Hidden: string;
@@ -2684,9 +2633,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the information rights management settings.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
         */
-        InformationRightsManagementSettings(executeRequestFl?:boolean): any;
+        InformationRightsManagementSettings(): any;
 
         /**  */
         IrmEnabled: string;
@@ -2708,9 +2656,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        IsSiteAssetsLibrary(executeRequestFl?:boolean): string;
+        IsSiteAssetsLibrary(): string;
 
         /** Gets a value that specifies the number of list items in the list. */
         ItemCount: string;
@@ -2718,9 +2665,8 @@ declare module $REST.Types {
         /**
          * Gets the list item(s) in the list.
          * @param id - (Optional) The id of the list item.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Items(id?:number, executeRequestFl?:boolean): IListItem | IListItems;
+        Items(id?:number): IListItem | IListItems;
 
         /** Gets a value that specifies the last time a list item was deleted from the list. */
         LastItemDeletedDate: string;
@@ -2739,15 +2685,13 @@ declare module $REST.Types {
 
         /**
          * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        OnQuickLaunch(executeRequestFl?:boolean): string;
+        OnQuickLaunch(): string;
 
         /**
          * Gets a value that specifies the site that contains the list.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ParentWeb(executeRequestFl?:boolean): any;
+        ParentWeb(): any;
 
         /** Gets a value that specifies the server-relative URL of the site that contains the list. */
         ParentWebUrl: string;
@@ -2755,22 +2699,19 @@ declare module $REST.Types {
         /**
          * Gets the role assignment(s) for the securable object.
          * @param id - (Optional) The role assignment id.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        RoleAssignments(id?:string, executeRequestFl?:boolean): IRoleAssignment | IRoleAssignments;
+        RoleAssignments(id?:string): IRoleAssignment | IRoleAssignments;
 
         /**
          * Gets the root folder or file in the list.
          * @param url - (Optional) The url of the file within the root folder.
-         * @param targetInfo - (Optional) The target information.
          */
-        RootFolder(url?:string, executeRequestFl?:boolean): IFile | IFolder;
+        RootFolder(url?:string): IFile | IFolder;
 
         /**
          * Gets a value that specifies the list schema of the list.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        SchemaXml(executeRequestFl?:boolean): string;
+        SchemaXml(): string;
 
         /** Gets a value that indicates whether folders can be created within the list. */
         ServerTemplateCanCreateFolders: string;
@@ -2784,34 +2725,29 @@ declare module $REST.Types {
         /**
          * Gets the user custom action(s) for the list.
          * @param id - (Optional) The id of the user custom action.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        UserCustomActions(id?:string, executeRequestFl?:boolean): IUserCustomAction | IUserCustomActions;
+        UserCustomActions(id?:string): IUserCustomAction | IUserCustomActions;
 
         /**
          * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ValidationFormula(executeRequestFl?:boolean): string;
+        ValidationFormula(): string;
 
         /**
          * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ValidationMessage(executeRequestFl?:boolean): string;
+        ValidationMessage(): string;
 
         /**
          * Gets the view(s) in the list.
          * @param id - (Optional) The id of the view.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Views(id?:string, executeRequestFl?:boolean): IView | IViews;
+        Views(id?:string): IView | IViews;
 
         /**
          * Gets a value that specifies the collection of all workflow associations for the list.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        WorkflowAssociations(executeRequestFl?:boolean): string;
+        WorkflowAssociations(): string;
 
         /**
          * Methods
@@ -3071,21 +3007,18 @@ declare module $REST.Types {
 
         /**
          * Specifies the collection of attachments that are associated with the list item.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AttachmentFiles(executeRequestFl?:boolean): IAttachmentFiles;
+        AttachmentFiles(): IAttachmentFiles;
 
         /**
          * Gets a value that specifies the content type of the list item.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ContentType(executeRequestFl?:boolean): IContentType;
+        ContentType(): IContentType;
 
         /**
          * Gets a value that specifies the display name of the list item.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        DisplayName(executeRequestFl?:boolean): string;
+        DisplayName(): string;
 
         /** Gets a value that specifies the effective permissions on the list item that are assigned to the current user. */
         EffectiveBasePermissions: string;
@@ -3095,64 +3028,55 @@ declare module $REST.Types {
 
         /**
          * Gets the values for the list item as HTML.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        FieldValuesAsHtml(executeRequestFl?:boolean): string;
+        FieldValuesAsHtml(): string;
 
         /**
          * Gets the list item's field values as a collection of string values.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        FieldValuesAsText(executeRequestFl?:boolean): string;
+        FieldValuesAsText(): string;
 
         /**
          * Gets the formatted values to be displayed in an edit form.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        FieldValuesForEdit(executeRequestFl?:boolean): string;
+        FieldValuesForEdit(): string;
 
         /**
          * Gets the file that is represented by the item from a document library.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        File(executeRequestFl?:boolean): IFile;
+        File(): IFile;
 
         /** Gets a value that specifies whether the list item is a file or a list folder. Represents an SP.FileSystemObjectType value: Invalid = -1; File = 0; Folder = 1; Web = 2. */
         FileSystemObjectType: string;
 
         /**
          * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        FirstUniqueAncestorSecurableObject(executeRequestFl?:boolean): string;
+        FirstUniqueAncestorSecurableObject(): string;
 
         /**
          * Gets a folder object that is associated with a folder item.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
         Folder(): IFolder;
 
         /**
          * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        HasUniqueRoleAssignments(executeRequestFl?:boolean): string;
+        HasUniqueRoleAssignments(): string;
 
         /** Gets a value that specifies the list item identifier. */
         Id: string;
 
         /**
          * Gets the parent list that contains the list item.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ParentList(executeRequestFl?:boolean): IList;
+        ParentList(): IList;
 
         /**
          * Gets the role assignment(s) for the securable object.
          * @param id - (Optional) The role assignment id.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        RoleAssignments(id?:string, executeRequestFl?:boolean): IRoleAssignment | IRoleAssignments;
+        RoleAssignments(id?:string): IRoleAssignment | IRoleAssignments;
 
         /**
          * Methods
@@ -3285,18 +3209,16 @@ declare module $REST.Types {
 
         /**
          * Gets the user or group that corresponds to the Role Assignment.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Member(executeRequestFl?:boolean): any;
+        Member(): any;
 
         /** The unique identifier of the role assignment. */
         PrincipalId: string;
 
         /**
          * Gets the collection of role definition bindings for the role assignment.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        RoleDefinitionBindings(executeRequestFl?:boolean): IRoleDefinitions;
+        RoleDefinitionBindings(): IRoleDefinitions;
 
         /**
          * Methods
@@ -3468,11 +3390,10 @@ declare module $REST.Types {
     interface ISite extends IBase {
         /**
          * Constructor
-         * @param url - (Optional) The web url.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * @param url - (Optional) The site url.
          * @param targetInfo - (Optional) The target information.
          */
-        new(url?:string, executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): ISite;
+        new(url?:string, targetInfo?:Settings.TargetInfoSettings): ISite;
 
         /**
          * Properties
@@ -3502,15 +3423,13 @@ declare module $REST.Types {
         /**
          * Gets the event receiver(s) associated with the site.
          * @param id - (Optional) The id of the event receiver.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
         */
-        EventReceivers(id?:string, executeRequestFl?:boolean): IEventReceiver | IEventReceivers;
+        EventReceivers(id?:string): IEventReceiver | IEventReceivers;
 
         /**
          * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Features(executeRequestFl?:boolean): any;
+        Features(): any;
 
         /** Gets the GUID that identifies the site collection. */
         Id: string;
@@ -3523,9 +3442,8 @@ declare module $REST.Types {
 
         /**
          * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Owner(executeRequestFl?:boolean): IUser;
+        Owner(): IUser;
 
         /** Specifies the primary URI of this site collection, including the host name, port number, and path. */
         PrimaryUri: string;
@@ -3538,9 +3456,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that returns the top-level site of the site collection.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        RootWeb(executeRequestFl?:boolean): IWeb;
+        RootWeb(): IWeb;
 
         /** Gets the server-relative URL of the root Web site in the site collection. */
         ServerRelativeUrl: string;
@@ -3572,9 +3489,8 @@ declare module $REST.Types {
         /**
          * Gets the user custom action(s) for the list.
          * @param id - (Optional) The id of the user custom action.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        UserCustomActions(id?:string, executeRequestFl?:boolean): IUserCustomAction | IUserCustomActions;
+        UserCustomActions(id?:string): IUserCustomAction | IUserCustomActions;
 
         /**
          * Methods
@@ -3761,9 +3677,8 @@ declare module $REST.Types {
         /**
          * Gets the group(s) of which the user is a member.
          * @param id - (Optional) The group id.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Groups(id?:number, executeRequestFl?:boolean): IGroup | ISiteGroups;
+        Groups(id?:number): IGroup | ISiteGroups;
 
         /** Gets a value that specifies the member identifier for the user or group. */
         Id: string;
@@ -4160,9 +4075,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the collection of fields in the list view.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ViewFields(executeRequestFl?:boolean): IViewFields;
+        ViewFields(): IViewFields;
 
         /** Gets or sets a value that specifies the joins that are used in the list view. If not null, the XML must conform to ListJoinsDefinition, as specified in [MS-WSSCAML]. */
         ViewJoins: string;
@@ -4319,10 +4233,9 @@ declare module $REST.Types {
         /**
          * Constructor
          * @param url - (Optional) The web url.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        new(url?:string, executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IWeb;
+        new(url?:string, targetInfo?:Settings.TargetInfoSettings): IWeb;
 
         /**
          * Properties
@@ -4330,48 +4243,43 @@ declare module $REST.Types {
 
         /**
          * Specifies whether the current user can create declarative workflows. If not disabled on the Web application, the value is the same as the AllowCreateDeclarativeWorkflow property of the site collection. Default value: true.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AllowCreateDeclarativeWorkflowForCurrentUser(executeRequestFl?:boolean): any;
+        AllowCreateDeclarativeWorkflowForCurrentUser(): any;
 
         /**
          * Gets a value that specifies whether the current user is allowed to use a designer application to customize this site.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AllowDesignerForCurrentUser(executeRequestFl?:boolean): any;
+        AllowDesignerForCurrentUser(): any;
 
         /**
          * Gets a value that specifies whether the current user is allowed to edit the master page.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AllowMasterPageEditingForCurrentUser(executeRequestFl?:boolean): any;
+        AllowMasterPageEditingForCurrentUser(): any;
 
         /**
          * Gets a value that specifies whether the current user is allowed to revert the site to a default site template.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AllowRevertFromTemplateForCurrentUser(executeRequestFl?:boolean): any;
+        AllowRevertFromTemplateForCurrentUser(): any;
 
         /** Gets a value that specifies whether the site allows RSS feeds. */
         AllowRssFeeds: string;
 
         /**
          * Specifies whether the current user can save declarative workflows as a template. If not disabled on the Web application, the value is the same as the AllowSaveDeclarativeWorkflowAsTemplate property of the site collection. Default value: true.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AllowSaveDeclarativeWorkflowAsTemplateForCurrentUser(executeRequestFl?:boolean): any;
+        AllowSaveDeclarativeWorkflowAsTemplateForCurrentUser(): any;
 
         /**
          * Specifies whether the current user can save or publish declarative workflows. If not disabled on the Web application, the value is the same as the AllowSavePublishDeclarativeWorkflowAsTemplate property of the site collection. When enabled, can only be set by a site collection administrator. Default value: true.
          * @param targetInfo - (Optional) The target information.
          */
-        AllowSavePublishDeclarativeWorkflowForCurrentUser(executeRequestFl?:boolean): any;
+        AllowSavePublishDeclarativeWorkflowForCurrentUser(): any;
 
         /**
          * Gets a collection of metadata for the Web site.
          * @param targetInfo - (Optional) The target information.
          */
-        AllProperties(executeRequestFl?:boolean): any;
+        AllProperties(): any;
 
         /** The instance Id of the App Instance that this web represents. */
         AppInstanceId: string;
@@ -4380,31 +4288,31 @@ declare module $REST.Types {
          * Gets or sets the group of users who have been given contribute permissions to the Web site.
          * @param targetInfo - (Optional) The target information.
          */
-        AssociatedMemberGroup(executeRequestFl?:boolean): IGroup;
+        AssociatedMemberGroup(): IGroup;
 
         /**
          * Gets or sets the associated owner group of the Web site.
          * @param targetInfo - (Optional) The target information.
          */
-        AssociatedOwnerGroup(executeRequestFl?:boolean): IGroup;
+        AssociatedOwnerGroup(): IGroup;
 
         /**
          * Gets or sets the associated visitor group of the Web site.
          * @param targetInfo - (Optional) The target information.
          */
-        AssociatedVisitorGroup(executeRequestFl?:boolean): IGroup;
+        AssociatedVisitorGroup(): IGroup;
 
         /**
          * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
          * @param targetInfo - (Optional) The target information.
          */
-        AvailableContentTypes(executeRequestFl?:boolean): any;
+        AvailableContentTypes(): any;
 
         /**
          * Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
          * @param targetInfo - (Optional) The target information.
          */
-        AvailableFields(executeRequestFl?:boolean): any;
+        AvailableFields(): any;
 
         /** Gets either the identifier (ID) of the site definition configuration that was used to create the site, or the ID of the site definition configuration from which the site template used to create the site was derived. */
         Configuration: string;
@@ -4412,9 +4320,8 @@ declare module $REST.Types {
         /**
          * Gets the content type(s) that are associated with the web.
          * @param id - (Optional) The id of the content type.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ContentTypes(id?:string, executeRequestFl?:boolean): IContentType | IContentTypes;
+        ContentTypes(id?:string): IContentType | IContentTypes;
 
         /** Gets a value that specifies when the site was created. */
         Created: string;
@@ -4423,7 +4330,7 @@ declare module $REST.Types {
          * Gets the current user of the site.
          * @param targetInfo - (Optional) The target information.
          */
-        CurrentUser(executeRequestFl?:boolean): IUser;
+        CurrentUser(): IUser;
 
         /** Gets or sets the URL for a custom master page file to apply to the website. */
         CustomMasterUrl: string;
@@ -4435,7 +4342,7 @@ declare module $REST.Types {
          * Gets the URL where the current user can download SharePoint Designer.
          * @param targetInfo - (Optional) The target information.
          */
-        DesignerDownloadUrlForCurrentUser(executeRequestFl?:boolean): any;
+        DesignerDownloadUrlForCurrentUser(): any;
 
         /** Determines if the Document Library Callout's WAC previewers are enabled or not. */
         DocumentLibraryCalloutOfficeWebAppPreviewersDisabled: string;
@@ -4444,7 +4351,7 @@ declare module $REST.Types {
          * Represents the intersection of permissions of the app principal and the user principal. In the app-only case, this property returns only the permissions of the app principal. To check only user permissions (ignoring app permissions), use the GetUserEffectivePermissions method.
          * @param targetInfo - (Optional) The target information.
          */
-        EffectiveBasePermissions(executeRequestFl?:boolean): string;
+        EffectiveBasePermissions(): string;
 
         /** Gets or sets a Boolean value that specifies whether the Web site should use Minimal Download Strategy. */
         EnableMinimalDownload: string;
@@ -4452,29 +4359,26 @@ declare module $REST.Types {
         /**
          * Gets the event receiver(s) associated with the web.
          * @param id - (Optional) The id of the event receiver.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
         */
-        EventReceivers(id?:string, executeRequestFl?:boolean): IEventReceiver | IEventReceivers;
+        EventReceivers(id?:string): IEventReceiver | IEventReceivers;
 
         /**
          * Gets a value that specifies the collection of features that are currently activated in the site.
          * @param targetInfo - (Optional) The target information.
          */
-        Features(executeRequestFl?:boolean): any;
+        Features(): any;
 
         /**
          * Gets the field(s) in the web.
          * @param internalNameOrTitle - (Optional) The internal name or title of the field.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Fields(internalNameOrTitle?:string, executeRequestFl?:boolean): IField | IFields;
+        Fields(internalNameOrTitle?:string): IField | IFields;
 
         /**
          * Gets the folder(s) contained in the root folder.
          * @param url - (Optional) The url of the sub-folder within the current folder.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Folders(url?:string, executeRequestFl?:boolean): IFolder | IFolders;
+        Folders(url?:string): IFolder | IFolders;
 
         /** Gets a value that specifies the site identifier for the site. */
         Id: string;
@@ -4490,14 +4394,14 @@ declare module $REST.Types {
          * @param name - (Optional) The list name.
          * @param targetInfo - (Optional) The target information.
          */
-        Lists(executeRequestFl?:boolean): IList | ILists;
+        Lists(): IList | ILists;
 
         /**
          * Gets the list definition(s) and/or list template(s) available for creating lists on the site.
          * @param name - (Optional) The list template form name.
          * @param targetInfo - (Optional) The target information.
          */
-        ListTemplates(name?:string, executeRequestFl?:boolean): any;
+        ListTemplates(name?:string): any;
 
         /** Gets or sets the URL of the master page that is used for the website. */
         MasterUrl: string;
@@ -4506,19 +4410,19 @@ declare module $REST.Types {
          * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
          * @param targetInfo - (Optional) The target information.
          */
-        Navigation(executeRequestFl?:boolean): any;
+        Navigation(): any;
 
         /**
          * Gets the parent website of the specified website.
          * @param targetInfo - (Optional) The target information.
          */
-        ParentWeb(executeRequestFl?:boolean): any;
+        ParentWeb(): any;
 
         /**
          * Gets the collection of push notification subscribers over the site.
          * @param targetInfo - (Optional) The target information.
          */
-        PushNotificationSubscribers(executeRequestFl?:boolean): any;
+        PushNotificationSubscribers(): any;
 
         /** Gets or sets a value that specifies whether the Quick Launch area is enabled on the site. */
         QuickLaunchEnabled: string;
@@ -4527,7 +4431,7 @@ declare module $REST.Types {
          * Specifies the collection of recycle bin items of the recycle bin of the site.
          * @param targetInfo - (Optional) The target information.
          */
-        RecycleBin(executeRequestFl?:boolean): any;
+        RecycleBin(): any;
 
         /** Gets or sets a value that determines whether the recycle bin is enabled for the website. */
         RecycleBinEnabled: string;
@@ -4536,27 +4440,27 @@ declare module $REST.Types {
          * Gets the regional settings that are currently implemented on the website.
          * @param targetInfo - (Optional) The target information.
          */
-        RegionalSettings(executeRequestFl?:boolean): any;
+        RegionalSettings(): any;
 
         /**
          * Gets the role definition(s) for the web.
          * @param id - (Optional) The role definition id.
          * @param targetInfo - (Optional) The target information.
          */
-        RoleDefinitions(id?:number, executeRequestFl?:boolean): IRoleDefinition | IRoleDefinitions;
+        RoleDefinitions(id?:number): IRoleDefinition | IRoleDefinitions;
 
         /**
          * Gets the root folder or file in the web.
          * @param url - (Optional) The url of the file within the root folder.
          * @param targetInfo - (Optional) The target information.
          */
-        RootFolder(url?:string, executeRequestFl?:boolean): IFile | IFolder;
+        RootFolder(url?:string): IFile | IFolder;
 
         /**
          * Gets or sets a Boolean value that specifies whether the Web site can be saved as a site template.
          * @param targetInfo - (Optional) The target information.
          */
-        SaveSiteAsTemplateEnabled(executeRequestFl?:boolean): any;
+        SaveSiteAsTemplateEnabled(): any;
 
         /** Gets or sets the server-relative URL for the Web site. */
         ServerRelativeUrl: string;
@@ -4565,32 +4469,32 @@ declare module $REST.Types {
          * Gets a value that specifies whether the current user is able to view the file system structure of this site.
          * @param targetInfo - (Optional) The target information.
          */
-        ShowUrlStructureForCurrentUser(executeRequestFl?:boolean): any;
+        ShowUrlStructureForCurrentUser(): any;
 
         /**
          * Gets the site group(s) for the web.
          * @param id - (Optional) The group id.
          * @param targetInfo - (Optional) The target information.
          */
-        SiteGroups(id?:number, executeRequestFl?:boolean): IGroup | ISiteGroups;
+        SiteGroups(id?:number): IGroup | ISiteGroups;
 
         /**
          * Gets the UserInfo list of the site collection that contains the Web site.
          * @param targetInfo - (Optional) The target information.
          */
-        SiteUserInfoList(executeRequestFl?:boolean): any;
+        SiteUserInfoList(): any;
 
         /**
          * Gets the collection of all users that belong to the site collection.
          * @param targetInfo - (Optional) The target information.
          */
-        SiteUsers(executeRequestFl?:boolean): IUsers;
+        SiteUsers(): IUsers;
 
         /**
          * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
          * @param targetInfo - (Optional) The target information.
          */
-        SupportedUILanguageIds(executeRequestFl?:boolean): any;
+        SupportedUILanguageIds(): any;
 
         /** Gets or sets a value that specifies whether the RSS feeds are enabled on the site. */
         SyndicationEnabled: string;
@@ -4599,7 +4503,7 @@ declare module $REST.Types {
          * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
          * @param targetInfo - (Optional) The target information.
          */
-        ThemeInfo(executeRequestFl?:boolean): any;
+        ThemeInfo(): any;
 
         /** Gets or sets the title for the Web site. */
         Title: string;
@@ -4619,21 +4523,20 @@ declare module $REST.Types {
         /**
          * Gets the user custom action(s) for the web.
          * @param id - (Optional) The id of the user custom action.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        UserCustomActions(id?:string, executeRequestFl?:boolean): IUserCustomAction | IUserCustomActions;
+        UserCustomActions(id?:string): IUserCustomAction | IUserCustomActions;
 
         /**
          * Represents key properties of the subsites of a site.
          * @param targetInfo - (Optional) The target information.
          */
-        WebInfos(executeRequestFl?:boolean): any;
+        WebInfos(): any;
 
         /**
          * Gets a Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
          * @param targetInfo - (Optional) The target information.
          */
-        Webs(executeRequestFl?:boolean): IWebs;
+        Webs(): IWebs;
 
         /** Gets the name of the site definition or site template that was used to create the site. */
         WebTemplate: string;
@@ -4642,13 +4545,13 @@ declare module $REST.Types {
          * Gets a value that specifies the collection of all workflow associations for the site.
          * @param targetInfo - (Optional) The target information.
          */
-        WorkflowAssociations(executeRequestFl?:boolean): any;
+        WorkflowAssociations(): any;
 
         /**
          * Gets a value that specifies the collection of workflow templates associated with the site.
          * @param targetInfo - (Optional) The target information.
          */
-        WorkflowTemplates(executeRequestFl?:boolean): any;
+        WorkflowTemplates(): any;
 
         /**
          * Methods

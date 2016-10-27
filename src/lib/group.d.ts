@@ -15,27 +15,23 @@ declare module $REST.Types {
 
         /**
          * Gets or sets a value that indicates whether the request to join or leave the group can be accepted automatically.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AutoAcceptRequestToJoinLeave(executeRequestFl?:boolean): string;
+        AutoAcceptRequestToJoinLeave(): string;
 
         /**
          * Gets a value that indicates whether the current user can edit the membership of the group.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        CanCurrentUserEditMembership(executeRequestFl?:boolean): string;
+        CanCurrentUserEditMembership(): string;
 
         /**
          * Gets a value that indicates whether the current user can manage the group.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        CanCurrentUserManageGroup(executeRequestFl?:boolean): string;
+        CanCurrentUserManageGroup(): string;
 
         /**
          * Gets a value that indicates whether the current user can view the membership of the group.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        CanCurrentUserViewMembership(executeRequestFl?:boolean): string;
+        CanCurrentUserViewMembership(): string;
 
         /** Gets or sets the description of the group. */
         Description: string;
@@ -54,9 +50,8 @@ declare module $REST.Types {
 
         /**
          * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Owner(executeRequestFl?:boolean): IUser;
+        Owner(): IUser;
 
         /** Gets the name for the owner of this group. */
         OwnerTitle: string;
@@ -72,9 +67,8 @@ declare module $REST.Types {
 
         /**
          * Gets a collection of user objects that represents all of the users in the group.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Users(executeRequestFl?:boolean): IUsers;
+        Users(): IUsers;
 
         /**
          * Methods

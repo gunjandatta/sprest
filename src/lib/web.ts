@@ -7,9 +7,9 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(url?:string, ...args) {
+        constructor(url?:string, targetInfo?:Settings.TargetInfoSettings) {
             // Call the base constructor
-            super(Base.getInputParmeters.apply(null, args));
+            super(targetInfo);
 
             // Default the properties
             this.defaultToWebFl = true;
@@ -21,15 +21,8 @@ module $REST {
                 this.targetInfo.url = url;
             }
 
-            // See if we are executing the request
-            if(this.executeRequestFl) {
-                // Execute the request
-                this.execute();
-            }
-            else {
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "web" } } );
-            }
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "web" } } );
         }
 
         // Method to determine if the current user has access, based on the permissions.

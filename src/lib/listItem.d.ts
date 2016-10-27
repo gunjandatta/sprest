@@ -9,21 +9,18 @@ declare module $REST.Types {
 
         /**
          * Specifies the collection of attachments that are associated with the list item.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AttachmentFiles(executeRequestFl?:boolean): IAttachmentFiles;
+        AttachmentFiles(): IAttachmentFiles;
 
         /**
          * Gets a value that specifies the content type of the list item.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ContentType(executeRequestFl?:boolean): IContentType;
+        ContentType(): IContentType;
 
         /**
          * Gets a value that specifies the display name of the list item.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        DisplayName(executeRequestFl?:boolean): string;
+        DisplayName(): string;
 
         /** Gets a value that specifies the effective permissions on the list item that are assigned to the current user. */
         EffectiveBasePermissions: string;
@@ -33,64 +30,55 @@ declare module $REST.Types {
 
         /**
          * Gets the values for the list item as HTML.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        FieldValuesAsHtml(executeRequestFl?:boolean): string;
+        FieldValuesAsHtml(): string;
 
         /**
          * Gets the list item's field values as a collection of string values.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        FieldValuesAsText(executeRequestFl?:boolean): string;
+        FieldValuesAsText(): string;
 
         /**
          * Gets the formatted values to be displayed in an edit form.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        FieldValuesForEdit(executeRequestFl?:boolean): string;
+        FieldValuesForEdit(): string;
 
         /**
          * Gets the file that is represented by the item from a document library.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        File(executeRequestFl?:boolean): IFile;
+        File(): IFile;
 
         /** Gets a value that specifies whether the list item is a file or a list folder. Represents an SP.FileSystemObjectType value: Invalid = -1; File = 0; Folder = 1; Web = 2. */
         FileSystemObjectType: string;
 
         /**
          * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        FirstUniqueAncestorSecurableObject(executeRequestFl?:boolean): string;
+        FirstUniqueAncestorSecurableObject(): string;
 
         /**
          * Gets a folder object that is associated with a folder item.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
         Folder(): IFolder;
 
         /**
          * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        HasUniqueRoleAssignments(executeRequestFl?:boolean): string;
+        HasUniqueRoleAssignments(): string;
 
         /** Gets a value that specifies the list item identifier. */
         Id: string;
 
         /**
          * Gets the parent list that contains the list item.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ParentList(executeRequestFl?:boolean): IList;
+        ParentList(): IList;
 
         /**
          * Gets the role assignment(s) for the securable object.
          * @param id - (Optional) The role assignment id.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        RoleAssignments(id?:string, executeRequestFl?:boolean): IRoleAssignment | IRoleAssignments;
+        RoleAssignments(id?:string): IRoleAssignment | IRoleAssignments;
 
         /**
          * Methods

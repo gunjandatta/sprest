@@ -31,16 +31,14 @@ declare module $REST.Types {
         /**
          * Gets the column (also known as field) reference(s) in the content type.
          * @param guid - (Optional) The guid of the field link.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        FieldLinks(guid?:string, executeRequestFl?:boolean): IFieldLinks;
+        FieldLinks(guid?:string): IFieldLinks;
 
         /**
          * Gets field(s) for the content type.
          * @param internalNameOrTitle - (Optional) The internal name or title of the field.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Fields(internalNameOrTitle?:string, executeRequestFl?:boolean): IField | IFields;
+        Fields(internalNameOrTitle?:string): IField | IFields;
 
         /** Gets or sets a value that specifies the content type group for the content type. */
         Group: string;
@@ -86,9 +84,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the collection of workflow associations for the content type.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        WorkflowAssociations(executeRequestFl?:boolean): any;
+        WorkflowAssociations(): any;
 
         /**
          * Methods

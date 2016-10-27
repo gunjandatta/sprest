@@ -9,15 +9,13 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the user who added the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Author(executeRequestFl?:boolean): IUser;
+        Author(): IUser;
 
         /**
          * Gets a value that returns the user who has checked out the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        CheckedOutByUser(executeRequestFl?:boolean): IUser;
+        CheckedOutByUser(): IUser;
 
         /** Gets a value that returns the comment used when a document is checked in to a document library. */
         CheckInComment: string;
@@ -45,15 +43,13 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the list item field values for the list item corresponding to the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ListItemAllFields(executeRequestFl?:boolean): any;
+        ListItemAllFields(): any;
 
         /**
          * Gets a value that returns the user that owns the current lock on the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        LockedByUser(executeRequestFl?:boolean): IUser;
+        LockedByUser(): IUser;
 
         /** Gets a value that specifies the major version of the file. */
         MajorVersion: string;
@@ -63,9 +59,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that returns the user who last modified the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ModifiedBy(executeRequestFl?:boolean): IUser;
+        ModifiedBy(): IUser;
 
         /** Gets the name of the file including the extension. */
         Name: string;
@@ -90,9 +85,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that returns a collection of file version objects that represent the versions of the file.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Versions(executeRequestFl?:boolean): IFileVersions;
+        Versions(): IFileVersions;
 
         /**
          * Methods

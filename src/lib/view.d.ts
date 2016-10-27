@@ -108,9 +108,8 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the collection of fields in the list view.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ViewFields(executeRequestFl?:boolean): IViewFields;
+        ViewFields(): IViewFields;
 
         /** Gets or sets a value that specifies the joins that are used in the list view. If not null, the XML must conform to ListJoinsDefinition, as specified in [MS-WSSCAML]. */
         ViewJoins: string;

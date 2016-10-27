@@ -24,10 +24,9 @@ declare module $REST.Types {
     interface IEmail {
         /**
          * Constructor
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        new(executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IEmail;
+        new(targetInfo?:Settings.TargetInfoSettings): IEmail;
 
         /**
          * Properties

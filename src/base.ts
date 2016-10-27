@@ -3,7 +3,6 @@ module $REST {
     // Global Variables
     /*********************************************************************************************************************************/
     export var DefaultRequestToHostWebFl:boolean = false;
-    export var ExecuteOnCreationFl:boolean = false;
     export var Library:any = {};
     var SP:any;
 
@@ -15,13 +14,10 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(params:Settings.BaseSettings) {
+        constructor(targetInfo:Settings.TargetInfoSettings) {
             // Default the properties
-            this.targetInfo = params.settings;
+            this.targetInfo = targetInfo || {};
             this.requestType = 0;
-
-            // Default the properties
-            this.executeRequestFl = typeof(params.executeRequestFl) === "boolean" ? params.executeRequestFl : ExecuteOnCreationFl;
         }
 
         /*********************************************************************************************************************************/
@@ -74,75 +70,20 @@ module $REST {
         }
 
         // Method to get the input parameters for an asynchronous request
-        public static getAsyncInputParmeters(...args):Settings.BaseSettings {
-            // Get the input parameters
-            let params = Base.getInputParmeters.apply(null, args);
+        public static getAsyncInputParmeters(targetInfo?:Settings.TargetInfoSettings):Settings.TargetInfoSettings {
+            // Ensure the target information exists
+            targetInfo = targetInfo ? targetInfo : {};
 
             // Set the asynchronous flag
-            params.settings.asyncFl = true;
+            targetInfo.asyncFl = true;
 
-            // Return the parameters
-            return params;
-        }
-
-        // Method to get the input parameters
-        public static getInputParmeters(...args):Settings.BaseSettings {
-            let settings = null;
-            let params:Settings.BaseSettings = {
-                executeRequestFl: null,
-                settings: null
-            };
-
-            // Ensure arguments exist
-            if(args && args.length > 0) {
-                // Determine if this is an IBaseType
-                if(args.length == 1 && args[0].hasOwnProperty("executeRequestFl") && args[0].hasOwnProperty("settings")) {
-                    // Return it
-                    return args[0];
-                }
-
-                // See if the first parameter is the flag
-                if(typeof(args[0]) === "boolean") {
-                    // Set the parameters
-                    params.executeRequestFl = args[0];
-                    settings = args[1];
-                }
-                else {
-                    // Set the parameters
-                    params.executeRequestFl = args[1];
-                    settings = args[0];
-                }
-            }
-
-            // See if settings exist
-            if(settings) {
-                params.settings = {};
-
-                // See if it's a callback
-                if(typeof(settings) === "function") {
-                    // Set the callback
-                    params.settings.callback = settings;
-                }
-                else {
-                    // Set the settings
-                    params.settings = settings;
-                }
-            }
-            else {
-                // Create them
-                params.settings = {};
-            }
-
-            // Return the parameters
-            return params;
+            // Return the target information
+            return targetInfo;
         }
 
         /*********************************************************************************************************************************/
         // Private Variables
         /*********************************************************************************************************************************/
-
-        // Flag to determine if we should execute the request on creation
-        protected executeRequestFl:boolean;
 
         // Flag to default the url to the current web url, site otherwise
         protected defaultToWebFl:boolean;
@@ -217,13 +158,12 @@ module $REST {
                                 subPropName = subPropName.replace(/'/g, "\\'");
 
                                 // Add the property
-                                obj[propName] = new Function("name", "executeRequestFl",
+                                obj[propName] = new Function("name",
                                     "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
-                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "', executeRequestFl);");
+                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             } else {
                                 // Add the property
-                                obj[propName] = new Function("executeRequestFl",
-                                    "return this.getProperty('" + propName + "', '" + propType + "', executeRequestFl);");
+                                obj[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
                             }
                         }
                         
@@ -329,14 +269,11 @@ module $REST {
             }
 
             // Create a new object
-            let obj = new Base({ settings: targetInfo, executeRequestFl: this.executeRequestFl });
+            let obj = new Base(targetInfo);
 
             // Set the parent and request type
             obj.parent = this;
             obj.requestType = methodConfig.requestType;
-
-            // Execute the request
-            obj.executeRequestFl ? obj.execute() : null;
 
             // Return the object
             return obj;
@@ -368,20 +305,17 @@ module $REST {
             targetInfo.callback = args && typeof(args[0]) === "function" ? args[0] : null;
 
             // Create a new object
-            let obj = new Base({ settings: targetInfo, executeRequestFl: this.executeRequestFl });
+            let obj = new Base(targetInfo);
 
             // Set the parent
             obj.parent = this;
-
-            // Execute the request
-            obj.executeRequestFl ? obj.execute() : null;
 
             // Return the object
             return obj;
         }
 
         // Method to return a property of this object
-        protected getProperty(propertyName:string, requestType?:string, executeRequestFl?:boolean) {
+        protected getProperty(propertyName:string, requestType?:string) {
             // Copy the target information
             let targetInfo = Object.create(this.targetInfo);
 
@@ -402,17 +336,14 @@ module $REST {
                 targetInfo.endpoint += "/" + propertyName;
             }
 
-            // Default the request flag
-            executeRequestFl = executeRequestFl == null ? this.executeRequestFl : executeRequestFl;
-
             // Create a new object
-            let obj = new Base({ settings: targetInfo, executeRequestFl: executeRequestFl });
+            let obj = new Base(targetInfo);
 
             // Set the parent
             obj.parent = this;
 
-            // Execute the request
-            obj.executeRequestFl ? obj.execute() : this.addMethods(obj, { __metadata: { type: requestType } });
+            // Add the methods
+            requestType ? this.addMethods(obj, { __metadata: { type: requestType } }) : null;
 
             // Return the object
             return obj;

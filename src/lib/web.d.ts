@@ -6,10 +6,9 @@ declare module $REST.Types {
         /**
          * Constructor
          * @param url - (Optional) The web url.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          * @param targetInfo - (Optional) The target information.
          */
-        new(url?:string, executeRequestFl?:boolean, targetInfo?:Settings.TargetInfoSettings): IWeb;
+        new(url?:string, targetInfo?:Settings.TargetInfoSettings): IWeb;
 
         /**
          * Properties
@@ -17,48 +16,43 @@ declare module $REST.Types {
 
         /**
          * Specifies whether the current user can create declarative workflows. If not disabled on the Web application, the value is the same as the AllowCreateDeclarativeWorkflow property of the site collection. Default value: true.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AllowCreateDeclarativeWorkflowForCurrentUser(executeRequestFl?:boolean): any;
+        AllowCreateDeclarativeWorkflowForCurrentUser(): any;
 
         /**
          * Gets a value that specifies whether the current user is allowed to use a designer application to customize this site.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AllowDesignerForCurrentUser(executeRequestFl?:boolean): any;
+        AllowDesignerForCurrentUser(): any;
 
         /**
          * Gets a value that specifies whether the current user is allowed to edit the master page.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AllowMasterPageEditingForCurrentUser(executeRequestFl?:boolean): any;
+        AllowMasterPageEditingForCurrentUser(): any;
 
         /**
          * Gets a value that specifies whether the current user is allowed to revert the site to a default site template.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AllowRevertFromTemplateForCurrentUser(executeRequestFl?:boolean): any;
+        AllowRevertFromTemplateForCurrentUser(): any;
 
         /** Gets a value that specifies whether the site allows RSS feeds. */
         AllowRssFeeds: string;
 
         /**
          * Specifies whether the current user can save declarative workflows as a template. If not disabled on the Web application, the value is the same as the AllowSaveDeclarativeWorkflowAsTemplate property of the site collection. Default value: true.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        AllowSaveDeclarativeWorkflowAsTemplateForCurrentUser(executeRequestFl?:boolean): any;
+        AllowSaveDeclarativeWorkflowAsTemplateForCurrentUser(): any;
 
         /**
          * Specifies whether the current user can save or publish declarative workflows. If not disabled on the Web application, the value is the same as the AllowSavePublishDeclarativeWorkflowAsTemplate property of the site collection. When enabled, can only be set by a site collection administrator. Default value: true.
          * @param targetInfo - (Optional) The target information.
          */
-        AllowSavePublishDeclarativeWorkflowForCurrentUser(executeRequestFl?:boolean): any;
+        AllowSavePublishDeclarativeWorkflowForCurrentUser(): any;
 
         /**
          * Gets a collection of metadata for the Web site.
          * @param targetInfo - (Optional) The target information.
          */
-        AllProperties(executeRequestFl?:boolean): any;
+        AllProperties(): any;
 
         /** The instance Id of the App Instance that this web represents. */
         AppInstanceId: string;
@@ -67,31 +61,31 @@ declare module $REST.Types {
          * Gets or sets the group of users who have been given contribute permissions to the Web site.
          * @param targetInfo - (Optional) The target information.
          */
-        AssociatedMemberGroup(executeRequestFl?:boolean): IGroup;
+        AssociatedMemberGroup(): IGroup;
 
         /**
          * Gets or sets the associated owner group of the Web site.
          * @param targetInfo - (Optional) The target information.
          */
-        AssociatedOwnerGroup(executeRequestFl?:boolean): IGroup;
+        AssociatedOwnerGroup(): IGroup;
 
         /**
          * Gets or sets the associated visitor group of the Web site.
          * @param targetInfo - (Optional) The target information.
          */
-        AssociatedVisitorGroup(executeRequestFl?:boolean): IGroup;
+        AssociatedVisitorGroup(): IGroup;
 
         /**
          * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
          * @param targetInfo - (Optional) The target information.
          */
-        AvailableContentTypes(executeRequestFl?:boolean): any;
+        AvailableContentTypes(): any;
 
         /**
          * Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
          * @param targetInfo - (Optional) The target information.
          */
-        AvailableFields(executeRequestFl?:boolean): any;
+        AvailableFields(): any;
 
         /** Gets either the identifier (ID) of the site definition configuration that was used to create the site, or the ID of the site definition configuration from which the site template used to create the site was derived. */
         Configuration: string;
@@ -99,9 +93,8 @@ declare module $REST.Types {
         /**
          * Gets the content type(s) that are associated with the web.
          * @param id - (Optional) The id of the content type.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ContentTypes(id?:string, executeRequestFl?:boolean): IContentType | IContentTypes;
+        ContentTypes(id?:string): IContentType | IContentTypes;
 
         /** Gets a value that specifies when the site was created. */
         Created: string;
@@ -110,7 +103,7 @@ declare module $REST.Types {
          * Gets the current user of the site.
          * @param targetInfo - (Optional) The target information.
          */
-        CurrentUser(executeRequestFl?:boolean): IUser;
+        CurrentUser(): IUser;
 
         /** Gets or sets the URL for a custom master page file to apply to the website. */
         CustomMasterUrl: string;
@@ -122,7 +115,7 @@ declare module $REST.Types {
          * Gets the URL where the current user can download SharePoint Designer.
          * @param targetInfo - (Optional) The target information.
          */
-        DesignerDownloadUrlForCurrentUser(executeRequestFl?:boolean): any;
+        DesignerDownloadUrlForCurrentUser(): any;
 
         /** Determines if the Document Library Callout's WAC previewers are enabled or not. */
         DocumentLibraryCalloutOfficeWebAppPreviewersDisabled: string;
@@ -131,7 +124,7 @@ declare module $REST.Types {
          * Represents the intersection of permissions of the app principal and the user principal. In the app-only case, this property returns only the permissions of the app principal. To check only user permissions (ignoring app permissions), use the GetUserEffectivePermissions method.
          * @param targetInfo - (Optional) The target information.
          */
-        EffectiveBasePermissions(executeRequestFl?:boolean): string;
+        EffectiveBasePermissions(): string;
 
         /** Gets or sets a Boolean value that specifies whether the Web site should use Minimal Download Strategy. */
         EnableMinimalDownload: string;
@@ -139,29 +132,26 @@ declare module $REST.Types {
         /**
          * Gets the event receiver(s) associated with the web.
          * @param id - (Optional) The id of the event receiver.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
         */
-        EventReceivers(id?:string, executeRequestFl?:boolean): IEventReceiver | IEventReceivers;
+        EventReceivers(id?:string): IEventReceiver | IEventReceivers;
 
         /**
          * Gets a value that specifies the collection of features that are currently activated in the site.
          * @param targetInfo - (Optional) The target information.
          */
-        Features(executeRequestFl?:boolean): any;
+        Features(): any;
 
         /**
          * Gets the field(s) in the web.
          * @param internalNameOrTitle - (Optional) The internal name or title of the field.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Fields(internalNameOrTitle?:string, executeRequestFl?:boolean): IField | IFields;
+        Fields(internalNameOrTitle?:string): IField | IFields;
 
         /**
          * Gets the folder(s) contained in the root folder.
          * @param url - (Optional) The url of the sub-folder within the current folder.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Folders(url?:string, executeRequestFl?:boolean): IFolder | IFolders;
+        Folders(url?:string): IFolder | IFolders;
 
         /** Gets a value that specifies the site identifier for the site. */
         Id: string;
@@ -177,14 +167,14 @@ declare module $REST.Types {
          * @param name - (Optional) The list name.
          * @param targetInfo - (Optional) The target information.
          */
-        Lists(executeRequestFl?:boolean): IList | ILists;
+        Lists(): IList | ILists;
 
         /**
          * Gets the list definition(s) and/or list template(s) available for creating lists on the site.
          * @param name - (Optional) The list template form name.
          * @param targetInfo - (Optional) The target information.
          */
-        ListTemplates(name?:string, executeRequestFl?:boolean): any;
+        ListTemplates(name?:string): any;
 
         /** Gets or sets the URL of the master page that is used for the website. */
         MasterUrl: string;
@@ -193,19 +183,19 @@ declare module $REST.Types {
          * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
          * @param targetInfo - (Optional) The target information.
          */
-        Navigation(executeRequestFl?:boolean): any;
+        Navigation(): any;
 
         /**
          * Gets the parent website of the specified website.
          * @param targetInfo - (Optional) The target information.
          */
-        ParentWeb(executeRequestFl?:boolean): any;
+        ParentWeb(): any;
 
         /**
          * Gets the collection of push notification subscribers over the site.
          * @param targetInfo - (Optional) The target information.
          */
-        PushNotificationSubscribers(executeRequestFl?:boolean): any;
+        PushNotificationSubscribers(): any;
 
         /** Gets or sets a value that specifies whether the Quick Launch area is enabled on the site. */
         QuickLaunchEnabled: string;
@@ -214,7 +204,7 @@ declare module $REST.Types {
          * Specifies the collection of recycle bin items of the recycle bin of the site.
          * @param targetInfo - (Optional) The target information.
          */
-        RecycleBin(executeRequestFl?:boolean): any;
+        RecycleBin(): any;
 
         /** Gets or sets a value that determines whether the recycle bin is enabled for the website. */
         RecycleBinEnabled: string;
@@ -223,27 +213,27 @@ declare module $REST.Types {
          * Gets the regional settings that are currently implemented on the website.
          * @param targetInfo - (Optional) The target information.
          */
-        RegionalSettings(executeRequestFl?:boolean): any;
+        RegionalSettings(): any;
 
         /**
          * Gets the role definition(s) for the web.
          * @param id - (Optional) The role definition id.
          * @param targetInfo - (Optional) The target information.
          */
-        RoleDefinitions(id?:number, executeRequestFl?:boolean): IRoleDefinition | IRoleDefinitions;
+        RoleDefinitions(id?:number): IRoleDefinition | IRoleDefinitions;
 
         /**
          * Gets the root folder or file in the web.
          * @param url - (Optional) The url of the file within the root folder.
          * @param targetInfo - (Optional) The target information.
          */
-        RootFolder(url?:string, executeRequestFl?:boolean): IFile | IFolder;
+        RootFolder(url?:string): IFile | IFolder;
 
         /**
          * Gets or sets a Boolean value that specifies whether the Web site can be saved as a site template.
          * @param targetInfo - (Optional) The target information.
          */
-        SaveSiteAsTemplateEnabled(executeRequestFl?:boolean): any;
+        SaveSiteAsTemplateEnabled(): any;
 
         /** Gets or sets the server-relative URL for the Web site. */
         ServerRelativeUrl: string;
@@ -252,32 +242,32 @@ declare module $REST.Types {
          * Gets a value that specifies whether the current user is able to view the file system structure of this site.
          * @param targetInfo - (Optional) The target information.
          */
-        ShowUrlStructureForCurrentUser(executeRequestFl?:boolean): any;
+        ShowUrlStructureForCurrentUser(): any;
 
         /**
          * Gets the site group(s) for the web.
          * @param id - (Optional) The group id.
          * @param targetInfo - (Optional) The target information.
          */
-        SiteGroups(id?:number, executeRequestFl?:boolean): IGroup | ISiteGroups;
+        SiteGroups(id?:number): IGroup | ISiteGroups;
 
         /**
          * Gets the UserInfo list of the site collection that contains the Web site.
          * @param targetInfo - (Optional) The target information.
          */
-        SiteUserInfoList(executeRequestFl?:boolean): any;
+        SiteUserInfoList(): any;
 
         /**
          * Gets the collection of all users that belong to the site collection.
          * @param targetInfo - (Optional) The target information.
          */
-        SiteUsers(executeRequestFl?:boolean): IUsers;
+        SiteUsers(): IUsers;
 
         /**
          * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
          * @param targetInfo - (Optional) The target information.
          */
-        SupportedUILanguageIds(executeRequestFl?:boolean): any;
+        SupportedUILanguageIds(): any;
 
         /** Gets or sets a value that specifies whether the RSS feeds are enabled on the site. */
         SyndicationEnabled: string;
@@ -286,7 +276,7 @@ declare module $REST.Types {
          * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
          * @param targetInfo - (Optional) The target information.
          */
-        ThemeInfo(executeRequestFl?:boolean): any;
+        ThemeInfo(): any;
 
         /** Gets or sets the title for the Web site. */
         Title: string;
@@ -306,21 +296,20 @@ declare module $REST.Types {
         /**
          * Gets the user custom action(s) for the web.
          * @param id - (Optional) The id of the user custom action.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        UserCustomActions(id?:string, executeRequestFl?:boolean): IUserCustomAction | IUserCustomActions;
+        UserCustomActions(id?:string): IUserCustomAction | IUserCustomActions;
 
         /**
          * Represents key properties of the subsites of a site.
          * @param targetInfo - (Optional) The target information.
          */
-        WebInfos(executeRequestFl?:boolean): any;
+        WebInfos(): any;
 
         /**
          * Gets a Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
          * @param targetInfo - (Optional) The target information.
          */
-        Webs(executeRequestFl?:boolean): IWebs;
+        Webs(): IWebs;
 
         /** Gets the name of the site definition or site template that was used to create the site. */
         WebTemplate: string;
@@ -329,13 +318,13 @@ declare module $REST.Types {
          * Gets a value that specifies the collection of all workflow associations for the site.
          * @param targetInfo - (Optional) The target information.
          */
-        WorkflowAssociations(executeRequestFl?:boolean): any;
+        WorkflowAssociations(): any;
 
         /**
          * Gets a value that specifies the collection of workflow templates associated with the site.
          * @param targetInfo - (Optional) The target information.
          */
-        WorkflowTemplates(executeRequestFl?:boolean): any;
+        WorkflowTemplates(): any;
 
         /**
          * Methods
