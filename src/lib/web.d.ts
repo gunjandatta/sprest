@@ -44,13 +44,11 @@ declare module $REST.Types {
 
         /**
          * Specifies whether the current user can save or publish declarative workflows. If not disabled on the Web application, the value is the same as the AllowSavePublishDeclarativeWorkflowAsTemplate property of the site collection. When enabled, can only be set by a site collection administrator. Default value: true.
-         * @param targetInfo - (Optional) The target information.
          */
         AllowSavePublishDeclarativeWorkflowForCurrentUser(): any;
 
         /**
          * Gets a collection of metadata for the Web site.
-         * @param targetInfo - (Optional) The target information.
          */
         AllProperties(): any;
 
@@ -59,31 +57,26 @@ declare module $REST.Types {
 
         /**
          * Gets or sets the group of users who have been given contribute permissions to the Web site.
-         * @param targetInfo - (Optional) The target information.
          */
         AssociatedMemberGroup(): IGroup;
 
         /**
          * Gets or sets the associated owner group of the Web site.
-         * @param targetInfo - (Optional) The target information.
          */
         AssociatedOwnerGroup(): IGroup;
 
         /**
          * Gets or sets the associated visitor group of the Web site.
-         * @param targetInfo - (Optional) The target information.
          */
         AssociatedVisitorGroup(): IGroup;
 
         /**
          * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
-         * @param targetInfo - (Optional) The target information.
          */
         AvailableContentTypes(): any;
 
         /**
          * Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
-         * @param targetInfo - (Optional) The target information.
          */
         AvailableFields(): any;
 
@@ -101,7 +94,6 @@ declare module $REST.Types {
 
         /**
          * Gets the current user of the site.
-         * @param targetInfo - (Optional) The target information.
          */
         CurrentUser(): IUser;
 
@@ -113,7 +105,6 @@ declare module $REST.Types {
 
         /**
          * Gets the URL where the current user can download SharePoint Designer.
-         * @param targetInfo - (Optional) The target information.
          */
         DesignerDownloadUrlForCurrentUser(): any;
 
@@ -122,7 +113,6 @@ declare module $REST.Types {
 
         /**
          * Represents the intersection of permissions of the app principal and the user principal. In the app-only case, this property returns only the permissions of the app principal. To check only user permissions (ignoring app permissions), use the GetUserEffectivePermissions method.
-         * @param targetInfo - (Optional) The target information.
          */
         EffectiveBasePermissions(): string;
 
@@ -137,7 +127,6 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the collection of features that are currently activated in the site.
-         * @param targetInfo - (Optional) The target information.
          */
         Features(): any;
 
@@ -165,14 +154,12 @@ declare module $REST.Types {
         /**
          * Gets the list(s) in the Web.
          * @param name - (Optional) The list name.
-         * @param targetInfo - (Optional) The target information.
          */
-        Lists(): IList | ILists;
+        Lists(name?:string): IList | ILists;
 
         /**
          * Gets the list definition(s) and/or list template(s) available for creating lists on the site.
          * @param name - (Optional) The list template form name.
-         * @param targetInfo - (Optional) The target information.
          */
         ListTemplates(name?:string): any;
 
@@ -181,19 +168,16 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
-         * @param targetInfo - (Optional) The target information.
          */
         Navigation(): any;
 
         /**
          * Gets the parent website of the specified website.
-         * @param targetInfo - (Optional) The target information.
          */
         ParentWeb(): any;
 
         /**
          * Gets the collection of push notification subscribers over the site.
-         * @param targetInfo - (Optional) The target information.
          */
         PushNotificationSubscribers(): any;
 
@@ -202,7 +186,6 @@ declare module $REST.Types {
 
         /**
          * Specifies the collection of recycle bin items of the recycle bin of the site.
-         * @param targetInfo - (Optional) The target information.
          */
         RecycleBin(): any;
 
@@ -211,27 +194,23 @@ declare module $REST.Types {
 
         /**
          * Gets the regional settings that are currently implemented on the website.
-         * @param targetInfo - (Optional) The target information.
          */
         RegionalSettings(): any;
 
         /**
          * Gets the role definition(s) for the web.
          * @param id - (Optional) The role definition id.
-         * @param targetInfo - (Optional) The target information.
          */
         RoleDefinitions(id?:number): IRoleDefinition | IRoleDefinitions;
 
         /**
          * Gets the root folder or file in the web.
          * @param url - (Optional) The url of the file within the root folder.
-         * @param targetInfo - (Optional) The target information.
          */
         RootFolder(url?:string): IFile | IFolder;
 
         /**
          * Gets or sets a Boolean value that specifies whether the Web site can be saved as a site template.
-         * @param targetInfo - (Optional) The target information.
          */
         SaveSiteAsTemplateEnabled(): any;
 
@@ -240,32 +219,27 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies whether the current user is able to view the file system structure of this site.
-         * @param targetInfo - (Optional) The target information.
          */
         ShowUrlStructureForCurrentUser(): any;
 
         /**
          * Gets the site group(s) for the web.
          * @param id - (Optional) The group id.
-         * @param targetInfo - (Optional) The target information.
          */
         SiteGroups(id?:number): IGroup | ISiteGroups;
 
         /**
          * Gets the UserInfo list of the site collection that contains the Web site.
-         * @param targetInfo - (Optional) The target information.
          */
         SiteUserInfoList(): any;
 
         /**
          * Gets the collection of all users that belong to the site collection.
-         * @param targetInfo - (Optional) The target information.
          */
         SiteUsers(): IUsers;
 
         /**
          * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
-         * @param targetInfo - (Optional) The target information.
          */
         SupportedUILanguageIds(): any;
 
@@ -274,7 +248,6 @@ declare module $REST.Types {
 
         /**
          * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
-         * @param targetInfo - (Optional) The target information.
          */
         ThemeInfo(): any;
 
@@ -301,13 +274,11 @@ declare module $REST.Types {
 
         /**
          * Represents key properties of the subsites of a site.
-         * @param targetInfo - (Optional) The target information.
          */
         WebInfos(): any;
 
         /**
          * Gets a Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
-         * @param targetInfo - (Optional) The target information.
          */
         Webs(): IWebs;
 
@@ -316,13 +287,11 @@ declare module $REST.Types {
 
         /**
          * Gets a value that specifies the collection of all workflow associations for the site.
-         * @param targetInfo - (Optional) The target information.
          */
         WorkflowAssociations(): any;
 
         /**
          * Gets a value that specifies the collection of workflow templates associated with the site.
-         * @param targetInfo - (Optional) The target information.
          */
         WorkflowTemplates(): any;
 
