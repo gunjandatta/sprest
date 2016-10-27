@@ -7,7 +7,7 @@ declare module $REST.Settings {
         Expand?: Array<string>;
 
         /** The filters. */
-        Filter?: Array<string>;
+        Filter?: string;
 
         /** The order by fields. */
         OrderBy?: Array<string>;

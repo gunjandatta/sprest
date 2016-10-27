@@ -7,12 +7,12 @@ module $REST.Utils {
         /*********************************************************************************************************************************/
         // Global Variables
         /*********************************************************************************************************************************/
-        private _expand?:Array<string>;
-        private _filter?:Array<string>;
-        private _orderBy?:Array<string>;
-        private _select?:Array<string>;
-        private _skip?:number;
-        private _top?:number;
+        private _expand?: Array<string>;
+        private _filter?: string;
+        private _orderBy?: Array<string>;
+        private _select?: Array<string>;
+        private _skip?: number;
+        private _top?: number;
 
         /*********************************************************************************************************************************/
         // Constructor
@@ -22,7 +22,7 @@ module $REST.Utils {
         constructor(oData:Settings.ODataSettings) {
             // Default the Variables
             this._expand = oData && oData.Expand ? oData.Expand : [];
-            this._filter = oData && oData.Filter ? oData.Filter : [];
+            this._filter = oData && oData.Filter ? oData.Filter : null;
             this._orderBy = oData && oData.OrderBy ? oData.OrderBy : [];
             this._select = oData && oData.Select ? oData.Select : [];
             this._skip = oData && oData.Skip ? oData.Skip : null;
@@ -38,8 +38,8 @@ module $REST.Utils {
         set Expand(value: Array<string>) { this._expand = value; }
 
         // Filter
-        get Filter():Array<string> { return this._filter; }
-        set Filter(value: Array<string>) { this._filter = value; }
+        get Filter():string { return this._filter; }
+        set Filter(value: string) { this._filter = value; }
 
         // Order By
         get OrderBy():Array<string> { return this._orderBy; }
@@ -55,7 +55,7 @@ module $REST.Utils {
             values.push(this.getQSValue("$orderby", this._orderBy));
             this._top ? values.push("$top=" + this._top) : null;
             this._skip ? values.push("$skip=" + this._skip) : null;
-            values.push(this.getQSValue("$filter", this._filter));
+            this._filter ? values.push("$filter=", this._filter) : null;
             values.push(this.getQSValue("$expand", this._expand));
 
             // Parse the values
