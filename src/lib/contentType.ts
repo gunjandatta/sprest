@@ -4,7 +4,7 @@ module $REST {
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "FieldLinks|fieldlinks", "Fields|fields", "WorkflowAssociations"
+            "FieldLinks|fieldlinks|('[Name]')|fieldlink", "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "WorkflowAssociations"
         ],
 
         /*********************************************************************************************************************************/

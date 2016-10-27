@@ -11,16 +11,18 @@ declare module $REST.Types {
         ContentTypeOrder: string;
 
         /**
-         * Gets the collection of all files contained in the list folder. You can add a file to a folder by using the Add method on the folder’s FileCollection resource.
+         * Gets the file(s) contained in the folder.
+         * @param url - (Optional) The url of the file within the current folder.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Files(executeRequestFl?:boolean): IFiles;
+        Files(url?:string, executeRequestFl?:boolean): IFile | IFiles;
 
         /**
-         * Gets the collection of list folders contained in the list folder.
+         * Gets the folder(s) contained in the list folder.
+         * @param url - (Optional) The url of the sub-folder within the current folder.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Folders(executeRequestFl?:boolean): IFolders;
+        Folders(url?:string, executeRequestFl?:boolean): IFolder | IFolders;
 
         /** Gets a value that specifies the count of items in the list folder. */
         ItemCount: string;

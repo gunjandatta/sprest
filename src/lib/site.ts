@@ -60,7 +60,8 @@ module $REST {
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "EventReceivers|eventreceivers", "Features", "Owner|user", "RootWeb|web", "UserCustomActions|usercustomactions"
+            "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features", "Owner|user", "RootWeb|web",
+            "UserCustomActions|usercustomactions|('[Name]')|usercustomaction"
         ],
 
         /*********************************************************************************************************************************/

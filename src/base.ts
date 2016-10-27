@@ -36,7 +36,7 @@ module $REST {
         public existsFl:boolean;
         
         // The parent
-        public parent:Base;
+        public parent:any;
 
         // The request type
         public requestType:Types.RequestType;
@@ -47,19 +47,6 @@ module $REST {
         /*********************************************************************************************************************************/
         // Public Methods
         /*********************************************************************************************************************************/
-
-        // Method to execute after the asynchronous request completes
-        public done(callback:() => void) {
-            // See if the promise exists
-            if(this.promise) {
-                // Execute the callback
-                this.promise.done(callback);
-            }
-            else {
-                // Set the callback in the target information
-                this.targetInfo.callback = callback;
-            }
-        }
 
         // Method to execute a child request
         public execute(callback?:(...args) => void) {
@@ -221,9 +208,23 @@ module $REST {
                             // Get the metadata type
                             let propName = propInfo[0];
                             let propType = propInfo.length > 1 ? propInfo[1] : null;
+                            let subPropName = propInfo.length > 2 ? propInfo[2] : null;
+                            let subPropType = propInfo.length > 3 ? propInfo[3] : null;
 
-                            // Add the property
-                            obj[propName] = new Function("executeRequestFl", "return this.getProperty('" + propName + "', '" + propType + "', executeRequestFl);");
+                            // See if this property has a sub-property defined for it
+                            if(propInfo.length == 4) {
+                                // Update the ' char in the property name
+                                subPropName = subPropName.replace(/'/g, "\\'");
+
+                                // Add the property
+                                obj[propName] = new Function("name", "executeRequestFl",
+                                    "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
+                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "', executeRequestFl);");
+                            } else {
+                                // Add the property
+                                obj[propName] = new Function("executeRequestFl",
+                                    "return this.getProperty('" + propName + "', '" + propType + "', executeRequestFl);");
+                            }
                         }
                         
                         // Continue the loop
@@ -263,6 +264,19 @@ module $REST {
                     // Append the property to this object
                     obj[key] = value;
                 }
+            }
+        }
+
+        // Method to execute after the asynchronous request completes
+        protected done(callback:() => void) {
+            // See if the promise exists
+            if(this.promise) {
+                // Execute the callback
+                this.promise.done(callback);
+            }
+            else {
+                // Set the callback in the target information
+                this.targetInfo.callback = callback;
             }
         }
 

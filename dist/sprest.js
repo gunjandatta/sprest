@@ -41,18 +41,6 @@ var $REST;
         /*********************************************************************************************************************************/
         // Public Methods
         /*********************************************************************************************************************************/
-        // Method to execute after the asynchronous request completes
-        Base.prototype.done = function (callback) {
-            // See if the promise exists
-            if (this.promise) {
-                // Execute the callback
-                this.promise.done(callback);
-            }
-            else {
-                // Set the callback in the target information
-                this.targetInfo.callback = callback;
-            }
-        };
         // Method to execute a child request
         Base.prototype.execute = function (callback) {
             var _this = this;
@@ -182,8 +170,20 @@ var $REST;
                             // Get the metadata type
                             var propName = propInfo[0];
                             var propType = propInfo.length > 1 ? propInfo[1] : null;
-                            // Add the property
-                            obj[propName] = new Function("executeRequestFl", "return this.getProperty('" + propName + "', '" + propType + "', executeRequestFl);");
+                            var subPropName = propInfo.length > 2 ? propInfo[2] : null;
+                            var subPropType = propInfo.length > 3 ? propInfo[3] : null;
+                            // See if this property has a sub-property defined for it
+                            if (propInfo.length == 4) {
+                                // Update the ' char in the property name
+                                subPropName = subPropName.replace(/'/g, "\\'");
+                                // Add the property
+                                obj[propName] = new Function("name", "executeRequestFl", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
+                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "', executeRequestFl);");
+                            }
+                            else {
+                                // Add the property
+                                obj[propName] = new Function("executeRequestFl", "return this.getProperty('" + propName + "', '" + propType + "', executeRequestFl);");
+                            }
                         }
                         // Continue the loop
                         continue;
@@ -218,6 +218,18 @@ var $REST;
                     // Append the property to this object
                     obj[key] = value;
                 }
+            }
+        };
+        // Method to execute after the asynchronous request completes
+        Base.prototype.done = function (callback) {
+            // See if the promise exists
+            if (this.promise) {
+                // Execute the callback
+                this.promise.done(callback);
+            }
+            else {
+                // Set the callback in the target information
+                this.targetInfo.callback = callback;
             }
         };
         // Method to execute a method
@@ -1789,6 +1801,7 @@ var $REST;
         **/
         add: {
             argNames: ["name"],
+            name: "",
             requestType: $REST.Types.RequestType.PostWithArgs
         },
         // Queries the collection
@@ -1806,7 +1819,7 @@ var $REST;
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "FieldLinks|fieldlinks", "Fields|fields", "WorkflowAssociations"
+            "FieldLinks|fieldlinks|('[Name]')|fieldlink", "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "WorkflowAssociations"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -1863,8 +1876,8 @@ var $REST;
     $REST.Library.contenttypes = {
         // Adds a content type to the collection.
         add: {
-            argNames: ["parameters"],
             metadataType: "SP.ContentType",
+            name: "",
             requestType: $REST.Types.RequestType.PostWithArgsInBody
         },
         // Adds an existing content type to this collection.
@@ -2052,6 +2065,7 @@ var $REST;
         add: {
             argNames: ["data"],
             metadataType: "SP.FieldLink",
+            name: "",
             requestType: $REST.Types.RequestType.PostWithArgsInBody
         },
         // Gets a field link by it's id.
@@ -2083,6 +2097,7 @@ var $REST;
         add: {
             argNames: ["parameters"],
             metadataType: "SP.FieldCreationInformation",
+            name: "addField",
             requestType: $REST.Types.RequestType.PostWithArgsInBody
         },
         // Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
@@ -2338,7 +2353,8 @@ var $REST;
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "Files|files", "Folders|folders", "ListItemAllFields", "ParentFolder|folder", "Properties", "StorageMetrics"
+            "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
+            "ParentFolder|folder", "Properties", "StorageMetrics"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -2400,9 +2416,19 @@ var $REST;
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
-    // Methods
+    // Library
     /*********************************************************************************************************************************/
     $REST.Library.folders = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [
+            "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields", "ParentFolder",
+            "Properties", "StorageMetrics"
+        ],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
         // Adds the folder that is located at the specified URL to the collection.
         add: {
             argNames: ["url"],
@@ -2449,6 +2475,7 @@ var $REST;
         // Adds an item to the list item collection.
         add: {
             metadataType: function (obj) { return obj.Parent && obj.Parent["ListItemEntityTypeFullName"] ? obj.Parent["ListItemEntityTypeFullName"] : "SP.ListItem"; },
+            name: "",
             requestType: $REST.Types.RequestType.PostWithArgsInBody
         },
         // Gets an item by its id.
@@ -2504,7 +2531,7 @@ var $REST;
             _super.call(this, $REST.Base.getInputParmeters.apply(null, args));
             // Default the properties
             this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
+            this.targetInfo.endpoint = "lists/getByTitle('" + listName + "')";
             // See if we are executing the request
             if (this.executeRequestFl) {
                 // Execute the request
@@ -2543,10 +2570,12 @@ var $REST;
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "BrowserFileHandling", "ContentTypes|contenttypes", "CreatablesInfo", "DefaultView|view", "DescriptionResource",
-            "EventReceivers|eventreceivers", "Fields|fields", "FirstUniqueAncestorSecurableObject", "Forms", "InformationRightsManagementSettings",
-            "Items|items", "ParentWeb", "RoleAssignments|roleassignments", "RootFolder|folder", "Subscriptions", "TitleResource",
-            "UserCustomActions|usercustomactions", "Views|views", "WorkflowAssociations"
+            "BrowserFileHandling", "ContentTypes|contenttypes|([Name])|contenttype", "CreatablesInfo", "DefaultView|view",
+            "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Fields|fields|/getByInternalNameOrTitle('[Name]')|field",
+            "FirstUniqueAncestorSecurableObject", "Forms|forms|('[Name]')|form", "InformationRightsManagementSettings",
+            "Items|items|([Name])|item", "ParentWeb", "RoleAssignments|roleassignments|([Name])|roleassignment",
+            "RootFolder|folder|/getByUrl('[Name]')|file", "Subscriptions", "TitleResource",
+            "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "Views|views||('[Name]')|view", "WorkflowAssociations"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -2804,7 +2833,7 @@ var $REST;
         properties: [
             "AttachmentFiles|attachmentfiles", "ContentType|contenttype", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
             "File|file", "FirstUniqueAncestorSecurableObject", "Folder|folder", "GetDlpPolicyTip", "ParentList|list",
-            "RoleAssignments|roleassignments"
+            "RoleAssignments|roleassignments|roleassignments|([Name])|roleassignment"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -2864,7 +2893,8 @@ var $REST;
         // Adds a list to the list collection.
         add: {
             metadataType: "SP.List",
-            requestType: $REST.Types.RequestType.PostWithArgs
+            name: "",
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
         },
         // Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
         ensureSiteAssetsLibrary: {
@@ -3098,7 +3128,8 @@ var $REST;
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "EventReceivers|eventreceivers", "Features", "Owner|user", "RootWeb|web", "UserCustomActions|usercustomactions"
+            "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features", "Owner|user", "RootWeb|web",
+            "UserCustomActions|usercustomactions|('[Name]')|usercustomaction"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -3285,7 +3316,7 @@ var $REST;
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "Groups|sitegroups"
+            "Groups|sitegroups|([Name])|group"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -3507,6 +3538,7 @@ var $REST;
         // Adds a view to the view collection.
         add: {
             metadataType: "SP.View",
+            name: "",
             requestType: $REST.Types.RequestType.PostWithArgs
         },
         // Gets the list view with the specified ID.
@@ -3536,7 +3568,6 @@ var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
     // Web
-    // The SPWeb object.
     /*********************************************************************************************************************************/
     var Web = (function (_super) {
         __extends(Web, _super);
@@ -3602,13 +3633,16 @@ var $REST;
         /*********************************************************************************************************************************/
         properties: [
             "AllProperties", "AppTiles", "AssociatedMemberGroup|group", "AssociatedOwnerGroup|group", "AssociatedVisitorGroup|group",
-            "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields", "ClientWebParts", "ContentTypes|contenttypes",
-            "CurrentUser|user", "DataLeakagePreventionStatusInfo", "DescriptionResource", "EventReceivers|eventreceivers", "Features",
-            "Fields|fields", "FirstUniqueAncestorSecurableObject", "Folders|folders", "Lists|lists", "ListTemplates", "Navigation",
-            "ParentWeb", "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|roleassignments",
-            "RoleDefinitions|roledefinitions", "RootFolder|folder", "SiteGroups|sitegroups", "SiteUserInfoList", "SiteUsers|users",
-            "ThemeInfo", "TitleResource", "UserCustomActions|usercustomactions", "WebInfos", "Webs|webs", "WorkflowAssociations",
-            "WorkflowTemplates"
+            "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields", "ClientWebParts",
+            "ContentTypes|contenttypes|('[Name]')|contenttype", "CurrentUser|user", "DataLeakagePreventionStatusInfo",
+            "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features",
+            "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "FirstUniqueAncestorSecurableObject",
+            "Folders|folders|/getByUrl('[Name]')|folder", "Lists|lists|/getByTitle('[Name]')|list",
+            "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb", "PushNotificationSubscribers", "RecycleBin",
+            "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
+            "RoleDefinitions|roledefinitions|([Name])|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
+            "SiteGroups|sitegroups|([Name])|group", "SiteUserInfoList", "SiteUsers|users", "ThemeInfo", "TitleResource",
+            "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
         ],
         /*********************************************************************************************************************************/
         // Methods

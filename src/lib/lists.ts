@@ -6,7 +6,8 @@ module $REST {
         // Adds a list to the list collection.
         add: {
             metadataType: "SP.List",
-            requestType: Types.RequestType.PostWithArgs
+            name: "",
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         // Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.

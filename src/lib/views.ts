@@ -6,6 +6,7 @@ module $REST {
         // Adds a view to the view collection.
         add: {
             metadataType: "SP.View",
+            name: "",
             requestType: Types.RequestType.PostWithArgs
         },
 

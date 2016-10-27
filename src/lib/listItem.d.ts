@@ -86,10 +86,11 @@ declare module $REST.Types {
         ParentList(executeRequestFl?:boolean): IList;
 
         /**
-         * Gets the role assignments for the securable object.
+         * Gets the role assignment(s) for the securable object.
+         * @param id - (Optional) The role assignment id.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        RoleAssignments(executeRequestFl?:boolean): IRoleAssignments;
+        RoleAssignments(id?:string, executeRequestFl?:boolean): IRoleAssignment | IRoleAssignments;
 
         /**
          * Methods

@@ -97,10 +97,11 @@ declare module $REST.Types {
         Configuration: string;
 
         /**
-         * Gets the collection of content types for the Web site.
-         * @param targetInfo - (Optional) The target information.
+         * Gets the content type(s) that are associated with the web.
+         * @param id - (Optional) The id of the content type.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ContentTypes(executeRequestFl?:boolean): IContentTypes;
+        ContentTypes(id?:string, executeRequestFl?:boolean): IContentType | IContentTypes;
 
         /** Gets a value that specifies when the site was created. */
         Created: string;
@@ -136,10 +137,11 @@ declare module $REST.Types {
         EnableMinimalDownload: string;
 
         /**
-         * Gets the collection of event receiver definitions that are currently available on the website.
-         * @param targetInfo - (Optional) The target information.
-         */
-        EventReceivers(executeRequestFl?:boolean): any;
+         * Gets the event receiver(s) associated with the web.
+         * @param id - (Optional) The id of the event receiver.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+        */
+        EventReceivers(id?:string, executeRequestFl?:boolean): IEventReceiver | IEventReceivers;
 
         /**
          * Gets a value that specifies the collection of features that are currently activated in the site.
@@ -148,16 +150,18 @@ declare module $REST.Types {
         Features(executeRequestFl?:boolean): any;
 
         /**
-         * Gets the collection of field objects that represents all the fields in the Web site.
-         * @param targetInfo - (Optional) The target information.
+         * Gets the field(s) in the web.
+         * @param internalNameOrTitle - (Optional) The internal name or title of the field.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Fields(executeRequestFl?:boolean): IFields;
+        Fields(internalNameOrTitle?:string, executeRequestFl?:boolean): IField | IFields;
 
         /**
-         * Gets the collection of all first-level folders in the Web site.
-         * @param targetInfo - (Optional) The target information.
+         * Gets the folder(s) contained in the root folder.
+         * @param url - (Optional) The url of the sub-folder within the current folder.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Folders(executeRequestFl?:boolean): IFolders;
+        Folders(url?:string, executeRequestFl?:boolean): IFolder | IFolders;
 
         /** Gets a value that specifies the site identifier for the site. */
         Id: string;
@@ -169,16 +173,18 @@ declare module $REST.Types {
         LastItemModifiedDate: string;
 
         /**
-         * Gets the collection of all lists that are contained in the Web site available to the current user based on the permissions of the current user.
+         * Gets the list(s) in the Web.
+         * @param name - (Optional) The list name.
          * @param targetInfo - (Optional) The target information.
          */
-        Lists(executeRequestFl?:boolean): ILists;
+        Lists(executeRequestFl?:boolean): IList | ILists;
 
         /**
-         * Gets a value that specifies the collection of list definitions and list templates available for creating lists on the site.
+         * Gets the list definition(s) and/or list template(s) available for creating lists on the site.
+         * @param name - (Optional) The list template form name.
          * @param targetInfo - (Optional) The target information.
          */
-        ListTemplates(executeRequestFl?:boolean): any;
+        ListTemplates(name?:string, executeRequestFl?:boolean): any;
 
         /** Gets or sets the URL of the master page that is used for the website. */
         MasterUrl: string;
@@ -220,16 +226,18 @@ declare module $REST.Types {
         RegionalSettings(executeRequestFl?:boolean): any;
 
         /**
-         * Gets the collection of role definitions for the Web site.
+         * Gets the role definition(s) for the web.
+         * @param id - (Optional) The role definition id.
          * @param targetInfo - (Optional) The target information.
          */
-        RoleDefinitions(executeRequestFl?:boolean): IRoleDefinitions;
+        RoleDefinitions(id?:number, executeRequestFl?:boolean): IRoleDefinition | IRoleDefinitions;
 
         /**
-         * Gets the root folder for the Web site.
+         * Gets the root folder or file in the web.
+         * @param url - (Optional) The url of the file within the root folder.
          * @param targetInfo - (Optional) The target information.
          */
-        RootFolder(executeRequestFl?:boolean): IFolder;
+        RootFolder(url?:string, executeRequestFl?:boolean): IFile | IFolder;
 
         /**
          * Gets or sets a Boolean value that specifies whether the Web site can be saved as a site template.
@@ -247,10 +255,11 @@ declare module $REST.Types {
         ShowUrlStructureForCurrentUser(executeRequestFl?:boolean): any;
 
         /**
-         * Gets the collection of groups for the site collection.
+         * Gets the site group(s) for the web.
+         * @param id - (Optional) The group id.
          * @param targetInfo - (Optional) The target information.
          */
-        SiteGroups(executeRequestFl?:boolean): ISiteGroups;
+        SiteGroups(id?:number, executeRequestFl?:boolean): IGroup | ISiteGroups;
 
         /**
          * Gets the UserInfo list of the site collection that contains the Web site.
@@ -295,10 +304,11 @@ declare module $REST.Types {
         Url: string;
 
         /**
-         * Gets a value that specifies the collection of user custom actions for the site.
-         * @param targetInfo - (Optional) The target information.
+         * Gets the user custom action(s) for the web.
+         * @param id - (Optional) The id of the user custom action.
+         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        UserCustomActions(executeRequestFl?:boolean): IUserCustomActions;
+        UserCustomActions(id?:string, executeRequestFl?:boolean): IUserCustomAction | IUserCustomActions;
 
         /**
          * Represents key properties of the subsites of a site.

@@ -7,6 +7,7 @@ module $REST {
         add: {
             argNames: ["data"],
             metadataType: "SP.FieldLink",
+            name: "",
             requestType: Types.RequestType.PostWithArgsInBody
         },
 

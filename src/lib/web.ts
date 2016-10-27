@@ -1,7 +1,6 @@
 module $REST {
     /*********************************************************************************************************************************/
     // Web
-    // The SPWeb object.
     /*********************************************************************************************************************************/
     export class Web extends Base {
 
@@ -60,13 +59,16 @@ module $REST {
 
         properties: [
             "AllProperties", "AppTiles", "AssociatedMemberGroup|group", "AssociatedOwnerGroup|group", "AssociatedVisitorGroup|group",
-            "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields", "ClientWebParts", "ContentTypes|contenttypes",
-            "CurrentUser|user", "DataLeakagePreventionStatusInfo", "DescriptionResource", "EventReceivers|eventreceivers", "Features",
-            "Fields|fields", "FirstUniqueAncestorSecurableObject", "Folders|folders", "Lists|lists", "ListTemplates", "Navigation",
-            "ParentWeb", "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|roleassignments",
-            "RoleDefinitions|roledefinitions", "RootFolder|folder", "SiteGroups|sitegroups", "SiteUserInfoList", "SiteUsers|users",
-            "ThemeInfo", "TitleResource", "UserCustomActions|usercustomactions", "WebInfos", "Webs|webs", "WorkflowAssociations",
-            "WorkflowTemplates"
+            "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields", "ClientWebParts",
+            "ContentTypes|contenttypes|('[Name]')|contenttype", "CurrentUser|user", "DataLeakagePreventionStatusInfo",
+            "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features",
+            "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "FirstUniqueAncestorSecurableObject",
+            "Folders|folders|/getByUrl('[Name]')|folder", "Lists|lists|/getByTitle('[Name]')|list",
+            "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb", "PushNotificationSubscribers", "RecycleBin",
+            "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
+            "RoleDefinitions|roledefinitions|([Name])|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
+            "SiteGroups|sitegroups|([Name])|group", "SiteUserInfoList", "SiteUsers|users", "ThemeInfo", "TitleResource",
+            "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
         ],
 
         /*********************************************************************************************************************************/

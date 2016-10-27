@@ -37,10 +37,11 @@ declare module $REST.Types {
         CompatibilityLevel: string;
 
         /**
-         * Provides event receivers for events that occur at the scope of the site collection.
+         * Gets the event receiver(s) associated with the site.
+         * @param id - (Optional) The id of the event receiver.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
-         */
-        EventReceivers(executeRequestFl?:boolean): any;
+        */
+        EventReceivers(id?:string, executeRequestFl?:boolean): IEventReceiver | IEventReceivers;
 
         /**
          * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
@@ -106,10 +107,11 @@ declare module $REST.Types {
         Usage: string;
 
         /**
-         * Gets a value that specifies the collection of user custom actions for the site collection.
+         * Gets the user custom action(s) for the list.
+         * @param id - (Optional) The id of the user custom action.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        UserCustomActions(executeRequestFl?:boolean): IUserCustomActions;
+        UserCustomActions(id?:string, executeRequestFl?:boolean): IUserCustomAction | IUserCustomActions;
 
         /**
          * Methods

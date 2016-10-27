@@ -29,9 +29,6 @@ declare module $REST.Types {
         /** The parent object, which created this object. */
         parent: any;
 
-        /** Method executed after the asynchronous request completes. */
-        done(callback:(...args) => void);
-
         /**
          * Method to execute the request.
          * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.

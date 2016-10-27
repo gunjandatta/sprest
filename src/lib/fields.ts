@@ -7,6 +7,7 @@ module $REST {
         add: {
             argNames: ["parameters"],
             metadataType: "SP.FieldCreationInformation",
+            name: "addField",
             requestType: Types.RequestType.PostWithArgsInBody
         },
 

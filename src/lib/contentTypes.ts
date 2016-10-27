@@ -5,8 +5,8 @@ module $REST {
     Library.contenttypes = {
         // Adds a content type to the collection.
         add: {
-            argNames: ["parameters"],
             metadataType: "SP.ContentType",
+            name: "",
             requestType: Types.RequestType.PostWithArgsInBody
         },
 

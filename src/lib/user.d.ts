@@ -11,10 +11,11 @@ declare module $REST.Types {
         Email: string;
 
         /**
-         * Gets the collection of groups of which the user is a member.
+         * Gets the group(s) of which the user is a member.
+         * @param id - (Optional) The group id.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Groups(executeRequestFl?:boolean): ISiteGroups;
+        Groups(id?:number, executeRequestFl?:boolean): IGroup | ISiteGroups;
 
         /** Gets a value that specifies the member identifier for the user or group. */
         Id: string;

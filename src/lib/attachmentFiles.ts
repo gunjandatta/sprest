@@ -10,6 +10,7 @@ module $REST {
         **/
         add: {
             argNames: ["name"],
+            name: "",
             requestType: Types.RequestType.PostWithArgs
         },
 

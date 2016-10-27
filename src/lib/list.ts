@@ -13,7 +13,7 @@ module $REST {
 
             // Default the properties
             this.defaultToWebFl = true;
-            this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
+            this.targetInfo.endpoint = "lists/getByTitle('" + listName + "')";
 
             // See if we are executing the request
             if(this.executeRequestFl) {
@@ -47,10 +47,12 @@ module $REST {
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "BrowserFileHandling", "ContentTypes|contenttypes", "CreatablesInfo", "DefaultView|view", "DescriptionResource",
-            "EventReceivers|eventreceivers", "Fields|fields", "FirstUniqueAncestorSecurableObject", "Forms", "InformationRightsManagementSettings",
-            "Items|items", "ParentWeb", "RoleAssignments|roleassignments", "RootFolder|folder", "Subscriptions", "TitleResource",
-            "UserCustomActions|usercustomactions", "Views|views", "WorkflowAssociations"
+            "BrowserFileHandling", "ContentTypes|contenttypes|([Name])|contenttype", "CreatablesInfo", "DefaultView|view",
+            "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Fields|fields|/getByInternalNameOrTitle('[Name]')|field",
+            "FirstUniqueAncestorSecurableObject", "Forms|forms|('[Name]')|form", "InformationRightsManagementSettings",
+            "Items|items|([Name])|item", "ParentWeb", "RoleAssignments|roleassignments|([Name])|roleassignment",
+            "RootFolder|folder|/getByUrl('[Name]')|file", "Subscriptions", "TitleResource",
+            "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "Views|views||('[Name]')|view", "WorkflowAssociations"
         ],
 
         /*********************************************************************************************************************************/

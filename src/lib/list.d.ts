@@ -31,10 +31,11 @@ declare module $REST.Types {
         BrowserFileHandling(executeRequestFl?:boolean): string;
 
         /**
-         * Gets the content types that are associated with the list.
+         * Gets the content type(s) that are associated with the list.
+         * @param id - (Optional) The id of the content type.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        ContentTypes(executeRequestFl?:boolean): IContentTypes;
+        ContentTypes(id?:string, executeRequestFl?:boolean): IContentType | IContentTypes;
 
         /** Gets or sets a value that specifies whether content types are enabled for the list. */
         ContentTypesEnabled: string;
@@ -124,16 +125,18 @@ declare module $REST.Types {
         EntityTypeName: string;
 
         /**
-         * Gets a value that specifies the collection of event receivers associated with the list.
+         * Gets the event receiver(s) associated with the list.
+         * @param id - (Optional) The id of the event receiver.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
         */
-        EventReceivers(executeRequestFl?:boolean): any;
+        EventReceivers(id?:string, executeRequestFl?:boolean): IEventReceiver | IEventReceivers;
 
         /**
-         * Gets a value that specifies the collection of all fields in the list.
+         * Gets the field(s) in the list.
+         * @param internalNameOrTitle - (Optional) The internal name or title of the field.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Fields(executeRequestFl?:boolean): IFields;
+        Fields(internalNameOrTitle?:string, executeRequestFl?:boolean): IField | IFields;
 
         /**
          * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
@@ -145,10 +148,11 @@ declare module $REST.Types {
         ForceCheckout: string;
 
         /**
-         * Gets a value that specifies the collection of all list forms in the list.
+         * Gets the list form(s) in the list.
+         * @param id - (Optional) The id of the form.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Forms(executeRequestFl?:boolean): any;
+        Forms(id?:string, executeRequestFl?:boolean): any;
 
         /** Gets a value that specifies whether the list is an external list. */
         HasExternalDataSource: string;
@@ -202,10 +206,11 @@ declare module $REST.Types {
         ItemCount: string;
 
         /**
-         * Gets all the items in the list.
+         * Gets the list item(s) in the list.
+         * @param id - (Optional) The id of the list item.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Items(executeRequestFl?:boolean): IListItems;
+        Items(id?:number, executeRequestFl?:boolean): IListItem | IListItems;
 
         /** Gets a value that specifies the last time a list item was deleted from the list. */
         LastItemDeletedDate: string;
@@ -238,16 +243,18 @@ declare module $REST.Types {
         ParentWebUrl: string;
 
         /**
-         * Gets the role assignments for the securable object.
+         * Gets the role assignment(s) for the securable object.
+         * @param id - (Optional) The role assignment id.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        RoleAssignments(executeRequestFl?:boolean): IRoleAssignments;
+        RoleAssignments(id?:string, executeRequestFl?:boolean): IRoleAssignment | IRoleAssignments;
 
         /**
-         * Gets the root folder that contains the files in the list and any related files.
-         * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
+         * Gets the root folder or file in the list.
+         * @param url - (Optional) The url of the file within the root folder.
+         * @param targetInfo - (Optional) The target information.
          */
-        RootFolder(executeRequestFl?:boolean): IFolder;
+        RootFolder(url?:string, executeRequestFl?:boolean): IFile | IFolder;
 
         /**
          * Gets a value that specifies the list schema of the list.
@@ -265,10 +272,11 @@ declare module $REST.Types {
         Title: string;
 
         /**
-         * Gets a value that specifies the collection of all user custom actions for the list.
+         * Gets the user custom action(s) for the list.
+         * @param id - (Optional) The id of the user custom action.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        UserCustomActions(executeRequestFl?:boolean): IUserCustomActions;
+        UserCustomActions(id?:string, executeRequestFl?:boolean): IUserCustomAction | IUserCustomActions;
 
         /**
          * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
@@ -283,10 +291,11 @@ declare module $REST.Types {
         ValidationMessage(executeRequestFl?:boolean): string;
 
         /**
-         * Gets a value that specifies the collection of all public views on the list and personal views of the current user on the list.
+         * Gets the view(s) in the list.
+         * @param id - (Optional) The id of the view.
          * @param executeRequestFl - (Optional) True to execute the request to the server, false to construct the object only.
          */
-        Views(executeRequestFl?:boolean): IViews;
+        Views(id?:string, executeRequestFl?:boolean): IView | IViews;
 
         /**
          * Gets a value that specifies the collection of all workflow associations for the list.
