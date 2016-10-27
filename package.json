@@ -4,7 +4,7 @@
   "description": "An easy way to develop against the SharePoint REST API.",
   "author": "Gunjan Datta <me@dattabase.com> (https://github.com/gunjandatta/sprest)",
   "license": "https://github.com/gunjandatta/sprest/blob/master/LICENSE",
-  "types": "tsd/sprest.d.ts",
+  "types": "dist/sprest.d.ts",
   "keywords": [
     "sharepoint", "rest", "api"
   ],
