@@ -143,7 +143,7 @@ Since the library can be executed synchronously, the user can execute commands i
 ### OData Queries
 Each collection will have a generic "query" method with the input of the OData query operations. The oData object consists of the following properties:
 * Expand - A collection of strings representing the field names to expand.
-* Filter - A collection of strings representing the filters to apply.
+* Filter - A strings representing the filter to apply.
 * OrderBy - A collection of strings representing the fields to order by.
 * QueryString - A read-only property representing the query string value of the oData object.
 * Select - A collection of strings representing the field names to select.
