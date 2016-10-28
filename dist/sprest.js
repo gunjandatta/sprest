@@ -334,30 +334,33 @@ var $REST;
         };
         // Method to convert the input arguments into an object
         Base.prototype.updateDataObject = function () {
-            // Return if we are expecting a buffer
-            if (this.requestType == $REST.Types.RequestType.GetBuffer) {
-                // Set the exists flag
-                this["existsFl"] = this.request.response != null;
-            }
-            else {
-                // Get the response
-                var response = this.request.response;
-                response = response === "" ? "{}" : response;
-                // Convert the response
-                var data = JSON.parse(response);
-                this["existsFl"] = typeof (this["Exists"]) === "boolean" ? this["Exists"] : data.error == null;
-                // See if the data properties exists
-                if (data.d) {
-                    // Save a reference to it
-                    this["d"] = data.d;
-                    // Update the metadata
-                    this.updateMetadata(data.d);
-                    // Update this object's properties
-                    this.addProperties(this, data.d);
-                    // Add the methods
-                    this.addMethods(this, data.d);
-                    // Update the data collection
-                    this.updateDataCollection(data.d.results);
+            // Ensure the request doesn't have an error code
+            if (this.request.request.status < 400) {
+                // Return if we are expecting a buffer
+                if (this.requestType == $REST.Types.RequestType.GetBuffer) {
+                    // Set the exists flag
+                    this["existsFl"] = this.request.response != null;
+                }
+                else {
+                    // Get the response
+                    var response = this.request.response;
+                    response = response === "" ? "{}" : response;
+                    // Convert the response
+                    var data = JSON.parse(response);
+                    this["existsFl"] = typeof (this["Exists"]) === "boolean" ? this["Exists"] : data.error == null;
+                    // See if the data properties exists
+                    if (data.d) {
+                        // Save a reference to it
+                        this["d"] = data.d;
+                        // Update the metadata
+                        this.updateMetadata(data.d);
+                        // Update this object's properties
+                        this.addProperties(this, data.d);
+                        // Add the methods
+                        this.addMethods(this, data.d);
+                        // Update the data collection
+                        this.updateDataCollection(data.d.results);
+                    }
                 }
             }
             // Resolve the promise
