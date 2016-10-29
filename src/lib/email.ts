@@ -44,14 +44,4 @@ module $REST {
             }, [properties]);
         }
     }
-
-    export class Email_Async extends Email {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(targetInfo?:Settings.TargetInfoSettings) {
-            // Call the base constructor
-            super(Base.getAsyncInputParmeters.apply(null, targetInfo));
-        }
-    }
 }

@@ -22,9 +22,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IEventReceivers) => void): IEventReceivers;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IEventReceivers;
 
         /**
          * Gets an event receiver in the collection.

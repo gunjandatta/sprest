@@ -19,16 +19,6 @@ var $REST;
             this.targetInfo = targetInfo || {};
             this.requestType = 0;
         }
-        Object.defineProperty(Base.prototype, "asyncFl", {
-            /*********************************************************************************************************************************/
-            // Public Properties
-            /*********************************************************************************************************************************/
-            // Flag to determine if the request should be asynchronous
-            get: function () { return this.request ? this.request.asyncFl : false; },
-            set: function (value) { this.targetInfo.asyncFl = value; },
-            enumerable: true,
-            configurable: true
-        });
         Object.defineProperty(Base.prototype, "response", {
             // Method to return the xml http request's response
             get: function () { return this.request ? this.request.response : null; },
@@ -39,35 +29,28 @@ var $REST;
         // Public Methods
         /*********************************************************************************************************************************/
         // Method to execute a child request
-        Base.prototype.execute = function (callback) {
+        Base.prototype.execute = function (arg) {
             var _this = this;
-            // See if this is an asynchronous request
-            if (this.targetInfo.asyncFl) {
+            var callback = typeof (arg) === "boolean" ? null : arg;
+            var syncFl = typeof (arg) === "boolean" ? arg : false;
+            // See if this is a synchronous request
+            if (syncFl) {
+                // Create the request
+                this.request = new $REST.Utils.Request(!syncFl, new $REST.Utils.TargetInfo(this.targetInfo));
+                // Update the data object
+                this.updateDataObject();
+            }
+            else {
                 // Create a promise
                 this.promise = new $REST.Utils.Promise(callback || this.targetInfo.callback);
                 // Create the request
-                this.request = new $REST.Utils.Request(new $REST.Utils.TargetInfo(this.targetInfo), function () {
+                this.request = new $REST.Utils.Request(!syncFl, new $REST.Utils.TargetInfo(this.targetInfo), function () {
                     // Update the data object
                     _this.updateDataObject();
                 });
             }
-            else {
-                // Create the request
-                this.request = new $REST.Utils.Request(new $REST.Utils.TargetInfo(this.targetInfo));
-                // Update the data object
-                this.updateDataObject();
-            }
             // Return this object
             return this;
-        };
-        // Method to get the input parameters for an asynchronous request
-        Base.getAsyncInputParmeters = function (targetInfo) {
-            // Ensure the target information exists
-            targetInfo = targetInfo ? targetInfo : {};
-            // Set the asynchronous flag
-            targetInfo.asyncFl = true;
-            // Return the target information
-            return targetInfo;
         };
         /*********************************************************************************************************************************/
         // Private Methods
@@ -163,18 +146,6 @@ var $REST;
                 }
             }
         };
-        // Method to execute after the asynchronous request completes
-        Base.prototype.done = function (callback) {
-            // See if the promise exists
-            if (this.promise) {
-                // Execute the callback
-                this.promise.done(callback);
-            }
-            else {
-                // Set the callback in the target information
-                this.targetInfo.callback = callback;
-            }
-        };
         // Method to execute a method
         Base.prototype.executeMethod = function (methodName, methodConfig, args) {
             var targetInfo = null;
@@ -197,8 +168,6 @@ var $REST;
                 // Copy the target information
                 targetInfo = Object.create(this.targetInfo);
             }
-            // Inherit the asynchronous flag
-            targetInfo.asyncFl = this.targetInfo ? this.targetInfo.asyncFl : this.asyncFl;
             // Get the method information
             var methodInfo = new $REST.Utils.MethodInfo(methodName, methodConfig, args);
             // Update the target information
@@ -276,18 +245,6 @@ var $REST;
             // Return the object
             return obj;
         };
-        // Method to resolve the parent request
-        Base.prototype.resolveParentRequest = function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
-            }
-            // See if the call back exists
-            if (this.targetInfo.callback) {
-                // Execute the callback
-                this.targetInfo.callback.apply(this, args);
-            }
-        };
         // Method to update a collection object
         Base.prototype.updateDataCollection = function (results) {
             var _this = this;
@@ -305,8 +262,7 @@ var $REST;
                     this.addProperties(this, results[0]);
                     // Add the methods
                     this.addMethods(results[0], results[0]);
-                    // Add the asyncFl, execute method, and parent reference
-                    results[0]["asyncFl"] = this.asyncFl;
+                    // Add the execute method and parent reference
                     results[0]["executeMethod"] = this.executeMethod;
                     results[0]["parent"] = this;
                     // Copy the metadata
@@ -319,8 +275,7 @@ var $REST;
                         // Parse the results
                         for (var _i = 0, results_1 = results; _i < results_1.length; _i++) {
                             var result = results_1[_i];
-                            // Add the asyncFl, execute method, and parent reference
-                            result["asyncFl"] = _this.asyncFl;
+                            // Add the execute method and parent reference
                             result["executeMethod"] = _this.executeMethod;
                             result["parent"] = _this;
                             // Update the metadata
@@ -1436,24 +1391,19 @@ var $REST;
             /*********************************************************************************************************************************/
             // Constructor
             /*********************************************************************************************************************************/
-            function Request(targetInfo, callback) {
+            function Request(asyncFl, targetInfo, callback) {
                 // Default the properties
+                this.asyncFl = asyncFl;
                 this.promise = new Utils.Promise(callback || targetInfo.callback);
                 this.targetInfo = targetInfo;
                 this.xhr = this.createXHR();
                 // Execute the request
-                this.executeRequest();
+                this.execute();
             }
-            Object.defineProperty(Request.prototype, "asyncFl", {
+            Object.defineProperty(Request.prototype, "response", {
                 /*********************************************************************************************************************************/
                 // Public Properties
                 /*********************************************************************************************************************************/
-                // Flag to determine if the request is asynchronous
-                get: function () { return this.targetInfo.asyncFl; },
-                enumerable: true,
-                configurable: true
-            });
-            Object.defineProperty(Request.prototype, "response", {
                 // The response
                 get: function () { return this.xhr ? this.xhr.response : null; },
                 enumerable: true,
@@ -1530,16 +1480,16 @@ var $REST;
                 }
             };
             // Method to execute the xml http request
-            Request.prototype.executeRequest = function () {
+            Request.prototype.execute = function () {
                 var _this = this;
                 // Ensure the xml http request exists
                 if (this.xhr == null) {
                     return null;
                 }
                 // Open the request
-                this.xhr.open(this.targetInfo.requestMethod == "GET" ? "GET" : "POST", this.targetInfo.requestUrl, this.targetInfo.asyncFl);
+                this.xhr.open(this.targetInfo.requestMethod == "GET" ? "GET" : "POST", this.targetInfo.requestUrl, this.asyncFl);
                 // See if we are making an asynchronous request
-                if (this.targetInfo.asyncFl) {
+                if (this.asyncFl) {
                     // Set the state change event
                     this.xhr.onreadystatechange = function () {
                         // See if the request has finished
@@ -1551,7 +1501,7 @@ var $REST;
                 }
                 // See if we the response type is an array buffer
                 // Note - Updating the response type is only allow for asynchronous requests. Any error will be thrown otherwise.
-                if (this.targetInfo.bufferFl && this.targetInfo.asyncFl) {
+                if (this.targetInfo.bufferFl && this.asyncFl) {
                     // Set the response type
                     this.xhr.responseType = "arraybuffer";
                 }
@@ -1590,20 +1540,13 @@ var $REST;
                 this.targetInfo = targetInfo || {};
                 this.requestData = this.targetInfo.data;
                 this.requestMethod = this.targetInfo.method ? this.targetInfo.method : "GET";
-                this.targetInfo.asyncFl = this.targetInfo.asyncFl ? true : false;
                 // Set the request url
                 this.setRequestUrl();
             }
-            Object.defineProperty(TargetInfo.prototype, "asyncFl", {
+            Object.defineProperty(TargetInfo.prototype, "bufferFl", {
                 /*********************************************************************************************************************************/
                 // Public Properties
                 /*********************************************************************************************************************************/
-                // Flag to determine if the request should be asynchronous or synchronous
-                get: function () { return this.targetInfo.asyncFl; },
-                enumerable: true,
-                configurable: true
-            });
-            Object.defineProperty(TargetInfo.prototype, "bufferFl", {
                 // Flag to determine if the request returns an array buffer
                 get: function () { return this.targetInfo.bufferFl; },
                 enumerable: true,
@@ -1857,18 +1800,6 @@ var $REST;
         return Email;
     }($REST.Base));
     $REST.Email = Email;
-    var Email_Async = (function (_super) {
-        __extends(Email_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Email_Async(targetInfo) {
-            // Call the base constructor
-            _super.call(this, $REST.Base.getAsyncInputParmeters.apply(null, targetInfo));
-        }
-        return Email_Async;
-    }(Email));
-    $REST.Email_Async = Email_Async;
 })($REST || ($REST = {}));
 
 var $REST;
@@ -2405,22 +2336,6 @@ var $REST;
         return List;
     }($REST.Base));
     $REST.List = List;
-    var List_Async = (function (_super) {
-        __extends(List_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function List_Async(listName) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, listName, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return List_Async;
-    }(List));
-    $REST.List_Async = List_Async;
     /*********************************************************************************************************************************/
     // Library
     /*********************************************************************************************************************************/
@@ -2802,22 +2717,6 @@ var $REST;
         return Site;
     }($REST.Base));
     $REST.Site = Site;
-    var Site_Async = (function (_super) {
-        __extends(Site_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Site_Async(url) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, url, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return Site_Async;
-    }(Site));
-    $REST.Site_Async = Site_Async;
     /*********************************************************************************************************************************/
     // Library
     /*********************************************************************************************************************************/
@@ -3277,22 +3176,6 @@ var $REST;
         return Web;
     }($REST.Base));
     $REST.Web = Web;
-    var Web_Async = (function (_super) {
-        __extends(Web_Async, _super);
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        function Web_Async(url) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            // Call the base constructor
-            _super.call(this, url, $REST.Base.getAsyncInputParmeters.apply(null, args));
-        }
-        return Web_Async;
-    }(Web));
-    $REST.Web_Async = Web_Async;
     /*********************************************************************************************************************************/
     // Library
     /*********************************************************************************************************************************/

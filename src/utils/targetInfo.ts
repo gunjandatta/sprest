@@ -12,7 +12,6 @@ module $REST.Utils {
             this.targetInfo = targetInfo || {};
             this.requestData = this.targetInfo.data;
             this.requestMethod = this.targetInfo.method ? this.targetInfo.method : "GET";
-            this.targetInfo.asyncFl = this.targetInfo.asyncFl ? true : false;
 
             // Set the request url
             this.setRequestUrl()
@@ -21,9 +20,6 @@ module $REST.Utils {
         /*********************************************************************************************************************************/
         // Public Properties
         /*********************************************************************************************************************************/
-
-        // Flag to determine if the request should be asynchronous or synchronous
-        public get asyncFl():boolean { return this.targetInfo.asyncFl; }
 
         // Flag to determine if the request returns an array buffer
         public get bufferFl():boolean { return this.targetInfo.bufferFl; }

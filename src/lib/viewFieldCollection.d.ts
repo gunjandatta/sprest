@@ -14,7 +14,7 @@ declare module $REST.Types {
         Items: string;
 
         /** The view field collection. */
-        results: Array<IViewFields>;
+        results: Array<any>;
 
         /**
          * Methods
@@ -28,9 +28,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IViewFields) => void): IViewFields;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IViewFields;
 
         /**
          * Moves the field with the specified field internal name to the specified position in the collection.

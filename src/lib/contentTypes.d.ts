@@ -26,11 +26,18 @@ declare module $REST.Types {
          */
         addAvailableContentType(contentTypeId): IContentType;
 
+
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IContentTypes) => void): IContentTypes;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IContentTypes;
 
         /**
          * Gets a content type by id.

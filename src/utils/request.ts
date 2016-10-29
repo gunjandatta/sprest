@@ -7,22 +7,20 @@ module $REST.Utils {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(targetInfo:TargetInfo, callback?:(...args) => void) {
+        constructor(asyncFl:boolean, targetInfo:TargetInfo, callback?:(...args) => void) {
             // Default the properties
+            this.asyncFl = asyncFl;
             this.promise = new Promise(callback || targetInfo.callback);
             this.targetInfo = targetInfo;
             this.xhr = this.createXHR();
 
             // Execute the request
-            this.executeRequest();
+            this.execute();
         }
 
         /*********************************************************************************************************************************/
         // Public Properties
         /*********************************************************************************************************************************/
-
-        // Flag to determine if the request is asynchronous
-        public get asyncFl():boolean { return this.targetInfo.asyncFl; }
 
         // The response
         public get response():any { return this.xhr ? this.xhr.response : null; }
@@ -39,6 +37,9 @@ module $REST.Utils {
         /*********************************************************************************************************************************/
         // Private Variables
         /*********************************************************************************************************************************/
+
+        // The flag to determine if the request is executed asynchronously or synchronously
+        private asyncFl:boolean;
 
         // The target information
         private targetInfo:TargetInfo;
@@ -106,15 +107,15 @@ module $REST.Utils {
         }
 
         // Method to execute the xml http request
-        private executeRequest():void {
+        private execute():void {
             // Ensure the xml http request exists
             if(this.xhr == null) { return null; }
 
             // Open the request
-            this.xhr.open(this.targetInfo.requestMethod == "GET" ? "GET" : "POST", this.targetInfo.requestUrl, this.targetInfo.asyncFl);
+            this.xhr.open(this.targetInfo.requestMethod == "GET" ? "GET" : "POST", this.targetInfo.requestUrl, this.asyncFl);
 
             // See if we are making an asynchronous request
-            if(this.targetInfo.asyncFl) {
+            if(this.asyncFl) {
                 // Set the state change event
                 this.xhr.onreadystatechange = () => {
                     // See if the request has finished
@@ -127,7 +128,7 @@ module $REST.Utils {
 
             // See if we the response type is an array buffer
             // Note - Updating the response type is only allow for asynchronous requests. Any error will be thrown otherwise.
-            if(this.targetInfo.bufferFl && this.targetInfo.asyncFl) {
+            if(this.targetInfo.bufferFl && this.asyncFl) {
                 // Set the response type
                 this.xhr.responseType = "arraybuffer";
             }

@@ -4,9 +4,6 @@ declare module $REST.Settings {
      * Target Information
      */
     interface TargetInfoSettings {
-        /** True to execute the request asynchronously, synchronously otherwise. */
-        asyncFl?:boolean;
-
         /** True if the expected request returns an array buffer. */
         bufferFl?:boolean;
 

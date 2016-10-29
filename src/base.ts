@@ -24,10 +24,6 @@ module $REST {
         // Public Properties
         /*********************************************************************************************************************************/
 
-        // Flag to determine if the request should be asynchronous
-        public get asyncFl():boolean { return this.request ? this.request.asyncFl : false; }
-        public set asyncFl(value) { this.targetInfo.asyncFl = value; }
-
         // Flag to determine if the requested object exists
         public existsFl:boolean;
         
@@ -45,40 +41,31 @@ module $REST {
         /*********************************************************************************************************************************/
 
         // Method to execute a child request
-        public execute(callback?:(...args) => void) {
-            // See if this is an asynchronous request
-            if(this.targetInfo.asyncFl) {
-                // Create a promise
-                this.promise = new Utils.Promise(callback || this.targetInfo.callback);
+        public execute(arg?: boolean | any) {
+            let callback = typeof(arg) === "boolean" ? null : arg;
+            let syncFl = typeof(arg) === "boolean" ? arg : false;
 
+            // See if this is a synchronous request
+            if(syncFl) {
                 // Create the request
-                this.request = new Utils.Request(new Utils.TargetInfo(this.targetInfo), () => {
-                    // Update the data object
-                    this.updateDataObject();
-                });
-            }
-            else {
-                // Create the request
-                this.request = new Utils.Request(new Utils.TargetInfo(this.targetInfo));
+                this.request = new Utils.Request(!syncFl, new Utils.TargetInfo(this.targetInfo));
 
                 // Update the data object
                 this.updateDataObject();
             }
+            else {
+                // Create a promise
+                this.promise = new Utils.Promise(callback || this.targetInfo.callback);
+
+                // Create the request
+                this.request = new Utils.Request(!syncFl, new Utils.TargetInfo(this.targetInfo), () => {
+                    // Update the data object
+                    this.updateDataObject();
+                });
+            }
 
             // Return this object
             return this;
-        }
-
-        // Method to get the input parameters for an asynchronous request
-        public static getAsyncInputParmeters(targetInfo?:Settings.TargetInfoSettings):Settings.TargetInfoSettings {
-            // Ensure the target information exists
-            targetInfo = targetInfo ? targetInfo : {};
-
-            // Set the asynchronous flag
-            targetInfo.asyncFl = true;
-
-            // Return the target information
-            return targetInfo;
         }
 
         /*********************************************************************************************************************************/
@@ -207,19 +194,6 @@ module $REST {
             }
         }
 
-        // Method to execute after the asynchronous request completes
-        protected done(callback:() => void) {
-            // See if the promise exists
-            if(this.promise) {
-                // Execute the callback
-                this.promise.done(callback);
-            }
-            else {
-                // Set the callback in the target information
-                this.targetInfo.callback = callback;
-            }
-        }
-
         // Method to execute a method
         protected executeMethod(methodName:string, methodConfig:Settings.MethodInfoSettings, args?:any) {
             let targetInfo:Settings.TargetInfoSettings = null;
@@ -245,9 +219,6 @@ module $REST {
                 // Copy the target information
                 targetInfo = Object.create(this.targetInfo);
             }
-
-            // Inherit the asynchronous flag
-            targetInfo.asyncFl = this.targetInfo ? this.targetInfo.asyncFl : this.asyncFl;
 
             // Get the method information
             var methodInfo = new Utils.MethodInfo(methodName, methodConfig, args);
@@ -349,15 +320,6 @@ module $REST {
             return obj;
         }
 
-        // Method to resolve the parent request
-        protected resolveParentRequest(...args) {
-            // See if the call back exists
-            if(this.targetInfo.callback) {
-                // Execute the callback
-                this.targetInfo.callback.apply(this, args);
-            }
-        }
-
         // Method to update a collection object
         private updateDataCollection(results:any) {
             // Ensure this is a collection
@@ -379,8 +341,7 @@ module $REST {
                     // Add the methods
                     this.addMethods(results[0], results[0])
 
-                    // Add the asyncFl, execute method, and parent reference
-                    results[0]["asyncFl"] = this.asyncFl;
+                    // Add the execute method and parent reference
                     results[0]["executeMethod"] = this.executeMethod;
                     results[0]["parent"] = this;
 
@@ -393,8 +354,7 @@ module $REST {
                         
                         // Parse the results
                         for(let result of results) {
-                            // Add the asyncFl, execute method, and parent reference
-                            result["asyncFl"] = this.asyncFl;
+                            // Add the execute method and parent reference
                             result["executeMethod"] = this.executeMethod;
                             result["parent"] = this;
 

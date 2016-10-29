@@ -50,15 +50,12 @@ declare module $REST {
 
     /** List */
     var List:Types.IList;
-    var List_Async:Types.IList;
     
     /** Site */
     var Site:Types.ISite;
-    var Site_Async:Types.ISite;
     
     /** Web */
     var Web:Types.IWeb;
-    var Web_Async:Types.IWeb;
 }
 
 declare module $REST.Types {
@@ -70,20 +67,26 @@ declare module $REST.Types {
          * Properties
          */
 
-        /** True to execute the request asynchronously, synchronously otherwise. */
-        asyncFl: boolean;
-
         /** True, if the object exists, false otherwise. */
         existsFl: boolean;
 
         /** The parent object, which created this object. */
         parent: any;
 
+        /** The request type */
+        requestType: RequestType;
+
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(...args) => void): any;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): any;
     }
 }
 
@@ -1136,9 +1139,6 @@ declare module $REST.Settings {
      * Target Information
      */
     interface TargetInfoSettings {
-        /** True to execute the request asynchronously, synchronously otherwise. */
-        asyncFl?:boolean;
-
         /** True if the expected request returns an array buffer. */
         bufferFl?:boolean;
 
@@ -1186,9 +1186,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IAttachmentFiles) => void): IAttachmentFiles;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IAttachmentFiles;
 
         /**
          * Queries the collection.
@@ -1308,9 +1314,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IContentType) => void): IContentType;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IContentType;
 
         /**
          * Updates it's properties.
@@ -1348,11 +1360,18 @@ declare module $REST.Types {
          */
         addAvailableContentType(contentTypeId): IContentType;
 
+
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IContentTypes) => void): IContentTypes;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IContentTypes;
 
         /**
          * Gets a content type by id.
@@ -1458,9 +1477,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IEventReceiver) => void): IEventReceiver;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IEventReceiver;
 
         /**
          * Updates it's properties.
@@ -1494,9 +1519,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IEventReceivers) => void): IEventReceivers;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IEventReceivers;
 
         /**
          * Gets an event receiver in the collection.
@@ -1616,9 +1647,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IField) => void): IField;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IField;
 
         /**
          * Sets the value of the ShowInDisplayForm property for this field.
@@ -1670,9 +1707,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IFieldLinks) => void): IFieldLinks;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IFieldLinks;
 
         /**
          * Gets the field link by its id.
@@ -1733,9 +1776,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IFields) => void): IFields;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IFields;
 
         /**
          * Gets the field with the specified ID.
@@ -1918,9 +1967,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IFile) => void): IFile;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IFile;
 
         /**
          * Uploads the last file fragment and commits the file. The current file content is changed when this method completes.
@@ -2027,9 +2082,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IFiles) => void): IFiles;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IFiles;
 
         /**
          * Get the file at the specified URL.
@@ -2091,9 +2152,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IFileVersion) => void): IFileVersion;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IFileVersion;
     }
 }
 
@@ -2115,9 +2182,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IFileVersions) => void): IFileVersions;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IFileVersions;
 
         /**
          * Queries the collection.
@@ -2223,9 +2296,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IFolder) => void): IFolder;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IFolder;
 
         /**
          * Get the file at the specified URL.
@@ -2270,9 +2349,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IFolders) => void): IFolders;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IFolders;
 
         /**
          * Get the file at the specified URL.
@@ -2372,9 +2457,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IGroup) => void): IGroup;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IGroup;
     }
 }
 
@@ -2402,9 +2493,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IListItems) => void): IListItems;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IListItems;
 
         /**
          * Gets an item by the specified id.
@@ -2427,9 +2524,15 @@ declare module $REST.Types {
     interface ILimitedWebPartManager extends IBase {
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(ILimitedWebPartManager) => void): ILimitedWebPartManager;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): ILimitedWebPartManager;
 
         /**
          * Gets a webpart by its id.
@@ -2778,9 +2881,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IList) => void): IList;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IList;
 
         /**
          * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
@@ -2968,9 +3077,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IListItem) => void): IListItem;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IListItem;
 
         /**
          * Gets the effective permissions that a specified user has on the list item.
@@ -3037,9 +3152,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(ILists) => void): ILists;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): ILists;
 
         /**
          * Returns the list with the specified list identifier.
@@ -3096,9 +3217,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IRoleAssignment) => void): IRoleAssignment;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IRoleAssignment;
     }
 }
 
@@ -3127,9 +3254,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IRoleAssignments) => void): IRoleAssignments;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IRoleAssignments;
 
         /**
          * Gets the role assignment associated with the specified principal ID from the collection.
@@ -3193,9 +3326,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IRoleDefinition) => void): IRoleDefinition;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IRoleDefinition;
     }
 }
 
@@ -3217,9 +3356,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IRoleDefinitions) => void): IRoleDefinitions;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IRoleDefinitions;
 
         /**
          * Gets the role definition with the specified ID from the collection.
@@ -3391,9 +3536,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(ISite) => void): ISite;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): ISite;
         
         /**
          * Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
@@ -3492,9 +3643,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(ISiteGroups) => void): ISiteGroups;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): ISiteGroups;
 
         /**
          * Returns a group from the collection based on the member ID of the group.
@@ -3586,9 +3743,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IUser) => void): IUser;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IUser;
     }
 }
 
@@ -3663,9 +3826,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IUserCustomAction) => void): IUserCustomAction;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IUserCustomAction;
     }
 }
 
@@ -3698,9 +3867,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IUserCustomActions) => void): IUserCustomActions;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IUserCustomActions;
 
         /**
          * Returns the custom action with the specified identifier.
@@ -3735,9 +3910,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IUsers) => void): IUsers;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IUsers;
 
         /**
          * Gets the user with the specified email address.
@@ -3809,9 +3990,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IVersions) => void): IVersions;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IVersions;
 
         /**
          * Gets the version with the specified ID.
@@ -3963,9 +4150,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IView) => void): IView;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IView;
 
         /**
          * Returns the list view as HTML.
@@ -3996,7 +4189,7 @@ declare module $REST.Types {
         Items: string;
 
         /** The view field collection. */
-        results: Array<IViewFields>;
+        results: Array<any>;
 
         /**
          * Methods
@@ -4010,9 +4203,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IViewFields) => void): IViewFields;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IViewFields;
 
         /**
          * Moves the field with the specified field internal name to the specified position in the collection.
@@ -4063,9 +4262,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IViews) => void): IViews;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IViews;
 
         /**
          * Gets the list view with the specified ID.
@@ -4492,9 +4697,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IWeb) => void): IWeb;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IWeb;
         
         /**
          * Sends data to an OData service.
@@ -4712,9 +4923,15 @@ declare module $REST.Types {
 
         /**
          * Method to execute the request.
-         * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
+         * @param callback - (Optional) The method to be executed after the request completes.
          */
         execute(callback?:(IWebs) => void): IWebs;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IWebs;
 
         /**
          * Queries the collection.

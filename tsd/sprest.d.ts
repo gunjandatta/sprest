@@ -50,13 +50,10 @@ declare module $REST {
 
     /** List */
     var List:Types.IList;
-    var List_Async:Types.IList;
     
     /** Site */
     var Site:Types.ISite;
-    var Site_Async:Types.ISite;
     
     /** Web */
     var Web:Types.IWeb;
-    var Web_Async:Types.IWeb;
 }
