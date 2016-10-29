@@ -5,7 +5,7 @@ An easy way to develop against the SharePoint REST api.
 
 ## Benefits:
 * Generates the REST api url and formats it for app webs automatically.
-* Chain property methods for fewer requests to the server.
+* Chain property and methods for fewer requests to the server.
 * Global flag for defaulting the execution against the host web, for easier development in an app web.
 * PowerShell-Like experience in the browser console. (Synchronous Requests)
 * Written in TypeScript with definition file for intellisense.
@@ -305,6 +305,12 @@ var files = (new $REST.List("documents"))
     .RootFolder()
     .Files()
     .execute(true);
+
+// Get a specific folder's files
+var folders = (new $REST.Web())
+    .getFolderByServerRelativeUrl("/sites/dev/shared documents/forms")
+    .Files()
+    .execute(true);
 ```
 
 _**Web**_
@@ -332,7 +338,14 @@ var folder = (new $REST.Web())
 ### Folders
 _**List**_
 ```
+// Get the root folders of the library
 var folders = (new $REST.List("documents"))
+    .Folders()
+    .execute(true);
+
+// Get a specific folder's sub-folder
+var folders = (new $REST.Web())
+    .getFolderByServerRelativeUrl("/sites/dev/shared documents/forms")
     .Folders()
     .execute(true);
 ```
