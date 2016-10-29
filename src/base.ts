@@ -28,7 +28,7 @@ module $REST {
         public existsFl:boolean;
         
         // The parent
-        public parent:any;
+        public parent:Base;
 
         // The request type
         public requestType:Types.RequestType;
@@ -45,27 +45,17 @@ module $REST {
             let callback = typeof(arg) === "boolean" ? null : arg;
             let syncFl = typeof(arg) === "boolean" ? arg : false;
 
+            // Set the execute request flag
+            this.executeRequiredFl = true;
+
             // See if this is a synchronous request
             if(syncFl) {
-                // Create the request
-                this.request = new Utils.Request(!syncFl, new Utils.TargetInfo(this.targetInfo));
-
-                // Update the data object
-                this.updateDataObject();
-            }
-            else {
-                // Create a promise
-                this.promise = new Utils.Promise(callback || this.targetInfo.callback);
-
-                // Create the request
-                this.request = new Utils.Request(!syncFl, new Utils.TargetInfo(this.targetInfo), () => {
-                    // Update the data object
-                    this.updateDataObject();
-                });
+                // Execute this request
+                return this.executeRequest(!syncFl, callback);
             }
 
-            // Return this object
-            return this;
+            // Execute this request
+            return this.executeRequest(!syncFl, callback);
         }
 
         /*********************************************************************************************************************************/
@@ -74,6 +64,9 @@ module $REST {
 
         // Flag to default the url to the current web url, site otherwise
         protected defaultToWebFl:boolean;
+
+        // Flag to require this request to be executed, for chaining the methods
+        private executeRequiredFl:boolean;
 
         // The promise
         private promise:Utils.Promise;
@@ -246,8 +239,36 @@ module $REST {
             obj.parent = this;
             obj.requestType = methodConfig.requestType;
 
+            // Add the methods
+            methodConfig.returnType ? obj.addMethods(obj, { __metadata: { type: methodConfig.returnType } }) : null;
+
             // Return the object
             return obj;
+        }
+
+        // Method to execute the request
+        protected executeRequest(asyncFl: boolean, callback:any) {
+            // See if an execution is required
+            if(this.executeRequiredFl) {
+                // See if this is an asynchronous request
+                if(asyncFl) {
+                    // Create a promise
+                    this.promise = new Utils.Promise(callback || this.targetInfo.callback);
+
+                    // Create the request
+                    this.request = new Utils.Request(asyncFl, new Utils.TargetInfo(this.targetInfo), () => {
+                        // Update this data object
+                        this.updateDataObject();
+                    });
+                }
+                else {
+                    // Create the request
+                    this.request = new Utils.Request(asyncFl, new Utils.TargetInfo(this.targetInfo));
+
+                    // Update this data object and return it
+                    return this.updateDataObject() || this;
+                }
+            }
         }
 
         // Method to return a collection

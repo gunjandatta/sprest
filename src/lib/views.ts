@@ -13,13 +13,15 @@ module $REST {
         // Gets the list view with the specified ID.
         getById: {
             argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "view"
         },
 
         // Gets the list view with the specified title.
         getByTitle: {
             argNames: ["title"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "view"
         },
 
         // Queries the collection

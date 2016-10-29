@@ -122,12 +122,6 @@ declare module $REST.Types {
          */
 
         /**
-         * Adds a custom action to the user custom action collection.
-         * parameters - The user custom action information.
-         */
-        addCustomAction(parameters:Settings.UserCustomActionCreationInformation): IUserCustomAction;
-
-        /**
          * Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
          * @param upgrade - If true, the evaluation site collection MUST be upgraded when it is created. If false, the evaluation site collection MUST NOT be upgraded when it is created.
          * @param sendEmail - If true, a notification email MUST be sent to the requestor and the site collection administrators at the completion of the creation of the evaluation site collection. If false, such notification MUST NOT be sent.

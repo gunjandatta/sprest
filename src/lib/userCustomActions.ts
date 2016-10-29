@@ -18,7 +18,8 @@ module $REST {
         // Returns the custom action with the specified identifier.
         getById: {
             argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "usercustomaction"
         },
 
         // Queries the collection

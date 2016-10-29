@@ -13,28 +13,6 @@ module $REST {
         // Methods
         /*********************************************************************************************************************************/
 
-        // Adds a file to this folder.
-        addFile: {
-            argNames: ["url", "overwrite"],
-            name: "files/add",
-            requestType: Types.RequestType.PostWithArgs
-        },
-
-        // Adds a ghosted file to this list or document library.
-        // Template File Types: StandardPage = 0; WikiPage = 1; FormPage = 2
-        addTemplateFile: {
-            argNames: ["urlOfFile", "templateFileType"],
-            name: "files/addtemplatefile",
-            requestType: Types.RequestType.PostWithArgs
-        },
-
-        // Adds the sub-folder that is located at the specified URL to the collection.
-        addSubFolder: {
-            argNames: ["url"],
-            name: "folders/add",
-            requestType: Types.RequestType.PostWithArgs
-        },
-
         // Deletes the object
         delete: {
             requestType: Types.RequestType.Delete
@@ -43,7 +21,8 @@ module $REST {
         // Get the file at the specified URL.
         getByUrl: {
             argNames: ["serverRelativeUrl"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "folder"
         },
 
         // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.

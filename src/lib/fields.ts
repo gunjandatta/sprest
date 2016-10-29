@@ -41,19 +41,22 @@ module $REST {
         // Gets the field with the specified ID.
         getById: {
             argNames: ["id"],
-            requestType: Types.RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly,
+            returnType: "field"
         },
 
         // Returns the first Field object with the specified internal name or title from the collection.
         getByInternalNameOrTitle: {
             argNames: ["internalNameOrTitle"],
-            requestType: Types.RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly,
+            returnType: "field"
         },
 
         // Returns the first field object in the collection based on the title of the specified field.
         getByTitle: {
             argNames: ["title"],
-            requestType: Types.RequestType.PostWithArgsValueOnly
+            requestType: Types.RequestType.PostWithArgsValueOnly,
+            returnType: "field"
         },
 
         // Queries the collection

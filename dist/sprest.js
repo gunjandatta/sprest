@@ -30,27 +30,17 @@ var $REST;
         /*********************************************************************************************************************************/
         // Method to execute a child request
         Base.prototype.execute = function (arg) {
-            var _this = this;
             var callback = typeof (arg) === "boolean" ? null : arg;
             var syncFl = typeof (arg) === "boolean" ? arg : false;
+            // Set the execute request flag
+            this.executeRequiredFl = true;
             // See if this is a synchronous request
             if (syncFl) {
-                // Create the request
-                this.request = new $REST.Utils.Request(!syncFl, new $REST.Utils.TargetInfo(this.targetInfo));
-                // Update the data object
-                this.updateDataObject();
+                // Execute this request
+                return this.executeRequest(!syncFl, callback);
             }
-            else {
-                // Create a promise
-                this.promise = new $REST.Utils.Promise(callback || this.targetInfo.callback);
-                // Create the request
-                this.request = new $REST.Utils.Request(!syncFl, new $REST.Utils.TargetInfo(this.targetInfo), function () {
-                    // Update the data object
-                    _this.updateDataObject();
-                });
-            }
-            // Return this object
-            return this;
+            // Execute this request
+            return this.executeRequest(!syncFl, callback);
         };
         /*********************************************************************************************************************************/
         // Private Methods
@@ -188,8 +178,33 @@ var $REST;
             // Set the parent and request type
             obj.parent = this;
             obj.requestType = methodConfig.requestType;
+            // Add the methods
+            methodConfig.returnType ? obj.addMethods(obj, { __metadata: { type: methodConfig.returnType } }) : null;
             // Return the object
             return obj;
+        };
+        // Method to execute the request
+        Base.prototype.executeRequest = function (asyncFl, callback) {
+            var _this = this;
+            // See if an execution is required
+            if (this.executeRequiredFl) {
+                // See if this is an asynchronous request
+                if (asyncFl) {
+                    // Create a promise
+                    this.promise = new $REST.Utils.Promise(callback || this.targetInfo.callback);
+                    // Create the request
+                    this.request = new $REST.Utils.Request(asyncFl, new $REST.Utils.TargetInfo(this.targetInfo), function () {
+                        // Update this data object
+                        _this.updateDataObject();
+                    });
+                }
+                else {
+                    // Create the request
+                    this.request = new $REST.Utils.Request(asyncFl, new $REST.Utils.TargetInfo(this.targetInfo));
+                    // Update this data object and return it
+                    return this.updateDataObject() || this;
+                }
+            }
         };
         // Method to return a collection
         Base.prototype.getCollection = function (method, args) {
@@ -1741,7 +1756,8 @@ var $REST;
         // Gets a content type by id.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "contenttype"
         },
         // Queries the collection
         query: {
@@ -1837,7 +1853,8 @@ var $REST;
         // Gets an event receiver by it's id.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "eventreceiver"
         },
         // Queries the collection
         query: {
@@ -1898,7 +1915,8 @@ var $REST;
         // Gets a field link by it's id.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "fieldlink"
         },
         // Queries the collection
         query: {
@@ -1948,17 +1966,20 @@ var $REST;
         // Gets the field with the specified ID.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: $REST.Types.RequestType.PostWithArgsValueOnly,
+            returnType: "field"
         },
         // Returns the first Field object with the specified internal name or title from the collection.
         getByInternalNameOrTitle: {
             argNames: ["internalNameOrTitle"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: $REST.Types.RequestType.PostWithArgsValueOnly,
+            returnType: "field"
         },
         // Returns the first field object in the collection based on the title of the specified field.
         getByTitle: {
             argNames: ["title"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: $REST.Types.RequestType.PostWithArgsValueOnly,
+            returnType: "field"
         },
         // Queries the collection
         query: {
@@ -2122,7 +2143,8 @@ var $REST;
         // Get the file at the specified URL.
         getByUrl: {
             argNames: ["serverRelativeUrl"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "file"
         },
         // Queries the collection
         query: {
@@ -2180,25 +2202,6 @@ var $REST;
         /*********************************************************************************************************************************/
         // Methods
         /*********************************************************************************************************************************/
-        // Adds a file to this folder.
-        addFile: {
-            argNames: ["url", "overwrite"],
-            name: "files/add",
-            requestType: $REST.Types.RequestType.PostWithArgs
-        },
-        // Adds a ghosted file to this list or document library.
-        // Template File Types: StandardPage = 0; WikiPage = 1; FormPage = 2
-        addTemplateFile: {
-            argNames: ["urlOfFile", "templateFileType"],
-            name: "files/addtemplatefile",
-            requestType: $REST.Types.RequestType.PostWithArgs
-        },
-        // Adds the sub-folder that is located at the specified URL to the collection.
-        addSubFolder: {
-            argNames: ["url"],
-            name: "folders/add",
-            requestType: $REST.Types.RequestType.PostWithArgs
-        },
         // Deletes the object
         delete: {
             requestType: $REST.Types.RequestType.Delete
@@ -2206,7 +2209,8 @@ var $REST;
         // Get the file at the specified URL.
         getByUrl: {
             argNames: ["serverRelativeUrl"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "folder"
         },
         // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
         recycle: {
@@ -2246,7 +2250,8 @@ var $REST;
         // Get the file at the specified URL.
         getbyurl: {
             argNames: ["serverRelativeUrl"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "folder"
         },
         // Queries the collection
         query: {
@@ -2283,7 +2288,8 @@ var $REST;
         // Gets an item by its id.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "listitem"
         },
         // Queries the collection
         query: {
@@ -2373,7 +2379,8 @@ var $REST;
         // Returns an item based on the id.
         getItemById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "item"
         },
         // Returns a collection of items from the list based on the view xml.
         getItems: {
@@ -2418,7 +2425,8 @@ var $REST;
         getViewById: {
             argNames: ["viewId"],
             name: "getView",
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "view"
         },
         // Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
         recycle: {
@@ -2531,12 +2539,14 @@ var $REST;
         // Returns the list with the specified list identifier.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "list"
         },
         // Returns the list with the specified title from the collection.
         getByTitle: {
             argNames: ["title"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "list"
         },
         // Queries the collection
         query: {
@@ -2602,7 +2612,8 @@ var $REST;
         // Gets the role assignment associated with the specified principal ID from the collection.
         getByPrincipalId: {
             argNames: ["principalId"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "roleassignment"
         },
         // Queries the collection
         query: {
@@ -2639,17 +2650,20 @@ var $REST;
         // Gets the role definition with the specified ID from the collection.
         getById: {
             argNames: ["roleDefId"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "roledefinition"
         },
         // Gets the role definition with the specified name.
         getByName: {
             argNames: ["name"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "roledefinition"
         },
-        // Gets the role definition with the specified role type.
+        // Gets the role definitions with the specified role type.
         getByType: {
             argNames: ["roleType"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "roledefinitions"
         },
         // Queries the collection
         query: {
@@ -2731,12 +2745,6 @@ var $REST;
         /*********************************************************************************************************************************/
         // Methods
         /*********************************************************************************************************************************/
-        // Adds a custom action to the user custom action collection.
-        addCustomAction: {
-            metadataType: "SP.UserCustomAction",
-            name: "usercustomactions",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
         // Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
         createPreviewSPSite: {
             argNames: ["upgrade", "sendemail"],
@@ -2820,12 +2828,14 @@ var $REST;
         // Returns a group from the collection based on the member ID of the group.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "group"
         },
         // Returns a cross-site group from the collection based on the name of the group.
         getByName: {
             argNames: ["name"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "group"
         },
         // Queries the collection
         query: {
@@ -2951,7 +2961,8 @@ var $REST;
         // Returns the custom action with the specified identifier.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "usercustomaction"
         },
         // Queries the collection
         query: {
@@ -2982,17 +2993,20 @@ var $REST;
         // Gets the user with the specified email address.
         getByEmail: {
             argNames: ["email"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "user"
         },
         // Gets the user with the specified member identifier (ID).
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "user"
         },
         // Gets the user with the specified login name.
         getByLoginName: {
             argNames: ["loginName"],
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
+            requestType: $REST.Types.RequestType.GetWithArgsInQS,
+            returnType: "user"
         },
         // Queries the collection
         query: {
@@ -3021,7 +3035,8 @@ var $REST;
         // Gets the version with the specified ID.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "version"
         },
         // Deletes all versions in the collection.
         deleteAll: {
@@ -3123,12 +3138,14 @@ var $REST;
         // Gets the list view with the specified ID.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "view"
         },
         // Gets the list view with the specified title.
         getByTitle: {
             argNames: ["title"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "view"
         },
         // Queries the collection
         query: {
@@ -3296,17 +3313,20 @@ var $REST;
         // Returns the file object located at the specified server-relative URL.
         getFileByServerRelativeUrl: {
             argNames: ["url"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "file"
         },
         // Returns the folder object located at the specified server-relative URL.
         getFolderByServerRelativeUrl: {
             argNames: ["url"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "folder"
         },
         // Gets the list at the specified site-relative URL. (SharePoint Online only)
         getList: {
             argNames: ["url"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "list"
         },
         // Gets the push notification subscriber over the site for the specified device application instance ID.
         getPushNotificationSubscriber: {
@@ -3331,7 +3351,8 @@ var $REST;
         // Returns the user corresponding to the specified member identifier for the current site.
         getUserById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            returnType: "user"
         },
         // Gets the effective permissions that the specified user has within the current application scope.
         getUserEffectivePermissions: {

@@ -12,5 +12,6 @@ declare module $REST.Settings {
         replaceEndpointFl?:boolean;
         requestMethod?:string;
         requestType:Types.RequestType;
+        returnType?:string;
     }
 }

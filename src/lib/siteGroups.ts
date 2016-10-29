@@ -6,13 +6,15 @@ module $REST {
         // Returns a group from the collection based on the member ID of the group.
         getById: {
             argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "group"
         },
 
         // Returns a cross-site group from the collection based on the name of the group.
         getByName: {
             argNames: ["name"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "group"
         },
 
         // Queries the collection

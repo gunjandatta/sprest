@@ -23,13 +23,15 @@ module $REST {
         // Returns the list with the specified list identifier.
         getById: {
             argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "list"
         },
 
         // Returns the list with the specified title from the collection.
         getByTitle: {
             argNames: ["title"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "list"
         },
 
         // Queries the collection

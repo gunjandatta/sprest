@@ -174,19 +174,22 @@ module $REST {
         // Returns the file object located at the specified server-relative URL.
         getFileByServerRelativeUrl: {
             argNames: ["url"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "file"
         },
 
         // Returns the folder object located at the specified server-relative URL.
         getFolderByServerRelativeUrl: {
             argNames: ["url"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "folder"
         },
 
         // Gets the list at the specified site-relative URL. (SharePoint Online only)
         getList: {
             argNames: ["url"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "list"
         },
 
         // Gets the push notification subscriber over the site for the specified device application instance ID.
@@ -216,7 +219,8 @@ module $REST {
         // Returns the user corresponding to the specified member identifier for the current site.
         getUserById: {
             argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "user"
         },
 
         // Gets the effective permissions that the specified user has within the current application scope.

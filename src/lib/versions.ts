@@ -6,7 +6,8 @@ module $REST {
         // Gets the version with the specified ID.
         getById: {
             argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "version"
         },
 
         // Deletes all versions in the collection.

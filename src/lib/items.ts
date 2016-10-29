@@ -13,7 +13,8 @@ module $REST {
         // Gets an item by its id.
         getById: {
             argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "listitem"
         },
 
         // Queries the collection

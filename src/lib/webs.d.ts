@@ -18,7 +18,7 @@ declare module $REST.Types {
          * Adds a site to the site collection.
          * @param parameters - The web creation information.
          */
-        add(parameters:Settings.WebCreationInformation);
+        add(parameters:Settings.WebCreationInformation): IWeb;
 
         /**
          * Method to execute the request.

@@ -63,7 +63,8 @@ module $REST {
         // Returns an item based on the id.
         getItemById: {
             argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "item"
         },
 
         // Returns a collection of items from the list based on the view xml.
@@ -114,7 +115,8 @@ module $REST {
         getViewById: {
             argNames: ["viewId"],
             name: "getView",
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "view"
         },
 
         // Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.

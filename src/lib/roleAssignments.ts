@@ -12,7 +12,8 @@ module $REST {
         // Gets the role assignment associated with the specified principal ID from the collection.
         getByPrincipalId: {
             argNames: ["principalId"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "roleassignment"
         },
 
         // Queries the collection

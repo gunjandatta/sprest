@@ -13,7 +13,8 @@ module $REST {
         // Gets an event receiver by it's id.
         getById: {
             argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "eventreceiver"
         },
 
         // Queries the collection

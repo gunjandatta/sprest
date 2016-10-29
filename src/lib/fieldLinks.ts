@@ -14,7 +14,8 @@ module $REST {
         // Gets a field link by it's id.
         getById: {
             argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "fieldlink"
         },
 
         // Queries the collection

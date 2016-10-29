@@ -67,27 +67,6 @@ declare module $REST.Types {
          */
 
         /**
-         * Adds a file to this folder.
-         * @param overwrite - true to overwrite the file if it already exists; otherwise false.
-         * @param url - The folder-relative URL of the file.
-         * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
-         */
-        addFile(url, overwrite, content): IFile;
-
-        /**
-         * Adds a ghosted file to this list or document library.
-         * @param urlOfFile - The server-relative URL where you want to save the file.
-         * @param templateFileType - The SP.TemplateFileType to use to create the file.
-         */
-        addTemplateFile(urlOfFile, templateFileType:Types.FileTemplateType): any;
-
-        /**
-         * Adds the sub-folder that is located at the specified URL to the collection.
-         * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.
-         */
-        addSubFolder(url): IFolder;
-
-        /**
          * Deletes the folder.
          */
         delete(): any;

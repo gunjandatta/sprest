@@ -6,19 +6,22 @@ module $REST {
         // Gets the user with the specified email address.
         getByEmail: {
             argNames: ["email"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "user"
         },
 
         // Gets the user with the specified member identifier (ID).
         getById: {
             argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "user"
         },
 
         // Gets the user with the specified login name.
         getByLoginName: {
             argNames: ["loginName"],
-            requestType: Types.RequestType.GetWithArgsInQS
+            requestType: Types.RequestType.GetWithArgsInQS,
+            returnType: "user"
         },
 
         // Queries the collection

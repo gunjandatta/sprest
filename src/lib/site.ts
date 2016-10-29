@@ -51,13 +51,6 @@ module $REST {
         // Methods
         /*********************************************************************************************************************************/
 
-        // Adds a custom action to the user custom action collection.
-        addCustomAction: {
-            metadataType: "SP.UserCustomAction",
-            name: "usercustomactions",
-            requestType: Types.RequestType.PostWithArgsInBody
-        },
-
         // Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
         createPreviewSPSite: {
             argNames: ["upgrade", "sendemail"],

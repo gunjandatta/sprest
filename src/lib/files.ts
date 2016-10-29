@@ -19,7 +19,8 @@ module $REST {
         // Get the file at the specified URL.
         getByUrl: {
             argNames: ["serverRelativeUrl"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
+            requestType: Types.RequestType.GetWithArgsValueOnly,
+            returnType: "file"
         },
 
         // Queries the collection
