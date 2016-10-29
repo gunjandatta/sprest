@@ -26,7 +26,7 @@ declare module $REST.Types {
         EntityPropertyName: string;
 
         /** Gets or sets a value that specifies the type of the field. Represents a FieldType value. See FieldType in the .NET client object model reference for a list of field type values. */
-        FieldTypeKind: string;
+        FieldTypeKind: Types.FieldType;
 
         /** Gets a value that specifies whether list items in the list can be filtered by the field value. */
         Filterable: string;

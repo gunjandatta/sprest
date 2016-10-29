@@ -60,92 +60,13 @@ module $REST {
             "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb", "PushNotificationSubscribers", "RecycleBin",
             "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
             "RoleDefinitions|roledefinitions|([Name])|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
-            "SiteGroups|sitegroups|([Name])|group", "SiteUserInfoList", "SiteUsers|users", "ThemeInfo", "TitleResource",
+            "SiteGroups|sitegroups|([Name])|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user", "ThemeInfo", "TitleResource",
             "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
         ],
 
         /*********************************************************************************************************************************/
         // Methods
         /*********************************************************************************************************************************/
-
-        // Adds a content type content type collection.
-        addContentType: {
-            metadataType: "SP.ContentType",
-            name: "contenttypes",
-            requestType: Types.RequestType.PostWithArgsInBody
-        },
-
-        // Adds a custom action to the user custom action collection.
-        addCustomAction: {
-            metadataType: "SP.UserCustomAction",
-            name: "usercustomactions",
-            requestType: Types.RequestType.PostWithArgsInBody
-        },
-
-        // Adds an existing content type to content type collection.
-        addExistingContentType: {
-            argNames: ["contentTypeId"],
-            name: "contenttypes/addAvailableContentType",
-            requestType: Types.RequestType.PostWithArgsInBody
-        },
-
-        // Adds a field to it's collection.
-        addField: {
-            metadataType: "SP.Field",
-            name: "fields/add",
-            requestType: Types.RequestType.PostWithArgsInBody
-        },
-
-        // Adds a field, using it's Schema XML, to the field collection.
-        // Set the option to SP.AddFieldOptions.addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
-        addFieldAsXml: {
-            argNames: ["schemaXml"],
-            name: "fields/createFieldAsXml",
-            requestType: Types.RequestType.PostWithArgsInBody,
-            data: {
-                parameters: {
-                     __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
-                     Options: 8,
-                     SchemaXml: "[[schemaXml]]"
-                }
-            }
-        },
-
-        // Adds a file to the root folder.
-        addFile: {
-            argNames: ["url", "overwrite"],
-            name: "rootfolder/files/add",
-            requestType: Types.RequestType.PostWithArgs
-        },
-
-        // Adds a list to the list collection.
-        addList: {
-            metadataType: "SP.List",
-            name: "lists",
-            requestType: Types.RequestType.PostWithArgsInBody
-        },
-
-        // Adds a permission to the role definitions.
-        addPermission: {
-            metadataType: "SP.RoleDefinition",
-            name: "roledefinitions",
-            requestType: Types.RequestType.PostWithArgsInBody
-        },
-
-        // Adds a site group to the site group collection.
-        addSiteGroup: {
-            argNames: ["Title"],
-            metadataType: "SP.Group",
-            name: "sitegroups",
-            requestType: Types.RequestType.PostWithArgsInBody,
-        },
-
-        // Adds a sub-folder to the root folder.
-        addSubFolder: {
-            argNames: ["url"],
-            name: "rootfolder/folders/add",
-            requestType: Types.RequestType.PostWithArgsValueOnly
-        },
 
         // Applies the theme specified by the contents of each of the files specified in the arguments to the site.
         applyTheme: {
@@ -242,13 +163,6 @@ module $REST {
             requestType: Types.RequestType.Post
         },
 
-        // Gets a custom action by it's name or title.
-        getCustomAction: {
-            argNames: ["title"],
-            name: "usercustomactions?$filter=Name eq '[[title]]' or Title eq '[[title]]'",
-            requestType: Types.RequestType.GetReplace
-        },
-        
         // Gets the custom list templates for the site.
         getCustomListTemplates: {
             requestType: Types.RequestType.Get
@@ -267,48 +181,6 @@ module $REST {
             requestType: Types.RequestType.PostWithArgs
         },
 
-        // Gets a field by it's title, internal name or static name.
-        getField: {
-            argNames: ["title"],
-            name: "fields?$filter=Title eq '[[title]]' or InternalName eq '[[title]]' or StaticName eq '[[title]]'",
-            requestType: Types.RequestType.GetReplace
-        },
-
-        // Gets a field by it's id.
-        getFieldById: {
-            argNames: ["id"],
-            name: "fields/getById",
-            requestType: Types.RequestType.GetWithArgsValueOnly
-        },
-
-        // Gets a field by it's internal name.
-        getFieldByInternalName: {
-            argNames: ["name"],
-            name: "fields?$filter=InternalName eq '[[name]]'",
-            requestType: Types.RequestType.GetReplace
-        },
-
-        // Gets a field by it's static name.
-        getFieldByStaticName: {
-            argNames: ["name"],
-            name: "fields?$filter=StaticName eq '[[name]]'",
-            requestType: Types.RequestType.GetReplace
-        },
-
-        // Gets a field by it's title.
-        getFieldByTitle: {
-            argNames: ["title"],
-            name: "fields?$filter=Title eq '[[title]]'",
-            requestType: Types.RequestType.GetReplace
-        },
-
-        // Gets a file by it's name, in the root folder.
-        getFile: {
-            argNames: ["name"],
-            name: "rootfolder/files?$filter=Name eq '[[name]]'",
-            requestType: Types.RequestType.GetReplace
-        },
-        
         // Returns the file object located at the specified server-relative URL.
         getFileByServerRelativeUrl: {
             argNames: ["url"],
@@ -324,20 +196,6 @@ module $REST {
         // Gets the list at the specified site-relative URL. (SharePoint Online only)
         getList: {
             argNames: ["url"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
-        },
-
-        // Gets a list by it's id.
-        getListById: {
-            argNames: ["id"],
-            name: "lists/getById",
-            requestType: Types.RequestType.GetWithArgsValueOnly
-        },
-
-        // Gets the list for the specified title
-        getListByTitle: {
-            argNames: ["title"],
-            name: "lists/getByTitle",
             requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
@@ -359,50 +217,15 @@ module $REST {
             requestType: Types.RequestType.GetWithArgsInQS
         },
 
-        // Gets a sub-folder by it's name, from the root folder.
-        getSubFolder: {
-            argNames: ["name"],
-            name: "rootfolder/folders?$filter=Name eq '[[name]]'",
-            requestType: Types.RequestType.GetReplace
-        },
-
-        // Gets a site group by it's id.
-        getSiteGroupById: {
-            argNames: ["id"],
-            name: "sitegroups/getById",
-            requestType: Types.RequestType.GetWithArgsValueOnly
-        },
-
-        // Gets a site group by it's name.
-        getSiteGroupByName: {
-            argNames: ["name"],
-            name: "sitegroups/getByName",
-            requestType: Types.RequestType.GetWithArgsValueOnly
-        },
-
         // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
         getSubwebsFilteredForCurrentUser: {
             argNames: ["nwebtemplatefilter", "nconfigurationfilter"],
             requestType: Types.RequestType.GetWithArgs
         },
 
-        // Gets a user by login name.
-        getUserByEmail: {
-            argNames: ["email"],
-            name: "siteusers/getByEmail",
-            requestType: Types.RequestType.GetWithArgsValueOnly
-        },
-
         // Returns the user corresponding to the specified member identifier for the current site.
         getUserById: {
             argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly
-        },
-
-        // Gets a user by login name.
-        getUserByLogin: {
-            argNames: ["loginName"],
-            name: "siteusers/getByLoginName",
             requestType: Types.RequestType.GetWithArgsValueOnly
         },
 

@@ -55,7 +55,7 @@ module $REST {
         // This method is currently available only on Office 365.
         continueUpload: {
             argNames: ["uploadId", "fileOffset"],
-            name: "cancelupload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
+            name: "continueUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
             requestType: Types.RequestType.PostReplace
         },
 
@@ -82,7 +82,7 @@ module $REST {
         // This method is currently available only on Office 365.
         finishUpload: {
             argNames: ["uploadId", "fileOffset"],
-            name: "cancelupload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
+            name: "finishUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
             requestType: Types.RequestType.PostReplace
         },
 

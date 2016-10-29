@@ -324,70 +324,6 @@ declare module $REST.Types {
          */
 
         /**
-         * Adds an existing content type to this collection.
-         * @param contentTypeId - The content type id.
-         */        
-        addAvailableContentType(contentTypeId): IContentType;
-
-        /**
-         * Adds a content type to the collection.
-         * @param parameters - The content type creation information.
-         */
-        addContentType(parameters:Settings.ContentTypeCreationInformation): IContentType;
-
-        /**
-         * Adds an event receiver to the collection.
-         * @param parameters - The event receiver creation information.
-         */
-        addEventReceiver(parameters:Settings.EventReceiverDefinitionCreationInformation): IEventReceiver;
-
-        /**
-         * Adds a field to the field collection.
-         * @param parameters - The field creation information.
-         */
-        addField(parameters:Settings.FieldCreationInformation): IField;
-
-        /**
-         * Adds a field, using it's Schema XML, to the field collection.
-         * Defaulting the 'Options' to SP.AddFieldOptions.addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
-         * @param schemXml - The field schmea xml definition.
-         */
-        addFieldAsXml(schemaXml): IField;
-
-        /**
-         * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
-         * @param displayName - The title of the new field.
-         * @param primaryLookupField - The ID of the lookup field to associate this dependent lookup field with.
-         * @param showField - The name of the field from the target list to include data from.
-         */
-        addDependentLookup(displayName, primaryLookupField, showField): IField;
-
-        /**
-         * Adds an item to the list item collection.
-         * @param data - The item properties.
-         */
-        addItem(data): IListItem;
-
-        /**
-         * Adds a new role assignment with the specified principal and role definitions to the collection.
-         * @param principalId - The principal id.
-         * @param roleDefId - The role definition id.
-         */
-        addSiteGroup(principalId, roleDefId): IGroup;
-
-        /**
-         * Adds the folder that is located at the specified URL to the collection.
-         * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.
-         */
-        addSubFolder(url): IFolder;
-
-        /**
-         * Adds an item to the list item collection.
-         * @data - The view properties.
-         */
-        addView(data): IView;
-
-        /**
          * Creates unique role assignments for the securable object.
          * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
          * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
@@ -412,85 +348,16 @@ declare module $REST.Types {
         getChanges(query): any;
 
         /**
-         * Gets a content type by the specified name.
-         * @param name - The content type name.
-         */
-        getContentType(name): IContentType;
-
-        /**
-         * Gets a content type by the specified id.
-         * @param contentTypeId - The content type id.
-         */
-        getContentTypeById(contentTypeId): IContentType;
-
-        /**
-         * Returns the list's default display form.
-         */
-        getDefaultDisplayForm(): IFile;
-
-        /**
-         * Returns the list's default edit form.
-         */
-        getDefaultEditForm(): IFile;
-
-        /**
-         * Returns the list's default new form.
-         */
-        getDefaultNewForm(): IFile;
-        
-        /**
-         * Returns the list form based on the form type.
-         * @formType - The form type.
-         */
-        getForm(formType:Types.PageType): IFile;
-        
-        /**
-         * Gets the field with the specified field id.
-         * @param fieldId - The field id.
-         */
-        getFieldById(fieldId): IField;
-
-        /**
-         * Returns the first Field object with the specified internal name or title from the collection.
-         * @param internalNameOrTitle - The field's internal name or title.
-         */
-        getFieldByInternalNameOrTitle(internalNameOrTitle): IField;
-
-        /**
-         * Returns the first field object in the collection based on the title of the specified field.
-         * @param title - The field title.
-         */
-        getFieldByTitle(title);
-
-        /**
-         * Get the folder at the specified URL.
-         * @param serverRelativeUrl - The server relative url of the folder.
-         */
-        getSubFolder(serverRelativeUrl): IFolder;
-        
-        /**
          * Returns the list item with the specified list item identifier.
          * @param id - The list item id.
          */
         getItemById(id): IListItem;
 
         /**
-         * Returns an item based on the title.
-         * @title - The item title;
-         */
-        getItemByTitle(title): IListItem;
-
-        /**
          * Returns a collection of items from the list based on the view xml.
          * @param viewXml - The view xml CAML query.
          */
         getItems(viewXml): IListItems;
-
-        /**
-         * Returns a collection of items based on the filter.
-         * @filter - The OData REST filter query.
-         */
-        getItemsByFilter(filter): IListItems;
 
         /**
          * Returns a collection of items from the list based on the specified query.
@@ -520,12 +387,6 @@ declare module $REST.Types {
          * @param viewId - The view id.
          */
         getViewById(viewId): IView;
-
-        /**
-         * Returns the list view with the specified view identifier.
-         * @param title - The view title.
-         */
-        getViewByTitle(title): IView;
 
         /**
          * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.

@@ -102,12 +102,6 @@ declare module $REST.Types {
          */
 
         /**
-         * Adds a field link to the content type.
-         * @param fieldLink - The field link.
-         */
-        addFieldLink(fieldLink): any;
-
-        /**
          * Deletes the content type.
          */
         delete(): any;
@@ -117,30 +111,6 @@ declare module $REST.Types {
          * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
          */
         execute(callback?:(IContentType) => void): IContentType;
-
-        /**
-         * Gets a field by it's internal name.
-         * @param name - The internal name of the field.
-         */
-        getFieldByInternalName(name): any;
-
-        /**
-         * Gets a field by it's static name.
-         * @param name - The static name of the field.
-         */
-        getFieldByStaticName(name): any;
-
-        /**
-         * Gets a field by it's title.
-         * @param title - The title of the field.
-         */
-        getFieldByTitle(title): any;
-
-        /**
-         * Gets a field link by it's internal name.
-         * @param name - The internal name of the field.
-         */
-        getFieldLinkByName(name): any;
 
         /**
          * Updates it's properties.

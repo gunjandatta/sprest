@@ -16,13 +16,6 @@ module $REST {
             requestType: Types.RequestType.PostWithArgs
         },
 
-        // Gets the file for the specified name
-        getByName: {
-            argNames: ["name"],
-            name: "?$filter=Name eq '[[name]]'",
-            requestType: Types.RequestType.GetReplace
-        },
-
         // Get the file at the specified URL.
         getByUrl: {
             argNames: ["serverRelativeUrl"],

@@ -16,10 +16,10 @@ declare module $REST.Types {
 
         /**
          * Adds the attachment that is represented by the specified file name and byte array to the list item.
-         * @param name - The name of the file to add.
-         * @param contents - The file contents as an array buffer.
-        **/
-        add(name): any;
+         * @param name - The name of the attachment.
+         * @param content - The contents of the file. Pass the content parameter in the request body. The maximum size of a binary file that you can add by using the REST API is 2 GB.
+         */
+        add(name, content): any;
 
         /**
          * Method to execute the request.

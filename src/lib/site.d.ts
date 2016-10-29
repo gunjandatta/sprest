@@ -158,12 +158,6 @@ declare module $REST.Types {
         getChanges(query): any;
 
         /**
-         * Gets a custom action by it's name or title.
-         * @param title - THe user custom action title.
-         */
-        getCustomAction(title): IUserCustomAction;
-        
-        /**
          * Specifies the collection of custom list templates for a given site.
          * @param web - Specifies the site that contains the custom list templates to be returned.
          */

@@ -99,18 +99,6 @@ declare module $REST.Types {
         execute(callback?:(IFolder) => void): IFolder;
 
         /**
-         * Gets the file for the specified name.
-         * @param name - The file name.
-         */
-        getFile(name): IFile;
-
-        /**
-         * Gets the folder for the specified name.
-         * @param name - The folder name.
-         */
-        getSubFolder(name): IFolder;
-
-        /**
          * Get the file at the specified URL.
          * @param serverRelativeUrl - The server-relative URL of the folder.
          */

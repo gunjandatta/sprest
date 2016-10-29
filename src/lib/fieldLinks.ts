@@ -17,13 +17,6 @@ module $REST {
             requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
-        // Gets a field by it's internal name.
-        getFieldLinkByName: {
-            argNames: ["name"],
-            name: "fields?$filter=Name eq '[[name]]'",
-            requestType: Types.RequestType.GetReplace
-        },
-
         // Queries the collection
         query: {
             argNames: ["oData"],

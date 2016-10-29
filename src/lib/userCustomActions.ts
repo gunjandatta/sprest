@@ -21,20 +21,6 @@ module $REST {
             requestType: Types.RequestType.GetWithArgsValueOnly
         },
 
-        // Returns the user custom action based on the name of the specified user custom action.
-        getByName: {
-            argNames: ["name"],
-            name: "?filter=Name eq '[[name]]'",
-            requestType: Types.RequestType.PostReplace
-        },
-
-        // Returns the user custom action based on the title of the specified user custom action.
-        getByTitle: {
-            argNames: ["title"],
-            name: "?filter=Title eq '[[title]]'",
-            requestType: Types.RequestType.PostReplace
-        },
-
         // Queries the collection
         query: {
             argNames: ["oData"],

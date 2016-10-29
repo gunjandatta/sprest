@@ -8,11 +8,6 @@ declare module $REST.Types {
          */
 
         /**
-         * Specifies the collection of attachments that are associated with the list item.
-         */
-        AttachmentFiles(): IAttachmentFiles;
-
-        /**
          * Gets a value that specifies the content type of the list item.
          */
         ContentType(): IContentType;
@@ -88,13 +83,6 @@ declare module $REST.Types {
         /**
          * Methods
          */
-
-        /**
-         * Adds the attachment that is represented by the specified file name and byte array to the list item.
-         * @param name - The name of the attachment.
-         * @param content - The contents of the file. Pass the content parameter in the request body. The maximum size of a binary file that you can add by using the REST API is 2 GB.
-         */
-        addAttachment(name, content): any;
 
         /**
          * Creates unique role assignments for the securable object.

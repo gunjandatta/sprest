@@ -40,20 +40,6 @@ module $REST {
             requestType: Types.RequestType.Delete
         },
 
-        // Gets the file for the specified name
-        getFile: {
-            argNames: ["name"],
-            name: "files?$filter=Name eq '[[name]]'",
-            requestType: Types.RequestType.GetReplace
-        },
-
-        // Gets the folder for the specified name
-        getSubFolder: {
-            argNames: ["name"],
-            name: "folders?$filter=Name eq '[[name]]'",
-            requestType: Types.RequestType.GetReplace
-        },
-
         // Get the file at the specified URL.
         getByUrl: {
             argNames: ["serverRelativeUrl"],

@@ -15,13 +15,6 @@ module $REST {
         /*********************************************************************************************************************************/
 
         // Adds the attachment that is represented by the specified file name and byte array to the list item.
-        addAttachment: {
-            argNames: ["name"],
-            name: "attachmentfiles/add",
-            requestType: Types.RequestType.PostWithArgs
-        },
-
-        // Adds the attachment that is represented by the specified file name and byte array to the list item.
         //{ name: "addAttachmentFile", "function": function (file) { var thisObj = this; var promise = new Promise(); getFileInfo(file).done(function (name, buffer) { if (name && buffer) { thisObj.addAttachment(name, buffer).done(function (file) { promise.resolve(file); }); } else { promise.resolve(); } }); return promise; } },
 
         // Creates unique role assignments for the securable object.

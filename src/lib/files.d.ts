@@ -36,12 +36,6 @@ declare module $REST.Types {
         execute(callback?:(IFiles) => void): IFiles;
 
         /**
-         * Gets the file for the specified name
-         * @param name - The file name.
-         */
-        getByName(name): IFile;
-
-        /**
          * Get the file at the specified URL.
          * @param serverRelativeUrl - The name or server relative url of the file.
          */

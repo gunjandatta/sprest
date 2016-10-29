@@ -284,6 +284,12 @@ declare module $REST.Types {
         SiteUsers(): IUsers;
 
         /**
+         * Gets the collection of all users that belong to the site collection.
+         * @param id - The user id.
+         */
+        SiteUsers(id): IUser;
+
+        /**
          * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
          */
         SupportedUILanguageIds(): any;
@@ -348,69 +354,6 @@ declare module $REST.Types {
         /**
          * Methods
          */
-
-        /**
-         * Adds a content type content type collection.
-         * @param parameters - The content type creation information.
-         */
-        addContentType(parameters:Settings.ContentTypeCreationInformation): IContentType;
-
-        /**
-         * Adds a custom action to the user custom action collection.
-         * @param parameters - The content type creation information.
-         */
-        addCustomAction(parameters:Settings.UserCustomActionCreationInformation): IUserCustomAction;
-
-        /**
-         * Adds an existing content type to content type collection.
-         * @param contentTypeId - The content type id to add.
-         */
-        addExistingContentType(contentTypeId): IContentType;
-
-        /**
-         * Adds a field to it's collection.
-         * @param parameters - The field creation information.
-         */
-        addField(parameters:Settings.FieldCreationInformation): IField;
-
-        /**
-         * Adds a field, using it's Schema XML, to the field collection.
-         * Set the option to addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
-         * @param schemaXml - The schema XML definition of the field.
-         */
-        addFieldAsXml(schemaXml): IField;
-
-        /**
-         * Adds a file to the root folder.
-         * @param overwrite - true to overwrite the file if it already exists; otherwise false.
-         * @param url - The folder-relative URL of the file.
-         * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
-         */
-        addFile(overwrite, url, content): IFile;
-
-        /**
-         * Adds a list to the list collection.
-         * @param parameters - The list creation information.
-         */
-        addList(parameters:Settings.ListCreationInformation): IList;
-
-        /**
-         * Adds a permission to the role definitions.
-         * @param data - The role definition information.
-         */
-        addPermission(data);
-
-        /**
-         * Adds a site group to the site group collection.
-         * @param title - The site group title.
-         */
-        addSiteGroup(title): IGroup;
-
-        /**
-         * Adds a sub-folder to the root folder.
-         * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.
-         */
-        addSubFolder(url): IFolder;
 
         /**
          * Applies the theme specified by the contents of each of the files specified in the arguments to the site.
@@ -518,12 +461,6 @@ declare module $REST.Types {
         getContextWebInformation(): any;
 
         /**
-         * Gets a custom action by it's name or title.
-         * @param title - The user custom action title.
-         */
-        getCustomAction(title): IUserCustomAction;
-        
-        /**
          * Gets the custom list templates for the site.
          */
         getCustomListTemplates(): any;
@@ -542,42 +479,6 @@ declare module $REST.Types {
         getEntity(namespace, name): any;
 
         /**
-         * Gets a field by it's title, internal name or static name.
-         * @param title - The field title.
-         */
-        getField(title): IField;
-
-        /**
-         * Gets a field by it's id.
-         * @param id - The field id.
-         */
-        getFieldById(id): IField;
-
-        /**
-         * Gets a field by it's internal name.
-         * @param name - The internal field name.
-         */
-        getFieldByInternalName(name): IField;
-
-        /**
-         * Gets a field by it's static name.
-         * @param staticName - The static field name.
-         */
-        getFieldByStaticName(name): IField;
-
-        /**
-         * Gets a field by it's title.
-         * @param title - The field title.
-         */
-        getFieldByTitle(title): IField;
-
-        /**
-         * Gets a file by it's name, in the root folder.
-         * @param name - The file name.
-         */
-        getFile(name): IFile;
-        
-        /**
          * Returns the file object located at the specified server-relative URL.
          * @param url - The server relative url of the file.
          */
@@ -594,18 +495,6 @@ declare module $REST.Types {
          * @param url - The server relative url of the list.
          */
         getList(url): IList;
-
-        /**
-         * Gets a list by it's id.
-         * @param id - The list id.
-         */
-        getListById(id): IList;
-
-        /**
-         * Gets the list for the specified title.
-         * @param title - The list title.
-         */
-        getListByTitle(title): IList;
 
         /**
          * Gets the push notification subscriber over the site for the specified device application instance ID.
@@ -626,24 +515,6 @@ declare module $REST.Types {
         getPushNotificationSubscribersByUser(loginName): any;
 
         /**
-         * Gets a sub-folder by it's name, from the root folder.
-         * @param name - The folder name.
-         */
-        getSubFolder(name): IFolder;
-
-        /**
-         * Gets a site group by it's id.
-         * @param id - The site group id.
-         */
-        getSiteGroupById(id): IGroup;
-
-        /**
-         * Gets a site group by it's name.
-         * @param name - The site group name.
-         */
-        getSiteGroupByName(name): IGroup;
-
-        /**
          * Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
          * @param nWebTemplateFilter - The ID of the template used in the site definition of the sites.
          * @param nConfigurationFilter - The ID of the site template used to provision the sites.
@@ -651,22 +522,10 @@ declare module $REST.Types {
         getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): any;
 
         /**
-         * Gets a user by login name.
-         * @param email - The user email.
-         */
-        getUserByEmail(email): IUser;
-
-        /**
          * Returns the user corresponding to the specified member identifier for the current site.
          * @param id - The user id.
          */
         getUserById(id): IUser;
-
-        /**
-         * Gets a user by login name.
-         * @param loginName - The user login name.
-         */
-        getUserByLogin(loginName): IUser;
 
         /**
          * Gets the effective permissions that the specified user has within the current application scope.

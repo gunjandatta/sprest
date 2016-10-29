@@ -33,12 +33,6 @@ declare module $REST.Types {
         getById(id);
 
         /**
-         * Gets a field by it's internal name.
-         * @param name - The internal name of the field.
-         */
-        getFieldLinkByName(name): any;
-
-        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

@@ -71,6 +71,12 @@ declare module $REST.Types {
         Users(): IUsers;
 
         /**
+         * Gets a collection of user objects that represents all of the users in the group.
+         * @param id - The user id.
+         */
+        Users(id): IUser;
+
+        /**
          * Methods
          */
 
@@ -79,11 +85,5 @@ declare module $REST.Types {
          * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
          */
         execute(callback?:(IGroup) => void): IGroup;
-
-        /**
-         * Gets the user by the specified user id.
-         * @param userId - The user id.
-         */
-        getUserById(userId);
     }
 }

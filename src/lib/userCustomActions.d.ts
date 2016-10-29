@@ -38,18 +38,6 @@ declare module $REST.Types {
         getById(id): IUserCustomAction;
 
         /**
-         * Returns the user custom action based on the name of the specified user custom action.
-         * @param name - The user custom action name.
-         */
-        getByName(name): IUserCustomAction;
-
-        /**
-         * Returns the user custom action based on the title of the specified user custom action.
-         * @param title - The user custom action title.
-         */
-        getByTitle(title): IUserCustomAction;
-
-        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

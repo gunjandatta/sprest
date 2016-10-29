@@ -16,9 +16,15 @@ declare module $REST.Types {
 
         /**
          * Adds a field to the field collection.
+         * @param parameters - The field properties.
+         */
+        add(parameters:Types.IField): IField;
+
+        /**
+         * Adds a field to the field collection.
          * @param parameters - The field creation information.
          */
-        add(parameters:Settings.FieldCreationInformation): IField;
+        addField(parameters:Settings.FieldCreationInformation): IField;
 
         /**
          * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
@@ -26,7 +32,7 @@ declare module $REST.Types {
          * @param primaryLookupField - The ID of the lookup field to associate this dependent lookup field with.
          * @param showField - The name of the field from the target list to include data from.
          */
-        addDependentLookup(displayName, primaryLookupField, showField): IField;
+        addDependentLookupField(displayName, primaryLookupField, showField): IField;
 
         /**
          * Creates a field based on the specified schema, Boolean value, and field options.

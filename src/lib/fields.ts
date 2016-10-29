@@ -5,6 +5,13 @@ module $REST {
     Library.fields = {
         // Adds a field to the field collection.
         add: {
+            metadataType: "SP.Field",
+            name: "",
+            requestType: Types.RequestType.PostWithArgsInBody
+        },
+
+        // Adds a field to the field collection.
+        addField: {
             argNames: ["parameters"],
             metadataType: "SP.FieldCreationInformation",
             name: "addField",
@@ -12,7 +19,7 @@ module $REST {
         },
 
         // Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
-        addDependentLookup: {
+        addDependentLookupField: {
             argNames: ["displayname", "primarylookupfieldid", "showfield"],
             requestType: Types.RequestType.PostWithArgs
         },

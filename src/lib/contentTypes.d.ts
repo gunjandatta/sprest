@@ -39,12 +39,6 @@ declare module $REST.Types {
         getById(id): IContentType;
 
         /**
-         * Gets a content type by name.
-         * @param name - The name of the content type.
-         */
-        getByName(name);
-
-        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

@@ -92,13 +92,6 @@ module $REST {
             requestType: Types.RequestType.PostWithArgsInBody
         },
 
-        // Gets a custom action by it's name or title.
-        getCustomAction: {
-            argNames: ["title"],
-            name: "usercustomactions?$filter=Name eq '[[title]]' or Title eq '[[title]]'",
-            requestType: Types.RequestType.GetReplace
-        },
-        
         // Specifies the collection of custom list templates for a given site.
         getCustomListTemplates: {
             argNames: ["web"],
