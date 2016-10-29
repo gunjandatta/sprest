@@ -1179,10 +1179,10 @@ declare module $REST.Types {
 
         /**
          * Adds the attachment that is represented by the specified file name and byte array to the list item.
-         * @param name - The name of the file to add.
-         * @param contents - The file contents as an array buffer.
-        **/
-        add(name): any;
+         * @param name - The name of the attachment.
+         * @param content - The contents of the file. Pass the content parameter in the request body. The maximum size of a binary file that you can add by using the REST API is 2 GB.
+         */
+        add(name, content): any;
 
         /**
          * Method to execute the request.
@@ -1302,12 +1302,6 @@ declare module $REST.Types {
          */
 
         /**
-         * Adds a field link to the content type.
-         * @param fieldLink - The field link.
-         */
-        addFieldLink(fieldLink): any;
-
-        /**
          * Deletes the content type.
          */
         delete(): any;
@@ -1317,30 +1311,6 @@ declare module $REST.Types {
          * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
          */
         execute(callback?:(IContentType) => void): IContentType;
-
-        /**
-         * Gets a field by it's internal name.
-         * @param name - The internal name of the field.
-         */
-        getFieldByInternalName(name): any;
-
-        /**
-         * Gets a field by it's static name.
-         * @param name - The static name of the field.
-         */
-        getFieldByStaticName(name): any;
-
-        /**
-         * Gets a field by it's title.
-         * @param title - The title of the field.
-         */
-        getFieldByTitle(title): any;
-
-        /**
-         * Gets a field link by it's internal name.
-         * @param name - The internal name of the field.
-         */
-        getFieldLinkByName(name): any;
 
         /**
          * Updates it's properties.
@@ -1389,12 +1359,6 @@ declare module $REST.Types {
          * @param id - The content type id.
          */
         getById(id): IContentType;
-
-        /**
-         * Gets a content type by name.
-         * @param name - The name of the content type.
-         */
-        getByName(name);
 
         /**
          * Queries the collection.
@@ -1576,7 +1540,7 @@ declare module $REST.Types {
         EntityPropertyName: string;
 
         /** Gets or sets a value that specifies the type of the field. Represents a FieldType value. See FieldType in the .NET client object model reference for a list of field type values. */
-        FieldTypeKind: string;
+        FieldTypeKind: Types.FieldType;
 
         /** Gets a value that specifies whether list items in the list can be filtered by the field value. */
         Filterable: string;
@@ -1717,12 +1681,6 @@ declare module $REST.Types {
         getById(id);
 
         /**
-         * Gets a field by it's internal name.
-         * @param name - The internal name of the field.
-         */
-        getFieldLinkByName(name): any;
-
-        /**
          * Queries the collection.
          * @param oData - The OData information.
          */
@@ -1748,9 +1706,15 @@ declare module $REST.Types {
 
         /**
          * Adds a field to the field collection.
+         * @param parameters - The field properties.
+         */
+        add(parameters:Types.IField): IField;
+
+        /**
+         * Adds a field to the field collection.
          * @param parameters - The field creation information.
          */
-        add(parameters:Settings.FieldCreationInformation): IField;
+        addField(parameters:Settings.FieldCreationInformation): IField;
 
         /**
          * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
@@ -1758,7 +1722,7 @@ declare module $REST.Types {
          * @param primaryLookupField - The ID of the lookup field to associate this dependent lookup field with.
          * @param showField - The name of the field from the target list to include data from.
          */
-        addDependentLookup(displayName, primaryLookupField, showField): IField;
+        addDependentLookupField(displayName, primaryLookupField, showField): IField;
 
         /**
          * Creates a field based on the specified schema, Boolean value, and field options.
@@ -2068,12 +2032,6 @@ declare module $REST.Types {
         execute(callback?:(IFiles) => void): IFiles;
 
         /**
-         * Gets the file for the specified name
-         * @param name - The file name.
-         */
-        getByName(name): IFile;
-
-        /**
          * Get the file at the specified URL.
          * @param serverRelativeUrl - The name or server relative url of the file.
          */
@@ -2270,18 +2228,6 @@ declare module $REST.Types {
         execute(callback?:(IFolder) => void): IFolder;
 
         /**
-         * Gets the file for the specified name.
-         * @param name - The file name.
-         */
-        getFile(name): IFile;
-
-        /**
-         * Gets the folder for the specified name.
-         * @param name - The folder name.
-         */
-        getSubFolder(name): IFolder;
-
-        /**
          * Get the file at the specified URL.
          * @param serverRelativeUrl - The server-relative URL of the folder.
          */
@@ -2415,6 +2361,12 @@ declare module $REST.Types {
         Users(): IUsers;
 
         /**
+         * Gets a collection of user objects that represents all of the users in the group.
+         * @param id - The user id.
+         */
+        Users(id): IUser;
+
+        /**
          * Methods
          */
 
@@ -2423,12 +2375,6 @@ declare module $REST.Types {
          * @param callback - (Optional) For asynchronous requests, the method to be executed after the request completes.
          */
         execute(callback?:(IGroup) => void): IGroup;
-
-        /**
-         * Gets the user by the specified user id.
-         * @param userId - The user id.
-         */
-        getUserById(userId);
     }
 }
 
@@ -2819,70 +2765,6 @@ declare module $REST.Types {
          */
 
         /**
-         * Adds an existing content type to this collection.
-         * @param contentTypeId - The content type id.
-         */        
-        addAvailableContentType(contentTypeId): IContentType;
-
-        /**
-         * Adds a content type to the collection.
-         * @param parameters - The content type creation information.
-         */
-        addContentType(parameters:Settings.ContentTypeCreationInformation): IContentType;
-
-        /**
-         * Adds an event receiver to the collection.
-         * @param parameters - The event receiver creation information.
-         */
-        addEventReceiver(parameters:Settings.EventReceiverDefinitionCreationInformation): IEventReceiver;
-
-        /**
-         * Adds a field to the field collection.
-         * @param parameters - The field creation information.
-         */
-        addField(parameters:Settings.FieldCreationInformation): IField;
-
-        /**
-         * Adds a field, using it's Schema XML, to the field collection.
-         * Defaulting the 'Options' to SP.AddFieldOptions.addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
-         * @param schemXml - The field schmea xml definition.
-         */
-        addFieldAsXml(schemaXml): IField;
-
-        /**
-         * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
-         * @param displayName - The title of the new field.
-         * @param primaryLookupField - The ID of the lookup field to associate this dependent lookup field with.
-         * @param showField - The name of the field from the target list to include data from.
-         */
-        addDependentLookup(displayName, primaryLookupField, showField): IField;
-
-        /**
-         * Adds an item to the list item collection.
-         * @param data - The item properties.
-         */
-        addItem(data): IListItem;
-
-        /**
-         * Adds a new role assignment with the specified principal and role definitions to the collection.
-         * @param principalId - The principal id.
-         * @param roleDefId - The role definition id.
-         */
-        addSiteGroup(principalId, roleDefId): IGroup;
-
-        /**
-         * Adds the folder that is located at the specified URL to the collection.
-         * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.
-         */
-        addSubFolder(url): IFolder;
-
-        /**
-         * Adds an item to the list item collection.
-         * @data - The view properties.
-         */
-        addView(data): IView;
-
-        /**
          * Creates unique role assignments for the securable object.
          * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
          * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
@@ -2907,85 +2789,16 @@ declare module $REST.Types {
         getChanges(query): any;
 
         /**
-         * Gets a content type by the specified name.
-         * @param name - The content type name.
-         */
-        getContentType(name): IContentType;
-
-        /**
-         * Gets a content type by the specified id.
-         * @param contentTypeId - The content type id.
-         */
-        getContentTypeById(contentTypeId): IContentType;
-
-        /**
-         * Returns the list's default display form.
-         */
-        getDefaultDisplayForm(): IFile;
-
-        /**
-         * Returns the list's default edit form.
-         */
-        getDefaultEditForm(): IFile;
-
-        /**
-         * Returns the list's default new form.
-         */
-        getDefaultNewForm(): IFile;
-        
-        /**
-         * Returns the list form based on the form type.
-         * @formType - The form type.
-         */
-        getForm(formType:Types.PageType): IFile;
-        
-        /**
-         * Gets the field with the specified field id.
-         * @param fieldId - The field id.
-         */
-        getFieldById(fieldId): IField;
-
-        /**
-         * Returns the first Field object with the specified internal name or title from the collection.
-         * @param internalNameOrTitle - The field's internal name or title.
-         */
-        getFieldByInternalNameOrTitle(internalNameOrTitle): IField;
-
-        /**
-         * Returns the first field object in the collection based on the title of the specified field.
-         * @param title - The field title.
-         */
-        getFieldByTitle(title);
-
-        /**
-         * Get the folder at the specified URL.
-         * @param serverRelativeUrl - The server relative url of the folder.
-         */
-        getSubFolder(serverRelativeUrl): IFolder;
-        
-        /**
          * Returns the list item with the specified list item identifier.
          * @param id - The list item id.
          */
         getItemById(id): IListItem;
 
         /**
-         * Returns an item based on the title.
-         * @title - The item title;
-         */
-        getItemByTitle(title): IListItem;
-
-        /**
          * Returns a collection of items from the list based on the view xml.
          * @param viewXml - The view xml CAML query.
          */
         getItems(viewXml): IListItems;
-
-        /**
-         * Returns a collection of items based on the filter.
-         * @filter - The OData REST filter query.
-         */
-        getItemsByFilter(filter): IListItems;
 
         /**
          * Returns a collection of items from the list based on the specified query.
@@ -3015,12 +2828,6 @@ declare module $REST.Types {
          * @param viewId - The view id.
          */
         getViewById(viewId): IView;
-
-        /**
-         * Returns the list view with the specified view identifier.
-         * @param title - The view title.
-         */
-        getViewByTitle(title): IView;
 
         /**
          * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
@@ -3069,11 +2876,6 @@ declare module $REST.Types {
         /**
          * Properties
          */
-
-        /**
-         * Specifies the collection of attachments that are associated with the list item.
-         */
-        AttachmentFiles(): IAttachmentFiles;
 
         /**
          * Gets a value that specifies the content type of the list item.
@@ -3151,13 +2953,6 @@ declare module $REST.Types {
         /**
          * Methods
          */
-
-        /**
-         * Adds the attachment that is represented by the specified file name and byte array to the list item.
-         * @param name - The name of the attachment.
-         * @param content - The contents of the file. Pass the content parameter in the request body. The maximum size of a binary file that you can add by using the REST API is 2 GB.
-         */
-        addAttachment(name, content): any;
 
         /**
          * Creates unique role assignments for the securable object.
@@ -3613,12 +3408,6 @@ declare module $REST.Types {
         getChanges(query): any;
 
         /**
-         * Gets a custom action by it's name or title.
-         * @param title - THe user custom action title.
-         */
-        getCustomAction(title): IUserCustomAction;
-        
-        /**
          * Specifies the collection of custom list templates for a given site.
          * @param web - Specifies the site that contains the custom list templates to be returned.
          */
@@ -3918,18 +3707,6 @@ declare module $REST.Types {
          * @param id - The ID of the user custom action to get.
          */
         getById(id): IUserCustomAction;
-
-        /**
-         * Returns the user custom action based on the name of the specified user custom action.
-         * @param name - The user custom action name.
-         */
-        getByName(name): IUserCustomAction;
-
-        /**
-         * Returns the user custom action based on the title of the specified user custom action.
-         * @param title - The user custom action title.
-         */
-        getByTitle(title): IUserCustomAction;
 
         /**
          * Queries the collection.
@@ -4596,6 +4373,12 @@ declare module $REST.Types {
         SiteUsers(): IUsers;
 
         /**
+         * Gets the collection of all users that belong to the site collection.
+         * @param id - The user id.
+         */
+        SiteUsers(id): IUser;
+
+        /**
          * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
          */
         SupportedUILanguageIds(): any;
@@ -4660,69 +4443,6 @@ declare module $REST.Types {
         /**
          * Methods
          */
-
-        /**
-         * Adds a content type content type collection.
-         * @param parameters - The content type creation information.
-         */
-        addContentType(parameters:Settings.ContentTypeCreationInformation): IContentType;
-
-        /**
-         * Adds a custom action to the user custom action collection.
-         * @param parameters - The content type creation information.
-         */
-        addCustomAction(parameters:Settings.UserCustomActionCreationInformation): IUserCustomAction;
-
-        /**
-         * Adds an existing content type to content type collection.
-         * @param contentTypeId - The content type id to add.
-         */
-        addExistingContentType(contentTypeId): IContentType;
-
-        /**
-         * Adds a field to it's collection.
-         * @param parameters - The field creation information.
-         */
-        addField(parameters:Settings.FieldCreationInformation): IField;
-
-        /**
-         * Adds a field, using it's Schema XML, to the field collection.
-         * Set the option to addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
-         * @param schemaXml - The schema XML definition of the field.
-         */
-        addFieldAsXml(schemaXml): IField;
-
-        /**
-         * Adds a file to the root folder.
-         * @param overwrite - true to overwrite the file if it already exists; otherwise false.
-         * @param url - The folder-relative URL of the file.
-         * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
-         */
-        addFile(overwrite, url, content): IFile;
-
-        /**
-         * Adds a list to the list collection.
-         * @param parameters - The list creation information.
-         */
-        addList(parameters:Settings.ListCreationInformation): IList;
-
-        /**
-         * Adds a permission to the role definitions.
-         * @param data - The role definition information.
-         */
-        addPermission(data);
-
-        /**
-         * Adds a site group to the site group collection.
-         * @param title - The site group title.
-         */
-        addSiteGroup(title): IGroup;
-
-        /**
-         * Adds a sub-folder to the root folder.
-         * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.
-         */
-        addSubFolder(url): IFolder;
 
         /**
          * Applies the theme specified by the contents of each of the files specified in the arguments to the site.
@@ -4830,12 +4550,6 @@ declare module $REST.Types {
         getContextWebInformation(): any;
 
         /**
-         * Gets a custom action by it's name or title.
-         * @param title - The user custom action title.
-         */
-        getCustomAction(title): IUserCustomAction;
-        
-        /**
          * Gets the custom list templates for the site.
          */
         getCustomListTemplates(): any;
@@ -4854,42 +4568,6 @@ declare module $REST.Types {
         getEntity(namespace, name): any;
 
         /**
-         * Gets a field by it's title, internal name or static name.
-         * @param title - The field title.
-         */
-        getField(title): IField;
-
-        /**
-         * Gets a field by it's id.
-         * @param id - The field id.
-         */
-        getFieldById(id): IField;
-
-        /**
-         * Gets a field by it's internal name.
-         * @param name - The internal field name.
-         */
-        getFieldByInternalName(name): IField;
-
-        /**
-         * Gets a field by it's static name.
-         * @param staticName - The static field name.
-         */
-        getFieldByStaticName(name): IField;
-
-        /**
-         * Gets a field by it's title.
-         * @param title - The field title.
-         */
-        getFieldByTitle(title): IField;
-
-        /**
-         * Gets a file by it's name, in the root folder.
-         * @param name - The file name.
-         */
-        getFile(name): IFile;
-        
-        /**
          * Returns the file object located at the specified server-relative URL.
          * @param url - The server relative url of the file.
          */
@@ -4906,18 +4584,6 @@ declare module $REST.Types {
          * @param url - The server relative url of the list.
          */
         getList(url): IList;
-
-        /**
-         * Gets a list by it's id.
-         * @param id - The list id.
-         */
-        getListById(id): IList;
-
-        /**
-         * Gets the list for the specified title.
-         * @param title - The list title.
-         */
-        getListByTitle(title): IList;
 
         /**
          * Gets the push notification subscriber over the site for the specified device application instance ID.
@@ -4938,24 +4604,6 @@ declare module $REST.Types {
         getPushNotificationSubscribersByUser(loginName): any;
 
         /**
-         * Gets a sub-folder by it's name, from the root folder.
-         * @param name - The folder name.
-         */
-        getSubFolder(name): IFolder;
-
-        /**
-         * Gets a site group by it's id.
-         * @param id - The site group id.
-         */
-        getSiteGroupById(id): IGroup;
-
-        /**
-         * Gets a site group by it's name.
-         * @param name - The site group name.
-         */
-        getSiteGroupByName(name): IGroup;
-
-        /**
          * Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
          * @param nWebTemplateFilter - The ID of the template used in the site definition of the sites.
          * @param nConfigurationFilter - The ID of the site template used to provision the sites.
@@ -4963,22 +4611,10 @@ declare module $REST.Types {
         getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): any;
 
         /**
-         * Gets a user by login name.
-         * @param email - The user email.
-         */
-        getUserByEmail(email): IUser;
-
-        /**
          * Returns the user corresponding to the specified member identifier for the current site.
          * @param id - The user id.
          */
         getUserById(id): IUser;
-
-        /**
-         * Gets a user by login name.
-         * @param loginName - The user login name.
-         */
-        getUserByLogin(loginName): IUser;
 
         /**
          * Gets the effective permissions that the specified user has within the current application scope.

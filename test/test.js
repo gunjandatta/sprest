@@ -102,7 +102,7 @@ function testContentType(list) {
         var field = (new $REST.Web()).Fields("SPRestText").execute();
         if(!field.existsFl) {
             // Create the test field
-            field = web.addFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />').execute();
+            field = web.Fields().createFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />').execute();
         }
 
         // Test
@@ -112,7 +112,7 @@ function testContentType(list) {
         writeToLog("Add List Field", LogType.SubHeader);
 
         // Add the field to the list
-        var listField = list.addFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />').execute();
+        var listField = list.Fields().createFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />').execute();
 
         // Test
         assert(listField, "add list field", "existsFl", true);
@@ -124,7 +124,7 @@ function testContentType(list) {
         writeToLog("Note - Failure to add a field link is a known bug with the REST API.", LogType.Info);
 
         // Add the field to the content type
-        var fieldLink = ct.addFieldLink({ FieldInternalName: field.InternalName }).execute();
+        var fieldLink = ct.FieldLinks().add({ FieldInternalName: field.InternalName }).execute();
 
         // Test
         assert(fieldLink, "add field link", "existsFl", true);
@@ -133,7 +133,7 @@ function testContentType(list) {
         writeToLog("Add List Content Type", LogType.SubHeader);
 
         // Add the content type to the list
-        var ctList = list.addAvailableContentType(ct.Id.StringValue).execute();
+        var ctList = list.ContentTypes().addAvailableContentType(ct.Id.StringValue).execute();
 
         // Test
         assert(ctList, "add list content type", "existsFl", true);
@@ -318,7 +318,7 @@ function testListItem(list) {
     writeToLog("Creating the list item", LogType.SubHeader);
 
     // Create the item
-    item = list.addItem({
+    item = list.Items().add({
         Title: "New Item"
     }).execute();
     assert(item, "create", "existsFl", true);
@@ -362,7 +362,7 @@ function testListItems(list) {
         var title = "New Item " + i;
 
         // Create the item
-        var item = list.addItem({
+        var item = list.Items().add({
             Title: title
         }).execute();
 

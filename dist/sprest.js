@@ -1764,39 +1764,9 @@ var $REST;
         /*********************************************************************************************************************************/
         // Methods
         /*********************************************************************************************************************************/
-        // Adds a field link to the content type.
-        addFieldLink: {
-            name: "fieldlink",
-            metadataType: "SP.FieldLink",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
         // Deletes the content type.
         delete: {
             requestType: $REST.Types.RequestType.Delete
-        },
-        // Gets a field by it's internal name.
-        getFieldByInternalName: {
-            argNames: ["name"],
-            name: "fields?$filter=InternalName eq '[[name]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Gets a field by it's static name.
-        getFieldByStaticName: {
-            argNames: ["name"],
-            name: "fields?$filter=StaticName eq '[[name]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Gets a field by it's title.
-        getFieldByTitle: {
-            argNames: ["title"],
-            name: "fields?$filter=Title eq '[[title]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Gets a field by it's internal name.
-        getFieldLinkByName: {
-            argNames: ["name"],
-            name: "fields?$filter=Name eq '[[name]]'",
-            requestType: $REST.Types.RequestType.GetReplace
         },
         // Updates it's properties.
         update: {
@@ -1829,12 +1799,6 @@ var $REST;
         getById: {
             argNames: ["id"],
             requestType: $REST.Types.RequestType.GetWithArgsValueOnly
-        },
-        // Gets a content type by name.
-        getByName: {
-            argNames: ["name"],
-            name: "?$filter=Name eq '[[name]]'",
-            requestType: $REST.Types.RequestType.GetReplace
         },
         // Queries the collection
         query: {
@@ -2005,12 +1969,6 @@ var $REST;
             argNames: ["id"],
             requestType: $REST.Types.RequestType.GetWithArgsValueOnly
         },
-        // Gets a field by it's internal name.
-        getFieldLinkByName: {
-            argNames: ["name"],
-            name: "fields?$filter=Name eq '[[name]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
         // Queries the collection
         query: {
             argNames: ["oData"],
@@ -2027,13 +1985,19 @@ var $REST;
     $REST.Library.fields = {
         // Adds a field to the field collection.
         add: {
+            metadataType: "SP.Field",
+            name: "",
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        // Adds a field to the field collection.
+        addField: {
             argNames: ["parameters"],
             metadataType: "SP.FieldCreationInformation",
             name: "addField",
             requestType: $REST.Types.RequestType.PostWithArgsInBody
         },
         // Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
-        addDependentLookup: {
+        addDependentLookupField: {
             argNames: ["displayname", "primarylookupfieldid", "showfield"],
             requestType: $REST.Types.RequestType.PostWithArgs
         },
@@ -2122,7 +2086,7 @@ var $REST;
         // This method is currently available only on Office 365.
         continueUpload: {
             argNames: ["uploadId", "fileOffset"],
-            name: "cancelupload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
+            name: "continueUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
             requestType: $REST.Types.RequestType.PostReplace
         },
         // Copies the file to the destination URL.
@@ -2145,7 +2109,7 @@ var $REST;
         // This method is currently available only on Office 365.
         finishUpload: {
             argNames: ["uploadId", "fileOffset"],
-            name: "cancelupload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
+            name: "finishUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
             requestType: $REST.Types.RequestType.PostReplace
         },
         // Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
@@ -2223,12 +2187,6 @@ var $REST;
         addTemplateFile: {
             argNames: ["urlOfFile", "templateFileType"],
             requestType: $REST.Types.RequestType.PostWithArgs
-        },
-        // Gets the file for the specified name
-        getByName: {
-            argNames: ["name"],
-            name: "?$filter=Name eq '[[name]]'",
-            requestType: $REST.Types.RequestType.GetReplace
         },
         // Get the file at the specified URL.
         getByUrl: {
@@ -2314,18 +2272,6 @@ var $REST;
         delete: {
             requestType: $REST.Types.RequestType.Delete
         },
-        // Gets the file for the specified name
-        getFile: {
-            argNames: ["name"],
-            name: "files?$filter=Name eq '[[name]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Gets the folder for the specified name
-        getSubFolder: {
-            argNames: ["name"],
-            name: "folders?$filter=Name eq '[[name]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
         // Get the file at the specified URL.
         getByUrl: {
             argNames: ["serverRelativeUrl"],
@@ -2385,16 +2331,9 @@ var $REST;
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
-        properties: [],
-        /*********************************************************************************************************************************/
-        // Methods
-        /*********************************************************************************************************************************/
-        // Gets the user by the specified user id.
-        getUserById: {
-            argNames: ["userId"],
-            name: "users?$filter=Id eq [[userId]]",
-            requestType: $REST.Types.RequestType.GetReplace
-        }
+        properties: [
+            "Users|users|/getById([Name])|user"
+        ],
     };
 })($REST || ($REST = {}));
 
@@ -2501,76 +2440,6 @@ var $REST;
         /*********************************************************************************************************************************/
         // Methods
         /*********************************************************************************************************************************/
-        // Adds an existing content type to this collection.
-        addAvailableContentType: {
-            argNames: ["contentTypeId"],
-            name: "contenttypes/addAvailableContentType",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
-        // Adds a content type to the collection.
-        addContentType: {
-            argNames: ["parameters"],
-            metadataType: "SP.ContentType",
-            name: "contenttypes/add",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
-        // Adds an event receiver to the collection.
-        addEventReceiver: {
-            metadataType: "SP.EventReceiverDefinition",
-            name: "eventreceivers",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
-        // Adds a field to the field collection.
-        addField: {
-            argNames: ["parameters"],
-            metadataType: "SP.FieldCreationInformation",
-            name: "fields/add",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
-        // Adds a field, using it's Schema XML, to the field collection.
-        // Set the option to SP.AddFieldOptions.addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
-        addFieldAsXml: {
-            argNames: ["schemaXml"],
-            name: "fields/createFieldAsXml",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody,
-            data: {
-                parameters: {
-                    __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
-                    Options: 8,
-                    SchemaXml: "[[schemaXml]]"
-                }
-            }
-        },
-        // Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
-        addDependentLookupField: {
-            argNames: ["displayname", "primarylookupfieldid", "showfield"],
-            name: "fields/addDependentLookupField",
-            requestType: $REST.Types.RequestType.PostWithArgs
-        },
-        // Adds an item to the list item collection.
-        addItem: {
-            metadataType: function (obj) { return obj["ListItemEntityTypeFullName"] || "SP.ListItem"; },
-            name: "items",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
-        // Adds a new role assignment with the specified principal and role definitions to the collection.
-        addSiteGroup: {
-            argNames: ["principalid", "roledefid"],
-            name: "roleassignments/addroleassignment",
-            requestType: $REST.Types.RequestType.PostWithArgs
-        },
-        // Adds the folder that is located at the specified URL to the collection.
-        addSubFolder: {
-            argNames: ["url"],
-            name: "folders/add",
-            requestType: $REST.Types.RequestType.PostWithArgs
-        },
-        // Adds a view to the list view collection.
-        addView: {
-            metadataType: "SP.View",
-            name: "views",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
         // Creates unique role assignments for the securable object.
         breakRoleInheritance: {
             argNames: ["copyroleassignments", "clearsubscopes"],
@@ -2586,73 +2455,10 @@ var $REST;
             metadataType: "SP.ChangeQuery",
             requestType: $REST.Types.RequestType.PostWithArgsInBody
         },
-        // Gets a content type by it's name.
-        getContentType: {
-            argNames: ["name"],
-            name: "contenttypes?$filter=Name eq '[[name]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Gets a content type by id.
-        getContentTypeById: {
-            argNames: ["id"],
-            name: "contenttypes/getById([[id]])",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Returns the display form.
-        getDefaultDisplayForm: {
-            name: "forms?$filter=FormType eq 4",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Returns the edit form.
-        getDefaultEditForm: {
-            name: "forms?$filter=FormType eq 6",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Returns the new form.
-        getDefaultNewForm: {
-            name: "forms?$filter=FormType eq 8",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Returns the list form based on the form type.
-        getForm: {
-            argNames: ["formType"],
-            name: "forms?$filter=FormType eq [[formType]]",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Gets the field with the specified ID.
-        getFieldById: {
-            argNames: ["id"],
-            name: "fields/getById",
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
-        },
-        // Returns the first Field object with the specified internal name or title from the collection.
-        getFieldByInternalNameOrTitle: {
-            argNames: ["internalNameOrTitle"],
-            name: "fields/getByInternalNameOrTitle",
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
-        },
-        // Returns the first field object in the collection based on the title of the specified field.
-        getFieldByTitle: {
-            argNames: ["title"],
-            name: "fields/getByTitle",
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
-        },
-        // Get the folder at the specified URL.
-        getSubFolder: {
-            argNames: ["serverRelativeUrl"],
-            name: "rootfolder/folders/getbyurl",
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
-        },
         // Returns an item based on the id.
         getItemById: {
             argNames: ["id"],
             requestType: $REST.Types.RequestType.GetWithArgsValueOnly
-        },
-        // Returns an item based on the title.
-        getItemByTitle: {
-            argNames: ["title"],
-            name: "items?$filter Title eq '[[title]]'",
-            requestType: $REST.Types.RequestType.GetReplace
         },
         // Returns a collection of items from the list based on the view xml.
         getItems: {
@@ -2664,12 +2470,6 @@ var $REST;
                     ViewXml: "[[viewXml]]"
                 }
             }
-        },
-        // Returns a collection of items based on the filter.
-        getItemsByFilter: {
-            argNames: ["filter"],
-            name: "items?$filter=[[filter]]",
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
         },
         // Returns a collection of items from the list based on the specified query.
         getItemsByQuery: {
@@ -2704,12 +2504,6 @@ var $REST;
             argNames: ["viewId"],
             name: "getView",
             requestType: $REST.Types.RequestType.GetWithArgsValueOnly
-        },
-        // Returns the list view with the specified view identifier.
-        getViewByTitle: {
-            argNames: ["title"],
-            name: "views?$filter=Title eq '[[title]]'",
-            requestType: $REST.Types.RequestType.GetReplace
         },
         // Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
         recycle: {
@@ -2759,12 +2553,6 @@ var $REST;
         /*********************************************************************************************************************************/
         // Methods
         /*********************************************************************************************************************************/
-        // Adds the attachment that is represented by the specified file name and byte array to the list item.
-        addAttachment: {
-            argNames: ["name"],
-            name: "attachmentfiles/add",
-            requestType: $REST.Types.RequestType.PostWithArgs
-        },
         // Adds the attachment that is represented by the specified file name and byte array to the list item.
         //{ name: "addAttachmentFile", "function": function (file) { var thisObj = this; var promise = new Promise(); getFileInfo(file).done(function (name, buffer) { if (name && buffer) { thisObj.addAttachment(name, buffer).done(function (file) { promise.resolve(file); }); } else { promise.resolve(); } }); return promise; } },
         // Creates unique role assignments for the securable object.
@@ -3070,12 +2858,6 @@ var $REST;
             metadataType: "SP.ChangeQuery",
             requestType: $REST.Types.RequestType.PostWithArgsInBody
         },
-        // Gets a custom action by it's name or title.
-        getCustomAction: {
-            argNames: ["title"],
-            name: "usercustomactions?$filter=Name eq '[[title]]' or Title eq '[[title]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
         // Specifies the collection of custom list templates for a given site.
         getCustomListTemplates: {
             argNames: ["web"],
@@ -3271,18 +3053,6 @@ var $REST;
         getById: {
             argNames: ["id"],
             requestType: $REST.Types.RequestType.GetWithArgsValueOnly
-        },
-        // Returns the user custom action based on the name of the specified user custom action.
-        getByName: {
-            argNames: ["name"],
-            name: "?filter=Name eq '[[name]]'",
-            requestType: $REST.Types.RequestType.PostReplace
-        },
-        // Returns the user custom action based on the title of the specified user custom action.
-        getByTitle: {
-            argNames: ["title"],
-            name: "?filter=Title eq '[[title]]'",
-            requestType: $REST.Types.RequestType.PostReplace
         },
         // Queries the collection
         query: {
@@ -3540,81 +3310,12 @@ var $REST;
             "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb", "PushNotificationSubscribers", "RecycleBin",
             "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
             "RoleDefinitions|roledefinitions|([Name])|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
-            "SiteGroups|sitegroups|([Name])|group", "SiteUserInfoList", "SiteUsers|users", "ThemeInfo", "TitleResource",
+            "SiteGroups|sitegroups|([Name])|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user", "ThemeInfo", "TitleResource",
             "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
         ],
         /*********************************************************************************************************************************/
         // Methods
         /*********************************************************************************************************************************/
-        // Adds a content type content type collection.
-        addContentType: {
-            metadataType: "SP.ContentType",
-            name: "contenttypes",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
-        // Adds a custom action to the user custom action collection.
-        addCustomAction: {
-            metadataType: "SP.UserCustomAction",
-            name: "usercustomactions",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
-        // Adds an existing content type to content type collection.
-        addExistingContentType: {
-            argNames: ["contentTypeId"],
-            name: "contenttypes/addAvailableContentType",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
-        // Adds a field to it's collection.
-        addField: {
-            metadataType: "SP.Field",
-            name: "fields/add",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
-        // Adds a field, using it's Schema XML, to the field collection.
-        // Set the option to SP.AddFieldOptions.addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
-        addFieldAsXml: {
-            argNames: ["schemaXml"],
-            name: "fields/createFieldAsXml",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody,
-            data: {
-                parameters: {
-                    __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
-                    Options: 8,
-                    SchemaXml: "[[schemaXml]]"
-                }
-            }
-        },
-        // Adds a file to the root folder.
-        addFile: {
-            argNames: ["url", "overwrite"],
-            name: "rootfolder/files/add",
-            requestType: $REST.Types.RequestType.PostWithArgs
-        },
-        // Adds a list to the list collection.
-        addList: {
-            metadataType: "SP.List",
-            name: "lists",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
-        // Adds a permission to the role definitions.
-        addPermission: {
-            metadataType: "SP.RoleDefinition",
-            name: "roledefinitions",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
-        // Adds a site group to the site group collection.
-        addSiteGroup: {
-            argNames: ["Title"],
-            metadataType: "SP.Group",
-            name: "sitegroups",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody,
-        },
-        // Adds a sub-folder to the root folder.
-        addSubFolder: {
-            argNames: ["url"],
-            name: "rootfolder/folders/add",
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
-        },
         // Applies the theme specified by the contents of each of the files specified in the arguments to the site.
         applyTheme: {
             argNames: ["colorpaletteurl", "fontschemeurl", "backgroundimageurl", "sharegenerated"],
@@ -3694,12 +3395,6 @@ var $REST;
             replaceEndpointFl: true,
             requestType: $REST.Types.RequestType.Post
         },
-        // Gets a custom action by it's name or title.
-        getCustomAction: {
-            argNames: ["title"],
-            name: "usercustomactions?$filter=Name eq '[[title]]' or Title eq '[[title]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
         // Gets the custom list templates for the site.
         getCustomListTemplates: {
             requestType: $REST.Types.RequestType.Get
@@ -3715,42 +3410,6 @@ var $REST;
             argNames: ["namespace", "name"],
             requestType: $REST.Types.RequestType.PostWithArgs
         },
-        // Gets a field by it's title, internal name or static name.
-        getField: {
-            argNames: ["title"],
-            name: "fields?$filter=Title eq '[[title]]' or InternalName eq '[[title]]' or StaticName eq '[[title]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Gets a field by it's id.
-        getFieldById: {
-            argNames: ["id"],
-            name: "fields/getById",
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
-        },
-        // Gets a field by it's internal name.
-        getFieldByInternalName: {
-            argNames: ["name"],
-            name: "fields?$filter=InternalName eq '[[name]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Gets a field by it's static name.
-        getFieldByStaticName: {
-            argNames: ["name"],
-            name: "fields?$filter=StaticName eq '[[name]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Gets a field by it's title.
-        getFieldByTitle: {
-            argNames: ["title"],
-            name: "fields?$filter=Title eq '[[title]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Gets a file by it's name, in the root folder.
-        getFile: {
-            argNames: ["name"],
-            name: "rootfolder/files?$filter=Name eq '[[name]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
         // Returns the file object located at the specified server-relative URL.
         getFileByServerRelativeUrl: {
             argNames: ["url"],
@@ -3764,18 +3423,6 @@ var $REST;
         // Gets the list at the specified site-relative URL. (SharePoint Online only)
         getList: {
             argNames: ["url"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
-        },
-        // Gets a list by it's id.
-        getListById: {
-            argNames: ["id"],
-            name: "lists/getById",
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
-        },
-        // Gets the list for the specified title
-        getListByTitle: {
-            argNames: ["title"],
-            name: "lists/getByTitle",
             requestType: $REST.Types.RequestType.GetWithArgsValueOnly
         },
         // Gets the push notification subscriber over the site for the specified device application instance ID.
@@ -3793,44 +3440,14 @@ var $REST;
             argNames: ["loginName"],
             requestType: $REST.Types.RequestType.GetWithArgsInQS
         },
-        // Gets a sub-folder by it's name, from the root folder.
-        getSubFolder: {
-            argNames: ["name"],
-            name: "rootfolder/folders?$filter=Name eq '[[name]]'",
-            requestType: $REST.Types.RequestType.GetReplace
-        },
-        // Gets a site group by it's id.
-        getSiteGroupById: {
-            argNames: ["id"],
-            name: "sitegroups/getById",
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
-        },
-        // Gets a site group by it's name.
-        getSiteGroupByName: {
-            argNames: ["name"],
-            name: "sitegroups/getByName",
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
-        },
         // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
         getSubwebsFilteredForCurrentUser: {
             argNames: ["nwebtemplatefilter", "nconfigurationfilter"],
             requestType: $REST.Types.RequestType.GetWithArgs
         },
-        // Gets a user by login name.
-        getUserByEmail: {
-            argNames: ["email"],
-            name: "siteusers/getByEmail",
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
-        },
         // Returns the user corresponding to the specified member identifier for the current site.
         getUserById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
-        },
-        // Gets a user by login name.
-        getUserByLogin: {
-            argNames: ["loginName"],
-            name: "siteusers/getByLoginName",
             requestType: $REST.Types.RequestType.GetWithArgsValueOnly
         },
         // Gets the effective permissions that the specified user has within the current application scope.
