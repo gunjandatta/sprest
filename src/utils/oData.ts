@@ -55,7 +55,7 @@ module $REST.Utils {
             values.push(this.getQSValue("$orderby", this._orderBy));
             this._top ? values.push("$top=" + this._top) : null;
             this._skip ? values.push("$skip=" + this._skip) : null;
-            this._filter ? values.push("$filter=", this._filter) : null;
+            this._filter ? values.push("$filter=" + this._filter) : null;
             values.push(this.getQSValue("$expand", this._expand));
 
             // Parse the values
