@@ -138,9 +138,10 @@ var $REST;
         };
         // Method to execute a method
         Base.prototype.executeMethod = function (methodName, methodConfig, args) {
+            var baseObj = this.request == null && this.parent && this.parent.request ? this.parent : this;
             var targetInfo = null;
             // See if the metadata is defined for this object
-            var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
+            var metadata = baseObj["d"] ? baseObj["d"].__metadata : baseObj["__metadata"];
             if (metadata && metadata.uri) {
                 // Create the target information and use the url defined for this object
                 targetInfo = {
@@ -152,11 +153,11 @@ var $REST;
                     methodConfig.metadataType = metadata.type;
                 }
                 // Update the metadata uri
-                this.updateMetadataUri(metadata, targetInfo);
+                baseObj.updateMetadataUri(metadata, targetInfo);
             }
             else {
                 // Copy the target information
-                targetInfo = Object.create(this.targetInfo);
+                targetInfo = Object.create(baseObj.targetInfo);
             }
             // Get the method information
             var methodInfo = new $REST.Utils.MethodInfo(methodName, methodConfig, args);
@@ -176,7 +177,7 @@ var $REST;
             // Create a new object
             var obj = new Base(targetInfo);
             // Set the parent and request type
-            obj.parent = this;
+            obj.parent = baseObj;
             obj.requestType = methodConfig.requestType;
             // Add the methods
             methodConfig.returnType ? obj.addMethods(obj, { __metadata: { type: methodConfig.returnType } }) : null;
