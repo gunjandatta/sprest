@@ -141,7 +141,7 @@ var $REST;
             var baseObj = this.request == null && this.parent && this.parent.request ? this.parent : this;
             var targetInfo = null;
             // See if the metadata is defined for this object
-            var metadata = baseObj["d"] ? baseObj["d"].__metadata : baseObj["__metadata"];
+            var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
             if (metadata && metadata.uri) {
                 // Create the target information and use the url defined for this object
                 targetInfo = {
@@ -177,7 +177,7 @@ var $REST;
             // Create a new object
             var obj = new Base(targetInfo);
             // Set the parent and request type
-            obj.parent = baseObj;
+            obj.parent = this;
             obj.requestType = methodConfig.requestType;
             // Add the methods
             methodConfig.returnType ? obj.addMethods(obj, { __metadata: { type: methodConfig.returnType } }) : null;
