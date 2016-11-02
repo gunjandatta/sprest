@@ -61,8 +61,13 @@ module $REST {
             return this.executeRequest(!syncFl, () => {
                 // Wait for the responses to complete
                 this.waitForRequestsToComplete(() => {
+                    let responses = this.base.responses;
+
+                    // Clear the responses
+                    this.base.responses = [];
+
                     // Resolve the promise
-                    this.promise.resolve.apply(this.promise, this.base.responses);
+                    this.promise.resolve.apply(this.promise, responses);
                 });
             });
         }

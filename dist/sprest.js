@@ -46,8 +46,11 @@ var $REST;
             return this.executeRequest(!syncFl, function () {
                 // Wait for the responses to complete
                 _this.waitForRequestsToComplete(function () {
+                    var responses = _this.base.responses;
+                    // Clear the responses
+                    _this.base.responses = [];
                     // Resolve the promise
-                    _this.promise.resolve.apply(_this.promise, _this.base.responses);
+                    _this.promise.resolve.apply(_this.promise, responses);
                 });
             });
         };
