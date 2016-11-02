@@ -35,6 +35,8 @@ $REST.DefaultRequestToHostWebFl = true;
 ### Asynchronous/Synchronous requests
 The 'execute' method determines if the request should be executed asynchronously or synchronously. By default, all requests will be executed asynchronously, unless overridden by the developer.
 
+The 'next' method allows you to create multiple requests to the base object.
+
 #### Examples
 _**Asynchronous Request**_
 ```
@@ -51,6 +53,32 @@ _**Synchronous Request**_
 var web = (new $REST.Web())
     // Set the flag to execute the request synchronously
     .execute(true);
+```
+
+_**Multiple Asynchronous Requests**_
+```
+// Get the current web
+(new $REST.Web())
+    // Get the Field Collection
+    .Fields()
+    // Query for all fields with the name of 'Title'
+    .query({
+        Filter: "Title eq 'Title'"
+    })
+    // Execute this request
+    .next()
+    // Get the 'Dev' List
+    .Lists("Dev")
+    // Get the items
+    .Items()
+    // Execute this request
+    .next()
+    // Get root folders
+    .Folders()
+    // Execute the request
+    .execute(function(fields, items, folders) {
+        // This code will execute after all requests have completed
+    });
 ```
 
 ### Fewer Requests to the Server

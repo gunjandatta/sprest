@@ -395,6 +395,11 @@ declare module $REST.Types {
         getViewById(viewId): IView;
 
         /**
+         * Method to execute the request.
+         */
+        next(): IList;
+
+        /**
          * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
          */
         recycle(): any;

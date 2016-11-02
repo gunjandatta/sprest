@@ -45,8 +45,8 @@ module $REST {
             let callback = typeof(arg) === "boolean" ? null : arg;
             let syncFl = typeof(arg) === "boolean" ? arg : false;
 
-            // Set the execute request flag
-            this.executeRequiredFl = true;
+            // Add this object to the responses
+            this.base.responses.push(this);
 
             // See if this is a synchronous request
             if(syncFl) {
@@ -54,25 +54,49 @@ module $REST {
                 return this.executeRequest(!syncFl, callback);
             }
 
+            // Create the promise
+            this.promise = new Utils.Promise(callback || this.targetInfo.callback);
+
             // Execute this request
-            return this.executeRequest(!syncFl, callback);
+            return this.executeRequest(!syncFl, () => {
+                // Wait for the responses to complete
+                this.waitForRequestsToComplete(() => {
+                    // Resolve the promise
+                    this.promise.resolve.apply(this.promise, this.base.responses);
+                });
+            });
+        }
+
+        // Method to execute this method before the next method executes
+        public next() {
+            // Add this object to the responses
+            this.base.responses.push(this);
+
+            // Execute the request
+            this.executeRequest(true, null);
+
+            // Return the base object
+            return this.base;
         }
 
         /*********************************************************************************************************************************/
         // Private Variables
         /*********************************************************************************************************************************/
 
+        // The base object
+        private base:Base;
+
         // Flag to default the url to the current web url, site otherwise
         protected defaultToWebFl:boolean;
-
-        // Flag to require this request to be executed, for chaining the methods
-        private executeRequiredFl:boolean;
 
         // The promise
         private promise:Utils.Promise;
 
         // The request
         protected request:Utils.Request;
+
+        // The responses
+        protected responses:Array<Base>;
 
         // The base settings
         protected targetInfo:Settings.TargetInfoSettings;
@@ -236,7 +260,8 @@ module $REST {
             // Create a new object
             let obj = new Base(targetInfo);
 
-            // Set the parent and request type
+            // Set the properties
+            obj.base = this.base ? this.base : this;
             obj.parent = this;
             obj.requestType = methodConfig.requestType;
 
@@ -248,27 +273,24 @@ module $REST {
         }
 
         // Method to execute the request
-        protected executeRequest(asyncFl: boolean, callback:any) {
-            // See if an execution is required
-            if(this.executeRequiredFl) {
-                // See if this is an asynchronous request
-                if(asyncFl) {
-                    // Create a promise
-                    this.promise = new Utils.Promise(callback || this.targetInfo.callback);
+        protected executeRequest(asyncFl: boolean, callback?:() => void) {
+            // See if this is an asynchronous request
+            if(asyncFl) {
+                // Create the request
+                this.request = new Utils.Request(asyncFl, new Utils.TargetInfo(this.targetInfo), () => {
+                    // Update this data object
+                    this.updateDataObject();
 
-                    // Create the request
-                    this.request = new Utils.Request(asyncFl, new Utils.TargetInfo(this.targetInfo), () => {
-                        // Update this data object
-                        this.updateDataObject();
-                    });
-                }
-                else {
-                    // Create the request
-                    this.request = new Utils.Request(asyncFl, new Utils.TargetInfo(this.targetInfo));
+                    // Execute the callback
+                    callback ? callback() : null;
+                });
+            }
+            else {
+                // Create the request
+                this.request = new Utils.Request(asyncFl, new Utils.TargetInfo(this.targetInfo));
 
-                    // Update this data object and return it
-                    return this.updateDataObject() || this;
-                }
+                // Update this data object and return it
+                return this.updateDataObject() || this;
             }
         }
 
@@ -300,7 +322,8 @@ module $REST {
             // Create a new object
             let obj = new Base(targetInfo);
 
-            // Set the parent
+            // Set the properties
+            obj.base = this.base ? this.base : this;
             obj.parent = this;
 
             // Return the object
@@ -332,7 +355,8 @@ module $REST {
             // Create a new object
             let obj = new Base(targetInfo);
 
-            // Set the parent
+            // Set the properties
+            obj.base = this.base ? this.base : this;
             obj.parent = this;
 
             // Add the methods
@@ -428,9 +452,6 @@ module $REST {
                     }
                 }
             }
-
-            // Resolve the promise
-            this.promise ? this.promise.resolve(this) : null;
         }
 
         // Method to update the metadata
@@ -462,6 +483,26 @@ module $REST {
                 // Fix the uri reference
                 targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
             }
+        }
+
+        // Method to wait for the parent requests to complete
+        private waitForRequestsToComplete(callback:() => void) {
+            // Loop until the requests have completed
+            let intervalId = window.setInterval(() => {
+                // See if the requests have completed
+                for(let response of this.base.responses) {
+                    // Return if the request hasn't completed
+                    if(response.request == null || !response.request.completedFl) {
+                        return;
+                    }
+                }
+
+                // Clear the interval
+                window.clearInterval(intervalId);
+
+                // Execute the callback
+                callback();
+            }, 10);
         }
     }
 }

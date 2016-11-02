@@ -22,6 +22,9 @@ module $REST.Utils {
         // Public Properties
         /*********************************************************************************************************************************/
 
+        // Flag indicating the request has completed
+        public get completedFl():boolean { return this.xhr ? this.xhr.readyState == 4 : false; }
+
         // The response
         public get response():any { return this.xhr ? this.xhr.response : null; }
 

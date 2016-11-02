@@ -30,17 +30,35 @@ var $REST;
         /*********************************************************************************************************************************/
         // Method to execute a child request
         Base.prototype.execute = function (arg) {
+            var _this = this;
             var callback = typeof (arg) === "boolean" ? null : arg;
             var syncFl = typeof (arg) === "boolean" ? arg : false;
-            // Set the execute request flag
-            this.executeRequiredFl = true;
+            // Add this object to the responses
+            this.base.responses.push(this);
             // See if this is a synchronous request
             if (syncFl) {
                 // Execute this request
                 return this.executeRequest(!syncFl, callback);
             }
+            // Create the promise
+            this.promise = new $REST.Utils.Promise(callback || this.targetInfo.callback);
             // Execute this request
-            return this.executeRequest(!syncFl, callback);
+            return this.executeRequest(!syncFl, function () {
+                // Wait for the responses to complete
+                _this.waitForRequestsToComplete(function () {
+                    // Resolve the promise
+                    _this.promise.resolve.apply(_this.promise, _this.base.responses);
+                });
+            });
+        };
+        // Method to execute this method before the next method executes
+        Base.prototype.next = function () {
+            // Add this object to the responses
+            this.base.responses.push(this);
+            // Execute the request
+            this.executeRequest(true, null);
+            // Return the base object
+            return this.base;
         };
         /*********************************************************************************************************************************/
         // Private Methods
@@ -176,7 +194,8 @@ var $REST;
             }
             // Create a new object
             var obj = new Base(targetInfo);
-            // Set the parent and request type
+            // Set the properties
+            obj.base = this.base ? this.base : this;
             obj.parent = this;
             obj.requestType = methodConfig.requestType;
             // Add the methods
@@ -187,24 +206,21 @@ var $REST;
         // Method to execute the request
         Base.prototype.executeRequest = function (asyncFl, callback) {
             var _this = this;
-            // See if an execution is required
-            if (this.executeRequiredFl) {
-                // See if this is an asynchronous request
-                if (asyncFl) {
-                    // Create a promise
-                    this.promise = new $REST.Utils.Promise(callback || this.targetInfo.callback);
-                    // Create the request
-                    this.request = new $REST.Utils.Request(asyncFl, new $REST.Utils.TargetInfo(this.targetInfo), function () {
-                        // Update this data object
-                        _this.updateDataObject();
-                    });
-                }
-                else {
-                    // Create the request
-                    this.request = new $REST.Utils.Request(asyncFl, new $REST.Utils.TargetInfo(this.targetInfo));
-                    // Update this data object and return it
-                    return this.updateDataObject() || this;
-                }
+            // See if this is an asynchronous request
+            if (asyncFl) {
+                // Create the request
+                this.request = new $REST.Utils.Request(asyncFl, new $REST.Utils.TargetInfo(this.targetInfo), function () {
+                    // Update this data object
+                    _this.updateDataObject();
+                    // Execute the callback
+                    callback ? callback() : null;
+                });
+            }
+            else {
+                // Create the request
+                this.request = new $REST.Utils.Request(asyncFl, new $REST.Utils.TargetInfo(this.targetInfo));
+                // Update this data object and return it
+                return this.updateDataObject() || this;
             }
         };
         // Method to return a collection
@@ -229,7 +245,8 @@ var $REST;
             targetInfo.callback = args && typeof (args[0]) === "function" ? args[0] : null;
             // Create a new object
             var obj = new Base(targetInfo);
-            // Set the parent
+            // Set the properties
+            obj.base = this.base ? this.base : this;
             obj.parent = this;
             // Return the object
             return obj;
@@ -254,7 +271,8 @@ var $REST;
             }
             // Create a new object
             var obj = new Base(targetInfo);
-            // Set the parent
+            // Set the properties
+            obj.base = this.base ? this.base : this;
             obj.parent = this;
             // Add the methods
             requestType ? this.addMethods(obj, { __metadata: { type: requestType } }) : null;
@@ -334,8 +352,6 @@ var $REST;
                     }
                 }
             }
-            // Resolve the promise
-            this.promise ? this.promise.resolve(this) : null;
         };
         // Method to update the metadata
         Base.prototype.updateMetadata = function (data) {
@@ -365,6 +381,25 @@ var $REST;
                 // Fix the uri reference
                 targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
             }
+        };
+        // Method to wait for the parent requests to complete
+        Base.prototype.waitForRequestsToComplete = function (callback) {
+            var _this = this;
+            // Loop until the requests have completed
+            var intervalId = window.setInterval(function () {
+                // See if the requests have completed
+                for (var _i = 0, _a = _this.base.responses; _i < _a.length; _i++) {
+                    var response = _a[_i];
+                    // Return if the request hasn't completed
+                    if (response.request == null || !response.request.completedFl) {
+                        return;
+                    }
+                }
+                // Clear the interval
+                window.clearInterval(intervalId);
+                // Execute the callback
+                callback();
+            }, 10);
         };
         return Base;
     }());
@@ -1416,10 +1451,16 @@ var $REST;
                 // Execute the request
                 this.execute();
             }
-            Object.defineProperty(Request.prototype, "response", {
+            Object.defineProperty(Request.prototype, "completedFl", {
                 /*********************************************************************************************************************************/
                 // Public Properties
                 /*********************************************************************************************************************************/
+                // Flag indicating the request has completed
+                get: function () { return this.xhr ? this.xhr.readyState == 4 : false; },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(Request.prototype, "response", {
                 // The response
                 get: function () { return this.xhr ? this.xhr.response : null; },
                 enumerable: true,
@@ -2336,6 +2377,7 @@ var $REST;
             _super.call(this, targetInfo);
             // Default the properties
             this.defaultToWebFl = true;
+            this.responses = [];
             this.targetInfo.endpoint = "lists/getByTitle('" + listName + "')";
             // Add the methods
             this.addMethods(this, { __metadata: { type: "list" } });
@@ -2712,6 +2754,7 @@ var $REST;
             _super.call(this, targetInfo);
             // Default the properties
             this.defaultToWebFl = true;
+            this.responses = [];
             this.targetInfo.endpoint = "site";
             // See if the web url exists
             if (url) {
@@ -3176,6 +3219,7 @@ var $REST;
             _super.call(this, targetInfo);
             // Default the properties
             this.defaultToWebFl = true;
+            this.responses = [];
             this.targetInfo.endpoint = "web";
             // See if the web url exists
             if (url) {

@@ -574,6 +574,11 @@ declare module $REST.Types {
         mapToIcon(filename, progid, size): any;
 
         /**
+         * Method to execute the request.
+         */
+        next(): IWeb;
+        
+        /**
          * Processes a notification from an external system.
          * @param stream - The notification message from the external system.
          */

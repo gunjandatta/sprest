@@ -13,6 +13,7 @@ module $REST {
 
             // Default the properties
             this.defaultToWebFl = true;
+            this.responses = [];
             this.targetInfo.endpoint = "web";
 
             // See if the web url exists

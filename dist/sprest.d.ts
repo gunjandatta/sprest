@@ -2919,6 +2919,11 @@ declare module $REST.Types {
         getViewById(viewId): IView;
 
         /**
+         * Method to execute the request.
+         */
+        next(): IList;
+
+        /**
          * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
          */
         recycle(): any;
@@ -3556,6 +3561,11 @@ declare module $REST.Types {
          * @param recursive - If true, child upgradable objects will be inspected; otherwise false.
          */
         needsUpgradeByType(versionUpgrade, recursive): any;
+
+        /**
+         * Method to execute the request.
+         */
+        next(): ISite;
         
         /**
          * Returns the site at the specified URL.
@@ -4841,6 +4851,11 @@ declare module $REST.Types {
          */
         mapToIcon(filename, progid, size): any;
 
+        /**
+         * Method to execute the request.
+         */
+        next(): IWeb;
+        
         /**
          * Processes a notification from an external system.
          * @param stream - The notification message from the external system.

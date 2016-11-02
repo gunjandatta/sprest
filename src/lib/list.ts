@@ -13,6 +13,7 @@ module $REST {
 
             // Default the properties
             this.defaultToWebFl = true;
+            this.responses = [];
             this.targetInfo.endpoint = "lists/getByTitle('" + listName + "')";
 
             // Add the methods

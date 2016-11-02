@@ -181,6 +181,11 @@ declare module $REST.Types {
          * @param recursive - If true, child upgradable objects will be inspected; otherwise false.
          */
         needsUpgradeByType(versionUpgrade, recursive): any;
+
+        /**
+         * Method to execute the request.
+         */
+        next(): ISite;
         
         /**
          * Returns the site at the specified URL.
