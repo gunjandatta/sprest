@@ -8,6 +8,11 @@ declare module $REST.Types {
          */
 
         /**
+         * Get the attachment collection.
+         */
+        AttachmentFiles(): IAttachmentFiles;
+
+        /**
          * Gets a value that specifies the content type of the list item.
          */
         ContentType(): IContentType;
