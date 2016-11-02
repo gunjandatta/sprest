@@ -27,5 +27,20 @@ declare module $REST.Types {
          * @param syncFl - Flag to execute the request synchronously
          */
         execute(syncFl:boolean): any;
+
+        /**
+         * Method to execute the request, and return the base list object.
+         */
+        next<IList>(): IList;
+
+        /**
+         * Method to execute the request, and return the base site object.
+         */
+        next<ISite>(): ISite;
+
+        /**
+         * Method to execute the request, and return the base web object.
+         */
+        next<IWeb>(): IWeb;
     }
 }

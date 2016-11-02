@@ -46,7 +46,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IFileVersion) => void): IFileVersion;
+        execute(callback?:(...args) => void): IFileVersion;
 
         /**
          * Method to execute the request.

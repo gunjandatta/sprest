@@ -29,7 +29,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IUserCustomActions) => void): IUserCustomActions;
+        execute(callback?:(...args) => void): IUserCustomActions;
 
         /**
          * Method to execute the request.

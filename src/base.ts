@@ -68,7 +68,7 @@ module $REST {
         }
 
         // Method to execute this method before the next method executes
-        public next() {
+        public next(): Base {
             // Add this object to the responses
             this.base.responses.push(this);
 

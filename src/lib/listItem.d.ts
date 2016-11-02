@@ -100,7 +100,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IListItem) => void): IListItem;
+        execute(callback?:(...args) => void): IListItem;
 
         /**
          * Method to execute the request.

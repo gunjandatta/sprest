@@ -339,7 +339,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IList) => void): IList;
+        execute(callback?:(...args) => void): IList;
 
         /**
          * Method to execute the request.
@@ -393,11 +393,6 @@ declare module $REST.Types {
          * @param viewId - The view id.
          */
         getViewById(viewId): IView;
-
-        /**
-         * Method to execute the request.
-         */
-        next(): IList;
 
         /**
          * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.

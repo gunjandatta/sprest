@@ -24,7 +24,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IListItems) => void): IListItems;
+        execute(callback?:(...args) => void): IListItems;
 
         /**
          * Method to execute the request.

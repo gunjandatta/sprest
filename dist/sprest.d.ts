@@ -87,6 +87,21 @@ declare module $REST.Types {
          * @param syncFl - Flag to execute the request synchronously
          */
         execute(syncFl:boolean): any;
+
+        /**
+         * Method to execute the request, and return the base list object.
+         */
+        next<IList>(): IList;
+
+        /**
+         * Method to execute the request, and return the base site object.
+         */
+        next<ISite>(): ISite;
+
+        /**
+         * Method to execute the request, and return the base web object.
+         */
+        next<IWeb>(): IWeb;
     }
 }
 
@@ -1189,7 +1204,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IAttachmentFiles) => void): IAttachmentFiles;
+        execute(callback?:(...args) => void): IAttachmentFiles;
 
         /**
          * Method to execute the request.
@@ -1317,7 +1332,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IContentType) => void): IContentType;
+        execute(callback?:(...args) => void): IContentType;
 
         /**
          * Method to execute the request.
@@ -1366,7 +1381,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IContentTypes) => void): IContentTypes;
+        execute(callback?:(...args) => void): IContentTypes;
 
         /**
          * Method to execute the request.
@@ -1480,7 +1495,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IEventReceiver) => void): IEventReceiver;
+        execute(callback?:(...args) => void): IEventReceiver;
 
         /**
          * Method to execute the request.
@@ -1522,7 +1537,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IEventReceivers) => void): IEventReceivers;
+        execute(callback?:(...args) => void): IEventReceivers;
 
         /**
          * Method to execute the request.
@@ -1650,7 +1665,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IField) => void): IField;
+        execute(callback?:(...args) => void): IField;
 
         /**
          * Method to execute the request.
@@ -1710,7 +1725,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IFieldLinks) => void): IFieldLinks;
+        execute(callback?:(...args) => void): IFieldLinks;
 
         /**
          * Method to execute the request.
@@ -1779,7 +1794,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IFields) => void): IFields;
+        execute(callback?:(...args) => void): IFields;
 
         /**
          * Method to execute the request.
@@ -1970,7 +1985,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IFile) => void): IFile;
+        execute(callback?:(...args) => void): IFile;
 
         /**
          * Method to execute the request.
@@ -2085,7 +2100,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IFiles) => void): IFiles;
+        execute(callback?:(...args) => void): IFiles;
 
         /**
          * Method to execute the request.
@@ -2155,7 +2170,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IFileVersion) => void): IFileVersion;
+        execute(callback?:(...args) => void): IFileVersion;
 
         /**
          * Method to execute the request.
@@ -2185,7 +2200,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IFileVersions) => void): IFileVersions;
+        execute(callback?:(...args) => void): IFileVersions;
 
         /**
          * Method to execute the request.
@@ -2278,7 +2293,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IFolder) => void): IFolder;
+        execute(callback?:(...args) => void): IFolder;
 
         /**
          * Method to execute the request.
@@ -2331,7 +2346,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IFolders) => void): IFolders;
+        execute(callback?:(...args) => void): IFolders;
 
         /**
          * Method to execute the request.
@@ -2439,7 +2454,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IGroup) => void): IGroup;
+        execute(callback?:(...args) => void): IGroup;
 
         /**
          * Method to execute the request.
@@ -2475,7 +2490,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IListItems) => void): IListItems;
+        execute(callback?:(...args) => void): IListItems;
 
         /**
          * Method to execute the request.
@@ -2506,7 +2521,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(ILimitedWebPartManager) => void): ILimitedWebPartManager;
+        execute(callback?:(...args) => void): ILimitedWebPartManager;
 
         /**
          * Method to execute the request.
@@ -2863,7 +2878,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IList) => void): IList;
+        execute(callback?:(...args) => void): IList;
 
         /**
          * Method to execute the request.
@@ -2917,11 +2932,6 @@ declare module $REST.Types {
          * @param viewId - The view id.
          */
         getViewById(viewId): IView;
-
-        /**
-         * Method to execute the request.
-         */
-        next(): IList;
 
         /**
          * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
@@ -3064,7 +3074,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IListItem) => void): IListItem;
+        execute(callback?:(...args) => void): IListItem;
 
         /**
          * Method to execute the request.
@@ -3139,7 +3149,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(ILists) => void): ILists;
+        execute(callback?:(...args) => void): ILists;
 
         /**
          * Method to execute the request.
@@ -3204,7 +3214,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IRoleAssignment) => void): IRoleAssignment;
+        execute(callback?:(...args) => void): IRoleAssignment;
 
         /**
          * Method to execute the request.
@@ -3241,7 +3251,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IRoleAssignments) => void): IRoleAssignments;
+        execute(callback?:(...args) => void): IRoleAssignments;
 
         /**
          * Method to execute the request.
@@ -3313,7 +3323,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IRoleDefinition) => void): IRoleDefinition;
+        execute(callback?:(...args) => void): IRoleDefinition;
 
         /**
          * Method to execute the request.
@@ -3343,7 +3353,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IRoleDefinitions) => void): IRoleDefinitions;
+        execute(callback?:(...args) => void): IRoleDefinitions;
 
         /**
          * Method to execute the request.
@@ -3517,7 +3527,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(ISite) => void): ISite;
+        execute(callback?:(...args) => void): ISite;
 
         /**
          * Method to execute the request.
@@ -3561,11 +3571,6 @@ declare module $REST.Types {
          * @param recursive - If true, child upgradable objects will be inspected; otherwise false.
          */
         needsUpgradeByType(versionUpgrade, recursive): any;
-
-        /**
-         * Method to execute the request.
-         */
-        next(): ISite;
         
         /**
          * Returns the site at the specified URL.
@@ -3629,7 +3634,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(ISiteGroups) => void): ISiteGroups;
+        execute(callback?:(...args) => void): ISiteGroups;
 
         /**
          * Method to execute the request.
@@ -3729,7 +3734,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IUser) => void): IUser;
+        execute(callback?:(...args) => void): IUser;
 
         /**
          * Method to execute the request.
@@ -3812,7 +3817,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IUserCustomAction) => void): IUserCustomAction;
+        execute(callback?:(...args) => void): IUserCustomAction;
 
         /**
          * Method to execute the request.
@@ -3853,7 +3858,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IUserCustomActions) => void): IUserCustomActions;
+        execute(callback?:(...args) => void): IUserCustomActions;
 
         /**
          * Method to execute the request.
@@ -3896,7 +3901,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IUsers) => void): IUsers;
+        execute(callback?:(...args) => void): IUsers;
 
         /**
          * Method to execute the request.
@@ -3976,7 +3981,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IVersions) => void): IVersions;
+        execute(callback?:(...args) => void): IVersions;
 
         /**
          * Method to execute the request.
@@ -4136,7 +4141,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IView) => void): IView;
+        execute(callback?:(...args) => void): IView;
 
         /**
          * Method to execute the request.
@@ -4189,7 +4194,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IViewFields) => void): IViewFields;
+        execute(callback?:(...args) => void): IViewFields;
 
         /**
          * Method to execute the request.
@@ -4248,7 +4253,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IViews) => void): IViews;
+        execute(callback?:(...args) => void): IViews;
 
         /**
          * Method to execute the request.
@@ -4683,7 +4688,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IWeb) => void): IWeb;
+        execute(callback?:(...args) => void): IWeb;
 
         /**
          * Method to execute the request.
@@ -4850,11 +4855,6 @@ declare module $REST.Types {
          * @param size - The size of the icon: 16x16 pixels = 0, 32x32 pixels = 1.
          */
         mapToIcon(filename, progid, size): any;
-
-        /**
-         * Method to execute the request.
-         */
-        next(): IWeb;
         
         /**
          * Processes a notification from an external system.
@@ -4914,7 +4914,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IWebs) => void): IWebs;
+        execute(callback?:(...args) => void): IWebs;
 
         /**
          * Method to execute the request.

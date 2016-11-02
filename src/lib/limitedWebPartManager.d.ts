@@ -7,7 +7,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(ILimitedWebPartManager) => void): ILimitedWebPartManager;
+        execute(callback?:(...args) => void): ILimitedWebPartManager;
 
         /**
          * Method to execute the request.

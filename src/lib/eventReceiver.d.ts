@@ -44,7 +44,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IEventReceiver) => void): IEventReceiver;
+        execute(callback?:(...args) => void): IEventReceiver;
 
         /**
          * Method to execute the request.

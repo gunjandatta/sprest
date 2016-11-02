@@ -136,7 +136,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IView) => void): IView;
+        execute(callback?:(...args) => void): IView;
 
         /**
          * Method to execute the request.

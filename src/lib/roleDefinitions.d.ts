@@ -18,7 +18,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IRoleDefinitions) => void): IRoleDefinitions;
+        execute(callback?:(...args) => void): IRoleDefinitions;
 
         /**
          * Method to execute the request.

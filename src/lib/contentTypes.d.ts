@@ -31,7 +31,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IContentTypes) => void): IContentTypes;
+        execute(callback?:(...args) => void): IContentTypes;
 
         /**
          * Method to execute the request.

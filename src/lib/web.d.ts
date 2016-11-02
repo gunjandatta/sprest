@@ -405,7 +405,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(IWeb) => void): IWeb;
+        execute(callback?:(...args) => void): IWeb;
 
         /**
          * Method to execute the request.
@@ -572,11 +572,6 @@ declare module $REST.Types {
          * @param size - The size of the icon: 16x16 pixels = 0, 32x32 pixels = 1.
          */
         mapToIcon(filename, progid, size): any;
-
-        /**
-         * Method to execute the request.
-         */
-        next(): IWeb;
         
         /**
          * Processes a notification from an external system.

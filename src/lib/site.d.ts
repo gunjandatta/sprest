@@ -137,7 +137,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
-        execute(callback?:(ISite) => void): ISite;
+        execute(callback?:(...args) => void): ISite;
 
         /**
          * Method to execute the request.
@@ -181,11 +181,6 @@ declare module $REST.Types {
          * @param recursive - If true, child upgradable objects will be inspected; otherwise false.
          */
         needsUpgradeByType(versionUpgrade, recursive): any;
-
-        /**
-         * Method to execute the request.
-         */
-        next(): ISite;
         
         /**
          * Returns the site at the specified URL.
