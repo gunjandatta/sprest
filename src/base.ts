@@ -73,12 +73,12 @@ module $REST {
         }
 
         // Method to execute this method before the next method executes
-        public next(): Base {
+        public next(callback?:(...args) => void): Base {
             // Add this object to the responses
             this.base.responses.push(this);
 
             // Execute the request
-            this.executeRequest(true, null);
+            this.executeRequest(true, callback);
 
             // Return the base object
             return this.base;
@@ -278,7 +278,7 @@ module $REST {
         }
 
         // Method to execute the request
-        protected executeRequest(asyncFl: boolean, callback?:() => void) {
+        protected executeRequest(asyncFl: boolean, callback?:(...args) => void) {
             // See if this is an asynchronous request
             if(asyncFl) {
                 // Create the request
@@ -287,7 +287,7 @@ module $REST {
                     this.updateDataObject();
 
                     // Execute the callback
-                    callback ? callback() : null;
+                    callback ? callback(this) : null;
                 });
             }
             else {

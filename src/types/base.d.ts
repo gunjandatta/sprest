@@ -31,16 +31,16 @@ declare module $REST.Types {
         /**
          * Method to execute the request, and return the base list object.
          */
-        next<IList>(): IList;
+        next<IList>(callback?:(...args) => void): IList;
 
         /**
          * Method to execute the request, and return the base site object.
          */
-        next<ISite>(): ISite;
+        next<ISite>(callback?:(...args) => void): ISite;
 
         /**
          * Method to execute the request, and return the base web object.
          */
-        next<IWeb>(): IWeb;
+        next<IWeb>(callback?:(...args) => void): IWeb;
     }
 }

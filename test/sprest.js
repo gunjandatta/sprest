@@ -55,11 +55,11 @@ var $REST;
             });
         };
         // Method to execute this method before the next method executes
-        Base.prototype.next = function () {
+        Base.prototype.next = function (callback) {
             // Add this object to the responses
             this.base.responses.push(this);
             // Execute the request
-            this.executeRequest(true, null);
+            this.executeRequest(true, callback);
             // Return the base object
             return this.base;
         };
@@ -216,7 +216,7 @@ var $REST;
                     // Update this data object
                     _this.updateDataObject();
                     // Execute the callback
-                    callback ? callback() : null;
+                    callback ? callback(_this) : null;
                 });
             }
             else {
