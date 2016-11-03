@@ -240,7 +240,7 @@ module $REST {
             }
             else {
                 // Copy the target information
-                targetInfo = Object.create(baseObj.targetInfo);
+                targetInfo = Object.create(this.targetInfo);
             }
 
             // Get the method information
