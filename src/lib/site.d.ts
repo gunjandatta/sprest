@@ -109,7 +109,7 @@ declare module $REST.Types {
         /**
          * Gets the user custom action for the list.
          */
-        UserCustomAction(): IUserCustomActions;
+        UserCustomActions(): IUserCustomActions;
 
         /**
          * Gets the user custom action(s) for the list.
