@@ -109,17 +109,20 @@ var $REST;
                             var propType = propInfo.length > 1 ? propInfo[1] : null;
                             var subPropName = propInfo.length > 2 ? propInfo[2] : null;
                             var subPropType = propInfo.length > 3 ? propInfo[3] : null;
-                            // See if this property has a sub-property defined for it
-                            if (propInfo.length == 4) {
-                                // Update the ' char in the property name
-                                subPropName = subPropName.replace(/'/g, "\\'");
-                                // Add the property
-                                obj[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
-                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
-                            }
-                            else {
-                                // Add the property
-                                obj[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
+                            // See if the property is null or is a collection
+                            if (obj[propName] == null || (obj[propName].__deferred && obj[propName].__deferred.uri)) {
+                                // See if this property has a sub-property defined for it
+                                if (propInfo.length == 4) {
+                                    // Update the ' char in the property name
+                                    subPropName = subPropName.replace(/'/g, "\\'");
+                                    // Add the property
+                                    obj[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
+                                        "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
+                                }
+                                else {
+                                    // Add the property
+                                    obj[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
+                                }
                             }
                         }
                         // Continue the loop
