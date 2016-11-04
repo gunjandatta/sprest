@@ -159,7 +159,6 @@ var $REST;
         };
         // Method to execute a method
         Base.prototype.executeMethod = function (methodName, methodConfig, args) {
-            var baseObj = this.request == null && this.parent && this.parent.request ? this.parent : this;
             var targetInfo = null;
             // See if the metadata is defined for this object
             var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
@@ -174,7 +173,7 @@ var $REST;
                     methodConfig.metadataType = metadata.type;
                 }
                 // Update the metadata uri
-                baseObj.updateMetadataUri(metadata, targetInfo);
+                this.base.updateMetadataUri(metadata, targetInfo);
             }
             else {
                 // Copy the target information
@@ -368,6 +367,10 @@ var $REST;
             var targetUrl = this.targetInfo && this.targetInfo.url ? this.targetInfo.url.toLowerCase() : null;
             // Ensure the urls exist
             if (hostUrl == null || requestUrl == null || targetUrl == null) {
+                return;
+            }
+            // See if we need to make an update
+            if (targetUrl.indexOf(hostUrl) == 0) {
                 return;
             }
             // Update the metadata uri
@@ -1687,9 +1690,9 @@ var $REST;
                 }
                 else if (/\/_api\//.test(this.targetInfo.url)) {
                     // Get the url
-                    var url = this.targetInfo.url.split("/_api/");
+                    var url = this.targetInfo.url.toLowerCase().split("/_api/");
                     // See if this is the app web and we are executing against a different web
-                    if (this.isAppWeb && url[0] != this.context["webAbsoluteUrl"]) {
+                    if (this.isAppWeb && url[0] != this.context["webAbsoluteUrl"].toLowerCase()) {
                         // Set the request url
                         this.requestUrl = this.context["webAbsoluteUrl"] + "/_api/SP.AppContextSite(@target)/" + url[1] +
                             (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") +
@@ -1736,6 +1739,14 @@ var $REST;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
+    $REST.Library.attachment = {};
+})($REST || ($REST = {}));
+
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
     $REST.Library.attachmentfiles = {
         /**
          * Adds the attachment that is represented by the specified file name and byte array to the list item.
@@ -1743,8 +1754,7 @@ var $REST;
          * @param contents - The file contents as an array buffer.
         **/
         add: {
-            argNames: ["name"],
-            name: "",
+            argNames: ["fileName"],
             requestType: $REST.Types.RequestType.PostWithArgs
         },
         // Queries the collection
@@ -2515,7 +2525,7 @@ var $REST;
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "AttachmentFiles|attachmentfiles", "ContentType|contenttype", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
+            "AttachmentFiles|attachmentfiles|('[Name]')|attachment", "ContentType|contenttype", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
             "File|file", "FirstUniqueAncestorSecurableObject", "Folder|folder", "GetDlpPolicyTip", "ParentList|list",
             "RoleAssignments|roleassignments|roleassignments|([Name])|roleassignment"
         ],

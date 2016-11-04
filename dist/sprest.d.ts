@@ -1179,6 +1179,45 @@ declare module $REST.Settings {
 }
 declare module $REST.Types {
     /**
+     * Attachment
+     */
+    interface IAttachment extends IBase {
+        /**
+         * Properties
+         */
+
+        /** The filename. */
+        FileName: string;
+
+        /** The filename as a path. */
+        FileNameAsPath: any;
+
+        /** The server relative path. */
+        ServerRelativePath: any;
+
+        /** The server relative url. */
+        ServerRelativeUrl: string;
+
+        /**
+         * Methods
+         */
+
+        /**
+         * Method to execute the request.
+         * @param callback - (Optional) The method to be executed after the request completes.
+         */
+        execute(callback?:(...args) => void): IAttachment;
+
+        /**
+         * Method to execute the request.
+         * @param syncFl - Flag to execute the request synchronously
+         */
+        execute(syncFl:boolean): IAttachment;
+    }
+}
+
+declare module $REST.Types {
+    /**
      * Attachment Files
      */
     interface IAttachmentFiles extends IBase {
@@ -1187,7 +1226,7 @@ declare module $REST.Types {
          */
 
         /** The attachment file collection. */
-        results: Array<any>;
+        results: Array<IAttachment>;
 
         /**
          * Methods
@@ -1195,10 +1234,10 @@ declare module $REST.Types {
 
         /**
          * Adds the attachment that is represented by the specified file name and byte array to the list item.
-         * @param name - The name of the attachment.
-         * @param content - The contents of the file. Pass the content parameter in the request body. The maximum size of a binary file that you can add by using the REST API is 2 GB.
+         * @param fileName - The filename of the attachment.
+         * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
          */
-        add(name, content): any;
+        add(fileName, content): any;
 
         /**
          * Method to execute the request.
@@ -2985,6 +3024,12 @@ declare module $REST.Types {
          * Get the attachment collection.
          */
         AttachmentFiles(): IAttachmentFiles;
+
+        /**
+         * Gets the specified attachment file.
+         * @param fileName - The filename of the attachment.
+         */
+        AttachmentFiles(fileName:string): IAttachment;
 
         /**
          * Gets a value that specifies the content type of the list item.

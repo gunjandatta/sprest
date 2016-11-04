@@ -120,10 +120,10 @@ module $REST.Utils {
             // Else, see if the url already contains the full request
             else if(/\/_api\//.test(this.targetInfo.url)) {
                 // Get the url
-                var url = this.targetInfo.url.split("/_api/");
+                var url = this.targetInfo.url.toLowerCase().split("/_api/");
 
                 // See if this is the app web and we are executing against a different web
-                if(this.isAppWeb && url[0] != this.context["webAbsoluteUrl"]) {
+                if(this.isAppWeb && url[0] != this.context["webAbsoluteUrl"].toLowerCase()) {
                     // Set the request url
                     this.requestUrl = this.context["webAbsoluteUrl"] + "/_api/SP.AppContextSite(@target)/" + url[1] +
                         (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") +

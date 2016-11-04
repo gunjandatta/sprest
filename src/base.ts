@@ -218,7 +218,6 @@ module $REST {
 
         // Method to execute a method
         protected executeMethod(methodName:string, methodConfig:Settings.MethodInfoSettings, args?:any) {
-            let baseObj = this.request == null && this.parent && this.parent.request ? this.parent : this;
             let targetInfo:Settings.TargetInfoSettings = null;
 
             // See if the metadata is defined for this object
@@ -236,7 +235,7 @@ module $REST {
                 }
 
                 // Update the metadata uri
-                baseObj.updateMetadataUri(metadata, targetInfo);
+                this.base.updateMetadataUri(metadata, targetInfo);
             }
             else {
                 // Copy the target information
@@ -471,6 +470,9 @@ module $REST {
 
             // Ensure the urls exist
             if(hostUrl == null || requestUrl == null || targetUrl == null) { return; }
+
+            // See if we need to make an update
+            if(targetUrl.indexOf(hostUrl) == 0) { return; }
 
             // Update the metadata uri
             data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);

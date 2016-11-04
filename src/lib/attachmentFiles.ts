@@ -9,8 +9,7 @@ module $REST {
          * @param contents - The file contents as an array buffer.
         **/
         add: {
-            argNames: ["name"],
-            name: "",
+            argNames: ["fileName"],
             requestType: Types.RequestType.PostWithArgs
         },
 

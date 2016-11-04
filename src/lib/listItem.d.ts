@@ -13,6 +13,12 @@ declare module $REST.Types {
         AttachmentFiles(): IAttachmentFiles;
 
         /**
+         * Gets the specified attachment file.
+         * @param fileName - The filename of the attachment.
+         */
+        AttachmentFiles(fileName:string): IAttachment;
+
+        /**
          * Gets a value that specifies the content type of the list item.
          */
         ContentType(): IContentType;

@@ -7,6 +7,8 @@
     },
     "files": [
         "src/base.ts",
+        "src/lib/attachment.d.ts",
+        "src/lib/attachment.ts",
         "src/lib/attachmentFiles.d.ts",
         "src/lib/attachmentFiles.ts",
         "src/lib/contentType.d.ts",
