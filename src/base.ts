@@ -394,7 +394,8 @@ module $REST {
                     // Add the methods
                     this.addMethods(results[0], results[0])
 
-                    // Add the execute method and parent reference
+                    // Add the references
+                    results[0]["base"] = this.base;
                     results[0]["executeMethod"] = this.executeMethod;
                     results[0]["parent"] = this;
 
@@ -407,7 +408,8 @@ module $REST {
                         
                         // Parse the results
                         for(let result of results) {
-                            // Add the execute method and parent reference
+                            // Add the references
+                            result["base"] = this.base;
                             result["executeMethod"] = this.executeMethod;
                             result["parent"] = this;
 

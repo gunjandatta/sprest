@@ -301,7 +301,8 @@ var $REST;
                     this.addProperties(this, results[0]);
                     // Add the methods
                     this.addMethods(results[0], results[0]);
-                    // Add the execute method and parent reference
+                    // Add the references
+                    results[0]["base"] = this.base;
                     results[0]["executeMethod"] = this.executeMethod;
                     results[0]["parent"] = this;
                     // Copy the metadata
@@ -314,7 +315,8 @@ var $REST;
                         // Parse the results
                         for (var _i = 0, results_1 = results; _i < results_1.length; _i++) {
                             var result = results_1[_i];
-                            // Add the execute method and parent reference
+                            // Add the references
+                            result["base"] = _this.base;
                             result["executeMethod"] = _this.executeMethod;
                             result["parent"] = _this;
                             // Update the metadata
