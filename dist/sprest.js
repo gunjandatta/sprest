@@ -2642,7 +2642,7 @@ var $REST;
 
 var $REST;
 (function ($REST) {
-    $REST.Library.roleAssignment = {
+    $REST.Library.roleassignment = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -2664,7 +2664,7 @@ var $REST;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.roleAssignments = {
+    $REST.Library.roleassignments = {
         // Adds a new role assignment with the specified principal and role definitions to the collection.
         addRoleAssignment: {
             argNames: ["principalId", "roleDefId"],
@@ -2886,7 +2886,7 @@ var $REST;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.siteGroups = {
+    $REST.Library.sitegroups = {
         // Returns a group from the collection based on the member ID of the group.
         getById: {
             argNames: ["id"],

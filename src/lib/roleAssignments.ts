@@ -2,7 +2,7 @@ module $REST {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    Library.roleAssignments = {
+    Library.roleassignments = {
         // Adds a new role assignment with the specified principal and role definitions to the collection.
         addRoleAssignment: {
             argNames: ["principalId", "roleDefId"],
