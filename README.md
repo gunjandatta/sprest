@@ -21,6 +21,8 @@ I was finally able to put the definition file together, to ensure intellisense i
 ![Intellisense](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/intellisense.png)
 
 ### Example Projects
+[Add/Remove Site Collection User Custom Actions](https://github.com/gunjandatta/sprest-sitecustomactions)
+
 [Bootstrap List](https://github.com/gunjandatta/sprest-list)
 _Note - This is still in dev_
 
