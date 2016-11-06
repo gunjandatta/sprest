@@ -33,6 +33,8 @@ var $REST;
             var _this = this;
             var callback = typeof (arg) === "boolean" ? null : arg;
             var syncFl = typeof (arg) === "boolean" ? arg : false;
+            // Set the base
+            this.base = this.base ? this.base : this;
             // Add this object to the responses
             this.base.responses.push(this);
             // See if this is a synchronous request
@@ -56,6 +58,8 @@ var $REST;
         };
         // Method to execute this method before the next method executes
         Base.prototype.next = function (callback) {
+            // Set the base
+            this.base = this.base ? this.base : this;
             // Add this object to the responses
             this.base.responses.push(this);
             // Execute the request

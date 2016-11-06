@@ -45,6 +45,9 @@ module $REST {
             let callback = typeof(arg) === "boolean" ? null : arg;
             let syncFl = typeof(arg) === "boolean" ? arg : false;
 
+            // Set the base
+            this.base = this.base ? this.base : this;
+
             // Add this object to the responses
             this.base.responses.push(this);
 
@@ -74,6 +77,9 @@ module $REST {
 
         // Method to execute this method before the next method executes
         public next(callback?:(...args) => void): Base {
+            // Set the base
+            this.base = this.base ? this.base : this;
+            
             // Add this object to the responses
             this.base.responses.push(this);
 
