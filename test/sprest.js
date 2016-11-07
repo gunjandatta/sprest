@@ -3277,7 +3277,7 @@ var $REST;
             "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb", "PushNotificationSubscribers", "RecycleBin",
             "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
             "RoleDefinitions|roledefinitions|([Name])|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
-            "SiteGroups|sitegroups|([Name])|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user", "ThemeInfo", "TitleResource",
+            "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user", "ThemeInfo", "TitleResource",
             "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
         ],
         /*********************************************************************************************************************************/

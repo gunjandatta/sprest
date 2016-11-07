@@ -4602,9 +4602,9 @@ declare module $REST.Types {
 
         /**
          * Gets the site groups for the web.
-         * @param id - The group id.
+         * @param name - The group name.
          */
-        SiteGroups(id:number): IGroup;
+        SiteGroups(name:string): IGroup;
 
         /**
          * Gets the UserInfo list of the site collection that contains the Web site.
