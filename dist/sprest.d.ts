@@ -2506,11 +2506,6 @@ declare module $REST.Types {
          */
 
         /**
-         * Deletes the group.
-         */
-        delete(): any;
-
-        /**
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
@@ -4600,9 +4595,9 @@ declare module $REST.Types {
 
         /**
          * Gets the role definitions for the web.
-         * @param id - The role definition id.
+         * @param name - The role definition name.
          */
-        RoleDefinitions(id:number): IRoleDefinition;
+        RoleDefinitions(name:string): IRoleDefinition;
 
         /**
          * Gets the root folder in the web.

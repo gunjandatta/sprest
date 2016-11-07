@@ -2334,13 +2334,6 @@ var $REST;
         properties: [
             "Users|users|/getById([Name])|user"
         ],
-        /*********************************************************************************************************************************/
-        // Methods
-        /*********************************************************************************************************************************/
-        // Deletes the object
-        delete: {
-            requestType: $REST.Types.RequestType.Delete
-        },
     };
 })($REST || ($REST = {}));
 
@@ -3297,7 +3290,7 @@ var $REST;
             "Folders|folders|/getByUrl('[Name]')|folder", "Lists|lists|/getByTitle('[Name]')|list",
             "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb", "PushNotificationSubscribers", "RecycleBin",
             "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
-            "RoleDefinitions|roledefinitions|([Name])|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
+            "RoleDefinitions|roledefinitions|/getByName('[Name]')|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
             "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user", "ThemeInfo", "TitleResource",
             "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
         ],

@@ -234,9 +234,9 @@ declare module $REST.Types {
 
         /**
          * Gets the role definitions for the web.
-         * @param id - The role definition id.
+         * @param name - The role definition name.
          */
-        RoleDefinitions(id:number): IRoleDefinition;
+        RoleDefinitions(name:string): IRoleDefinition;
 
         /**
          * Gets the root folder in the web.
