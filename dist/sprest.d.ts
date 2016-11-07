@@ -959,6 +959,14 @@ declare module $REST.Settings {
     }
 
     /**
+     * Group Creation Information
+     */
+    interface GroupCreationInformation {
+        /** The name of the group. */
+        Title: string;
+    }
+
+    /**
      * List Creation Information
      */
     interface ListCreationInformation {
@@ -2498,6 +2506,11 @@ declare module $REST.Types {
          */
 
         /**
+         * Deletes the group.
+         */
+        delete(): any;
+
+        /**
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */
@@ -3687,6 +3700,12 @@ declare module $REST.Types {
         /**
          * Methods
          */
+
+        /**
+         * Adds a site to the site collection.
+         * @param groupInfo - The group creation information.
+         */
+        add(groupInfo:Settings.GroupCreationInformation): IGroup;
 
         /**
          * Method to execute the request.

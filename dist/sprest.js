@@ -2334,6 +2334,13 @@ var $REST;
         properties: [
             "Users|users|/getById([Name])|user"
         ],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
+        // Deletes the object
+        delete: {
+            requestType: $REST.Types.RequestType.Delete
+        },
     };
 })($REST || ($REST = {}));
 
@@ -2891,6 +2898,12 @@ var $REST;
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.sitegroups = {
+        // Adds a group to the group collection.
+        add: {
+            metadataType: "SP.Group",
+            name: "",
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
         // Returns a group from the collection based on the member ID of the group.
         getById: {
             argNames: ["id"],
@@ -3077,7 +3090,8 @@ var $REST;
         // Gets the user with the specified login name.
         getByLoginName: {
             argNames: ["loginName"],
-            requestType: $REST.Types.RequestType.GetWithArgsInQS,
+            name: "getByLoginName(@v)?@v='[[loginName]]'",
+            requestType: $REST.Types.RequestType.GetReplace,
             returnType: "user"
         },
         // Queries the collection
@@ -3093,7 +3107,8 @@ var $REST;
         // Removes the user with the specified login name.
         removeByLoginName: {
             argNames: ["loginName"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            name: "removeByLoginName(@v)?@v='[[loginName]]'",
+            requestType: $REST.Types.RequestType.PostReplace
         }
     };
 })($REST || ($REST = {}));

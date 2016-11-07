@@ -27,7 +27,8 @@ module $REST {
         // Gets the user with the specified login name.
         getByLoginName: {
             argNames: ["loginName"],
-            requestType: Types.RequestType.GetWithArgsInQS,
+            name: "getByLoginName(@v)?@v='[[loginName]]'",
+            requestType: Types.RequestType.GetReplace,
             returnType: "user"
         },
 
@@ -46,7 +47,8 @@ module $REST {
         // Removes the user with the specified login name.
         removeByLoginName: {
             argNames: ["loginName"],
-            requestType: Types.RequestType.PostWithArgsValueOnly
+            name: "removeByLoginName(@v)?@v='[[loginName]]'",
+            requestType: Types.RequestType.PostReplace
         }
     }
 }

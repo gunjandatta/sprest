@@ -15,6 +15,12 @@ declare module $REST.Types {
          */
 
         /**
+         * Adds a site to the site collection.
+         * @param groupInfo - The group creation information.
+         */
+        add(groupInfo:Settings.GroupCreationInformation): IGroup;
+
+        /**
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */

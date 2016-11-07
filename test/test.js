@@ -15,7 +15,7 @@ function assert(obj, action, property, value) {
     // Test success
     if(obj) {
         // Success
-        if(obj[property] == value) {
+        if(obj.hasOwnProperty(property) && obj[property] == value) {
             writeToLog("Method '" + action + "' passed the test.", LogType.Pass);
         }
         // Error
@@ -55,6 +55,9 @@ function runTests() {
                 break;
                 case "list":
                     testList();
+                break;
+                case "security":
+                    testSecurity();
                 break;
             }
         }
@@ -387,6 +390,66 @@ function testListItems(list) {
 
     // Test
     assert(items.results, "query list items", "length", maxNumber);
+}
+
+function testSecurity() {
+    // Log
+    writeToLog("Security", LogType.Header);
+
+    // Log
+    writeToLog("Querying the permissions", LogType.SubHeader);
+
+    // Get the web
+    var web = new $REST.Web();
+
+    // Get the 'View Only' permission
+    var permission = web.RoleDefinitions().query({ Filter: "Name eq 'View Only'" }).execute(true);
+
+    // Test
+    assert(permission, "query", "existsFl", true);
+
+    // Ensure the permission exists
+    if(!permission.existsFl) { return; }
+
+    // Log
+    writeToLog("Creating the site group", LogType.SubHeader);
+
+    // Get the test group
+    var group = web.SiteGroups("Test Group").execute(true);
+    if(!group.existsFl) {
+        // Create a new group
+        group = web.SiteGroups().add({ Title: "Test Group" }).execute(true);
+    }
+
+    // Test
+    assert(group, "create group", "existsFl", true);
+
+    // Log
+    writeToLog("Adding user to site group", LogType.SubHeader);
+
+    // Ensure the permission exists
+    if(!group.existsFl) { return; }
+
+    // Add the current user to the group
+    var user = group.Users().add({ LoginName: web.CurrentUser().execute(true).LoginName }).execute(true);
+
+    // Test
+    assert(user, "create user", "existsFl", true);
+
+    // Remove the user from the group
+    user = group.Users().removeByLoginName(user.LoginName).execute(true);
+
+    // Test
+    assert(user.d, "delete user", "RemoveByLoginName", null);
+
+    // Log
+    writeToLog("Deleting the group", LogType.SubHeader);
+
+    // Delete the group
+    group = web.SiteGroups().removeById(group.Id).execute(true);
+
+    // Test
+    assert(group.d, "delete group", "RemoveById", null);
 }
 
 function writeToLog(text, logType) {

@@ -3,6 +3,13 @@ module $REST {
     // Methods
     /*********************************************************************************************************************************/
     Library.sitegroups = {
+        // Adds a group to the group collection.
+        add: {
+            metadataType: "SP.Group",
+            name: "",
+            requestType: Types.RequestType.PostWithArgsInBody
+        },
+
         // Returns a group from the collection based on the member ID of the group.
         getById: {
             argNames: ["id"],

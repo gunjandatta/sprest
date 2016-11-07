@@ -777,6 +777,14 @@ declare module $REST.Settings {
     }
 
     /**
+     * Group Creation Information
+     */
+    interface GroupCreationInformation {
+        /** The name of the group. */
+        Title: string;
+    }
+
+    /**
      * List Creation Information
      */
     interface ListCreationInformation {
