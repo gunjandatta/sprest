@@ -15,6 +15,12 @@ declare module $REST.Types {
          */
 
         /**
+         * Adds a site to the site collection.
+         * @param userInfo - The user creation information.
+         */
+        add(userInfo:Settings.UserCreationInformation): IUser;
+
+        /**
          * Method to execute the request.
          * @param callback - (Optional) The method to be executed after the request completes.
          */

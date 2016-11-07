@@ -3,6 +3,13 @@ module $REST {
     // Methods
     /*********************************************************************************************************************************/
     Library.users = {
+        // Adds a user to the user collection.
+        add: {
+            metadataType: "SP.User",
+            name: "",
+            requestType: Types.RequestType.PostWithArgsInBody
+        },
+
         // Gets the user with the specified email address.
         getByEmail: {
             argNames: ["email"],

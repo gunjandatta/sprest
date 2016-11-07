@@ -868,6 +868,14 @@ declare module $REST.Settings {
     /**
      * User Custom Action Information
      */
+    interface UserCreationInformation {
+        /** The login name of the user. */
+        LoginName: string;
+    }
+
+    /**
+     * User Custom Action Information
+     */
     interface UserCustomActionCreationInformation {
         /** A value that specifies an implementation specific XML fragment that determines user interface properties of the custom action. */
         CommandUIExtension?: string;
