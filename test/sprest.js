@@ -1852,6 +1852,7 @@ var $REST;
             _super.call(this, targetInfo);
             // Default the properties
             this.defaultToWebFl = true;
+            this.responses = [];
             this.targetInfo.endpoint = "SP.Utilities.Utility.SendEmail";
         }
         /*********************************************************************************************************************************/
@@ -1869,8 +1870,8 @@ var $REST;
                     properties.To = { 'results': properties.To };
                 }
             }
-            // Execute the method
-            this.executeMethod("send", {
+            // Execute the method, and return the email object
+            return this.executeMethod("send", {
                 argNames: ["properties"],
                 name: "",
                 metadataType: "SP.Utilities.EmailProperties",
