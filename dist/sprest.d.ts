@@ -1463,8 +1463,14 @@ declare module $REST.Settings {
      * Email Creation Information
      */
     interface EmailCreationInformation {
+        /** A value that specifies the email addresses to blind carbon copy the email to. */
+        BCC?:Array<string>;
+
         /** A value that specifies the body of the email. */
         Body:string;
+
+        /** A value that specifies the email addresses to carbon copy the email to. */
+        CC?:Array<string>;
 
         /** A value that specifies the email address of the sender. */
         From:string;
