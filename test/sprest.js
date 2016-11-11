@@ -217,13 +217,25 @@ var $REST;
             var _this = this;
             // See if this is an asynchronous request
             if (asyncFl) {
-                // Create the request
-                this.request = new $REST.Utils.Request(asyncFl, new $REST.Utils.TargetInfo(this.targetInfo), function () {
+                // Define the callback for the request
+                var requestCallback = function () {
                     // Update this data object
                     _this.updateDataObject();
                     // Execute the callback
                     callback ? callback(_this) : null;
-                });
+                };
+                // See if the request already exists
+                if (this.request) {
+                    // Execute the callback
+                    requestCallback();
+                }
+                else {
+                    // Create the request
+                    this.request = new $REST.Utils.Request(asyncFl, new $REST.Utils.TargetInfo(this.targetInfo), requestCallback);
+                }
+            }
+            else if (this.request) {
+                return this;
             }
             else {
                 // Create the request

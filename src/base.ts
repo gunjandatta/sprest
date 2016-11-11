@@ -289,15 +289,27 @@ module $REST {
         protected executeRequest(asyncFl: boolean, callback?:(...args) => void) {
             // See if this is an asynchronous request
             if(asyncFl) {
-                // Create the request
-                this.request = new Utils.Request(asyncFl, new Utils.TargetInfo(this.targetInfo), () => {
+                // Define the callback for the request
+                let requestCallback = () => {
                     // Update this data object
                     this.updateDataObject();
 
                     // Execute the callback
                     callback ? callback(this) : null;
-                });
+                };
+
+                // See if the request already exists
+                if(this.request) {
+                    // Execute the callback
+                    requestCallback();
+                } else {
+                    // Create the request
+                    this.request = new Utils.Request(asyncFl, new Utils.TargetInfo(this.targetInfo), requestCallback);
+                }
             }
+            // Else, see if we already executed this response
+            else if(this.request) { return this; }
+            // Else, we haven't executed this request
             else {
                 // Create the request
                 this.request = new Utils.Request(asyncFl, new Utils.TargetInfo(this.targetInfo));
