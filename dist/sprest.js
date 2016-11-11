@@ -1872,14 +1872,19 @@ var $REST;
         /*********************************************************************************************************************************/
         // Method to send an email
         Email.prototype.send = function (properties) {
-            // Ensure the "To" property exists, and is formatted correctly
-            if (properties.To) {
-                // See if it's a string
-                if (typeof (properties.To) === "string") {
-                    properties.To = { 'results': [properties.To] };
-                }
-                else {
-                    properties.To = { 'results': properties.To };
+            // Parse the email properties
+            for (var _i = 0, _a = ["To", "CC", "BCC"]; _i < _a.length; _i++) {
+                var propName = _a[_i];
+                var prop = properties[propName];
+                // Ensure the property exists
+                if (properties.To) {
+                    // See if it's a string
+                    if (typeof (properties.To) === "string") {
+                        properties.To = { 'results': [properties.To] };
+                    }
+                    else {
+                        properties.To = { 'results': properties.To };
+                    }
                 }
             }
             // Execute the method, and return the email object

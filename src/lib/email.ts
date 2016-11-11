@@ -23,16 +23,21 @@ module $REST {
         /*********************************************************************************************************************************/
 
         // Method to send an email
-        send(properties:any) {
-            // Ensure the "To" property exists, and is formatted correctly
-            if(properties.To) {
-                // See if it's a string
-                if(typeof(properties.To) === "string") {
-                    properties.To = { 'results': [properties.To] };
-                }
-                // Else, assume it's an array
-                else {
-                    properties.To = { 'results': properties.To };
+        send(properties) {
+            // Parse the email properties
+            for(let propName of ["To", "CC", "BCC"]) {
+                let prop = properties[propName];
+
+                // Ensure the property exists
+                if(properties.To) {
+                    // See if it's a string
+                    if(typeof(properties.To) === "string") {
+                        properties.To = { 'results': [properties.To] };
+                    }
+                    // Else, assume it's an array
+                    else {
+                        properties.To = { 'results': properties.To };
+                    }
                 }
             }
 
