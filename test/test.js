@@ -55,6 +55,9 @@ function runTests() {
                 break;
                 case "list":
                     testList();
+                    break;
+                case "listAsync":
+                    testListAsync();
                 break;
                 case "security":
                     testSecurity();
@@ -311,6 +314,61 @@ function testList() {
         writeToLog("List was not created.", LogType.Error);
         writeToLog(list.response, LogType.Error);
     }
+}
+
+function testListAsync() {
+    // Log
+    writeToLog("List", LogType.Header);
+
+    // Log
+    writeToLog("Creating the list", LogType.SubHeader);
+
+    // Get the web
+    (new $REST.Web())
+        // Get the list collection
+        .Lists()
+        // Add the list
+        .add({
+            BaseTemplate: 100,
+            Description: "This is a test list.",
+            Title: "SPRest" + SP.Guid.newGuid().toString()
+        })
+        // Execute the request
+        .execute(function(list) {
+            // Test
+            assert(list, "create", "existsFl", true);
+
+            // Log
+            writeToLog("Creating the list items", LogType.SubHeader);
+
+            // Create a counter
+            for(var i=0; i<5; i++) {
+                // Get the item collection
+                list.Items()
+                    // Add the item
+                    .add({ Title: "New Item " + i})
+                    // Execute and wait for the previous item
+                    .next(true);
+            }
+
+            // Execute the request
+            list.execute(function() {
+                // Assert the items
+                for(var i=0; i<5; i++) {
+                    // Test
+                    assert(arguments[i], "create item " + i, "Title", "New Item " + i);
+                }
+
+                // Log
+                writeToLog("Deleting the list", LogType.SubHeader);
+
+                // Delete the list
+                list.delete().execute(function(result) {
+                    // Test
+                    assert(result.d, "delete", "DeleteObject", null);
+                });
+            });
+        })
 }
 
 function testListItem(list) {

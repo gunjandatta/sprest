@@ -35,6 +35,8 @@ var $REST;
             var syncFl = typeof (arg) === "boolean" ? arg : false;
             // Set the base
             this.base = this.base ? this.base : this;
+            // Set the response index
+            this.responseIndex = this.base.responses.length;
             // Add this object to the responses
             this.base.responses.push(this);
             // See if this is a synchronous request
@@ -57,13 +59,29 @@ var $REST;
             });
         };
         // Method to execute this method before the next method executes
-        Base.prototype.next = function (callback) {
+        Base.prototype.next = function (arg) {
+            var _this = this;
+            var callback = typeof (arg) === "boolean" ? null : arg;
+            var waitFl = typeof (arg) === "boolean" ? arg : false;
             // Set the base
             this.base = this.base ? this.base : this;
+            // Set the response index
+            this.responseIndex = this.base.responses.length;
             // Add this object to the responses
             this.base.responses.push(this);
-            // Execute the request
-            this.executeRequest(true, callback);
+            // Method
+            // See if we are waiting for the responses to complete
+            if (waitFl) {
+                // Wait for the responses to execute
+                this.waitForRequestsToComplete(function () {
+                    // Execute this request
+                    _this.executeRequest(true, callback);
+                }, this.responseIndex);
+            }
+            else {
+                // Execute this request
+                this.executeRequest(true, callback);
+            }
             // Return the base object
             return this.base;
         };
@@ -410,13 +428,18 @@ var $REST;
             }
         };
         // Method to wait for the parent requests to complete
-        Base.prototype.waitForRequestsToComplete = function (callback) {
+        Base.prototype.waitForRequestsToComplete = function (callback, idx) {
             var _this = this;
             // Loop until the requests have completed
             var intervalId = window.setInterval(function () {
+                var counter = 0;
                 // See if the requests have completed
                 for (var _i = 0, _a = _this.base.responses; _i < _a.length; _i++) {
                     var response = _a[_i];
+                    // See if we are waiting until a specified index
+                    if (idx == counter++) {
+                        break;
+                    }
                     // Return if the request hasn't completed
                     if (response.request == null || !response.request.completedFl) {
                         return;

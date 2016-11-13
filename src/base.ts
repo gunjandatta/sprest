@@ -48,6 +48,9 @@ module $REST {
             // Set the base
             this.base = this.base ? this.base : this;
 
+            // Set the response index
+            this.responseIndex = this.base.responses.length;
+            
             // Add this object to the responses
             this.base.responses.push(this);
 
@@ -76,15 +79,32 @@ module $REST {
         }
 
         // Method to execute this method before the next method executes
-        public next(callback?:(...args) => void): Base {
+        public next(arg?: boolean | any): Base {
+            let callback = typeof(arg) === "boolean" ? null : arg;
+            let waitFl = typeof(arg) === "boolean" ? arg : false;
+
             // Set the base
             this.base = this.base ? this.base : this;
-            
+
+            // Set the response index
+            this.responseIndex = this.base.responses.length;
+
             // Add this object to the responses
             this.base.responses.push(this);
 
-            // Execute the request
-            this.executeRequest(true, callback);
+            // Method
+
+            // See if we are waiting for the responses to complete
+            if(waitFl) {
+                // Wait for the responses to execute
+                this.waitForRequestsToComplete(() => {
+                    // Execute this request
+                    this.executeRequest(true, callback);
+                }, this.responseIndex);
+            } else {
+                // Execute this request
+                this.executeRequest(true, callback);
+            }
 
             // Return the base object
             return this.base;
@@ -99,6 +119,9 @@ module $REST {
 
         // Flag to default the url to the current web url, site otherwise
         protected defaultToWebFl:boolean;
+
+        // The index of this object in the responses array
+        private responseIndex:number;
 
         // The promise
         private promise:Utils.Promise;
@@ -516,15 +539,18 @@ module $REST {
         }
 
         // Method to wait for the parent requests to complete
-        private waitForRequestsToComplete(callback:() => void) {
+        private waitForRequestsToComplete(callback:() => void, idx?:number) {
             // Loop until the requests have completed
             let intervalId = window.setInterval(() => {
+                let counter = 0;
+
                 // See if the requests have completed
                 for(let response of this.base.responses) {
+                    // See if we are waiting until a specified index
+                    if(idx == counter++) { break; }
+
                     // Return if the request hasn't completed
-                    if(response.request == null || !response.request.completedFl) {
-                        return;
-                    }
+                    if(response.request == null || !response.request.completedFl) { return; }
                 }
 
                 // Clear the interval

@@ -35,9 +35,21 @@ $REST.DefaultRequestToHostWebFl = true;
 ```
 
 ### Asynchronous/Synchronous requests
-The 'execute' method determines if the request should be executed asynchronously or synchronously. By default, all requests will be executed asynchronously, unless overridden by the developer.
+#### Execute Method
+The 'execute' method determines if the request should be executed asynchronously or synchronously. The execute method takes the following input parameters:
 
-The 'next' method allows you to create multiple requests against the base object. To ensure intellisense for the 'next' method, you will need to specify the base object type:
+* None - The request will be executed asynchronously.
+* callback - The request will be executed asynchronously. The callback method will be executed after all requests have executed.
+* syncFl - The request will be executed synchronously.
+
+#### Next Method
+The 'next' method allows you to create multiple requests against the base object. The next method takes the following input parameters:
+
+* None - The request will be executed asynchronously.
+* callback - The request will be executed asynchronously. The callback method will be executed after all requests have executed.
+* waitFl - The request will wait for the previous requests to complete, befor executing the current request asynchronously.
+
+To ensure intellisense for the 'next' method, you will need to specify the base object type:
 ```
 // Get the current web
 (new $REST.Web())
