@@ -1898,15 +1898,17 @@ var $REST;
             // Parse the email properties
             for (var _i = 0, _a = ["To", "CC", "BCC"]; _i < _a.length; _i++) {
                 var propName = _a[_i];
-                var prop = properties[propName];
-                // Ensure the property exists
-                if (properties.To) {
+                var propValue = properties[propName];
+                // Ensure the value exists
+                if (propValue) {
                     // See if it's a string
-                    if (typeof (properties.To) === "string") {
-                        properties.To = { 'results': [properties.To] };
+                    if (typeof (propValue) === "string") {
+                        // Add the results property
+                        properties[propName] = { 'results': [propValue] };
                     }
                     else {
-                        properties.To = { 'results': properties.To };
+                        // Add the results property
+                        properties[propName] = { 'results': propValue };
                     }
                 }
             }
