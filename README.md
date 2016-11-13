@@ -23,8 +23,7 @@ I was finally able to put the definition file together, to ensure intellisense i
 ### Example Projects
 [Add/Remove Site Collection User Custom Actions](https://github.com/gunjandatta/sprest-sitecustomactions)
 
-[Bootstrap List](https://github.com/gunjandatta/sprest-list)
-_Note - This is still in dev_
+[Office Fabric UI Dashboard](https://github.com/gunjandatta/sprest-list)
 
 ## Documentation:
 ### Executing Requests from the App Web
