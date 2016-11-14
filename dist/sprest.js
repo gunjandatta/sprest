@@ -69,7 +69,6 @@ var $REST;
             this.responseIndex = this.base.responses.length;
             // Add this object to the responses
             this.base.responses.push(this);
-            // Method
             // See if we are waiting for the responses to complete
             if (waitFl) {
                 // Wait for the responses to execute
@@ -428,16 +427,16 @@ var $REST;
             }
         };
         // Method to wait for the parent requests to complete
-        Base.prototype.waitForRequestsToComplete = function (callback, idx) {
+        Base.prototype.waitForRequestsToComplete = function (callback, requestIdx) {
             var _this = this;
             // Loop until the requests have completed
             var intervalId = window.setInterval(function () {
                 var counter = 0;
-                // See if the requests have completed
+                // Parse the responses to the requests
                 for (var _i = 0, _a = _this.base.responses; _i < _a.length; _i++) {
                     var response = _a[_i];
                     // See if we are waiting until a specified index
-                    if (idx == counter++) {
+                    if (requestIdx == counter++) {
                         break;
                     }
                     // Return if the request hasn't completed

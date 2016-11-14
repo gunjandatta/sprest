@@ -92,8 +92,6 @@ module $REST {
             // Add this object to the responses
             this.base.responses.push(this);
 
-            // Method
-
             // See if we are waiting for the responses to complete
             if(waitFl) {
                 // Wait for the responses to execute
@@ -539,16 +537,16 @@ module $REST {
         }
 
         // Method to wait for the parent requests to complete
-        private waitForRequestsToComplete(callback:() => void, idx?:number) {
+        private waitForRequestsToComplete(callback:() => void, requestIdx?:number) {
             // Loop until the requests have completed
             let intervalId = window.setInterval(() => {
                 let counter = 0;
 
-                // See if the requests have completed
+                // Parse the responses to the requests
                 for(let response of this.base.responses) {
                     // See if we are waiting until a specified index
-                    if(idx == counter++) { break; }
-
+                    if(requestIdx == counter++) { break; }
+                    
                     // Return if the request hasn't completed
                     if(response.request == null || !response.request.completedFl) { return; }
                 }
