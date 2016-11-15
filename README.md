@@ -192,7 +192,7 @@ The target information consists of the following properties:
 * url - The server relative site/web url to execute the request against.
 
 ### PowerShell-Like Experience
-Since the library can be executed synchronously, the user can execute commands in the browser's console window and interact with the SharePoint site in a command-line interface.
+Since the library can be executed synchronously, the user can utilize this library to interact with SharePoint through the console window. This can be a useful tool, when access to powershell is not available.
 
 *Note - The commands will execute under the security of the current user.*
 *Note - SharePoint online may reject synchronous requests. It's better to use asynchronous requests.*
