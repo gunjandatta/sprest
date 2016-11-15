@@ -1,8 +1,5 @@
-/***********************************************************************************************
- * Enumerators
- **********************************************************************************************/
-
 declare module $REST.Types {
+
     /**
      * Control Modes
      */
@@ -616,6 +613,21 @@ declare module $REST.Types {
     }
 
     /**
+     * Reordering Rule Match Types
+     */
+    enum ReordingRuleMathType {
+        ResultContainsKeyword,
+        TitleContainsKeyword,
+        TitleMatchesKeyword,
+        UrlStartsWith,
+        UrlExactlyMatches,
+        ContentTypeIs,
+        FileExtensionMatches,
+        ResultHasTag,
+        ManualCondition
+    }
+
+    /**
      * Role Types
      */
     enum RoleType {
@@ -682,304 +694,5 @@ declare module $REST.Types {
         
         /** Enumeration whose values specify a list view type that displays recurring events. */
         Recurrence = 8193,
-    }
-}
-
-/***********************************************************************************************
- * Settings
- **********************************************************************************************/
-
-declare module $REST.Settings {
-    /**
-     * CAML Query
-     */
-    interface CamlQuery {
-        /** Gets or sets a value that indicates whether the query returns dates in Coordinated Universal Time (UTC) format. */
-        DatesInUtc?: boolean;
-
-        /** Gets or sets a value that specifies the server relative URL of a list folder from which results will be returned. */
-        FolderServerRelativeUrl?: string;
-
-        /** Gets or sets a value that specifies the information required to get the next page of data for the list view. */
-        ListItemCollectionPosition?: any;
-
-        /** Gets or sets value that specifies the XML schema that defines the list view. */
-        ViewXml: string;
-    }
-
-    /**
-     * Content Type Creation Information
-     */
-    interface ContentTypeCreationInformation {
-        /** Gets or sets a value that specifies the description of the content type that will be constructed. */
-        Description?: string;
-
-        /** Gets or sets a value that specifies the content type group of the content type that will be constructed. */
-        Group?: string;
-
-        /** The content type id. */
-        Id?: string;
-
-        /** Gets or sets a value that specifies the name of the content type that will be constructed. */
-        Name: string;
-    }
-
-    /**
-     * Event Receiver Definition Creation Information
-     */
-    interface EventReceiverDefinitionCreationInformation {
-        /** The type of event. See EventReceiverType in the .NET client object model reference for a list of values. */
-        EventType: Types.EventReceiverType;
-
-        /** Specifies the strong name of the assembly that is used for receiving events. */        
-        ReceiverAssembly?: string;
-
-        /** Specifies a string that represents the class that is used for receiving events. */
-        ReceiverClass?: string;
-
-        /** Specifies the name of the event receiver. */
-        ReceiverName: string;
-
-        /** Specifies the URL of a web service that is used for receiving events. */
-        ReceiverUrl?: string;
-
-        /** Specifies an integer that represents the relative sequence of the event. */        
-        SequenceNumber?: number;
-        
-        /** Specifies the execution synchronization of the event receiver. */
-        Synchronization?: number;
-    }
-
-    /**
-     * Field Creation Information 
-     */
-    interface FieldCreationInformation {
-        /** A value that specifies the type of the field. */
-        FieldTypeKind: Types.FieldType;
-
-        /** Indicates whether only the first eight characters are used for the field name. */
-        IsCompactName?: boolean;
-
-        /** The name of the source lookup field. */
-        LookupFieldName?: string;
-        
-        /** The ID of the target list for the source lookup field. */
-        LookupListId?: any;
-        
-        /** The ID of the site that contains the list that is the source for the lookup field value. */
-        LookupWebId?: any;
-        
-        /** A value that specifies whether the field requires a value. */
-        Required?: boolean;
-        
-        /** A value that specifies the display name of the field. */
-        Title: string;
-    }
-
-    /**
-     * Group Creation Information
-     */
-    interface GroupCreationInformation {
-        /** The name of the group. */
-        Title: string;
-    }
-
-    /**
-     * List Creation Information
-     */
-    interface ListCreationInformation {
-        /** A value that specifies whether the list supports content types. */
-        AllowContentTypes?: boolean;
-
-        /** The list definition type on which the list is based. */
-        BaseTemplate: Types.ListTemplateType;
-
-        /** A value that specifies whether content types are enabled for the list. */        
-        ContentTypesEnabled?: boolean;
-
-        /** A value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
-        DefaultContentApprovalWorkflowId?: any;
-
-        /** A value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL */
-        DefaultDisplayFormUrl?: string;
-
-        /** A value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL. */
-        DefaultEditFormUrl?: string;
-
-        /** A value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL. */
-        DefaultNewFormUrl?: string;
-
-        /** A value that specifies the description of the list. */
-        Description?: string;
-
-        /** A value that specifies the reading order of the list. Returns "NONE", "LTR", or "RTL". */
-        Direction?: string;
-
-        /** A value that specifies the server-relative URL of the document template for the list. */
-        DocumentTemplateUrl?: string;
-
-        /** A value that specifies the minimum permission required to view minor versions and drafts within the list. */
-        DraftVersionVisibility?: Types.DraftVisibilityType;
-
-        /** A value that specifies whether list item attachments are enabled for the list. */
-        EnableAttachments?: boolean;
-
-        /** A value that specifies whether new list folders can be added to the list. */
-        EnableFolderCreation?: boolean;
-
-        /** A value that specifies whether minor versions are enabled for the list. */
-        EnableMinorVersions?: boolean;
-
-        /** A value that specifies whether content approval is enabled for the list. */
-        EnableModeration?: boolean;
-
-        /** A value that specifies whether historical versions of list items and documents can be created in the list. */
-        EnableVersioning?: boolean;
-
-        /** A value that indicates whether forced checkout is enabled for the document library. */
-        ForceCheckout?: boolean;
-
-        /** A value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
-        Hidden?: boolean;
-
-        /** */
-        IrmEnabled?: boolean;
-
-        /** */
-        IrmExpire?: boolean;
-
-        /** */
-        IrmReject?: boolean;
-
-        /** A value that specifies a flag that a client application can use to determine whether to display the list. */
-        IsApplicationList?: boolean;
-
-        /** A value that indicates whether the list in a Meeting Workspace site contains data for multiple meeting instances within the site. */
-        MultipleDataList?: boolean;
-
-        /** A value that specifies that the crawler must not crawl the list. */
-        NoCrawl?: boolean;
-
-        /** A value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false. */
-        OnQuickLaunch?: boolean;
-
-        /** The displayed title for the list. Its length must be <= 255 characters. */
-        Title: string;
-
-        /** A value that specifies the data validation criteria for a list item. Its length must be <= 1023. */
-        ValidationFormula?: string;
-
-        /** A value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023. */
-        ValidationMessage?: string;
-    }
-
-    /**
-     * User Custom Action Information
-     */
-    interface UserCreationInformation {
-        /** The login name of the user. */
-        LoginName: string;
-    }
-
-    /**
-     * User Custom Action Information
-     */
-    interface UserCustomActionCreationInformation {
-        /** A value that specifies an implementation specific XML fragment that determines user interface properties of the custom action. */
-        CommandUIExtension?: string;
-
-        /** The description of the custom action. */
-        Description?: string;
-
-        /** A value that specifies an implementation-specific value that determines the position of the custom action in the page. */
-        Group?: string;
-
-        /** The URL of the image associated with the custom action. */
-        ImageUrl?: string;
-
-        /** The location of the custom action. */
-        Location?: string;
-
-        /** The name of the custom action. */
-        Name?: string;
-
-        /** The value that specifies the identifier of the object associated with the custom action. */
-        RegistrationId?: string;
-
-        /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
-        RegistrationType?: Types.UserCustomActionRegistrationType;
-
-        /** The value that specifies the permissions needed for the custom action. */
-        Rights?: any;
-
-        /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
-        ScriptBlock?: string;
-
-        /** A value that specifies the URI of a file which contains the ECMAScript to execute on the page. */
-        ScriptSrc?: string;
-
-        /** The value that specifies an implementation-specific value that determines the order of the custom action that appears on the page. */
-        Sequence?: number;
-
-        /** The display title of the custom action. */
-        Title?: string;
-
-        /** The URL, URI, or ECMAScript (JScript, JavaScript) function associated with the action. */
-        Url?: string;
-    }
-
-    /**
-     * View Creation Information
-     */
-    interface ViewCreationInformation {
-        /** A value that specifies whether the new list view is a paged view. */
-        Paged?: boolean;
-
-        /** A value that specifies whether the new list view is a personal view. If the value is false, the new list view is a public view. */
-        PersonalView?: boolean;
-
-        /** A value that specifies the query for the new list view. */
-        Query?: string;
-
-        /** A value that specifies the maximum number of list items that the new list view displays on a visual page of the list view. */
-        RowLimit?: number;
-
-        /** A value that specifies whether the new list view is the default list view. */
-        SetAsDefaultView?: boolean;
-
-        /** A value that specifies the display name of the new list view. */
-        Title: string;
-
-        /** A value that specifies the type of the new list view. */
-        ViewTypeKind: Types.ViewType;
-    }
-
-    /**
-     * Web Creation Information
-     */
-    interface WebCreationInformation {
-        /** The description of the new site. */
-        Description?: string;
-
-        /** The locale ID that specifies the language of the new site. */
-        Language?: number;
-
-        /** A value that specifies the title of the new site. */
-        Title: string;
-
-        /** The URL leaf name of the new site. The URL must not contain the following:
-            The characters ~, ", #, %, &, *, :, <, >, ?, \, {, |, or }
-            The string \x7f
-            Consecutive . or / characters
-            Starting ., /, or _ characters
-            Ending . or / characters
-        */
-        Url: string;
-
-        /** A value that specifies whether the new site will inherit permissions from its parent site. */
-        UseSamePermissionsAsParentSite?: boolean;
-
-        /** A value that specifies the name of the site template to be used for creating the new site. Use the GetAvailableWebTemplates method to get the names of available web templates on the site. */
-        WebTemplate: string;
     }
 }

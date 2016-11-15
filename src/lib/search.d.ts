@@ -1,0 +1,133 @@
+declare module $REST.Types {
+
+    /**
+     * Data Table
+     */
+    interface IDataTable {
+        /** The rows. */
+        Rows: Array<IDataTableRow>;
+    }
+
+    /**
+     * Data Table Row
+     */
+    interface IDataTableRow {
+        /** The cells. */
+        Cells: Array<Settings.KeyValuePair>
+    }
+
+    /**
+     * Search
+     */
+    interface ISearch extends IBase {
+        /**
+         * Constructor
+         * @param settings - The search settings.
+         * @param targetInfo - (Optional) The target information.
+         */
+        new(url?:string, targetInfo?:Settings.TargetInfoSettings): ISearch;
+
+        /**
+         * Methods
+         */
+
+        /** The query
+         * @param settings - The query settings.
+        */
+        query(settings:Settings.SearchQueryCreationInformation) : IQuery;
+
+        /** The suggestion
+         * @param settings - The query settings.
+        */
+        suggestion(settings:Settings.SearchSuggestionCreationInformation) : ISuggestion;
+    }
+
+    /**
+     * Query
+     */
+    interface IQuery {
+        /** The primary query results. */
+        PrimaryQueryResult: IQueryResult;
+
+        /** The properties. */
+        Properties: Array<Settings.KeyValuePair>;
+
+        /** The secondary query results. */
+        SecondaryQueryResults: Array<IQueryResult>;
+
+        /** The spelling suggestions. */
+        SpellingSuggestions: any;
+
+        /** The trigger rules. */
+        TriggeredRules: Array<string>;
+    }
+
+    /**
+     * Query Result
+     */
+    interface IQueryResult {
+        /** The custom results. */
+        CustomResults: Array<any>;
+
+        /** The query id. */
+        QueryId: string;
+
+        /** The query rule id. */
+        QueryRuleId: string;
+
+        /** The refinement results. */
+        RefinementResults: any;
+
+        /** The relevant results. */
+        RelevantResults: IRelevantResults;
+
+        /** The special term results. */
+        SpecialTermResults: any;
+    }
+
+    /**
+     * Relevant Results
+     */
+    interface IRelevantResults {
+        /** The group template id. */
+        GroupTemplateId: string;
+
+        /** The item template id. */
+        ItemTemplateId: string;
+
+        /** The properties. */
+        Properties: Array<Settings.KeyValuePair>;
+
+        /** The result title. */
+        ResultTitle: string;
+
+        /** The result title url. */
+        ResultTitleUrl: string;
+
+        /** The row count. */
+        RowCount: number;
+
+        /** The table. */
+        Table: IDataTable;
+
+        /** The total rows. */
+        TotalRows: number;
+
+        /** The total rows including duplicates. */
+        TotalRowsIncludingDuplicates: number;
+    }
+
+    /**
+     * Suggestion
+     */
+    interface ISuggestion {
+        /** The people names. */
+        PeopleNames: Array<string>;
+
+        /** The personal results. */
+        PersonalResults: Array<any>;
+
+        /** The queries. */
+        Queries: Array<any>;
+    }
+}

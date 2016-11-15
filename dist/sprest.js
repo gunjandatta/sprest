@@ -2780,6 +2780,54 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // Search
+    /*********************************************************************************************************************************/
+    var Search = (function (_super) {
+        __extends(Search, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function Search(url, targetInfo) {
+            // Call the base constructor
+            _super.call(this, targetInfo);
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.responses = [];
+            this.targetInfo.endpoint = "search";
+            // See if the web url exists
+            if (url) {
+                // Set the settings
+                this.targetInfo.url = url;
+            }
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "search" } });
+        }
+        return Search;
+    }($REST.Base));
+    $REST.Search = Search;
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    $REST.Library.search = {
+        query: {
+            metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
+            requestType: $REST.Types.RequestType.GetWithArgsInBody
+        },
+        suggestion: {
+            metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
+            requestType: $REST.Types.RequestType.GetWithArgsInBody
+        }
+    };
+})($REST || ($REST = {}));
+
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
