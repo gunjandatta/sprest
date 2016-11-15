@@ -203,10 +203,10 @@ Since the library can be executed synchronously, the user can utilize this libra
 #### Request Object
 ![Request](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/powershell-output-request.png)
 
-#### Field
+#### Result Field Object
 ![Result](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/powershell-output-result.png)
 
-#### Available Field Methods
+#### Available Field Object Methods
 ![Result Methods](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/powershell-output-result-methods.png)
 
 ### OData Queries
