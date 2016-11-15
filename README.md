@@ -197,6 +197,18 @@ Since the library can be executed synchronously, the user can execute commands i
 *Note - The commands will execute under the security of the current user.*
 *Note - SharePoint online may reject synchronous requests. It's better to use asynchronous requests.*
 
+#### Execution Output
+![Execution Output](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/test-file.png)
+
+#### Request
+![Request](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/test-list.png)
+
+#### Result
+![Result](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/test-field.png)
+
+#### Result Methods
+![Result Methods](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/test-field.png)
+
 ### OData Queries
 Each collection will have a generic "query" method with the input of the OData query operations. The oData object consists of the following properties:
 * Expand - A collection of strings representing the field names to expand.
