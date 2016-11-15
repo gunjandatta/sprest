@@ -197,16 +197,16 @@ Since the library can be executed synchronously, the user can execute commands i
 *Note - The commands will execute under the security of the current user.*
 *Note - SharePoint online may reject synchronous requests. It's better to use asynchronous requests.*
 
-#### Execution Output
+#### Get Site Fields Filtering For 'Title' Example
 ![Execution Output](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/powershell-output.png)
 
-#### Request
+#### Request Object
 ![Request](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/powershell-output-request.png)
 
-#### Result
+#### Field
 ![Result](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/powershell-output-result.png)
 
-#### Result Methods
+#### Available Field Methods
 ![Result Methods](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/powershell-output-result-methods.png)
 
 ### OData Queries
