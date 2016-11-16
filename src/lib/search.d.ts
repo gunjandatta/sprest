@@ -31,13 +31,18 @@ declare module $REST.Types {
          * Methods
          */
 
-        /** The query
+        /** Method to execute a search query.
+         * @param settings - The query settings.
+        */
+        postquery(settings:Settings.SearchQueryCreationInformation) : IQuery;
+
+        /** Method to execute a search query.
          * @param settings - The query settings.
         */
         query(settings:Settings.SearchQueryCreationInformation) : IQuery;
 
-        /** The suggestion
-         * @param settings - The query settings.
+        /** Method to execute a search suggestion.
+         * @param settings - The suggestion settings.
         */
         suggestion(settings:Settings.SearchSuggestionCreationInformation) : ISuggestion;
     }

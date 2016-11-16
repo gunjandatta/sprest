@@ -31,13 +31,21 @@ module $REST {
     /*********************************************************************************************************************************/
     Library.search = {
         query: {
+            argNames: ["settings"],
             metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
-            requestType: Types.RequestType.GetWithArgsInBody
+            requestType: Types.RequestType.GetWithArgsInQS
+        },
+
+        postquery: {
+            argNames: ["request"],
+            metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
+            requestType: Types.RequestType.PostWithArgsInBody
         },
 
         suggestion: {
+            argNames: ["settings"],
             metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
-            requestType: Types.RequestType.GetWithArgsInBody
+            requestType: Types.RequestType.GetWithArgsInQS
         }
     }
 }

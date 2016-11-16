@@ -2817,13 +2817,15 @@ var $REST;
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.search = {
-        query: {
+        postquery: {
+            argNames: ["request"],
             metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
-            requestType: $REST.Types.RequestType.GetWithArgsInBody
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
         },
         suggestion: {
+            argNames: ["settings"],
             metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
-            requestType: $REST.Types.RequestType.GetWithArgsInBody
+            requestType: $REST.Types.RequestType.GetWithArgsInQS
         }
     };
 })($REST || ($REST = {}));
