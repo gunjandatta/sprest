@@ -34,21 +34,25 @@ $REST.DefaultRequestToHostWebFl = true;
 ```
 
 ### Asynchronous/Synchronous requests
-#### Execute Method
-The 'execute' method determines if the request should be executed asynchronously or synchronously. The execute method takes the following input parameters:
+#### Synchronous
+The 'executeAndWait' executes the request synchronously.
 
-* None - The request will be executed asynchronously.
-* callback - The request will be executed asynchronously. The callback method will be executed after all requests have executed.
-* syncFl - The request will be executed synchronously.
+#### Asynchronous
+The 'execute' executes the request asynchronously. This method can be executed the following ways:
 
-#### Next Method
-The 'next' method allows you to create multiple requests against the base object. The next method takes the following input parameters:
+* execute(callback)
+** The callback is a function type, which will be executed after the request completes.
+* execute(waitFl)
+** The request will execute after the previous request completes.
+* execute(callback, waitFl)
+** The callback is a function type, which will be executed after the request completes.
+** The request will execute after the previous request completes.
+** Using the waitFl, if the callback returns a promise, the next request will not execute until the callback completes.
 
-* None - The request will be executed asynchronously.
-* callback - The request will be executed asynchronously. The callback method will be executed after the current request has executed.
-* waitFl - The request will wait for the previous requests to complete, befor executing the current request asynchronously.
+The 'done' method waits for all requests to complete, before executing the callback method.
 
-To ensure intellisense for the 'next' method, you will need to specify the base object type:
+##### Example
+Get the list items from the 'Dev' list
 ```
 // Get the current web
 (new $REST.Web())
@@ -81,7 +85,7 @@ _**Synchronous Request**_
 ```
 var web = (new $REST.Web())
     // Set the flag to execute the request synchronously
-    .execute(true);
+    .executeAndWait();
 ```
 
 _**Multiple Asynchronous Requests**_
@@ -95,13 +99,13 @@ _**Multiple Asynchronous Requests**_
         Filter: "Title eq 'Title'"
     })
     // Execute this request
-    .next()
+    .execute()
     // Get the 'Dev' List
     .Lists("Dev")
     // Get the items
     .Items()
     // Execute this request
-    .next()
+    .execute()
     // Get root folders
     .Folders()
     // Execute the request
@@ -127,7 +131,7 @@ var list = (new $REST.Web())
         Title: "Test"
     })
     // Execute the request
-    .execute(true);
+    .executeAndWait();
 ```
 
 ##### Asynchronously
@@ -157,21 +161,21 @@ var items = (new $REST.List("[List Name]"))
         // OData properties - Refer to the OData section for additional details
     })
     // Execute the request
-    .execute(true);
+    .executeAndWait();
 
 // Example of getting items by a CAML Query
 (new $REST.List("Site Assets"))
     // Get the items by a CAML Query
     .getItemsByQuery("<Query><Where><Gt><FieldRef Name='ID' /><Value Type='Integer'>0</Value></Gt></Where></Query>")
     // Execute the request
-    .execute(true);
+    .executeAndWait();
 
 // Example of getting items by a CAML View Query
 (new $REST.List("Site Assets"))
     // Get the items by a CAML View Query
     .getItems("<View Scope='RecursiveAll'><Query><Where><Eq><FieldRef Name='FileLeafRef' /><Value Type='File'>sprest.js</Value></Eq></Where></Query></View>")
     // Execute the request
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### Optional Input
@@ -228,7 +232,7 @@ var list = (new $REST.List())
         Filter: ["Title eq 'Dev'"]
     })
     // Execute the request
-    .execute(true);
+    .executeAndWait();
 ```
 
 #### Query List Item Collection
@@ -273,7 +277,7 @@ _**List**_
 var ct = (new $REST.List("Document"))
     .ContentTypes()
     .getByName("Documents")
-    .execute(true);
+    .executeAndWait();
 ```
 
 _**Web**_
@@ -282,7 +286,7 @@ _**Web**_
 var ct = (new $REST.Web())
     .ContentTypes()
     .getByName("Item")
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### Content Types
@@ -291,7 +295,7 @@ _**List**_
 // Get the content types in the 'Documents' library
 var cts = (new $REST.List("documents"))
     .ContentTypes()
-    .execute(true);
+    .executeAndWait();
 ```
 
 _**Web**_
@@ -309,7 +313,7 @@ _**List**_
 ```
 var field = (new $REST.List("documents"))
     .Fields("Title")
-    .execute(true);
+    .executeAndWait();
 ```
 
 _**Web**_
@@ -326,7 +330,7 @@ _**List**_
 ```
 var fields = (new $REST.List("documents"))
     .Fields()
-    .execute(true);
+    .executeAndWait();
 ```
 
 _**Web**_
@@ -357,14 +361,14 @@ var file = (new $REST.List("Documents"))
     .RootFolder()
     .Folders("forms")
     .Files("editform.aspx")
-    execute(true);
+    executeAndWait();
 ```
 
 _**Web**_
 ```
 var file = (new $REST.Web())
     .getFileByServerRelativeUrl("/sites/dev/shared documents/forms/editform.aspx")
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### Files
@@ -373,20 +377,20 @@ _**List**_
 var files = (new $REST.List("documents"))
     .RootFolder()
     .Files()
-    .execute(true);
+    .executeAndWait();
 
 // Get a specific folder's files
 var folders = (new $REST.Web())
     .getFolderByServerRelativeUrl("/sites/dev/shared documents/forms")
     .Files()
-    .execute(true);
+    .executeAndWait();
 ```
 
 _**Web**_
 ```
 var files = (new $REST.Web())
     .Files()
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### Folder
@@ -394,14 +398,14 @@ _**List**_
 ```
 var folder = (new $REST.List("Documents"))
     .RootFolder("Forms")
-    .execute(true)
+    .executeAndWait()
 ```
 
 _**Web**_
 ```
 var folder = (new $REST.Web())
     .getFolderByServerRelativeUrl("/sites/dev/shared documents/forms")
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### Folders
@@ -410,39 +414,39 @@ _**List**_
 // Get the root folders of the library
 var folders = (new $REST.List("documents"))
     .Folders()
-    .execute(true);
+    .executeAndWait();
 
 // Get a specific folder's sub-folder
 var folders = (new $REST.Web())
     .getFolderByServerRelativeUrl("/sites/dev/shared documents/forms")
     .Folders()
-    .execute(true);
+    .executeAndWait();
 ```
 
 _**Web**_
 ```
 var folders = (new $REST.Web())
     .Folders()
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### List
 ```
-var list = (new $REST.List("documents")).execute(true);
+var list = (new $REST.List("documents")).executeAndWait();
 ```
 
 ### Lists
 ```
 var lists = (new $REST.Web())
     .Lists()
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### List Item
 ```
 var item = (new $REST.List("documents"))
     .Items(1)
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### List Items
@@ -450,7 +454,7 @@ _**All Items**_
 ```
 var items = (new $REST.List("documents"))
     .Items()
-    .execute(true);
+    .executeAndWait();
 ```
 
 _**CAML Query**_
@@ -469,21 +473,21 @@ _**List**_
 ```
 var roleAssignments = (new $REST.List("documents"))
     .RoleAssignments()
-    .execute(true);
+    .executeAndWait();
 ```
 
 _**Web**_
 ```
 var roleAssignments = (new $REST.Web())
     .RoleAssignments()
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### Role Definitions
 ```
 var roleDefinitions = (new $REST.List("documents"))
     .RoleDefinitions()
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### Site
@@ -495,7 +499,7 @@ var site = (new $REST.Site()).execute();
 ```
 var siteGroups = (new $REST.Web())
     .SiteGroups()
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### User Custom Actions
@@ -503,21 +507,21 @@ _**Site**_
 ```
 var customActions = (new $REST.Site())
     .UserCustomActions()
-    .execute(true);
+    .executeAndWait();
 ```
 
 _**Web**_
 ```
 var customActions = (new $REST.Web())
     .UserCustomActions()
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### Users
 ```
 var users = (new $REST.Web())
     .Users()
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### View
@@ -527,17 +531,17 @@ var view = (new $REST.List("dev"))
     .query({
         Filter: "Name eq 'All Items'"
     })
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### Views
 ```
 var views = (new $REST.List("documents"))
     .Lists()
-    .execute(true);
+    .executeAndWait();
 ```
 
 ### Web
 ```
-var web = (new $REST.Web()).execute(true);
+var web = (new $REST.Web()).executeAndWait();
 ```
