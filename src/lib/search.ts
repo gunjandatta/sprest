@@ -42,10 +42,10 @@ module $REST {
             requestType: Types.RequestType.PostWithArgsInBody
         },
 
-        suggestion: {
-            argNames: ["settings"],
+        suggest: {
+            argNames: ["queryText"],
             metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
-            requestType: Types.RequestType.GetWithArgsInQS
+            requestType: Types.RequestType.GetWithArgs
         }
     }
 }

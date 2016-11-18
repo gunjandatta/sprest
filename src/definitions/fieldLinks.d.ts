@@ -1,0 +1,59 @@
+declare module $REST.Types {
+    /**
+     * Field Links
+     */
+    interface IFieldLinks extends IBase {
+        /**
+         * Properties
+         */
+
+        /** The field link collection. */
+        results: Array<any>;
+
+        /**
+         * Methods
+         */
+
+        /**
+         * Adds a content type to the collection.
+         * @param data - The field link properties.
+         */
+        add(data): any;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         */
+        execute(callback?:(...args) => any): IFieldLinks;
+
+        /**
+         * Method to execute the request.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(waitFl:boolean): IFieldLinks;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(callback:any, waitFl:boolean): IFieldLinks;
+
+        /**
+         * Method to execute the request synchronously.
+         */
+        executeAndWait(): IFieldLinks;
+
+        /**
+         * Gets the field link by its id.
+         * @param id - The id of the field.
+         */
+        getById(id);
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:Settings.ODataSettings): IFieldLinks;
+    }
+}

@@ -18,6 +18,7 @@ var $REST;
             // Default the properties
             this.targetInfo = targetInfo || {};
             this.requestType = 0;
+            this.waitFlags = [];
         }
         Object.defineProperty(Base.prototype, "response", {
             // Method to return the xml http request's response
@@ -28,41 +29,40 @@ var $REST;
         /*********************************************************************************************************************************/
         // Public Methods
         /*********************************************************************************************************************************/
-        // Method to execute a child request
-        Base.prototype.execute = function (arg) {
+        // Method to wait for the requests to complete
+        Base.prototype.done = function (callback) {
             var _this = this;
-            var callback = typeof (arg) === "boolean" ? null : arg;
-            var syncFl = typeof (arg) === "boolean" ? arg : false;
-            // Set the base
-            this.base = this.base ? this.base : this;
-            // Set the response index
-            this.responseIndex = this.base.responses.length;
-            // Add this object to the responses
-            this.base.responses.push(this);
-            // See if this is a synchronous request
-            if (syncFl) {
-                // Execute this request
-                return this.executeRequest(!syncFl, callback);
-            }
-            // Create the promise
-            this.promise = new $REST.Utils.Promise(callback || this.targetInfo.callback);
-            // Execute this request
-            return this.executeRequest(!syncFl, function () {
-                // Wait for the responses to complete
-                _this.waitForRequestsToComplete(function () {
-                    var responses = _this.base.responses;
-                    // Clear the responses
-                    _this.base.responses = [];
-                    // Resolve the promise
-                    _this.promise.resolve.apply(_this.promise, responses);
-                });
+            // Wait for the responses to execute
+            this.waitForRequestsToComplete(function () {
+                var responses = _this.base.responses;
+                // Clear the responses
+                _this.base.responses = [];
+                // Clear the wait flags
+                _this.base.waitFlags = [];
+                // Execute the callback back
+                callback ? callback.apply(_this, responses) : null;
             });
         };
-        // Method to execute this method before the next method executes
-        Base.prototype.next = function (arg) {
+        // Method to execute the request
+        Base.prototype.execute = function () {
             var _this = this;
-            var callback = typeof (arg) === "boolean" ? null : arg;
-            var waitFl = typeof (arg) === "boolean" ? arg : false;
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i - 0] = arguments[_i];
+            }
+            var callback = null;
+            var waitFl = false;
+            // Set the callback and wait flag
+            switch (args.length) {
+                case 1:
+                    callback = typeof (args[0]) === "boolean" ? callback : args[0];
+                    waitFl = typeof (args[0]) === "boolean" ? args[0] : waitFl;
+                    break;
+                case 2:
+                    callback = args[0];
+                    waitFl = args[1];
+                    break;
+            }
             // Set the base
             this.base = this.base ? this.base : this;
             // Set the response index
@@ -74,16 +74,48 @@ var $REST;
                 // Wait for the responses to execute
                 this.waitForRequestsToComplete(function () {
                     // Execute this request
-                    _this.executeRequest(true, callback);
+                    _this.executeRequest(true, function () {
+                        // See if there is a callback
+                        if (callback) {
+                            // Set the base to this object, and clear requests
+                            // This will ensure requests from this object do not conflict w/ this request
+                            _this.base = _this;
+                            _this.base.responses = [];
+                            // Execute the callback and see if it returns a promise
+                            var returnVal = callback(_this);
+                            if (returnVal && typeof (returnVal.done) === "function") {
+                                // Wait for the promise to complete
+                                returnVal.done(function () {
+                                    // Reset the base
+                                    _this.base = _this.parent.base;
+                                    // Set the wait flag
+                                    _this.base.waitFlags[_this.responseIndex] = true;
+                                });
+                                // Wait for the promise to complete
+                                return;
+                            }
+                            // Reset the base
+                            _this.base = _this.parent.base;
+                        }
+                        // Set the wait flag
+                        _this.base.waitFlags[_this.responseIndex] = true;
+                    });
                 }, this.responseIndex);
             }
             else {
                 // Execute this request
-                this.executeRequest(true, callback);
+                this.executeRequest(true, function () {
+                    // Set the wait flag
+                    _this.base.waitFlags[_this.responseIndex] = true;
+                    // Execute the callback
+                    callback ? callback(_this) : null;
+                });
             }
             // Return the base object
             return this.base;
         };
+        // Method to execute the request synchronously.
+        Base.prototype.executeAndWait = function () { return this.executeRequest(false); };
         /*********************************************************************************************************************************/
         // Private Methods
         /*********************************************************************************************************************************/
@@ -234,21 +266,19 @@ var $REST;
             var _this = this;
             // See if this is an asynchronous request
             if (asyncFl) {
-                // Define the callback for the request
-                var requestCallback = function () {
-                    // Update this data object
-                    _this.updateDataObject();
-                    // Execute the callback
-                    callback ? callback(_this) : null;
-                };
                 // See if the request already exists
                 if (this.request) {
                     // Execute the callback
-                    requestCallback();
+                    callback ? callback(this) : null;
                 }
                 else {
                     // Create the request
-                    this.request = new $REST.Utils.Request(asyncFl, new $REST.Utils.TargetInfo(this.targetInfo), requestCallback);
+                    this.request = new $REST.Utils.Request(asyncFl, new $REST.Utils.TargetInfo(this.targetInfo), function () {
+                        // Update this data object
+                        _this.updateDataObject();
+                        // Execute the callback
+                        callback ? callback(_this) : null;
+                    });
                 }
             }
             else if (this.request) {
@@ -444,10 +474,14 @@ var $REST;
                         return;
                     }
                 }
-                // Clear the interval
-                window.clearInterval(intervalId);
-                // Execute the callback
-                callback();
+                // Ensure this isn't the first request
+                // If so, then ensure the previous request has completed
+                if (_this.responseIndex == 0 || _this.base.waitFlags[_this.responseIndex - 1]) {
+                    // Clear the interval
+                    window.clearInterval(intervalId);
+                    // Execute the callback
+                    callback();
+                }
             }, 10);
         };
         return Base;
@@ -455,8 +489,299 @@ var $REST;
     $REST.Base = Base;
 })($REST || ($REST = {}));
 
-
-
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // Helper Methods
+    /*********************************************************************************************************************************/
+    var Helper = (function () {
+        function Helper() {
+        }
+        // Method to check-in and publish a file
+        Helper.checkInAndPublish = function (file, checkInComment, publishComment) {
+            var promise = new $REST.Utils.Promise();
+            // Ensure the file exists
+            if (file && file.Exists) {
+                // Check-in the file
+                file.checkin(checkInComment ? checkInComment : "", 1).execute();
+                // Publish the file
+                file.publish(publishComment ? publishComment : "").execute(true);
+                // Wait for the requests to complete, and resolve the promise
+                file.done(function () { promise.resolve(); });
+            }
+            else {
+                // Resolve the promise
+                promise.resolve();
+            }
+            // Return the promise
+            return promise;
+        };
+        // Method to check out a file
+        Helper.checkoutFiles = function (web, fileUrls) {
+            var files = [];
+            var promise = new $REST.Utils.Promise;
+            // Parse the files
+            for (var _i = 0, fileUrls_1 = fileUrls; _i < fileUrls_1.length; _i++) {
+                var fileUrl = fileUrls_1[_i];
+                // Get the file
+                web.getFileByServerRelativeUrl(fileUrl)
+                    .execute(function (file) {
+                    var promise = new $REST.Utils.Promise();
+                    // Save a reference to the file
+                    files.push(file);
+                    // See if the file exists
+                    if (file.Exists) {
+                        // Check the file out
+                        file.checkout().execute(function () {
+                            // Resolve the promise
+                            promise.resolve(files);
+                        });
+                    }
+                    else {
+                        // Resolve the promise
+                        promise.resolve(files);
+                    }
+                    // Return the promise
+                    return promise;
+                }, true);
+            }
+            // Wait for the requests to complete, and resolve the promise
+            web.done(function () { promise.resolve(files); });
+            // Return the promise
+            return promise;
+        };
+        // Method to copy a file from the app web to the host web.
+        Helper.copyFile = function (appWebSrcFileUrl, dstFolder, overwriteFl) {
+            var _this = this;
+            var promise = new $REST.Utils.Promise();
+            var origVal = $REST.DefaultRequestToHostWebFl;
+            // Ensure the current web is an app web
+            if (!window["_spPageContextInfo"].isAppWeb) {
+                return;
+            }
+            // Target the host web
+            $REST.DefaultRequestToHostWebFl = true;
+            // Get the current Web
+            var web = (new $REST.Web());
+            // Ensure the destination folder exists
+            dstFolder.execute(function () {
+                // Get the file name
+                var fileName = appWebSrcFileUrl.split("/");
+                fileName = fileName[fileName.length - 1];
+                // Set the file urls
+                var dstUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
+                var srcUrl = window["SP"].Utilities.UrlBuilder.urlCombine(window["_spPageContextInfo"].webServerRelativeUrl, appWebSrcFileUrl.substr(appWebSrcFileUrl[0] == "/" ? 1 : 0));
+                // Check out the destination file
+                _this.checkoutFiles(web, [dstUrl]).done(function () {
+                    // Target the app web
+                    $REST.DefaultRequestToHostWebFl = false;
+                    // Get the source file
+                    web.getFileByServerRelativeUrl(srcUrl)
+                        .content()
+                        .execute(function (content) {
+                        // Target the host web
+                        $REST.DefaultRequestToHostWebFl = true;
+                        // Copy the file
+                        dstFolder.Files().add(typeof (overwriteFl) === "boolean" ? overwriteFl : false, fileName, content.response)
+                            .execute(function (file) {
+                            // Checkin and publish the file
+                            _this.checkInAndPublish(file).done(function () {
+                                // Set the original value
+                                $REST.DefaultRequestToHostWebFl = origVal;
+                                // Resolve the promise
+                                promise.resolve(file);
+                            });
+                        });
+                    });
+                });
+            });
+            // Return the promise
+            return promise;
+        };
+        // Method to copy the files from the app web to the host web.
+        Helper.copyFiles = function (srcFileUrls, dstFolderUrls, overwriteFl) {
+            var _this = this;
+            var promise = new $REST.Utils.Promise();
+            // Validate the input
+            if (srcFileUrls == null || srcFileUrls.length == 0 || dstFolderUrls == null || dstFolderUrls.length == 0) {
+                // Resolve the promise
+                promise.resolve();
+                // Return the promise
+                return promise;
+            }
+            // Get the host web
+            $REST.DefaultRequestToHostWebFl = true;
+            var web = new $REST.Web();
+            // Create the destination folders
+            this.createFolders(web, dstFolderUrls).done(function (folders) {
+                var dstFileUrls = [];
+                var srcFileNames = [];
+                // Parse the source files
+                for (var i = 0; i < srcFileUrls.length; i++) {
+                    var dstFolder = folders[dstFolderUrls[i]];
+                    // Get the file name
+                    var fileName = srcFileUrls[i].split("/");
+                    fileName = fileName[fileName.length - 1];
+                    srcFileNames.push(fileName);
+                    // Save the destination and source file urls
+                    dstFileUrls.push(window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName));
+                    srcFileUrls[i] = window["SP"].Utilities.UrlBuilder.urlCombine(window["_spPageContextInfo"].webServerRelativeUrl, srcFileUrls[i].substr(srcFileUrls[i][0] == "/" ? 1 : 0));
+                }
+                // Check out the destination files
+                _this.checkoutFiles(web, dstFileUrls).done(function () {
+                    // Target the app web
+                    $REST.DefaultRequestToHostWebFl = false;
+                    // Get the source file content
+                    _this.getFileContent(web, srcFileUrls).done(function (content) {
+                        var dstFiles = [];
+                        // Target the host web
+                        $REST.DefaultRequestToHostWebFl = true;
+                        // Parse the source file names
+                        for (var i = 0; i < srcFileNames.length; i++) {
+                            var dstFolder = folders[dstFolderUrls[i]];
+                            // Copy the file
+                            dstFolder.Files().add(overwriteFl == null ? false : overwriteFl, srcFileNames[i], content[i])
+                                .execute(function (file) {
+                                var promise = new $REST.Utils.Promise();
+                                // Ensure the file exists
+                                if (file && file.Exists) {
+                                    // Check-in the file
+                                    file.checkin("", 1).execute();
+                                    // Publish the file, after the check-in completes
+                                    file.publish("").execute(function () {
+                                        // Resolve the promise
+                                        promise.resolve();
+                                    }, true);
+                                }
+                                else {
+                                    // Resolve the promise
+                                    promise.resolve();
+                                }
+                                // Return the promise
+                                return promise;
+                            }, true);
+                            // Wait for the files to copy and resolve the promise
+                            dstFolder.done(function () { promise.resolve(dstFiles); });
+                        }
+                    });
+                });
+            });
+            // Return the promise
+            return promise;
+        };
+        // Method to create folders
+        Helper.createFolders = function (web, folderUrls) {
+            var _this = this;
+            var folders = [];
+            var promise = new $REST.Utils.Promise();
+            // Parse the destination folder urls
+            for (var i = 0; i < folderUrls.length; i++) {
+                // Ensure the url is lower case
+                folderUrls[i] = folderUrls[i].toLowerCase();
+            }
+            // Ensure the web exists
+            web.execute(function () {
+                // Parse the destination folder urls
+                var _loop_1 = function(dstFolderUrl) {
+                    // See if we already requested this folder
+                    if (folders[dstFolderUrl]) {
+                        return "continue";
+                    }
+                    // Get the folder
+                    var folderUrl = window["SP"].Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, dstFolderUrl.substr(dstFolderUrl[0] == "/" ? 1 : 0));
+                    folders[dstFolderUrl] = web.getFolderByServerRelativeUrl(folderUrl).execute(function (folder) {
+                        var promise = new $REST.Utils.Promise();
+                        // See if the folder exists
+                        if (folder.existsFl) {
+                            // Save a reference to the folder
+                            folders[dstFolderUrl] = folder;
+                            folders.push(folder);
+                            // Resolve the promise
+                            promise.resolve();
+                        }
+                        else {
+                            // Create the folder
+                            _this.createSubFolders((new $REST.Web()).RootFolder(), dstFolderUrl).done(function (folder) {
+                                // Save a reference to the folder
+                                folders[dstFolderUrl] = folder;
+                                folders.push(folder);
+                                // Resolve the promise
+                                promise.resolve();
+                            });
+                        }
+                        // Return the promise
+                        return promise;
+                    }, true);
+                };
+                for (var _i = 0, folderUrls_1 = folderUrls; _i < folderUrls_1.length; _i++) {
+                    var dstFolderUrl = folderUrls_1[_i];
+                    _loop_1(dstFolderUrl);
+                }
+                // Wait for the requests to complete, and resolve the promise
+                web.done(function () { promise.resolve(folders); });
+            });
+            // Return the promise
+            return promise;
+        };
+        // Method to create sub-folders
+        Helper.createSubFolders = function (folder, subFolderUrl, promise) {
+            var _this = this;
+            promise = promise ? promise : new $REST.Utils.Promise();
+            // Get the sub-folder name
+            var subFolderName = subFolderUrl.split("/")[0];
+            // Update the sub folder url
+            subFolderUrl = subFolderUrl.substr(subFolderName.length + 1);
+            // Get the sub-folder
+            var subFolder = folder.Folders(subFolderName).execute(function (subFolder) {
+                // Method to add additional sub folders
+                var addSubFolders = function (subFolder) {
+                    // See if we are done
+                    if (subFolderUrl.length == 0) {
+                        // Resolve the promise
+                        promise.resolve(subFolder);
+                    }
+                    else {
+                        // Create the sub folder
+                        _this.createSubFolders(subFolder, subFolderUrl, promise);
+                    }
+                };
+                // Ensure the sub-folder exists
+                if (subFolder.existsFl) {
+                    // Add the rest of the sub folders
+                    addSubFolders(subFolder);
+                }
+                else {
+                    // Create the sub folder
+                    folder.Folders().add(subFolderName).execute(addSubFolders);
+                }
+            });
+            // Return a promise
+            return promise;
+        };
+        // Method to get the file content
+        Helper.getFileContent = function (web, fileUrls) {
+            var content = [];
+            var promise = new $REST.Utils.Promise();
+            // Parse the files
+            for (var _i = 0, fileUrls_2 = fileUrls; _i < fileUrls_2.length; _i++) {
+                var fileUrl = fileUrls_2[_i];
+                // Get the file
+                web.getFileByServerRelativeUrl(fileUrl)
+                    .content()
+                    .execute(function (fileContent) {
+                    // Save the content
+                    content.push(fileContent.response);
+                }, true);
+            }
+            // Wait for the requests to complete, and resolve the promise
+            web.done(function () { promise.resolve(content); });
+            // Return the promise
+            return promise;
+        };
+        return Helper;
+    }());
+    $REST.Helper = Helper;
+})($REST || ($REST = {}));
 
 var $REST;
 (function ($REST) {
@@ -768,7 +1093,7 @@ var $REST;
         var FieldType = Types.FieldType;
         /**
          * File Template Types
-         */
+        */
         (function (FileTemplateType) {
             /** Enumeration whose value specifies default form template. */
             FileTemplateType[FileTemplateType["FormPage"] = 2] = "FormPage";
@@ -780,7 +1105,7 @@ var $REST;
         var FileTemplateType = Types.FileTemplateType;
         /**
          * List Template Types
-         */
+        */
         (function (ListTemplateType) {
             /** Access Request List */
             ListTemplateType[ListTemplateType["AccessRequest"] = 160] = "AccessRequest";
@@ -933,6 +1258,21 @@ var $REST;
         })(Types.PageType || (Types.PageType = {}));
         var PageType = Types.PageType;
         /**
+         * Reordering Rule Match Types
+         */
+        (function (ReordingRuleMathType) {
+            ReordingRuleMathType[ReordingRuleMathType["ResultContainsKeyword"] = 0] = "ResultContainsKeyword";
+            ReordingRuleMathType[ReordingRuleMathType["TitleContainsKeyword"] = 1] = "TitleContainsKeyword";
+            ReordingRuleMathType[ReordingRuleMathType["TitleMatchesKeyword"] = 2] = "TitleMatchesKeyword";
+            ReordingRuleMathType[ReordingRuleMathType["UrlStartsWith"] = 3] = "UrlStartsWith";
+            ReordingRuleMathType[ReordingRuleMathType["UrlExactlyMatches"] = 4] = "UrlExactlyMatches";
+            ReordingRuleMathType[ReordingRuleMathType["ContentTypeIs"] = 5] = "ContentTypeIs";
+            ReordingRuleMathType[ReordingRuleMathType["FileExtensionMatches"] = 6] = "FileExtensionMatches";
+            ReordingRuleMathType[ReordingRuleMathType["ResultHasTag"] = 7] = "ResultHasTag";
+            ReordingRuleMathType[ReordingRuleMathType["ManualCondition"] = 8] = "ManualCondition";
+        })(Types.ReordingRuleMathType || (Types.ReordingRuleMathType = {}));
+        var ReordingRuleMathType = Types.ReordingRuleMathType;
+        /**
          * Role Types
          */
         (function (RoleType) {
@@ -988,7 +1328,6 @@ var $REST;
         var ViewType = Types.ViewType;
     })(Types = $REST.Types || ($REST.Types = {}));
 })($REST || ($REST = {}));
-
 
 var $REST;
 (function ($REST) {
@@ -1685,7 +2024,7 @@ var $REST;
                 // See if this is an app web
                 if (this.isAppWeb) {
                     // Set the url to the host url
-                    url = this.getQueryStringValue("SPHostUrl") + "";
+                    url = TargetInfo.getQueryStringValue("SPHostUrl") + "";
                 }
                 // Split the url and validate it
                 url = url.split('/');
@@ -1697,7 +2036,7 @@ var $REST;
                 return url;
             };
             // Method to get a query string value
-            TargetInfo.prototype.getQueryStringValue = function (key) {
+            TargetInfo.getQueryStringValue = function (key) {
                 // Get the query string
                 var queryString = document.location.href.split('?');
                 queryString = queryString.length > 1 ? queryString[1] : queryString[0];
@@ -1719,7 +2058,7 @@ var $REST;
             };
             // Method to set the request url
             TargetInfo.prototype.setRequestUrl = function () {
-                var hostUrl = this.getQueryStringValue("SPHostUrl");
+                var hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
                 var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
                 // See if we are defaulting the url for the app web
                 if ($REST.DefaultRequestToHostWebFl && this.isAppWeb && this.targetInfo.url == null) {
@@ -2817,34 +3156,22 @@ var $REST;
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.search = {
+        query: {
+            argNames: ["settings"],
+            metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
+            requestType: $REST.Types.RequestType.GetWithArgsInQS
+        },
         postquery: {
             argNames: ["request"],
             metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
             requestType: $REST.Types.RequestType.PostWithArgsInBody
         },
-        suggestion: {
-            argNames: ["settings"],
+        suggest: {
+            argNames: ["queryText"],
             metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
+            requestType: $REST.Types.RequestType.GetWithArgs
         }
     };
-})($REST || ($REST = {}));
-
-var $REST;
-(function ($REST) {
-    /*********************************************************************************************************************************/
-    // Search Service
-    // The SPSearchService object.
-    /*********************************************************************************************************************************/
-    //export class Search Service extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    //}
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    $REST.Library.searchservice = {};
 })($REST || ($REST = {}));
 
 var __extends = (this && this.__extends) || function (d, b) {

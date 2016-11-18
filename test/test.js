@@ -80,7 +80,7 @@ function testContentType(list) {
         .add({
             Name: "SPRest" + SP.Guid.newGuid().toString()
         })
-        .execute(true);
+        .executeAndWait();
 
     // Test
     assert(ct, "create", "existsFl", true);
@@ -93,10 +93,10 @@ function testContentType(list) {
         // Update the content type
         ct.update({
             Group: "Dev"
-        }).execute(true);
+        }).executeAndWait();
 
         // Read the content types
-        ct = (new $REST.Web()).ContentTypes(ct.Id.StringValue).execute(true);
+        ct = (new $REST.Web()).ContentTypes(ct.Id.StringValue).executeAndWait();
 
         // Test
         assert(ct, "update", "Group", "Dev");
@@ -105,10 +105,10 @@ function testContentType(list) {
         writeToLog("Creating a field", LogType.SubHeader);
 
         // Get the test field
-        var field = (new $REST.Web()).Fields("SPRestText").execute(true);
+        var field = (new $REST.Web()).Fields("SPRestText").executeAndWait();
         if(!field.existsFl) {
             // Create the test field
-            field = web.Fields().createFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />').execute(true);
+            field = web.Fields().createFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />').executeAndWait();
         }
 
         // Test
@@ -118,7 +118,7 @@ function testContentType(list) {
         writeToLog("Add List Field", LogType.SubHeader);
 
         // Add the field to the list
-        var listField = list.Fields().createFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />').execute(true);
+        var listField = list.Fields().createFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />').executeAndWait();
 
         // Test
         assert(listField, "add list field", "existsFl", true);
@@ -130,7 +130,7 @@ function testContentType(list) {
         writeToLog("Note - Failure to add a field link is a known bug with the REST API.", LogType.Info);
 
         // Add the field to the content type
-        var fieldLink = ct.FieldLinks().add({ FieldInternalName: field.InternalName }).execute(true);
+        var fieldLink = ct.FieldLinks().add({ FieldInternalName: field.InternalName }).executeAndWait();
 
         // Test
         assert(fieldLink, "add field link", "existsFl", true);
@@ -139,7 +139,7 @@ function testContentType(list) {
         writeToLog("Add List Content Type", LogType.SubHeader);
 
         // Add the content type to the list
-        var ctList = list.ContentTypes().addAvailableContentType(ct.Id.StringValue).execute(true);
+        var ctList = list.ContentTypes().addAvailableContentType(ct.Id.StringValue).executeAndWait();
 
         // Test
         assert(ctList, "add list content type", "existsFl", true);
@@ -148,7 +148,7 @@ function testContentType(list) {
         writeToLog("Deleting the list content type", LogType.SubHeader);
 
         // Delete the content type from the list
-        ctList.delete().execute(true);
+        ctList.delete().executeAndWait();
 
         // Test
         assert(ctList.d, "delete", "DeleteObject", null);
@@ -157,7 +157,7 @@ function testContentType(list) {
         writeToLog("Deleting the content type", LogType.SubHeader);
 
         // Delete the content type
-        ct = ct.delete().execute(true);
+        ct = ct.delete().executeAndWait();
 
         // Test
         assert(ct.d, "delete", "DeleteObject", null);
@@ -166,7 +166,7 @@ function testContentType(list) {
         writeToLog("Deleting the field", LogType.SubHeader);
 
         // Delete the content type
-        field = field.delete().execute(true);
+        field = field.delete().executeAndWait();
 
         // Test
         assert(field.d, "delete", "DeleteObject", null);
@@ -190,7 +190,7 @@ function testFile() {
     writeToLog("Getting this file.", LogType.SubHeader);
 
     // Get this file
-    var file = (new $REST.Web()).getFileByServerRelativeUrl(_spPageContextInfo.serverRequestPath).execute(true);
+    var file = (new $REST.Web()).getFileByServerRelativeUrl(_spPageContextInfo.serverRequestPath).executeAndWait();
 
     // Test
     assert(file, "read file", "Exists", true);
@@ -199,7 +199,7 @@ function testFile() {
     writeToLog("Getting the parent folder", LogType.SubHeader);
 
     // Get the parent folder
-    var folder = (new $REST.Web()).getFolderByServerRelativeUrl(file.ServerRelativeUrl.substr(0, file.ServerRelativeUrl.length - file.Name.length - 1)).execute(true);
+    var folder = (new $REST.Web()).getFolderByServerRelativeUrl(file.ServerRelativeUrl.substr(0, file.ServerRelativeUrl.length - file.Name.length - 1)).executeAndWait();
 
     // Test
     assert(folder, "read folder", "Exists", true);
@@ -208,7 +208,7 @@ function testFile() {
     writeToLog("Create a folder", LogType.SubHeader);
 
     // Create a sub-folder
-    var subFolder = folder.addSubFolder("Test").execute(true);
+    var subFolder = folder.addSubFolder("Test").executeAndWait();
 
     // Test
     assert(subFolder, "create folder", "Exists", true);
@@ -217,7 +217,7 @@ function testFile() {
     writeToLog("Copy a file", LogType.SubHeader);
 
     // Read the content types of this file
-    var fileContent = file.content().execute(true);
+    var fileContent = file.content().executeAndWait();
 
     // Test
     assert(fileContent, "read file buffer", "existsFl", true);
@@ -231,7 +231,7 @@ function testFile() {
     }
 
     // Copy the file
-    file = subFolder.addFile("test.aspx", true, buffer).execute(true);
+    file = subFolder.addFile("test.aspx", true, buffer).executeAndWait();
 
     // Test
     assert(file, "copy file", "Exists", true);
@@ -240,7 +240,7 @@ function testFile() {
     writeToLog("Delete the file", LogType.SubHeader);
 
     // Delete the file
-    file = file.delete().execute(true);
+    file = file.delete().executeAndWait();
 
     // Test
     assert(file.d, "delete file", "DeleteObject", null);
@@ -249,7 +249,7 @@ function testFile() {
     writeToLog("Delete the folder", LogType.SubHeader);
 
     // Delete the sub-folder
-    subFolder = subFolder.delete().execute(true);
+    subFolder = subFolder.delete().executeAndWait();
 
     // Test
     assert(subFolder.d, "delete folder", "DeleteObject", null);
@@ -270,7 +270,7 @@ function testList() {
             Description: "This is a test list.",
             Title: "SPRest" + SP.Guid.newGuid().toString()
         })
-        .execute(true);
+        .executeAndWait();
 
     // Test
     assert(list, "create", "existsFl", true);
@@ -283,10 +283,10 @@ function testList() {
         // Update the list
         list.update({
             Description: "Updated description"
-        }).execute(true);
+        }).executeAndWait();
 
         // Read the updated list
-        list = new $REST.List(list.Title).execute(true);
+        list = new $REST.List(list.Title).executeAndWait();
 
         // Test
         assert(list, "update", "Description", "Updated description");
@@ -304,7 +304,7 @@ function testList() {
         writeToLog("Deleting the list", LogType.SubHeader);
 
         // Delete the list
-        list = list.delete().execute(true);
+        list = list.delete().executeAndWait();
 
         // Test
         assert(list.d, "delete", "DeleteObject", null);
@@ -348,7 +348,7 @@ function testListAsync() {
                     // Add the item
                     .add({ Title: "New Item " + i})
                     // Execute and wait for the previous item
-                    .next(true);
+                    .execute(true);
             }
 
             // Execute the request
@@ -381,7 +381,7 @@ function testListItem(list) {
     // Create the item
     item = list.Items().add({
         Title: "New Item"
-    }).execute(true);
+    }).executeAndWait();
     assert(item, "create", "existsFl", true);
 
     // Log
@@ -390,10 +390,10 @@ function testListItem(list) {
     // Update the item
     item.update({
         Title: "Updated Item"
-    }).execute(true);
+    }).executeAndWait();
 
     // Read the updated item
-    item = (new $REST.List(list.Title)).Items(item.ID).execute(true);
+    item = (new $REST.List(list.Title)).Items(item.ID).executeAndWait();
 
     // Test
     assert(item, "update", "Title", "Updated Item");
@@ -402,7 +402,7 @@ function testListItem(list) {
     writeToLog("Deleting the list item", LogType.SubHeader);
 
     // Delete the item
-    item = item.delete().execute(true);
+    item = item.delete().executeAndWait();
 
     // Test
     assert(item.d, "delete", "DeleteObject", null);
@@ -425,7 +425,7 @@ function testListItems(list) {
         // Create the item
         var item = list.Items().add({
             Title: title
-        }).execute(true);
+        }).executeAndWait();
 
         // Test
         assert(item, "create item " + i, "Title", title);
@@ -444,7 +444,7 @@ function testListItems(list) {
         .replace(/{{Max}}/g, template.replace(/{{Type}}/g, "Leq").replace(/{{Value}}/g, items[items.length-1].ID));
 
     // Get the items
-    items = (new $REST.List(list.Title, false)).getItemsByQuery(caml).execute(true);
+    items = (new $REST.List(list.Title, false)).getItemsByQuery(caml).executeAndWait();
 
     // Test
     assert(items.results, "query list items", "length", maxNumber);
@@ -461,7 +461,7 @@ function testSecurity() {
     var web = new $REST.Web();
 
     // Get the 'View Only' permission
-    var permission = web.RoleDefinitions().query({ Filter: "Name eq 'View Only'" }).execute(true);
+    var permission = web.RoleDefinitions().query({ Filter: "Name eq 'View Only'" }).executeAndWait();
 
     // Test
     assert(permission, "query", "existsFl", true);
@@ -473,10 +473,10 @@ function testSecurity() {
     writeToLog("Creating the site group", LogType.SubHeader);
 
     // Get the test group
-    var group = web.SiteGroups("Test Group").execute(true);
+    var group = web.SiteGroups("Test Group").executeAndWait();
     if(!group.existsFl) {
         // Create a new group
-        group = web.SiteGroups().add({ Title: "Test Group" }).execute(true);
+        group = web.SiteGroups().add({ Title: "Test Group" }).executeAndWait();
     }
 
     // Test
@@ -489,13 +489,13 @@ function testSecurity() {
     if(!group.existsFl) { return; }
 
     // Add the current user to the group
-    var user = group.Users().add({ LoginName: web.CurrentUser().execute(true).LoginName }).execute(true);
+    var user = group.Users().add({ LoginName: web.CurrentUser().executeAndWait().LoginName }).executeAndWait();
 
     // Test
     assert(user, "create user", "existsFl", true);
 
     // Remove the user from the group
-    user = group.Users().removeByLoginName(user.LoginName).execute(true);
+    user = group.Users().removeByLoginName(user.LoginName).executeAndWait();
 
     // Test
     assert(user.d, "delete user", "RemoveByLoginName", null);
@@ -504,7 +504,7 @@ function testSecurity() {
     writeToLog("Deleting the group", LogType.SubHeader);
 
     // Delete the group
-    group = web.SiteGroups().removeById(group.Id).execute(true);
+    group = web.SiteGroups().removeById(group.Id).executeAndWait();
 
     // Test
     assert(group.d, "delete group", "RemoveById", null);

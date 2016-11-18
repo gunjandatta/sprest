@@ -17,23 +17,13 @@ gulp.task("build", function() {
         .pipe(gulp.dest("dist"));
 });
 
-// Copy the typescript definition file
-gulp.task("copyTSD", function() {
-    // Log
-    console.log("Copying the typescript definition file.");
-
-    // Copy the definition file
-    return gulp.src(["tsd/sprest.d.ts"])
-        .pipe(gulp.dest("dist"));
-});
-
 // Create the definition file
 gulp.task("createDefinitionFile", function() {
     // Log
     console.log("Creating the definition file.");
 
     // Copy the files
-    return gulp.src(["tsd/sprest.d.ts", "src/*.d.ts", "src/types/*.d.ts", "src/utils/*.d.ts", "src/lib/*.d.ts"])
+    return gulp.src(["tsd/*.d.ts", "src/definitions/*.d.ts"])
         .pipe(concat("sprest.d.ts"))
         .pipe(gulp.dest("dist"));
 });

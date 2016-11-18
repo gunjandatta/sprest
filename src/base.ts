@@ -10,7 +10,7 @@ module $REST {
     // Base
     // This is the base class for all objects.
     /*********************************************************************************************************************************/
-    export class Base implements Types.IBase {
+    export class Base {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
@@ -18,6 +18,7 @@ module $REST {
             // Default the properties
             this.targetInfo = targetInfo || {};
             this.requestType = 0;
+            this.waitFlags = [];
         }
 
         /*********************************************************************************************************************************/
@@ -40,48 +41,39 @@ module $REST {
         // Public Methods
         /*********************************************************************************************************************************/
 
-        // Method to execute a child request
-        public execute(arg?: boolean | any) {
-            let callback = typeof(arg) === "boolean" ? null : arg;
-            let syncFl = typeof(arg) === "boolean" ? arg : false;
+        // Method to wait for the requests to complete
+        public done(callback:(...args) => any) {
+            // Wait for the responses to execute
+            this.waitForRequestsToComplete(() => {
+                let responses = this.base.responses;
 
-            // Set the base
-            this.base = this.base ? this.base : this;
+                // Clear the responses
+                this.base.responses = [];
 
-            // Set the response index
-            this.responseIndex = this.base.responses.length;
-            
-            // Add this object to the responses
-            this.base.responses.push(this);
+                // Clear the wait flags
+                this.base.waitFlags = [];
 
-            // See if this is a synchronous request
-            if(syncFl) {
-                // Execute this request
-                return this.executeRequest(!syncFl, callback);
-            }
-
-            // Create the promise
-            this.promise = new Utils.Promise(callback || this.targetInfo.callback);
-
-            // Execute this request
-            return this.executeRequest(!syncFl, () => {
-                // Wait for the responses to complete
-                this.waitForRequestsToComplete(() => {
-                    let responses = this.base.responses;
-
-                    // Clear the responses
-                    this.base.responses = [];
-
-                    // Resolve the promise
-                    this.promise.resolve.apply(this.promise, responses);
-                });
+                // Execute the callback back
+                callback ? callback.apply(this, responses) : null;
             });
         }
 
-        // Method to execute this method before the next method executes
-        public next(arg?: boolean | any): Base {
-            let callback = typeof(arg) === "boolean" ? null : arg;
-            let waitFl = typeof(arg) === "boolean" ? arg : false;
+        // Method to execute the request
+        public execute(...args) {
+            let callback = null;
+            let waitFl = false;
+
+            // Set the callback and wait flag
+            switch(args.length) {
+                case 1:
+                    callback = typeof(args[0]) === "boolean" ? callback : args[0];
+                    waitFl = typeof(args[0]) === "boolean" ? args[0] : waitFl;
+                break;
+                case 2:
+                    callback = args[0];
+                    waitFl = args[1];
+                break;
+            }
 
             // Set the base
             this.base = this.base ? this.base : this;
@@ -97,16 +89,55 @@ module $REST {
                 // Wait for the responses to execute
                 this.waitForRequestsToComplete(() => {
                     // Execute this request
-                    this.executeRequest(true, callback);
+                    this.executeRequest(true, () => {
+                        // See if there is a callback
+                        if(callback) {
+                            // Set the base to this object, and clear requests
+                            // This will ensure requests from this object do not conflict w/ this request
+                            this.base = this;
+                            this.base.responses = [];
+
+                            // Execute the callback and see if it returns a promise
+                            let returnVal = callback(this);
+                            if(returnVal && typeof(returnVal.done) === "function") {
+                                // Wait for the promise to complete
+                                returnVal.done(() => {
+                                    // Reset the base
+                                    this.base = this.parent.base;
+
+                                    // Set the wait flag
+                                    this.base.waitFlags[this.responseIndex] = true;
+                                });
+
+                                // Wait for the promise to complete
+                                return;
+                            }
+                            
+                            // Reset the base
+                            this.base = this.parent.base;
+                        }
+
+                        // Set the wait flag
+                        this.base.waitFlags[this.responseIndex] = true;
+                    });
                 }, this.responseIndex);
             } else {
                 // Execute this request
-                this.executeRequest(true, callback);
+                this.executeRequest(true, () => {
+                    // Set the wait flag
+                    this.base.waitFlags[this.responseIndex] = true;
+
+                    // Execute the callback
+                    callback ? callback(this) : null;
+                });
             }
 
             // Return the base object
             return this.base;
         }
+
+        // Method to execute the request synchronously.
+        public executeAndWait() { return this.executeRequest(false); }
 
         /*********************************************************************************************************************************/
         // Private Variables
@@ -132,6 +163,9 @@ module $REST {
 
         // The base settings
         protected targetInfo:Settings.TargetInfoSettings;
+
+        // The wait flags
+        private waitFlags:Array<boolean>;
 
         /*********************************************************************************************************************************/
         // Private Methods
@@ -310,22 +344,19 @@ module $REST {
         protected executeRequest(asyncFl: boolean, callback?:(...args) => void) {
             // See if this is an asynchronous request
             if(asyncFl) {
-                // Define the callback for the request
-                let requestCallback = () => {
-                    // Update this data object
-                    this.updateDataObject();
-
-                    // Execute the callback
-                    callback ? callback(this) : null;
-                };
-
                 // See if the request already exists
                 if(this.request) {
                     // Execute the callback
-                    requestCallback();
+                    callback ? callback(this) : null;
                 } else {
                     // Create the request
-                    this.request = new Utils.Request(asyncFl, new Utils.TargetInfo(this.targetInfo), requestCallback);
+                    this.request = new Utils.Request(asyncFl, new Utils.TargetInfo(this.targetInfo), () => {
+                        // Update this data object
+                        this.updateDataObject();
+
+                        // Execute the callback
+                        callback ? callback(this) : null;
+                    });
                 }
             }
             // Else, see if we already executed this response
@@ -546,16 +577,20 @@ module $REST {
                 for(let response of this.base.responses) {
                     // See if we are waiting until a specified index
                     if(requestIdx == counter++) { break; }
-                    
+
                     // Return if the request hasn't completed
                     if(response.request == null || !response.request.completedFl) { return; }
                 }
 
-                // Clear the interval
-                window.clearInterval(intervalId);
+                // Ensure this isn't the first request
+                // If so, then ensure the previous request has completed
+                if(this.responseIndex == 0 || this.base.waitFlags[this.responseIndex - 1]) {
+                    // Clear the interval
+                    window.clearInterval(intervalId);
 
-                // Execute the callback
-                callback();
+                    // Execute the callback
+                    callback();
+                }
             }, 10);
         }
     }

@@ -28,7 +28,7 @@ SOFTWARE.
 ***************************************************************************************************/
 
 /***********************************************************************************************
- * REST Classes
+ * REST
  **********************************************************************************************/
 declare module $REST {
     /***********************************************************************************************
@@ -38,22 +38,25 @@ declare module $REST {
     /**
      * Flag to execute requests against the host web. This is relevent to the app web only, and defaults to the SPHostUrl querystring value.
      */
-    var DefaultRequestToHostWebFl:boolean;
+    let DefaultRequestToHostWebFl:boolean;
 
     /**
      * Flag to execute the request by default on creation of an object.
      */
-    var ExecuteOnCreationFl:boolean;
+    let ExecuteOnCreationFl:boolean;
 
     /** Email */
-    var Email:Types.IEmail;
+    let Email:Types.IEmail;
+
+    /** Helper Methods */
+    let Helper:Types.IHelper;
 
     /** List */
-    var List:Types.IList;
+    let List:Types.IList;
     
     /** Site */
-    var Site:Types.ISite;
+    let Site:Types.ISite;
     
     /** Web */
-    var Web:Types.IWeb;
+    let Web:Types.IWeb;
 }

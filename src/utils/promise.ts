@@ -7,7 +7,7 @@ module $REST.Utils {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(callback?:() => void) {
+        constructor(callback?:(...args) => void) {
             // Default the properties
             this.callback = callback
             this.resolvedFl = false;
@@ -18,7 +18,7 @@ module $REST.Utils {
         /******************************************************************************************************************************** */
 
         // Method to execute after the promise is resolved
-        public done(callback?:() => void) {
+        public done(callback?:(...args) => void) {
             // Set the callback
             this.callback = callback || this.callback;
 

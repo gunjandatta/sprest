@@ -63,7 +63,7 @@ module $REST.Utils {
             // See if this is an app web
             if (this.isAppWeb) {
                 // Set the url to the host url
-                url = this.getQueryStringValue("SPHostUrl") + "";
+                url = TargetInfo.getQueryStringValue("SPHostUrl") + "";
             }
 
             // Split the url and validate it
@@ -78,7 +78,7 @@ module $REST.Utils {
         }
 
         // Method to get a query string value
-        private getQueryStringValue(key:string) {
+        static getQueryStringValue(key:string) {
             // Get the query string
             var queryString:any = document.location.href.split('?');
             queryString = queryString.length > 1 ? queryString[1] : queryString[0];
@@ -103,7 +103,7 @@ module $REST.Utils {
 
         // Method to set the request url
         private setRequestUrl() {
-            let hostUrl = this.getQueryStringValue("SPHostUrl");
+            let hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
             let template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
 
             // See if we are defaulting the url for the app web
