@@ -3,6 +3,9 @@ An easy way to develop against the SharePoint REST api.
 
 *Please report issues. I am constantly updating/fixing/testing to make this library better.*
 
+## Demo:
+![Demo](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/demo.gif)
+
 ## Benefits:
 * Generates the REST api url and formats it for app webs automatically.
 * Chain property and methods for fewer requests to the server.
