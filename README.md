@@ -41,13 +41,13 @@ The 'executeAndWait' executes the request synchronously.
 The 'execute' executes the request asynchronously. This method can be executed the following ways:
 
 * execute(callback)
->* The callback is a function type, which will be executed after the request completes.
+* _The callback is a function type, which will be executed after the request completes._
 * execute(waitFl)
->* The request will execute after the previous request completes.
+* _The request will execute after the previous request completes._
 * execute(callback, waitFl)
->* The callback is a function type, which will be executed after the request completes.
->* The request will execute after the previous request completes.
->* Using the waitFl, if the callback returns a promise, the next request will not execute until the callback completes.
+* _The callback is a function type, which will be executed after the request completes._
+* _The request will execute after the previous request completes._
+* _Using the waitFl, if the callback returns a promise, the next request will not execute until the callback completes._
 
 The 'done' method waits for all requests to complete, before executing the callback method.
 
