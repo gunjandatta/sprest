@@ -1,4 +1,4 @@
-# SharePoint 2013/Online REST Client Framework
+# SharePoint 2013/Online REST Framework
 An easy way to develop against the SharePoint REST api.
 
 *Please report issues. I am constantly updating/fixing/testing to make this library better.*
