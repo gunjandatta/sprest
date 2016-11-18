@@ -42,8 +42,10 @@ The 'execute' executes the request asynchronously. This method can be executed t
 
 ##### execute(callback)
 * _The callback is a function type, which will be executed after the request completes._
+
 ##### execute(waitFl)
 * _The request will execute after the previous request completes._
+
 ##### execute(callback, waitFl)
 * _The callback is a function type, which will be executed after the request completes._
 * _The request will execute after the previous request completes._
