@@ -39,7 +39,8 @@ The **'executeAndWait'** executes the request synchronously.
 
 #### Asynchronous
 The **'done'** method waits for all requests to complete, before executing the callback method.
-The **'execute'** executes the request asynchronously. This method can be executed the following ways:
+
+The **'execute'** method executes the request asynchronously. This method can be executed the following ways:
 
 ##### execute(callback)
 * _The callback is a function type, which will be executed after the request completes._
