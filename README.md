@@ -35,10 +35,11 @@ $REST.DefaultRequestToHostWebFl = true;
 
 ### Asynchronous/Synchronous requests
 #### Synchronous
-The 'executeAndWait' executes the request synchronously.
+The **'executeAndWait'** executes the request synchronously.
 
 #### Asynchronous
-The 'execute' executes the request asynchronously. This method can be executed the following ways:
+The **'done'** method waits for all requests to complete, before executing the callback method.
+The **'execute'** executes the request asynchronously. This method can be executed the following ways:
 
 ##### execute(callback)
 * _The callback is a function type, which will be executed after the request completes._
@@ -50,8 +51,6 @@ The 'execute' executes the request asynchronously. This method can be executed t
 * _The callback is a function type, which will be executed after the request completes._
 * _The request will execute after the previous request completes._
 * _Using the waitFl, if the callback returns a promise, the next request will not execute until the callback completes._
-
-The 'done' method waits for all requests to complete, before executing the callback method.
 
 ##### Example
 Get the list items from the 'Dev' list
