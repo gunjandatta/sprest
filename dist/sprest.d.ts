@@ -1660,11 +1660,11 @@ declare module $REST.Types {
         checkInAndPublish(file:$REST.Types.IFile, checkInComment?:string, publishComment?:string): Types.IPromise;
 
         /**
-         * Method to check out a file
+         * Method to check out a files.
          * @param web - The web containing the file.
-         * @param fileUrl - The server relative url of the file.
+         * @param fileUrls - An array of server relative url of the file.
          */
-        checkoutFile(web:$REST.Types.IWeb, fileUrl:string): Types.IPromise;
+        checkoutFiles(web:$REST.Types.IWeb, fileUrls:Array<string>): Types.IPromise;
 
         /**
          * Method to copy a file from the app web to the host web.
@@ -1695,6 +1695,13 @@ declare module $REST.Types {
          * @param subFolderUrl - The host web relative url of the destination folder.
          */
         createSubFolders(folder:Types.IFolder, subFolderUrl:string): Types.IPromise;
+
+        /**
+         * Method to get the file content.
+         * @param web - The web containing the files.
+         * @param fileUrls - An array of file urls, relative to the web.
+         */
+        getFileContent(web:$REST.Types.IWeb, fileUrls:Array<string>): Types.IPromise;
    }
 }
 

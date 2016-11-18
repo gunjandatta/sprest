@@ -94,6 +94,8 @@ var $REST;
                                 // Wait for the promise to complete
                                 return;
                             }
+                            // Reset the base
+                            _this.base = _this.parent.base;
                         }
                         // Set the wait flag
                         _this.base.waitFlags[_this.responseIndex] = true;
