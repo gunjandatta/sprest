@@ -40,11 +40,11 @@ The 'executeAndWait' executes the request synchronously.
 #### Asynchronous
 The 'execute' executes the request asynchronously. This method can be executed the following ways:
 
-* execute(callback)
+# execute(callback)
 * _The callback is a function type, which will be executed after the request completes._
-* execute(waitFl)
+# execute(waitFl)
 * _The request will execute after the previous request completes._
-* execute(callback, waitFl)
+# execute(callback, waitFl)
 * _The callback is a function type, which will be executed after the request completes._
 * _The request will execute after the previous request completes._
 * _Using the waitFl, if the callback returns a promise, the next request will not execute until the callback completes._
