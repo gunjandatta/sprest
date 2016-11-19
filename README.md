@@ -20,7 +20,7 @@ npm install gd-sprest --save-dev
 ```
 
 ## Documentation:
-[Click here](https://github.com/gunjandatta/sprest/wiki/SP-REST-Framework) to view the documentation for the framework.
+[Click here](https://github.com/gunjandatta/sprest/wiki) to view the documentation for the framework.
 
 ### Example Projects
 [Add/Remove Site Collection User Custom Actions](https://github.com/gunjandatta/sprest-sitecustomactions)
