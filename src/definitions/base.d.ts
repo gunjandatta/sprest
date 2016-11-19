@@ -13,6 +13,9 @@ declare module $REST.Types {
         /** The parent object, which created this object. */
         parent: any;
 
+        /** The response */
+        response: string;
+
         /** The request type */
         requestType: $REST.Types.RequestType;
 

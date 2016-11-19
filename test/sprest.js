@@ -497,231 +497,85 @@ var $REST;
     var Helper = (function () {
         function Helper() {
         }
-        // Method to check-in and publish a file
-        Helper.checkInAndPublish = function (file, checkInComment, publishComment) {
-            var promise = new $REST.Utils.Promise();
-            // Ensure the file exists
-            if (file && file.Exists) {
-                // Check-in the file
-                file.checkin(checkInComment ? checkInComment : "", 1).execute();
-                // Publish the file
-                file.publish(publishComment ? publishComment : "").execute(true);
-                // Wait for the requests to complete, and resolve the promise
-                file.done(function () { promise.resolve(); });
-            }
-            else {
-                // Resolve the promise
-                promise.resolve();
-            }
-            // Return the promise
-            return promise;
-        };
-        // Method to check out a file
-        Helper.checkoutFiles = function (web, fileUrls) {
-            var files = [];
-            var promise = new $REST.Utils.Promise;
-            // Parse the files
-            for (var _i = 0, fileUrls_1 = fileUrls; _i < fileUrls_1.length; _i++) {
-                var fileUrl = fileUrls_1[_i];
-                // Get the file
-                web.getFileByServerRelativeUrl(fileUrl)
-                    .execute(function (file) {
-                    var promise = new $REST.Utils.Promise();
-                    // Save a reference to the file
-                    files.push(file);
-                    // See if the file exists
-                    if (file.Exists) {
-                        // Check the file out
-                        file.checkout().execute(function () {
-                            // Resolve the promise
-                            promise.resolve(files);
-                        });
-                    }
-                    else {
-                        // Resolve the promise
-                        promise.resolve(files);
-                    }
-                    // Return the promise
-                    return promise;
-                }, true);
-            }
-            // Wait for the requests to complete, and resolve the promise
-            web.done(function () { promise.resolve(files); });
-            // Return the promise
-            return promise;
-        };
-        // Method to copy a file from the app web to the host web.
-        Helper.copyFile = function (appWebSrcFileUrl, dstFolder, overwriteFl) {
-            var _this = this;
+        // Method to copy a file in this app web to the host web
+        Helper.copyFileToHostWeb = function (fileUrl, folderUrl, overwriteFl) {
+            var srcFile = null;
             var promise = new $REST.Utils.Promise();
             var origVal = $REST.DefaultRequestToHostWebFl;
             // Ensure the current web is an app web
             if (!window["_spPageContextInfo"].isAppWeb) {
+                // Error
+                console.error("[gd-sprest] The current web is not an app web.");
                 return;
             }
-            // Target the host web
+            //Get the host web
             $REST.DefaultRequestToHostWebFl = true;
-            // Get the current Web
             var web = (new $REST.Web());
-            // Ensure the destination folder exists
-            dstFolder.execute(function () {
+            // Get the destination folder
+            this.getFolder(web, folderUrl, true).done(function (dstFolder) {
                 // Get the file name
-                var fileName = appWebSrcFileUrl.split("/");
+                var fileName = fileUrl.split("/");
                 fileName = fileName[fileName.length - 1];
                 // Set the file urls
-                var dstUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-                var srcUrl = window["SP"].Utilities.UrlBuilder.urlCombine(window["_spPageContextInfo"].webServerRelativeUrl, appWebSrcFileUrl.substr(appWebSrcFileUrl[0] == "/" ? 1 : 0));
-                // Check out the destination file
-                _this.checkoutFiles(web, [dstUrl]).done(function () {
-                    // Target the app web
-                    $REST.DefaultRequestToHostWebFl = false;
-                    // Get the source file
-                    web.getFileByServerRelativeUrl(srcUrl)
-                        .content()
-                        .execute(function (content) {
-                        // Target the host web
-                        $REST.DefaultRequestToHostWebFl = true;
-                        // Copy the file
-                        dstFolder.Files().add(typeof (overwriteFl) === "boolean" ? overwriteFl : false, fileName, content.response)
-                            .execute(function (file) {
-                            // Checkin and publish the file
-                            _this.checkInAndPublish(file).done(function () {
-                                // Set the original value
-                                $REST.DefaultRequestToHostWebFl = origVal;
-                                // Resolve the promise
-                                promise.resolve(file);
-                            });
-                        });
-                    });
-                });
-            });
-            // Return the promise
-            return promise;
-        };
-        // Method to copy the files from the app web to the host web.
-        Helper.copyFiles = function (srcFileUrls, dstFolderUrls, overwriteFl) {
-            var _this = this;
-            var promise = new $REST.Utils.Promise();
-            // Validate the input
-            if (srcFileUrls == null || srcFileUrls.length == 0 || dstFolderUrls == null || dstFolderUrls.length == 0) {
-                // Resolve the promise
-                promise.resolve();
-                // Return the promise
-                return promise;
-            }
-            // Get the host web
-            $REST.DefaultRequestToHostWebFl = true;
-            var web = new $REST.Web();
-            // Create the destination folders
-            this.createFolders(web, dstFolderUrls).done(function (folders) {
-                var dstFileUrls = [];
-                var srcFileNames = [];
-                // Parse the source files
-                for (var i = 0; i < srcFileUrls.length; i++) {
-                    var dstFolder = folders[dstFolderUrls[i]];
-                    // Get the file name
-                    var fileName = srcFileUrls[i].split("/");
-                    fileName = fileName[fileName.length - 1];
-                    srcFileNames.push(fileName);
-                    // Save the destination and source file urls
-                    dstFileUrls.push(window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName));
-                    srcFileUrls[i] = window["SP"].Utilities.UrlBuilder.urlCombine(window["_spPageContextInfo"].webServerRelativeUrl, srcFileUrls[i].substr(srcFileUrls[i][0] == "/" ? 1 : 0));
-                }
-                // Check out the destination files
-                _this.checkoutFiles(web, dstFileUrls).done(function () {
-                    // Target the app web
-                    $REST.DefaultRequestToHostWebFl = false;
-                    // Get the source file content
-                    _this.getFileContent(web, srcFileUrls).done(function (content) {
-                        var dstFiles = [];
-                        // Target the host web
-                        $REST.DefaultRequestToHostWebFl = true;
-                        // Parse the source file names
-                        for (var i = 0; i < srcFileNames.length; i++) {
-                            var dstFolder = folders[dstFolderUrls[i]];
-                            // Copy the file
-                            dstFolder.Files().add(overwriteFl == null ? false : overwriteFl, srcFileNames[i], content[i])
-                                .execute(function (file) {
-                                var promise = new $REST.Utils.Promise();
-                                // Ensure the file exists
-                                if (file && file.Exists) {
-                                    // Check-in the file
-                                    file.checkin("", 1).execute();
-                                    // Publish the file, after the check-in completes
-                                    file.publish("").execute(function () {
-                                        // Resolve the promise
-                                        promise.resolve();
-                                    }, true);
-                                }
-                                else {
-                                    // Resolve the promise
-                                    promise.resolve();
-                                }
-                                // Return the promise
-                                return promise;
-                            }, true);
-                            // Wait for the files to copy and resolve the promise
-                            dstFolder.done(function () { promise.resolve(dstFiles); });
-                        }
-                    });
-                });
-            });
-            // Return the promise
-            return promise;
-        };
-        // Method to create folders
-        Helper.createFolders = function (web, folderUrls) {
-            var _this = this;
-            var folders = [];
-            var promise = new $REST.Utils.Promise();
-            // Parse the destination folder urls
-            for (var i = 0; i < folderUrls.length; i++) {
-                // Ensure the url is lower case
-                folderUrls[i] = folderUrls[i].toLowerCase();
-            }
-            // Ensure the web exists
-            web.execute(function () {
-                // Parse the destination folder urls
-                var _loop_1 = function(dstFolderUrl) {
-                    // See if we already requested this folder
-                    if (folders[dstFolderUrl]) {
-                        return "continue";
+                var dstFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
+                var srcFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(window["_spPageContextInfo"].webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+                // Get the destination file
+                web.getFileByServerRelativeUrl(dstFileUrl)
+                    .execute(function (file) {
+                    var promise = new $REST.Utils.Promise();
+                    // See if the file exists
+                    if (file.Exists) {
+                        // Check out the file, and resolve the promise
+                        file.checkout().execute(function () { promise.resolve(); });
                     }
-                    // Get the folder
-                    var folderUrl = window["SP"].Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, dstFolderUrl.substr(dstFolderUrl[0] == "/" ? 1 : 0));
-                    folders[dstFolderUrl] = web.getFolderByServerRelativeUrl(folderUrl).execute(function (folder) {
+                    else {
+                        // Resolve the promise
+                        promise.resolve();
+                    }
+                    // Return the promiser
+                    return promise;
+                });
+                // Target the current web
+                $REST.DefaultRequestToHostWebFl = false;
+                // Get the file
+                web.getFileByServerRelativeUrl(srcFileUrl)
+                    .content()
+                    .execute(function (content) {
+                    var promise = new $REST.Utils.Promise();
+                    // Get the file name
+                    var fileName = srcFileUrl.split("/");
+                    fileName = fileName[fileName.length - 1];
+                    // Target the host web
+                    $REST.DefaultRequestToHostWebFl = true;
+                    // Add the file to the folder
+                    dstFolder.Files().add(true, fileName, content.response)
+                        .execute(function (file) {
                         var promise = new $REST.Utils.Promise();
-                        // See if the folder exists
-                        if (folder.existsFl) {
-                            // Save a reference to the folder
-                            folders[dstFolderUrl] = folder;
-                            folders.push(folder);
+                        // Save a reference to this file
+                        srcFile = file;
+                        // Check in the file
+                        file.checkin("", 1).execute();
+                        // Publish the file
+                        file.publish("").execute(true);
+                        // Wait for the requests to complete
+                        file.done(function () {
                             // Resolve the promise
                             promise.resolve();
-                        }
-                        else {
-                            // Create the folder
-                            _this.createSubFolders((new $REST.Web()).RootFolder(), dstFolderUrl).done(function (folder) {
-                                // Save a reference to the folder
-                                folders[dstFolderUrl] = folder;
-                                folders.push(folder);
-                                // Resolve the promise
-                                promise.resolve();
-                            });
-                        }
+                        });
                         // Return the promise
                         return promise;
-                    }, true);
-                };
-                for (var _i = 0, folderUrls_1 = folderUrls; _i < folderUrls_1.length; _i++) {
-                    var dstFolderUrl = folderUrls_1[_i];
-                    _loop_1(dstFolderUrl);
-                }
+                    });
+                    // Return the promise
+                    return promise;
+                }, true);
                 // Wait for the requests to complete, and resolve the promise
-                web.done(function () { promise.resolve(folders); });
+                web.done(function () { promise.resolve(srcFile); });
             });
             // Return the promise
             return promise;
+        };
+        // Method to copy a file in this app web to the host web
+        Helper.copyFilesToHostWeb = function (fileUrls, folderUrls, overwriteFl) {
         };
         // Method to create sub-folders
         Helper.createSubFolders = function (folder, subFolderUrl, promise) {
@@ -731,50 +585,84 @@ var $REST;
             var subFolderName = subFolderUrl.split("/")[0];
             // Update the sub folder url
             subFolderUrl = subFolderUrl.substr(subFolderName.length + 1);
-            // Get the sub-folder
-            var subFolder = folder.Folders(subFolderName).execute(function (subFolder) {
-                // Method to add additional sub folders
-                var addSubFolders = function (subFolder) {
-                    // See if we are done
-                    if (subFolderUrl.length == 0) {
-                        // Resolve the promise
-                        promise.resolve(subFolder);
+            // Ensure the folder exists
+            if (!folder.existsFl) {
+                // Get the folder
+                folder.execute();
+            }
+            // Wait for the request to complete
+            folder.done(function () {
+                // Get the sub-folder
+                var subFolder = folder.Folders(subFolderName).execute(function (subFolder) {
+                    // Method to add additional sub folders
+                    var addSubFolders = function (subFolder) {
+                        // See if we are done
+                        if (subFolderUrl.length == 0) {
+                            // Resolve the promise
+                            promise.resolve(subFolder);
+                        }
+                        else {
+                            // Create the sub folder
+                            _this.createSubFolders(subFolder, subFolderUrl, promise);
+                        }
+                    };
+                    // Ensure the sub-folder exists
+                    if (subFolder.existsFl) {
+                        // Add the rest of the sub folders
+                        addSubFolders(subFolder);
                     }
                     else {
                         // Create the sub folder
-                        _this.createSubFolders(subFolder, subFolderUrl, promise);
+                        folder.Folders().add(subFolderName).execute(addSubFolders);
                     }
-                };
-                // Ensure the sub-folder exists
-                if (subFolder.existsFl) {
-                    // Add the rest of the sub folders
-                    addSubFolders(subFolder);
-                }
-                else {
-                    // Create the sub folder
-                    folder.Folders().add(subFolderName).execute(addSubFolders);
-                }
+                });
             });
             // Return a promise
             return promise;
         };
-        // Method to get the file content
-        Helper.getFileContent = function (web, fileUrls) {
-            var content = [];
+        // Method to get a folder
+        Helper.getFolder = function (web, folderUrl, createFl) {
+            var _this = this;
+            var dstFolder = null;
             var promise = new $REST.Utils.Promise();
-            // Parse the files
-            for (var _i = 0, fileUrls_2 = fileUrls; _i < fileUrls_2.length; _i++) {
-                var fileUrl = fileUrls_2[_i];
-                // Get the file
-                web.getFileByServerRelativeUrl(fileUrl)
-                    .content()
-                    .execute(function (fileContent) {
-                    // Save the content
-                    content.push(fileContent.response);
-                }, true);
+            // Ensure the web exists
+            if (!web.existsFl) {
+                // Get the web
+                web.execute();
             }
-            // Wait for the requests to complete, and resolve the promise
-            web.done(function () { promise.resolve(content); });
+            // Wait for the requests to complete
+            web.done(function () {
+                // Set the destination folder url
+                var dstFolderUrl = window["SP"].Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, folderUrl.substr(folderUrl[0] == "/" ? 1 : 0));
+                // Get the folder
+                web.getFolderByServerRelativeUrl(folderUrl)
+                    .execute(function (folder) {
+                    var promise = new $REST.Utils.Promise();
+                    // Ensure the folder exists
+                    if (folder.existsFl) {
+                        // Save a reference to the folder
+                        dstFolder = folder;
+                        // Resolve the promise
+                        promise.resolve();
+                    }
+                    else {
+                        // Create the folder
+                        _this.createSubFolders(web.RootFolder(), folderUrl).done(function (folder) {
+                            // Save a reference to the folder
+                            dstFolder = folder;
+                            // Resolve the promise
+                            promise.resolve();
+                        });
+                    }
+                    // Return the promise
+                    return promise;
+                }, true);
+                // Wait for the request to complete
+                web.done(function () {
+                    // Resolve the promise
+                    promise.resolve(dstFolder);
+                });
+            });
             // Return the promise
             return promise;
         };
