@@ -114,7 +114,9 @@ _**Multiple Asynchronous Requests**_
     // Get root folders
     .Folders()
     // Execute the request
-    .execute(function(fields, items, folders) {
+    .execute()
+    // Wait for the requests to complete
+    .done(function(fields, items, folders) {
         // This code will execute after all requests have completed
     });
 ```
