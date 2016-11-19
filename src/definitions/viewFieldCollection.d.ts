@@ -24,7 +24,7 @@ declare module $REST.Types {
          * Adds the field with the specified field internal name or display name to the collection.
          * @param fieldName - The case-sensitive internal name or display name of the field to add.
          */
-        addViewField(fieldName): any;
+        addViewField(fieldName): IBase;
 
         /**
          * Method to execute the request.
@@ -55,18 +55,18 @@ declare module $REST.Types {
          * @param field - The case-sensitive internal name of the field to move. Send this parameter and the index parameter in the request body, as shown in the example.
          * @param index - The zero-based index of the new position for the field. Send this parameter and the field parameter in the request body, as shown in the example.
          */
-        moveViewFieldTo(field, index): any;
+        moveViewFieldTo(field, index): IBase;
 
         /**
          * Removes all the fields from the collection.
          */
-        removeAllViewFields(): any;
+        removeAllViewFields(): IBase;
 
         /**
          * Removes the field with the specified field internal name from the collection.
          * @param fieldName - The case-sensitive internal name or display name of the field to add.
          */
-        removeViewField(fieldName): any;
+        removeViewField(fieldName): IBase;
 
         /**
          * Queries the collection.

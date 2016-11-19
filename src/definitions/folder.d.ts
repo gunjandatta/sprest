@@ -38,7 +38,7 @@ declare module $REST.Types {
         /**
          * Specifies the list item field (2) values for the list item corresponding to the file.
          */
-        ListItemAllFields(): any;
+        ListItemAllFields(): IBase;
 
         /** Gets the name of the folder. */
         Name: string;
@@ -51,7 +51,7 @@ declare module $REST.Types {
         /**
          * Gets the collection of all files contained in the folder.
          */
-        Properties(): any;
+        Properties(): IBase;
 
         /** Gets the server-relative URL of the list folder. */
         ServerRelativeUrl: string;
@@ -69,7 +69,7 @@ declare module $REST.Types {
         /**
          * Deletes the folder.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -104,12 +104,12 @@ declare module $REST.Types {
         /**
          * Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
          */
-        recycle(): any;
+        recycle(): IBase;
 
         /**
          * Updates it's properties.
          * @param data - The file properties to update.
          */
-        update(data): any;
+        update(data): IBase;
     }
 }

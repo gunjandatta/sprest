@@ -14,19 +14,19 @@ declare module $REST.Types {
         /**
          * Deletes all versions in the collection.
          */
-        deleteAll(): any;
+        deleteAll(): IBase;
 
         /**
          * Deletes a version, by the specified id.
          * @param id - The version id to delete.
          */
-        deleteById(id): any;
+        deleteById(id): IBase;
 
         /**
          * Deletes a version, by the specified label.
          * @param label - The version label to delete.
          */
-        deleteByLabel(label): any;
+        deleteByLabel(label): IBase;
 
         /**
          * Method to execute the request.
@@ -56,12 +56,12 @@ declare module $REST.Types {
          * Gets the version with the specified ID.
          * @param id - The version id to get.
          */
-        getById(id): any;
+        getById(id): IBase;
 
         /**
          * Restores a version, by the specified label.
          * @param label - The version label to restore.
          */
-        restoreByLabel(label): any;
+        restoreByLabel(label): IBase;
     }
 }

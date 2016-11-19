@@ -19,7 +19,7 @@ declare module $REST.Types {
          * @param fileName - The filename of the attachment.
          * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
          */
-        add(fileName, content): any;
+        add(fileName, content): IBase;
 
         /**
          * Method to execute the request.

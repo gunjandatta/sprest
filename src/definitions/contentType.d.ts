@@ -37,7 +37,7 @@ declare module $REST.Types {
          * Gets the column (also known as field) reference in the content type.
          * @param guid - The guid of the field link.
          */
-        FieldLinks(guid:string): any;
+        FieldLinks(guid:string): IBase;
 
         /**
          * Gets the fields for the content type.
@@ -95,7 +95,7 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the collection of workflow associations for the content type.
          */
-        WorkflowAssociations(): any;
+        WorkflowAssociations(): IBase;
 
         /**
          * Methods
@@ -104,7 +104,7 @@ declare module $REST.Types {
         /**
          * Deletes the content type.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -134,6 +134,6 @@ declare module $REST.Types {
          * Updates it's properties.
          * @param data - The content type properties to update.
          */
-        update(data): any;
+        update(data): IBase;
     }
 }

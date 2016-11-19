@@ -23,7 +23,7 @@ declare module $REST.Types {
         /**
          * Deletes all custom actions in the collection.
          */
-        clear(): any;
+        clear(): IBase;
 
         /**
          * Method to execute the request.

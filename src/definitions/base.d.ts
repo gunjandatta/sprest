@@ -26,7 +26,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - The method to be executed after the request completes.
          */
-        execute(callback?:(...args) => any): any;
+        execute(callback?:(...args) => any): IBase;
         execute<IList>(callback?:(...args) => any): IList;
         execute<ISite>(callback?:(...args) => any): ISite;
         execute<IWeb>(callback?:(...args) => any): IWeb;
@@ -35,7 +35,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param waitFl - Flag to execute the request, after the previous requests have completed.
          */
-        execute(waitFl:boolean): any;
+        execute(waitFl:boolean): IBase;
         execute<IList>(waitFl:boolean): IList;
         execute<ISite>(waitFl:boolean): ISite;
         execute<IWeb>(waitFl:boolean): IWeb;
@@ -45,7 +45,7 @@ declare module $REST.Types {
          * @param callback - The method to be executed after the request completes.
          * @param waitFl - Flag to execute the request, after the previous requests have completed.
          */
-        execute(callback:any, waitFl:boolean): any;
+        execute(callback:any, waitFl:boolean): IBase;
         execute<IList>(callback:any, waitFl:boolean): IList;
         execute<ISite>(callback:any, waitFl:boolean): ISite;
         execute<IWeb>(callback:any, waitFl:boolean): IWeb;
@@ -53,7 +53,7 @@ declare module $REST.Types {
         /**
          * Method to execute the request synchronously.
          */
-        executeAndWait(): any;
+        executeAndWait(): IBase;
         executeAndWait<IList>(): IList;
         executeAndWait<ISite>(): ISite;
         executeAndWait<IWeb>(): IWeb;

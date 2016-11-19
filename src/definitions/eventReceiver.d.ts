@@ -38,7 +38,7 @@ declare module $REST.Types {
         /**
          * Deletes the event receiver.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -68,6 +68,6 @@ declare module $REST.Types {
          * Updates it's properties.
          * @param data - The field properties to update.
          */
-        update(data): any;
+        update(data): IBase;
     }
 }

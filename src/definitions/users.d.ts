@@ -66,13 +66,13 @@ declare module $REST.Types {
          * Removes the user with the specified ID.
          * @param id - The ID of the user to remove.
          */
-        removeById(id): any;
+        removeById(id): IBase;
 
         /**
          * Removes the user with the specified login name.
          * @param loginName - The login name of the user to remove.
          */
-        removeByLoginName(loginName): any;
+        removeByLoginName(loginName): IBase;
 
         /**
          * Queries the collection.

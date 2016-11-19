@@ -93,12 +93,12 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
          */
-        EffectiveBasePermissions(): any;
+        EffectiveBasePermissions(): IBase;
 
         /**
          * Gets a value that specifies the effective permissions on the list that are for the user interface.
         */
-        EffectiveBasePermissionsForUI(): any;
+        EffectiveBasePermissionsForUI(): IBase;
 
         /** Gets or sets a value that specifies whether list item attachments are enabled for the list. */
         EnableAttachments: string;
@@ -151,13 +151,13 @@ declare module $REST.Types {
         /**
          * Gets the list forms in the list.
          */
-        Forms(): any;
+        Forms(): IBase;
 
         /**
          * Gets the list form in the list.
          * @param id - The id of the form.
          */
-        Forms(id:string): any;
+        Forms(id:string): IBase;
 
         /** Gets a value that specifies whether the list is an external list. */
         HasExternalDataSource: string;
@@ -165,7 +165,7 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
          */
-        HasUniqueRoleAssignments(): any;
+        HasUniqueRoleAssignments(): IBase;
 
         /** Gets or sets a Boolean value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
         Hidden: string;
@@ -179,7 +179,7 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the information rights management settings.
         */
-        InformationRightsManagementSettings(): any;
+        InformationRightsManagementSettings(): IBase;
 
         /**  */
         IrmEnabled: string;
@@ -241,7 +241,7 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the site that contains the list.
          */
-        ParentWeb(): any;
+        ParentWeb(): IBase;
 
         /** Gets a value that specifies the server-relative URL of the site that contains the list. */
         ParentWebUrl: string;
@@ -333,7 +333,7 @@ declare module $REST.Types {
         /**
          * Deletes the list.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -363,7 +363,7 @@ declare module $REST.Types {
          * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
          * @param query - The change query.
          */
-        getChanges(query): any;
+        getChanges(query): IBase;
 
         /**
          * Returns the list item with the specified list item identifier.
@@ -387,18 +387,18 @@ declare module $REST.Types {
          * Returns a collection of items from the list based on the specified query.
          * @query - The query that contains the change token.
          */
-        getListItemChangesSinceToken(query): any;
+        getListItemChangesSinceToken(query): IBase;
 
         /**
          * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
          */
-        getRelatedFields(): any;
+        getRelatedFields(): IBase;
 
         /**
          * Gets the effective user permissions for the current user.
          * @param loginName - The user login name.
          */
-        getUserEffectivePermissions(loginName): any;
+        getUserEffectivePermissions(loginName): IBase;
 
         /**
          * Returns the list view with the specified view identifier.
@@ -409,13 +409,13 @@ declare module $REST.Types {
         /**
          * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
          */
-        recycle(): any;
+        recycle(): IBase;
 
         /**
          * Renders the list data.
          * @param viewXml - A CAML query that defines the items and fields that you want returned.
          */
-        renderListData(viewXml): any;
+        renderListData(viewXml): IBase;
 
         // 
         // Types of modes: 1 - Display, 2 - Edit, 3 - New
@@ -425,22 +425,22 @@ declare module $REST.Types {
          * @param formId - The identifier of the form.
          * @param mode - The SP.ControlMode of the control used to display the item.
          */
-        renderListFormData(itemId, formId, mode:Types.ControlMode): any;
+        renderListFormData(itemId, formId, mode:Types.ControlMode): IBase;
 
         /**
          * Reserves a list item ID for idempotent list item creation.
          */
-        reserveListItemId(): any;
+        reserveListItemId(): IBase;
 
         /**
          * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
          */
-        resetRoleInheritance(): any;
+        resetRoleInheritance(): IBase;
 
         /**
          * Updates it's properties.
          * @param data - The list properties to update.
          */
-        update(data): any;
+        update(data): IBase;
     }
 }

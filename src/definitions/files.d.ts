@@ -27,7 +27,7 @@ declare module $REST.Types {
          * @param urlOfFile - The server-relative URL where you want to save the file.
          * @param templateFileType - The SP.TemplateFileType to use to create the file.
          */
-        addTemplateFile(urlOfFile, templateFileType:Types.FileTemplateType): any;
+        addTemplateFile(urlOfFile, templateFileType:Types.FileTemplateType): IBase;
 
         /**
          * Method to execute the request.

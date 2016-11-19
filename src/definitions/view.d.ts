@@ -130,7 +130,7 @@ declare module $REST.Types {
         /**
          * Deletes the view.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -159,12 +159,12 @@ declare module $REST.Types {
         /**
          * Returns the list view as HTML.
          */
-        renderAsHtml(): any;
+        renderAsHtml(): IBase;
 
         /**
          * Updates it's properties.
          * @param data - The list properties to update.
          */
-        update(data): any;
+        update(data): IBase;
     }
 }

@@ -40,11 +40,6 @@ declare module $REST {
      */
     let DefaultRequestToHostWebFl:boolean;
 
-    /**
-     * Flag to execute the request by default on creation of an object.
-     */
-    let ExecuteOnCreationFl:boolean;
-
     /** Email */
     let Email:Types.IEmail;
 
@@ -133,7 +128,7 @@ declare module $REST.Types {
          * @param fileName - The filename of the attachment.
          * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
          */
-        add(fileName, content): any;
+        add(fileName, content): IBase;
 
         /**
          * Method to execute the request.
@@ -195,7 +190,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param callback - The method to be executed after the request completes.
          */
-        execute(callback?:(...args) => any): any;
+        execute(callback?:(...args) => any): IBase;
         execute<IList>(callback?:(...args) => any): IList;
         execute<ISite>(callback?:(...args) => any): ISite;
         execute<IWeb>(callback?:(...args) => any): IWeb;
@@ -204,7 +199,7 @@ declare module $REST.Types {
          * Method to execute the request.
          * @param waitFl - Flag to execute the request, after the previous requests have completed.
          */
-        execute(waitFl:boolean): any;
+        execute(waitFl:boolean): IBase;
         execute<IList>(waitFl:boolean): IList;
         execute<ISite>(waitFl:boolean): ISite;
         execute<IWeb>(waitFl:boolean): IWeb;
@@ -214,7 +209,7 @@ declare module $REST.Types {
          * @param callback - The method to be executed after the request completes.
          * @param waitFl - Flag to execute the request, after the previous requests have completed.
          */
-        execute(callback:any, waitFl:boolean): any;
+        execute(callback:any, waitFl:boolean): IBase;
         execute<IList>(callback:any, waitFl:boolean): IList;
         execute<ISite>(callback:any, waitFl:boolean): ISite;
         execute<IWeb>(callback:any, waitFl:boolean): IWeb;
@@ -222,7 +217,7 @@ declare module $REST.Types {
         /**
          * Method to execute the request synchronously.
          */
-        executeAndWait(): any;
+        executeAndWait(): IBase;
         executeAndWait<IList>(): IList;
         executeAndWait<ISite>(): ISite;
         executeAndWait<IWeb>(): IWeb;
@@ -268,7 +263,7 @@ declare module $REST.Types {
          * Gets the column (also known as field) reference in the content type.
          * @param guid - The guid of the field link.
          */
-        FieldLinks(guid:string): any;
+        FieldLinks(guid:string): IBase;
 
         /**
          * Gets the fields for the content type.
@@ -326,7 +321,7 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the collection of workflow associations for the content type.
          */
-        WorkflowAssociations(): any;
+        WorkflowAssociations(): IBase;
 
         /**
          * Methods
@@ -335,7 +330,7 @@ declare module $REST.Types {
         /**
          * Deletes the content type.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -365,7 +360,7 @@ declare module $REST.Types {
          * Updates it's properties.
          * @param data - The content type properties to update.
          */
-        update(data): any;
+        update(data): IBase;
     }
 }
 
@@ -483,7 +478,7 @@ declare module $REST.Types {
          * Method to send an email.
          * @param properties - The email information.
          */
-        send(properties:Settings.EmailCreationInformation): any;
+        send(properties:Settings.EmailCreationInformation): IBase;
     }
 }
 
@@ -527,7 +522,7 @@ declare module $REST.Types {
         /**
          * Deletes the event receiver.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -557,7 +552,7 @@ declare module $REST.Types {
          * Updates it's properties.
          * @param data - The field properties to update.
          */
-        update(data): any;
+        update(data): IBase;
     }
 }
 
@@ -721,7 +716,7 @@ declare module $REST.Types {
         /**
          * Deletes the field.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -751,25 +746,25 @@ declare module $REST.Types {
          * Sets the value of the ShowInDisplayForm property for this field.
          * @param showInForm - Flag to show the field in the display form.
          */
-        setShowInDisplayForm(showInForm): any;
+        setShowInDisplayForm(showInForm): IBase;
 
         /**
          * Sets the value of the ShowInEditForm property for this field.
          * @param showInForm - Flag to show the field in the display form.
          */
-        setShowInEditForm(showInForm): any;
+        setShowInEditForm(showInForm): IBase;
 
         /**
          * Sets the value of the ShowInNewForm property for this field.
          * @param showInForm - Flag to show the field in the display form.
          */
-        setShowInNewForm(showInForm): any;
+        setShowInNewForm(showInForm): IBase;
 
         /**
          * Updates it's properties.
          * @param data - The field properties to update.
          */
-        update(data): any;
+        update(data): IBase;
     }
 }
 
@@ -793,7 +788,7 @@ declare module $REST.Types {
          * Adds a content type to the collection.
          * @param data - The field link properties.
          */
-        add(data): any;
+        add(data): IBase;
 
         /**
          * Method to execute the request.
@@ -972,7 +967,7 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the list item field values for the list item corresponding to the file.
          */
-        ListItemAllFields(): any;
+        ListItemAllFields(): IBase;
 
         /**
          * Gets a value that returns the user that owns the current lock on the file.
@@ -1204,7 +1199,7 @@ declare module $REST.Types {
          * @param urlOfFile - The server-relative URL where you want to save the file.
          * @param templateFileType - The SP.TemplateFileType to use to create the file.
          */
-        addTemplateFile(urlOfFile, templateFileType:Types.FileTemplateType): any;
+        addTemplateFile(urlOfFile, templateFileType:Types.FileTemplateType): IBase;
 
         /**
          * Method to execute the request.
@@ -1402,7 +1397,7 @@ declare module $REST.Types {
         /**
          * Specifies the list item field (2) values for the list item corresponding to the file.
          */
-        ListItemAllFields(): any;
+        ListItemAllFields(): IBase;
 
         /** Gets the name of the folder. */
         Name: string;
@@ -1415,7 +1410,7 @@ declare module $REST.Types {
         /**
          * Gets the collection of all files contained in the folder.
          */
-        Properties(): any;
+        Properties(): IBase;
 
         /** Gets the server-relative URL of the list folder. */
         ServerRelativeUrl: string;
@@ -1433,7 +1428,7 @@ declare module $REST.Types {
         /**
          * Deletes the folder.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -1468,13 +1463,13 @@ declare module $REST.Types {
         /**
          * Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
          */
-        recycle(): any;
+        recycle(): IBase;
 
         /**
          * Updates it's properties.
          * @param data - The file properties to update.
          */
-        update(data): any;
+        update(data): IBase;
     }
 }
 
@@ -1898,12 +1893,12 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
          */
-        EffectiveBasePermissions(): any;
+        EffectiveBasePermissions(): IBase;
 
         /**
          * Gets a value that specifies the effective permissions on the list that are for the user interface.
         */
-        EffectiveBasePermissionsForUI(): any;
+        EffectiveBasePermissionsForUI(): IBase;
 
         /** Gets or sets a value that specifies whether list item attachments are enabled for the list. */
         EnableAttachments: string;
@@ -1956,13 +1951,13 @@ declare module $REST.Types {
         /**
          * Gets the list forms in the list.
          */
-        Forms(): any;
+        Forms(): IBase;
 
         /**
          * Gets the list form in the list.
          * @param id - The id of the form.
          */
-        Forms(id:string): any;
+        Forms(id:string): IBase;
 
         /** Gets a value that specifies whether the list is an external list. */
         HasExternalDataSource: string;
@@ -1970,7 +1965,7 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
          */
-        HasUniqueRoleAssignments(): any;
+        HasUniqueRoleAssignments(): IBase;
 
         /** Gets or sets a Boolean value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
         Hidden: string;
@@ -1984,7 +1979,7 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the information rights management settings.
         */
-        InformationRightsManagementSettings(): any;
+        InformationRightsManagementSettings(): IBase;
 
         /**  */
         IrmEnabled: string;
@@ -2046,7 +2041,7 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the site that contains the list.
          */
-        ParentWeb(): any;
+        ParentWeb(): IBase;
 
         /** Gets a value that specifies the server-relative URL of the site that contains the list. */
         ParentWebUrl: string;
@@ -2138,7 +2133,7 @@ declare module $REST.Types {
         /**
          * Deletes the list.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -2168,7 +2163,7 @@ declare module $REST.Types {
          * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
          * @param query - The change query.
          */
-        getChanges(query): any;
+        getChanges(query): IBase;
 
         /**
          * Returns the list item with the specified list item identifier.
@@ -2192,18 +2187,18 @@ declare module $REST.Types {
          * Returns a collection of items from the list based on the specified query.
          * @query - The query that contains the change token.
          */
-        getListItemChangesSinceToken(query): any;
+        getListItemChangesSinceToken(query): IBase;
 
         /**
          * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
          */
-        getRelatedFields(): any;
+        getRelatedFields(): IBase;
 
         /**
          * Gets the effective user permissions for the current user.
          * @param loginName - The user login name.
          */
-        getUserEffectivePermissions(loginName): any;
+        getUserEffectivePermissions(loginName): IBase;
 
         /**
          * Returns the list view with the specified view identifier.
@@ -2214,13 +2209,13 @@ declare module $REST.Types {
         /**
          * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
          */
-        recycle(): any;
+        recycle(): IBase;
 
         /**
          * Renders the list data.
          * @param viewXml - A CAML query that defines the items and fields that you want returned.
          */
-        renderListData(viewXml): any;
+        renderListData(viewXml): IBase;
 
         // 
         // Types of modes: 1 - Display, 2 - Edit, 3 - New
@@ -2230,23 +2225,23 @@ declare module $REST.Types {
          * @param formId - The identifier of the form.
          * @param mode - The SP.ControlMode of the control used to display the item.
          */
-        renderListFormData(itemId, formId, mode:Types.ControlMode): any;
+        renderListFormData(itemId, formId, mode:Types.ControlMode): IBase;
 
         /**
          * Reserves a list item ID for idempotent list item creation.
          */
-        reserveListItemId(): any;
+        reserveListItemId(): IBase;
 
         /**
          * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
          */
-        resetRoleInheritance(): any;
+        resetRoleInheritance(): IBase;
 
         /**
          * Updates it's properties.
          * @param data - The list properties to update.
          */
-        update(data): any;
+        update(data): IBase;
     }
 }
 
@@ -2352,12 +2347,12 @@ declare module $REST.Types {
          * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
          * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
          */
-        breakRoleInheritance(copyRoleAssignments, clearSubScopes): any;
+        breakRoleInheritance(copyRoleAssignments, clearSubScopes): IBase;
 
         /**
          * Deletes the list item.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -2387,23 +2382,23 @@ declare module $REST.Types {
          * Gets the effective permissions that a specified user has on the list item.
          * @param loginName - The login name.
          */
-        getUserEffectivePermissions(loginName): any;
+        getUserEffectivePermissions(loginName): IBase;
 
         /**
          * Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
          */
-        recycle(): any;
+        recycle(): IBase;
 
         /**
          * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
          */
-        resetRoleInheritance(): any;
+        resetRoleInheritance(): IBase;
 
         /**
          * Updates it's properties.
          * @param data - The list properties to update.
          */
-        update(data): any;
+        update(data): IBase;
 
         /**
          * Validates and sets the values of the specified collection of fields for the list item.
@@ -2439,12 +2434,12 @@ declare module $REST.Types {
         /**
          * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
          */
-        ensureSiteAssetsLibrary(): any;
+        ensureSiteAssetsLibrary(): IBase;
 
         /**
          * Gets a list that is the default location for wiki pages.
          */
-        ensureSitePagesLibrary(): any;
+        ensureSitePagesLibrary(): IBase;
 
         /**
          * Method to execute the request.
@@ -2604,7 +2599,7 @@ declare module $REST.Types {
         /**
          * Gets the user or group that corresponds to the Role Assignment.
          */
-        Member(): any;
+        Member(): IBase;
 
         /** The unique identifier of the role assignment. */
         PrincipalId: string;
@@ -2621,7 +2616,7 @@ declare module $REST.Types {
         /**
          * Deletes the role assignment.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -2707,7 +2702,7 @@ declare module $REST.Types {
          * @param principalId - The ID of the user or group to assign permissions to.
          * @param roleDefId - The ID of the role definition that defines the permissions to assign.
          */
-        removeRoleAssignment(principalId, roleDefId): any;
+        removeRoleAssignment(principalId, roleDefId): IBase;
 
         /**
          * Queries the collection.
@@ -2754,7 +2749,7 @@ declare module $REST.Types {
         /**
          * Deletes the role definition.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -3529,7 +3524,7 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
          */
-        Features(): any;
+        Features(): IBase;
 
         /** Gets the GUID that identifies the site collection. */
         Id: string;
@@ -3606,12 +3601,12 @@ declare module $REST.Types {
          * @param upgrade - If true, the evaluation site collection MUST be upgraded when it is created. If false, the evaluation site collection MUST NOT be upgraded when it is created.
          * @param sendEmail - If true, a notification email MUST be sent to the requestor and the site collection administrators at the completion of the creation of the evaluation site collection. If false, such notification MUST NOT be sent.
          */
-        createPreviewSPSite(upgrade, sendEmail): any;
+        createPreviewSPSite(upgrade, sendEmail): IBase;
         
         /**
          * Extend the upgrade reminder date for this SPSite by the days specified at WebApplication.UpgradeReminderDelay.
          */
-        extendUpgradeReminderDate(): any;
+        extendUpgradeReminderDate(): IBase;
 
         /**
          * Method to execute the request.
@@ -3641,38 +3636,38 @@ declare module $REST.Types {
          * Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
          * @param typeCatalog - Specifies the list template type for the gallery.
          */
-        getCatalog(typeCatalog): any;
+        getCatalog(typeCatalog): IBase;
         
         /**
          * Specifies the collection of the site collection changes from the change log that have occurred within the scope of the site collection, based on the specified query.
          * @param query - The change query.
          */
-        getChanges(query): any;
+        getChanges(query): IBase;
 
         /**
          * Specifies the collection of custom list templates for a given site.
          * @param web - Specifies the site that contains the custom list templates to be returned.
          */
-        getCustomListTemplates(web): any;
+        getCustomListTemplates(web): IBase;
         
         /**
          * Returns the collection of site definitions that are available for creating Web sites within the site collection.
          * @param LCID - A 32-bit unsigned integer that specifies the language of the site definitions that are returned from the site collection.
          * @param overrideCompatLevel - Specifies the compatibility level of the site to return from the site collection. If this value is 0, the compatibility level of the site is used.
          */
-        getWebTemplates(LCID, overrideCompatLevel): any;
+        getWebTemplates(LCID, overrideCompatLevel): IBase;
         
         /**
          * Invalidates cached upgrade information about the site collection so that this information will be recomputed the next time it is needed.
          */
-        invalidate(): any;
+        invalidate(): IBase;
         
         /**
          * Returns true if the object needs to be upgraded; otherwise, false.
          * @param versionUpgrade - If true, version-to-version site collection upgrade is requested; otherwise false for build-to-build site collection upgrade.
          * @param recursive - If true, child upgradable objects will be inspected; otherwise false.
          */
-        needsUpgradeByType(versionUpgrade, recursive): any;
+        needsUpgradeByType(versionUpgrade, recursive): IBase;
         
         /**
          * Returns the site at the specified URL.
@@ -3692,7 +3687,7 @@ declare module $REST.Types {
          * @param bRepair - Specifies whether repairable rules are to be run in repair mode.
          * @param bRunAlays - Specifies whether the rules will be run as a result of this call or cached results from a previous run can be returned.
          */
-        runHealthCheck(ruleId, bRepair, bRunAlways): any;
+        runHealthCheck(ruleId, bRepair, bRunAlways): IBase;
         
         /**
          * Either runs a site collection upgrade, or schedules it to be run in the future, depending on available system resources and the value of the queueOnly parameter. The user executing this method MUST be a farm administrator or a site collection administrator.
@@ -3700,19 +3695,19 @@ declare module $REST.Types {
          * @param queueOnly - If true, specifies that the upgrade will not be run immediately; it will be queued for a later run.
          * @param sendEmail - If true, a notification email will be sent to the requestor and the site collection administrators at the completion of the site collection upgrade. If false, such notification will not be sent.
          */
-        runUpgradeSiteSession(versionUpgrade, queueOnly, sendEmail): any;
+        runUpgradeSiteSession(versionUpgrade, queueOnly, sendEmail): IBase;
 
         /**
          * Updates it's properties.
          * @param data - The list properties to update.
          */
-        update(data): any;
+        update(data): IBase;
         
         /**
          * Sets whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
          * @param requireUseRemoteAPIs - Specifies whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
          */
-        updateClientObjectModelUseRemoteAPIsPermissionSetting(requireUseRemoteAPIs): any;
+        updateClientObjectModelUseRemoteAPIsPermissionSetting(requireUseRemoteAPIs): IBase;
     }
 }
 
@@ -3778,13 +3773,13 @@ declare module $REST.Types {
          * Removes the group with the specified member ID from the collection.
          * @param id - The ID of the group to remove.
          */
-        removeById(id): any;
+        removeById(id): IBase;
 
         /**
          * Removes the cross-site group with the specified name from the collection.
          * @param name - The name of the group to remove. The group name is specified in its LoginName property.
          */
-        removeByLoginName(name): any;
+        removeByLoginName(name): IBase;
 
         /**
          * Queries the collection.
@@ -4574,7 +4569,7 @@ declare module $REST.Types {
         /**
          * Deletes the user custom action.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -4669,7 +4664,7 @@ declare module $REST.Types {
         /**
          * Deletes the user custom action.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -4722,7 +4717,7 @@ declare module $REST.Types {
         /**
          * Deletes all custom actions in the collection.
          */
-        clear(): any;
+        clear(): IBase;
 
         /**
          * Method to execute the request.
@@ -4831,13 +4826,13 @@ declare module $REST.Types {
          * Removes the user with the specified ID.
          * @param id - The ID of the user to remove.
          */
-        removeById(id): any;
+        removeById(id): IBase;
 
         /**
          * Removes the user with the specified login name.
          * @param loginName - The login name of the user to remove.
          */
-        removeByLoginName(loginName): any;
+        removeByLoginName(loginName): IBase;
 
         /**
          * Queries the collection.
@@ -4863,19 +4858,19 @@ declare module $REST.Types {
         /**
          * Deletes all versions in the collection.
          */
-        deleteAll(): any;
+        deleteAll(): IBase;
 
         /**
          * Deletes a version, by the specified id.
          * @param id - The version id to delete.
          */
-        deleteById(id): any;
+        deleteById(id): IBase;
 
         /**
          * Deletes a version, by the specified label.
          * @param label - The version label to delete.
          */
-        deleteByLabel(label): any;
+        deleteByLabel(label): IBase;
 
         /**
          * Method to execute the request.
@@ -4905,13 +4900,13 @@ declare module $REST.Types {
          * Gets the version with the specified ID.
          * @param id - The version id to get.
          */
-        getById(id): any;
+        getById(id): IBase;
 
         /**
          * Restores a version, by the specified label.
          * @param label - The version label to restore.
          */
-        restoreByLabel(label): any;
+        restoreByLabel(label): IBase;
     }
 }
 
@@ -5047,7 +5042,7 @@ declare module $REST.Types {
         /**
          * Deletes the view.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.
@@ -5076,13 +5071,13 @@ declare module $REST.Types {
         /**
          * Returns the list view as HTML.
          */
-        renderAsHtml(): any;
+        renderAsHtml(): IBase;
 
         /**
          * Updates it's properties.
          * @param data - The list properties to update.
          */
-        update(data): any;
+        update(data): IBase;
     }
 }
 
@@ -5112,7 +5107,7 @@ declare module $REST.Types {
          * Adds the field with the specified field internal name or display name to the collection.
          * @param fieldName - The case-sensitive internal name or display name of the field to add.
          */
-        addViewField(fieldName): any;
+        addViewField(fieldName): IBase;
 
         /**
          * Method to execute the request.
@@ -5143,18 +5138,18 @@ declare module $REST.Types {
          * @param field - The case-sensitive internal name of the field to move. Send this parameter and the index parameter in the request body, as shown in the example.
          * @param index - The zero-based index of the new position for the field. Send this parameter and the field parameter in the request body, as shown in the example.
          */
-        moveViewFieldTo(field, index): any;
+        moveViewFieldTo(field, index): IBase;
 
         /**
          * Removes all the fields from the collection.
          */
-        removeAllViewFields(): any;
+        removeAllViewFields(): IBase;
 
         /**
          * Removes the field with the specified field internal name from the collection.
          * @param fieldName - The case-sensitive internal name or display name of the field to add.
          */
-        removeViewField(fieldName): any;
+        removeViewField(fieldName): IBase;
 
         /**
          * Queries the collection.
@@ -5248,22 +5243,22 @@ declare module $REST.Types {
         /**
          * Specifies whether the current user can create declarative workflows. If not disabled on the Web application, the value is the same as the AllowCreateDeclarativeWorkflow property of the site collection. Default value: true.
          */
-        AllowCreateDeclarativeWorkflowForCurrentUser(): any;
+        AllowCreateDeclarativeWorkflowForCurrentUser(): IBase;
 
         /**
          * Gets a value that specifies whether the current user is allowed to use a designer application to customize this site.
          */
-        AllowDesignerForCurrentUser(): any;
+        AllowDesignerForCurrentUser(): IBase;
 
         /**
          * Gets a value that specifies whether the current user is allowed to edit the master page.
          */
-        AllowMasterPageEditingForCurrentUser(): any;
+        AllowMasterPageEditingForCurrentUser(): IBase;
 
         /**
          * Gets a value that specifies whether the current user is allowed to revert the site to a default site template.
          */
-        AllowRevertFromTemplateForCurrentUser(): any;
+        AllowRevertFromTemplateForCurrentUser(): IBase;
 
         /** Gets a value that specifies whether the site allows RSS feeds. */
         AllowRssFeeds: string;
@@ -5271,17 +5266,17 @@ declare module $REST.Types {
         /**
          * Specifies whether the current user can save declarative workflows as a template. If not disabled on the Web application, the value is the same as the AllowSaveDeclarativeWorkflowAsTemplate property of the site collection. Default value: true.
          */
-        AllowSaveDeclarativeWorkflowAsTemplateForCurrentUser(): any;
+        AllowSaveDeclarativeWorkflowAsTemplateForCurrentUser(): IBase;
 
         /**
          * Specifies whether the current user can save or publish declarative workflows. If not disabled on the Web application, the value is the same as the AllowSavePublishDeclarativeWorkflowAsTemplate property of the site collection. When enabled, can only be set by a site collection administrator. Default value: true.
          */
-        AllowSavePublishDeclarativeWorkflowForCurrentUser(): any;
+        AllowSavePublishDeclarativeWorkflowForCurrentUser(): IBase;
 
         /**
          * Gets a collection of metadata for the Web site.
          */
-        AllProperties(): any;
+        AllProperties(): IBase;
 
         /** The instance Id of the App Instance that this web represents. */
         AppInstanceId: string;
@@ -5304,12 +5299,12 @@ declare module $REST.Types {
         /**
          * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
          */
-        AvailableContentTypes(): any;
+        AvailableContentTypes(): IBase;
 
         /**
          * Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
          */
-        AvailableFields(): any;
+        AvailableFields(): IBase;
 
         /** Gets either the identifier (ID) of the site definition configuration that was used to create the site, or the ID of the site definition configuration from which the site template used to create the site was derived. */
         Configuration: string;
@@ -5342,7 +5337,7 @@ declare module $REST.Types {
         /**
          * Gets the URL where the current user can download SharePoint Designer.
          */
-        DesignerDownloadUrlForCurrentUser(): any;
+        DesignerDownloadUrlForCurrentUser(): IBase;
 
         /** Determines if the Document Library Callout's WAC previewers are enabled or not. */
         DocumentLibraryCalloutOfficeWebAppPreviewersDisabled: string;
@@ -5369,7 +5364,7 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the collection of features that are currently activated in the site.
          */
-        Features(): any;
+        Features(): IBase;
 
         /**
          * Gets the fields in the web.
@@ -5416,13 +5411,13 @@ declare module $REST.Types {
         /**
          * Gets the list definitions and list templates available for creating lists on the site.
          */
-        ListTemplates(): any;
+        ListTemplates(): IBase;
 
         /**
          * Gets the list definition or list template available for creating lists on the site.
          * @param name - The list template form name.
          */
-        ListTemplates(name:string): any;
+        ListTemplates(name:string): IBase;
 
         /** Gets or sets the URL of the master page that is used for the website. */
         MasterUrl: string;
@@ -5430,17 +5425,17 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
          */
-        Navigation(): any;
+        Navigation(): IBase;
 
         /**
          * Gets the parent website of the specified website.
          */
-        ParentWeb(): any;
+        ParentWeb(): IBase;
 
         /**
          * Gets the collection of push notification subscribers over the site.
          */
-        PushNotificationSubscribers(): any;
+        PushNotificationSubscribers(): IBase;
 
         /** Gets or sets a value that specifies whether the Quick Launch area is enabled on the site. */
         QuickLaunchEnabled: string;
@@ -5448,7 +5443,7 @@ declare module $REST.Types {
         /**
          * Specifies the collection of recycle bin items of the recycle bin of the site.
          */
-        RecycleBin(): any;
+        RecycleBin(): IBase;
 
         /** Gets or sets a value that determines whether the recycle bin is enabled for the website. */
         RecycleBinEnabled: string;
@@ -5456,7 +5451,7 @@ declare module $REST.Types {
         /**
          * Gets the regional settings that are currently implemented on the website.
          */
-        RegionalSettings(): any;
+        RegionalSettings(): IBase;
 
         /**
          * Gets the role definitions for the web.
@@ -5483,7 +5478,7 @@ declare module $REST.Types {
         /**
          * Gets or sets a Boolean value that specifies whether the Web site can be saved as a site template.
          */
-        SaveSiteAsTemplateEnabled(): any;
+        SaveSiteAsTemplateEnabled(): IBase;
 
         /** Gets or sets the server-relative URL for the Web site. */
         ServerRelativeUrl: string;
@@ -5491,7 +5486,7 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies whether the current user is able to view the file system structure of this site.
          */
-        ShowUrlStructureForCurrentUser(): any;
+        ShowUrlStructureForCurrentUser(): IBase;
 
         /**
          * Gets the site groups for the web.
@@ -5507,7 +5502,7 @@ declare module $REST.Types {
         /**
          * Gets the UserInfo list of the site collection that contains the Web site.
          */
-        SiteUserInfoList(): any;
+        SiteUserInfoList(): IBase;
 
         /**
          * Gets the collection of all users that belong to the site collection.
@@ -5523,7 +5518,7 @@ declare module $REST.Types {
         /**
          * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
          */
-        SupportedUILanguageIds(): any;
+        SupportedUILanguageIds(): IBase;
 
         /** Gets or sets a value that specifies whether the RSS feeds are enabled on the site. */
         SyndicationEnabled: string;
@@ -5531,7 +5526,7 @@ declare module $REST.Types {
         /**
          * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
          */
-        ThemeInfo(): any;
+        ThemeInfo(): IBase;
 
         /** Gets or sets the title for the Web site. */
         Title: string;
@@ -5562,7 +5557,7 @@ declare module $REST.Types {
         /**
          * Represents key properties of the subsites of a site.
          */
-        WebInfos(): any;
+        WebInfos(): IBase;
 
         /**
          * Gets a Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
@@ -5575,12 +5570,12 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the collection of all workflow associations for the site.
          */
-        WorkflowAssociations(): any;
+        WorkflowAssociations(): IBase;
 
         /**
          * Gets a value that specifies the collection of workflow templates associated with the site.
          */
-        WorkflowTemplates(): any;
+        WorkflowTemplates(): IBase;
 
         /**
          * Methods
@@ -5593,44 +5588,44 @@ declare module $REST.Types {
          * @param backgroundimageurl - The server-relative URL of the background image.
          * @param sharegenerated - True to store the generated theme files in the root site, or false to store them in this site.
          */
-        applyTheme(colorpaletteurl, fontschemeurl, backgroundimageurl, sharegenerated): any;
+        applyTheme(colorpaletteurl, fontschemeurl, backgroundimageurl, sharegenerated): IBase;
 
         /**
          * Applies the specified site definition or site template to the Web site that has no template applied to it.
          * @param name - The site definition or web template name to apply.
          */
-        applyWebTemplate(name): any;
+        applyWebTemplate(name): IBase;
 
         /**
          * Creates unique role assignments for the securable object.
          * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
          * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
          */
-        breakRoleInheritance(copyRoleAssignments, clearSubScopes): any;
+        breakRoleInheritance(copyRoleAssignments, clearSubScopes): IBase;
 
         /**
          * Deletes the web.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Checks whether the push notification subscriber exist for the current user with the given device application instance ID.
          * @param id - The ID of the device app instance.
          */
-        doesPushNotificationSubscriberExist(id): any;
+        doesPushNotificationSubscriberExist(id): IBase;
         
         /**
          * Returns whether the current user has the given set of permissions.
          * @param high - The highest permission range value.
          * @param low - The lowest permission range value.
          */
-        doesUserHavePermissions(high, low): any;
+        doesUserHavePermissions(high, low): IBase;
 
         /**
          * Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
          * @param logonName - The login name of the user. Pass the logonName parameter in the request body, as shown in the request example.
          */
-        ensureUser(logonName): any;
+        ensureUser(logonName): IBase;
 
         /**
          * Method to execute the request.
@@ -5660,72 +5655,72 @@ declare module $REST.Types {
          * Sends data to an OData service.
          * @param inputStream - The OData input object. Used for create or update operations only.
          */
-        executeRemoteLOB(inputStream): any;
+        executeRemoteLOB(inputStream): IBase;
         
         /**
          * Gets the app BDC catalog.
          */
-        getAppBdcCatalog(): any;
+        getAppBdcCatalog(): IBase;
         
         /**
          * Gets the app BDC catalog for the specified app instance.
          * @param id - The ID of the app instance.
          */
-        getAppBdcCatalogForAppInstance(id): any;
+        getAppBdcCatalogForAppInstance(id): IBase;
         
         /**
          * Retrieves an AppInstance installed on this Site.
          * @param id - The ID of the app instance.
          */
-        getAppInstanceById(id): any;
+        getAppInstanceById(id): IBase;
         
         /**
          * Retrieves all AppInstances installed on this site that are instances of the specified App.
          * @param id - The product ID of the app.
          */
-        getAppInstancesByProductId(id): any;
+        getAppInstancesByProductId(id): IBase;
         
         /**
          * Returns a collection of site templates available for the site.
          * @param lcid - The LCID of the site templates to get.
          * @param doIncludeCrossLanguage - True to include language-neutral site templates; otherwise false.
          */
-        getAvailableWebTemplates(lcid, doIncludeCrossLanguage): any;
+        getAvailableWebTemplates(lcid, doIncludeCrossLanguage): IBase;
         
         /**
          * Returns the list gallery on the site.
          * @param galleryType - The gallery type. Represents a ListTemplateType value such as WebTemplateCatalog = 111, WebPartCatalog = 113 ListTemplateCatalog = 114, MasterPageCatalog = 116, SolutionCatalog = 121, ThemeCatalog = 123, DesignCatalog = 124, AppDataCatalog = 125.
          */
-        getCatalog(galleryType): any;
+        getCatalog(galleryType): IBase;
 
         /**
          * Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
          * @param query - The change query.
          */
-        getChanges(query): any;
+        getChanges(query): IBase;
         
         /**
          * Gets the context information for the site. Static method.
          */
-        getContextWebInformation(): any;
+        getContextWebInformation(): IBase;
 
         /**
          * Gets the custom list templates for the site.
          */
-        getCustomListTemplates(): any;
+        getCustomListTemplates(): IBase;
         
         /**
          * Gets the document libraries on a site. Static method. (SharePoint Online only)
          * @param url - The full URL of the site.
          */
-        getDocumentLibraries(url): any;
+        getDocumentLibraries(url): IBase;
 
         /**
          * Gets the specified external content type in a line-of-business (LOB) system application.
          * @param namespace - The namespace of the external content type.
          * @param name - The name of the external content type.
          */
-        getEntity(namespace, name): any;
+        getEntity(namespace, name): IBase;
 
         /**
          * Returns the file object located at the specified server-relative URL.
@@ -5749,26 +5744,26 @@ declare module $REST.Types {
          * Gets the push notification subscriber over the site for the specified device application instance ID.
          * @param id - The ID of the device app instance.
          */
-        getPushNotificationSubscriber(id): any;
+        getPushNotificationSubscriber(id): IBase;
 
         /**
          * Queries for the push notification subscribers over the site for the specified value of custom arguments. Null or empty custom arguments will return subscribers without any filtering.
          * @param args - Arguments to filter the results. Passed arguments are compared to the subscribers' custom arguments in the store. Pass null or empty arguments to return unfiltered results.
          */
-        getPushNotificationSubscribersByArgs(args): any;
+        getPushNotificationSubscribersByArgs(args): IBase;
 
         /**
          * Queries for the push notification subscribers over the site for the specified user.
          * @param loginName - The login name of the user.
          */
-        getPushNotificationSubscribersByUser(loginName): any;
+        getPushNotificationSubscribersByUser(loginName): IBase;
 
         /**
          * Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
          * @param nWebTemplateFilter - The ID of the template used in the site definition of the sites.
          * @param nConfigurationFilter - The ID of the site template used to provision the sites.
          */
-        getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): any;
+        getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): IBase;
 
         /**
          * Returns the user corresponding to the specified member identifier for the current site.
@@ -5780,7 +5775,7 @@ declare module $REST.Types {
          * Gets the effective permissions that the specified user has within the current application scope.
          * @param loginName - The user login name.
          */
-        getUserEffectivePermissions(loginName): any;
+        getUserEffectivePermissions(loginName): IBase;
 
         /**
          * Gets the site URL from a page URL. Static method.
@@ -5792,21 +5787,21 @@ declare module $REST.Types {
          * Uploads and installs an app package to this site.
          * @param appPackageStream - The app package stream.
          */
-        loadAndInstallApp(appPackageStream): any;
+        loadAndInstallApp(appPackageStream): IBase;
 
         /**
          * Uploads and installs an App package on the site in a specified locale.
          * @param appPackageStream - The app package stream.
          * @param installationLocaleLCID - The LCID of the locale to use to create the app instance.
          */
-        loadAndInstallAppInSpecifiedLocale(appPackageStream, installationLocaleLCID): any;
+        loadAndInstallAppInSpecifiedLocale(appPackageStream, installationLocaleLCID): IBase;
 
         /**
          * Uploads an App package and creates an instance from it.
          * @param appPackageStream - The app package stream.
          * @param installationLocaleLCID - The LCID of the locale to use to create the app instance.
          */
-        loadApp(appPackageStream, installationLocaleLCID): any;
+        loadApp(appPackageStream, installationLocaleLCID): IBase;
 
         /**
          * Returns the name of the image file for the icon that is used to represent the specified file.
@@ -5814,37 +5809,37 @@ declare module $REST.Types {
          * @param progid - The ProgID of the application that was used to create the file, in the form OLEServerName.ObjectName (for example, Excel.Sheet or PowerPoint.Slide). This is the ID used by the Windows registry to uniquely identify an object.
          * @param size - The size of the icon: 16x16 pixels = 0, 32x32 pixels = 1.
          */
-        mapToIcon(filename, progid, size): any;
+        mapToIcon(filename, progid, size): IBase;
         
         /**
          * Processes a notification from an external system.
          * @param stream - The notification message from the external system.
          */
-        processExternalNotification(stream): any;
+        processExternalNotification(stream): IBase;
 
         /**
          * Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
          * @param deviceAppInstanceId - The ID of the device app instance.
          * @param serviceToken - The token provided by the notification service to the device to receive notifications.
          */
-        registerPushNotificationSubscriber(deviceAppInstanceId, serviceToken): any;
+        registerPushNotificationSubscriber(deviceAppInstanceId, serviceToken): IBase;
 
         /**
          * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
          */
-        resetRoleInheritance(): any;
+        resetRoleInheritance(): IBase;
 
         /**
          * Unregisters the subscriber for push notifications from the site.
          * @param id - The ID of the device app instance.
          */
-        unregisterPushNotificationSubscriber(id): any;
+        unregisterPushNotificationSubscriber(id): IBase;
 
         /**
          * Updates it's properties.
          * @param data - The list properties to update.
          */
-        update(data): any;
+        update(data): IBase;
     }
 }
     

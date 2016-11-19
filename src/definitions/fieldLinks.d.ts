@@ -18,7 +18,7 @@ declare module $REST.Types {
          * Adds a content type to the collection.
          * @param data - The field link properties.
          */
-        add(data): any;
+        add(data): IBase;
 
         /**
          * Method to execute the request.

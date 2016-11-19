@@ -23,12 +23,12 @@ declare module $REST.Types {
         /**
          * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
          */
-        ensureSiteAssetsLibrary(): any;
+        ensureSiteAssetsLibrary(): IBase;
 
         /**
          * Gets a list that is the default location for wiki pages.
          */
-        ensureSitePagesLibrary(): any;
+        ensureSitePagesLibrary(): IBase;
 
         /**
          * Method to execute the request.

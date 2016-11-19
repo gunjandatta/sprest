@@ -10,7 +10,7 @@ declare module $REST.Types {
         /**
          * Gets the user or group that corresponds to the Role Assignment.
          */
-        Member(): any;
+        Member(): IBase;
 
         /** The unique identifier of the role assignment. */
         PrincipalId: string;
@@ -27,7 +27,7 @@ declare module $REST.Types {
         /**
          * Deletes the role assignment.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.

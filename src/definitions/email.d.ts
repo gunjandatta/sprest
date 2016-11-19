@@ -46,6 +46,6 @@ declare module $REST.Types {
          * Method to send an email.
          * @param properties - The email information.
          */
-        send(properties:Settings.EmailCreationInformation): any;
+        send(properties:Settings.EmailCreationInformation): IBase;
     }
 }

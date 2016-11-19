@@ -60,13 +60,13 @@ declare module $REST.Types {
          * Removes the group with the specified member ID from the collection.
          * @param id - The ID of the group to remove.
          */
-        removeById(id): any;
+        removeById(id): IBase;
 
         /**
          * Removes the cross-site group with the specified name from the collection.
          * @param name - The name of the group to remove. The group name is specified in its LoginName property.
          */
-        removeByLoginName(name): any;
+        removeByLoginName(name): IBase;
 
         /**
          * Queries the collection.

@@ -35,7 +35,7 @@ declare module $REST.Types {
         /**
          * Deletes the role definition.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.

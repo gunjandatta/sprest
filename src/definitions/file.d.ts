@@ -44,7 +44,7 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the list item field values for the list item corresponding to the file.
          */
-        ListItemAllFields(): any;
+        ListItemAllFields(): IBase;
 
         /**
          * Gets a value that returns the user that owns the current lock on the file.

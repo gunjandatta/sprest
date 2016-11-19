@@ -56,7 +56,7 @@ declare module $REST.Types {
          * @param principalId - The ID of the user or group to assign permissions to.
          * @param roleDefId - The ID of the role definition that defines the permissions to assign.
          */
-        removeRoleAssignment(principalId, roleDefId): any;
+        removeRoleAssignment(principalId, roleDefId): IBase;
 
         /**
          * Queries the collection.

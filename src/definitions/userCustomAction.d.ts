@@ -65,7 +65,7 @@ declare module $REST.Types {
         /**
          * Deletes the user custom action.
          */
-        delete(): any;
+        delete(): IBase;
 
         /**
          * Method to execute the request.

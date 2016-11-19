@@ -40,11 +40,6 @@ declare module $REST {
      */
     let DefaultRequestToHostWebFl:boolean;
 
-    /**
-     * Flag to execute the request by default on creation of an object.
-     */
-    let ExecuteOnCreationFl:boolean;
-
     /** Email */
     let Email:Types.IEmail;
 
