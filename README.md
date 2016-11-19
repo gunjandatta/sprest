@@ -29,6 +29,8 @@ I was finally able to put the definition file together, to ensure intellisense i
 [Office Fabric UI Dashboard](https://github.com/gunjandatta/sprest-list)
 
 ## Documentation:
+[Click here](https://github.com/gunjandatta/sprest/wiki/SP-REST-Framework) to view the documentation for the framework.
+
 ### Executing Requests from the App Web
 A global flag is used to determine if an app web request should execute requests against the host web. The host web will default to the SPHostUrl query string value.
 *Note - This value is false by default*
