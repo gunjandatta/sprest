@@ -32,6 +32,10 @@ var $REST;
         // Method to wait for the requests to complete
         Base.prototype.done = function (callback) {
             var _this = this;
+            // Ensure the base is set
+            this.base = this.base ? this.base : this;
+            // Ensure the response index is set
+            this.responseIndex = this.responseIndex >= 0 ? this.responseIndex : 0;
             // Wait for the responses to execute
             this.waitForRequestsToComplete(function () {
                 var responses = _this.base.responses;
@@ -498,7 +502,8 @@ var $REST;
         function Helper() {
         }
         // Method to copy a file in this app web to the host web
-        Helper.copyFileToHostWeb = function (fileUrl, folderUrl, overwriteFl) {
+        Helper.copyFileToHostWeb = function (fileUrl, dstFolder, overwriteFl) {
+            var _this = this;
             var srcFile = null;
             var promise = new $REST.Utils.Promise();
             var origVal = $REST.DefaultRequestToHostWebFl;
@@ -511,14 +516,23 @@ var $REST;
             //Get the host web
             $REST.DefaultRequestToHostWebFl = true;
             var web = (new $REST.Web());
-            // Get the destination folder
-            this.getFolder(web, folderUrl, true).done(function (dstFolder) {
+            // See if the folder url was given
+            if (typeof (dstFolder) === "string") {
+                // Get the folder
+                this.getFolder(web, dstFolder, true)
+                    .done(function (folder) {
+                    // Copy the file to the host web
+                    _this.copyFileToHostWeb(fileUrl, folder, overwriteFl)
+                        .done(function (file, folder) { promise.resolve(file, folder); });
+                });
+            }
+            else {
                 // Get the file name
                 var fileName = fileUrl.split("/");
                 fileName = fileName[fileName.length - 1];
                 // Set the file urls
                 var dstFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-                var srcFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(window["_spPageContextInfo"].webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+                var srcFileUrl_1 = window["SP"].Utilities.UrlBuilder.urlCombine(window["_spPageContextInfo"].webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
                 // Get the destination file
                 web.getFileByServerRelativeUrl(dstFileUrl)
                     .execute(function (file) {
@@ -538,12 +552,12 @@ var $REST;
                 // Target the current web
                 $REST.DefaultRequestToHostWebFl = false;
                 // Get the file
-                web.getFileByServerRelativeUrl(srcFileUrl)
+                web.getFileByServerRelativeUrl(srcFileUrl_1)
                     .content()
                     .execute(function (content) {
                     var promise = new $REST.Utils.Promise();
                     // Get the file name
-                    var fileName = srcFileUrl.split("/");
+                    var fileName = srcFileUrl_1.split("/");
                     fileName = fileName[fileName.length - 1];
                     // Target the host web
                     $REST.DefaultRequestToHostWebFl = true;
@@ -569,17 +583,39 @@ var $REST;
                     return promise;
                 }, true);
                 // Wait for the requests to complete, and resolve the promise
-                web.done(function () { promise.resolve(srcFile); });
-            });
+                web.done(function () { promise.resolve(srcFile, dstFolder); });
+            }
             // Return the promise
             return promise;
         };
         // Method to copy a file in this app web to the host web
-        Helper.copyFilesToHostWeb = function (fileUrls, folderUrls, overwriteFl) {
+        Helper.copyFilesToHostWeb = function (fileUrls, folderUrls, overwriteFl, promise, files, folders) {
+            var _this = this;
+            // Ensure the files, folders and promise exist
+            files = files ? files : [];
+            folders = folders ? folders : [];
+            promise = promise ? promise : new $REST.Utils.Promise();
+            // Ensure the array is not empty
+            if (fileUrls.length == 0 || folderUrls.length == 0) {
+                // Resolve the promise
+                promise.resolve(files, folders);
+            }
+            // Copy the file
+            this.copyFileToHostWeb(fileUrls.pop(), folderUrls.pop(), overwriteFl)
+                .done(function (file, folder) {
+                // Save a reference to the file and folder
+                files.push(file);
+                folders.push(folder);
+                // Copy the files
+                _this.copyFilesToHostWeb(fileUrls, folderUrls, overwriteFl, promise, files, folders);
+            });
+            // Return the promise
+            return promise;
         };
         // Method to create sub-folders
         Helper.createSubFolders = function (folder, subFolderUrl, promise) {
             var _this = this;
+            // Ensure the promise exists
             promise = promise ? promise : new $REST.Utils.Promise();
             // Get the sub-folder name
             var subFolderName = subFolderUrl.split("/")[0];

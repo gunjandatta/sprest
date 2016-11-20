@@ -4,7 +4,7 @@ module $REST {
     /*********************************************************************************************************************************/
     export class Helper {
         // Method to copy a file in this app web to the host web
-        static copyFileToHostWeb(fileUrl:string, folderUrl:string, overwriteFl?:boolean) {
+        static copyFileToHostWeb(fileUrl:string, dstFolder:(string | $REST.Types.IFolder), overwriteFl?:boolean) {
             let srcFile = null;
             let promise = new $REST.Utils.Promise();
             let origVal = $REST.DefaultRequestToHostWebFl;
@@ -20,8 +20,17 @@ module $REST {
             $REST.DefaultRequestToHostWebFl = true;
             let web = (<$REST.Types.IWeb><any>new $REST.Web());
 
-            // Get the destination folder
-            this.getFolder(web, folderUrl, true).done((dstFolder:$REST.Types.IFolder) => {
+            // See if the folder url was given
+            if(typeof(dstFolder) === "string") {
+                // Get the folder
+                this.getFolder(web, dstFolder, true)
+                    .done((folder) => {
+                        // Copy the file to the host web
+                        this.copyFileToHostWeb(fileUrl, folder, overwriteFl)
+                            // Wait for the request to complete, and resolve the promise
+                            .done((file, folder) => { promise.resolve(file, folder); });
+                    });
+            } else {
                 // Get the file name
                 let fileName:any = fileUrl.split("/");
                 fileName = fileName[fileName.length-1];
@@ -68,7 +77,7 @@ module $REST {
                         $REST.DefaultRequestToHostWebFl = true;
 
                         // Add the file to the folder
-                        dstFolder.Files().add(true, fileName, content.response)
+                        (<$REST.Types.IFolder>dstFolder).Files().add(true, fileName, content.response)
                             // Execute the request
                             .execute((file:$REST.Types.IFile) => {
                                 let promise = new $REST.Utils.Promise();
@@ -97,19 +106,45 @@ module $REST {
                     }, true);
 
                 // Wait for the requests to complete, and resolve the promise
-                web.done(() => { promise.resolve(srcFile); });
-            });
+                web.done(() => { promise.resolve(srcFile, dstFolder); });
+            }
 
             // Return the promise
             return promise;
         }
 
         // Method to copy a file in this app web to the host web
-        static copyFilesToHostWeb(fileUrls:Array<string>, folderUrls:Array<string>, overwriteFl?:boolean) {
+        static copyFilesToHostWeb(fileUrls:Array<string>, folderUrls:Array<string>, overwriteFl?:boolean, promise?:Utils.Promise, files?:Array<$REST.Types.IFile>, folders?:Array<$REST.Types.IFolder>) {
+            // Ensure the files, folders and promise exist
+            files = files ? files : [];
+            folders = folders ? folders : [];
+            promise = promise ? promise : new Utils.Promise();
+
+            // Ensure the array is not empty
+            if(fileUrls.length == 0 || folderUrls.length == 0) {
+                // Resolve the promise
+                promise.resolve(files, folders);
+            }
+
+            // Copy the file
+            this.copyFileToHostWeb(fileUrls.pop(), folderUrls.pop(), overwriteFl)
+                // Wait for it to complete
+                .done((file, folder) => {
+                    // Save a reference to the file and folder
+                    files.push(file);
+                    folders.push(folder);
+
+                    // Copy the files
+                    this.copyFilesToHostWeb(fileUrls, folderUrls, overwriteFl, promise, files, folders);
+                })
+
+            // Return the promise
+            return promise;
         }
 
         // Method to create sub-folders
         static createSubFolders(folder:Types.IFolder, subFolderUrl:string, promise?:Utils.Promise): $REST.Utils.Promise {
+            // Ensure the promise exists
             promise = promise ? promise : new Utils.Promise();
 
             // Get the sub-folder name

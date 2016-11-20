@@ -1651,11 +1651,26 @@ declare module $REST.Types {
     interface IHelper {
         /**
          * Method to copy a file from the app web to the host web.
-         * @param fileUrl - The source file url relative to the app web.
-         * @param folderUrl - The destination folder url, relative to the host web.
+         * @param fileUrl - The source file url, relative to the app web.
+         * @param dstFolder - The destination folder.
          * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
          */
-        copyFileToHostWeb(srcFileUrl:string, folderUrl:Types.IFolder, overwriteFl?:boolean): Types.IPromise;
+        copyFileToHostWeb(srcFileUrl:string, dstFolder:Types.IFolder, overwriteFl?:boolean): Types.IPromise;
+
+        /**
+         * Method to copy a file from the app web to the host web.
+         * @param fileUrl - The source file url, relative to the app web.
+         * @param dstFolderUrl - The destination folder url, relative to the host web.
+         * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
+         */
+        copyFileToHostWeb(srcFileUrl:string, dstFolderUrl:string, overwriteFl?:boolean): Types.IPromise;
+
+        /**
+         * Method to copy a file in this app web to the host web
+         * @param fileUrls - An array of source file urls, relative to the app web.
+         * @param folderUrls - An array of destination folder urls, relative to the host web.
+         */
+        copyFilesToHostWeb(fileUrls:Array<string>, folderUrls:Array<string>, overwriteFl?:boolean);
 
         /**
          * Method to create sub-folders.

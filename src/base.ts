@@ -43,6 +43,12 @@ module $REST {
 
         // Method to wait for the requests to complete
         public done(callback:(...args) => any) {
+            // Ensure the base is set
+            this.base = this.base ? this.base : this;
+
+            // Ensure the response index is set
+            this.responseIndex = this.responseIndex >= 0 ? this.responseIndex : 0;
+
             // Wait for the responses to execute
             this.waitForRequestsToComplete(() => {
                 let responses = this.base.responses;
