@@ -130,8 +130,18 @@ module $REST {
             } else {
                 // Execute this request
                 this.executeRequest(true, () => {
-                    // Set the wait flag
-                    this.base.waitFlags[this.responseIndex] = true;
+                    // Execute the callback and see if it returns a promise
+                    let returnVal = callback ? callback(this) : null;
+                    if(returnVal && typeof(returnVal.done) === "function") {
+                        // Wait for the promise to complete
+                        returnVal.done(() => {
+                            // Set the wait flag
+                            this.base.waitFlags[this.responseIndex] = true;
+                        });
+                    } else {
+                        // Set the wait flag
+                        this.base.waitFlags[this.responseIndex] = true;
+                    }                    
 
                     // Execute the callback
                     callback ? callback(this) : null;
@@ -586,17 +596,16 @@ module $REST {
 
                     // Return if the request hasn't completed
                     if(response.request == null || !response.request.completedFl) { return; }
+
+                    // Ensure the wait flag is set for the previous request
+                    if(counter > 0 && this.base.waitFlags[counter - 1] != true) { return; }
                 }
 
-                // Ensure this isn't the first request
-                // If so, then ensure the previous request has completed
-                if(this.responseIndex == 0 || this.base.waitFlags[this.responseIndex - 1]) {
-                    // Clear the interval
-                    window.clearInterval(intervalId);
+                // Clear the interval
+                window.clearInterval(intervalId);
 
-                    // Execute the callback
-                    callback();
-                }
+                // Execute the callback
+                callback();
             }, 10);
         }
     }

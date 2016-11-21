@@ -80,8 +80,6 @@ module $REST {
                         (<$REST.Types.IFolder>dstFolder).Files().add(true, fileName, content.response)
                             // Execute the request
                             .execute((file:$REST.Types.IFile) => {
-                                let promise = new $REST.Utils.Promise();
-
                                 // Save a reference to this file
                                 srcFile = file;
 
@@ -96,9 +94,6 @@ module $REST {
                                     // Resolve the promise
                                     promise.resolve();
                                 });
-
-                                // Return the promise
-                                return promise;
                             });
 
                         // Return the promise
@@ -114,21 +109,21 @@ module $REST {
         }
 
         // Method to copy a file in this app web to the host web
-        static copyFilesToHostWeb(fileUrls:Array<string>, folderUrls:Array<string>, overwriteFl?:boolean, promise?:Utils.Promise, files?:Array<$REST.Types.IFile>, folders?:Array<$REST.Types.IFolder>) {
-            // Ensure the files, folders and promise exist
+        static copyFilesToHostWeb(fileUrls:Array<string>, folderUrls:Array<string>, overwriteFl?:boolean, idx?:number, promise?:Utils.Promise, files?:Array<$REST.Types.IFile>, folders?:Array<$REST.Types.IFolder>) {            
             files = files ? files : [];
             folders = folders ? folders : [];
+            idx = idx ? idx : 0;
             promise = promise ? promise : new Utils.Promise();
 
             // Ensure the array is not empty
-            if(fileUrls.length == 0 || folderUrls.length == 0) {
+            if(fileUrls.length == idx || folderUrls.length == idx) {
                 // Resolve the promise and return it
                 promise.resolve(files, folders);
                 return promise;
             }
 
             // Copy the file
-            this.copyFileToHostWeb(fileUrls.pop(), folderUrls.pop(), overwriteFl)
+            this.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl)
                 // Wait for it to complete
                 .done((file, folder) => {
                     // Save a reference to the file and folder
@@ -136,7 +131,7 @@ module $REST {
                     folders.push(folder);
 
                     // Copy the files
-                    this.copyFilesToHostWeb(fileUrls, folderUrls, overwriteFl, promise, files, folders);
+                    this.copyFilesToHostWeb(fileUrls, folderUrls, overwriteFl, ++idx, promise, files, folders);
                 })
 
             // Return the promise
@@ -169,7 +164,7 @@ module $REST {
                 };
 
                 // Ensure the sub-folder exists
-                if(subFolder.existsFl) {
+                if(subFolder.Exists) {
                     // Add the rest of the sub folders
                     addSubFolders(subFolder);
                 } else {
@@ -205,7 +200,7 @@ module $REST {
                         let promise = new $REST.Utils.Promise();
 
                         // Ensure the folder exists
-                        if(folder.existsFl) {
+                        if(folder.Exists) {
                             // Save a reference to the folder
                             dstFolder = folder;
                             

@@ -109,8 +109,19 @@ var $REST;
             else {
                 // Execute this request
                 this.executeRequest(true, function () {
-                    // Set the wait flag
-                    _this.base.waitFlags[_this.responseIndex] = true;
+                    // Execute the callback and see if it returns a promise
+                    var returnVal = callback ? callback(_this) : null;
+                    if (returnVal && typeof (returnVal.done) === "function") {
+                        // Wait for the promise to complete
+                        returnVal.done(function () {
+                            // Set the wait flag
+                            _this.base.waitFlags[_this.responseIndex] = true;
+                        });
+                    }
+                    else {
+                        // Set the wait flag
+                        _this.base.waitFlags[_this.responseIndex] = true;
+                    }
                     // Execute the callback
                     callback ? callback(_this) : null;
                 });
@@ -477,15 +488,15 @@ var $REST;
                     if (response.request == null || !response.request.completedFl) {
                         return;
                     }
+                    // Ensure the wait flag is set for the previous request
+                    if (counter > 0 && _this.base.waitFlags[counter - 1] != true) {
+                        return;
+                    }
                 }
-                // Ensure this isn't the first request
-                // If so, then ensure the previous request has completed
-                if (_this.responseIndex == 0 || _this.base.waitFlags[_this.responseIndex - 1]) {
-                    // Clear the interval
-                    window.clearInterval(intervalId);
-                    // Execute the callback
-                    callback();
-                }
+                // Clear the interval
+                window.clearInterval(intervalId);
+                // Execute the callback
+                callback();
             }, 10);
         };
         return Base;
@@ -564,7 +575,6 @@ var $REST;
                     // Add the file to the folder
                     dstFolder.Files().add(true, fileName, content.response)
                         .execute(function (file) {
-                        var promise = new $REST.Utils.Promise();
                         // Save a reference to this file
                         srcFile = file;
                         // Check in the file
@@ -576,8 +586,6 @@ var $REST;
                             // Resolve the promise
                             promise.resolve();
                         });
-                        // Return the promise
-                        return promise;
                     });
                     // Return the promise
                     return promise;
@@ -589,26 +597,26 @@ var $REST;
             return promise;
         };
         // Method to copy a file in this app web to the host web
-        Helper.copyFilesToHostWeb = function (fileUrls, folderUrls, overwriteFl, promise, files, folders) {
+        Helper.copyFilesToHostWeb = function (fileUrls, folderUrls, overwriteFl, idx, promise, files, folders) {
             var _this = this;
-            // Ensure the files, folders and promise exist
             files = files ? files : [];
             folders = folders ? folders : [];
+            idx = idx ? idx : 0;
             promise = promise ? promise : new $REST.Utils.Promise();
             // Ensure the array is not empty
-            if (fileUrls.length == 0 || folderUrls.length == 0) {
+            if (fileUrls.length == idx || folderUrls.length == idx) {
                 // Resolve the promise and return it
                 promise.resolve(files, folders);
                 return promise;
             }
             // Copy the file
-            this.copyFileToHostWeb(fileUrls.pop(), folderUrls.pop(), overwriteFl)
+            this.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl)
                 .done(function (file, folder) {
                 // Save a reference to the file and folder
                 files.push(file);
                 folders.push(folder);
                 // Copy the files
-                _this.copyFilesToHostWeb(fileUrls, folderUrls, overwriteFl, promise, files, folders);
+                _this.copyFilesToHostWeb(fileUrls, folderUrls, overwriteFl, ++idx, promise, files, folders);
             });
             // Return the promise
             return promise;
@@ -637,7 +645,7 @@ var $REST;
                     }
                 };
                 // Ensure the sub-folder exists
-                if (subFolder.existsFl) {
+                if (subFolder.Exists) {
                     // Add the rest of the sub folders
                     addSubFolders(subFolder);
                 }
@@ -668,7 +676,7 @@ var $REST;
                     .execute(function (folder) {
                     var promise = new $REST.Utils.Promise();
                     // Ensure the folder exists
-                    if (folder.existsFl) {
+                    if (folder.Exists) {
                         // Save a reference to the folder
                         dstFolder = folder;
                         // Resolve the promise

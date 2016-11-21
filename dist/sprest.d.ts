@@ -1372,6 +1372,9 @@ declare module $REST.Types {
         /** Specifies the sequence in which content types are displayed. */
         ContentTypeOrder: string;
 
+        /** Gets a value that specifies whether the file exists. */
+        Exists: string;
+
         /**
          * Gets the files contained in the folder.
          */
@@ -1396,6 +1399,9 @@ declare module $REST.Types {
 
         /** Gets a value that specifies the count of items in the list folder. */
         ItemCount: number;
+
+        /** Indicates whether the folder is enabled for WOPI default action. */
+        IsWOPIEnabled: boolean;
 
         /**
          * Specifies the list item field (2) values for the list item corresponding to the file.
