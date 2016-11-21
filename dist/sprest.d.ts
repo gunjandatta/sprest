@@ -1395,7 +1395,7 @@ declare module $REST.Types {
         Folders(url:string): IFolder;
 
         /** Gets a value that specifies the count of items in the list folder. */
-        ItemCount: string;
+        ItemCount: number;
 
         /**
          * Specifies the list item field (2) values for the list item corresponding to the file.
@@ -1686,6 +1686,27 @@ declare module $REST.Types {
          * @param createFl - Flag to create the folder, if it doesn't exist.
          */
         getFolder(web:$REST.Types.IWeb, folderUrl:string, createFl?:boolean): Types.IPromise;
+
+        /**
+         * Method to remove empty folders
+         * @param web - The web containing the files.
+         * @param folderUrls - An array of folder urls, relative to the web.
+         */
+        removeEmptyFolders(web:$REST.Types.IWeb, folderUrls:Array<string>): Types.IPromise;
+
+        /**
+         * Method to remove files from a web.
+         * @param web - The web containing the files.
+         * @param fileUrl - The file url, relative to the web.
+         */
+        removeFile(web:$REST.Types.IWeb, fileUrl:string): Types.IPromise;
+
+        /**
+         * Method to remove files from a web.
+         * @param web - The web containing the files.
+         * @param fileUrls - An array of file urls, relative to the web.
+         */
+        removeFiles(web:$REST.Types.IWeb, fileUrls:Array<string>): Types.IPromise;
    }
 }
 
@@ -3244,7 +3265,7 @@ declare module $REST.Settings {
         /** The maximum number of characters to display in the hit-highlighted summary generated for a search result. */
         MaxSnippetLength?: number;
 
-        /**A Boolean value that specifies whether to return best bet results for the query. */
+        /** A Boolean value that specifies whether to return best bet results for the query. */
         ProcessBestBets?: boolean;
 
         /** The GUID for the user who submitted the search query. */

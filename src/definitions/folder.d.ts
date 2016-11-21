@@ -33,7 +33,7 @@ declare module $REST.Types {
         Folders(url:string): IFolder;
 
         /** Gets a value that specifies the count of items in the list folder. */
-        ItemCount: string;
+        ItemCount: number;
 
         /**
          * Specifies the list item field (2) values for the list item corresponding to the file.
