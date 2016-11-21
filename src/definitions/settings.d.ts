@@ -272,7 +272,7 @@ declare module $REST.Settings {
         /** The maximum number of characters to display in the hit-highlighted summary generated for a search result. */
         MaxSnippetLength?: number;
 
-        /**A Boolean value that specifies whether to return best bet results for the query. */
+        /** A Boolean value that specifies whether to return best bet results for the query. */
         ProcessBestBets?: boolean;
 
         /** The GUID for the user who submitted the search query. */
