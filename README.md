@@ -4,10 +4,10 @@ An easy way to create, read, update and delete data using the SharePoint 2013/On
 *Please report issues. I am constantly updating/fixing/testing to make this library better.*
 
 ## Benefits:
-* Easily generate the REST API request
-* Easier to develop against a SharePoint Hosted App
-* Ability to control the order of execution of requests
-* PowerShell-Like experience in the browser console. (Synchronous Requests)
+* Easily create, read, update and delete SharePoint data
+* Easier to execute requests against the host web from a SharePoint Hosted App
+* Ability to control the order of the requests executed against the server
+* PowerShell-Like experience in the browser console.
 * TypeScript definition for intellisense.
 
 ## Demo:
