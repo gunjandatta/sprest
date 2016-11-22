@@ -20,7 +20,7 @@ declare module $REST.Types {
         copyFileToHostWeb(srcFileUrl:string, dstFolderUrl:string, overwriteFl?:boolean): Types.IPromise;
 
         /**
-         * Method to copy a file in this app web to the host web
+         * Method to copy a file from the app web to the host web
          * @param fileUrls - An array of source file urls, relative to the app web.
          * @param folderUrls - An array of destination folder urls, relative to the host web.
          */
