@@ -122,8 +122,6 @@ var $REST;
                         // Set the wait flag
                         _this.base.waitFlags[_this.responseIndex] = true;
                     }
-                    // Execute the callback
-                    callback ? callback(_this) : null;
                 });
             }
             // Return the base object

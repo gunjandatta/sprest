@@ -142,9 +142,6 @@ module $REST {
                         // Set the wait flag
                         this.base.waitFlags[this.responseIndex] = true;
                     }                    
-
-                    // Execute the callback
-                    callback ? callback(this) : null;
                 });
             }
 
