@@ -5,7 +5,7 @@ declare module $REST.Types {
     interface IHelper {
         /**
          * Method to copy a file from the app web to the host web.
-         * @param fileUrl - The source file url, relative to the app web.
+         * @param srcFileUrl - The source file url, relative to the app web.
          * @param dstFolder - The destination folder.
          * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
          */
@@ -13,7 +13,7 @@ declare module $REST.Types {
 
         /**
          * Method to copy a file from the app web to the host web.
-         * @param fileUrl - The source file url, relative to the app web.
+         * @param srcFileUrl - The source file url, relative to the app web.
          * @param dstFolderUrl - The destination folder url, relative to the host web.
          * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
          */
