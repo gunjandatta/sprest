@@ -10,8 +10,12 @@ An easy way to create, read, update and delete data using the SharePoint 2013/On
 * PowerShell-Like experience in the browser console
 * TypeScript definition for intellisense
 
-## Demo:
-![Demo](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/demo.gif)
+## Demos:
+### VS Code - Intellisense
+![VS Code](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/demo-VSCode.gif)
+
+### PowerShell-Like Experience in the Browser Console
+![PowerShell](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/demo-ConsoleWindow.gif)
 
 ## Documentation:
 [Click here](https://github.com/gunjandatta/sprest/wiki) to view the documentation for the framework.
