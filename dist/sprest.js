@@ -124,8 +124,8 @@ var $REST;
                     }
                 });
             }
-            // Return the base object
-            return this.base;
+            // Return this object
+            return this;
         };
         // Method to execute the request synchronously.
         Base.prototype.executeAndWait = function () { return this.executeRequest(false); };
