@@ -14,7 +14,7 @@ module $REST {
             // Default the properties
             this.defaultToWebFl = true;
             this.responses = [];
-            this.targetInfo.endpoint = "lists/getByTitle('" + listName + "')";
+            this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
 
             // Add the methods
             this.addMethods(this, { __metadata: { type: "list" } } );
