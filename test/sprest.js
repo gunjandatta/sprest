@@ -242,7 +242,7 @@ var $REST;
                     methodConfig.metadataType = metadata.type;
                 }
                 // Update the metadata uri
-                this.base.updateMetadataUri(metadata, targetInfo);
+                (this.updateMetadataUri ? this.updateMetadataUri : this.base.updateMetadataUri)(metadata, targetInfo);
             }
             else {
                 // Copy the target information
