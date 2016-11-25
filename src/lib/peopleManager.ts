@@ -7,7 +7,7 @@ module $REST {
         "amlFollowedBy", "amlFollowing", "getFollowedTags", "getFollowersFor", "getMyFollowers", "getMyProperties", "getMySuggestions",
         "getPeopleFollowedBy", "getPeopleFollowedByMe", "getPropertiesFor", "getUserProfilePropertyFor"
     ];
-    Library.peoplemanager[Types.RequestType.GetAppendMethodToEndPoint] = ["getTrendingTags", "isFollowing"];
+    Library.peoplemanager[Types.RequestType.GetWithArgsInQS] = ["getTrendingTags", "isFollowing"];
     Library.peoplemanager[Types.RequestType.Post] = ["follow", "followTag", "hideSuggestion", "stopFollowing", "stopFollowingTag"];
-    Library.peoplemanager[Types.RequestType.PostDataInBody] = ["setMyProfilePicture"];
+    Library.peoplemanager[Types.RequestType.PostWithArgsInBody] = ["setMyProfilePicture"];
 }

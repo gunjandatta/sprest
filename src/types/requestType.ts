@@ -6,13 +6,16 @@ module $REST.Types {
         Delete = 1,
         Merge = 2,
         OData = 3,
+
         // Get Requests
         Get = 10,
-        GetWithArgs = 11,
-        GetWithArgsInBody = 12,
-        GetWithArgsInQS = 13,
-        GetWithArgsValueOnly = 14,
-        GetReplace = 15,
+        GetBuffer = 11,
+        GetWithArgs = 12,
+        GetWithArgsInBody = 13,
+        GetWithArgsInQS = 14,
+        GetWithArgsValueOnly = 15,
+        GetReplace = 16,
+
         // Post Requests
         Post = 20,
         PostWithArgs = 21,
@@ -20,15 +23,5 @@ module $REST.Types {
         PostWithArgsInQS = 23,
         PostWithArgsValueOnly = 24,
         PostReplace = 25,
-        // Remove if no longer needed
-        GetAppendMethodToEndPoint = 30,
-        GetBuffer = 31,
-        GetDataAsParameter = 32,
-        GetDataInBody = 33,
-        GetDataInBodyNoArgs = 34,
-        PostAppendMethodToEndPoint = 35,
-        PostDataAsParameter = 36,
-        PostDataInBody = 37,
-        PostDataInBodyNoArgs = 38
     }
 }
