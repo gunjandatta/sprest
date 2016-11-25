@@ -2,9 +2,51 @@ module $REST {
     /*********************************************************************************************************************************/
     // User Profile
     /*********************************************************************************************************************************/
-    Library.userprofile = {};
-    Library.userprofile[Types.RequestType.Post] = ["createPersonalSiteEnque", "shareAllSocialData"];
-    Library.userprofile[Types.RequestType.Custom] = [
-        { name: "getOneDriveUrl", "function": function () { return this.FollowPersonalSiteUrl + "_layouts/15/onedrive.aspx" } }
-    ];
+    class _UserProfile extends Base {
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(targetInfo?:Settings.TargetInfoSettings) {
+            // Call the base constructor
+            super(targetInfo);
+
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.responses = [];
+            this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "userprofile" } } );
+        }
+    }
+
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    Library.userprofile = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+
+        properties: [
+            "FollowedContent", "PersonalSite"
+        ],
+
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
+
+        createPersonalSiteEnque:{
+            requestType: Types.RequestType.PostWithArgsValueOnly
+        },
+
+        shareAllSocialData:{
+            requestType: Types.RequestType.PostWithArgsValueOnly
+        }
+    }
+
+    /**
+     * User Profile
+     */
+    export var UserProfile = new _UserProfile();
 }

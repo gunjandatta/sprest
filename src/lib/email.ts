@@ -3,7 +3,7 @@ module $REST {
     // Email
     // The SP.Utilities.Utility.SendEmail object.
     /*********************************************************************************************************************************/
-    export class Email extends Base {
+    class _Email extends Base {
 
         /*********************************************************************************************************************************/
         // Constructor
@@ -52,4 +52,5 @@ module $REST {
             }, [properties]);
         }
     }
+    export let Email = new _Email();
 }

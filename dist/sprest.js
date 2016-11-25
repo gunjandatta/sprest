@@ -816,11 +816,12 @@ var $REST;
             RequestType[RequestType["OData"] = 3] = "OData";
             // Get Requests
             RequestType[RequestType["Get"] = 10] = "Get";
-            RequestType[RequestType["GetWithArgs"] = 11] = "GetWithArgs";
-            RequestType[RequestType["GetWithArgsInBody"] = 12] = "GetWithArgsInBody";
-            RequestType[RequestType["GetWithArgsInQS"] = 13] = "GetWithArgsInQS";
-            RequestType[RequestType["GetWithArgsValueOnly"] = 14] = "GetWithArgsValueOnly";
-            RequestType[RequestType["GetReplace"] = 15] = "GetReplace";
+            RequestType[RequestType["GetBuffer"] = 11] = "GetBuffer";
+            RequestType[RequestType["GetWithArgs"] = 12] = "GetWithArgs";
+            RequestType[RequestType["GetWithArgsInBody"] = 13] = "GetWithArgsInBody";
+            RequestType[RequestType["GetWithArgsInQS"] = 14] = "GetWithArgsInQS";
+            RequestType[RequestType["GetWithArgsValueOnly"] = 15] = "GetWithArgsValueOnly";
+            RequestType[RequestType["GetReplace"] = 16] = "GetReplace";
             // Post Requests
             RequestType[RequestType["Post"] = 20] = "Post";
             RequestType[RequestType["PostWithArgs"] = 21] = "PostWithArgs";
@@ -828,16 +829,6 @@ var $REST;
             RequestType[RequestType["PostWithArgsInQS"] = 23] = "PostWithArgsInQS";
             RequestType[RequestType["PostWithArgsValueOnly"] = 24] = "PostWithArgsValueOnly";
             RequestType[RequestType["PostReplace"] = 25] = "PostReplace";
-            // Remove if no longer needed
-            RequestType[RequestType["GetAppendMethodToEndPoint"] = 30] = "GetAppendMethodToEndPoint";
-            RequestType[RequestType["GetBuffer"] = 31] = "GetBuffer";
-            RequestType[RequestType["GetDataAsParameter"] = 32] = "GetDataAsParameter";
-            RequestType[RequestType["GetDataInBody"] = 33] = "GetDataInBody";
-            RequestType[RequestType["GetDataInBodyNoArgs"] = 34] = "GetDataInBodyNoArgs";
-            RequestType[RequestType["PostAppendMethodToEndPoint"] = 35] = "PostAppendMethodToEndPoint";
-            RequestType[RequestType["PostDataAsParameter"] = 36] = "PostDataAsParameter";
-            RequestType[RequestType["PostDataInBody"] = 37] = "PostDataInBody";
-            RequestType[RequestType["PostDataInBodyNoArgs"] = 38] = "PostDataInBodyNoArgs";
         })(Types.RequestType || (Types.RequestType = {}));
         var RequestType = Types.RequestType;
     })(Types = $REST.Types || ($REST.Types = {}));
@@ -1277,6 +1268,19 @@ var $REST;
             PageType[PageType["View"] = 3] = "View";
         })(Types.PageType || (Types.PageType = {}));
         var PageType = Types.PageType;
+        /**
+         * Personal Site Capabilities
+         */
+        (function (PersonalSiteCapabilities) {
+            PersonalSiteCapabilities[PersonalSiteCapabilities["Education"] = 16] = "Education";
+            PersonalSiteCapabilities[PersonalSiteCapabilities["Guest"] = 32] = "Guest";
+            PersonalSiteCapabilities[PersonalSiteCapabilities["MyTasksDashboard"] = 8] = "MyTasksDashboard";
+            PersonalSiteCapabilities[PersonalSiteCapabilities["None"] = 0] = "None";
+            PersonalSiteCapabilities[PersonalSiteCapabilities["Profile"] = 1] = "Profile";
+            PersonalSiteCapabilities[PersonalSiteCapabilities["Social"] = 2] = "Social";
+            PersonalSiteCapabilities[PersonalSiteCapabilities["Storage"] = 4] = "Storage";
+        })(Types.PersonalSiteCapabilities || (Types.PersonalSiteCapabilities = {}));
+        var PersonalSiteCapabilities = Types.PersonalSiteCapabilities;
         /**
          * Reordering Rule Match Types
          */
@@ -2235,12 +2239,12 @@ var $REST;
     // Email
     // The SP.Utilities.Utility.SendEmail object.
     /*********************************************************************************************************************************/
-    var Email = (function (_super) {
-        __extends(Email, _super);
+    var _Email = (function (_super) {
+        __extends(_Email, _super);
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function Email(targetInfo) {
+        function _Email(targetInfo) {
             // Call the base constructor
             _super.call(this, targetInfo);
             // Default the properties
@@ -2252,7 +2256,7 @@ var $REST;
         // Methods
         /*********************************************************************************************************************************/
         // Method to send an email
-        Email.prototype.send = function (properties) {
+        _Email.prototype.send = function (properties) {
             // Parse the email properties
             for (var _i = 0, _a = ["To", "CC", "BCC"]; _i < _a.length; _i++) {
                 var propName = _a[_i];
@@ -2278,9 +2282,9 @@ var $REST;
                 requestType: $REST.Types.RequestType.PostWithArgsInBody
             }, [properties]);
         };
-        return Email;
+        return _Email;
     }($REST.Base));
-    $REST.Email = Email;
+    $REST.Email = new _Email();
 })($REST || ($REST = {}));
 
 var $REST;
@@ -3022,27 +3026,196 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
     // People Manager
     /*********************************************************************************************************************************/
-    $REST.Library.peoplemanager = {};
-    $REST.Library.peoplemanager[$REST.Types.RequestType.Get] = [
-        "amlFollowedBy", "amlFollowing", "getFollowedTags", "getFollowersFor", "getMyFollowers", "getMyProperties", "getMySuggestions",
-        "getPeopleFollowedBy", "getPeopleFollowedByMe", "getPropertiesFor", "getUserProfilePropertyFor"
-    ];
-    $REST.Library.peoplemanager[$REST.Types.RequestType.GetAppendMethodToEndPoint] = ["getTrendingTags", "isFollowing"];
-    $REST.Library.peoplemanager[$REST.Types.RequestType.Post] = ["follow", "followTag", "hideSuggestion", "stopFollowing", "stopFollowingTag"];
-    $REST.Library.peoplemanager[$REST.Types.RequestType.PostDataInBody] = ["setMyProfilePicture"];
-})($REST || ($REST = {}));
-
-var $REST;
-(function ($REST) {
+    var PeopleManager = (function (_super) {
+        __extends(PeopleManager, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function PeopleManager(targetInfo) {
+            // Call the base constructor
+            _super.call(this, targetInfo);
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.responses = [];
+            this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "peoplemanager" } });
+        }
+        return PeopleManager;
+    }($REST.Base));
+    $REST.PeopleManager = PeopleManager;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.profileloader = {};
+    $REST.Library.peoplemanager = {
+        amIFollowedBy: {
+            argNames: ["accountName"],
+            requestType: $REST.Types.RequestType.GetWithArgsInQS
+        },
+        amIFollowing: {
+            argNames: ["accountName"],
+            requestType: $REST.Types.RequestType.GetWithArgsInQS
+        },
+        follow: {
+            argNames: ["accountName"],
+            requestType: $REST.Types.RequestType.PostWithArgsInQS
+        },
+        followTag: {
+            argNames: ["id"],
+            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+        },
+        getFollowedTags: {
+            argNames: ["maxCount"],
+            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+        },
+        getFollowersFor: {
+            argNames: ["accountName"],
+            requestType: $REST.Types.RequestType.GetWithArgsInQS
+        },
+        getMyFollowers: {
+            requestType: $REST.Types.RequestType.Get
+        },
+        getMyProperties: {
+            requestType: $REST.Types.RequestType.Get
+        },
+        getMySuggestions: {
+            requestType: $REST.Types.RequestType.Get
+        },
+        getPeopleFollowedBy: {
+            argNames: ["accountName"],
+            requestType: $REST.Types.RequestType.GetWithArgsInQS
+        },
+        getPeopleFollowedByMe: {
+            requestType: $REST.Types.RequestType.Get
+        },
+        getPropertiesFor: {
+            argNames: ["accountName"],
+            requestType: $REST.Types.RequestType.GetWithArgsInQS
+        },
+        getTrendingTags: {
+            name: "sp.userprofiles.peoplemanager.gettrendingtags",
+            replaceEndpointFl: true,
+            requestType: $REST.Types.RequestType.Get
+        },
+        getUserProfilePropertyFor: {
+            argNames: ["accountName", "propertyName"],
+            requestType: $REST.Types.RequestType.GetWithArgsInQS
+        },
+        hideSuggestion: {
+            argNames: ["accountName"],
+            requestType: $REST.Types.RequestType.PostWithArgsInQS
+        },
+        isFollowing: {
+            argNames: ["possibleFollowerAccountName", "possibleFolloweeAccountName"],
+            name: "sp.userprofiles.peoplemanager.isfollowing",
+            replaceEndpointFl: true,
+            requestType: $REST.Types.RequestType.GetWithArgsInQS
+        },
+        setMyProfilePicture: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        stopFollowing: {
+            argNames: ["accountName"],
+            requestType: $REST.Types.RequestType.PostWithArgsInQS
+        },
+        stopFollowingTag: {
+            argNames: ["id"],
+            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+        },
+    };
+})($REST || ($REST = {}));
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // Person Properties
+    /*********************************************************************************************************************************/
+    var PersonProperties = (function (_super) {
+        __extends(PersonProperties, _super);
+        function PersonProperties() {
+            _super.apply(this, arguments);
+        }
+        return PersonProperties;
+    }($REST.Base));
+    $REST.PersonProperties = PersonProperties;
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    $REST.Library.personproperties = {};
+})($REST || ($REST = {}));
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // Profile Loader
+    /*********************************************************************************************************************************/
+    var _ProfileLoader = (function (_super) {
+        __extends(_ProfileLoader, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function _ProfileLoader(targetInfo) {
+            // Call the base constructor
+            _super.call(this, targetInfo);
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.responses = [];
+            this.targetInfo.endpoint = "sp.userprofiles.profileloader";
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "profileloader" } });
+        }
+        return _ProfileLoader;
+    }($REST.Base));
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    $REST.Library.profileloader = {
+        createPersonalSiteEnqueueBulk: {
+            argNames: ["emailIDs"],
+            name: "sp.userprofiles.profileloader.getprofileloader.",
+            replaceEndpointFl: true,
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        getOwnerUserProfile: {
+            name: "sp.userprofiles.profileloader.getowneruserprofile.",
+            replaceEndpointFl: true,
+            requestType: $REST.Types.RequestType.Post
+        },
+        getProfileLoader: {
+            name: "sp.userprofiles.profileloader.getProfileLoader.",
+            replaceEndpointFl: true,
+            requestType: $REST.Types.RequestType.Post
+        },
+        getUserProfile: {
+            name: "sp.userprofiles.profileloader.getProfileLoader.",
+            replaceEndpointFl: true,
+            requestType: $REST.Types.RequestType.Post
+        },
+    };
+    /**
+     * Profile Loader
+     */
+    $REST.ProfileLoader = new _ProfileLoader();
 })($REST || ($REST = {}));
 
 var $REST;
@@ -3483,16 +3656,57 @@ var $REST;
     };
 })($REST || ($REST = {}));
 
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
     // User Profile
     /*********************************************************************************************************************************/
-    $REST.Library.userprofile = {};
-    $REST.Library.userprofile[$REST.Types.RequestType.Post] = ["createPersonalSiteEnque", "shareAllSocialData"];
-    $REST.Library.userprofile[$REST.Types.RequestType.Custom] = [
-        { name: "getOneDriveUrl", "function": function () { return this.FollowPersonalSiteUrl + "_layouts/15/onedrive.aspx"; } }
-    ];
+    var _UserProfile = (function (_super) {
+        __extends(_UserProfile, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function _UserProfile(targetInfo) {
+            // Call the base constructor
+            _super.call(this, targetInfo);
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.responses = [];
+            this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "userprofile" } });
+        }
+        return _UserProfile;
+    }($REST.Base));
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    $REST.Library.userprofile = {
+        /*********************************************************************************************************************************/
+        // Properties
+        /*********************************************************************************************************************************/
+        properties: [
+            "FollowedContent", "PersonalSite"
+        ],
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
+        createPersonalSiteEnque: {
+            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+        },
+        shareAllSocialData: {
+            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+        }
+    };
+    /**
+     * User Profile
+     */
+    $REST.UserProfile = new _UserProfile();
 })($REST || ($REST = {}));
 
 var $REST;

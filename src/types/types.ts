@@ -613,6 +613,19 @@ module $REST.Types {
     }
 
     /**
+     * Personal Site Capabilities
+     */
+    export enum PersonalSiteCapabilities {
+        Education = 16,
+        Guest = 32,
+        MyTasksDashboard = 8,
+        None = 0,
+        Profile = 1,
+        Social = 2,
+        Storage = 4
+    }
+
+    /**
      * Reordering Rule Match Types
      */
     export enum ReordingRuleMathType {

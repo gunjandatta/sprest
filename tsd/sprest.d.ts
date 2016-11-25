@@ -48,9 +48,18 @@ declare module $REST {
 
     /** List */
     let List:Types.IList;
+
+    /** People Manager */
+    let PeopleManager:Types.IPeopleManager;
+
+    /** Profile Loader */
+    let ProfileLoader:Types.IProfileLoader;
     
     /** Site */
     let Site:Types.ISite;
+
+    /** User Profile */
+    let UserProfile:Types.IUserProfile;
     
     /** Web */
     let Web:Types.IWeb;

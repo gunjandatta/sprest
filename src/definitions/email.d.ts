@@ -29,12 +29,6 @@ declare module $REST.Types {
      */
     interface IEmail {
         /**
-         * Constructor
-         * @param targetInfo - (Optional) The target information.
-         */
-        new(targetInfo?:Settings.TargetInfoSettings): IEmail;
-
-        /**
          * Properties
          */
 

@@ -48,9 +48,18 @@ declare module $REST {
 
     /** List */
     let List:Types.IList;
+
+    /** People Manager */
+    let PeopleManager:Types.IPeopleManager;
+
+    /** Profile Loader */
+    let ProfileLoader:Types.IProfileLoader;
     
     /** Site */
     let Site:Types.ISite;
+
+    /** User Profile */
+    let UserProfile:Types.IUserProfile;
     
     /** Web */
     let Web:Types.IWeb;
@@ -451,12 +460,6 @@ declare module $REST.Types {
      * Email
      */
     interface IEmail {
-        /**
-         * Constructor
-         * @param targetInfo - (Optional) The target information.
-         */
-        new(targetInfo?:Settings.TargetInfoSettings): IEmail;
-
         /**
          * Properties
          */
@@ -2531,8 +2534,298 @@ declare module $REST.Settings {
         Top?: number;
     }
 }
+declare module $REST.Types {
 
+    /**
+     * People Manager
+     */
+    interface IPeopleManager extends IBase {
+         /**
+         * Constructor
+         * @param targetInfo - (Optional) The target information.
+         */
+        new(targetInfo?:Settings.TargetInfoSettings): IPeopleManager;
 
+        /**
+         * Properties
+         */
+
+        /**
+         * The URL of the edit profile page for the current user.
+         */
+        EditProfileLink: string;
+
+        /**
+         * A Boolean value that indicates whether the current user's People I'm Following list is public.
+         */
+        IsMyPeopleListPublic: boolean;
+
+        /**
+         * Methods
+         */
+
+        /** Checks whether the specified user is following the current user.
+         * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+        */
+        amIFollowedBy(accountName:string) : IBase;
+
+        /**
+         * Checks whether the current user is following the specified user.
+         * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+         */
+        amIFollowing(accountName:string) : IBase;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         */
+        execute(callback?:(...args) => any): IPeopleManager;
+
+        /**
+         * Method to execute the request.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(waitFl:boolean): IPeopleManager;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(callback:any, waitFl:boolean): IPeopleManager;
+
+        /**
+         * Adds the specified user to the current user's list of followed users.
+         * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+         */
+        follow(accountName:string) : IBase;
+
+        /**
+         * Adds the specified tag to the current user's list of followed tags.
+         * @param id - The ID of the tag to start following.
+         */
+        followTag(id:string) : IBase;
+
+        /**
+         * Gets tags that the user is following.
+         * @param maxCount - The maximum number of tags to get.
+         */
+        getFollowedTags(maxCount:number) : IBase;
+
+        /**
+         * Gets the people who are following the specified user.
+         * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+         */
+        getFollowersFor(accountName:string) : IPersonProperties;
+
+        /**
+         * Gets the people who are following the current user.
+         */
+        getMyFollowers() : IPersonProperties;
+
+        /**
+         * Gets user properties for the current user.
+         */
+        getMyProperties() : IPersonProperties;
+
+        /**
+         * Gets suggestions for who the current user might want to follow.
+         */
+        getMySuggestions() : IPersonProperties;
+
+        /**
+         * Gets the people who the specified user is following.
+         * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+         */
+        getPeopleFollowedBy(accountName:string) : IPersonProperties;
+
+        /**
+         * Gets the people who the current user is following.
+         */
+        getPeopleFollowedByMe() : IPersonProperties;
+
+        /**
+         * Gets user properties for the specified user.
+         * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+         */
+        getPropertiesFor(accountName:string) : IPersonProperties;
+
+        /**
+         * Gets the most popular tags.
+         */
+        getTrendingTags() : IBase;
+
+        /**
+         * Gets the specified user profile property for the specified user.
+         * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+         * @param propertyName - The case-sensitive name of the property to get.
+         */
+        getUserProfilePropertyFor(accountName:string, propertyName:string) : IPersonProperties;
+
+        /**
+         * Removes the specified user from the user's list of suggested people to follow.
+         * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+         */
+        hideSuggestion(accountName:string) : IBase;
+
+        /**
+         * Checks whether the first user is following the second user.
+         * @param possibleFollowerAccountName - The account name of the user who might be following possiblefolloweeaccountname, encoded and passed as an alias in the query string.
+         * @param possibleFolloweeAccountName - The account name of the user who might be followed, encoded and passed as an alias in the query string.
+         */
+        isFollowing(possibleFollowerAccountName:string, possibleFolloweeAccountName:string) : IBase;
+
+        /**
+         * Uploads and sets the user profile picture. Users can upload a picture to their own profile only.
+         * @param stream - The picture in BMP, JPEG, or PNG format of up to 4.76MB.
+         */
+        setMyProfilePicture(stream:any) : IBase;
+
+        /**
+         * Remove the specified user from the current user's list of followed users.
+         * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+         */
+        stopFollowing(accountName:string) : IBase;
+
+        /**
+         * Remove the specified tag from the current user's list of followed tags.
+         * @param id - The ID of the tag to stop following.
+         */
+        stopFollowingTag(id:string) : IBase;
+    }
+}
+declare module $REST.Types {
+
+    /**
+     * Person Properties
+     */
+    interface IPersonProperties extends IBase {
+        /**
+         * Properties
+         */
+
+        /**
+         * The user's account name.
+         */
+        AccountName: string;
+
+        /**
+         * The account names of the user's direct reports.
+         */
+        DirectReports: Results.String
+
+        /**
+         * The user's display name.
+         */
+        DisplayName: string;
+
+        /**
+         * The user's email address.
+         */
+        Email: string;
+
+        /**
+         * The account names of the user's manager hierarchy.
+         */
+        ExtendedManagers: Results.String;
+
+        /**
+         * The account names of the user's extended reports.
+         */
+        ExtendedReports: Results.String;
+
+        /**
+         * A Boolean value that indicates whether the user is being followed by the current user.
+         */
+        IsFollowed: boolean;
+
+        /**
+         * The user's latest microblog post.
+         */
+        LatestPost: string;
+
+        /**
+         * The account names of the user's peers.
+         */
+        Peers(): Results.String;
+
+        /**
+         * The absolute URL of the user's personal site.
+         */
+        PersonalUrl: string;
+
+        /**
+         * The URL of the user's profile picture.
+         */
+        PictureUrl: string;
+
+        /**
+         * The user's title.
+         */
+        Title: string;
+
+        /**
+         * The user profile properties for the user.
+         */
+        UserProfileProperties(): Results.KeyValuePair;
+
+        /**
+         * The URL of the user's profile page.
+         */
+        UserUrl: string;
+    }
+}
+declare module $REST.Types {
+
+    /**
+     * Profile Loader
+     */
+    interface IProfileLoader extends IBase {
+        /**
+         * Methods
+         */
+
+        /**
+         * Provisions one or more users' personal sites. (My Site administrator on SharePoint Online only)
+         * @param emailIDs - The email addresses of the users to provision sites for. Maximum 200 characters.
+         */
+        createPersonalSiteEnqueueBulk(emailIDs:Array<string>): IBase;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         */
+        execute(callback?:(...args) => any): IProfileLoader;
+
+        /**
+         * Method to execute the request.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(waitFl:boolean): IProfileLoader;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(callback:any, waitFl:boolean): IProfileLoader;
+
+        /**
+         * Gets the user profile of the site owner.
+         */
+        getOwnerUserProfile(): IBase;
+
+        /**
+         * Gets a ProfileLoader object from the context cache.
+         */
+        getProfileLoader(): IBase;
+
+        /**
+         * Gets the user profile that corresponds to the current user.
+         */
+        getUserProfile(): IBase;
+    }
+}
 declare module $REST.Types {
     /**
      * The promise class
@@ -2589,6 +2882,23 @@ declare module $REST.Types {
         PostDataAsParameter = 36,
         PostDataInBody = 37,
         PostDataInBodyNoArgs = 38
+    }
+}
+declare module $REST.Results {
+    /**
+     * Key/Value Pair
+     */
+    interface KeyValuePair {
+        /** The collection of key-value pairs. */
+        results: Array<KeyValuePair>
+    }
+
+    /**
+     * String Collection
+     */
+    interface String {
+        /** The collection of strings. */
+        results: Array<string>
     }
 }
 declare module $REST.Types {
@@ -2871,10 +3181,10 @@ declare module $REST.Types {
     interface ISearch extends IBase {
         /**
          * Constructor
+         * @param url - The optional url to execute the search against.
          * @param settings - The search settings.
-         * @param targetInfo - (Optional) The target information.
          */
-        new(url?:string, targetInfo?:Settings.TargetInfoSettings): ISearch;
+        new(url?:string, settings?:Settings.TargetInfoSettings): ISearch;
 
         /**
          * Methods
@@ -4761,7 +5071,124 @@ declare module $REST.Types {
     }
 }
 
+declare module $REST.Types {
 
+    /**
+     * User Profile
+     */
+    interface IUserProfile extends IBase {
+        /**
+         * Properties
+         */
+
+        /**
+         * An object containing the user's FollowedDocumentsUrl and FollowedSitesUrl.
+         */
+        FollowedContent(): any;
+
+        /**
+         * The account name of the user. (SharePoint Online only)
+         */
+        AccountName: string;
+
+        /**
+         * The display name of the user. (SharePoint Online only)
+         */
+        DisplayName: string;
+
+        /**
+         * The FirstRun flag of the user. (SharePoint Online only)
+         */
+        O15FirstRunExperience: number;
+
+        /**
+         * The personal site of the user.
+         */
+        PersonalSite(): ISite;
+
+        /**
+         * The capabilities of the user's personal site.
+         */
+        PersonalSiteCapabilities: Types.PersonalSiteCapabilities;
+
+        /**
+         * The error thrown when the user's personal site was first created, if any. (SharePoint Online only)
+         */
+        PersonalSiteFirstCreationError: string;
+
+        /**
+         * The date and time when the user's personal site was first created. (SharePoint Online only)
+         */
+        PersonalSiteFirstCreationTime: string;
+
+        /**
+         * The status for the state of the personal site instantiation.
+         * See PersonalSiteInstantiationState in the .NET client object model reference for a list of instantiation state values.
+         */
+        PersonalSiteInstantiationState: number;
+
+        /**
+         * The date and time when the user's personal site was last created. (SharePoint Online only)
+         */
+        PersonalSiteLastCreationTime: string;
+
+        /**
+         * The number of attempts made to create the user's personal site. (SharePoint Online only)
+         */
+        PersonalSiteNumberOfRetries: number;
+
+        /**
+         * A Boolean value that indicates whether the user's picture is imported from Exchange.
+         */
+        PictureImportEnabled: boolean;
+
+        /**
+         * The public URL of the personal site of the current user. (SharePoint Online only)
+         */
+        PublicUrl: string;
+
+        /**
+         * The URL used to create the user's personal site.
+         */
+        UrlToCreatePersonalSite: string;
+
+        /**
+         * Methods
+         */
+
+        /**
+         * Enqueues creating a personal site for this user, which can be used to share documents, web pages, and other files.
+         * For SharePoint Online development, My Site Host administrators can also use the CreatePersonalSiteEnqueueBulk method to create personal sites for one or more users.
+         * @param createFl - True if this is an interactively (web) initiated request, or false if this is a non-interactively (client) initiated request.
+         */
+        createPersonalSiteEnque(createFl:boolean): IBase;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         */
+        execute(callback?:(...args) => any): IUserProfile;
+
+        /**
+         * Method to execute the request.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(waitFl:boolean): IUserProfile;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(callback:any, waitFl:boolean): IUserProfile;
+
+        /**
+         * Sets the privacy settings for this profile.
+         * @param shareFl - true to make all social data public; false to make all social data private.
+         */
+        shareAllSocialData(shareFl:boolean): IBase;
+    }
+}
 declare module $REST.Types {
     /**
      * Users

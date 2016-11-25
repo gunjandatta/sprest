@@ -22,10 +22,10 @@ declare module $REST.Types {
     interface ISearch extends IBase {
         /**
          * Constructor
+         * @param url - The optional url to execute the search against.
          * @param settings - The search settings.
-         * @param targetInfo - (Optional) The target information.
          */
-        new(url?:string, targetInfo?:Settings.TargetInfoSettings): ISearch;
+        new(url?:string, settings?:Settings.TargetInfoSettings): ISearch;
 
         /**
          * Methods
