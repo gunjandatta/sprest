@@ -3180,7 +3180,7 @@ var $REST;
             // Default the properties
             this.defaultToWebFl = true;
             this.responses = [];
-            this.targetInfo.endpoint = "sp.userprofiles.profileloader";
+            this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
             // Add the methods
             this.addMethods(this, { __metadata: { type: "profileloader" } });
         }
@@ -3192,23 +3192,19 @@ var $REST;
     $REST.Library.profileloader = {
         createPersonalSiteEnqueueBulk: {
             argNames: ["emailIDs"],
-            name: "sp.userprofiles.profileloader.getprofileloader.",
-            replaceEndpointFl: true,
             requestType: $REST.Types.RequestType.PostWithArgsInBody
         },
         getOwnerUserProfile: {
-            name: "sp.userprofiles.profileloader.getowneruserprofile.",
+            name: "sp.userprofiles.profileloader.getowneruserprofile",
             replaceEndpointFl: true,
             requestType: $REST.Types.RequestType.Post
         },
         getProfileLoader: {
-            name: "sp.userprofiles.profileloader.getProfileLoader.",
-            replaceEndpointFl: true,
-            requestType: $REST.Types.RequestType.Post
+            name: "",
+            requestType: $REST.Types.RequestType.Post,
+            returnType: "profileloader"
         },
         getUserProfile: {
-            name: "sp.userprofiles.profileloader.getProfileLoader.",
-            replaceEndpointFl: true,
             requestType: $REST.Types.RequestType.Post
         },
     };
@@ -3691,21 +3687,27 @@ var $REST;
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "FollowedContent", "PersonalSite"
+            "PersonalSite|site"
         ],
         /*********************************************************************************************************************************/
         // Methods
         /*********************************************************************************************************************************/
         createPersonalSiteEnque: {
+            name: "getuserprofile/createPersonalSiteEnque",
             requestType: $REST.Types.RequestType.PostWithArgsValueOnly
         },
+        getUserProfile: {
+            requestType: $REST.Types.RequestType.Post,
+            returnType: "userprofile"
+        },
         shareAllSocialData: {
+            name: "getuserprofile/shareAllSocialData",
             requestType: $REST.Types.RequestType.PostWithArgsValueOnly
         }
     };
-    /**
-     * User Profile
-     */
+    /*********************************************************************************************************************************/
+    // User Profile
+    /*********************************************************************************************************************************/
     $REST.UserProfile = new _UserProfile();
 })($REST || ($REST = {}));
 

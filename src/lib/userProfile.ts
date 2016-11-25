@@ -29,24 +29,31 @@ module $REST {
         /*********************************************************************************************************************************/
 
         properties: [
-            "FollowedContent", "PersonalSite"
+            "PersonalSite|site"
         ],
 
         /*********************************************************************************************************************************/
         // Methods
         /*********************************************************************************************************************************/
 
-        createPersonalSiteEnque:{
+        createPersonalSiteEnque: {
+            name: "getuserprofile/createPersonalSiteEnque",
             requestType: Types.RequestType.PostWithArgsValueOnly
         },
 
-        shareAllSocialData:{
+        getUserProfile: {
+            requestType: Types.RequestType.Post,
+            returnType: "userprofile"
+        },
+
+        shareAllSocialData: {
+            name: "getuserprofile/shareAllSocialData",
             requestType: Types.RequestType.PostWithArgsValueOnly
         }
     }
 
-    /**
-     * User Profile
-     */
-    export var UserProfile = new _UserProfile();
+    /*********************************************************************************************************************************/
+    // User Profile
+    /*********************************************************************************************************************************/
+    export let UserProfile = new _UserProfile();
 }

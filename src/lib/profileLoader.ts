@@ -13,7 +13,7 @@ module $REST {
             // Default the properties
             this.defaultToWebFl = true;
             this.responses = [];
-            this.targetInfo.endpoint = "sp.userprofiles.profileloader";
+            this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
 
             // Add the methods
             this.addMethods(this, { __metadata: { type: "profileloader" } } );
@@ -26,26 +26,22 @@ module $REST {
     Library.profileloader = {
         createPersonalSiteEnqueueBulk:{
             argNames: ["emailIDs"],
-            name: "sp.userprofiles.profileloader.getprofileloader.",
-            replaceEndpointFl: true,
             requestType: Types.RequestType.PostWithArgsInBody
         },
 
         getOwnerUserProfile:{
-            name: "sp.userprofiles.profileloader.getowneruserprofile.",
+            name: "sp.userprofiles.profileloader.getowneruserprofile",
             replaceEndpointFl: true,
             requestType: Types.RequestType.Post
         },
 
         getProfileLoader:{
-            name: "sp.userprofiles.profileloader.getProfileLoader.",
-            replaceEndpointFl: true,
-            requestType: Types.RequestType.Post
+            name: "",
+            requestType: Types.RequestType.Post,
+            returnType: "profileloader"
         },
 
         getUserProfile:{
-            name: "sp.userprofiles.profileloader.getProfileLoader.",
-            replaceEndpointFl: true,
             requestType: Types.RequestType.Post
         },
     };
