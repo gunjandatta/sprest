@@ -2,7 +2,7 @@ module $REST {
     /*********************************************************************************************************************************/
     // User Profile
     /*********************************************************************************************************************************/
-    class _UserProfile extends Base {
+    export class UserProfile extends Base {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
@@ -13,7 +13,8 @@ module $REST {
             // Default the properties
             this.defaultToWebFl = true;
             this.responses = [];
-            this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+            this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
+            this.targetInfo.method = "POST";
 
             // Add the methods
             this.addMethods(this, { __metadata: { type: "userprofile" } } );
@@ -37,23 +38,11 @@ module $REST {
         /*********************************************************************************************************************************/
 
         createPersonalSiteEnque: {
-            name: "getuserprofile/createPersonalSiteEnque",
             requestType: Types.RequestType.PostWithArgsValueOnly
-        },
-
-        getUserProfile: {
-            requestType: Types.RequestType.Post,
-            returnType: "userprofile"
         },
 
         shareAllSocialData: {
-            name: "getuserprofile/shareAllSocialData",
             requestType: Types.RequestType.PostWithArgsValueOnly
         }
     }
-
-    /*********************************************************************************************************************************/
-    // User Profile
-    /*********************************************************************************************************************************/
-    export let UserProfile = new _UserProfile();
 }

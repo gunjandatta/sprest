@@ -59,7 +59,7 @@ declare module $REST {
     let Site:Types.ISite;
 
     /** User Profile */
-    let UserProfile:Types.IUserProfile;
+    let UserProfile:Types.IBase;
     
     /** Web */
     let Web:Types.IWeb;

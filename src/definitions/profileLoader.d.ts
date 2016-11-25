@@ -5,6 +5,12 @@ declare module $REST.Types {
      */
     interface IProfileLoader extends IBase {
         /**
+         * Constructor
+         * @param targetInfo - (Optional) The target information.
+         */
+        new(targetInfo?:Settings.TargetInfoSettings): IProfileLoader;
+
+        /**
          * Methods
          */
 
@@ -36,16 +42,11 @@ declare module $REST.Types {
         /**
          * Gets the user profile of the site owner.
          */
-        getOwnerUserProfile(): IBase;
-
-        /**
-         * Gets a ProfileLoader object from the context cache.
-         */
-        getProfileLoader(): IBase;
+        getOwnerUserProfile(): IUserProfile;
 
         /**
          * Gets the user profile that corresponds to the current user.
          */
-        getUserProfile(): IBase;
+        getUserProfile(): IUserProfile;
     }
 }

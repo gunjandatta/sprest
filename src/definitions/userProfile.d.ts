@@ -5,6 +5,12 @@ declare module $REST.Types {
      */
     interface IUserProfile extends IBase {
         /**
+         * Constructor
+         * @param targetInfo - (Optional) The target information.
+         */
+        new(targetInfo?:Settings.TargetInfoSettings): IUserProfile;
+
+        /**
          * Properties
          */
 
@@ -86,9 +92,9 @@ declare module $REST.Types {
         /**
          * Enqueues creating a personal site for this user, which can be used to share documents, web pages, and other files.
          * For SharePoint Online development, My Site Host administrators can also use the CreatePersonalSiteEnqueueBulk method to create personal sites for one or more users.
-         * @param createFl - True if this is an interactively (web) initiated request, or false if this is a non-interactively (client) initiated request.
+         * @param interactiveFl - True if this is an interactively (web) initiated request, or false if this is a non-interactively (client) initiated request.
          */
-        createPersonalSiteEnque(createFl:boolean): IBase;
+        createPersonalSiteEnque(interactiveFl:boolean): IBase;
 
         /**
          * Method to execute the request.
@@ -111,8 +117,8 @@ declare module $REST.Types {
 
         /**
          * Sets the privacy settings for this profile.
-         * @param shareFl - true to make all social data public; false to make all social data private.
+         * @param publicFl - true to make all social data public; false to make all social data private.
          */
-        shareAllSocialData(shareFl:boolean): IBase;
+        shareAllSocialData(publicFl:boolean): IBase;
     }
 }

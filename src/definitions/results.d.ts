@@ -4,7 +4,7 @@ declare module $REST.Results {
      */
     interface KeyValuePair {
         /** The collection of key-value pairs. */
-        results: Array<KeyValuePair>
+        results: Array<Settings.KeyValuePair>
     }
 
     /**

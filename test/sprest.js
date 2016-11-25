@@ -3169,23 +3169,25 @@ var $REST;
     /*********************************************************************************************************************************/
     // Profile Loader
     /*********************************************************************************************************************************/
-    var _ProfileLoader = (function (_super) {
-        __extends(_ProfileLoader, _super);
+    var ProfileLoader = (function (_super) {
+        __extends(ProfileLoader, _super);
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function _ProfileLoader(targetInfo) {
+        function ProfileLoader(targetInfo) {
             // Call the base constructor
             _super.call(this, targetInfo);
             // Default the properties
             this.defaultToWebFl = true;
             this.responses = [];
             this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+            this.targetInfo.method = "POST";
             // Add the methods
             this.addMethods(this, { __metadata: { type: "profileloader" } });
         }
-        return _ProfileLoader;
+        return ProfileLoader;
     }($REST.Base));
+    $REST.ProfileLoader = ProfileLoader;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -3197,21 +3199,14 @@ var $REST;
         getOwnerUserProfile: {
             name: "sp.userprofiles.profileloader.getowneruserprofile",
             replaceEndpointFl: true,
-            requestType: $REST.Types.RequestType.Post
-        },
-        getProfileLoader: {
-            name: "",
             requestType: $REST.Types.RequestType.Post,
-            returnType: "profileloader"
+            returnType: "userprofile"
         },
         getUserProfile: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: $REST.Types.RequestType.Post,
+            returnType: "userprofile"
         },
     };
-    /**
-     * Profile Loader
-     */
-    $REST.ProfileLoader = new _ProfileLoader();
 })($REST || ($REST = {}));
 
 var $REST;
@@ -3662,23 +3657,25 @@ var $REST;
     /*********************************************************************************************************************************/
     // User Profile
     /*********************************************************************************************************************************/
-    var _UserProfile = (function (_super) {
-        __extends(_UserProfile, _super);
+    var UserProfile = (function (_super) {
+        __extends(UserProfile, _super);
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        function _UserProfile(targetInfo) {
+        function UserProfile(targetInfo) {
             // Call the base constructor
             _super.call(this, targetInfo);
             // Default the properties
             this.defaultToWebFl = true;
             this.responses = [];
-            this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+            this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
+            this.targetInfo.method = "POST";
             // Add the methods
             this.addMethods(this, { __metadata: { type: "userprofile" } });
         }
-        return _UserProfile;
+        return UserProfile;
     }($REST.Base));
+    $REST.UserProfile = UserProfile;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -3693,22 +3690,12 @@ var $REST;
         // Methods
         /*********************************************************************************************************************************/
         createPersonalSiteEnque: {
-            name: "getuserprofile/createPersonalSiteEnque",
             requestType: $REST.Types.RequestType.PostWithArgsValueOnly
         },
-        getUserProfile: {
-            requestType: $REST.Types.RequestType.Post,
-            returnType: "userprofile"
-        },
         shareAllSocialData: {
-            name: "getuserprofile/shareAllSocialData",
             requestType: $REST.Types.RequestType.PostWithArgsValueOnly
         }
     };
-    /*********************************************************************************************************************************/
-    // User Profile
-    /*********************************************************************************************************************************/
-    $REST.UserProfile = new _UserProfile();
 })($REST || ($REST = {}));
 
 var $REST;

@@ -2,7 +2,7 @@ module $REST {
     /*********************************************************************************************************************************/
     // Profile Loader
     /*********************************************************************************************************************************/
-    class _ProfileLoader extends Base {
+    export class ProfileLoader extends Base {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
@@ -14,6 +14,7 @@ module $REST {
             this.defaultToWebFl = true;
             this.responses = [];
             this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+            this.targetInfo.method = "POST";
 
             // Add the methods
             this.addMethods(this, { __metadata: { type: "profileloader" } } );
@@ -32,22 +33,13 @@ module $REST {
         getOwnerUserProfile:{
             name: "sp.userprofiles.profileloader.getowneruserprofile",
             replaceEndpointFl: true,
-            requestType: Types.RequestType.Post
-        },
-
-        getProfileLoader:{
-            name: "",
             requestType: Types.RequestType.Post,
-            returnType: "profileloader"
+            returnType: "userprofile"
         },
 
         getUserProfile:{
-            requestType: Types.RequestType.Post
+            requestType: Types.RequestType.Post,
+            returnType: "userprofile"
         },
     };
-
-    /**
-     * Profile Loader
-     */
-    export let ProfileLoader = new _ProfileLoader();
 }

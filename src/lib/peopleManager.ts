@@ -117,5 +117,4 @@ module $REST {
             requestType: Types.RequestType.PostWithArgsValueOnly
         },
     }
-    
 }

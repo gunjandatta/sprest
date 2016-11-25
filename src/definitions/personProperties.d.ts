@@ -51,7 +51,7 @@ declare module $REST.Types {
         /**
          * The account names of the user's peers.
          */
-        Peers(): Results.String;
+        Peers: Results.String;
 
         /**
          * The absolute URL of the user's personal site.
@@ -71,11 +71,33 @@ declare module $REST.Types {
         /**
          * The user profile properties for the user.
          */
-        UserProfileProperties(): Results.KeyValuePair;
+        UserProfileProperties: Results.KeyValuePair;
 
         /**
          * The URL of the user's profile page.
          */
         UserUrl: string;
+
+        /**
+         * Methods
+         */
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         */
+        execute(callback?:(...args) => any): IPersonProperties;
+
+        /**
+         * Method to execute the request.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(waitFl:boolean): IPersonProperties;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(callback:any, waitFl:boolean): IPersonProperties;
     }
 }
