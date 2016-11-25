@@ -6,7 +6,7 @@
   "license": "https://github.com/gunjandatta/sprest/blob/master/LICENSE",
   "types": "dist/sprest.d.ts",
   "keywords": [
-    "sharepoint", "rest", "api"
+    "sharepoint", "sharepoint online", "rest", "api", "typescript", "javascript"
   ],
   "repository": {
     "type": "git",
