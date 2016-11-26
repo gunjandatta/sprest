@@ -3,6 +3,17 @@ declare module $REST.Types {
      * Limited Web Part Manager
      */
     interface ILimitedWebPartManager extends IBase {
+        /**
+         * Properties
+         */
+
+        HasPersonalizedParts: boolean;
+
+        Scope: number;
+
+        /**
+         * Methods
+         */
 
         /**
          * Method to execute the request.

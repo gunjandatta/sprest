@@ -20,26 +20,32 @@ declare module $REST.Types {
         /** Gets a value that returns the comment used when a document is checked in to a document library. */
         CheckInComment: string;
 
-        /** Gets a value that indicates how the file is checked out of a document library. Represents an SP.CheckOutType value: Online = 0; Offline = 1; None = 2. The checkout state of a file is independent of its locked state. */
-        CheckOutType: string;
+        /** Gets a value that indicates how the file is checked out of a document library. Represents an SP.CheckOutType value: . The checkout state of a file is independent of its locked state. */
+        CheckOutType: Types.CheckOutType;
 
         /** Returns internal version of content, used to validate document equality for read purposes. */
         ContentTag: string;
 
         /** Gets a value that specifies the customization status of the file. Represents an SP.CustomizedPageStatus value: None = 0; Uncustomized = 1; Customized = 2. */
-        CustomizedPageStatus: string;
+        CustomizedPageStatus: number;
+
+        EffectiveInformationRightsManagementSettings(): IBase;
 
         /** Gets a value that specifies the ETag value. */
         ETag: string;
 
         /** Gets a value that specifies whether the file exists. */
-        Exists: string;
+        Exists: boolean;
+
+        InformationRightsManagementSettings(): IBase;
 
         /** Gets the size of the file in bytes, excluding the size of any Web Parts that are used in the file. */
-        Length: string;
+        Length: number;
 
         /** Gets a value that specifies the publishing level of the file. Represents an SP.FileLevel value: Published = 1; Draft = 2; Checkout = 255. */
-        Level: string;
+        Level: number;
+
+        LinkingUrl: string;
 
         /**
          * Gets a value that specifies the list item field values for the list item corresponding to the file.
@@ -52,10 +58,10 @@ declare module $REST.Types {
         LockedByUser(): IUser;
 
         /** Gets a value that specifies the major version of the file. */
-        MajorVersion: string;
+        MajorVersion: number;
 
         /** Gets a value that specifies the minor version of the file. */
-        MinorVersion: string;
+        MinorVersion: number;
 
         /**
          * Gets a value that returns the user who last modified the file.
@@ -70,8 +76,12 @@ declare module $REST.Types {
          */
         Properties(): IPropertyValues;
 
+        ServerRelativePath: ComplexTypes.ResourcePath;
+
         /** Gets the relative URL of the file based on the URL for the server. */
         ServerRelativeUrl: string;
+
+        SiteId: string;
 
         /** Gets a value that specifies when the file was created. */
         TimeCreated: string;
@@ -83,15 +93,21 @@ declare module $REST.Types {
         Title: string;
 
         /** Gets a value that specifies the implementation-specific version identifier of the file. */
-        UiVersion: string;
+        UiVersion: number;
 
         /** Gets a value that specifies the implementation-specific version identifier of the file. */
         UiVersionLabel: string;
+
+        UniqueId: string;
+
+        VersionEvents(): IBase;
 
         /**
          * Gets a value that returns a collection of file version objects that represent the versions of the file.
          */
         Versions(): IFileVersions;
+
+        WebId: string;
 
         /**
          * Methods

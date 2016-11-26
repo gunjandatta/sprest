@@ -17,22 +17,22 @@ declare module $REST.Types {
         BaseViewId: string;
 
         /** Gets or sets the identifier of the content type with which the view is associated so that the view is available only on folders of this content type. */
-        ContentTypeId: string;
+        ContentTypeId: ComplexTypes.ContentTypeId;
 
         /** Gets or sets a value that specifies whether the list view is the default list view. */
-        DefaultView: string;
+        DefaultView: boolean;
 
         /** Gets or sets a value that specifies whether the list view is the default list view for the content type specified by contentTypeId. */
-        DefaultViewForContentType: string;
+        DefaultViewForContentType: boolean;
 
         /** Gets or sets a value that specifies whether the list view was modified in an editor. */
-        EditorModified: string;
+        EditorModified: boolean;
 
         /** Gets or sets a value that specifies the column and row formatting for the list view. If not null, the XML must conform to ViewFormatDefinitions, as specified in [MS-WSSCAML]. */
         Formats: string;
 
         /** Gets or sets a value that specifies whether the list view is hidden. */
-        Hidden: string;
+        Hidden: boolean;
 
         /** Gets a value that specifies the XML document that represents the list view. */
         HtmlSchemaXml: string;
@@ -44,7 +44,7 @@ declare module $REST.Types {
         ImageUrl: string;
 
         /** Gets or sets a value that specifies whether the current folder is displayed in the list view. */
-        IncludeRootFolder: string;
+        IncludeRootFolder: boolean;
 
         /** Gets or sets the name of the JavaScript file used for the view. */
         JsLink: string;
@@ -56,34 +56,34 @@ declare module $REST.Types {
         Method: string;
 
         /** Gets or sets a value that specifies whether the list view is the default mobile list view. */
-        MobileDefaultView: string;
+        MobileDefaultView: boolean;
 
         /** Gets or sets a value that specifies whether the list view is a mobile list view. */
-        MobileView: string;
+        MobileView: boolean;
 
         /** Gets a value that specifies the content approval type for the list view. */
         ModerationType: string;
 
         /** Gets a value that specifies whether list items can be reordered in the list view. */
-        OrderedView: string;
+        OrderedView: boolean;
 
         /** Gets or sets a value that specifies whether the list view is a paged view. */
-        Paged: string;
+        Paged: boolean;
 
         /** Gets a value that specifies whether the list view is a personal view. */
-        PersonalView: string;
+        PersonalView: boolean;
 
         /** Gets a value that specifies whether the list view is read-only. */
-        ReadOnlyView: string;
+        ReadOnlyView: boolean;
 
         /** Gets a value that specifies whether the list view requires client integration rights. */
-        RequiresClientIntegration: string;
+        RequiresClientIntegration: boolean;
 
         /** Gets or sets a value that specifies the maximum number of list items to display in a visual page of the list view. */
-        RowLimit: string;
+        RowLimit: number;
 
         /** Gets or sets a value that specifies the scope for the list view. Represents a ViewScope value. DefaultValue = 0, Recursive = 1, RecursiveAll = 2, FilesOnly = 3. */
-        Scope: string;
+        Scope: number;
 
         /** Gets a value that specifies the server-relative URL of the list view page. */
         ServerRelativeUrl: string;
@@ -91,8 +91,10 @@ declare module $REST.Types {
         /** Gets a value that specifies the identifier of the view style for the list view. */
         StyleId: string;
 
+        TabularView: boolean;
+
         /** Gets a value that specifies whether the list view is a threaded view. */
-        Threaded: string;
+        Threaded: boolean;
 
         /** Gets or sets a value that specifies the display name of the list view. */
         Title: string;
@@ -105,6 +107,8 @@ declare module $REST.Types {
 
         /** Gets or sets a value that specifies the view data for the list view. If not null, the XML must conform to FieldRefDefinitionViewData, as specified in [MS-WSSCAML]. */
         ViewData: string;
+
+        VisualizationInfo: ComplexTypes.Visualization;
 
         /**
          * Gets a value that specifies the collection of fields in the list view.

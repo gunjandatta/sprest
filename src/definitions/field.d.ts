@@ -7,8 +7,10 @@ declare module $REST.Types {
          * Properties
          */
 
+        AutoIndexed: boolean;
+
         /** Gets a value that specifies whether the field can be deleted. */
-        CanBeDeleted: string;
+        CanBeDeleted: boolean;
 
         /** Gets or sets a value that specifies the default value for the field. */
         DefaultValue: string;
@@ -16,11 +18,13 @@ declare module $REST.Types {
         /** Gets or sets a value that specifies the description of the field. */
         Description: string;
 
+        DescriptionResource(): ComplexTypes.ResourcePath;
+
         /** Gets or sets a value that specifies the reading order of the field. */
         Direction: string;
 
         /** Gets or sets a value that specifies whether to require unique field values in a list or library column. */
-        EnforceUniqueValues: string;
+        EnforceUniqueValues: boolean;
 
         /** Gets the name of the entity property for the list item entity that uses this field. */
         EntityPropertyName: string;
@@ -29,22 +33,22 @@ declare module $REST.Types {
         FieldTypeKind: Types.FieldType;
 
         /** Gets a value that specifies whether list items in the list can be filtered by the field value. */
-        Filterable: string;
+        Filterable: boolean;
 
         /** Gets a Boolean value that indicates whether the field derives from a base field type. */
-        FromBaseType: string;
+        FromBaseType: boolean;
 
         /** Gets or sets a value that specifies the field group. */
         Group: string;
 
         /** Gets or sets a value that specifies whether the field is hidden in list views and list forms. */
-        Hidden: string;
+        Hidden: boolean;
 
         /** Gets a value that specifies the field identifier. */
         Id: string;
 
         /** Gets or sets a Boolean value that specifies whether the field is indexed. */
-        Indexed: string;
+        Indexed: boolean;
 
         /** Gets a value that specifies the field internal name. */
         InternalName: string;
@@ -53,10 +57,10 @@ declare module $REST.Types {
         JSLink: string;
 
         /** Gets or sets a value that specifies whether the value of the field is read-only. */
-        ReadOnlyField: string;
+        ReadOnlyField: boolean;
 
         /** Gets or sets a value that specifies whether the field requires a value. */
-        Required: string;
+        Required: boolean;
 
         /** Gets or sets a value that specifies the XML schema that defines the field. */
         Schemaxml: string;
@@ -65,16 +69,18 @@ declare module $REST.Types {
         Scope: string;
 
         /** Gets a value that specifies whether properties on the field cannot be changed and whether the field cannot be deleted. */
-        Sealed: string;
+        Sealed: boolean;
 
         /** Gets a value that specifies whether list items in the list can be sorted by the field value. */
-        Sortable: string;
+        Sortable: boolean;
 
         /** Gets or sets a value that specifies a customizable identifier of the field. */
         StaticName: string;
 
         /** Gets or sets value that specifies the display name of the field. */
         Title: string;
+
+        TitleResource(): ComplexTypes.ResourcePath;
 
         /** Gets or sets a value that specifies the type of the field. */
         TypeAsString: string;

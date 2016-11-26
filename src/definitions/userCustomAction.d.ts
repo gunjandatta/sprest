@@ -31,14 +31,14 @@ declare module $REST.Types {
         /** Gets or sets the value that specifies the identifier of the object associated with the custom action. */
         RegistrationId: string;
 
-        /** Gets or sets the value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value: None = 0; List = 1; ContentType = 2; ProgId = 3; FileType = 4. */
-        RegistrationType: string;
+        /** Gets or sets the value that specifies the type of object associated with the custom action. */
+        RegistrationType: Types.UserCustomActionRegistrationType;
 
         /** Gets or sets the value that specifies the permissions needed for the custom action. */
-        Rights: string;
+        Rights: ComplexTypes.BasePermissions;
 
         /** Gets a value that specifies the scope of the custom action. */
-        Scope: string;
+        Scope: number;
 
         /** Gets or sets the value that specifies the ECMAScript to be executed when the custom action is performed. */
         ScriptBlock: string;
@@ -47,7 +47,7 @@ declare module $REST.Types {
         ScriptSrc: string;
 
         /** Gets or sets the value that specifies an implementation-specific value that determines the order of the custom action that appears on the page. */
-        Sequence: string;
+        Sequence: number;
 
         /** Gets or sets the display title of the custom action. */
         Title: string;

@@ -29,6 +29,20 @@ declare module $REST.Types {
          */
         DisplayName: string;
 
+        FollowPersonalSiteUrl: string;
+
+        IsPeopleListPublic: boolean;
+
+        IsPrivacySettingOn: boolean;
+
+        IsSelf: boolean;
+
+        JobTitle: string;
+
+        MySiteFirstRunExperience: number;
+
+        MySiteHostUrl: string;
+
         /**
          * The FirstRun flag of the user. (SharePoint Online only)
          */
@@ -74,6 +88,8 @@ declare module $REST.Types {
          * A Boolean value that indicates whether the user's picture is imported from Exchange.
          */
         PictureImportEnabled: boolean;
+
+        PictureUrl: string;
 
         /**
          * The public URL of the personal site of the current user. (SharePoint Online only)

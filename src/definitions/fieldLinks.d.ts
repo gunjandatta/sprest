@@ -8,7 +8,7 @@ declare module $REST.Types {
          */
 
         /** The field link collection. */
-        results: Array<any>;
+        results: Array<IFieldLink>;
 
         /**
          * Methods

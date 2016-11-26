@@ -1,9 +1,22 @@
 declare module $REST.Types {
+    /**
+     * Check Out Types
+     */
+    enum CheckOutType {
+        /** Online */
+        Online = 0,
+
+        /** Offline */
+        Offline = 1,
+
+        /** None */
+        None = 2
+    }
 
     /**
      * Control Modes
      */
-    enum ControlMode {
+    enum ControlModea {
         /** A placeholder value in the enumeration indicating that it has no valid display mode from one of the other enumeration values. */
         Invalid = 0,
 

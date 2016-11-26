@@ -8,10 +8,10 @@ declare module $REST.Types {
          */
 
         /** Specifies the sequence in which content types are displayed. */
-        ContentTypeOrder: string;
+        ContentTypeOrder: Results.ContentTypeId;
 
         /** Gets a value that specifies whether the file exists. */
-        Exists: string;
+        Exists: boolean;
 
         /**
          * Gets the files contained in the folder.
@@ -59,11 +59,21 @@ declare module $REST.Types {
          */
         Properties(): IPropertyValues;
 
+        ServerRelativePath: ComplexTypes.ResourcePath;
+
         /** Gets the server-relative URL of the list folder. */
         ServerRelativeUrl: string;
 
+        StorageMetrics(): IBase;
+
+        TimeCreated: string;
+
+        TimeLastModified: string;
+
         /** Gets or sets a value that specifies the content type order. */
-        UniqueContentTypeOrder: string;
+        UniqueContentTypeOrder: Results.ContentTypeId;
+
+        UniqueId: string;
 
         /** Gets or sets a value that specifies folder-relative URL for the list folder welcome page. */
         WelcomePage: string;

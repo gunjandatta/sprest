@@ -10,6 +10,8 @@ declare module $REST.Types {
         /** Gets or sets a description of the content type. */
         Description: string;
 
+        DescriptionResource(): IBase;
+
         /** Gets or sets a value that specifies the name of a custom display form template to use for list items that have been assigned the content type. */
         DisplayFormTemplateName: string;
 
@@ -37,7 +39,7 @@ declare module $REST.Types {
          * Gets the column (also known as field) reference in the content type.
          * @param guid - The guid of the field link.
          */
-        FieldLinks(guid:string): IBase;
+        FieldLinks(guid:string): IFieldLink;
 
         /**
          * Gets the fields for the content type.
@@ -54,16 +56,24 @@ declare module $REST.Types {
         Group: string;
 
         /** Gets or sets a value that specifies whether the content type is unavailable for creation or usage directly from a user interface. */
-        Hidden: string;
+        Hidden: boolean;
 
         /** Gets a value that specifies an identifier for the content type. */
-        Id: string;
+        Id: ComplexTypes.ContentTypeId;
 
         /** Gets or sets the JSLink for the content type custom form template. The JSLink property is not supported on Survey or Events lists. A SharePoint calendar is an Events list. */
         Jslink: string;
 
+        MobileDisplayFormUrl: string;
+
+        MobileEditFormUrl: string;
+
+        MobileNewFormUrl: string;
+
         /** Gets or sets a value that specifies the name of the content type. */
         Name: string;
+
+        NameResource(): IBase;
 
         /** Gets or sets a value that specifies the name of the content type. */
         NewFormTemplateName: string;
@@ -72,10 +82,10 @@ declare module $REST.Types {
         NewFormUrl: string;
 
         /** Gets the parent content type of the content type. */
-        Parent: string;
+        Parent(): IContentType;
 
         /** Gets or sets a value that specifies whether changes to the content type properties are denied. */
-        Readonly: string;
+        Readonly: boolean;
 
         /** Gets a value that specifies the XML Schema representing the content type. */
         SchemaXml: string;
@@ -87,7 +97,7 @@ declare module $REST.Types {
         Scope: string;
 
         /** Gets or sets whether the content type can be modified. */
-        Sealed: string;
+        Sealed: boolean;
 
         /** A string representation of the value of the Id. */
         StringId: string;

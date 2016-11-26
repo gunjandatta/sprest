@@ -1288,6 +1288,8 @@ declare module $REST.Types {
         /** Gets or sets a description of the content type. */
         Description: string;
 
+        DescriptionResource(): IBase;
+
         /** Gets or sets a value that specifies the name of a custom display form template to use for list items that have been assigned the content type. */
         DisplayFormTemplateName: string;
 
@@ -1315,7 +1317,7 @@ declare module $REST.Types {
          * Gets the column (also known as field) reference in the content type.
          * @param guid - The guid of the field link.
          */
-        FieldLinks(guid:string): IBase;
+        FieldLinks(guid:string): IFieldLink;
 
         /**
          * Gets the fields for the content type.
@@ -1332,16 +1334,24 @@ declare module $REST.Types {
         Group: string;
 
         /** Gets or sets a value that specifies whether the content type is unavailable for creation or usage directly from a user interface. */
-        Hidden: string;
+        Hidden: boolean;
 
         /** Gets a value that specifies an identifier for the content type. */
-        Id: string;
+        Id: ComplexTypes.ContentTypeId;
 
         /** Gets or sets the JSLink for the content type custom form template. The JSLink property is not supported on Survey or Events lists. A SharePoint calendar is an Events list. */
         Jslink: string;
 
+        MobileDisplayFormUrl: string;
+
+        MobileEditFormUrl: string;
+
+        MobileNewFormUrl: string;
+
         /** Gets or sets a value that specifies the name of the content type. */
         Name: string;
+
+        NameResource(): IBase;
 
         /** Gets or sets a value that specifies the name of the content type. */
         NewFormTemplateName: string;
@@ -1350,10 +1360,10 @@ declare module $REST.Types {
         NewFormUrl: string;
 
         /** Gets the parent content type of the content type. */
-        Parent: string;
+        Parent(): IContentType;
 
         /** Gets or sets a value that specifies whether changes to the content type properties are denied. */
-        Readonly: string;
+        Readonly: boolean;
 
         /** Gets a value that specifies the XML Schema representing the content type. */
         SchemaXml: string;
@@ -1365,7 +1375,7 @@ declare module $REST.Types {
         Scope: string;
 
         /** Gets or sets whether the content type can be modified. */
-        Sealed: string;
+        Sealed: boolean;
 
         /** A string representation of the value of the Id. */
         StringId: string;
@@ -1541,25 +1551,25 @@ declare module $REST.Types {
         EventType: $REST.Types.EventReceiverType;
 
         /** The strong name of the assembly that is used for receiving events. */
-        ReceiverAssembly: string;
+        ReceiverAssembly?: string;
 
         /** A string that represents the class that is used for receiving events. */
-        ReceiverClass: string;
+        ReceiverClass?: string;
 
         /** The unique identifier of the event receiver. */
-        ReceiverId: string;
+        ReceiverId?: string;
 
         /** The name of the event receiver. */
         ReceiverName: string;
 
         /** The URL of a web service that is used for receiving events. */
-        ReceiverUrl: string;
+        ReceiverUrl?: string;
 
         /** An integer that represents the relative sequence of the event. */
-        SequenceNumber: number;
+        SequenceNumber?: number;
 
         /** The execution synchronization of the event receiver. */
-        Synchronization: $REST.Types.EventReceiverSynchronizationType;
+        Synchronization?: $REST.Types.EventReceiverSynchronizationType;
 
         /**
          * Methods
@@ -1671,8 +1681,10 @@ declare module $REST.Types {
          * Properties
          */
 
+        AutoIndexed: boolean;
+
         /** Gets a value that specifies whether the field can be deleted. */
-        CanBeDeleted: string;
+        CanBeDeleted: boolean;
 
         /** Gets or sets a value that specifies the default value for the field. */
         DefaultValue: string;
@@ -1680,11 +1692,13 @@ declare module $REST.Types {
         /** Gets or sets a value that specifies the description of the field. */
         Description: string;
 
+        DescriptionResource(): ComplexTypes.ResourcePath;
+
         /** Gets or sets a value that specifies the reading order of the field. */
         Direction: string;
 
         /** Gets or sets a value that specifies whether to require unique field values in a list or library column. */
-        EnforceUniqueValues: string;
+        EnforceUniqueValues: boolean;
 
         /** Gets the name of the entity property for the list item entity that uses this field. */
         EntityPropertyName: string;
@@ -1693,22 +1707,22 @@ declare module $REST.Types {
         FieldTypeKind: Types.FieldType;
 
         /** Gets a value that specifies whether list items in the list can be filtered by the field value. */
-        Filterable: string;
+        Filterable: boolean;
 
         /** Gets a Boolean value that indicates whether the field derives from a base field type. */
-        FromBaseType: string;
+        FromBaseType: boolean;
 
         /** Gets or sets a value that specifies the field group. */
         Group: string;
 
         /** Gets or sets a value that specifies whether the field is hidden in list views and list forms. */
-        Hidden: string;
+        Hidden: boolean;
 
         /** Gets a value that specifies the field identifier. */
         Id: string;
 
         /** Gets or sets a Boolean value that specifies whether the field is indexed. */
-        Indexed: string;
+        Indexed: boolean;
 
         /** Gets a value that specifies the field internal name. */
         InternalName: string;
@@ -1717,10 +1731,10 @@ declare module $REST.Types {
         JSLink: string;
 
         /** Gets or sets a value that specifies whether the value of the field is read-only. */
-        ReadOnlyField: string;
+        ReadOnlyField: boolean;
 
         /** Gets or sets a value that specifies whether the field requires a value. */
-        Required: string;
+        Required: boolean;
 
         /** Gets or sets a value that specifies the XML schema that defines the field. */
         Schemaxml: string;
@@ -1729,16 +1743,18 @@ declare module $REST.Types {
         Scope: string;
 
         /** Gets a value that specifies whether properties on the field cannot be changed and whether the field cannot be deleted. */
-        Sealed: string;
+        Sealed: boolean;
 
         /** Gets a value that specifies whether list items in the list can be sorted by the field value. */
-        Sortable: string;
+        Sortable: boolean;
 
         /** Gets or sets a value that specifies a customizable identifier of the field. */
         StaticName: string;
 
         /** Gets or sets value that specifies the display name of the field. */
         Title: string;
+
+        TitleResource(): ComplexTypes.ResourcePath;
 
         /** Gets or sets a value that specifies the type of the field. */
         TypeAsString: string;
@@ -1816,6 +1832,32 @@ declare module $REST.Types {
 
 declare module $REST.Types {
     /**
+     * Field Link
+     */
+    interface IFieldLink extends IBase {
+        /**
+         * Properties
+         */
+
+        DisplayName: string;
+
+        FieldInternalName: string;
+
+        Hidden: boolean;
+
+        Id: string;
+
+        Name: string;
+
+        ReadOnly: boolean;
+
+        Required: boolean;
+
+        ShowInDisplayForm: boolean;
+    }
+}
+declare module $REST.Types {
+    /**
      * Field Links
      */
     interface IFieldLinks extends IBase {
@@ -1824,7 +1866,7 @@ declare module $REST.Types {
          */
 
         /** The field link collection. */
-        results: Array<any>;
+        results: Array<IFieldLink>;
 
         /**
          * Methods
@@ -1989,26 +2031,32 @@ declare module $REST.Types {
         /** Gets a value that returns the comment used when a document is checked in to a document library. */
         CheckInComment: string;
 
-        /** Gets a value that indicates how the file is checked out of a document library. Represents an SP.CheckOutType value: Online = 0; Offline = 1; None = 2. The checkout state of a file is independent of its locked state. */
-        CheckOutType: string;
+        /** Gets a value that indicates how the file is checked out of a document library. Represents an SP.CheckOutType value: . The checkout state of a file is independent of its locked state. */
+        CheckOutType: Types.CheckOutType;
 
         /** Returns internal version of content, used to validate document equality for read purposes. */
         ContentTag: string;
 
         /** Gets a value that specifies the customization status of the file. Represents an SP.CustomizedPageStatus value: None = 0; Uncustomized = 1; Customized = 2. */
-        CustomizedPageStatus: string;
+        CustomizedPageStatus: number;
+
+        EffectiveInformationRightsManagementSettings(): IBase;
 
         /** Gets a value that specifies the ETag value. */
         ETag: string;
 
         /** Gets a value that specifies whether the file exists. */
-        Exists: string;
+        Exists: boolean;
+
+        InformationRightsManagementSettings(): IBase;
 
         /** Gets the size of the file in bytes, excluding the size of any Web Parts that are used in the file. */
-        Length: string;
+        Length: number;
 
         /** Gets a value that specifies the publishing level of the file. Represents an SP.FileLevel value: Published = 1; Draft = 2; Checkout = 255. */
-        Level: string;
+        Level: number;
+
+        LinkingUrl: string;
 
         /**
          * Gets a value that specifies the list item field values for the list item corresponding to the file.
@@ -2021,10 +2069,10 @@ declare module $REST.Types {
         LockedByUser(): IUser;
 
         /** Gets a value that specifies the major version of the file. */
-        MajorVersion: string;
+        MajorVersion: number;
 
         /** Gets a value that specifies the minor version of the file. */
-        MinorVersion: string;
+        MinorVersion: number;
 
         /**
          * Gets a value that returns the user who last modified the file.
@@ -2039,8 +2087,12 @@ declare module $REST.Types {
          */
         Properties(): IPropertyValues;
 
+        ServerRelativePath: ComplexTypes.ResourcePath;
+
         /** Gets the relative URL of the file based on the URL for the server. */
         ServerRelativeUrl: string;
+
+        SiteId: string;
 
         /** Gets a value that specifies when the file was created. */
         TimeCreated: string;
@@ -2052,15 +2104,21 @@ declare module $REST.Types {
         Title: string;
 
         /** Gets a value that specifies the implementation-specific version identifier of the file. */
-        UiVersion: string;
+        UiVersion: number;
 
         /** Gets a value that specifies the implementation-specific version identifier of the file. */
         UiVersionLabel: string;
+
+        UniqueId: string;
+
+        VersionEvents(): IBase;
 
         /**
          * Gets a value that returns a collection of file version objects that represent the versions of the file.
          */
         Versions(): IFileVersions;
+
+        WebId: string;
 
         /**
          * Methods
@@ -2311,13 +2369,13 @@ declare module $REST.Types {
         CreatedBy(): IUser;
 
         /** Gets the internal identifier for the file version. */
-        ID: string;
+        ID: number;
 
         /** Gets a value that specifies whether the file version is the current version. */
         IsCurrentVersion: string;
 
         /**  */
-        Size: string;
+        Size: number;
 
         /** Gets a value that specifies the relative URL of the file version based on the URL for the site or subsite. */
         Url: string;
@@ -2418,10 +2476,10 @@ declare module $REST.Types {
          */
 
         /** Specifies the sequence in which content types are displayed. */
-        ContentTypeOrder: string;
+        ContentTypeOrder: Results.ContentTypeId;
 
         /** Gets a value that specifies whether the file exists. */
-        Exists: string;
+        Exists: boolean;
 
         /**
          * Gets the files contained in the folder.
@@ -2469,11 +2527,21 @@ declare module $REST.Types {
          */
         Properties(): IPropertyValues;
 
+        ServerRelativePath: ComplexTypes.ResourcePath;
+
         /** Gets the server-relative URL of the list folder. */
         ServerRelativeUrl: string;
 
+        StorageMetrics(): IBase;
+
+        TimeCreated: string;
+
+        TimeLastModified: string;
+
         /** Gets or sets a value that specifies the content type order. */
-        UniqueContentTypeOrder: string;
+        UniqueContentTypeOrder: Results.ContentTypeId;
+
+        UniqueId: string;
 
         /** Gets or sets a value that specifies folder-relative URL for the list folder welcome page. */
         WelcomePage: string;
@@ -2829,6 +2897,17 @@ declare module $REST.Types {
      * Limited Web Part Manager
      */
     interface ILimitedWebPartManager extends IBase {
+        /**
+         * Properties
+         */
+
+        HasPersonalizedParts: boolean;
+
+        Scope: number;
+
+        /**
+         * Methods
+         */
 
         /**
          * Method to execute the request.
@@ -2879,18 +2958,20 @@ declare module $REST.Types {
          */
 
         /** Gets a value that specifies whether the list supports content types. */
-        AllowContentTypes: string;
+        AllowContentTypes: boolean;
+
+        AllowDeletion: boolean;
 
         /** Gets the list definition type on which the list is based. Represents a ListTemplateType value. See ListTemplateType in the .NET client object model reference for template type values. */
-        BaseTemplate: string;
+        BaseTemplate: Types.ListTemplateType;
 
         /** Gets the base type for the list. Represents an SP.BaseType value: Generic List = 0; Document Library = 1; Discussion Board = 3; Survey = 4; Issue = 5. */
-        BaseType: string;
+        BaseType: number;
 
         /**
          * Gets a value that specifies the override of the web application's BrowserFileHandling property at the list level. Represents an SP.BrowserFileHandling value: Permissive = 0; Strict = 1.
          */
-        BrowserFileHandling(): string;
+        BrowserFileHandling: number;
 
         /**
          * Gets the content types that are associated with the list.
@@ -2904,15 +2985,17 @@ declare module $REST.Types {
         ContentTypes(id:string): IContentType;
 
         /** Gets or sets a value that specifies whether content types are enabled for the list. */
-        ContentTypesEnabled: string;
+        ContentTypesEnabled: boolean;
 
         /** Gets a value that specifies when the list was created. */
         Created: string;
 
+        CurrentChangeToken: ComplexTypes.ChangeToken;
+
         /**
          * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
          */
-        DataSource(): string;
+        DataSource(): ComplexTypes.ListDataSource;
 
         /** Gets a value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
         DefaultContentApprovalWorkflowId: string;
@@ -2945,6 +3028,8 @@ declare module $REST.Types {
         /** Gets or sets a value that specifies the description of the list. */
         Description: string;
 
+        DescriptionResouce(): ComplexTypes.ResourcePath;
+
         /** Gets or sets a value that specifies the reading order of the list. Returns ""NONE"", ""LTR"", or ""RTL"". */
         Direction: string;
 
@@ -2952,32 +3037,34 @@ declare module $REST.Types {
         DocumentTemplateUrl: string;
 
         /** Gets or sets a value that specifies the minimum permission required to view minor versions and drafts within the list. Represents an SP.DraftVisibilityType value: Reader = 0; Author = 1; Approver = 2. */
-        DraftVersionVisibility: string;
+        DraftVersionVisibility: number;
 
         /**
          * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
          */
-        EffectiveBasePermissions(): IBase;
+        EffectiveBasePermissions(): ComplexTypes.BasePermissions;
 
         /**
          * Gets a value that specifies the effective permissions on the list that are for the user interface.
         */
-        EffectiveBasePermissionsForUI(): IBase;
+        EffectiveBasePermissionsForUI(): ComplexTypes.BasePermissions;
+
+        EnableAssignToEmail: boolean;
 
         /** Gets or sets a value that specifies whether list item attachments are enabled for the list. */
-        EnableAttachments: string;
+        EnableAttachments: boolean;
 
         /** Gets or sets a value that specifies whether new list folders can be added to the list. */
-        EnableFolderCreation: string;
+        EnableFolderCreation: boolean;
 
         /** Gets or sets a value that specifies whether minor versions are enabled for the list. */
-        EnableMinorVersions: string;
+        EnableMinorVersions: boolean;
 
         /** Gets or sets a value that specifies whether content approval is enabled for the list. */
-        EnableModeration: string;
+        EnableModeration: boolean;
 
         /** Gets or sets a value that specifies whether historical versions of list items and documents can be created in the list. */
-        EnableVersioning: string;
+        EnableVersioning: boolean;
 
         /**  */
         EntityTypeName: string;
@@ -2993,6 +3080,8 @@ declare module $REST.Types {
         */
         EventReceivers(id:string): IEventReceiver;
 
+        ExcludeFromOfflineClient: boolean;
+
         /**
          * Gets the fields in the list.
          */
@@ -3004,13 +3093,15 @@ declare module $REST.Types {
          */
         Fields(internalNameOrTitle:string): IField;
 
+        FileSavePostProcessingEnabled: boolean;
+
         /**
          * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
          */
         FirstUniqueAncestorSecurableObject(): string;
 
         /** Gets or sets a value that indicates whether forced checkout is enabled for the document library. */
-        ForceCheckout: string;
+        ForceCheckout: boolean;
 
         /**
          * Gets the list forms in the list.
@@ -3024,7 +3115,7 @@ declare module $REST.Types {
         Forms(id:string): IBase;
 
         /** Gets a value that specifies whether the list is an external list. */
-        HasExternalDataSource: string;
+        HasExternalDataSource: boolean;
 
         /**
          * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
@@ -3032,7 +3123,7 @@ declare module $REST.Types {
         HasUniqueRoleAssignments(): IBase;
 
         /** Gets or sets a Boolean value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
-        Hidden: string;
+        Hidden: boolean;
 
         /** Gets the GUID that identifies the list in the database. */
         Id: string;
@@ -3046,30 +3137,30 @@ declare module $REST.Types {
         InformationRightsManagementSettings(): IBase;
 
         /**  */
-        IrmEnabled: string;
+        IrmEnabled: boolean;
 
         /**  */
-        IrmExpire: string;
+        IrmExpire: boolean;
 
         /**  */
-        IrmReject: string;
+        IrmReject: boolean;
 
         /** Gets or sets a value that specifies a flag that a client application can use to determine whether to display the list. */
-        IsApplicationList: string;
+        IsApplicationList: boolean;
 
         /** Gets a value that specifies whether the list is a gallery. */
-        IsCatalog: string;
+        IsCatalog: boolean;
 
         /**  */
-        IsPrivate: string;
+        IsPrivate: boolean;
 
         /**
          * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
          */
-        IsSiteAssetsLibrary(): string;
+        IsSiteAssetsLibrary(): boolean;
 
         /** Gets a value that specifies the number of list items in the list. */
-        ItemCount: string;
+        ItemCount: number;
 
         /**
          * Gets the list items in the list.
@@ -3088,19 +3179,25 @@ declare module $REST.Types {
         /** Gets a value that specifies the last time a list item, field, or property of the list was modified. */
         LastItemModifiedDate: string;
 
+        ListExperienceOptions: number;
+
         /**  */
         ListItemEntityTypeFullName: string;
 
+        MajorVersionLimit: number;
+
+        MajorWithMinorVersionsLimit: number;
+
         /** Gets or sets a value that indicates whether the list in a Meeting Workspace site contains data for multiple meeting instances within the site. */
-        MultipleDataList: string;
+        MultipleDataList: boolean;
 
         /** Gets or sets a value that specifies that the crawler must not crawl the list. */
-        NoCrawl: string;
+        NoCrawl: boolean;
 
         /**
          * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
          */
-        OnQuickLaunch(): string;
+        OnQuickLaunch(): boolean;
 
         /**
          * Gets a value that specifies the site that contains the list.
@@ -3109,6 +3206,10 @@ declare module $REST.Types {
 
         /** Gets a value that specifies the server-relative URL of the site that contains the list. */
         ParentWebUrl: string;
+
+        ParserDisabled: boolean;
+
+        ReadSecurity: number;
 
         /**
          * Gets the role assignments for the securable object.
@@ -3138,13 +3239,17 @@ declare module $REST.Types {
         SchemaXml(): string;
 
         /** Gets a value that indicates whether folders can be created within the list. */
-        ServerTemplateCanCreateFolders: string;
+        ServerTemplateCanCreateFolders: boolean;
+
+        Subscriptions(): IBase;
 
         /** Gets a value that specifies the feature identifier of the feature that contains the list schema for the list. Returns an empty GUID if the list schema is not contained within a feature. */
         TemplateFeatureId: string;
 
         /** Gets or sets the displayed title for the list. Its length must be <= 255 characters. */
         Title: string;
+
+        TitleResource(): ComplexTypes.ResourcePath;
 
         /**
          * Gets the user custom actions for the list.
@@ -3182,6 +3287,8 @@ declare module $REST.Types {
          * Gets a value that specifies the collection of all workflow associations for the list.
          */
         WorkflowAssociations(): string;
+
+        WriteSecurity(): number;
 
         /**
          * Methods
@@ -3337,28 +3444,28 @@ declare module $REST.Types {
         /**
          * Gets a value that specifies the display name of the list item.
          */
-        DisplayName(): string;
+        DisplayName: string;
 
         /** Gets a value that specifies the effective permissions on the list item that are assigned to the current user. */
-        EffectiveBasePermissions: string;
+        EffectiveBasePermissions: ComplexTypes.BasePermissions;
 
         /** Gets the effective base permissions for the current user, as they should be displayed in UI. */
-        EffectiveBasePermissionsForUI: string;
+        EffectiveBasePermissionsForUI: ComplexTypes.BasePermissions;
 
         /**
          * Gets the values for the list item as HTML.
          */
-        FieldValuesAsHtml(): string;
+        FieldValuesAsHtml(): IBase;
 
         /**
          * Gets the list item's field values as a collection of string values.
          */
-        FieldValuesAsText(): string;
+        FieldValuesAsText(): IBase;
 
         /**
          * Gets the formatted values to be displayed in an edit form.
          */
-        FieldValuesForEdit(): string;
+        FieldValuesForEdit(): IBase;
 
         /**
          * Gets the file that is represented by the item from a document library.
@@ -3366,7 +3473,7 @@ declare module $REST.Types {
         File(): IFile;
 
         /** Gets a value that specifies whether the list item is a file or a list folder. Represents an SP.FileSystemObjectType value: Invalid = -1; File = 0; Folder = 1; Web = 2. */
-        FileSystemObjectType: string;
+        FileSystemObjectType: number;
 
         /**
          * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
@@ -3378,13 +3485,17 @@ declare module $REST.Types {
          */
         Folder(): IFolder;
 
+        GetDlpPolicyTip(): IBase;
+
         /**
          * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
          */
         HasUniqueRoleAssignments(): string;
 
+        IconOverlay: string;
+
         /** Gets a value that specifies the list item identifier. */
-        Id: string;
+        Id: number;
 
         /**
          * Gets the parent list that contains the list item.
@@ -3406,6 +3517,8 @@ declare module $REST.Types {
          * @param id - The role assignment id.
          */
         RoleAssignments(id:string): IRoleAssignment;
+
+        ServerRedirectedEmbedUrl: string;
 
         /**
          * Methods
@@ -3949,6 +4062,50 @@ declare module $REST.Types {
     }
 }
 declare module $REST.Types {
+    /**
+     * Recycle Bin Items
+     */
+    interface recycleBinItem {
+        /**
+         * Properties
+         */
+
+        Author(): IUser;
+
+        AuthorEmail: string;
+
+        AuthorName: string;
+
+        DeletedBy(): IUser;
+
+        DeletedByEmail: string;
+
+        DeletedByName: string;
+
+        DeletedDate: string;
+
+        DeletedDateLocalFormatted: string;
+
+        DirName: string;
+
+        DirNamePath: ComplexTypes.ResourcePath;
+
+        Id: string;
+
+        ItemState: number;
+
+        ItemType: string;
+
+        LeafName: string;
+
+        LeafNamePath: ComplexTypes.ResourcePath;
+
+        Size: number;
+
+        Title: string;
+    }
+}
+declare module $REST.Types {
     // Request Type
     enum RequestType {
         // Requests
@@ -3989,6 +4146,14 @@ declare module $REST.Results {
     interface AppLicense {
         /** The collection of app licenses. */
         results: Array<ComplexTypes.AppLicense>;
+    }
+
+    /**
+     * Content Type Id
+     */
+    interface ContentTypeId {
+        /** The collection of content type ids. */
+        results: Array<ComplexTypes.ContentTypeId>;
     }
 
     /**
@@ -4037,6 +4202,14 @@ declare module $REST.Results {
     interface MenuNode {
         /** The collection of menu nodes. */
         results: Array<ComplexTypes.MenuNode>;
+    }
+
+    /**
+     * Number
+     */
+    interface Number {
+        /** The collection of numbers. */
+        results: Array<number>;
     }
 
     /**
@@ -4206,25 +4379,25 @@ declare module $REST.Types {
          */
 
         /** Gets or sets a value that specifies the base permissions for the role definition. */
-        BasePermissions: any;
+        BasePermissions: ComplexTypes.BasePermissions;
 
         /** Gets or sets a value that specifies the description of the role definition. */
         Description: string;
 
         /** Gets a value that specifies whether the role definition is displayed. */
-        Hidden: string;
+        Hidden: boolean;
 
         /** Gets a value that specifies the Id of the role definition. */
-        Id: string;
+        Id: number;
 
         /** Gets or sets a value that specifies the role definition name. */
         Name: string;
 
         /** Gets or sets a value that specifies the order position of the object in the site collection Permission Levels page. */
-        Order: string;
+        Order: number;
 
         /** Gets a value that specifies the type of the role definition. Represents an SP.RoleType value. See RoleType in the .NET client object model reference for a list of role type values. */
-        RoleTypeKind: string;
+        RoleTypeKind: Types.RoleType;
 
         /**
          * Methods
@@ -5351,11 +5524,24 @@ declare module $REST.Settings {
     }
 }
 declare module $REST.Types {
+    /**
+     * Check Out Types
+     */
+    enum CheckOutType {
+        /** Online */
+        Online = 0,
+
+        /** Offline */
+        Offline = 1,
+
+        /** None */
+        None = 2
+    }
 
     /**
      * Control Modes
      */
-    enum ControlMode {
+    enum ControlModea {
         /** A placeholder value in the enumeration indicating that it has no valid display mode from one of the other enumeration values. */
         Invalid = 0,
 
@@ -6075,10 +6261,12 @@ declare module $REST.Types {
         Id: string;
 
         /** Gets a value that indicates whether this member should be hidden in the UI. */
-        IsHiddenInUI: string;
+        IsHiddenInUI: boolean;
+
+        IsSharedByEmailGuestUser: boolean;
 
         /** Gets or sets a Boolean value that specifies whether the user is a site collection administrator. */
-        IsSiteAdmin: string;
+        IsSiteAdmin: boolean;
 
         /** Gets the login name of the user. */
         LoginName: string;
@@ -6160,14 +6348,14 @@ declare module $REST.Types {
         /** Gets or sets the value that specifies the identifier of the object associated with the custom action. */
         RegistrationId: string;
 
-        /** Gets or sets the value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value: None = 0; List = 1; ContentType = 2; ProgId = 3; FileType = 4. */
-        RegistrationType: string;
+        /** Gets or sets the value that specifies the type of object associated with the custom action. */
+        RegistrationType: Types.UserCustomActionRegistrationType;
 
         /** Gets or sets the value that specifies the permissions needed for the custom action. */
-        Rights: string;
+        Rights: ComplexTypes.BasePermissions;
 
         /** Gets a value that specifies the scope of the custom action. */
-        Scope: string;
+        Scope: number;
 
         /** Gets or sets the value that specifies the ECMAScript to be executed when the custom action is performed. */
         ScriptBlock: string;
@@ -6176,7 +6364,7 @@ declare module $REST.Types {
         ScriptSrc: string;
 
         /** Gets or sets the value that specifies an implementation-specific value that determines the order of the custom action that appears on the page. */
-        Sequence: string;
+        Sequence: number;
 
         /** Gets or sets the display title of the custom action. */
         Title: string;
@@ -6318,6 +6506,20 @@ declare module $REST.Types {
          */
         DisplayName: string;
 
+        FollowPersonalSiteUrl: string;
+
+        IsPeopleListPublic: boolean;
+
+        IsPrivacySettingOn: boolean;
+
+        IsSelf: boolean;
+
+        JobTitle: string;
+
+        MySiteFirstRunExperience: number;
+
+        MySiteHostUrl: string;
+
         /**
          * The FirstRun flag of the user. (SharePoint Online only)
          */
@@ -6363,6 +6565,8 @@ declare module $REST.Types {
          * A Boolean value that indicates whether the user's picture is imported from Exchange.
          */
         PictureImportEnabled: boolean;
+
+        PictureUrl: string;
 
         /**
          * The public URL of the personal site of the current user. (SharePoint Online only)
@@ -6582,22 +6786,22 @@ declare module $REST.Types {
         BaseViewId: string;
 
         /** Gets or sets the identifier of the content type with which the view is associated so that the view is available only on folders of this content type. */
-        ContentTypeId: string;
+        ContentTypeId: ComplexTypes.ContentTypeId;
 
         /** Gets or sets a value that specifies whether the list view is the default list view. */
-        DefaultView: string;
+        DefaultView: boolean;
 
         /** Gets or sets a value that specifies whether the list view is the default list view for the content type specified by contentTypeId. */
-        DefaultViewForContentType: string;
+        DefaultViewForContentType: boolean;
 
         /** Gets or sets a value that specifies whether the list view was modified in an editor. */
-        EditorModified: string;
+        EditorModified: boolean;
 
         /** Gets or sets a value that specifies the column and row formatting for the list view. If not null, the XML must conform to ViewFormatDefinitions, as specified in [MS-WSSCAML]. */
         Formats: string;
 
         /** Gets or sets a value that specifies whether the list view is hidden. */
-        Hidden: string;
+        Hidden: boolean;
 
         /** Gets a value that specifies the XML document that represents the list view. */
         HtmlSchemaXml: string;
@@ -6609,7 +6813,7 @@ declare module $REST.Types {
         ImageUrl: string;
 
         /** Gets or sets a value that specifies whether the current folder is displayed in the list view. */
-        IncludeRootFolder: string;
+        IncludeRootFolder: boolean;
 
         /** Gets or sets the name of the JavaScript file used for the view. */
         JsLink: string;
@@ -6621,34 +6825,34 @@ declare module $REST.Types {
         Method: string;
 
         /** Gets or sets a value that specifies whether the list view is the default mobile list view. */
-        MobileDefaultView: string;
+        MobileDefaultView: boolean;
 
         /** Gets or sets a value that specifies whether the list view is a mobile list view. */
-        MobileView: string;
+        MobileView: boolean;
 
         /** Gets a value that specifies the content approval type for the list view. */
         ModerationType: string;
 
         /** Gets a value that specifies whether list items can be reordered in the list view. */
-        OrderedView: string;
+        OrderedView: boolean;
 
         /** Gets or sets a value that specifies whether the list view is a paged view. */
-        Paged: string;
+        Paged: boolean;
 
         /** Gets a value that specifies whether the list view is a personal view. */
-        PersonalView: string;
+        PersonalView: boolean;
 
         /** Gets a value that specifies whether the list view is read-only. */
-        ReadOnlyView: string;
+        ReadOnlyView: boolean;
 
         /** Gets a value that specifies whether the list view requires client integration rights. */
-        RequiresClientIntegration: string;
+        RequiresClientIntegration: boolean;
 
         /** Gets or sets a value that specifies the maximum number of list items to display in a visual page of the list view. */
-        RowLimit: string;
+        RowLimit: number;
 
         /** Gets or sets a value that specifies the scope for the list view. Represents a ViewScope value. DefaultValue = 0, Recursive = 1, RecursiveAll = 2, FilesOnly = 3. */
-        Scope: string;
+        Scope: number;
 
         /** Gets a value that specifies the server-relative URL of the list view page. */
         ServerRelativeUrl: string;
@@ -6656,8 +6860,10 @@ declare module $REST.Types {
         /** Gets a value that specifies the identifier of the view style for the list view. */
         StyleId: string;
 
+        TabularView: boolean;
+
         /** Gets a value that specifies whether the list view is a threaded view. */
-        Threaded: string;
+        Threaded: boolean;
 
         /** Gets or sets a value that specifies the display name of the list view. */
         Title: string;
@@ -6670,6 +6876,8 @@ declare module $REST.Types {
 
         /** Gets or sets a value that specifies the view data for the list view. If not null, the XML must conform to FieldRefDefinitionViewData, as specified in [MS-WSSCAML]. */
         ViewData: string;
+
+        VisualizationInfo: ComplexTypes.Visualization;
 
         /**
          * Gets a value that specifies the collection of fields in the list view.
@@ -6747,7 +6955,7 @@ declare module $REST.Types {
         SchemaXml: string;
 
         /** Specifies the XML schema of the collection of fields. The Items property is returned with the resource, but it doesn't have a URI-addressable endpoint. */
-        Items: string;
+        Items: Results.String;
 
         /** The view field collection. */
         results: Array<any>;
@@ -6919,7 +7127,7 @@ declare module $REST.Types {
         AllowRevertFromTemplateForCurrentUser(): IBase;
 
         /** Gets a value that specifies whether the site allows RSS feeds. */
-        AllowRssFeeds: string;
+        AllowRssFeeds: boolean;
 
         /**
          * Specifies whether the current user can save declarative workflows as a template. If not disabled on the Web application, the value is the same as the AllowSaveDeclarativeWorkflowAsTemplate property of the site collection. Default value: true.
@@ -6939,6 +7147,8 @@ declare module $REST.Types {
         /** The instance Id of the App Instance that this web represents. */
         AppInstanceId: string;
 
+        AppTiles(): IBase;
+
         /**
          * Gets or sets the group of users who have been given contribute permissions to the Web site.
          */
@@ -6954,6 +7164,8 @@ declare module $REST.Types {
          */
         AssociatedVisitorGroup(): IGroup;
 
+        Author(): IUser;
+
         /**
          * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
          */
@@ -6964,8 +7176,10 @@ declare module $REST.Types {
          */
         AvailableFields(): IBase;
 
+        ClientWebParts(): IBase;
+
         /** Gets either the identifier (ID) of the site definition configuration that was used to create the site, or the ID of the site definition configuration from which the site template used to create the site was derived. */
-        Configuration: string;
+        Configuration: number;
 
         /**
          * Gets the content types that are associated with the web.
@@ -6989,8 +7203,12 @@ declare module $REST.Types {
         /** Gets or sets the URL for a custom master page file to apply to the website. */
         CustomMasterUrl: string;
 
+        DataLeakagePreventionStatusInfo(): IBase;
+
         /** Gets or sets the description for the site. */
         Description: string;
+
+        DescriptionResource(): ComplexTypes.ResourcePath;
 
         /**
          * Gets the URL where the current user can download SharePoint Designer.
@@ -6998,7 +7216,7 @@ declare module $REST.Types {
         DesignerDownloadUrlForCurrentUser(): IBase;
 
         /** Determines if the Document Library Callout's WAC previewers are enabled or not. */
-        DocumentLibraryCalloutOfficeWebAppPreviewersDisabled: string;
+        DocumentLibraryCalloutOfficeWebAppPreviewersDisabled: boolean;
 
         /**
          * Represents the intersection of permissions of the app principal and the user principal. In the app-only case, this property returns only the permissions of the app principal. To check only user permissions (ignoring app permissions), use the GetUserEffectivePermissions method.
@@ -7006,7 +7224,9 @@ declare module $REST.Types {
         EffectiveBasePermissions(): string;
 
         /** Gets or sets a Boolean value that specifies whether the Web site should use Minimal Download Strategy. */
-        EnableMinimalDownload: string;
+        EnableMinimalDownload: boolean;
+
+        ExcludeFromOfflineClient: boolean;
 
         /**
          * Gets the event receivers associated with the web.
@@ -7050,7 +7270,7 @@ declare module $REST.Types {
         Id: string;
 
         /** Gets a value that specifies the LCID for the language that is used on the site. */
-        Language: string;
+        Language: boolean;
 
         /** Gets a value that specifies when an item was last modified in the site. */
         LastItemModifiedDate: string;
@@ -7080,15 +7300,27 @@ declare module $REST.Types {
         /** Gets or sets the URL of the master page that is used for the website. */
         MasterUrl: string;
 
+        MembersCanShare: boolean;
+
         /**
          * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
          */
         Navigation(): IBase;
 
+        NoCrawl: boolean;
+
+        NotificationsInOneDriveForBusinessEnabled: boolean;
+
+        NotificationsInSharePointEnabled: boolean;
+
+        OverwriteTranslationsOnChange: boolean;
+
         /**
          * Gets the parent website of the specified website.
          */
         ParentWeb(): IBase;
+
+        PreviewFeaturesEnabled: boolean;
 
         /**
          * Gets the collection of push notification subscribers over the site.
@@ -7096,7 +7328,7 @@ declare module $REST.Types {
         PushNotificationSubscribers(): IBase;
 
         /** Gets or sets a value that specifies whether the Quick Launch area is enabled on the site. */
-        QuickLaunchEnabled: string;
+        QuickLaunchEnabled: boolean;
 
         /**
          * Specifies the collection of recycle bin items of the recycle bin of the site.
@@ -7104,12 +7336,14 @@ declare module $REST.Types {
         RecycleBin(): IBase;
 
         /** Gets or sets a value that determines whether the recycle bin is enabled for the website. */
-        RecycleBinEnabled: string;
+        RecycleBinEnabled: boolean;
 
         /**
          * Gets the regional settings that are currently implemented on the website.
          */
         RegionalSettings(): IBase;
+
+        RequestAccessEmail: string;
 
         /**
          * Gets the role definitions for the web.
@@ -7136,7 +7370,9 @@ declare module $REST.Types {
         /**
          * Gets or sets a Boolean value that specifies whether the Web site can be saved as a site template.
          */
-        SaveSiteAsTemplateEnabled(): IBase;
+        SaveSiteAsTemplateEnabled: boolean;
+        
+        ServerRelativePath: ComplexTypes.ResourcePath;
 
         /** Gets or sets the server-relative URL for the Web site. */
         ServerRelativeUrl: string;
@@ -7157,6 +7393,10 @@ declare module $REST.Types {
          */
         SiteGroups(name:string): IGroup;
 
+        SiteLogoDescription: string;
+
+        SiteLogoUrl: string;
+
         /**
          * Gets the UserInfo list of the site collection that contains the Web site.
          */
@@ -7176,27 +7416,37 @@ declare module $REST.Types {
         /**
          * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
          */
-        SupportedUILanguageIds(): IBase;
+        SupportedUILanguageIds(): Results.Number;
 
         /** Gets or sets a value that specifies whether the RSS feeds are enabled on the site. */
-        SyndicationEnabled: string;
+        SyndicationEnabled: boolean;
+
+        TenantTagPolicyEnabled: boolean;
+
+        ThemeData: string;
+
+        ThemedCssFolderUrl: string;
 
         /**
          * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
          */
         ThemeInfo(): IBase;
 
+        ThirdPartyMdmEnabled: boolean;
+
         /** Gets or sets the title for the Web site. */
         Title: string;
 
+        TitleResource(): ComplexTypes.ResourcePath;
+
         /** Gets or sets value that specifies whether the tree view is enabled on the site. */
-        TreeViewEnabled: string;
+        TreeViewEnabled: boolean;
 
         /** Gets or sets the user interface (UI) version of the Web site. */
-        UIVersion: string;
+        UIVersion: number;
 
         /** Gets or sets a value that specifies whether the settings UI for visual upgrade is shown or hidden. */
-        UIVersionConfigurationEnabled: string;
+        UIVersionConfigurationEnabled: boolean;
 
         /** Gets the absolute URL for the website. */
         Url: string;

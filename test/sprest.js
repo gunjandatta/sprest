@@ -839,6 +839,18 @@ var $REST;
     var Types;
     (function (Types) {
         /**
+         * Check Out Types
+         */
+        (function (CheckOutType) {
+            /** Online */
+            CheckOutType[CheckOutType["Online"] = 0] = "Online";
+            /** Offline */
+            CheckOutType[CheckOutType["Offline"] = 1] = "Offline";
+            /** None */
+            CheckOutType[CheckOutType["None"] = 2] = "None";
+        })(Types.CheckOutType || (Types.CheckOutType = {}));
+        var CheckOutType = Types.CheckOutType;
+        /**
          * Control Modes
          */
         (function (ControlMode) {

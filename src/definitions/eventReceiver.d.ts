@@ -11,25 +11,25 @@ declare module $REST.Types {
         EventType: $REST.Types.EventReceiverType;
 
         /** The strong name of the assembly that is used for receiving events. */
-        ReceiverAssembly: string;
+        ReceiverAssembly?: string;
 
         /** A string that represents the class that is used for receiving events. */
-        ReceiverClass: string;
+        ReceiverClass?: string;
 
         /** The unique identifier of the event receiver. */
-        ReceiverId: string;
+        ReceiverId?: string;
 
         /** The name of the event receiver. */
         ReceiverName: string;
 
         /** The URL of a web service that is used for receiving events. */
-        ReceiverUrl: string;
+        ReceiverUrl?: string;
 
         /** An integer that represents the relative sequence of the event. */
-        SequenceNumber: number;
+        SequenceNumber?: number;
 
         /** The execution synchronization of the event receiver. */
-        Synchronization: $REST.Types.EventReceiverSynchronizationType;
+        Synchronization?: $REST.Types.EventReceiverSynchronizationType;
 
         /**
          * Methods

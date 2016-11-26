@@ -8,6 +8,14 @@ declare module $REST.Results {
     }
 
     /**
+     * Content Type Id
+     */
+    interface ContentTypeId {
+        /** The collection of content type ids. */
+        results: Array<ComplexTypes.ContentTypeId>;
+    }
+
+    /**
      * Creatable Item Information
      */
     interface CreatableItemInfo {
@@ -53,6 +61,14 @@ declare module $REST.Results {
     interface MenuNode {
         /** The collection of menu nodes. */
         results: Array<ComplexTypes.MenuNode>;
+    }
+
+    /**
+     * Number
+     */
+    interface Number {
+        /** The collection of numbers. */
+        results: Array<number>;
     }
 
     /**

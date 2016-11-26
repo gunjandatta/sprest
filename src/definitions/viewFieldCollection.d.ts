@@ -11,7 +11,7 @@ declare module $REST.Types {
         SchemaXml: string;
 
         /** Specifies the XML schema of the collection of fields. The Items property is returned with the resource, but it doesn't have a URI-addressable endpoint. */
-        Items: string;
+        Items: Results.String;
 
         /** The view field collection. */
         results: Array<any>;

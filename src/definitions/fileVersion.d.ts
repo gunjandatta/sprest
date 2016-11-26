@@ -19,13 +19,13 @@ declare module $REST.Types {
         CreatedBy(): IUser;
 
         /** Gets the internal identifier for the file version. */
-        ID: string;
+        ID: number;
 
         /** Gets a value that specifies whether the file version is the current version. */
         IsCurrentVersion: string;
 
         /**  */
-        Size: string;
+        Size: number;
 
         /** Gets a value that specifies the relative URL of the file version based on the URL for the site or subsite. */
         Url: string;

@@ -15,18 +15,20 @@ declare module $REST.Types {
          */
 
         /** Gets a value that specifies whether the list supports content types. */
-        AllowContentTypes: string;
+        AllowContentTypes: boolean;
+
+        AllowDeletion: boolean;
 
         /** Gets the list definition type on which the list is based. Represents a ListTemplateType value. See ListTemplateType in the .NET client object model reference for template type values. */
-        BaseTemplate: string;
+        BaseTemplate: Types.ListTemplateType;
 
         /** Gets the base type for the list. Represents an SP.BaseType value: Generic List = 0; Document Library = 1; Discussion Board = 3; Survey = 4; Issue = 5. */
-        BaseType: string;
+        BaseType: number;
 
         /**
          * Gets a value that specifies the override of the web application's BrowserFileHandling property at the list level. Represents an SP.BrowserFileHandling value: Permissive = 0; Strict = 1.
          */
-        BrowserFileHandling(): string;
+        BrowserFileHandling: number;
 
         /**
          * Gets the content types that are associated with the list.
@@ -40,15 +42,17 @@ declare module $REST.Types {
         ContentTypes(id:string): IContentType;
 
         /** Gets or sets a value that specifies whether content types are enabled for the list. */
-        ContentTypesEnabled: string;
+        ContentTypesEnabled: boolean;
 
         /** Gets a value that specifies when the list was created. */
         Created: string;
 
+        CurrentChangeToken: ComplexTypes.ChangeToken;
+
         /**
          * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
          */
-        DataSource(): string;
+        DataSource(): ComplexTypes.ListDataSource;
 
         /** Gets a value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
         DefaultContentApprovalWorkflowId: string;
@@ -81,6 +85,8 @@ declare module $REST.Types {
         /** Gets or sets a value that specifies the description of the list. */
         Description: string;
 
+        DescriptionResouce(): ComplexTypes.ResourcePath;
+
         /** Gets or sets a value that specifies the reading order of the list. Returns ""NONE"", ""LTR"", or ""RTL"". */
         Direction: string;
 
@@ -88,32 +94,34 @@ declare module $REST.Types {
         DocumentTemplateUrl: string;
 
         /** Gets or sets a value that specifies the minimum permission required to view minor versions and drafts within the list. Represents an SP.DraftVisibilityType value: Reader = 0; Author = 1; Approver = 2. */
-        DraftVersionVisibility: string;
+        DraftVersionVisibility: number;
 
         /**
          * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
          */
-        EffectiveBasePermissions(): IBase;
+        EffectiveBasePermissions(): ComplexTypes.BasePermissions;
 
         /**
          * Gets a value that specifies the effective permissions on the list that are for the user interface.
         */
-        EffectiveBasePermissionsForUI(): IBase;
+        EffectiveBasePermissionsForUI(): ComplexTypes.BasePermissions;
+
+        EnableAssignToEmail: boolean;
 
         /** Gets or sets a value that specifies whether list item attachments are enabled for the list. */
-        EnableAttachments: string;
+        EnableAttachments: boolean;
 
         /** Gets or sets a value that specifies whether new list folders can be added to the list. */
-        EnableFolderCreation: string;
+        EnableFolderCreation: boolean;
 
         /** Gets or sets a value that specifies whether minor versions are enabled for the list. */
-        EnableMinorVersions: string;
+        EnableMinorVersions: boolean;
 
         /** Gets or sets a value that specifies whether content approval is enabled for the list. */
-        EnableModeration: string;
+        EnableModeration: boolean;
 
         /** Gets or sets a value that specifies whether historical versions of list items and documents can be created in the list. */
-        EnableVersioning: string;
+        EnableVersioning: boolean;
 
         /**  */
         EntityTypeName: string;
@@ -129,6 +137,8 @@ declare module $REST.Types {
         */
         EventReceivers(id:string): IEventReceiver;
 
+        ExcludeFromOfflineClient: boolean;
+
         /**
          * Gets the fields in the list.
          */
@@ -140,13 +150,15 @@ declare module $REST.Types {
          */
         Fields(internalNameOrTitle:string): IField;
 
+        FileSavePostProcessingEnabled: boolean;
+
         /**
          * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
          */
         FirstUniqueAncestorSecurableObject(): string;
 
         /** Gets or sets a value that indicates whether forced checkout is enabled for the document library. */
-        ForceCheckout: string;
+        ForceCheckout: boolean;
 
         /**
          * Gets the list forms in the list.
@@ -160,7 +172,7 @@ declare module $REST.Types {
         Forms(id:string): IBase;
 
         /** Gets a value that specifies whether the list is an external list. */
-        HasExternalDataSource: string;
+        HasExternalDataSource: boolean;
 
         /**
          * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
@@ -168,7 +180,7 @@ declare module $REST.Types {
         HasUniqueRoleAssignments(): IBase;
 
         /** Gets or sets a Boolean value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
-        Hidden: string;
+        Hidden: boolean;
 
         /** Gets the GUID that identifies the list in the database. */
         Id: string;
@@ -182,30 +194,30 @@ declare module $REST.Types {
         InformationRightsManagementSettings(): IBase;
 
         /**  */
-        IrmEnabled: string;
+        IrmEnabled: boolean;
 
         /**  */
-        IrmExpire: string;
+        IrmExpire: boolean;
 
         /**  */
-        IrmReject: string;
+        IrmReject: boolean;
 
         /** Gets or sets a value that specifies a flag that a client application can use to determine whether to display the list. */
-        IsApplicationList: string;
+        IsApplicationList: boolean;
 
         /** Gets a value that specifies whether the list is a gallery. */
-        IsCatalog: string;
+        IsCatalog: boolean;
 
         /**  */
-        IsPrivate: string;
+        IsPrivate: boolean;
 
         /**
          * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
          */
-        IsSiteAssetsLibrary(): string;
+        IsSiteAssetsLibrary(): boolean;
 
         /** Gets a value that specifies the number of list items in the list. */
-        ItemCount: string;
+        ItemCount: number;
 
         /**
          * Gets the list items in the list.
@@ -224,19 +236,25 @@ declare module $REST.Types {
         /** Gets a value that specifies the last time a list item, field, or property of the list was modified. */
         LastItemModifiedDate: string;
 
+        ListExperienceOptions: number;
+
         /**  */
         ListItemEntityTypeFullName: string;
 
+        MajorVersionLimit: number;
+
+        MajorWithMinorVersionsLimit: number;
+
         /** Gets or sets a value that indicates whether the list in a Meeting Workspace site contains data for multiple meeting instances within the site. */
-        MultipleDataList: string;
+        MultipleDataList: boolean;
 
         /** Gets or sets a value that specifies that the crawler must not crawl the list. */
-        NoCrawl: string;
+        NoCrawl: boolean;
 
         /**
          * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
          */
-        OnQuickLaunch(): string;
+        OnQuickLaunch(): boolean;
 
         /**
          * Gets a value that specifies the site that contains the list.
@@ -245,6 +263,10 @@ declare module $REST.Types {
 
         /** Gets a value that specifies the server-relative URL of the site that contains the list. */
         ParentWebUrl: string;
+
+        ParserDisabled: boolean;
+
+        ReadSecurity: number;
 
         /**
          * Gets the role assignments for the securable object.
@@ -274,13 +296,17 @@ declare module $REST.Types {
         SchemaXml(): string;
 
         /** Gets a value that indicates whether folders can be created within the list. */
-        ServerTemplateCanCreateFolders: string;
+        ServerTemplateCanCreateFolders: boolean;
+
+        Subscriptions(): IBase;
 
         /** Gets a value that specifies the feature identifier of the feature that contains the list schema for the list. Returns an empty GUID if the list schema is not contained within a feature. */
         TemplateFeatureId: string;
 
         /** Gets or sets the displayed title for the list. Its length must be <= 255 characters. */
         Title: string;
+
+        TitleResource(): ComplexTypes.ResourcePath;
 
         /**
          * Gets the user custom actions for the list.
@@ -318,6 +344,8 @@ declare module $REST.Types {
          * Gets a value that specifies the collection of all workflow associations for the list.
          */
         WorkflowAssociations(): string;
+
+        WriteSecurity(): number;
 
         /**
          * Methods

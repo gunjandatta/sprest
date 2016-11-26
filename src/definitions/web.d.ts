@@ -40,7 +40,7 @@ declare module $REST.Types {
         AllowRevertFromTemplateForCurrentUser(): IBase;
 
         /** Gets a value that specifies whether the site allows RSS feeds. */
-        AllowRssFeeds: string;
+        AllowRssFeeds: boolean;
 
         /**
          * Specifies whether the current user can save declarative workflows as a template. If not disabled on the Web application, the value is the same as the AllowSaveDeclarativeWorkflowAsTemplate property of the site collection. Default value: true.
@@ -60,6 +60,8 @@ declare module $REST.Types {
         /** The instance Id of the App Instance that this web represents. */
         AppInstanceId: string;
 
+        AppTiles(): IBase;
+
         /**
          * Gets or sets the group of users who have been given contribute permissions to the Web site.
          */
@@ -75,6 +77,8 @@ declare module $REST.Types {
          */
         AssociatedVisitorGroup(): IGroup;
 
+        Author(): IUser;
+
         /**
          * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
          */
@@ -85,8 +89,10 @@ declare module $REST.Types {
          */
         AvailableFields(): IBase;
 
+        ClientWebParts(): IBase;
+
         /** Gets either the identifier (ID) of the site definition configuration that was used to create the site, or the ID of the site definition configuration from which the site template used to create the site was derived. */
-        Configuration: string;
+        Configuration: number;
 
         /**
          * Gets the content types that are associated with the web.
@@ -110,8 +116,12 @@ declare module $REST.Types {
         /** Gets or sets the URL for a custom master page file to apply to the website. */
         CustomMasterUrl: string;
 
+        DataLeakagePreventionStatusInfo(): IBase;
+
         /** Gets or sets the description for the site. */
         Description: string;
+
+        DescriptionResource(): ComplexTypes.ResourcePath;
 
         /**
          * Gets the URL where the current user can download SharePoint Designer.
@@ -119,7 +129,7 @@ declare module $REST.Types {
         DesignerDownloadUrlForCurrentUser(): IBase;
 
         /** Determines if the Document Library Callout's WAC previewers are enabled or not. */
-        DocumentLibraryCalloutOfficeWebAppPreviewersDisabled: string;
+        DocumentLibraryCalloutOfficeWebAppPreviewersDisabled: boolean;
 
         /**
          * Represents the intersection of permissions of the app principal and the user principal. In the app-only case, this property returns only the permissions of the app principal. To check only user permissions (ignoring app permissions), use the GetUserEffectivePermissions method.
@@ -127,7 +137,9 @@ declare module $REST.Types {
         EffectiveBasePermissions(): string;
 
         /** Gets or sets a Boolean value that specifies whether the Web site should use Minimal Download Strategy. */
-        EnableMinimalDownload: string;
+        EnableMinimalDownload: boolean;
+
+        ExcludeFromOfflineClient: boolean;
 
         /**
          * Gets the event receivers associated with the web.
@@ -171,7 +183,7 @@ declare module $REST.Types {
         Id: string;
 
         /** Gets a value that specifies the LCID for the language that is used on the site. */
-        Language: string;
+        Language: boolean;
 
         /** Gets a value that specifies when an item was last modified in the site. */
         LastItemModifiedDate: string;
@@ -201,15 +213,27 @@ declare module $REST.Types {
         /** Gets or sets the URL of the master page that is used for the website. */
         MasterUrl: string;
 
+        MembersCanShare: boolean;
+
         /**
          * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
          */
         Navigation(): IBase;
 
+        NoCrawl: boolean;
+
+        NotificationsInOneDriveForBusinessEnabled: boolean;
+
+        NotificationsInSharePointEnabled: boolean;
+
+        OverwriteTranslationsOnChange: boolean;
+
         /**
          * Gets the parent website of the specified website.
          */
         ParentWeb(): IBase;
+
+        PreviewFeaturesEnabled: boolean;
 
         /**
          * Gets the collection of push notification subscribers over the site.
@@ -217,7 +241,7 @@ declare module $REST.Types {
         PushNotificationSubscribers(): IBase;
 
         /** Gets or sets a value that specifies whether the Quick Launch area is enabled on the site. */
-        QuickLaunchEnabled: string;
+        QuickLaunchEnabled: boolean;
 
         /**
          * Specifies the collection of recycle bin items of the recycle bin of the site.
@@ -225,12 +249,14 @@ declare module $REST.Types {
         RecycleBin(): IBase;
 
         /** Gets or sets a value that determines whether the recycle bin is enabled for the website. */
-        RecycleBinEnabled: string;
+        RecycleBinEnabled: boolean;
 
         /**
          * Gets the regional settings that are currently implemented on the website.
          */
         RegionalSettings(): IBase;
+
+        RequestAccessEmail: string;
 
         /**
          * Gets the role definitions for the web.
@@ -257,7 +283,9 @@ declare module $REST.Types {
         /**
          * Gets or sets a Boolean value that specifies whether the Web site can be saved as a site template.
          */
-        SaveSiteAsTemplateEnabled(): IBase;
+        SaveSiteAsTemplateEnabled: boolean;
+        
+        ServerRelativePath: ComplexTypes.ResourcePath;
 
         /** Gets or sets the server-relative URL for the Web site. */
         ServerRelativeUrl: string;
@@ -278,6 +306,10 @@ declare module $REST.Types {
          */
         SiteGroups(name:string): IGroup;
 
+        SiteLogoDescription: string;
+
+        SiteLogoUrl: string;
+
         /**
          * Gets the UserInfo list of the site collection that contains the Web site.
          */
@@ -297,27 +329,37 @@ declare module $REST.Types {
         /**
          * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
          */
-        SupportedUILanguageIds(): IBase;
+        SupportedUILanguageIds(): Results.Number;
 
         /** Gets or sets a value that specifies whether the RSS feeds are enabled on the site. */
-        SyndicationEnabled: string;
+        SyndicationEnabled: boolean;
+
+        TenantTagPolicyEnabled: boolean;
+
+        ThemeData: string;
+
+        ThemedCssFolderUrl: string;
 
         /**
          * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
          */
         ThemeInfo(): IBase;
 
+        ThirdPartyMdmEnabled: boolean;
+
         /** Gets or sets the title for the Web site. */
         Title: string;
 
+        TitleResource(): ComplexTypes.ResourcePath;
+
         /** Gets or sets value that specifies whether the tree view is enabled on the site. */
-        TreeViewEnabled: string;
+        TreeViewEnabled: boolean;
 
         /** Gets or sets the user interface (UI) version of the Web site. */
-        UIVersion: string;
+        UIVersion: number;
 
         /** Gets or sets a value that specifies whether the settings UI for visual upgrade is shown or hidden. */
-        UIVersionConfigurationEnabled: string;
+        UIVersionConfigurationEnabled: boolean;
 
         /** Gets the absolute URL for the website. */
         Url: string;

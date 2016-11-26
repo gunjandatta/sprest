@@ -1,6 +1,20 @@
 module $REST.Types {
 
     /**
+     * Check Out Types
+     */
+    export enum CheckOutType {
+        /** Online */
+        Online = 0,
+
+        /** Offline */
+        Offline = 1,
+
+        /** None */
+        None = 2
+    }
+
+    /**
      * Control Modes
      */
     export enum ControlMode {

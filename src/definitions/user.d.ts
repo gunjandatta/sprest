@@ -25,10 +25,12 @@ declare module $REST.Types {
         Id: string;
 
         /** Gets a value that indicates whether this member should be hidden in the UI. */
-        IsHiddenInUI: string;
+        IsHiddenInUI: boolean;
+
+        IsSharedByEmailGuestUser: boolean;
 
         /** Gets or sets a Boolean value that specifies whether the user is a site collection administrator. */
-        IsSiteAdmin: string;
+        IsSiteAdmin: boolean;
 
         /** Gets the login name of the user. */
         LoginName: string;
