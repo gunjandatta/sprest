@@ -71,7 +71,7 @@ declare module $REST.Types {
         /**
          * The user profile properties for the user.
          */
-        UserProfileProperties: Results.KeyValuePair;
+        UserProfileProperties: Results.KeyValue;
 
         /**
          * The URL of the user's profile page.

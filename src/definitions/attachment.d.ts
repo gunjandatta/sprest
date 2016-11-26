@@ -11,10 +11,10 @@ declare module $REST.Types {
         FileName: string;
 
         /** The filename as a path. */
-        FileNameAsPath: any;
+        FileNameAsPath: ComplexTypes.ResourcePath;
 
         /** The server relative path. */
-        ServerRelativePath: any;
+        ServerRelativePath: ComplexTypes.ResourcePath;
 
         /** The server relative url. */
         ServerRelativeUrl: string;

@@ -11,6 +11,7 @@
         "src/definitions/attachment.d.ts",
         "src/definitions/attachmentFiles.d.ts",
         "src/definitions/base.d.ts",
+        "src/definitions/complexTypes.d.ts",
         "src/definitions/contentType.d.ts",
         "src/definitions/contentTypes.d.ts",
         "src/definitions/email.d.ts",

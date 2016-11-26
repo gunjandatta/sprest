@@ -13,7 +13,7 @@ declare module $REST.Types {
      */
     interface IDataTableRow {
         /** The cells. */
-        Cells: Array<Settings.KeyValuePair>
+        Cells: Array<ComplexTypes.KeyValue>
     }
 
     /**
@@ -55,7 +55,7 @@ declare module $REST.Types {
         PrimaryQueryResult: IQueryResult;
 
         /** The properties. */
-        Properties: Array<Settings.KeyValuePair>;
+        Properties: Array<ComplexTypes.KeyValue>;
 
         /** The secondary query results. */
         SecondaryQueryResults: Array<IQueryResult>;
@@ -101,7 +101,7 @@ declare module $REST.Types {
         ItemTemplateId: string;
 
         /** The properties. */
-        Properties: Array<Settings.KeyValuePair>;
+        Properties: Array<ComplexTypes.KeyValue>;
 
         /** The result title. */
         ResultTitle: string;

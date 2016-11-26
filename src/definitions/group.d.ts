@@ -8,30 +8,30 @@ declare module $REST.Types {
          */
 
         /** Gets or sets a value that indicates whether the group members can edit membership in the group. */
-        AllowMembersEditMembership: string;
+        AllowMembersEditMembership: boolean;
 
         /** Gets or sets a value that indicates whether to allow users to request membership in the group and request to leave the group. */
-        AllowRequestToJoinLeave: string;
+        AllowRequestToJoinLeave: boolean;
 
         /**
          * Gets or sets a value that indicates whether the request to join or leave the group can be accepted automatically.
          */
-        AutoAcceptRequestToJoinLeave(): string;
+        AutoAcceptRequestToJoinLeave(): boolean;
 
         /**
          * Gets a value that indicates whether the current user can edit the membership of the group.
          */
-        CanCurrentUserEditMembership(): string;
+        CanCurrentUserEditMembership(): boolean;
 
         /**
          * Gets a value that indicates whether the current user can manage the group.
          */
-        CanCurrentUserManageGroup(): string;
+        CanCurrentUserManageGroup(): boolean;
 
         /**
          * Gets a value that indicates whether the current user can view the membership of the group.
          */
-        CanCurrentUserViewMembership(): string;
+        CanCurrentUserViewMembership(): boolean;
 
         /** Gets or sets the description of the group. */
         Description: string;
@@ -46,7 +46,7 @@ declare module $REST.Types {
         LoginName: string;
 
         /** Gets or sets a value that indicates whether only group members are allowed to view the membership of the group. */
-        OnlyAllowMembersViewMembership: string;
+        OnlyAllowMembersViewMembership: boolean;
 
         /**
          * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.

@@ -95,20 +95,6 @@ declare module $REST.Settings {
     }
 
     /**
-     * Key-Value Pair
-     */
-    interface KeyValuePair {
-        /** The key. */
-        Key: string;
-
-        /** The value. */
-        Value: any;
-
-        /** The value type. */
-        ValueType: string;
-    }
-
-    /**
      * List Creation Information
      */
     interface ListCreationInformation {

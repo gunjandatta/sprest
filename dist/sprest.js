@@ -2486,7 +2486,7 @@ var $REST;
         /*********************************************************************************************************************************/
         properties: [
             "Author|user", "CheckedOutByUser|user", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
-            "ListItemAllFields", "LockedByUser|user", "ModifiedBy|user", "Properties", "VersionEvents", "Versions|fileversions"
+            "ListItemAllFields", "LockedByUser|user", "ModifiedBy|user", "Properties|propertyvalues", "VersionEvents", "Versions|fileversions"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -2683,7 +2683,7 @@ var $REST;
         /*********************************************************************************************************************************/
         properties: [
             "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
-            "ParentFolder|folder", "Properties", "StorageMetrics"
+            "ParentFolder|folder", "Properties|propertyvalues", "StorageMetrics"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -2722,8 +2722,8 @@ var $REST;
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields", "ParentFolder",
-            "Properties", "StorageMetrics"
+            "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
+            "ParentFolder", "StorageMetrics"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -2958,7 +2958,7 @@ var $REST;
         properties: [
             "AttachmentFiles|attachmentfiles|('[Name]')|attachment", "ContentType|contenttype", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
             "File|file", "FirstUniqueAncestorSecurableObject", "Folder|folder", "GetDlpPolicyTip", "ParentList|list",
-            "RoleAssignments|roleassignments|roleassignments|([Name])|roleassignment"
+            "Properties|propertyvalues", "RoleAssignments|roleassignments|roleassignments|([Name])|roleassignment"
         ],
         /*********************************************************************************************************************************/
         // Methods
@@ -3232,13 +3232,14 @@ var $REST;
     // Library
     /*********************************************************************************************************************************/
     $REST.Library.propertyvalues = {
-        add: {
-            metadataType: "SP.KeyValue",
-            name: "",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.Types.RequestType.OData
         },
+        // Updates it's properties.
         update: {
-            metadataType: "SP.KeyValue",
+            metadataType: "SP.PropertyValue",
             name: "",
             requestMethod: "MERGE",
             requestType: $REST.Types.RequestType.PostWithArgsInBody
@@ -3961,14 +3962,14 @@ var $REST;
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "AllProperties", "AppTiles", "AssociatedMemberGroup|group", "AssociatedOwnerGroup|group", "AssociatedVisitorGroup|group",
-            "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields", "ClientWebParts",
-            "ContentTypes|contenttypes|('[Name]')|contenttype", "CurrentUser|user", "DataLeakagePreventionStatusInfo",
+            "AllProperties|propertyvalues", "AppTiles", "AssociatedMemberGroup|group", "AssociatedOwnerGroup|group",
+            "AssociatedVisitorGroup|group", "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields",
+            "ClientWebParts", "ContentTypes|contenttypes|('[Name]')|contenttype", "CurrentUser|user", "DataLeakagePreventionStatusInfo",
             "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features",
             "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "FirstUniqueAncestorSecurableObject",
             "Folders|folders|/getByUrl('[Name]')|folder", "Lists|lists|/getByTitle('[Name]')|list",
-            "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb", "PushNotificationSubscribers", "RecycleBin",
-            "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
+            "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb",
+            "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
             "RoleDefinitions|roledefinitions|/getByName('[Name]')|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
             "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user", "ThemeInfo", "TitleResource",
             "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
