@@ -4,8 +4,8 @@ declare module $REST.ComplexTypes {
      * Method Information Settings
      */
     interface MethodInfoSettings {
-        argNames?: [string];
-        argValues?: [any];
+        argNames?: Array<string>;
+        argValues?: Array<any>;
         data?: any;
         inheritMetadataType?: boolean;        
         metadataType?: string;

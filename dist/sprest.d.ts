@@ -54,6 +54,9 @@ declare module $REST {
 
     /** Profile Loader */
     let ProfileLoader:Types.IProfileLoader;
+
+    /** Search */
+    let Search:Types.ISearch;
     
     /** Site */
     let Site:Types.ISite;
@@ -1197,6 +1200,68 @@ declare module $REST.ComplexTypes {
     }
 
     /**
+     * Search Query Result
+     */
+    interface SearchQueryResult extends Types.IBase {
+        query: SearchResult;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         */
+        execute(callback?:(...args) => any): SearchQueryResult;
+
+        /**
+         * Method to execute the request.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(waitFl:boolean): SearchQueryResult;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(callback:any, waitFl:boolean): SearchQueryResult;
+
+        /**
+         * Method to execute the request synchronously.
+         */
+        executeAndWait(): SearchQueryResult;
+    }
+
+    /**
+     * Search Post Query Result
+     */
+    interface SearchPostQueryResult extends Types.IBase {
+        postquery: SearchResult;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         */
+        execute(callback?:(...args) => any): SearchPostQueryResult;
+
+        /**
+         * Method to execute the request.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(waitFl:boolean): SearchPostQueryResult;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(callback:any, waitFl:boolean): SearchPostQueryResult;
+
+        /**
+         * Method to execute the request synchronously.
+         */
+        executeAndWait(): SearchPostQueryResult;
+    }
+
+    /**
      * Search Request
      */
     interface SearchRequest {
@@ -1268,7 +1333,7 @@ declare module $REST.ComplexTypes {
         ProcessPersonalFavorites?: boolean;
         
         /** Additional properties for the query. */
-        Properties?: Types.IPropertyValues;
+        Properties?: Results.KeyValue;
 
         /** Custom tags that identify the query. You can specify multiple query tags, separated by semicolons. */
         QueryTag?: string;
@@ -1342,7 +1407,7 @@ declare module $REST.ComplexTypes {
     interface SearchResult {
         ElapsedTime?: number;
         PrimaryQueryResult: QueryResult;
-        Properties: Types.IPropertyValues;
+        Properties: Results.KeyValue;
         SecondaryQueryResults: Results.QueryResult;
         SpellingSuggestion: string;
         TriggeredRules?: Results.String;
@@ -1351,7 +1416,7 @@ declare module $REST.ComplexTypes {
     /**
      * Search Suggestion
      */
-    interface SearchSuggest {
+    interface SearchSuggestion {
         ClientType?: string;
 
         /** The locale ID (LCID) for the query (see Locale IDs Assigned by Microsoft). */
@@ -1392,6 +1457,37 @@ declare module $REST.ComplexTypes {
         SourceId?: string;
 
         UseOLSQuery?: boolean;
+    }
+
+    /**
+     * Search Suggestion Result
+     */
+    interface SearchSuggestionResult extends Types.IBase {
+        suggest: QuerySuggestionResults;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         */
+        execute(callback?:(...args) => any): SearchSuggestionResult;
+
+        /**
+         * Method to execute the request.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(waitFl:boolean): SearchSuggestionResult;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(callback:any, waitFl:boolean): SearchSuggestionResult;
+
+        /**
+         * Method to execute the request synchronously.
+         */
+        executeAndWait(): SearchSuggestionResult;
     }
 
     /**
@@ -4143,8 +4239,8 @@ declare module $REST.ComplexTypes {
      * Method Information Settings
      */
     interface MethodInfoSettings {
-        argNames?: [string];
-        argValues?: [any];
+        argNames?: Array<string>;
+        argValues?: Array<any>;
         data?: any;
         inheritMetadataType?: boolean;        
         metadataType?: string;
@@ -4523,7 +4619,7 @@ declare module $REST.Types {
     /**
      * Property Values
      */
-    interface IPropertyValues extends IBase {
+    interface IPropertyValues extends IBase, Results.KeyValue {
         /**
          * Queries the collection.
          * @param oData - The OData information.
@@ -5038,17 +5134,17 @@ declare module $REST.Types {
         /** Method to execute a search query.
          * @param settings - The search request settings.
         */
-        postquery(settings:ComplexTypes.SearchRequest) : ComplexTypes.SearchResult;
+        postquery(settings:ComplexTypes.SearchRequest) : ComplexTypes.SearchPostQueryResult;
 
         /** Method to execute a search query.
          * @param settings - The search request settings.
         */
-        query(settings:ComplexTypes.SearchRequest) : ComplexTypes.SearchResult;
+        query(settings:ComplexTypes.SearchRequest) : ComplexTypes.SearchQueryResult;
 
         /** Method to execute a search suggestion.
          * @param settings - The search suggest settings.
         */
-        suggest(settings:ComplexTypes.SearchSuggest) : ComplexTypes.QuerySuggestionResults;
+        suggest(settings:ComplexTypes.SearchSuggestion) : ComplexTypes.SearchSuggestionResult;
     }
 }
 declare module $REST.Types {

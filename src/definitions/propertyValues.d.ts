@@ -3,7 +3,7 @@ declare module $REST.Types {
     /**
      * Property Values
      */
-    interface IPropertyValues extends IBase {
+    interface IPropertyValues extends IBase, Results.KeyValue {
         /**
          * Queries the collection.
          * @param oData - The OData information.

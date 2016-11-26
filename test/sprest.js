@@ -3262,13 +3262,6 @@ var $REST;
         query: {
             argNames: ["oData"],
             requestType: $REST.Types.RequestType.OData
-        },
-        // Updates it's properties.
-        update: {
-            metadataType: "SP.PropertyValue",
-            name: "",
-            requestMethod: "MERGE",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
         }
     };
 })($REST || ($REST = {}));
@@ -3397,6 +3390,38 @@ var $REST;
             // Add the methods
             this.addMethods(this, { __metadata: { type: "search" } });
         }
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
+        // Method to compute the argument names
+        Search.prototype.getArgNames = function (parameters) {
+            var argNames = [];
+            // Parse the arguments
+            for (var key in parameters) {
+                // Append the argument to the array
+                argNames.push(key);
+            }
+            // Return the argument names
+            return argNames;
+        };
+        /** The query method */
+        Search.prototype.query = function (settings) {
+            // Execute the request
+            return this.executeMethod("query", {
+                argNames: this.getArgNames(settings),
+                name: "query",
+                requestType: $REST.Types.RequestType.GetWithArgs
+            }, settings);
+        };
+        /** The suggest method */
+        Search.prototype.suggest = function (settings) {
+            // Execute the request
+            return this.executeMethod("suggest", {
+                argNames: this.getArgNames(settings),
+                name: "suggest",
+                requestType: $REST.Types.RequestType.GetWithArgs
+            }, settings);
+        };
         return Search;
     }($REST.Base));
     $REST.Search = Search;
@@ -3404,20 +3429,10 @@ var $REST;
     // Methods
     /*********************************************************************************************************************************/
     $REST.Library.search = {
-        query: {
-            argNames: ["settings"],
-            metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
-        },
         postquery: {
             argNames: ["request"],
             metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
             requestType: $REST.Types.RequestType.PostWithArgsInBody
-        },
-        suggest: {
-            argNames: ["queryText"],
-            metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
-            requestType: $REST.Types.RequestType.GetWithArgs
         }
     };
 })($REST || ($REST = {}));

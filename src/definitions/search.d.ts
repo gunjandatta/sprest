@@ -18,16 +18,16 @@ declare module $REST.Types {
         /** Method to execute a search query.
          * @param settings - The search request settings.
         */
-        postquery(settings:ComplexTypes.SearchRequest) : ComplexTypes.SearchResult;
+        postquery(settings:ComplexTypes.SearchRequest) : ComplexTypes.SearchPostQueryResult;
 
         /** Method to execute a search query.
          * @param settings - The search request settings.
         */
-        query(settings:ComplexTypes.SearchRequest) : ComplexTypes.SearchResult;
+        query(settings:ComplexTypes.SearchRequest) : ComplexTypes.SearchQueryResult;
 
         /** Method to execute a search suggestion.
          * @param settings - The search suggest settings.
         */
-        suggest(settings:ComplexTypes.SearchSuggest) : ComplexTypes.QuerySuggestionResults;
+        suggest(settings:ComplexTypes.SearchSuggestion) : ComplexTypes.SearchSuggestionResult;
     }
 }

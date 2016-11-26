@@ -54,6 +54,9 @@ declare module $REST {
 
     /** Profile Loader */
     let ProfileLoader:Types.IProfileLoader;
+
+    /** Search */
+    let Search:Types.ISearch;
     
     /** Site */
     let Site:Types.ISite;
