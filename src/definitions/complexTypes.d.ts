@@ -963,68 +963,6 @@ declare module $REST.ComplexTypes {
     }
 
     /**
-     * Search Query Result
-     */
-    interface SearchQueryResult extends Types.IBase {
-        query: SearchResult;
-
-        /**
-         * Method to execute the request.
-         * @param callback - The method to be executed after the request completes.
-         */
-        execute(callback?:(...args) => any): SearchQueryResult;
-
-        /**
-         * Method to execute the request.
-         * @param waitFl - Flag to execute the request, after the previous requests have completed.
-         */
-        execute(waitFl:boolean): SearchQueryResult;
-
-        /**
-         * Method to execute the request.
-         * @param callback - The method to be executed after the request completes.
-         * @param waitFl - Flag to execute the request, after the previous requests have completed.
-         */
-        execute(callback:any, waitFl:boolean): SearchQueryResult;
-
-        /**
-         * Method to execute the request synchronously.
-         */
-        executeAndWait(): SearchQueryResult;
-    }
-
-    /**
-     * Search Post Query Result
-     */
-    interface SearchPostQueryResult extends Types.IBase {
-        postquery: SearchResult;
-
-        /**
-         * Method to execute the request.
-         * @param callback - The method to be executed after the request completes.
-         */
-        execute(callback?:(...args) => any): SearchPostQueryResult;
-
-        /**
-         * Method to execute the request.
-         * @param waitFl - Flag to execute the request, after the previous requests have completed.
-         */
-        execute(waitFl:boolean): SearchPostQueryResult;
-
-        /**
-         * Method to execute the request.
-         * @param callback - The method to be executed after the request completes.
-         * @param waitFl - Flag to execute the request, after the previous requests have completed.
-         */
-        execute(callback:any, waitFl:boolean): SearchPostQueryResult;
-
-        /**
-         * Method to execute the request synchronously.
-         */
-        executeAndWait(): SearchPostQueryResult;
-    }
-
-    /**
      * Search Request
      */
     interface SearchRequest {
@@ -1220,37 +1158,6 @@ declare module $REST.ComplexTypes {
         SourceId?: string;
 
         UseOLSQuery?: boolean;
-    }
-
-    /**
-     * Search Suggestion Result
-     */
-    interface SearchSuggestionResult extends Types.IBase {
-        suggest: QuerySuggestionResults;
-
-        /**
-         * Method to execute the request.
-         * @param callback - The method to be executed after the request completes.
-         */
-        execute(callback?:(...args) => any): SearchSuggestionResult;
-
-        /**
-         * Method to execute the request.
-         * @param waitFl - Flag to execute the request, after the previous requests have completed.
-         */
-        execute(waitFl:boolean): SearchSuggestionResult;
-
-        /**
-         * Method to execute the request.
-         * @param callback - The method to be executed after the request completes.
-         * @param waitFl - Flag to execute the request, after the previous requests have completed.
-         */
-        execute(callback:any, waitFl:boolean): SearchSuggestionResult;
-
-        /**
-         * Method to execute the request synchronously.
-         */
-        executeAndWait(): SearchSuggestionResult;
     }
 
     /**
