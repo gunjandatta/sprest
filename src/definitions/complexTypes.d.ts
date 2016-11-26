@@ -1200,6 +1200,247 @@ declare module $REST.ComplexTypes {
     }
 
     /**
+     * Social Actor
+     */
+    interface SocialActor {
+        AccountName: string;
+        ActorType?: number;
+        CanFollow?: boolean;
+        ContentUri: string;
+        EmailAddress: string;
+        FollowedContentUri: string;
+        Id: string;
+        ImageUri: string;
+        IsFollowed?: boolean;
+        LibraryUri: string;
+        Name: string;
+        PersonSiteUri: string;
+        Status?: number;
+        StatusText: string;
+        TagGuid?: string;
+        Title: string;
+        Uri: string;
+    }
+
+    /**
+     * Social Attachment
+     */
+    interface SocialAttachment {
+        AttachmentKind?: number;
+        ClickAction: SocialAttachmentAction;
+        ContentUri: string;
+        Description: string;
+        Height?: number;
+        Length?: number;
+        Name: string;
+        PreviewHeight?: number;
+        PreviewUri: string;
+        PreviewWidth?: number;
+        Uri: string;
+        Width?: number;
+    }
+
+    /**
+     * Social Attachment Action
+     */
+    interface SocialAttachmentAction {
+        ActionKind?: number;
+        ActionUri: string;
+        Height?: number;
+        Width?: number;
+    }
+
+    /**
+     * Social Data Item
+     */
+    interface SocialDataItem {
+        AccountName?: string;
+        ItemType?: string;
+        Text: string;
+        Uri: string;
+    }
+
+    /**
+     * Social Data Overlay
+     */
+    interface SocialDataOverlay {
+        ActorIndexes?: Results.Number;
+        Index?: number;
+        Length?: number;
+        LinkUri: string;
+        OverlayType?: number;
+    }
+
+    /**
+     * Social Exception Details
+     */
+    interface SocialExceptionDetails {
+        InternalErrorCode?: number;
+        InternalMessage: string;
+        InternalStackTrace: string;
+        InternalTypeName: string;
+        Status?: number;
+    }
+
+    /**
+     * Social Feed Options
+     */
+    interface SocialFeedOptions {
+        MaxThreadCount?: number;
+        NewerThan?: string;
+        OlderThan?: string;
+        SortOrder?: number;
+    }
+
+    /**
+     * Social Feed
+     */
+    interface SocialFeed {
+        Attributes?: number;
+        NewestProcessed?: string;
+        OldestProcessed?: string;
+        Threads: Results.SocialThread;
+        UnreadMentionCount?: number;
+    }
+
+    /**
+     * Social Feed Manager
+     */
+    interface SocialFeedManager {
+        Owner: SocialActor;
+        PersonalSitePortalUri?: string;
+    }
+
+    /**
+     * Social Following Manager
+     */
+    interface SocialFollowingManager {
+        FollowedDocumentsUri?: string;
+        FollowedSitesUri: string;
+    }
+
+    /**
+     * Social Link
+     */
+    interface SocialLink {
+        Text: string;
+        Uri: string;
+    }
+
+    /**
+     * Social Post
+     */
+    interface SocialPost {
+        Attachment: SocialAttachment;
+        Attributes?: number;
+        AuthorIndex?: number;
+        CreatedTime?: string;
+        Id?: string;
+        LikerInfo?: SocialPostActorInfo;
+        ModifiedTime?: string;
+        Overlays: Results.SocialDataOverlay;
+        PostType?: number;
+        PreferredImageUri: string;
+        Source: SocialLink;
+        Text: string;
+    }
+
+    /**
+     * Social Post Actor Info
+     */
+    interface SocialPostActorInfo {
+        IncludesCurrentUser?: boolean;
+        Indexes?: Results.Number;
+        TotalCount?: number;
+    }
+
+    /**
+     * Social Post Creation Data
+     */
+    interface SocialPostCreationData {
+        Attachment: SocialAttachment;
+        ContentItems: Results.SocialDataItem;
+        ContentText: string;
+        DefinitionData: SocialPostDefinitionData;
+        SecurityUris: Results.String;
+        Source: SocialLink;
+        UpdateStatusText?: boolean;
+    }
+
+    /**
+     * Social Post Definition Data
+     */
+    interface SocialPostDefinitionData {
+        Items: Results.SocialPostDefinitionDataItem;
+        Name: string;
+    }
+
+    /**
+     * Social Post Definition Data Item
+     */
+    interface SocialPostDefinitionDataItem {
+        AccountName: string;
+        ItemType?: number;
+        PlaceholderName: string;
+        TagGuid?: string;
+        Text: string;
+        Uri: string;
+    }
+
+    /**
+     * Social Post Reference
+     */
+    interface SocialPostReference {
+        Digest: SocialThread;
+        Post: SocialPost;
+        ThreadId: string;
+        ThreadOwnerIndex?: number;
+    }
+
+    /**
+     * Social Rest Feed
+     */
+    interface SocialRestFeed {
+        SocialFeed: SocialFeed;
+    }
+
+    /**
+     * Social Rest Following Manager
+     */
+    interface SocialRestFollowingManager {
+        FollowedDocumentsUri?: string;
+        FollowedSitesUri: string;
+        MyFollowedDocumentsUri: string;
+        MyFollowedSitesUri: string;
+        SocialActor: SocialActor;
+    }
+
+    /**
+     * Social Rest Post Creation Data
+     */
+    interface SocialRestPostCreationData {
+        ID: string;
+        creationData: SocialPostCreationData;
+    }
+
+    /**
+     * Social Thread
+     */
+    interface SocialThread {
+        Actors: Results.SocialActor;
+        Attributes?: number;
+        Id: string;
+        OwnerIndex?: number;
+        PermaLink: string;
+        PostReference: SocialPostReference;
+        Replies: Results.SocialPost;
+        RootPost: SocialPost;
+        Status?: number;
+        ThreadType?: number;
+        TotalReplyCount?: number;
+    }
+
+    /**
      * Sort
      */
     interface Sort {

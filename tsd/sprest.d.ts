@@ -61,6 +61,9 @@ declare module $REST {
     /** Site */
     let Site:Types.ISite;
 
+    /** Social */
+    let SocialFeed:Types.ISocialFeed;
+
     /** User Profile */
     let UserProfile:Types.IBase;
     

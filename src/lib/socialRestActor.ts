@@ -1,10 +1,31 @@
 module $REST {
     /*********************************************************************************************************************************/
-    // Social REST Actor
+    // Social Rest Actor
     /*********************************************************************************************************************************/
-    Library.socialrestactor = {};
-    Library.socialrestactor[Types.RequestType.Custom] = [
-        { name: "createPost", "function": function (data) { data = { restCreationData: { __metadata: { type: "SP.Social.SocialRestPostCreationData" }, ID: null, creationData: data } }; data.restCreationData.creationData.__metadata = { type: "SP.Social.SocialPostCreationData" }; return this.executePost("feed/post", null, data, true); } },
-        { name: "getFeed", "function": function () { return this.executeGet("feed"); } },
-    ];
+    export class SocialRestActor extends Base {
+
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        constructor(accountName?:string, targetInfo?:ComplexTypes.TargetInfoSettings) {
+            // Call the base constructor
+            super(targetInfo);
+
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.responses = [];
+            this.targetInfo.endpoint = "social.feed/" +
+                (accountName && accountName.length > 0 ? "actor(item=@v)?@v='" + encodeURIComponent(accountName) + "'" : "my");
+
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "socialrestactor" } } );
+        }
+    }
+
+    /*********************************************************************************************************************************/
+    // Libraries
+    /*********************************************************************************************************************************/
+    Library.socialrestactor = {
+        properties: ["Delete", "Like", "Lock", "Reply", "Unlike", "Unlock"]
+    }
 }

@@ -134,6 +134,55 @@ declare module $REST.Results {
         /** The collection of shared users. */
         results: Array<ComplexTypes.SharedWithUser>
     }
+    
+    /**
+     * Social Actor
+     */
+    interface SocialActor {
+        /** The collection of social actors. */
+        results: Array<ComplexTypes.SocialActor>;
+    }
+
+    /**
+     * Social Data Item
+     */
+    interface SocialDataItem {
+        /** The collection of social data items. */
+        results: Array<ComplexTypes.SocialDataItem>;
+    }
+
+    /**
+     * Social Data Overlay
+     */
+    interface SocialDataOverlay {
+        /** The collection of social data overlays. */
+        results: Array<ComplexTypes.SocialDataOverlay>;
+    }
+    
+
+    /**
+     * Social Post
+     */
+    interface SocialPost {
+        /** The collection of social posts. */
+        results: Array<ComplexTypes.SocialPost>;
+    }
+
+    /**
+     * Social Post Definition Data Item
+     */
+    interface SocialPostDefinitionDataItem {
+        /** The collection of social post definition data items. */
+        results: Array<ComplexTypes.SocialPostDefinitionDataItem>;
+    }
+
+    /**
+     * Social Thread
+     */
+    interface SocialThread {
+        /** The collection of social threads. */
+        results: Array<ComplexTypes.SocialThread>;
+    }
 
     /**
      * String Collection

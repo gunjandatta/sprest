@@ -5,6 +5,8 @@ module GD {
     }
 }
 
+var my = $REST.SocialFeed.My().executeAndWait();
+
 var web = new $REST.Web();
 
 // Get the source folder

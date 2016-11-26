@@ -61,6 +61,9 @@ declare module $REST {
     /** Site */
     let Site:Types.ISite;
 
+    /** Social */
+    let SocialFeed:Types.ISocialFeed;
+
     /** User Profile */
     let UserProfile:Types.IBase;
     
@@ -1434,6 +1437,247 @@ declare module $REST.ComplexTypes {
      */
     interface SimpleDataTable {
         Rows: Results.KeyValue;
+    }
+
+    /**
+     * Social Actor
+     */
+    interface SocialActor {
+        AccountName: string;
+        ActorType?: number;
+        CanFollow?: boolean;
+        ContentUri: string;
+        EmailAddress: string;
+        FollowedContentUri: string;
+        Id: string;
+        ImageUri: string;
+        IsFollowed?: boolean;
+        LibraryUri: string;
+        Name: string;
+        PersonSiteUri: string;
+        Status?: number;
+        StatusText: string;
+        TagGuid?: string;
+        Title: string;
+        Uri: string;
+    }
+
+    /**
+     * Social Attachment
+     */
+    interface SocialAttachment {
+        AttachmentKind?: number;
+        ClickAction: SocialAttachmentAction;
+        ContentUri: string;
+        Description: string;
+        Height?: number;
+        Length?: number;
+        Name: string;
+        PreviewHeight?: number;
+        PreviewUri: string;
+        PreviewWidth?: number;
+        Uri: string;
+        Width?: number;
+    }
+
+    /**
+     * Social Attachment Action
+     */
+    interface SocialAttachmentAction {
+        ActionKind?: number;
+        ActionUri: string;
+        Height?: number;
+        Width?: number;
+    }
+
+    /**
+     * Social Data Item
+     */
+    interface SocialDataItem {
+        AccountName?: string;
+        ItemType?: string;
+        Text: string;
+        Uri: string;
+    }
+
+    /**
+     * Social Data Overlay
+     */
+    interface SocialDataOverlay {
+        ActorIndexes?: Results.Number;
+        Index?: number;
+        Length?: number;
+        LinkUri: string;
+        OverlayType?: number;
+    }
+
+    /**
+     * Social Exception Details
+     */
+    interface SocialExceptionDetails {
+        InternalErrorCode?: number;
+        InternalMessage: string;
+        InternalStackTrace: string;
+        InternalTypeName: string;
+        Status?: number;
+    }
+
+    /**
+     * Social Feed Options
+     */
+    interface SocialFeedOptions {
+        MaxThreadCount?: number;
+        NewerThan?: string;
+        OlderThan?: string;
+        SortOrder?: number;
+    }
+
+    /**
+     * Social Feed
+     */
+    interface SocialFeed {
+        Attributes?: number;
+        NewestProcessed?: string;
+        OldestProcessed?: string;
+        Threads: Results.SocialThread;
+        UnreadMentionCount?: number;
+    }
+
+    /**
+     * Social Feed Manager
+     */
+    interface SocialFeedManager {
+        Owner: SocialActor;
+        PersonalSitePortalUri?: string;
+    }
+
+    /**
+     * Social Following Manager
+     */
+    interface SocialFollowingManager {
+        FollowedDocumentsUri?: string;
+        FollowedSitesUri: string;
+    }
+
+    /**
+     * Social Link
+     */
+    interface SocialLink {
+        Text: string;
+        Uri: string;
+    }
+
+    /**
+     * Social Post
+     */
+    interface SocialPost {
+        Attachment: SocialAttachment;
+        Attributes?: number;
+        AuthorIndex?: number;
+        CreatedTime?: string;
+        Id?: string;
+        LikerInfo?: SocialPostActorInfo;
+        ModifiedTime?: string;
+        Overlays: Results.SocialDataOverlay;
+        PostType?: number;
+        PreferredImageUri: string;
+        Source: SocialLink;
+        Text: string;
+    }
+
+    /**
+     * Social Post Actor Info
+     */
+    interface SocialPostActorInfo {
+        IncludesCurrentUser?: boolean;
+        Indexes?: Results.Number;
+        TotalCount?: number;
+    }
+
+    /**
+     * Social Post Creation Data
+     */
+    interface SocialPostCreationData {
+        Attachment: SocialAttachment;
+        ContentItems: Results.SocialDataItem;
+        ContentText: string;
+        DefinitionData: SocialPostDefinitionData;
+        SecurityUris: Results.String;
+        Source: SocialLink;
+        UpdateStatusText?: boolean;
+    }
+
+    /**
+     * Social Post Definition Data
+     */
+    interface SocialPostDefinitionData {
+        Items: Results.SocialPostDefinitionDataItem;
+        Name: string;
+    }
+
+    /**
+     * Social Post Definition Data Item
+     */
+    interface SocialPostDefinitionDataItem {
+        AccountName: string;
+        ItemType?: number;
+        PlaceholderName: string;
+        TagGuid?: string;
+        Text: string;
+        Uri: string;
+    }
+
+    /**
+     * Social Post Reference
+     */
+    interface SocialPostReference {
+        Digest: SocialThread;
+        Post: SocialPost;
+        ThreadId: string;
+        ThreadOwnerIndex?: number;
+    }
+
+    /**
+     * Social Rest Feed
+     */
+    interface SocialRestFeed {
+        SocialFeed: SocialFeed;
+    }
+
+    /**
+     * Social Rest Following Manager
+     */
+    interface SocialRestFollowingManager {
+        FollowedDocumentsUri?: string;
+        FollowedSitesUri: string;
+        MyFollowedDocumentsUri: string;
+        MyFollowedSitesUri: string;
+        SocialActor: SocialActor;
+    }
+
+    /**
+     * Social Rest Post Creation Data
+     */
+    interface SocialRestPostCreationData {
+        ID: string;
+        creationData: SocialPostCreationData;
+    }
+
+    /**
+     * Social Thread
+     */
+    interface SocialThread {
+        Actors: Results.SocialActor;
+        Attributes?: number;
+        Id: string;
+        OwnerIndex?: number;
+        PermaLink: string;
+        PostReference: SocialPostReference;
+        Replies: Results.SocialPost;
+        RootPost: SocialPost;
+        Status?: number;
+        ThreadType?: number;
+        TotalReplyCount?: number;
     }
 
     /**
@@ -4748,6 +4992,55 @@ declare module $REST.Results {
         /** The collection of shared users. */
         results: Array<ComplexTypes.SharedWithUser>
     }
+    
+    /**
+     * Social Actor
+     */
+    interface SocialActor {
+        /** The collection of social actors. */
+        results: Array<ComplexTypes.SocialActor>;
+    }
+
+    /**
+     * Social Data Item
+     */
+    interface SocialDataItem {
+        /** The collection of social data items. */
+        results: Array<ComplexTypes.SocialDataItem>;
+    }
+
+    /**
+     * Social Data Overlay
+     */
+    interface SocialDataOverlay {
+        /** The collection of social data overlays. */
+        results: Array<ComplexTypes.SocialDataOverlay>;
+    }
+    
+
+    /**
+     * Social Post
+     */
+    interface SocialPost {
+        /** The collection of social posts. */
+        results: Array<ComplexTypes.SocialPost>;
+    }
+
+    /**
+     * Social Post Definition Data Item
+     */
+    interface SocialPostDefinitionDataItem {
+        /** The collection of social post definition data items. */
+        results: Array<ComplexTypes.SocialPostDefinitionDataItem>;
+    }
+
+    /**
+     * Social Thread
+     */
+    interface SocialThread {
+        /** The collection of social threads. */
+        results: Array<ComplexTypes.SocialThread>;
+    }
 
     /**
      * String Collection
@@ -5511,9 +5804,133 @@ declare module $REST.Types {
     }
 }
 
+declare module $REST.Types {
 
+    /**
+     * Social Feed
+     */
+    interface ISocialFeed {
+        /**
+         * Properties
+         */
 
+        /**
+         * User Feed
+         * @param accountName - The user account name;
+         */
+        Actor(accountName:string): ISocialRestActor;
 
+        /**
+         * My Feed
+         */
+        My(): ISocialRestActor;
+
+        /**
+         * Post
+         * @param id - The post id.
+         */
+        Post(id:string): IBase;
+    }
+}
+declare module $REST.Types {
+    /**
+     * Social Rest Actor
+     */
+    interface ISocialRestActor extends IBase {
+        /**
+         * Constructor
+         * @param accountName - The user account name.
+         * @param targetInfo - The target information.
+         */
+        new(accountName?:string, targetInfo?:ComplexTypes.TargetInfoSettings): ISocialRestActor;
+
+        /**
+         * Properties
+         */
+
+        FollowableItem?: string;
+
+        FollwableItemActor: ComplexTypes.SocialActor;
+
+        Me: ComplexTypes.SocialActor;
+
+        /**
+         * Methods
+         */
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         */
+        execute(callback?:(...args) => any): ISocialRestActor;
+
+        /**
+         * Method to execute the request.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(waitFl:boolean): ISocialRestActor;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(callback:any, waitFl:boolean): ISocialRestActor;
+
+        /**
+         * Method to execute the request synchronously.
+         */
+        executeAndWait(): ISocialRestActor;
+    }
+}
+declare module $REST.Types {
+    /**
+     * Social Rest Thread
+     */
+    interface ISocialRestThread extends IBase {
+        /**
+         * Constructor
+         * @param targetInfo - The target information.
+         */
+        new(targetInfo?:ComplexTypes.TargetInfoSettings): ISocialRestThread;
+
+        /**
+         * Properties
+         */
+
+        ID?: string;
+
+        SocialThread: ComplexTypes.SocialThread;
+
+        /**
+         * Methods
+         */
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         */
+        execute(callback?:(...args) => any): ISocialRestThread;
+
+        /**
+         * Method to execute the request.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(waitFl:boolean): ISocialRestThread;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(callback:any, waitFl:boolean): ISocialRestThread;
+
+        /**
+         * Method to execute the request synchronously.
+         */
+        executeAndWait(): ISocialRestThread;
+    }
+}
 declare module $REST.ComplexTypes {
 
     /**
