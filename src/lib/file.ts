@@ -10,7 +10,7 @@ module $REST {
 
         properties: [
             "Author|user", "CheckedOutByUser|user", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
-            "ListItemAllFields", "LockedByUser|user", "ModifiedBy|user", "Properties", "VersionEvents", "Versions|fileversions"
+            "ListItemAllFields", "LockedByUser|user", "ModifiedBy|user", "Properties|propertyvalues", "VersionEvents", "Versions|fileversions"
         ],
 
         /*********************************************************************************************************************************/

@@ -65,6 +65,11 @@ declare module $REST.Types {
         /** Gets the name of the file including the extension. */
         Name: string;
 
+        /**
+         * Property Bag
+         */
+        Properties(): IPropertyValues;
+
         /** Gets the relative URL of the file based on the URL for the server. */
         ServerRelativeUrl: string;
 

@@ -1269,6 +1269,23 @@ var $REST;
         })(Types.PageType || (Types.PageType = {}));
         var PageType = Types.PageType;
         /**
+         * Master Page Gallery Types
+         */
+        (function (MasterPageGalleryType) {
+            MasterPageGalleryType[MasterPageGalleryType["DisplayTemplateControl"] = "0x0101002039C03B61C64EC4A04F5361F385106601"] = "DisplayTemplateControl";
+            MasterPageGalleryType[MasterPageGalleryType["DisplayTemplateItem"] = "0x0101002039C03B61C64EC4A04F5361F385106603"] = "DisplayTemplateItem";
+            MasterPageGalleryType[MasterPageGalleryType["MasterPage"] = "0x01010500A8B69F8A072C384090BB2F363986E5EA"] = "MasterPage";
+            MasterPageGalleryType[MasterPageGalleryType["PageLayout"] = "0x01010007FF3E057FA8AB4AA42FCB67B453FFC100E214EEE741181F4E9F7ACC43278EE811"] = "PageLayout";
+        })(Types.MasterPageGalleryType || (Types.MasterPageGalleryType = {}));
+        var MasterPageGalleryType = Types.MasterPageGalleryType;
+        /**
+         * Page Layout Types
+         */
+        (function (PageLayoutType) {
+            PageLayoutType[PageLayoutType["Article"] = ";#Article Page;#0x010100C568DB52D9D0A14D9B2FDCC96666E9F2007948130EC3DB064584E219954237AF3900242457EFB8B24247815D688C526CD44D;#"] = "Article";
+        })(Types.PageLayoutType || (Types.PageLayoutType = {}));
+        var PageLayoutType = Types.PageLayoutType;
+        /**
          * Personal Site Capabilities
          */
         (function (PersonalSiteCapabilities) {
@@ -3206,6 +3223,26 @@ var $REST;
             requestType: $REST.Types.RequestType.Post,
             returnType: "userprofile"
         },
+    };
+})($REST || ($REST = {}));
+
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // Library
+    /*********************************************************************************************************************************/
+    $REST.Library.propertyvalues = {
+        add: {
+            metadataType: "SP.KeyValue",
+            name: "",
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        update: {
+            metadataType: "SP.KeyValue",
+            name: "",
+            requestMethod: "MERGE",
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        }
     };
 })($REST || ($REST = {}));
 

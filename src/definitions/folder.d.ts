@@ -55,9 +55,9 @@ declare module $REST.Types {
         ParentFolder(): IFolder;
 
         /**
-         * Gets the collection of all files contained in the folder.
+         * Property Bag
          */
-        Properties(): IBase;
+        Properties(): IPropertyValues;
 
         /** Gets the server-relative URL of the list folder. */
         ServerRelativeUrl: string;

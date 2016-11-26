@@ -30,6 +30,11 @@ declare module $REST.Types {
         AllowMasterPageEditingForCurrentUser(): IBase;
 
         /**
+         * Property Bag
+         */
+        AllProperties(): IPropertyValues;
+
+        /**
          * Gets a value that specifies whether the current user is allowed to revert the site to a default site template.
          */
         AllowRevertFromTemplateForCurrentUser(): IBase;

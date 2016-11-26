@@ -208,6 +208,17 @@ declare module $REST.Settings {
         Value: any;
     }
 
+    /**
+     * Master Page Gallery Creation Information
+     */
+    interface MPGCreationInformation {
+        ContentTypeId: string;
+        UIVersion: Array<string>;
+    }
+
+    /**
+     * Reordering Rules Creation Information
+     */
     interface ReorderingRulesCreationInformation {
         Boost?: number;
         MatchType: Types.ReordingRuleMathType;
@@ -381,7 +392,7 @@ declare module $REST.Settings {
     }
 
     /**
-     * User Custom Action Information
+     * User Creation Information
      */
     interface UserCreationInformation {
         /** The login name of the user. */

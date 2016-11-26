@@ -7,7 +7,7 @@ module $REST {
         properties: [
             "AttachmentFiles|attachmentfiles|('[Name]')|attachment", "ContentType|contenttype", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
             "File|file", "FirstUniqueAncestorSecurableObject", "Folder|folder", "GetDlpPolicyTip", "ParentList|list",
-            "RoleAssignments|roleassignments|roleassignments|([Name])|roleassignment"
+            "Properties|propertyvalues", "RoleAssignments|roleassignments|roleassignments|([Name])|roleassignment"
         ],
 
         /*********************************************************************************************************************************/

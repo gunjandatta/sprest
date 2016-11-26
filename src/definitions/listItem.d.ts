@@ -81,6 +81,11 @@ declare module $REST.Types {
         ParentList(): IList;
 
         /**
+         * Property Bag
+         */
+        Properties(): IPropertyValues;
+
+        /**
          * Gets the role assignments for the securable object.
          */
         RoleAssignments(): IRoleAssignments;

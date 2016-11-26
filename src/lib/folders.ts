@@ -7,8 +7,8 @@ module $REST {
         // Properties
         /*********************************************************************************************************************************/
         properties: [
-            "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields", "ParentFolder",
-            "Properties", "StorageMetrics"
+            "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
+            "ParentFolder", "StorageMetrics"
         ],
 
         /*********************************************************************************************************************************/
