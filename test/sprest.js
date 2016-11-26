@@ -2168,7 +2168,7 @@ var $REST;
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
-    // Methods
+    // Library
     /*********************************************************************************************************************************/
     $REST.Library.attachmentfiles = {
         /**
@@ -2180,6 +2180,20 @@ var $REST;
             argNames: ["fileName"],
             requestType: $REST.Types.RequestType.PostWithArgs
         },
+        // Queries the collection
+        query: {
+            argNames: ["oData"],
+            requestType: $REST.Types.RequestType.OData
+        }
+    };
+})($REST || ($REST = {}));
+
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // Library
+    /*********************************************************************************************************************************/
+    $REST.Library.audit = {
         // Queries the collection
         query: {
             argNames: ["oData"],
