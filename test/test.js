@@ -148,7 +148,7 @@ function testContentType(list) {
         writeToLog("Deleting the list content type", LogType.SubHeader);
 
         // Delete the content type from the list
-        ctList.delete().executeAndWait();
+        ctList = ctList.delete().executeAndWait();
 
         // Test
         assert(ctList.d, "delete", "DeleteObject", null);
@@ -208,7 +208,7 @@ function testFile() {
     writeToLog("Create a folder", LogType.SubHeader);
 
     // Create a sub-folder
-    var subFolder = folder.addSubFolder("Test").executeAndWait();
+    var subFolder = folder.Folders().add("Test").executeAndWait();
 
     // Test
     assert(subFolder, "create folder", "Exists", true);
@@ -231,7 +231,7 @@ function testFile() {
     }
 
     // Copy the file
-    file = subFolder.addFile("test.aspx", true, buffer).executeAndWait();
+    file = subFolder.Files().add(true, "test.aspx", buffer).executeAndWait();
 
     // Test
     assert(file, "copy file", "Exists", true);
@@ -323,52 +323,48 @@ function testListAsync() {
     // Log
     writeToLog("Creating the list", LogType.SubHeader);
 
-    // Get the web
-    (new $REST.Web())
-        // Get the list collection
-        .Lists()
-        // Add the list
-        .add({
-            BaseTemplate: 100,
-            Description: "This is a test list.",
-            Title: "SPRest" + SP.Guid.newGuid().toString()
-        })
-        // Execute the request
-        .execute(function(list) {
-            // Test
-            assert(list, "create", "existsFl", true);
+    // Create a list
+    (new $REST.Web()).Lists().add({
+        BaseTemplate: 100,
+        Description: "This is a test list.",
+        Title: "SPRest" + SP.Guid.newGuid().toString()
+    }).execute(function(list) {
+        // Test
+        assert(list, "create", "existsFl", true);
 
-            // Log
-            writeToLog("Creating the list items", LogType.SubHeader);
+        // Log
+        writeToLog("Creating the list items", LogType.SubHeader);
 
-            // Create a counter
-            for(var i=0; i<5; i++) {
-                // Get the item collection
-                list.Items()
-                    // Add the item
-                    .add({ Title: "New Item " + i})
-                    // Execute and wait for the previous item
-                    .execute(true);
+        // Create a counter
+        for(var i=0; i<5; i++) {
+            // Get the item collection
+            list.Items()
+                // Add the item
+                .add({ Title: "New Item " + i})
+                // Execute and wait for the previous item
+                .execute(true);
+        }
+
+        // Wait for the requests to complete
+        list.done(function() {
+            var idx = 0;
+
+            // Assert the items
+            for(var i=arguments.length-5; i<arguments.length; i++) {
+                // Test
+                assert(arguments[i], "create item " + idx, "Title", "New Item " + idx++);
             }
 
-            // Execute the request
-            list.execute(function() {
-                // Assert the items
-                for(var i=0; i<5; i++) {
-                    // Test
-                    assert(arguments[i], "create item " + i, "Title", "New Item " + i);
-                }
+            // Log
+            writeToLog("Deleting the list", LogType.SubHeader);
 
-                // Log
-                writeToLog("Deleting the list", LogType.SubHeader);
-
-                // Delete the list
-                list.delete().execute(function(result) {
-                    // Test
-                    assert(result.d, "delete", "DeleteObject", null);
-                });
+            // Delete the list
+            list.delete().execute(function(result) {
+                // Test
+                assert(result.d, "delete", "DeleteObject", null);
             });
-        })
+        });
+    });
 }
 
 function testListItem(list) {
