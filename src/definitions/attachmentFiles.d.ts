@@ -49,6 +49,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IAttachmentFiles;
+        query(oData:ComplexTypes.ODataQuery): IAttachmentFiles;
     }
 }

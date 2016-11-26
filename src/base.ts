@@ -14,7 +14,7 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(targetInfo:Settings.TargetInfoSettings) {
+        constructor(targetInfo:ComplexTypes.TargetInfoSettings) {
             // Default the properties
             this.targetInfo = targetInfo || {};
             this.requestType = 0;
@@ -175,7 +175,7 @@ module $REST {
         protected responses:Array<Base>;
 
         // The base settings
-        protected targetInfo:Settings.TargetInfoSettings;
+        protected targetInfo:ComplexTypes.TargetInfoSettings;
 
         // The wait flags
         private waitFlags:Array<boolean>;
@@ -294,8 +294,8 @@ module $REST {
         }
 
         // Method to execute a method
-        protected executeMethod(methodName:string, methodConfig:Settings.MethodInfoSettings, args?:any) {
-            let targetInfo:Settings.TargetInfoSettings = null;
+        protected executeMethod(methodName:string, methodConfig:ComplexTypes.MethodInfoSettings, args?:any) {
+            let targetInfo:ComplexTypes.TargetInfoSettings = null;
 
             // See if the metadata is defined for this object
             let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
@@ -567,7 +567,7 @@ module $REST {
         }
 
         // Method to update the metadata uri
-        private updateMetadataUri(metadata:any, targetInfo:Settings.TargetInfoSettings) {
+        private updateMetadataUri(metadata:any, targetInfo:ComplexTypes.TargetInfoSettings) {
             // See if this is a field
             if(/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
                 // Fix the uri reference

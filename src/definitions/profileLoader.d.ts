@@ -8,7 +8,7 @@ declare module $REST.Types {
          * Constructor
          * @param targetInfo - (Optional) The target information.
          */
-        new(targetInfo?:Settings.TargetInfoSettings): IProfileLoader;
+        new(targetInfo?:ComplexTypes.TargetInfoSettings): IProfileLoader;
 
         /**
          * Methods

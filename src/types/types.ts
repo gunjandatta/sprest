@@ -659,7 +659,7 @@ module $REST.Types {
     /**
      * Reordering Rule Match Types
      */
-    export enum ReordingRuleMathType {
+    export enum ReordingRuleMatchType {
         ResultContainsKeyword,
         TitleContainsKeyword,
         TitleMatchesKeyword,

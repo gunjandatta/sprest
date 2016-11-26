@@ -167,7 +167,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IAttachmentFiles;
+        query(oData:ComplexTypes.ODataQuery): IAttachmentFiles;
     }
 }
 
@@ -301,9 +301,16 @@ declare module $REST.ComplexTypes {
      * Caml Query
      */
     interface CamlQuery {
+        /** A value that indicates whether the query returns dates in Coordinated Universal Time (UTC) format. */
         DatesInUtc: boolean;
+
+        /** A value that specifies the server relative URL of a list folder from which results will be returned. */
         FolderServerRelativeUrl: string;
+
+        /** A value that specifies the information required to get the next page of data for the list view. */
         ListItemCollectionPosition: ListItemCollectionPosition;
+
+        /** A value that specifies the XML schema that defines the list view. */
         ViewXml: string;
     }
 
@@ -468,6 +475,19 @@ declare module $REST.ComplexTypes {
     }
 
     /**
+     * Custom Result
+     */
+    interface CustomResult {
+        GroupTemplateId: string;
+        ItemTemplateId: string;
+        Properties: Results.KeyValue;
+        ResultTitle: string;
+        ResultTitleUrl: string;
+        Table: SimpleDataTable;
+        TableType: string;
+    }
+
+    /**
      * Document Library Information
      */
     interface DocumentLibraryInformation {
@@ -512,17 +532,6 @@ declare module $REST.ComplexTypes {
     }
 
     /**
-     * Ingestion Task Key
-     */
-    interface IngestionTaskKey {
-        IngestionTableAccountKey: string;
-        IngestionTableAccountName: string;
-        JobId: string;
-        TaskId: string;
-        TenantName: string;
-    }
-
-    /**
      * Field Calculation Error Value
      */
     interface FieldCalculationErrorValue {
@@ -534,7 +543,7 @@ declare module $REST.ComplexTypes {
      */
     interface FieldCreationInformation {
         /** The choices. */
-        Choices: Results.String;
+        Choices?: Results.String;
 
         /** The field type. */
         FieldTypeKind: Types.FieldType;
@@ -627,7 +636,7 @@ declare module $REST.ComplexTypes {
      */
     interface GroupCreationInformation {
         /** The group description. */
-        Description: string;
+        Description?: string;
 
         /** The group name. */
         Title: string;
@@ -641,6 +650,17 @@ declare module $REST.ComplexTypes {
         Application: string;
         Label: string;
         Timestamp: string;
+    }
+
+    /**
+     * Ingestion Task Key
+     */
+    interface IngestionTaskKey {
+        IngestionTableAccountKey: string;
+        IngestionTableAccountName: string;
+        JobId: string;
+        TaskId: string;
+        TenantName: string;
     }
 
     /**
@@ -665,15 +685,32 @@ declare module $REST.ComplexTypes {
      * List Creation Information
      */
     interface ListCreationInformation {
-        CustomSchemaXml: string;
-        DataSourceProperties: Results.KeyValue;
-        Description: string;
-        DocumentTemplateType: number;
-        QuickLaunchOption: number;
-        TemplateFeatureId: string;
-        TemplateType: number;
+        /** The list schema xml. */
+        CustomSchemaXml?: string;
+
+        /** The list of data source properties. */
+        DataSourceProperties?: Results.KeyValue;
+
+        /** The list description. */
+        Description?: string;
+
+        /** The list document template type. */
+        DocumentTemplateType?: number;
+
+        /** Option to display the list on the quick launch. */
+        QuickLaunchOption?: number;
+
+        /** The list template feature id. */
+        TemplateFeatureId?: string;
+
+        /** The list template type. */
+        TemplateType: Types.ListTemplateType;
+
+        /** The list name. */
         Title: string;
-        Url: string;
+
+        /** The list url. */
+        Url?: string;
     }
 
     /**
@@ -786,6 +823,16 @@ declare module $REST.ComplexTypes {
     }
 
     /**
+     * Personal Result Suggestion
+     */
+    interface PersonalResultSuggestion {
+        HighlightedTitle: string;
+        IsBestBet?: boolean;
+        Title: string;
+        Url: string;
+    }
+
+    /**
      * Property Information
      */
     interface PropertyInformation {
@@ -813,6 +860,62 @@ declare module $REST.ComplexTypes {
     }
 
     /**
+     * Query Property
+     */
+    interface QueryProperty {
+        Name: string;
+        Value: QueryPropertyValue;
+    }
+
+    /**
+     * Query Property Value
+     */
+    interface QueryPropertyValue {
+        BoolVal?: boolean;
+        IntVal?: number;
+        QueryPropertyValueTypeIndex?: number;
+        StrArray?: Results.String;
+        StrVal?: string;
+    }
+
+    /**
+     * Query Result
+     */
+    interface QueryResult {
+        CustomResults: Results.CustomResult;
+        QueryId: string;
+        QueryRuleId?: string;
+        RefinementResults: RefinementResults;
+        RelevantResults: RelevantResults;
+        SpecialTermResults: SpecialTermResults;
+    }
+
+    /**
+     * Query Suggestion Query
+     */
+    interface QuerySuggestionQuery {
+        IsPersonal?: boolean;
+        Query: string;
+    }
+
+    /**
+     * Query Suggestion Range
+     */
+    interface QuerySuggestionRange {
+        Length?: number;
+        Start?: number;
+    }
+
+    /**
+     * Query Suggestion Results
+     */
+    interface QuerySuggestionResults {
+        PeopleNames: Results.String;
+        PersonalResults: Results.PersonalResultSuggestion;
+        Queries: Results.QuerySuggestionQuery;
+    }
+
+    /**
      * Recycle Bin Queue Information
      */
     interface RecycleBinQueueInformation {
@@ -822,6 +925,69 @@ declare module $REST.ComplexTypes {
         PagingInfo: string;
         RowLimit: number;
         ShowOnlyMyItems: boolean;
+    }
+
+    /**
+     * Refinement Results
+     */
+    interface RefinementResults {
+        GroupTemplateId: string;
+        ItemTemplateId: string;
+        Property: Results.KeyValue;
+        Refiners: Results.Refiner;
+        ResultTitle: string;
+        ResultTitleUrl: string;
+    }
+
+    /**
+     * Refiner
+     */
+    interface Refiner {
+        Entries: Results.RefinerEntry;
+        Name: string;
+    }
+
+    /**
+     * Refineer Entry
+     */
+    interface RefinerEntry {
+        RefinementCount?: number;
+        RefinementName: string;
+        RefinementToken: string;
+        RefinementValue: string;
+    }
+
+    /**
+     * Relevant Results
+     */
+    interface RelevantResults {
+        GroupTemplateId: string;
+        ItemTemplateId: string;
+        Properties: Results.KeyValue;
+        ResultTitle: string;
+        ResultTitleUrl: string;
+        RowCount: number;
+        Table: SimpleDataTable;
+        TotalRows: number;
+        TotalRowsIncludingDuplicates: number;
+    }
+
+    /**
+     * Reordering Rule
+     */
+    interface ReorderingRule {
+        Boost?: number;
+        MatchType?: Types.ReordingRuleMatchType;
+        MatchValue: string;
+    }
+
+    /**
+     * Reordering Rules Creation Information
+     */
+    interface ReorderingRulesCreationInformation {
+        Boost?: number;
+        MatchType?: Types.ReordingRuleMatchType;
+        MatchValue: string;
     }
 
     /**
@@ -1031,6 +1197,204 @@ declare module $REST.ComplexTypes {
     }
 
     /**
+     * Search Request
+     */
+    interface SearchRequest {
+        BlockDedupeMode?: number;
+
+        /** A Boolean value that specifies whether to perform result type processing for the query. */
+        BypassResultTypes?: boolean;
+
+        /** The type of the client that issued the query. */
+        ClientType?: string;
+        
+        /** The managed properties that are used to determine how to collapse individual search results. Results are collapsed into one or a specified number of results if they match any of the individual collapse specifications. Within a single collapse specification, results are collapsed if their properties match all individual properties in the collapse specification. */
+        CollapseSpecification?: string;
+
+        /** The locale ID (LCID) for the query (see Locale IDs Assigned by Microsoft). */
+        Culture?: number;
+
+        /** The preferred number of characters to display in the hit-highlighted summary generated for a search result. */
+        DesiredSnippetLength?: number;
+
+        /** A Boolean value that specifies whether the query uses the FAST Query Language (FQL). */
+        EnableFql?: boolean;
+
+        /** A Boolean value that specifies whether the result tables that are returned for the result block are mixed with the result tables that are returned for the original query. */
+        EnableInterleaving?: boolean;
+
+        /** A Boolean value that specifies whether the exact terms in the search query are used to find matches, or if nicknames are used also. */
+        EnableNicknames?: boolean;
+
+        /** A Boolean value that specifies whether the phonetic forms of the query terms are used to find matches. */
+        EnablePhonetic?: boolean;
+ 
+        /** A Boolean value that specifies whether the hit highlighted properties can be ordered. */
+        EnableOrderingHitHighlightedProperty?: boolean;
+
+        /** A Boolean value that specifies whether to enable query rules for the query. */
+        EnableQueryRules?: boolean;
+
+        /** A Boolean value that specifies whether to sort search results. */
+        EnableSorting?: boolean;
+
+        /** A Boolean value that specifies whether stemming is enabled. */
+        EnableStemming?: boolean;
+        
+        /** A Boolean value that specifies whether to return block rank log information in the BlockRankLog property of the interleaved result table. A block rank log contains the textual information on the block score and the documents that were de-duplicated. */
+        GenerateBlockRankLog?: boolean;
+
+        /** The additional query terms to append to the query. */
+        HiddenConstraints?: string;
+
+        /** The number of properties to show hit highlighting for in the search results. */
+        HitHighlightedMultivaluePropertyLimit?: number;
+
+        /** The properties to highlight in the search result summary when the property value matches the search terms entered by the user. */
+        HithighlightedProperties?: Results.String;
+
+        /** The maximum number of characters to display in the hit-highlighted summary generated for a search result. */
+        MaxSnippetLength?: number;
+
+        QLSQuerySession?: string;
+
+        /** The GUID for the user who submitted the search query. */
+        PersonalizationData?: string;
+
+        /** A Boolean value that specifies whether to return best bet results for the query. */
+        ProcessBestBets?: boolean;
+
+        /** A Boolean value that specifies whether to return personal favorites with the search results. */
+        ProcessPersonalFavorites?: boolean;
+        
+        /** Additional properties for the query. */
+        Properties?: Types.IPropertyValues;
+
+        /** Custom tags that identify the query. You can specify multiple query tags, separated by semicolons. */
+        QueryTag?: string;
+
+        /** A string that contains the text that replaces the query text, as part of a query transform. */
+        QueryTemplate?: string;
+
+        /** The location of the queryparametertemplate.xml file. This file is used to enable anonymous users to make Search REST queries. */
+        QueryTemplatePropertiesUrl?: string;
+
+        /** A string that contains the text for the search query */
+        Querytext: string;
+
+        /** The ID of the ranking model to use for the query. */
+        RankingModelId?: string;
+
+        /** The set of refinement filters used when issuing a refinement query. For GET requests, the RefinementFilters parameter is specified as an FQL filter. For POST requests, the RefinementFilters parameter is specified as an array of FQL filters. */
+        RefinementFilters?: Results.String;
+
+        /** The set of refiners to return in a search result. */
+        Refiners?: string;
+
+        /** Special rules for reordering search results. These rules can specify that documents matching certain conditions are ranked higher or lower in the results. */
+        ReorderingRules?: Array<ReorderingRulesCreationInformation>
+
+        /** The URL for the search results page. */
+        ResultsUrl?: string;
+
+        /** The maximum number of rows overall that are returned in the search results. Compared to RowsPerPage, RowLimit is the maximum number of rows returned overall. */
+        RowLimit?: number;
+
+        /** The maximum number of rows to return per page. Compared to RowLimit, RowsPerPage refers to the maximum number of rows to return per page, and is used primarily when you want to implement paging for search results. */
+        RowsPerPage?: number;
+
+        /** The managed properties to return in the search results. To return a managed property, set the property's retrievable flag to true in the search schema. */
+        SelectProperties?: Results.String;
+
+        /** The list of properties by which the search results are ordered. */
+        SortList?: Array<any>;
+
+        /** The result source ID to use for executing the search query. */
+        SourceId?: string;
+
+        /** The first row that is included in the search results that are returned. You use this parameter when you want to implement paging for search results. */
+        StartRow?: number;
+
+        /** The number of characters to display in the result summary for a search result. */
+        SummaryLength?: number;
+
+        /** The amount of time in milliseconds before the query request times out. The default value is 30000. */
+        Timeout?: number;
+
+        TimeZoneId?: number;
+
+        TotalRowsExactMinimum?: number;
+
+        /** A Boolean value that specifies whether duplicate items are removed from the results. */
+        TrimDuplicates?: boolean;
+
+        TrimDuplicatesIncludeId?: boolean;
+
+        /** The locale identifier (LCID) of the user interface (see Locale IDs Assigned by Microsoft). */
+        UIlanguage?: number;
+
+        UseOLSQuery?: number;
+    }
+
+    /**
+     * Search Result
+     */
+    interface SearchResult {
+        ElapsedTime?: number;
+        PrimaryQueryResult: QueryResult;
+        Properties: Types.IPropertyValues;
+        SecondaryQueryResults: Results.QueryResult;
+        SpellingSuggestion: string;
+        TriggeredRules?: Results.String;
+    }
+
+    /**
+     * Search Suggestion
+     */
+    interface SearchSuggest {
+        ClientType?: string;
+
+        /** The locale ID (LCID) for the query (see Locale IDs Assigned by Microsoft). */
+        Culture?: number;
+
+        /** A Boolean value that specifies whether stemming is enabled. */
+        EnableStemming?: boolean;
+
+        /** A Boolean value that specifies whether to turn on query rules for this query. */
+        EnableQueryRules?: boolean;
+
+        /** A Boolean value that specifies whether to capitalize the first letter in each term in the returned query suggestions. */
+        fCapitalizeFirstLetters?: boolean;
+
+        /** A Boolean value that specifies whether to hit-highlight or format in bold the query suggestions. */
+        fHitHighlighting?: boolean;
+
+        /** A Boolean value that specifies whether to return query suggestions for prefix matches. */
+        fPrefixMatchAllTerms?: boolean;
+
+        /** A Boolean value that specifies whether to retrieve pre-query or post-query suggestions. */
+        fPreQuerySuggestions?: boolean;
+
+        /** The number of query suggestions to retrieve. Must be greater than zero (0). The default value is 5. */
+        iNumberOfQuerySuggestions?: number;
+
+        /** The number of personal results to retrieve. Must be greater than zero (0). The default value is 5. */
+        iNumberOfResultSuggestions?: number;
+
+        OLSQuerySession?: string;
+
+        /** A string that contains the text for the search query */
+        Querytext: string;
+
+        /** A Boolean value that specifies whether to include people names in the returned query suggestions. */
+        ShowPeopleNameSuggestions?: boolean;
+
+        SourceId?: string;
+
+        UseOLSQuery?: boolean;
+    }
+
+    /**
      * Shared User
      */
     interface SharedWithUser {
@@ -1070,12 +1434,51 @@ declare module $REST.ComplexTypes {
     }
 
     /**
+     * Sort
+     */
+    interface Sort {
+        Direction?: number;
+        Property: string;
+    }
+
+    /**
      * SP Invitation Creation Result
      */
     interface SPInvitationCreationResult {
         Email: string;
         InvitationLink: string;
         Lcid: number;
+    }
+
+    /**
+     * Special Term Result
+     */
+    interface SpecialTermResult {
+        Description: string;
+        IsVisualBestBet?: boolean;
+        PiSearchResultId: string;
+        RenderTemplateId: string;
+        Title: string;
+        Url: string;
+    }
+
+    /**
+     * Special Term Results
+     */
+    interface SpecialTermResults {
+        GroupTemplateId: string;
+        ItemTemplateId: string;
+        Properties: Results.KeyValue;
+        ResultTitle: string;
+        ResultTitleUrl: string;
+    }
+
+    /**
+     * String Collection
+     */
+    interface StringCollection {
+        Id4a81de82eeb94d6080ea5bf63e27023a?: string;
+        Items: Results.String;
     }
 
     /**
@@ -1145,9 +1548,56 @@ declare module $REST.ComplexTypes {
      * User Creation Information
      */
     interface UserCreationInformation {
-        Email: string;
+        Email?: string;
         LoginName: string;
-        Title: string;
+        Title?: string;
+    }
+
+    /**
+     * User Custom Action Information
+     */
+    interface UserCustomActionCreationInformation {
+        /** A value that specifies an implementation specific XML fragment that determines user interface properties of the custom action. */
+        CommandUIExtension?: string;
+
+        /** The description of the custom action. */
+        Description?: string;
+
+        /** A value that specifies an implementation-specific value that determines the position of the custom action in the page. */
+        Group?: string;
+
+        /** The URL of the image associated with the custom action. */
+        ImageUrl?: string;
+
+        /** The location of the custom action. */
+        Location?: string;
+
+        /** The name of the custom action. */
+        Name: string;
+
+        /** The value that specifies the identifier of the object associated with the custom action. */
+        RegistrationId?: string;
+
+        /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
+        RegistrationType?: Types.UserCustomActionRegistrationType;
+
+        /** The value that specifies the permissions needed for the custom action. */
+        Rights?: any;
+
+        /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
+        ScriptBlock?: string;
+
+        /** A value that specifies the URI of a file which contains the ECMAScript to execute on the page. */
+        ScriptSrc?: string;
+
+        /** The value that specifies an implementation-specific value that determines the order of the custom action that appears on the page. */
+        Sequence?: number;
+
+        /** The display title of the custom action. */
+        Title?: string;
+
+        /** The URL, URI, or ECMAScript (JScript, JavaScript) function associated with the action. */
+        Url?: string;
     }
 
     /**
@@ -1230,11 +1680,28 @@ declare module $REST.ComplexTypes {
      * Web Creation Information
      */
     interface WebCreationInformation {
+        /** The description of the new site. */
         Description?: string;
+
+        /** The locale ID that specifies the language of the new site. */
         Language?: number;
+
+        /** A value that specifies the title of the new site. */
         Title: string;
+
+        /** The URL leaf name of the new site. The URL must not contain the following:
+            The characters ~, ", #, %, &, *, :, <, >, ?, \, {, |, or }
+            The string \x7f
+            Consecutive . or / characters
+            Starting ., /, or _ characters
+            Ending . or / characters
+        */
         Url: string;
+
+        /** A value that specifies whether the new site will inherit permissions from its parent site. */
         UseSamePermissionsAsParentSite?: boolean;
+
+        /** A value that specifies the name of the site template to be used for creating the new site. Use the GetAvailableWebTemplates method to get the names of available web templates on the site. */
         WebTemplate: string;
     }
 
@@ -1446,7 +1913,7 @@ declare module $REST.Types {
          * Adds a content type to the collection.
          * @param parameters - The content type creation information.
          */
-        add(parameters:Settings.ContentTypeCreationInformation): IContentType;
+        add(parameters:ComplexTypes.ContentTypeCreationInformation): IContentType;
 
         /**
          * Adds an existing content type to this collection.
@@ -1488,32 +1955,35 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IContentTypes;
+        query(oData:ComplexTypes.ODataQuery): IContentTypes;
     }
 }
 
-declare module $REST.Settings {
+declare module $REST.ComplexTypes {
     /**
-     * Email Creation Information
+     * Email Properties
      */
-    interface EmailCreationInformation {
+    interface EmailProperties {
+        /** A collection of additional email headers. */
+        AdditionalHeaders?: Results.KeyValue;
+
         /** A value that specifies the email addresses to blind carbon copy the email to. */
-        BCC?:Array<string>;
+        BCC?: Results.String;
 
         /** A value that specifies the body of the email. */
-        Body:string;
+        Body: string;
 
         /** A value that specifies the email addresses to carbon copy the email to. */
-        CC?:Array<string>;
+        CC?: Results.String;
 
         /** A value that specifies the email address of the sender. */
-        From:string;
+        From: string;
 
         /** A value that specifies the email addresses to send the email to. */
-        To:Array<string>;
+        To: Results.String;
 
         /** A value that specifies the email subject. */
-        Subject:string;
+        Subject: string;
     }
 }
 
@@ -1534,7 +2004,7 @@ declare module $REST.Types {
          * Method to send an email.
          * @param properties - The email information.
          */
-        send(properties:Settings.EmailCreationInformation): IBase;
+        send(properties:ComplexTypes.EmailProperties): IBase;
     }
 }
 
@@ -1632,7 +2102,7 @@ declare module $REST.Types {
          * Adds an event receiver to the collection.
          * @param parameters - The event receiver definition creation information.
          */
-        add(parameters:Settings.EventReceiverDefinitionCreationInformation): IEventReceiver;
+        add(parameters:ComplexTypes.EventReceiverDefinitionCreationInformation): IEventReceiver;
 
         /**
          * Method to execute the request.
@@ -1668,7 +2138,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IEventReceivers;
+        query(oData:ComplexTypes.ODataQuery): IEventReceivers;
     }
 }
 
@@ -1912,7 +2382,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IFieldLinks;
+        query(oData:ComplexTypes.ODataQuery): IFieldLinks;
     }
 }
 
@@ -1942,7 +2412,7 @@ declare module $REST.Types {
          * Adds a field to the field collection.
          * @param parameters - The field creation information.
          */
-        addField(parameters:Settings.FieldCreationInformation): IField;
+        addField(parameters:ComplexTypes.FieldCreationInformation): IField;
 
         /**
          * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
@@ -2005,7 +2475,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IFields;
+        query(oData:ComplexTypes.ODataQuery): IFields;
     }
 }
 
@@ -2344,7 +2814,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IFiles;
+        query(oData:ComplexTypes.ODataQuery): IFiles;
     }
 }
 
@@ -2462,7 +2932,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IFileVersions;
+        query(oData:ComplexTypes.ODataQuery): IFileVersions;
     }
 }
 
@@ -2654,7 +3124,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IFolders;
+        query(oData:ComplexTypes.ODataQuery): IFolders;
     }
 }
 
@@ -2888,7 +3358,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IListItems;
+        query(oData:ComplexTypes.ODataQuery): IListItems;
     }
 }
 
@@ -2951,7 +3421,7 @@ declare module $REST.Types {
          * @param listName - The name of the list.
          * @param targetInfo - (Optional) The target information.
          */
-        new(listName:string, targetInfo?:Settings.TargetInfoSettings): IList;
+        new(listName:string, targetInfo?:ComplexTypes.TargetInfoSettings): IList;
 
         /**
          * Properties
@@ -3611,7 +4081,7 @@ declare module $REST.Types {
          * Adds a list to the list collection.
          * @param parameters - The list creation information.
          */
-        add(parameters:Settings.ListCreationInformation): IList;
+        add(parameters:ComplexTypes.ListCreationInformation): IList;
 
         /**
          * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
@@ -3663,11 +4133,11 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): ILists;
+        query(oData:ComplexTypes.ODataQuery): ILists;
     }
 }
 
-declare module $REST.Settings {
+declare module $REST.ComplexTypes {
 
     /**
      * Method Information Settings
@@ -3685,11 +4155,11 @@ declare module $REST.Settings {
         returnType?: string;
     }
 }
-declare module $REST.Settings {
+declare module $REST.ComplexTypes {
     /**
      * OData Settings
      */
-    interface ODataSettings {
+    interface ODataQuery {
         /** The fields to expand. */
         Expand?: Array<string>;
 
@@ -3719,7 +4189,7 @@ declare module $REST.Types {
          * Constructor
          * @param targetInfo - (Optional) The target information.
          */
-        new(targetInfo?:Settings.TargetInfoSettings): IPeopleManager;
+        new(targetInfo?:ComplexTypes.TargetInfoSettings): IPeopleManager;
 
         /**
          * Properties
@@ -3982,7 +4452,7 @@ declare module $REST.Types {
          * Constructor
          * @param targetInfo - (Optional) The target information.
          */
-        new(targetInfo?:Settings.TargetInfoSettings): IProfileLoader;
+        new(targetInfo?:ComplexTypes.TargetInfoSettings): IProfileLoader;
 
         /**
          * Methods
@@ -4058,7 +4528,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IPropertyValues;
+        query(oData:ComplexTypes.ODataQuery): IPropertyValues;
     }
 }
 declare module $REST.Types {
@@ -4173,6 +4643,14 @@ declare module $REST.Results {
     }
 
     /**
+     * Custom Result
+     */
+    interface CustomResult {
+        /** The collection of custom results. */
+        results: Array<ComplexTypes.CustomResult>;
+    }
+
+    /**
      * Data Row
      */
     interface DataRow {
@@ -4218,6 +4696,46 @@ declare module $REST.Results {
     interface ParameterInformation {
         /** The collection of parameter information. */
         results: Array<ComplexTypes.ParameterInformation>;
+    }
+
+    /**
+     * Personal Result Suggestion
+     */
+    interface PersonalResultSuggestion {
+        /** The collection of personal result suggestions. */
+        results: Array<ComplexTypes.PersonalResultSuggestion>;
+    }
+
+    /**
+     * Query Result
+     */
+    interface QueryResult {
+        /** The collection of custom results. */
+        results: Array<ComplexTypes.QueryResult>;
+    }
+
+    /**
+     * Query Suggestion Query
+     */
+    interface QuerySuggestionQuery {
+        /** The collection of query suggestion queries. */
+        results: Array<ComplexTypes.QuerySuggestionQuery>;
+    }
+
+    /**
+     * Refiner
+     */
+    interface Refiner {
+        /** The collection of refiners. */
+        results: Array<ComplexTypes.Refiner>;
+    }
+
+    /**
+     * Refiner Entry
+     */
+    interface RefinerEntry {
+        /** The collection of refiner entries. */
+        results: Array<ComplexTypes.RefinerEntry>;
     }
 
     /**
@@ -4365,7 +4883,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IRoleAssignments;
+        query(oData:ComplexTypes.ODataQuery): IRoleAssignments;
     }
 }
 
@@ -4496,27 +5014,11 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IRoleDefinitions;
+        query(oData:ComplexTypes.ODataQuery): IRoleDefinitions;
     }
 }
 
 declare module $REST.Types {
-
-    /**
-     * Data Table
-     */
-    interface IDataTable {
-        /** The rows. */
-        Rows: Array<IDataTableRow>;
-    }
-
-    /**
-     * Data Table Row
-     */
-    interface IDataTableRow {
-        /** The cells. */
-        Cells: Array<ComplexTypes.KeyValue>
-    }
 
     /**
      * Search
@@ -4527,604 +5029,26 @@ declare module $REST.Types {
          * @param url - The optional url to execute the search against.
          * @param settings - The search settings.
          */
-        new(url?:string, settings?:Settings.TargetInfoSettings): ISearch;
+        new(url?:string, settings?:ComplexTypes.TargetInfoSettings): ISearch;
 
         /**
          * Methods
          */
 
         /** Method to execute a search query.
-         * @param settings - The query settings.
+         * @param settings - The search request settings.
         */
-        postquery(settings:Settings.SearchQueryCreationInformation) : IQuery;
+        postquery(settings:ComplexTypes.SearchRequest) : ComplexTypes.SearchResult;
 
         /** Method to execute a search query.
-         * @param settings - The query settings.
+         * @param settings - The search request settings.
         */
-        query(settings:Settings.SearchQueryCreationInformation) : IQuery;
+        query(settings:ComplexTypes.SearchRequest) : ComplexTypes.SearchResult;
 
         /** Method to execute a search suggestion.
-         * @param settings - The suggestion settings.
+         * @param settings - The search suggest settings.
         */
-        suggest(settings:Settings.SearchSuggestionCreationInformation) : ISuggestion;
-    }
-
-    /**
-     * Query
-     */
-    interface IQuery {
-        /** The primary query results. */
-        PrimaryQueryResult: IQueryResult;
-
-        /** The properties. */
-        Properties: Array<ComplexTypes.KeyValue>;
-
-        /** The secondary query results. */
-        SecondaryQueryResults: Array<IQueryResult>;
-
-        /** The spelling suggestions. */
-        SpellingSuggestions: any;
-
-        /** The trigger rules. */
-        TriggeredRules: Array<string>;
-    }
-
-    /**
-     * Query Result
-     */
-    interface IQueryResult {
-        /** The custom results. */
-        CustomResults: Array<any>;
-
-        /** The query id. */
-        QueryId: string;
-
-        /** The query rule id. */
-        QueryRuleId: string;
-
-        /** The refinement results. */
-        RefinementResults: any;
-
-        /** The relevant results. */
-        RelevantResults: IRelevantResults;
-
-        /** The special term results. */
-        SpecialTermResults: any;
-    }
-
-    /**
-     * Relevant Results
-     */
-    interface IRelevantResults {
-        /** The group template id. */
-        GroupTemplateId: string;
-
-        /** The item template id. */
-        ItemTemplateId: string;
-
-        /** The properties. */
-        Properties: Array<ComplexTypes.KeyValue>;
-
-        /** The result title. */
-        ResultTitle: string;
-
-        /** The result title url. */
-        ResultTitleUrl: string;
-
-        /** The row count. */
-        RowCount: number;
-
-        /** The table. */
-        Table: IDataTable;
-
-        /** The total rows. */
-        TotalRows: number;
-
-        /** The total rows including duplicates. */
-        TotalRowsIncludingDuplicates: number;
-    }
-
-    /**
-     * Suggestion
-     */
-    interface ISuggestion {
-        /** The people names. */
-        PeopleNames: Array<string>;
-
-        /** The personal results. */
-        PersonalResults: Array<any>;
-
-        /** The queries. */
-        Queries: Array<any>;
-    }
-}
-declare module $REST.Settings {
-
-    /**
-     * CAML Query
-     */
-    interface CamlQuery {
-        /** Gets or sets a value that indicates whether the query returns dates in Coordinated Universal Time (UTC) format. */
-        DatesInUtc?: boolean;
-
-        /** Gets or sets a value that specifies the server relative URL of a list folder from which results will be returned. */
-        FolderServerRelativeUrl?: string;
-
-        /** Gets or sets a value that specifies the information required to get the next page of data for the list view. */
-        ListItemCollectionPosition?: any;
-
-        /** Gets or sets value that specifies the XML schema that defines the list view. */
-        ViewXml: string;
-    }
-
-    /**
-     * Content Type Creation Information
-     */
-    interface ContentTypeCreationInformation {
-        /** Gets or sets a value that specifies the description of the content type that will be constructed. */
-        Description?: string;
-
-        /** Gets or sets a value that specifies the content type group of the content type that will be constructed. */
-        Group?: string;
-
-        /** The content type id. */
-        Id?: string;
-
-        /** Gets or sets a value that specifies the name of the content type that will be constructed. */
-        Name: string;
-    }
-
-    /**
-     * Event Receiver Definition Creation Information
-     */
-    interface EventReceiverDefinitionCreationInformation {
-        /** The type of event. See EventReceiverType in the .NET client object model reference for a list of values. */
-        EventType: Types.EventReceiverType;
-
-        /** Specifies the strong name of the assembly that is used for receiving events. */        
-        ReceiverAssembly?: string;
-
-        /** Specifies a string that represents the class that is used for receiving events. */
-        ReceiverClass?: string;
-
-        /** Specifies the name of the event receiver. */
-        ReceiverName: string;
-
-        /** Specifies the URL of a web service that is used for receiving events. */
-        ReceiverUrl?: string;
-
-        /** Specifies an integer that represents the relative sequence of the event. */        
-        SequenceNumber?: number;
-        
-        /** Specifies the execution synchronization of the event receiver. */
-        Synchronization?: number;
-    }
-
-    /**
-     * Field Creation Information 
-     */
-    interface FieldCreationInformation {
-        /** A value that specifies the type of the field. */
-        FieldTypeKind: Types.FieldType;
-
-        /** Indicates whether only the first eight characters are used for the field name. */
-        IsCompactName?: boolean;
-
-        /** The name of the source lookup field. */
-        LookupFieldName?: string;
-        
-        /** The ID of the target list for the source lookup field. */
-        LookupListId?: any;
-        
-        /** The ID of the site that contains the list that is the source for the lookup field value. */
-        LookupWebId?: any;
-        
-        /** A value that specifies whether the field requires a value. */
-        Required?: boolean;
-        
-        /** A value that specifies the display name of the field. */
-        Title: string;
-    }
-
-    /**
-     * Group Creation Information
-     */
-    interface GroupCreationInformation {
-        /** The name of the group. */
-        Title: string;
-    }
-
-    /**
-     * List Creation Information
-     */
-    interface ListCreationInformation {
-        /** A value that specifies whether the list supports content types. */
-        AllowContentTypes?: boolean;
-
-        /** The list definition type on which the list is based. */
-        BaseTemplate: Types.ListTemplateType;
-
-        /** A value that specifies whether content types are enabled for the list. */        
-        ContentTypesEnabled?: boolean;
-
-        /** A value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
-        DefaultContentApprovalWorkflowId?: any;
-
-        /** A value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL */
-        DefaultDisplayFormUrl?: string;
-
-        /** A value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL. */
-        DefaultEditFormUrl?: string;
-
-        /** A value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL. */
-        DefaultNewFormUrl?: string;
-
-        /** A value that specifies the description of the list. */
-        Description?: string;
-
-        /** A value that specifies the reading order of the list. Returns "NONE", "LTR", or "RTL". */
-        Direction?: string;
-
-        /** A value that specifies the server-relative URL of the document template for the list. */
-        DocumentTemplateUrl?: string;
-
-        /** A value that specifies the minimum permission required to view minor versions and drafts within the list. */
-        DraftVersionVisibility?: Types.DraftVisibilityType;
-
-        /** A value that specifies whether list item attachments are enabled for the list. */
-        EnableAttachments?: boolean;
-
-        /** A value that specifies whether new list folders can be added to the list. */
-        EnableFolderCreation?: boolean;
-
-        /** A value that specifies whether minor versions are enabled for the list. */
-        EnableMinorVersions?: boolean;
-
-        /** A value that specifies whether content approval is enabled for the list. */
-        EnableModeration?: boolean;
-
-        /** A value that specifies whether historical versions of list items and documents can be created in the list. */
-        EnableVersioning?: boolean;
-
-        /** A value that indicates whether forced checkout is enabled for the document library. */
-        ForceCheckout?: boolean;
-
-        /** A value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
-        Hidden?: boolean;
-
-        /** */
-        IrmEnabled?: boolean;
-
-        /** */
-        IrmExpire?: boolean;
-
-        /** */
-        IrmReject?: boolean;
-
-        /** A value that specifies a flag that a client application can use to determine whether to display the list. */
-        IsApplicationList?: boolean;
-
-        /** A value that indicates whether the list in a Meeting Workspace site contains data for multiple meeting instances within the site. */
-        MultipleDataList?: boolean;
-
-        /** A value that specifies that the crawler must not crawl the list. */
-        NoCrawl?: boolean;
-
-        /** A value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false. */
-        OnQuickLaunch?: boolean;
-
-        /** The displayed title for the list. Its length must be <= 255 characters. */
-        Title: string;
-
-        /** A value that specifies the data validation criteria for a list item. Its length must be <= 1023. */
-        ValidationFormula?: string;
-
-        /** A value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023. */
-        ValidationMessage?: string;
-    }
-
-    /**
-     * Name-Value Pair
-     */
-    interface NameValuePair {
-        /** The name */
-        Name: string;
-
-        /** The value */
-        Value: any;
-    }
-
-    /**
-     * Master Page Gallery Creation Information
-     */
-    interface MPGCreationInformation {
-        ContentTypeId: string;
-        UIVersion: Array<string>;
-    }
-
-    /**
-     * Reordering Rules Creation Information
-     */
-    interface ReorderingRulesCreationInformation {
-        Boost?: number;
-        MatchType: Types.ReordingRuleMathType;
-        MatchValue: string;
-    }
-
-    /**
-     * Search Query Creation Information
-     */
-    interface SearchQueryCreationInformation {
-        /** A Boolean value that specifies whether to perform result type processing for the query. */
-        BypassResultTypes?: boolean;
-
-        /** The type of the client that issued the query. */
-        ClientType?: string;
-        
-        /** The managed properties that are used to determine how to collapse individual search results. Results are collapsed into one or a specified number of results if they match any of the individual collapse specifications. Within a single collapse specification, results are collapsed if their properties match all individual properties in the collapse specification. */
-        CollapseSpecification?: string;
-
-        /** The locale ID (LCID) for the query (see Locale IDs Assigned by Microsoft). */
-        Culture?: number;
-
-        /** The preferred number of characters to display in the hit-highlighted summary generated for a search result. */
-        DesiredSnippetLength?: number;
-
-        /** A Boolean value that specifies whether the query uses the FAST Query Language (FQL). */
-        EnableFql?: boolean;
-
-        /** A Boolean value that specifies whether the result tables that are returned for the result block are mixed with the result tables that are returned for the original query. */
-        EnableInterleaving?: boolean;
-
-        /** A Boolean value that specifies whether the exact terms in the search query are used to find matches, or if nicknames are used also. */
-        EnableNicknames?: boolean;
-
-        /** A Boolean value that specifies whether the phonetic forms of the query terms are used to find matches. */
-        EnablePhonetic?: boolean;
- 
-        /** A Boolean value that specifies whether the hit highlighted properties can be ordered. */
-        EnableOrderingHitHighlightedProperty?: boolean;
-
-        /** A Boolean value that specifies whether to enable query rules for the query. */
-        EnableQueryRules?: boolean;
-
-        /** A Boolean value that specifies whether to sort search results. */
-        EnableSorting?: boolean;
-
-        /** A Boolean value that specifies whether stemming is enabled. */
-        EnableStemming?: boolean;
-        
-        /** A Boolean value that specifies whether to return block rank log information in the BlockRankLog property of the interleaved result table. A block rank log contains the textual information on the block score and the documents that were de-duplicated. */
-        GenerateBlockRankLog?: boolean;
-
-        /** The additional query terms to append to the query. */
-        HiddenConstraints?: string;
-
-        /** The number of properties to show hit highlighting for in the search results. */
-        HitHighlightedMultivaluePropertyLimit?: number;
-
-        /** The properties to highlight in the search result summary when the property value matches the search terms entered by the user. */
-        HithighlightedProperties?: Array<string>;
-
-        /** The maximum number of characters to display in the hit-highlighted summary generated for a search result. */
-        MaxSnippetLength?: number;
-
-        /** A Boolean value that specifies whether to return best bet results for the query. */
-        ProcessBestBets?: boolean;
-
-        /** The GUID for the user who submitted the search query. */
-        PersonalizationData?: string;
-
-        /** A Boolean value that specifies whether to return personal favorites with the search results. */
-        ProcessPersonalFavorites?: boolean;
-        
-        /** Additional properties for the query. */
-        Properties?: Array<NameValuePair>;
-
-        /** Custom tags that identify the query. You can specify multiple query tags, separated by semicolons. */
-        QueryTag?: string;
-
-        /** The location of the queryparametertemplate.xml file. This file is used to enable anonymous users to make Search REST queries. */
-        QueryTemplatePropertiesUrl?: string;
-
-        /** A string that contains the text that replaces the query text, as part of a query transform. */
-        QueryTemplate?: string;
-
-        /** A string that contains the text for the search query */
-        Querytext: string;
-
-        /** The ID of the ranking model to use for the query. */
-        RankingModelId?: string;
-
-        /** The set of refinement filters used when issuing a refinement query. For GET requests, the RefinementFilters parameter is specified as an FQL filter. For POST requests, the RefinementFilters parameter is specified as an array of FQL filters. */
-        RefinementFilters?: Array<string>;
-
-        /** The set of refiners to return in a search result. */
-        Refiners?: Array<string>;
-
-        /** Special rules for reordering search results. These rules can specify that documents matching certain conditions are ranked higher or lower in the results. */
-        ReorderingRules?: Array<ReorderingRulesCreationInformation>
-
-        /** The URL for the search results page. */
-        ResultsURL?: string;
-
-        /** The maximum number of rows overall that are returned in the search results. Compared to RowsPerPage, RowLimit is the maximum number of rows returned overall. */
-        RowLimit?: number;
-
-        /** The maximum number of rows to return per page. Compared to RowLimit, RowsPerPage refers to the maximum number of rows to return per page, and is used primarily when you want to implement paging for search results. */
-        RowsPerPage?: number;
-
-        /** The managed properties to return in the search results. To return a managed property, set the property's retrievable flag to true in the search schema. */
-        SelectProperties?: Array<string>;
-
-        /** The list of properties by which the search results are ordered. */
-        SortList?: Array<any>;
-
-        /** The result source ID to use for executing the search query. */
-        SourceId?: string;
-
-        /** The first row that is included in the search results that are returned. You use this parameter when you want to implement paging for search results. */
-        StartRow?: number;
-
-        /** The number of characters to display in the result summary for a search result. */
-        SummaryLength?: number;
-
-        /** The amount of time in milliseconds before the query request times out. The default value is 30000. */
-        Timeout?: number;
-
-        /** A Boolean value that specifies whether duplicate items are removed from the results. */
-        TrimDuplicates?: boolean;
-
-        /** The locale identifier (LCID) of the user interface (see Locale IDs Assigned by Microsoft). */
-        UIlanguage?: number;
-    }
-
-    /**
-     * Search Suggestion Creation Information
-     */
-    interface SearchSuggestionCreationInformation {
-        /** The locale ID (LCID) for the query (see Locale IDs Assigned by Microsoft). */
-        Culture?: number;
-
-        /** A Boolean value that specifies whether stemming is enabled. */
-        EnableStemming?: boolean;
-
-        /** A Boolean value that specifies whether to turn on query rules for this query. */
-        EnableQueryRules?: boolean;
-
-        /** A Boolean value that specifies whether to capitalize the first letter in each term in the returned query suggestions. */
-        fCapitalizeFirstLetters?: boolean;
-
-        /** A Boolean value that specifies whether to hit-highlight or format in bold the query suggestions. */
-        fHitHighlighting?: boolean;
-
-        /** A Boolean value that specifies whether to return query suggestions for prefix matches. */
-        fPrefixMatchAllTerms?: boolean;
-
-        /** A Boolean value that specifies whether to retrieve pre-query or post-query suggestions. */
-        fPreQuerySuggestions?: boolean;
-
-        /** The number of query suggestions to retrieve. Must be greater than zero (0). The default value is 5. */
-        iNumberOfQuerySuggestions?: number;
-
-        /** The number of personal results to retrieve. Must be greater than zero (0). The default value is 5. */
-        iNumberOfResultSuggestions?: number;
-
-        /** A string that contains the text for the search query */
-        Querytext: string;
-
-        /** A Boolean value that specifies whether to include people names in the returned query suggestions. */
-        ShowPeopleNameSuggestions?: boolean;
-    }
-
-    /**
-     * User Creation Information
-     */
-    interface UserCreationInformation {
-        /** The login name of the user. */
-        LoginName: string;
-    }
-
-    /**
-     * User Custom Action Information
-     */
-    interface UserCustomActionCreationInformation {
-        /** A value that specifies an implementation specific XML fragment that determines user interface properties of the custom action. */
-        CommandUIExtension?: string;
-
-        /** The description of the custom action. */
-        Description?: string;
-
-        /** A value that specifies an implementation-specific value that determines the position of the custom action in the page. */
-        Group?: string;
-
-        /** The URL of the image associated with the custom action. */
-        ImageUrl?: string;
-
-        /** The location of the custom action. */
-        Location?: string;
-
-        /** The name of the custom action. */
-        Name?: string;
-
-        /** The value that specifies the identifier of the object associated with the custom action. */
-        RegistrationId?: string;
-
-        /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
-        RegistrationType?: Types.UserCustomActionRegistrationType;
-
-        /** The value that specifies the permissions needed for the custom action. */
-        Rights?: any;
-
-        /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
-        ScriptBlock?: string;
-
-        /** A value that specifies the URI of a file which contains the ECMAScript to execute on the page. */
-        ScriptSrc?: string;
-
-        /** The value that specifies an implementation-specific value that determines the order of the custom action that appears on the page. */
-        Sequence?: number;
-
-        /** The display title of the custom action. */
-        Title?: string;
-
-        /** The URL, URI, or ECMAScript (JScript, JavaScript) function associated with the action. */
-        Url?: string;
-    }
-
-    /**
-     * View Creation Information
-     */
-    interface ViewCreationInformation {
-        /** A value that specifies whether the new list view is a paged view. */
-        Paged?: boolean;
-
-        /** A value that specifies whether the new list view is a personal view. If the value is false, the new list view is a public view. */
-        PersonalView?: boolean;
-
-        /** A value that specifies the query for the new list view. */
-        Query?: string;
-
-        /** A value that specifies the maximum number of list items that the new list view displays on a visual page of the list view. */
-        RowLimit?: number;
-
-        /** A value that specifies whether the new list view is the default list view. */
-        SetAsDefaultView?: boolean;
-
-        /** A value that specifies the display name of the new list view. */
-        Title: string;
-
-        /** A value that specifies the type of the new list view. */
-        ViewTypeKind: Types.ViewType;
-    }
-
-    /**
-     * Web Creation Information
-     */
-    interface WebCreationInformation {
-        /** The description of the new site. */
-        Description?: string;
-
-        /** The locale ID that specifies the language of the new site. */
-        Language?: number;
-
-        /** A value that specifies the title of the new site. */
-        Title: string;
-
-        /** The URL leaf name of the new site. The URL must not contain the following:
-            The characters ~, ", #, %, &, *, :, <, >, ?, \, {, |, or }
-            The string \x7f
-            Consecutive . or / characters
-            Starting ., /, or _ characters
-            Ending . or / characters
-        */
-        Url: string;
-
-        /** A value that specifies whether the new site will inherit permissions from its parent site. */
-        UseSamePermissionsAsParentSite?: boolean;
-
-        /** A value that specifies the name of the site template to be used for creating the new site. Use the GetAvailableWebTemplates method to get the names of available web templates on the site. */
-        WebTemplate: string;
+        suggest(settings:ComplexTypes.SearchSuggest) : ComplexTypes.QuerySuggestionResults;
     }
 }
 declare module $REST.Types {
@@ -5137,7 +5061,7 @@ declare module $REST.Types {
          * @param url - (Optional) The site url.
          * @param targetInfo - (Optional) The target information.
          */
-        new(url?:string, targetInfo?:Settings.TargetInfoSettings): ISite;
+        new(url?:string, targetInfo?:ComplexTypes.TargetInfoSettings): ISite;
 
         /**
          * Properties
@@ -5434,7 +5358,7 @@ declare module $REST.Types {
          * Adds a site to the site collection.
          * @param groupInfo - The group creation information.
          */
-        add(groupInfo:Settings.GroupCreationInformation): IGroup;
+        add(groupInfo:ComplexTypes.GroupCreationInformation): IGroup;
 
         /**
          * Method to execute the request.
@@ -5488,14 +5412,14 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): ISiteGroups;
+        query(oData:ComplexTypes.ODataQuery): ISiteGroups;
     }
 }
 
 
 
 
-declare module $REST.Settings {
+declare module $REST.ComplexTypes {
 
     /**
      * Target Information
@@ -6430,7 +6354,7 @@ declare module $REST.Types {
          * Adds a custom actino to the user custom action collection. 
          * @param parameters - The user custom action information.
          */
-        add(parameters:Settings.UserCustomActionCreationInformation): IUserCustomAction;
+        add(parameters:ComplexTypes.UserCustomActionCreationInformation): IUserCustomAction;
 
         /**
          * Deletes all custom actions in the collection.
@@ -6471,7 +6395,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IUserCustomActions;
+        query(oData:ComplexTypes.ODataQuery): IUserCustomActions;
     }
 }
 
@@ -6485,7 +6409,7 @@ declare module $REST.Types {
          * Constructor
          * @param targetInfo - (Optional) The target information.
          */
-        new(targetInfo?:Settings.TargetInfoSettings): IUserProfile;
+        new(targetInfo?:ComplexTypes.TargetInfoSettings): IUserProfile;
 
         /**
          * Properties
@@ -6635,7 +6559,7 @@ declare module $REST.Types {
          * Adds a site to the site collection.
          * @param userInfo - The user creation information.
          */
-        add(userInfo:Settings.UserCreationInformation): IUser;
+        add(userInfo:ComplexTypes.UserCreationInformation): IUser;
 
         /**
          * Method to execute the request.
@@ -6695,7 +6619,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IUsers;
+        query(oData:ComplexTypes.ODataQuery): IUsers;
     }
 }
 
@@ -6758,6 +6682,12 @@ declare module $REST.Types {
          * @param id - The version id to get.
          */
         getById(id): IBase;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:ComplexTypes.ODataQuery): IVersions;
 
         /**
          * Restores a version, by the specified label.
@@ -7016,7 +6946,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IViewFields;
+        query(oData:ComplexTypes.ODataQuery): IViewFields;
     }
 }
 
@@ -7039,7 +6969,7 @@ declare module $REST.Types {
         /**
          * Adds a list view to the view collection.
          */
-        add(parameters:Settings.ViewCreationInformation): IView;
+        add(parameters:ComplexTypes.ViewCreationInformation): IView;
 
         /**
          * Method to execute the request.
@@ -7081,7 +7011,7 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IViews;
+        query(oData:ComplexTypes.ODataQuery): IViews;
     }
 }
 
@@ -7095,7 +7025,7 @@ declare module $REST.Types {
          * @param url - (Optional) The web url.
          * @param targetInfo - (Optional) The target information.
          */
-        new(url?:string, targetInfo?:Settings.TargetInfoSettings): IWeb;
+        new(url?:string, targetInfo?:ComplexTypes.TargetInfoSettings): IWeb;
 
         /**
          * Properties
@@ -7771,7 +7701,7 @@ declare module $REST.Types {
          * Adds a site to the site collection.
          * @param parameters - The web creation information.
          */
-        add(parameters:Settings.WebCreationInformation): IWeb;
+        add(parameters:ComplexTypes.WebCreationInformation): IWeb;
 
         /**
          * Method to execute the request.
@@ -7801,6 +7731,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IWebs;
+        query(oData:ComplexTypes.ODataQuery): IWebs;
     }
 }

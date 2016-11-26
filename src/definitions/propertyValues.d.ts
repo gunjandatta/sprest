@@ -8,6 +8,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IPropertyValues;
+        query(oData:ComplexTypes.ODataQuery): IPropertyValues;
     }
 }

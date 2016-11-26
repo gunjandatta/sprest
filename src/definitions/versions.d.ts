@@ -59,6 +59,12 @@ declare module $REST.Types {
         getById(id): IBase;
 
         /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:ComplexTypes.ODataQuery): IVersions;
+
+        /**
          * Restores a version, by the specified label.
          * @param label - The version label to restore.
          */

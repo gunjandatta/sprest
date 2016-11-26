@@ -8,7 +8,7 @@ declare module $REST.Types {
          * @param url - (Optional) The site url.
          * @param targetInfo - (Optional) The target information.
          */
-        new(url?:string, targetInfo?:Settings.TargetInfoSettings): ISite;
+        new(url?:string, targetInfo?:ComplexTypes.TargetInfoSettings): ISite;
 
         /**
          * Properties

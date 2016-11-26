@@ -8,7 +8,7 @@ declare module $REST.Types {
          * Constructor
          * @param targetInfo - (Optional) The target information.
          */
-        new(targetInfo?:Settings.TargetInfoSettings): IUserProfile;
+        new(targetInfo?:ComplexTypes.TargetInfoSettings): IUserProfile;
 
         /**
          * Properties

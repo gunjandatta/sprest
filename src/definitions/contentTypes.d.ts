@@ -18,7 +18,7 @@ declare module $REST.Types {
          * Adds a content type to the collection.
          * @param parameters - The content type creation information.
          */
-        add(parameters:Settings.ContentTypeCreationInformation): IContentType;
+        add(parameters:ComplexTypes.ContentTypeCreationInformation): IContentType;
 
         /**
          * Adds an existing content type to this collection.
@@ -60,6 +60,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IContentTypes;
+        query(oData:ComplexTypes.ODataQuery): IContentTypes;
     }
 }

@@ -18,7 +18,7 @@ declare module $REST.Types {
          * Adds a custom actino to the user custom action collection. 
          * @param parameters - The user custom action information.
          */
-        add(parameters:Settings.UserCustomActionCreationInformation): IUserCustomAction;
+        add(parameters:ComplexTypes.UserCustomActionCreationInformation): IUserCustomAction;
 
         /**
          * Deletes all custom actions in the collection.
@@ -59,6 +59,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IUserCustomActions;
+        query(oData:ComplexTypes.ODataQuery): IUserCustomActions;
     }
 }

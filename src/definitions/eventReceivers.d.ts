@@ -18,7 +18,7 @@ declare module $REST.Types {
          * Adds an event receiver to the collection.
          * @param parameters - The event receiver definition creation information.
          */
-        add(parameters:Settings.EventReceiverDefinitionCreationInformation): IEventReceiver;
+        add(parameters:ComplexTypes.EventReceiverDefinitionCreationInformation): IEventReceiver;
 
         /**
          * Method to execute the request.
@@ -54,6 +54,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IEventReceivers;
+        query(oData:ComplexTypes.ODataQuery): IEventReceivers;
     }
 }

@@ -1313,18 +1313,18 @@ var $REST;
         /**
          * Reordering Rule Match Types
          */
-        (function (ReordingRuleMathType) {
-            ReordingRuleMathType[ReordingRuleMathType["ResultContainsKeyword"] = 0] = "ResultContainsKeyword";
-            ReordingRuleMathType[ReordingRuleMathType["TitleContainsKeyword"] = 1] = "TitleContainsKeyword";
-            ReordingRuleMathType[ReordingRuleMathType["TitleMatchesKeyword"] = 2] = "TitleMatchesKeyword";
-            ReordingRuleMathType[ReordingRuleMathType["UrlStartsWith"] = 3] = "UrlStartsWith";
-            ReordingRuleMathType[ReordingRuleMathType["UrlExactlyMatches"] = 4] = "UrlExactlyMatches";
-            ReordingRuleMathType[ReordingRuleMathType["ContentTypeIs"] = 5] = "ContentTypeIs";
-            ReordingRuleMathType[ReordingRuleMathType["FileExtensionMatches"] = 6] = "FileExtensionMatches";
-            ReordingRuleMathType[ReordingRuleMathType["ResultHasTag"] = 7] = "ResultHasTag";
-            ReordingRuleMathType[ReordingRuleMathType["ManualCondition"] = 8] = "ManualCondition";
-        })(Types.ReordingRuleMathType || (Types.ReordingRuleMathType = {}));
-        var ReordingRuleMathType = Types.ReordingRuleMathType;
+        (function (ReordingRuleMatchType) {
+            ReordingRuleMatchType[ReordingRuleMatchType["ResultContainsKeyword"] = 0] = "ResultContainsKeyword";
+            ReordingRuleMatchType[ReordingRuleMatchType["TitleContainsKeyword"] = 1] = "TitleContainsKeyword";
+            ReordingRuleMatchType[ReordingRuleMatchType["TitleMatchesKeyword"] = 2] = "TitleMatchesKeyword";
+            ReordingRuleMatchType[ReordingRuleMatchType["UrlStartsWith"] = 3] = "UrlStartsWith";
+            ReordingRuleMatchType[ReordingRuleMatchType["UrlExactlyMatches"] = 4] = "UrlExactlyMatches";
+            ReordingRuleMatchType[ReordingRuleMatchType["ContentTypeIs"] = 5] = "ContentTypeIs";
+            ReordingRuleMatchType[ReordingRuleMatchType["FileExtensionMatches"] = 6] = "FileExtensionMatches";
+            ReordingRuleMatchType[ReordingRuleMatchType["ResultHasTag"] = 7] = "ResultHasTag";
+            ReordingRuleMatchType[ReordingRuleMatchType["ManualCondition"] = 8] = "ManualCondition";
+        })(Types.ReordingRuleMatchType || (Types.ReordingRuleMatchType = {}));
+        var ReordingRuleMatchType = Types.ReordingRuleMatchType;
         /**
          * Role Types
          */

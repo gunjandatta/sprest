@@ -1,4 +1,4 @@
-declare module $REST.Settings {
+declare module $REST.ComplexTypes {
 
     /**
      * Target Information

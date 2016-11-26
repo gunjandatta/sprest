@@ -42,6 +42,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IFileVersions;
+        query(oData:ComplexTypes.ODataQuery): IFileVersions;
     }
 }

@@ -18,7 +18,7 @@ declare module $REST.Types {
          * Adds a list to the list collection.
          * @param parameters - The list creation information.
          */
-        add(parameters:Settings.ListCreationInformation): IList;
+        add(parameters:ComplexTypes.ListCreationInformation): IList;
 
         /**
          * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
@@ -70,6 +70,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): ILists;
+        query(oData:ComplexTypes.ODataQuery): ILists;
     }
 }

@@ -5,6 +5,9 @@ module GD {
     }
 }
 
+let w = (new $REST.Web());
+w.TitleResource().DecodedUrl;
+
 var web = new $REST.Web();
 
 // Get the source folder

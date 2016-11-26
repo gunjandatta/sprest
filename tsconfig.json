@@ -49,7 +49,6 @@
         "src/definitions/roleDefinition.d.ts",
         "src/definitions/roleDefinitions.d.ts",
         "src/definitions/search.d.ts",
-        "src/definitions/settings.d.ts",
         "src/definitions/site.d.ts",
         "src/definitions/siteGroups.d.ts",
         "src/definitions/socialRestActor.d.ts",

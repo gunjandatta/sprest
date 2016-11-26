@@ -32,6 +32,14 @@ declare module $REST.Results {
     }
 
     /**
+     * Custom Result
+     */
+    interface CustomResult {
+        /** The collection of custom results. */
+        results: Array<ComplexTypes.CustomResult>;
+    }
+
+    /**
      * Data Row
      */
     interface DataRow {
@@ -77,6 +85,46 @@ declare module $REST.Results {
     interface ParameterInformation {
         /** The collection of parameter information. */
         results: Array<ComplexTypes.ParameterInformation>;
+    }
+
+    /**
+     * Personal Result Suggestion
+     */
+    interface PersonalResultSuggestion {
+        /** The collection of personal result suggestions. */
+        results: Array<ComplexTypes.PersonalResultSuggestion>;
+    }
+
+    /**
+     * Query Result
+     */
+    interface QueryResult {
+        /** The collection of custom results. */
+        results: Array<ComplexTypes.QueryResult>;
+    }
+
+    /**
+     * Query Suggestion Query
+     */
+    interface QuerySuggestionQuery {
+        /** The collection of query suggestion queries. */
+        results: Array<ComplexTypes.QuerySuggestionQuery>;
+    }
+
+    /**
+     * Refiner
+     */
+    interface Refiner {
+        /** The collection of refiners. */
+        results: Array<ComplexTypes.Refiner>;
+    }
+
+    /**
+     * Refiner Entry
+     */
+    interface RefinerEntry {
+        /** The collection of refiner entries. */
+        results: Array<ComplexTypes.RefinerEntry>;
     }
 
     /**

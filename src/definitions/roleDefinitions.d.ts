@@ -60,6 +60,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IRoleDefinitions;
+        query(oData:ComplexTypes.ODataQuery): IRoleDefinitions;
     }
 }

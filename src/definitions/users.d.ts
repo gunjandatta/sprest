@@ -18,7 +18,7 @@ declare module $REST.Types {
          * Adds a site to the site collection.
          * @param userInfo - The user creation information.
          */
-        add(userInfo:Settings.UserCreationInformation): IUser;
+        add(userInfo:ComplexTypes.UserCreationInformation): IUser;
 
         /**
          * Method to execute the request.
@@ -78,6 +78,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IUsers;
+        query(oData:ComplexTypes.ODataQuery): IUsers;
     }
 }

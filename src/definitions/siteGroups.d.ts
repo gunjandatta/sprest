@@ -18,7 +18,7 @@ declare module $REST.Types {
          * Adds a site to the site collection.
          * @param groupInfo - The group creation information.
          */
-        add(groupInfo:Settings.GroupCreationInformation): IGroup;
+        add(groupInfo:ComplexTypes.GroupCreationInformation): IGroup;
 
         /**
          * Method to execute the request.
@@ -72,6 +72,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): ISiteGroups;
+        query(oData:ComplexTypes.ODataQuery): ISiteGroups;
     }
 }

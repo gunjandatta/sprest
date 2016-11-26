@@ -18,7 +18,7 @@ declare module $REST.Types {
          * Adds a site to the site collection.
          * @param parameters - The web creation information.
          */
-        add(parameters:Settings.WebCreationInformation): IWeb;
+        add(parameters:ComplexTypes.WebCreationInformation): IWeb;
 
         /**
          * Method to execute the request.
@@ -48,6 +48,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IWebs;
+        query(oData:ComplexTypes.ODataQuery): IWebs;
     }
 }

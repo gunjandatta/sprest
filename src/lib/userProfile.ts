@@ -6,7 +6,7 @@ module $REST {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
-        constructor(targetInfo?:Settings.TargetInfoSettings) {
+        constructor(targetInfo?:ComplexTypes.TargetInfoSettings) {
             // Call the base constructor
             super(targetInfo);
 

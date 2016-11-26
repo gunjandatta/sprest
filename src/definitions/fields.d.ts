@@ -24,7 +24,7 @@ declare module $REST.Types {
          * Adds a field to the field collection.
          * @param parameters - The field creation information.
          */
-        addField(parameters:Settings.FieldCreationInformation): IField;
+        addField(parameters:ComplexTypes.FieldCreationInformation): IField;
 
         /**
          * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
@@ -87,6 +87,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IFields;
+        query(oData:ComplexTypes.ODataQuery): IFields;
     }
 }

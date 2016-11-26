@@ -1,8 +1,8 @@
-declare module $REST.Settings {
+declare module $REST.ComplexTypes {
     /**
      * OData Settings
      */
-    interface ODataSettings {
+    interface ODataQuery {
         /** The fields to expand. */
         Expand?: Array<string>;
 

@@ -8,7 +8,7 @@ declare module $REST.Types {
          * @param listName - The name of the list.
          * @param targetInfo - (Optional) The target information.
          */
-        new(listName:string, targetInfo?:Settings.TargetInfoSettings): IList;
+        new(listName:string, targetInfo?:ComplexTypes.TargetInfoSettings): IList;
 
         /**
          * Properties

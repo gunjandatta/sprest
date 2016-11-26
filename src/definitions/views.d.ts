@@ -17,7 +17,7 @@ declare module $REST.Types {
         /**
          * Adds a list view to the view collection.
          */
-        add(parameters:Settings.ViewCreationInformation): IView;
+        add(parameters:ComplexTypes.ViewCreationInformation): IView;
 
         /**
          * Method to execute the request.
@@ -59,6 +59,6 @@ declare module $REST.Types {
          * Queries the collection.
          * @param oData - The OData information.
          */
-        query(oData:Settings.ODataSettings): IViews;
+        query(oData:ComplexTypes.ODataQuery): IViews;
     }
 }
