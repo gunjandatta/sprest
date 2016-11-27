@@ -2,7 +2,7 @@ module $REST {
     /*********************************************************************************************************************************/
     // Social Feed
     /*********************************************************************************************************************************/
-    export class SocialFeed extends Base {
+    class _SocialFeed extends Base {
         /*********************************************************************************************************************************/
         // Constructor
         /*********************************************************************************************************************************/
@@ -18,6 +18,25 @@ module $REST {
             // Add the methods
             this.addMethods(this, { __metadata: { type: "socialfeed" } } );
         }
+
+        /*********************************************************************************************************************************/
+        // Methods
+        /*********************************************************************************************************************************/
+
+        // Method to post to the current user's feed
+        postToMyFeed(creationData:ComplexTypes.SocialPostCreationData) {
+            let postInfo: ComplexTypes.SocialRestPostCreationData = { ID: null, creationData: creationData };
+
+            // Set the post metadata
+            postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
+            postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
+
+            return this.executeMethod("postToMyFeed", {
+                argNames: ["restCreationData"],
+                name: "my/feed/post",
+                requestType: Types.RequestType.PostWithArgsInBody
+            }, [postInfo]);
+        }
     }
 
     /*********************************************************************************************************************************/
@@ -25,8 +44,6 @@ module $REST {
     /*********************************************************************************************************************************/
 
     Library.socialfeed = {
-        properties: ["Actor|socialrestactor", "My|socialrestactor", "Post|socialrestthread"],
-
         actor: {
             argNames: ["accountName"],
             name: "actor(item=@v)?@v='[[accountName]]'",
@@ -83,12 +100,11 @@ module $REST {
         myUnreadMentionCount: {
             name: "my/unreadmentioncount",
             requestType: Types.RequestType.Get
-        },
-
-        postToMyFeed: {
-            argNames: ["restCreationData"],
-            name: "my/feed/post",
-            requestType: Types.RequestType.PostWithArgsInBody
         }
     }
+
+    /*********************************************************************************************************************************/
+    // Social Feed
+    /*********************************************************************************************************************************/
+    export let SocialFeed = new _SocialFeed();
 }

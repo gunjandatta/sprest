@@ -5838,10 +5838,13 @@ declare module $REST.Types {
 
         myUnreadMentionCount(): ISocialRestFeed;
 
-        postToMyFeed(postInfo:ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
+        /**
+         * Method to post to the current user's feed.
+         * @param creationData - The post creation data.
+         */
+        postToMyFeed(creationData:ComplexTypes.SocialPostCreationData): ISocialRestThread;
     }
-}
-declare module $REST.Types {
+
     /**
      * Social Rest Actor
      */
@@ -5886,8 +5889,7 @@ declare module $REST.Types {
          */
         executeAndWait(): ISocialRestActor;
     }
-}
-declare module $REST.Types {
+
     /**
      * Social Rest Feed
      */
@@ -5931,9 +5933,7 @@ declare module $REST.Types {
          */
         post(postInfo: ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
     }
-}
 
-declare module $REST.Types {
     /**
      * Social Rest Thread
      */
