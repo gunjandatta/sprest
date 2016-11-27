@@ -3654,28 +3654,100 @@ var $REST;
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
+    // Libraries
+    /*********************************************************************************************************************************/
+    $REST.Library.socialrestfeed = {
+        post: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        }
+    };
+})($REST || ($REST = {}));
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
     // Social Feed
     /*********************************************************************************************************************************/
-    var SocialFeed = (function () {
-        function SocialFeed() {
+    var SocialFeed = (function (_super) {
+        __extends(SocialFeed, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function SocialFeed(targetInfo) {
+            // Call the base constructor
+            _super.call(this, targetInfo);
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.responses = [];
+            this.targetInfo.endpoint = "social.feed";
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "socialfeed" } });
         }
-        SocialFeed.Actor = function (accountName) {
-            return new $REST.SocialRestActor(accountName);
-        };
-        SocialFeed.My = function () {
-            return new $REST.SocialRestActor();
-        };
-        SocialFeed.Post = function (id) {
-            return new $REST.SocialRestThread(id);
-        };
         return SocialFeed;
-    }());
+    }($REST.Base));
     $REST.SocialFeed = SocialFeed;
     /*********************************************************************************************************************************/
     // Libraries
     /*********************************************************************************************************************************/
     $REST.Library.socialfeed = {
-        properties: ["Actor|socialrestactor", "My|socialrestactor", "Post|socialrestthread"]
+        properties: ["Actor|socialrestactor", "My|socialrestactor", "Post|socialrestthread"],
+        actor: {
+            argNames: ["accountName"],
+            name: "actor(item=@v)?@v='[[accountName]]'",
+            requestType: $REST.Types.RequestType.GetReplace
+        },
+        actorFeed: {
+            argNames: ["accountName"],
+            name: "actor(item=@v)/feed?@v='[[accountName]]'",
+            requestType: $REST.Types.RequestType.GetReplace
+        },
+        actorFeedPost: {
+            argNames: ["accountName"],
+            name: "actor(item=@v)/feed?@v='[[accountName]]'",
+            requestType: $REST.Types.RequestType.PostReplace
+        },
+        clearMyUnreadMentionCount: {
+            name: "my/mentionfeed/clearMyUnreadMentionCount",
+            requestType: $REST.Types.RequestType.Post
+        },
+        my: {
+            name: "my",
+            requestType: $REST.Types.RequestType.Get
+        },
+        myFeed: {
+            name: "my/feed",
+            requestType: $REST.Types.RequestType.Get
+        },
+        myLikes: {
+            name: "my/likes",
+            requestType: $REST.Types.RequestType.Get
+        },
+        myMentionFeed: {
+            name: "my/mentionfeed",
+            requestType: $REST.Types.RequestType.Get
+        },
+        myNews: {
+            name: "my/news",
+            requestType: $REST.Types.RequestType.Get
+        },
+        myTimelineFeed: {
+            name: "my/timelinefeed",
+            requestType: $REST.Types.RequestType.Get
+        },
+        myUnreadMentionCount: {
+            name: "my/unreadmentioncount",
+            requestType: $REST.Types.RequestType.Get
+        },
+        postToMyFeed: {
+            argNames: ["restCreationData"],
+            name: "my/feed/post",
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        }
     };
 })($REST || ($REST = {}));
 
@@ -3730,39 +3802,97 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var $REST;
 (function ($REST) {
-    var Social;
-    (function (Social) {
+    /*********************************************************************************************************************************/
+    // Social Rest Actor
+    /*********************************************************************************************************************************/
+    var SocialRestActor = (function (_super) {
+        __extends(SocialRestActor, _super);
         /*********************************************************************************************************************************/
-        // Social - Post
+        // Constructor
         /*********************************************************************************************************************************/
-        var Post = (function (_super) {
-            __extends(Post, _super);
-            /*********************************************************************************************************************************/
-            // Constructor
-            /*********************************************************************************************************************************/
-            function Post(targetInfo) {
-                // Call the base constructor
-                _super.call(this, targetInfo);
-                // Default the properties
-                this.defaultToWebFl = true;
-                this.responses = [];
-                this.targetInfo.endpoint = "social.feed/post";
-                // Add the methods
-                this.addMethods(this, { __metadata: { type: "social_post" } });
-            }
-            return Post;
-        }($REST.Base));
-        Social.Post = Post;
+        function SocialRestActor(accountName, targetInfo) {
+            // Call the base constructor
+            _super.call(this, targetInfo);
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.responses = [];
+            this.targetInfo.endpoint = "social.feed/" +
+                (accountName && accountName.length > 0 ? "actor(item=@v)?@v='" + encodeURIComponent(accountName) + "'" : "my");
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "socialrestactor" } });
+        }
+        return SocialRestActor;
+    }($REST.Base));
+    $REST.SocialRestActor = SocialRestActor;
+    /*********************************************************************************************************************************/
+    // Libraries
+    /*********************************************************************************************************************************/
+    $REST.Library.socialrestactor = {
+        properties: ["Feed", "Likes", "MentionFeed", "News", "TimelineFeed", "UnreadMentionCount"],
+        clearUnreadMentionCount: {
+            metadataType: "SP.Social.SocialFeedOptions",
+            name: "UnreadMentionCount/ClearUnreadMentionCount",
+            requestType: $REST.Types.RequestType.Post
+        }
+    };
+})($REST || ($REST = {}));
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // Social Rest Thread
+    /*********************************************************************************************************************************/
+    var SocialRestThread = (function (_super) {
+        __extends(SocialRestThread, _super);
         /*********************************************************************************************************************************/
-        // Libraries
+        // Constructor
         /*********************************************************************************************************************************/
-        /*********************************************************************************************************************************/
-        // My
-        /*********************************************************************************************************************************/
-        $REST.Library.social_post = {
-            properties: ["Delete", "Like", "Lock", "Reply", "Unlike", "Unlock"]
-        };
-    })(Social = $REST.Social || ($REST.Social = {}));
+        function SocialRestThread(id, targetInfo) {
+            // Call the base constructor
+            _super.call(this, targetInfo);
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.responses = [];
+            this.targetInfo.endpoint = "social.feed/post";
+            this.targetInfo.method = "POST";
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "socialrestthread" } });
+        }
+        return SocialRestThread;
+    }($REST.Base));
+    $REST.SocialRestThread = SocialRestThread;
+    /*********************************************************************************************************************************/
+    // Libraries
+    /*********************************************************************************************************************************/
+    $REST.Library.socialrestthread = {
+        delete: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        like: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        likers: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        lock: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        reply: {
+            metadataType: "SP.Social.SocialRestPostCreationData",
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        unlike: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        unlock: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        }
+    };
 })($REST || ($REST = {}));
 
 var __extends = (this && this.__extends) || function (d, b) {
@@ -3798,7 +3928,24 @@ var $REST;
     // Libraries
     /*********************************************************************************************************************************/
     $REST.Library.socialrestactor = {
-        properties: ["Delete", "Like", "Lock", "Reply", "Unlike", "Unlock"]
+        properties: ["Feed", "Likes", "MentionFeed", "News", "TimelineFeed", "UnreadMentionCount"],
+        clearUnreadMentionCount: {
+            metadataType: "SP.Social.SocialFeedOptions",
+            name: "UnreadMentionCount/ClearUnreadMentionCount",
+            requestType: $REST.Types.RequestType.Post
+        }
+    };
+})($REST || ($REST = {}));
+
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // Libraries
+    /*********************************************************************************************************************************/
+    $REST.Library.socialrestfeed = {
+        post: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        }
     };
 })($REST || ($REST = {}));
 
@@ -3851,6 +3998,7 @@ var $REST;
             this.defaultToWebFl = true;
             this.responses = [];
             this.targetInfo.endpoint = "social.feed/post";
+            this.targetInfo.method = "POST";
             // Add the methods
             this.addMethods(this, { __metadata: { type: "socialrestthread" } });
         }
@@ -3861,7 +4009,28 @@ var $REST;
     // Libraries
     /*********************************************************************************************************************************/
     $REST.Library.socialrestthread = {
-        properties: ["Delete", "Like", "Lock", "Reply", "Unlike", "Unlock"]
+        delete: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        like: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        likers: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        lock: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        reply: {
+            metadataType: "SP.Social.SocialRestPostCreationData",
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        unlike: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        unlock: {
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        }
     };
 })($REST || ($REST = {}));
 

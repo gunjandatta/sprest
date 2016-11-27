@@ -1358,12 +1358,12 @@ declare module $REST.ComplexTypes {
      * Social Post Creation Data
      */
     interface SocialPostCreationData {
-        Attachment: SocialAttachment;
-        ContentItems: Results.SocialDataItem;
+        Attachment?: SocialAttachment;
+        ContentItems?: Results.SocialDataItem;
         ContentText: string;
-        DefinitionData: SocialPostDefinitionData;
-        SecurityUris: Results.String;
-        Source: SocialLink;
+        DefinitionData?: SocialPostDefinitionData;
+        SecurityUris?: Results.String;
+        Source?: SocialLink;
         UpdateStatusText?: boolean;
     }
 
@@ -1395,13 +1395,6 @@ declare module $REST.ComplexTypes {
         Post: SocialPost;
         ThreadId: string;
         ThreadOwnerIndex?: number;
-    }
-
-    /**
-     * Social Rest Feed
-     */
-    interface SocialRestFeed {
-        SocialFeed: SocialFeed;
     }
 
     /**

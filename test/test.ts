@@ -5,7 +5,12 @@ module GD {
     }
 }
 
-var my = $REST.SocialFeed.My().executeAndWait();
+var myFeed = $REST.SocialFeed.postToMyFeed({
+    ID: null,
+    creationData: {
+        ContentText: ""
+    }
+});
 
 var web = new $REST.Web();
 

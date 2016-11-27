@@ -26,6 +26,12 @@ module $REST {
     // Libraries
     /*********************************************************************************************************************************/
     Library.socialrestactor = {
-        properties: ["Delete", "Like", "Lock", "Reply", "Unlike", "Unlock"]
+        properties: ["Feed", "Likes", "MentionFeed", "News", "TimelineFeed", "UnreadMentionCount"],
+
+        clearUnreadMentionCount: {
+            metadataType: "SP.Social.SocialFeedOptions",
+            name: "UnreadMentionCount/ClearUnreadMentionCount",
+            requestType: Types.RequestType.Post
+        }
     }
 }

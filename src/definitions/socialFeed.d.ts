@@ -5,24 +5,40 @@ declare module $REST.Types {
      */
     interface ISocialFeed {
         /**
-         * Properties
+         * Methods
          */
 
         /**
-         * User Feed
-         * @param accountName - The user account name;
+         * @param accountName - The login name of the user.
          */
-        Actor(accountName:string): ISocialRestActor;
+        actor(accountName:string): ISocialRestActor;
 
         /**
-         * My Feed
+         * @param accountName - The login name of the user.
          */
-        My(): ISocialRestActor;
+        actorFeed(accountName:string): ISocialRestThread;
 
         /**
-         * Post
-         * @param id - The post id.
+         * @param accountName - The login name of the user.
          */
-        Post(id:string): IBase;
+        actorFeedPost(accountName:string, postInfo:ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
+
+        clearMyUnreadMentionCount(): IBase;
+
+        my(): ISocialRestActor;
+
+        myFeed(): ISocialRestFeed;
+
+        myLikes(): ISocialRestFeed;
+
+        myMentionFeed(): ISocialRestFeed;
+
+        myNews(): ISocialRestFeed;
+
+        myTimelineFeed(): ISocialRestFeed;
+
+        myUnreadMentionCount(): ISocialRestFeed;
+
+        postToMyFeed(postInfo:ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
     }
 }

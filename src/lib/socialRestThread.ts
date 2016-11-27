@@ -15,6 +15,7 @@ module $REST {
             this.defaultToWebFl = true;
             this.responses = [];
             this.targetInfo.endpoint = "social.feed/post";
+            this.targetInfo.method = "POST";
 
             // Add the methods
             this.addMethods(this, { __metadata: { type: "socialrestthread" } } );
@@ -25,6 +26,33 @@ module $REST {
     // Libraries
     /*********************************************************************************************************************************/
     Library.socialrestthread = {
-        properties: ["Delete", "Like", "Lock", "Reply", "Unlike", "Unlock"]
+        delete: {
+            requestType: Types.RequestType.PostWithArgsInBody
+        },
+
+        like: {
+            requestType: Types.RequestType.PostWithArgsInBody
+        },
+
+        likers: {
+            requestType: Types.RequestType.PostWithArgsInBody
+        },
+
+        lock: {
+            requestType: Types.RequestType.PostWithArgsInBody
+        },
+        
+        reply: {
+            metadataType: "SP.Social.SocialRestPostCreationData",
+            requestType: Types.RequestType.PostWithArgsInBody
+        },
+        
+        unlike: {
+            requestType: Types.RequestType.PostWithArgsInBody
+        },
+        
+        unlock: {
+            requestType: Types.RequestType.PostWithArgsInBody
+        }
     }
 }

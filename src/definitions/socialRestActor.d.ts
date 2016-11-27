@@ -4,13 +4,6 @@ declare module $REST.Types {
      */
     interface ISocialRestActor extends IBase {
         /**
-         * Constructor
-         * @param accountName - The user account name.
-         * @param targetInfo - The target information.
-         */
-        new(accountName?:string, targetInfo?:ComplexTypes.TargetInfoSettings): ISocialRestActor;
-
-        /**
          * Properties
          */
 
@@ -23,6 +16,8 @@ declare module $REST.Types {
         /**
          * Methods
          */
+
+        clearUnreadMentionCount(): ISocialRestFeed;
 
         /**
          * Method to execute the request.

@@ -1598,12 +1598,12 @@ declare module $REST.ComplexTypes {
      * Social Post Creation Data
      */
     interface SocialPostCreationData {
-        Attachment: SocialAttachment;
-        ContentItems: Results.SocialDataItem;
+        Attachment?: SocialAttachment;
+        ContentItems?: Results.SocialDataItem;
         ContentText: string;
-        DefinitionData: SocialPostDefinitionData;
-        SecurityUris: Results.String;
-        Source: SocialLink;
+        DefinitionData?: SocialPostDefinitionData;
+        SecurityUris?: Results.String;
+        Source?: SocialLink;
         UpdateStatusText?: boolean;
     }
 
@@ -1635,13 +1635,6 @@ declare module $REST.ComplexTypes {
         Post: SocialPost;
         ThreadId: string;
         ThreadOwnerIndex?: number;
-    }
-
-    /**
-     * Social Rest Feed
-     */
-    interface SocialRestFeed {
-        SocialFeed: SocialFeed;
     }
 
     /**
@@ -5811,25 +5804,41 @@ declare module $REST.Types {
      */
     interface ISocialFeed {
         /**
-         * Properties
+         * Methods
          */
 
         /**
-         * User Feed
-         * @param accountName - The user account name;
+         * @param accountName - The login name of the user.
          */
-        Actor(accountName:string): ISocialRestActor;
+        actor(accountName:string): ISocialRestActor;
 
         /**
-         * My Feed
+         * @param accountName - The login name of the user.
          */
-        My(): ISocialRestActor;
+        actorFeed(accountName:string): ISocialRestThread;
 
         /**
-         * Post
-         * @param id - The post id.
+         * @param accountName - The login name of the user.
          */
-        Post(id:string): IBase;
+        actorFeedPost(accountName:string, postInfo:ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
+
+        clearMyUnreadMentionCount(): IBase;
+
+        my(): ISocialRestActor;
+
+        myFeed(): ISocialRestFeed;
+
+        myLikes(): ISocialRestFeed;
+
+        myMentionFeed(): ISocialRestFeed;
+
+        myNews(): ISocialRestFeed;
+
+        myTimelineFeed(): ISocialRestFeed;
+
+        myUnreadMentionCount(): ISocialRestFeed;
+
+        postToMyFeed(postInfo:ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
     }
 }
 declare module $REST.Types {
@@ -5837,13 +5846,6 @@ declare module $REST.Types {
      * Social Rest Actor
      */
     interface ISocialRestActor extends IBase {
-        /**
-         * Constructor
-         * @param accountName - The user account name.
-         * @param targetInfo - The target information.
-         */
-        new(accountName?:string, targetInfo?:ComplexTypes.TargetInfoSettings): ISocialRestActor;
-
         /**
          * Properties
          */
@@ -5857,6 +5859,8 @@ declare module $REST.Types {
         /**
          * Methods
          */
+
+        clearUnreadMentionCount(): ISocialRestFeed;
 
         /**
          * Method to execute the request.
@@ -5885,15 +5889,55 @@ declare module $REST.Types {
 }
 declare module $REST.Types {
     /**
+     * Social Rest Feed
+     */
+    interface ISocialRestFeed extends IBase {
+        /**
+         * Properties
+         */
+
+        SocialFeed: ComplexTypes.SocialFeed;
+
+        /**
+         * Methods
+         */
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         */
+        execute(callback?:(...args) => any): ISocialRestActor;
+
+        /**
+         * Method to execute the request.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(waitFl:boolean): ISocialRestActor;
+
+        /**
+         * Method to execute the request.
+         * @param callback - The method to be executed after the request completes.
+         * @param waitFl - Flag to execute the request, after the previous requests have completed.
+         */
+        execute(callback:any, waitFl:boolean): ISocialRestActor;
+
+        /**
+         * Method to execute the request synchronously.
+         */
+        executeAndWait(): ISocialRestActor;
+
+        /**
+         * Creates a root post in the user's feed.
+         */
+        post(postInfo: ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
+    }
+}
+
+declare module $REST.Types {
+    /**
      * Social Rest Thread
      */
     interface ISocialRestThread extends IBase {
-        /**
-         * Constructor
-         * @param targetInfo - The target information.
-         */
-        new(targetInfo?:ComplexTypes.TargetInfoSettings): ISocialRestThread;
-
         /**
          * Properties
          */
@@ -5905,6 +5949,10 @@ declare module $REST.Types {
         /**
          * Methods
          */
+
+        delete(): ISocialRestThread;
+
+        reply(restCreationData:ComplexTypes.SocialPostCreationData): ISocialRestThread;
 
         /**
          * Method to execute the request.

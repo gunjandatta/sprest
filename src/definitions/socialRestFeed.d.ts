@@ -1,46 +1,45 @@
 declare module $REST.Types {
     /**
-     * Social Rest Thread
+     * Social Rest Feed
      */
-    interface ISocialRestThread extends IBase {
+    interface ISocialRestFeed extends IBase {
         /**
          * Properties
          */
 
-        ID?: string;
-
-        SocialThread: ComplexTypes.SocialThread;
+        SocialFeed: ComplexTypes.SocialFeed;
 
         /**
          * Methods
          */
 
-        delete(): ISocialRestThread;
-
-        reply(restCreationData:ComplexTypes.SocialPostCreationData): ISocialRestThread;
-
         /**
          * Method to execute the request.
          * @param callback - The method to be executed after the request completes.
          */
-        execute(callback?:(...args) => any): ISocialRestThread;
+        execute(callback?:(...args) => any): ISocialRestActor;
 
         /**
          * Method to execute the request.
          * @param waitFl - Flag to execute the request, after the previous requests have completed.
          */
-        execute(waitFl:boolean): ISocialRestThread;
+        execute(waitFl:boolean): ISocialRestActor;
 
         /**
          * Method to execute the request.
          * @param callback - The method to be executed after the request completes.
          * @param waitFl - Flag to execute the request, after the previous requests have completed.
          */
-        execute(callback:any, waitFl:boolean): ISocialRestThread;
+        execute(callback:any, waitFl:boolean): ISocialRestActor;
 
         /**
          * Method to execute the request synchronously.
          */
-        executeAndWait(): ISocialRestThread;
+        executeAndWait(): ISocialRestActor;
+
+        /**
+         * Creates a root post in the user's feed.
+         */
+        post(postInfo: ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
     }
 }
