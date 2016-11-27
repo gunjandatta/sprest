@@ -5,13 +5,6 @@ module GD {
     }
 }
 
-var myFeed = $REST.SocialFeed.postToMyFeed({
-    ID: null,
-    creationData: {
-        ContentText: ""
-    }
-});
-
 var web = new $REST.Web();
 
 // Get the source folder
