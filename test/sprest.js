@@ -3613,6 +3613,18 @@ var $REST;
         /*********************************************************************************************************************************/
         // Methods
         /*********************************************************************************************************************************/
+        // Method to post to another user's feed
+        _SocialFeed.prototype.postToFeed = function (accountName, creationData) {
+            var postInfo = { ID: null, creationData: creationData };
+            // Set the post metadata
+            postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
+            postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
+            return this.executeMethod("postToMyFeed", {
+                argNames: ["restCreationData"],
+                name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
+                requestType: $REST.Types.RequestType.PostWithArgsInBody
+            }, [postInfo]);
+        };
         // Method to post to the current user's feed
         _SocialFeed.prototype.postToMyFeed = function (creationData) {
             var postInfo = { ID: null, creationData: creationData };
@@ -3640,11 +3652,6 @@ var $REST;
             argNames: ["accountName"],
             name: "actor(item=@v)/feed?@v='[[accountName]]'",
             requestType: $REST.Types.RequestType.GetReplace
-        },
-        actorFeedPost: {
-            argNames: ["accountName"],
-            name: "actor(item=@v)/feed?@v='[[accountName]]'",
-            requestType: $REST.Types.RequestType.PostReplace
         },
         clearMyUnreadMentionCount: {
             name: "my/mentionfeed/clearMyUnreadMentionCount",

@@ -23,6 +23,21 @@ module $REST {
         // Methods
         /*********************************************************************************************************************************/
 
+        // Method to post to another user's feed
+        postToFeed(accountName:string, creationData: ComplexTypes.SocialPostCreationData) {
+            let postInfo: ComplexTypes.SocialRestPostCreationData = { ID: null, creationData: creationData };
+
+            // Set the post metadata
+            postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
+            postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
+
+            return this.executeMethod("postToMyFeed", {
+                argNames: ["restCreationData"],
+                name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
+                requestType: Types.RequestType.PostWithArgsInBody
+            }, [postInfo]);
+        }
+
         // Method to post to the current user's feed
         postToMyFeed(creationData:ComplexTypes.SocialPostCreationData) {
             let postInfo: ComplexTypes.SocialRestPostCreationData = { ID: null, creationData: creationData };
@@ -54,12 +69,6 @@ module $REST {
             argNames: ["accountName"],
             name: "actor(item=@v)/feed?@v='[[accountName]]'",
             requestType: Types.RequestType.GetReplace
-        },
-
-        actorFeedPost: {
-            argNames: ["accountName"],
-            name: "actor(item=@v)/feed?@v='[[accountName]]'",
-            requestType: Types.RequestType.PostReplace
         },
 
         clearMyUnreadMentionCount: {

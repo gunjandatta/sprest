@@ -9,41 +9,68 @@ declare module $REST.Types {
          */
 
         /**
+         * Gets information about the specified user and the current user.
          * @param accountName - The login name of the user.
          */
         actor(accountName:string): ISocialRestActor;
 
         /**
+         * Gets the feed of activity by the specified user (Personal feed type) or gets the specified site feed.
          * @param accountName - The login name of the user.
          */
         actorFeed(accountName:string): ISocialRestThread;
 
         /**
-         * @param accountName - The login name of the user.
+         * Gets the feed of microblog posts that mention the current user, represented by MentionReference thread types, and sets the user's unread mention count to 0.
          */
-        actorFeedPost(accountName:string, postInfo:ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
-
         clearMyUnreadMentionCount(): IBase;
 
+        /**
+         * Gets information about the current user.
+         */
         my(): ISocialRestActor;
 
+        /**
+         * Gets the feed of activity by the current user (Personal feed type).
+         */
         myFeed(): ISocialRestFeed;
 
+        /**
+         * Gets the feed of microblog posts that the current user likes, represented by LikeReference thread types. See Reference threads and digest threads in SharePoint Server 2013 social feeds.
+         */
         myLikes(): ISocialRestFeed;
 
+        /**
+         * Gets the feed of microblog posts that mention the current user, represented by MentionReference thread types.
+         */
         myMentionFeed(): ISocialRestFeed;
 
+        /**
+         * Gets the feed of activity by the current user and by people and content the user is following, sorted by last modified date (News feed type).
+         */
         myNews(): ISocialRestFeed;
 
+        /**
+         * Gets the feed of activity by the current user and by people and content the user is following, sorted by created date (Timeline feed type).
+         */
         myTimelineFeed(): ISocialRestFeed;
 
+        /**
+         * Gets the count of unread mentions for the current user.
+         */
         myUnreadMentionCount(): ISocialRestFeed;
 
         /**
-         * Method to post to the current user's feed.
+         * Creates a root post in the current user's feed.
          * @param creationData - The post creation data.
          */
         postToMyFeed(creationData:ComplexTypes.SocialPostCreationData): ISocialRestThread;
+
+        /**
+         * Creates a root post in the specified site feed.
+         * @param accountName - The login name of the user.
+         */
+        postToFeed(accountName:string, postInfo:ComplexTypes.SocialPostCreationData): ISocialRestThread;
     }
 
     /**
