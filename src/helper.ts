@@ -10,7 +10,7 @@ module $REST {
             let origVal = $REST.DefaultRequestToHostWebFl;
 
             // Ensure the current web is an app web
-            if(!window["_spPageContextInfo"].isAppWeb) {
+            if(!Utils.ContextInfo.isAppWeb) {
                 // Error
                 console.error("[gd-sprest] The current web is not an app web.");
                 return;
@@ -37,7 +37,7 @@ module $REST {
 
                 // Set the file urls
                 let dstFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-                let srcFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(window["_spPageContextInfo"].webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+                let srcFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(Utils.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
 
                 // Get the destination file
                 web.getFileByServerRelativeUrl(dstFileUrl)

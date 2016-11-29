@@ -5860,16 +5860,16 @@ declare module $REST.Types {
         myUnreadMentionCount(): ISocialRestFeed;
 
         /**
-         * Creates a root post in the current user's feed.
-         * @param creationData - The post creation data.
-         */
-        postToMyFeed(creationData:ComplexTypes.SocialPostCreationData): ISocialRestThread;
-
-        /**
          * Creates a root post in the specified site feed.
          * @param accountName - The login name of the user.
          */
         postToFeed(accountName:string, postInfo:ComplexTypes.SocialPostCreationData): ISocialRestThread;
+
+        /**
+         * Creates a root post in the current user's feed.
+         * @param creationData - The post creation data.
+         */
+        postToMyFeed(creationData:ComplexTypes.SocialPostCreationData): ISocialRestThread;
     }
 
     /**
