@@ -16,7 +16,7 @@ declare module $REST.Types {
     /**
      * Control Modes
      */
-    enum ControlModea {
+    enum ControlMode {
         /** A placeholder value in the enumeration indicating that it has no valid display mode from one of the other enumeration values. */
         Invalid = 0,
 
