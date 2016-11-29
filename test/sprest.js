@@ -541,7 +541,7 @@ var $REST;
                 fileName = fileName[fileName.length - 1];
                 // Set the file urls
                 var dstFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-                var srcFileUrl_1 = (fileUrl[0] == "/" ? "" : "/") + fileUrl;
+                var srcFileUrl_1 = window["SP"].Utilities.UrlBuilder.urlCombine($REST.Utils.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
                 // Get the destination file
                 web.getFileByServerRelativeUrl(dstFileUrl)
                     .execute(function (file) {
@@ -1437,7 +1437,7 @@ var $REST;
             });
             Object.defineProperty(ContextInfo, "webServerRelativeUrl", {
                 // Web Server Relative Url
-                get: function () { return this._contextInfo.webAbsoluteUrl; },
+                get: function () { return this._contextInfo.webServerRelativeUrl; },
                 enumerable: true,
                 configurable: true
             });
