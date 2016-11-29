@@ -1395,6 +1395,22 @@ var $REST;
         var ContextInfo = (function () {
             function ContextInfo() {
             }
+            Object.defineProperty(ContextInfo, "_contextInfo", {
+                // The current context information
+                get: function () {
+                    return window["_spPageContextInfo"] || {
+                        isAppWeb: false,
+                        siteAbsoluteUrl: "",
+                        siteServerRelativeUrl: "",
+                        userId: 0,
+                        webAbsoluteUrl: "",
+                        webServerRelativeUrl: ""
+                    };
+                },
+                enumerable: true,
+                configurable: true
+            });
+            ;
             Object.defineProperty(ContextInfo, "isAppWeb", {
                 // Is App Web
                 get: function () { return this._contextInfo.isAppWeb; },
@@ -1425,14 +1441,6 @@ var $REST;
                 enumerable: true,
                 configurable: true
             });
-            ContextInfo._contextInfo = window["_spPageContextInfo"] || {
-                isAppWeb: false,
-                siteAbsoluteUrl: "",
-                siteServerRelativeUrl: "",
-                userId: 0,
-                webAbsoluteUrl: "",
-                webServerRelativeUrl: ""
-            };
             return ContextInfo;
         }());
         Utils.ContextInfo = ContextInfo;

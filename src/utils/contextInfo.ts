@@ -4,14 +4,15 @@ module $REST.Utils {
     // This class will return the _spPageContextInfo.
     /*********************************************************************************************************************************/
     export class ContextInfo {
-        private static _contextInfo = window["_spPageContextInfo"] || {
+        // The current context information
+        private static get _contextInfo() { return window["_spPageContextInfo"] || {
             isAppWeb: false,
             siteAbsoluteUrl: "",
             siteServerRelativeUrl: "",
             userId: 0,
             webAbsoluteUrl: "",
             webServerRelativeUrl: ""
-        };
+        }};
 
         // Is App Web
         static get isAppWeb():boolean { return this._contextInfo.isAppWeb; }
