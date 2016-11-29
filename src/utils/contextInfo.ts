@@ -27,6 +27,6 @@ module $REST.Utils {
         static get webAbsoluteUrl():string { return this._contextInfo.webAbsoluteUrl; }
 
         // Web Server Relative Url
-        static get webServerRelativeUrl():string { return this._contextInfo.webAbsoluteUrl; }
+        static get webServerRelativeUrl():string { return this._contextInfo.webServerRelativeUrl; }
     }
 }

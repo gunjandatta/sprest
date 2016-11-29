@@ -541,7 +541,7 @@ var $REST;
                 fileName = fileName[fileName.length - 1];
                 // Set the file urls
                 var dstFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-                var srcFileUrl_1 = window["SP"].Utilities.UrlBuilder.urlCombine($REST.Utils.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+                var srcFileUrl_1 = (fileUrl[0] == "/" ? "" : "/") + fileUrl;
                 // Get the destination file
                 web.getFileByServerRelativeUrl(dstFileUrl)
                     .execute(function (file) {

@@ -1437,7 +1437,7 @@ var $REST;
             });
             Object.defineProperty(ContextInfo, "webServerRelativeUrl", {
                 // Web Server Relative Url
-                get: function () { return this._contextInfo.webAbsoluteUrl; },
+                get: function () { return this._contextInfo.webServerRelativeUrl; },
                 enumerable: true,
                 configurable: true
             });
