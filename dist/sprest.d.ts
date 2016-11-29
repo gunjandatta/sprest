@@ -6035,6 +6035,7 @@ declare module $REST.ComplexTypes {
     }
 }
 declare module $REST.Types {
+
     /**
      * Check Out Types
      */
@@ -6052,7 +6053,7 @@ declare module $REST.Types {
     /**
      * Control Modes
      */
-    enum ControlModea {
+    enum ControlMode {
         /** A placeholder value in the enumeration indicating that it has no valid display mode from one of the other enumeration values. */
         Invalid = 0,
 
@@ -6662,9 +6663,43 @@ declare module $REST.Types {
     }
 
     /**
+     * Master Page Gallery Types
+     */
+    /*
+    enum MasterPageGalleryType {
+        DisplayTemplateControl = <any>"0x0101002039C03B61C64EC4A04F5361F385106601",
+        DisplayTemplateItem = <any>"0x0101002039C03B61C64EC4A04F5361F385106603",
+        MasterPage = <any>"0x01010500A8B69F8A072C384090BB2F363986E5EA",
+        PageLayout = <any>"0x01010007FF3E057FA8AB4AA42FCB67B453FFC100E214EEE741181F4E9F7ACC43278EE811",
+    }
+    */
+
+    /**
+     * Page Layout Types
+     */
+    /*
+    enum PageLayoutType {
+        Article = <any>";#Article Page;#0x010100C568DB52D9D0A14D9B2FDCC96666E9F2007948130EC3DB064584E219954237AF3900242457EFB8B24247815D688C526CD44D;#"
+    }
+    */
+
+    /**
+     * Personal Site Capabilities
+     */
+    enum PersonalSiteCapabilities {
+        Education = 16,
+        Guest = 32,
+        MyTasksDashboard = 8,
+        None = 0,
+        Profile = 1,
+        Social = 2,
+        Storage = 4
+    }
+
+    /**
      * Reordering Rule Match Types
      */
-    enum ReordingRuleMathType {
+    enum ReordingRuleMatchType {
         ResultContainsKeyword,
         TitleContainsKeyword,
         TitleMatchesKeyword,
@@ -6744,6 +6779,7 @@ declare module $REST.Types {
         /** Enumeration whose values specify a list view type that displays recurring events. */
         Recurrence = 8193,
     }
+
 }
 declare module $REST.Types {
     /**
