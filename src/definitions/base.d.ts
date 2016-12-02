@@ -1,4 +1,4 @@
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * The base class
      */
@@ -17,7 +17,7 @@ declare module GD.Types {
         response: string;
 
         /** The request type */
-        requestType: GD.Types.RequestType;
+        requestType: $REST.Types.RequestType;
 
         /**
          * Method to wait for the requests to complete.

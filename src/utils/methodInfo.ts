@@ -1,4 +1,4 @@
-module GD.Utils {
+module $REST.Utils {
     /*********************************************************************************************************************************/
     // Method Information
     // This class will create the method information for the request.

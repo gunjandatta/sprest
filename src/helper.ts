@@ -1,13 +1,13 @@
-module GD {
+module $REST {
     /*********************************************************************************************************************************/
     // Helper Methods
     /*********************************************************************************************************************************/
     export class Helper {
         // Method to copy a file in this app web to the host web
-        static copyFileToHostWeb(fileUrl:string, dstFolder:(string | GD.Types.IFolder), overwriteFl?:boolean) {
+        static copyFileToHostWeb(fileUrl:string, dstFolder:(string | $REST.Types.IFolder), overwriteFl?:boolean) {
             let srcFile = null;
-            let promise = new GD.Utils.Promise();
-            let origVal = GD.DefaultRequestToHostWebFl;
+            let promise = new $REST.Utils.Promise();
+            let origVal = $REST.DefaultRequestToHostWebFl;
 
             // Ensure the current web is an app web
             if(!Utils.ContextInfo.isAppWeb) {
@@ -17,8 +17,8 @@ module GD {
             }
 
             //Get the host web
-            GD.DefaultRequestToHostWebFl = true;
-            let web = (<GD.Types.IWeb><any>new GD.Web());
+            $REST.DefaultRequestToHostWebFl = true;
+            let web = (<$REST.Types.IWeb><any>new $REST.Web());
 
             // See if the folder url was given
             if(typeof(dstFolder) === "string") {
@@ -42,8 +42,8 @@ module GD {
                 // Get the destination file
                 web.getFileByServerRelativeUrl(dstFileUrl)
                     // Execute the request
-                    .execute((file:GD.Types.IFile) => {
-                        let promise = new GD.Utils.Promise();
+                    .execute((file:$REST.Types.IFile) => {
+                        let promise = new $REST.Utils.Promise();
 
                         // See if the file exists
                         if(file.Exists) {
@@ -59,27 +59,27 @@ module GD {
                     });
 
                 // Target the current web
-                GD.DefaultRequestToHostWebFl = false;
+                $REST.DefaultRequestToHostWebFl = false;
 
                 // Get the file
                 web.getFileByServerRelativeUrl(srcFileUrl)
                     // Get the content
                     .content()
                     // Execute the request
-                    .execute((content:GD.Types.IBase) => {
-                        let promise = new GD.Utils.Promise();
+                    .execute((content:$REST.Types.IBase) => {
+                        let promise = new $REST.Utils.Promise();
 
                         // Get the file name
                         let fileName:any = srcFileUrl.split("/");
                         fileName = fileName[fileName.length-1];
 
                         // Target the host web
-                        GD.DefaultRequestToHostWebFl = true;
+                        $REST.DefaultRequestToHostWebFl = true;
 
                         // Add the file to the folder
-                        (<GD.Types.IFolder>dstFolder).Files().add(true, fileName, content.response)
+                        (<$REST.Types.IFolder>dstFolder).Files().add(true, fileName, content.response)
                             // Execute the request
-                            .execute((file:GD.Types.IFile) => {
+                            .execute((file:$REST.Types.IFile) => {
                                 // Save a reference to this file
                                 srcFile = file;
 
@@ -109,7 +109,7 @@ module GD {
         }
 
         // Method to copy a file in this app web to the host web
-        static copyFilesToHostWeb(fileUrls:Array<string>, folderUrls:Array<string>, overwriteFl?:boolean, idx?:number, promise?:Utils.Promise, files?:Array<GD.Types.IFile>, folders?:Array<GD.Types.IFolder>) {            
+        static copyFilesToHostWeb(fileUrls:Array<string>, folderUrls:Array<string>, overwriteFl?:boolean, idx?:number, promise?:Utils.Promise, files?:Array<$REST.Types.IFile>, folders?:Array<$REST.Types.IFolder>) {            
             files = files ? files : [];
             folders = folders ? folders : [];
             idx = idx ? idx : 0;
@@ -139,7 +139,7 @@ module GD {
         }
 
         // Method to create sub-folders
-        static createSubFolders(folder:Types.IFolder, subFolderUrl:string, promise?:Utils.Promise): GD.Utils.Promise {
+        static createSubFolders(folder:Types.IFolder, subFolderUrl:string, promise?:Utils.Promise): $REST.Utils.Promise {
             // Ensure the promise exists
             promise = promise ? promise : new Utils.Promise();
 
@@ -178,9 +178,9 @@ module GD {
         }
 
         // Method to get a folder
-        static getFolder(web:GD.Types.IWeb, folderUrl:string, createFl?:boolean) {
+        static getFolder(web:$REST.Types.IWeb, folderUrl:string, createFl?:boolean) {
             let dstFolder = null;
-            let promise = new GD.Utils.Promise();
+            let promise = new $REST.Utils.Promise();
 
             // Ensure the web exists
             if(!web.existsFl) {
@@ -196,8 +196,8 @@ module GD {
                 // Get the folder
                 web.getFolderByServerRelativeUrl(folderUrl)
                     // Execute the request
-                    .execute((folder:GD.Types.IFolder) => {
-                        let promise = new GD.Utils.Promise();
+                    .execute((folder:$REST.Types.IFolder) => {
+                        let promise = new $REST.Utils.Promise();
 
                         // Ensure the folder exists
                         if(folder.Exists) {
@@ -233,7 +233,7 @@ module GD {
         }
 
         // Method to remove empty folders
-        static removeEmptyFolders(web:GD.Types.IWeb, folderUrls:Array<string>) {
+        static removeEmptyFolders(web:$REST.Types.IWeb, folderUrls:Array<string>) {
             let promise = new Utils.Promise();
 
             // Ensure folder urls exist
@@ -262,7 +262,7 @@ module GD {
                     }
 
                     // Execute the request
-                    folder.execute((folder:GD.Types.IFolder) => {
+                    folder.execute((folder:$REST.Types.IFolder) => {
                         let promise = new Utils.Promise();
 
                         // See if the folder is empty
@@ -288,7 +288,7 @@ module GD {
         }
 
         // Method to remove a file
-        static removeFile(web:GD.Types.IWeb, fileUrl:string) {
+        static removeFile(web:$REST.Types.IWeb, fileUrl:string) {
             let promise = new Utils.Promise();
             let folder = null;
             let folders = fileUrl.split('/');
@@ -300,7 +300,7 @@ module GD {
             }
 
             // Get the file
-            folder.Files(folders[folders.length-1]).execute((file:GD.Types.IFile) => {
+            folder.Files(folders[folders.length-1]).execute((file:$REST.Types.IFile) => {
                 // See if it exists
                 if(file.Exists) {
                     // Delete it and resolve the promise
@@ -316,7 +316,7 @@ module GD {
         }
 
         // Method to remove files
-        static removeFiles(web:GD.Types.IWeb, fileUrls:Array<string>, idx?:number, promise?:Utils.Promise) {
+        static removeFiles(web:$REST.Types.IWeb, fileUrls:Array<string>, idx?:number, promise?:Utils.Promise) {
             idx = idx ? idx : 0;
             promise = promise ? promise : new Utils.Promise();
             

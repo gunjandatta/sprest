@@ -27,7 +27,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Attachment
      */
@@ -78,7 +78,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Attachment Files
      */
@@ -133,7 +133,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Audit
      */
@@ -141,7 +141,7 @@ declare module GD.Types {
         AuditFlags: number;
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * The base class
      */
@@ -160,7 +160,7 @@ declare module GD.Types {
         response: string;
 
         /** The request type */
-        requestType: GD.Types.RequestType;
+        requestType: $REST.Types.RequestType;
 
         /**
          * Method to wait for the requests to complete.
@@ -194,7 +194,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.ComplexTypes {
+declare module $REST.ComplexTypes {
     /**
      * App License
      */
@@ -1939,7 +1939,7 @@ declare module GD.ComplexTypes {
         SchemaXml: string;
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Content Type
      */
@@ -2089,7 +2089,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Content Types
      */
@@ -2155,7 +2155,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.ComplexTypes {
+declare module $REST.ComplexTypes {
     /**
      * Email Properties
      */
@@ -2183,7 +2183,7 @@ declare module GD.ComplexTypes {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Email
      */
@@ -2204,7 +2204,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Event Receiver
      */
@@ -2214,7 +2214,7 @@ declare module GD.Types {
          */
 
         /** Specifies the type of event. */
-        EventType: GD.Types.EventReceiverType;
+        EventType: $REST.Types.EventReceiverType;
 
         /** The strong name of the assembly that is used for receiving events. */
         ReceiverAssembly?: string;
@@ -2235,7 +2235,7 @@ declare module GD.Types {
         SequenceNumber?: number;
 
         /** The execution synchronization of the event receiver. */
-        Synchronization?: GD.Types.EventReceiverSynchronizationType;
+        Synchronization?: $REST.Types.EventReceiverSynchronizationType;
 
         /**
          * Methods
@@ -2278,7 +2278,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Event Receivers
      */
@@ -2338,7 +2338,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Field
      */
@@ -2496,7 +2496,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Field Link
      */
@@ -2522,7 +2522,7 @@ declare module GD.Types {
         ShowInDisplayForm: boolean;
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Field Links
      */
@@ -2582,7 +2582,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Fields
      */
@@ -2675,7 +2675,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * File
      */
@@ -2945,7 +2945,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Files
      */
@@ -3014,7 +3014,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * File Version
      */
@@ -3084,7 +3084,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * File Versions
      */
@@ -3132,7 +3132,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Folder
      */
@@ -3264,7 +3264,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Folders
      */
@@ -3324,7 +3324,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Group
      */
@@ -3432,7 +3432,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Helper Methods
      */
@@ -3473,32 +3473,32 @@ declare module GD.Types {
          * @param fileUrls - An array of file urls, relative to the web.
          * @param createFl - Flag to create the folder, if it doesn't exist.
          */
-        getFolder(web:GD.Types.IWeb, folderUrl:string, createFl?:boolean): Types.IPromise;
+        getFolder(web:$REST.Types.IWeb, folderUrl:string, createFl?:boolean): Types.IPromise;
 
         /**
          * Method to remove empty folders
          * @param web - The web containing the files.
          * @param folderUrls - An array of folder urls, relative to the web.
          */
-        removeEmptyFolders(web:GD.Types.IWeb, folderUrls:Array<string>): Types.IPromise;
+        removeEmptyFolders(web:$REST.Types.IWeb, folderUrls:Array<string>): Types.IPromise;
 
         /**
          * Method to remove files from a web.
          * @param web - The web containing the files.
          * @param fileUrl - The file url, relative to the web.
          */
-        removeFile(web:GD.Types.IWeb, fileUrl:string): Types.IPromise;
+        removeFile(web:$REST.Types.IWeb, fileUrl:string): Types.IPromise;
 
         /**
          * Method to remove files from a web.
          * @param web - The web containing the files.
          * @param fileUrls - An array of file urls, relative to the web.
          */
-        removeFiles(web:GD.Types.IWeb, fileUrls:Array<string>): Types.IPromise;
+        removeFiles(web:$REST.Types.IWeb, fileUrls:Array<string>): Types.IPromise;
    }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * List Items
      */
@@ -3558,7 +3558,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Limited Web Part Manager
      */
@@ -3607,7 +3607,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * List
      */
@@ -4082,7 +4082,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * List Item
      */
@@ -4257,7 +4257,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Lists
      */
@@ -4333,7 +4333,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.ComplexTypes {
+declare module $REST.ComplexTypes {
 
     /**
      * Method Information Settings
@@ -4347,11 +4347,11 @@ declare module GD.ComplexTypes {
         name: string;
         replaceEndpointFl?: boolean;
         requestMethod?: string;
-        requestType: GD.Types.RequestType;
+        requestType: $REST.Types.RequestType;
         returnType?: string;
     }
 }
-declare module GD.ComplexTypes {
+declare module $REST.ComplexTypes {
     /**
      * OData Settings
      */
@@ -4375,7 +4375,7 @@ declare module GD.ComplexTypes {
         Top?: number;
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
 
     /**
      * People Manager
@@ -4535,7 +4535,7 @@ declare module GD.Types {
         stopFollowingTag(id:string) : IBase;
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
 
     /**
      * Person Properties
@@ -4638,7 +4638,7 @@ declare module GD.Types {
         execute(callback:any, waitFl:boolean): IPersonProperties;
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
 
     /**
      * Profile Loader
@@ -4690,7 +4690,7 @@ declare module GD.Types {
         getUserProfile(): IUserProfile;
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * The promise class
      */
@@ -4714,7 +4714,7 @@ declare module GD.Types {
         resolve(...args);
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
 
     /**
      * Property Values
@@ -4727,7 +4727,7 @@ declare module GD.Types {
         query(oData:ComplexTypes.ODataQuery): IPropertyValues;
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Recycle Bin Items
      */
@@ -4771,7 +4771,7 @@ declare module GD.Types {
         Title: string;
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
     // Request Type
     enum RequestType {
         // Requests
@@ -4805,7 +4805,7 @@ declare module GD.Types {
         PostDataInBodyNoArgs = 38
     }
 }
-declare module GD.Results {
+declare module $REST.Results {
     /**
      * App License
      */
@@ -5007,7 +5007,7 @@ declare module GD.Results {
         results: Array<ComplexTypes.VisualizationField>;
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Role Assignment
      */
@@ -5064,7 +5064,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * RoleAssignments
      */
@@ -5132,7 +5132,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Role Definition
      */
@@ -5197,7 +5197,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Role Definitions
      */
@@ -5253,7 +5253,7 @@ declare module GD.Types {
          * Gets the role definition with the specified role type.
          * @param roleType - The RoleTypeKind of the role definition.
          */
-        getByType(roleType:GD.Types.RoleType): IRoleDefinition;
+        getByType(roleType:$REST.Types.RoleType): IRoleDefinition;
 
         /**
          * Queries the collection.
@@ -5263,7 +5263,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Search
      */
@@ -5388,7 +5388,7 @@ declare module GD.Types {
         executeAndWait(): SearchSuggestionResult;
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Site
      */
@@ -5675,7 +5675,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Site Groups
      */
@@ -5753,7 +5753,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
 
     /**
      * Social Feed
@@ -5962,7 +5962,7 @@ declare module GD.Types {
         executeAndWait(): ISocialRestThread;
     }
 }
-declare module GD.ComplexTypes {
+declare module $REST.ComplexTypes {
 
     /**
      * Target Information
@@ -5990,7 +5990,7 @@ declare module GD.ComplexTypes {
         url?:string;
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
 
     /**
      * Check Out Types
@@ -6737,7 +6737,7 @@ declare module GD.Types {
     }
 
 }
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * User
      */
@@ -6818,7 +6818,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * User Custom Action
      */
@@ -6913,7 +6913,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * User Custom Actions
      */
@@ -6978,7 +6978,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
 
     /**
      * User Profile
@@ -7118,7 +7118,7 @@ declare module GD.Types {
         shareAllSocialData(publicFl:boolean): IBase;
     }
 }
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Users
      */
@@ -7202,7 +7202,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Versions
      */
@@ -7276,7 +7276,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * View
      */
@@ -7451,7 +7451,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * View Fields
      */
@@ -7529,7 +7529,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Views
      */
@@ -7594,7 +7594,7 @@ declare module GD.Types {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Web
      */
@@ -8260,7 +8260,7 @@ declare module GD.Types {
     }
 }
     
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Webs
      */
@@ -8315,57 +8315,41 @@ declare module GD.Types {
 }
 
 /***********************************************************************************************
- * Main Interface
+ * SharePoint REST Library
  **********************************************************************************************/
-interface GD_SP_REST {
-    /***********************************************************************************************
-     * Global Variables
-     **********************************************************************************************/
-
+declare module $REST {
     /**
      * Flag to execute requests against the host web. This is relevent to the app web only, and defaults to the SPHostUrl querystring value.
      */
-    DefaultRequestToHostWebFl:boolean;
+    let DefaultRequestToHostWebFl:boolean;
 
     /** Email */
-    Email:GD.Types.IEmail;
+    let Email: $REST.Types.IEmail;
 
     /** Helper Methods */
-    Helper:GD.Types.IHelper;
+    let Helper: $REST.Types.IHelper;
 
     /** List */
-    List:GD.Types.IList;
+    let List: $REST.Types.IList;
 
     /** People Manager */
-    PeopleManager:GD.Types.IPeopleManager;
+    let PeopleManager: $REST.Types.IPeopleManager;
 
     /** Profile Loader */
-    ProfileLoader:GD.Types.IProfileLoader;
+    let ProfileLoader: $REST.Types.IProfileLoader;
 
     /** Search */
-    Search:GD.Types.ISearch;
+    let Search: $REST.Types.ISearch;
     
     /** Site */
-    Site:GD.Types.ISite;
+    let Site: $REST.Types.ISite;
 
     /** Social */
-    SocialFeed:GD.Types.ISocialFeed;
+    let SocialFeed: $REST.Types.ISocialFeed;
 
     /** User Profile */
-    UserProfile:GD.Types.IBase;
+    let UserProfile: $REST.Types.IBase;
     
     /** Web */
-    Web:GD.Types.IWeb;
+    let Web: $REST.Types.IWeb;
 }
-
-/***********************************************************************************************
- * Export Variables
- **********************************************************************************************/
-declare module "gd-sprest" {
-    export = $REST;
-}
-
-/**
- * SharePoint REST Library
- */
-declare var $REST: GD_SP_REST;

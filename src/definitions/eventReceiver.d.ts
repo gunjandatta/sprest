@@ -1,4 +1,4 @@
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Event Receiver
      */
@@ -8,7 +8,7 @@ declare module GD.Types {
          */
 
         /** Specifies the type of event. */
-        EventType: GD.Types.EventReceiverType;
+        EventType: $REST.Types.EventReceiverType;
 
         /** The strong name of the assembly that is used for receiving events. */
         ReceiverAssembly?: string;
@@ -29,7 +29,7 @@ declare module GD.Types {
         SequenceNumber?: number;
 
         /** The execution synchronization of the event receiver. */
-        Synchronization?: GD.Types.EventReceiverSynchronizationType;
+        Synchronization?: $REST.Types.EventReceiverSynchronizationType;
 
         /**
          * Methods

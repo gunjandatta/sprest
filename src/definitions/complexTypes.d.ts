@@ -1,4 +1,4 @@
-declare module GD.ComplexTypes {
+declare module $REST.ComplexTypes {
     /**
      * App License
      */

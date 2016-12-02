@@ -1,55 +1,39 @@
 /***********************************************************************************************
- * Main Interface
+ * SharePoint REST Library
  **********************************************************************************************/
-interface GD_SP_REST {
-    /***********************************************************************************************
-     * Global Variables
-     **********************************************************************************************/
-
+declare module $REST {
     /**
      * Flag to execute requests against the host web. This is relevent to the app web only, and defaults to the SPHostUrl querystring value.
      */
-    DefaultRequestToHostWebFl:boolean;
+    let DefaultRequestToHostWebFl:boolean;
 
     /** Email */
-    Email:GD.Types.IEmail;
+    let Email: $REST.Types.IEmail;
 
     /** Helper Methods */
-    Helper:GD.Types.IHelper;
+    let Helper: $REST.Types.IHelper;
 
     /** List */
-    List:GD.Types.IList;
+    let List: $REST.Types.IList;
 
     /** People Manager */
-    PeopleManager:GD.Types.IPeopleManager;
+    let PeopleManager: $REST.Types.IPeopleManager;
 
     /** Profile Loader */
-    ProfileLoader:GD.Types.IProfileLoader;
+    let ProfileLoader: $REST.Types.IProfileLoader;
 
     /** Search */
-    Search:GD.Types.ISearch;
+    let Search: $REST.Types.ISearch;
     
     /** Site */
-    Site:GD.Types.ISite;
+    let Site: $REST.Types.ISite;
 
     /** Social */
-    SocialFeed:GD.Types.ISocialFeed;
+    let SocialFeed: $REST.Types.ISocialFeed;
 
     /** User Profile */
-    UserProfile:GD.Types.IBase;
+    let UserProfile: $REST.Types.IBase;
     
     /** Web */
-    Web:GD.Types.IWeb;
+    let Web: $REST.Types.IWeb;
 }
-
-/***********************************************************************************************
- * Export Variables
- **********************************************************************************************/
-declare module "gd-sprest" {
-    export = $REST;
-}
-
-/**
- * SharePoint REST Library
- */
-declare var $REST: GD_SP_REST;

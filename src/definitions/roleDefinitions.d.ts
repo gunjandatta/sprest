@@ -1,4 +1,4 @@
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Role Definitions
      */
@@ -54,7 +54,7 @@ declare module GD.Types {
          * Gets the role definition with the specified role type.
          * @param roleType - The RoleTypeKind of the role definition.
          */
-        getByType(roleType:GD.Types.RoleType): IRoleDefinition;
+        getByType(roleType:$REST.Types.RoleType): IRoleDefinition;
 
         /**
          * Queries the collection.

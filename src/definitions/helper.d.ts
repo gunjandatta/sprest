@@ -1,4 +1,4 @@
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Helper Methods
      */
@@ -39,27 +39,27 @@ declare module GD.Types {
          * @param fileUrls - An array of file urls, relative to the web.
          * @param createFl - Flag to create the folder, if it doesn't exist.
          */
-        getFolder(web:GD.Types.IWeb, folderUrl:string, createFl?:boolean): Types.IPromise;
+        getFolder(web:$REST.Types.IWeb, folderUrl:string, createFl?:boolean): Types.IPromise;
 
         /**
          * Method to remove empty folders
          * @param web - The web containing the files.
          * @param folderUrls - An array of folder urls, relative to the web.
          */
-        removeEmptyFolders(web:GD.Types.IWeb, folderUrls:Array<string>): Types.IPromise;
+        removeEmptyFolders(web:$REST.Types.IWeb, folderUrls:Array<string>): Types.IPromise;
 
         /**
          * Method to remove files from a web.
          * @param web - The web containing the files.
          * @param fileUrl - The file url, relative to the web.
          */
-        removeFile(web:GD.Types.IWeb, fileUrl:string): Types.IPromise;
+        removeFile(web:$REST.Types.IWeb, fileUrl:string): Types.IPromise;
 
         /**
          * Method to remove files from a web.
          * @param web - The web containing the files.
          * @param fileUrls - An array of file urls, relative to the web.
          */
-        removeFiles(web:GD.Types.IWeb, fileUrls:Array<string>): Types.IPromise;
+        removeFiles(web:$REST.Types.IWeb, fileUrls:Array<string>): Types.IPromise;
    }
 }

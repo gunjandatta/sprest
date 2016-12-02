@@ -1,4 +1,4 @@
-module GD.Types {
+module $REST.Types {
     // Request Type
     export enum RequestType {
         // Requests

@@ -1,4 +1,4 @@
-declare module GD.ComplexTypes {
+declare module $REST.ComplexTypes {
     /**
      * Email Properties
      */
@@ -26,7 +26,7 @@ declare module GD.ComplexTypes {
     }
 }
 
-declare module GD.Types {
+declare module $REST.Types {
     /**
      * Email
      */

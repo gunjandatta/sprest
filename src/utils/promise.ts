@@ -1,4 +1,4 @@
-module GD.Utils {
+module $REST.Utils {
     /*********************************************************************************************************************************/
     // Promise
     // This is a lightweight promise library.

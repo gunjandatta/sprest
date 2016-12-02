@@ -117,8 +117,6 @@
         "src/utils/oData.ts",
         "src/utils/promise.ts",
         "src/utils/request.ts",
-        "src/utils/targetInfo.ts",
-        "tsd/footer.d.ts",
-        "tsd/header.d.ts"
+        "src/utils/targetInfo.ts"
     ]
 }
