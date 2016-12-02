@@ -28,6 +28,7 @@
         "src/definitions/fileVersions.d.ts",
         "src/definitions/folder.d.ts",
         "src/definitions/folders.d.ts",
+        "src/definitions/gd-sprest.d.ts",
         "src/definitions/group.d.ts",
         "src/definitions/helper.d.ts",
         "src/definitions/items.d.ts",

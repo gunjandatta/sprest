@@ -1,4 +1,4 @@
-module $REST.Utils {
+module GD.Utils {
     /*********************************************************************************************************************************/
     // Request
     // This class will execute the xml http request.

@@ -1,4 +1,4 @@
-declare module $REST.Types {
+declare module GD.Types {
     /**
      * Limited Web Part Manager
      */

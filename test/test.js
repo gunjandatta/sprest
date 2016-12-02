@@ -75,7 +75,7 @@ function testContentType(list) {
     writeToLog("Creating the content type", LogType.SubHeader);
 
     // Create the content type
-    var web = new $REST.Web();
+    var web = new GD.Web();
     var ct = web.ContentTypes()
         .add({
             Name: "SPRest" + SP.Guid.newGuid().toString()
@@ -96,7 +96,7 @@ function testContentType(list) {
         }).executeAndWait();
 
         // Read the content types
-        ct = (new $REST.Web()).ContentTypes(ct.Id.StringValue).executeAndWait();
+        ct = (new GD.Web()).ContentTypes(ct.Id.StringValue).executeAndWait();
 
         // Test
         assert(ct, "update", "Group", "Dev");
@@ -105,7 +105,7 @@ function testContentType(list) {
         writeToLog("Creating a field", LogType.SubHeader);
 
         // Get the test field
-        var field = (new $REST.Web()).Fields("SPRestText").executeAndWait();
+        var field = (new GD.Web()).Fields("SPRestText").executeAndWait();
         if(!field.existsFl) {
             // Create the test field
             field = web.Fields().createFieldAsXml('<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2212}" Name="SPRestText" StaticName="SPRestText" DisplayName="SPREST Test Text" Type="Text" />').executeAndWait();
@@ -190,7 +190,7 @@ function testFile() {
     writeToLog("Getting this file.", LogType.SubHeader);
 
     // Get this file
-    var file = (new $REST.Web()).getFileByServerRelativeUrl(_spPageContextInfo.serverRequestPath).executeAndWait();
+    var file = (new GD.Web()).getFileByServerRelativeUrl(_spPageContextInfo.serverRequestPath).executeAndWait();
 
     // Test
     assert(file, "read file", "Exists", true);
@@ -199,7 +199,7 @@ function testFile() {
     writeToLog("Getting the parent folder", LogType.SubHeader);
 
     // Get the parent folder
-    var folder = (new $REST.Web()).getFolderByServerRelativeUrl(file.ServerRelativeUrl.substr(0, file.ServerRelativeUrl.length - file.Name.length - 1)).executeAndWait();
+    var folder = (new GD.Web()).getFolderByServerRelativeUrl(file.ServerRelativeUrl.substr(0, file.ServerRelativeUrl.length - file.Name.length - 1)).executeAndWait();
 
     // Test
     assert(folder, "read folder", "Exists", true);
@@ -263,7 +263,7 @@ function testList() {
     writeToLog("Creating the list", LogType.SubHeader);
 
     // Create the list
-    var web = new $REST.Web();
+    var web = new GD.Web();
     var list = web.Lists()
         .add({
             BaseTemplate: 100,
@@ -286,7 +286,7 @@ function testList() {
         }).executeAndWait();
 
         // Read the updated list
-        list = new $REST.List(list.Title).executeAndWait();
+        list = new GD.List(list.Title).executeAndWait();
 
         // Test
         assert(list, "update", "Description", "Updated description");
@@ -324,7 +324,7 @@ function testListAsync() {
     writeToLog("Creating the list", LogType.SubHeader);
 
     // Create a list
-    (new $REST.Web()).Lists().add({
+    (new GD.Web()).Lists().add({
         BaseTemplate: 100,
         Description: "This is a test list.",
         Title: "SPRest" + SP.Guid.newGuid().toString()
@@ -389,7 +389,7 @@ function testListItem(list) {
     }).executeAndWait();
 
     // Read the updated item
-    item = (new $REST.List(list.Title)).Items(item.ID).executeAndWait();
+    item = (new GD.List(list.Title)).Items(item.ID).executeAndWait();
 
     // Test
     assert(item, "update", "Title", "Updated Item");
@@ -440,7 +440,7 @@ function testListItems(list) {
         .replace(/{{Max}}/g, template.replace(/{{Type}}/g, "Leq").replace(/{{Value}}/g, items[items.length-1].ID));
 
     // Get the items
-    items = (new $REST.List(list.Title, false)).getItemsByQuery(caml).executeAndWait();
+    items = (new GD.List(list.Title, false)).getItemsByQuery(caml).executeAndWait();
 
     // Test
     assert(items.results, "query list items", "length", maxNumber);
@@ -454,7 +454,7 @@ function testSecurity() {
     writeToLog("Querying the permissions", LogType.SubHeader);
 
     // Get the web
-    var web = new $REST.Web();
+    var web = new GD.Web();
 
     // Get the 'View Only' permission
     var permission = web.RoleDefinitions().query({ Filter: "Name eq 'View Only'" }).executeAndWait();

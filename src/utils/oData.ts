@@ -1,4 +1,4 @@
-module $REST.Utils {
+module GD.Utils {
     /*********************************************************************************************************************************/
     // OData
     // Class for generating the OData query string.

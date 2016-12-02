@@ -1,10 +1,10 @@
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Global Variables
     /*********************************************************************************************************************************/
-    $REST.DefaultRequestToHostWebFl = false;
-    $REST.Library = {};
+    GD.DefaultRequestToHostWebFl = false;
+    GD.Library = {};
     var SP;
     /*********************************************************************************************************************************/
     // Base
@@ -158,7 +158,7 @@ var $REST;
                 objType = "items";
             }
             // Get the methods for this object
-            var methods = $REST.Library[objType];
+            var methods = GD.Library[objType];
             if (methods) {
                 // Parse the methods
                 for (var methodName in methods) {
@@ -249,9 +249,9 @@ var $REST;
                 targetInfo = Object.create(this.targetInfo);
             }
             // Get the method information
-            var methodInfo = new $REST.Utils.MethodInfo(methodName, methodConfig, args);
+            var methodInfo = new GD.Utils.MethodInfo(methodName, methodConfig, args);
             // Update the target information
-            targetInfo.bufferFl = methodConfig.requestType == $REST.Types.RequestType.GetBuffer;
+            targetInfo.bufferFl = methodConfig.requestType == GD.Types.RequestType.GetBuffer;
             targetInfo.data = methodInfo.body;
             targetInfo.method = methodInfo.requestMethod;
             // See if we are replacing the endpoint
@@ -286,7 +286,7 @@ var $REST;
                 }
                 else {
                     // Create the request
-                    this.request = new $REST.Utils.Request(asyncFl, new $REST.Utils.TargetInfo(this.targetInfo), function () {
+                    this.request = new GD.Utils.Request(asyncFl, new GD.Utils.TargetInfo(this.targetInfo), function () {
                         // Update this data object
                         _this.updateDataObject();
                         // Execute the callback
@@ -299,7 +299,7 @@ var $REST;
             }
             else {
                 // Create the request
-                this.request = new $REST.Utils.Request(asyncFl, new $REST.Utils.TargetInfo(this.targetInfo));
+                this.request = new GD.Utils.Request(asyncFl, new GD.Utils.TargetInfo(this.targetInfo));
                 // Update this data object and return it
                 return this.updateDataObject() || this;
             }
@@ -409,7 +409,7 @@ var $REST;
             // Ensure the request doesn't have an error code
             if (this.request.request.status < 400) {
                 // Return if we are expecting a buffer
-                if (this.requestType == $REST.Types.RequestType.GetBuffer) {
+                if (this.requestType == GD.Types.RequestType.GetBuffer) {
                     // Set the exists flag
                     this["existsFl"] = this.request.response != null;
                 }
@@ -439,11 +439,11 @@ var $REST;
         // Method to update the metadata
         Base.prototype.updateMetadata = function (data) {
             // Ensure this is the app web
-            if (!$REST.Utils.ContextInfo.isAppWeb) {
+            if (!GD.Utils.ContextInfo.isAppWeb) {
                 return;
             }
             // Get the url information
-            var hostUrl = $REST.Utils.ContextInfo.webAbsoluteUrl.toLowerCase();
+            var hostUrl = GD.Utils.ContextInfo.webAbsoluteUrl.toLowerCase();
             var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
             var targetUrl = this.targetInfo && this.targetInfo.url ? this.targetInfo.url.toLowerCase() : null;
             // Ensure the urls exist
@@ -499,11 +499,11 @@ var $REST;
         };
         return Base;
     }());
-    $REST.Base = Base;
-})($REST || ($REST = {}));
+    GD.Base = Base;
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Helper Methods
     /*********************************************************************************************************************************/
@@ -514,17 +514,17 @@ var $REST;
         Helper.copyFileToHostWeb = function (fileUrl, dstFolder, overwriteFl) {
             var _this = this;
             var srcFile = null;
-            var promise = new $REST.Utils.Promise();
-            var origVal = $REST.DefaultRequestToHostWebFl;
+            var promise = new GD.Utils.Promise();
+            var origVal = GD.DefaultRequestToHostWebFl;
             // Ensure the current web is an app web
-            if (!$REST.Utils.ContextInfo.isAppWeb) {
+            if (!GD.Utils.ContextInfo.isAppWeb) {
                 // Error
                 console.error("[gd-sprest] The current web is not an app web.");
                 return;
             }
             //Get the host web
-            $REST.DefaultRequestToHostWebFl = true;
-            var web = (new $REST.Web());
+            GD.DefaultRequestToHostWebFl = true;
+            var web = (new GD.Web());
             // See if the folder url was given
             if (typeof (dstFolder) === "string") {
                 // Get the folder
@@ -541,11 +541,11 @@ var $REST;
                 fileName = fileName[fileName.length - 1];
                 // Set the file urls
                 var dstFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-                var srcFileUrl_1 = window["SP"].Utilities.UrlBuilder.urlCombine($REST.Utils.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+                var srcFileUrl_1 = window["SP"].Utilities.UrlBuilder.urlCombine(GD.Utils.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
                 // Get the destination file
                 web.getFileByServerRelativeUrl(dstFileUrl)
                     .execute(function (file) {
-                    var promise = new $REST.Utils.Promise();
+                    var promise = new GD.Utils.Promise();
                     // See if the file exists
                     if (file.Exists) {
                         // Check out the file, and resolve the promise
@@ -559,17 +559,17 @@ var $REST;
                     return promise;
                 });
                 // Target the current web
-                $REST.DefaultRequestToHostWebFl = false;
+                GD.DefaultRequestToHostWebFl = false;
                 // Get the file
                 web.getFileByServerRelativeUrl(srcFileUrl_1)
                     .content()
                     .execute(function (content) {
-                    var promise = new $REST.Utils.Promise();
+                    var promise = new GD.Utils.Promise();
                     // Get the file name
                     var fileName = srcFileUrl_1.split("/");
                     fileName = fileName[fileName.length - 1];
                     // Target the host web
-                    $REST.DefaultRequestToHostWebFl = true;
+                    GD.DefaultRequestToHostWebFl = true;
                     // Add the file to the folder
                     dstFolder.Files().add(true, fileName, content.response)
                         .execute(function (file) {
@@ -600,7 +600,7 @@ var $REST;
             files = files ? files : [];
             folders = folders ? folders : [];
             idx = idx ? idx : 0;
-            promise = promise ? promise : new $REST.Utils.Promise();
+            promise = promise ? promise : new GD.Utils.Promise();
             // Ensure the array is not empty
             if (fileUrls.length == idx || folderUrls.length == idx) {
                 // Resolve the promise and return it
@@ -623,7 +623,7 @@ var $REST;
         Helper.createSubFolders = function (folder, subFolderUrl, promise) {
             var _this = this;
             // Ensure the promise exists
-            promise = promise ? promise : new $REST.Utils.Promise();
+            promise = promise ? promise : new GD.Utils.Promise();
             // Get the sub-folder name
             var subFolderName = subFolderUrl.split("/")[0];
             // Update the sub folder url
@@ -659,7 +659,7 @@ var $REST;
         Helper.getFolder = function (web, folderUrl, createFl) {
             var _this = this;
             var dstFolder = null;
-            var promise = new $REST.Utils.Promise();
+            var promise = new GD.Utils.Promise();
             // Ensure the web exists
             if (!web.existsFl) {
                 // Get the web
@@ -672,7 +672,7 @@ var $REST;
                 // Get the folder
                 web.getFolderByServerRelativeUrl(folderUrl)
                     .execute(function (folder) {
-                    var promise = new $REST.Utils.Promise();
+                    var promise = new GD.Utils.Promise();
                     // Ensure the folder exists
                     if (folder.Exists) {
                         // Save a reference to the folder
@@ -703,7 +703,7 @@ var $REST;
         };
         // Method to remove empty folders
         Helper.removeEmptyFolders = function (web, folderUrls) {
-            var promise = new $REST.Utils.Promise();
+            var promise = new GD.Utils.Promise();
             // Ensure folder urls exist
             if (folderUrls.length == 0) {
                 // Resolve the promise and return it
@@ -733,7 +733,7 @@ var $REST;
                     }
                     // Execute the request
                     folder.execute(function (folder) {
-                        var promise = new $REST.Utils.Promise();
+                        var promise = new GD.Utils.Promise();
                         // See if the folder is empty
                         if (folder.ItemCount == 0) {
                             // Delete the folder, and resolve the promise
@@ -755,7 +755,7 @@ var $REST;
         };
         // Method to remove a file
         Helper.removeFile = function (web, fileUrl) {
-            var promise = new $REST.Utils.Promise();
+            var promise = new GD.Utils.Promise();
             var folder = null;
             var folders = fileUrl.split('/');
             // Parse the folders
@@ -782,7 +782,7 @@ var $REST;
         Helper.removeFiles = function (web, fileUrls, idx, promise) {
             var _this = this;
             idx = idx ? idx : 0;
-            promise = promise ? promise : new $REST.Utils.Promise();
+            promise = promise ? promise : new GD.Utils.Promise();
             // See if we have removed all files
             if (fileUrls.length == idx) {
                 // Resolve the promise and return it
@@ -800,11 +800,11 @@ var $REST;
         };
         return Helper;
     }());
-    $REST.Helper = Helper;
-})($REST || ($REST = {}));
+    GD.Helper = Helper;
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     var Types;
     (function (Types) {
         // Request Type
@@ -831,11 +831,11 @@ var $REST;
             RequestType[RequestType["PostReplace"] = 25] = "PostReplace";
         })(Types.RequestType || (Types.RequestType = {}));
         var RequestType = Types.RequestType;
-    })(Types = $REST.Types || ($REST.Types = {}));
-})($REST || ($REST = {}));
+    })(Types = GD.Types || (GD.Types = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     var Types;
     (function (Types) {
         /**
@@ -1381,11 +1381,11 @@ var $REST;
             ViewType[ViewType["Recurrence"] = 8193] = "Recurrence";
         })(Types.ViewType || (Types.ViewType = {}));
         var ViewType = Types.ViewType;
-    })(Types = $REST.Types || ($REST.Types = {}));
-})($REST || ($REST = {}));
+    })(Types = GD.Types || (GD.Types = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     var Utils;
     (function (Utils) {
         /*********************************************************************************************************************************/
@@ -1444,11 +1444,11 @@ var $REST;
             return ContextInfo;
         }());
         Utils.ContextInfo = ContextInfo;
-    })(Utils = $REST.Utils || ($REST.Utils = {}));
-})($REST || ($REST = {}));
+    })(Utils = GD.Utils || (GD.Utils = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Dependencies
     // This class will ensure the core SP scripts are loaded on the page.
@@ -1459,7 +1459,7 @@ var $REST;
         /*********************************************************************************************************************************/
         function Dependencies(callback) {
             // Default the properties
-            this.promise = new $REST.Utils.Promise(callback);
+            this.promise = new GD.Utils.Promise(callback);
             // Load the dependencies
             this.loadDependencies();
         }
@@ -1479,7 +1479,7 @@ var $REST;
         });
         Object.defineProperty(Dependencies.prototype, "pageContextExistsFl", {
             // Flag to determine if the page context information exists
-            get: function () { return $REST.Utils.ContextInfo.webAbsoluteUrl != ""; },
+            get: function () { return GD.Utils.ContextInfo.webAbsoluteUrl != ""; },
             enumerable: true,
             configurable: true
         });
@@ -1524,11 +1524,11 @@ var $REST;
         };
         return Dependencies;
     }());
-    $REST.Dependencies = Dependencies;
-})($REST || ($REST = {}));
+    GD.Dependencies = Dependencies;
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     var Utils;
     (function (Utils) {
         /*********************************************************************************************************************************/
@@ -1573,13 +1573,13 @@ var $REST;
                     }
                     // Determine the request method, based on the request type
                     switch (this.methodInfo.requestType) {
-                        case $REST.Types.RequestType.Delete:
-                        case $REST.Types.RequestType.Post:
-                        case $REST.Types.RequestType.PostWithArgs:
-                        case $REST.Types.RequestType.PostWithArgsInBody:
-                        case $REST.Types.RequestType.PostWithArgsInQS:
-                        case $REST.Types.RequestType.PostWithArgsValueOnly:
-                        case $REST.Types.RequestType.PostReplace:
+                        case GD.Types.RequestType.Delete:
+                        case GD.Types.RequestType.Post:
+                        case GD.Types.RequestType.PostWithArgs:
+                        case GD.Types.RequestType.PostWithArgsInBody:
+                        case GD.Types.RequestType.PostWithArgsInQS:
+                        case GD.Types.RequestType.PostWithArgsValueOnly:
+                        case GD.Types.RequestType.PostReplace:
                             return "POST";
                         default:
                             return "GET";
@@ -1598,12 +1598,12 @@ var $REST;
                 /*********************************************************************************************************************************/
                 // Private Variables
                 /*********************************************************************************************************************************/
-                get: function () { return this.methodInfo.requestType == $REST.Types.RequestType.GetWithArgsInBody || this.methodInfo.requestType == $REST.Types.RequestType.PostWithArgsInBody; },
+                get: function () { return this.methodInfo.requestType == GD.Types.RequestType.GetWithArgsInBody || this.methodInfo.requestType == GD.Types.RequestType.PostWithArgsInBody; },
                 enumerable: true,
                 configurable: true
             });
             Object.defineProperty(MethodInfo.prototype, "passDataInQS", {
-                get: function () { return this.methodInfo.requestType == $REST.Types.RequestType.GetWithArgsInQS || this.methodInfo.requestType == $REST.Types.RequestType.PostWithArgsInQS; },
+                get: function () { return this.methodInfo.requestType == GD.Types.RequestType.GetWithArgsInQS || this.methodInfo.requestType == GD.Types.RequestType.PostWithArgsInQS; },
                 enumerable: true,
                 configurable: true
             });
@@ -1613,7 +1613,7 @@ var $REST;
                 configurable: true
             });
             Object.defineProperty(MethodInfo.prototype, "replace", {
-                get: function () { return this.methodInfo.requestType == $REST.Types.RequestType.GetReplace || this.methodInfo.requestType == $REST.Types.RequestType.PostReplace; },
+                get: function () { return this.methodInfo.requestType == GD.Types.RequestType.GetReplace || this.methodInfo.requestType == GD.Types.RequestType.PostReplace; },
                 enumerable: true,
                 configurable: true
             });
@@ -1704,7 +1704,7 @@ var $REST;
             MethodInfo.prototype.generateUrl = function () {
                 var url = this.methodInfo.name;
                 // See if we are deleting the object
-                if (this.methodInfo.requestType == $REST.Types.RequestType.Delete) {
+                if (this.methodInfo.requestType == GD.Types.RequestType.Delete) {
                     // Update the url
                     url = "deleteObject";
                 }
@@ -1728,7 +1728,7 @@ var $REST;
                         url = url.replace("[[" + key + "]]", encodeURIComponent(this.methodParams[key]));
                     }
                 }
-                else if (this.methodInfo.requestType == $REST.Types.RequestType.OData) {
+                else if (this.methodInfo.requestType == GD.Types.RequestType.OData) {
                     var oData = new Utils.OData(this.methodParams["oData"]);
                     // Update the url
                     url = "?" + oData.QueryString;
@@ -1746,8 +1746,8 @@ var $REST;
                             value = typeof (value) === "string" ? "'" + value + "'" : value;
                             switch (this.methodInfo.requestType) {
                                 // Append the value only
-                                case $REST.Types.RequestType.GetWithArgsValueOnly:
-                                case $REST.Types.RequestType.PostWithArgsValueOnly:
+                                case GD.Types.RequestType.GetWithArgsValueOnly:
+                                case GD.Types.RequestType.PostWithArgsValueOnly:
                                     params += value + ", ";
                                     break;
                                 // Append the parameter and value
@@ -1766,11 +1766,11 @@ var $REST;
             return MethodInfo;
         }());
         Utils.MethodInfo = MethodInfo;
-    })(Utils = $REST.Utils || ($REST.Utils = {}));
-})($REST || ($REST = {}));
+    })(Utils = GD.Utils || (GD.Utils = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     var Utils;
     (function (Utils) {
         /*********************************************************************************************************************************/
@@ -1874,11 +1874,11 @@ var $REST;
             return OData;
         }());
         Utils.OData = OData;
-    })(Utils = $REST.Utils || ($REST.Utils = {}));
-})($REST || ($REST = {}));
+    })(Utils = GD.Utils || (GD.Utils = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     var Utils;
     (function (Utils) {
         /*********************************************************************************************************************************/
@@ -1933,11 +1933,11 @@ var $REST;
             return Promise;
         }());
         Utils.Promise = Promise;
-    })(Utils = $REST.Utils || ($REST.Utils = {}));
-})($REST || ($REST = {}));
+    })(Utils = GD.Utils || (GD.Utils = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     var Utils;
     (function (Utils) {
         /*********************************************************************************************************************************/
@@ -2083,11 +2083,11 @@ var $REST;
             return Request;
         }());
         Utils.Request = Request;
-    })(Utils = $REST.Utils || ($REST.Utils = {}));
-})($REST || ($REST = {}));
+    })(Utils = GD.Utils || (GD.Utils = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     var Utils;
     (function (Utils) {
         /*********************************************************************************************************************************/
@@ -2167,7 +2167,7 @@ var $REST;
                 var hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
                 var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
                 // See if we are defaulting the url for the app web
-                if ($REST.DefaultRequestToHostWebFl && Utils.ContextInfo.isAppWeb && this.targetInfo.url == null) {
+                if (GD.DefaultRequestToHostWebFl && Utils.ContextInfo.isAppWeb && this.targetInfo.url == null) {
                     // Default the url to the host web
                     this.targetInfo.url = hostUrl;
                 }
@@ -2219,23 +2219,23 @@ var $REST;
             return TargetInfo;
         }());
         Utils.TargetInfo = TargetInfo;
-    })(Utils = $REST.Utils || ($REST.Utils = {}));
-})($REST || ($REST = {}));
+    })(Utils = GD.Utils || (GD.Utils = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.attachment = {};
-})($REST || ($REST = {}));
+    GD.Library.attachment = {};
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Library
     /*********************************************************************************************************************************/
-    $REST.Library.attachmentfiles = {
+    GD.Library.attachmentfiles = {
         /**
          * Adds the attachment that is represented by the specified file name and byte array to the list item.
          * @param name - The name of the file to add.
@@ -2243,33 +2243,33 @@ var $REST;
         **/
         add: {
             argNames: ["fileName"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Library
     /*********************************************************************************************************************************/
-    $REST.Library.audit = {
+    GD.Library.audit = {
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
-    $REST.Library.contenttype = {
+var GD;
+(function (GD) {
+    GD.Library.contenttype = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -2281,56 +2281,56 @@ var $REST;
         /*********************************************************************************************************************************/
         // Deletes the content type.
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         },
         // Updates it's properties.
         update: {
             metadataType: "SP.ContentType",
             name: "",
             requestMethod: "MERGE",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.contenttypes = {
+    GD.Library.contenttypes = {
         // Adds a content type to the collection.
         add: {
             metadataType: "SP.ContentType",
             name: "",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Adds an existing content type to this collection.
         addAvailableContentType: {
             argNames: ["contentTypeId"],
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Gets a content type by id.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "contenttype"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Email
     // The SP.Utilities.Utility.SendEmail object.
@@ -2375,151 +2375,151 @@ var $REST;
                 argNames: ["properties"],
                 name: "",
                 metadataType: "SP.Utilities.EmailProperties",
-                requestType: $REST.Types.RequestType.PostWithArgsInBody
+                requestType: GD.Types.RequestType.PostWithArgsInBody
             }, [properties]);
         };
         return _Email;
-    }($REST.Base));
-    $REST.Email = new _Email();
-})($REST || ($REST = {}));
+    }(GD.Base));
+    GD.Email = new _Email();
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.eventreceiverdefinition = {
+    GD.Library.eventreceiverdefinition = {
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         },
         // Updates it's properties.
         update: {
             metadataType: "SP.EventReceiverDefinition",
             name: "",
             requestMethod: "MERGE",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.eventreceiverdefinitions = {
+    GD.Library.eventreceiverdefinitions = {
         // Adds an event receiver to the collection.
         add: {
             metadataType: "SP.EventReceiverDefinition",
             name: "",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Gets an event receiver by it's id.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "eventreceiver"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.field = {
+    GD.Library.field = {
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         },
         // Sets the value of the ShowInDisplayForm property for this field.
         setShowInDisplayForm: {
             argNames: ["showInForm"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         // Sets the value of the ShowInEditForm property for this field.
         setShowInEditForm: {
             argNames: ["showInForm"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         // Sets the value of the ShowInNewForm property for this field.
         setShowInNewForm: {
             argNames: ["showInForm"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         // Updates it's properties.
         update: {
             inheritMetadataType: true,
             name: "",
             requestMethod: "MERGE",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.fieldlinks = {
+    GD.Library.fieldlinks = {
         // Adds a field link to the collection.
         add: {
             argNames: ["data"],
             metadataType: "SP.FieldLink",
             name: "",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Gets a field link by it's id.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "fieldlink"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.fields = {
+    GD.Library.fields = {
         // Adds a field to the field collection.
         add: {
             metadataType: "SP.Field",
             name: "",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Adds a field to the field collection.
         addField: {
             argNames: ["parameters"],
             metadataType: "SP.FieldCreationInformation",
             name: "addField",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
         addDependentLookupField: {
             argNames: ["displayname", "primarylookupfieldid", "showfield"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Creates a field based on the specified schema, Boolean value, and field options.
         // Set the option to addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
         createFieldAsXml: {
             argNames: ["schemaXml"],
-            requestType: $REST.Types.RequestType.PostWithArgsInBody,
+            requestType: GD.Types.RequestType.PostWithArgsInBody,
             data: {
                 parameters: {
                     __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
@@ -2531,35 +2531,35 @@ var $REST;
         // Gets the field with the specified ID.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly,
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly,
             returnType: "field"
         },
         // Returns the first Field object with the specified internal name or title from the collection.
         getByInternalNameOrTitle: {
             argNames: ["internalNameOrTitle"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly,
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly,
             returnType: "field"
         },
         // Returns the first field object in the collection based on the title of the specified field.
         getByTitle: {
             argNames: ["title"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly,
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly,
             returnType: "field"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Library
     /*********************************************************************************************************************************/
-    $REST.Library.file = {
+    GD.Library.file = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -2573,7 +2573,7 @@ var $REST;
         // Approves the file submitted for content approval with the specified comment.
         approve: {
             argNames: ["comment"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Stops the chunk upload session without saving the uploaded data. If the file doesn’t already exist in the library, the partially uploaded file will be deleted. Use this in response to user action (as in a request to cancel an upload) or an error or exception.
         // Use the uploadId value that was passed to the StartUpload method that started the upload session.
@@ -2581,22 +2581,22 @@ var $REST;
         cancelupload: {
             argNames: ["uploadId"],
             name: "cancelupload(guid'[[uploadId]]')",
-            requestType: $REST.Types.RequestType.PostReplace
+            requestType: GD.Types.RequestType.PostReplace
         },
         // Checks the file in to a document library based on the check-in type.
         // Check-In Types: MinorCheckIn = 0; MajorCheckIn = 1; OverwriteCheckIn = 2
         checkin: {
             argNames: ["comment", "checkInType"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Checks out the file from a document library based on the check-out type.
         checkout: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Returns the file content.
         content: {
             name: "$value",
-            requestType: $REST.Types.RequestType.GetBuffer
+            requestType: GD.Types.RequestType.GetBuffer
         },
         // Continues the chunk upload session with an additional fragment. The current file content is not changed.
         // Use the uploadId value that was passed to the StartUpload method that started the upload session.
@@ -2604,22 +2604,22 @@ var $REST;
         continueUpload: {
             argNames: ["uploadId", "fileOffset"],
             name: "continueUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
-            requestType: $REST.Types.RequestType.PostReplace
+            requestType: GD.Types.RequestType.PostReplace
         },
         // Copies the file to the destination URL.
         copyTo: {
             argNames: ["strNewUrl", "bOverWrite"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         },
         // Denies approval for a file that was submitted for content approval.
         // Only documents in lists that are enabled for content approval can be denied.
         deny: {
             argNames: ["comment"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Uploads the last file fragment and commits the file. The current file content is changed when this method completes.
         // Use the uploadId value that was passed to the StartUpload method that started the upload session.
@@ -2627,7 +2627,7 @@ var $REST;
         finishUpload: {
             argNames: ["uploadId", "fileOffset"],
             name: "finishUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
-            requestType: $REST.Types.RequestType.PostReplace
+            requestType: GD.Types.RequestType.PostReplace
         },
         // Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
         // An exception is thrown if the file is not an ASPX page.
@@ -2635,31 +2635,31 @@ var $REST;
         getlimitedwebpartmanager: {
             argNames: ["scope"],
             name: "getLimitedWebPartManager(scope=[[scope]])",
-            requestType: $REST.Types.RequestType.GetReplace
+            requestType: GD.Types.RequestType.GetReplace
         },
         // Moves the file to the specified destination URL.
         // Types of move operations: Overwrite = 1; AllowBrokenThickets (move even if supporting files are separated from the file) = 8.
         moveTo: {
             argNames: ["newUrl", "flags"],
             name: "moveTo(newUrl='[[newUrl]]', flags=[[flags]])",
-            requestType: $REST.Types.RequestType.PostReplace
+            requestType: GD.Types.RequestType.PostReplace
         },
         // Opens the file as a stream.
         openBinaryStream: {
-            requestType: $REST.Types.RequestType.GetBuffer
+            requestType: GD.Types.RequestType.GetBuffer
         },
         // Submits the file for content approval with the specified comment.
         publish: {
             argNames: ["comment"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
         recycle: {
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         // Saves the file as a stream.
         saveBinaryStream: {
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Starts a new chunk upload session and uploads the first fragment. The current file content is not changed when this method completes.
         // The method is idempotent (and therefore does not change the result) as long as you use the same values for uploadId and stream.
@@ -2667,61 +2667,61 @@ var $REST;
         startUpload: {
             argNames: ["uploadId"],
             name: "startupload(uploadId=guid'[[uploadId]]')",
-            requestType: $REST.Types.RequestType.PostReplace
+            requestType: GD.Types.RequestType.PostReplace
         },
         // Reverts an existing checkout for the file.
         undoCheckOut: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Removes the file from content approval or unpublish a major version.
         unpublish: {
             argNames: ["comment"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Updates it's properties.
         update: {
             metadataType: "SP.File",
             name: "",
             requestMethod: "MERGE",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.files = {
+    GD.Library.files = {
         // Adds a file to this collection.
         add: {
             argNames: ["overwrite", "url"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Adds a ghosted file to an existing list or document library.
         // Template File Types: StandardPage = 0; WikiPage = 1; FormPage = 2
         addTemplateFile: {
             argNames: ["urlOfFile", "templateFileType"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Get the file at the specified URL.
         getByUrl: {
             argNames: ["serverRelativeUrl"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "file"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
-    $REST.Library.fileversion = {
+var GD;
+(function (GD) {
+    GD.Library.fileversion = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -2731,32 +2731,32 @@ var $REST;
         /*********************************************************************************************************************************/
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.fileversions = {
+    GD.Library.fileversions = {
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
-    $REST.Library.folder = {
+var GD;
+(function (GD) {
+    GD.Library.folder = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -2769,34 +2769,34 @@ var $REST;
         /*********************************************************************************************************************************/
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         },
         // Get the file at the specified URL.
         getByUrl: {
             argNames: ["serverRelativeUrl"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "folder"
         },
         // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
         recycle: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Updates it's properties.
         update: {
             metadataType: "SP.Folder",
             name: "",
             requestMethod: "MERGE",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Library
     /*********************************************************************************************************************************/
-    $REST.Library.folders = {
+    GD.Library.folders = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -2810,25 +2810,25 @@ var $REST;
         // Adds the folder that is located at the specified URL to the collection.
         add: {
             argNames: ["url"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Get the file at the specified URL.
         getbyurl: {
             argNames: ["serverRelativeUrl"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "folder"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
-    $REST.Library.group = {
+var GD;
+(function (GD) {
+    GD.Library.group = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -2836,56 +2836,56 @@ var $REST;
             "Users|users|/getById([Name])|user"
         ],
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.items = {
+    GD.Library.items = {
         // Adds an item to the list item collection.
         add: {
             metadataType: function (obj) { return obj.Parent && obj.Parent["ListItemEntityTypeFullName"] ? obj.Parent["ListItemEntityTypeFullName"] : "SP.ListItem"; },
             name: "",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Gets an item by its id.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "listitem"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.limitedwebpartmanager = {
+    GD.Library.limitedwebpartmanager = {
         // Gets a webpart by its id.
         get_WebParts: {
             argNames: ["id"],
             name: "webparts?expand=WebPart",
-            requestType: $REST.Types.RequestType.GetReplace
+            requestType: GD.Types.RequestType.GetReplace
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // List
     // The SPList object.
@@ -2906,13 +2906,13 @@ var $REST;
             this.addMethods(this, { __metadata: { type: "list" } });
         }
         return List;
-    }($REST.Base));
-    $REST.List = List;
+    }(GD.Base));
+    GD.List = List;
     /*********************************************************************************************************************************/
     // Library
     /*********************************************************************************************************************************/
     //{ name: "hasAccess", "function": function (userName, permissions) { return hasAccess(this, permissions, userName); } },
-    $REST.Library.list = {
+    GD.Library.list = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -2930,28 +2930,28 @@ var $REST;
         // Creates unique role assignments for the securable object.
         breakRoleInheritance: {
             argNames: ["copyroleassignments", "clearsubscopes"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         },
         // Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
         getChanges: {
             argNames: ["query"],
             metadataType: "SP.ChangeQuery",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Returns an item based on the id.
         getItemById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "item"
         },
         // Returns a collection of items from the list based on the view xml.
         getItems: {
             argNames: ["viewXml"],
-            requestType: $REST.Types.RequestType.PostWithArgsInBody,
+            requestType: GD.Types.RequestType.PostWithArgsInBody,
             data: {
                 query: {
                     __metadata: { type: "SP.CamlQuery" },
@@ -2963,7 +2963,7 @@ var $REST;
         getItemsByQuery: {
             argNames: ["camlQuery"],
             name: "getItems",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody,
+            requestType: GD.Types.RequestType.PostWithArgsInBody,
             data: {
                 query: {
                     __metadata: { type: "SP.CamlQuery" },
@@ -2975,62 +2975,62 @@ var $REST;
         getListItemChangesSinceToken: {
             argNames: ["query"],
             metadataType: "SP.ChangeLogItemQuery",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
         getRelatedFields: {
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         // Gets the effective user permissions for the current user.
         getUserEffectivePermissions: {
             argNames: ["loginName"],
             name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
-            requestType: $REST.Types.RequestType.GetReplace
+            requestType: GD.Types.RequestType.GetReplace
         },
         // Returns the list view with the specified view identifier.
         getViewById: {
             argNames: ["viewId"],
             name: "getView",
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "view"
         },
         // Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
         recycle: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Renders the list data.
         renderListData: {
             argNames: ["viewXml"],
             name: "renderListData(@v)?@v='<View>[[viewXml]]</View>'",
-            requestType: $REST.Types.RequestType.PostReplace
+            requestType: GD.Types.RequestType.PostReplace
         },
         // Renders the list form data.
         // Types of modes: 1 - Display, 2 - Edit, 3 - New
         renderListFormData: {
             argNames: ["itemid", "formid", "mode"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Reserves a list item ID for idempotent list item creation.
         reserveListItemId: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
         resetRoleInheritance: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Updates it's properties.
         update: {
             metadataType: "SP.List",
             name: "",
             requestMethod: "MERGE",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
-    $REST.Library.listitem = {
+var GD;
+(function (GD) {
+    GD.Library.listitem = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -3047,88 +3047,88 @@ var $REST;
         // Creates unique role assignments for the securable object.
         breakRoleInheritance: {
             argNames: ["copyroleassignments", "clearsubscopes"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         },
         // Gets the effective permissions that a specified user has on the list item.
         getUserEffectivePermissions: {
             argNames: ["loginName"],
             name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
-            requestType: $REST.Types.RequestType.GetReplace
+            requestType: GD.Types.RequestType.GetReplace
         },
         // Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
         recycle: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
         resetRoleInheritance: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Updates it's properties.
         update: {
             inheritMetadataType: true,
             name: "",
             requestMethod: "MERGE",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Validates and sets the values of the specified collection of fields for the list item.
         validateUpdateListItem: {
             argNames: ["formValues", "bNewDocumentUpdate"],
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.lists = {
+    GD.Library.lists = {
         // Adds a list to the list collection.
         add: {
             metadataType: "SP.List",
             name: "",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
         ensureSiteAssetsLibrary: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Gets a list that is the default location for wiki pages.
         ensureSitePagesLibrary: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Returns the list with the specified list identifier.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "list"
         },
         // Returns the list with the specified title from the collection.
         getByTitle: {
             argNames: ["title"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "list"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // People Manager
     /*********************************************************************************************************************************/
@@ -3148,96 +3148,96 @@ var $REST;
             this.addMethods(this, { __metadata: { type: "peoplemanager" } });
         }
         return PeopleManager;
-    }($REST.Base));
-    $REST.PeopleManager = PeopleManager;
+    }(GD.Base));
+    GD.PeopleManager = PeopleManager;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.peoplemanager = {
+    GD.Library.peoplemanager = {
         amIFollowedBy: {
             argNames: ["accountName"],
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
+            requestType: GD.Types.RequestType.GetWithArgsInQS
         },
         amIFollowing: {
             argNames: ["accountName"],
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
+            requestType: GD.Types.RequestType.GetWithArgsInQS
         },
         follow: {
             argNames: ["accountName"],
-            requestType: $REST.Types.RequestType.PostWithArgsInQS
+            requestType: GD.Types.RequestType.PostWithArgsInQS
         },
         followTag: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         getFollowedTags: {
             argNames: ["maxCount"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly
         },
         getFollowersFor: {
             argNames: ["accountName"],
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
+            requestType: GD.Types.RequestType.GetWithArgsInQS
         },
         getMyFollowers: {
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         getMyProperties: {
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         getMySuggestions: {
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         getPeopleFollowedBy: {
             argNames: ["accountName"],
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
+            requestType: GD.Types.RequestType.GetWithArgsInQS
         },
         getPeopleFollowedByMe: {
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         getPropertiesFor: {
             argNames: ["accountName"],
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
+            requestType: GD.Types.RequestType.GetWithArgsInQS
         },
         getTrendingTags: {
             name: "sp.userprofiles.peoplemanager.gettrendingtags",
             replaceEndpointFl: true,
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         getUserProfilePropertyFor: {
             argNames: ["accountName", "propertyName"],
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
+            requestType: GD.Types.RequestType.GetWithArgsInQS
         },
         hideSuggestion: {
             argNames: ["accountName"],
-            requestType: $REST.Types.RequestType.PostWithArgsInQS
+            requestType: GD.Types.RequestType.PostWithArgsInQS
         },
         isFollowing: {
             argNames: ["possibleFollowerAccountName", "possibleFolloweeAccountName"],
             name: "sp.userprofiles.peoplemanager.isfollowing",
             replaceEndpointFl: true,
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
+            requestType: GD.Types.RequestType.GetWithArgsInQS
         },
         setMyProfilePicture: {
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         stopFollowing: {
             argNames: ["accountName"],
-            requestType: $REST.Types.RequestType.PostWithArgsInQS
+            requestType: GD.Types.RequestType.PostWithArgsInQS
         },
         stopFollowingTag: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Profile Loader
     /*********************************************************************************************************************************/
@@ -3258,46 +3258,46 @@ var $REST;
             this.addMethods(this, { __metadata: { type: "profileloader" } });
         }
         return ProfileLoader;
-    }($REST.Base));
-    $REST.ProfileLoader = ProfileLoader;
+    }(GD.Base));
+    GD.ProfileLoader = ProfileLoader;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.profileloader = {
+    GD.Library.profileloader = {
         createPersonalSiteEnqueueBulk: {
             argNames: ["emailIDs"],
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         getOwnerUserProfile: {
             name: "sp.userprofiles.profileloader.getowneruserprofile",
             replaceEndpointFl: true,
-            requestType: $REST.Types.RequestType.Post,
+            requestType: GD.Types.RequestType.Post,
             returnType: "userprofile"
         },
         getUserProfile: {
-            requestType: $REST.Types.RequestType.Post,
+            requestType: GD.Types.RequestType.Post,
             returnType: "userprofile"
         },
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Library
     /*********************************************************************************************************************************/
-    $REST.Library.propertyvalues = {
+    GD.Library.propertyvalues = {
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
-    $REST.Library.roleassignment = {
+var GD;
+(function (GD) {
+    GD.Library.roleassignment = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -3309,93 +3309,93 @@ var $REST;
         /*********************************************************************************************************************************/
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.roleassignments = {
+    GD.Library.roleassignments = {
         // Adds a new role assignment with the specified principal and role definitions to the collection.
         addRoleAssignment: {
             argNames: ["principalId", "roleDefId"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Gets the role assignment associated with the specified principal ID from the collection.
         getByPrincipalId: {
             argNames: ["principalId"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "roleassignment"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         },
         // Gets the role definition with the specified role type.
         removeRoleAssignment: {
             argNames: ["principalId", "roleDefId"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.roledefinition = {
+    GD.Library.roledefinition = {
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.roledefinitions = {
+    GD.Library.roledefinitions = {
         // Gets the role definition with the specified ID from the collection.
         getById: {
             argNames: ["roleDefId"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "roledefinition"
         },
         // Gets the role definition with the specified name.
         getByName: {
             argNames: ["name"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "roledefinition"
         },
         // Gets the role definitions with the specified role type.
         getByType: {
             argNames: ["roleType"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "roledefinitions"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Search
     /*********************************************************************************************************************************/
@@ -3439,7 +3439,7 @@ var $REST;
             return this.executeMethod("query", {
                 argNames: this.getArgNames(settings),
                 name: "query",
-                requestType: $REST.Types.RequestType.GetWithArgs
+                requestType: GD.Types.RequestType.GetWithArgs
             }, settings);
         };
         /** The suggest method */
@@ -3448,31 +3448,31 @@ var $REST;
             return this.executeMethod("suggest", {
                 argNames: this.getArgNames(settings),
                 name: "suggest",
-                requestType: $REST.Types.RequestType.GetWithArgs
+                requestType: GD.Types.RequestType.GetWithArgs
             }, settings);
         };
         return Search;
-    }($REST.Base));
-    $REST.Search = Search;
+    }(GD.Base));
+    GD.Search = Search;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.search = {
+    GD.Library.search = {
         postquery: {
             argNames: ["request"],
             metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Site
     // The SPSite object.
@@ -3498,7 +3498,7 @@ var $REST;
             this.addMethods(this, { __metadata: { type: "site" } });
         }
         // Method to get the root web
-        Site.prototype.getRootWeb = function () { return new $REST.Web(null, this.targetInfo); };
+        Site.prototype.getRootWeb = function () { return new GD.Web(null, this.targetInfo); };
         // Method to determine if the current user has access, based on the permissions.
         Site.prototype.hasAccess = function (permissions) {
             // TO DO
@@ -3506,12 +3506,12 @@ var $REST;
         };
         ;
         return Site;
-    }($REST.Base));
-    $REST.Site = Site;
+    }(GD.Base));
+    GD.Site = Site;
     /*********************************************************************************************************************************/
     // Library
     /*********************************************************************************************************************************/
-    $REST.Library.site = {
+    GD.Library.site = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -3525,126 +3525,126 @@ var $REST;
         // Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
         createPreviewSPSite: {
             argNames: ["upgrade", "sendemail"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Extend the upgrade reminder date for this SPSite by the days specified at WebApplication.UpgradeReminderDelay.
         extendUpgradeReminderDate: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
         getCatalog: {
             argNames: ["typeCatalog"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         // Specifies the collection of the site collection changes from the change log that have occurred within the scope of the site collection, based on the specified query.
         getChanges: {
             argNames: ["query"],
             metadataType: "SP.ChangeQuery",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Specifies the collection of custom list templates for a given site.
         getCustomListTemplates: {
             argNames: ["web"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Returns the collection of site definitions that are available for creating Web sites within the site collection.
         getWebTemplates: {
             argNames: ["LCID", "overrideCompatLevel"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Invalidates cached upgrade information about the site collection so that this information will be recomputed the next time it is needed.
         invalidate: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Returns true if the object needs to be upgraded; otherwise, false.
         needsUpgradeByType: {
             argNames: ["versionUpgrade", "recursive"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Returns the site at the specified URL.
         openWeb: {
             argNames: ["strUrl"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         // Returns the site with the specified GUID.
         openWebById: {
             argNames: ["gWebId"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         // Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
         runHealthCheck: {
             argNames: ["ruleId", "bRepair", "bRunAlways"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Either runs a site collection upgrade, or schedules it to be run in the future, depending on available system resources and the value of the queueOnly parameter. The user executing this method MUST be a farm administrator or a site collection administrator.
         runUpgradeSiteSession: {
             argNames: ["versionUpgrade", "queueOnly", "sendEmail"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Updates it's properties.
         update: {
             metadataType: "SP.Site",
             name: "",
             requestMethod: "MERGE",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Sets whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
         updateClientObjectModelUseRemoteAPIsPermissionSetting: {
             argNames: ["requireUseRemoteAPIs"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.sitegroups = {
+    GD.Library.sitegroups = {
         // Adds a group to the group collection.
         add: {
             metadataType: "SP.Group",
             name: "",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Returns a group from the collection based on the member ID of the group.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "group"
         },
         // Returns a cross-site group from the collection based on the name of the group.
         getByName: {
             argNames: ["name"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "group"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         },
         // Removes the group with the specified member ID from the collection.
         removeById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         // Removes the cross-site group with the specified name from the collection.
         removeByLoginName: {
             argNames: ["name"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Social Feed
     /*********************************************************************************************************************************/
@@ -3675,7 +3675,7 @@ var $REST;
             return this.executeMethod("postToMyFeed", {
                 argNames: ["restCreationData"],
                 name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
-                requestType: $REST.Types.RequestType.PostWithArgsInBody
+                requestType: GD.Types.RequestType.PostWithArgsInBody
             }, [postInfo]);
         };
         // Method to post to the current user's feed
@@ -3687,67 +3687,67 @@ var $REST;
             return this.executeMethod("postToMyFeed", {
                 argNames: ["restCreationData"],
                 name: "my/feed/post",
-                requestType: $REST.Types.RequestType.PostWithArgsInBody
+                requestType: GD.Types.RequestType.PostWithArgsInBody
             }, [postInfo]);
         };
         return _SocialFeed;
-    }($REST.Base));
+    }(GD.Base));
     /*********************************************************************************************************************************/
     // Libraries
     /*********************************************************************************************************************************/
-    $REST.Library.socialfeed = {
+    GD.Library.socialfeed = {
         actor: {
             argNames: ["accountName"],
             name: "actor(item=@v)?@v='[[accountName]]'",
-            requestType: $REST.Types.RequestType.GetReplace
+            requestType: GD.Types.RequestType.GetReplace
         },
         actorFeed: {
             argNames: ["accountName"],
             name: "actor(item=@v)/feed?@v='[[accountName]]'",
-            requestType: $REST.Types.RequestType.GetReplace
+            requestType: GD.Types.RequestType.GetReplace
         },
         clearMyUnreadMentionCount: {
             name: "my/mentionfeed/clearMyUnreadMentionCount",
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         my: {
             name: "my",
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         myFeed: {
             name: "my/feed",
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         myLikes: {
             name: "my/likes",
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         myMentionFeed: {
             name: "my/mentionfeed",
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         myNews: {
             name: "my/news",
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         myTimelineFeed: {
             name: "my/timelinefeed",
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         myUnreadMentionCount: {
             name: "my/unreadmentioncount",
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         }
     };
     /*********************************************************************************************************************************/
     // Social Feed
     /*********************************************************************************************************************************/
-    $REST.SocialFeed = new _SocialFeed();
-})($REST || ($REST = {}));
+    GD.SocialFeed = new _SocialFeed();
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
-    $REST.Library.user = {
+var GD;
+(function (GD) {
+    GD.Library.user = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -3759,61 +3759,61 @@ var $REST;
         /*********************************************************************************************************************************/
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.usercustomaction = {
+    GD.Library.usercustomaction = {
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.usercustomactions = {
+    GD.Library.usercustomactions = {
         // Adds a user custom action to the collection.
         add: {
             metadataType: "SP.UserCustomAction",
             name: "",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Deletes all custom actions in the collection.
         clear: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Returns the custom action with the specified identifier.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "usercustomaction"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // User Profile
     /*********************************************************************************************************************************/
@@ -3834,12 +3834,12 @@ var $REST;
             this.addMethods(this, { __metadata: { type: "userprofile" } });
         }
         return UserProfile;
-    }($REST.Base));
-    $REST.UserProfile = UserProfile;
+    }(GD.Base));
+    GD.UserProfile = UserProfile;
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.userprofile = {
+    GD.Library.userprofile = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -3850,101 +3850,101 @@ var $REST;
         // Methods
         /*********************************************************************************************************************************/
         createPersonalSiteEnque: {
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         shareAllSocialData: {
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.users = {
+    GD.Library.users = {
         // Adds a user to the user collection.
         add: {
             metadataType: "SP.User",
             name: "",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Gets the user with the specified email address.
         getByEmail: {
             argNames: ["email"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "user"
         },
         // Gets the user with the specified member identifier (ID).
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "user"
         },
         // Gets the user with the specified login name.
         getByLoginName: {
             argNames: ["loginName"],
             name: "getByLoginName(@v)?@v='[[loginName]]'",
-            requestType: $REST.Types.RequestType.GetReplace,
+            requestType: GD.Types.RequestType.GetReplace,
             returnType: "user"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         },
         // Removes the user with the specified ID.
         removeById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         // Removes the user with the specified login name.
         removeByLoginName: {
             argNames: ["loginName"],
             name: "removeByLoginName(@v)?@v='[[loginName]]'",
-            requestType: $REST.Types.RequestType.PostReplace
+            requestType: GD.Types.RequestType.PostReplace
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.versions = {
+    GD.Library.versions = {
         // Gets the version with the specified ID.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "version"
         },
         // Deletes all versions in the collection.
         deleteAll: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Deletes a version, by the specified id.
         deleteById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         // Deletes a version, by the specified label.
         deleteByLabel: {
             argNames: ["label"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         // Restores a version, by the specified label.
         restoreByLabel: {
             argNames: ["label"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
-    $REST.Library.view = {
+var GD;
+(function (GD) {
+    GD.Library.view = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -3956,94 +3956,94 @@ var $REST;
         /*********************************************************************************************************************************/
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         },
         // Returns the list view as HTML.
         renderAsHtml: {
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         // Updates it's properties.
         update: {
             metadataType: "SP.View",
             name: "",
             requestMethod: "MERGE",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.viewfieldcollection = {
+    GD.Library.viewfieldcollection = {
         // Adds the field with the specified field internal name or display name to the collection.
         addViewField: {
             argNames: ["fieldName"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         // Moves the field with the specified field internal name to the specified position in the collection.
         moveViewFieldTo: {
             argNames: ["field", "index"],
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         },
         // Removes all the fields from the collection.
         removeAllViewFields: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Removes the field with the specified field internal name from the collection.
         removeViewField: {
             argNames: ["fieldName"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.views = {
+    GD.Library.views = {
         // Adds a view to the view collection.
         add: {
             metadataType: "SP.View",
             name: "",
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Gets the list view with the specified ID.
         getById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "view"
         },
         // Gets the list view with the specified title.
         getByTitle: {
             argNames: ["title"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "view"
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Web
     /*********************************************************************************************************************************/
@@ -4074,12 +4074,12 @@ var $REST;
         };
         ;
         return Web;
-    }($REST.Base));
-    $REST.Web = Web;
+    }(GD.Base));
+    GD.Web = Web;
     /*********************************************************************************************************************************/
     // Library
     /*********************************************************************************************************************************/
-    $REST.Library.web = {
+    GD.Library.web = {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
@@ -4102,213 +4102,213 @@ var $REST;
         // Applies the theme specified by the contents of each of the files specified in the arguments to the site.
         applyTheme: {
             argNames: ["colorpaletteurl", "fontschemeurl", "backgroundimageurl", "sharegenerated"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Applies the specified site definition or site template to the Web site that has no template applied to it.
         applyWebTemplate: {
             argName: ["name"],
-            requestType: $REST.Types.RequestType.PostWithArgsInQS
+            requestType: GD.Types.RequestType.PostWithArgsInQS
         },
         // Creates unique role assignments for the securable object.
         breakRoleInheritance: {
             argNames: ["copyroleassignments", "clearsubscopes"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Deletes the object
         delete: {
-            requestType: $REST.Types.RequestType.Delete
+            requestType: GD.Types.RequestType.Delete
         },
         // Checks whether the push notification subscriber exist for the current user with the given device application instance ID.
         doesPushNotificationSubscriberExist: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly
         },
         // Returns whether the current user has the given set of permissions.
         doesUserHavePermissions: {
             argNames: ["High", "Low"],
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
+            requestType: GD.Types.RequestType.GetWithArgsInQS
         },
         // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
         ensureUser: {
             argNames: ["logonName"],
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Sends data to an OData service.
         executeRemoteLOB: {
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Gets the app BDC catalog.
         getAppBdcCatalog: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Gets the app BDC catalog for the specified app instance.
         getAppBdcCatalogForAppInstance: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         // Retrieves an AppInstance installed on this Site.
         getAppInstanceById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly
         },
         // Retrieves all AppInstances installed on this site that are instances of the specified App.
         getAppInstancesByProductId: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly
         },
         // Returns a collection of site templates available for the site.
         getAvailableWebTemplates: {
             argNames: ["lcid", "doincludecrosslanguage"],
-            requestType: $REST.Types.RequestType.GetWithArgs
+            requestType: GD.Types.RequestType.GetWithArgs
         },
         // Returns the list gallery on the site.
         getCatalog: {
             argNames: ["galleryType"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly
         },
         // Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
         getChanges: {
             argNames: ["query"],
             metadataType: "SP.ChangeQuery",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Gets the context information for the site. Static method.
         getContextWebInformation: {
             name: "contextInfo",
             replaceEndpointFl: true,
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Gets the custom list templates for the site.
         getCustomListTemplates: {
-            requestType: $REST.Types.RequestType.Get
+            requestType: GD.Types.RequestType.Get
         },
         // Gets the document libraries on a site. Static method. (SharePoint Online only)
         getDocumentLibraries: {
             argNames: ["url"],
             name: "sp.web.getDocumentLibraries",
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
+            requestType: GD.Types.RequestType.GetWithArgsInQS
         },
         // Gets the specified external content type in a line-of-business (LOB) system application.
         getEntity: {
             argNames: ["namespace", "name"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Returns the file object located at the specified server-relative URL.
         getFileByServerRelativeUrl: {
             argNames: ["url"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "file"
         },
         // Returns the folder object located at the specified server-relative URL.
         getFolderByServerRelativeUrl: {
             argNames: ["url"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "folder"
         },
         // Gets the list at the specified site-relative URL. (SharePoint Online only)
         getList: {
             argNames: ["url"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "list"
         },
         // Gets the push notification subscriber over the site for the specified device application instance ID.
         getPushNotificationSubscriber: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly
         },
         // Queries for the push notification subscribers over the site for the specified value of custom arguments. Null or empty custom arguments will return subscribers without any filtering.
         getPushNotificationSubscribersByArgs: {
             argNames: ["args"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly
         },
         // Queries for the push notification subscribers over the site for the specified user.
         getPushNotificationSubscribersByUser: {
             argNames: ["loginName"],
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
+            requestType: GD.Types.RequestType.GetWithArgsInQS
         },
         // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
         getSubwebsFilteredForCurrentUser: {
             argNames: ["nwebtemplatefilter", "nconfigurationfilter"],
-            requestType: $REST.Types.RequestType.GetWithArgs
+            requestType: GD.Types.RequestType.GetWithArgs
         },
         // Returns the user corresponding to the specified member identifier for the current site.
         getUserById: {
             argNames: ["id"],
-            requestType: $REST.Types.RequestType.GetWithArgsValueOnly,
+            requestType: GD.Types.RequestType.GetWithArgsValueOnly,
             returnType: "user"
         },
         // Gets the effective permissions that the specified user has within the current application scope.
         getUserEffectivePermissions: {
             argNames: ["loginName"],
             name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
-            requestType: $REST.Types.RequestType.GetReplace
+            requestType: GD.Types.RequestType.GetReplace
         },
         // Gets the site URL from a page URL. Static method.
         getWebUrlFromPageUrl: {
             name: "sp.web.getWebUrlFromPageUrl",
-            requestType: $REST.Types.RequestType.GetWithArgsInQS
+            requestType: GD.Types.RequestType.GetWithArgsInQS
         },
         // Uploads and installs an app package to this site.
         loadAndInstallApp: {
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Uploads and installs an App package on the site in a specified locale.
         loadAndInstallAppInSpecifiedLocale: {
             argNames: ["appPackageStream", "installationLocaleLCID"],
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Uploads an App package and creates an instance from it.
         loadApp: {
             argNames: ["appPackageStream", "installationLocaleLCID"],
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Returns the name of the image file for the icon that is used to represent the specified file.
         mapToIcon: {
             argNames: ["filename", "progid", "size"],
-            requestType: $REST.Types.RequestType.GetWithArgs
+            requestType: GD.Types.RequestType.GetWithArgs
         },
         // Processes a notification from an external system.
         processExternalNotification: {
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
         registerPushNotificationSubscriber: {
             argNames: ["deviceappinstanceid", "servicetoken"],
-            requestType: $REST.Types.RequestType.PostWithArgs
+            requestType: GD.Types.RequestType.PostWithArgs
         },
         // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
         resetRoleInheritance: {
-            requestType: $REST.Types.RequestType.Post
+            requestType: GD.Types.RequestType.Post
         },
         // Unregisters the subscriber for push notifications from the site.
         unregisterPushNotificationSubscriber: {
-            requestType: $REST.Types.RequestType.PostWithArgsValueOnly
+            requestType: GD.Types.RequestType.PostWithArgsValueOnly
         },
         // Updates it's properties.
         update: {
             metadataType: "SP.Web",
             name: "",
             requestMethod: "MERGE",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));
 
-var $REST;
-(function ($REST) {
+var GD;
+(function (GD) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    $REST.Library.webs = {
+    GD.Library.webs = {
         add: {
             argNames: ["parameters"],
             metadataType: "SP.WebCreationInformation",
-            requestType: $REST.Types.RequestType.PostWithArgsInBody
+            requestType: GD.Types.RequestType.PostWithArgsInBody
         },
         // Queries the collection
         query: {
             argNames: ["oData"],
-            requestType: $REST.Types.RequestType.OData
+            requestType: GD.Types.RequestType.OData
         }
     };
-})($REST || ($REST = {}));
+})(GD || (GD = {}));

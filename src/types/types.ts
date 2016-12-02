@@ -1,4 +1,4 @@
-module $REST.Types {
+module GD.Types {
 
     /**
      * Check Out Types

@@ -5,7 +5,7 @@ module GD {
     }
 }
 
-var web = new $REST.Web();
+var web = new GD.Web();
 
 // Get the source folder
 var srcFile = web.getFileByServerRelativeUrl("/sites/dev/siteassets/sprest/test.aspx").execute();
@@ -15,7 +15,7 @@ var mpgFolder = web.Lists("Master Page Gallery").RootFolder().execute();
 
 // Get the dev folder
 var devFolder = mpgFolder.Folders("Dev").execute((folder) => {
-    var promise = new $REST.Utils.Promise();
+    var promise = new GD.Utils.Promise();
 
     // Ensure it exists
     if(folder.Exists) {

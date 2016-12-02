@@ -1,4 +1,4 @@
-declare module $REST.Results {
+declare module GD.Results {
     /**
      * App License
      */

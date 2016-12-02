@@ -1,4 +1,4 @@
-module $REST {
+module GD {
     /*********************************************************************************************************************************/
     // Dependencies
     // This class will ensure the core SP scripts are loaded on the page.

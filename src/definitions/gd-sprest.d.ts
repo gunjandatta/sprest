@@ -28,9 +28,9 @@ SOFTWARE.
 ***************************************************************************************************/
 
 /***********************************************************************************************
- * REST
+ * Main Interface
  **********************************************************************************************/
-declare module $REST {
+interface GD_SP_REST {
     /***********************************************************************************************
      * Global Variables
      **********************************************************************************************/
@@ -38,35 +38,44 @@ declare module $REST {
     /**
      * Flag to execute requests against the host web. This is relevent to the app web only, and defaults to the SPHostUrl querystring value.
      */
-    let DefaultRequestToHostWebFl:boolean;
+    DefaultRequestToHostWebFl:boolean;
 
     /** Email */
-    let Email:Types.IEmail;
+    Email:GD.Types.IEmail;
 
     /** Helper Methods */
-    let Helper:Types.IHelper;
+    Helper:GD.Types.IHelper;
 
     /** List */
-    let List:Types.IList;
+    List:GD.Types.IList;
 
     /** People Manager */
-    let PeopleManager:Types.IPeopleManager;
+    PeopleManager:GD.Types.IPeopleManager;
 
     /** Profile Loader */
-    let ProfileLoader:Types.IProfileLoader;
+    ProfileLoader:GD.Types.IProfileLoader;
 
     /** Search */
-    let Search:Types.ISearch;
+    Search:GD.Types.ISearch;
     
     /** Site */
-    let Site:Types.ISite;
+    Site:GD.Types.ISite;
 
     /** Social */
-    let SocialFeed:Types.ISocialFeed;
+    SocialFeed:GD.Types.ISocialFeed;
 
     /** User Profile */
-    let UserProfile:Types.IBase;
+    UserProfile:GD.Types.IBase;
     
     /** Web */
-    let Web:Types.IWeb;
+    Web:GD.Types.IWeb;
 }
+
+/***********************************************************************************************
+ * Export Variables
+ **********************************************************************************************/
+
+declare module "gd-sprest" {
+    export = $REST;
+}
+declare var $REST: GD_SP_REST;

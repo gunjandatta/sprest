@@ -1,4 +1,4 @@
-declare module $REST.ComplexTypes {
+declare module GD.ComplexTypes {
 
     /**
      * Method Information Settings
@@ -12,7 +12,7 @@ declare module $REST.ComplexTypes {
         name: string;
         replaceEndpointFl?: boolean;
         requestMethod?: string;
-        requestType: $REST.Types.RequestType;
+        requestType: GD.Types.RequestType;
         returnType?: string;
     }
 }

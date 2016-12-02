@@ -10,9 +10,9 @@ gulp.task("build", function() {
 
     // Bundle and minify the js files
     return gulp.src(["js/*.js", "js/types/*.js", "js/utils/*.js", "js/lib/*.js"])
-        .pipe(concat("sprest.js"))
+        .pipe(concat("gd-sprest.js"))
         .pipe(gulp.dest("dist"))
-        .pipe(rename("sprest.min.js"))
+        .pipe(rename("gd-sprest.min.js"))
         .pipe(uglify())
         .pipe(gulp.dest("dist"));
 });
@@ -23,8 +23,8 @@ gulp.task("createDefinitionFile", function() {
     console.log("Creating the definition file.");
 
     // Copy the files
-    return gulp.src(["tsd/*.d.ts", "src/definitions/*.d.ts"])
-        .pipe(concat("sprest.d.ts"))
+    return gulp.src(["src/definitions/*.d.ts"])
+        .pipe(concat("gd-sprest.d.ts"))
         .pipe(gulp.dest("dist"));
 });
 

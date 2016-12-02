@@ -1,4 +1,4 @@
-module $REST.Utils {
+module GD.Utils {
     /*********************************************************************************************************************************/
     // Context Information
     // This class will return the _spPageContextInfo.

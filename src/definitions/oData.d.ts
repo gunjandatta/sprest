@@ -1,4 +1,4 @@
-declare module $REST.ComplexTypes {
+declare module GD.ComplexTypes {
     /**
      * OData Settings
      */
