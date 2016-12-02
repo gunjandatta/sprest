@@ -28,7 +28,6 @@
         "src/definitions/fileVersions.d.ts",
         "src/definitions/folder.d.ts",
         "src/definitions/folders.d.ts",
-        "src/definitions/gd-sprest.d.ts",
         "src/definitions/group.d.ts",
         "src/definitions/helper.d.ts",
         "src/definitions/items.d.ts",
@@ -118,6 +117,8 @@
         "src/utils/oData.ts",
         "src/utils/promise.ts",
         "src/utils/request.ts",
-        "src/utils/targetInfo.ts"
+        "src/utils/targetInfo.ts",
+        "tsd/footer.d.ts",
+        "tsd/header.d.ts"
     ]
 }
