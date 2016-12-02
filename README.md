@@ -28,5 +28,5 @@ An easy way to create, read, update and delete data using the SharePoint 2013/On
 ## Get Started:
 ### Node Package Manager (NPM)
 ```
-npm install gd-sprest --save-dev
+npm install gd-sprest --save
 ```
