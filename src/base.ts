@@ -162,8 +162,8 @@ module $REST {
         // Flag to default the url to the current web url, site otherwise
         protected defaultToWebFl:boolean;
 
-        // The index of this object in the responses array
-        private responseIndex:number;
+        // Flag to get all items
+        protected getAllItemsFl: boolean;
 
         // The promise
         private promise:Utils.Promise;
@@ -173,6 +173,9 @@ module $REST {
 
         // The responses
         protected responses:Array<Base>;
+
+        // The index of this object in the responses array
+        private responseIndex:number;
 
         // The base settings
         protected targetInfo:ComplexTypes.TargetInfoSettings;
@@ -343,6 +346,7 @@ module $REST {
 
             // Set the properties
             obj.base = this.base ? this.base : this;
+            obj.getAllItemsFl = methodInfo.getAllItemsFl;
             obj.parent = this;
             obj.requestType = methodConfig.requestType;
 
@@ -367,8 +371,11 @@ module $REST {
                         // Update this data object
                         this.updateDataObject();
 
-                        // Execute the callback
-                        callback ? callback(this) : null;
+                        // Validate the data collection
+                        this.validateDataCollectionResults(this.request).done(() => {
+                            // Execute the callback
+                            callback ? callback(this) : null;
+                        });
                     });
                 }
             }
@@ -460,14 +467,14 @@ module $REST {
         private updateDataCollection(results:any) {
             // Ensure this is a collection
             if(results) {
-                // Save the property
-                this["results"] = results;
+                // Save the results
+                this["results"] = this["results"] ? this["results"].concat(results) : results;
 
                 // Update the flag
                 this["existsFl"] = results.length > 0;
 
                 // See if only one object exists
-                if(results.length == 1) {
+                if(this["results"].length == 1) {
                     // Update the metadata
                     this.updateMetadata(results[0]);
 
@@ -578,6 +585,44 @@ module $REST {
                 // Fix the uri reference
                 targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
             }
+        }
+
+        // Method to validate the data collection results
+        private validateDataCollectionResults(request:Utils.Request, promise?:Utils.Promise) {
+            promise = promise || new Utils.Promise();
+
+            // Convert the response and ensure the data property exists
+            let data = JSON.parse(request.response);
+            
+            // See if there are more items to get
+            if(this.getAllItemsFl && data.d.__next) {
+                // Create the target information to query the next set of results
+                let targetInfo = Object.create(this.targetInfo);
+                targetInfo.endpoint = "";
+                targetInfo.url = data.d.__next;
+
+                // Create a new object
+                new Utils.Request(true, new Utils.TargetInfo(targetInfo), (request) => {
+                    // Convert the response and ensure the data property exists
+                    let data = JSON.parse(request.response);
+                    if(data.d) {
+                        // Update the data collection
+                        this.updateDataCollection(data.d.results);
+
+                        // Validate the data collection
+                        return this.validateDataCollectionResults(request, promise);
+                    }
+
+                    // Resolve the promise
+                    promise.resolve();
+                });
+            } else {
+                // Resolve the promise
+                promise.resolve();
+            }
+
+            // Return the promise
+            return promise;
         }
 
         // Method to wait for the parent requests to complete

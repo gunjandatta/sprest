@@ -7,6 +7,7 @@ declare module $REST.ComplexTypes {
         argNames?: Array<string>;
         argValues?: Array<any>;
         data?: any;
+        getAllItemsFl?: boolean;
         inheritMetadataType?: boolean;        
         metadataType?: string;
         name: string;

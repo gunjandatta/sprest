@@ -267,6 +267,7 @@ var $REST;
             var obj = new Base(targetInfo);
             // Set the properties
             obj.base = this.base ? this.base : this;
+            obj.getAllItemsFl = methodInfo.getAllItemsFl;
             obj.parent = this;
             obj.requestType = methodConfig.requestType;
             // Add the methods
@@ -289,8 +290,11 @@ var $REST;
                     this.request = new $REST.Utils.Request(asyncFl, new $REST.Utils.TargetInfo(this.targetInfo), function () {
                         // Update this data object
                         _this.updateDataObject();
-                        // Execute the callback
-                        callback ? callback(_this) : null;
+                        // Validate the data collection
+                        _this.validateDataCollectionResults(_this.request).done(function () {
+                            // Execute the callback
+                            callback ? callback(_this) : null;
+                        });
                     });
                 }
             }
@@ -365,12 +369,12 @@ var $REST;
             var _this = this;
             // Ensure this is a collection
             if (results) {
-                // Save the property
-                this["results"] = results;
+                // Save the results
+                this["results"] = this["results"] ? this["results"].concat(results) : results;
                 // Update the flag
                 this["existsFl"] = results.length > 0;
                 // See if only one object exists
-                if (results.length == 1) {
+                if (this["results"].length == 1) {
                     // Update the metadata
                     this.updateMetadata(results[0]);
                     // Apply the properties to the object
@@ -468,6 +472,39 @@ var $REST;
                 // Fix the uri reference
                 targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
             }
+        };
+        // Method to validate the data collection results
+        Base.prototype.validateDataCollectionResults = function (request, promise) {
+            var _this = this;
+            promise = promise || new $REST.Utils.Promise();
+            // Convert the response and ensure the data property exists
+            var data = JSON.parse(request.response);
+            // See if there are more items to get
+            if (this.getAllItemsFl && data.d.__next) {
+                // Create the target information to query the next set of results
+                var targetInfo = Object.create(this.targetInfo);
+                targetInfo.endpoint = "";
+                targetInfo.url = data.d.__next;
+                // Create a new object
+                new $REST.Utils.Request(true, new $REST.Utils.TargetInfo(targetInfo), function (request) {
+                    // Convert the response and ensure the data property exists
+                    var data = JSON.parse(request.response);
+                    if (data.d) {
+                        // Update the data collection
+                        _this.updateDataCollection(data.d.results);
+                        // Validate the data collection
+                        return _this.validateDataCollectionResults(request, promise);
+                    }
+                    // Resolve the promise
+                    promise.resolve();
+                });
+            }
+            else {
+                // Resolve the promise
+                promise.resolve();
+            }
+            // Return the promise
+            return promise;
         };
         // Method to wait for the parent requests to complete
         Base.prototype.waitForRequestsToComplete = function (callback, requestIdx) {
@@ -1558,6 +1595,12 @@ var $REST;
                 enumerable: true,
                 configurable: true
             });
+            Object.defineProperty(MethodInfo.prototype, "getAllItemsFl", {
+                // Flag to determine if we are getting all items
+                get: function () { return this.methodInfo.getAllItemsFl; },
+                enumerable: true,
+                configurable: true
+            });
             Object.defineProperty(MethodInfo.prototype, "replaceEndpointFl", {
                 // Flag to determine if this method replaces the endpoint
                 get: function () { return this.methodInfo.replaceEndpointFl ? true : false; },
@@ -1732,6 +1775,8 @@ var $REST;
                     var oData = new Utils.OData(this.methodParams["oData"]);
                     // Update the url
                     url = "?" + oData.QueryString;
+                    // Set the get all items Flag
+                    this.methodInfo.getAllItemsFl = oData.GetAllItems;
                 }
                 else if (!this.passDataInBody && !this.passDataInQS) {
                     var params = "";
@@ -1786,6 +1831,7 @@ var $REST;
                 // Default the Variables
                 this._expand = oData && oData.Expand ? oData.Expand : [];
                 this._filter = oData && oData.Filter ? oData.Filter : null;
+                this._getAllItems = oData && oData.GetAllItems ? oData.GetAllItems : false;
                 this._orderBy = oData && oData.OrderBy ? oData.OrderBy : [];
                 this._select = oData && oData.Select ? oData.Select : [];
                 this._skip = oData && oData.Skip ? oData.Skip : null;
@@ -1805,6 +1851,13 @@ var $REST;
                 // Filter
                 get: function () { return this._filter; },
                 set: function (value) { this._filter = value; },
+                enumerable: true,
+                configurable: true
+            });
+            Object.defineProperty(OData.prototype, "GetAllItems", {
+                // Flag to get all items
+                get: function () { return this._getAllItems; },
+                set: function (value) { this._getAllItems = value; },
                 enumerable: true,
                 configurable: true
             });

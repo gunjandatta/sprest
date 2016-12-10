@@ -4342,6 +4342,7 @@ declare module $REST.ComplexTypes {
         argNames?: Array<string>;
         argValues?: Array<any>;
         data?: any;
+        getAllItemsFl?: boolean;
         inheritMetadataType?: boolean;        
         metadataType?: string;
         name: string;
@@ -4361,6 +4362,12 @@ declare module $REST.ComplexTypes {
 
         /** The filters. */
         Filter?: string;
+
+        /**
+         * Flag to get all items.
+         * Use this flag to get past the 5000 limit.
+         */
+        GetAllItems?: boolean;
 
         /** The order by fields. */
         OrderBy?: Array<string>;

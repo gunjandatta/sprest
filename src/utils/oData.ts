@@ -9,6 +9,7 @@ module $REST.Utils {
         /*********************************************************************************************************************************/
         private _expand?: Array<string>;
         private _filter?: string;
+        private _getAllItems?: boolean;
         private _orderBy?: Array<string>;
         private _select?: Array<string>;
         private _skip?: number;
@@ -23,6 +24,7 @@ module $REST.Utils {
             // Default the Variables
             this._expand = oData && oData.Expand ? oData.Expand : [];
             this._filter = oData && oData.Filter ? oData.Filter : null;
+            this._getAllItems = oData && oData.GetAllItems ? oData.GetAllItems : false;
             this._orderBy = oData && oData.OrderBy ? oData.OrderBy : [];
             this._select = oData && oData.Select ? oData.Select : [];
             this._skip = oData && oData.Skip ? oData.Skip : null;
@@ -40,6 +42,10 @@ module $REST.Utils {
         // Filter
         get Filter():string { return this._filter; }
         set Filter(value: string) { this._filter = value; }
+
+        // Flag to get all items
+        get GetAllItems():boolean { return this._getAllItems; }
+        set GetAllItems(value: boolean) { this._getAllItems = value; }
 
         // Order By
         get OrderBy():Array<string> { return this._orderBy; }

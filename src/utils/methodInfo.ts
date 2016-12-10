@@ -27,6 +27,9 @@ module $REST.Utils {
         // The data passed through the body of the request
         public get body():string { return this.methodData; }
 
+        // Flag to determine if we are getting all items
+        public get getAllItemsFl():boolean { return this.methodInfo.getAllItemsFl; }
+
         // Flag to determine if this method replaces the endpoint
         public get replaceEndpointFl():boolean { return this.methodInfo.replaceEndpointFl ? true : false; }
 
@@ -196,6 +199,9 @@ module $REST.Utils {
 
                 // Update the url
                 url = "?" + oData.QueryString;
+
+                // Set the get all items Flag
+                this.methodInfo.getAllItemsFl = oData.GetAllItems;
             }
             // Else, see if we are not passing the data in the body or query string
             else if(!this.passDataInBody && !this.passDataInQS) {
