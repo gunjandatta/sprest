@@ -22,9 +22,9 @@ An easy way to create, read, update and delete data using the SharePoint 2013/On
 
 ### Example Projects
 [Add/Remove Site Collection User Custom Actions](https://github.com/gunjandatta/sprest-sitecustomactions)
-[Query >5000 Items Example](https://github.com/gunjandatta/sprest-large-list)
 [Office Fabric BCS List](https://github.com/gunjandatta/sprest-bcs-list)
 [Office Fabric UI Dashboard](https://github.com/gunjandatta/sprest-list)
+[Query >5000 Items Example](https://github.com/gunjandatta/sprest-large-list)
 
 ## Get Started:
 ### Node Package Manager (NPM)
