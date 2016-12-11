@@ -60,6 +60,11 @@ declare module $REST.Types {
         getByUrl(serverRelativeUrl): IFile;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IFiles;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

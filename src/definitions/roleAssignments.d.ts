@@ -59,6 +59,11 @@ declare module $REST.Types {
         removeRoleAssignment(principalId, roleDefId): IBase;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IRoleAssignments;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

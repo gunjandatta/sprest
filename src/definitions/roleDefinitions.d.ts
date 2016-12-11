@@ -57,6 +57,11 @@ declare module $REST.Types {
         getByType(roleType:$REST.Types.RoleType): IRoleDefinition;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IRoleDefinitions;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

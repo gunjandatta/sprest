@@ -57,6 +57,11 @@ declare module $REST.Types {
         getById(id): IContentType;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IContentTypes;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

@@ -63,6 +63,17 @@ declare module $REST.Types {
         getByLoginName(loginName): IUser;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IUsers;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:ComplexTypes.ODataQuery): IUsers;
+
+        /**
          * Removes the user with the specified ID.
          * @param id - The ID of the user to remove.
          */
@@ -73,11 +84,5 @@ declare module $REST.Types {
          * @param loginName - The login name of the user to remove.
          */
         removeByLoginName(loginName): IBase;
-
-        /**
-         * Queries the collection.
-         * @param oData - The OData information.
-         */
-        query(oData:ComplexTypes.ODataQuery): IUsers;
     }
 }

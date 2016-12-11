@@ -84,6 +84,11 @@ declare module $REST.Types {
         getByTitle(title): IField;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IFields;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

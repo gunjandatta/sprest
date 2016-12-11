@@ -59,6 +59,11 @@ declare module $REST.Types {
         getById(id): IBase;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IVersions;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

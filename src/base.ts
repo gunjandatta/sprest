@@ -386,8 +386,17 @@ module $REST {
                 // Create the request
                 this.request = new Utils.Request(asyncFl, new Utils.TargetInfo(this.targetInfo));
 
-                // Update this data object and return it
-                return this.updateDataObject() || this;
+                // Update this data object
+                this.updateDataObject();
+
+                // See if this is a collection and has more results
+                if(this["d"] && this["d"].__next) {
+                    // Add the "next" method to get the next set of results
+                    this["next"] = new Function("return this.getNextSetOfResults();");
+                }
+
+                // Return this object
+                return this;
             }
         }
 
@@ -458,6 +467,24 @@ module $REST {
 
             // Add the methods
             requestType ? this.addMethods(obj, { __metadata: { type: requestType } }) : null;
+
+            // Return the object
+            return obj;
+        }
+
+        // Method to get the next set of results
+        protected getNextSetOfResults() {
+            // Create the target information to query the next set of results
+            let targetInfo = Object.create(this.targetInfo);
+            targetInfo.endpoint = "";
+            targetInfo.url = this["d"].__next;
+
+            // Create a new object
+            let obj = new Base(targetInfo);
+
+            // Set the properties
+            obj.base = this.base ? this.base : this;
+            obj.parent = this;
 
             // Return the object
             return obj;
@@ -595,27 +622,33 @@ module $REST {
             let data = JSON.parse(request.response);
             
             // See if there are more items to get
-            if(this.getAllItemsFl && data.d.__next) {
-                // Create the target information to query the next set of results
-                let targetInfo = Object.create(this.targetInfo);
-                targetInfo.endpoint = "";
-                targetInfo.url = data.d.__next;
+            if(data.d.__next) {
+                // See if we are getting all items in this request
+                if(this.getAllItemsFl) {
+                    // Create the target information to query the next set of results
+                    let targetInfo = Object.create(this.targetInfo);
+                    targetInfo.endpoint = "";
+                    targetInfo.url = data.d.__next;
 
-                // Create a new object
-                new Utils.Request(true, new Utils.TargetInfo(targetInfo), (request) => {
-                    // Convert the response and ensure the data property exists
-                    let data = JSON.parse(request.response);
-                    if(data.d) {
-                        // Update the data collection
-                        this.updateDataCollection(data.d.results);
+                    // Create a new object
+                    new Utils.Request(true, new Utils.TargetInfo(targetInfo), (request) => {
+                        // Convert the response and ensure the data property exists
+                        let data = JSON.parse(request.response);
+                        if(data.d) {
+                            // Update the data collection
+                            this.updateDataCollection(data.d.results);
 
-                        // Validate the data collection
-                        return this.validateDataCollectionResults(request, promise);
-                    }
+                            // Validate the data collection
+                            return this.validateDataCollectionResults(request, promise);
+                        }
 
-                    // Resolve the promise
-                    promise.resolve();
-                });
+                        // Resolve the promise
+                        promise.resolve();
+                    });
+                } else {
+                    // Add a method to get the next set of results
+                    this["next"] = new Function("return this.getNextSetOfResults();");
+                }
             } else {
                 // Resolve the promise
                 promise.resolve();

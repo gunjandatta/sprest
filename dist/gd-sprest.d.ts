@@ -126,6 +126,11 @@ declare module $REST.Types {
         executeAndWait(): IAttachmentFiles;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IAttachmentFiles;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */
@@ -2148,6 +2153,11 @@ declare module $REST.Types {
         getById(id): IContentType;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IContentTypes;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */
@@ -2329,6 +2339,11 @@ declare module $REST.Types {
          * @param id - The id of the event receiver.
          */
         getById(id:string): IEventReceiver;
+
+        /**
+         * Method to get the next set of results.
+         */
+        next(): IEventReceivers;
 
         /**
          * Queries the collection.
@@ -2575,6 +2590,11 @@ declare module $REST.Types {
         getById(id);
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IFieldLinks;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */
@@ -2666,6 +2686,11 @@ declare module $REST.Types {
          * @param title - The title of the field.
          */
         getByTitle(title): IField;
+
+        /**
+         * Method to get the next set of results.
+         */
+        next(): IFields;
 
         /**
          * Queries the collection.
@@ -3007,6 +3032,11 @@ declare module $REST.Types {
         getByUrl(serverRelativeUrl): IFile;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IFiles;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */
@@ -3123,6 +3153,11 @@ declare module $REST.Types {
          * Method to execute the request synchronously.
          */
         executeAndWait(): IFileVersions;
+
+        /**
+         * Method to get the next set of results.
+         */
+        next(): IFileVersions;
 
         /**
          * Queries the collection.
@@ -3315,6 +3350,11 @@ declare module $REST.Types {
          * @param serverRelativeUrl - The server-relative URL of the folder.
          */
         getbyurl(serverRelativeUrl);
+
+        /**
+         * Method to get the next set of results.
+         */
+        next(): IFolders;
 
         /**
          * Queries the collection.
@@ -3549,6 +3589,11 @@ declare module $REST.Types {
          * @param id - The item id.
          */
         getById(id): IListItem;
+
+        /**
+         * Method to get the next set of results.
+         */
+        next(): IListItems;
 
         /**
          * Queries the collection.
@@ -4324,6 +4369,11 @@ declare module $REST.Types {
          * @param title - The list title.
          */
         getByTitle(title): IList;
+
+        /**
+         * Method to get the next set of results.
+         */
+        next(): ILists;
 
         /**
          * Queries the collection.
@@ -5132,6 +5182,11 @@ declare module $REST.Types {
         removeRoleAssignment(principalId, roleDefId): IBase;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IRoleAssignments;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */
@@ -5261,6 +5316,11 @@ declare module $REST.Types {
          * @param roleType - The RoleTypeKind of the role definition.
          */
         getByType(roleType:$REST.Types.RoleType): IRoleDefinition;
+
+        /**
+         * Method to get the next set of results.
+         */
+        next(): IRoleDefinitions;
 
         /**
          * Queries the collection.
@@ -5741,6 +5801,17 @@ declare module $REST.Types {
         getByName(name): IGroup;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): ISiteGroups;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:ComplexTypes.ODataQuery): ISiteGroups;
+
+        /**
          * Removes the group with the specified member ID from the collection.
          * @param id - The ID of the group to remove.
          */
@@ -5751,12 +5822,6 @@ declare module $REST.Types {
          * @param name - The name of the group to remove. The group name is specified in its LoginName property.
          */
         removeByLoginName(name): IBase;
-
-        /**
-         * Queries the collection.
-         * @param oData - The OData information.
-         */
-        query(oData:ComplexTypes.ODataQuery): ISiteGroups;
     }
 }
 
@@ -6978,6 +7043,11 @@ declare module $REST.Types {
         getById(id): IUserCustomAction;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IUserCustomActions;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */
@@ -7190,6 +7260,17 @@ declare module $REST.Types {
         getByLoginName(loginName): IUser;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IUsers;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:ComplexTypes.ODataQuery): IUsers;
+
+        /**
          * Removes the user with the specified ID.
          * @param id - The ID of the user to remove.
          */
@@ -7200,12 +7281,6 @@ declare module $REST.Types {
          * @param loginName - The login name of the user to remove.
          */
         removeByLoginName(loginName): IBase;
-
-        /**
-         * Queries the collection.
-         * @param oData - The OData information.
-         */
-        query(oData:ComplexTypes.ODataQuery): IUsers;
     }
 }
 
@@ -7268,6 +7343,11 @@ declare module $REST.Types {
          * @param id - The version id to get.
          */
         getById(id): IBase;
+
+        /**
+         * Method to get the next set of results.
+         */
+        next(): IVersions;
 
         /**
          * Queries the collection.
@@ -7518,6 +7598,17 @@ declare module $REST.Types {
         moveViewFieldTo(field, index): IBase;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IViewFields;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:ComplexTypes.ODataQuery): IViewFields;
+
+        /**
          * Removes all the fields from the collection.
          */
         removeAllViewFields(): IBase;
@@ -7527,12 +7618,6 @@ declare module $REST.Types {
          * @param fieldName - The case-sensitive internal name or display name of the field to add.
          */
         removeViewField(fieldName): IBase;
-
-        /**
-         * Queries the collection.
-         * @param oData - The OData information.
-         */
-        query(oData:ComplexTypes.ODataQuery): IViewFields;
     }
 }
 
@@ -7592,6 +7677,11 @@ declare module $REST.Types {
          * @param title - The case-sensitive title of the view.
          */
         getByTitle(title): IView;
+
+        /**
+         * Method to get the next set of results.
+         */
+        next(): IViews;
 
         /**
          * Queries the collection.
@@ -8312,6 +8402,11 @@ declare module $REST.Types {
          * Method to execute the request synchronously.
          */
         executeAndWait(): IWebs;
+
+        /**
+         * Method to get the next set of results.
+         */
+        next(): IWebs;
 
         /**
          * Queries the collection.

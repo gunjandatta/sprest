@@ -58,6 +58,17 @@ declare module $REST.Types {
         moveViewFieldTo(field, index): IBase;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IViewFields;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:ComplexTypes.ODataQuery): IViewFields;
+
+        /**
          * Removes all the fields from the collection.
          */
         removeAllViewFields(): IBase;
@@ -67,11 +78,5 @@ declare module $REST.Types {
          * @param fieldName - The case-sensitive internal name or display name of the field to add.
          */
         removeViewField(fieldName): IBase;
-
-        /**
-         * Queries the collection.
-         * @param oData - The OData information.
-         */
-        query(oData:ComplexTypes.ODataQuery): IViewFields;
     }
 }

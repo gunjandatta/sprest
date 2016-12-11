@@ -56,6 +56,11 @@ declare module $REST.Types {
         getById(id): IUserCustomAction;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IUserCustomActions;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

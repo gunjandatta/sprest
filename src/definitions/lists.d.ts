@@ -67,6 +67,11 @@ declare module $REST.Types {
         getByTitle(title): IList;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): ILists;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

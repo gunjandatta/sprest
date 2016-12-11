@@ -51,6 +51,11 @@ declare module $REST.Types {
         getbyurl(serverRelativeUrl);
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IFolders;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

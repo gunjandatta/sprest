@@ -39,6 +39,11 @@ declare module $REST.Types {
         executeAndWait(): IFileVersions;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IFileVersions;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

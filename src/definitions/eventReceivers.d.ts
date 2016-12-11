@@ -51,6 +51,11 @@ declare module $REST.Types {
         getById(id:string): IEventReceiver;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IEventReceivers;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

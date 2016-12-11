@@ -56,6 +56,11 @@ declare module $REST.Types {
         getByTitle(title): IView;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IViews;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

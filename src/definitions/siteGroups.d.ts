@@ -57,6 +57,17 @@ declare module $REST.Types {
         getByName(name): IGroup;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): ISiteGroups;
+
+        /**
+         * Queries the collection.
+         * @param oData - The OData information.
+         */
+        query(oData:ComplexTypes.ODataQuery): ISiteGroups;
+
+        /**
          * Removes the group with the specified member ID from the collection.
          * @param id - The ID of the group to remove.
          */
@@ -67,11 +78,5 @@ declare module $REST.Types {
          * @param name - The name of the group to remove. The group name is specified in its LoginName property.
          */
         removeByLoginName(name): IBase;
-
-        /**
-         * Queries the collection.
-         * @param oData - The OData information.
-         */
-        query(oData:ComplexTypes.ODataQuery): ISiteGroups;
     }
 }

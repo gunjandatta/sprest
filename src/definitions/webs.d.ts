@@ -45,6 +45,11 @@ declare module $REST.Types {
         executeAndWait(): IWebs;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IWebs;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

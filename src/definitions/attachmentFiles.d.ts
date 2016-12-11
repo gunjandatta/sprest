@@ -46,6 +46,11 @@ declare module $REST.Types {
         executeAndWait(): IAttachmentFiles;
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IAttachmentFiles;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */

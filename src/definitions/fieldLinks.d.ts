@@ -51,6 +51,11 @@ declare module $REST.Types {
         getById(id);
 
         /**
+         * Method to get the next set of results.
+         */
+        next(): IFieldLinks;
+
+        /**
          * Queries the collection.
          * @param oData - The OData information.
          */
