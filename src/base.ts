@@ -622,7 +622,7 @@ module $REST {
             let data = JSON.parse(request.response);
             
             // See if there are more items to get
-            if(data.d.__next) {
+            if(data.d && data.d.__next) {
                 // See if we are getting all items in this request
                 if(this.getAllItemsFl) {
                     // Create the target information to query the next set of results
