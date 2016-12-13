@@ -498,33 +498,40 @@ var $REST;
         Base.prototype.validateDataCollectionResults = function (request, promise) {
             var _this = this;
             promise = promise || new $REST.Utils.Promise();
-            // Convert the response and ensure the data property exists
-            var data = JSON.parse(request.response);
-            // See if there are more items to get
-            if (data.d && data.d.__next) {
-                // See if we are getting all items in this request
-                if (this.getAllItemsFl) {
-                    // Create the target information to query the next set of results
-                    var targetInfo = Object.create(this.targetInfo);
-                    targetInfo.endpoint = "";
-                    targetInfo.url = data.d.__next;
-                    // Create a new object
-                    new $REST.Utils.Request(true, new $REST.Utils.TargetInfo(targetInfo), function (request) {
-                        // Convert the response and ensure the data property exists
-                        var data = JSON.parse(request.response);
-                        if (data.d) {
-                            // Update the data collection
-                            _this.updateDataCollection(data.d.results);
-                            // Validate the data collection
-                            return _this.validateDataCollectionResults(request, promise);
-                        }
-                        // Resolve the promise
-                        promise.resolve();
-                    });
+            // Validate the response
+            if (request && request.request.status < 400 && typeof (request.response) === "string") {
+                // Convert the response and ensure the data property exists
+                var data = JSON.parse(request.response);
+                // See if there are more items to get
+                if (data.d && data.d.__next) {
+                    // See if we are getting all items in this request
+                    if (this.getAllItemsFl) {
+                        // Create the target information to query the next set of results
+                        var targetInfo = Object.create(this.targetInfo);
+                        targetInfo.endpoint = "";
+                        targetInfo.url = data.d.__next;
+                        // Create a new object
+                        new $REST.Utils.Request(true, new $REST.Utils.TargetInfo(targetInfo), function (request) {
+                            // Convert the response and ensure the data property exists
+                            var data = JSON.parse(request.response);
+                            if (data.d) {
+                                // Update the data collection
+                                _this.updateDataCollection(data.d.results);
+                                // Validate the data collection
+                                return _this.validateDataCollectionResults(request, promise);
+                            }
+                            // Resolve the promise
+                            promise.resolve();
+                        });
+                    }
+                    else {
+                        // Add a method to get the next set of results
+                        this["next"] = new Function("return this.getNextSetOfResults();");
+                    }
                 }
                 else {
-                    // Add a method to get the next set of results
-                    this["next"] = new Function("return this.getNextSetOfResults();");
+                    // Resolve the promise
+                    promise.resolve();
                 }
             }
             else {

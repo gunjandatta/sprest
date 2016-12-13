@@ -618,36 +618,42 @@ module $REST {
         private validateDataCollectionResults(request:Utils.Request, promise?:Utils.Promise) {
             promise = promise || new Utils.Promise();
 
-            // Convert the response and ensure the data property exists
-            let data = JSON.parse(request.response);
-            
-            // See if there are more items to get
-            if(data.d && data.d.__next) {
-                // See if we are getting all items in this request
-                if(this.getAllItemsFl) {
-                    // Create the target information to query the next set of results
-                    let targetInfo = Object.create(this.targetInfo);
-                    targetInfo.endpoint = "";
-                    targetInfo.url = data.d.__next;
+            // Validate the response
+            if(request && request.request.status < 400 && typeof(request.response) === "string") {
+                // Convert the response and ensure the data property exists
+                let data = JSON.parse(request.response);
+                
+                // See if there are more items to get
+                if(data.d && data.d.__next) {
+                    // See if we are getting all items in this request
+                    if(this.getAllItemsFl) {
+                        // Create the target information to query the next set of results
+                        let targetInfo = Object.create(this.targetInfo);
+                        targetInfo.endpoint = "";
+                        targetInfo.url = data.d.__next;
 
-                    // Create a new object
-                    new Utils.Request(true, new Utils.TargetInfo(targetInfo), (request) => {
-                        // Convert the response and ensure the data property exists
-                        let data = JSON.parse(request.response);
-                        if(data.d) {
-                            // Update the data collection
-                            this.updateDataCollection(data.d.results);
+                        // Create a new object
+                        new Utils.Request(true, new Utils.TargetInfo(targetInfo), (request) => {
+                            // Convert the response and ensure the data property exists
+                            let data = JSON.parse(request.response);
+                            if(data.d) {
+                                // Update the data collection
+                                this.updateDataCollection(data.d.results);
 
-                            // Validate the data collection
-                            return this.validateDataCollectionResults(request, promise);
-                        }
+                                // Validate the data collection
+                                return this.validateDataCollectionResults(request, promise);
+                            }
 
-                        // Resolve the promise
-                        promise.resolve();
-                    });
+                            // Resolve the promise
+                            promise.resolve();
+                        });
+                    } else {
+                        // Add a method to get the next set of results
+                        this["next"] = new Function("return this.getNextSetOfResults();");
+                    }
                 } else {
-                    // Add a method to get the next set of results
-                    this["next"] = new Function("return this.getNextSetOfResults();");
+                    // Resolve the promise
+                    promise.resolve();
                 }
             } else {
                 // Resolve the promise
