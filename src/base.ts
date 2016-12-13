@@ -583,10 +583,10 @@ module $REST {
         // Method to update the metadata
         private updateMetadata(data:any) {
             // Ensure this is the app web
-            if(!Utils.ContextInfo.isAppWeb) { return; }
+            if(!ContextInfo.isAppWeb) { return; }
 
             // Get the url information
-            let hostUrl = Utils.ContextInfo.webAbsoluteUrl.toLowerCase();
+            let hostUrl = ContextInfo.webAbsoluteUrl.toLowerCase();
             let requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
             let targetUrl = this.targetInfo && this.targetInfo.url ? this.targetInfo.url.toLowerCase() : null;
 

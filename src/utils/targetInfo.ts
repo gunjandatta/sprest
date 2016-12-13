@@ -55,7 +55,7 @@ module $REST.Utils {
             let url:any = document.location.href;
 
             // See if this is an app web
-            if (Utils.ContextInfo.isAppWeb) {
+            if (ContextInfo.isAppWeb) {
                 // Set the url to the host url
                 url = TargetInfo.getQueryStringValue("SPHostUrl") + "";
             }
@@ -101,7 +101,7 @@ module $REST.Utils {
             let template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
 
             // See if we are defaulting the url for the app web
-            if($REST.DefaultRequestToHostFl && Utils.ContextInfo.isAppWeb && this.targetInfo.url == null) {
+            if($REST.DefaultRequestToHostFl && ContextInfo.isAppWeb && this.targetInfo.url == null) {
                 // Default the url to the host web
                 this.targetInfo.url = hostUrl;
             }
@@ -109,7 +109,7 @@ module $REST.Utils {
             // Ensure the url exists
             if(this.targetInfo.url == null) {
                 // Default the url to the current site/web url
-                this.targetInfo.url = this.targetInfo.defaultToWebFl == false ? Utils.ContextInfo.siteAbsoluteUrl : Utils.ContextInfo.webAbsoluteUrl;
+                this.targetInfo.url = this.targetInfo.defaultToWebFl == false ? ContextInfo.siteAbsoluteUrl : ContextInfo.webAbsoluteUrl;
             }
             // Else, see if the url already contains the full request
             else if(/\/_api\//.test(this.targetInfo.url)) {
@@ -117,9 +117,9 @@ module $REST.Utils {
                 var url = this.targetInfo.url.toLowerCase().split("/_api/");
 
                 // See if this is the app web and we are executing against a different web
-                if(Utils.ContextInfo.isAppWeb && url[0] != Utils.ContextInfo.webAbsoluteUrl.toLowerCase()) {
+                if(ContextInfo.isAppWeb && url[0] != ContextInfo.webAbsoluteUrl.toLowerCase()) {
                     // Set the request url
-                    this.requestUrl = Utils.ContextInfo.webAbsoluteUrl + "/_api/SP.AppContextSite(@target)/" + url[1] +
+                    this.requestUrl = ContextInfo.webAbsoluteUrl + "/_api/SP.AppContextSite(@target)/" + url[1] +
                         (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") +
                         "?@target='" + url[0] + "'";
                 }
@@ -137,14 +137,14 @@ module $REST.Utils {
             }
 
             // See if this is the app web, and we are executing against a different web
-            if(Utils.ContextInfo.isAppWeb && this.targetInfo.url != Utils.ContextInfo.webAbsoluteUrl) {
+            if(ContextInfo.isAppWeb && this.targetInfo.url != ContextInfo.webAbsoluteUrl) {
                 // Append the start character for the query string
                 let endpoint = this.targetInfo.endpoint +
                     (this.targetInfo.endpoint.indexOf("?") > 0 ? "&" : "?");
 
                 // Set the request url
                 this.requestUrl = template
-                    .replace(/{{Url}}/g, Utils.ContextInfo.webAbsoluteUrl)
+                    .replace(/{{Url}}/g, ContextInfo.webAbsoluteUrl)
                     .replace(/{{EndPoint}}/g, "SP.AppContextSite(@target)/" + endpoint)
                     .replace(/{{TargetUrl}}/g, "@target='" + this.targetInfo.url + "'");
             } else {

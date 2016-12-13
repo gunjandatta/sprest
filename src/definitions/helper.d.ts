@@ -8,23 +8,26 @@ declare module $REST.Types {
          * @param srcFileUrl - The source file url, relative to the app web.
          * @param dstFolder - The destination folder.
          * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
+         * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
          */
-        copyFileToHostWeb(srcFileUrl:string, dstFolder:Types.IFolder, overwriteFl?:boolean): Types.IPromise;
+        copyFileToHostWeb(srcFileUrl:string, dstFolder:Types.IFolder, overwriteFl?:boolean, rootWebFl?:boolean): Types.IPromise;
 
         /**
          * Method to copy a file from the app web to the host web.
          * @param srcFileUrl - The source file url, relative to the app web.
          * @param dstFolderUrl - The destination folder url, relative to the host web.
          * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
+         * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
          */
-        copyFileToHostWeb(srcFileUrl:string, dstFolderUrl:string, overwriteFl?:boolean): Types.IPromise;
+        copyFileToHostWeb(srcFileUrl:string, dstFolderUrl:string, overwriteFl?:boolean, rootWebFl?:boolean): Types.IPromise;
 
         /**
          * Method to copy a file from the app web to the host web
          * @param fileUrls - An array of source file urls, relative to the app web.
          * @param folderUrls - An array of destination folder urls, relative to the host web.
+         * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
          */
-        copyFilesToHostWeb(fileUrls:Array<string>, folderUrls:Array<string>, overwriteFl?:boolean);
+        copyFilesToHostWeb(fileUrls:Array<string>, folderUrls:Array<string>, overwriteFl?:boolean, rootWebFl?:boolean): Types.IPromise;
 
         /**
          * Method to create sub-folders.

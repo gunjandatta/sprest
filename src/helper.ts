@@ -4,21 +4,21 @@ module $REST {
     /*********************************************************************************************************************************/
     export class Helper {
         // Method to copy a file in this app web to the host web
-        static copyFileToHostWeb(fileUrl:string, dstFolder:(string | $REST.Types.IFolder), overwriteFl?:boolean) {
+        static copyFileToHostWeb(fileUrl:string, dstFolder:(string | $REST.Types.IFolder), overwriteFl?:boolean, rootWebFl?:boolean) {
             let srcFile = null;
             let promise = new $REST.Utils.Promise();
             let origVal = $REST.DefaultRequestToHostFl;
 
             // Ensure the current web is an app web
-            if(!Utils.ContextInfo.isAppWeb) {
+            if(!ContextInfo.isAppWeb) {
                 // Error
                 console.error("[gd-sprest] The current web is not an app web.");
                 return;
             }
 
-            //Get the host web
+            // Get the host web
             $REST.DefaultRequestToHostFl = true;
-            let web = (<$REST.Types.IWeb><any>new $REST.Web());
+            let web = (<$REST.Types.IWeb><any>new $REST.Web(rootWebFl ? $REST.ContextInfo.siteServerRelativeUrl : null));
 
             // See if the folder url was given
             if(typeof(dstFolder) === "string") {
@@ -37,7 +37,7 @@ module $REST {
 
                 // Set the file urls
                 let dstFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-                let srcFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(Utils.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+                let srcFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
 
                 // Get the destination file
                 web.getFileByServerRelativeUrl(dstFileUrl)
@@ -61,8 +61,9 @@ module $REST {
                 // Target the current web
                 $REST.DefaultRequestToHostFl = false;
 
-                // Get the file
-                web.getFileByServerRelativeUrl(srcFileUrl)
+                // Get the current web
+                (<$REST.Types.IWeb><any>new $REST.Web())
+                    .getFileByServerRelativeUrl(srcFileUrl)
                     // Get the content
                     .content()
                     // Execute the request
@@ -109,7 +110,7 @@ module $REST {
         }
 
         // Method to copy a file in this app web to the host web
-        static copyFilesToHostWeb(fileUrls:Array<string>, folderUrls:Array<string>, overwriteFl?:boolean, idx?:number, promise?:Utils.Promise, files?:Array<$REST.Types.IFile>, folders?:Array<$REST.Types.IFolder>) {            
+        static copyFilesToHostWeb(fileUrls:Array<string>, folderUrls:Array<string>, overwriteFl?:boolean, rootWebFl?:boolean, idx?:number, promise?:Utils.Promise, files?:Array<$REST.Types.IFile>, folders?:Array<$REST.Types.IFolder>) {            
             files = files ? files : [];
             folders = folders ? folders : [];
             idx = idx ? idx : 0;
@@ -123,7 +124,7 @@ module $REST {
             }
 
             // Copy the file
-            this.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl)
+            this.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
                 // Wait for it to complete
                 .done((file, folder) => {
                     // Save a reference to the file and folder
@@ -131,7 +132,7 @@ module $REST {
                     folders.push(folder);
 
                     // Copy the files
-                    this.copyFilesToHostWeb(fileUrls, folderUrls, overwriteFl, ++idx, promise, files, folders);
+                    this.copyFilesToHostWeb(fileUrls, folderUrls, overwriteFl, rootWebFl, ++idx, promise, files, folders);
                 })
 
             // Return the promise

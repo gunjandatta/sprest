@@ -1,4 +1,4 @@
-module $REST.Utils {
+module $REST {
     /*********************************************************************************************************************************/
     // Context Information
     // This class will return the _spPageContextInfo.
@@ -6,6 +6,7 @@ module $REST.Utils {
     export class ContextInfo {
         // The current context information
         private static get _contextInfo() { return window["_spPageContextInfo"] || {
+            existsFl: false,
             isAppWeb: false,
             siteAbsoluteUrl: "",
             siteServerRelativeUrl: "",
@@ -13,6 +14,9 @@ module $REST.Utils {
             webAbsoluteUrl: "",
             webServerRelativeUrl: ""
         }};
+
+        // Exists Flag
+        static get existsFl():boolean { return this._contextInfo.existsFl == null; }
 
         // Is App Web
         static get isAppWeb():boolean { return this._contextInfo.isAppWeb; }

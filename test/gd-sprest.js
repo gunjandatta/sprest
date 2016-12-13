@@ -464,11 +464,11 @@ var $REST;
         // Method to update the metadata
         Base.prototype.updateMetadata = function (data) {
             // Ensure this is the app web
-            if (!$REST.Utils.ContextInfo.isAppWeb) {
+            if (!$REST.ContextInfo.isAppWeb) {
                 return;
             }
             // Get the url information
-            var hostUrl = $REST.Utils.ContextInfo.webAbsoluteUrl.toLowerCase();
+            var hostUrl = $REST.ContextInfo.webAbsoluteUrl.toLowerCase();
             var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
             var targetUrl = this.targetInfo && this.targetInfo.url ? this.targetInfo.url.toLowerCase() : null;
             // Ensure the urls exist
@@ -570,26 +570,86 @@ var $REST;
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
+    // Context Information
+    // This class will return the _spPageContextInfo.
+    /*********************************************************************************************************************************/
+    var ContextInfo = (function () {
+        function ContextInfo() {
+        }
+        Object.defineProperty(ContextInfo, "_contextInfo", {
+            // The current context information
+            get: function () {
+                return window["_spPageContextInfo"] || {
+                    isAppWeb: false,
+                    siteAbsoluteUrl: "",
+                    siteServerRelativeUrl: "",
+                    userId: 0,
+                    webAbsoluteUrl: "",
+                    webServerRelativeUrl: ""
+                };
+            },
+            enumerable: true,
+            configurable: true
+        });
+        ;
+        Object.defineProperty(ContextInfo, "isAppWeb", {
+            // Is App Web
+            get: function () { return this._contextInfo.isAppWeb; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ContextInfo, "siteAbsoluteUrl", {
+            // Site Absolute Url
+            get: function () { return this._contextInfo.siteAbsoluteUrl; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ContextInfo, "siteServerRelativeUrl", {
+            // Site Server Relative Url
+            get: function () { return this._contextInfo.siteAbsoluteUrl; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ContextInfo, "webAbsoluteUrl", {
+            // Web Absolute Url
+            get: function () { return this._contextInfo.webAbsoluteUrl; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ContextInfo, "webServerRelativeUrl", {
+            // Web Server Relative Url
+            get: function () { return this._contextInfo.webServerRelativeUrl; },
+            enumerable: true,
+            configurable: true
+        });
+        return ContextInfo;
+    }());
+    $REST.ContextInfo = ContextInfo;
+})($REST || ($REST = {}));
+
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
     // Helper Methods
     /*********************************************************************************************************************************/
     var Helper = (function () {
         function Helper() {
         }
         // Method to copy a file in this app web to the host web
-        Helper.copyFileToHostWeb = function (fileUrl, dstFolder, overwriteFl) {
+        Helper.copyFileToHostWeb = function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
             var _this = this;
             var srcFile = null;
             var promise = new $REST.Utils.Promise();
             var origVal = $REST.DefaultRequestToHostFl;
             // Ensure the current web is an app web
-            if (!$REST.Utils.ContextInfo.isAppWeb) {
+            if (!$REST.ContextInfo.isAppWeb) {
                 // Error
                 console.error("[gd-sprest] The current web is not an app web.");
                 return;
             }
-            //Get the host web
+            // Get the host web
             $REST.DefaultRequestToHostFl = true;
-            var web = (new $REST.Web());
+            var web = (new $REST.Web(rootWebFl ? $REST.ContextInfo.siteServerRelativeUrl : null));
             // See if the folder url was given
             if (typeof (dstFolder) === "string") {
                 // Get the folder
@@ -606,7 +666,7 @@ var $REST;
                 fileName = fileName[fileName.length - 1];
                 // Set the file urls
                 var dstFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-                var srcFileUrl_1 = window["SP"].Utilities.UrlBuilder.urlCombine($REST.Utils.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+                var srcFileUrl_1 = window["SP"].Utilities.UrlBuilder.urlCombine($REST.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
                 // Get the destination file
                 web.getFileByServerRelativeUrl(dstFileUrl)
                     .execute(function (file) {
@@ -625,8 +685,9 @@ var $REST;
                 });
                 // Target the current web
                 $REST.DefaultRequestToHostFl = false;
-                // Get the file
-                web.getFileByServerRelativeUrl(srcFileUrl_1)
+                // Get the current web
+                (new $REST.Web())
+                    .getFileByServerRelativeUrl(srcFileUrl_1)
                     .content()
                     .execute(function (content) {
                     var promise = new $REST.Utils.Promise();
@@ -660,7 +721,7 @@ var $REST;
             return promise;
         };
         // Method to copy a file in this app web to the host web
-        Helper.copyFilesToHostWeb = function (fileUrls, folderUrls, overwriteFl, idx, promise, files, folders) {
+        Helper.copyFilesToHostWeb = function (fileUrls, folderUrls, overwriteFl, rootWebFl, idx, promise, files, folders) {
             var _this = this;
             files = files ? files : [];
             folders = folders ? folders : [];
@@ -673,13 +734,13 @@ var $REST;
                 return promise;
             }
             // Copy the file
-            this.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl)
+            this.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
                 .done(function (file, folder) {
                 // Save a reference to the file and folder
                 files.push(file);
                 folders.push(folder);
                 // Copy the files
-                _this.copyFilesToHostWeb(fileUrls, folderUrls, overwriteFl, ++idx, promise, files, folders);
+                _this.copyFilesToHostWeb(fileUrls, folderUrls, overwriteFl, rootWebFl, ++idx, promise, files, folders);
             });
             // Return the promise
             return promise;
@@ -1451,65 +1512,69 @@ var $REST;
 
 var $REST;
 (function ($REST) {
-    var Utils;
-    (function (Utils) {
-        /*********************************************************************************************************************************/
-        // Context Information
-        // This class will return the _spPageContextInfo.
-        /*********************************************************************************************************************************/
-        var ContextInfo = (function () {
-            function ContextInfo() {
-            }
-            Object.defineProperty(ContextInfo, "_contextInfo", {
-                // The current context information
-                get: function () {
-                    return window["_spPageContextInfo"] || {
-                        isAppWeb: false,
-                        siteAbsoluteUrl: "",
-                        siteServerRelativeUrl: "",
-                        userId: 0,
-                        webAbsoluteUrl: "",
-                        webServerRelativeUrl: ""
-                    };
-                },
-                enumerable: true,
-                configurable: true
-            });
-            ;
-            Object.defineProperty(ContextInfo, "isAppWeb", {
-                // Is App Web
-                get: function () { return this._contextInfo.isAppWeb; },
-                enumerable: true,
-                configurable: true
-            });
-            Object.defineProperty(ContextInfo, "siteAbsoluteUrl", {
-                // Site Absolute Url
-                get: function () { return this._contextInfo.siteAbsoluteUrl; },
-                enumerable: true,
-                configurable: true
-            });
-            Object.defineProperty(ContextInfo, "siteServerRelativeUrl", {
-                // Site Server Relative Url
-                get: function () { return this._contextInfo.siteAbsoluteUrl; },
-                enumerable: true,
-                configurable: true
-            });
-            Object.defineProperty(ContextInfo, "webAbsoluteUrl", {
-                // Web Absolute Url
-                get: function () { return this._contextInfo.webAbsoluteUrl; },
-                enumerable: true,
-                configurable: true
-            });
-            Object.defineProperty(ContextInfo, "webServerRelativeUrl", {
-                // Web Server Relative Url
-                get: function () { return this._contextInfo.webServerRelativeUrl; },
-                enumerable: true,
-                configurable: true
-            });
-            return ContextInfo;
-        }());
-        Utils.ContextInfo = ContextInfo;
-    })(Utils = $REST.Utils || ($REST.Utils = {}));
+    /*********************************************************************************************************************************/
+    // Context Information
+    // This class will return the _spPageContextInfo.
+    /*********************************************************************************************************************************/
+    var ContextInfo = (function () {
+        function ContextInfo() {
+        }
+        Object.defineProperty(ContextInfo, "_contextInfo", {
+            // The current context information
+            get: function () {
+                return window["_spPageContextInfo"] || {
+                    existsFl: false,
+                    isAppWeb: false,
+                    siteAbsoluteUrl: "",
+                    siteServerRelativeUrl: "",
+                    userId: 0,
+                    webAbsoluteUrl: "",
+                    webServerRelativeUrl: ""
+                };
+            },
+            enumerable: true,
+            configurable: true
+        });
+        ;
+        Object.defineProperty(ContextInfo, "existsFl", {
+            // Exists Flag
+            get: function () { return this._contextInfo.existsFl == null; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ContextInfo, "isAppWeb", {
+            // Is App Web
+            get: function () { return this._contextInfo.isAppWeb; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ContextInfo, "siteAbsoluteUrl", {
+            // Site Absolute Url
+            get: function () { return this._contextInfo.siteAbsoluteUrl; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ContextInfo, "siteServerRelativeUrl", {
+            // Site Server Relative Url
+            get: function () { return this._contextInfo.siteAbsoluteUrl; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ContextInfo, "webAbsoluteUrl", {
+            // Web Absolute Url
+            get: function () { return this._contextInfo.webAbsoluteUrl; },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(ContextInfo, "webServerRelativeUrl", {
+            // Web Server Relative Url
+            get: function () { return this._contextInfo.webServerRelativeUrl; },
+            enumerable: true,
+            configurable: true
+        });
+        return ContextInfo;
+    }());
+    $REST.ContextInfo = ContextInfo;
 })($REST || ($REST = {}));
 
 var $REST;
@@ -1544,7 +1609,7 @@ var $REST;
         });
         Object.defineProperty(Dependencies.prototype, "pageContextExistsFl", {
             // Flag to determine if the page context information exists
-            get: function () { return $REST.Utils.ContextInfo.webAbsoluteUrl != ""; },
+            get: function () { return $REST.ContextInfo.webAbsoluteUrl != ""; },
             enumerable: true,
             configurable: true
         });
@@ -2209,7 +2274,7 @@ var $REST;
             TargetInfo.prototype.getDomainUrl = function () {
                 var url = document.location.href;
                 // See if this is an app web
-                if (Utils.ContextInfo.isAppWeb) {
+                if ($REST.ContextInfo.isAppWeb) {
                     // Set the url to the host url
                     url = TargetInfo.getQueryStringValue("SPHostUrl") + "";
                 }
@@ -2248,22 +2313,22 @@ var $REST;
                 var hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
                 var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
                 // See if we are defaulting the url for the app web
-                if ($REST.DefaultRequestToHostFl && Utils.ContextInfo.isAppWeb && this.targetInfo.url == null) {
+                if ($REST.DefaultRequestToHostFl && $REST.ContextInfo.isAppWeb && this.targetInfo.url == null) {
                     // Default the url to the host web
                     this.targetInfo.url = hostUrl;
                 }
                 // Ensure the url exists
                 if (this.targetInfo.url == null) {
                     // Default the url to the current site/web url
-                    this.targetInfo.url = this.targetInfo.defaultToWebFl == false ? Utils.ContextInfo.siteAbsoluteUrl : Utils.ContextInfo.webAbsoluteUrl;
+                    this.targetInfo.url = this.targetInfo.defaultToWebFl == false ? $REST.ContextInfo.siteAbsoluteUrl : $REST.ContextInfo.webAbsoluteUrl;
                 }
                 else if (/\/_api\//.test(this.targetInfo.url)) {
                     // Get the url
                     var url = this.targetInfo.url.toLowerCase().split("/_api/");
                     // See if this is the app web and we are executing against a different web
-                    if (Utils.ContextInfo.isAppWeb && url[0] != Utils.ContextInfo.webAbsoluteUrl.toLowerCase()) {
+                    if ($REST.ContextInfo.isAppWeb && url[0] != $REST.ContextInfo.webAbsoluteUrl.toLowerCase()) {
                         // Set the request url
-                        this.requestUrl = Utils.ContextInfo.webAbsoluteUrl + "/_api/SP.AppContextSite(@target)/" + url[1] +
+                        this.requestUrl = $REST.ContextInfo.webAbsoluteUrl + "/_api/SP.AppContextSite(@target)/" + url[1] +
                             (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") +
                             "?@target='" + url[0] + "'";
                     }
@@ -2279,13 +2344,13 @@ var $REST;
                     this.targetInfo.url = this.getDomainUrl() + this.targetInfo.url;
                 }
                 // See if this is the app web, and we are executing against a different web
-                if (Utils.ContextInfo.isAppWeb && this.targetInfo.url != Utils.ContextInfo.webAbsoluteUrl) {
+                if ($REST.ContextInfo.isAppWeb && this.targetInfo.url != $REST.ContextInfo.webAbsoluteUrl) {
                     // Append the start character for the query string
                     var endpoint = this.targetInfo.endpoint +
                         (this.targetInfo.endpoint.indexOf("?") > 0 ? "&" : "?");
                     // Set the request url
                     this.requestUrl = template
-                        .replace(/{{Url}}/g, Utils.ContextInfo.webAbsoluteUrl)
+                        .replace(/{{Url}}/g, $REST.ContextInfo.webAbsoluteUrl)
                         .replace(/{{EndPoint}}/g, "SP.AppContextSite(@target)/" + endpoint)
                         .replace(/{{TargetUrl}}/g, "@target='" + this.targetInfo.url + "'");
                 }

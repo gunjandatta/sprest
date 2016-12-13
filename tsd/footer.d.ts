@@ -3,9 +3,14 @@
  **********************************************************************************************/
 declare module $REST {
     /**
+     * Reference to the _spPageContextInfo
+     */
+    let ContextInfo: $REST.Types.IContextInfo;
+
+    /**
      * Flag to execute requests against the host web. This is relevent to the app web only, and defaults to the SPHostUrl querystring value.
      */
-    let DefaultRequestToHostFl:boolean;
+    let DefaultRequestToHostFl: boolean;
 
     /** Email */
     let Email: $REST.Types.IEmail;
