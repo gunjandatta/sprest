@@ -25,7 +25,7 @@ module $REST {
         static get siteAbsoluteUrl():string { return this._contextInfo.siteAbsoluteUrl; }
 
         // Site Server Relative Url
-        static get siteServerRelativeUrl():string { return this._contextInfo.siteAbsoluteUrl; }
+        static get siteServerRelativeUrl():string { return this._contextInfo.siteServerRelativeUrl; }
 
         // Web Absolute Url
         static get webAbsoluteUrl():string { return this._contextInfo.webAbsoluteUrl; }
