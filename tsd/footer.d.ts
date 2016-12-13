@@ -5,7 +5,7 @@ declare module $REST {
     /**
      * Flag to execute requests against the host web. This is relevent to the app web only, and defaults to the SPHostUrl querystring value.
      */
-    let DefaultRequestToHostWebFl:boolean;
+    let DefaultRequestToHostFl:boolean;
 
     /** Email */
     let Email: $REST.Types.IEmail;

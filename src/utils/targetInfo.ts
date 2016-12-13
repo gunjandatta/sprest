@@ -101,7 +101,7 @@ module $REST.Utils {
             let template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
 
             // See if we are defaulting the url for the app web
-            if($REST.DefaultRequestToHostWebFl && Utils.ContextInfo.isAppWeb && this.targetInfo.url == null) {
+            if($REST.DefaultRequestToHostFl && Utils.ContextInfo.isAppWeb && this.targetInfo.url == null) {
                 // Default the url to the host web
                 this.targetInfo.url = hostUrl;
             }

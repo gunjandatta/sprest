@@ -3,7 +3,7 @@ var $REST;
     /*********************************************************************************************************************************/
     // Global Variables
     /*********************************************************************************************************************************/
-    $REST.DefaultRequestToHostWebFl = false;
+    $REST.DefaultRequestToHostFl = false;
     $REST.Library = {};
     var SP;
     /*********************************************************************************************************************************/
@@ -580,7 +580,7 @@ var $REST;
             var _this = this;
             var srcFile = null;
             var promise = new $REST.Utils.Promise();
-            var origVal = $REST.DefaultRequestToHostWebFl;
+            var origVal = $REST.DefaultRequestToHostFl;
             // Ensure the current web is an app web
             if (!$REST.Utils.ContextInfo.isAppWeb) {
                 // Error
@@ -588,7 +588,7 @@ var $REST;
                 return;
             }
             //Get the host web
-            $REST.DefaultRequestToHostWebFl = true;
+            $REST.DefaultRequestToHostFl = true;
             var web = (new $REST.Web());
             // See if the folder url was given
             if (typeof (dstFolder) === "string") {
@@ -624,7 +624,7 @@ var $REST;
                     return promise;
                 });
                 // Target the current web
-                $REST.DefaultRequestToHostWebFl = false;
+                $REST.DefaultRequestToHostFl = false;
                 // Get the file
                 web.getFileByServerRelativeUrl(srcFileUrl_1)
                     .content()
@@ -634,7 +634,7 @@ var $REST;
                     var fileName = srcFileUrl_1.split("/");
                     fileName = fileName[fileName.length - 1];
                     // Target the host web
-                    $REST.DefaultRequestToHostWebFl = true;
+                    $REST.DefaultRequestToHostFl = true;
                     // Add the file to the folder
                     dstFolder.Files().add(true, fileName, content.response)
                         .execute(function (file) {
@@ -2248,7 +2248,7 @@ var $REST;
                 var hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
                 var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
                 // See if we are defaulting the url for the app web
-                if ($REST.DefaultRequestToHostWebFl && Utils.ContextInfo.isAppWeb && this.targetInfo.url == null) {
+                if ($REST.DefaultRequestToHostFl && Utils.ContextInfo.isAppWeb && this.targetInfo.url == null) {
                     // Default the url to the host web
                     this.targetInfo.url = hostUrl;
                 }

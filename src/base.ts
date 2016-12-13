@@ -2,7 +2,7 @@ module $REST {
     /*********************************************************************************************************************************/
     // Global Variables
     /*********************************************************************************************************************************/
-    export var DefaultRequestToHostWebFl:boolean = false;
+    export var DefaultRequestToHostFl:boolean = false;
     export var Library:any = {};
     var SP:any;
 

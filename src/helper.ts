@@ -7,7 +7,7 @@ module $REST {
         static copyFileToHostWeb(fileUrl:string, dstFolder:(string | $REST.Types.IFolder), overwriteFl?:boolean) {
             let srcFile = null;
             let promise = new $REST.Utils.Promise();
-            let origVal = $REST.DefaultRequestToHostWebFl;
+            let origVal = $REST.DefaultRequestToHostFl;
 
             // Ensure the current web is an app web
             if(!Utils.ContextInfo.isAppWeb) {
@@ -17,7 +17,7 @@ module $REST {
             }
 
             //Get the host web
-            $REST.DefaultRequestToHostWebFl = true;
+            $REST.DefaultRequestToHostFl = true;
             let web = (<$REST.Types.IWeb><any>new $REST.Web());
 
             // See if the folder url was given
@@ -59,7 +59,7 @@ module $REST {
                     });
 
                 // Target the current web
-                $REST.DefaultRequestToHostWebFl = false;
+                $REST.DefaultRequestToHostFl = false;
 
                 // Get the file
                 web.getFileByServerRelativeUrl(srcFileUrl)
@@ -74,7 +74,7 @@ module $REST {
                         fileName = fileName[fileName.length-1];
 
                         // Target the host web
-                        $REST.DefaultRequestToHostWebFl = true;
+                        $REST.DefaultRequestToHostFl = true;
 
                         // Add the file to the folder
                         (<$REST.Types.IFolder>dstFolder).Files().add(true, fileName, content.response)
