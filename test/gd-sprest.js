@@ -3539,11 +3539,15 @@ var $REST;
         clientPeoplePickerResolveUser: {
             argNames: ["queryParams"],
             metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
+            name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerResolveUser",
+            replaceEndpointFl: true,
             requestType: $REST.Types.RequestType.PostWithArgsInBody
         },
         clientPeoplePickerSearchUser: {
             argNames: ["queryParams"],
             metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
+            name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerSearchUser",
+            replaceEndpointFl: true,
             requestType: $REST.Types.RequestType.PostWithArgsInBody
         }
     };

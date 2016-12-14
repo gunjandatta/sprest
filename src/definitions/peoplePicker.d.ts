@@ -27,65 +27,59 @@ declare module $REST.ComplexTypes {
      */
     interface PeoplePickerQuery {
         /** True to allow the email address. */
-        AllowEmailAddresses: boolean;
+        AllowEmailAddresses?: boolean;
 
         /** True to allow multiple entities.  */
-        AllowMultipleEntities: boolean;
+        AllowMultipleEntities?: boolean;
 
         /** True to allow all url zones. */
-        AllUrlZones: boolean;
+        AllUrlZones?: boolean;
 
         /** True to enable claim providers. */
-        EnabledClaimProviders: boolean;
+        EnabledClaimProviders?: boolean;
 
         /** True to force claims. */
-        ForceClaims: boolean;
+        ForceClaims?: boolean;
 
         /** Maximum entity suggestions. */
         MaximumEntitySuggestions: number;
 
         /** The principal source. */
-        PrincipalSource: number;
+        PrincipalSource?: number;
 
         /** The principal type. */
-        PrincipalType: number;
+        PrincipalType?: number;
 
-        /** The query string. */
-        QueryString: string;
+        /** The query string. This value must be >= 3 characters. */
+        QueryString?: string;
 
         /** Required flag. */
-        Required: boolean;
+        Required?: boolean;
 
         /** The SharePoint group id. */
-        SharePointGroupID: number;
+        SharePointGroupID?: number;
 
         /** The url zone. */
-        UrlZone: string;
+        UrlZone?: string;
 
         /** Url zone specified flag. */
-        UrlZoneSpecified: boolean;
+        UrlZoneSpecified?: boolean;
 
         /** The web. */
-        Web: any;
+        Web?: any;
 
         /** The web application id. */
-        WebApplicationID: any;
+        WebApplicationID?: any;
     }
 
     /**
-     * People Picker Resolve User
+     * People Picker User
      */
-    interface PeoplePickerResolveUser {
-    }
-
-    /**
-     * People Picker Search User
-     */
-    interface PeoplePickerSearchUser {
-        /** The email address of the user. */
+    interface PeoplePickerUser {
+        /** Description */
         Description: string;
 
-        /** The full name of the user. */
+        /** Display Text */
         DisplayText: string;
 
         /** The user entity data. */
@@ -95,13 +89,13 @@ declare module $REST.ComplexTypes {
         EntityType: string;
 
         /** Flag to determine if the search user is resolved. */
-        IsResovled: boolean;
+        IsResolved: boolean;
 
-        /** The user identity. */
+        /** The search value. */
         Key: string;
 
-        /** Multiple Matches */
-        MultipleMatches: Array<any>;
+        /** An array of un-resolved user entities. */
+        MultipleMatches: Array<EntityData>;
 
         /** Provider Display Name */
         ProviderDisplayName: string;
@@ -142,7 +136,7 @@ declare module $REST.Types {
      */
     interface IPeoplePickerResolveUser extends IBase {
         // The client people picker resolve user results
-        ClientPeoplePickerResolveUser: Array<ComplexTypes.PeoplePickerResolveUser>;
+        ClientPeoplePickerResolveUser: Array<ComplexTypes.PeoplePickerUser>;
     }
 
     /**
@@ -150,6 +144,6 @@ declare module $REST.Types {
      */
     interface IPeoplePickerSearchUser extends IBase {
         // The client people picker search user results
-        ClientPeoplePickerSearchUser: Array<ComplexTypes.PeoplePickerSearchUser>;
+        ClientPeoplePickerSearchUser: Array<ComplexTypes.PeoplePickerUser>;
     }
 }

@@ -27,12 +27,16 @@ module $REST {
         clientPeoplePickerResolveUser: {
             argNames: ["queryParams"],
             metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
+            name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerResolveUser",
+            replaceEndpointFl: true,
             requestType: Types.RequestType.PostWithArgsInBody
         },
 
         clientPeoplePickerSearchUser: {
             argNames: ["queryParams"],
             metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
+            name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerSearchUser",
+            replaceEndpointFl: true,
             requestType: Types.RequestType.PostWithArgsInBody
         }
     }
