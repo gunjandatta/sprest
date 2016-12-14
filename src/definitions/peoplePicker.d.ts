@@ -123,12 +123,12 @@ declare module $REST.Types {
         /** Method to resolve users.
          * @param query - The people picker query.
         */
-        clientPeoplePickerResolveUser(query:ComplexTypes.PeoplePickerQuery);
+        clientPeoplePickerResolveUser(query:ComplexTypes.PeoplePickerQuery): IPeoplePickerResolveUser;
 
         /** Method to search for users.
          * @param query - The people picker query.
         */
-        clientPeoplePickerSearchUser(query:ComplexTypes.PeoplePickerQuery);
+        clientPeoplePickerSearchUser(query:ComplexTypes.PeoplePickerQuery): IPeoplePickerSearchUser;
     }
 
     /**
