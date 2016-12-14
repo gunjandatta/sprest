@@ -24,6 +24,9 @@ declare module $REST {
     /** People Manager */
     let PeopleManager: $REST.Types.IPeopleManager;
 
+    /** People Picker */
+    let PeoplePicker: $REST.Types.IPeoplePicker;
+
     /** Profile Loader */
     let ProfileLoader: $REST.Types.IProfileLoader;
 

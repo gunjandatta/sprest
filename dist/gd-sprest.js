@@ -577,66 +577,6 @@ var $REST;
 var $REST;
 (function ($REST) {
     /*********************************************************************************************************************************/
-    // Context Information
-    // This class will return the _spPageContextInfo.
-    /*********************************************************************************************************************************/
-    var ContextInfo = (function () {
-        function ContextInfo() {
-        }
-        Object.defineProperty(ContextInfo, "_contextInfo", {
-            // The current context information
-            get: function () {
-                return window["_spPageContextInfo"] || {
-                    isAppWeb: false,
-                    siteAbsoluteUrl: "",
-                    siteServerRelativeUrl: "",
-                    userId: 0,
-                    webAbsoluteUrl: "",
-                    webServerRelativeUrl: ""
-                };
-            },
-            enumerable: true,
-            configurable: true
-        });
-        ;
-        Object.defineProperty(ContextInfo, "isAppWeb", {
-            // Is App Web
-            get: function () { return this._contextInfo.isAppWeb; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(ContextInfo, "siteAbsoluteUrl", {
-            // Site Absolute Url
-            get: function () { return this._contextInfo.siteAbsoluteUrl; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(ContextInfo, "siteServerRelativeUrl", {
-            // Site Server Relative Url
-            get: function () { return this._contextInfo.siteAbsoluteUrl; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(ContextInfo, "webAbsoluteUrl", {
-            // Web Absolute Url
-            get: function () { return this._contextInfo.webAbsoluteUrl; },
-            enumerable: true,
-            configurable: true
-        });
-        Object.defineProperty(ContextInfo, "webServerRelativeUrl", {
-            // Web Server Relative Url
-            get: function () { return this._contextInfo.webServerRelativeUrl; },
-            enumerable: true,
-            configurable: true
-        });
-        return ContextInfo;
-    }());
-    $REST.ContextInfo = ContextInfo;
-})($REST || ($REST = {}));
-
-var $REST;
-(function ($REST) {
-    /*********************************************************************************************************************************/
     // Helper Methods
     /*********************************************************************************************************************************/
     var Helper = (function () {
@@ -3561,6 +3501,51 @@ var $REST;
             argNames: ["id"],
             requestType: $REST.Types.RequestType.PostWithArgsValueOnly
         },
+    };
+})($REST || ($REST = {}));
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var $REST;
+(function ($REST) {
+    /*********************************************************************************************************************************/
+    // People Picker
+    /*********************************************************************************************************************************/
+    var PeoplePicker = (function (_super) {
+        __extends(PeoplePicker, _super);
+        /*********************************************************************************************************************************/
+        // Constructor
+        /*********************************************************************************************************************************/
+        function PeoplePicker(targetInfo) {
+            // Call the base constructor
+            _super.call(this, targetInfo);
+            // Default the properties
+            this.defaultToWebFl = true;
+            this.responses = [];
+            this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
+            // Add the methods
+            this.addMethods(this, { __metadata: { type: "peoplepicker" } });
+        }
+        return PeoplePicker;
+    }($REST.Base));
+    $REST.PeoplePicker = PeoplePicker;
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    $REST.Library.peoplepicker = {
+        clientPeoplePickerResolveUser: {
+            argNames: ["queryParams"],
+            metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        },
+        clientPeoplePickerSearchUser: {
+            argNames: ["queryParams"],
+            metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
+            requestType: $REST.Types.RequestType.PostWithArgsInBody
+        }
     };
 })($REST || ($REST = {}));
 
