@@ -7,7 +7,7 @@ declare module $REST.ComplexTypes {
         Department: string;
 
         /** EMail */
-        EMail: string;
+        Email: string;
 
         /** */
         IsAltSecIdPresent: boolean;
