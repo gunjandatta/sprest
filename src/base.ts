@@ -290,8 +290,16 @@ module $REST {
                     obj["get_" + key] = obj["get_" + key] ? obj["get_" + key] : new Function("return this.getCollection('" + key + "', arguments);");
                 }
                 else {
-                    // Append the property to this object
-                    obj[key] = value;
+                    switch(key) {
+                        case "ClientPeoplePickerResolveUser":
+                        case "ClientPeoplePickerSearchUser":
+                            obj[key] = JSON.parse(value);
+                        break;
+                        default:
+                            // Append the property to this object
+                            obj[key] = value;
+                        break;
+                    }
                 }
             }
         }
