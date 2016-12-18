@@ -535,6 +535,8 @@ var $REST;
                     else {
                         // Add a method to get the next set of results
                         this["next"] = new Function("return this.getNextSetOfResults();");
+                        // Resolve the promise
+                        promise.resolve();
                     }
                 }
                 else {
