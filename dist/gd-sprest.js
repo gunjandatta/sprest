@@ -507,7 +507,7 @@ var $REST;
             var _this = this;
             promise = promise || new $REST.Utils.Promise();
             // Validate the response
-            if (request && request.request.status < 400 && typeof (request.response) === "string") {
+            if (request && request.request.status < 400 && typeof (request.response) === "string" && request.response.length > 0) {
                 // Convert the response and ensure the data property exists
                 var data = JSON.parse(request.response);
                 // See if there are more items to get

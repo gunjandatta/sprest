@@ -627,7 +627,7 @@ module $REST {
             promise = promise || new Utils.Promise();
 
             // Validate the response
-            if(request && request.request.status < 400 && typeof(request.response) === "string") {
+            if(request && request.request.status < 400 && typeof(request.response) === "string" && request.response.length > 0) {
                 // Convert the response and ensure the data property exists
                 let data = JSON.parse(request.response);
                 
