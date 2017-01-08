@@ -1,7 +1,9 @@
 # SharePoint Online/On-Premise REST Framework
 An easy way to create, read, update and delete data using the SharePoint 2013/Online REST API.
 *Please report issues. I am constantly updating/fixing/testing to make this library better.*
+
 ![github](https://badge.fury.io/js/gd-sprest.svg)
+
 [![NPM](https://nodei.co/npm/gd-sprest.png)](https://nodei.co/npm/gd-sprest/)
 
 ## Benefits:
