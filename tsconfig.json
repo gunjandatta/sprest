@@ -8,6 +8,7 @@
     "files": [
         "src/base.ts",
         "src/helper.ts",
+        "src/rest.ts",
         "src/definitions/attachment.d.ts",
         "src/definitions/attachmentFiles.d.ts",
         "src/definitions/audit.d.ts",

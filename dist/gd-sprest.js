@@ -886,6 +886,10 @@ var $REST;
     $REST.Helper = Helper;
 })($REST || ($REST = {}));
 
+// Add the library to the 
+window["gd-sprest"] = $REST;
+window["$REST"] = $REST;
+
 var $REST;
 (function ($REST) {
     var Types;
