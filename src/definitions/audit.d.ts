@@ -1,8 +1,10 @@
-declare module $REST.Types {
-    /**
-     * Audit
-     */
-    interface IAudit extends IBase {
-        AuditFlags: number;
-    }
+import {
+    IBase
+} from ".";
+
+/**
+ * Audit
+ */
+export interface IAudit extends IBase {
+    AuditFlags: number;
 }

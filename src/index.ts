@@ -1,3 +1,4 @@
+"use strict";
 // Type definitions for gd-sprest
 // Project: https://github.com/gunjandatta/sprest
 // Definitions by: Gunjan Datta <https://github.com/gunjandatta/>
@@ -26,3 +27,44 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
+
+import {
+    Email,
+    List,
+    PeopleManager,
+    PeoplePicker,
+    ProfileLoader,
+    Search,
+    Site,
+    SocialFeed,
+    UserProfile,
+    Web
+} from "./lib";
+import {
+    ContextInfo,
+    Helper
+} from "./utils";
+
+/**
+ * Library
+ */
+export const Library = [];
+
+/**
+ * REST Library
+ */
+export const $REST = {
+    ContextInfo: new ContextInfo(),
+    DefaultRequestToHostFl: false,
+    Email: new Email(),
+    Helper,
+    List,
+    PeopleManager,
+    PeoplePicker,
+    Search,
+    Site,
+    SocialFeed,
+    UserProfile,
+    Web
+};
+window["$REST"] = $REST;

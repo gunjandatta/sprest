@@ -1,13 +1,16 @@
-declare module $REST.Types {
+import {
+    ComplexTypes,
+    IBase,
+    ODataQuery
+} from ".";
 
+/**
+ * Property Values
+ */
+export interface IPropertyValues extends IBase, ComplexTypes.KeyValue {
     /**
-     * Property Values
+     * Queries the collection.
+     * @param oData - The OData information.
      */
-    interface IPropertyValues extends IBase, Results.KeyValue {
-        /**
-         * Queries the collection.
-         * @param oData - The OData information.
-         */
-        query(oData:ComplexTypes.ODataQuery): IPropertyValues;
-    }
+    query(oData:ODataQuery): IPropertyValues;
 }

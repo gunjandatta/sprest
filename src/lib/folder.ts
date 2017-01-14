@@ -1,41 +1,42 @@
-module $REST {
-    Library.folder = {
-        /*********************************************************************************************************************************/
-        // Properties
-        /*********************************************************************************************************************************/
+import {RequestType} from "../types";
 
-        properties: [
-            "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
-            "ParentFolder|folder", "Properties|propertyvalues", "StorageMetrics"
-        ],
+const Library = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
 
-        /*********************************************************************************************************************************/
-        // Methods
-        /*********************************************************************************************************************************/
+    properties: [
+        "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
+        "ParentFolder|folder", "Properties|propertyvalues", "StorageMetrics"
+    ],
 
-        // Deletes the object
-        delete: {
-            requestType: Types.RequestType.Delete
-        },
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
 
-        // Get the file at the specified URL.
-        getByUrl: {
-            argNames: ["serverRelativeUrl"],
-            requestType: Types.RequestType.GetWithArgsValueOnly,
-            returnType: "folder"
-        },
+    // Deletes the object
+    delete: {
+        requestType: RequestType.Delete
+    },
 
-        // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-        recycle: {
-            requestType: Types.RequestType.Post
-        },
+    // Get the file at the specified URL.
+    getByUrl: {
+        argNames: ["serverRelativeUrl"],
+        requestType: RequestType.GetWithArgsValueOnly,
+        returnType: "folder"
+    },
 
-        // Updates it's properties.
-        update: {
-            metadataType: "SP.Folder",
-            name: "",
-            requestMethod: "MERGE",
-            requestType: Types.RequestType.PostWithArgsInBody
-        }
-    };
-}
+    // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+    recycle: {
+        requestType: RequestType.Post
+    },
+
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.Folder",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: RequestType.PostWithArgsInBody
+    }
+};
+export default Library;

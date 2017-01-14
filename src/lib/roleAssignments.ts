@@ -1,31 +1,32 @@
-module $REST {
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    Library.roleassignments = {
-        // Adds a new role assignment with the specified principal and role definitions to the collection.
-        addRoleAssignment: {
-            argNames: ["principalId", "roleDefId"],
-            requestType: Types.RequestType.PostWithArgs
-        },
+import {RequestType} from "../types";
 
-        // Gets the role assignment associated with the specified principal ID from the collection.
-        getByPrincipalId: {
-            argNames: ["principalId"],
-            requestType: Types.RequestType.GetWithArgsValueOnly,
-            returnType: "roleassignment"
-        },
+/*********************************************************************************************************************************/
+// Methods
+/*********************************************************************************************************************************/
+const Library = {
+    // Adds a new role assignment with the specified principal and role definitions to the collection.
+    addRoleAssignment: {
+        argNames: ["principalId", "roleDefId"],
+        requestType: RequestType.PostWithArgs
+    },
 
-        // Queries the collection
-        query: {
-            argNames: ["oData"],
-            requestType: Types.RequestType.OData
-        },
+    // Gets the role assignment associated with the specified principal ID from the collection.
+    getByPrincipalId: {
+        argNames: ["principalId"],
+        requestType: RequestType.GetWithArgsValueOnly,
+        returnType: "roleassignment"
+    },
 
-        // Gets the role definition with the specified role type.
-        removeRoleAssignment: {
-            argNames: ["principalId", "roleDefId"],
-            requestType: Types.RequestType.PostWithArgs
-        }
-    };
-}
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    },
+
+    // Gets the role definition with the specified role type.
+    removeRoleAssignment: {
+        argNames: ["principalId", "roleDefId"],
+        requestType: RequestType.PostWithArgs
+    }
+};
+export default Library;

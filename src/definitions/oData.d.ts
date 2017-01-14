@@ -1,30 +1,28 @@
-declare module $REST.ComplexTypes {
+/**
+ * OData Settings
+ */
+export interface ODataQuery {
+    /** The fields to expand. */
+    Expand?: Array<string>;
+
+    /** The filters. */
+    Filter?: string;
+
     /**
-     * OData Settings
+     * Flag to get all items.
+     * Use this flag to get past the 5000 limit.
      */
-    interface ODataQuery {
-        /** The fields to expand. */
-        Expand?: Array<string>;
+    GetAllItems?: boolean;
 
-        /** The filters. */
-        Filter?: string;
+    /** The order by fields. */
+    OrderBy?: Array<string>;
 
-        /**
-         * Flag to get all items.
-         * Use this flag to get past the 5000 limit.
-         */
-        GetAllItems?: boolean;
+    /** The fields to select. */
+    Select?: Array<string>;
 
-        /** The order by fields. */
-        OrderBy?: Array<string>;
+    /** The number of results to skip. */
+    Skip?: number;
 
-        /** The fields to select. */
-        Select?: Array<string>;
-
-        /** The number of results to skip. */
-        Skip?: number;
-
-        /** The max number of results to return. */
-        Top?: number;
-    }
+    /** The max number of results to return. */
+    Top?: number;
 }

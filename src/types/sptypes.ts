@@ -1,9 +1,8 @@
-module $REST.Types {
-
+export declare namespace SPTypes {
     /**
      * Check Out Types
      */
-    export enum CheckOutType {
+    enum CheckOutType {
         /** Online */
         Online = 0,
 
@@ -17,7 +16,7 @@ module $REST.Types {
     /**
      * Control Modes
      */
-    export enum ControlMode {
+    enum ControlMode {
         /** A placeholder value in the enumeration indicating that it has no valid display mode from one of the other enumeration values. */
         Invalid = 0,
 
@@ -34,7 +33,7 @@ module $REST.Types {
     /**
      * Draft Visibility Types
      */
-    export enum DraftVisibilityType {
+    enum DraftVisibilityType {
         /** Enumeration whose values specify that the minimum permission is approver. */
         Approver = 2,
 
@@ -48,7 +47,7 @@ module $REST.Types {
     /**
      * Event Receiver Types
      */
-    export enum EventReceiverType {
+    enum EventReceiverType {
         /** Event that occurs before an item has been added. */
         ItemAdding = 1,
 
@@ -278,7 +277,7 @@ module $REST.Types {
     /**
      * Event Receiver Synchronization Types
      */
-    export enum EventReceiverSynchronizationType {
+    enum EventReceiverSynchronizationType {
         /** Event to be triggered asynchronously. */
         Asynchronous = 2,
 
@@ -289,7 +288,7 @@ module $REST.Types {
     /**
      * Field Types
      */
-    export enum FieldType {
+    enum FieldType {
         /** Specifies that the field indicates whether a meeting in a calendar list is an all-day event. */
         AllDayEvent = 29,
 
@@ -387,12 +386,12 @@ module $REST.Types {
 
         /** Specifies that the field indicates the status of a workflow instance on a list item. */
         WorkflowStatus = 28
-     }
+        }
 
     /**
      * File Template Types
     */
-    export enum FileTemplateType {
+    enum FileTemplateType {
         /** Enumeration whose value specifies default form template. */
         FormPage = 2,
 
@@ -401,12 +400,12 @@ module $REST.Types {
 
         /** Enumeration whose value specifies default wiki template. */ 
         WikiPage = 1
-      }
+        }
 
     /**
      * List Template Types
     */
-    export enum ListTemplateType {
+    enum ListTemplateType {
         /** Access Request List */
         AccessRequest = 160,
 
@@ -585,7 +584,7 @@ module $REST.Types {
     /**
      * Page Types
      */
-    export enum PageType {
+    enum PageType {
         /** Enumeration whose values specify a page that is the default view for a list. */
         DefaultView = 0,
 
@@ -630,7 +629,7 @@ module $REST.Types {
      * Master Page Gallery Types
      */
     /*
-    export enum MasterPageGalleryType {
+    enum MasterPageGalleryType {
         DisplayTemplateControl = <any>"0x0101002039C03B61C64EC4A04F5361F385106601",
         DisplayTemplateItem = <any>"0x0101002039C03B61C64EC4A04F5361F385106603",
         MasterPage = <any>"0x01010500A8B69F8A072C384090BB2F363986E5EA",
@@ -642,7 +641,7 @@ module $REST.Types {
      * Page Layout Types
      */
     /*
-    export enum PageLayoutType {
+    enum PageLayoutType {
         Article = <any>";#Article Page;#0x010100C568DB52D9D0A14D9B2FDCC96666E9F2007948130EC3DB064584E219954237AF3900242457EFB8B24247815D688C526CD44D;#"
     }
     */
@@ -650,7 +649,7 @@ module $REST.Types {
     /**
      * Personal Site Capabilities
      */
-    export enum PersonalSiteCapabilities {
+    enum PersonalSiteCapabilities {
         Education = 16,
         Guest = 32,
         MyTasksDashboard = 8,
@@ -663,7 +662,7 @@ module $REST.Types {
     /**
      * Reordering Rule Match Types
      */
-    export enum ReordingRuleMatchType {
+    enum ReordingRuleMatchType {
         ResultContainsKeyword,
         TitleContainsKeyword,
         TitleMatchesKeyword,
@@ -678,7 +677,7 @@ module $REST.Types {
     /**
      * Role Types
      */
-    export enum RoleType {
+    enum RoleType {
         /** Has all rights from other roles, plus rights to manage roles and view usage analysis data. Includes all rights in the WebDesigner role, plus the following: ManageListPermissions, ManageRoles, ManageSubwebs, ViewUsageData. The Administrator role cannot be customized or deleted, and must always contain at least one member. Members of the Administrator role always have access to, or can grant themselves access to, any item in the Web site. */
         Administrator = 5,
 
@@ -704,7 +703,7 @@ module $REST.Types {
     /**
      * User Custom Action Registration Types
      */
-    export enum UserCustomActionRegistrationType {
+    enum UserCustomActionRegistrationType {
         /** Enumeration whose values specify that the object association is not specified. */
         None = 0,
 
@@ -724,7 +723,7 @@ module $REST.Types {
     /**
      * View Types
      */
-    export enum ViewType {
+    enum ViewType {
         /** Enumeration whose values specify a calendar list view type. */
         Calendar = 524288,
 

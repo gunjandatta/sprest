@@ -1,114 +1,116 @@
-declare module $REST.Types {
-    /**
-     * Context Information
-     */
-    interface IContextInfo {
-        /** Alerts Enabled */
-        alertsEnabled:boolean;
+import {
+    ComplexTypes
+} from ".";
 
-        /** Allow Silverlight Prompt */
-        allowSilverlightPrompt:boolean;
+/**
+ * Context Information
+ */
+export interface IContextInfo {
+    /** Alerts Enabled */
+    alertsEnabled:boolean;
 
-        /** Client Server Time Delta */
-        clientServerTimeDelta:number;
+    /** Allow Silverlight Prompt */
+    allowSilverlightPrompt:boolean;
 
-        /** Cross Domain Photos Enabled */
-        crossDomainPhotosEnabled:boolean;
+    /** Client Server Time Delta */
+    clientServerTimeDelta:number;
 
-        /** Current Culture Name */
-        currentCultureName:string;
+    /** Cross Domain Photos Enabled */
+    crossDomainPhotosEnabled:boolean;
 
-        /** Current Language */
-        currentLanguage:string;
+    /** Current Culture Name */
+    currentCultureName:string;
 
-        /** Current UI Culture Name */
-        currentUICultureName:string;
+    /** Current Language */
+    currentLanguage:string;
 
-        /** Environment */
-        env:string;
+    /** Current UI Culture Name */
+    currentUICultureName:string;
 
-        /** True if the _spPageContextInfo object exists, flase otherwise. */
-        existsFl:boolean;
+    /** Environment */
+    env:string;
 
-        /** Has Manage Web Permissions */
-        hasManageWebPermissions:boolean;
+    /** True if the _spPageContextInfo object exists, flase otherwise. */
+    existsFl:boolean;
 
-        /** Is Anonymous Guest User */
-        isAnonymousGuestUser:boolean;
+    /** Has Manage Web Permissions */
+    hasManageWebPermissions:boolean;
 
-        /** Is App Web */
-        isAppWeb:boolean;
+    /** Is Anonymous Guest User */
+    isAnonymousGuestUser:boolean;
 
-        /** Is Site Administrator */
-        isSiteAdmin:boolean;
+    /** Is App Web */
+    isAppWeb:boolean;
 
-        /** Layouts Url */
-        layoutsUrl:string;
+    /** Is Site Administrator */
+    isSiteAdmin:boolean;
 
-        /** Page Item Id */
-        pageItemId:number;
+    /** Layouts Url */
+    layoutsUrl:string;
 
-        /** Page List Id */
-        pageListId:string;
+    /** Page Item Id */
+    pageItemId:number;
 
-        /** Page Personalization Scope */
-        pagePersonalizationScope:number;
+    /** Page List Id */
+    pageListId:string;
 
-        /** Profile Url */
-        profileUrl:string;
+    /** Page Personalization Scope */
+    pagePersonalizationScope:number;
 
-        /** Server Request Path */
-        serverRequestPath:string;
+    /** Profile Url */
+    profileUrl:string;
 
-        /** Site Absolute Url */
-        siteAbsoluteUrl:string;
+    /** Server Request Path */
+    serverRequestPath:string;
 
-        /** Site Client Tag */
-        siteClientTag:string;
+    /** Site Absolute Url */
+    siteAbsoluteUrl:string;
 
-        /** Site Server Relative Url */
-        siteServerRelativeUrl:string;
+    /** Site Client Tag */
+    siteClientTag:string;
 
-        /** System User Key */
-        systemUserKey:string;
+    /** Site Server Relative Url */
+    siteServerRelativeUrl:string;
 
-        /** Tenant App Version */
-        tenantAppVersion:string;
+    /** System User Key */
+    systemUserKey:string;
 
-        /** Theme Cache Token */
-        themeCacheToken:string;
+    /** Tenant App Version */
+    tenantAppVersion:string;
 
-        /** Update From Digest Page Loaded */
-        updateFromDigestPageLoaded:Date;
+    /** Theme Cache Token */
+    themeCacheToken:string;
 
-        /** User Id */
-        userId:number;
+    /** Update From Digest Page Loaded */
+    updateFromDigestPageLoaded:Date;
 
-        /** User Login Name */
-        userLoginName:string;
+    /** User Id */
+    userId:number;
 
-        /** Web Absolute Url */
-        webAbsoluteUrl:string;
+    /** User Login Name */
+    userLoginName:string;
 
-        /** Web Language */
-        webLanguage:number;
+    /** Web Absolute Url */
+    webAbsoluteUrl:string;
 
-        /** Web Logo Url */
-        webLogoUrl:string;
+    /** Web Language */
+    webLanguage:number;
 
-        /** Web Permissions Mask */
-        webPermMask:ComplexTypes.BasePermissions;
+    /** Web Logo Url */
+    webLogoUrl:string;
 
-        /** Web Server Relative Url */
-        webServerRelativeUrl:string;
+    /** Web Permissions Mask */
+    webPermMask:ComplexTypes.BasePermissions;
 
-        /** Web Template */
-        webTemplate:string;
+    /** Web Server Relative Url */
+    webServerRelativeUrl:string;
 
-        /** Web Title */
-        webTitle:string;
+    /** Web Template */
+    webTemplate:string;
 
-        /** Web UI Version */
-        webUIVersion:number;
-    }
+    /** Web Title */
+    webTitle:string;
+
+    /** Web UI Version */
+    webUIVersion:number;
 }

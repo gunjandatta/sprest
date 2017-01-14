@@ -1,26 +1,28 @@
-declare module $REST.Types {
+import {
+    IBase
+} from ".";
+
+/**
+ * Field Link
+ */
+export interface IFieldLink extends IBase {
     /**
-     * Field Link
+     * Properties
      */
-    interface IFieldLink extends IBase {
-        /**
-         * Properties
-         */
 
-        DisplayName: string;
+    DisplayName: string;
 
-        FieldInternalName: string;
+    FieldInternalName: string;
 
-        Hidden: boolean;
+    Hidden: boolean;
 
-        Id: string;
+    Id: string;
 
-        Name: string;
+    Name: string;
 
-        ReadOnly: boolean;
+    ReadOnly: boolean;
 
-        Required: boolean;
+    Required: boolean;
 
-        ShowInDisplayForm: boolean;
-    }
+    ShowInDisplayForm: boolean;
 }

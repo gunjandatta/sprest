@@ -1,31 +1,32 @@
-module $REST {
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    Library.usercustomactions = {
-        // Adds a user custom action to the collection.
-        add: {
-            metadataType: "SP.UserCustomAction",
-            name: "",
-            requestType: Types.RequestType.PostWithArgsInBody
-        },
+import {RequestType} from "../types";
 
-        // Deletes all custom actions in the collection.
-        clear: {
-            requestType: Types.RequestType.Post
-        },
+/*********************************************************************************************************************************/
+// Methods
+/*********************************************************************************************************************************/
+const Library = {
+    // Adds a user custom action to the collection.
+    add: {
+        metadataType: "SP.UserCustomAction",
+        name: "",
+        requestType: RequestType.PostWithArgsInBody
+    },
 
-        // Returns the custom action with the specified identifier.
-        getById: {
-            argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly,
-            returnType: "usercustomaction"
-        },
+    // Deletes all custom actions in the collection.
+    clear: {
+        requestType: RequestType.Post
+    },
 
-        // Queries the collection
-        query: {
-            argNames: ["oData"],
-            requestType: Types.RequestType.OData
-        }
-    };
-}
+    // Returns the custom action with the specified identifier.
+    getById: {
+        argNames: ["id"],
+        requestType: RequestType.GetWithArgsValueOnly,
+        returnType: "usercustomaction"
+    },
+
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    }
+};
+export default Library;

@@ -1,126 +1,128 @@
-module $REST {
-    /*********************************************************************************************************************************/
-    // Context Information
-    // This class will return the _spPageContextInfo.
-    /*********************************************************************************************************************************/
-    export class ContextInfo {
-        // The current context information
-        private static get _contextInfo() { return window["_spPageContextInfo"] || {
-            existsFl: false,
-            isAppWeb: false,
-            siteAbsoluteUrl: "",
-            siteServerRelativeUrl: "",
-            userId: 0,
-            webAbsoluteUrl: "",
-            webServerRelativeUrl: ""
-        }};
+import {
+    ComplexTypes
+} from "../definitions";
 
-        // Alerts Enabled
-        static get alertsEnabled():boolean { return this._contextInfo.alertsEnabled; }
+/*********************************************************************************************************************************/
+// Context Information
+// This class will return the _spPageContextInfo.
+/*********************************************************************************************************************************/
+export class ContextInfo {
+    // The current context information
+    private static get _contextInfo() { return window["_spPageContextInfo"] || {
+        existsFl: false,
+        isAppWeb: false,
+        siteAbsoluteUrl: "",
+        siteServerRelativeUrl: "",
+        userId: 0,
+        webAbsoluteUrl: "",
+        webServerRelativeUrl: ""
+    }};
 
-        // Allow Silverlight Prompt
-        static get allowSilverlightPrompt():boolean { return this._contextInfo.allowSilverlightPrompt == "True" ? true : false; }
+    // Alerts Enabled
+    static get alertsEnabled():boolean { return this._contextInfo.alertsEnabled; }
 
-        // Client Server Time Delta
-        static get clientServerTimeDelta():number { return this._contextInfo.clientServerTimeDelta; }
+    // Allow Silverlight Prompt
+    static get allowSilverlightPrompt():boolean { return this._contextInfo.allowSilverlightPrompt == "True" ? true : false; }
 
-        // Cross Domain Photos Enabled
-        static get crossDomainPhotosEnabled():boolean { return this._contextInfo.crossDomainPhotosEnabled; }
+    // Client Server Time Delta
+    static get clientServerTimeDelta():number { return this._contextInfo.clientServerTimeDelta; }
 
-        // Current Culture Name
-        static get currentCultureName():string { return this._contextInfo.currentCultureName; }
+    // Cross Domain Photos Enabled
+    static get crossDomainPhotosEnabled():boolean { return this._contextInfo.crossDomainPhotosEnabled; }
 
-        // Current Language
-        static get currentLanguage():string { return this._contextInfo.currentLanguage; }
+    // Current Culture Name
+    static get currentCultureName():string { return this._contextInfo.currentCultureName; }
 
-        // Current UI Culture Name
-        static get currentUICultureName():string { return this._contextInfo.currentUICultureName; }
+    // Current Language
+    static get currentLanguage():string { return this._contextInfo.currentLanguage; }
 
-        // Environment
-        static get env():string { return this._contextInfo.env; }
+    // Current UI Culture Name
+    static get currentUICultureName():string { return this._contextInfo.currentUICultureName; }
 
-        // Exists Flag
-        static get existsFl():boolean { return this._contextInfo.existsFl == null; }
+    // Environment
+    static get env():string { return this._contextInfo.env; }
 
-        // Has Manage Web Permissions
-        static get hasManageWebPermissions():boolean { return this._contextInfo.hasManageWebPermissions; }
+    // Exists Flag
+    static get existsFl():boolean { return this._contextInfo.existsFl == null; }
 
-        // Is Anonymous Guest User
-        static get isAnonymousGuestUser():boolean { return this._contextInfo.isAnonymousGuestUser; }
+    // Has Manage Web Permissions
+    static get hasManageWebPermissions():boolean { return this._contextInfo.hasManageWebPermissions; }
 
-        // Is App Web
-        static get isAppWeb():boolean { return this._contextInfo.isAppWeb; }
+    // Is Anonymous Guest User
+    static get isAnonymousGuestUser():boolean { return this._contextInfo.isAnonymousGuestUser; }
 
-        // Is Site Administrator
-        static get isSiteAdmin():boolean { return this._contextInfo.isSiteAdmin; }
+    // Is App Web
+    static get isAppWeb():boolean { return this._contextInfo.isAppWeb; }
 
-        // Layouts Url
-        static get layoutsUrl():string { return this._contextInfo.layoutsUrl; }
+    // Is Site Administrator
+    static get isSiteAdmin():boolean { return this._contextInfo.isSiteAdmin; }
 
-        // Page Item Id
-        static get pageItemId():number { return this._contextInfo.pageItemId; }
+    // Layouts Url
+    static get layoutsUrl():string { return this._contextInfo.layoutsUrl; }
 
-        // Page List Id
-        static get pageListId():string { return this._contextInfo.pageListId; }
+    // Page Item Id
+    static get pageItemId():number { return this._contextInfo.pageItemId; }
 
-        // Page Personalization Scope
-        static get pagePersonalizationScope():number { return this._contextInfo.pagePersonalizationScope; }
+    // Page List Id
+    static get pageListId():string { return this._contextInfo.pageListId; }
 
-        // Profile Url
-        static get profileUrl():string { return this._contextInfo.profileUrl; }
+    // Page Personalization Scope
+    static get pagePersonalizationScope():number { return this._contextInfo.pagePersonalizationScope; }
 
-        // Server Request Path
-        static get serverRequestPath():string { return this._contextInfo.serverRequestPath; }
+    // Profile Url
+    static get profileUrl():string { return this._contextInfo.profileUrl; }
 
-        // Site Absolute Url
-        static get siteAbsoluteUrl():string { return this._contextInfo.siteAbsoluteUrl; }
+    // Server Request Path
+    static get serverRequestPath():string { return this._contextInfo.serverRequestPath; }
 
-        // Site Client Tag
-        static get siteClientTag():string { return this._contextInfo.siteClientTag; }
+    // Site Absolute Url
+    static get siteAbsoluteUrl():string { return this._contextInfo.siteAbsoluteUrl; }
 
-        // Site Server Relative Url
-        static get siteServerRelativeUrl():string { return this._contextInfo.siteServerRelativeUrl; }
+    // Site Client Tag
+    static get siteClientTag():string { return this._contextInfo.siteClientTag; }
 
-        // System User Key
-        static get systemUserKey():string { return this._contextInfo.systemUserKey; }
+    // Site Server Relative Url
+    static get siteServerRelativeUrl():string { return this._contextInfo.siteServerRelativeUrl; }
 
-        // Tenant App Version
-        static get tenantAppVersion():string { return this._contextInfo.tenantAppVersion; }
+    // System User Key
+    static get systemUserKey():string { return this._contextInfo.systemUserKey; }
 
-        // Theme Cache Token
-        static get themeCacheToken():string { return this._contextInfo.themeCacheToken; }
+    // Tenant App Version
+    static get tenantAppVersion():string { return this._contextInfo.tenantAppVersion; }
 
-        // Update From Digest Page Loaded
-        static get updateFromDigestPageLoaded():Date { return this._contextInfo.updateFromDigestPageLoaded; }
+    // Theme Cache Token
+    static get themeCacheToken():string { return this._contextInfo.themeCacheToken; }
 
-        // User Id
-        static get userId():number { return this._contextInfo.userId; }
+    // Update From Digest Page Loaded
+    static get updateFromDigestPageLoaded():Date { return this._contextInfo.updateFromDigestPageLoaded; }
 
-        // User Login Name
-        static get userLoginName():string { return this._contextInfo.userLoginName; }
+    // User Id
+    static get userId():number { return this._contextInfo.userId; }
 
-        // Web Absolute Url
-        static get webAbsoluteUrl():string { return this._contextInfo.webAbsoluteUrl; }
+    // User Login Name
+    static get userLoginName():string { return this._contextInfo.userLoginName; }
 
-        // Web Language
-        static get webLanguage():number { return this._contextInfo.webLanguage; }
+    // Web Absolute Url
+    static get webAbsoluteUrl():string { return this._contextInfo.webAbsoluteUrl; }
 
-        // Web Logo Url
-        static get webLogoUrl():string { return this._contextInfo.webLogoUrl; }
+    // Web Language
+    static get webLanguage():number { return this._contextInfo.webLanguage; }
 
-        // Web Permissions Mask
-        static get webPermMask():$REST.ComplexTypes.BasePermissions { return this._contextInfo.webPermMask; }
+    // Web Logo Url
+    static get webLogoUrl():string { return this._contextInfo.webLogoUrl; }
 
-        // Web Server Relative Url
-        static get webServerRelativeUrl():string { return this._contextInfo.webServerRelativeUrl; }
+    // Web Permissions Mask
+    static get webPermMask():ComplexTypes.BasePermissions { return this._contextInfo.webPermMask; }
 
-        // Web Template
-        static get webTemplate():string { return this._contextInfo.webTemplate; }
+    // Web Server Relative Url
+    static get webServerRelativeUrl():string { return this._contextInfo.webServerRelativeUrl; }
 
-        // Web Title
-        static get webTitle():string { return this._contextInfo.webTitle; }
+    // Web Template
+    static get webTemplate():string { return this._contextInfo.webTemplate; }
 
-        // Web UI Version
-        static get webUIVersion():number { return this._contextInfo.webUIVersion; }
-    }
+    // Web Title
+    static get webTitle():string { return this._contextInfo.webTitle; }
+
+    // Web UI Version
+    static get webUIVersion():number { return this._contextInfo.webUIVersion; }
 }

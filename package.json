@@ -6,7 +6,12 @@
   "license": "https://github.com/gunjandatta/sprest/blob/master/LICENSE",
   "types": "dist/sprest.d.ts",
   "keywords": [
-    "sharepoint", "sharepoint online", "rest", "api", "typescript", "javascript"
+    "sharepoint",
+    "sharepoint online",
+    "rest",
+    "api",
+    "typescript",
+    "javascript"
   ],
   "repository": {
     "type": "git",
@@ -17,10 +22,14 @@
   },
   "homepage": "https://gunjandatta.github.io/sprest",
   "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.21.0",
     "gulp": "*",
     "gulp-concat": "*",
     "gulp-rename": "*",
-    "gulp-uglify": "*"
+    "gulp-uglify": "*",
+    "ts-loader": "^1.3.3",
+    "webpack": "^1.14.0"
   },
   "scripts": {
     "build": "tsc && gulp"

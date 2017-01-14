@@ -1,68 +1,66 @@
-module $REST.Utils {
+/*********************************************************************************************************************************/
+// Promise
+// This is a lightweight promise library.
+/*********************************************************************************************************************************/
+export class Promise {
     /*********************************************************************************************************************************/
-    // Promise
-    // This is a lightweight promise library.
+    // Constructor
     /*********************************************************************************************************************************/
-    export class Promise {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(callback?:(...args) => void) {
-            // Default the properties
-            this.callback = callback
-            this.resolvedFl = false;
-        }
-        
-        /******************************************************************************************************************************** */
-        // Public Methods
-        /******************************************************************************************************************************** */
+    constructor(callback?:(...args) => void) {
+        // Default the properties
+        this.callback = callback
+        this.resolvedFl = false;
+    }
+    
+    /******************************************************************************************************************************** */
+    // Public Methods
+    /******************************************************************************************************************************** */
 
-        // Method to execute after the promise is resolved
-        public done(callback?:(...args) => void) {
-            // Set the callback
-            this.callback = callback || this.callback;
+    // Method to execute after the promise is resolved
+    public done(callback?:(...args) => void) {
+        // Set the callback
+        this.callback = callback || this.callback;
 
-            // See if the promise is resolved
-            if(this.resolvedFl) {
-                // Execute the callback
-                this.executeMethod();
-            }
-        }
-
-        // Method to resolve the promise
-        public resolve(...args) {
-            // Set the properties
-            this.args = args;
-            this.resolvedFl = true;
-
+        // See if the promise is resolved
+        if(this.resolvedFl) {
             // Execute the callback
             this.executeMethod();
         }
+    }
 
-        /*********************************************************************************************************************************/
-        // Private Variables
-        /*********************************************************************************************************************************/
+    // Method to resolve the promise
+    public resolve(...args) {
+        // Set the properties
+        this.args = args;
+        this.resolvedFl = true;
 
-        // The arguments to pass back
-        private args:any[];
+        // Execute the callback
+        this.executeMethod();
+    }
 
-        // The callback
-        private callback:any;
+    /*********************************************************************************************************************************/
+    // Private Variables
+    /*********************************************************************************************************************************/
 
-        // Flag to determine if the promise is resolved
-        private resolvedFl:boolean;
+    // The arguments to pass back
+    private args:any[];
 
-        /*********************************************************************************************************************************/
-        // Private Methods
-        /*********************************************************************************************************************************/
+    // The callback
+    private callback:any;
 
-        // Method to execute the callback method
-        private executeMethod() {
-            // See if callback function exists
-            if(this.callback && typeof(this.callback) == "function") {
-                // Execute the callback method
-                this.callback.apply(this, this.args);
-            }
+    // Flag to determine if the promise is resolved
+    private resolvedFl:boolean;
+
+    /*********************************************************************************************************************************/
+    // Private Methods
+    /*********************************************************************************************************************************/
+
+    // Method to execute the callback method
+    private executeMethod() {
+        // See if callback function exists
+        if(this.callback && typeof(this.callback) == "function") {
+            // Execute the callback method
+            this.callback.apply(this, this.args);
         }
     }
 }

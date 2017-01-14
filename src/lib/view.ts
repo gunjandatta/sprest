@@ -1,32 +1,33 @@
-module $REST {
-    Library.view = {
-        /*********************************************************************************************************************************/
-        // Properties
-        /*********************************************************************************************************************************/
-        properties: [
-            "ViewFields|viewfieldcollection"
-        ],
+import {RequestType} from "../types";
 
-        /*********************************************************************************************************************************/
-        // Methods
-        /*********************************************************************************************************************************/
+const Library = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "ViewFields|viewfieldcollection"
+    ],
 
-        // Deletes the object
-        delete: {
-            requestType: Types.RequestType.Delete
-        },
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
 
-        // Returns the list view as HTML.
-        renderAsHtml: {
-            requestType: Types.RequestType.Get
-        },
+    // Deletes the object
+    delete: {
+        requestType: RequestType.Delete
+    },
 
-        // Updates it's properties.
-        update: {
-            metadataType: "SP.View",
-            name: "",
-            requestMethod: "MERGE",
-            requestType: Types.RequestType.PostWithArgsInBody
-        }
-    };
-}
+    // Returns the list view as HTML.
+    renderAsHtml: {
+        requestType: RequestType.Get
+    },
+
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.View",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: RequestType.PostWithArgsInBody
+    }
+};
+export default Library;

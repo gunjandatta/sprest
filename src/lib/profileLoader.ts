@@ -1,45 +1,48 @@
-module $REST {
-    /*********************************************************************************************************************************/
-    // Profile Loader
-    /*********************************************************************************************************************************/
-    export class ProfileLoader extends Base {
-        /*********************************************************************************************************************************/
-        // Constructor
-        /*********************************************************************************************************************************/
-        constructor(targetInfo?:ComplexTypes.TargetInfoSettings) {
-            // Call the base constructor
-            super(targetInfo);
+import {TargetInfoSettings} from "../definitions";
+import {RequestType} from "../types";
+import {Base} from "../utils";
 
-            // Default the properties
-            this.defaultToWebFl = true;
-            this.responses = [];
-            this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
-            this.targetInfo.method = "POST";
+/*********************************************************************************************************************************/
+// Profile Loader
+/*********************************************************************************************************************************/
+export class ProfileLoader extends Base {
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    constructor(targetInfo?:TargetInfoSettings) {
+        // Call the base constructor
+        super(targetInfo);
 
-            // Add the methods
-            this.addMethods(this, { __metadata: { type: "profileloader" } } );
-        }
+        // Default the properties
+        this.defaultToWebFl = true;
+        this.responses = [];
+        this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+        this.targetInfo.method = "POST";
+
+        // Add the methods
+        this.addMethods(this, { __metadata: { type: "profileloader" } } );
     }
-
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    Library.profileloader = {
-        createPersonalSiteEnqueueBulk:{
-            argNames: ["emailIDs"],
-            requestType: Types.RequestType.PostWithArgsInBody
-        },
-
-        getOwnerUserProfile:{
-            name: "sp.userprofiles.profileloader.getowneruserprofile",
-            replaceEndpointFl: true,
-            requestType: Types.RequestType.Post,
-            returnType: "userprofile"
-        },
-
-        getUserProfile:{
-            requestType: Types.RequestType.Post,
-            returnType: "userprofile"
-        },
-    };
 }
+
+/*********************************************************************************************************************************/
+// Methods
+/*********************************************************************************************************************************/
+const Library = {
+    createPersonalSiteEnqueueBulk:{
+        argNames: ["emailIDs"],
+        requestType: RequestType.PostWithArgsInBody
+    },
+
+    getOwnerUserProfile:{
+        name: "sp.userprofiles.profileloader.getowneruserprofile",
+        replaceEndpointFl: true,
+        requestType: RequestType.Post,
+        returnType: "userprofile"
+    },
+
+    getUserProfile:{
+        requestType: RequestType.Post,
+        returnType: "userprofile"
+    },
+};
+export default Library;

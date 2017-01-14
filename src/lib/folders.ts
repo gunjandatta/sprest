@@ -1,37 +1,38 @@
-module $REST {
+import {RequestType} from "../types";
+
+/*********************************************************************************************************************************/
+// Library
+/*********************************************************************************************************************************/
+const Library = {
     /*********************************************************************************************************************************/
-    // Library
+    // Properties
     /*********************************************************************************************************************************/
-    Library.folders = {
-        /*********************************************************************************************************************************/
-        // Properties
-        /*********************************************************************************************************************************/
-        properties: [
-            "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
-            "ParentFolder", "StorageMetrics"
-        ],
+    properties: [
+        "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
+        "ParentFolder", "StorageMetrics"
+    ],
 
-        /*********************************************************************************************************************************/
-        // Methods
-        /*********************************************************************************************************************************/
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
 
-        // Adds the folder that is located at the specified URL to the collection.
-        add: {
-            argNames: ["url"],
-            requestType: Types.RequestType.PostWithArgs
-        },
+    // Adds the folder that is located at the specified URL to the collection.
+    add: {
+        argNames: ["url"],
+        requestType: RequestType.PostWithArgs
+    },
 
-        // Get the file at the specified URL.
-        getbyurl: {
-            argNames: ["serverRelativeUrl"],
-            requestType: Types.RequestType.GetWithArgsValueOnly,
-            returnType: "folder"
-        },
+    // Get the file at the specified URL.
+    getbyurl: {
+        argNames: ["serverRelativeUrl"],
+        requestType: RequestType.GetWithArgsValueOnly,
+        returnType: "folder"
+    },
 
-        // Queries the collection
-        query: {
-            argNames: ["oData"],
-            requestType: Types.RequestType.OData
-        }
-    };
-}
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    }
+};
+export default Library;

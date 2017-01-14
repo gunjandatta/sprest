@@ -1,33 +1,34 @@
-module $REST {
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    Library.roledefinitions = {
-        // Gets the role definition with the specified ID from the collection.
-        getById: {
-            argNames: ["roleDefId"],
-            requestType: Types.RequestType.GetWithArgsValueOnly,
-            returnType: "roledefinition"
-        },
+import {RequestType} from "../types";
 
-        // Gets the role definition with the specified name.
-        getByName: {
-            argNames: ["name"],
-            requestType: Types.RequestType.GetWithArgsValueOnly,
-            returnType: "roledefinition"
-        },
+/*********************************************************************************************************************************/
+// Methods
+/*********************************************************************************************************************************/
+const Library = {
+    // Gets the role definition with the specified ID from the collection.
+    getById: {
+        argNames: ["roleDefId"],
+        requestType: RequestType.GetWithArgsValueOnly,
+        returnType: "roledefinition"
+    },
 
-        // Gets the role definitions with the specified role type.
-        getByType: {
-            argNames: ["roleType"],
-            requestType: Types.RequestType.GetWithArgsValueOnly,
-            returnType: "roledefinitions"
-        },
+    // Gets the role definition with the specified name.
+    getByName: {
+        argNames: ["name"],
+        requestType: RequestType.GetWithArgsValueOnly,
+        returnType: "roledefinition"
+    },
 
-        // Queries the collection
-        query: {
-            argNames: ["oData"],
-            requestType: Types.RequestType.OData
-        }
-    };
-}
+    // Gets the role definitions with the specified role type.
+    getByType: {
+        argNames: ["roleType"],
+        requestType: RequestType.GetWithArgsValueOnly,
+        returnType: "roledefinitions"
+    },
+
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    }
+};
+export default Library;

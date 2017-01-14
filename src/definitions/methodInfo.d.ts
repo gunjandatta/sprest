@@ -1,19 +1,19 @@
-declare module $REST.ComplexTypes {
+import {RequestType} from "../types";
+import {IBase} from ".";
 
-    /**
-     * Method Information Settings
-     */
-    interface MethodInfoSettings {
-        argNames?: Array<string>;
-        argValues?: Array<any>;
-        data?: any;
-        getAllItemsFl?: boolean;
-        inheritMetadataType?: boolean;        
-        metadataType?: string;
-        name: string;
-        replaceEndpointFl?: boolean;
-        requestMethod?: string;
-        requestType: $REST.Types.RequestType;
-        returnType?: string;
-    }
+/**
+ * Method Information Settings
+ */
+export interface MethodInfoSettings {
+    argNames?: Array<string>;
+    argValues?: Array<any>;
+    data?: any;
+    getAllItemsFl?: boolean;
+    inheritMetadataType?: boolean;        
+    metadataType?: string;
+    name: string;
+    replaceEndpointFl?: boolean;
+    requestMethod?: string;
+    requestType: RequestType;
+    returnType?: string;
 }

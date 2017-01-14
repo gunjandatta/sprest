@@ -1,10 +1,14 @@
-declare module $REST.Results {
+import {
+    ComplexTypes
+} from ".";
+
+declare namespace Results {
     /**
      * App License
      */
     interface AppLicense {
         /** The collection of app licenses. */
-        results: Array<ComplexTypes.AppLicense>;
+        results: Array<AppLicense>;
     }
 
     /**
@@ -28,7 +32,7 @@ declare module $REST.Results {
      */
     interface CustomActionElement {
         /** The collection of custom action elements. */
-        results: Array<ComplexTypes.CustomActionElement>;
+        results: Array<CustomActionElement>;
     }
 
     /**
@@ -36,7 +40,7 @@ declare module $REST.Results {
      */
     interface CustomResult {
         /** The collection of custom results. */
-        results: Array<ComplexTypes.CustomResult>;
+        results: Array<CustomResult>;
     }
 
     /**
@@ -52,7 +56,7 @@ declare module $REST.Results {
      */
     interface KeyValue {
         /** The collection of key-value pairs. */
-        results: Array<ComplexTypes.KeyValue>;
+        results: Array<KeyValue>;
     }
 
     /**
@@ -60,7 +64,7 @@ declare module $REST.Results {
      */
     interface ListDataValidationFailure {
         /** The collection of list data validation failures. */
-        results: Array<ComplexTypes.ListDataValidationFailure>;
+        results: Array<ListDataValidationFailure>;
     }
 
     /**
@@ -68,7 +72,7 @@ declare module $REST.Results {
      */
     interface MenuNode {
         /** The collection of menu nodes. */
-        results: Array<ComplexTypes.MenuNode>;
+        results: Array<MenuNode>;
     }
 
     /**
@@ -84,7 +88,7 @@ declare module $REST.Results {
      */
     interface ParameterInformation {
         /** The collection of parameter information. */
-        results: Array<ComplexTypes.ParameterInformation>;
+        results: Array<ParameterInformation>;
     }
 
     /**
@@ -92,7 +96,7 @@ declare module $REST.Results {
      */
     interface PersonalResultSuggestion {
         /** The collection of personal result suggestions. */
-        results: Array<ComplexTypes.PersonalResultSuggestion>;
+        results: Array<PersonalResultSuggestion>;
     }
 
     /**
@@ -100,7 +104,7 @@ declare module $REST.Results {
      */
     interface QueryResult {
         /** The collection of custom results. */
-        results: Array<ComplexTypes.QueryResult>;
+        results: Array<QueryResult>;
     }
 
     /**
@@ -108,7 +112,7 @@ declare module $REST.Results {
      */
     interface QuerySuggestionQuery {
         /** The collection of query suggestion queries. */
-        results: Array<ComplexTypes.QuerySuggestionQuery>;
+        results: Array<QuerySuggestionQuery>;
     }
 
     /**
@@ -116,7 +120,7 @@ declare module $REST.Results {
      */
     interface Refiner {
         /** The collection of refiners. */
-        results: Array<ComplexTypes.Refiner>;
+        results: Array<Refiner>;
     }
 
     /**
@@ -124,7 +128,7 @@ declare module $REST.Results {
      */
     interface RefinerEntry {
         /** The collection of refiner entries. */
-        results: Array<ComplexTypes.RefinerEntry>;
+        results: Array<RefinerEntry>;
     }
 
     /**
@@ -132,15 +136,15 @@ declare module $REST.Results {
      */
     interface SharedWithUser {
         /** The collection of shared users. */
-        results: Array<ComplexTypes.SharedWithUser>
+        results: Array<SharedWithUser>
     }
-    
+
     /**
      * Social Actor
      */
     interface SocialActor {
         /** The collection of social actors. */
-        results: Array<ComplexTypes.SocialActor>;
+        results: Array<SocialActor>;
     }
 
     /**
@@ -148,7 +152,7 @@ declare module $REST.Results {
      */
     interface SocialDataItem {
         /** The collection of social data items. */
-        results: Array<ComplexTypes.SocialDataItem>;
+        results: Array<SocialDataItem>;
     }
 
     /**
@@ -156,16 +160,16 @@ declare module $REST.Results {
      */
     interface SocialDataOverlay {
         /** The collection of social data overlays. */
-        results: Array<ComplexTypes.SocialDataOverlay>;
+        results: Array<SocialDataOverlay>;
     }
-    
+
 
     /**
      * Social Post
      */
     interface SocialPost {
         /** The collection of social posts. */
-        results: Array<ComplexTypes.SocialPost>;
+        results: Array<SocialPost>;
     }
 
     /**
@@ -173,7 +177,7 @@ declare module $REST.Results {
      */
     interface SocialPostDefinitionDataItem {
         /** The collection of social post definition data items. */
-        results: Array<ComplexTypes.SocialPostDefinitionDataItem>;
+        results: Array<SocialPostDefinitionDataItem>;
     }
 
     /**
@@ -181,7 +185,7 @@ declare module $REST.Results {
      */
     interface SocialThread {
         /** The collection of social threads. */
-        results: Array<ComplexTypes.SocialThread>;
+        results: Array<SocialThread>;
     }
 
     /**
@@ -197,6 +201,6 @@ declare module $REST.Results {
      */
     interface VisualizationField {
         /** The collection of visualization fields. */
-        results: Array<ComplexTypes.VisualizationField>;
+        results: Array<VisualizationField>;
     }
 }

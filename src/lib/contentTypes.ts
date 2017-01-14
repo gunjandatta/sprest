@@ -1,32 +1,33 @@
-module $REST {
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    Library.contenttypes = {
-        // Adds a content type to the collection.
-        add: {
-            metadataType: "SP.ContentType",
-            name: "",
-            requestType: Types.RequestType.PostWithArgsInBody
-        },
+import {RequestType} from "../types";
 
-        // Adds an existing content type to this collection.
-        addAvailableContentType: {
-            argNames: ["contentTypeId"],
-            requestType: Types.RequestType.PostWithArgsInBody
-        },
+/*********************************************************************************************************************************/
+// Methods
+/*********************************************************************************************************************************/
+const Library = {
+    // Adds a content type to the collection.
+    add: {
+        metadataType: "SP.ContentType",
+        name: "",
+        requestType: RequestType.PostWithArgsInBody
+    },
 
-        // Gets a content type by id.
-        getById: {
-            argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly,
-            returnType: "contenttype"
-        },
+    // Adds an existing content type to this collection.
+    addAvailableContentType: {
+        argNames: ["contentTypeId"],
+        requestType: RequestType.PostWithArgsInBody
+    },
 
-        // Queries the collection
-        query: {
-            argNames: ["oData"],
-            requestType: Types.RequestType.OData
-        }
-    };
-}
+    // Gets a content type by id.
+    getById: {
+        argNames: ["id"],
+        requestType: RequestType.GetWithArgsValueOnly,
+        returnType: "contenttype"
+    },
+
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    }
+};
+export default Library;

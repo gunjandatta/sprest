@@ -1,4 +1,9 @@
-declare module $REST.ComplexTypes {
+import {
+    Results
+} from ".";
+import {SPTypes} from "../types";
+
+export declare namespace ComplexTypes {
     /**
      * App License
      */
@@ -10,7 +15,7 @@ declare module $REST.ComplexTypes {
      * App License Collection
      */
     interface AppLicenseCollection {
-        Items: Results.AppLicense;
+        Items: AppLicense;
     }
 
     /**
@@ -173,7 +178,7 @@ declare module $REST.ComplexTypes {
         FormDigestValue: string;
         LibraryVersion: string;
         SiteFullUrl: string;
-        SupportedSchemaVersions: Results.String;
+        SupportedSchemaVersions: String;
         WebFullUrl: string;
     }
 
@@ -182,7 +187,7 @@ declare module $REST.ComplexTypes {
      */
     interface CopyJobProgress {
         JobState: number;
-        Logs: Results.String;
+        Logs: String;
     }
 
     /**
@@ -214,7 +219,7 @@ declare module $REST.ComplexTypes {
      * Creatable Item Information Collection
      */
     interface CreatableItemInfoCollection {
-        Items: Results.CreatableItemInfo;
+        Items: CreatableItemInfo;
     }
 
     /**
@@ -237,7 +242,7 @@ declare module $REST.ComplexTypes {
      * Custom Action Element Collection
      */
     interface CustomActionElementCollection {
-        Items: Results.CustomActionElement;
+        Items: CustomActionElement;
     }
 
     /**
@@ -246,7 +251,7 @@ declare module $REST.ComplexTypes {
     interface CustomResult {
         GroupTemplateId: string;
         ItemTemplateId: string;
-        Properties: Results.KeyValue;
+        Properties: KeyValue;
         ResultTitle: string;
         ResultTitleUrl: string;
         Table: SimpleDataTable;
@@ -276,7 +281,7 @@ declare module $REST.ComplexTypes {
      */
     interface EventReceiverDefinitionCreationInformation {
         /** The event receiver type. */
-        EventType: Types.EventReceiverType;
+        EventType: SPTypes.EventReceiverType;
 
         /** The strong name of the assembly that is used for receiving events. */        
         ReceiverAssembly?: string;
@@ -309,10 +314,10 @@ declare module $REST.ComplexTypes {
      */
     interface FieldCreationInformation {
         /** The choices. */
-        Choices?: Results.String;
+        Choices?: String;
 
         /** The field type. */
-        FieldTypeKind: Types.FieldType;
+        FieldTypeKind: SPTypes.FieldType;
 
         /** Indicates whether only the first eight characters are used for the field name. */
         IsCompactName?: boolean;
@@ -455,7 +460,7 @@ declare module $REST.ComplexTypes {
         CustomSchemaXml?: string;
 
         /** The list of data source properties. */
-        DataSourceProperties?: Results.KeyValue;
+        DataSourceProperties?: KeyValue;
 
         /** The list description. */
         Description?: string;
@@ -470,7 +475,7 @@ declare module $REST.ComplexTypes {
         TemplateFeatureId?: string;
 
         /** The list template type. */
-        TemplateType: Types.ListTemplateType;
+        TemplateType: SPTypes.ListTemplateType;
 
         /** The list name. */
         Title: string;
@@ -483,14 +488,14 @@ declare module $REST.ComplexTypes {
      * List Data Source
      */
     interface ListDataSource {
-        Properties: Results.KeyValue;
+        Properties: KeyValue;
     }
 
     /**
      * List Data Validation Exception Value
      */
     interface ListDataValidationExceptionValue {
-        FieldFailures: Results.ListDataValidationFailure;
+        FieldFailures: ListDataValidationFailure;
         ItemFailures: ListDataValidationFailure;
     }
 
@@ -535,12 +540,12 @@ declare module $REST.ComplexTypes {
      * Menu Node
      */
     interface MenuNode {
-        CustomProperties: Results.KeyValue;
+        CustomProperties: KeyValue;
         FriendlyUrlSegment: string;
         IsDeleted: boolean;
         IsHidden: boolean;
         Key; string;
-        Nodes: Results.MenuNode;
+        Nodes: MenuNode;
         NodeType: number;
         SimpleUrl: string;
         Title: string;
@@ -551,7 +556,7 @@ declare module $REST.ComplexTypes {
      */
     interface MenuState {
         FriendlyUrlPrefix: string;
-        Nodes: Results.MenuNode;
+        Nodes: MenuNode;
         SimpleUrl: string;
         SPSitePrefix: string;
         SPWebPrefix: string;
@@ -566,7 +571,7 @@ declare module $REST.ComplexTypes {
     interface MethodInformation {
         IsBeta: boolean;
         Name: string;
-        Parameters: Results.ParameterInformation;
+        Parameters: ParameterInformation;
         ReturnTypeFullName: string;
     }
 
@@ -640,7 +645,7 @@ declare module $REST.ComplexTypes {
         BoolVal?: boolean;
         IntVal?: number;
         QueryPropertyValueTypeIndex?: number;
-        StrArray?: Results.String;
+        StrArray?: String;
         StrVal?: string;
     }
 
@@ -648,7 +653,7 @@ declare module $REST.ComplexTypes {
      * Query Result
      */
     interface QueryResult {
-        CustomResults: Results.CustomResult;
+        CustomResults: CustomResult;
         QueryId: string;
         QueryRuleId?: string;
         RefinementResults: RefinementResults;
@@ -676,9 +681,9 @@ declare module $REST.ComplexTypes {
      * Query Suggestion Results
      */
     interface QuerySuggestionResults {
-        PeopleNames: Results.String;
-        PersonalResults: Results.PersonalResultSuggestion;
-        Queries: Results.QuerySuggestionQuery;
+        PeopleNames: String;
+        PersonalResults: PersonalResultSuggestion;
+        Queries: QuerySuggestionQuery;
     }
 
     /**
@@ -699,8 +704,8 @@ declare module $REST.ComplexTypes {
     interface RefinementResults {
         GroupTemplateId: string;
         ItemTemplateId: string;
-        Property: Results.KeyValue;
-        Refiners: Results.Refiner;
+        Property: KeyValue;
+        Refiners: Refiner;
         ResultTitle: string;
         ResultTitleUrl: string;
     }
@@ -709,7 +714,7 @@ declare module $REST.ComplexTypes {
      * Refiner
      */
     interface Refiner {
-        Entries: Results.RefinerEntry;
+        Entries: RefinerEntry;
         Name: string;
     }
 
@@ -729,7 +734,7 @@ declare module $REST.ComplexTypes {
     interface RelevantResults {
         GroupTemplateId: string;
         ItemTemplateId: string;
-        Properties: Results.KeyValue;
+        Properties: KeyValue;
         ResultTitle: string;
         ResultTitleUrl: string;
         RowCount: number;
@@ -743,7 +748,7 @@ declare module $REST.ComplexTypes {
      */
     interface ReorderingRule {
         Boost?: number;
-        MatchType?: Types.ReordingRuleMatchType;
+        MatchType?: SPTypes.ReordingRuleMatchType;
         MatchValue: string;
     }
 
@@ -752,7 +757,7 @@ declare module $REST.ComplexTypes {
      */
     interface ReorderingRulesCreationInformation {
         Boost?: number;
-        MatchType?: Types.ReordingRuleMatchType;
+        MatchType?: SPTypes.ReordingRuleMatchType;
         MatchValue: string;
     }
 
@@ -974,7 +979,7 @@ declare module $REST.ComplexTypes {
         /** The type of the client that issued the query. */
         ClientType?: string;
         
-        /** The managed properties that are used to determine how to collapse individual search results. Results are collapsed into one or a specified number of results if they match any of the individual collapse specifications. Within a single collapse specification, results are collapsed if their properties match all individual properties in the collapse specification. */
+        /** The managed properties that are used to determine how to collapse individual search  Results are collapsed into one or a specified number of results if they match any of the individual collapse specifications. Within a single collapse specification, results are collapsed if their properties match all individual properties in the collapse specification. */
         CollapseSpecification?: string;
 
         /** The locale ID (LCID) for the query (see Locale IDs Assigned by Microsoft). */
@@ -994,14 +999,14 @@ declare module $REST.ComplexTypes {
 
         /** A Boolean value that specifies whether the phonetic forms of the query terms are used to find matches. */
         EnablePhonetic?: boolean;
- 
+
         /** A Boolean value that specifies whether the hit highlighted properties can be ordered. */
         EnableOrderingHitHighlightedProperty?: boolean;
 
         /** A Boolean value that specifies whether to enable query rules for the query. */
         EnableQueryRules?: boolean;
 
-        /** A Boolean value that specifies whether to sort search results. */
+        /** A Boolean value that specifies whether to sort search  */
         EnableSorting?: boolean;
 
         /** A Boolean value that specifies whether stemming is enabled. */
@@ -1013,11 +1018,11 @@ declare module $REST.ComplexTypes {
         /** The additional query terms to append to the query. */
         HiddenConstraints?: string;
 
-        /** The number of properties to show hit highlighting for in the search results. */
+        /** The number of properties to show hit highlighting for in the search  */
         HitHighlightedMultivaluePropertyLimit?: number;
 
         /** The properties to highlight in the search result summary when the property value matches the search terms entered by the user. */
-        HithighlightedProperties?: Results.String;
+        HithighlightedProperties?: String;
 
         /** The maximum number of characters to display in the hit-highlighted summary generated for a search result. */
         MaxSnippetLength?: number;
@@ -1030,11 +1035,11 @@ declare module $REST.ComplexTypes {
         /** A Boolean value that specifies whether to return best bet results for the query. */
         ProcessBestBets?: boolean;
 
-        /** A Boolean value that specifies whether to return personal favorites with the search results. */
+        /** A Boolean value that specifies whether to return personal favorites with the search  */
         ProcessPersonalFavorites?: boolean;
         
         /** Additional properties for the query. */
-        Properties?: Results.KeyValue;
+        Properties?: KeyValue;
 
         /** Custom tags that identify the query. You can specify multiple query tags, separated by semicolons. */
         QueryTag?: string;
@@ -1052,25 +1057,25 @@ declare module $REST.ComplexTypes {
         RankingModelId?: string;
 
         /** The set of refinement filters used when issuing a refinement query. For GET requests, the RefinementFilters parameter is specified as an FQL filter. For POST requests, the RefinementFilters parameter is specified as an array of FQL filters. */
-        RefinementFilters?: Results.String;
+        RefinementFilters?: String;
 
         /** The set of refiners to return in a search result. */
         Refiners?: string;
 
-        /** Special rules for reordering search results. These rules can specify that documents matching certain conditions are ranked higher or lower in the results. */
+        /** Special rules for reordering search  These rules can specify that documents matching certain conditions are ranked higher or lower in the  */
         ReorderingRules?: Array<ReorderingRulesCreationInformation>
 
         /** The URL for the search results page. */
         ResultsUrl?: string;
 
-        /** The maximum number of rows overall that are returned in the search results. Compared to RowsPerPage, RowLimit is the maximum number of rows returned overall. */
+        /** The maximum number of rows overall that are returned in the search  Compared to RowsPerPage, RowLimit is the maximum number of rows returned overall. */
         RowLimit?: number;
 
-        /** The maximum number of rows to return per page. Compared to RowLimit, RowsPerPage refers to the maximum number of rows to return per page, and is used primarily when you want to implement paging for search results. */
+        /** The maximum number of rows to return per page. Compared to RowLimit, RowsPerPage refers to the maximum number of rows to return per page, and is used primarily when you want to implement paging for search  */
         RowsPerPage?: number;
 
-        /** The managed properties to return in the search results. To return a managed property, set the property's retrievable flag to true in the search schema. */
-        SelectProperties?: Results.String;
+        /** The managed properties to return in the search  To return a managed property, set the property's retrievable flag to true in the search schema. */
+        SelectProperties?: String;
 
         /** The list of properties by which the search results are ordered. */
         SortList?: Array<any>;
@@ -1078,7 +1083,7 @@ declare module $REST.ComplexTypes {
         /** The result source ID to use for executing the search query. */
         SourceId?: string;
 
-        /** The first row that is included in the search results that are returned. You use this parameter when you want to implement paging for search results. */
+        /** The first row that is included in the search results that are returned. You use this parameter when you want to implement paging for search  */
         StartRow?: number;
 
         /** The number of characters to display in the result summary for a search result. */
@@ -1091,7 +1096,7 @@ declare module $REST.ComplexTypes {
 
         TotalRowsExactMinimum?: number;
 
-        /** A Boolean value that specifies whether duplicate items are removed from the results. */
+        /** A Boolean value that specifies whether duplicate items are removed from the  */
         TrimDuplicates?: boolean;
 
         TrimDuplicatesIncludeId?: boolean;
@@ -1108,10 +1113,10 @@ declare module $REST.ComplexTypes {
     interface SearchResult {
         ElapsedTime?: number;
         PrimaryQueryResult: QueryResult;
-        Properties: Results.KeyValue;
-        SecondaryQueryResults: Results.QueryResult;
+        Properties: KeyValue;
+        SecondaryQueryResults: QueryResult;
         SpellingSuggestion: string;
-        TriggeredRules?: Results.String;
+        TriggeredRules?: String;
     }
 
     /**
@@ -1172,7 +1177,7 @@ declare module $REST.ComplexTypes {
      * Shared User Collection
      */
     interface SharedWithUserCollection {
-        Items: Results.SharedWithUser;
+        Items: SharedWithUser;
     }
 
     /**
@@ -1189,14 +1194,14 @@ declare module $REST.ComplexTypes {
      * Simple Data Row
      */
     interface SimpleDataRow {
-        Cells: Results.DataRow;
+        Cells: Results.DataRow
     }
 
     /**
      * Simple Data Table
      */
     interface SimpleDataTable {
-        Rows: Results.KeyValue;
+        Rows: KeyValue;
     }
 
     /**
@@ -1264,7 +1269,7 @@ declare module $REST.ComplexTypes {
      * Social Data Overlay
      */
     interface SocialDataOverlay {
-        ActorIndexes?: Results.Number;
+        ActorIndexes?: Number;
         Index?: number;
         Length?: number;
         LinkUri: string;
@@ -1299,7 +1304,7 @@ declare module $REST.ComplexTypes {
         Attributes?: number;
         NewestProcessed?: string;
         OldestProcessed?: string;
-        Threads: Results.SocialThread;
+        Threads: SocialThread;
         UnreadMentionCount?: number;
     }
 
@@ -1338,7 +1343,7 @@ declare module $REST.ComplexTypes {
         Id?: string;
         LikerInfo?: SocialPostActorInfo;
         ModifiedTime?: string;
-        Overlays: Results.SocialDataOverlay;
+        Overlays: SocialDataOverlay;
         PostType?: number;
         PreferredImageUri: string;
         Source: SocialLink;
@@ -1350,7 +1355,7 @@ declare module $REST.ComplexTypes {
      */
     interface SocialPostActorInfo {
         IncludesCurrentUser?: boolean;
-        Indexes?: Results.Number;
+        Indexes?: Number;
         TotalCount?: number;
     }
 
@@ -1359,10 +1364,10 @@ declare module $REST.ComplexTypes {
      */
     interface SocialPostCreationData {
         Attachment?: SocialAttachment;
-        ContentItems?: Results.SocialDataItem;
+        ContentItems?: SocialDataItem;
         ContentText: string;
         DefinitionData?: SocialPostDefinitionData;
-        SecurityUris?: Results.String;
+        SecurityUris?: String;
         Source?: SocialLink;
         UpdateStatusText?: boolean;
     }
@@ -1371,7 +1376,7 @@ declare module $REST.ComplexTypes {
      * Social Post Definition Data
      */
     interface SocialPostDefinitionData {
-        Items: Results.SocialPostDefinitionDataItem;
+        Items: SocialPostDefinitionDataItem;
         Name: string;
     }
 
@@ -1420,13 +1425,13 @@ declare module $REST.ComplexTypes {
      * Social Thread
      */
     interface SocialThread {
-        Actors: Results.SocialActor;
+        Actors: SocialActor;
         Attributes?: number;
         Id: string;
         OwnerIndex?: number;
         PermaLink: string;
         PostReference: SocialPostReference;
-        Replies: Results.SocialPost;
+        Replies: SocialPost;
         RootPost: SocialPost;
         Status?: number;
         ThreadType?: number;
@@ -1468,7 +1473,7 @@ declare module $REST.ComplexTypes {
     interface SpecialTermResults {
         GroupTemplateId: string;
         ItemTemplateId: string;
-        Properties: Results.KeyValue;
+        Properties: KeyValue;
         ResultTitle: string;
         ResultTitleUrl: string;
     }
@@ -1478,7 +1483,7 @@ declare module $REST.ComplexTypes {
      */
     interface StringCollection {
         Id4a81de82eeb94d6080ea5bf63e27023a?: string;
-        Items: Results.String;
+        Items: String;
     }
 
     /**
@@ -1579,7 +1584,7 @@ declare module $REST.ComplexTypes {
         RegistrationId?: string;
 
         /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
-        RegistrationType?: Types.UserCustomActionRegistrationType;
+        RegistrationType?: SPTypes.UserCustomActionRegistrationType;
 
         /** The value that specifies the permissions needed for the custom action. */
         Rights?: any;
@@ -1631,10 +1636,10 @@ declare module $REST.ComplexTypes {
         Title: string;
 
         /** The view fields. */
-        ViewFields: Results.String;
+        ViewFields: String;
 
         /** The view type. */
-        ViewTypeKind: Types.ViewType;
+        ViewTypeKind: SPTypes.ViewType;
     }
 
     /**
@@ -1672,7 +1677,7 @@ declare module $REST.ComplexTypes {
     interface VisualizationStyleSet {
         AspectRatio: string;
         BackgroundColor: string;
-        Fields: Results.VisualizationField;
+        Fields: VisualizationField;
         MinHeight: string;
     }
 
@@ -1722,7 +1727,7 @@ declare module $REST.ComplexTypes {
      */
     interface WebRequestInfo {
         Body: string;
-        Headers: Results.KeyValue;
+        Headers: KeyValue;
         StatusCode: number;
     }
 
@@ -1731,7 +1736,7 @@ declare module $REST.ComplexTypes {
      */
     interface WebResponseInfo {
         Body: string;
-        Headers: Results.KeyValue;
+        Headers: KeyValue;
         StatusCode: number;
     }
 

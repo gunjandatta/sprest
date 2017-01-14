@@ -1,19 +1,20 @@
-module $REST {
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    Library.eventreceiverdefinition = {
-        // Deletes the object
-        delete: {
-            requestType: Types.RequestType.Delete
-        },
+import {RequestType} from "../types";
 
-        // Updates it's properties.
-        update: {
-            metadataType: "SP.EventReceiverDefinition",
-            name: "",
-            requestMethod: "MERGE",
-            requestType: Types.RequestType.PostWithArgsInBody
-        }
-    };
-}
+/*********************************************************************************************************************************/
+// Methods
+/*********************************************************************************************************************************/
+const Library = {
+    // Deletes the object
+    delete: {
+        requestType: RequestType.Delete
+    },
+
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.EventReceiverDefinition",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: RequestType.PostWithArgsInBody
+    }
+};
+export default Library;

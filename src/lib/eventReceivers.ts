@@ -1,26 +1,27 @@
-module $REST {
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    Library.eventreceiverdefinitions = {
-        // Adds an event receiver to the collection.
-        add: {
-            metadataType: "SP.EventReceiverDefinition",
-            name: "",
-            requestType: Types.RequestType.PostWithArgsInBody
-        },
+import {RequestType} from "../types";
 
-        // Gets an event receiver by it's id.
-        getById: {
-            argNames: ["id"],
-            requestType: Types.RequestType.GetWithArgsValueOnly,
-            returnType: "eventreceiver"
-        },
+/*********************************************************************************************************************************/
+// Methods
+/*********************************************************************************************************************************/
+const Library = {
+    // Adds an event receiver to the collection.
+    add: {
+        metadataType: "SP.EventReceiverDefinition",
+        name: "",
+        requestType: RequestType.PostWithArgsInBody
+    },
 
-        // Queries the collection
-        query: {
-            argNames: ["oData"],
-            requestType: Types.RequestType.OData
-        }
-    };
-}
+    // Gets an event receiver by it's id.
+    getById: {
+        argNames: ["id"],
+        requestType: RequestType.GetWithArgsValueOnly,
+        returnType: "eventreceiver"
+    },
+
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    }
+};
+export default Library;
