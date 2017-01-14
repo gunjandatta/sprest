@@ -24,6 +24,8 @@
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-core": "^6.21.0",
+    "babel-preset-babili": "0.0.9",
+    "babel-preset-es2015": "^6.18.0",
     "gulp": "*",
     "gulp-concat": "*",
     "gulp-rename": "*",
@@ -32,6 +34,6 @@
     "webpack": "^1.14.0"
   },
   "scripts": {
-    "build": "tsc && gulp"
+    "build": "webpack && gulp"
   }
 }

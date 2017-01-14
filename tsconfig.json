@@ -1,7 +1,14 @@
 {
     "compilerOptions": {
-        "rootDir": "src",
         "sourceMap": false,
         "target": "es5"
-    }
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        "dist",
+        "node_modules",
+        "test"
+    ]
 }
