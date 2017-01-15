@@ -1926,6 +1926,7 @@ export declare namespace ComplexTypes {
         SchemaXml: string;
     }
 }
+export default ComplexTypes;
 import {
     ComplexTypes,
     IBase,

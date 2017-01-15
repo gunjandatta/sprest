@@ -1748,3 +1748,4 @@ export declare namespace ComplexTypes {
         SchemaXml: string;
     }
 }
+export default ComplexTypes;

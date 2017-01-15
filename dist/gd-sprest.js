@@ -45,12 +45,11 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	function __export(m) {
+	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+	}
 	var lib_1 = __webpack_require__(1);
 	var utils_1 = __webpack_require__(11);
-	/**
-	 * Library
-	 */
-	exports.Library = [];
 	/**
 	 * The SharePoint REST Class
 	 */
@@ -154,10 +153,23 @@
 	}());
 	;
 	/**
+	 * Library
+	 */
+	exports.Library = [];
+	/**
+	 * SharePoint Object Types
+	 */
+	/**
+	 * SharePoint Enumerators
+	 */
+	__export(__webpack_require__(4));
+	/**
 	 * REST Library
 	 */
 	exports.$REST = new gd_sprest();
 	window["$REST"] = exports.$REST;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = exports.$REST;
 
 
 /***/ },

@@ -58,11 +58,6 @@ import {
 } from "./utils";
 
 /**
- * Library
- */
-export const Library = [];
-
-/**
  * The SharePoint REST Class
  */
 class gd_sprest {
@@ -129,7 +124,23 @@ class gd_sprest {
 };
 
 /**
+ * Library
+ */
+export const Library = [];
+
+/**
+ * SharePoint Object Types
+ */
+export * from "./definitions";
+
+/**
+ * SharePoint Enumerators
+ */
+export * from "./types";
+
+/**
  * REST Library
  */
 export const $REST = new gd_sprest();
 window["$REST"] = $REST;
+export default $REST;
