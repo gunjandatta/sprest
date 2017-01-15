@@ -1,6 +1,7 @@
 import {
     TargetInfoSettings
 } from "../definitions";
+import {IWeb} from "../definitions";
 import {RequestType} from "../types";
 import {Base} from "../utils";
 

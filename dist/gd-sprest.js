@@ -45,33 +45,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	// Type definitions for gd-sprest
-	// Project: https://github.com/gunjandatta/sprest
-	// Definitions by: Gunjan Datta <https://github.com/gunjandatta/>
-	// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-	/***************************************************************************************************
-	MIT License
-
-	Copyright (c) 2016 Dattabase, LLC.
-
-	Permission is hereby granted, free of charge, to any person obtaining a copy
-	of this software and associated documentation files (the "Software"), to deal
-	in the Software without restriction, including without limitation the rights
-	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-	copies of the Software, and to permit persons to whom the Software is
-	furnished to do so, subject to the following conditions:
-
-	The above copyright notice and this permission notice shall be included in all
-	copies or substantial portions of the Software.
-
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-	SOFTWARE.
-	***************************************************************************************************/
 	var lib_1 = __webpack_require__(1);
 	var utils_1 = __webpack_require__(11);
 	/**
@@ -79,22 +52,111 @@
 	 */
 	exports.Library = [];
 	/**
+	 * The SharePoint REST Class
+	 */
+	var gd_sprest = (function () {
+	    function gd_sprest() {
+	        /**
+	         * Flag to default the request to th host web.
+	         * False by default.
+	         */
+	        this.DefaultRequestToHostFl = false;
+	    }
+	    Object.defineProperty(gd_sprest.prototype, "ContextInfo", {
+	        /**
+	         * The context information
+	         */
+	        get: function () { return (new utils_1.ContextInfo()); },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(gd_sprest.prototype, "Email", {
+	        /**
+	         * The email class
+	         */
+	        get: function () { return (new lib_1.Email()); },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(gd_sprest.prototype, "Helper", {
+	        /**
+	         * Helper Methods
+	         */
+	        get: function () { return utils_1.Helper; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(gd_sprest.prototype, "List", {
+	        /**
+	         * The list class
+	         */
+	        get: function () { return lib_1.List; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(gd_sprest.prototype, "PeopleManager", {
+	        /**
+	         * The people manager class
+	         */
+	        get: function () { return lib_1.PeopleManager; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(gd_sprest.prototype, "PeoplePicker", {
+	        /**
+	         * The people picker class
+	         */
+	        get: function () { return lib_1.PeoplePicker; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(gd_sprest.prototype, "Search", {
+	        /**
+	         * The search class
+	         */
+	        get: function () { return lib_1.Search; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(gd_sprest.prototype, "Site", {
+	        /**
+	         * The site class
+	         */
+	        get: function () { return lib_1.Site; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(gd_sprest.prototype, "SocialFeed", {
+	        /**
+	         * The social feed class
+	         */
+	        get: function () { return lib_1.SocialFeed; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(gd_sprest.prototype, "UserProfile", {
+	        /**
+	         * The user profile class
+	         */
+	        get: function () { return lib_1.UserProfile; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(gd_sprest.prototype, "Web", {
+	        /**
+	         * The web class
+	         */
+	        get: function () { return lib_1.Web; },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    return gd_sprest;
+	}());
+	;
+	/**
 	 * REST Library
 	 */
-	exports.$REST = {
-	    ContextInfo: new utils_1.ContextInfo(),
-	    DefaultRequestToHostFl: false,
-	    Email: new lib_1.Email(),
-	    Helper: utils_1.Helper,
-	    List: lib_1.List,
-	    PeopleManager: lib_1.PeopleManager,
-	    PeoplePicker: lib_1.PeoplePicker,
-	    Search: lib_1.Search,
-	    Site: lib_1.Site,
-	    SocialFeed: lib_1.SocialFeed,
-	    UserProfile: lib_1.UserProfile,
-	    Web: lib_1.Web
-	};
+	exports.$REST = new gd_sprest();
 	window["$REST"] = exports.$REST;
 
 

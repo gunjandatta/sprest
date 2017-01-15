@@ -27,7 +27,19 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-
+import {
+    IContextInfo,
+    IEmail,
+    IHelper,
+    IList,
+    IPeopleManager,
+    IPeoplePicker,
+    ISearch,
+    ISite,
+    ISocialFeed,
+    IUserProfile,
+    IWeb
+} from "./definitions";
 import {
     Email,
     List,
@@ -51,20 +63,73 @@ import {
 export const Library = [];
 
 /**
+ * The SharePoint REST Class
+ */
+class gd_sprest {
+    /**
+     * The context information
+     */
+    get ContextInfo():IContextInfo { return <any>(new ContextInfo()); }
+
+    /**
+     * Flag to default the request to th host web.
+     * False by default.
+     */
+    DefaultRequestToHostFl = false;
+
+    /**
+     * The email class
+     */
+    get Email():IEmail { return <any>(new Email()); }
+
+    /**
+     * Helper Methods
+     */
+    get Helper():IHelper { return <any>Helper; }
+
+    /**
+     * The list class
+     */
+    get List():IList { return <any>List; }
+
+    /**
+     * The people manager class
+     */
+    get PeopleManager():IPeopleManager { return <any>PeopleManager; }
+
+    /**
+     * The people picker class
+     */
+    get PeoplePicker():IPeoplePicker { return <any>PeoplePicker; }
+
+    /**
+     * The search class
+     */
+    get Search():ISearch { return <any>Search; }
+
+    /**
+     * The site class
+     */
+    get Site():ISite { return <any>Site; }
+
+    /**
+     * The social feed class
+     */
+    get SocialFeed():ISocialFeed { return <any>SocialFeed; }
+
+    /**
+     * The user profile class
+     */
+    get UserProfile():IUserProfile { return <any>UserProfile; }
+
+    /**
+     * The web class
+     */
+    get Web():IWeb { return <any>Web; }
+};
+
+/**
  * REST Library
  */
-export const $REST = {
-    ContextInfo: new ContextInfo(),
-    DefaultRequestToHostFl: false,
-    Email: new Email(),
-    Helper,
-    List,
-    PeopleManager,
-    PeoplePicker,
-    Search,
-    Site,
-    SocialFeed,
-    UserProfile,
-    Web
-};
+export const $REST = new gd_sprest();
 window["$REST"] = $REST;
