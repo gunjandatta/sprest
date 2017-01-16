@@ -1130,11 +1130,11 @@
 	/*********************************************************************************************************************************/
 	// Helper Methods
 	/*********************************************************************************************************************************/
-	var Helper = (function () {
-	    function Helper() {
+	var _Helper = (function () {
+	    function _Helper() {
 	    }
 	    // Method to copy a file in this app web to the host web
-	    Helper.copyFileToHostWeb = function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
+	    _Helper.copyFileToHostWeb = function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
 	        var _this = this;
 	        var srcFile = null;
 	        var promise = new _1.Promise();
@@ -1219,7 +1219,7 @@
 	        return promise;
 	    };
 	    // Method to copy a file in this app web to the host web
-	    Helper.copyFilesToHostWeb = function (fileUrls, folderUrls, overwriteFl, rootWebFl, idx, promise, files, folders) {
+	    _Helper.copyFilesToHostWeb = function (fileUrls, folderUrls, overwriteFl, rootWebFl, idx, promise, files, folders) {
 	        var _this = this;
 	        files = files ? files : [];
 	        folders = folders ? folders : [];
@@ -1244,7 +1244,7 @@
 	        return promise;
 	    };
 	    // Method to create sub-folders
-	    Helper.createSubFolders = function (folder, subFolderUrl, promise) {
+	    _Helper.createSubFolders = function (folder, subFolderUrl, promise) {
 	        var _this = this;
 	        // Ensure the promise exists
 	        promise = promise ? promise : new _1.Promise();
@@ -1280,7 +1280,7 @@
 	        return promise;
 	    };
 	    // Method to get a folder
-	    Helper.getFolder = function (web, folderUrl, createFl) {
+	    _Helper.getFolder = function (web, folderUrl, createFl) {
 	        var _this = this;
 	        var dstFolder = null;
 	        var promise = new _1.Promise();
@@ -1326,7 +1326,7 @@
 	        return promise;
 	    };
 	    // Method to remove empty folders
-	    Helper.removeEmptyFolders = function (web, folderUrls) {
+	    _Helper.removeEmptyFolders = function (web, folderUrls) {
 	        var promise = new _1.Promise();
 	        // Ensure folder urls exist
 	        if (folderUrls.length == 0) {
@@ -1378,7 +1378,7 @@
 	        return promise;
 	    };
 	    // Method to remove a file
-	    Helper.removeFile = function (web, fileUrl) {
+	    _Helper.removeFile = function (web, fileUrl) {
 	        var promise = new _1.Promise();
 	        var folder = null;
 	        var folders = fileUrl.split('/');
@@ -1403,7 +1403,7 @@
 	        return promise;
 	    };
 	    // Method to remove files
-	    Helper.removeFiles = function (web, fileUrls, idx, promise) {
+	    _Helper.removeFiles = function (web, fileUrls, idx, promise) {
 	        var _this = this;
 	        idx = idx ? idx : 0;
 	        promise = promise ? promise : new _1.Promise();
@@ -1422,9 +1422,9 @@
 	        // Return the promise
 	        return promise;
 	    };
-	    return Helper;
+	    return _Helper;
 	}());
-	exports.Helper = Helper;
+	exports.Helper = _Helper;
 
 
 /***/ },

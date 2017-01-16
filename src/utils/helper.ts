@@ -3,6 +3,7 @@ import {
     IBase,
     IFolder,
     IFile,
+    IHelper,
     IWeb
 } from "../definitions";
 import {
@@ -17,7 +18,7 @@ import {
 /*********************************************************************************************************************************/
 // Helper Methods
 /*********************************************************************************************************************************/
-export class Helper {
+class _Helper {
     // Method to copy a file in this app web to the host web
     static copyFileToHostWeb(fileUrl:string, dstFolder:(string | IFolder), overwriteFl?:boolean, rootWebFl?:boolean) {
         let srcFile = null;
@@ -352,3 +353,4 @@ export class Helper {
         return promise;
     }
 }
+export const Helper:IHelper = <any>_Helper;

@@ -65,19 +65,19 @@ export {
  * SharePoint REST Library
  */
 export const $REST:IREST = {
-    ContextInfo: ContextInfo,
+    ContextInfo,
     DefaultRequestToHostFl: false,
-    Email: Email,
-    Helper: <any>Helper,
-    List: <any>List,
-    PeopleManager: <any>PeopleManager,
-    PeoplePicker: <any>PeoplePicker,
-    ProfileLoader: <any>ProfileLoader,
-    Search: <any>Search,
-    Site: <any>Site,
-    SocialFeed: <any>SocialFeed,
-    UserProfile: <any>UserProfile,
-    Web: <any>Web
+    Email,
+    Helper,
+    List,
+    PeopleManager,
+    PeoplePicker,
+    ProfileLoader,
+    Search,
+    Site,
+    SocialFeed,
+    UserProfile,
+    Web
 }
 
 // Make the library globally available
