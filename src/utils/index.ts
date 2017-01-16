@@ -2,6 +2,7 @@ export * from "./base";
 export * from "./contextInfo";
 export * from "./dependencies";
 export * from "./helper";
+export * from "./mapper";
 export * from "./methodInfo";
 export * from "./oData";
 export * from "./promise";

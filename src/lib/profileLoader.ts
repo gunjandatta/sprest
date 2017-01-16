@@ -1,6 +1,8 @@
-import {TargetInfoSettings} from "../definitions";
-import {RequestType} from "../types";
 import {Base} from "../utils";
+import {RequestType} from ".";
+import {
+    TargetInfoSettings
+} from "gd-sprest";
 
 /*********************************************************************************************************************************/
 // Profile Loader

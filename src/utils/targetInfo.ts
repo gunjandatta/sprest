@@ -1,9 +1,5 @@
-import {
-    TargetInfoSettings
-} from "../definitions";
-import {
-    ContextInfo
-} from ".";
+import {TargetInfoSettings} from "gd-sprest";
+import {ContextInfo} from ".";
 
 /*********************************************************************************************************************************/
 // Target Information

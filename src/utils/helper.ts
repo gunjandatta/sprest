@@ -1,9 +1,10 @@
+/// <reference path="../definitions/helper.d.ts" />
 import {
     IBase,
     IFolder,
     IFile,
     IWeb
-} from "../definitions";
+} from "gd-sprest";
 import {
     Web
 } from "../lib";

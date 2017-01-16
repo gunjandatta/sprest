@@ -1,7 +1,10 @@
-import {TargetInfoSettings} from "../definitions";
+/// <reference path="../definitions/audit.d.ts" />
+/// <reference path="../definitions/site.d.ts" />
 import {Base} from "../utils";
-import {RequestType} from "../types";
-import {Web} from ".";
+import {RequestType, Web} from ".";
+import {
+    TargetInfoSettings
+} from "gd-sprest";
 
 /*********************************************************************************************************************************/
 // Site

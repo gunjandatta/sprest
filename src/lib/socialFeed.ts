@@ -1,9 +1,10 @@
+/// <reference path="../definitions/socialFeed.d.ts" />
+import {Base} from "../utils";
+import {RequestType} from ".";
 import {
     ComplexTypes,
     TargetInfoSettings
-} from "../definitions";
-import {RequestType} from "../types";
-import {Base} from "../utils";
+} from "gd-sprest";
 
 /*********************************************************************************************************************************/
 // Social Feed

@@ -1,9 +1,10 @@
-import {
-    TargetInfoSettings
-} from "../definitions";
-import {IWeb} from "../definitions";
-import {RequestType} from "../types";
+/// <reference path="../definitions/web.d.ts" />
 import {Base} from "../utils";
+import {RequestType} from ".";
+import {
+    IWeb,
+    TargetInfoSettings
+} from "gd-sprest";
 
 /*********************************************************************************************************************************/
 // Web

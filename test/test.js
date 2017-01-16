@@ -1,5 +1,3 @@
-import {$REST} from "../src/index";
-
 var log = document.querySelector("#log");
 var LogType = {
     Error: 0,

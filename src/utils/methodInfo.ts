@@ -1,12 +1,9 @@
+/// <reference path="../definitions/methodInfo.d.ts" />
+import {OData} from ".";
+import {RequestType} from "../lib";
 import {
     MethodInfoSettings
-} from "../definitions";
-import {
-    RequestType
-} from "../types";
-import {
-    OData
-} from ".";
+} from "gd-sprest";
 
 /*********************************************************************************************************************************/
 // Method Information

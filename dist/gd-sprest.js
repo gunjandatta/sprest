@@ -45,131 +45,66 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	function __export(m) {
-	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-	}
+	// Type definitions for gd-sprest
+	// Project: https://github.com/gunjandatta/sprest
+	// Definitions by: Gunjan Datta <https://github.com/gunjandatta/>
+	// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+	/***************************************************************************************************
+	MIT License
+
+	Copyright (c) 2016 Dattabase, LLC.
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	SOFTWARE.
+	***************************************************************************************************/
 	var lib_1 = __webpack_require__(1);
-	var utils_1 = __webpack_require__(11);
+	exports.Email = lib_1.Email;
+	exports.List = lib_1.List;
+	exports.PeopleManager = lib_1.PeopleManager;
+	exports.PeoplePicker = lib_1.PeoplePicker;
+	exports.ProfileLoader = lib_1.ProfileLoader;
+	exports.Search = lib_1.Search;
+	exports.Site = lib_1.Site;
+	exports.SocialFeed = lib_1.SocialFeed;
+	exports.UserProfile = lib_1.UserProfile;
+	exports.Web = lib_1.Web;
+	var utils_1 = __webpack_require__(8);
+	exports.ContextInfo = utils_1.ContextInfo;
+	exports.Helper = utils_1.Helper;
 	/**
-	 * The SharePoint REST Class
+	 * SharePoint REST Library
 	 */
-	var gd_sprest = (function () {
-	    function gd_sprest() {
-	        /**
-	         * Flag to default the request to th host web.
-	         * False by default.
-	         */
-	        this.DefaultRequestToHostFl = false;
-	    }
-	    Object.defineProperty(gd_sprest.prototype, "ContextInfo", {
-	        /**
-	         * The context information
-	         */
-	        get: function () { return (new utils_1.ContextInfo()); },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(gd_sprest.prototype, "Email", {
-	        /**
-	         * The email class
-	         */
-	        get: function () { return (new lib_1.Email()); },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(gd_sprest.prototype, "Helper", {
-	        /**
-	         * Helper Methods
-	         */
-	        get: function () { return utils_1.Helper; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(gd_sprest.prototype, "List", {
-	        /**
-	         * The list class
-	         */
-	        get: function () { return lib_1.List; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(gd_sprest.prototype, "PeopleManager", {
-	        /**
-	         * The people manager class
-	         */
-	        get: function () { return lib_1.PeopleManager; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(gd_sprest.prototype, "PeoplePicker", {
-	        /**
-	         * The people picker class
-	         */
-	        get: function () { return lib_1.PeoplePicker; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(gd_sprest.prototype, "Search", {
-	        /**
-	         * The search class
-	         */
-	        get: function () { return lib_1.Search; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(gd_sprest.prototype, "Site", {
-	        /**
-	         * The site class
-	         */
-	        get: function () { return lib_1.Site; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(gd_sprest.prototype, "SocialFeed", {
-	        /**
-	         * The social feed class
-	         */
-	        get: function () { return lib_1.SocialFeed; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(gd_sprest.prototype, "UserProfile", {
-	        /**
-	         * The user profile class
-	         */
-	        get: function () { return lib_1.UserProfile; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(gd_sprest.prototype, "Web", {
-	        /**
-	         * The web class
-	         */
-	        get: function () { return lib_1.Web; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    return gd_sprest;
-	}());
-	;
-	/**
-	 * Library
-	 */
-	exports.Library = [];
-	/**
-	 * SharePoint Object Types
-	 */
-	/**
-	 * SharePoint Enumerators
-	 */
-	__export(__webpack_require__(4));
-	/**
-	 * REST Library
-	 */
-	exports.$REST = new gd_sprest();
+	exports.$REST = {
+	    ContextInfo: utils_1.ContextInfo,
+	    Email: lib_1.Email,
+	    Helper: utils_1.Helper,
+	    List: lib_1.List,
+	    PeopleManager: lib_1.PeopleManager,
+	    PeoplePicker: lib_1.PeoplePicker,
+	    ProfileLoader: lib_1.ProfileLoader,
+	    Search: lib_1.Search,
+	    Site: lib_1.Site,
+	    SocialFeed: lib_1.SocialFeed,
+	    UserProfile: lib_1.UserProfile,
+	    Web: lib_1.Web
+	};
+	// Make the library globally available
 	window["$REST"] = exports.$REST;
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = exports.$REST;
 
 
 /***/ },
@@ -182,10 +117,17 @@
 	}
 	__export(__webpack_require__(2));
 	__export(__webpack_require__(3));
+	__export(__webpack_require__(4));
+	__export(__webpack_require__(5));
+	__export(__webpack_require__(6));
 	__export(__webpack_require__(7));
-	__export(__webpack_require__(8));
-	__export(__webpack_require__(9));
-	__export(__webpack_require__(10));
+	__export(__webpack_require__(14));
+	__export(__webpack_require__(15));
+	__export(__webpack_require__(16));
+	__export(__webpack_require__(17));
+	__export(__webpack_require__(18));
+	__export(__webpack_require__(19));
+	__export(__webpack_require__(20));
 	__export(__webpack_require__(21));
 	__export(__webpack_require__(22));
 	__export(__webpack_require__(23));
@@ -200,6 +142,7 @@
 	__export(__webpack_require__(32));
 	__export(__webpack_require__(33));
 	__export(__webpack_require__(34));
+	__export(__webpack_require__(59));
 	__export(__webpack_require__(35));
 	__export(__webpack_require__(36));
 	__export(__webpack_require__(37));
@@ -219,14 +162,6 @@
 	__export(__webpack_require__(51));
 	__export(__webpack_require__(52));
 	__export(__webpack_require__(53));
-	__export(__webpack_require__(54));
-	__export(__webpack_require__(55));
-	__export(__webpack_require__(56));
-	__export(__webpack_require__(57));
-	__export(__webpack_require__(58));
-	__export(__webpack_require__(59));
-	__export(__webpack_require__(60));
-	__export(__webpack_require__(61));
 
 
 /***/ },
@@ -247,7 +182,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var types_1 = __webpack_require__(4);
+	var _1 = __webpack_require__(1);
 	/*********************************************************************************************************************************/
 	// Library
 	/*********************************************************************************************************************************/
@@ -259,12 +194,12 @@
 	    **/
 	    add: {
 	        argNames: ["fileName"],
-	        requestType: types_1.RequestType.PostWithArgs
+	        requestType: _1.RequestType.PostWithArgs
 	    },
 	    // Queries the collection
 	    query: {
 	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
+	        requestType: _1.RequestType.OData
 	    }
 	};
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -276,57 +211,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	function __export(m) {
-	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-	}
-	__export(__webpack_require__(5));
-	__export(__webpack_require__(6));
-
-
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-	"use strict";
-	// Request Type
-	(function (RequestType) {
-	    // Requests
-	    RequestType[RequestType["Custom"] = 0] = "Custom";
-	    RequestType[RequestType["Delete"] = 1] = "Delete";
-	    RequestType[RequestType["Merge"] = 2] = "Merge";
-	    RequestType[RequestType["OData"] = 3] = "OData";
-	    // Get Requests
-	    RequestType[RequestType["Get"] = 10] = "Get";
-	    RequestType[RequestType["GetBuffer"] = 11] = "GetBuffer";
-	    RequestType[RequestType["GetWithArgs"] = 12] = "GetWithArgs";
-	    RequestType[RequestType["GetWithArgsInBody"] = 13] = "GetWithArgsInBody";
-	    RequestType[RequestType["GetWithArgsInQS"] = 14] = "GetWithArgsInQS";
-	    RequestType[RequestType["GetWithArgsValueOnly"] = 15] = "GetWithArgsValueOnly";
-	    RequestType[RequestType["GetReplace"] = 16] = "GetReplace";
-	    // Post Requests
-	    RequestType[RequestType["Post"] = 20] = "Post";
-	    RequestType[RequestType["PostWithArgs"] = 21] = "PostWithArgs";
-	    RequestType[RequestType["PostWithArgsInBody"] = 22] = "PostWithArgsInBody";
-	    RequestType[RequestType["PostWithArgsInQS"] = 23] = "PostWithArgsInQS";
-	    RequestType[RequestType["PostWithArgsValueOnly"] = 24] = "PostWithArgsValueOnly";
-	    RequestType[RequestType["PostReplace"] = 25] = "PostReplace";
-	})(exports.RequestType || (exports.RequestType = {}));
-	var RequestType = exports.RequestType;
-
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
+	var _1 = __webpack_require__(1);
 	/*********************************************************************************************************************************/
 	// Library
 	/*********************************************************************************************************************************/
@@ -334,7 +219,7 @@
 	    // Queries the collection
 	    query: {
 	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
+	        requestType: _1.RequestType.OData
 	    }
 	};
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -342,11 +227,11 @@
 
 
 /***/ },
-/* 8 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var types_1 = __webpack_require__(4);
+	var _1 = __webpack_require__(1);
 	var Library = {
 	    /*********************************************************************************************************************************/
 	    // Properties
@@ -359,14 +244,14 @@
 	    /*********************************************************************************************************************************/
 	    // Deletes the content type.
 	    delete: {
-	        requestType: types_1.RequestType.Delete
+	        requestType: _1.RequestType.Delete
 	    },
 	    // Updates it's properties.
 	    update: {
 	        metadataType: "SP.ContentType",
 	        name: "",
 	        requestMethod: "MERGE",
-	        requestType: types_1.RequestType.PostWithArgsInBody
+	        requestType: _1.RequestType.PostWithArgsInBody
 	    }
 	};
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -374,11 +259,11 @@
 
 
 /***/ },
-/* 9 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var types_1 = __webpack_require__(4);
+	var _1 = __webpack_require__(1);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -387,23 +272,23 @@
 	    add: {
 	        metadataType: "SP.ContentType",
 	        name: "",
-	        requestType: types_1.RequestType.PostWithArgsInBody
+	        requestType: _1.RequestType.PostWithArgsInBody
 	    },
 	    // Adds an existing content type to this collection.
 	    addAvailableContentType: {
 	        argNames: ["contentTypeId"],
-	        requestType: types_1.RequestType.PostWithArgsInBody
+	        requestType: _1.RequestType.PostWithArgsInBody
 	    },
 	    // Gets a content type by id.
 	    getById: {
 	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
 	        returnType: "contenttype"
 	    },
 	    // Queries the collection
 	    query: {
 	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
+	        requestType: _1.RequestType.OData
 	    }
 	};
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -411,7 +296,7 @@
 
 
 /***/ },
-/* 10 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -420,18 +305,19 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var types_1 = __webpack_require__(4);
-	var utils_1 = __webpack_require__(11);
+	/// <reference path="../definitions/email.d.ts" />
+	var utils_1 = __webpack_require__(8);
+	var _1 = __webpack_require__(1);
 	/*********************************************************************************************************************************/
-	// Email
+	// EMail
 	// The SP.Utilities.Utility.SendEmail object.
 	/*********************************************************************************************************************************/
-	var Email = (function (_super) {
-	    __extends(Email, _super);
+	var EMail = (function (_super) {
+	    __extends(EMail, _super);
 	    /*********************************************************************************************************************************/
 	    // Constructor
 	    /*********************************************************************************************************************************/
-	    function Email(targetInfo) {
+	    function EMail(targetInfo) {
 	        // Call the base constructor
 	        _super.call(this, targetInfo);
 	        // Default the properties
@@ -443,7 +329,7 @@
 	    // Methods
 	    /*********************************************************************************************************************************/
 	    // Method to send an email
-	    Email.prototype.send = function (properties) {
+	    EMail.prototype.send = function (properties) {
 	        // Parse the email properties
 	        for (var _i = 0, _a = ["To", "CC", "BCC"]; _i < _a.length; _i++) {
 	            var propName = _a[_i];
@@ -466,41 +352,42 @@
 	            argNames: ["properties"],
 	            name: "",
 	            metadataType: "SP.Utilities.EmailProperties",
-	            requestType: types_1.RequestType.PostWithArgsInBody
+	            requestType: _1.RequestType.PostWithArgsInBody
 	        }, [properties]);
 	    };
-	    return Email;
+	    return EMail;
 	}(utils_1.Base));
-	exports.Email = Email;
+	exports.Email = new EMail();
 
 
 /***/ },
-/* 11 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
+	__export(__webpack_require__(9));
+	__export(__webpack_require__(10));
+	__export(__webpack_require__(11));
 	__export(__webpack_require__(12));
 	__export(__webpack_require__(13));
-	__export(__webpack_require__(14));
-	__export(__webpack_require__(15));
-	__export(__webpack_require__(16));
-	__export(__webpack_require__(17));
-	__export(__webpack_require__(18));
-	__export(__webpack_require__(19));
-	__export(__webpack_require__(20));
+	__export(__webpack_require__(54));
+	__export(__webpack_require__(55));
+	__export(__webpack_require__(56));
+	__export(__webpack_require__(57));
+	__export(__webpack_require__(58));
 
 
 /***/ },
-/* 12 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	/// <reference path="../definitions/methodInfo.d.ts" />
 	var lib_1 = __webpack_require__(1);
-	var types_1 = __webpack_require__(4);
-	var _1 = __webpack_require__(11);
+	var _1 = __webpack_require__(8);
 	/*********************************************************************************************************************************/
 	// Base
 	// This is the base class for all objects.
@@ -653,7 +540,7 @@
 	            objType = "items";
 	        }
 	        // Get the methods for this object
-	        var methods = lib_1.Mapper[objType];
+	        var methods = _1.Mapper[objType];
 	        if (methods) {
 	            // Parse the methods
 	            for (var methodName in methods) {
@@ -754,7 +641,7 @@
 	        // Get the method information
 	        var methodInfo = new _1.MethodInfo(methodName, methodConfig, args);
 	        // Update the target information
-	        targetInfo.bufferFl = methodConfig.requestType == types_1.RequestType.GetBuffer;
+	        targetInfo.bufferFl = methodConfig.requestType == lib_1.RequestType.GetBuffer;
 	        targetInfo.data = methodInfo.body;
 	        targetInfo.method = methodInfo.requestMethod;
 	        // See if we are replacing the endpoint
@@ -937,7 +824,7 @@
 	        // Ensure the request doesn't have an error code
 	        if (this.request.request.status < 400) {
 	            // Return if we are expecting a buffer
-	            if (this.requestType == types_1.RequestType.GetBuffer) {
+	            if (this.requestType == lib_1.RequestType.GetBuffer) {
 	                // Set the exists flag
 	                this["existsFl"] = this.request.response != null;
 	            }
@@ -1080,7 +967,7 @@
 
 
 /***/ },
-/* 13 */
+/* 10 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1088,253 +975,98 @@
 	// Context Information
 	// This class will return the _spPageContextInfo.
 	/*********************************************************************************************************************************/
-	var ContextInfo = (function () {
-	    function ContextInfo() {
-	    }
-	    Object.defineProperty(ContextInfo, "_contextInfo", {
-	        // The current context information
-	        get: function () {
-	            return window["_spPageContextInfo"] || {
-	                existsFl: false,
-	                isAppWeb: false,
-	                siteAbsoluteUrl: "",
-	                siteServerRelativeUrl: "",
-	                userId: 0,
-	                webAbsoluteUrl: "",
-	                webServerRelativeUrl: ""
-	            };
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    ;
-	    Object.defineProperty(ContextInfo, "alertsEnabled", {
-	        // Alerts Enabled
-	        get: function () { return this._contextInfo.alertsEnabled; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "allowSilverlightPrompt", {
-	        // Allow Silverlight Prompt
-	        get: function () { return this._contextInfo.allowSilverlightPrompt == "True" ? true : false; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "clientServerTimeDelta", {
-	        // Client Server Time Delta
-	        get: function () { return this._contextInfo.clientServerTimeDelta; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "crossDomainPhotosEnabled", {
-	        // Cross Domain Photos Enabled
-	        get: function () { return this._contextInfo.crossDomainPhotosEnabled; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "currentCultureName", {
-	        // Current Culture Name
-	        get: function () { return this._contextInfo.currentCultureName; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "currentLanguage", {
-	        // Current Language
-	        get: function () { return this._contextInfo.currentLanguage; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "currentUICultureName", {
-	        // Current UI Culture Name
-	        get: function () { return this._contextInfo.currentUICultureName; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "env", {
-	        // Environment
-	        get: function () { return this._contextInfo.env; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "existsFl", {
-	        // Exists Flag
-	        get: function () { return this._contextInfo.existsFl == null; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "hasManageWebPermissions", {
-	        // Has Manage Web Permissions
-	        get: function () { return this._contextInfo.hasManageWebPermissions; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "isAnonymousGuestUser", {
-	        // Is Anonymous Guest User
-	        get: function () { return this._contextInfo.isAnonymousGuestUser; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "isAppWeb", {
-	        // Is App Web
-	        get: function () { return this._contextInfo.isAppWeb; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "isSiteAdmin", {
-	        // Is Site Administrator
-	        get: function () { return this._contextInfo.isSiteAdmin; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "layoutsUrl", {
-	        // Layouts Url
-	        get: function () { return this._contextInfo.layoutsUrl; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "pageItemId", {
-	        // Page Item Id
-	        get: function () { return this._contextInfo.pageItemId; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "pageListId", {
-	        // Page List Id
-	        get: function () { return this._contextInfo.pageListId; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "pagePersonalizationScope", {
-	        // Page Personalization Scope
-	        get: function () { return this._contextInfo.pagePersonalizationScope; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "profileUrl", {
-	        // Profile Url
-	        get: function () { return this._contextInfo.profileUrl; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "serverRequestPath", {
-	        // Server Request Path
-	        get: function () { return this._contextInfo.serverRequestPath; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "siteAbsoluteUrl", {
-	        // Site Absolute Url
-	        get: function () { return this._contextInfo.siteAbsoluteUrl; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "siteClientTag", {
-	        // Site Client Tag
-	        get: function () { return this._contextInfo.siteClientTag; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "siteServerRelativeUrl", {
-	        // Site Server Relative Url
-	        get: function () { return this._contextInfo.siteServerRelativeUrl; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "systemUserKey", {
-	        // System User Key
-	        get: function () { return this._contextInfo.systemUserKey; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "tenantAppVersion", {
-	        // Tenant App Version
-	        get: function () { return this._contextInfo.tenantAppVersion; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "themeCacheToken", {
-	        // Theme Cache Token
-	        get: function () { return this._contextInfo.themeCacheToken; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "updateFromDigestPageLoaded", {
-	        // Update From Digest Page Loaded
-	        get: function () { return this._contextInfo.updateFromDigestPageLoaded; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "userId", {
-	        // User Id
-	        get: function () { return this._contextInfo.userId; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "userLoginName", {
-	        // User Login Name
-	        get: function () { return this._contextInfo.userLoginName; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "webAbsoluteUrl", {
-	        // Web Absolute Url
-	        get: function () { return this._contextInfo.webAbsoluteUrl; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "webLanguage", {
-	        // Web Language
-	        get: function () { return this._contextInfo.webLanguage; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "webLogoUrl", {
-	        // Web Logo Url
-	        get: function () { return this._contextInfo.webLogoUrl; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "webPermMask", {
-	        // Web Permissions Mask
-	        get: function () { return this._contextInfo.webPermMask; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "webServerRelativeUrl", {
-	        // Web Server Relative Url
-	        get: function () { return this._contextInfo.webServerRelativeUrl; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "webTemplate", {
-	        // Web Template
-	        get: function () { return this._contextInfo.webTemplate; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "webTitle", {
-	        // Web Title
-	        get: function () { return this._contextInfo.webTitle; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(ContextInfo, "webUIVersion", {
-	        // Web UI Version
-	        get: function () { return this._contextInfo.webUIVersion; },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    return ContextInfo;
-	}());
-	exports.ContextInfo = ContextInfo;
+	exports.ContextInfo = {
+	    // The current context information
+	    _contextInfo: window["_spPageContextInfo"] || {
+	        existsFl: false,
+	        isAppWeb: false,
+	        siteAbsoluteUrl: "",
+	        siteServerRelativeUrl: "",
+	        userId: 0,
+	        webAbsoluteUrl: "",
+	        webServerRelativeUrl: ""
+	    },
+	    // Alerts Enabled
+	    alertsEnabled: this._contextInfo.alertsEnabled,
+	    // Allow Silverlight Prompt
+	    allowSilverlightPrompt: this._contextInfo.allowSilverlightPrompt == "True" ? true : false,
+	    // Client Server Time Delta
+	    clientServerTimeDelta: this._contextInfo.clientServerTimeDelta,
+	    // Cross Domain Photos Enabled
+	    crossDomainPhotosEnabled: this._contextInfo.crossDomainPhotosEnabled,
+	    // Current Culture Name
+	    currentCultureName: this._contextInfo.currentCultureName,
+	    // Current Language
+	    currentLanguage: this._contextInfo.currentLanguage,
+	    // Current UI Culture Name
+	    currentUICultureName: this._contextInfo.currentUICultureName,
+	    // Environment
+	    env: this._contextInfo.env,
+	    // Exists Flag
+	    existsFl: this._contextInfo.existsFl == null,
+	    // Has Manage Web Permissions
+	    hasManageWebPermissions: this._contextInfo.hasManageWebPermissions,
+	    // Is Anonymous Guest User
+	    isAnonymousGuestUser: this._contextInfo.isAnonymousGuestUser,
+	    // Is App Web
+	    isAppWeb: this._contextInfo.isAppWeb,
+	    // Is Site Administrator
+	    isSiteAdmin: this._contextInfo.isSiteAdmin,
+	    // Layouts Url
+	    layoutsUrl: this._contextInfo.layoutsUrl,
+	    // Page Item Id
+	    pageItemId: this._contextInfo.pageItemId,
+	    // Page List Id
+	    pageListId: this._contextInfo.pageListId,
+	    // Page Personalization Scope
+	    pagePersonalizationScope: this._contextInfo.pagePersonalizationScope,
+	    // Profile Url
+	    profileUrl: this._contextInfo.profileUrl,
+	    // Server Request Path
+	    serverRequestPath: this._contextInfo.serverRequestPath,
+	    // Site Absolute Url
+	    siteAbsoluteUrl: this._contextInfo.siteAbsoluteUrl,
+	    // Site Client Tag
+	    siteClientTag: this._contextInfo.siteClientTag,
+	    // Site Server Relative Url
+	    siteServerRelativeUrl: this._contextInfo.siteServerRelativeUrl,
+	    // System User Key
+	    systemUserKey: this._contextInfo.systemUserKey,
+	    // Tenant App Version
+	    tenantAppVersion: this._contextInfo.tenantAppVersion,
+	    // Theme Cache Token
+	    themeCacheToken: this._contextInfo.themeCacheToken,
+	    // Update From Digest Page Loaded
+	    updateFromDigestPageLoaded: this._contextInfo.updateFromDigestPageLoaded,
+	    // User Id
+	    userId: this._contextInfo.userId,
+	    // User Login Name
+	    userLoginName: this._contextInfo.userLoginName,
+	    // Web Absolute Url
+	    webAbsoluteUrl: this._contextInfo.webAbsoluteUrl,
+	    // Web Language
+	    webLanguage: this._contextInfo.webLanguage,
+	    // Web Logo Url
+	    webLogoUrl: this._contextInfo.webLogoUrl,
+	    // Web Permissions Mask
+	    webPermMask: this._contextInfo.webPermMask,
+	    // Web Server Relative Url
+	    webServerRelativeUrl: this._contextInfo.webServerRelativeUrl,
+	    // Web Template
+	    webTemplate: this._contextInfo.webTemplate,
+	    // Web Title
+	    webTitle: this._contextInfo.webTitle,
+	    // Web UI Version
+	    webUIVersion: this._contextInfo.webUIVersion,
+	};
 
 
 /***/ },
-/* 14 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(11);
+	var _1 = __webpack_require__(8);
 	/*********************************************************************************************************************************/
 	// Dependencies
 	// This class will ensure the core SP scripts are loaded on the page.
@@ -1414,12 +1146,12 @@
 
 
 /***/ },
-/* 15 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var lib_1 = __webpack_require__(1);
-	var _1 = __webpack_require__(11);
+	var _1 = __webpack_require__(8);
 	/*********************************************************************************************************************************/
 	// Helper Methods
 	/*********************************************************************************************************************************/
@@ -1721,12 +1453,2351 @@
 
 
 /***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var attachment = __webpack_require__(2);
+	var attachmentFiles = __webpack_require__(3);
+	var audit = __webpack_require__(4);
+	var contentType = __webpack_require__(5);
+	var contentTypes = __webpack_require__(6);
+	var eventReceiver = __webpack_require__(14);
+	var eventReceivers = __webpack_require__(15);
+	var field = __webpack_require__(16);
+	var fieldLinks = __webpack_require__(17);
+	var fields = __webpack_require__(18);
+	var file = __webpack_require__(19);
+	var files = __webpack_require__(20);
+	var fileVersion = __webpack_require__(21);
+	var fileVersions = __webpack_require__(22);
+	var folder = __webpack_require__(23);
+	var folders = __webpack_require__(24);
+	var group = __webpack_require__(25);
+	var items = __webpack_require__(26);
+	var limitedWebPartManager = __webpack_require__(27);
+	var list = __webpack_require__(28);
+	var listItem = __webpack_require__(29);
+	var lists = __webpack_require__(30);
+	var peopleManager = __webpack_require__(31);
+	var peoplePicker = __webpack_require__(32);
+	var profileLoader = __webpack_require__(33);
+	var propertyValues = __webpack_require__(34);
+	var roleAssignment = __webpack_require__(35);
+	var roleAssignments = __webpack_require__(36);
+	var roleDefinition = __webpack_require__(37);
+	var roleDefinitions = __webpack_require__(38);
+	var search = __webpack_require__(39);
+	var site = __webpack_require__(40);
+	var siteGroups = __webpack_require__(41);
+	var socialFeed = __webpack_require__(42);
+	var user = __webpack_require__(43);
+	var userCustomAction = __webpack_require__(44);
+	var userCustomActions = __webpack_require__(45);
+	var userProfile = __webpack_require__(46);
+	var users = __webpack_require__(47);
+	var versions = __webpack_require__(48);
+	var view = __webpack_require__(49);
+	var viewFieldCollection = __webpack_require__(50);
+	var views = __webpack_require__(51);
+	var web = __webpack_require__(52);
+	var webs = __webpack_require__(53);
+	/**
+	 * Mapper
+	 */
+	exports.Mapper = {
+	    attachment: attachment.default,
+	    attachmentFiles: attachmentFiles.default,
+	    audit: audit.default,
+	    contentType: contentType.default,
+	    contentTypes: contentTypes.default,
+	    eventReceiver: eventReceiver.default,
+	    eventReceivers: eventReceivers.default,
+	    field: field.default,
+	    fieldLinks: fieldLinks.default,
+	    fields: fields.default,
+	    file: file.default,
+	    files: files.default,
+	    fileVersion: fileVersion.default,
+	    fileVersions: fileVersions.default,
+	    folder: folder.default,
+	    folders: folders.default,
+	    group: group.default,
+	    items: items.default,
+	    limitedWebPartManager: limitedWebPartManager.default,
+	    list: list.default,
+	    listItem: listItem.default,
+	    lists: lists.default,
+	    peopleManager: peopleManager.default,
+	    peoplePicker: peoplePicker.default,
+	    profileLoader: profileLoader.default,
+	    propertyValues: propertyValues.default,
+	    roleAssignment: roleAssignment.default,
+	    roleAssignments: roleAssignments.default,
+	    roleDefinition: roleDefinition.default,
+	    roleDefinitions: roleDefinitions.default,
+	    search: search.default,
+	    site: site.default,
+	    siteGroups: siteGroups.default,
+	    socialFeed: socialFeed.default,
+	    user: user.default,
+	    userCustomAction: userCustomAction.default,
+	    userCustomActions: userCustomActions.default,
+	    userProfile: userProfile.default,
+	    users: users.default,
+	    versions: versions.default,
+	    view: view.default,
+	    viewFieldCollection: viewFieldCollection.default,
+	    views: views.default,
+	    web: web.default,
+	    webs: webs.default
+	};
+
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    },
+	    // Updates it's properties.
+	    update: {
+	        metadataType: "SP.EventReceiverDefinition",
+	        name: "",
+	        requestMethod: "MERGE",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Adds an event receiver to the collection.
+	    add: {
+	        metadataType: "SP.EventReceiverDefinition",
+	        name: "",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Gets an event receiver by it's id.
+	    getById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "eventreceiver"
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var types_1 = __webpack_require__(4);
-	var _1 = __webpack_require__(11);
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    },
+	    // Sets the value of the ShowInDisplayForm property for this field.
+	    setShowInDisplayForm: {
+	        argNames: ["showInForm"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    // Sets the value of the ShowInEditForm property for this field.
+	    setShowInEditForm: {
+	        argNames: ["showInForm"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    // Sets the value of the ShowInNewForm property for this field.
+	    setShowInNewForm: {
+	        argNames: ["showInForm"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    // Updates it's properties.
+	    update: {
+	        inheritMetadataType: true,
+	        name: "",
+	        requestMethod: "MERGE",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Adds a field link to the collection.
+	    add: {
+	        argNames: ["data"],
+	        metadataType: "SP.FieldLink",
+	        name: "",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Gets a field link by it's id.
+	    getById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "fieldlink"
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Adds a field to the field collection.
+	    add: {
+	        metadataType: "SP.Field",
+	        name: "",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Adds a field to the field collection.
+	    addField: {
+	        argNames: ["parameters"],
+	        metadataType: "SP.FieldCreationInformation",
+	        name: "addField",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
+	    addDependentLookupField: {
+	        argNames: ["displayname", "primarylookupfieldid", "showfield"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Creates a field based on the specified schema, Boolean value, and field options.
+	    // Set the option to addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
+	    createFieldAsXml: {
+	        argNames: ["schemaXml"],
+	        requestType: _1.RequestType.PostWithArgsInBody,
+	        data: {
+	            parameters: {
+	                __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
+	                Options: 8,
+	                SchemaXml: "[[schemaXml]]"
+	            }
+	        }
+	    },
+	    // Gets the field with the specified ID.
+	    getById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly,
+	        returnType: "field"
+	    },
+	    // Returns the first Field object with the specified internal name or title from the collection.
+	    getByInternalNameOrTitle: {
+	        argNames: ["internalNameOrTitle"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly,
+	        returnType: "field"
+	    },
+	    // Returns the first field object in the collection based on the title of the specified field.
+	    getByTitle: {
+	        argNames: ["title"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly,
+	        returnType: "field"
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Library
+	/*********************************************************************************************************************************/
+	var Library = {
+	    /*********************************************************************************************************************************/
+	    // Properties
+	    /*********************************************************************************************************************************/
+	    properties: [
+	        "Author|user", "CheckedOutByUser|user", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
+	        "ListItemAllFields", "LockedByUser|user", "ModifiedBy|user", "Properties|propertyvalues", "VersionEvents", "Versions|fileversions"
+	    ],
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    // Approves the file submitted for content approval with the specified comment.
+	    approve: {
+	        argNames: ["comment"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Stops the chunk upload session without saving the uploaded data. If the file doesn’t already exist in the library, the partially uploaded file will be deleted. Use this in response to user action (as in a request to cancel an upload) or an error or exception.
+	    // Use the uploadId value that was passed to the StartUpload method that started the upload session.
+	    // This method is currently available only on Office 365.
+	    cancelupload: {
+	        argNames: ["uploadId"],
+	        name: "cancelupload(guid'[[uploadId]]')",
+	        requestType: _1.RequestType.PostReplace
+	    },
+	    // Checks the file in to a document library based on the check-in type.
+	    // Check-In Types: MinorCheckIn = 0; MajorCheckIn = 1; OverwriteCheckIn = 2
+	    checkin: {
+	        argNames: ["comment", "checkInType"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Checks out the file from a document library based on the check-out type.
+	    checkout: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Returns the file content.
+	    content: {
+	        name: "$value",
+	        requestType: _1.RequestType.GetBuffer
+	    },
+	    // Continues the chunk upload session with an additional fragment. The current file content is not changed.
+	    // Use the uploadId value that was passed to the StartUpload method that started the upload session.
+	    // This method is currently available only on Office 365.
+	    continueUpload: {
+	        argNames: ["uploadId", "fileOffset"],
+	        name: "continueUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
+	        requestType: _1.RequestType.PostReplace
+	    },
+	    // Copies the file to the destination URL.
+	    copyTo: {
+	        argNames: ["strNewUrl", "bOverWrite"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    },
+	    // Denies approval for a file that was submitted for content approval.
+	    // Only documents in lists that are enabled for content approval can be denied.
+	    deny: {
+	        argNames: ["comment"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Uploads the last file fragment and commits the file. The current file content is changed when this method completes.
+	    // Use the uploadId value that was passed to the StartUpload method that started the upload session.
+	    // This method is currently available only on Office 365.
+	    finishUpload: {
+	        argNames: ["uploadId", "fileOffset"],
+	        name: "finishUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
+	        requestType: _1.RequestType.PostReplace
+	    },
+	    // Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
+	    // An exception is thrown if the file is not an ASPX page.
+	    // Type of scopes: 
+	    getlimitedwebpartmanager: {
+	        argNames: ["scope"],
+	        name: "getLimitedWebPartManager(scope=[[scope]])",
+	        requestType: _1.RequestType.GetReplace
+	    },
+	    // Moves the file to the specified destination URL.
+	    // Types of move operations: Overwrite = 1; AllowBrokenThickets (move even if supporting files are separated from the file) = 8.
+	    moveTo: {
+	        argNames: ["newUrl", "flags"],
+	        name: "moveTo(newUrl='[[newUrl]]', flags=[[flags]])",
+	        requestType: _1.RequestType.PostReplace
+	    },
+	    // Opens the file as a stream.
+	    openBinaryStream: {
+	        requestType: _1.RequestType.GetBuffer
+	    },
+	    // Submits the file for content approval with the specified comment.
+	    publish: {
+	        argNames: ["comment"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+	    recycle: {
+	        requestType: _1.RequestType.Get
+	    },
+	    // Saves the file as a stream.
+	    saveBinaryStream: {
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Starts a new chunk upload session and uploads the first fragment. The current file content is not changed when this method completes.
+	    // The method is idempotent (and therefore does not change the result) as long as you use the same values for uploadId and stream.
+	    // The upload session ends either when you use the CancelUpload method or when you successfully complete the upload session by passing the rest of the file contents through the ContinueUpload and FinishUpload methods.
+	    startUpload: {
+	        argNames: ["uploadId"],
+	        name: "startupload(uploadId=guid'[[uploadId]]')",
+	        requestType: _1.RequestType.PostReplace
+	    },
+	    // Reverts an existing checkout for the file.
+	    undoCheckOut: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Removes the file from content approval or unpublish a major version.
+	    unpublish: {
+	        argNames: ["comment"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Updates it's properties.
+	    update: {
+	        metadataType: "SP.File",
+	        name: "",
+	        requestMethod: "MERGE",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Adds a file to this collection.
+	    add: {
+	        argNames: ["overwrite", "url"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Adds a ghosted file to an existing list or document library.
+	    // Template File Types: StandardPage = 0; WikiPage = 1; FormPage = 2
+	    addTemplateFile: {
+	        argNames: ["urlOfFile", "templateFileType"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Get the file at the specified URL.
+	    getByUrl: {
+	        argNames: ["serverRelativeUrl"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "file"
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	var Library = {
+	    /*********************************************************************************************************************************/
+	    // Properties
+	    /*********************************************************************************************************************************/
+	    properties: [],
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	var Library = {
+	    /*********************************************************************************************************************************/
+	    // Properties
+	    /*********************************************************************************************************************************/
+	    properties: [
+	        "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
+	        "ParentFolder|folder", "Properties|propertyvalues", "StorageMetrics"
+	    ],
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    },
+	    // Get the file at the specified URL.
+	    getByUrl: {
+	        argNames: ["serverRelativeUrl"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "folder"
+	    },
+	    // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+	    recycle: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Updates it's properties.
+	    update: {
+	        metadataType: "SP.Folder",
+	        name: "",
+	        requestMethod: "MERGE",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Library
+	/*********************************************************************************************************************************/
+	var Library = {
+	    /*********************************************************************************************************************************/
+	    // Properties
+	    /*********************************************************************************************************************************/
+	    properties: [
+	        "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
+	        "ParentFolder", "StorageMetrics"
+	    ],
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    // Adds the folder that is located at the specified URL to the collection.
+	    add: {
+	        argNames: ["url"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Get the file at the specified URL.
+	    getbyurl: {
+	        argNames: ["serverRelativeUrl"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "folder"
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var Library = {
+	    /*********************************************************************************************************************************/
+	    // Properties
+	    /*********************************************************************************************************************************/
+	    properties: [
+	        "Users|users|/getById([Name])|user"
+	    ],
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Adds an item to the list item collection.
+	    add: {
+	        metadataType: function (obj) { return obj.Parent && obj.Parent["ListItemEntityTypeFullName"] ? obj.Parent["ListItemEntityTypeFullName"] : "SP.ListItem"; },
+	        name: "",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Gets an item by its id.
+	    getById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "listitem"
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Gets a webpart by its id.
+	    get_WebParts: {
+	        argNames: ["id"],
+	        name: "webparts?expand=WebPart",
+	        requestType: _1.RequestType.GetReplace
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	/// <reference path="../definitions/targetInfo.d.ts" />
+	var utils_1 = __webpack_require__(8);
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// List
+	// The SPList object.
+	/*********************************************************************************************************************************/
+	var List = (function (_super) {
+	    __extends(List, _super);
+	    /*********************************************************************************************************************************/
+	    // Constructor
+	    /*********************************************************************************************************************************/
+	    function List(listName, targetInfo) {
+	        // Call the base constructor
+	        _super.call(this, targetInfo);
+	        // Default the properties
+	        this.defaultToWebFl = true;
+	        this.responses = [];
+	        this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
+	        // Add the methods
+	        this.addMethods(this, { __metadata: { type: "list" } });
+	    }
+	    return List;
+	}(utils_1.Base));
+	exports.List = List;
+	/*********************************************************************************************************************************/
+	// Library
+	/*********************************************************************************************************************************/
+	//{ name: "hasAccess", "function": function (userName, permissions) { return hasAccess(this, permissions, userName); } },
+	var Library = {
+	    /*********************************************************************************************************************************/
+	    // Properties
+	    /*********************************************************************************************************************************/
+	    properties: [
+	        "BrowserFileHandling", "ContentTypes|contenttypes|([Name])|contenttype", "CreatablesInfo", "DefaultView|view",
+	        "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Fields|fields|/getByInternalNameOrTitle('[Name]')|field",
+	        "FirstUniqueAncestorSecurableObject", "Forms|forms|('[Name]')|form", "InformationRightsManagementSettings",
+	        "Items|items|([Name])|item", "ParentWeb", "RoleAssignments|roleassignments|([Name])|roleassignment",
+	        "RootFolder|folder|/getByUrl('[Name]')|file", "Subscriptions", "TitleResource",
+	        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "Views|views||('[Name]')|view", "WorkflowAssociations"
+	    ],
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    // Creates unique role assignments for the securable object.
+	    breakRoleInheritance: {
+	        argNames: ["copyroleassignments", "clearsubscopes"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    },
+	    // Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
+	    getChanges: {
+	        argNames: ["query"],
+	        metadataType: "SP.ChangeQuery",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Returns an item based on the id.
+	    getItemById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "item"
+	    },
+	    // Returns a collection of items from the list based on the view xml.
+	    getItems: {
+	        argNames: ["viewXml"],
+	        requestType: _1.RequestType.PostWithArgsInBody,
+	        data: {
+	            query: {
+	                __metadata: { type: "SP.CamlQuery" },
+	                ViewXml: "[[viewXml]]"
+	            }
+	        }
+	    },
+	    // Returns a collection of items from the list based on the specified query.
+	    getItemsByQuery: {
+	        argNames: ["camlQuery"],
+	        name: "getItems",
+	        requestType: _1.RequestType.PostWithArgsInBody,
+	        data: {
+	            query: {
+	                __metadata: { type: "SP.CamlQuery" },
+	                ViewXml: "<View>[[camlQuery]]</View>"
+	            }
+	        }
+	    },
+	    // Returns a collection of items from the list based on the specified query.
+	    getListItemChangesSinceToken: {
+	        argNames: ["query"],
+	        metadataType: "SP.ChangeLogItemQuery",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
+	    getRelatedFields: {
+	        requestType: _1.RequestType.Get
+	    },
+	    // Gets the effective user permissions for the current user.
+	    getUserEffectivePermissions: {
+	        argNames: ["loginName"],
+	        name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
+	        requestType: _1.RequestType.GetReplace
+	    },
+	    // Returns the list view with the specified view identifier.
+	    getViewById: {
+	        argNames: ["viewId"],
+	        name: "getView",
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "view"
+	    },
+	    // Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+	    recycle: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Renders the list data.
+	    renderListData: {
+	        argNames: ["viewXml"],
+	        name: "renderListData(@v)?@v='<View>[[viewXml]]</View>'",
+	        requestType: _1.RequestType.PostReplace
+	    },
+	    // Renders the list form data.
+	    // Types of modes: 1 - Display, 2 - Edit, 3 - New
+	    renderListFormData: {
+	        argNames: ["itemid", "formid", "mode"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Reserves a list item ID for idempotent list item creation.
+	    reserveListItemId: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+	    resetRoleInheritance: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Updates it's properties.
+	    update: {
+	        metadataType: "SP.List",
+	        name: "",
+	        requestMethod: "MERGE",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	var Library = {
+	    /*********************************************************************************************************************************/
+	    // Properties
+	    /*********************************************************************************************************************************/
+	    properties: [
+	        "AttachmentFiles|attachmentfiles|('[Name]')|attachment", "ContentType|contenttype", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
+	        "File|file", "FirstUniqueAncestorSecurableObject", "Folder|folder", "GetDlpPolicyTip", "ParentList|list",
+	        "Properties|propertyvalues", "RoleAssignments|roleassignments|roleassignments|([Name])|roleassignment"
+	    ],
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    // Adds the attachment that is represented by the specified file name and byte array to the list item.
+	    //{ name: "addAttachmentFile", "function": function (file) { var thisObj = this; var promise = new Promise(); getFileInfo(file).done(function (name, buffer) { if (name && buffer) { thisObj.addAttachment(name, buffer).done(function (file) { promise.resolve(file); }); } else { promise.resolve(); } }); return promise; } },
+	    // Creates unique role assignments for the securable object.
+	    breakRoleInheritance: {
+	        argNames: ["copyroleassignments", "clearsubscopes"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    },
+	    // Gets the effective permissions that a specified user has on the list item.
+	    getUserEffectivePermissions: {
+	        argNames: ["loginName"],
+	        name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
+	        requestType: _1.RequestType.GetReplace
+	    },
+	    // Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+	    recycle: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+	    resetRoleInheritance: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Updates it's properties.
+	    update: {
+	        inheritMetadataType: true,
+	        name: "",
+	        requestMethod: "MERGE",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Validates and sets the values of the specified collection of fields for the list item.
+	    validateUpdateListItem: {
+	        argNames: ["formValues", "bNewDocumentUpdate"],
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Adds a list to the list collection.
+	    add: {
+	        metadataType: "SP.List",
+	        name: "",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
+	    ensureSiteAssetsLibrary: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Gets a list that is the default location for wiki pages.
+	    ensureSitePagesLibrary: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Returns the list with the specified list identifier.
+	    getById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "list"
+	    },
+	    // Returns the list with the specified title from the collection.
+	    getByTitle: {
+	        argNames: ["title"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "list"
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	/// <reference path="../definitions/peopleManager.d.ts" />
+	var utils_1 = __webpack_require__(8);
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// People Manager
+	/*********************************************************************************************************************************/
+	var PeopleManager = (function (_super) {
+	    __extends(PeopleManager, _super);
+	    /*********************************************************************************************************************************/
+	    // Constructor
+	    /*********************************************************************************************************************************/
+	    function PeopleManager(targetInfo) {
+	        // Call the base constructor
+	        _super.call(this, targetInfo);
+	        // Default the properties
+	        this.defaultToWebFl = true;
+	        this.responses = [];
+	        this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
+	        // Add the methods
+	        this.addMethods(this, { __metadata: { type: "peoplemanager" } });
+	    }
+	    return PeopleManager;
+	}(utils_1.Base));
+	exports.PeopleManager = PeopleManager;
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    amIFollowedBy: {
+	        argNames: ["accountName"],
+	        requestType: _1.RequestType.GetWithArgsInQS
+	    },
+	    amIFollowing: {
+	        argNames: ["accountName"],
+	        requestType: _1.RequestType.GetWithArgsInQS
+	    },
+	    follow: {
+	        argNames: ["accountName"],
+	        requestType: _1.RequestType.PostWithArgsInQS
+	    },
+	    followTag: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    getFollowedTags: {
+	        argNames: ["maxCount"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly
+	    },
+	    getFollowersFor: {
+	        argNames: ["accountName"],
+	        requestType: _1.RequestType.GetWithArgsInQS
+	    },
+	    getMyFollowers: {
+	        requestType: _1.RequestType.Get
+	    },
+	    getMyProperties: {
+	        requestType: _1.RequestType.Get
+	    },
+	    getMySuggestions: {
+	        requestType: _1.RequestType.Get
+	    },
+	    getPeopleFollowedBy: {
+	        argNames: ["accountName"],
+	        requestType: _1.RequestType.GetWithArgsInQS
+	    },
+	    getPeopleFollowedByMe: {
+	        requestType: _1.RequestType.Get
+	    },
+	    getPropertiesFor: {
+	        argNames: ["accountName"],
+	        requestType: _1.RequestType.GetWithArgsInQS
+	    },
+	    getTrendingTags: {
+	        name: "sp.userprofiles.peoplemanager.gettrendingtags",
+	        replaceEndpointFl: true,
+	        requestType: _1.RequestType.Get
+	    },
+	    getUserProfilePropertyFor: {
+	        argNames: ["accountName", "propertyName"],
+	        requestType: _1.RequestType.GetWithArgsInQS
+	    },
+	    hideSuggestion: {
+	        argNames: ["accountName"],
+	        requestType: _1.RequestType.PostWithArgsInQS
+	    },
+	    isFollowing: {
+	        argNames: ["possibleFollowerAccountName", "possibleFolloweeAccountName"],
+	        name: "sp.userprofiles.peoplemanager.isfollowing",
+	        replaceEndpointFl: true,
+	        requestType: _1.RequestType.GetWithArgsInQS
+	    },
+	    setMyProfilePicture: {
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    stopFollowing: {
+	        argNames: ["accountName"],
+	        requestType: _1.RequestType.PostWithArgsInQS
+	    },
+	    stopFollowingTag: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	/// <reference path="../definitions/peoplePicker.d.ts" />
+	var utils_1 = __webpack_require__(8);
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// People Picker
+	/*********************************************************************************************************************************/
+	var PeoplePicker = (function (_super) {
+	    __extends(PeoplePicker, _super);
+	    /*********************************************************************************************************************************/
+	    // Constructor
+	    /*********************************************************************************************************************************/
+	    function PeoplePicker(targetInfo) {
+	        // Call the base constructor
+	        _super.call(this, targetInfo);
+	        // Default the properties
+	        this.defaultToWebFl = true;
+	        this.responses = [];
+	        this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
+	        // Add the methods
+	        this.addMethods(this, { __metadata: { type: "peoplepicker" } });
+	    }
+	    return PeoplePicker;
+	}(utils_1.Base));
+	exports.PeoplePicker = PeoplePicker;
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    clientPeoplePickerResolveUser: {
+	        argNames: ["queryParams"],
+	        metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
+	        name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerResolveUser",
+	        replaceEndpointFl: true,
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    clientPeoplePickerSearchUser: {
+	        argNames: ["queryParams"],
+	        metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
+	        name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerSearchUser",
+	        replaceEndpointFl: true,
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var utils_1 = __webpack_require__(8);
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Profile Loader
+	/*********************************************************************************************************************************/
+	var ProfileLoader = (function (_super) {
+	    __extends(ProfileLoader, _super);
+	    /*********************************************************************************************************************************/
+	    // Constructor
+	    /*********************************************************************************************************************************/
+	    function ProfileLoader(targetInfo) {
+	        // Call the base constructor
+	        _super.call(this, targetInfo);
+	        // Default the properties
+	        this.defaultToWebFl = true;
+	        this.responses = [];
+	        this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+	        this.targetInfo.method = "POST";
+	        // Add the methods
+	        this.addMethods(this, { __metadata: { type: "profileloader" } });
+	    }
+	    return ProfileLoader;
+	}(utils_1.Base));
+	exports.ProfileLoader = ProfileLoader;
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    createPersonalSiteEnqueueBulk: {
+	        argNames: ["emailIDs"],
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    getOwnerUserProfile: {
+	        name: "sp.userprofiles.profileloader.getowneruserprofile",
+	        replaceEndpointFl: true,
+	        requestType: _1.RequestType.Post,
+	        returnType: "userprofile"
+	    },
+	    getUserProfile: {
+	        requestType: _1.RequestType.Post,
+	        returnType: "userprofile"
+	    },
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Library
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	var Library = {
+	    /*********************************************************************************************************************************/
+	    // Properties
+	    /*********************************************************************************************************************************/
+	    properties: [
+	        "Member", "RoleDefinitionBindings|roledefinitions"
+	    ],
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Adds a new role assignment with the specified principal and role definitions to the collection.
+	    addRoleAssignment: {
+	        argNames: ["principalId", "roleDefId"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Gets the role assignment associated with the specified principal ID from the collection.
+	    getByPrincipalId: {
+	        argNames: ["principalId"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "roleassignment"
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    },
+	    // Gets the role definition with the specified role type.
+	    removeRoleAssignment: {
+	        argNames: ["principalId", "roleDefId"],
+	        requestType: _1.RequestType.PostWithArgs
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 37 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Gets the role definition with the specified ID from the collection.
+	    getById: {
+	        argNames: ["roleDefId"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "roledefinition"
+	    },
+	    // Gets the role definition with the specified name.
+	    getByName: {
+	        argNames: ["name"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "roledefinition"
+	    },
+	    // Gets the role definitions with the specified role type.
+	    getByType: {
+	        argNames: ["roleType"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "roledefinitions"
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 39 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	/// <reference path="../definitions/search.d.ts" />
+	var utils_1 = __webpack_require__(8);
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Search
+	/*********************************************************************************************************************************/
+	var Search = (function (_super) {
+	    __extends(Search, _super);
+	    /*********************************************************************************************************************************/
+	    // Constructor
+	    /*********************************************************************************************************************************/
+	    function Search(url, targetInfo) {
+	        // Call the base constructor
+	        _super.call(this, targetInfo);
+	        // Default the properties
+	        this.defaultToWebFl = true;
+	        this.responses = [];
+	        this.targetInfo.endpoint = "search";
+	        // See if the web url exists
+	        if (url) {
+	            // Set the settings
+	            this.targetInfo.url = url;
+	        }
+	        // Add the methods
+	        this.addMethods(this, { __metadata: { type: "search" } });
+	    }
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    // Method to compute the argument names
+	    Search.prototype.getArgNames = function (parameters) {
+	        var argNames = [];
+	        // Parse the arguments
+	        for (var key in parameters) {
+	            // Append the argument to the array
+	            argNames.push(key);
+	        }
+	        // Return the argument names
+	        return argNames;
+	    };
+	    /** The query method */
+	    Search.prototype.query = function (settings) {
+	        // Execute the request
+	        return this.executeMethod("query", {
+	            argNames: this.getArgNames(settings),
+	            name: "query",
+	            requestType: _1.RequestType.GetWithArgs
+	        }, settings);
+	    };
+	    /** The suggest method */
+	    Search.prototype.suggest = function (settings) {
+	        // Execute the request
+	        return this.executeMethod("suggest", {
+	            argNames: this.getArgNames(settings),
+	            name: "suggest",
+	            requestType: _1.RequestType.GetWithArgs
+	        }, settings);
+	    };
+	    return Search;
+	}(utils_1.Base));
+	exports.Search = Search;
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    postquery: {
+	        argNames: ["request"],
+	        metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 40 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	/// <reference path="../definitions/audit.d.ts" />
+	/// <reference path="../definitions/site.d.ts" />
+	var utils_1 = __webpack_require__(8);
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Site
+	// The SPSite object.
+	/*********************************************************************************************************************************/
+	var Site = (function (_super) {
+	    __extends(Site, _super);
+	    /*********************************************************************************************************************************/
+	    // Constructor
+	    /*********************************************************************************************************************************/
+	    function Site(url, targetInfo) {
+	        // Call the base constructor
+	        _super.call(this, targetInfo);
+	        // Default the properties
+	        this.defaultToWebFl = true;
+	        this.responses = [];
+	        this.targetInfo.endpoint = "site";
+	        // See if the web url exists
+	        if (url) {
+	            // Set the settings
+	            this.targetInfo.url = url;
+	        }
+	        // Add the methods
+	        this.addMethods(this, { __metadata: { type: "site" } });
+	    }
+	    // Method to get the root web
+	    Site.prototype.getRootWeb = function () { return new _1.Web(null, this.targetInfo); };
+	    // Method to determine if the current user has access, based on the permissions.
+	    Site.prototype.hasAccess = function (permissions) {
+	        // TO DO
+	        return true;
+	    };
+	    ;
+	    return Site;
+	}(utils_1.Base));
+	exports.Site = Site;
+	/*********************************************************************************************************************************/
+	// Library
+	/*********************************************************************************************************************************/
+	var Library = {
+	    /*********************************************************************************************************************************/
+	    // Properties
+	    /*********************************************************************************************************************************/
+	    properties: [
+	        "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features", "Owner|user", "RootWeb|web",
+	        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction"
+	    ],
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    // Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
+	    createPreviewSPSite: {
+	        argNames: ["upgrade", "sendemail"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Extend the upgrade reminder date for this SPSite by the days specified at WebApplication.UpgradeReminderDelay.
+	    extendUpgradeReminderDate: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
+	    getCatalog: {
+	        argNames: ["typeCatalog"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    // Specifies the collection of the site collection changes from the change log that have occurred within the scope of the site collection, based on the specified query.
+	    getChanges: {
+	        argNames: ["query"],
+	        metadataType: "SP.ChangeQuery",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Specifies the collection of custom list templates for a given site.
+	    getCustomListTemplates: {
+	        argNames: ["web"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Returns the collection of site definitions that are available for creating Web sites within the site collection.
+	    getWebTemplates: {
+	        argNames: ["LCID", "overrideCompatLevel"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Invalidates cached upgrade information about the site collection so that this information will be recomputed the next time it is needed.
+	    invalidate: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Returns true if the object needs to be upgraded; otherwise, false.
+	    needsUpgradeByType: {
+	        argNames: ["versionUpgrade", "recursive"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Returns the site at the specified URL.
+	    openWeb: {
+	        argNames: ["strUrl"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    // Returns the site with the specified GUID.
+	    openWebById: {
+	        argNames: ["gWebId"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    // Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
+	    runHealthCheck: {
+	        argNames: ["ruleId", "bRepair", "bRunAlways"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Either runs a site collection upgrade, or schedules it to be run in the future, depending on available system resources and the value of the queueOnly parameter. The user executing this method MUST be a farm administrator or a site collection administrator.
+	    runUpgradeSiteSession: {
+	        argNames: ["versionUpgrade", "queueOnly", "sendEmail"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Updates it's properties.
+	    update: {
+	        metadataType: "SP.Site",
+	        name: "",
+	        requestMethod: "MERGE",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Sets whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
+	    updateClientObjectModelUseRemoteAPIsPermissionSetting: {
+	        argNames: ["requireUseRemoteAPIs"],
+	        requestType: _1.RequestType.PostWithArgs
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 41 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Adds a group to the group collection.
+	    add: {
+	        metadataType: "SP.Group",
+	        name: "",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Returns a group from the collection based on the member ID of the group.
+	    getById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "group"
+	    },
+	    // Returns a cross-site group from the collection based on the name of the group.
+	    getByName: {
+	        argNames: ["name"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "group"
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    },
+	    // Removes the group with the specified member ID from the collection.
+	    removeById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    // Removes the cross-site group with the specified name from the collection.
+	    removeByLoginName: {
+	        argNames: ["name"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 42 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	/// <reference path="../definitions/socialFeed.d.ts" />
+	var utils_1 = __webpack_require__(8);
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Social Feed
+	/*********************************************************************************************************************************/
+	var _SocialFeed = (function (_super) {
+	    __extends(_SocialFeed, _super);
+	    /*********************************************************************************************************************************/
+	    // Constructor
+	    /*********************************************************************************************************************************/
+	    function _SocialFeed(targetInfo) {
+	        // Call the base constructor
+	        _super.call(this, targetInfo);
+	        // Default the properties
+	        this.defaultToWebFl = true;
+	        this.responses = [];
+	        this.targetInfo.endpoint = "social.feed";
+	        // Add the methods
+	        this.addMethods(this, { __metadata: { type: "socialfeed" } });
+	    }
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    // Method to post to another user's feed
+	    _SocialFeed.prototype.postToFeed = function (accountName, creationData) {
+	        var postInfo = { ID: null, creationData: creationData };
+	        // Set the post metadata
+	        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
+	        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
+	        return this.executeMethod("postToMyFeed", {
+	            argNames: ["restCreationData"],
+	            name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
+	            requestType: _1.RequestType.PostWithArgsInBody
+	        }, [postInfo]);
+	    };
+	    // Method to post to the current user's feed
+	    _SocialFeed.prototype.postToMyFeed = function (creationData) {
+	        var postInfo = { ID: null, creationData: creationData };
+	        // Set the post metadata
+	        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
+	        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
+	        return this.executeMethod("postToMyFeed", {
+	            argNames: ["restCreationData"],
+	            name: "my/feed/post",
+	            requestType: _1.RequestType.PostWithArgsInBody
+	        }, [postInfo]);
+	    };
+	    return _SocialFeed;
+	}(utils_1.Base));
+	/*********************************************************************************************************************************/
+	// Libraries
+	/*********************************************************************************************************************************/
+	var Library = {
+	    actor: {
+	        argNames: ["accountName"],
+	        name: "actor(item=@v)?@v='[[accountName]]'",
+	        requestType: _1.RequestType.GetReplace
+	    },
+	    actorFeed: {
+	        argNames: ["accountName"],
+	        name: "actor(item=@v)/feed?@v='[[accountName]]'",
+	        requestType: _1.RequestType.GetReplace
+	    },
+	    clearMyUnreadMentionCount: {
+	        name: "my/mentionfeed/clearMyUnreadMentionCount",
+	        requestType: _1.RequestType.Post
+	    },
+	    my: {
+	        name: "my",
+	        requestType: _1.RequestType.Get
+	    },
+	    myFeed: {
+	        name: "my/feed",
+	        requestType: _1.RequestType.Get
+	    },
+	    myLikes: {
+	        name: "my/likes",
+	        requestType: _1.RequestType.Get
+	    },
+	    myMentionFeed: {
+	        name: "my/mentionfeed",
+	        requestType: _1.RequestType.Get
+	    },
+	    myNews: {
+	        name: "my/news",
+	        requestType: _1.RequestType.Get
+	    },
+	    myTimelineFeed: {
+	        name: "my/timelinefeed",
+	        requestType: _1.RequestType.Get
+	    },
+	    myUnreadMentionCount: {
+	        name: "my/unreadmentioncount",
+	        requestType: _1.RequestType.Get
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+	/*********************************************************************************************************************************/
+	// Social Feed
+	/*********************************************************************************************************************************/
+	exports.SocialFeed = new _SocialFeed();
+
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	var Library = {
+	    /*********************************************************************************************************************************/
+	    // Properties
+	    /*********************************************************************************************************************************/
+	    properties: [
+	        "Groups|sitegroups|([Name])|group"
+	    ],
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Adds a user custom action to the collection.
+	    add: {
+	        metadataType: "SP.UserCustomAction",
+	        name: "",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Deletes all custom actions in the collection.
+	    clear: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Returns the custom action with the specified identifier.
+	    getById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "usercustomaction"
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	/// <reference path="../definitions/userProfile.d.ts" />
+	var utils_1 = __webpack_require__(8);
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// User Profile
+	/*********************************************************************************************************************************/
+	var UserProfile = (function (_super) {
+	    __extends(UserProfile, _super);
+	    /*********************************************************************************************************************************/
+	    // Constructor
+	    /*********************************************************************************************************************************/
+	    function UserProfile(targetInfo) {
+	        // Call the base constructor
+	        _super.call(this, targetInfo);
+	        // Default the properties
+	        this.defaultToWebFl = true;
+	        this.responses = [];
+	        this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
+	        this.targetInfo.method = "POST";
+	        // Add the methods
+	        this.addMethods(this, { __metadata: { type: "userprofile" } });
+	    }
+	    return UserProfile;
+	}(utils_1.Base));
+	exports.UserProfile = UserProfile;
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    /*********************************************************************************************************************************/
+	    // Properties
+	    /*********************************************************************************************************************************/
+	    properties: [
+	        "PersonalSite|site"
+	    ],
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    createPersonalSiteEnque: {
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    shareAllSocialData: {
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Adds a user to the user collection.
+	    add: {
+	        metadataType: "SP.User",
+	        name: "",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Gets the user with the specified email address.
+	    getByEmail: {
+	        argNames: ["email"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "user"
+	    },
+	    // Gets the user with the specified member identifier (ID).
+	    getById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "user"
+	    },
+	    // Gets the user with the specified login name.
+	    getByLoginName: {
+	        argNames: ["loginName"],
+	        name: "getByLoginName(@v)?@v='[[loginName]]'",
+	        requestType: _1.RequestType.GetReplace,
+	        returnType: "user"
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    },
+	    // Removes the user with the specified ID.
+	    removeById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    // Removes the user with the specified login name.
+	    removeByLoginName: {
+	        argNames: ["loginName"],
+	        name: "removeByLoginName(@v)?@v='[[loginName]]'",
+	        requestType: _1.RequestType.PostReplace
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Gets the version with the specified ID.
+	    getById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "version"
+	    },
+	    // Deletes all versions in the collection.
+	    deleteAll: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Deletes a version, by the specified id.
+	    deleteById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    // Deletes a version, by the specified label.
+	    deleteByLabel: {
+	        argNames: ["label"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    // Restores a version, by the specified label.
+	    restoreByLabel: {
+	        argNames: ["label"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	var Library = {
+	    /*********************************************************************************************************************************/
+	    // Properties
+	    /*********************************************************************************************************************************/
+	    properties: [
+	        "ViewFields|viewfieldcollection"
+	    ],
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    },
+	    // Returns the list view as HTML.
+	    renderAsHtml: {
+	        requestType: _1.RequestType.Get
+	    },
+	    // Updates it's properties.
+	    update: {
+	        metadataType: "SP.View",
+	        name: "",
+	        requestMethod: "MERGE",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 50 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Adds the field with the specified field internal name or display name to the collection.
+	    addViewField: {
+	        argNames: ["fieldName"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    // Moves the field with the specified field internal name to the specified position in the collection.
+	    moveViewFieldTo: {
+	        argNames: ["field", "index"],
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    },
+	    // Removes all the fields from the collection.
+	    removeAllViewFields: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Removes the field with the specified field internal name from the collection.
+	    removeViewField: {
+	        argNames: ["fieldName"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    // Adds a view to the view collection.
+	    add: {
+	        metadataType: "SP.View",
+	        name: "",
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Gets the list view with the specified ID.
+	    getById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "view"
+	    },
+	    // Gets the list view with the specified title.
+	    getByTitle: {
+	        argNames: ["title"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "view"
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	/// <reference path="../definitions/web.d.ts" />
+	var utils_1 = __webpack_require__(8);
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Web
+	/*********************************************************************************************************************************/
+	var Web = (function (_super) {
+	    __extends(Web, _super);
+	    /*********************************************************************************************************************************/
+	    // Constructor
+	    /*********************************************************************************************************************************/
+	    function Web(url, targetInfo) {
+	        // Call the base constructor
+	        _super.call(this, targetInfo);
+	        // Default the properties
+	        this.defaultToWebFl = true;
+	        this.responses = [];
+	        this.targetInfo.endpoint = "web";
+	        // See if the web url exists
+	        if (url) {
+	            // Set the settings
+	            this.targetInfo.url = url;
+	        }
+	        // Add the methods
+	        this.addMethods(this, { __metadata: { type: "web" } });
+	    }
+	    // Method to determine if the current user has access, based on the permissions.
+	    Web.prototype.hasAccess = function (permissions) {
+	        // TO DO
+	        return true;
+	    };
+	    ;
+	    return Web;
+	}(utils_1.Base));
+	exports.Web = Web;
+	/*********************************************************************************************************************************/
+	// Library
+	/*********************************************************************************************************************************/
+	var Library = {
+	    /*********************************************************************************************************************************/
+	    // Properties
+	    /*********************************************************************************************************************************/
+	    properties: [
+	        "AllProperties|propertyvalues", "AppTiles", "AssociatedMemberGroup|group", "AssociatedOwnerGroup|group",
+	        "AssociatedVisitorGroup|group", "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields",
+	        "ClientWebParts", "ContentTypes|contenttypes|('[Name]')|contenttype", "CurrentUser|user", "DataLeakagePreventionStatusInfo",
+	        "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features",
+	        "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "FirstUniqueAncestorSecurableObject",
+	        "Folders|folders|/getByUrl('[Name]')|folder", "Lists|lists|/getByTitle('[Name]')|list",
+	        "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb",
+	        "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
+	        "RoleDefinitions|roledefinitions|/getByName('[Name]')|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
+	        "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user", "ThemeInfo", "TitleResource",
+	        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
+	    ],
+	    /*********************************************************************************************************************************/
+	    // Methods
+	    /*********************************************************************************************************************************/
+	    // Applies the theme specified by the contents of each of the files specified in the arguments to the site.
+	    applyTheme: {
+	        argNames: ["colorpaletteurl", "fontschemeurl", "backgroundimageurl", "sharegenerated"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Applies the specified site definition or site template to the Web site that has no template applied to it.
+	    applyWebTemplate: {
+	        argName: ["name"],
+	        requestType: _1.RequestType.PostWithArgsInQS
+	    },
+	    // Creates unique role assignments for the securable object.
+	    breakRoleInheritance: {
+	        argNames: ["copyroleassignments", "clearsubscopes"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Deletes the object
+	    delete: {
+	        requestType: _1.RequestType.Delete
+	    },
+	    // Checks whether the push notification subscriber exist for the current user with the given device application instance ID.
+	    doesPushNotificationSubscriberExist: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly
+	    },
+	    // Returns whether the current user has the given set of permissions.
+	    doesUserHavePermissions: {
+	        argNames: ["High", "Low"],
+	        requestType: _1.RequestType.GetWithArgsInQS
+	    },
+	    // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
+	    ensureUser: {
+	        argNames: ["logonName"],
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Sends data to an OData service.
+	    executeRemoteLOB: {
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Gets the app BDC catalog.
+	    getAppBdcCatalog: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Gets the app BDC catalog for the specified app instance.
+	    getAppBdcCatalogForAppInstance: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    // Retrieves an AppInstance installed on this Site.
+	    getAppInstanceById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly
+	    },
+	    // Retrieves all AppInstances installed on this site that are instances of the specified App.
+	    getAppInstancesByProductId: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly
+	    },
+	    // Returns a collection of site templates available for the site.
+	    getAvailableWebTemplates: {
+	        argNames: ["lcid", "doincludecrosslanguage"],
+	        requestType: _1.RequestType.GetWithArgs
+	    },
+	    // Returns the list gallery on the site.
+	    getCatalog: {
+	        argNames: ["galleryType"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly
+	    },
+	    // Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
+	    getChanges: {
+	        argNames: ["query"],
+	        metadataType: "SP.ChangeQuery",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Gets the context information for the site. Static method.
+	    getContextWebInformation: {
+	        name: "contextInfo",
+	        replaceEndpointFl: true,
+	        requestType: _1.RequestType.Post
+	    },
+	    // Gets the custom list templates for the site.
+	    getCustomListTemplates: {
+	        requestType: _1.RequestType.Get
+	    },
+	    // Gets the document libraries on a site. Static method. (SharePoint Online only)
+	    getDocumentLibraries: {
+	        argNames: ["url"],
+	        name: "sp.web.getDocumentLibraries",
+	        requestType: _1.RequestType.GetWithArgsInQS
+	    },
+	    // Gets the specified external content type in a line-of-business (LOB) system application.
+	    getEntity: {
+	        argNames: ["namespace", "name"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Returns the file object located at the specified server-relative URL.
+	    getFileByServerRelativeUrl: {
+	        argNames: ["url"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "file"
+	    },
+	    // Returns the folder object located at the specified server-relative URL.
+	    getFolderByServerRelativeUrl: {
+	        argNames: ["url"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "folder"
+	    },
+	    // Gets the list at the specified site-relative URL. (SharePoint Online only)
+	    getList: {
+	        argNames: ["url"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "list"
+	    },
+	    // Gets the push notification subscriber over the site for the specified device application instance ID.
+	    getPushNotificationSubscriber: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly
+	    },
+	    // Queries for the push notification subscribers over the site for the specified value of custom arguments. Null or empty custom arguments will return subscribers without any filtering.
+	    getPushNotificationSubscribersByArgs: {
+	        argNames: ["args"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly
+	    },
+	    // Queries for the push notification subscribers over the site for the specified user.
+	    getPushNotificationSubscribersByUser: {
+	        argNames: ["loginName"],
+	        requestType: _1.RequestType.GetWithArgsInQS
+	    },
+	    // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
+	    getSubwebsFilteredForCurrentUser: {
+	        argNames: ["nwebtemplatefilter", "nconfigurationfilter"],
+	        requestType: _1.RequestType.GetWithArgs
+	    },
+	    // Returns the user corresponding to the specified member identifier for the current site.
+	    getUserById: {
+	        argNames: ["id"],
+	        requestType: _1.RequestType.GetWithArgsValueOnly,
+	        returnType: "user"
+	    },
+	    // Gets the effective permissions that the specified user has within the current application scope.
+	    getUserEffectivePermissions: {
+	        argNames: ["loginName"],
+	        name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
+	        requestType: _1.RequestType.GetReplace
+	    },
+	    // Gets the site URL from a page URL. Static method.
+	    getWebUrlFromPageUrl: {
+	        name: "sp.web.getWebUrlFromPageUrl",
+	        requestType: _1.RequestType.GetWithArgsInQS
+	    },
+	    // Uploads and installs an app package to this site.
+	    loadAndInstallApp: {
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Uploads and installs an App package on the site in a specified locale.
+	    loadAndInstallAppInSpecifiedLocale: {
+	        argNames: ["appPackageStream", "installationLocaleLCID"],
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Uploads an App package and creates an instance from it.
+	    loadApp: {
+	        argNames: ["appPackageStream", "installationLocaleLCID"],
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Returns the name of the image file for the icon that is used to represent the specified file.
+	    mapToIcon: {
+	        argNames: ["filename", "progid", "size"],
+	        requestType: _1.RequestType.GetWithArgs
+	    },
+	    // Processes a notification from an external system.
+	    processExternalNotification: {
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
+	    registerPushNotificationSubscriber: {
+	        argNames: ["deviceappinstanceid", "servicetoken"],
+	        requestType: _1.RequestType.PostWithArgs
+	    },
+	    // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+	    resetRoleInheritance: {
+	        requestType: _1.RequestType.Post
+	    },
+	    // Unregisters the subscriber for push notifications from the site.
+	    unregisterPushNotificationSubscriber: {
+	        requestType: _1.RequestType.PostWithArgsValueOnly
+	    },
+	    // Updates it's properties.
+	    update: {
+	        metadataType: "SP.Web",
+	        name: "",
+	        requestMethod: "MERGE",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 53 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var _1 = __webpack_require__(1);
+	/*********************************************************************************************************************************/
+	// Methods
+	/*********************************************************************************************************************************/
+	var Library = {
+	    add: {
+	        argNames: ["parameters"],
+	        metadataType: "SP.WebCreationInformation",
+	        requestType: _1.RequestType.PostWithArgsInBody
+	    },
+	    // Queries the collection
+	    query: {
+	        argNames: ["oData"],
+	        requestType: _1.RequestType.OData
+	    }
+	};
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Library;
+
+
+/***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	/// <reference path="../definitions/methodInfo.d.ts" />
+	var _1 = __webpack_require__(8);
+	var lib_1 = __webpack_require__(1);
 	/*********************************************************************************************************************************/
 	// Method Information
 	// This class will create the method information for the request.
@@ -1775,13 +3846,13 @@
 	            }
 	            // Determine the request method, based on the request type
 	            switch (this.methodInfo.requestType) {
-	                case types_1.RequestType.Delete:
-	                case types_1.RequestType.Post:
-	                case types_1.RequestType.PostWithArgs:
-	                case types_1.RequestType.PostWithArgsInBody:
-	                case types_1.RequestType.PostWithArgsInQS:
-	                case types_1.RequestType.PostWithArgsValueOnly:
-	                case types_1.RequestType.PostReplace:
+	                case lib_1.RequestType.Delete:
+	                case lib_1.RequestType.Post:
+	                case lib_1.RequestType.PostWithArgs:
+	                case lib_1.RequestType.PostWithArgsInBody:
+	                case lib_1.RequestType.PostWithArgsInQS:
+	                case lib_1.RequestType.PostWithArgsValueOnly:
+	                case lib_1.RequestType.PostReplace:
 	                    return "POST";
 	                default:
 	                    return "GET";
@@ -1800,12 +3871,12 @@
 	        /*********************************************************************************************************************************/
 	        // Private Variables
 	        /*********************************************************************************************************************************/
-	        get: function () { return this.methodInfo.requestType == types_1.RequestType.GetWithArgsInBody || this.methodInfo.requestType == types_1.RequestType.PostWithArgsInBody; },
+	        get: function () { return this.methodInfo.requestType == lib_1.RequestType.GetWithArgsInBody || this.methodInfo.requestType == lib_1.RequestType.PostWithArgsInBody; },
 	        enumerable: true,
 	        configurable: true
 	    });
 	    Object.defineProperty(MethodInfo.prototype, "passDataInQS", {
-	        get: function () { return this.methodInfo.requestType == types_1.RequestType.GetWithArgsInQS || this.methodInfo.requestType == types_1.RequestType.PostWithArgsInQS; },
+	        get: function () { return this.methodInfo.requestType == lib_1.RequestType.GetWithArgsInQS || this.methodInfo.requestType == lib_1.RequestType.PostWithArgsInQS; },
 	        enumerable: true,
 	        configurable: true
 	    });
@@ -1815,7 +3886,7 @@
 	        configurable: true
 	    });
 	    Object.defineProperty(MethodInfo.prototype, "replace", {
-	        get: function () { return this.methodInfo.requestType == types_1.RequestType.GetReplace || this.methodInfo.requestType == types_1.RequestType.PostReplace; },
+	        get: function () { return this.methodInfo.requestType == lib_1.RequestType.GetReplace || this.methodInfo.requestType == lib_1.RequestType.PostReplace; },
 	        enumerable: true,
 	        configurable: true
 	    });
@@ -1906,7 +3977,7 @@
 	    MethodInfo.prototype.generateUrl = function () {
 	        var url = this.methodInfo.name;
 	        // See if we are deleting the object
-	        if (this.methodInfo.requestType == types_1.RequestType.Delete) {
+	        if (this.methodInfo.requestType == lib_1.RequestType.Delete) {
 	            // Update the url
 	            url = "deleteObject";
 	        }
@@ -1930,7 +4001,7 @@
 	                url = url.replace("[[" + key + "]]", encodeURIComponent(this.methodParams[key]));
 	            }
 	        }
-	        else if (this.methodInfo.requestType == types_1.RequestType.OData) {
+	        else if (this.methodInfo.requestType == lib_1.RequestType.OData) {
 	            var oData = new _1.OData(this.methodParams["oData"]);
 	            // Update the url
 	            url = "?" + oData.QueryString;
@@ -1950,8 +4021,8 @@
 	                    value = typeof (value) === "string" ? "'" + value + "'" : value;
 	                    switch (this.methodInfo.requestType) {
 	                        // Append the value only
-	                        case types_1.RequestType.GetWithArgsValueOnly:
-	                        case types_1.RequestType.PostWithArgsValueOnly:
+	                        case lib_1.RequestType.GetWithArgsValueOnly:
+	                        case lib_1.RequestType.PostWithArgsValueOnly:
 	                            params += value + ", ";
 	                            break;
 	                        // Append the parameter and value
@@ -1973,7 +4044,7 @@
 
 
 /***/ },
-/* 17 */
+/* 55 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2089,7 +4160,7 @@
 
 
 /***/ },
-/* 18 */
+/* 56 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2148,11 +4219,11 @@
 
 
 /***/ },
-/* 19 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(11);
+	var _1 = __webpack_require__(8);
 	/*********************************************************************************************************************************/
 	// Request
 	// This class will execute the xml http request.
@@ -2299,11 +4370,11 @@
 
 
 /***/ },
-/* 20 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(11);
+	var _1 = __webpack_require__(8);
 	/*********************************************************************************************************************************/
 	// Target Information
 	// This class will take the target information and create the request url.
@@ -2436,2333 +4507,34 @@
 
 
 /***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    },
-	    // Updates it's properties.
-	    update: {
-	        metadataType: "SP.EventReceiverDefinition",
-	        name: "",
-	        requestMethod: "MERGE",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Adds an event receiver to the collection.
-	    add: {
-	        metadataType: "SP.EventReceiverDefinition",
-	        name: "",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Gets an event receiver by it's id.
-	    getById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "eventreceiver"
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    },
-	    // Sets the value of the ShowInDisplayForm property for this field.
-	    setShowInDisplayForm: {
-	        argNames: ["showInForm"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    // Sets the value of the ShowInEditForm property for this field.
-	    setShowInEditForm: {
-	        argNames: ["showInForm"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    // Sets the value of the ShowInNewForm property for this field.
-	    setShowInNewForm: {
-	        argNames: ["showInForm"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    // Updates it's properties.
-	    update: {
-	        inheritMetadataType: true,
-	        name: "",
-	        requestMethod: "MERGE",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Adds a field link to the collection.
-	    add: {
-	        argNames: ["data"],
-	        metadataType: "SP.FieldLink",
-	        name: "",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Gets a field link by it's id.
-	    getById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "fieldlink"
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 25 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Adds a field to the field collection.
-	    add: {
-	        metadataType: "SP.Field",
-	        name: "",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Adds a field to the field collection.
-	    addField: {
-	        argNames: ["parameters"],
-	        metadataType: "SP.FieldCreationInformation",
-	        name: "addField",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
-	    addDependentLookupField: {
-	        argNames: ["displayname", "primarylookupfieldid", "showfield"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Creates a field based on the specified schema, Boolean value, and field options.
-	    // Set the option to addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
-	    createFieldAsXml: {
-	        argNames: ["schemaXml"],
-	        requestType: types_1.RequestType.PostWithArgsInBody,
-	        data: {
-	            parameters: {
-	                __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
-	                Options: 8,
-	                SchemaXml: "[[schemaXml]]"
-	            }
-	        }
-	    },
-	    // Gets the field with the specified ID.
-	    getById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly,
-	        returnType: "field"
-	    },
-	    // Returns the first Field object with the specified internal name or title from the collection.
-	    getByInternalNameOrTitle: {
-	        argNames: ["internalNameOrTitle"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly,
-	        returnType: "field"
-	    },
-	    // Returns the first field object in the collection based on the title of the specified field.
-	    getByTitle: {
-	        argNames: ["title"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly,
-	        returnType: "field"
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 26 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Library
-	/*********************************************************************************************************************************/
-	var Library = {
-	    /*********************************************************************************************************************************/
-	    // Properties
-	    /*********************************************************************************************************************************/
-	    properties: [
-	        "Author|user", "CheckedOutByUser|user", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
-	        "ListItemAllFields", "LockedByUser|user", "ModifiedBy|user", "Properties|propertyvalues", "VersionEvents", "Versions|fileversions"
-	    ],
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    // Approves the file submitted for content approval with the specified comment.
-	    approve: {
-	        argNames: ["comment"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Stops the chunk upload session without saving the uploaded data. If the file doesn’t already exist in the library, the partially uploaded file will be deleted. Use this in response to user action (as in a request to cancel an upload) or an error or exception.
-	    // Use the uploadId value that was passed to the StartUpload method that started the upload session.
-	    // This method is currently available only on Office 365.
-	    cancelupload: {
-	        argNames: ["uploadId"],
-	        name: "cancelupload(guid'[[uploadId]]')",
-	        requestType: types_1.RequestType.PostReplace
-	    },
-	    // Checks the file in to a document library based on the check-in type.
-	    // Check-In Types: MinorCheckIn = 0; MajorCheckIn = 1; OverwriteCheckIn = 2
-	    checkin: {
-	        argNames: ["comment", "checkInType"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Checks out the file from a document library based on the check-out type.
-	    checkout: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Returns the file content.
-	    content: {
-	        name: "$value",
-	        requestType: types_1.RequestType.GetBuffer
-	    },
-	    // Continues the chunk upload session with an additional fragment. The current file content is not changed.
-	    // Use the uploadId value that was passed to the StartUpload method that started the upload session.
-	    // This method is currently available only on Office 365.
-	    continueUpload: {
-	        argNames: ["uploadId", "fileOffset"],
-	        name: "continueUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
-	        requestType: types_1.RequestType.PostReplace
-	    },
-	    // Copies the file to the destination URL.
-	    copyTo: {
-	        argNames: ["strNewUrl", "bOverWrite"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    },
-	    // Denies approval for a file that was submitted for content approval.
-	    // Only documents in lists that are enabled for content approval can be denied.
-	    deny: {
-	        argNames: ["comment"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Uploads the last file fragment and commits the file. The current file content is changed when this method completes.
-	    // Use the uploadId value that was passed to the StartUpload method that started the upload session.
-	    // This method is currently available only on Office 365.
-	    finishUpload: {
-	        argNames: ["uploadId", "fileOffset"],
-	        name: "finishUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
-	        requestType: types_1.RequestType.PostReplace
-	    },
-	    // Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
-	    // An exception is thrown if the file is not an ASPX page.
-	    // Type of scopes: 
-	    getlimitedwebpartmanager: {
-	        argNames: ["scope"],
-	        name: "getLimitedWebPartManager(scope=[[scope]])",
-	        requestType: types_1.RequestType.GetReplace
-	    },
-	    // Moves the file to the specified destination URL.
-	    // Types of move operations: Overwrite = 1; AllowBrokenThickets (move even if supporting files are separated from the file) = 8.
-	    moveTo: {
-	        argNames: ["newUrl", "flags"],
-	        name: "moveTo(newUrl='[[newUrl]]', flags=[[flags]])",
-	        requestType: types_1.RequestType.PostReplace
-	    },
-	    // Opens the file as a stream.
-	    openBinaryStream: {
-	        requestType: types_1.RequestType.GetBuffer
-	    },
-	    // Submits the file for content approval with the specified comment.
-	    publish: {
-	        argNames: ["comment"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-	    recycle: {
-	        requestType: types_1.RequestType.Get
-	    },
-	    // Saves the file as a stream.
-	    saveBinaryStream: {
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Starts a new chunk upload session and uploads the first fragment. The current file content is not changed when this method completes.
-	    // The method is idempotent (and therefore does not change the result) as long as you use the same values for uploadId and stream.
-	    // The upload session ends either when you use the CancelUpload method or when you successfully complete the upload session by passing the rest of the file contents through the ContinueUpload and FinishUpload methods.
-	    startUpload: {
-	        argNames: ["uploadId"],
-	        name: "startupload(uploadId=guid'[[uploadId]]')",
-	        requestType: types_1.RequestType.PostReplace
-	    },
-	    // Reverts an existing checkout for the file.
-	    undoCheckOut: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Removes the file from content approval or unpublish a major version.
-	    unpublish: {
-	        argNames: ["comment"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Updates it's properties.
-	    update: {
-	        metadataType: "SP.File",
-	        name: "",
-	        requestMethod: "MERGE",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Adds a file to this collection.
-	    add: {
-	        argNames: ["overwrite", "url"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Adds a ghosted file to an existing list or document library.
-	    // Template File Types: StandardPage = 0; WikiPage = 1; FormPage = 2
-	    addTemplateFile: {
-	        argNames: ["urlOfFile", "templateFileType"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Get the file at the specified URL.
-	    getByUrl: {
-	        argNames: ["serverRelativeUrl"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "file"
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	var Library = {
-	    /*********************************************************************************************************************************/
-	    // Properties
-	    /*********************************************************************************************************************************/
-	    properties: [],
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	var Library = {
-	    /*********************************************************************************************************************************/
-	    // Properties
-	    /*********************************************************************************************************************************/
-	    properties: [
-	        "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
-	        "ParentFolder|folder", "Properties|propertyvalues", "StorageMetrics"
-	    ],
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    },
-	    // Get the file at the specified URL.
-	    getByUrl: {
-	        argNames: ["serverRelativeUrl"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "folder"
-	    },
-	    // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-	    recycle: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Updates it's properties.
-	    update: {
-	        metadataType: "SP.Folder",
-	        name: "",
-	        requestMethod: "MERGE",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Library
-	/*********************************************************************************************************************************/
-	var Library = {
-	    /*********************************************************************************************************************************/
-	    // Properties
-	    /*********************************************************************************************************************************/
-	    properties: [
-	        "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
-	        "ParentFolder", "StorageMetrics"
-	    ],
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    // Adds the folder that is located at the specified URL to the collection.
-	    add: {
-	        argNames: ["url"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Get the file at the specified URL.
-	    getbyurl: {
-	        argNames: ["serverRelativeUrl"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "folder"
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 32 */
+/* 59 */
 /***/ function(module, exports) {
 
 	"use strict";
-	var Library = {
-	    /*********************************************************************************************************************************/
-	    // Properties
-	    /*********************************************************************************************************************************/
-	    properties: [
-	        "Users|users|/getById([Name])|user"
-	    ],
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Adds an item to the list item collection.
-	    add: {
-	        metadataType: function (obj) { return obj.Parent && obj.Parent["ListItemEntityTypeFullName"] ? obj.Parent["ListItemEntityTypeFullName"] : "SP.ListItem"; },
-	        name: "",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Gets an item by its id.
-	    getById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "listitem"
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Gets a webpart by its id.
-	    get_WebParts: {
-	        argNames: ["id"],
-	        name: "webparts?expand=WebPart",
-	        requestType: types_1.RequestType.GetReplace
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var types_1 = __webpack_require__(4);
-	var utils_1 = __webpack_require__(11);
-	/*********************************************************************************************************************************/
-	// List
-	// The SPList object.
-	/*********************************************************************************************************************************/
-	var List = (function (_super) {
-	    __extends(List, _super);
-	    /*********************************************************************************************************************************/
-	    // Constructor
-	    /*********************************************************************************************************************************/
-	    function List(listName, targetInfo) {
-	        // Call the base constructor
-	        _super.call(this, targetInfo);
-	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
-	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "list" } });
-	    }
-	    return List;
-	}(utils_1.Base));
-	exports.List = List;
-	/*********************************************************************************************************************************/
-	// Library
-	/*********************************************************************************************************************************/
-	//{ name: "hasAccess", "function": function (userName, permissions) { return hasAccess(this, permissions, userName); } },
-	var Library = {
-	    /*********************************************************************************************************************************/
-	    // Properties
-	    /*********************************************************************************************************************************/
-	    properties: [
-	        "BrowserFileHandling", "ContentTypes|contenttypes|([Name])|contenttype", "CreatablesInfo", "DefaultView|view",
-	        "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Fields|fields|/getByInternalNameOrTitle('[Name]')|field",
-	        "FirstUniqueAncestorSecurableObject", "Forms|forms|('[Name]')|form", "InformationRightsManagementSettings",
-	        "Items|items|([Name])|item", "ParentWeb", "RoleAssignments|roleassignments|([Name])|roleassignment",
-	        "RootFolder|folder|/getByUrl('[Name]')|file", "Subscriptions", "TitleResource",
-	        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "Views|views||('[Name]')|view", "WorkflowAssociations"
-	    ],
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    // Creates unique role assignments for the securable object.
-	    breakRoleInheritance: {
-	        argNames: ["copyroleassignments", "clearsubscopes"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    },
-	    // Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
-	    getChanges: {
-	        argNames: ["query"],
-	        metadataType: "SP.ChangeQuery",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Returns an item based on the id.
-	    getItemById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "item"
-	    },
-	    // Returns a collection of items from the list based on the view xml.
-	    getItems: {
-	        argNames: ["viewXml"],
-	        requestType: types_1.RequestType.PostWithArgsInBody,
-	        data: {
-	            query: {
-	                __metadata: { type: "SP.CamlQuery" },
-	                ViewXml: "[[viewXml]]"
-	            }
-	        }
-	    },
-	    // Returns a collection of items from the list based on the specified query.
-	    getItemsByQuery: {
-	        argNames: ["camlQuery"],
-	        name: "getItems",
-	        requestType: types_1.RequestType.PostWithArgsInBody,
-	        data: {
-	            query: {
-	                __metadata: { type: "SP.CamlQuery" },
-	                ViewXml: "<View>[[camlQuery]]</View>"
-	            }
-	        }
-	    },
-	    // Returns a collection of items from the list based on the specified query.
-	    getListItemChangesSinceToken: {
-	        argNames: ["query"],
-	        metadataType: "SP.ChangeLogItemQuery",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
-	    getRelatedFields: {
-	        requestType: types_1.RequestType.Get
-	    },
-	    // Gets the effective user permissions for the current user.
-	    getUserEffectivePermissions: {
-	        argNames: ["loginName"],
-	        name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
-	        requestType: types_1.RequestType.GetReplace
-	    },
-	    // Returns the list view with the specified view identifier.
-	    getViewById: {
-	        argNames: ["viewId"],
-	        name: "getView",
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "view"
-	    },
-	    // Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-	    recycle: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Renders the list data.
-	    renderListData: {
-	        argNames: ["viewXml"],
-	        name: "renderListData(@v)?@v='<View>[[viewXml]]</View>'",
-	        requestType: types_1.RequestType.PostReplace
-	    },
-	    // Renders the list form data.
-	    // Types of modes: 1 - Display, 2 - Edit, 3 - New
-	    renderListFormData: {
-	        argNames: ["itemid", "formid", "mode"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Reserves a list item ID for idempotent list item creation.
-	    reserveListItemId: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
-	    resetRoleInheritance: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Updates it's properties.
-	    update: {
-	        metadataType: "SP.List",
-	        name: "",
-	        requestMethod: "MERGE",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	var Library = {
-	    /*********************************************************************************************************************************/
-	    // Properties
-	    /*********************************************************************************************************************************/
-	    properties: [
-	        "AttachmentFiles|attachmentfiles|('[Name]')|attachment", "ContentType|contenttype", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
-	        "File|file", "FirstUniqueAncestorSecurableObject", "Folder|folder", "GetDlpPolicyTip", "ParentList|list",
-	        "Properties|propertyvalues", "RoleAssignments|roleassignments|roleassignments|([Name])|roleassignment"
-	    ],
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    // Adds the attachment that is represented by the specified file name and byte array to the list item.
-	    //{ name: "addAttachmentFile", "function": function (file) { var thisObj = this; var promise = new Promise(); getFileInfo(file).done(function (name, buffer) { if (name && buffer) { thisObj.addAttachment(name, buffer).done(function (file) { promise.resolve(file); }); } else { promise.resolve(); } }); return promise; } },
-	    // Creates unique role assignments for the securable object.
-	    breakRoleInheritance: {
-	        argNames: ["copyroleassignments", "clearsubscopes"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    },
-	    // Gets the effective permissions that a specified user has on the list item.
-	    getUserEffectivePermissions: {
-	        argNames: ["loginName"],
-	        name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
-	        requestType: types_1.RequestType.GetReplace
-	    },
-	    // Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-	    recycle: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
-	    resetRoleInheritance: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Updates it's properties.
-	    update: {
-	        inheritMetadataType: true,
-	        name: "",
-	        requestMethod: "MERGE",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Validates and sets the values of the specified collection of fields for the list item.
-	    validateUpdateListItem: {
-	        argNames: ["formValues", "bNewDocumentUpdate"],
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 37 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Adds a list to the list collection.
-	    add: {
-	        metadataType: "SP.List",
-	        name: "",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
-	    ensureSiteAssetsLibrary: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Gets a list that is the default location for wiki pages.
-	    ensureSitePagesLibrary: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Returns the list with the specified list identifier.
-	    getById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "list"
-	    },
-	    // Returns the list with the specified title from the collection.
-	    getByTitle: {
-	        argNames: ["title"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "list"
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 38 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var attachment = __webpack_require__(2);
-	var attachmentFiles = __webpack_require__(3);
-	var audit = __webpack_require__(7);
-	var contentType = __webpack_require__(8);
-	var contentTypes = __webpack_require__(9);
-	var eventReceiver = __webpack_require__(21);
-	var eventReceivers = __webpack_require__(22);
-	var field = __webpack_require__(23);
-	var fieldLinks = __webpack_require__(24);
-	var fields = __webpack_require__(25);
-	var file = __webpack_require__(26);
-	var files = __webpack_require__(27);
-	var fileVersion = __webpack_require__(28);
-	var fileVersions = __webpack_require__(29);
-	var folder = __webpack_require__(30);
-	var folders = __webpack_require__(31);
-	var group = __webpack_require__(32);
-	var items = __webpack_require__(33);
-	var limitedWebPartManager = __webpack_require__(34);
-	var list = __webpack_require__(35);
-	var listItem = __webpack_require__(36);
-	var lists = __webpack_require__(37);
-	var peopleManager = __webpack_require__(39);
-	var peoplePicker = __webpack_require__(40);
-	var profileLoader = __webpack_require__(41);
-	var propertyValues = __webpack_require__(42);
-	var roleAssignment = __webpack_require__(43);
-	var roleAssignments = __webpack_require__(44);
-	var roleDefinition = __webpack_require__(45);
-	var roleDefinitions = __webpack_require__(46);
-	var search = __webpack_require__(47);
-	var site = __webpack_require__(48);
-	var siteGroups = __webpack_require__(49);
-	var socialFeed = __webpack_require__(50);
-	var user = __webpack_require__(51);
-	var userCustomAction = __webpack_require__(52);
-	var userCustomActions = __webpack_require__(53);
-	var userProfile = __webpack_require__(54);
-	var users = __webpack_require__(55);
-	var versions = __webpack_require__(56);
-	var view = __webpack_require__(57);
-	var viewFieldCollection = __webpack_require__(58);
-	var views = __webpack_require__(59);
-	var web = __webpack_require__(60);
-	var webs = __webpack_require__(61);
-	/**
-	 * Mapper
-	 */
-	exports.Mapper = {
-	    attachment: attachment.default,
-	    attachmentFiles: attachmentFiles.default,
-	    audit: audit.default,
-	    contentType: contentType.default,
-	    contentTypes: contentTypes.default,
-	    eventReceiver: eventReceiver.default,
-	    eventReceivers: eventReceivers.default,
-	    field: field.default,
-	    fieldLinks: fieldLinks.default,
-	    fields: fields.default,
-	    file: file.default,
-	    files: files.default,
-	    fileVersion: fileVersion.default,
-	    fileVersions: fileVersions.default,
-	    folder: folder.default,
-	    folders: folders.default,
-	    group: group.default,
-	    items: items.default,
-	    limitedWebPartManager: limitedWebPartManager.default,
-	    list: list.default,
-	    listItem: listItem.default,
-	    lists: lists.default,
-	    peopleManager: peopleManager.default,
-	    peoplePicker: peoplePicker.default,
-	    profileLoader: profileLoader.default,
-	    propertyValues: propertyValues.default,
-	    roleAssignment: roleAssignment.default,
-	    roleAssignments: roleAssignments.default,
-	    roleDefinition: roleDefinition.default,
-	    roleDefinitions: roleDefinitions.default,
-	    search: search.default,
-	    site: site.default,
-	    siteGroups: siteGroups.default,
-	    socialFeed: socialFeed.default,
-	    user: user.default,
-	    userCustomAction: userCustomAction.default,
-	    userCustomActions: userCustomActions.default,
-	    userProfile: userProfile.default,
-	    users: users.default,
-	    versions: versions.default,
-	    view: view.default,
-	    viewFieldCollection: viewFieldCollection.default,
-	    views: views.default,
-	    web: web.default,
-	    webs: webs.default
-	};
-
-
-/***/ },
-/* 39 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var types_1 = __webpack_require__(4);
-	var utils_1 = __webpack_require__(11);
-	/*********************************************************************************************************************************/
-	// People Manager
-	/*********************************************************************************************************************************/
-	var PeopleManager = (function (_super) {
-	    __extends(PeopleManager, _super);
-	    /*********************************************************************************************************************************/
-	    // Constructor
-	    /*********************************************************************************************************************************/
-	    function PeopleManager(targetInfo) {
-	        // Call the base constructor
-	        _super.call(this, targetInfo);
-	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
-	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "peoplemanager" } });
-	    }
-	    return PeopleManager;
-	}(utils_1.Base));
-	exports.PeopleManager = PeopleManager;
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    amIFollowedBy: {
-	        argNames: ["accountName"],
-	        requestType: types_1.RequestType.GetWithArgsInQS
-	    },
-	    amIFollowing: {
-	        argNames: ["accountName"],
-	        requestType: types_1.RequestType.GetWithArgsInQS
-	    },
-	    follow: {
-	        argNames: ["accountName"],
-	        requestType: types_1.RequestType.PostWithArgsInQS
-	    },
-	    followTag: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    getFollowedTags: {
-	        argNames: ["maxCount"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly
-	    },
-	    getFollowersFor: {
-	        argNames: ["accountName"],
-	        requestType: types_1.RequestType.GetWithArgsInQS
-	    },
-	    getMyFollowers: {
-	        requestType: types_1.RequestType.Get
-	    },
-	    getMyProperties: {
-	        requestType: types_1.RequestType.Get
-	    },
-	    getMySuggestions: {
-	        requestType: types_1.RequestType.Get
-	    },
-	    getPeopleFollowedBy: {
-	        argNames: ["accountName"],
-	        requestType: types_1.RequestType.GetWithArgsInQS
-	    },
-	    getPeopleFollowedByMe: {
-	        requestType: types_1.RequestType.Get
-	    },
-	    getPropertiesFor: {
-	        argNames: ["accountName"],
-	        requestType: types_1.RequestType.GetWithArgsInQS
-	    },
-	    getTrendingTags: {
-	        name: "sp.userprofiles.peoplemanager.gettrendingtags",
-	        replaceEndpointFl: true,
-	        requestType: types_1.RequestType.Get
-	    },
-	    getUserProfilePropertyFor: {
-	        argNames: ["accountName", "propertyName"],
-	        requestType: types_1.RequestType.GetWithArgsInQS
-	    },
-	    hideSuggestion: {
-	        argNames: ["accountName"],
-	        requestType: types_1.RequestType.PostWithArgsInQS
-	    },
-	    isFollowing: {
-	        argNames: ["possibleFollowerAccountName", "possibleFolloweeAccountName"],
-	        name: "sp.userprofiles.peoplemanager.isfollowing",
-	        replaceEndpointFl: true,
-	        requestType: types_1.RequestType.GetWithArgsInQS
-	    },
-	    setMyProfilePicture: {
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    stopFollowing: {
-	        argNames: ["accountName"],
-	        requestType: types_1.RequestType.PostWithArgsInQS
-	    },
-	    stopFollowingTag: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var types_1 = __webpack_require__(4);
-	var utils_1 = __webpack_require__(11);
-	/*********************************************************************************************************************************/
-	// People Picker
-	/*********************************************************************************************************************************/
-	var PeoplePicker = (function (_super) {
-	    __extends(PeoplePicker, _super);
-	    /*********************************************************************************************************************************/
-	    // Constructor
-	    /*********************************************************************************************************************************/
-	    function PeoplePicker(targetInfo) {
-	        // Call the base constructor
-	        _super.call(this, targetInfo);
-	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
-	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "peoplepicker" } });
-	    }
-	    return PeoplePicker;
-	}(utils_1.Base));
-	exports.PeoplePicker = PeoplePicker;
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    clientPeoplePickerResolveUser: {
-	        argNames: ["queryParams"],
-	        metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
-	        name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerResolveUser",
-	        replaceEndpointFl: true,
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    clientPeoplePickerSearchUser: {
-	        argNames: ["queryParams"],
-	        metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
-	        name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerSearchUser",
-	        replaceEndpointFl: true,
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var types_1 = __webpack_require__(4);
-	var utils_1 = __webpack_require__(11);
-	/*********************************************************************************************************************************/
-	// Profile Loader
-	/*********************************************************************************************************************************/
-	var ProfileLoader = (function (_super) {
-	    __extends(ProfileLoader, _super);
-	    /*********************************************************************************************************************************/
-	    // Constructor
-	    /*********************************************************************************************************************************/
-	    function ProfileLoader(targetInfo) {
-	        // Call the base constructor
-	        _super.call(this, targetInfo);
-	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
-	        this.targetInfo.method = "POST";
-	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "profileloader" } });
-	    }
-	    return ProfileLoader;
-	}(utils_1.Base));
-	exports.ProfileLoader = ProfileLoader;
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    createPersonalSiteEnqueueBulk: {
-	        argNames: ["emailIDs"],
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    getOwnerUserProfile: {
-	        name: "sp.userprofiles.profileloader.getowneruserprofile",
-	        replaceEndpointFl: true,
-	        requestType: types_1.RequestType.Post,
-	        returnType: "userprofile"
-	    },
-	    getUserProfile: {
-	        requestType: types_1.RequestType.Post,
-	        returnType: "userprofile"
-	    },
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Library
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	var Library = {
-	    /*********************************************************************************************************************************/
-	    // Properties
-	    /*********************************************************************************************************************************/
-	    properties: [
-	        "Member", "RoleDefinitionBindings|roledefinitions"
-	    ],
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Adds a new role assignment with the specified principal and role definitions to the collection.
-	    addRoleAssignment: {
-	        argNames: ["principalId", "roleDefId"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Gets the role assignment associated with the specified principal ID from the collection.
-	    getByPrincipalId: {
-	        argNames: ["principalId"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "roleassignment"
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    },
-	    // Gets the role definition with the specified role type.
-	    removeRoleAssignment: {
-	        argNames: ["principalId", "roleDefId"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Gets the role definition with the specified ID from the collection.
-	    getById: {
-	        argNames: ["roleDefId"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "roledefinition"
-	    },
-	    // Gets the role definition with the specified name.
-	    getByName: {
-	        argNames: ["name"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "roledefinition"
-	    },
-	    // Gets the role definitions with the specified role type.
-	    getByType: {
-	        argNames: ["roleType"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "roledefinitions"
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 47 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var types_1 = __webpack_require__(4);
-	var utils_1 = __webpack_require__(11);
-	/*********************************************************************************************************************************/
-	// Search
-	/*********************************************************************************************************************************/
-	var Search = (function (_super) {
-	    __extends(Search, _super);
-	    /*********************************************************************************************************************************/
-	    // Constructor
-	    /*********************************************************************************************************************************/
-	    function Search(url, targetInfo) {
-	        // Call the base constructor
-	        _super.call(this, targetInfo);
-	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "search";
-	        // See if the web url exists
-	        if (url) {
-	            // Set the settings
-	            this.targetInfo.url = url;
-	        }
-	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "search" } });
-	    }
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    // Method to compute the argument names
-	    Search.prototype.getArgNames = function (parameters) {
-	        var argNames = [];
-	        // Parse the arguments
-	        for (var key in parameters) {
-	            // Append the argument to the array
-	            argNames.push(key);
-	        }
-	        // Return the argument names
-	        return argNames;
-	    };
-	    /** The query method */
-	    Search.prototype.query = function (settings) {
-	        // Execute the request
-	        return this.executeMethod("query", {
-	            argNames: this.getArgNames(settings),
-	            name: "query",
-	            requestType: types_1.RequestType.GetWithArgs
-	        }, settings);
-	    };
-	    /** The suggest method */
-	    Search.prototype.suggest = function (settings) {
-	        // Execute the request
-	        return this.executeMethod("suggest", {
-	            argNames: this.getArgNames(settings),
-	            name: "suggest",
-	            requestType: types_1.RequestType.GetWithArgs
-	        }, settings);
-	    };
-	    return Search;
-	}(utils_1.Base));
-	exports.Search = Search;
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    postquery: {
-	        argNames: ["request"],
-	        metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var utils_1 = __webpack_require__(11);
-	var types_1 = __webpack_require__(4);
-	var _1 = __webpack_require__(1);
-	/*********************************************************************************************************************************/
-	// Site
-	// The SPSite object.
-	/*********************************************************************************************************************************/
-	var Site = (function (_super) {
-	    __extends(Site, _super);
-	    /*********************************************************************************************************************************/
-	    // Constructor
-	    /*********************************************************************************************************************************/
-	    function Site(url, targetInfo) {
-	        // Call the base constructor
-	        _super.call(this, targetInfo);
-	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "site";
-	        // See if the web url exists
-	        if (url) {
-	            // Set the settings
-	            this.targetInfo.url = url;
-	        }
-	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "site" } });
-	    }
-	    // Method to get the root web
-	    Site.prototype.getRootWeb = function () { return new _1.Web(null, this.targetInfo); };
-	    // Method to determine if the current user has access, based on the permissions.
-	    Site.prototype.hasAccess = function (permissions) {
-	        // TO DO
-	        return true;
-	    };
-	    ;
-	    return Site;
-	}(utils_1.Base));
-	exports.Site = Site;
-	/*********************************************************************************************************************************/
-	// Library
-	/*********************************************************************************************************************************/
-	var Library = {
-	    /*********************************************************************************************************************************/
-	    // Properties
-	    /*********************************************************************************************************************************/
-	    properties: [
-	        "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features", "Owner|user", "RootWeb|web",
-	        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction"
-	    ],
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    // Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
-	    createPreviewSPSite: {
-	        argNames: ["upgrade", "sendemail"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Extend the upgrade reminder date for this SPSite by the days specified at WebApplication.UpgradeReminderDelay.
-	    extendUpgradeReminderDate: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
-	    getCatalog: {
-	        argNames: ["typeCatalog"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    // Specifies the collection of the site collection changes from the change log that have occurred within the scope of the site collection, based on the specified query.
-	    getChanges: {
-	        argNames: ["query"],
-	        metadataType: "SP.ChangeQuery",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Specifies the collection of custom list templates for a given site.
-	    getCustomListTemplates: {
-	        argNames: ["web"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Returns the collection of site definitions that are available for creating Web sites within the site collection.
-	    getWebTemplates: {
-	        argNames: ["LCID", "overrideCompatLevel"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Invalidates cached upgrade information about the site collection so that this information will be recomputed the next time it is needed.
-	    invalidate: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Returns true if the object needs to be upgraded; otherwise, false.
-	    needsUpgradeByType: {
-	        argNames: ["versionUpgrade", "recursive"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Returns the site at the specified URL.
-	    openWeb: {
-	        argNames: ["strUrl"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    // Returns the site with the specified GUID.
-	    openWebById: {
-	        argNames: ["gWebId"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    // Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
-	    runHealthCheck: {
-	        argNames: ["ruleId", "bRepair", "bRunAlways"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Either runs a site collection upgrade, or schedules it to be run in the future, depending on available system resources and the value of the queueOnly parameter. The user executing this method MUST be a farm administrator or a site collection administrator.
-	    runUpgradeSiteSession: {
-	        argNames: ["versionUpgrade", "queueOnly", "sendEmail"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Updates it's properties.
-	    update: {
-	        metadataType: "SP.Site",
-	        name: "",
-	        requestMethod: "MERGE",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Sets whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
-	    updateClientObjectModelUseRemoteAPIsPermissionSetting: {
-	        argNames: ["requireUseRemoteAPIs"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 49 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Adds a group to the group collection.
-	    add: {
-	        metadataType: "SP.Group",
-	        name: "",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Returns a group from the collection based on the member ID of the group.
-	    getById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "group"
-	    },
-	    // Returns a cross-site group from the collection based on the name of the group.
-	    getByName: {
-	        argNames: ["name"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "group"
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    },
-	    // Removes the group with the specified member ID from the collection.
-	    removeById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    // Removes the cross-site group with the specified name from the collection.
-	    removeByLoginName: {
-	        argNames: ["name"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 50 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var types_1 = __webpack_require__(4);
-	var utils_1 = __webpack_require__(11);
-	/*********************************************************************************************************************************/
-	// Social Feed
-	/*********************************************************************************************************************************/
-	var _SocialFeed = (function (_super) {
-	    __extends(_SocialFeed, _super);
-	    /*********************************************************************************************************************************/
-	    // Constructor
-	    /*********************************************************************************************************************************/
-	    function _SocialFeed(targetInfo) {
-	        // Call the base constructor
-	        _super.call(this, targetInfo);
-	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "social.feed";
-	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "socialfeed" } });
-	    }
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    // Method to post to another user's feed
-	    _SocialFeed.prototype.postToFeed = function (accountName, creationData) {
-	        var postInfo = { ID: null, creationData: creationData };
-	        // Set the post metadata
-	        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
-	        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-	        return this.executeMethod("postToMyFeed", {
-	            argNames: ["restCreationData"],
-	            name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
-	            requestType: types_1.RequestType.PostWithArgsInBody
-	        }, [postInfo]);
-	    };
-	    // Method to post to the current user's feed
-	    _SocialFeed.prototype.postToMyFeed = function (creationData) {
-	        var postInfo = { ID: null, creationData: creationData };
-	        // Set the post metadata
-	        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
-	        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-	        return this.executeMethod("postToMyFeed", {
-	            argNames: ["restCreationData"],
-	            name: "my/feed/post",
-	            requestType: types_1.RequestType.PostWithArgsInBody
-	        }, [postInfo]);
-	    };
-	    return _SocialFeed;
-	}(utils_1.Base));
-	/*********************************************************************************************************************************/
-	// Libraries
-	/*********************************************************************************************************************************/
-	var Library = {
-	    actor: {
-	        argNames: ["accountName"],
-	        name: "actor(item=@v)?@v='[[accountName]]'",
-	        requestType: types_1.RequestType.GetReplace
-	    },
-	    actorFeed: {
-	        argNames: ["accountName"],
-	        name: "actor(item=@v)/feed?@v='[[accountName]]'",
-	        requestType: types_1.RequestType.GetReplace
-	    },
-	    clearMyUnreadMentionCount: {
-	        name: "my/mentionfeed/clearMyUnreadMentionCount",
-	        requestType: types_1.RequestType.Post
-	    },
-	    my: {
-	        name: "my",
-	        requestType: types_1.RequestType.Get
-	    },
-	    myFeed: {
-	        name: "my/feed",
-	        requestType: types_1.RequestType.Get
-	    },
-	    myLikes: {
-	        name: "my/likes",
-	        requestType: types_1.RequestType.Get
-	    },
-	    myMentionFeed: {
-	        name: "my/mentionfeed",
-	        requestType: types_1.RequestType.Get
-	    },
-	    myNews: {
-	        name: "my/news",
-	        requestType: types_1.RequestType.Get
-	    },
-	    myTimelineFeed: {
-	        name: "my/timelinefeed",
-	        requestType: types_1.RequestType.Get
-	    },
-	    myUnreadMentionCount: {
-	        name: "my/unreadmentioncount",
-	        requestType: types_1.RequestType.Get
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-	/*********************************************************************************************************************************/
-	// Social Feed
-	/*********************************************************************************************************************************/
-	exports.SocialFeed = new _SocialFeed();
-
-
-/***/ },
-/* 51 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	var Library = {
-	    /*********************************************************************************************************************************/
-	    // Properties
-	    /*********************************************************************************************************************************/
-	    properties: [
-	        "Groups|sitegroups|([Name])|group"
-	    ],
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 52 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 53 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Adds a user custom action to the collection.
-	    add: {
-	        metadataType: "SP.UserCustomAction",
-	        name: "",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Deletes all custom actions in the collection.
-	    clear: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Returns the custom action with the specified identifier.
-	    getById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "usercustomaction"
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 54 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var types_1 = __webpack_require__(4);
-	var utils_1 = __webpack_require__(11);
-	/*********************************************************************************************************************************/
-	// User Profile
-	/*********************************************************************************************************************************/
-	var UserProfile = (function (_super) {
-	    __extends(UserProfile, _super);
-	    /*********************************************************************************************************************************/
-	    // Constructor
-	    /*********************************************************************************************************************************/
-	    function UserProfile(targetInfo) {
-	        // Call the base constructor
-	        _super.call(this, targetInfo);
-	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
-	        this.targetInfo.method = "POST";
-	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "userprofile" } });
-	    }
-	    return UserProfile;
-	}(utils_1.Base));
-	exports.UserProfile = UserProfile;
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    /*********************************************************************************************************************************/
-	    // Properties
-	    /*********************************************************************************************************************************/
-	    properties: [
-	        "PersonalSite|site"
-	    ],
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    createPersonalSiteEnque: {
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    shareAllSocialData: {
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 55 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Adds a user to the user collection.
-	    add: {
-	        metadataType: "SP.User",
-	        name: "",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Gets the user with the specified email address.
-	    getByEmail: {
-	        argNames: ["email"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "user"
-	    },
-	    // Gets the user with the specified member identifier (ID).
-	    getById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "user"
-	    },
-	    // Gets the user with the specified login name.
-	    getByLoginName: {
-	        argNames: ["loginName"],
-	        name: "getByLoginName(@v)?@v='[[loginName]]'",
-	        requestType: types_1.RequestType.GetReplace,
-	        returnType: "user"
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    },
-	    // Removes the user with the specified ID.
-	    removeById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    // Removes the user with the specified login name.
-	    removeByLoginName: {
-	        argNames: ["loginName"],
-	        name: "removeByLoginName(@v)?@v='[[loginName]]'",
-	        requestType: types_1.RequestType.PostReplace
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 56 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Gets the version with the specified ID.
-	    getById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "version"
-	    },
-	    // Deletes all versions in the collection.
-	    deleteAll: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Deletes a version, by the specified id.
-	    deleteById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    // Deletes a version, by the specified label.
-	    deleteByLabel: {
-	        argNames: ["label"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    // Restores a version, by the specified label.
-	    restoreByLabel: {
-	        argNames: ["label"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 57 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	var Library = {
-	    /*********************************************************************************************************************************/
-	    // Properties
-	    /*********************************************************************************************************************************/
-	    properties: [
-	        "ViewFields|viewfieldcollection"
-	    ],
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    },
-	    // Returns the list view as HTML.
-	    renderAsHtml: {
-	        requestType: types_1.RequestType.Get
-	    },
-	    // Updates it's properties.
-	    update: {
-	        metadataType: "SP.View",
-	        name: "",
-	        requestMethod: "MERGE",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Adds the field with the specified field internal name or display name to the collection.
-	    addViewField: {
-	        argNames: ["fieldName"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    // Moves the field with the specified field internal name to the specified position in the collection.
-	    moveViewFieldTo: {
-	        argNames: ["field", "index"],
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    },
-	    // Removes all the fields from the collection.
-	    removeAllViewFields: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Removes the field with the specified field internal name from the collection.
-	    removeViewField: {
-	        argNames: ["fieldName"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 59 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    // Adds a view to the view collection.
-	    add: {
-	        metadataType: "SP.View",
-	        name: "",
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Gets the list view with the specified ID.
-	    getById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "view"
-	    },
-	    // Gets the list view with the specified title.
-	    getByTitle: {
-	        argNames: ["title"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "view"
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 60 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var types_1 = __webpack_require__(4);
-	var utils_1 = __webpack_require__(11);
-	/*********************************************************************************************************************************/
-	// Web
-	/*********************************************************************************************************************************/
-	var Web = (function (_super) {
-	    __extends(Web, _super);
-	    /*********************************************************************************************************************************/
-	    // Constructor
-	    /*********************************************************************************************************************************/
-	    function Web(url, targetInfo) {
-	        // Call the base constructor
-	        _super.call(this, targetInfo);
-	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "web";
-	        // See if the web url exists
-	        if (url) {
-	            // Set the settings
-	            this.targetInfo.url = url;
-	        }
-	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "web" } });
-	    }
-	    // Method to determine if the current user has access, based on the permissions.
-	    Web.prototype.hasAccess = function (permissions) {
-	        // TO DO
-	        return true;
-	    };
-	    ;
-	    return Web;
-	}(utils_1.Base));
-	exports.Web = Web;
-	/*********************************************************************************************************************************/
-	// Library
-	/*********************************************************************************************************************************/
-	var Library = {
-	    /*********************************************************************************************************************************/
-	    // Properties
-	    /*********************************************************************************************************************************/
-	    properties: [
-	        "AllProperties|propertyvalues", "AppTiles", "AssociatedMemberGroup|group", "AssociatedOwnerGroup|group",
-	        "AssociatedVisitorGroup|group", "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields",
-	        "ClientWebParts", "ContentTypes|contenttypes|('[Name]')|contenttype", "CurrentUser|user", "DataLeakagePreventionStatusInfo",
-	        "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features",
-	        "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "FirstUniqueAncestorSecurableObject",
-	        "Folders|folders|/getByUrl('[Name]')|folder", "Lists|lists|/getByTitle('[Name]')|list",
-	        "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb",
-	        "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
-	        "RoleDefinitions|roledefinitions|/getByName('[Name]')|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
-	        "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user", "ThemeInfo", "TitleResource",
-	        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
-	    ],
-	    /*********************************************************************************************************************************/
-	    // Methods
-	    /*********************************************************************************************************************************/
-	    // Applies the theme specified by the contents of each of the files specified in the arguments to the site.
-	    applyTheme: {
-	        argNames: ["colorpaletteurl", "fontschemeurl", "backgroundimageurl", "sharegenerated"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Applies the specified site definition or site template to the Web site that has no template applied to it.
-	    applyWebTemplate: {
-	        argName: ["name"],
-	        requestType: types_1.RequestType.PostWithArgsInQS
-	    },
-	    // Creates unique role assignments for the securable object.
-	    breakRoleInheritance: {
-	        argNames: ["copyroleassignments", "clearsubscopes"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Deletes the object
-	    delete: {
-	        requestType: types_1.RequestType.Delete
-	    },
-	    // Checks whether the push notification subscriber exist for the current user with the given device application instance ID.
-	    doesPushNotificationSubscriberExist: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly
-	    },
-	    // Returns whether the current user has the given set of permissions.
-	    doesUserHavePermissions: {
-	        argNames: ["High", "Low"],
-	        requestType: types_1.RequestType.GetWithArgsInQS
-	    },
-	    // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
-	    ensureUser: {
-	        argNames: ["logonName"],
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Sends data to an OData service.
-	    executeRemoteLOB: {
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Gets the app BDC catalog.
-	    getAppBdcCatalog: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Gets the app BDC catalog for the specified app instance.
-	    getAppBdcCatalogForAppInstance: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    // Retrieves an AppInstance installed on this Site.
-	    getAppInstanceById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly
-	    },
-	    // Retrieves all AppInstances installed on this site that are instances of the specified App.
-	    getAppInstancesByProductId: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly
-	    },
-	    // Returns a collection of site templates available for the site.
-	    getAvailableWebTemplates: {
-	        argNames: ["lcid", "doincludecrosslanguage"],
-	        requestType: types_1.RequestType.GetWithArgs
-	    },
-	    // Returns the list gallery on the site.
-	    getCatalog: {
-	        argNames: ["galleryType"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly
-	    },
-	    // Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
-	    getChanges: {
-	        argNames: ["query"],
-	        metadataType: "SP.ChangeQuery",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Gets the context information for the site. Static method.
-	    getContextWebInformation: {
-	        name: "contextInfo",
-	        replaceEndpointFl: true,
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Gets the custom list templates for the site.
-	    getCustomListTemplates: {
-	        requestType: types_1.RequestType.Get
-	    },
-	    // Gets the document libraries on a site. Static method. (SharePoint Online only)
-	    getDocumentLibraries: {
-	        argNames: ["url"],
-	        name: "sp.web.getDocumentLibraries",
-	        requestType: types_1.RequestType.GetWithArgsInQS
-	    },
-	    // Gets the specified external content type in a line-of-business (LOB) system application.
-	    getEntity: {
-	        argNames: ["namespace", "name"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Returns the file object located at the specified server-relative URL.
-	    getFileByServerRelativeUrl: {
-	        argNames: ["url"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "file"
-	    },
-	    // Returns the folder object located at the specified server-relative URL.
-	    getFolderByServerRelativeUrl: {
-	        argNames: ["url"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "folder"
-	    },
-	    // Gets the list at the specified site-relative URL. (SharePoint Online only)
-	    getList: {
-	        argNames: ["url"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "list"
-	    },
-	    // Gets the push notification subscriber over the site for the specified device application instance ID.
-	    getPushNotificationSubscriber: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly
-	    },
-	    // Queries for the push notification subscribers over the site for the specified value of custom arguments. Null or empty custom arguments will return subscribers without any filtering.
-	    getPushNotificationSubscribersByArgs: {
-	        argNames: ["args"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly
-	    },
-	    // Queries for the push notification subscribers over the site for the specified user.
-	    getPushNotificationSubscribersByUser: {
-	        argNames: ["loginName"],
-	        requestType: types_1.RequestType.GetWithArgsInQS
-	    },
-	    // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
-	    getSubwebsFilteredForCurrentUser: {
-	        argNames: ["nwebtemplatefilter", "nconfigurationfilter"],
-	        requestType: types_1.RequestType.GetWithArgs
-	    },
-	    // Returns the user corresponding to the specified member identifier for the current site.
-	    getUserById: {
-	        argNames: ["id"],
-	        requestType: types_1.RequestType.GetWithArgsValueOnly,
-	        returnType: "user"
-	    },
-	    // Gets the effective permissions that the specified user has within the current application scope.
-	    getUserEffectivePermissions: {
-	        argNames: ["loginName"],
-	        name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
-	        requestType: types_1.RequestType.GetReplace
-	    },
-	    // Gets the site URL from a page URL. Static method.
-	    getWebUrlFromPageUrl: {
-	        name: "sp.web.getWebUrlFromPageUrl",
-	        requestType: types_1.RequestType.GetWithArgsInQS
-	    },
-	    // Uploads and installs an app package to this site.
-	    loadAndInstallApp: {
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Uploads and installs an App package on the site in a specified locale.
-	    loadAndInstallAppInSpecifiedLocale: {
-	        argNames: ["appPackageStream", "installationLocaleLCID"],
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Uploads an App package and creates an instance from it.
-	    loadApp: {
-	        argNames: ["appPackageStream", "installationLocaleLCID"],
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Returns the name of the image file for the icon that is used to represent the specified file.
-	    mapToIcon: {
-	        argNames: ["filename", "progid", "size"],
-	        requestType: types_1.RequestType.GetWithArgs
-	    },
-	    // Processes a notification from an external system.
-	    processExternalNotification: {
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
-	    registerPushNotificationSubscriber: {
-	        argNames: ["deviceappinstanceid", "servicetoken"],
-	        requestType: types_1.RequestType.PostWithArgs
-	    },
-	    // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
-	    resetRoleInheritance: {
-	        requestType: types_1.RequestType.Post
-	    },
-	    // Unregisters the subscriber for push notifications from the site.
-	    unregisterPushNotificationSubscriber: {
-	        requestType: types_1.RequestType.PostWithArgsValueOnly
-	    },
-	    // Updates it's properties.
-	    update: {
-	        metadataType: "SP.Web",
-	        name: "",
-	        requestMethod: "MERGE",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
-
-
-/***/ },
-/* 61 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var types_1 = __webpack_require__(4);
-	/*********************************************************************************************************************************/
-	// Methods
-	/*********************************************************************************************************************************/
-	var Library = {
-	    add: {
-	        argNames: ["parameters"],
-	        metadataType: "SP.WebCreationInformation",
-	        requestType: types_1.RequestType.PostWithArgsInBody
-	    },
-	    // Queries the collection
-	    query: {
-	        argNames: ["oData"],
-	        requestType: types_1.RequestType.OData
-	    }
-	};
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = Library;
+	// Request Type
+	(function (RequestType) {
+	    // Requests
+	    RequestType[RequestType["Custom"] = 0] = "Custom";
+	    RequestType[RequestType["Delete"] = 1] = "Delete";
+	    RequestType[RequestType["Merge"] = 2] = "Merge";
+	    RequestType[RequestType["OData"] = 3] = "OData";
+	    // Get Requests
+	    RequestType[RequestType["Get"] = 10] = "Get";
+	    RequestType[RequestType["GetBuffer"] = 11] = "GetBuffer";
+	    RequestType[RequestType["GetWithArgs"] = 12] = "GetWithArgs";
+	    RequestType[RequestType["GetWithArgsInBody"] = 13] = "GetWithArgsInBody";
+	    RequestType[RequestType["GetWithArgsInQS"] = 14] = "GetWithArgsInQS";
+	    RequestType[RequestType["GetWithArgsValueOnly"] = 15] = "GetWithArgsValueOnly";
+	    RequestType[RequestType["GetReplace"] = 16] = "GetReplace";
+	    // Post Requests
+	    RequestType[RequestType["Post"] = 20] = "Post";
+	    RequestType[RequestType["PostWithArgs"] = 21] = "PostWithArgs";
+	    RequestType[RequestType["PostWithArgsInBody"] = 22] = "PostWithArgsInBody";
+	    RequestType[RequestType["PostWithArgsInQS"] = 23] = "PostWithArgsInQS";
+	    RequestType[RequestType["PostWithArgsValueOnly"] = 24] = "PostWithArgsValueOnly";
+	    RequestType[RequestType["PostReplace"] = 25] = "PostReplace";
+	})(exports.RequestType || (exports.RequestType = {}));
+	var RequestType = exports.RequestType;
 
 
 /***/ }

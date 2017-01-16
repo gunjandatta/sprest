@@ -1,10 +1,8 @@
-import {
-    IBase
-} from ".";
-
-/**
- * Audit
- */
-export interface IAudit extends IBase {
-    AuditFlags: number;
+declare module "gd-sprest" {
+    /**
+     * Audit
+     */
+    export interface IAudit extends IBase {
+        AuditFlags: number;
+    }
 }

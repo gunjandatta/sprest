@@ -1,6 +1,9 @@
-import {TargetInfoSettings} from "../definitions";
-import {RequestType} from "../types";
+/// <reference path="../definitions/userProfile.d.ts" />
 import {Base} from "../utils";
+import {RequestType} from ".";
+import {
+    TargetInfoSettings
+} from "gd-sprest";
 
 /*********************************************************************************************************************************/
 // User Profile

@@ -2,10 +2,10 @@
   "name": "gd-sprest",
   "version": "1.1.0",
   "description": "An easy way to develop against the SharePoint REST API.",
-  "author": "Gunjan Datta <me@dattabase.com> (https://github.com/gunjandatta/sprest)",
+  "author": "Gunjan Datta <me@dattabase.com> (https://gunjandatta.github.io/sprest)",
   "license": "https://github.com/gunjandatta/sprest/blob/master/LICENSE",
-  "main": "./src/index.ts",
-  "types": "dist/sprest.d.ts",
+  "main": "src/gd-sprest.ts",
+  "types": "dist/gd-sprest.d.ts",
   "keywords": [
     "sharepoint",
     "sharepoint online",

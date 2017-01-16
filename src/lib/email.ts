@@ -1,12 +1,15 @@
-import {TargetInfoSettings} from "../definitions";
-import {RequestType} from "../types";
+/// <reference path="../definitions/email.d.ts" />
 import {Base} from "../utils";
+import {RequestType} from ".";
+import {
+    TargetInfoSettings
+} from "gd-sprest";
 
 /*********************************************************************************************************************************/
-// Email
+// EMail
 // The SP.Utilities.Utility.SendEmail object.
 /*********************************************************************************************************************************/
-export class Email extends Base {
+class EMail extends Base {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
@@ -54,3 +57,5 @@ export class Email extends Base {
         }, [properties]);
     }
 }
+
+export const Email = new EMail();

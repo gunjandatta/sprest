@@ -22,7 +22,7 @@ gulp.task("createDefinitionFile", function() {
     console.log("Creating the definition file.");
 
     // Create the definition file
-    return gulp.src(["./src/definitions/*.d.ts"])
+    return gulp.src(["./src/types/sptypes.ts", "./src/definitions/*.d.ts"])
         .pipe(concat("gd-sprest.d.ts"))
         .pipe(gulp.dest("dist"));
 });

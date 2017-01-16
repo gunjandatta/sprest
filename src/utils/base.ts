@@ -1,11 +1,12 @@
+/// <reference path="../definitions/methodInfo.d.ts" />
+import {RequestType} from "../lib";
 import {
     MethodInfoSettings,
     TargetInfoSettings
-} from "../definitions";
-import {Mapper} from "../lib";
-import {RequestType} from "../types";
+} from "gd-sprest";
 import {
     ContextInfo,
+    Mapper,
     MethodInfo,
     Promise,
     Request,

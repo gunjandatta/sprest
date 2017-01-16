@@ -21,5 +21,5 @@ export enum RequestType {
     PostWithArgsInBody = 22,
     PostWithArgsInQS = 23,
     PostWithArgsValueOnly = 24,
-    PostReplace = 25,
+    PostReplace = 25
 }
