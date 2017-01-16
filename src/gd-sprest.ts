@@ -27,6 +27,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
+import {IREST} from "./definitions/rest";
 import {
     Email,
     List,
@@ -63,19 +64,20 @@ export {
 /**
  * SharePoint REST Library
  */
-export const $REST = {
-    ContextInfo,
-    Email,
-    Helper,
-    List,
-    PeopleManager,
-    PeoplePicker,
-    ProfileLoader,
-    Search,
-    Site,
-    SocialFeed,
-    UserProfile,
-    Web
+export const $REST:IREST = {
+    ContextInfo: ContextInfo,
+    DefaultRequestToHostFl: false,
+    Email: Email,
+    Helper: <any>Helper,
+    List: <any>List,
+    PeopleManager: <any>PeopleManager,
+    PeoplePicker: <any>PeoplePicker,
+    ProfileLoader: <any>ProfileLoader,
+    Search: <any>Search,
+    Site: <any>Site,
+    SocialFeed: <any>SocialFeed,
+    UserProfile: <any>UserProfile,
+    Web: <any>Web
 }
 
 // Make the library globally available

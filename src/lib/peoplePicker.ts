@@ -2,13 +2,14 @@
 import {Base} from "../utils";
 import {RequestType} from ".";
 import {
+    IPeoplePicker,
     TargetInfoSettings
-} from "gd-sprest";
+} from "../definitions";
 
 /*********************************************************************************************************************************/
 // People Picker
 /*********************************************************************************************************************************/
-export class PeoplePicker extends Base {
+class _PeoplePicker extends Base {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
@@ -25,6 +26,7 @@ export class PeoplePicker extends Base {
         this.addMethods(this, { __metadata: { type: "peoplepicker" } } );
     }
 }
+export const PeoplePicker:IPeoplePicker = <any>_PeoplePicker;
 
 /*********************************************************************************************************************************/
 // Methods

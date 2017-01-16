@@ -1,5 +1,5 @@
 /// <reference path="../definitions/contextInfo.d.ts" />
-import {ComplexTypes, IContextInfo} from "gd-sprest";
+import {ComplexTypes, IContextInfo} from "../definitions";
 
 /*********************************************************************************************************************************/
 // Context Information

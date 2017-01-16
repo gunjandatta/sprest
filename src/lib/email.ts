@@ -2,14 +2,15 @@
 import {Base} from "../utils";
 import {RequestType} from ".";
 import {
+    IEmail,
     TargetInfoSettings
-} from "gd-sprest";
+} from "../definitions";
 
 /*********************************************************************************************************************************/
-// EMail
+// Email
 // The SP.Utilities.Utility.SendEmail object.
 /*********************************************************************************************************************************/
-class EMail extends Base {
+class _Email extends Base {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
@@ -57,5 +58,4 @@ class EMail extends Base {
         }, [properties]);
     }
 }
-
-export const Email = new EMail();
+export const Email:IEmail = <any>(new _Email());

@@ -1,4 +1,4 @@
-import {TargetInfoSettings} from "gd-sprest";
+import {TargetInfoSettings} from "../definitions";
 import {ContextInfo} from ".";
 
 /*********************************************************************************************************************************/

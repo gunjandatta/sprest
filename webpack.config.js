@@ -27,7 +27,7 @@ module.exports = {
                 test: /.tsx?$/,
                 // Use the "ts-loader" library
                 loader: "ts-loader",
-                // Exclude the npm libraries
+                // Exclude folders
                 exclude: [/dist/, /node_modules/, /test/]
             }
         ]

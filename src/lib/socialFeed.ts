@@ -3,8 +3,9 @@ import {Base} from "../utils";
 import {RequestType} from ".";
 import {
     ComplexTypes,
+    ISocialFeed,
     TargetInfoSettings
-} from "gd-sprest";
+} from "../definitions";
 
 /*********************************************************************************************************************************/
 // Social Feed
@@ -60,6 +61,7 @@ class _SocialFeed extends Base {
         }, [postInfo]);
     }
 }
+export const SocialFeed = <any>(new _SocialFeed());
 
 /*********************************************************************************************************************************/
 // Libraries
@@ -118,8 +120,3 @@ const Library = {
     }
 };
 export default Library;
-
-/*********************************************************************************************************************************/
-// Social Feed
-/*********************************************************************************************************************************/
-export let SocialFeed = new _SocialFeed();

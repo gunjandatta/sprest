@@ -3,7 +3,7 @@ import {RequestType} from "../lib";
 import {
     MethodInfoSettings,
     TargetInfoSettings
-} from "gd-sprest";
+} from "../definitions";
 import {
     ContextInfo,
     Mapper,

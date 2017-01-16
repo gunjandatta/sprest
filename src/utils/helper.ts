@@ -4,7 +4,7 @@ import {
     IFolder,
     IFile,
     IWeb
-} from "gd-sprest";
+} from "../definitions";
 import {
     Web
 } from "../lib";

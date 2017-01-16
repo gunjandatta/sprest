@@ -1,13 +1,14 @@
 import {Base} from "../utils";
 import {RequestType} from ".";
 import {
+    IProfileLoader,
     TargetInfoSettings
-} from "gd-sprest";
+} from "../definitions";
 
 /*********************************************************************************************************************************/
 // Profile Loader
 /*********************************************************************************************************************************/
-export class ProfileLoader extends Base {
+class _ProfileLoader extends Base {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
@@ -25,6 +26,7 @@ export class ProfileLoader extends Base {
         this.addMethods(this, { __metadata: { type: "profileloader" } } );
     }
 }
+export const ProfileLoader:IProfileLoader = <any>_ProfileLoader;
 
 /*********************************************************************************************************************************/
 // Methods

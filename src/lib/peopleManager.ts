@@ -2,13 +2,14 @@
 import {Base} from "../utils";
 import {RequestType} from ".";
 import {
+    IPeopleManager,
     TargetInfoSettings
-} from "gd-sprest";
+} from "../definitions";
 
 /*********************************************************************************************************************************/
 // People Manager
 /*********************************************************************************************************************************/
-export class PeopleManager extends Base {
+class _PeopleManager extends Base {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
@@ -25,6 +26,7 @@ export class PeopleManager extends Base {
         this.addMethods(this, { __metadata: { type: "peoplemanager" } } );
     }
 }
+export const PeopleManager:IPeopleManager = <any>_PeopleManager;
 
 /*********************************************************************************************************************************/
 // Methods

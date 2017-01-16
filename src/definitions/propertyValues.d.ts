@@ -1,13 +1,15 @@
-/// <reference path="./oData.d.ts" />
-declare module "gd-sprest" {
+import {
+    ComplexTypes,
+    IBase,
+    ODataQuery
+} from ".";
+/**
+ * Property Values
+ */
+export interface IPropertyValues extends IBase, ComplexTypes.KeyValue {
     /**
-     * Property Values
+     * Queries the collection.
+     * @param oData - The OData information.
      */
-    export interface IPropertyValues extends IBase, ComplexTypes.KeyValue {
-        /**
-         * Queries the collection.
-         * @param oData - The OData information.
-         */
-        query(oData:ODataQuery): IPropertyValues;
-    }
+    query(oData:ODataQuery): IPropertyValues;
 }

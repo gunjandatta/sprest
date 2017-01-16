@@ -3,7 +3,7 @@ import {OData} from ".";
 import {RequestType} from "../lib";
 import {
     MethodInfoSettings
-} from "gd-sprest";
+} from "../definitions";
 
 /*********************************************************************************************************************************/
 // Method Information
