@@ -1,17 +1,5 @@
-import {
-    IContextInfo,
-    IEmail,
-    IHelper,
-    IList,
-    IPeopleManager,
-    IPeoplePicker,
-    IProfileLoader,
-    ISearch,
-    ISite,
-    ISocialFeed,
-    IUserProfile,
-    IWeb
-} from "./definitions";
+import Types from "./definitions";
+export {Types};
 
 /**
  * SharePoint REST Library
@@ -20,7 +8,7 @@ export interface IREST {
     /**
      * A reference to the _spPageContextInfo global variable.
      */
-    ContextInfo:IContextInfo;
+    ContextInfo:Types.IContextInfo;
 
     /**
      * False by default.
@@ -30,55 +18,55 @@ export interface IREST {
     /**
      * Use this api to send emails.
      */
-    Email:IEmail;
+    Email:Types.IEmail;
 
     /**
      * Helper methods for copying files between the app web and host web.
      */
-    Helper:IHelper;
+    Helper:Types.IHelper;
 
     /**
      * Use this api to interact with SharePoint lists and libraries.
      */
-    List:IList;
+    List:Types.IList;
 
     /**
      * Use this api to interact with SharePoint user profiles.
      */
-    PeopleManager:IPeopleManager;
+    PeopleManager:Types.IPeopleManager;
 
     /**
      * Use this api to search for users.
      */
-    PeoplePicker:IPeoplePicker;
+    PeoplePicker:Types.IPeoplePicker;
 
     /**
      * Use this api to interact with the user profile loader.
      */
-    ProfileLoader:IProfileLoader;
+    ProfileLoader:Types.IProfileLoader;
 
     /**
      * Use this api to interact with the SharePoint search service.
      */
-    Search:ISearch;
+    Search:Types.ISearch;
 
     /**
      * Use this api to interact with a SharePoint site collection.
      */
-    Site:ISite;
+    Site:Types.ISite;
 
     /**
      * Use this api to interact with the current user's social profile.
      */
-    SocialFeed:ISocialFeed;
+    SocialFeed:Types.ISocialFeed;
 
     /**
      * Use this api to interact with the current user's profile.
      */
-    UserProfile:IUserProfile;
+    UserProfile:Types.IUserProfile;
 
     /**
      * Use this api to interact with a SharePoint web.
      */
-    Web:IWeb;
+    Web:Types.IWeb;
 }

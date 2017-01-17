@@ -28,7 +28,12 @@ module.exports = {
                 // Use the "babel-loader" library
                 loader: "babel-loader",
                 // Exclude folders
-                exclude: [/dist/, /node_modules/, /test/]
+                exclude: [/dist/, /node_modules/, /test/],
+                // Presets
+                query: {
+                    presets: ["es2015"],
+                    plugins: ["add-module-exports", "transform-class-properties"]
+                }
             }
         ]
     }

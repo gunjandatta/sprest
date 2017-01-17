@@ -1,8 +1,7 @@
 "use strict";
 // Type definitions for gd-sprest
-// Project: https://github.com/gunjandatta/sprest
-// Definitions by: Gunjan Datta <https://github.com/gunjandatta/>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// Project: https://gunjandatta.github.io/sprest
+// Definitions by: Gunjan Datta <https://github.com/gunjandatta>
 
 /***************************************************************************************************
 MIT License
@@ -27,8 +26,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-import * as Types from "./definitions";
-export {Types}
 import {
     ContextInfo,
     Email,
@@ -56,7 +53,7 @@ export {
     SocialFeed,
     UserProfile,
     Web
-}
+};
 
 /**
  * SharePoint REST Library
