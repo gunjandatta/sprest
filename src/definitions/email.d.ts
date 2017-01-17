@@ -43,3 +43,4 @@ export interface IEmail {
      */
     send(properties:EmailProperties): IBase;
 }
+export declare var Email:IEmail;

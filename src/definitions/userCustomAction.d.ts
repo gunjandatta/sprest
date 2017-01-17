@@ -1,8 +1,8 @@
 import {
     ComplexTypes,
-    IBase
+    IBase,
+    SPTypes
 } from ".";
-import {SPTypes} from "../lib";
 /**
  * User Custom Action
  */

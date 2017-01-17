@@ -3,7 +3,7 @@ var webpack = require("webpack");
 
 module.exports = {
     // Entry point(s)
-    entry: "./src/gd-sprest",
+    entry: "./src/gd-sprest.js",
 
     // Output
     output: {
@@ -15,7 +15,7 @@ module.exports = {
 
     // Include the typescript files as resolvable extensions
     resolve: {
-        extensions: ["", ".ts"]
+        extensions: ["", ".js"]
     },
 
     // Module
@@ -23,10 +23,10 @@ module.exports = {
         // Loaders
         loaders: [
             {
-                // Target .ts and .tsx files
-                test: /.tsx?$/,
-                // Use the "ts-loader" library
-                loader: "ts-loader",
+                // Target .js and .jsx files
+                test: /.jsx?$/,
+                // Use the "babel-loader" library
+                loader: "babel-loader",
                 // Exclude folders
                 exclude: [/dist/, /node_modules/, /test/]
             }

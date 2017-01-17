@@ -3,10 +3,10 @@ import {
     IAudit,
     IEventReceiver, IEventReceivers,
     IBase,
+    ITargetInfo,
     IUser,
     IUserCustomAction, IUserCustomActions,
-    IWeb, IWebs,
-    TargetInfoSettings
+    IWeb, IWebs
 } from ".";
 /**
  * Site
@@ -17,7 +17,7 @@ export interface ISite extends IBase {
      * @param url - (Optional) The site url.
      * @param targetInfo - (Optional) The target information.
      */
-    new(url?:string, targetInfo?:TargetInfoSettings): ISite;
+    new(url?:string, targetInfo?:ITargetInfo): ISite;
 
     /**
      * Properties

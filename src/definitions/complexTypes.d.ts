@@ -1,5 +1,7 @@
-import {Results} from ".";
-import {SPTypes} from "../lib"
+import {
+    Results,
+    SPTypes
+} from ".";
 export namespace ComplexTypes {
     /**
      * App License

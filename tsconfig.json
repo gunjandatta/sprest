@@ -1,11 +1,10 @@
 {
     "compilerOptions": {
+        "allowJs": true,
+        "outDir": "build",
         "sourceMap": true,
         "target": "es5"
     },
-    "include": [
-        "src"
-    ],
     "exclude": [
         "dist",
         "node_modules",

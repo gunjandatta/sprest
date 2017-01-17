@@ -1,6 +1,6 @@
 import {
     IBase,
-    TargetInfoSettings
+    ITargetInfo
 } from ".";
 /**
  * Entity Data
@@ -115,7 +115,7 @@ export interface IPeoplePicker extends IBase {
      * Constructor
      * @param settings - The search settings.
      */
-    new(settings?:TargetInfoSettings): IPeoplePicker;
+    new(settings?:ITargetInfo): IPeoplePicker;
 
     /**
      * Methods

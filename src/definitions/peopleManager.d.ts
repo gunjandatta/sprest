@@ -1,7 +1,7 @@
 import {
     IBase,
     IPersonProperties,
-    TargetInfoSettings
+    ITargetInfo
 } from ".";
 /**
  * People Manager
@@ -11,7 +11,7 @@ export interface IPeopleManager extends IBase {
      * Constructor
      * @param targetInfo - (Optional) The target information.
      */
-    new(targetInfo?:TargetInfoSettings): IPeopleManager;
+    new(targetInfo?:ITargetInfo): IPeopleManager;
 
     /**
      * Properties

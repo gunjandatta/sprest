@@ -1,9 +1,9 @@
 import {
     IBase,
     IRoleDefinition,
-    ODataQuery
+    ODataQuery,
+    SPTypes
 } from ".";
-import {SPTypes} from "../lib";
 /**
  * Role Definitions
  */

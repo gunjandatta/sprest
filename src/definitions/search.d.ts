@@ -1,7 +1,7 @@
 import {
     ComplexTypes,
     IBase,
-    TargetInfoSettings
+    ITargetInfo
 } from ".";
 /**
  * Search
@@ -12,7 +12,7 @@ export interface ISearch extends IBase {
      * @param url - The optional url to execute the search against.
      * @param settings - The search settings.
      */
-    new(url?:string, settings?:TargetInfoSettings): ISearch;
+    new(url?:string, settings?:ITargetInfo): ISearch;
 
     /**
      * Methods

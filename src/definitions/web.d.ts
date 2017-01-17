@@ -11,10 +11,10 @@ import {
     IPropertyValues,
     IRoleDefinition, IRoleDefinitions,
     ISiteGroups,
+    ITargetInfo,
     IUser, IUsers,
     IUserCustomAction, IUserCustomActions,
-    IWebs,
-    TargetInfoSettings
+    IWebs
 } from ".";
 /**
  * Web
@@ -25,7 +25,7 @@ export interface IWeb extends IBase {
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
      */
-    new(url?:string, targetInfo?:TargetInfoSettings): IWeb;
+    new(url?:string, targetInfo?:ITargetInfo): IWeb;
 
     /**
      * Properties

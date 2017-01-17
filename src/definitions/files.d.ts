@@ -1,9 +1,9 @@
 import {
     IBase,
     IFile,
-    ODataQuery
+    ODataQuery,
+    SPTypes
 } from ".";
-import {SPTypes} from "../lib";
 /**
  * Files
  */

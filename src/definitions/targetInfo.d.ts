@@ -1,7 +1,7 @@
 /**
  * Target Information
  */
-export interface TargetInfoSettings {
+export interface ITargetInfo {
     /** True if the expected request returns an array buffer. */
     bufferFl?:boolean;
 

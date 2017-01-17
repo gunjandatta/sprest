@@ -1,7 +1,7 @@
 import {
     IBase,
-    IUserProfile,
-    TargetInfoSettings
+    ITargetInfo,
+    IUserProfile    
 } from ".";
 /**
  * Profile Loader
@@ -11,7 +11,7 @@ export interface IProfileLoader extends IBase {
      * Constructor
      * @param targetInfo - (Optional) The target information.
      */
-    new(targetInfo?:TargetInfoSettings): IProfileLoader;
+    new(targetInfo?:ITargetInfo): IProfileLoader;
 
     /**
      * Methods

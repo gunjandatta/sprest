@@ -1,9 +1,9 @@
 import {
     IBase,
     ISite,
-    TargetInfoSettings
+    ITargetInfo,
+    SPTypes
 } from ".";
-import {SPTypes} from "../lib";
 /**
  * User Profile
  */
@@ -12,7 +12,7 @@ export interface IUserProfile extends IBase {
      * Constructor
      * @param targetInfo - (Optional) The target information.
      */
-    new(targetInfo?:TargetInfoSettings): IUserProfile;
+    new(targetInfo?:ITargetInfo): IUserProfile;
 
     /**
      * Properties

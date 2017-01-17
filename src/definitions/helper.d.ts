@@ -70,3 +70,4 @@ export interface IHelper {
      */
     removeFiles(web:IWeb, fileUrls:Array<string>): IPromise;
 }
+export declare var Helper:IHelper;

@@ -111,3 +111,4 @@ export interface IContextInfo {
     /** Web UI Version */
     webUIVersion:number;
 }
+export declare var ContextInfo:IContextInfo;

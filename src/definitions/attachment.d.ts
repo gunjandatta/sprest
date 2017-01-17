@@ -1,4 +1,8 @@
-import {ComplexTypes, IBase} from ".";
+import {
+    IBase,
+    ComplexTypes
+} from ".";
+
 /**
  * Attachment
  */

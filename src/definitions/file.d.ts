@@ -3,9 +3,9 @@ import {
     IBase,
     IFileVersions,
     IPropertyValues,
-    IUser
+    IUser,
+    SPTypes
 } from ".";
-import {SPTypes} from "../lib";
 /**
  * File
  */

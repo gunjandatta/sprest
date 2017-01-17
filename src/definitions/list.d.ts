@@ -8,11 +8,11 @@ import {
     IFolder,
     IListItem, IListItems,
     IRoleAssignment, IRoleAssignments,
+    ITargetInfo,
     IUserCustomAction, IUserCustomActions,
     IView, IViews,
-    TargetInfoSettings
+    SPTypes
 } from ".";
-import {SPTypes} from "../lib";
 /**
  * List
  */
@@ -22,7 +22,7 @@ export interface IList extends IBase {
      * @param listName - The name of the list.
      * @param targetInfo - (Optional) The target information.
      */
-    new(listName:string, targetInfo?:TargetInfoSettings): IList;
+    new(listName:string, targetInfo?:ITargetInfo): IList;
 
     /**
      * Properties

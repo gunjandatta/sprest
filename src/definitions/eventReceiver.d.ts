@@ -1,5 +1,7 @@
-import {IBase} from ".";
-import {SPTypes} from "../lib";
+import {
+    IBase,
+    SPTypes
+} from ".";
 /**
  * Event Receiver
  */
