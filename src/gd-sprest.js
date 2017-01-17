@@ -40,20 +40,6 @@ import {
     UserProfile,
     Web
 } from "./lib";
-export {
-    ContextInfo,
-    Email,
-    Helper,
-    List,
-    PeopleManager,
-    PeoplePicker,
-    ProfileLoader,
-    Search,
-    Site,
-    SocialFeed,
-    UserProfile,
-    Web
-};
 
 /**
  * SharePoint REST Library

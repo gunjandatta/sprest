@@ -1,5 +1,33 @@
-import Types from "./definitions";
-export {Types};
+import * as Types from "./definitions";
+import {
+    ContextInfo,
+    Email,
+    Helper,
+    List,
+    PeopleManager,
+    PeoplePicker,
+    ProfileLoader,
+    Search,
+    Site,
+    SocialFeed,
+    UserProfile,
+    Web
+} from "./lib";
+export {
+    ContextInfo,
+    Email,
+    Helper,
+    List,
+    PeopleManager,
+    PeoplePicker,
+    ProfileLoader,
+    Search,
+    Site,
+    SocialFeed,
+    Types,
+    UserProfile,
+    Web
+};
 
 /**
  * SharePoint REST Library
@@ -70,3 +98,4 @@ export interface IREST {
      */
     Web:Types.IWeb;
 }
+export declare var $REST:IREST;

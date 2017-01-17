@@ -76,27 +76,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.$REST = exports.Web = exports.UserProfile = exports.SocialFeed = exports.Site = exports.Search = exports.ProfileLoader = exports.PeoplePicker = exports.PeopleManager = exports.List = exports.Helper = exports.Email = exports.ContextInfo = undefined;
+	exports.$REST = undefined;
 
 	var _lib = __webpack_require__(1);
-
-	exports.ContextInfo = _lib.ContextInfo;
-	exports.Email = _lib.Email;
-	exports.Helper = _lib.Helper;
-	exports.List = _lib.List;
-	exports.PeopleManager = _lib.PeopleManager;
-	exports.PeoplePicker = _lib.PeoplePicker;
-	exports.ProfileLoader = _lib.ProfileLoader;
-	exports.Search = _lib.Search;
-	exports.Site = _lib.Site;
-	exports.SocialFeed = _lib.SocialFeed;
-	exports.UserProfile = _lib.UserProfile;
-	exports.Web = _lib.Web;
 
 	/**
 	 * SharePoint REST Library
 	 */
-
 	var $REST = exports.$REST = {
 	    ContextInfo: _lib.ContextInfo,
 	    DefaultRequestToHostFl: false,
