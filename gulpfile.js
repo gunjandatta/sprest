@@ -28,4 +28,4 @@ gulp.task("createDefinitionFile", function() {
 });
 
 // Main
-gulp.task("default", ["build"]);
+gulp.task("default", ["build", "createDefinitionFile"]);

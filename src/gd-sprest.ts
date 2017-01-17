@@ -27,7 +27,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-import {IREST} from "./definitions/rest";
+import * as Types from "./definitions";
+export {Types}
 import {
     Email,
     List,
@@ -64,7 +65,7 @@ export {
 /**
  * SharePoint REST Library
  */
-export const $REST:IREST = {
+export const $REST:Types.IREST = {
     ContextInfo,
     DefaultRequestToHostFl: false,
     Email,

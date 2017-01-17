@@ -45,7 +45,36 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var lib_1 = __webpack_require__(1);
+	// Type definitions for gd-sprest
+	// Project: https://github.com/gunjandatta/sprest
+	// Definitions by: Gunjan Datta <https://github.com/gunjandatta/>
+	// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+	/***************************************************************************************************
+	MIT License
+
+	Copyright (c) 2016 Dattabase, LLC.
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the "Software"), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	SOFTWARE.
+	***************************************************************************************************/
+	var Types = __webpack_require__(1);
+	exports.Types = Types;
+	var lib_1 = __webpack_require__(2);
 	exports.Email = lib_1.Email;
 	exports.List = lib_1.List;
 	exports.PeopleManager = lib_1.PeopleManager;
@@ -56,7 +85,7 @@
 	exports.SocialFeed = lib_1.SocialFeed;
 	exports.UserProfile = lib_1.UserProfile;
 	exports.Web = lib_1.Web;
-	var utils_1 = __webpack_require__(8);
+	var utils_1 = __webpack_require__(9);
 	exports.ContextInfo = utils_1.ContextInfo;
 	exports.Helper = utils_1.Helper;
 	/**
@@ -83,19 +112,25 @@
 
 /***/ },
 /* 1 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+
+/***/ },
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(2));
 	__export(__webpack_require__(3));
 	__export(__webpack_require__(4));
 	__export(__webpack_require__(5));
 	__export(__webpack_require__(6));
 	__export(__webpack_require__(7));
-	__export(__webpack_require__(14));
+	__export(__webpack_require__(8));
 	__export(__webpack_require__(15));
 	__export(__webpack_require__(16));
 	__export(__webpack_require__(17));
@@ -116,8 +151,8 @@
 	__export(__webpack_require__(32));
 	__export(__webpack_require__(33));
 	__export(__webpack_require__(34));
-	__export(__webpack_require__(59));
 	__export(__webpack_require__(35));
+	__export(__webpack_require__(60));
 	__export(__webpack_require__(36));
 	__export(__webpack_require__(37));
 	__export(__webpack_require__(38));
@@ -125,8 +160,8 @@
 	__export(__webpack_require__(40));
 	__export(__webpack_require__(41));
 	__export(__webpack_require__(42));
-	__export(__webpack_require__(60));
 	__export(__webpack_require__(43));
+	__export(__webpack_require__(61));
 	__export(__webpack_require__(44));
 	__export(__webpack_require__(45));
 	__export(__webpack_require__(46));
@@ -137,10 +172,11 @@
 	__export(__webpack_require__(51));
 	__export(__webpack_require__(52));
 	__export(__webpack_require__(53));
+	__export(__webpack_require__(54));
 
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -153,11 +189,11 @@
 
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Library
 	/*********************************************************************************************************************************/
@@ -182,11 +218,11 @@
 
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Library
 	/*********************************************************************************************************************************/
@@ -202,11 +238,11 @@
 
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	var Library = {
 	    /*********************************************************************************************************************************/
 	    // Properties
@@ -234,11 +270,11 @@
 
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -271,7 +307,7 @@
 
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -281,8 +317,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	/// <reference path="../definitions/email.d.ts" />
-	var utils_1 = __webpack_require__(8);
-	var _1 = __webpack_require__(1);
+	var utils_1 = __webpack_require__(9);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Email
 	// The SP.Utilities.Utility.SendEmail object.
@@ -336,33 +372,33 @@
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	function __export(m) {
 	    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	}
-	__export(__webpack_require__(9));
 	__export(__webpack_require__(10));
 	__export(__webpack_require__(11));
 	__export(__webpack_require__(12));
 	__export(__webpack_require__(13));
-	__export(__webpack_require__(54));
+	__export(__webpack_require__(14));
 	__export(__webpack_require__(55));
 	__export(__webpack_require__(56));
 	__export(__webpack_require__(57));
 	__export(__webpack_require__(58));
+	__export(__webpack_require__(59));
 
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/// <reference path="../definitions/methodInfo.d.ts" />
-	var lib_1 = __webpack_require__(1);
-	var _1 = __webpack_require__(8);
+	var lib_1 = __webpack_require__(2);
+	var _1 = __webpack_require__(9);
 	/*********************************************************************************************************************************/
 	// Base
 	// This is the base class for all objects.
@@ -942,7 +978,7 @@
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1037,11 +1073,11 @@
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(8);
+	var _1 = __webpack_require__(9);
 	/*********************************************************************************************************************************/
 	// Dependencies
 	// This class will ensure the core SP scripts are loaded on the page.
@@ -1121,12 +1157,12 @@
 
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var lib_1 = __webpack_require__(1);
-	var _1 = __webpack_require__(8);
+	var lib_1 = __webpack_require__(2);
+	var _1 = __webpack_require__(9);
 	/*********************************************************************************************************************************/
 	// Helper Methods
 	/*********************************************************************************************************************************/
@@ -1428,55 +1464,55 @@
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var attachment = __webpack_require__(2);
-	var attachmentFiles = __webpack_require__(3);
-	var audit = __webpack_require__(4);
-	var contentType = __webpack_require__(5);
-	var contentTypes = __webpack_require__(6);
-	var eventReceiver = __webpack_require__(14);
-	var eventReceivers = __webpack_require__(15);
-	var field = __webpack_require__(16);
-	var fieldLinks = __webpack_require__(17);
-	var fields = __webpack_require__(18);
-	var file = __webpack_require__(19);
-	var files = __webpack_require__(20);
-	var fileVersion = __webpack_require__(21);
-	var fileVersions = __webpack_require__(22);
-	var folder = __webpack_require__(23);
-	var folders = __webpack_require__(24);
-	var group = __webpack_require__(25);
-	var items = __webpack_require__(26);
-	var limitedWebPartManager = __webpack_require__(27);
-	var list = __webpack_require__(28);
-	var listItem = __webpack_require__(29);
-	var lists = __webpack_require__(30);
-	var peopleManager = __webpack_require__(31);
-	var peoplePicker = __webpack_require__(32);
-	var profileLoader = __webpack_require__(33);
-	var propertyValues = __webpack_require__(34);
-	var roleAssignment = __webpack_require__(35);
-	var roleAssignments = __webpack_require__(36);
-	var roleDefinition = __webpack_require__(37);
-	var roleDefinitions = __webpack_require__(38);
-	var search = __webpack_require__(39);
-	var site = __webpack_require__(40);
-	var siteGroups = __webpack_require__(41);
-	var socialFeed = __webpack_require__(42);
-	var user = __webpack_require__(43);
-	var userCustomAction = __webpack_require__(44);
-	var userCustomActions = __webpack_require__(45);
-	var userProfile = __webpack_require__(46);
-	var users = __webpack_require__(47);
-	var versions = __webpack_require__(48);
-	var view = __webpack_require__(49);
-	var viewFieldCollection = __webpack_require__(50);
-	var views = __webpack_require__(51);
-	var web = __webpack_require__(52);
-	var webs = __webpack_require__(53);
+	var attachment = __webpack_require__(3);
+	var attachmentFiles = __webpack_require__(4);
+	var audit = __webpack_require__(5);
+	var contentType = __webpack_require__(6);
+	var contentTypes = __webpack_require__(7);
+	var eventReceiver = __webpack_require__(15);
+	var eventReceivers = __webpack_require__(16);
+	var field = __webpack_require__(17);
+	var fieldLinks = __webpack_require__(18);
+	var fields = __webpack_require__(19);
+	var file = __webpack_require__(20);
+	var files = __webpack_require__(21);
+	var fileVersion = __webpack_require__(22);
+	var fileVersions = __webpack_require__(23);
+	var folder = __webpack_require__(24);
+	var folders = __webpack_require__(25);
+	var group = __webpack_require__(26);
+	var items = __webpack_require__(27);
+	var limitedWebPartManager = __webpack_require__(28);
+	var list = __webpack_require__(29);
+	var listItem = __webpack_require__(30);
+	var lists = __webpack_require__(31);
+	var peopleManager = __webpack_require__(32);
+	var peoplePicker = __webpack_require__(33);
+	var profileLoader = __webpack_require__(34);
+	var propertyValues = __webpack_require__(35);
+	var roleAssignment = __webpack_require__(36);
+	var roleAssignments = __webpack_require__(37);
+	var roleDefinition = __webpack_require__(38);
+	var roleDefinitions = __webpack_require__(39);
+	var search = __webpack_require__(40);
+	var site = __webpack_require__(41);
+	var siteGroups = __webpack_require__(42);
+	var socialFeed = __webpack_require__(43);
+	var user = __webpack_require__(44);
+	var userCustomAction = __webpack_require__(45);
+	var userCustomActions = __webpack_require__(46);
+	var userProfile = __webpack_require__(47);
+	var users = __webpack_require__(48);
+	var versions = __webpack_require__(49);
+	var view = __webpack_require__(50);
+	var viewFieldCollection = __webpack_require__(51);
+	var views = __webpack_require__(52);
+	var web = __webpack_require__(53);
+	var webs = __webpack_require__(54);
 	/**
 	 * Mapper
 	 */
@@ -1530,11 +1566,11 @@
 
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -1556,11 +1592,11 @@
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -1588,11 +1624,11 @@
 
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -1629,11 +1665,11 @@
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -1662,11 +1698,11 @@
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -1731,11 +1767,11 @@
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Library
 	/*********************************************************************************************************************************/
@@ -1871,11 +1907,11 @@
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -1908,11 +1944,11 @@
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	var Library = {
 	    /*********************************************************************************************************************************/
 	    // Properties
@@ -1931,11 +1967,11 @@
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -1955,11 +1991,11 @@
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	var Library = {
 	    /*********************************************************************************************************************************/
 	    // Properties
@@ -1998,11 +2034,11 @@
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Library
 	/*********************************************************************************************************************************/
@@ -2039,7 +2075,7 @@
 
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2056,11 +2092,11 @@
 
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -2088,11 +2124,11 @@
 
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -2109,7 +2145,7 @@
 
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2119,8 +2155,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	/// <reference path="../definitions/targetInfo.d.ts" />
-	var utils_1 = __webpack_require__(8);
-	var _1 = __webpack_require__(1);
+	var utils_1 = __webpack_require__(9);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// List
 	// The SPList object.
@@ -2266,11 +2302,11 @@
 
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	var Library = {
 	    /*********************************************************************************************************************************/
 	    // Properties
@@ -2326,11 +2362,11 @@
 
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -2372,7 +2408,7 @@
 
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2382,8 +2418,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	/// <reference path="../definitions/peopleManager.d.ts" />
-	var utils_1 = __webpack_require__(8);
-	var _1 = __webpack_require__(1);
+	var utils_1 = __webpack_require__(9);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// People Manager
 	/*********************************************************************************************************************************/
@@ -2489,7 +2525,7 @@
 
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2499,8 +2535,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	/// <reference path="../definitions/peoplePicker.d.ts" />
-	var utils_1 = __webpack_require__(8);
-	var _1 = __webpack_require__(1);
+	var utils_1 = __webpack_require__(9);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// People Picker
 	/*********************************************************************************************************************************/
@@ -2546,7 +2582,7 @@
 
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2555,8 +2591,8 @@
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var utils_1 = __webpack_require__(8);
-	var _1 = __webpack_require__(1);
+	var utils_1 = __webpack_require__(9);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Profile Loader
 	/*********************************************************************************************************************************/
@@ -2603,11 +2639,11 @@
 
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Library
 	/*********************************************************************************************************************************/
@@ -2623,11 +2659,11 @@
 
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	var Library = {
 	    /*********************************************************************************************************************************/
 	    // Properties
@@ -2648,11 +2684,11 @@
 
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -2684,11 +2720,11 @@
 
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -2703,11 +2739,11 @@
 
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -2741,7 +2777,7 @@
 
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2751,8 +2787,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	/// <reference path="../definitions/search.d.ts" />
-	var utils_1 = __webpack_require__(8);
-	var _1 = __webpack_require__(1);
+	var utils_1 = __webpack_require__(9);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Search
 	/*********************************************************************************************************************************/
@@ -2826,7 +2862,7 @@
 
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2837,8 +2873,8 @@
 	};
 	/// <reference path="../definitions/audit.d.ts" />
 	/// <reference path="../definitions/site.d.ts" />
-	var utils_1 = __webpack_require__(8);
-	var _1 = __webpack_require__(1);
+	var utils_1 = __webpack_require__(9);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Site
 	// The SPSite object.
@@ -2965,11 +3001,11 @@
 
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -3013,7 +3049,7 @@
 
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3023,8 +3059,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	/// <reference path="../definitions/socialFeed.d.ts" />
-	var utils_1 = __webpack_require__(8);
-	var _1 = __webpack_require__(1);
+	var utils_1 = __webpack_require__(9);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Social Feed
 	/*********************************************************************************************************************************/
@@ -3125,11 +3161,11 @@
 
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	var Library = {
 	    /*********************************************************************************************************************************/
 	    // Properties
@@ -3150,11 +3186,11 @@
 
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -3169,11 +3205,11 @@
 
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -3205,7 +3241,7 @@
 
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3215,8 +3251,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	/// <reference path="../definitions/userProfile.d.ts" />
-	var utils_1 = __webpack_require__(8);
-	var _1 = __webpack_require__(1);
+	var utils_1 = __webpack_require__(9);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// User Profile
 	/*********************************************************************************************************************************/
@@ -3264,11 +3300,11 @@
 
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -3320,11 +3356,11 @@
 
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -3360,11 +3396,11 @@
 
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	var Library = {
 	    /*********************************************************************************************************************************/
 	    // Properties
@@ -3396,11 +3432,11 @@
 
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -3435,11 +3471,11 @@
 
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -3473,7 +3509,7 @@
 
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3483,8 +3519,8 @@
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	/// <reference path="../definitions/web.d.ts" />
-	var utils_1 = __webpack_require__(8);
-	var _1 = __webpack_require__(1);
+	var utils_1 = __webpack_require__(9);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Web
 	/*********************************************************************************************************************************/
@@ -3739,11 +3775,11 @@
 
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(1);
+	var _1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
@@ -3764,13 +3800,13 @@
 
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	/// <reference path="../definitions/methodInfo.d.ts" />
-	var _1 = __webpack_require__(8);
-	var lib_1 = __webpack_require__(1);
+	var _1 = __webpack_require__(9);
+	var lib_1 = __webpack_require__(2);
 	/*********************************************************************************************************************************/
 	// Method Information
 	// This class will create the method information for the request.
@@ -4017,7 +4053,7 @@
 
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4133,7 +4169,7 @@
 
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4192,11 +4228,11 @@
 
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(8);
+	var _1 = __webpack_require__(9);
 	/*********************************************************************************************************************************/
 	// Request
 	// This class will execute the xml http request.
@@ -4343,11 +4379,11 @@
 
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var _1 = __webpack_require__(8);
+	var _1 = __webpack_require__(9);
 	/*********************************************************************************************************************************/
 	// Target Information
 	// This class will take the target information and create the request url.
@@ -4480,7 +4516,7 @@
 
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4511,7 +4547,7 @@
 
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports) {
 
 	"use strict";
