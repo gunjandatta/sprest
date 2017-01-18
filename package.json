@@ -5,7 +5,7 @@
   "author": "Gunjan Datta <me@dattabase.com> (https://gunjandatta.github.io/sprest)",
   "license": "https://github.com/gunjandatta/sprest/blob/master/LICENSE",
   "main": "dist/gd-sprest.js",
-  "typings": "src/gd-sprest.d.ts",
+  "typings": "dist/gd-sprest.d.ts",
   "keywords": [
     "sharepoint",
     "sharepoint online",

@@ -1,25 +1,29 @@
-// Request Type
-export type RequestType = {
-    // Requests
-    Custom,
-    Delete,
-    Merge,
-    OData,
+declare module "gd-sprest" {
+    export namespace Types {
+        // Request Type
+        export type RequestType = {
+            // Requests
+            Custom,
+            Delete,
+            Merge,
+            OData,
 
-    // Get Requests
-    Get,
-    GetBuffer,
-    GetWithArgs,
-    GetWithArgsInBody,
-    GetWithArgsInQS,
-    GetWithArgsValueOnly,
-    GetReplace,
+            // Get Requests
+            Get,
+            GetBuffer,
+            GetWithArgs,
+            GetWithArgsInBody,
+            GetWithArgsInQS,
+            GetWithArgsValueOnly,
+            GetReplace,
 
-    // Post Requests
-    Post,
-    PostWithArgs,
-    PostWithArgsInBody,
-    PostWithArgsInQS,
-    PostWithArgsValueOnly,
-    PostReplace
+            // Post Requests
+            Post,
+            PostWithArgs,
+            PostWithArgsInBody,
+            PostWithArgsInQS,
+            PostWithArgsValueOnly,
+            PostReplace
+        }
+    }
 }

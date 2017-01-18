@@ -1,149 +1,149 @@
-import {
-    IBase,
-    ITargetInfo
-} from ".";
-/**
- * Entity Data
- */
-export interface EntityData {
-    /** Department. */
-    Department: string;
+declare module "gd-sprest" {
+    export namespace Types {
+        /**
+         * Entity Data
+         */
+        export interface EntityData {
+            /** Department. */
+            Department: string;
 
-    /** EMail */
-    Email: string;
+            /** EMail */
+            Email: string;
 
-    /** */
-    IsAltSecIdPresent: boolean;
+            /** */
+            IsAltSecIdPresent: boolean;
 
-    /** Mobile Phone */
-    MobilePhone: string;
+            /** Mobile Phone */
+            MobilePhone: string;
 
-    /** Object ID */
-    ObjectId: string;
+            /** Object ID */
+            ObjectId: string;
 
-    /** Title */
-    Title: string;
-}
+            /** Title */
+            Title: string;
+        }
 
-/**
- * Client People Picker Query Parameters
- */
-export interface PeoplePickerQuery {
-    /** True to allow the email address. */
-    AllowEmailAddresses?: boolean;
+        /**
+         * Client People Picker Query Parameters
+         */
+        export interface PeoplePickerQuery {
+            /** True to allow the email address. */
+            AllowEmailAddresses?: boolean;
 
-    /** True to allow multiple entities.  */
-    AllowMultipleEntities?: boolean;
+            /** True to allow multiple entities.  */
+            AllowMultipleEntities?: boolean;
 
-    /** True to allow all url zones. */
-    AllUrlZones?: boolean;
+            /** True to allow all url zones. */
+            AllUrlZones?: boolean;
 
-    /** True to enable claim providers. */
-    EnabledClaimProviders?: boolean;
+            /** True to enable claim providers. */
+            EnabledClaimProviders?: boolean;
 
-    /** True to force claims. */
-    ForceClaims?: boolean;
+            /** True to force claims. */
+            ForceClaims?: boolean;
 
-    /** Maximum entity suggestions. */
-    MaximumEntitySuggestions: number;
+            /** Maximum entity suggestions. */
+            MaximumEntitySuggestions: number;
 
-    /** The principal source. */
-    PrincipalSource?: number;
+            /** The principal source. */
+            PrincipalSource?: number;
 
-    /** The principal type. */
-    PrincipalType?: number;
+            /** The principal type. */
+            PrincipalType?: number;
 
-    /** The query string. This value must be >= 3 characters. */
-    QueryString?: string;
+            /** The query string. This value must be >= 3 characters. */
+            QueryString?: string;
 
-    /** Required flag. */
-    Required?: boolean;
+            /** Required flag. */
+            Required?: boolean;
 
-    /** The SharePoint group id. */
-    SharePointGroupID?: number;
+            /** The SharePoint group id. */
+            SharePointGroupID?: number;
 
-    /** The url zone. */
-    UrlZone?: string;
+            /** The url zone. */
+            UrlZone?: string;
 
-    /** Url zone specified flag. */
-    UrlZoneSpecified?: boolean;
+            /** Url zone specified flag. */
+            UrlZoneSpecified?: boolean;
 
-    /** The web. */
-    Web?: any;
+            /** The web. */
+            Web?: any;
 
-    /** The web application id. */
-    WebApplicationID?: any;
-}
+            /** The web application id. */
+            WebApplicationID?: any;
+        }
 
-/**
- * People Picker User
- */
-export interface PeoplePickerUser {
-    /** Description */
-    Description: string;
+        /**
+         * People Picker User
+         */
+        export interface PeoplePickerUser {
+            /** Description */
+            Description: string;
 
-    /** Display Text */
-    DisplayText: string;
+            /** Display Text */
+            DisplayText: string;
 
-    /** The user entity data. */
-    EntityData: EntityData;
+            /** The user entity data. */
+            EntityData: EntityData;
 
-    /** Entity Type */
-    EntityType: string;
+            /** Entity Type */
+            EntityType: string;
 
-    /** Flag to determine if the search user is resolved. */
-    IsResolved: boolean;
+            /** Flag to determine if the search user is resolved. */
+            IsResolved: boolean;
 
-    /** The search value. */
-    Key: string;
+            /** The search value. */
+            Key: string;
 
-    /** An array of un-resolved user entities. */
-    MultipleMatches: Array<EntityData>;
+            /** An array of un-resolved user entities. */
+            MultipleMatches: Array<EntityData>;
 
-    /** Provider Display Name */
-    ProviderDisplayName: string;
+            /** Provider Display Name */
+            ProviderDisplayName: string;
 
-    /** Provider Name */
-    ProviderName: string;
-}
+            /** Provider Name */
+            ProviderName: string;
+        }
 
-/**
- * Client People Picker
- */
-export interface IPeoplePicker extends IBase {
-    /**
-     * Constructor
-     * @param settings - The search settings.
-     */
-    new(settings?:ITargetInfo): IPeoplePicker;
+        /**
+         * Client People Picker
+         */
+        export interface IPeoplePicker extends Types.IBase {
+            /**
+             * Constructor
+             * @param settings - The search settings.
+             */
+            new(settings?:Types.ITargetInfo): IPeoplePicker;
 
-    /**
-     * Methods
-     */
+            /**
+             * Methods
+             */
 
-    /** Method to resolve users.
-     * @param query - The people picker query.
-    */
-    clientPeoplePickerResolveUser(query:PeoplePickerQuery): IPeoplePickerResolveUser;
+            /** Method to resolve users.
+             * @param query - The people picker query.
+            */
+            clientPeoplePickerResolveUser(query:PeoplePickerQuery): IPeoplePickerResolveUser;
 
-    /** Method to search for users.
-     * @param query - The people picker query.
-    */
-    clientPeoplePickerSearchUser(query:PeoplePickerQuery): IPeoplePickerSearchUser;
-}
+            /** Method to search for users.
+             * @param query - The people picker query.
+            */
+            clientPeoplePickerSearchUser(query:PeoplePickerQuery): IPeoplePickerSearchUser;
+        }
 
-/**
- * People Picker Resolve User
- */
-export interface IPeoplePickerResolveUser extends IBase {
-    // The client people picker resolve user results
-    ClientPeoplePickerResolveUser: Array<PeoplePickerUser>;
-}
+        /**
+         * People Picker Resolve User
+         */
+        export interface IPeoplePickerResolveUser extends Types.IBase {
+            // The client people picker resolve user results
+            ClientPeoplePickerResolveUser: Array<PeoplePickerUser>;
+        }
 
-/**
- * People Picker Search User
- */
-export interface IPeoplePickerSearchUser extends IBase {
-    // The client people picker search user results
-    ClientPeoplePickerSearchUser: Array<PeoplePickerUser>;
+        /**
+         * People Picker Search User
+         */
+        export interface IPeoplePickerSearchUser extends Types.IBase {
+            // The client people picker search user results
+            ClientPeoplePickerSearchUser: Array<PeoplePickerUser>;
+        }
+    }
 }

@@ -1,46 +1,46 @@
-import {
-    ComplexTypes,
-    IUser
-} from ".";
-/**
- * Recycle Bin Items
- */
-export interface recycleBinItem {
-    /**
-     * Properties
-     */
+declare module "gd-sprest" {
+    export namespace Types {
+        /**
+         * Recycle Bin Items
+         */
+        export interface recycleBinItem {
+            /**
+             * Properties
+             */
 
-    Author(): IUser;
+            Author(): IUser;
 
-    AuthorEmail: string;
+            AuthorEmail: string;
 
-    AuthorName: string;
+            AuthorName: string;
 
-    DeletedBy(): IUser;
+            DeletedBy(): IUser;
 
-    DeletedByEmail: string;
+            DeletedByEmail: string;
 
-    DeletedByName: string;
+            DeletedByName: string;
 
-    DeletedDate: string;
+            DeletedDate: string;
 
-    DeletedDateLocalFormatted: string;
+            DeletedDateLocalFormatted: string;
 
-    DirName: string;
+            DirName: string;
 
-    DirNamePath: ComplexTypes.ResourcePath;
+            DirNamePath: ComplexTypes.ResourcePath;
 
-    Id: string;
+            Id: string;
 
-    ItemState: number;
+            ItemState: number;
 
-    ItemType: string;
+            ItemType: string;
 
-    LeafName: string;
+            LeafName: string;
 
-    LeafNamePath: ComplexTypes.ResourcePath;
+            LeafNamePath: ComplexTypes.ResourcePath;
 
-    Size: number;
+            Size: number;
 
-    Title: string;
+            Title: string;
+        }
+    }
 }
