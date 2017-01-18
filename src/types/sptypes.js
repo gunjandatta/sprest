@@ -661,16 +661,16 @@ export const PersonalSiteCapabilities = {
 /**
  * Reordering Rule Match Types
  */
-export const ReordingRuleMatchType = {
-    ResultContainsKeyword,
-    TitleContainsKeyword,
-    TitleMatchesKeyword,
-    UrlStartsWith,
-    UrlExactlyMatches,
-    ContentTypeIs,
-    FileExtensionMatches,
-    ResultHasTag,
-    ManualCondition
+export const ReorderingRuleMatchType = {
+    ContentTypeIs: 5,
+    FileExtensionMatches: 6,
+    ManualCondition: 8,
+    ResultContainsKeyword: 0,
+    ResultHasTag: 7,
+    TitleContainsKeyword: 1,
+    TitleMatchesKeyword: 2,
+    UrlExactlyMatches: 4,
+    UrlStartsWith: 3
 };
 
 /**

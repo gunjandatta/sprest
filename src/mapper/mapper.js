@@ -15,11 +15,11 @@ import {fileversion} from "./fileVersion/fileVersions";
 import {folder} from "./folder/folder";
 import {folders} from "./folder/folders";
 import {group} from "./group/group";
-import {siteGroups} from "./group/siteGroups";
+import {sitegroups} from "./group/siteGroups";
 import {items} from "./item/items";
 import {limitedwebpartmanager} from "./limitedWebPartManager/limitedWebPartManager";
 import {list} from "./list/list";
-import {listItem} from "./item/listItem";
+import {listitem} from "./item/listItem";
 import {lists} from "./list/lists";
 import {peoplemanager} from "./peopleManager/peopleManager";
 import {peoplepicker} from "./peoplePicker/peoplePicker";
@@ -31,12 +31,13 @@ import {roledefinition} from "./roleDefinition/roleDefinition";
 import {roledefinitions} from "./roleDefinition/roleDefinitions";
 import {search} from "./search/search";
 import {site} from "./site/site";
+import {socialfeed} from "./socialFeed/socialFeed";
 import {user} from "./user/user";
 import {users} from "./user/users";
 import {usercustomaction} from "./userCustomAction/userCustomAction";
 import {usercustomactions} from "./userCustomAction/userCustomActions";
 import {userprofile} from "./userProfile/userProfile";
-import {version} from "./version/versions";
+import {versions} from "./version/versions";
 import {view} from "./view/view";
 import {views} from "./view/views";
 import {viewfieldcollection} from "./viewFieldCollection/viewFieldCollection";
@@ -48,12 +49,12 @@ import {webs} from "./web/webs";
  */
 export const Mapper = {
     attachment,
-    attachmentFiles,
+    attachmentfiles,
     audit,
-    contentType, contentTypes,
-    eventReceiver, eventReceivers,
+    contenttype, contenttypes,
+    eventreceiver, eventreceivers,
     field, fields,
-    fieldLinks,
+    fieldlinks,
     file, files,
     fileversion, fileversions,
     folder, folders,

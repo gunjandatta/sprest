@@ -136,4 +136,3 @@ export const list = {
         requestType: RequestType.PostWithArgsInBody
     }
 };
-export default Library;

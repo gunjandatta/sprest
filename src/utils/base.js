@@ -1,3 +1,12 @@
+import {ContextInfo} from "../lib";
+import {Mapper} from "../mapper";
+import {RequestType} from "../types";
+import {
+    MethodInfo,
+    Promise,
+    TargetInfo,
+    XHRRequest
+} from ".";
 /*********************************************************************************************************************************/
 // Base
 // This is the base class for all objects.
@@ -367,7 +376,7 @@ export class Base {
                 callback ? callback(this) : null;
             } else {
                 // Create the request
-                this.request = new Request(asyncFl, new TargetInfo(this.targetInfo), () => {
+                this.request = new XHRRequest(asyncFl, new TargetInfo(this.targetInfo), () => {
                     // Update this data object
                     this.updateDataObject();
 
@@ -384,7 +393,7 @@ export class Base {
         // Else, we haven't executed this request
         else {
             // Create the request
-            this.request = new Request(asyncFl, new TargetInfo(this.targetInfo));
+            this.request = new XHRRequest(asyncFl, new TargetInfo(this.targetInfo));
 
             // Update this data object
             this.updateDataObject();
@@ -633,7 +642,7 @@ export class Base {
                     targetInfo.url = data.d.__next;
 
                     // Create a new object
-                    new Request(true, new TargetInfo(targetInfo), (request) => {
+                    new XHRRequest(true, new TargetInfo(targetInfo), (request) => {
                         // Convert the response and ensure the data property exists
                         let data = JSON.parse(request.response);
                         if(data.d) {

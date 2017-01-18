@@ -744,7 +744,7 @@ declare module "gd-sprest" {
          */
         interface ReorderingRule {
             Boost?: number;
-            MatchType?: SPTypes.ReordingRuleMatchType;
+            MatchType?: SPTypes.ReorderingRuleMatchType;
             MatchValue: string;
         }
 
@@ -753,7 +753,7 @@ declare module "gd-sprest" {
          */
         interface ReorderingRulesCreationInformation {
             Boost?: number;
-            MatchType?: SPTypes.ReordingRuleMatchType;
+            MatchType?: SPTypes.ReorderingRuleMatchType;
             MatchValue: string;
         }
 

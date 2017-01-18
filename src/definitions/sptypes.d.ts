@@ -664,7 +664,7 @@ declare module "gd-sprest" {
         /**
          * Reordering Rule Match Types
          */
-        export type ReordingRuleMatchType = {
+        export type ReorderingRuleMatchType = {
             ResultContainsKeyword,
             TitleContainsKeyword,
             TitleMatchesKeyword,

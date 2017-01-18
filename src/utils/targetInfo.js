@@ -1,3 +1,4 @@
+import {ContextInfo} from "../lib";
 /*********************************************************************************************************************************/
 // Target Information
 // This class will take the target information and create the request url.
