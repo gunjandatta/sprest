@@ -13,11 +13,6 @@ module.exports = {
         path: path.join(__dirname, "dist")
     },
 
-    // Include the typescript files as resolvable extensions
-    resolve: {
-        extensions: ["", ".js"]
-    },
-
     // Module
     module: {
         // Loaders

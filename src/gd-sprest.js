@@ -26,39 +26,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-import {
-    ContextInfo,
-    Email,
-    Helper,
-    List,
-    PeopleManager,
-    PeoplePicker,
-    ProfileLoader,
-    Search,
-    Site,
-    SocialFeed,
-    UserProfile,
-    Web
-} from "./lib";
-
-/**
- * SharePoint REST Library
- */
-export const $REST = {
-    ContextInfo,
-    DefaultRequestToHostFl: false,
-    Email,
-    Helper,
-    List,
-    PeopleManager,
-    PeoplePicker,
-    ProfileLoader,
-    Search,
-    Site,
-    SocialFeed,
-    UserProfile,
-    Web
-}
-
-// Make the library globally available
-window["$REST"] = $REST;
+import {$REST} from "./lib";
+import * as Types from "./types";
+export {
+    $REST,
+    Types
+};

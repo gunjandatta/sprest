@@ -76,31 +76,18 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.$REST = undefined;
+	exports.Types = exports.$REST = undefined;
 
 	var _lib = __webpack_require__(1);
 
-	/**
-	 * SharePoint REST Library
-	 */
-	var $REST = exports.$REST = {
-	    ContextInfo: _lib.ContextInfo,
-	    DefaultRequestToHostFl: false,
-	    Email: _lib.Email,
-	    Helper: _lib.Helper,
-	    List: _lib.List,
-	    PeopleManager: _lib.PeopleManager,
-	    PeoplePicker: _lib.PeoplePicker,
-	    ProfileLoader: _lib.ProfileLoader,
-	    Search: _lib.Search,
-	    Site: _lib.Site,
-	    SocialFeed: _lib.SocialFeed,
-	    UserProfile: _lib.UserProfile,
-	    Web: _lib.Web
-	};
+	var _types = __webpack_require__(9);
 
-	// Make the library globally available
-	window["$REST"] = $REST;
+	var Types = _interopRequireWildcard(_types);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	exports.$REST = _lib.$REST;
+	exports.Types = Types;
 
 /***/ },
 /* 1 */
@@ -136,7 +123,7 @@
 	  });
 	});
 
-	var _helper = __webpack_require__(62);
+	var _helper = __webpack_require__(61);
 
 	Object.keys(_helper).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -148,7 +135,7 @@
 	  });
 	});
 
-	var _list = __webpack_require__(63);
+	var _list = __webpack_require__(62);
 
 	Object.keys(_list).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -160,7 +147,7 @@
 	  });
 	});
 
-	var _peopleManager = __webpack_require__(64);
+	var _peopleManager = __webpack_require__(63);
 
 	Object.keys(_peopleManager).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -172,7 +159,7 @@
 	  });
 	});
 
-	var _peoplePicker = __webpack_require__(65);
+	var _peoplePicker = __webpack_require__(64);
 
 	Object.keys(_peoplePicker).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -184,7 +171,7 @@
 	  });
 	});
 
-	var _profileLoader = __webpack_require__(66);
+	var _profileLoader = __webpack_require__(65);
 
 	Object.keys(_profileLoader).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -192,6 +179,18 @@
 	    enumerable: true,
 	    get: function get() {
 	      return _profileLoader[key];
+	    }
+	  });
+	});
+
+	var _rest = __webpack_require__(66);
+
+	Object.keys(_rest).forEach(function (key) {
+	  if (key === "default" || key === "__esModule") return;
+	  Object.defineProperty(exports, key, {
+	    enumerable: true,
+	    get: function get() {
+	      return _rest[key];
 	    }
 	  });
 	});
@@ -449,7 +448,7 @@
 
 	var _utils = __webpack_require__(4);
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -549,7 +548,7 @@
 	  });
 	});
 
-	var _dependencies = __webpack_require__(56);
+	var _dependencies = __webpack_require__(55);
 
 	Object.keys(_dependencies).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -561,7 +560,7 @@
 	  });
 	});
 
-	var _methodInfo = __webpack_require__(57);
+	var _methodInfo = __webpack_require__(56);
 
 	Object.keys(_methodInfo).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -573,7 +572,7 @@
 	  });
 	});
 
-	var _oData = __webpack_require__(58);
+	var _oData = __webpack_require__(57);
 
 	Object.keys(_oData).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -585,7 +584,7 @@
 	  });
 	});
 
-	var _promise = __webpack_require__(59);
+	var _promise = __webpack_require__(58);
 
 	Object.keys(_promise).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -597,7 +596,7 @@
 	  });
 	});
 
-	var _targetInfo = __webpack_require__(60);
+	var _targetInfo = __webpack_require__(59);
 
 	Object.keys(_targetInfo).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -609,7 +608,7 @@
 	  });
 	});
 
-	var _xhrRequest = __webpack_require__(61);
+	var _xhrRequest = __webpack_require__(60);
 
 	Object.keys(_xhrRequest).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -638,7 +637,7 @@
 
 	var _mapper = __webpack_require__(6);
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	var _ = __webpack_require__(4);
 
@@ -1494,121 +1493,99 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _mapper = __webpack_require__(7);
-
-	Object.keys(_mapper).forEach(function (key) {
-	  if (key === "default" || key === "__esModule") return;
-	  Object.defineProperty(exports, key, {
-	    enumerable: true,
-	    get: function get() {
-	      return _mapper[key];
-	    }
-	  });
-	});
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	exports.Mapper = undefined;
 
-	var _attachment = __webpack_require__(8);
+	var _attachment = __webpack_require__(7);
 
-	var _attachmentFiles = __webpack_require__(9);
+	var _attachmentFiles = __webpack_require__(8);
 
-	var _audit = __webpack_require__(13);
+	var _audit = __webpack_require__(12);
 
-	var _contentType = __webpack_require__(14);
+	var _contentType = __webpack_require__(13);
 
-	var _contentTypes = __webpack_require__(15);
+	var _contentTypes = __webpack_require__(14);
 
-	var _eventReceiver = __webpack_require__(16);
+	var _eventReceiver = __webpack_require__(15);
 
-	var _eventReceivers = __webpack_require__(17);
+	var _eventReceivers = __webpack_require__(16);
 
-	var _field = __webpack_require__(18);
+	var _field = __webpack_require__(17);
 
-	var _fields = __webpack_require__(19);
+	var _fields = __webpack_require__(18);
 
-	var _fieldLinks = __webpack_require__(20);
+	var _fieldLinks = __webpack_require__(19);
 
-	var _file = __webpack_require__(21);
+	var _file = __webpack_require__(20);
 
-	var _files = __webpack_require__(22);
+	var _files = __webpack_require__(21);
 
-	var _fileVersion = __webpack_require__(23);
+	var _fileVersion = __webpack_require__(22);
 
-	var _fileVersions = __webpack_require__(24);
+	var _fileVersions = __webpack_require__(23);
 
-	var _folder = __webpack_require__(25);
+	var _folder = __webpack_require__(24);
 
-	var _folders = __webpack_require__(26);
+	var _folders = __webpack_require__(25);
 
-	var _group = __webpack_require__(27);
+	var _group = __webpack_require__(26);
 
-	var _siteGroups = __webpack_require__(28);
+	var _siteGroups = __webpack_require__(27);
 
-	var _items = __webpack_require__(29);
+	var _items = __webpack_require__(28);
 
-	var _limitedWebPartManager = __webpack_require__(30);
+	var _limitedWebPartManager = __webpack_require__(29);
 
-	var _list = __webpack_require__(31);
+	var _list = __webpack_require__(30);
 
-	var _listItem = __webpack_require__(32);
+	var _listItem = __webpack_require__(31);
 
-	var _lists = __webpack_require__(33);
+	var _lists = __webpack_require__(32);
 
-	var _peopleManager = __webpack_require__(34);
+	var _peopleManager = __webpack_require__(33);
 
-	var _peoplePicker = __webpack_require__(35);
+	var _peoplePicker = __webpack_require__(34);
 
-	var _profileLoader = __webpack_require__(36);
+	var _profileLoader = __webpack_require__(35);
 
-	var _propertyValues = __webpack_require__(37);
+	var _propertyValues = __webpack_require__(36);
 
-	var _roleAssignment = __webpack_require__(38);
+	var _roleAssignment = __webpack_require__(37);
 
-	var _roleAssignments = __webpack_require__(39);
+	var _roleAssignments = __webpack_require__(38);
 
-	var _roleDefinition = __webpack_require__(40);
+	var _roleDefinition = __webpack_require__(39);
 
-	var _roleDefinitions = __webpack_require__(41);
+	var _roleDefinitions = __webpack_require__(40);
 
-	var _search = __webpack_require__(42);
+	var _search = __webpack_require__(41);
 
-	var _site = __webpack_require__(43);
+	var _site = __webpack_require__(42);
 
-	var _socialFeed = __webpack_require__(44);
+	var _socialFeed = __webpack_require__(43);
 
-	var _user = __webpack_require__(45);
+	var _user = __webpack_require__(44);
 
-	var _users = __webpack_require__(46);
+	var _users = __webpack_require__(45);
 
-	var _userCustomAction = __webpack_require__(47);
+	var _userCustomAction = __webpack_require__(46);
 
-	var _userCustomActions = __webpack_require__(48);
+	var _userCustomActions = __webpack_require__(47);
 
-	var _userProfile = __webpack_require__(49);
+	var _userProfile = __webpack_require__(48);
 
-	var _versions = __webpack_require__(50);
+	var _versions = __webpack_require__(49);
 
-	var _view = __webpack_require__(51);
+	var _view = __webpack_require__(50);
 
-	var _views = __webpack_require__(52);
+	var _views = __webpack_require__(51);
 
-	var _viewFieldCollection = __webpack_require__(53);
+	var _viewFieldCollection = __webpack_require__(52);
 
-	var _web = __webpack_require__(54);
+	var _web = __webpack_require__(53);
 
-	var _webs = __webpack_require__(55);
+	var _webs = __webpack_require__(54);
 
 	/**
 	 * Mapper
@@ -1647,7 +1624,7 @@
 	};
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1661,7 +1638,7 @@
 	var attachment = exports.attachment = {};
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1671,7 +1648,7 @@
 	});
 	exports.attachmentfiles = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -1695,7 +1672,7 @@
 	};
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1704,7 +1681,7 @@
 	  value: true
 	});
 
-	var _requestType = __webpack_require__(11);
+	var _requestType = __webpack_require__(10);
 
 	Object.keys(_requestType).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -1716,7 +1693,7 @@
 	  });
 	});
 
-	var _sptypes = __webpack_require__(12);
+	var _sptypes = __webpack_require__(11);
 
 	Object.keys(_sptypes).forEach(function (key) {
 	  if (key === "default" || key === "__esModule") return;
@@ -1729,7 +1706,7 @@
 	});
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1764,7 +1741,7 @@
 	};
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2517,7 +2494,7 @@
 	};
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2527,7 +2504,7 @@
 	});
 	exports.audit = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Library
@@ -2541,7 +2518,7 @@
 	};
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2551,7 +2528,7 @@
 	});
 	exports.contenttype = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	var contenttype = exports.contenttype = {
 	    /*********************************************************************************************************************************/
@@ -2578,7 +2555,7 @@
 	};
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2588,7 +2565,7 @@
 	});
 	exports.contenttypes = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2622,7 +2599,7 @@
 	};
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2632,7 +2609,7 @@
 	});
 	exports.eventreceiver = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2653,7 +2630,7 @@
 	};
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2663,7 +2640,7 @@
 	});
 	exports.eventreceivers = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2691,7 +2668,7 @@
 	};
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2701,7 +2678,7 @@
 	});
 	exports.field = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2740,7 +2717,7 @@
 	};
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2750,7 +2727,7 @@
 	});
 	exports.fields = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2820,7 +2797,7 @@
 	};
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2830,7 +2807,7 @@
 	});
 	exports.fieldlinks = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2859,7 +2836,7 @@
 	};
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2869,7 +2846,7 @@
 	});
 	exports.file = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Library
@@ -3022,7 +2999,7 @@
 	};
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3032,7 +3009,7 @@
 	});
 	exports.files = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3066,7 +3043,7 @@
 	};
 
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3076,7 +3053,7 @@
 	});
 	exports.fileversion = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	var fileversion = exports.fileversion = {
 	    /*********************************************************************************************************************************/
@@ -3095,7 +3072,7 @@
 	};
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3105,7 +3082,7 @@
 	});
 	exports.fileversions = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3124,7 +3101,7 @@
 	};
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3134,7 +3111,7 @@
 	});
 	exports.folder = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	var folder = exports.folder = {
 	    /*********************************************************************************************************************************/
@@ -3174,7 +3151,7 @@
 	};
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3184,7 +3161,7 @@
 	});
 	exports.folders = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Library
@@ -3220,7 +3197,7 @@
 	};
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3230,7 +3207,7 @@
 	});
 	exports.group = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	var group = exports.group = {
 	    /*********************************************************************************************************************************/
@@ -3241,7 +3218,7 @@
 	};
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3251,7 +3228,7 @@
 	});
 	exports.sitegroups = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3298,7 +3275,7 @@
 	};
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3308,7 +3285,7 @@
 	});
 	exports.items = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3338,7 +3315,7 @@
 	};
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3348,7 +3325,7 @@
 	});
 	exports.limitedwebpartmanager = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3363,7 +3340,7 @@
 	};
 
 /***/ },
-/* 31 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3373,7 +3350,7 @@
 	});
 	exports.list = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Library
@@ -3506,7 +3483,7 @@
 	};
 
 /***/ },
-/* 32 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3516,7 +3493,7 @@
 	});
 	exports.listitem = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	var listitem = exports.listitem = {
 	    /*********************************************************************************************************************************/
@@ -3576,7 +3553,7 @@
 	};
 
 /***/ },
-/* 33 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3586,7 +3563,7 @@
 	});
 	exports.lists = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3631,7 +3608,7 @@
 	};
 
 /***/ },
-/* 34 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3641,7 +3618,7 @@
 	});
 	exports.peoplemanager = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3742,7 +3719,7 @@
 	};
 
 /***/ },
-/* 35 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3752,7 +3729,7 @@
 	});
 	exports.peoplepicker = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3776,7 +3753,7 @@
 	};
 
 /***/ },
-/* 36 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3786,7 +3763,7 @@
 	});
 	exports.profileloader = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3811,7 +3788,7 @@
 	};
 
 /***/ },
-/* 37 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3821,7 +3798,7 @@
 	});
 	exports.propertyvalues = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Library
@@ -3835,7 +3812,7 @@
 	};
 
 /***/ },
-/* 38 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3845,7 +3822,7 @@
 	});
 	exports.roleassignment = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	var roleassignment = exports.roleassignment = {
 	    /*********************************************************************************************************************************/
@@ -3864,7 +3841,7 @@
 	};
 
 /***/ },
-/* 39 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3874,7 +3851,7 @@
 	});
 	exports.roleassignments = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3907,7 +3884,7 @@
 	};
 
 /***/ },
-/* 40 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3917,7 +3894,7 @@
 	});
 	exports.roledefinition = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3930,7 +3907,7 @@
 	};
 
 /***/ },
-/* 41 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3940,7 +3917,7 @@
 	});
 	exports.roledefinitions = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3975,7 +3952,7 @@
 	};
 
 /***/ },
-/* 42 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3985,7 +3962,7 @@
 	});
 	exports.search = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3999,7 +3976,7 @@
 	};
 
 /***/ },
-/* 43 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4009,7 +3986,7 @@
 	});
 	exports.site = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Library
@@ -4111,7 +4088,7 @@
 	};
 
 /***/ },
-/* 44 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4121,7 +4098,7 @@
 	});
 	exports.socialfeed = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Libraries
@@ -4181,7 +4158,7 @@
 	};
 
 /***/ },
-/* 45 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4191,7 +4168,7 @@
 	});
 	exports.user = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	var user = exports.user = {
 	    /*********************************************************************************************************************************/
@@ -4210,7 +4187,7 @@
 	};
 
 /***/ },
-/* 46 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4220,7 +4197,7 @@
 	});
 	exports.users = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -4276,7 +4253,7 @@
 	};
 
 /***/ },
-/* 47 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4286,7 +4263,7 @@
 	});
 	exports.usercustomaction = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -4299,7 +4276,7 @@
 	};
 
 /***/ },
-/* 48 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4309,7 +4286,7 @@
 	});
 	exports.usercustomactions = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -4342,7 +4319,7 @@
 	};
 
 /***/ },
-/* 49 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4352,7 +4329,7 @@
 	});
 	exports.userprofile = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -4378,7 +4355,7 @@
 	};
 
 /***/ },
-/* 50 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4388,7 +4365,7 @@
 	});
 	exports.version = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -4426,7 +4403,7 @@
 	};
 
 /***/ },
-/* 51 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4436,7 +4413,7 @@
 	});
 	exports.view = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	var view = exports.view = {
 	    /*********************************************************************************************************************************/
@@ -4468,7 +4445,7 @@
 	};
 
 /***/ },
-/* 52 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4478,7 +4455,7 @@
 	});
 	exports.views = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -4513,7 +4490,7 @@
 	};
 
 /***/ },
-/* 53 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4523,7 +4500,7 @@
 	});
 	exports.viewfieldcollection = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -4560,7 +4537,7 @@
 	};
 
 /***/ },
-/* 54 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4570,7 +4547,7 @@
 	});
 	exports.web = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Library
@@ -4818,7 +4795,7 @@
 	};
 
 /***/ },
-/* 55 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4828,7 +4805,7 @@
 	});
 	exports.webs = undefined;
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	/*********************************************************************************************************************************/
 	// Methods
@@ -4848,7 +4825,7 @@
 	};
 
 /***/ },
-/* 56 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4974,7 +4951,7 @@
 	}();
 
 /***/ },
-/* 57 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4988,7 +4965,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _types = __webpack_require__(10);
+	var _types = __webpack_require__(9);
 
 	var _ = __webpack_require__(4);
 
@@ -5289,7 +5266,7 @@
 	}();
 
 /***/ },
-/* 58 */
+/* 57 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5489,7 +5466,7 @@
 	}();
 
 /***/ },
-/* 59 */
+/* 58 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5589,7 +5566,7 @@
 	}();
 
 /***/ },
-/* 60 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5781,7 +5758,7 @@
 	}();
 
 /***/ },
-/* 61 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5996,7 +5973,7 @@
 	}();
 
 /***/ },
-/* 62 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6409,7 +6386,7 @@
 	};
 
 /***/ },
-/* 63 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6458,7 +6435,7 @@
 	}(_utils.Base);
 
 /***/ },
-/* 64 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6506,7 +6483,7 @@
 	}(_utils.Base);
 
 /***/ },
-/* 65 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6554,7 +6531,7 @@
 	}(_utils.Base);
 
 /***/ },
-/* 66 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6601,6 +6578,41 @@
 
 	    return ProfileLoader;
 	}(_utils.Base);
+
+/***/ },
+/* 66 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.$REST = undefined;
+
+	var _ = __webpack_require__(1);
+
+	/**
+	 * SharePoint REST Library
+	 */
+	var $REST = exports.$REST = {
+	    ContextInfo: _.ContextInfo,
+	    DefaultRequestToHostFl: false,
+	    Email: _.Email,
+	    Helper: _.Helper,
+	    List: _.List,
+	    PeopleManager: _.PeopleManager,
+	    PeoplePicker: _.PeoplePicker,
+	    ProfileLoader: _.ProfileLoader,
+	    Search: _.Search,
+	    Site: _.Site,
+	    SocialFeed: _.SocialFeed,
+	    UserProfile: _.UserProfile,
+	    Web: _.Web
+	};
+
+	// Make the library globally available
+	window["$REST"] = $REST;
 
 /***/ },
 /* 67 */

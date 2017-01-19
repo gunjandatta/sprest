@@ -5,6 +5,7 @@ export * from "./list";
 export * from "./peopleManager";
 export * from "./peoplePicker";
 export * from "./profileLoader";
+export * from "./rest";
 export * from "./search";
 export * from "./site";
 export * from "./socialFeed";
