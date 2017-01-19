@@ -26,7 +26,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-import {IREST} from "./definitions";
+import * as Types from "./definitions";
+import {RequestType, SPTypes} from "./types";
 import {
     ContextInfo,
     Email,
@@ -49,9 +50,12 @@ export {
     PeopleManager,
     PeoplePicker,
     ProfileLoader,
+    RequestType,
     Search,
     Site,
     SocialFeed,
+    SPTypes,
+    Types,
     UserProfile,
     Web
 }
@@ -77,4 +81,4 @@ const gd_sprest = {
 
 // Make the library globally available
 window["$REST"] = gd_sprest;
-export const $REST:IREST = <any>gd_sprest;
+export const $REST:Types.IREST = <any>gd_sprest;

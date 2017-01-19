@@ -1,6 +1,7 @@
 .vscode
 .gitignore
 images
+src
 test
 gulpfile.js
 tsconfig.json
