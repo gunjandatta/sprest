@@ -3,7 +3,7 @@ var webpack = require("webpack");
 
 module.exports = {
     // Entry point(s)
-    entry: "./src/gd-sprest.js",
+    entry: "./build/gd-sprest.js",
 
     // Output
     output: {
@@ -23,7 +23,7 @@ module.exports = {
                 // Use the "babel-loader" library
                 loader: "babel-loader",
                 // Exclude folders
-                exclude: [/dist/, /node_modules/, /test/],
+                exclude: [/dist/, /images/, /node_modules/, /src/, /test/],
                 // Presets
                 query: {
                     presets: ["es2015"],

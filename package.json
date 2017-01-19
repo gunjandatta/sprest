@@ -4,7 +4,7 @@
   "description": "An easy way to develop against the SharePoint REST API.",
   "author": "Gunjan Datta <me@dattabase.com> (https://gunjandatta.github.io/sprest)",
   "license": "https://github.com/gunjandatta/sprest/blob/master/LICENSE",
-  "main": "dist/gd-sprest.js",
+  "main": "build/gd-sprest.js",
   "typings": "dist/gd-sprest.d.ts",
   "keywords": [
     "sharepoint",
@@ -36,6 +36,6 @@
     "webpack": "^1.14.0"
   },
   "scripts": {
-    "build": "webpack && gulp"
+    "build": "tsc --declaration && webpack && gulp"
   }
 }

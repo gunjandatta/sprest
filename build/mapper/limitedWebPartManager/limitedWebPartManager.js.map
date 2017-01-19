@@ -1,0 +1,1 @@
+{"version":3,"file":"limitedWebPartManager.js","sourceRoot":"","sources":["../../../src/mapper/limitedWebPartManager/limitedWebPartManager.ts"],"names":[],"mappings":";AAAA,sBAA0B,aAAa,CAAC,CAAA;AAExC,mIAAmI;AACnI,UAAU;AACV,mIAAmI;AACtH,6BAAqB,GAAG;IACjC,4BAA4B;IAC5B,YAAY,EAAE;QACV,QAAQ,EAAE,CAAC,IAAI,CAAC;QAChB,IAAI,EAAE,yBAAyB;QAC/B,WAAW,EAAE,mBAAW,CAAC,UAAU;KACtC;CACJ,CAAC"}
