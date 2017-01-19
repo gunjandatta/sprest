@@ -15,7 +15,6 @@ exports.Web = lib_1.Web;
 /**
  * SharePoint REST Library
  */
-debugger;
 var gd_sprest = {
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
