@@ -5,6 +5,7 @@ function __export(m) {
 __export(require("./contextInfo"));
 __export(require("./email"));
 __export(require("./helper"));
+__export(require("./jslink"));
 __export(require("./list"));
 __export(require("./peopleManager"));
 __export(require("./peoplePicker"));

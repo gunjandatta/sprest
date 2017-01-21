@@ -81,6 +81,7 @@
 	exports.ContextInfo = lib_1.ContextInfo;
 	exports.Email = lib_1.Email;
 	exports.Helper = lib_1.Helper;
+	exports.JSLink = lib_1.JSLink;
 	exports.List = lib_1.List;
 	exports.PeopleManager = lib_1.PeopleManager;
 	exports.PeoplePicker = lib_1.PeoplePicker;
@@ -98,6 +99,7 @@
 	    DefaultRequestToHostFl: false,
 	    Email: lib_1.Email,
 	    Helper: lib_1.Helper,
+	    JSLink: lib_1.JSLink,
 	    List: lib_1.List,
 	    PeopleManager: lib_1.PeopleManager,
 	    PeoplePicker: lib_1.PeoplePicker,
@@ -751,6 +753,7 @@
 	__export(__webpack_require__(72));
 	__export(__webpack_require__(73));
 	__export(__webpack_require__(74));
+	__export(__webpack_require__(75));
 	//# sourceMappingURL=index.js.map
 
 /***/ },
@@ -764,9 +767,15 @@
 	/*********************************************************************************************************************************/
 
 	var _ContextInfo = function () {
+	    /**
+	     * Constructor
+	     */
 	    function _ContextInfo() {
+	        /**
+	         * Global Variables
+	         */
 	        // The current context information
-	        this._contextInfo = window["_spPageContextInfo"] || {
+	        this._contextInfo = {
 	            existsFl: false,
 	            isAppWeb: false,
 	            siteAbsoluteUrl: "",
@@ -775,6 +784,9 @@
 	            webAbsoluteUrl: "",
 	            webServerRelativeUrl: ""
 	        };
+	        /**
+	         * Properties
+	         */
 	        // Alerts Enabled
 	        this.alertsEnabled = this._contextInfo.alertsEnabled;
 	        // Allow Silverlight Prompt
@@ -847,6 +859,11 @@
 	        this.webTitle = this._contextInfo.webTitle;
 	        // Web UI Version
 	        this.webUIVersion = this._contextInfo.webUIVersion;
+	        // See if the page context information exists
+	        if (window && window["_spPageContextInfo"]) {
+	            // Set the context information
+	            this._contextInfo = window["_spPageContextInfo"];
+	        }
 	    }
 	    return _ContextInfo;
 	}();
@@ -4679,6 +4696,106 @@
 
 /***/ },
 /* 66 */
+/***/ function(module, exports) {
+
+	"use strict";
+	/**
+	 * JS Link
+	 */
+
+	var JSLink = function () {
+	    function JSLink() {}
+	    Object.defineProperty(JSLink.prototype, "BaseViewID", {
+	        set: function set(value) {
+	            this._baseViewID = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(JSLink.prototype, "ListTemplateType", {
+	        set: function set(value) {
+	            this._listTemplateType = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(JSLink.prototype, "OnPostRender", {
+	        set: function set(value) {
+	            this._onPostRender = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(JSLink.prototype, "OnPreRender", {
+	        set: function set(value) {
+	            this._onPreRender = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(JSLink.prototype, "Templates", {
+	        set: function set(value) {
+	            this._templates = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    /**
+	     * Method to return the template
+	     */
+	    JSLink.prototype.getTemplate = function () {
+	        var template = {};
+	        // Add the properties
+	        if (this._baseViewID) {
+	            template.BaseViewID = this._baseViewID;
+	        }
+	        if (this._listTemplateType) {
+	            template.ListTemplateType = this._listTemplateType;
+	        }
+	        if (this._onPostRender) {
+	            template.OnPostRender = this._onPostRender;
+	        }
+	        if (this._onPreRender) {
+	            template.OnPreRender = this._onPreRender;
+	        }
+	        if (this._templates) {
+	            template.Templates = this._templates;
+	        }
+	        // See if there are fields
+	        if (template.Templates && template.Templates.Fields) {
+	            var fields = {};
+	            // Parse the fields
+	            for (var _i = 0, _a = template.Templates.Fields; _i < _a.length; _i++) {
+	                var field = _a[_i];
+	                // Add the field
+	                fields[field.Name] = {};
+	                // Add the field properties
+	                if (field.DisplayForm) {
+	                    fields[field.Name].DisplayForm = field.DisplayForm;
+	                }
+	                if (field.EditForm) {
+	                    fields[field.Name].EditForm = field.EditForm;
+	                }
+	                if (field.NewForm) {
+	                    fields[field.Name].NewForm = field.NewForm;
+	                }
+	                if (field.View) {
+	                    fields[field.Name].View = field.View;
+	                }
+	            }
+	            // Update the fields
+	            template.Templates.Fields = fields;
+	        }
+	        // Return the template
+	        return template;
+	    };
+	    return JSLink;
+	}();
+	exports.JSLink = JSLink;
+	//# sourceMappingURL=jslink.js.map
+
+/***/ },
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4717,7 +4834,7 @@
 	//# sourceMappingURL=list.js.map
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4755,7 +4872,7 @@
 	//# sourceMappingURL=peopleManager.js.map
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4793,7 +4910,7 @@
 	//# sourceMappingURL=peoplePicker.js.map
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4832,7 +4949,7 @@
 	//# sourceMappingURL=profileLoader.js.map
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4908,7 +5025,7 @@
 	//# sourceMappingURL=search.js.map
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4963,7 +5080,7 @@
 	//# sourceMappingURL=site.js.map
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5029,7 +5146,7 @@
 	//# sourceMappingURL=socialFeed.js.map
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5068,7 +5185,7 @@
 	//# sourceMappingURL=userProfile.js.map
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

@@ -3,7 +3,6 @@ export * from "./attachmentFiles";
 export * from "./audit";
 export * from "./base";
 import * as ComplexTypes from "./complexTypes";
-export {ComplexTypes};
 export * from "./contentType";
 export * from "./contentTypes";
 export * from "./contextInfo";
@@ -23,6 +22,7 @@ export * from "./folders";
 export * from "./group";
 export * from "./helper";
 export * from "./items";
+export * from "./jslink";
 export * from "./limitedWebPartManager";
 export * from "./list";
 export * from "./listItem";
@@ -39,7 +39,6 @@ export * from "./recycleBinItem";
 export * from "./requestType";
 export * from "./rest";
 import * as Results from "./results";
-export {Results};
 export * from "./roleAssignment";
 export * from "./roleAssignments";
 export * from "./roleDefinition";
@@ -49,7 +48,6 @@ export * from "./site";
 export * from "./siteGroups";
 export * from "./socialFeed";
 import * as SPTypes from "./sptypes";
-export {SPTypes};
 export * from "./targetInfo";
 export * from "./user";
 export * from "./userCustomAction";
@@ -62,3 +60,8 @@ export * from "./viewFieldCollection";
 export * from "./views";
 export * from "./web";
 export * from "./webs";
+export {
+    ComplexTypes,
+    Results,
+    SPTypes
+};

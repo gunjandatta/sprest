@@ -1,0 +1,23 @@
+import { IJSLink, ITemplates } from "../definitions";
+/**
+ * JS Link
+ */
+export declare class JSLink {
+    /**
+     * Template Properties
+     */
+    private _baseViewID;
+    BaseViewID: number | string;
+    private _listTemplateType;
+    ListTemplateType: number;
+    private _onPostRender;
+    OnPostRender: any;
+    private _onPreRender;
+    OnPreRender: any;
+    private _templates;
+    Templates: ITemplates;
+    /**
+     * Method to return the template
+     */
+    getTemplate(): IJSLink;
+}

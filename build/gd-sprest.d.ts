@@ -23,6 +23,6 @@ SOFTWARE.
 ***************************************************************************************************/
 import * as Types from "./definitions";
 import { RequestType, SPTypes } from "./types";
-import { ContextInfo, Email, Helper, List, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Web } from "./lib";
-export { ContextInfo, Email, Helper, List, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Web };
+import { ContextInfo, Email, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Web } from "./lib";
+export { ContextInfo, Email, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Web };
 export declare const $REST: Types.IREST;

@@ -34,6 +34,7 @@ var lib_1 = require("./lib");
 exports.ContextInfo = lib_1.ContextInfo;
 exports.Email = lib_1.Email;
 exports.Helper = lib_1.Helper;
+exports.JSLink = lib_1.JSLink;
 exports.List = lib_1.List;
 exports.PeopleManager = lib_1.PeopleManager;
 exports.PeoplePicker = lib_1.PeoplePicker;
@@ -51,6 +52,7 @@ var gd_sprest = {
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
     Helper: lib_1.Helper,
+    JSLink: lib_1.JSLink,
     List: lib_1.List,
     PeopleManager: lib_1.PeopleManager,
     PeoplePicker: lib_1.PeoplePicker,

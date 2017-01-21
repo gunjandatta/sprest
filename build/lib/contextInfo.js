@@ -4,9 +4,15 @@
 // This class will return the _spPageContextInfo.
 /*********************************************************************************************************************************/
 var _ContextInfo = (function () {
+    /**
+     * Constructor
+     */
     function _ContextInfo() {
+        /**
+         * Global Variables
+         */
         // The current context information
-        this._contextInfo = window["_spPageContextInfo"] || {
+        this._contextInfo = {
             existsFl: false,
             isAppWeb: false,
             siteAbsoluteUrl: "",
@@ -15,6 +21,9 @@ var _ContextInfo = (function () {
             webAbsoluteUrl: "",
             webServerRelativeUrl: ""
         };
+        /**
+         * Properties
+         */
         // Alerts Enabled
         this.alertsEnabled = this._contextInfo.alertsEnabled;
         // Allow Silverlight Prompt
@@ -87,6 +96,11 @@ var _ContextInfo = (function () {
         this.webTitle = this._contextInfo.webTitle;
         // Web UI Version
         this.webUIVersion = this._contextInfo.webUIVersion;
+        // See if the page context information exists
+        if (window && window["_spPageContextInfo"]) {
+            // Set the context information
+            this._contextInfo = window["_spPageContextInfo"];
+        }
     }
     return _ContextInfo;
 }());

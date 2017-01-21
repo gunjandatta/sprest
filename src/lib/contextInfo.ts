@@ -4,8 +4,23 @@ import {IContextInfo} from "../definitions";
 // This class will return the _spPageContextInfo.
 /*********************************************************************************************************************************/
 class _ContextInfo {
+    /**
+     * Constructor
+     */
+    constructor() {
+        // See if the page context information exists
+        if(window && window["_spPageContextInfo"]) {
+            // Set the context information
+            this._contextInfo = window["_spPageContextInfo"];
+        }
+    }
+
+    /**
+     * Global Variables
+     */
+
     // The current context information
-    _contextInfo = window["_spPageContextInfo"] || {
+    private _contextInfo:any = {
         existsFl: false,
         isAppWeb: false,
         siteAbsoluteUrl: "",
@@ -14,6 +29,10 @@ class _ContextInfo {
         webAbsoluteUrl: "",
         webServerRelativeUrl: ""
     };
+
+    /**
+     * Properties
+     */
 
     // Alerts Enabled
     alertsEnabled = this._contextInfo.alertsEnabled;

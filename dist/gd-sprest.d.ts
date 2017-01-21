@@ -2994,7 +2994,6 @@ export * from "./attachmentFiles";
 export * from "./audit";
 export * from "./base";
 import * as ComplexTypes from "./complexTypes";
-export { ComplexTypes };
 export * from "./contentType";
 export * from "./contentTypes";
 export * from "./contextInfo";
@@ -3014,6 +3013,7 @@ export * from "./folders";
 export * from "./group";
 export * from "./helper";
 export * from "./items";
+export * from "./jslink";
 export * from "./limitedWebPartManager";
 export * from "./list";
 export * from "./listItem";
@@ -3030,7 +3030,6 @@ export * from "./recycleBinItem";
 export * from "./requestType";
 export * from "./rest";
 import * as Results from "./results";
-export { Results };
 export * from "./roleAssignment";
 export * from "./roleAssignments";
 export * from "./roleDefinition";
@@ -3040,7 +3039,6 @@ export * from "./site";
 export * from "./siteGroups";
 export * from "./socialFeed";
 import * as SPTypes from "./sptypes";
-export { SPTypes };
 export * from "./targetInfo";
 export * from "./user";
 export * from "./userCustomAction";
@@ -3053,6 +3051,7 @@ export * from "./viewFieldCollection";
 export * from "./views";
 export * from "./web";
 export * from "./webs";
+export { ComplexTypes, Results, SPTypes };
 
 import { IBase, IListItem, ODataQuery } from ".";
 /**
@@ -3106,6 +3105,40 @@ export interface IListItems extends IBase {
      * @param oData - The OData information.
      */
     query(query: ODataQuery): IListItems;
+}
+
+/**
+ * Fields Template
+ */
+export interface IFieldTemplate {
+    DisplayForm?: any;
+    EditForm?: any;
+    Name: string;
+    NewForm?: any;
+    View?: any;
+}
+/**
+ * Templates
+ */
+export interface ITemplates {
+    Body?: any;
+    Footer?: any;
+    Fields?: Array<IFieldTemplate>;
+    Group?: any;
+    Header?: any;
+    Item?: any;
+    OnPostRender?: any;
+    OnPreRender?: any;
+}
+/**
+ * JS Link Template
+ */
+export interface IJSLink {
+    BaseViewID?: number | string;
+    ListTemplateType?: number;
+    OnPostRender?: any;
+    OnPreRender?: any;
+    Templates?: ITemplates;
 }
 
 import { IBase } from ".";
