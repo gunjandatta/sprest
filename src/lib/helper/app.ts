@@ -1,4 +1,3 @@
-import {IHelperApp} from "../../definitions";
 import {Promise} from "../../utils";
 import {
     ContextInfo,
@@ -7,7 +6,7 @@ import {
 /*********************************************************************************************************************************/
 // App Helper Methods
 /*********************************************************************************************************************************/
-const _AppHelper = {
+export const AppHelper = {
     // Method to copy a file in this app web to the host web
     copyFileToHostWeb: (fileUrl, dstFolder, overwriteFl, rootWebFl) => {
         let srcFile = null;
@@ -341,5 +340,4 @@ const _AppHelper = {
         // Return the promise
         return promise;
     }
-}
-export const AppHelper:IHelperApp = <any>_AppHelper;
+};

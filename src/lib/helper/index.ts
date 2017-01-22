@@ -1,6 +1,11 @@
-import * as App from "./app";
-import * as JSLink from "./jslink";
-export {
-    App,
-    JSLink
-}
+import {IHelper} from "../../definitions";
+import {AppHelper} from "./app";
+import {JSLinkHelper} from "./jslink";
+
+/**
+ * Helper Methods
+ */
+export const Helper:IHelper = {
+    App: <any>AppHelper,
+    JSLink: <any>JSLinkHelper
+};

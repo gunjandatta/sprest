@@ -4,8 +4,7 @@ function __export(m) {
 }
 __export(require("./contextInfo"));
 __export(require("./email"));
-var Helper = require("./helper");
-exports.Helper = Helper;
+__export(require("./helper"));
 __export(require("./jslink"));
 __export(require("./list"));
 __export(require("./peopleManager"));

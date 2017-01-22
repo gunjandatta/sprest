@@ -754,8 +754,7 @@
 	}
 	__export(__webpack_require__(9));
 	__export(__webpack_require__(10));
-	var Helper = __webpack_require__(65);
-	exports.Helper = Helper;
+	__export(__webpack_require__(65));
 	__export(__webpack_require__(68));
 	__export(__webpack_require__(69));
 	__export(__webpack_require__(70));
@@ -4416,10 +4415,15 @@
 
 	"use strict";
 
-	var App = __webpack_require__(66);
-	exports.App = App;
-	var JSLink = __webpack_require__(67);
-	exports.JSLink = JSLink;
+	var app_1 = __webpack_require__(66);
+	var jslink_1 = __webpack_require__(67);
+	/**
+	 * Helper Methods
+	 */
+	exports.Helper = {
+	  App: app_1.AppHelper,
+	  JSLink: jslink_1.JSLinkHelper
+	};
 	//# sourceMappingURL=index.js.map
 
 /***/ },
@@ -4434,7 +4438,7 @@
 	/*********************************************************************************************************************************/
 	// App Helper Methods
 	/*********************************************************************************************************************************/
-	var _AppHelper = {
+	exports.AppHelper = {
 	    // Method to copy a file in this app web to the host web
 	    copyFileToHostWeb: function copyFileToHostWeb(fileUrl, dstFolder, overwriteFl, rootWebFl) {
 	        var srcFile = null;
@@ -4715,7 +4719,6 @@
 	        return promise;
 	    }
 	};
-	exports.AppHelper = _AppHelper;
 	//# sourceMappingURL=app.js.map
 
 /***/ },
@@ -4728,8 +4731,128 @@
 	/**
 	 * JSLink Helper Methods
 	 */
-	var _JSLinkHelper = function () {
-	    function _JSLinkHelper() {}
+	exports.JSLinkHelper = {
+	    /**
+	     * Global Variables
+	     */
+	    hideEventFl: false,
+	    /**
+	     * Field to Method Mapper
+	     * 1 - Display Form
+	     * 2 - Edit Form
+	     * 3 - New Form
+	     * 4 - View
+	     */
+	    _fieldToMethodMapper: {
+	        'Attachments': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPFieldAttachments_Default"],
+	            2: window["SPFieldAttachments_Default"],
+	            3: window["SPFieldAttachments_Default"]
+	        },
+	        'Boolean': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPField_FormDisplay_DefaultNoEncode"],
+	            2: window["SPFieldBoolean_Edit"],
+	            3: window["SPFieldBoolean_Edit"]
+	        },
+	        'Currency': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPField_FormDisplay_Default"],
+	            2: window["SPFieldNumber_Edit"],
+	            3: window["SPFieldNumber_Edit"]
+	        },
+	        'Calculated': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPField_FormDisplay_Default"],
+	            2: window["SPField_FormDisplay_Empty"],
+	            3: window["SPField_FormDisplay_Empty"]
+	        },
+	        'Choice': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPField_FormDisplay_Default"],
+	            2: window["SPFieldChoice_Edit"],
+	            3: window["SPFieldChoice_Edit"]
+	        },
+	        'Computed': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPField_FormDisplay_Default"],
+	            2: window["SPField_FormDisplay_Default"],
+	            3: window["SPField_FormDisplay_Default"]
+	        },
+	        'DateTime': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPFieldDateTime_Display"],
+	            2: window["SPFieldDateTime_Edit"],
+	            3: window["SPFieldDateTime_Edit"]
+	        },
+	        'File': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPFieldFile_Display"],
+	            2: window["SPFieldFile_Edit"],
+	            3: window["SPFieldFile_Edit"]
+	        },
+	        'Integer': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPField_FormDisplay_Default"],
+	            2: window["SPFieldNumber_Edit"],
+	            3: window["SPFieldNumber_Edit"]
+	        },
+	        'Lookup': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPFieldLookup_Display"],
+	            2: window["SPFieldLookup_Edit"],
+	            3: window["SPFieldLookup_Edit"]
+	        },
+	        'LookupMulti': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPFieldLookup_Display"],
+	            2: window["SPFieldLookup_Edit"],
+	            3: window["SPFieldLookup_Edit"]
+	        },
+	        'MultiChoice': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPField_FormDisplay_Default"],
+	            2: window["SPFieldMultiChoice_Edit"],
+	            3: window["SPFieldMultiChoice_Edit"]
+	        },
+	        'Note': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPFieldNote_Display"],
+	            2: window["SPFieldNote_Edit"],
+	            3: window["SPFieldNote_Edit"]
+	        },
+	        'Number': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPField_FormDisplay_Default"],
+	            2: window["SPFieldNumber_Edit"],
+	            3: window["SPFieldNumber_Edit"]
+	        },
+	        'Text': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPField_FormDisplay_Default"],
+	            2: window["SPFieldText_Edit"],
+	            3: window["SPFieldText_Edit"]
+	        },
+	        'URL': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPFieldUrl_Display"],
+	            2: window["SPFieldUrl_Edit"],
+	            3: window["SPFieldUrl_Edit"]
+	        },
+	        'User': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPFieldUser_Display"],
+	            2: window["SPClientPeoplePickerCSRTemplate"],
+	            3: window["SPClientPeoplePickerCSRTemplate"]
+	        },
+	        'UserMulti': {
+	            4: window["RenderFieldValueDefault"],
+	            1: window["SPFieldUserMulti_Display"],
+	            2: window["SPClientPeoplePickerCSRTemplate"],
+	            3: window["SPClientPeoplePickerCSRTemplate"]
+	        }
+	    },
 	    /**
 	     * Methods
 	     */
@@ -4739,7 +4862,7 @@
 	     * @param field - The field to disable edit.
 	     * @param requireValueFl - Flag to only disable the field, if a value exists.
 	     */
-	    _JSLinkHelper.disableEdit = function (ctx, field, requireValueFl) {
+	    disableEdit: function disableEdit(ctx, field, requireValueFl) {
 	        var fieldValue = ctx.CurrentFieldValue;
 	        // Ensure a value exists
 	        if (fieldValue) {
@@ -4782,14 +4905,14 @@
 	            controlMode = ctx.ControlMode;
 	        }
 	        // Return the display value of the field
-	        return _JSLinkHelper.renderField(ctx, field, controlMode);
-	    };
+	        return exports.JSLinkHelper.renderField(ctx, field, controlMode);
+	    },
 	    /**
 	     * Disable quick edit for the specified field.
 	     * @param ctx - The client context.
 	     * @param field - The field to disable edit.
 	     */
-	    _JSLinkHelper.disableQuickEdit = function (ctx, field) {
+	    disableQuickEdit: function disableQuickEdit(ctx, field) {
 	        // Ensure we are in grid edit mode
 	        if (ctx.inGridMode) {
 	            // Disable editing for this field
@@ -4797,55 +4920,55 @@
 	            return "";
 	        }
 	        // Return the default field value html
-	        return _JSLinkHelper.renderField(ctx, field);
-	    };
+	        return exports.JSLinkHelper.renderField(ctx, field);
+	    },
 	    /**
 	     * Returns the list view.
 	     * @param ctx - The client context.
 	     */
-	    _JSLinkHelper.getListView = function (ctx) {
+	    getListView: function getListView(ctx) {
 	        // Get the webpart
-	        var wp = _JSLinkHelper.getWebPart(ctx);
+	        var wp = exports.JSLinkHelper.getWebPart(ctx);
 	        if (wp) {
 	            // Find the list form table
 	            wp = wp.querySelector(".ms-formtable");
 	        }
 	        // Return the list view
 	        return wp;
-	    };
+	    },
 	    /**
 	     * Returns the list view items.
 	     * @param ctx - The client context.
 	     */
-	    _JSLinkHelper.getListViewItems = function (ctx) {
+	    getListViewItems: function getListViewItems(ctx) {
 	        // Return the list view items
 	        return ctx.ListData ? ctx.ListData.Row : [];
-	    };
+	    },
 	    /**
 	     * Returns the selected list view items
 	     */
-	    _JSLinkHelper.getListViewSelectedItems = function () {
+	    getListViewSelectedItems: function getListViewSelectedItems() {
 	        // Return the selected items
 	        return window["SP"].ListOperation.Selection.getSelectedItems();
-	    };
+	    },
 	    /**
 	     * Returns the webpart containing the JSLink field/form/view.
 	     * @param ctx - The client context.
 	     */
-	    _JSLinkHelper.getWebPart = function (ctx) {
+	    getWebPart: function getWebPart(ctx) {
 	        // Return the webpart
 	        return document.querySelector("#WebPart" + (ctx.FormUniqueId || ctx.wpq));
-	    };
+	    },
 	    /**
 	     * Hides the specified field.
 	     * @param ctx - The client context.
 	     * @param field - The field to hide.
 	     */
-	    _JSLinkHelper.hideField = function (ctx, field) {
+	    hideField: function hideField(ctx, field) {
 	        // Ensure the hide event has been created
-	        if (!this.hideEventFl) {
+	        if (!exports.JSLinkHelper.hideEventFl) {
 	            // Set the flag
-	            this.hideEventFl = true;
+	            exports.JSLinkHelper.hideEventFl = true;
 	            // Create the event
 	            window.addEventListener("load", function () {
 	                // Query for the elements to hide
@@ -4871,33 +4994,33 @@
 	                }
 	            });
 	        }
-	    };
+	    },
 	    /**
 	     * Removes the field and html from the page.
 	     * @param ctx - The client context.
 	     * @param field - The field to remove.
 	     */
-	    _JSLinkHelper.removeField = function (ctx, field) {
+	    removeField: function removeField(ctx, field) {
 	        // Hide the field
-	        _JSLinkHelper.hideField(ctx, field);
+	        exports.JSLinkHelper.hideField(ctx, field);
 	        // Return an empty element
 	        return "<div class='hide-field'></div>";
-	    };
+	    },
 	    /**
 	     * Method to render the default html for a field.
 	     * @param ctx - The client context.
 	     * @param field - The form field.
 	     * @param formType - The form type. (Display, Edit, New or View)
 	     */
-	    _JSLinkHelper.renderField = function (ctx, field, formType) {
+	    renderField: function renderField(ctx, field, formType) {
 	        // Determine the field type
 	        var fieldType = field ? field.Type : ctx.CurrentFieldSchema ? ctx.CurrentFieldSchema.Type : null;
 	        // Ensure the form type is set
 	        formType = formType ? formType : ctx.ControlMode;
 	        // Ensure a field to method mapper exists
-	        if (this._fieldToMethodMapper[fieldType] && this._fieldToMethodMapper[fieldType][formType]) {
+	        if (exports.JSLinkHelper._fieldToMethodMapper[fieldType] && exports.JSLinkHelper._fieldToMethodMapper[fieldType][formType]) {
 	            // Return the default html for this field
-	            var defaultHtml = this._fieldToMethodMapper[fieldType][formType](ctx);
+	            var defaultHtml = exports.JSLinkHelper._fieldToMethodMapper[fieldType][formType](ctx);
 	            if (defaultHtml) {
 	                return defaultHtml;
 	            }
@@ -4963,127 +5086,8 @@
 	        var currentItem = ctx.CurrentItem || ctx.ListData.Items[0];
 	        // Return the item's field value html
 	        return fieldRenderer ? fieldRenderer.RenderField(ctx, field, currentItem, ctx.ListSchema) : currentItem[field.Name];
-	    };
-	    /**
-	     * Global Variables
-	     */
-	    _JSLinkHelper.hideEventFl = false;
-	    /**
-	     * Field to Method Mapper
-	     */
-	    _JSLinkHelper._fieldToMethodMapper = {
-	        'Attachments': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPFieldAttachments_Default"],
-	            'EditForm': window["SPFieldAttachments_Default"],
-	            'NewForm': window["SPFieldAttachments_Default"]
-	        },
-	        'Boolean': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPField_FormDisplay_DefaultNoEncode"],
-	            'EditForm': window["SPFieldBoolean_Edit"],
-	            'NewForm': window["SPFieldBoolean_Edit"]
-	        },
-	        'Currency': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPField_FormDisplay_Default"],
-	            'EditForm': window["SPFieldNumber_Edit"],
-	            'NewForm': window["SPFieldNumber_Edit"]
-	        },
-	        'Calculated': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPField_FormDisplay_Default"],
-	            'EditForm': window["SPField_FormDisplay_Empty"],
-	            'NewForm': window["SPField_FormDisplay_Empty"]
-	        },
-	        'Choice': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPField_FormDisplay_Default"],
-	            'EditForm': window["SPFieldChoice_Edit"],
-	            'NewForm': window["SPFieldChoice_Edit"]
-	        },
-	        'Computed': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPField_FormDisplay_Default"],
-	            'EditForm': window["SPField_FormDisplay_Default"],
-	            'NewForm': window["SPField_FormDisplay_Default"]
-	        },
-	        'DateTime': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPFieldDateTime_Display"],
-	            'EditForm': window["SPFieldDateTime_Edit"],
-	            'NewForm': window["SPFieldDateTime_Edit"]
-	        },
-	        'File': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPFieldFile_Display"],
-	            'EditForm': window["SPFieldFile_Edit"],
-	            'NewForm': window["SPFieldFile_Edit"]
-	        },
-	        'Integer': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPField_FormDisplay_Default"],
-	            'EditForm': window["SPFieldNumber_Edit"],
-	            'NewForm': window["SPFieldNumber_Edit"]
-	        },
-	        'Lookup': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPFieldLookup_Display"],
-	            'EditForm': window["SPFieldLookup_Edit"],
-	            'NewForm': window["SPFieldLookup_Edit"]
-	        },
-	        'LookupMulti': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPFieldLookup_Display"],
-	            'EditForm': window["SPFieldLookup_Edit"],
-	            'NewForm': window["SPFieldLookup_Edit"]
-	        },
-	        'MultiChoice': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPField_FormDisplay_Default"],
-	            'EditForm': window["SPFieldMultiChoice_Edit"],
-	            'NewForm': window["SPFieldMultiChoice_Edit"]
-	        },
-	        'Note': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPFieldNote_Display"],
-	            'EditForm': window["SPFieldNote_Edit"],
-	            'NewForm': window["SPFieldNote_Edit"]
-	        },
-	        'Number': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPField_FormDisplay_Default"],
-	            'EditForm': window["SPFieldNumber_Edit"],
-	            'NewForm': window["SPFieldNumber_Edit"]
-	        },
-	        'Text': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPField_FormDisplay_Default"],
-	            'EditForm': window["SPFieldText_Edit"],
-	            'NewForm': window["SPFieldText_Edit"]
-	        },
-	        'URL': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPFieldUrl_Display"],
-	            'EditForm': window["SPFieldUrl_Edit"],
-	            'NewForm': window["SPFieldUrl_Edit"]
-	        },
-	        'User': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPFieldUser_Display"],
-	            'EditForm': window["SPClientPeoplePickerCSRTemplate"],
-	            'NewForm': window["SPClientPeoplePickerCSRTemplate"]
-	        },
-	        'UserMulti': {
-	            'View': window["RenderFieldValueDefault"],
-	            'DisplayForm': window["SPFieldUserMulti_Display"],
-	            'EditForm': window["SPClientPeoplePickerCSRTemplate"],
-	            'NewForm': window["SPClientPeoplePickerCSRTemplate"]
-	        }
-	    };
-	    return _JSLinkHelper;
-	}();
-	exports.JSLinkHelper = new _JSLinkHelper();
+	    }
+	};
 	//# sourceMappingURL=jslink.js.map
 
 /***/ },

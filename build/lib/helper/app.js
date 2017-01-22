@@ -5,7 +5,7 @@ var __1 = require("..");
 /*********************************************************************************************************************************/
 // App Helper Methods
 /*********************************************************************************************************************************/
-var _AppHelper = {
+exports.AppHelper = {
     // Method to copy a file in this app web to the host web
     copyFileToHostWeb: function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
         var srcFile = null;
@@ -291,5 +291,4 @@ var _AppHelper = {
         return promise;
     }
 };
-exports.AppHelper = _AppHelper;
 //# sourceMappingURL=app.js.map
