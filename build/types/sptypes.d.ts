@@ -14,6 +14,7 @@ export declare const ControlMode: {
     Display: number;
     Edit: number;
     New: number;
+    View: number;
 };
 /**
  * Draft Visibility Types

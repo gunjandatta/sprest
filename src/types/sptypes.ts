@@ -19,14 +19,17 @@ export const ControlMode = {
     /** A placeholder value in the export consteration indicating that it has no valid display mode from one of the other export consteration values. */
     Invalid:  0,
 
-    /** Specifies that the control is in display mode. */
+    /** Specifies that the control is in display form. */
     Display:  1,
 
-    /** Specifies that the control is in edit mode. */
+    /** Specifies that the control is in edit form. */
     Edit:  2,
 
-    /** Specifies that the control is in New mode. */
-    New:  3
+    /** Specifies that the control is in new form. */
+    New:  3,
+
+    /** Specifies that the control is in a view. */
+    View: 4
 };
 
 /**
