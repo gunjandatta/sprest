@@ -13,11 +13,22 @@ export const CheckOutType = {
 };
 
 /**
+ * Client Template Utility
+ */
+export const ClientTemplatesUtility = {
+    /** User Lookup Delimiter  */
+    UserLookupDelimitString: ";#",
+
+    /** User Multi-Value Delimiter */
+    UserMultiValueDelimitString: ",#"
+}
+
+/**
  * Control Modes
  */
 export const ControlMode = {
     /** A placeholder value in the export consteration indicating that it has no valid display mode from one of the other export consteration values. */
-    Invalid:  0,
+   Invalid:  0,
 
     /** Specifies that the control is in display form. */
     Display:  1,

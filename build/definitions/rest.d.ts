@@ -16,7 +16,7 @@ export interface IREST {
      */
     Email: IEmail;
     /**
-     * Helper methods for copying files between the app web and host web.
+     * Helper methods.
      */
     Helper: IHelper;
     /**

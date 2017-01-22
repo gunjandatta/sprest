@@ -1,13 +1,13 @@
-import {IHelper} from "../definitions";
-import {Promise} from "../utils";
+import {IHelperApp} from "../../definitions";
+import {Promise} from "../../utils";
 import {
     ContextInfo,
     Web
-} from ".";
+} from "..";
 /*********************************************************************************************************************************/
-// Helper Methods
+// App Helper Methods
 /*********************************************************************************************************************************/
-const _Helper = {
+const _AppHelper = {
     // Method to copy a file in this app web to the host web
     copyFileToHostWeb: (fileUrl, dstFolder, overwriteFl, rootWebFl) => {
         let srcFile = null;
@@ -342,4 +342,4 @@ const _Helper = {
         return promise;
     }
 }
-export const Helper:IHelper = <any>_Helper;
+export const AppHelper:IHelperApp = <any>_AppHelper;

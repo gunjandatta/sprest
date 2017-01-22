@@ -7,6 +7,13 @@ export declare const CheckOutType: {
     None: number;
 };
 /**
+ * Client Template Utility
+ */
+export declare const ClientTemplatesUtility: {
+    UserLookupDelimitString: string;
+    UserMultiValueDelimitString: string;
+};
+/**
  * Control Modes
  */
 export declare const ControlMode: {

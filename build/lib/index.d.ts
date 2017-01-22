@@ -1,6 +1,7 @@
 export * from "./contextInfo";
 export * from "./email";
-export * from "./helper";
+import * as Helper from "./helper";
+export { Helper };
 export * from "./jslink";
 export * from "./list";
 export * from "./peopleManager";

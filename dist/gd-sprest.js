@@ -211,6 +211,15 @@
 	    None: 2
 	};
 	/**
+	 * Client Template Utility
+	 */
+	exports.ClientTemplatesUtility = {
+	    /** User Lookup Delimiter  */
+	    UserLookupDelimitString: ";#",
+	    /** User Multi-Value Delimiter */
+	    UserMultiValueDelimitString: ",#"
+	};
+	/**
 	 * Control Modes
 	 */
 	exports.ControlMode = {
@@ -745,9 +754,8 @@
 	}
 	__export(__webpack_require__(9));
 	__export(__webpack_require__(10));
-	__export(__webpack_require__(65));
-	__export(__webpack_require__(66));
-	__export(__webpack_require__(67));
+	var Helper = __webpack_require__(65);
+	exports.Helper = Helper;
 	__export(__webpack_require__(68));
 	__export(__webpack_require__(69));
 	__export(__webpack_require__(70));
@@ -756,6 +764,8 @@
 	__export(__webpack_require__(73));
 	__export(__webpack_require__(74));
 	__export(__webpack_require__(75));
+	__export(__webpack_require__(76));
+	__export(__webpack_require__(77));
 	//# sourceMappingURL=index.js.map
 
 /***/ },
@@ -4406,27 +4416,39 @@
 
 	"use strict";
 
+	var App = __webpack_require__(66);
+	exports.App = App;
+	var JSLink = __webpack_require__(67);
+	exports.JSLink = JSLink;
+	//# sourceMappingURL=index.js.map
+
+/***/ },
+/* 66 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
 	var _this = undefined;
 	var utils_1 = __webpack_require__(11);
-	var _1 = __webpack_require__(8);
+	var __1 = __webpack_require__(8);
 	/*********************************************************************************************************************************/
-	// Helper Methods
+	// App Helper Methods
 	/*********************************************************************************************************************************/
-	var _Helper = {
+	var _AppHelper = {
 	    // Method to copy a file in this app web to the host web
 	    copyFileToHostWeb: function copyFileToHostWeb(fileUrl, dstFolder, overwriteFl, rootWebFl) {
 	        var srcFile = null;
 	        var promise = new utils_1.Promise();
 	        var origVal = window["$REST"].DefaultRequestToHostFl;
 	        // Ensure the current web is an app web
-	        if (!_1.ContextInfo.isAppWeb) {
+	        if (!__1.ContextInfo.isAppWeb) {
 	            // Error
 	            console.error("[gd-sprest] The current web is not an app web.");
 	            return;
 	        }
 	        // Get the host web
 	        window["$REST"].DefaultRequestToHostFl = true;
-	        var web = new _1.Web(rootWebFl ? _1.ContextInfo.siteServerRelativeUrl : null);
+	        var web = new __1.Web(rootWebFl ? __1.ContextInfo.siteServerRelativeUrl : null);
 	        // See if the folder url was given
 	        if (typeof dstFolder === "string") {
 	            // Get the folder
@@ -4442,7 +4464,7 @@
 	            fileName = fileName[fileName.length - 1];
 	            // Set the file urls
 	            var dstFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-	            var srcFileUrl_1 = window["SP"].Utilities.UrlBuilder.urlCombine(_1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+	            var srcFileUrl_1 = window["SP"].Utilities.UrlBuilder.urlCombine(__1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
 	            // Get the destination file
 	            web.getFileByServerRelativeUrl(dstFileUrl).execute(function (file) {
 	                var promise = new utils_1.Promise();
@@ -4462,7 +4484,7 @@
 	            // Target the current web
 	            window["$REST"].DefaultRequestToHostFl = false;
 	            // Get the current web
-	            new _1.Web().getFileByServerRelativeUrl(srcFileUrl_1).content().execute(function (content) {
+	            new __1.Web().getFileByServerRelativeUrl(srcFileUrl_1).content().execute(function (content) {
 	                var promise = new utils_1.Promise();
 	                // Get the file name
 	                var fileName = srcFileUrl_1.split("/");
@@ -4693,144 +4715,173 @@
 	        return promise;
 	    }
 	};
-	exports.Helper = _Helper;
-	//# sourceMappingURL=helper.js.map
+	exports.AppHelper = _AppHelper;
+	//# sourceMappingURL=app.js.map
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var types_1 = __webpack_require__(5);
 	/**
-	 * JS Link
+	 * JSLink Helper Methods
 	 */
-	var JSLink = function () {
-	    function JSLink() {}
-	    Object.defineProperty(JSLink.prototype, "BaseViewID", {
-	        set: function set(value) {
-	            this._baseViewID = value;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(JSLink.prototype, "ListTemplateType", {
-	        set: function set(value) {
-	            this._listTemplateType = value;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(JSLink.prototype, "OnPostRender", {
-	        set: function set(value) {
-	            this._onPostRender = value;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(JSLink.prototype, "OnPreRender", {
-	        set: function set(value) {
-	            this._onPreRender = value;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(JSLink.prototype, "Templates", {
-	        set: function set(value) {
-	            this._templates = value;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
+	var _JSLinkHelper = function () {
+	    function _JSLinkHelper() {}
 	    /**
 	     * Methods
 	     */
 	    /**
-	     * Returns the CSR template.
+	     * Disables edit for the specified field.
+	     * @param ctx - The client context.
+	     * @param field - The field to disable edit.
+	     * @param requireValueFl - Flag to only disable the field, if a value exists.
 	     */
-	    JSLink.prototype.getTemplate = function () {
-	        var template = {};
-	        // Add the properties
-	        if (this._baseViewID) {
-	            template.BaseViewID = this._baseViewID;
-	        }
-	        if (this._listTemplateType) {
-	            template.ListTemplateType = this._listTemplateType;
-	        }
-	        if (this._onPostRender) {
-	            template.OnPostRender = this._onPostRender;
-	        }
-	        if (this._onPreRender) {
-	            template.OnPreRender = this._onPreRender;
-	        }
-	        if (this._templates) {
-	            template.Templates = this._templates;
-	        }
-	        // See if there are fields
-	        if (template.Templates && template.Templates.Fields) {
-	            var fields = {};
-	            // Parse the fields
-	            for (var _i = 0, _a = template.Templates.Fields; _i < _a.length; _i++) {
-	                var field = _a[_i];
-	                // Add the field
-	                fields[field.Name] = {};
-	                // Add the field properties
-	                if (field.DisplayForm) {
-	                    fields[field.Name].DisplayForm = field.DisplayForm;
-	                }
-	                if (field.EditForm) {
-	                    fields[field.Name].EditForm = field.EditForm;
-	                }
-	                if (field.NewForm) {
-	                    fields[field.Name].NewForm = field.NewForm;
-	                }
-	                if (field.View) {
-	                    fields[field.Name].View = field.View;
-	                }
+	    _JSLinkHelper.disableEdit = function (ctx, field, requireValueFl) {
+	        var fieldValue = ctx.CurrentFieldValue;
+	        // Ensure a value exists
+	        if (fieldValue) {
+	            // Update the context, based on the field type
+	            switch (ctx.CurrentFieldSchema.Type) {
+	                case "MultiChoice":
+	                    var regExp = new RegExp(types_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString, "g");
+	                    // Update the field value
+	                    fieldValue = ctx.CurrentFieldValue.replace(regExp, "; ").replace(/^; /g, "").replace(/; $/g, "");
+	                    break;
+	                case "Note":
+	                    // Replace the return characters
+	                    fieldValue = "<div>" + ctx.CurrentFieldValue.replace(/\n/g, "<br />") + "</div>";
+	                    break;
+	                case "User":
+	                case "UserMulti":
+	                    for (var i = 0; i < ctx.CurrentFieldValue.length; i++) {
+	                        var userValue = ctx.CurrentFieldValue[i];
+	                        // Add the user value
+	                        fieldValue +=
+	                        // User Lookup ID
+	                        userValue.EntityData.SPUserID +
+	                        // Delimiter
+	                        types_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString +
+	                        // User Lookup Value
+	                        userValue.DisplayText + (
+	                        // Optional Delimiter
+	                        i == ctx.CurrentFieldValue.length - 1 ? "" : types_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString);
+	                    }
+	                    break;
 	            }
-	            // Update the fields
-	            template.Templates.Fields = fields;
+	            ;
+	            // Update the current field value
+	            ctx.CurrentFieldValue = fieldValue;
 	        }
-	        // Return the template
-	        return template;
+	        // Determine the control mode
+	        var controlMode = types_1.SPTypes.ControlMode.Display;
+	        if (requireValueFl && (fieldValue == null || fieldValue == "")) {
+	            // Inherit the control mode
+	            controlMode = ctx.ControlMode;
+	        }
+	        // Return the display value of the field
+	        return _JSLinkHelper.renderField(ctx, field, controlMode);
 	    };
 	    /**
-	     * Method to get the form type
+	     * Disable quick edit for the specified field.
+	     * @param ctx - The client context.
+	     * @param field - The field to disable edit.
+	     */
+	    _JSLinkHelper.disableQuickEdit = function (ctx, field) {
+	        // Ensure we are in grid edit mode
+	        if (ctx.inGridMode) {
+	            // Disable editing for this field
+	            field.AllowGridEditing = false;
+	            return "";
+	        }
+	        // Return the default field value html
+	        return _JSLinkHelper.renderField(ctx, field);
+	    };
+	    /**
+	     * Returns the list view.
 	     * @param ctx - The client context.
 	     */
-	    JSLink.getFormType = function (ctx) {
-	        var formType = null;
-	        // Determine the form type
-	        switch (ctx.ControlMode) {
-	            case types_1.SPTypes.ControlMode.Display:
-	                formType = "DisplayForm";
-	                break;
-	            case types_1.SPTypes.ControlMode.Edit:
-	                formType = "EditForm";
-	                break;
-	            case types_1.SPTypes.ControlMode.New:
-	                formType = "NewForm";
-	                break;
-	            case types_1.SPTypes.ControlMode.View:
-	                formType = "View";
-	                break;
+	    _JSLinkHelper.getListView = function (ctx) {
+	        // Get the webpart
+	        var wp = _JSLinkHelper.getWebPart(ctx);
+	        if (wp) {
+	            // Find the list form table
+	            wp = wp.querySelector(".ms-formtable");
 	        }
-	        // Return the form type
-	        return formType;
+	        // Return the list view
+	        return wp;
 	    };
 	    /**
-	     * Method to register the CSR override
+	     * Returns the list view items.
+	     * @param ctx - The client context.
 	     */
-	    JSLink.prototype.register = function () {
-	        // Get the template manager
-	        var templateManager = window["SPClientTemplates"];
-	        templateManager = templateManager ? templateManager.TemplateManager : null;
-	        // Ensure it exists
-	        if (templateManager) {
-	            // Apply the customization
-	            templateManager.RegisterTemplateOverrides(this.getTemplate());
+	    _JSLinkHelper.getListViewItems = function (ctx) {
+	        // Return the list view items
+	        return ctx.ListData ? ctx.ListData.Row : [];
+	    };
+	    /**
+	     * Returns the selected list view items
+	     */
+	    _JSLinkHelper.getListViewSelectedItems = function () {
+	        // Return the selected items
+	        return window["SP"].ListOperation.Selection.getSelectedItems();
+	    };
+	    /**
+	     * Returns the webpart containing the JSLink field/form/view.
+	     * @param ctx - The client context.
+	     */
+	    _JSLinkHelper.getWebPart = function (ctx) {
+	        // Return the webpart
+	        return document.querySelector("#WebPart" + (ctx.FormUniqueId || ctx.wpq));
+	    };
+	    /**
+	     * Hides the specified field.
+	     * @param ctx - The client context.
+	     * @param field - The field to hide.
+	     */
+	    _JSLinkHelper.hideField = function (ctx, field) {
+	        // Ensure the hide event has been created
+	        if (!this.hideEventFl) {
+	            // Set the flag
+	            this.hideEventFl = true;
+	            // Create the event
+	            window.addEventListener("load", function () {
+	                // Query for the elements to hide
+	                var fieldElements = document.querySelectorAll(".hide-field");
+	                for (var _i = 0, fieldElements_1 = fieldElements; _i < fieldElements_1.length; _i++) {
+	                    var fieldElement = fieldElements_1[_i];
+	                    // Get the parent row
+	                    var parentRow = fieldElement.parentNode && fieldElement.parentNode.parentNode ? fieldElement.parentNode.parentNode : null;
+	                    if (parentRow) {
+	                        // Ensure the parent row exists
+	                        if (fieldElement.parentNode.getAttribute("data-field-name") != parentRow.getAttribute("data-field-name")) {
+	                            // Find the parent row
+	                            while (parentRow && parentRow.nodeName.toLowerCase() != "tr") {
+	                                // Update the parent node
+	                                parentRow = parentRow.parentNode;
+	                            }
+	                        }
+	                        // Hide the parent row
+	                        if (parentRow) {
+	                            parentRow.style.display = "none";
+	                        }
+	                    }
+	                }
+	            });
 	        }
+	    };
+	    /**
+	     * Removes the field and html from the page.
+	     * @param ctx - The client context.
+	     * @param field - The field to remove.
+	     */
+	    _JSLinkHelper.removeField = function (ctx, field) {
+	        // Hide the field
+	        _JSLinkHelper.hideField(ctx, field);
+	        // Return an empty element
+	        return "<div class='hide-field'></div>";
 	    };
 	    /**
 	     * Method to render the default html for a field.
@@ -4838,11 +4889,11 @@
 	     * @param field - The form field.
 	     * @param formType - The form type. (Display, Edit, New or View)
 	     */
-	    JSLink.renderField = function (ctx, field, formType) {
+	    _JSLinkHelper.renderField = function (ctx, field, formType) {
 	        // Determine the field type
 	        var fieldType = field ? field.Type : ctx.CurrentFieldSchema ? ctx.CurrentFieldSchema.Type : null;
 	        // Ensure the form type is set
-	        formType = formType ? formType : this.getFormType(ctx);
+	        formType = formType ? formType : ctx.ControlMode;
 	        // Ensure a field to method mapper exists
 	        if (this._fieldToMethodMapper[fieldType] && this._fieldToMethodMapper[fieldType][formType]) {
 	            // Return the default html for this field
@@ -4914,9 +4965,13 @@
 	        return fieldRenderer ? fieldRenderer.RenderField(ctx, field, currentItem, ctx.ListSchema) : currentItem[field.Name];
 	    };
 	    /**
+	     * Global Variables
+	     */
+	    _JSLinkHelper.hideEventFl = false;
+	    /**
 	     * Field to Method Mapper
 	     */
-	    JSLink._fieldToMethodMapper = {
+	    _JSLinkHelper._fieldToMethodMapper = {
 	        'Attachments': {
 	            'View': window["RenderFieldValueDefault"],
 	            'DisplayForm': window["SPFieldAttachments_Default"],
@@ -5026,13 +5081,129 @@
 	            'NewForm': window["SPClientPeoplePickerCSRTemplate"]
 	        }
 	    };
+	    return _JSLinkHelper;
+	}();
+	exports.JSLinkHelper = new _JSLinkHelper();
+	//# sourceMappingURL=jslink.js.map
+
+/***/ },
+/* 68 */
+/***/ function(module, exports) {
+
+	"use strict";
+	/**
+	 * JS Link
+	 */
+
+	var JSLink = function () {
+	    function JSLink() {}
+	    Object.defineProperty(JSLink.prototype, "BaseViewID", {
+	        set: function set(value) {
+	            this._baseViewID = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(JSLink.prototype, "ListTemplateType", {
+	        set: function set(value) {
+	            this._listTemplateType = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(JSLink.prototype, "OnPostRender", {
+	        set: function set(value) {
+	            this._onPostRender = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(JSLink.prototype, "OnPreRender", {
+	        set: function set(value) {
+	            this._onPreRender = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(JSLink.prototype, "Templates", {
+	        set: function set(value) {
+	            this._templates = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    /**
+	     * Methods
+	     */
+	    /**
+	     * Returns the CSR template.
+	     */
+	    JSLink.prototype.getTemplate = function () {
+	        var template = {};
+	        // Add the properties
+	        if (this._baseViewID) {
+	            template.BaseViewID = this._baseViewID;
+	        }
+	        if (this._listTemplateType) {
+	            template.ListTemplateType = this._listTemplateType;
+	        }
+	        if (this._onPostRender) {
+	            template.OnPostRender = this._onPostRender;
+	        }
+	        if (this._onPreRender) {
+	            template.OnPreRender = this._onPreRender;
+	        }
+	        if (this._templates) {
+	            template.Templates = this._templates;
+	        }
+	        // See if there are fields
+	        if (template.Templates && template.Templates.Fields) {
+	            var fields = {};
+	            // Parse the fields
+	            for (var _i = 0, _a = template.Templates.Fields; _i < _a.length; _i++) {
+	                var field = _a[_i];
+	                // Add the field
+	                fields[field.Name] = {};
+	                // Add the field properties
+	                if (field.DisplayForm) {
+	                    fields[field.Name].DisplayForm = field.DisplayForm;
+	                }
+	                if (field.EditForm) {
+	                    fields[field.Name].EditForm = field.EditForm;
+	                }
+	                if (field.NewForm) {
+	                    fields[field.Name].NewForm = field.NewForm;
+	                }
+	                if (field.View) {
+	                    fields[field.Name].View = field.View;
+	                }
+	            }
+	            // Update the fields
+	            template.Templates.Fields = fields;
+	        }
+	        // Return the template
+	        return template;
+	    };
+	    /**
+	     * Method to register the CSR override.
+	     */
+	    JSLink.prototype.register = function () {
+	        // Get the template manager
+	        var templateManager = window["SPClientTemplates"];
+	        templateManager = templateManager ? templateManager.TemplateManager : null;
+	        // Ensure it exists
+	        if (templateManager) {
+	            // Apply the customization
+	            templateManager.RegisterTemplateOverrides(this.getTemplate());
+	        }
+	    };
 	    return JSLink;
 	}();
 	exports.JSLink = JSLink;
 	//# sourceMappingURL=jslink.js.map
 
 /***/ },
-/* 67 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5071,7 +5242,7 @@
 	//# sourceMappingURL=list.js.map
 
 /***/ },
-/* 68 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5109,7 +5280,7 @@
 	//# sourceMappingURL=peopleManager.js.map
 
 /***/ },
-/* 69 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5147,7 +5318,7 @@
 	//# sourceMappingURL=peoplePicker.js.map
 
 /***/ },
-/* 70 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5186,7 +5357,7 @@
 	//# sourceMappingURL=profileLoader.js.map
 
 /***/ },
-/* 71 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5262,7 +5433,7 @@
 	//# sourceMappingURL=search.js.map
 
 /***/ },
-/* 72 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5317,7 +5488,7 @@
 	//# sourceMappingURL=site.js.map
 
 /***/ },
-/* 73 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5383,7 +5554,7 @@
 	//# sourceMappingURL=socialFeed.js.map
 
 /***/ },
-/* 74 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5422,7 +5593,7 @@
 	//# sourceMappingURL=userProfile.js.map
 
 /***/ },
-/* 75 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

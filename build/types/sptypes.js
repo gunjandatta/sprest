@@ -11,6 +11,15 @@ exports.CheckOutType = {
     None: 2
 };
 /**
+ * Client Template Utility
+ */
+exports.ClientTemplatesUtility = {
+    /** User Lookup Delimiter  */
+    UserLookupDelimitString: ";#",
+    /** User Multi-Value Delimiter */
+    UserMultiValueDelimitString: ",#"
+};
+/**
  * Control Modes
  */
 exports.ControlMode = {

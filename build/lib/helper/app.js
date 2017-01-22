@@ -1,25 +1,25 @@
 "use strict";
 var _this = this;
-var utils_1 = require("../utils");
-var _1 = require(".");
+var utils_1 = require("../../utils");
+var __1 = require("..");
 /*********************************************************************************************************************************/
-// Helper Methods
+// App Helper Methods
 /*********************************************************************************************************************************/
-var _Helper = {
+var _AppHelper = {
     // Method to copy a file in this app web to the host web
     copyFileToHostWeb: function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
         var srcFile = null;
         var promise = new utils_1.Promise();
         var origVal = window["$REST"].DefaultRequestToHostFl;
         // Ensure the current web is an app web
-        if (!_1.ContextInfo.isAppWeb) {
+        if (!__1.ContextInfo.isAppWeb) {
             // Error
             console.error("[gd-sprest] The current web is not an app web.");
             return;
         }
         // Get the host web
         window["$REST"].DefaultRequestToHostFl = true;
-        var web = (new _1.Web(rootWebFl ? _1.ContextInfo.siteServerRelativeUrl : null));
+        var web = (new __1.Web(rootWebFl ? __1.ContextInfo.siteServerRelativeUrl : null));
         // See if the folder url was given
         if (typeof (dstFolder) === "string") {
             // Get the folder
@@ -36,7 +36,7 @@ var _Helper = {
             fileName = fileName[fileName.length - 1];
             // Set the file urls
             var dstFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-            var srcFileUrl_1 = window["SP"].Utilities.UrlBuilder.urlCombine(_1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+            var srcFileUrl_1 = window["SP"].Utilities.UrlBuilder.urlCombine(__1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
             // Get the destination file
             web.getFileByServerRelativeUrl(dstFileUrl)
                 .execute(function (file) {
@@ -56,7 +56,7 @@ var _Helper = {
             // Target the current web
             window["$REST"].DefaultRequestToHostFl = false;
             // Get the current web
-            (new _1.Web())
+            (new __1.Web())
                 .getFileByServerRelativeUrl(srcFileUrl_1)
                 .content()
                 .execute(function (content) {
@@ -291,5 +291,5 @@ var _Helper = {
         return promise;
     }
 };
-exports.Helper = _Helper;
-//# sourceMappingURL=helper.js.map
+exports.AppHelper = _AppHelper;
+//# sourceMappingURL=app.js.map
