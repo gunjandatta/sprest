@@ -778,23 +778,7 @@
 	/*********************************************************************************************************************************/
 
 	var _ContextInfo = function () {
-	    /**
-	     * Constructor
-	     */
 	    function _ContextInfo() {
-	        /**
-	         * Global Variables
-	         */
-	        // The current context information
-	        this._contextInfo = {
-	            existsFl: false,
-	            isAppWeb: false,
-	            siteAbsoluteUrl: "",
-	            siteServerRelativeUrl: "",
-	            userId: 0,
-	            webAbsoluteUrl: "",
-	            webServerRelativeUrl: ""
-	        };
 	        /**
 	         * Properties
 	         */
@@ -870,12 +854,24 @@
 	        this.webTitle = this._contextInfo.webTitle;
 	        // Web UI Version
 	        this.webUIVersion = this._contextInfo.webUIVersion;
-	        // See if the page context information exists
-	        if (window && window["_spPageContextInfo"]) {
-	            // Set the context information
-	            this._contextInfo = window["_spPageContextInfo"];
-	        }
 	    }
+	    Object.defineProperty(_ContextInfo.prototype, "_contextInfo", {
+	        // The current context information
+	        get: function get() {
+	            return window["_spPageContextInfo"] || {
+	                existsFl: false,
+	                isAppWeb: false,
+	                siteAbsoluteUrl: "",
+	                siteServerRelativeUrl: "",
+	                userId: 0,
+	                webAbsoluteUrl: "",
+	                webServerRelativeUrl: ""
+	            };
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    ;
 	    return _ContextInfo;
 	}();
 	exports.ContextInfo = new _ContextInfo();
