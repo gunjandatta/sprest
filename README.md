@@ -37,6 +37,27 @@ An easy way to create, read, update and delete data using the SharePoint 2013/On
 ```
 npm install gd-sprest --save
 ```
+### NodeJS
+```
+import {
+    ContextInfo,
+    Email,
+    Helper,
+    JSLink,
+    List,
+    PeopleManager,
+    PeoplePicker,
+    ProfileLoader,
+    RequestType,
+    Search,
+    Site,
+    SocialFeed,
+    SPTypes,
+    Types,
+    UserProfile,
+    Web
+} from "gd-sprest";
+```
 ### Manual
 1. Download the script from the "dist" folder
 2. Upload the script to a SharePoint document library
