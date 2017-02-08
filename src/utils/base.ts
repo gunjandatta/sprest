@@ -511,24 +511,7 @@ export class Base {
             this["existsFl"] = results.length > 0;
 
             // See if only one object exists
-            if(this["results"].length == 1) {
-                // Update the metadata
-                this.updateMetadata(results[0]);
-
-                // Apply the properties to the object
-                this.addProperties(this, results[0]);
-
-                // Add the methods
-                this.addMethods(results[0], results[0])
-
-                // Add the references
-                results[0]["base"] = this.base;
-                results[0]["executeMethod"] = this.executeMethod;
-                results[0]["parent"] = this;
-
-                // Copy the metadata
-                this["d"].__metadata = results[0].__metadata;
-            } else {
+            if(this["results"].length > 0) {
                 // Apply the methods to the results asynchronously
                 setTimeout(() => {
                     let results = this["results"];

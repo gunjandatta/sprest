@@ -25,6 +25,7 @@ An easy way to create, read, update and delete data using the SharePoint 2013/On
 
 ### Example Projects
 * [Add/Remove Site Collection User Custom Actions](https://github.com/gunjandatta/sprest-sitecustomactions)
+* [Calendar Event Callout](https://github.com/gunjandatta/sp-event-callout)
 * [Office Fabric BCS List](https://github.com/gunjandatta/sprest-bcs-list)
 * [Office Fabric React](https://github.com/gunjandatta/sprest-fabric-react)
 * [Office Fabric UI Dashboard](https://github.com/gunjandatta/sprest-list)
