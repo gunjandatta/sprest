@@ -408,9 +408,13 @@ var Base = (function () {
                     for (var _i = 0, results_1 = results; _i < results_1.length; _i++) {
                         var result = results_1[_i];
                         // Add the references
+                        result["addMethods"] = _this.addMethods;
                         result["base"] = _this.base;
                         result["executeMethod"] = _this.executeMethod;
+                        result["getProperty"] = _this.getProperty;
                         result["parent"] = _this;
+                        result["targetInfo"] = _this.targetInfo;
+                        result["updateMetadataUri"] = _this.updateMetadataUri;
                         // Update the metadata
                         _this.updateMetadata(result);
                         // Add the methods

@@ -1369,9 +1369,13 @@
 	                    for (var _i = 0, results_1 = results; _i < results_1.length; _i++) {
 	                        var result = results_1[_i];
 	                        // Add the references
+	                        result["addMethods"] = _this.addMethods;
 	                        result["base"] = _this.base;
 	                        result["executeMethod"] = _this.executeMethod;
+	                        result["getProperty"] = _this.getProperty;
 	                        result["parent"] = _this;
+	                        result["targetInfo"] = _this.targetInfo;
+	                        result["updateMetadataUri"] = _this.updateMetadataUri;
 	                        // Update the metadata
 	                        _this.updateMetadata(result);
 	                        // Add the methods
@@ -2353,7 +2357,7 @@
 	    /*********************************************************************************************************************************/
 	    // Properties
 	    /*********************************************************************************************************************************/
-	    properties: ["BrowserFileHandling", "ContentTypes|contenttypes|([Name])|contenttype", "CreatablesInfo", "DefaultView|view", "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "FirstUniqueAncestorSecurableObject", "Forms|forms|('[Name]')|form", "InformationRightsManagementSettings", "Items|items|([Name])|item", "ParentWeb", "RoleAssignments|roleassignments|([Name])|roleassignment", "RootFolder|folder|/getByUrl('[Name]')|file", "Subscriptions", "TitleResource", "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "Views|views||('[Name]')|view", "WorkflowAssociations"],
+	    properties: ["BrowserFileHandling", "ContentTypes|contenttypes|('[Name]')|contenttype", "CreatablesInfo", "DefaultView|view", "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "FirstUniqueAncestorSecurableObject", "Forms|forms|('[Name]')|form", "InformationRightsManagementSettings", "Items|items|([Name])|item", "ParentWeb", "RoleAssignments|roleassignments|([Name])|roleassignment", "RootFolder|folder|/getByUrl('[Name]')|file", "Subscriptions", "TitleResource", "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "Views|views||('[Name]')|view", "WorkflowAssociations"],
 	    /*********************************************************************************************************************************/
 	    // Methods
 	    /*********************************************************************************************************************************/

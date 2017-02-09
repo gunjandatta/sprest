@@ -519,9 +519,13 @@ export class Base {
                     // Parse the results
                     for(let result of results) {
                         // Add the references
+                        result["addMethods"] = this.addMethods;
                         result["base"] = this.base;
                         result["executeMethod"] = this.executeMethod;
+                        result["getProperty"] = this.getProperty;
                         result["parent"] = this;
+                        result["targetInfo"] = this.targetInfo;
+                        result["updateMetadataUri"] = this.updateMetadataUri;
 
                         // Update the metadata
                         this.updateMetadata(result);
