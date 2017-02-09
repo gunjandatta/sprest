@@ -420,7 +420,7 @@ var Base = (function () {
                         // Add the methods
                         _this.addMethods(result, result);
                     }
-                }, 10);
+                }, 0);
             }
         }
     };

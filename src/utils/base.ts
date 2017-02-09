@@ -533,7 +533,7 @@ export class Base {
                         // Add the methods
                         this.addMethods(result, result);
                     }
-                }, 10);
+                }, 0);
             }
         }            
     }
