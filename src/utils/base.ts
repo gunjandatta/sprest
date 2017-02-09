@@ -512,28 +512,25 @@ export class Base {
 
             // See if only one object exists
             if(this["results"].length > 0) {
-                // Apply the methods to the results asynchronously
-                setTimeout(() => {
-                    let results = this["results"];
-                    
-                    // Parse the results
-                    for(let result of results) {
-                        // Add the references
-                        result["addMethods"] = this.addMethods;
-                        result["base"] = this.base;
-                        result["executeMethod"] = this.executeMethod;
-                        result["getProperty"] = this.getProperty;
-                        result["parent"] = this;
-                        result["targetInfo"] = this.targetInfo;
-                        result["updateMetadataUri"] = this.updateMetadataUri;
+                let results = this["results"];
+                
+                // Parse the results
+                for(let result of results) {
+                    // Add the references
+                    result["addMethods"] = this.addMethods;
+                    result["base"] = this.base;
+                    result["executeMethod"] = this.executeMethod;
+                    result["getProperty"] = this.getProperty;
+                    result["parent"] = this;
+                    result["targetInfo"] = this.targetInfo;
+                    result["updateMetadataUri"] = this.updateMetadataUri;
 
-                        // Update the metadata
-                        this.updateMetadata(result);
+                    // Update the metadata
+                    this.updateMetadata(result);
 
-                        // Add the methods
-                        this.addMethods(result, result);
-                    }
-                }, 0);
+                    // Add the methods
+                    this.addMethods(result, result);
+                }
             }
         }            
     }

@@ -1568,7 +1568,6 @@
 	    };
 	    // Method to update a collection object
 	    Base.prototype.updateDataCollection = function (results) {
-	        var _this = this;
 	        // Ensure this is a collection
 	        if (results) {
 	            // Save the results
@@ -1577,26 +1576,23 @@
 	            this["existsFl"] = results.length > 0;
 	            // See if only one object exists
 	            if (this["results"].length > 0) {
-	                // Apply the methods to the results asynchronously
-	                setTimeout(function () {
-	                    var results = _this["results"];
-	                    // Parse the results
-	                    for (var _i = 0, results_1 = results; _i < results_1.length; _i++) {
-	                        var result = results_1[_i];
-	                        // Add the references
-	                        result["addMethods"] = _this.addMethods;
-	                        result["base"] = _this.base;
-	                        result["executeMethod"] = _this.executeMethod;
-	                        result["getProperty"] = _this.getProperty;
-	                        result["parent"] = _this;
-	                        result["targetInfo"] = _this.targetInfo;
-	                        result["updateMetadataUri"] = _this.updateMetadataUri;
-	                        // Update the metadata
-	                        _this.updateMetadata(result);
-	                        // Add the methods
-	                        _this.addMethods(result, result);
-	                    }
-	                }, 0);
+	                var results_1 = this["results"];
+	                // Parse the results
+	                for (var _i = 0, results_2 = results_1; _i < results_2.length; _i++) {
+	                    var result = results_2[_i];
+	                    // Add the references
+	                    result["addMethods"] = this.addMethods;
+	                    result["base"] = this.base;
+	                    result["executeMethod"] = this.executeMethod;
+	                    result["getProperty"] = this.getProperty;
+	                    result["parent"] = this;
+	                    result["targetInfo"] = this.targetInfo;
+	                    result["updateMetadataUri"] = this.updateMetadataUri;
+	                    // Update the metadata
+	                    this.updateMetadata(result);
+	                    // Add the methods
+	                    this.addMethods(result, result);
+	                }
 	            }
 	        }
 	    };
