@@ -778,83 +778,7 @@
 	/*********************************************************************************************************************************/
 
 	var _ContextInfo = function () {
-	    function _ContextInfo() {
-	        /**
-	         * Properties
-	         */
-	        // Alerts Enabled
-	        this.alertsEnabled = this._contextInfo.alertsEnabled;
-	        // Allow Silverlight Prompt
-	        this.allowSilverlightPrompt = this._contextInfo.allowSilverlightPrompt == "True" ? true : false;
-	        // Client Server Time Delta
-	        this.clientServerTimeDelta = this._contextInfo.clientServerTimeDelta;
-	        // Cross Domain Photos Enabled
-	        this.crossDomainPhotosEnabled = this._contextInfo.crossDomainPhotosEnabled;
-	        // Current Culture Name
-	        this.currentCultureName = this._contextInfo.currentCultureName;
-	        // Current Language
-	        this.currentLanguage = this._contextInfo.currentLanguage;
-	        // Current UI Culture Name
-	        this.currentUICultureName = this._contextInfo.currentUICultureName;
-	        // Environment
-	        this.env = this._contextInfo.env;
-	        // Exists Flag
-	        this.existsFl = this._contextInfo.existsFl == null;
-	        // Has Manage Web Permissions
-	        this.hasManageWebPermissions = this._contextInfo.hasManageWebPermissions;
-	        // Is Anonymous Guest User
-	        this.isAnonymousGuestUser = this._contextInfo.isAnonymousGuestUser;
-	        // Is App Web
-	        this.isAppWeb = this._contextInfo.isAppWeb;
-	        // Is Site Administrator
-	        this.isSiteAdmin = this._contextInfo.isSiteAdmin;
-	        // Layouts Url
-	        this.layoutsUrl = this._contextInfo.layoutsUrl;
-	        // Page Item Id
-	        this.pageItemId = this._contextInfo.pageItemId;
-	        // Page List Id
-	        this.pageListId = this._contextInfo.pageListId;
-	        // Page Personalization Scope
-	        this.pagePersonalizationScope = this._contextInfo.pagePersonalizationScope;
-	        // Profile Url
-	        this.profileUrl = this._contextInfo.profileUrl;
-	        // Server Request Path
-	        this.serverRequestPath = this._contextInfo.serverRequestPath;
-	        // Site Absolute Url
-	        this.siteAbsoluteUrl = this._contextInfo.siteAbsoluteUrl;
-	        // Site Client Tag
-	        this.siteClientTag = this._contextInfo.siteClientTag;
-	        // Site Server Relative Url
-	        this.siteServerRelativeUrl = this._contextInfo.siteServerRelativeUrl;
-	        // System User Key
-	        this.systemUserKey = this._contextInfo.systemUserKey;
-	        // Tenant App Version
-	        this.tenantAppVersion = this._contextInfo.tenantAppVersion;
-	        // Theme Cache Token
-	        this.themeCacheToken = this._contextInfo.themeCacheToken;
-	        // Update From Digest Page Loaded
-	        this.updateFromDigestPageLoaded = this._contextInfo.updateFromDigestPageLoaded;
-	        // User Id
-	        this.userId = this._contextInfo.userId;
-	        // User Login Name
-	        this.userLoginName = this._contextInfo.userLoginName;
-	        // Web Absolute Url
-	        this.webAbsoluteUrl = this._contextInfo.webAbsoluteUrl;
-	        // Web Language
-	        this.webLanguage = this._contextInfo.webLanguage;
-	        // Web Logo Url
-	        this.webLogoUrl = this._contextInfo.webLogoUrl;
-	        // Web Permissions Mask
-	        this.webPermMask = this._contextInfo.webPermMask;
-	        // Web Server Relative Url
-	        this.webServerRelativeUrl = this._contextInfo.webServerRelativeUrl;
-	        // Web Template
-	        this.webTemplate = this._contextInfo.webTemplate;
-	        // Web Title
-	        this.webTitle = this._contextInfo.webTitle;
-	        // Web UI Version
-	        this.webUIVersion = this._contextInfo.webUIVersion;
-	    }
+	    function _ContextInfo() {}
 	    Object.defineProperty(_ContextInfo.prototype, "_contextInfo", {
 	        // The current context information
 	        get: function get() {
@@ -872,6 +796,297 @@
 	        configurable: true
 	    });
 	    ;
+	    Object.defineProperty(_ContextInfo.prototype, "alertsEnabled", {
+	        /**
+	         * Properties
+	         */
+	        // Alerts Enabled
+	        get: function get() {
+	            return this._contextInfo.alertsEnabled;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "allowSilverlightPrompt", {
+	        // Allow Silverlight Prompt
+	        get: function get() {
+	            return this._contextInfo.allowSilverlightPrompt == "True" ? true : false;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "clientServerTimeDelta", {
+	        // Client Server Time Delta
+	        get: function get() {
+	            return this._contextInfo.clientServerTimeDelta;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "crossDomainPhotosEnabled", {
+	        // Cross Domain Photos Enabled
+	        get: function get() {
+	            return this._contextInfo.crossDomainPhotosEnabled;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "currentCultureName", {
+	        // Current Culture Name
+	        get: function get() {
+	            return this._contextInfo.currentCultureName;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "currentLanguage", {
+	        // Current Language
+	        get: function get() {
+	            return this._contextInfo.currentLanguage;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "currentUICultureName", {
+	        // Current UI Culture Name
+	        get: function get() {
+	            return this._contextInfo.currentUICultureName;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "env", {
+	        // Environment
+	        get: function get() {
+	            return this._contextInfo.env;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "existsFl", {
+	        // Exists Flag
+	        get: function get() {
+	            return this._contextInfo.existsFl == null;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "hasManageWebPermissions", {
+	        // Has Manage Web Permissions
+	        get: function get() {
+	            return this._contextInfo.hasManageWebPermissions;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "isAnonymousGuestUser", {
+	        // Is Anonymous Guest User
+	        get: function get() {
+	            return this._contextInfo.isAnonymousGuestUser;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "isAppWeb", {
+	        // Is App Web
+	        get: function get() {
+	            return this._contextInfo.isAppWeb;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "isSiteAdmin", {
+	        // Is Site Administrator
+	        get: function get() {
+	            return this._contextInfo.isSiteAdmin;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "layoutsUrl", {
+	        // Layouts Url
+	        get: function get() {
+	            return this._contextInfo.layoutsUrl;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "pageItemId", {
+	        // Page Item Id
+	        get: function get() {
+	            return this._contextInfo.pageItemId;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "pageListId", {
+	        // Page List Id
+	        get: function get() {
+	            return this._contextInfo.pageListId;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "pagePersonalizationScope", {
+	        // Page Personalization Scope
+	        get: function get() {
+	            return this._contextInfo.pagePersonalizationScope;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "profileUrl", {
+	        // Profile Url
+	        get: function get() {
+	            return this._contextInfo.profileUrl;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "serverRequestPath", {
+	        // Server Request Path
+	        get: function get() {
+	            return this._contextInfo.serverRequestPath;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "siteAbsoluteUrl", {
+	        // Site Absolute Url
+	        get: function get() {
+	            return this._contextInfo.siteAbsoluteUrl;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "siteClientTag", {
+	        // Site Client Tag
+	        get: function get() {
+	            return this._contextInfo.siteClientTag;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "siteServerRelativeUrl", {
+	        // Site Server Relative Url
+	        get: function get() {
+	            return this._contextInfo.siteServerRelativeUrl;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "systemUserKey", {
+	        // System User Key
+	        get: function get() {
+	            return this._contextInfo.systemUserKey;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "tenantAppVersion", {
+	        // Tenant App Version
+	        get: function get() {
+	            return this._contextInfo.tenantAppVersion;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "themeCacheToken", {
+	        // Theme Cache Token
+	        get: function get() {
+	            return this._contextInfo.themeCacheToken;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "updateFromDigestPageLoaded", {
+	        // Update From Digest Page Loaded
+	        get: function get() {
+	            return this._contextInfo.updateFromDigestPageLoaded;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "userId", {
+	        // User Id
+	        get: function get() {
+	            return this._contextInfo.userId;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "userLoginName", {
+	        // User Login Name
+	        get: function get() {
+	            return this._contextInfo.userLoginName;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "webAbsoluteUrl", {
+	        // Web Absolute Url
+	        get: function get() {
+	            return this._contextInfo.webAbsoluteUrl;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "webLanguage", {
+	        // Web Language
+	        get: function get() {
+	            return this._contextInfo.webLanguage;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "webLogoUrl", {
+	        // Web Logo Url
+	        get: function get() {
+	            return this._contextInfo.webLogoUrl;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "webPermMask", {
+	        // Web Permissions Mask
+	        get: function get() {
+	            return this._contextInfo.webPermMask;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "webServerRelativeUrl", {
+	        // Web Server Relative Url
+	        get: function get() {
+	            return this._contextInfo.webServerRelativeUrl;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "webTemplate", {
+	        // Web Template
+	        get: function get() {
+	            return this._contextInfo.webTemplate;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "webTitle", {
+	        // Web Title
+	        get: function get() {
+	            return this._contextInfo.webTitle;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(_ContextInfo.prototype, "webUIVersion", {
+	        // Web UI Version
+	        get: function get() {
+	            return this._contextInfo.webUIVersion;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    return _ContextInfo;
 	}();
 	exports.ContextInfo = new _ContextInfo();
