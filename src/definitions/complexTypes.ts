@@ -1621,9 +1621,6 @@ export interface ViewCreationInformation {
     /** The new list view is a personal view. If the value is false, the new list view is a public view. */
     PersonalView?: boolean;
 
-    /** The query for the new list view. */
-    Query: string;
-
     /** The maximum number of list items that the new list view displays on a visual page of the list view. */
     RowLimit?: number;
 
@@ -1633,8 +1630,8 @@ export interface ViewCreationInformation {
     /** The name of the view. */
     Title: string;
 
-    /** The view fields. */
-    ViewFields: String;
+    /** The query for the new list view. */
+    ViewQuery: string;
 
     /** The view type. */
     ViewTypeKind: SPTypes.ViewType;

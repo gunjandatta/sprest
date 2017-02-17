@@ -8,7 +8,7 @@ exports.views = {
     add: {
         metadataType: "SP.View",
         name: "",
-        requestType: types_1.RequestType.PostWithArgs
+        requestType: types_1.RequestType.PostWithArgsInBody
     },
     // Gets the list view with the specified ID.
     getById: {

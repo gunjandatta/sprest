@@ -2,6 +2,7 @@ import {
     IBase,
     IFolder,
     IPromise,
+    IView,
     IWeb
 } from ".";
 /**
@@ -137,6 +138,18 @@ export interface IHelperJSLink {
 }
 
 /**
+ * List Helper Methods
+ */
+export interface IHelperList {
+    /**
+     * Adds the fields to the view.
+     * @param view - The view to add the fields to.
+     * @param fields - The fields to add to the view.
+     */
+    addViewFields(view:IView, fields:Array<string>):IView;
+}
+
+/**
  * Export the Helper Interface
  */
 export interface IHelper {
@@ -149,4 +162,9 @@ export interface IHelper {
      * JSLink helper methods
      */
     JSLink:IHelperJSLink
+
+    /**
+     * List helper methods
+     */
+    List:IHelperList
 };

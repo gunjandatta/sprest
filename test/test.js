@@ -295,6 +295,9 @@ function testList() {
         // Test the list items
         testListItems(list);
 
+        // Test the list view
+        testListView(list);
+
         // Test the content type
         testContentType(list);
 
@@ -442,6 +445,30 @@ function testListItems(list) {
 
     // Test
     assert(items.results, "query list items", "length", maxNumber);
+}
+
+function testListView(list) {
+    // Log
+    writeToLog("List View", LogType.Header);
+
+    // Log
+    writeToLog("Creating the list view", LogType.SubHeader);
+
+    // Create the item
+    view = list.Views().add({
+        Title: "New View",
+        ViewQuery: '<OrderBy><FieldRef Name="Title" /></OrderBy>'
+    }).executeAndWait();
+    assert(view, "create", "existsFl", true);
+
+    // Log
+    writeToLog("Deleting the list view", LogType.SubHeader);
+
+    // Delete the item
+    view = view.delete().executeAndWait();
+
+    // Test
+    assert(view.d, "delete", "DeleteObject", null);
 }
 
 function testSecurity() {

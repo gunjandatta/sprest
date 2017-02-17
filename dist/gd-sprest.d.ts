@@ -1541,16 +1541,14 @@ export interface ViewCreationInformation {
     Paged?: boolean;
     /** The new list view is a personal view. If the value is false, the new list view is a public view. */
     PersonalView?: boolean;
-    /** The query for the new list view. */
-    Query: string;
     /** The maximum number of list items that the new list view displays on a visual page of the list view. */
     RowLimit?: number;
     /** Option to set as default view. */
     SetAsDefaultView?: boolean;
     /** The name of the view. */
     Title: string;
-    /** The view fields. */
-    ViewFields: String;
+    /** The query for the new list view. */
+    ViewQuery: string;
     /** The view type. */
     ViewTypeKind: SPTypes.ViewType;
 }
@@ -2928,7 +2926,7 @@ export interface IGroup extends IBase {
     executeAndWait(): IGroup;
 }
 
-import { IFolder, IPromise, IWeb } from ".";
+import { IFolder, IPromise, IView, IWeb } from ".";
 /**
  * App Helper Methods
  */
@@ -3045,6 +3043,17 @@ export interface IHelperJSLink {
     renderField(ctx: any, field: any, formType?: number): any;
 }
 /**
+ * List Helper Methods
+ */
+export interface IHelperList {
+    /**
+     * Adds the fields to the view.
+     * @param view - The view to add the fields to.
+     * @param fields - The fields to add to the view.
+     */
+    addViewFields(view: IView, fields: Array<string>): IView;
+}
+/**
  * Export the Helper Interface
  */
 export interface IHelper {
@@ -3056,6 +3065,10 @@ export interface IHelper {
      * JSLink helper methods
      */
     JSLink: IHelperJSLink;
+    /**
+     * List helper methods
+     */
+    List: IHelperList;
 }
 
 export * from "./attachment";

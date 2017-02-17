@@ -755,7 +755,6 @@
 	__export(__webpack_require__(9));
 	__export(__webpack_require__(10));
 	__export(__webpack_require__(65));
-	__export(__webpack_require__(68));
 	__export(__webpack_require__(69));
 	__export(__webpack_require__(70));
 	__export(__webpack_require__(71));
@@ -765,6 +764,7 @@
 	__export(__webpack_require__(75));
 	__export(__webpack_require__(76));
 	__export(__webpack_require__(77));
+	__export(__webpack_require__(78));
 	//# sourceMappingURL=index.js.map
 
 /***/ },
@@ -3459,7 +3459,7 @@
 	    add: {
 	        metadataType: "SP.View",
 	        name: "",
-	        requestType: types_1.RequestType.PostWithArgs
+	        requestType: types_1.RequestType.PostWithArgsInBody
 	    },
 	    // Gets the list view with the specified ID.
 	    getById: {
@@ -4615,12 +4615,14 @@
 
 	var app_1 = __webpack_require__(66);
 	var jslink_1 = __webpack_require__(67);
+	var list_1 = __webpack_require__(68);
 	/**
 	 * Helper Methods
 	 */
 	exports.Helper = {
-	  App: app_1.AppHelper,
-	  JSLink: jslink_1.JSLinkHelper
+	    App: app_1.AppHelper,
+	    JSLink: jslink_1.JSLinkHelper,
+	    List: list_1.ListHelper
 	};
 	//# sourceMappingURL=index.js.map
 
@@ -5293,6 +5295,36 @@
 /***/ function(module, exports) {
 
 	"use strict";
+	/*********************************************************************************************************************************/
+	// List Helper Methods
+	/*********************************************************************************************************************************/
+
+	exports.ListHelper = {
+	    /**
+	     * Adds the fields to the view.
+	     * @param view - The view to add the fields to.
+	     * @param fields - The fields to add to the view.
+	     */
+	    addViewFields: function addViewFields(view, fields) {
+	        // Get the view Fields
+	        view.ViewFields().removeAllViewFields().execute();
+	        // Parse the fields
+	        for (var _i = 0, fields_1 = fields; _i < fields_1.length; _i++) {
+	            var field = fields_1[_i];
+	            // Get the view Fields
+	            view.ViewFields().addViewField(field).execute(true);
+	        }
+	        // Return the view
+	        return view;
+	    }
+	};
+	//# sourceMappingURL=list.js.map
+
+/***/ },
+/* 69 */
+/***/ function(module, exports) {
+
+	"use strict";
 	/**
 	 * JS Link
 	 */
@@ -5405,7 +5437,7 @@
 	//# sourceMappingURL=jslink.js.map
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5444,7 +5476,7 @@
 	//# sourceMappingURL=list.js.map
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5482,7 +5514,7 @@
 	//# sourceMappingURL=peopleManager.js.map
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5520,7 +5552,7 @@
 	//# sourceMappingURL=peoplePicker.js.map
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5559,7 +5591,7 @@
 	//# sourceMappingURL=profileLoader.js.map
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5635,7 +5667,7 @@
 	//# sourceMappingURL=search.js.map
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5690,7 +5722,7 @@
 	//# sourceMappingURL=site.js.map
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5756,7 +5788,7 @@
 	//# sourceMappingURL=socialFeed.js.map
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5795,7 +5827,7 @@
 	//# sourceMappingURL=userProfile.js.map
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

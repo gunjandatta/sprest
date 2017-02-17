@@ -8,7 +8,7 @@ export const views = {
     add: {
         metadataType: "SP.View",
         name: "",
-        requestType: RequestType.PostWithArgs
+        requestType: RequestType.PostWithArgsInBody
     },
 
     // Gets the list view with the specified ID.

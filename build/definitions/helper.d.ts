@@ -1,4 +1,4 @@
-import { IFolder, IPromise, IWeb } from ".";
+import { IFolder, IPromise, IView, IWeb } from ".";
 /**
  * App Helper Methods
  */
@@ -115,6 +115,17 @@ export interface IHelperJSLink {
     renderField(ctx: any, field: any, formType?: number): any;
 }
 /**
+ * List Helper Methods
+ */
+export interface IHelperList {
+    /**
+     * Adds the fields to the view.
+     * @param view - The view to add the fields to.
+     * @param fields - The fields to add to the view.
+     */
+    addViewFields(view: IView, fields: Array<string>): IView;
+}
+/**
  * Export the Helper Interface
  */
 export interface IHelper {
@@ -126,4 +137,8 @@ export interface IHelper {
      * JSLink helper methods
      */
     JSLink: IHelperJSLink;
+    /**
+     * List helper methods
+     */
+    List: IHelperList;
 }
