@@ -1537,6 +1537,8 @@ export interface UserIdInfo {
  * View Creation Information
  */
 export interface ViewCreationInformation {
+    /** The relative url to the jslink */
+    JSLink?: string;
     /** The new list view is a paged view. */
     Paged?: boolean;
     /** The new list view is a personal view. If the value is false, the new list view is a public view. */
