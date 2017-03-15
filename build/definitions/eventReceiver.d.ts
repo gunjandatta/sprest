@@ -21,7 +21,7 @@ export interface IEventReceiver extends IBase {
     /** An integer that represents the relative sequence of the event. */
     SequenceNumber?: number;
     /** The execution synchronization of the event receiver. */
-    Synchronization?: SPTypes.EventReceiverSynchronizationType;
+    Synchronization?: SPTypes.EventReceiverSynchronizationType | number;
     /**
      * Methods
      */

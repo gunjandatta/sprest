@@ -415,7 +415,7 @@ export interface FieldCreationInformation {
     /** The choices. */
     Choices?: String;
     /** The field type. */
-    FieldTypeKind: SPTypes.FieldType;
+    FieldTypeKind: SPTypes.FieldType | number;
     /** Indicates whether only the first eight characters are used for the field name. */
     IsCompactName?: boolean;
     /** The name of the source lookup field. */
@@ -546,7 +546,7 @@ export interface ListCreationInformation {
     /** The list template feature id. */
     TemplateFeatureId?: string;
     /** The list template type. */
-    TemplateType: SPTypes.ListTemplateType;
+    TemplateType: SPTypes.ListTemplateType | number;
     /** The list name. */
     Title: string;
     /** The list url. */
@@ -791,7 +791,7 @@ export interface RelevantResults {
  */
 export interface ReorderingRule {
     Boost?: number;
-    MatchType?: SPTypes.ReorderingRuleMatchType;
+    MatchType?: SPTypes.ReorderingRuleMatchType | number;
     MatchValue: string;
 }
 /**
@@ -799,7 +799,7 @@ export interface ReorderingRule {
  */
 export interface ReorderingRulesCreationInformation {
     Boost?: number;
-    MatchType?: SPTypes.ReorderingRuleMatchType;
+    MatchType?: SPTypes.ReorderingRuleMatchType | number;
     MatchValue: string;
 }
 /**
@@ -1512,7 +1512,7 @@ export interface UserCustomActionCreationInformation {
     /** The value that specifies the identifier of the object associated with the custom action. */
     RegistrationId?: string;
     /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
-    RegistrationType?: SPTypes.UserCustomActionRegistrationType;
+    RegistrationType?: SPTypes.UserCustomActionRegistrationType | number;
     /** The value that specifies the permissions needed for the custom action. */
     Rights?: any;
     /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
@@ -1552,7 +1552,7 @@ export interface ViewCreationInformation {
     /** The query for the new list view. */
     ViewQuery: string;
     /** The view type. */
-    ViewTypeKind: SPTypes.ViewType;
+    ViewTypeKind: SPTypes.ViewType | number;
 }
 /**
  * Visualization
@@ -1956,7 +1956,7 @@ export interface IEventReceiver extends IBase {
     /** An integer that represents the relative sequence of the event. */
     SequenceNumber?: number;
     /** The execution synchronization of the event receiver. */
-    Synchronization?: SPTypes.EventReceiverSynchronizationType;
+    Synchronization?: SPTypes.EventReceiverSynchronizationType | number;
     /**
      * Methods
      */
@@ -2068,7 +2068,7 @@ export interface IField extends IBase {
     /** Gets the name of the entity property for the list item entity that uses this field. */
     EntityPropertyName: string;
     /** Gets or sets a value that specifies the type of the field. Represents a FieldType value. See FieldType in the .NET client object model reference for a list of field type values. */
-    FieldTypeKind: SPTypes.FieldType;
+    FieldTypeKind: SPTypes.FieldType | number;
     /** Gets a value that specifies whether list items in the list can be filtered by the field value. */
     Filterable: boolean;
     /** Gets a Boolean value that indicates whether the field derives from a base field type. */
@@ -2334,7 +2334,7 @@ export interface IFile extends IBase {
     /** Gets a value that returns the comment used when a document is checked in to a document library. */
     CheckInComment: string;
     /** Gets a value that indicates how the file is checked out of a document library. Represents an SP.CheckOutType value: . The checkout state of a file is independent of its locked state. */
-    CheckOutType: SPTypes.CheckOutType;
+    CheckOutType: SPTypes.CheckOutType | number;
     /** Returns internal version of content, used to validate document equality for read purposes. */
     ContentTag: string;
     /** Gets a value that specifies the customization status of the file. Represents an SP.CustomizedPageStatus value: None = 0; Uncustomized = 1; Customized = 2. */
@@ -3283,7 +3283,7 @@ export interface IList extends IBase {
     AllowContentTypes: boolean;
     AllowDeletion: boolean;
     /** Gets the list definition type on which the list is based. Represents a ListTemplateType value. See ListTemplateType in the .NET client object model reference for template type values. */
-    BaseTemplate: SPTypes.ListTemplateType;
+    BaseTemplate: SPTypes.ListTemplateType | number;
     /** Gets the base type for the list. Represents an SP.BaseType value: Generic List = 0; Document Library = 1; Discussion Board = 3; Survey = 4; Issue = 5. */
     BaseType: number;
     /**
@@ -4691,7 +4691,7 @@ export interface IRoleDefinition extends IBase {
     /** Gets or sets a value that specifies the order position of the object in the site collection Permission Levels page. */
     Order: number;
     /** Gets a value that specifies the type of the role definition. Represents an SP.RoleType value. See RoleType in the .NET client object model reference for a list of role type values. */
-    RoleTypeKind: SPTypes.RoleType;
+    RoleTypeKind: SPTypes.RoleType | number;
     /**
      * Methods
      */
@@ -5961,7 +5961,7 @@ export interface IUserCustomAction extends IBase {
     /** Gets or sets the value that specifies the identifier of the object associated with the custom action. */
     RegistrationId: string;
     /** Gets or sets the value that specifies the type of object associated with the custom action. */
-    RegistrationType: SPTypes.UserCustomActionRegistrationType;
+    RegistrationType: SPTypes.UserCustomActionRegistrationType | number;
     /** Gets or sets the value that specifies the permissions needed for the custom action. */
     Rights: ComplexTypes.BasePermissions;
     /** Gets a value that specifies the scope of the custom action. */
@@ -6108,7 +6108,7 @@ export interface IUserProfile extends IBase {
     /**
      * The capabilities of the user's personal site.
      */
-    PersonalSiteCapabilities: SPTypes.PersonalSiteCapabilities;
+    PersonalSiteCapabilities: SPTypes.PersonalSiteCapabilities | number;
     /**
      * The error thrown when the user's personal site was first created, if any. (SharePoint Online only)
      */

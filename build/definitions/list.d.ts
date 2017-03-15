@@ -16,7 +16,7 @@ export interface IList extends IBase {
     AllowContentTypes: boolean;
     AllowDeletion: boolean;
     /** Gets the list definition type on which the list is based. Represents a ListTemplateType value. See ListTemplateType in the .NET client object model reference for template type values. */
-    BaseTemplate: SPTypes.ListTemplateType;
+    BaseTemplate: SPTypes.ListTemplateType | number;
     /** Gets the base type for the list. Represents an SP.BaseType value: Generic List = 0; Document Library = 1; Discussion Board = 3; Survey = 4; Issue = 5. */
     BaseType: number;
     /**

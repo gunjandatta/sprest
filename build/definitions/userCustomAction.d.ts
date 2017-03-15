@@ -23,7 +23,7 @@ export interface IUserCustomAction extends IBase {
     /** Gets or sets the value that specifies the identifier of the object associated with the custom action. */
     RegistrationId: string;
     /** Gets or sets the value that specifies the type of object associated with the custom action. */
-    RegistrationType: SPTypes.UserCustomActionRegistrationType;
+    RegistrationType: SPTypes.UserCustomActionRegistrationType | number;
     /** Gets or sets the value that specifies the permissions needed for the custom action. */
     Rights: ComplexTypes.BasePermissions;
     /** Gets a value that specifies the scope of the custom action. */

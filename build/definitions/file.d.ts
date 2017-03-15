@@ -17,7 +17,7 @@ export interface IFile extends IBase {
     /** Gets a value that returns the comment used when a document is checked in to a document library. */
     CheckInComment: string;
     /** Gets a value that indicates how the file is checked out of a document library. Represents an SP.CheckOutType value: . The checkout state of a file is independent of its locked state. */
-    CheckOutType: SPTypes.CheckOutType;
+    CheckOutType: SPTypes.CheckOutType | number;
     /** Returns internal version of content, used to validate document equality for read purposes. */
     ContentTag: string;
     /** Gets a value that specifies the customization status of the file. Represents an SP.CustomizedPageStatus value: None = 0; Uncustomized = 1; Customized = 2. */

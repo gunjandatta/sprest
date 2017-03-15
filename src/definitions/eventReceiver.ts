@@ -32,7 +32,7 @@ export interface IEventReceiver extends IBase {
     SequenceNumber?: number;
 
     /** The execution synchronization of the event receiver. */
-    Synchronization?: SPTypes.EventReceiverSynchronizationType;
+    Synchronization?: SPTypes.EventReceiverSynchronizationType | number;
 
     /**
      * Methods

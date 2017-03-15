@@ -30,7 +30,7 @@ export interface IRoleDefinition extends IBase {
     Order: number;
 
     /** Gets a value that specifies the type of the role definition. Represents an SP.RoleType value. See RoleType in the .NET client object model reference for a list of role type values. */
-    RoleTypeKind: SPTypes.RoleType;
+    RoleTypeKind: SPTypes.RoleType | number;
 
     /**
      * Methods

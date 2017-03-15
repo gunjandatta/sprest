@@ -21,7 +21,7 @@ export interface IField extends IBase {
     /** Gets the name of the entity property for the list item entity that uses this field. */
     EntityPropertyName: string;
     /** Gets or sets a value that specifies the type of the field. Represents a FieldType value. See FieldType in the .NET client object model reference for a list of field type values. */
-    FieldTypeKind: SPTypes.FieldType;
+    FieldTypeKind: SPTypes.FieldType | number;
     /** Gets a value that specifies whether list items in the list can be filtered by the field value. */
     Filterable: boolean;
     /** Gets a Boolean value that indicates whether the field derives from a base field type. */

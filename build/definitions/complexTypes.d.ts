@@ -273,7 +273,7 @@ export interface FieldCreationInformation {
     /** The choices. */
     Choices?: String;
     /** The field type. */
-    FieldTypeKind: SPTypes.FieldType;
+    FieldTypeKind: SPTypes.FieldType | number;
     /** Indicates whether only the first eight characters are used for the field name. */
     IsCompactName?: boolean;
     /** The name of the source lookup field. */
@@ -404,7 +404,7 @@ export interface ListCreationInformation {
     /** The list template feature id. */
     TemplateFeatureId?: string;
     /** The list template type. */
-    TemplateType: SPTypes.ListTemplateType;
+    TemplateType: SPTypes.ListTemplateType | number;
     /** The list name. */
     Title: string;
     /** The list url. */
@@ -649,7 +649,7 @@ export interface RelevantResults {
  */
 export interface ReorderingRule {
     Boost?: number;
-    MatchType?: SPTypes.ReorderingRuleMatchType;
+    MatchType?: SPTypes.ReorderingRuleMatchType | number;
     MatchValue: string;
 }
 /**
@@ -657,7 +657,7 @@ export interface ReorderingRule {
  */
 export interface ReorderingRulesCreationInformation {
     Boost?: number;
-    MatchType?: SPTypes.ReorderingRuleMatchType;
+    MatchType?: SPTypes.ReorderingRuleMatchType | number;
     MatchValue: string;
 }
 /**
@@ -1370,7 +1370,7 @@ export interface UserCustomActionCreationInformation {
     /** The value that specifies the identifier of the object associated with the custom action. */
     RegistrationId?: string;
     /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
-    RegistrationType?: SPTypes.UserCustomActionRegistrationType;
+    RegistrationType?: SPTypes.UserCustomActionRegistrationType | number;
     /** The value that specifies the permissions needed for the custom action. */
     Rights?: any;
     /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
@@ -1410,7 +1410,7 @@ export interface ViewCreationInformation {
     /** The query for the new list view. */
     ViewQuery: string;
     /** The view type. */
-    ViewTypeKind: SPTypes.ViewType;
+    ViewTypeKind: SPTypes.ViewType | number;
 }
 /**
  * Visualization

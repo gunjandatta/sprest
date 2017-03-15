@@ -60,7 +60,7 @@ export interface IUserProfile extends IBase {
     /**
      * The capabilities of the user's personal site.
      */
-    PersonalSiteCapabilities: SPTypes.PersonalSiteCapabilities;
+    PersonalSiteCapabilities: SPTypes.PersonalSiteCapabilities | number;
 
     /**
      * The error thrown when the user's personal site was first created, if any. (SharePoint Online only)
