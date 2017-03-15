@@ -454,6 +454,9 @@ export interface Language {
  * List Creation Information
  */
 export interface ListCreationInformation {
+    /** The list template type. */
+    BaseTemplate: SPTypes.ListTemplateType | number;
+
     /** The list schema xml. */
     CustomSchemaXml?: string;
 
@@ -471,9 +474,6 @@ export interface ListCreationInformation {
 
     /** The list template feature id. */
     TemplateFeatureId?: string;
-
-    /** The list template type. */
-    TemplateType: SPTypes.ListTemplateType | number;
 
     /** The list name. */
     Title: string;
