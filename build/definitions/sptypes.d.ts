@@ -284,7 +284,7 @@ export declare type FileTemplateType = {
 */
 export declare type ListTemplateType = {
     /** Access Request List */
-    AccessRequest160;
+    AccessRequest;
     /** Administrator Tasks */
     AdminTasks;
     /** Agenda (Meeting) */

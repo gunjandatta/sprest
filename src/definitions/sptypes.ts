@@ -407,7 +407,7 @@ export type FileTemplateType = {
 */
 export type ListTemplateType = {
     /** Access Request List */
-    AccessRequest160,
+    AccessRequest,
 
     /** Administrator Tasks */
     AdminTasks,
