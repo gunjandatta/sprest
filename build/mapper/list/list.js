@@ -15,7 +15,7 @@ exports.list = {
         "FirstUniqueAncestorSecurableObject", "Forms|forms|('[Name]')|form", "InformationRightsManagementSettings",
         "Items|items|([Name])|item", "ParentWeb", "RoleAssignments|roleassignments|([Name])|roleassignment",
         "RootFolder|folder|/getByUrl('[Name]')|file", "Subscriptions", "TitleResource",
-        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "Views|views||('[Name]')|view", "WorkflowAssociations"
+        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "Views|views|('[Name]')|view", "WorkflowAssociations"
     ],
     /*********************************************************************************************************************************/
     // Methods
