@@ -51,7 +51,7 @@ export interface IView extends IBase {
     IncludeRootFolder: boolean;
 
     /** Gets or sets the name of the JavaScript file used for the view. */
-    JsLink: string;
+    JSLink: string;
 
     /** Gets or sets a string that represents the view XML. */
     ListViewXml: string;

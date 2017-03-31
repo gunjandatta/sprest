@@ -6366,7 +6366,7 @@ export interface IView extends IBase {
     /** Gets or sets a value that specifies whether the current folder is displayed in the list view. */
     IncludeRootFolder: boolean;
     /** Gets or sets the name of the JavaScript file used for the view. */
-    JsLink: string;
+    JSLink: string;
     /** Gets or sets a string that represents the view XML. */
     ListViewXml: string;
     /** Gets or sets a value that specifies the view method for the list view. If not null, the XML must conform to Method, as specified in [MS-WSSCAP]. */
