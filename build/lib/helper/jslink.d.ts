@@ -5,112 +5,112 @@ export declare const JSLinkHelper: {
     hideEventFl: boolean;
     _fieldToMethodMapper: {
         'Attachments': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'Boolean': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'Currency': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'Calculated': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'Choice': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'Computed': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'DateTime': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'File': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'Integer': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'Lookup': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'LookupMulti': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'MultiChoice': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'Note': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'Number': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'Text': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'URL': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'User': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
         'UserMulti': {
+            4: any;
             1: any;
             2: any;
             3: any;
-            4: any;
         };
     };
     disableEdit: (ctx: any, field: any, requireValueFl?: boolean) => string;

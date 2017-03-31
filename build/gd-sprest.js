@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // Type definitions for gd-sprest
 // Project: https://gunjandatta.github.io/sprest
 // Definitions by: Gunjan Datta <https://github.com/gunjandatta>

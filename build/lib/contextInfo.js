@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /*********************************************************************************************************************************/
 // Context Information
 // This class will return the _spPageContextInfo.

@@ -1,2 +1,3 @@
 "use strict";
-//# sourceMappingURL=jsLink.js.map
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=jslink.js.map

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var attachment_1 = require("./attachment/attachment");
 var attachmentFiles_1 = require("./attachmentFiles/attachmentFiles");
 var audit_1 = require("./audit/audit");

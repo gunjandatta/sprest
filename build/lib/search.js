@@ -1,9 +1,15 @@
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
 var types_1 = require("../types");
 var utils_1 = require("../utils");
 /*********************************************************************************************************************************/
@@ -15,19 +21,21 @@ var _Search = (function (_super) {
     // Constructor
     /*********************************************************************************************************************************/
     function _Search(url, targetInfo) {
+        var _this = 
         // Call the base constructor
-        _super.call(this, targetInfo);
+        _super.call(this, targetInfo) || this;
         // Default the properties
-        this.defaultToWebFl = true;
-        this.responses = [];
-        this.targetInfo.endpoint = "search";
+        _this.defaultToWebFl = true;
+        _this.responses = [];
+        _this.targetInfo.endpoint = "search";
         // See if the web url exists
         if (url) {
             // Set the settings
-            this.targetInfo.url = url;
+            _this.targetInfo.url = url;
         }
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "search" } });
+        _this.addMethods(_this, { __metadata: { type: "search" } });
+        return _this;
     }
     /*********************************************************************************************************************************/
     // Methods

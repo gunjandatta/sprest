@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /*********************************************************************************************************************************/
 // Promise
 // This is a lightweight promise library.
@@ -29,7 +30,7 @@ var Promise = (function () {
     Promise.prototype.resolve = function () {
         var args = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i - 0] = arguments[_i];
+            args[_i] = arguments[_i];
         }
         // Set the properties
         this.args = args;

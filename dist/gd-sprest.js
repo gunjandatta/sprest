@@ -45,6 +45,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+
+	Object.defineProperty(exports, "__esModule", { value: true });
 	// Type definitions for gd-sprest
 	// Project: https://gunjandatta.github.io/sprest
 	// Definitions by: Gunjan Datta <https://github.com/gunjandatta>
@@ -71,7 +73,6 @@
 	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 	SOFTWARE.
 	***************************************************************************************************/
-
 	var Types = __webpack_require__(1);
 	exports.Types = Types;
 	var types_1 = __webpack_require__(5);
@@ -121,6 +122,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var ComplexTypes = __webpack_require__(2);
 	exports.ComplexTypes = ComplexTypes;
 	var Results = __webpack_require__(3);
@@ -134,6 +136,8 @@
 /***/ function(module, exports) {
 
 	"use strict";
+
+	Object.defineProperty(exports, "__esModule", { value: true });
 	//# sourceMappingURL=complexTypes.js.map
 
 /***/ },
@@ -141,6 +145,8 @@
 /***/ function(module, exports) {
 
 	"use strict";
+
+	Object.defineProperty(exports, "__esModule", { value: true });
 	//# sourceMappingURL=results.js.map
 
 /***/ },
@@ -148,6 +154,8 @@
 /***/ function(module, exports) {
 
 	"use strict";
+
+	Object.defineProperty(exports, "__esModule", { value: true });
 	//# sourceMappingURL=sptypes.js.map
 
 /***/ },
@@ -156,6 +164,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var requestType_1 = __webpack_require__(6);
 	exports.RequestType = requestType_1.RequestType;
 	var SPTypes = __webpack_require__(7);
@@ -167,8 +176,9 @@
 /***/ function(module, exports) {
 
 	"use strict";
-	// Request Type
 
+	Object.defineProperty(exports, "__esModule", { value: true });
+	// Request Type
 	exports.RequestType = {
 	    // Requests
 	    Custom: 0,
@@ -198,10 +208,11 @@
 /***/ function(module, exports) {
 
 	"use strict";
+
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * Check Out Types
 	 */
-
 	exports.CheckOutType = {
 	    /** Online */
 	    Online: 0,
@@ -752,10 +763,10 @@
 	        if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	    }
 	}
+	Object.defineProperty(exports, "__esModule", { value: true });
 	__export(__webpack_require__(9));
 	__export(__webpack_require__(10));
 	__export(__webpack_require__(65));
-	__export(__webpack_require__(69));
 	__export(__webpack_require__(70));
 	__export(__webpack_require__(71));
 	__export(__webpack_require__(72));
@@ -765,6 +776,7 @@
 	__export(__webpack_require__(76));
 	__export(__webpack_require__(77));
 	__export(__webpack_require__(78));
+	__export(__webpack_require__(79));
 	//# sourceMappingURL=index.js.map
 
 /***/ },
@@ -772,11 +784,12 @@
 /***/ function(module, exports) {
 
 	"use strict";
+
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/*********************************************************************************************************************************/
 	// Context Information
 	// This class will return the _spPageContextInfo.
 	/*********************************************************************************************************************************/
-
 	var _ContextInfo = function () {
 	    function _ContextInfo() {}
 	    Object.defineProperty(_ContextInfo.prototype, "_contextInfo", {
@@ -1098,14 +1111,23 @@
 
 	"use strict";
 
-	var __extends = undefined && undefined.__extends || function (d, b) {
-	    for (var p in b) {
-	        if (b.hasOwnProperty(p)) d[p] = b[p];
-	    }function __() {
-	        this.constructor = d;
-	    }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = undefined && undefined.__extends || function () {
+	    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+	        d.__proto__ = b;
+	    } || function (d, b) {
+	        for (var p in b) {
+	            if (b.hasOwnProperty(p)) d[p] = b[p];
+	        }
+	    };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() {
+	            this.constructor = d;
+	        }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	}();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(11);
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
@@ -1118,12 +1140,14 @@
 	    // Constructor
 	    /*********************************************************************************************************************************/
 	    function _Email(targetInfo) {
+	        var _this =
 	        // Call the base constructor
-	        _super.call(this, targetInfo);
+	        _super.call(this, targetInfo) || this;
 	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "SP.Utilities.Utility.SendEmail";
+	        _this.defaultToWebFl = true;
+	        _this.responses = [];
+	        _this.targetInfo.endpoint = "SP.Utilities.Utility.SendEmail";
+	        return _this;
 	    }
 	    /*********************************************************************************************************************************/
 	    // Methods
@@ -1170,6 +1194,7 @@
 	        if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 	    }
 	}
+	Object.defineProperty(exports, "__esModule", { value: true });
 	__export(__webpack_require__(12));
 	__export(__webpack_require__(59));
 	__export(__webpack_require__(60));
@@ -1185,6 +1210,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var lib_1 = __webpack_require__(8);
 	var mapper_1 = __webpack_require__(13);
 	var types_1 = __webpack_require__(5);
@@ -1237,7 +1263,7 @@
 	        var _this = this;
 	        var args = [];
 	        for (var _i = 0; _i < arguments.length; _i++) {
-	            args[_i - 0] = arguments[_i];
+	            args[_i] = arguments[_i];
 	        }
 	        var callback = null;
 	        var waitFl = false;
@@ -1744,6 +1770,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var attachment_1 = __webpack_require__(14);
 	var attachmentFiles_1 = __webpack_require__(15);
 	var audit_1 = __webpack_require__(16);
@@ -1831,10 +1858,11 @@
 /***/ function(module, exports) {
 
 	"use strict";
+
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/*********************************************************************************************************************************/
 	// Methods
 	/*********************************************************************************************************************************/
-
 	exports.attachment = {};
 	//# sourceMappingURL=attachment.js.map
 
@@ -1844,6 +1872,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -1872,6 +1901,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Library
@@ -1891,6 +1921,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	exports.contenttype = {
 	    /*********************************************************************************************************************************/
@@ -1920,6 +1951,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -1956,6 +1988,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -1981,6 +2014,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2012,6 +2046,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2052,6 +2087,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2120,6 +2156,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2152,6 +2189,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Library
@@ -2288,6 +2326,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2324,6 +2363,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	exports.fileversion = {
 	    /*********************************************************************************************************************************/
@@ -2346,6 +2386,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2369,6 +2410,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	exports.folder = {
 	    /*********************************************************************************************************************************/
@@ -2408,6 +2450,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Library
@@ -2445,6 +2488,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.group = {
 	    /*********************************************************************************************************************************/
 	    // Properties
@@ -2459,6 +2503,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2506,6 +2551,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2539,6 +2585,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2559,6 +2606,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Library
@@ -2679,6 +2727,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	exports.listitem = {
 	    /*********************************************************************************************************************************/
@@ -2734,6 +2783,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2779,6 +2829,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2867,6 +2918,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2895,6 +2947,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2923,6 +2976,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Library
@@ -2942,6 +2996,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	exports.roleassignment = {
 	    /*********************************************************************************************************************************/
@@ -2964,6 +3019,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -2999,6 +3055,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3017,6 +3074,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3054,6 +3112,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3073,6 +3132,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Library
@@ -3165,6 +3225,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Libraries
@@ -3221,6 +3282,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	exports.user = {
 	    /*********************************************************************************************************************************/
@@ -3243,6 +3305,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3298,6 +3361,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3316,6 +3380,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3351,6 +3416,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3378,6 +3444,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3417,6 +3484,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	exports.view = {
 	    /*********************************************************************************************************************************/
@@ -3450,6 +3518,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3487,6 +3556,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3525,6 +3595,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Library
@@ -3738,6 +3809,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Methods
@@ -3762,6 +3834,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var lib_1 = __webpack_require__(8);
 	var _1 = __webpack_require__(11);
 	/*********************************************************************************************************************************/
@@ -3855,6 +3928,7 @@
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	var _1 = __webpack_require__(11);
 	/*********************************************************************************************************************************/
@@ -4119,11 +4193,12 @@
 /***/ function(module, exports) {
 
 	"use strict";
+
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/*********************************************************************************************************************************/
 	// OData
 	// Class for generating the OData query string.
 	/*********************************************************************************************************************************/
-
 	var OData = function () {
 	    /*********************************************************************************************************************************/
 	    // Constructor
@@ -4264,11 +4339,12 @@
 /***/ function(module, exports) {
 
 	"use strict";
+
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/*********************************************************************************************************************************/
 	// Promise
 	// This is a lightweight promise library.
 	/*********************************************************************************************************************************/
-
 	var Promise = function () {
 	    /*********************************************************************************************************************************/
 	    // Constructor
@@ -4295,7 +4371,7 @@
 	    Promise.prototype.resolve = function () {
 	        var args = [];
 	        for (var _i = 0; _i < arguments.length; _i++) {
-	            args[_i - 0] = arguments[_i];
+	            args[_i] = arguments[_i];
 	        }
 	        // Set the properties
 	        this.args = args;
@@ -4325,6 +4401,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var lib_1 = __webpack_require__(8);
 	/*********************************************************************************************************************************/
 	// Target Information
@@ -4455,6 +4532,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var _1 = __webpack_require__(11);
 	/*********************************************************************************************************************************/
 	// Request
@@ -4613,16 +4691,19 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var app_1 = __webpack_require__(66);
 	var jslink_1 = __webpack_require__(67);
 	var list_1 = __webpack_require__(68);
+	var loader_1 = __webpack_require__(69);
 	/**
 	 * Helper Methods
 	 */
 	exports.Helper = {
 	    App: app_1.AppHelper,
 	    JSLink: jslink_1.JSLinkHelper,
-	    List: list_1.ListHelper
+	    List: list_1.ListHelper,
+	    Loader: loader_1.Loader
 	};
 	//# sourceMappingURL=index.js.map
 
@@ -4633,6 +4714,7 @@
 	"use strict";
 
 	var _this = undefined;
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(11);
 	var __1 = __webpack_require__(8);
 	/*********************************************************************************************************************************/
@@ -4927,6 +5009,7 @@
 
 	"use strict";
 
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	/**
 	 * JSLink Helper Methods
@@ -5295,10 +5378,11 @@
 /***/ function(module, exports) {
 
 	"use strict";
+
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/*********************************************************************************************************************************/
 	// List Helper Methods
 	/*********************************************************************************************************************************/
-
 	exports.ListHelper = {
 	    /**
 	     * Adds the fields to the view.
@@ -5325,10 +5409,70 @@
 /***/ function(module, exports) {
 
 	"use strict";
+
+	var _this = undefined;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	/**
+	 * Loader
+	 */
+	exports.Loader = {
+	    // Flag to determine if the SharePoint core libraries have been loaded
+	    loaded: false,
+	    // Method to wait for the SharePoint core libraries to be loaded
+	    waitForSPLibs: function waitForSPLibs(callback, timeout, loadLibraries) {
+	        var counter = 0;
+	        // Default the flag to load the libraries
+	        loadLibraries = typeof loadLibraries === "boolean" ? loadLibraries : false;
+	        // Default the timeout (5 seconds)
+	        timeout = typeof timeout === "number" ? timeout : 2500;
+	        // Determine the number of iterations
+	        var maxLoops = timeout / 25;
+	        // See if the flag has already been set
+	        if (_this.loaded) {
+	            // Execute the callback
+	            callback();
+	            return;
+	        }
+	        // See if we are loading the libraries
+	        if (loadLibraries) {
+	            // Parse the files to load
+	            ["MicrosoftAjax.js", "init.js", "sp.runtime.js", "sp.js", "sp.core.js", "core.js"].every(function (fileName) {
+	                // Create the script element
+	                var el = document.createElement("script");
+	                // Set the properties
+	                el.setAttribute("src", "/_layouts/15/" + fileName);
+	                el.setAttribute("type", "text/javascript");
+	                // Add the element to the head
+	                document.head.appendChild(el);
+	                // Continue the loop
+	                return true;
+	            });
+	        }
+	        // Loop until the libraries are loaded
+	        var intervalId = setInterval(function () {
+	            var maxLoopFl = ++counter > maxLoops;
+	            // See if the page context exists or if we have hit the max attempts
+	            if (window["_spPageContextInfo"] || maxLoopFl) {
+	                // Stop the loop
+	                clearInterval(intervalId);
+	                // Execute the callback
+	                callback();
+	            }
+	        }, 25);
+	    }
+	};
+	//# sourceMappingURL=loader.js.map
+
+/***/ },
+/* 70 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", { value: true });
 	/**
 	 * JS Link
 	 */
-
 	var JSLink = function () {
 	    function JSLink() {}
 	    Object.defineProperty(JSLink.prototype, "BaseViewID", {
@@ -5437,19 +5581,28 @@
 	//# sourceMappingURL=jslink.js.map
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var __extends = undefined && undefined.__extends || function (d, b) {
-	    for (var p in b) {
-	        if (b.hasOwnProperty(p)) d[p] = b[p];
-	    }function __() {
-	        this.constructor = d;
-	    }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = undefined && undefined.__extends || function () {
+	    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+	        d.__proto__ = b;
+	    } || function (d, b) {
+	        for (var p in b) {
+	            if (b.hasOwnProperty(p)) d[p] = b[p];
+	        }
+	    };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() {
+	            this.constructor = d;
+	        }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	}();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(11);
 	/*********************************************************************************************************************************/
 	// List
@@ -5461,14 +5614,16 @@
 	    // Constructor
 	    /*********************************************************************************************************************************/
 	    function _List(listName, targetInfo) {
+	        var _this =
 	        // Call the base constructor
-	        _super.call(this, targetInfo);
+	        _super.call(this, targetInfo) || this;
 	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
+	        _this.defaultToWebFl = true;
+	        _this.responses = [];
+	        _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
 	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "list" } });
+	        _this.addMethods(_this, { __metadata: { type: "list" } });
+	        return _this;
 	    }
 	    return _List;
 	}(utils_1.Base);
@@ -5476,19 +5631,28 @@
 	//# sourceMappingURL=list.js.map
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var __extends = undefined && undefined.__extends || function (d, b) {
-	    for (var p in b) {
-	        if (b.hasOwnProperty(p)) d[p] = b[p];
-	    }function __() {
-	        this.constructor = d;
-	    }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = undefined && undefined.__extends || function () {
+	    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+	        d.__proto__ = b;
+	    } || function (d, b) {
+	        for (var p in b) {
+	            if (b.hasOwnProperty(p)) d[p] = b[p];
+	        }
+	    };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() {
+	            this.constructor = d;
+	        }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	}();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(11);
 	/*********************************************************************************************************************************/
 	// People Manager
@@ -5499,14 +5663,16 @@
 	    // Constructor
 	    /*********************************************************************************************************************************/
 	    function _PeopleManager(targetInfo) {
+	        var _this =
 	        // Call the base constructor
-	        _super.call(this, targetInfo);
+	        _super.call(this, targetInfo) || this;
 	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
+	        _this.defaultToWebFl = true;
+	        _this.responses = [];
+	        _this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
 	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "peoplemanager" } });
+	        _this.addMethods(_this, { __metadata: { type: "peoplemanager" } });
+	        return _this;
 	    }
 	    return _PeopleManager;
 	}(utils_1.Base);
@@ -5514,19 +5680,28 @@
 	//# sourceMappingURL=peopleManager.js.map
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var __extends = undefined && undefined.__extends || function (d, b) {
-	    for (var p in b) {
-	        if (b.hasOwnProperty(p)) d[p] = b[p];
-	    }function __() {
-	        this.constructor = d;
-	    }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = undefined && undefined.__extends || function () {
+	    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+	        d.__proto__ = b;
+	    } || function (d, b) {
+	        for (var p in b) {
+	            if (b.hasOwnProperty(p)) d[p] = b[p];
+	        }
+	    };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() {
+	            this.constructor = d;
+	        }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	}();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(11);
 	/*********************************************************************************************************************************/
 	// People Picker
@@ -5537,14 +5712,16 @@
 	    // Constructor
 	    /*********************************************************************************************************************************/
 	    function _PeoplePicker(targetInfo) {
+	        var _this =
 	        // Call the base constructor
-	        _super.call(this, targetInfo);
+	        _super.call(this, targetInfo) || this;
 	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
+	        _this.defaultToWebFl = true;
+	        _this.responses = [];
+	        _this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
 	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "peoplepicker" } });
+	        _this.addMethods(_this, { __metadata: { type: "peoplepicker" } });
+	        return _this;
 	    }
 	    return _PeoplePicker;
 	}(utils_1.Base);
@@ -5552,19 +5729,28 @@
 	//# sourceMappingURL=peoplePicker.js.map
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var __extends = undefined && undefined.__extends || function (d, b) {
-	    for (var p in b) {
-	        if (b.hasOwnProperty(p)) d[p] = b[p];
-	    }function __() {
-	        this.constructor = d;
-	    }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = undefined && undefined.__extends || function () {
+	    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+	        d.__proto__ = b;
+	    } || function (d, b) {
+	        for (var p in b) {
+	            if (b.hasOwnProperty(p)) d[p] = b[p];
+	        }
+	    };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() {
+	            this.constructor = d;
+	        }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	}();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(11);
 	/*********************************************************************************************************************************/
 	// Profile Loader
@@ -5575,15 +5761,17 @@
 	    // Constructor
 	    /*********************************************************************************************************************************/
 	    function _ProfileLoader(targetInfo) {
+	        var _this =
 	        // Call the base constructor
-	        _super.call(this, targetInfo);
+	        _super.call(this, targetInfo) || this;
 	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
-	        this.targetInfo.method = "POST";
+	        _this.defaultToWebFl = true;
+	        _this.responses = [];
+	        _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+	        _this.targetInfo.method = "POST";
 	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "profileloader" } });
+	        _this.addMethods(_this, { __metadata: { type: "profileloader" } });
+	        return _this;
 	    }
 	    return _ProfileLoader;
 	}(utils_1.Base);
@@ -5591,19 +5779,28 @@
 	//# sourceMappingURL=profileLoader.js.map
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var __extends = undefined && undefined.__extends || function (d, b) {
-	    for (var p in b) {
-	        if (b.hasOwnProperty(p)) d[p] = b[p];
-	    }function __() {
-	        this.constructor = d;
-	    }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = undefined && undefined.__extends || function () {
+	    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+	        d.__proto__ = b;
+	    } || function (d, b) {
+	        for (var p in b) {
+	            if (b.hasOwnProperty(p)) d[p] = b[p];
+	        }
+	    };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() {
+	            this.constructor = d;
+	        }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	}();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	var utils_1 = __webpack_require__(11);
 	/*********************************************************************************************************************************/
@@ -5615,19 +5812,21 @@
 	    // Constructor
 	    /*********************************************************************************************************************************/
 	    function _Search(url, targetInfo) {
+	        var _this =
 	        // Call the base constructor
-	        _super.call(this, targetInfo);
+	        _super.call(this, targetInfo) || this;
 	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "search";
+	        _this.defaultToWebFl = true;
+	        _this.responses = [];
+	        _this.targetInfo.endpoint = "search";
 	        // See if the web url exists
 	        if (url) {
 	            // Set the settings
-	            this.targetInfo.url = url;
+	            _this.targetInfo.url = url;
 	        }
 	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "search" } });
+	        _this.addMethods(_this, { __metadata: { type: "search" } });
+	        return _this;
 	    }
 	    /*********************************************************************************************************************************/
 	    // Methods
@@ -5667,19 +5866,28 @@
 	//# sourceMappingURL=search.js.map
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var __extends = undefined && undefined.__extends || function (d, b) {
-	    for (var p in b) {
-	        if (b.hasOwnProperty(p)) d[p] = b[p];
-	    }function __() {
-	        this.constructor = d;
-	    }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = undefined && undefined.__extends || function () {
+	    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+	        d.__proto__ = b;
+	    } || function (d, b) {
+	        for (var p in b) {
+	            if (b.hasOwnProperty(p)) d[p] = b[p];
+	        }
+	    };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() {
+	            this.constructor = d;
+	        }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	}();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(11);
 	var _1 = __webpack_require__(8);
 	/*********************************************************************************************************************************/
@@ -5692,19 +5900,21 @@
 	    // Constructor
 	    /*********************************************************************************************************************************/
 	    function _Site(url, targetInfo) {
+	        var _this =
 	        // Call the base constructor
-	        _super.call(this, targetInfo);
+	        _super.call(this, targetInfo) || this;
 	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "site";
+	        _this.defaultToWebFl = true;
+	        _this.responses = [];
+	        _this.targetInfo.endpoint = "site";
 	        // See if the web url exists
 	        if (url) {
 	            // Set the settings
-	            this.targetInfo.url = url;
+	            _this.targetInfo.url = url;
 	        }
 	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "site" } });
+	        _this.addMethods(_this, { __metadata: { type: "site" } });
+	        return _this;
 	    }
 	    // Method to get the root web
 	    _Site.prototype.getRootWeb = function () {
@@ -5722,19 +5932,28 @@
 	//# sourceMappingURL=site.js.map
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var __extends = undefined && undefined.__extends || function (d, b) {
-	    for (var p in b) {
-	        if (b.hasOwnProperty(p)) d[p] = b[p];
-	    }function __() {
-	        this.constructor = d;
-	    }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = undefined && undefined.__extends || function () {
+	    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+	        d.__proto__ = b;
+	    } || function (d, b) {
+	        for (var p in b) {
+	            if (b.hasOwnProperty(p)) d[p] = b[p];
+	        }
+	    };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() {
+	            this.constructor = d;
+	        }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	}();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
 	var utils_1 = __webpack_require__(11);
 	/*********************************************************************************************************************************/
@@ -5746,14 +5965,16 @@
 	    // Constructor
 	    /*********************************************************************************************************************************/
 	    function _SocialFeed(targetInfo) {
+	        var _this =
 	        // Call the base constructor
-	        _super.call(this, targetInfo);
+	        _super.call(this, targetInfo) || this;
 	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "social.feed";
+	        _this.defaultToWebFl = true;
+	        _this.responses = [];
+	        _this.targetInfo.endpoint = "social.feed";
 	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "socialfeed" } });
+	        _this.addMethods(_this, { __metadata: { type: "socialfeed" } });
+	        return _this;
 	    }
 	    /*********************************************************************************************************************************/
 	    // Methods
@@ -5788,19 +6009,28 @@
 	//# sourceMappingURL=socialFeed.js.map
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var __extends = undefined && undefined.__extends || function (d, b) {
-	    for (var p in b) {
-	        if (b.hasOwnProperty(p)) d[p] = b[p];
-	    }function __() {
-	        this.constructor = d;
-	    }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = undefined && undefined.__extends || function () {
+	    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+	        d.__proto__ = b;
+	    } || function (d, b) {
+	        for (var p in b) {
+	            if (b.hasOwnProperty(p)) d[p] = b[p];
+	        }
+	    };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() {
+	            this.constructor = d;
+	        }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	}();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(11);
 	/*********************************************************************************************************************************/
 	// User Profile
@@ -5811,15 +6041,17 @@
 	    // Constructor
 	    /*********************************************************************************************************************************/
 	    function _UserProfile(targetInfo) {
+	        var _this =
 	        // Call the base constructor
-	        _super.call(this, targetInfo);
+	        _super.call(this, targetInfo) || this;
 	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
-	        this.targetInfo.method = "POST";
+	        _this.defaultToWebFl = true;
+	        _this.responses = [];
+	        _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
+	        _this.targetInfo.method = "POST";
 	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "userprofile" } });
+	        _this.addMethods(_this, { __metadata: { type: "userprofile" } });
+	        return _this;
 	    }
 	    return _UserProfile;
 	}(utils_1.Base);
@@ -5827,19 +6059,28 @@
 	//# sourceMappingURL=userProfile.js.map
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var __extends = undefined && undefined.__extends || function (d, b) {
-	    for (var p in b) {
-	        if (b.hasOwnProperty(p)) d[p] = b[p];
-	    }function __() {
-	        this.constructor = d;
-	    }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
+	var __extends = undefined && undefined.__extends || function () {
+	    var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function (d, b) {
+	        d.__proto__ = b;
+	    } || function (d, b) {
+	        for (var p in b) {
+	            if (b.hasOwnProperty(p)) d[p] = b[p];
+	        }
+	    };
+	    return function (d, b) {
+	        extendStatics(d, b);
+	        function __() {
+	            this.constructor = d;
+	        }
+	        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	    };
+	}();
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var utils_1 = __webpack_require__(11);
 	/*********************************************************************************************************************************/
 	// Web
@@ -5850,19 +6091,21 @@
 	    // Constructor
 	    /*********************************************************************************************************************************/
 	    function _Web(url, targetInfo) {
+	        var _this =
 	        // Call the base constructor
-	        _super.call(this, targetInfo);
+	        _super.call(this, targetInfo) || this;
 	        // Default the properties
-	        this.defaultToWebFl = true;
-	        this.responses = [];
-	        this.targetInfo.endpoint = "web";
+	        _this.defaultToWebFl = true;
+	        _this.responses = [];
+	        _this.targetInfo.endpoint = "web";
 	        // See if the web url exists
 	        if (url) {
 	            // Set the settings
-	            this.targetInfo.url = url;
+	            _this.targetInfo.url = url;
 	        }
 	        // Add the methods
-	        this.addMethods(this, { __metadata: { type: "web" } });
+	        _this.addMethods(_this, { __metadata: { type: "web" } });
+	        return _this;
 	    }
 	    // Method to determine if the current user has access, based on the permissions.
 	    _Web.prototype.hasAccess = function (permissions) {

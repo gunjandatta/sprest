@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 var mapper_1 = require("../mapper");
 var types_1 = require("../types");
@@ -49,7 +50,7 @@ var Base = (function () {
         var _this = this;
         var args = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i - 0] = arguments[_i];
+            args[_i] = arguments[_i];
         }
         var callback = null;
         var waitFl = false;

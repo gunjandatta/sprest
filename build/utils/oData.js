@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /*********************************************************************************************************************************/
 // OData
 // Class for generating the OData query string.
