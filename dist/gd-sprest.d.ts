@@ -1550,9 +1550,9 @@ export interface ViewCreationInformation {
     /** The name of the view. */
     Title: string;
     /** The query for the new list view. */
-    ViewQuery: string;
+    ViewQuery?: string;
     /** The view type. */
-    ViewTypeKind: SPTypes.ViewType | number;
+    ViewTypeKind?: SPTypes.ViewType | number;
 }
 /**
  * Visualization
