@@ -78,7 +78,7 @@
 	var types_1 = __webpack_require__(5);
 	exports.RequestType = types_1.RequestType;
 	exports.SPTypes = types_1.SPTypes;
-	var lib_1 = __webpack_require__(8);
+	var lib_1 = __webpack_require__(9);
 	exports.ContextInfo = lib_1.ContextInfo;
 	exports.Email = lib_1.Email;
 	exports.Helper = lib_1.Helper;
@@ -167,7 +167,9 @@
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var requestType_1 = __webpack_require__(6);
 	exports.RequestType = requestType_1.RequestType;
-	var SPTypes = __webpack_require__(7);
+	var spConfigTypes_1 = __webpack_require__(7);
+	exports.SPConfigTypes = spConfigTypes_1.SPConfigTypes;
+	var SPTypes = __webpack_require__(8);
 	exports.SPTypes = SPTypes;
 	//# sourceMappingURL=index.js.map
 
@@ -205,6 +207,26 @@
 
 /***/ },
 /* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", { value: true });
+	/**
+	 * SharePoint Configuration Types
+	 * The value determines the order to install the object type.
+	 */
+	exports.SPConfigTypes = {
+	    Fields: 0,
+	    ContentTypes: 1,
+	    Lists: 2,
+	    SiteUserCustomActions: 3,
+	    WebUserCustomActions: 4
+	};
+	//# sourceMappingURL=spConfigTypes.js.map
+
+/***/ },
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -753,7 +775,7 @@
 	//# sourceMappingURL=sptypes.js.map
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -764,10 +786,9 @@
 	    }
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
-	__export(__webpack_require__(9));
 	__export(__webpack_require__(10));
-	__export(__webpack_require__(65));
-	__export(__webpack_require__(71));
+	__export(__webpack_require__(11));
+	__export(__webpack_require__(66));
 	__export(__webpack_require__(72));
 	__export(__webpack_require__(73));
 	__export(__webpack_require__(74));
@@ -777,10 +798,11 @@
 	__export(__webpack_require__(78));
 	__export(__webpack_require__(79));
 	__export(__webpack_require__(80));
+	__export(__webpack_require__(81));
 	//# sourceMappingURL=index.js.map
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1106,7 +1128,7 @@
 	//# sourceMappingURL=contextInfo.js.map
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1128,7 +1150,7 @@
 	    };
 	}();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var utils_1 = __webpack_require__(11);
+	var utils_1 = __webpack_require__(12);
 	var types_1 = __webpack_require__(5);
 	/*********************************************************************************************************************************/
 	// Email
@@ -1184,7 +1206,7 @@
 	//# sourceMappingURL=email.js.map
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1195,26 +1217,26 @@
 	    }
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
-	__export(__webpack_require__(12));
-	__export(__webpack_require__(59));
+	__export(__webpack_require__(13));
 	__export(__webpack_require__(60));
 	__export(__webpack_require__(61));
 	__export(__webpack_require__(62));
 	__export(__webpack_require__(63));
 	__export(__webpack_require__(64));
+	__export(__webpack_require__(65));
 	//# sourceMappingURL=index.js.map
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var lib_1 = __webpack_require__(8);
-	var mapper_1 = __webpack_require__(13);
+	var lib_1 = __webpack_require__(9);
+	var mapper_1 = __webpack_require__(14);
 	var types_1 = __webpack_require__(5);
-	var _1 = __webpack_require__(11);
+	var _1 = __webpack_require__(12);
 	/*********************************************************************************************************************************/
 	// Base
 	// This is the base class for all objects.
@@ -1765,57 +1787,57 @@
 	//# sourceMappingURL=base.js.map
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var attachment_1 = __webpack_require__(14);
-	var attachmentFiles_1 = __webpack_require__(15);
-	var audit_1 = __webpack_require__(16);
-	var contentType_1 = __webpack_require__(17);
-	var contentTypes_1 = __webpack_require__(18);
-	var eventReceiver_1 = __webpack_require__(19);
-	var eventReceivers_1 = __webpack_require__(20);
-	var field_1 = __webpack_require__(21);
-	var fields_1 = __webpack_require__(22);
-	var fieldLinks_1 = __webpack_require__(23);
-	var file_1 = __webpack_require__(24);
-	var files_1 = __webpack_require__(25);
-	var fileVersion_1 = __webpack_require__(26);
-	var fileVersions_1 = __webpack_require__(27);
-	var folder_1 = __webpack_require__(28);
-	var folders_1 = __webpack_require__(29);
-	var group_1 = __webpack_require__(30);
-	var siteGroups_1 = __webpack_require__(31);
-	var items_1 = __webpack_require__(32);
-	var limitedWebPartManager_1 = __webpack_require__(33);
-	var list_1 = __webpack_require__(34);
-	var listItem_1 = __webpack_require__(35);
-	var lists_1 = __webpack_require__(36);
-	var peopleManager_1 = __webpack_require__(37);
-	var peoplePicker_1 = __webpack_require__(38);
-	var profileLoader_1 = __webpack_require__(39);
-	var propertyValues_1 = __webpack_require__(40);
-	var roleAssignment_1 = __webpack_require__(41);
-	var roleAssignments_1 = __webpack_require__(42);
-	var roleDefinition_1 = __webpack_require__(43);
-	var roleDefinitions_1 = __webpack_require__(44);
-	var search_1 = __webpack_require__(45);
-	var site_1 = __webpack_require__(46);
-	var socialFeed_1 = __webpack_require__(47);
-	var user_1 = __webpack_require__(48);
-	var users_1 = __webpack_require__(49);
-	var userCustomAction_1 = __webpack_require__(50);
-	var userCustomActions_1 = __webpack_require__(51);
-	var userProfile_1 = __webpack_require__(52);
-	var version_1 = __webpack_require__(53);
-	var view_1 = __webpack_require__(54);
-	var views_1 = __webpack_require__(55);
-	var viewFieldCollection_1 = __webpack_require__(56);
-	var web_1 = __webpack_require__(57);
-	var webs_1 = __webpack_require__(58);
+	var attachment_1 = __webpack_require__(15);
+	var attachmentFiles_1 = __webpack_require__(16);
+	var audit_1 = __webpack_require__(17);
+	var contentType_1 = __webpack_require__(18);
+	var contentTypes_1 = __webpack_require__(19);
+	var eventReceiver_1 = __webpack_require__(20);
+	var eventReceivers_1 = __webpack_require__(21);
+	var field_1 = __webpack_require__(22);
+	var fields_1 = __webpack_require__(23);
+	var fieldLinks_1 = __webpack_require__(24);
+	var file_1 = __webpack_require__(25);
+	var files_1 = __webpack_require__(26);
+	var fileVersion_1 = __webpack_require__(27);
+	var fileVersions_1 = __webpack_require__(28);
+	var folder_1 = __webpack_require__(29);
+	var folders_1 = __webpack_require__(30);
+	var group_1 = __webpack_require__(31);
+	var siteGroups_1 = __webpack_require__(32);
+	var items_1 = __webpack_require__(33);
+	var limitedWebPartManager_1 = __webpack_require__(34);
+	var list_1 = __webpack_require__(35);
+	var listItem_1 = __webpack_require__(36);
+	var lists_1 = __webpack_require__(37);
+	var peopleManager_1 = __webpack_require__(38);
+	var peoplePicker_1 = __webpack_require__(39);
+	var profileLoader_1 = __webpack_require__(40);
+	var propertyValues_1 = __webpack_require__(41);
+	var roleAssignment_1 = __webpack_require__(42);
+	var roleAssignments_1 = __webpack_require__(43);
+	var roleDefinition_1 = __webpack_require__(44);
+	var roleDefinitions_1 = __webpack_require__(45);
+	var search_1 = __webpack_require__(46);
+	var site_1 = __webpack_require__(47);
+	var socialFeed_1 = __webpack_require__(48);
+	var user_1 = __webpack_require__(49);
+	var users_1 = __webpack_require__(50);
+	var userCustomAction_1 = __webpack_require__(51);
+	var userCustomActions_1 = __webpack_require__(52);
+	var userProfile_1 = __webpack_require__(53);
+	var version_1 = __webpack_require__(54);
+	var view_1 = __webpack_require__(55);
+	var views_1 = __webpack_require__(56);
+	var viewFieldCollection_1 = __webpack_require__(57);
+	var web_1 = __webpack_require__(58);
+	var webs_1 = __webpack_require__(59);
 	/**
 	 * Mapper
 	 */
@@ -1854,7 +1876,7 @@
 	//# sourceMappingURL=index.js.map
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1867,7 +1889,7 @@
 	//# sourceMappingURL=attachment.js.map
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1896,7 +1918,7 @@
 	//# sourceMappingURL=attachmentFiles.js.map
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1916,7 +1938,7 @@
 	//# sourceMappingURL=audit.js.map
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1946,7 +1968,7 @@
 	//# sourceMappingURL=contentType.js.map
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1983,7 +2005,7 @@
 	//# sourceMappingURL=contentTypes.js.map
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2009,7 +2031,7 @@
 	//# sourceMappingURL=eventReceiver.js.map
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2041,7 +2063,7 @@
 	//# sourceMappingURL=eventReceivers.js.map
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2082,7 +2104,7 @@
 	//# sourceMappingURL=field.js.map
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2151,7 +2173,7 @@
 	//# sourceMappingURL=fields.js.map
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2184,7 +2206,7 @@
 	//# sourceMappingURL=fieldLinks.js.map
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2321,7 +2343,7 @@
 	//# sourceMappingURL=file.js.map
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2358,7 +2380,7 @@
 	//# sourceMappingURL=files.js.map
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2381,7 +2403,7 @@
 	//# sourceMappingURL=fileVersion.js.map
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2405,7 +2427,7 @@
 	//# sourceMappingURL=fileVersions.js.map
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2445,7 +2467,7 @@
 	//# sourceMappingURL=folder.js.map
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2483,7 +2505,7 @@
 	//# sourceMappingURL=folders.js.map
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2498,7 +2520,7 @@
 	//# sourceMappingURL=group.js.map
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2546,7 +2568,7 @@
 	//# sourceMappingURL=siteGroups.js.map
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2580,7 +2602,7 @@
 	//# sourceMappingURL=items.js.map
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2601,7 +2623,7 @@
 	//# sourceMappingURL=limitedWebPartManager.js.map
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2722,7 +2744,7 @@
 	//# sourceMappingURL=list.js.map
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2778,7 +2800,7 @@
 	//# sourceMappingURL=listItem.js.map
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2824,7 +2846,7 @@
 	//# sourceMappingURL=lists.js.map
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2913,7 +2935,7 @@
 	//# sourceMappingURL=peopleManager.js.map
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2942,7 +2964,7 @@
 	//# sourceMappingURL=peoplePicker.js.map
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2971,7 +2993,7 @@
 	//# sourceMappingURL=profileLoader.js.map
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2991,7 +3013,7 @@
 	//# sourceMappingURL=propertyValues.js.map
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3014,7 +3036,7 @@
 	//# sourceMappingURL=roleAssignment.js.map
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3050,7 +3072,7 @@
 	//# sourceMappingURL=roleAssignments.js.map
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3069,7 +3091,7 @@
 	//# sourceMappingURL=roleDefinition.js.map
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3107,7 +3129,7 @@
 	//# sourceMappingURL=roleDefinitions.js.map
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3127,7 +3149,7 @@
 	//# sourceMappingURL=search.js.map
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3220,7 +3242,7 @@
 	//# sourceMappingURL=site.js.map
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3277,7 +3299,7 @@
 	//# sourceMappingURL=socialFeed.js.map
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3300,7 +3322,7 @@
 	//# sourceMappingURL=user.js.map
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3356,7 +3378,7 @@
 	//# sourceMappingURL=users.js.map
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3375,7 +3397,7 @@
 	//# sourceMappingURL=userCustomAction.js.map
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3411,7 +3433,7 @@
 	//# sourceMappingURL=userCustomActions.js.map
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3439,7 +3461,7 @@
 	//# sourceMappingURL=userProfile.js.map
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3479,7 +3501,7 @@
 	//# sourceMappingURL=version.js.map
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3513,7 +3535,7 @@
 	//# sourceMappingURL=view.js.map
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3551,7 +3573,7 @@
 	//# sourceMappingURL=views.js.map
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3590,7 +3612,7 @@
 	//# sourceMappingURL=viewFieldCollection.js.map
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3804,7 +3826,7 @@
 	//# sourceMappingURL=web.js.map
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3829,14 +3851,14 @@
 	//# sourceMappingURL=webs.js.map
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var lib_1 = __webpack_require__(8);
-	var _1 = __webpack_require__(11);
+	var lib_1 = __webpack_require__(9);
+	var _1 = __webpack_require__(12);
 	/*********************************************************************************************************************************/
 	// Dependencies
 	// This class will ensure the core SP scripts are loaded on the page.
@@ -3921,7 +3943,7 @@
 	//# sourceMappingURL=dependencies.js.map
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3930,7 +3952,7 @@
 
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
-	var _1 = __webpack_require__(11);
+	var _1 = __webpack_require__(12);
 	/*********************************************************************************************************************************/
 	// Method Information
 	// This class will create the method information for the request.
@@ -4189,7 +4211,7 @@
 	//# sourceMappingURL=methodInfo.js.map
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4335,7 +4357,7 @@
 	//# sourceMappingURL=oData.js.map
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4396,13 +4418,13 @@
 	//# sourceMappingURL=promise.js.map
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var lib_1 = __webpack_require__(8);
+	var lib_1 = __webpack_require__(9);
 	/*********************************************************************************************************************************/
 	// Target Information
 	// This class will take the target information and create the request url.
@@ -4527,13 +4549,13 @@
 	//# sourceMappingURL=targetInfo.js.map
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var _1 = __webpack_require__(11);
+	var _1 = __webpack_require__(12);
 	/*********************************************************************************************************************************/
 	// Request
 	// This class will execute the xml http request.
@@ -4686,17 +4708,17 @@
 	//# sourceMappingURL=xhrRequest.js.map
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var app_1 = __webpack_require__(66);
-	var jslink_1 = __webpack_require__(67);
-	var list_1 = __webpack_require__(68);
-	var loader_1 = __webpack_require__(69);
-	var spCfg_1 = __webpack_require__(70);
+	var app_1 = __webpack_require__(67);
+	var jslink_1 = __webpack_require__(68);
+	var list_1 = __webpack_require__(69);
+	var loader_1 = __webpack_require__(70);
+	var spCfg_1 = __webpack_require__(71);
 	/**
 	 * Helper Methods
 	 */
@@ -4710,15 +4732,15 @@
 	//# sourceMappingURL=index.js.map
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	var _this = undefined;
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var utils_1 = __webpack_require__(11);
-	var __1 = __webpack_require__(8);
+	var utils_1 = __webpack_require__(12);
+	var __1 = __webpack_require__(9);
 	/*********************************************************************************************************************************/
 	// App Helper Methods
 	/*********************************************************************************************************************************/
@@ -5006,7 +5028,7 @@
 	//# sourceMappingURL=app.js.map
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5376,7 +5398,7 @@
 	//# sourceMappingURL=jslink.js.map
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5407,7 +5429,7 @@
 	//# sourceMappingURL=list.js.map
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5466,13 +5488,14 @@
 	//# sourceMappingURL=loader.js.map
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var __1 = __webpack_require__(8);
+	var types_1 = __webpack_require__(5);
+	var __1 = __webpack_require__(9);
 	/**
 	 * Next Code Update:
 	 * Update code to use web and lists object that are passed to each method.
@@ -5488,6 +5511,114 @@
 	     */
 	    function SPConfig(cfg) {
 	        var _this = this;
+	        // Method to install by configuration type
+	        this.installByType = function (cfgType, webUrl) {
+	            var target = null;
+	            // Execute the method based on the index
+	            switch (cfgType) {
+	                // Content Types
+	                case types_1.SPConfigTypes.ContentTypes:
+	                    // Set the target
+	                    target = new __1.Web(webUrl).ContentTypes();
+	                    // Log
+	                    //console.log("[gd-sprest] Creating the content types.");
+	                    // Create the content types
+	                    //this.createContentTypes(target);
+	                    break;
+	                // Fields
+	                case types_1.SPConfigTypes.Fields:
+	                    // Set the target
+	                    target = new __1.Web(webUrl).Fields();
+	                    // Log
+	                    console.log("[gd-sprest] Creating the site columns.");
+	                    // Create the fields
+	                    _this.createFields(target, _this._configuration.FieldCfg);
+	                    break;
+	                // Lists
+	                case types_1.SPConfigTypes.Lists:
+	                    // Set the target
+	                    target = new __1.Web(webUrl).Lists();
+	                    // Log
+	                    console.log("[gd-sprest] Creating the lists.");
+	                    // Create the lists
+	                    _this.createLists(target, _this._configuration.ListCfg);
+	                    break;
+	                // Site User Custom Actions
+	                case types_1.SPConfigTypes.SiteUserCustomActions:
+	                    // Set the target
+	                    target = new __1.Site().UserCustomActions();
+	                    // Log
+	                    console.log("[gd-sprest] Creating the site user custom actions.");
+	                    // Create the user custom actions
+	                    _this.createUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : null);
+	                    break;
+	                // Site User Custom Actions
+	                case types_1.SPConfigTypes.WebUserCustomActions:
+	                    // Set the target
+	                    target = new __1.Web().UserCustomActions();
+	                    // Log
+	                    console.log("[gd-sprest] Creating the web user custom actions.");
+	                    // Create the user custom actions
+	                    _this.createUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null);
+	                    break;
+	            }
+	            // Return the target object
+	            return target;
+	        };
+	        // Method to uninstall by the configuration type
+	        this.uninstallByType = function (cfgType, webUrl) {
+	            var target = null;
+	            // Execute the method based on the index
+	            switch (cfgType) {
+	                // Content Types
+	                case types_1.SPConfigTypes.ContentTypes:
+	                    // Set the target
+	                    target = new __1.Web(webUrl).ContentTypes();
+	                    // Log
+	                    //console.log("[gd-sprest] Creating the content types.");
+	                    // Create the content types
+	                    //this.createContentTypes(target);
+	                    break;
+	                // Fields
+	                case types_1.SPConfigTypes.Fields:
+	                    // Set the target
+	                    target = new __1.Web(webUrl).Fields();
+	                    // Log
+	                    console.log("[gd-sprest] Removing the site columns.");
+	                    // Remove the fields
+	                    _this.removeFields(target, _this._configuration.FieldCfg);
+	                    break;
+	                // Lists
+	                case types_1.SPConfigTypes.Lists:
+	                    // Set the target
+	                    target = new __1.Web(webUrl).Lists();
+	                    // Log
+	                    console.log("[gd-sprest] Removing the lists.");
+	                    // Remove the lists
+	                    _this.removeLists(target, _this._configuration.ListCfg);
+	                    break;
+	                // Site User Custom Actions
+	                case types_1.SPConfigTypes.SiteUserCustomActions:
+	                    // Set the target
+	                    target = new __1.Site().UserCustomActions();
+	                    // Log
+	                    console.log("[gd-sprest] Removing the site user custom actions.");
+	                    // Remove the site user custom actions
+	                    _this.removeUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : null);
+	                    break;
+	                // Site User Custom Actions
+	                case types_1.SPConfigTypes.WebUserCustomActions:
+	                    // Set the target
+	                    target = new __1.Web().UserCustomActions();
+	                    // Log
+	                    console.log("[gd-sprest] Removing the web user custom actions.");
+	                    // Remove the web user custom actions
+	                    _this.removeUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null);
+	                    break;
+	            }
+	            // Return the target object
+	            return target;
+	        };
 	        /**
 	         * Methods
 	         */
@@ -5497,6 +5628,10 @@
 	        };
 	        // Method to create the fields
 	        this.createFields = function (fields, customFields, listInfo) {
+	            // Ensure fields exist
+	            if (customFields == null || customFields.length == 0) {
+	                return;
+	            }
 	            // Execute the request to get the fields
 	            fields.execute(function (fields) {
 	                var counter = 0;
@@ -5522,35 +5657,30 @@
 	                        // Continue the loop
 	                        continue;
 	                    }
-	                    // Parse the custom fields
-	                    for (var j = 0; j < customFields.length; j++) {
-	                        // See if this is a custom field
-	                        if (customFields[j].Name == field.InternalName) {
-	                            // Increment the counter
-	                            counter++;
-	                            // Log
-	                            console.log("[gd-sprest] The field '" + field.InternalName + "' already exists.");
-	                            // Save a reference to the field and break from the loop
-	                            customFields[j].Field = field;
-	                            break;
-	                        }
+	                    // See if this is a custom field
+	                    if (_this.isCustomField(field, customFields)) {
+	                        // Increment the counter
+	                        counter++;
+	                        // Log
+	                        console.log("[gd-sprest] The field '" + field.InternalName + "' already exists" + (listName ? " in the '" + listName + "' list" : "") + ".");
 	                    }
 	                }
-	                // Parse the fields
+	                // Parse the custom fields
 	                for (var i = 0; i < customFields.length; i++) {
-	                    // See if we need to create the field
-	                    if (customFields[i].Field == null) {
-	                        // Log
-	                        console.log("[gd-sprest] Creating the field '" + customFields[i].Name + "' field.");
-	                        // Create the field, but wait for the previous request to complete first
-	                        fields.createFieldAsXml(customFields[i].SchemaXml).execute(true);
+	                    // See if the field exists
+	                    if (customFields[i].Field) {
+	                        continue;
 	                    }
+	                    // Log
+	                    console.log("[gd-sprest] Creating the field '" + customFields[i].Name + "' field" + (listName ? " in the '" + listName + "' list" : "") + ".");
+	                    // Create the field, but wait for the previous request to complete first
+	                    fields.createFieldAsXml(customFields[i].SchemaXml).execute(true);
 	                }
 	            });
 	        };
 	        // Method to create the lists
 	        this.createLists = function (lists, cfg) {
-	            // Ensure custom actions exist
+	            // Ensure lists exist
 	            if (cfg == null || cfg.length == 0) {
 	                return;
 	            }
@@ -5570,7 +5700,7 @@
 	                        listInfo.Title = listName_1.replace(/ /g, "");
 	                        // Add the list
 	                        lists.add(listInfo).execute(function (list) {
-	                            // Update the list configuration
+	                            // Restore the list name in the configuration
 	                            listInfo.Title = listName_1;
 	                            // See if we need to update the list
 	                            if (list.existsFl && list.Title != listName_1) {
@@ -5579,6 +5709,9 @@
 	                                    // Update the list
 	                                    _this.updateList(lists.getByTitle(listName_1), cfg[i]);
 	                                });
+	                            } else {
+	                                // Update the list
+	                                _this.updateList(list, cfg[i]);
 	                            }
 	                        });
 	                    }
@@ -5592,34 +5725,34 @@
 	        };
 	        // Method to create the list views
 	        this.createListViews = function (list, cfg) {
-	            // Ensure views exist
-	            if (cfg.ViewInformation == null || cfg.ViewInformation.length == 0) {
+	            // Ensure view configurations exist
+	            if (cfg == null || cfg.length == 0) {
 	                return;
 	            }
 	            var _loop_2 = function _loop_2(i) {
 	                // Get the view
-	                list.Views().getByTitle(cfg.ViewInformation[i].ViewName).execute(function (view) {
+	                list.Views().getByTitle(cfg[i].ViewName).execute(function (view) {
 	                    // Ensure the view exists
 	                    if (view.existsFl) {
 	                        // Log
-	                        console.log("[gd-sprest] The view '" + cfg.ViewInformation[i].ViewName + "' already exists for the '" + cfg.ListInformation.Title + "' list.");
+	                        console.log("[gd-sprest] The '" + cfg[i].ViewName + "' view already exists for the '" + list.Title + "' list.");
 	                        // Update the view
-	                        _this.updateListView(view, cfg.ViewInformation[i]);
+	                        _this.updateListView(view, cfg[i]);
 	                    } else {
 	                        // Log
-	                        console.log("[gd-sprest] Creating the '" + cfg.ViewInformation[i].ViewName + "' view for the '" + cfg.ListInformation.Title + "' list.");
+	                        console.log("[gd-sprest] Creating the '" + cfg[i].ViewName + "' view for the '" + list.Title + "' list.");
 	                        // Create the view
 	                        list.Views().add({
-	                            Title: cfg.ViewInformation[i].ViewName
+	                            Title: cfg[i].ViewName
 	                        }).execute(function (view) {
 	                            // Update the view
-	                            _this.updateListView(view, cfg.ViewInformation[i]);
+	                            _this.updateListView(view, cfg[i]);
 	                        });
 	                    }
 	                });
 	            };
-	            // Parse the views
-	            for (var i = 0; i < cfg.ViewInformation.length; i++) {
+	            // Parse the view configurations
+	            for (var i = 0; i < cfg.length; i++) {
 	                _loop_2(i);
 	            }
 	        };
@@ -5649,6 +5782,50 @@
 	                _loop_3(i);
 	            }
 	        };
+	        // Method to get the custom fields
+	        this.isCustomField = function (field, customFields) {
+	            // Parse the custom fields
+	            for (var j = 0; j < customFields.length; j++) {
+	                // See if this is a custom field
+	                if (customFields[j].Name == field.InternalName) {
+	                    // Save a reference to the field and break from the loop
+	                    customFields[j].Field = field;
+	                    // Is a custom field
+	                    return true;
+	                }
+	            }
+	            // Not a custom field
+	            return false;
+	        };
+	        // Method to remove the content types
+	        this.removeContentTypes = function () {
+	            // TO DO
+	        };
+	        // Method to remove the user custom actions
+	        this.removeUserCustomActions = function (customActions, cfg) {
+	            // Ensure custom actions exist
+	            if (cfg == null || cfg.length == 0) {
+	                return;
+	            }
+	            // Get the custom actions
+	            customActions.execute(function (customActions) {
+	                // Parse the configuration
+	                for (var i = 0; i < cfg.length; i++) {
+	                    var caName = cfg[i].Name.toLowerCase();
+	                    // Parse the custom actions
+	                    for (var j = 0; j < customActions.results.length; j++) {
+	                        var ca = customActions.results[j];
+	                        // See if this is a custom action
+	                        if (ca.Name.toLowerCase() == caName) {
+	                            // Delete the custom action
+	                            ca.delete().execute(true);
+	                            // Break from the loop
+	                            break;
+	                        }
+	                    }
+	                }
+	            });
+	        };
 	        // Method to update the list
 	        this.updateList = function (list, cfg) {
 	            // Get the fields
@@ -5658,7 +5835,7 @@
 	            // Wait for the requests to complete
 	            fields.done(function () {
 	                // Create the views
-	                _this.createListViews(list, cfg);
+	                _this.createListViews(list, cfg.ViewInformation);
 	            });
 	        };
 	        // Method to update the view
@@ -5695,68 +5872,102 @@
 	        // Save the configuration
 	        this._configuration = cfg;
 	    }
-	    // Method to execute the request
-	    SPConfig.prototype.execute = function (webUrl, callback, index) {
+	    /**
+	     * Public Methods
+	     */
+	    // Method to install the configuration
+	    SPConfig.prototype.install = function (webUrl, callback, cfgType) {
 	        var _this = this;
-	        var target;
 	        // Default the index
-	        index = typeof index === "number" ? index : 0;
-	        // Execute the method based on the index
-	        switch (index) {
-	            case 0:
-	                // Set the target
-	                target = new __1.Web(webUrl).Fields();
-	                // Log
-	                console.log("[gd-sprest] Creating the site columns.");
-	                // Create the fields
-	                this.createFields(target, this._configuration.FieldCfg);
-	                break;
-	            case 1:
-	                // Set the target
-	                target = new __1.Web(webUrl).ContentTypes();
-	                // Log
-	                //console.log("[gd-sprest] Creating the content types.");
-	                // Create the content types
-	                //this.createContentTypes(target);
-	                break;
-	            case 2:
-	                // Set the target
-	                target = new __1.Web(webUrl).Lists();
-	                // Log
-	                console.log("[gd-sprest] Creating the lists.");
-	                // Create the lists
-	                this.createLists(target, this._configuration.ListCfg);
-	                break;
-	            case 3:
-	                // Set the target
-	                target = new __1.Site().UserCustomActions();
-	                // Log
-	                console.log("[gd-sprest] Creating the site user custom actions.");
-	                // Create the user custom actions
-	                this.createUserCustomActions(target, this._configuration.CustomActionCfg ? this._configuration.CustomActionCfg.Site : null);
-	                break;
-	            case 4:
-	                // Set the target
-	                target = new __1.Web().UserCustomActions();
-	                // Log
-	                console.log("[gd-sprest] Creating the web user custom actions.");
-	                // Create the user custom actions
-	                this.createUserCustomActions(target, this._configuration.CustomActionCfg ? this._configuration.CustomActionCfg.Web : null);
-	                break;
-	            default:
-	                // Log
-	                console.log("[gd-sprest] The configuration script completed.");
-	                // See if the callback exists
-	                if (callback && typeof callback === "function") {
-	                    // Execute the callback
-	                    callback();
-	                }
-	                return;
+	        cfgType = typeof cfgType === "number" ? cfgType : 0;
+	        // Uninstall by the type
+	        var target = this.installByType(cfgType, webUrl);
+	        // Ensure the target exists
+	        if (target) {
+	            // Wait for the target requests to complete
+	            target.done(function () {
+	                // Execute the next method
+	                _this.install(webUrl, callback, cfgType + 1);
+	            });
+	        } else {
+	            // Log
+	            console.log("[gd-sprest] The configuration script completed.");
+	            // See if the callback exists
+	            if (callback && typeof callback === "function") {
+	                // Execute the callback
+	                callback();
+	            }
 	        }
-	        // Wait for the target requests to complete
-	        target.done(function () {
-	            // Execute the next method
-	            _this.execute(webUrl, callback, index + 1);
+	    };
+	    // Method to uninstall the configuration
+	    SPConfig.prototype.uninstall = function (webUrl, callback, cfgType) {
+	        var _this = this;
+	        // Default the index
+	        cfgType = typeof cfgType === "number" ? cfgType : 4;
+	        // Uninstall by the type
+	        var target = this.uninstallByType(cfgType, webUrl);
+	        // Ensure the target exists
+	        if (target) {
+	            // Wait for the target requests to complete
+	            target.done(function () {
+	                // Execute the next method
+	                _this.uninstall(webUrl, callback, cfgType - 1);
+	            });
+	        } else {
+	            // Log
+	            console.log("[gd-sprest] The configuration script completed.");
+	            // See if the callback exists
+	            if (callback && typeof callback === "function") {
+	                // Execute the callback
+	                callback();
+	            }
+	        }
+	    };
+	    // Method to remove the fields
+	    SPConfig.prototype.removeFields = function (fields, customFields, listInfo) {
+	        var _this = this;
+	        // Ensure fields exist
+	        if (customFields == null || customFields.length == 0) {
+	            return;
+	        }
+	        // Get the fields
+	        fields.execute(function (fields) {
+	            // Parse the fields
+	            for (var i = 0; i < fields.results.length; i++) {
+	                var field = fields.results[i];
+	                // See if this is a custom field
+	                if (_this.isCustomField(field, customFields)) {
+	                    // Log
+	                    console.log("[gd-sprest] Deleting the '" + field.InternalName + "' field.");
+	                    // Delete it
+	                    field.delete().execute(true);
+	                }
+	            }
+	        });
+	    };
+	    // Method to remove the lists
+	    SPConfig.prototype.removeLists = function (lists, cfg) {
+	        // Ensure lists exist
+	        if (cfg == null || cfg.length == 0) {
+	            return;
+	        }
+	        // Get the lists
+	        lists.execute(function (lists) {
+	            // Parse the configuration
+	            for (var i = 0; i < cfg.length; i++) {
+	                var listName = cfg[i].ListInformation.Title.toLowerCase();
+	                // Parse the lists
+	                for (var j = 0; j < lists.results.length; j++) {
+	                    var list = lists.results[j];
+	                    // See if this is a custom list
+	                    if (list.Title.toLowerCase() == listName) {
+	                        // Delete the list
+	                        list.delete().execute(true);
+	                        // Break from the loop
+	                        break;
+	                    }
+	                }
+	            }
 	        });
 	    };
 	    return SPConfig;
@@ -5766,7 +5977,7 @@
 	//# sourceMappingURL=spCfg.js.map
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5883,7 +6094,7 @@
 	//# sourceMappingURL=jslink.js.map
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5905,7 +6116,7 @@
 	    };
 	}();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var utils_1 = __webpack_require__(11);
+	var utils_1 = __webpack_require__(12);
 	/*********************************************************************************************************************************/
 	// List
 	// The SPList object.
@@ -5933,7 +6144,7 @@
 	//# sourceMappingURL=list.js.map
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5955,7 +6166,7 @@
 	    };
 	}();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var utils_1 = __webpack_require__(11);
+	var utils_1 = __webpack_require__(12);
 	/*********************************************************************************************************************************/
 	// People Manager
 	/*********************************************************************************************************************************/
@@ -5982,7 +6193,7 @@
 	//# sourceMappingURL=peopleManager.js.map
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6004,7 +6215,7 @@
 	    };
 	}();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var utils_1 = __webpack_require__(11);
+	var utils_1 = __webpack_require__(12);
 	/*********************************************************************************************************************************/
 	// People Picker
 	/*********************************************************************************************************************************/
@@ -6031,7 +6242,7 @@
 	//# sourceMappingURL=peoplePicker.js.map
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6053,7 +6264,7 @@
 	    };
 	}();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var utils_1 = __webpack_require__(11);
+	var utils_1 = __webpack_require__(12);
 	/*********************************************************************************************************************************/
 	// Profile Loader
 	/*********************************************************************************************************************************/
@@ -6081,7 +6292,7 @@
 	//# sourceMappingURL=profileLoader.js.map
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6104,7 +6315,7 @@
 	}();
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
-	var utils_1 = __webpack_require__(11);
+	var utils_1 = __webpack_require__(12);
 	/*********************************************************************************************************************************/
 	// Search
 	/*********************************************************************************************************************************/
@@ -6168,7 +6379,7 @@
 	//# sourceMappingURL=search.js.map
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6190,8 +6401,8 @@
 	    };
 	}();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var utils_1 = __webpack_require__(11);
-	var _1 = __webpack_require__(8);
+	var utils_1 = __webpack_require__(12);
+	var _1 = __webpack_require__(9);
 	/*********************************************************************************************************************************/
 	// Site
 	// The SPSite object.
@@ -6234,7 +6445,7 @@
 	//# sourceMappingURL=site.js.map
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6257,7 +6468,7 @@
 	}();
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var types_1 = __webpack_require__(5);
-	var utils_1 = __webpack_require__(11);
+	var utils_1 = __webpack_require__(12);
 	/*********************************************************************************************************************************/
 	// Social Feed
 	/*********************************************************************************************************************************/
@@ -6311,7 +6522,7 @@
 	//# sourceMappingURL=socialFeed.js.map
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6333,7 +6544,7 @@
 	    };
 	}();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var utils_1 = __webpack_require__(11);
+	var utils_1 = __webpack_require__(12);
 	/*********************************************************************************************************************************/
 	// User Profile
 	/*********************************************************************************************************************************/
@@ -6361,7 +6572,7 @@
 	//# sourceMappingURL=userProfile.js.map
 
 /***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6383,7 +6594,7 @@
 	    };
 	}();
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var utils_1 = __webpack_require__(11);
+	var utils_1 = __webpack_require__(12);
 	/*********************************************************************************************************************************/
 	// Web
 	/*********************************************************************************************************************************/

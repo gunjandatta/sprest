@@ -165,7 +165,7 @@ export interface ILoader {
 }
 
 /**
- * Web Helper - Custom Action Information
+ * SharePoint Configuration - Custom Action Information
  */
 export interface ISPCfgCustomActionInfo {
     /**
@@ -180,7 +180,7 @@ export interface ISPCfgCustomActionInfo {
 }
 
 /**
- * Web Helper - Field Information
+ * SharePoint Configuration - Field Information
  */
 export interface ISPCfgFieldInfo {
     /**
@@ -200,7 +200,7 @@ export interface ISPCfgFieldInfo {
 }
 
 /**
- * Web Helper - List Information
+ * SharePoint Configuration - List Information
  */
 export interface ISPCfgListInfo {
     CustomFields?:Array<ISPCfgFieldInfo>;
@@ -210,7 +210,7 @@ export interface ISPCfgListInfo {
 }
 
 /**
- * Web Helper - View Information
+ * SharePoint Configuration - View Information
  */
 export interface ISPCfgViewInfo {
     JSLink?:string;
@@ -220,16 +220,7 @@ export interface ISPCfgViewInfo {
 }
 
 /**
- * Web Helper - Properties
- */
-export interface ISPConfigProps {
-    CustomActionCfg?:ISPCfgCustomActionInfo;
-    FieldCfg?:Array<ISPCfgFieldInfo>;
-    ListCfg?:Array<ISPCfgListInfo>;
-}
-
-/**
- * Web Helper Methods
+ * SharePoint Configuration Methods
  */
 export interface ISPConfig {
     /**
@@ -239,10 +230,61 @@ export interface ISPConfig {
     new(cfg:ISPConfigProps);
 
     /**
-     * Method to execute the request.
+     * Method to install the configuration
+     * @param webUrl - An optional string representing the relative web url.
      * @param callback - An optional function called after the execution completes.
      */
-    execute(callback:() => void);
+    install(webUrl?:string, callback?:() => void);
+
+    /**
+     * Method to install by the configuration type.
+     * @param cfgType - The configuration type.
+     * @param webUrl - An optional string representing the relative web url.
+     */
+    installByType(cfgType:ISPConfigTypes, webUrl?:string);
+
+    /**
+     * Method to install the configuration
+     * @param webUrl - An optional string representing the relative web url.
+     * @param callback - An optional function called after the execution completes.
+     */
+    uninstall(webUrl?:string, callback?:() => void);
+
+    /**
+     * Method to uninstall by the configuration type.
+     * @param cfgType - The configuration type.
+     * @param webUrl - An optional string representing the relative web url.
+     */
+    uninstallByType(cfgType:ISPConfigTypes, webUrl?:string);
+}
+
+/**
+ * SharePoint Configuration - Properties
+ */
+export interface ISPConfigProps {
+    CustomActionCfg?:ISPCfgCustomActionInfo;
+    FieldCfg?:Array<ISPCfgFieldInfo>;
+    ListCfg?:Array<ISPCfgListInfo>;
+}
+
+/**
+ * SharePoint Configuration - Types
+ */
+export interface ISPConfigTypes {
+    /** Fields */
+    Fields: number;
+
+    /** Content Types */
+    ContentTypes: number;
+
+    /** Lists */
+    Lists: number;
+
+    /** Site User Custom Actions */
+    SiteUserCustomActions: number;
+
+    /** Web User Custom Actions */
+    WebUserCustomActions: number;
 }
 
 /**

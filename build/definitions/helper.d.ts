@@ -138,7 +138,7 @@ export interface ILoader {
     waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean): any;
 }
 /**
- * Web Helper - Custom Action Information
+ * SharePoint Configuration - Custom Action Information
  */
 export interface ISPCfgCustomActionInfo {
     /**
@@ -151,7 +151,7 @@ export interface ISPCfgCustomActionInfo {
     Web?: Array<ComplexTypes.UserCustomActionCreationInformation>;
 }
 /**
- * Web Helper - Field Information
+ * SharePoint Configuration - Field Information
  */
 export interface ISPCfgFieldInfo {
     /**
@@ -168,7 +168,7 @@ export interface ISPCfgFieldInfo {
     SchemaXml: string;
 }
 /**
- * Web Helper - List Information
+ * SharePoint Configuration - List Information
  */
 export interface ISPCfgListInfo {
     CustomFields?: Array<ISPCfgFieldInfo>;
@@ -177,7 +177,7 @@ export interface ISPCfgListInfo {
     ViewInformation?: Array<ISPCfgViewInfo>;
 }
 /**
- * Web Helper - View Information
+ * SharePoint Configuration - View Information
  */
 export interface ISPCfgViewInfo {
     JSLink?: string;
@@ -186,15 +186,7 @@ export interface ISPCfgViewInfo {
     ViewQuery?: string;
 }
 /**
- * Web Helper - Properties
- */
-export interface ISPConfigProps {
-    CustomActionCfg?: ISPCfgCustomActionInfo;
-    FieldCfg?: Array<ISPCfgFieldInfo>;
-    ListCfg?: Array<ISPCfgListInfo>;
-}
-/**
- * Web Helper Methods
+ * SharePoint Configuration Methods
  */
 export interface ISPConfig {
     /**
@@ -203,10 +195,52 @@ export interface ISPConfig {
      */
     new (cfg: ISPConfigProps): any;
     /**
-     * Method to execute the request.
+     * Method to install the configuration
+     * @param webUrl - An optional string representing the relative web url.
      * @param callback - An optional function called after the execution completes.
      */
-    execute(callback: () => void): any;
+    install(webUrl?: string, callback?: () => void): any;
+    /**
+     * Method to install by the configuration type.
+     * @param cfgType - The configuration type.
+     * @param webUrl - An optional string representing the relative web url.
+     */
+    installByType(cfgType: ISPConfigTypes, webUrl?: string): any;
+    /**
+     * Method to install the configuration
+     * @param webUrl - An optional string representing the relative web url.
+     * @param callback - An optional function called after the execution completes.
+     */
+    uninstall(webUrl?: string, callback?: () => void): any;
+    /**
+     * Method to uninstall by the configuration type.
+     * @param cfgType - The configuration type.
+     * @param webUrl - An optional string representing the relative web url.
+     */
+    uninstallByType(cfgType: ISPConfigTypes, webUrl?: string): any;
+}
+/**
+ * SharePoint Configuration - Properties
+ */
+export interface ISPConfigProps {
+    CustomActionCfg?: ISPCfgCustomActionInfo;
+    FieldCfg?: Array<ISPCfgFieldInfo>;
+    ListCfg?: Array<ISPCfgListInfo>;
+}
+/**
+ * SharePoint Configuration - Types
+ */
+export interface ISPConfigTypes {
+    /** Fields */
+    Fields: number;
+    /** Content Types */
+    ContentTypes: number;
+    /** Lists */
+    Lists: number;
+    /** Site User Custom Actions */
+    SiteUserCustomActions: number;
+    /** Web User Custom Actions */
+    WebUserCustomActions: number;
 }
 /**
  * Export the Helper Interface

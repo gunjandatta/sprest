@@ -1,4 +1,4 @@
-import { IContentTypes, IFields, ISPCfgFieldInfo, ISPConfigProps, ISPCfgListInfo } from "../../definitions";
+import { IContentTypes, IFields, ILists, ISPConfigProps, IUserCustomActions } from "../../definitions";
 /**
  * Next Code Update:
  * Update code to use web and lists object that are passed to each method.
@@ -17,14 +17,25 @@ export declare class SPConfig {
      */
     constructor(cfg: ISPConfigProps);
     /**
+     * Public Methods
+     */
+    install(webUrl?: string, callback?: any, cfgType?: number): void;
+    installByType: (cfgType: number, webUrl?: string) => IFields | IContentTypes | IUserCustomActions | ILists;
+    uninstall(webUrl?: string, callback?: any, cfgType?: number): void;
+    uninstallByType: (cfgType: number, webUrl?: string) => IFields | IContentTypes | IUserCustomActions | ILists;
+    /**
      * Methods
      */
-    createContentTypes: (contentTypes: IContentTypes) => void;
-    createFields: (fields: IFields, customFields: ISPCfgFieldInfo[], listInfo?: ISPCfgListInfo) => void;
+    private createContentTypes;
+    private createFields;
     private createLists;
     private createListViews;
     private createUserCustomActions;
-    execute(webUrl?: string, callback?: any, index?: number): void;
+    private isCustomField;
+    private removeContentTypes;
+    private removeFields(fields, customFields, listInfo?);
+    private removeLists(lists, cfg);
+    private removeUserCustomActions;
     private updateList;
     private updateListView;
 }
