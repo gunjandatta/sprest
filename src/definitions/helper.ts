@@ -1,5 +1,7 @@
 import {
+    ComplexTypes,
     IBase,
+    IField,
     IFolder,
     IPromise,
     IView,
@@ -163,6 +165,87 @@ export interface ILoader {
 }
 
 /**
+ * Web Helper - Custom Action Information
+ */
+export interface ISPCfgCustomActionInfo {
+    /**
+     * Custom actions to be created at the site collection level.
+     */
+    Site?:Array<ComplexTypes.UserCustomActionCreationInformation>,
+
+    /**
+     * Custom actions to be created at the web level.
+     */
+    Web?:Array<ComplexTypes.UserCustomActionCreationInformation>
+}
+
+/**
+ * Web Helper - Field Information
+ */
+export interface ISPCfgFieldInfo {
+    /**
+     * The field object.
+     */
+    Field?:IField;
+
+    /**
+     * The internal field name.
+     */
+    Name:string;
+
+    /**
+     * The schema definition of the field.
+     */
+    SchemaXml:string;
+}
+
+/**
+ * Web Helper - List Information
+ */
+export interface ISPCfgListInfo {
+    CustomFields?:Array<ISPCfgFieldInfo>;
+    ListInformation:ComplexTypes.ListCreationInformation;
+    TitleFieldDisplayName?:string;
+    ViewInformation?:Array<ISPCfgViewInfo>;
+}
+
+/**
+ * Web Helper - View Information
+ */
+export interface ISPCfgViewInfo {
+    JSLink?:string;
+    ViewFields?:Array<string>;
+    ViewName:string;
+    ViewQuery?:string;
+}
+
+/**
+ * Web Helper - Properties
+ */
+export interface ISPConfigProps {
+    CustomActionCfg?:ISPCfgCustomActionInfo;
+    FieldCfg?:Array<ISPCfgFieldInfo>;
+    ListCfg?:Array<ISPCfgListInfo>;
+}
+
+/**
+ * Web Helper Methods
+ */
+export interface ISPConfig {
+    /**
+     * Constructor
+     * @param cfg - The SharePoint configuration information.
+     */
+    new(cfg:ISPConfigProps);
+
+    /**
+     * Method to execute the request.
+     * @param callback - An optional function called after the execution completes.
+     */
+    execute(callback:() => void);
+}
+
+/**
  * Export the Helper Interface
  */
 export interface IHelper {
@@ -174,15 +257,20 @@ export interface IHelper {
     /**
      * JSLink helper methods
      */
-    JSLink:IHelperJSLink
+    JSLink:IHelperJSLink,
 
     /**
      * List helper methods
      */
-    List:IHelperList
+    List:IHelperList,
 
     /**
      * Loader
      */
-    Loader:ILoader
+    Loader:ILoader,
+
+    /**
+     * Web helper methods
+     */
+    SPConfig: ISPConfig
 };
