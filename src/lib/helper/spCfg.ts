@@ -1,14 +1,12 @@
 import {Promise} from "../../utils";
 import {
     ComplexTypes,
-    IContentType, IContentTypes,
+    IContentTypes,
     IField, IFields,
     IList, ILists,
-    IPromise,
-    ISPCfgFieldInfo, ISPConfig, ISPConfigProps, ISPCfgListInfo, ISPCfgViewInfo,
+    ISPCfgFieldInfo, ISPConfigProps, ISPCfgListInfo, ISPCfgViewInfo,
     IUserCustomAction, IUserCustomActions,
-    IView,
-    IWeb
+    IView
 } from "../../definitions";
 import {
     ContextInfo,
