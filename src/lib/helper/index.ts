@@ -3,7 +3,7 @@ import {AppHelper} from "./app";
 import {JSLinkHelper} from "./jslink";
 import {ListHelper} from "./list";
 import {Loader} from "./loader";
-import {SPConfig} from "./web";
+import {SPConfig} from "./spCfg";
 
 /**
  * Helper Methods

@@ -25,5 +25,6 @@
 
     <!-- Scripts -->
     <script type="text/javascript" src="./gd-sprest.js"></script>
-    <script type="text/javascript" src="./test.js"></script>
+    <script type="text/javascript" src="./test_basic.js"></script>
+    <script type="text/javascript" src="./test_cfg.js"></script>
 </asp:Content>

@@ -4696,7 +4696,7 @@
 	var jslink_1 = __webpack_require__(67);
 	var list_1 = __webpack_require__(68);
 	var loader_1 = __webpack_require__(69);
-	var web_1 = __webpack_require__(70);
+	var spCfg_1 = __webpack_require__(70);
 	/**
 	 * Helper Methods
 	 */
@@ -4705,7 +4705,7 @@
 	    JSLink: jslink_1.JSLinkHelper,
 	    List: list_1.ListHelper,
 	    Loader: loader_1.Loader,
-	    SPConfig: web_1.SPConfig
+	    SPConfig: spCfg_1.SPConfig
 	};
 	//# sourceMappingURL=index.js.map
 
@@ -5472,7 +5472,6 @@
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var utils_1 = __webpack_require__(11);
 	var __1 = __webpack_require__(8);
 	/**
 	 * Next Code Update:
@@ -5493,251 +5492,278 @@
 	         * Methods
 	         */
 	        // Method to create the content types
-	        this.createContentTypes = function () {
-	            var promise = new utils_1.Promise();
-	            // Create the fields
-	            _this.createFields(_this._configuration.FieldCfg).done(function () {
-	                // TO DO
-	                promise.resolve();
-	            });
-	            // Return the promise
-	            return promise;
+	        this.createContentTypes = function (contentTypes) {
+	            // TO DO
 	        };
 	        // Method to create the fields
-	        this.createFields = function (customFields, listName, titleFieldName) {
-	            var promise = new utils_1.Promise();
-	            var target = null;
-	            // Ensure lists exist
-	            if (customFields == null && titleFieldName == null) {
-	                // Resolve the promise
-	                promise.resolve();
-	            } else {
-	                // See if the list name exists
-	                if (listName) {
-	                    // Get the list
-	                    target = new __1.List(listName);
-	                    // Log
-	                    console.log("[gd-sprest] Creating fields for the '" + listName + "' list.");
-	                } else {
-	                    // Get the web
-	                    target = new __1.Web();
-	                    // Log
-	                    console.log("[gd-sprest] Creating fields for the current web.");
-	                }
-	                // Get the fields
-	                target.Fields().execute(function (fields) {
-	                    var counter = 0;
-	                    var fldTitle = null;
-	                    // Parse the fields
-	                    for (var i = 0; i < fields.results.length; i++) {
-	                        var field = fields.results[i];
-	                        // See if this is the title field and we are updating it
-	                        if (field.InternalName == "Title" && titleFieldName && titleFieldName != field.InternalName) {
-	                            // Update the field
-	                            field.update({ Title: titleFieldName }).execute(function (response) {
-	                                // See if the response was successful
-	                                if (response.existsFl) {
-	                                    // Log
-	                                    console.log("[gd-sprest] The title field was successfully updated to '" + titleFieldName + "' for the '" + listName + "' list.");
-	                                } else {
-	                                    // Log
-	                                    console.log("[gd-sprest] Error updating the title field '" + titleFieldName + "' for the '" + listName + "' list.");
-	                                }
-	                            });
-	                        }
-	                        // Parse the custom fields
-	                        for (var j = 0; j < customFields.length; j++) {
-	                            // See if this is a custom field
-	                            if (customFields[j].Name == field.InternalName) {
-	                                // Increment the counter
-	                                counter++;
-	                                // Save a reference to the field and break from the loop
-	                                customFields[j].Field = field;
-	                                break;
+	        this.createFields = function (fields, customFields, listInfo) {
+	            // Execute the request to get the fields
+	            fields.execute(function (fields) {
+	                var counter = 0;
+	                var fldTitle = null;
+	                var titleFieldName = listInfo ? listInfo.TitleFieldDisplayName : null;
+	                var listName = listInfo && listInfo.ListInformation ? listInfo.ListInformation.Title : null;
+	                // Parse the fields
+	                for (var i = 0; i < fields.results.length; i++) {
+	                    var field = fields.results[i];
+	                    // See if this is the title field and we are updating it
+	                    if (field.InternalName == "Title" && titleFieldName && titleFieldName != field.InternalName) {
+	                        // Update the field
+	                        field.update({ Title: titleFieldName }).execute(function (response) {
+	                            // See if the response was successful
+	                            if (response.existsFl) {
+	                                // Log
+	                                console.log("[gd-sprest] The title field was successfully updated to '" + titleFieldName + "' for the '" + listName + "' list.");
+	                            } else {
+	                                // Log
+	                                console.log("[gd-sprest] Error updating the title field '" + titleFieldName + "' for the '" + listName + "' list.");
 	                            }
+	                        });
+	                        // Continue the loop
+	                        continue;
+	                    }
+	                    // Parse the custom fields
+	                    for (var j = 0; j < customFields.length; j++) {
+	                        // See if this is a custom field
+	                        if (customFields[j].Name == field.InternalName) {
+	                            // Increment the counter
+	                            counter++;
+	                            // Log
+	                            console.log("[gd-sprest] The field '" + field.InternalName + "' already exists.");
+	                            // Save a reference to the field and break from the loop
+	                            customFields[j].Field = field;
+	                            break;
 	                        }
 	                    }
-	                    // Parse the fields
-	                    for (var i = 0; i < customFields.length; i++) {
-	                        // See if we need to create the field
-	                        if (customFields[i].Field == null) {
-	                            // Create the field, but wait for the previous request to complete first
-	                            fields.createFieldAsXml(customFields[i].SchemaXml).execute(true);
-	                        }
-	                    }
-	                    // Wait for all requests to complete
-	                    fields.done(function () {
-	                        // Log
-	                        console.log("[gd-sprest] All fields were successfully created.");
-	                    });
-	                });
-	            }
-	            // Return a promise
-	            return promise;
-	        };
-	        // Method to create a list
-	        this.createList = function (index, promise) {
-	            // Default the index
-	            index = typeof index === "number" ? index : 0;
-	            // See if we are done
-	            if (index >= _this._configuration.ListCfg.length) {
-	                // Resolve the promise
-	                promise.resolve();
-	                return;
-	            }
-	            // Get the configuration
-	            var cfg = _this._configuration.ListCfg[index];
-	            // Default the promise
-	            promise = promise ? promise : new utils_1.Promise();
-	            // Get the list
-	            new __1.List(cfg.ListInformation.Title).execute(function (list) {
-	                // See if the list exists
-	                if (list.existsFl) {
-	                    // Create the next list
-	                    _this.createList(index + 1, promise);
 	                }
-	                // Remove spaces from the list name
-	                var listName = cfg.ListInformation.Title;
-	                cfg.ListInformation.Title = listName.replace(/ /g, "");
-	                // Get the web
-	                new __1.Web().Lists().add(cfg.ListInformation).execute(function (list) {
-	                    // Update the list configuration
-	                    cfg.ListInformation.Title = listName;
-	                    // See if we need to update the list
-	                    if (list.existsFl && list.Title != listName) {
-	                        // Update the list
-	                        list.update({ Title: listName }).execute();
+	                // Parse the fields
+	                for (var i = 0; i < customFields.length; i++) {
+	                    // See if we need to create the field
+	                    if (customFields[i].Field == null) {
+	                        // Log
+	                        console.log("[gd-sprest] Creating the field '" + customFields[i].Name + "' field.");
+	                        // Create the field, but wait for the previous request to complete first
+	                        fields.createFieldAsXml(customFields[i].SchemaXml).execute(true);
 	                    }
-	                    // Wait for the requests to complete
-	                    list.done(function () {
-	                        // Create the next list
-	                        _this.createList(index + 1, promise);
-	                    });
-	                });
+	                }
 	            });
-	            // Return a promise
-	            return promise;
 	        };
 	        // Method to create the lists
-	        this.createLists = function () {
-	            var promise = new utils_1.Promise();
-	            // Create the content types
-	            _this.createContentTypes().done(function () {
-	                // Ensure lists exist
-	                if (_this._configuration.ListCfg == null || _this._configuration.ListCfg.length == 0) {
-	                    // Resolve the promise
-	                    promise.resolve();
-	                } else {
-	                    // Log
-	                    console.log("[gd-sprest] Starting to create/update the lists.");
-	                    // Create the list
-	                    _this.createList().done(function () {
-	                        // Resolve the promise
-	                        promise.resolve();
-	                    });
-	                }
-	            });
-	            // Return a promise
-	            return promise;
-	        };
-	        // Method to create the user custom action
-	        this.createUserCustomAction = function (siteFl, index, promise) {
-	            var cfgs = siteFl ? _this._configuration.CustomActionCfg.Site : _this._configuration.CustomActionCfg.Web;
-	            // Default the index
-	            index = typeof index === "number" ? index : 0;
-	            // See if we are done
-	            if (index >= cfgs.length) {
-	                // Resolve the promise
-	                promise.resolve();
+	        this.createLists = function (lists, cfg) {
+	            // Ensure custom actions exist
+	            if (cfg == null || cfg.length == 0) {
 	                return;
 	            }
-	            // Get the configuration
-	            var cfg = cfgs[index];
-	            // Default the promise
-	            promise = promise ? promise : new utils_1.Promise();
-	            // Get the user custom actions
-	            var customActions = (siteFl ? new __1.Site() : new __1.Web()).UserCustomActions();
-	            // Query for this custom action
-	            customActions.query({
-	                Filter: "Name eq '" + cfg.Name + "'"
-	            }).execute(function (ca) {
-	                // See if this custom action exists
-	                if (ca.existsFl) {
-	                    // Log
-	                    console.log("[gd-sprest] The " + (siteFl ? "site" : "web") + " custom action '" + cfg.Name + "' already exists.");
-	                } else {
-	                    // Create the custom action
-	                    customActions.add(cfg).execute(true);
-	                }
-	                // Wait for the requests to complete
-	                customActions.done(function () {
-	                    // Create the next user custom action
-	                    _this.createUserCustomAction(siteFl, index + 1, promise);
+	            var _loop_1 = function _loop_1(i) {
+	                var listInfo = cfg[i].ListInformation;
+	                // Get the list
+	                lists.getByTitle(listInfo.Title).execute(function (list) {
+	                    // See if the list exists
+	                    if (list.existsFl) {
+	                        // Log
+	                        console.log("[gd-sprest] The list '" + listInfo.Title + "' already exists.");
+	                        // Update the list
+	                        _this.updateList(list, cfg[i]);
+	                    } else {
+	                        // Remove spaces from the list name
+	                        var listName_1 = listInfo.Title;
+	                        listInfo.Title = listName_1.replace(/ /g, "");
+	                        // Add the list
+	                        lists.add(listInfo).execute(function (list) {
+	                            // Update the list configuration
+	                            listInfo.Title = listName_1;
+	                            // See if we need to update the list
+	                            if (list.existsFl && list.Title != listName_1) {
+	                                // Update the list
+	                                list.update({ Title: listName_1 }).execute(function () {
+	                                    // Update the list
+	                                    _this.updateList(lists.getByTitle(listName_1), cfg[i]);
+	                                });
+	                            }
+	                        });
+	                    }
+	                }, true);
+	            };
+	            // Parse the configuration
+	            for (var i = 0; i < cfg.length; i++) {
+	                _loop_1(i);
+	            }
+	            ;
+	        };
+	        // Method to create the list views
+	        this.createListViews = function (list, cfg) {
+	            // Ensure views exist
+	            if (cfg.ViewInformation == null || cfg.ViewInformation.length == 0) {
+	                return;
+	            }
+	            var _loop_2 = function _loop_2(i) {
+	                // Get the view
+	                list.Views().getByTitle(cfg.ViewInformation[i].ViewName).execute(function (view) {
+	                    // Ensure the view exists
+	                    if (view.existsFl) {
+	                        // Log
+	                        console.log("[gd-sprest] The view '" + cfg.ViewInformation[i].ViewName + "' already exists for the '" + cfg.ListInformation.Title + "' list.");
+	                        // Update the view
+	                        _this.updateListView(view, cfg.ViewInformation[i]);
+	                    } else {
+	                        // Log
+	                        console.log("[gd-sprest] Creating the '" + cfg.ViewInformation[i].ViewName + "' view for the '" + cfg.ListInformation.Title + "' list.");
+	                        // Create the view
+	                        list.Views().add({
+	                            Title: cfg.ViewInformation[i].ViewName
+	                        }).execute(function (view) {
+	                            // Update the view
+	                            _this.updateListView(view, cfg.ViewInformation[i]);
+	                        });
+	                    }
 	                });
-	            });
-	            // Return the promise
-	            return promise;
+	            };
+	            // Parse the views
+	            for (var i = 0; i < cfg.ViewInformation.length; i++) {
+	                _loop_2(i);
+	            }
 	        };
 	        // Method to create the user custom actions
-	        this.createUserCustomActions = function () {
-	            var counter = 0;
-	            var promise = new utils_1.Promise();
+	        this.createUserCustomActions = function (customActions, cfg) {
 	            // Ensure custom actions exist
-	            if (_this._configuration.CustomActionCfg == null) {
+	            if (cfg == null || cfg.length == 0) {
 	                return;
 	            }
-	            // See if we are creating site custom actions
-	            if (_this._configuration.CustomActionCfg.Site && _this._configuration.CustomActionCfg.Site.length > 0) {
-	                // Log
-	                console.log("[gd-sprest] Starting to create the site user custom actions.");
-	                // Increment the counter
-	                counter++;
-	                // Create the user custom action
-	                _this.createUserCustomAction(true).done(function () {
-	                    // See if we are done
-	                    if (++counter)
-	                        // Resolve the promise
-	                        promise.resolve();
-	                });
+	            var _loop_3 = function _loop_3(i) {
+	                // Query for this custom action
+	                customActions.query({
+	                    Filter: "Name eq '" + cfg[i].Name + "'"
+	                }).execute(function (ca) {
+	                    // See if this custom action exists
+	                    if (ca.existsFl) {
+	                        // Log
+	                        console.log("[gd-sprest] The custom action '" + cfg[i].Name + "' already exists.");
+	                    } else {
+	                        // Create the custom action
+	                        customActions.add(cfg[i]).execute();
+	                    }
+	                }, true);
+	            };
+	            // Parse the configuration
+	            for (var i = 0; i < cfg.length; i++) {
+	                _loop_3(i);
 	            }
-	            // See if we are creating web custom actions
-	            if (_this._configuration.CustomActionCfg.Web && _this._configuration.CustomActionCfg.Web.length > 0) {
+	        };
+	        // Method to update the list
+	        this.updateList = function (list, cfg) {
+	            // Get the fields
+	            var fields = list.Fields();
+	            // Create the fields
+	            _this.createFields(fields, cfg.CustomFields, cfg);
+	            // Wait for the requests to complete
+	            fields.done(function () {
+	                // Create the views
+	                _this.createListViews(list, cfg);
+	            });
+	        };
+	        // Method to update the view
+	        this.updateListView = function (view, cfg) {
+	            // See if the view fields are defined
+	            if (cfg.ViewFields && cfg.ViewFields.length > 0) {
 	                // Log
-	                console.log("[gd-sprest] Starting to create the site user custom actions.");
-	                // Increment the counter
-	                counter++;
-	                // Create the user custom action
-	                _this.createUserCustomAction(false).done(function () {
-	                    // See if we are done
-	                    if (++counter)
-	                        // Resolve the promise
-	                        promise.resolve();
-	                });
+	                console.log("[gd-sprest] Updating the view fields for the '" + view.Title + "' view.");
+	                // Clear the view fields
+	                view.ViewFields().removeAllViewFields().execute(true);
+	                // Parse the view fields
+	                for (var i = 0; i < cfg.ViewFields.length; i++) {
+	                    // Add the view field
+	                    view.ViewFields().addViewField(cfg.ViewFields[i]).execute(true);
+	                }
 	            }
-	            // Return a promise
-	            return promise;
+	            // See if we are updating the view properties
+	            if (cfg.JSLink || cfg.ViewQuery) {
+	                var props = {};
+	                // Log
+	                console.log("[gd-sprest] Updating the view properties for the '" + view.Title + "' view.");
+	                // Set the properties
+	                cfg.JSLink ? props["JSLink"] = cfg.JSLink : null;
+	                cfg.ViewQuery ? props["ViewQuery"] = cfg.ViewQuery : null;
+	                // Update the view
+	                view.update(props).execute(true);
+	            }
+	            // Wait for the view requests to complete
+	            view.done(function () {
+	                // Log
+	                console.log("[gd-sprest] The view '" + view.Title + "' was updated successfully.");
+	            });
 	        };
 	        // Save the configuration
 	        this._configuration = cfg;
 	    }
 	    // Method to execute the request
-	    SPConfig.prototype.execute = function (callback) {
-	        // Create the lists
-	        this.createLists().done(function () {
-	            // Log
-	            console.log("[gd-sprest] Execution has completed.");
-	            // See if the callback exists
-	            if (callback && typeof callback === "function") {
-	                // Execute the callback
-	                callback();
-	            }
+	    SPConfig.prototype.execute = function (webUrl, callback, index) {
+	        var _this = this;
+	        var target;
+	        // Default the index
+	        index = typeof index === "number" ? index : 0;
+	        // Execute the method based on the index
+	        switch (index) {
+	            case 0:
+	                // Set the target
+	                target = new __1.Web(webUrl).Fields();
+	                // Log
+	                console.log("[gd-sprest] Creating the site columns.");
+	                // Create the fields
+	                this.createFields(target, this._configuration.FieldCfg);
+	                break;
+	            case 1:
+	                // Set the target
+	                target = new __1.Web(webUrl).ContentTypes();
+	                // Log
+	                //console.log("[gd-sprest] Creating the content types.");
+	                // Create the content types
+	                //this.createContentTypes(target);
+	                break;
+	            case 2:
+	                // Set the target
+	                target = new __1.Web(webUrl).Lists();
+	                // Log
+	                console.log("[gd-sprest] Creating the lists.");
+	                // Create the lists
+	                this.createLists(target, this._configuration.ListCfg);
+	                break;
+	            case 3:
+	                // Set the target
+	                target = new __1.Site().UserCustomActions();
+	                // Log
+	                console.log("[gd-sprest] Creating the site user custom actions.");
+	                // Create the user custom actions
+	                this.createUserCustomActions(target, this._configuration.CustomActionCfg ? this._configuration.CustomActionCfg.Site : null);
+	                break;
+	            case 4:
+	                // Set the target
+	                target = new __1.Web().UserCustomActions();
+	                // Log
+	                console.log("[gd-sprest] Creating the web user custom actions.");
+	                // Create the user custom actions
+	                this.createUserCustomActions(target, this._configuration.CustomActionCfg ? this._configuration.CustomActionCfg.Web : null);
+	                break;
+	            default:
+	                // Log
+	                console.log("[gd-sprest] The configuration script completed.");
+	                // See if the callback exists
+	                if (callback && typeof callback === "function") {
+	                    // Execute the callback
+	                    callback();
+	                }
+	                return;
+	        }
+	        // Wait for the target requests to complete
+	        target.done(function () {
+	            // Execute the next method
+	            _this.execute(webUrl, callback, index + 1);
 	        });
 	    };
 	    return SPConfig;
 	}();
 	exports.SPConfig = SPConfig;
 	;
-	//# sourceMappingURL=web.js.map
+	//# sourceMappingURL=spCfg.js.map
 
 /***/ },
 /* 71 */

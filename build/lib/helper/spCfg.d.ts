@@ -1,5 +1,4 @@
-import { Promise } from "../../utils";
-import { ISPCfgFieldInfo, ISPConfigProps } from "../../definitions";
+import { IContentTypes, IFields, ISPCfgFieldInfo, ISPConfigProps, ISPCfgListInfo } from "../../definitions";
 /**
  * Next Code Update:
  * Update code to use web and lists object that are passed to each method.
@@ -20,11 +19,12 @@ export declare class SPConfig {
     /**
      * Methods
      */
-    createContentTypes: () => Promise;
-    createFields: (customFields: ISPCfgFieldInfo[], listName?: string, titleFieldName?: string) => Promise;
-    private createList;
+    createContentTypes: (contentTypes: IContentTypes) => void;
+    createFields: (fields: IFields, customFields: ISPCfgFieldInfo[], listInfo?: ISPCfgListInfo) => void;
     private createLists;
-    private createUserCustomAction;
+    private createListViews;
     private createUserCustomActions;
-    execute(callback: any): void;
+    execute(webUrl?: string, callback?: any, index?: number): void;
+    private updateList;
+    private updateListView;
 }
