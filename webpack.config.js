@@ -20,14 +20,18 @@ module.exports = {
             {
                 // Target .js and .jsx files
                 test: /.jsx?$/,
-                // Use the "babel-loader" library
-                loader: "babel-loader",
                 // Exclude folders
                 exclude: [/dist/, /images/, /node_modules/, /src/, /test/],
-                // Presets
-                query: {
-                    presets: ["es2015"],
-                    plugins: ["add-module-exports", "transform-class-properties"]
+                // Define the compiler to use
+                use: {
+                    // Use the "babel-loader" library
+                    loader: "babel-loader",
+
+                    // Options
+                    options: {
+                        presets: ["es2015"],
+                        plugins: ["add-module-exports", "transform-class-properties"]
+                    }
                 }
             }
         ]

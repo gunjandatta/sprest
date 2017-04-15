@@ -1,6 +1,6 @@
 {
   "name": "gd-sprest",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "An easy way to develop against the SharePoint REST API.",
   "author": "Gunjan Datta <me@dattabase.com> (https://gunjandatta.github.io/sprest)",
   "license": "https://github.com/gunjandatta/sprest/blob/master/LICENSE",
@@ -23,17 +23,17 @@
   },
   "homepage": "https://gunjandatta.github.io/sprest",
   "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-core": "^6.21.0",
-    "babel-loader": "^6.2.10",
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-transform-class-properties": "^6.19.0",
-    "babel-preset-es2015": "^6.18.0",
-    "gulp": "*",
-    "gulp-concat": "*",
-    "gulp-rename": "*",
-    "gulp-uglify": "*",
-    "webpack": "^1.14.0"
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.1.2",
+    "webpack": "^2.4.1"
   },
   "scripts": {
     "build": "tsc --declaration && webpack && gulp"
