@@ -285,6 +285,8 @@ var SPConfig = (function () {
                         console.log("[gd-sprest] The custom action '" + cfg[i].Name + "' already exists.");
                     }
                     else {
+                        // Log
+                        console.log("[gd-sprest] Creating the '" + cfg[i].Name + "' custom action.");
                         // Create the custom action
                         customActions.add(cfg[i]).execute();
                     }
@@ -330,6 +332,8 @@ var SPConfig = (function () {
                         var ca = customActions.results[j];
                         // See if this is a custom action
                         if (ca.Name.toLowerCase() == caName) {
+                            // Log
+                            console.log("[gd-sprest] Deleting the '" + ca.Name + "' custom action.");
                             // Delete the custom action
                             ca.delete().execute(true);
                             // Break from the loop
@@ -476,6 +480,8 @@ var SPConfig = (function () {
                     var list = lists.results[j];
                     // See if this is a custom list
                     if (list.Title.toLowerCase() == listName) {
+                        // Log
+                        console.log("[gd-sprest] Deleting the '" + list.Title + "' list.");
                         // Delete the list
                         list.delete().execute(true);
                         // Break from the loop

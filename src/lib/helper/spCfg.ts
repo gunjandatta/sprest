@@ -397,6 +397,9 @@ export class SPConfig {
                     // Log
                     console.log("[gd-sprest] The custom action '" + cfg[i].Name + "' already exists.");
                 } else {
+                    // Log
+                    console.log("[gd-sprest] Creating the '" + cfg[i].Name + "' custom action.");
+
                     // Create the custom action
                     customActions.add(cfg[i]).execute();
                 }
@@ -467,6 +470,9 @@ export class SPConfig {
 
                     // See if this is a custom list
                     if(list.Title.toLowerCase() == listName) {
+                        // Log
+                        console.log("[gd-sprest] Deleting the '" + list.Title + "' list.");
+
                         // Delete the list
                         list.delete().execute(true);
 
@@ -495,6 +501,9 @@ export class SPConfig {
 
                     // See if this is a custom action
                     if(ca.Name.toLowerCase() == caName) {
+                        // Log
+                        console.log("[gd-sprest] Deleting the '" + ca.Name + "' custom action.");
+
                         // Delete the custom action
                         ca.delete().execute(true);
 

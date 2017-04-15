@@ -66,8 +66,22 @@ var spCfg = new $REST.Helper.SPConfig({
     // User Custom Actions
     CustomActionCfg: {
         Site: [
+            {
+                Description: "Reference to the gd-sprest library.",
+                Location: "ScriptLink",
+                Name: "Site_gd-sprest",
+                ScriptSrc: "~site/siteassets/sprest/gd-sprest.min.js",
+                Title: "gd-sprest"
+            }
         ],
         Web: [
+            {
+                Description: "Reference to the gd-sprest library.",
+                Location: "ScriptLink",
+                Name: "Web_gd-sprest",
+                ScriptSrc: "~site/siteassets/sprest/gd-sprest.min.js",
+                Title: "gd-sprest"
+            }
         ]
     }
 });
