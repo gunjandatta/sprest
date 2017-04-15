@@ -30,7 +30,8 @@ An easy way to create, read, update and delete data using the SharePoint 2013/On
 * [Office Fabric React](https://github.com/gunjandatta/sprest-fabric-react)
 * [Office Fabric UI Dashboard](https://github.com/gunjandatta/sprest-list)
 * [Query >5000 Items Example](https://github.com/gunjandatta/sprest-large-list)
-* [JS-Link Examples](https://github.com/gunjandatta/sprest-jslink)
+* [SharePoint JS-Link Starter Project](https://github.com/gunjandatta/sp-jslink)
+* [SharePoint Scripts Starter Project](https://github.com/gunjandatta/sp-scripts)
 
 ## Get Started:
 ### Node Package Manager
