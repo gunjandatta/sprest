@@ -407,7 +407,7 @@ export interface IList extends IBase {
      * @param entityTypeName - The entity type name of the list.
      * @param callback - The method to be executed after the request completes.
      */
-    getByEntityName(entityTypeName:string, callback:(IList) => void, targetInfo?): ILists;
+    getByEntityName(entityTypeName:string, callback:(IList) => void, targetInfo?): IList;
 
     /**
      * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.

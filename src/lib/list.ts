@@ -23,14 +23,14 @@ class _List extends Base {
     }
 
     // Method to get the list by the entity name.
-    static getByEntityName(listName, callback, targetInfo?) {
+    static getByEntityName(entityTypeName, callback, targetInfo?) {
         // Query for the list
         let list = (new Web(targetInfo))
             // Get the lists
             .Lists()
             // Set the query
             .query({
-                Filter: "EntityTypeName eq '" + listName + "'",
+                Filter: "EntityTypeName eq '" + entityTypeName + "'",
                 Top: 1
             });
 

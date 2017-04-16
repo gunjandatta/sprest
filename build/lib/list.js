@@ -34,12 +34,12 @@ var _List = (function (_super) {
         return _this;
     }
     // Method to get the list by the entity name.
-    _List.getByEntityName = function (listName, callback, targetInfo) {
+    _List.getByEntityName = function (entityTypeName, callback, targetInfo) {
         // Query for the list
         var list = (new web_1.Web(targetInfo))
             .Lists()
             .query({
-            Filter: "EntityTypeName eq '" + listName + "'",
+            Filter: "EntityTypeName eq '" + entityTypeName + "'",
             Top: 1
         });
         // See if the callback exists
