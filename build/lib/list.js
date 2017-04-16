@@ -11,6 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
+var web_1 = require("./web");
 /*********************************************************************************************************************************/
 // List
 // The SPList object.
@@ -32,6 +33,26 @@ var _List = (function (_super) {
         _this.addMethods(_this, { __metadata: { type: "list" } });
         return _this;
     }
+    // Method to get the list by the entity name.
+    _List.getByEntityName = function (listName, callback, targetInfo) {
+        // Query for the list
+        var list = (new web_1.Web(targetInfo))
+            .Lists()
+            .query({
+            Filter: "EntityTypeName eq '" + listName + "'",
+            Top: 1
+        });
+        // See if the callback exists
+        if (typeof (callback) != "function") {
+            // Execute the request synchronously
+            return list.executeAndWait();
+        }
+        // Execute the request asynchronously
+        list.execute(function (lists) {
+            // Execute the callback method
+            callback(lists.existsFl ? lists.results[0] : lists);
+        });
+    };
     return _List;
 }(utils_1.Base));
 exports.List = _List;

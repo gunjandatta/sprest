@@ -1,4 +1,4 @@
-import { ComplexTypes, IBase, IContentType, IContentTypes, IEventReceiver, IEventReceivers, IField, IFields, IFile, IFolder, IListItem, IListItems, IRoleAssignment, IRoleAssignments, ITargetInfo, IUserCustomAction, IUserCustomActions, IView, IViews, SPTypes } from ".";
+import { ComplexTypes, IBase, IContentType, IContentTypes, IEventReceiver, IEventReceivers, IField, IFields, IFile, IFolder, ILists, IListItem, IListItems, IRoleAssignment, IRoleAssignments, ITargetInfo, IUserCustomAction, IUserCustomActions, IView, IViews, SPTypes } from ".";
 /**
  * List
  */
@@ -290,6 +290,12 @@ export interface IList extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IList;
+    /**
+     * A static method to get the list by the entity name.
+     * @param entityTypeName - The entity type name of the list.
+     * @param callback - The method to be executed after the request completes.
+     */
+    getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?: any): ILists;
     /**
      * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
      * @param query - The change query.
