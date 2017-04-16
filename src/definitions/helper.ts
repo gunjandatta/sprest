@@ -203,9 +203,16 @@ export interface ISPCfgFieldInfo {
  * SharePoint Configuration - List Information
  */
 export interface ISPCfgListInfo {
+    /** The custom list fields. */
     CustomFields?:Array<ISPCfgFieldInfo>;
+
+    /** The list creation information. */
     ListInformation:ComplexTypes.ListCreationInformation;
+
+    /** The title display name. */
     TitleFieldDisplayName?:string;
+
+    /** The view information. */
     ViewInformation?:Array<ISPCfgViewInfo>;
 }
 
@@ -213,9 +220,16 @@ export interface ISPCfgListInfo {
  * SharePoint Configuration - View Information
  */
 export interface ISPCfgViewInfo {
+    /** The JSLink property. */
     JSLink?:string;
+
+    /** The view fields. */
     ViewFields?:Array<string>;
+
+    /** The view name. */
     ViewName:string;
+
+    /** The view query. */
     ViewQuery?:string;
 }
 
