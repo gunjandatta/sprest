@@ -2177,8 +2177,9 @@ var _List = function (_super) {
         });
         // See if the callback exists
         if (typeof callback != "function") {
-            // Execute the request synchronously
-            return list.executeAndWait();
+            // Execute the request synchronously and return it
+            list = list.executeAndWait();
+            return list.existsFl ? list.results[0] : list;
         }
         // Execute the request asynchronously
         list.execute(function (lists) {
