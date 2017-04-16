@@ -9,7 +9,7 @@ export interface IViewFields extends IBase {
     /** Gets a value that specifies the XML schema that represents the collection. */
     SchemaXml: string;
     /** Specifies the XML schema of the collection of fields. The Items property is returned with the resource, but it doesn't have a URI-addressable endpoint. */
-    Items: String;
+    Items: string;
     /** The view field collection. */
     results: Array<any>;
     /**

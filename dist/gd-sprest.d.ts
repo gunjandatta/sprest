@@ -1902,17 +1902,17 @@ import { ComplexTypes, IBase } from ".";
  */
 export interface EmailProperties {
     /** A collection of additional email headers. */
-    AdditionalHeaders?: ComplexTypes.KeyValue;
-    /** A value that specifies the email addresses to blind carbon copy the email to. */
-    BCC?: String;
+    AdditionalHeaders?: Array<ComplexTypes.KeyValue>;
+    /** A string or collection of email addresses to blind carbon copy the email to. */
+    BCC?: string | Array<string>;
     /** A value that specifies the body of the email. */
     Body: string;
-    /** A value that specifies the email addresses to carbon copy the email to. */
-    CC?: String;
+    /** A string or collection of email addresses to carbon copy the email to. */
+    CC?: string | Array<string>;
     /** A value that specifies the email address of the sender. */
     From: string;
-    /** A value that specifies the email addresses to send the email to. */
-    To: String;
+    /** A string or collection of email addresses to send the email to. */
+    To: string | Array<string>;
     /** A value that specifies the email subject. */
     Subject: string;
 }
@@ -2928,7 +2928,7 @@ export interface IGroup extends IBase {
     executeAndWait(): IGroup;
 }
 
-import { ComplexTypes, IField, IFolder, IPromise, IView, IWeb } from ".";
+import { ComplexTypes, IField, IFolder, IPromise, IWeb } from ".";
 /**
  * App Helper Methods
  */
@@ -3043,17 +3043,6 @@ export interface IHelperJSLink {
      * @param formType - The form type. (Display, Edit, New or View)
      */
     renderField(ctx: any, field: any, formType?: number): any;
-}
-/**
- * List Helper Methods
- */
-export interface IHelperList {
-    /**
-     * Adds the fields to the view.
-     * @param view - The view to add the fields to.
-     * @param fields - The fields to add to the view.
-     */
-    addViewFields(view: IView, fields: Array<string>): IView;
 }
 /**
  * Loader
@@ -3192,10 +3181,6 @@ export interface IHelper {
      * JSLink helper methods
      */
     JSLink: IHelperJSLink;
-    /**
-     * List helper methods
-     */
-    List: IHelperList;
     /**
      * Loader
      */
@@ -4271,7 +4256,7 @@ export interface IPersonProperties extends IBase {
     /**
      * The account names of the user's direct reports.
      */
-    DirectReports: String;
+    DirectReports: string;
     /**
      * The user's display name.
      */
@@ -4283,11 +4268,11 @@ export interface IPersonProperties extends IBase {
     /**
      * The account names of the user's manager hierarchy.
      */
-    ExtendedManagers: String;
+    ExtendedManagers: string;
     /**
      * The account names of the user's extended reports.
      */
-    ExtendedReports: String;
+    ExtendedReports: string;
     /**
      * A Boolean value that indicates whether the user is being followed by the current user.
      */
@@ -4299,7 +4284,7 @@ export interface IPersonProperties extends IBase {
     /**
      * The account names of the user's peers.
      */
-    Peers: String;
+    Peers: string;
     /**
      * The absolute URL of the user's personal site.
      */
@@ -6591,7 +6576,7 @@ export interface IViewFields extends IBase {
     /** Gets a value that specifies the XML schema that represents the collection. */
     SchemaXml: string;
     /** Specifies the XML schema of the collection of fields. The Items property is returned with the resource, but it doesn't have a URI-addressable endpoint. */
-    Items: String;
+    Items: string;
     /** The view field collection. */
     results: Array<any>;
     /**
