@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = require("./app");
 var jslink_1 = require("./jslink");
-var list_1 = require("./list");
 var loader_1 = require("./loader");
 var spCfg_1 = require("./spCfg");
 /**
@@ -11,7 +10,6 @@ var spCfg_1 = require("./spCfg");
 exports.Helper = {
     App: app_1.AppHelper,
     JSLink: jslink_1.JSLinkHelper,
-    List: list_1.ListHelper,
     Loader: loader_1.Loader,
     SPConfig: spCfg_1.SPConfig
 };

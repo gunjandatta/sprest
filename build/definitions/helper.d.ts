@@ -1,4 +1,4 @@
-import { ComplexTypes, IField, IFolder, IPromise, IView, IWeb } from ".";
+import { ComplexTypes, IField, IFolder, IPromise, IWeb } from ".";
 /**
  * App Helper Methods
  */
@@ -113,17 +113,6 @@ export interface IHelperJSLink {
      * @param formType - The form type. (Display, Edit, New or View)
      */
     renderField(ctx: any, field: any, formType?: number): any;
-}
-/**
- * List Helper Methods
- */
-export interface IHelperList {
-    /**
-     * Adds the fields to the view.
-     * @param view - The view to add the fields to.
-     * @param fields - The fields to add to the view.
-     */
-    addViewFields(view: IView, fields: Array<string>): IView;
 }
 /**
  * Loader
@@ -262,10 +251,6 @@ export interface IHelper {
      * JSLink helper methods
      */
     JSLink: IHelperJSLink;
-    /**
-     * List helper methods
-     */
-    List: IHelperList;
     /**
      * Loader
      */

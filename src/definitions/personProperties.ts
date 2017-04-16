@@ -18,7 +18,7 @@ export interface IPersonProperties extends IBase {
     /**
      * The account names of the user's direct reports.
      */
-    DirectReports: String
+    DirectReports: string
 
     /**
      * The user's display name.
@@ -33,12 +33,12 @@ export interface IPersonProperties extends IBase {
     /**
      * The account names of the user's manager hierarchy.
      */
-    ExtendedManagers: String;
+    ExtendedManagers: string;
 
     /**
      * The account names of the user's extended reports.
      */
-    ExtendedReports: String;
+    ExtendedReports: string;
 
     /**
      * A Boolean value that indicates whether the user is being followed by the current user.
@@ -53,7 +53,7 @@ export interface IPersonProperties extends IBase {
     /**
      * The account names of the user's peers.
      */
-    Peers: String;
+    Peers: string;
 
     /**
      * The absolute URL of the user's personal site.
