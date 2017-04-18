@@ -61,7 +61,7 @@ import {
 } from "gd-sprest";
 ```
 ### Manual
-1. Download the script from the "dist" folder
-2. Upload the script to a SharePoint document library
+1. Download the gd-sprest.min.js script from the "dist" folder
+2. Upload the script file to a SharePoint document library
 3. Reference the script in any page
-4. Open the console window and start coding away
+4. Open the console window and use the $REST global variable
