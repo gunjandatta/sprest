@@ -189,32 +189,81 @@ export interface ISPConfig {
     /**
      * Constructor
      * @param cfg - The SharePoint configuration information.
+     * @param webUrl - An optional string representing the relative web url.
      */
-    new (cfg: ISPConfigProps): any;
+    new (cfg: ISPConfigProps, webUrl?: string): any;
     /**
      * Method to install the configuration
-     * @param webUrl - An optional string representing the relative web url.
      * @param callback - An optional function called after the execution completes.
      */
-    install(webUrl?: string, callback?: () => void): any;
+    install(callback?: () => void): any;
     /**
      * Method to install by the configuration type.
      * @param cfgType - The configuration type.
-     * @param webUrl - An optional string representing the relative web url.
+     * @param callback - An optional function called after the execution completes.
+     * @param targetName - The target configuration type to install.
      */
-    installByType(cfgType: ISPConfigTypes, webUrl?: string): any;
+    installByType(cfgType: ISPConfigTypes, callback?: any, targetName?: string): any;
     /**
-     * Method to install the configuration
-     * @param webUrl - An optional string representing the relative web url.
+     * Method to install a specific content type
+     * @param ctName - The content type to install.
      * @param callback - An optional function called after the execution completes.
      */
-    uninstall(webUrl?: string, callback?: () => void): any;
+    installContentType(ctName: string, callback?: any): any;
+    /**
+     * Method to install a specific list
+     * @param listName - The list to install.
+     * @param callback - An optional function called after the execution completes.
+     */
+    installList(listName: string, callback?: any): any;
+    /**
+     * Method to install a specific site custom action
+     * @param caName - The site user custom action to install.
+     * @param callback - An optional function called after the execution completes.
+     */
+    installSiteCustomAction(caName: string, callback?: any): any;
+    /**
+     * Method to install a specific web custom action
+     * @param caName - The web user custom action to install.
+     * @param callback - An optional function called after the execution completes.
+     */
+    installWebCustomAction(caName: string, callback?: any): any;
+    /**
+     * Method to install the configuration
+     * @param callback - An optional function called after the execution completes.
+     */
+    uninstall(callback?: () => void): any;
     /**
      * Method to uninstall by the configuration type.
      * @param cfgType - The configuration type.
-     * @param webUrl - An optional string representing the relative web url.
+     * @param callback - An optional function called after the execution completes.
+     * @param targetName - The target configuration type to uninstall.
      */
-    uninstallByType(cfgType: ISPConfigTypes, webUrl?: string): any;
+    uninstallByType(cfgType: ISPConfigTypes, callback?: any, targetName?: string): any;
+    /**
+     * Method to uninstall a specific content type
+     * @param ctName - The content type to uninstall.
+     * @param callback - An optional function called after the execution completes.
+     */
+    uninstallContentType(ctName: string, callback?: any): any;
+    /**
+     * Method to uninstall a specific list
+     * @param listName - The list to uninstall.
+     * @param callback - An optional function called after the execution completes.
+     */
+    uninstallList(listName: string, callback?: any): any;
+    /**
+     * Method to uninstall a specific site custom action
+     * @param caName - The site user custom action to uninstall.
+     * @param callback - An optional function called after the execution completes.
+     */
+    uninstallSiteCustomAction(caName: string, callback?: any): any;
+    /**
+     * Method to uninstall a specific web custom action
+     * @param caName - The web user custom action to uninstall.
+     * @param callback - An optional function called after the execution completes.
+     */
+    uninstallWebCustomAction(caName: string, callback?: any): any;
 }
 /**
  * SharePoint Configuration - Properties

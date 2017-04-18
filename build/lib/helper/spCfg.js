@@ -1,13 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = require("../../utils");
 var types_1 = require("../../types");
 var __1 = require("..");
-/**
- * Next Code Update:
- * Update code to use web and lists object that are passed to each method.
- * Use the "done" to wait for all requests to complete, instead of using promises.
- * Test then release to npm.
- */
 /*********************************************************************************************************************************/
 // SharePoint Configuration
 /*********************************************************************************************************************************/
@@ -15,112 +10,132 @@ var SPConfig = (function () {
     /**
      * Constructor
      */
-    function SPConfig(cfg) {
+    function SPConfig(cfg, webUrl) {
         var _this = this;
         // Method to install by configuration type
-        this.installByType = function (cfgType, webUrl) {
+        this.installByType = function (cfgType, callback, targetName) {
             var target = null;
+            // Update the target name
+            targetName = targetName ? targetName.toLowerCase() : targetName;
             // Execute the method based on the index
             switch (cfgType) {
                 // Content Types
                 case types_1.SPConfigTypes.ContentTypes:
                     // Set the target
-                    target = (new __1.Web(webUrl)).ContentTypes();
+                    target = (new __1.Web(_this._webUrl)).ContentTypes();
                     // Log
-                    //console.log("[gd-sprest] Creating the content types.");
+                    //console.log("[gd-sprest][ContentType] Creating the content types.");
                     // Create the content types
-                    //this.createContentTypes(target);
+                    //this.createContentTypes(target, targetName);
                     break;
                 // Fields
                 case types_1.SPConfigTypes.Fields:
                     // Set the target
-                    target = (new __1.Web(webUrl)).Fields();
+                    target = (new __1.Web(_this._webUrl)).Fields();
                     // Log
-                    console.log("[gd-sprest] Creating the site columns.");
+                    console.log("[gd-sprest][Field] Creating the site columns.");
                     // Create the fields
                     _this.createFields(target, _this._configuration.FieldCfg);
                     break;
                 // Lists
                 case types_1.SPConfigTypes.Lists:
                     // Set the target
-                    target = (new __1.Web(webUrl)).Lists();
+                    target = (new __1.Web(_this._webUrl)).Lists();
                     // Log
-                    console.log("[gd-sprest] Creating the lists.");
+                    console.log("[gd-sprest][List] Creating the lists.");
                     // Create the lists
-                    _this.createLists(target, _this._configuration.ListCfg);
+                    _this.createLists(target, _this._configuration.ListCfg, targetName);
                     break;
                 // Site User Custom Actions
                 case types_1.SPConfigTypes.SiteUserCustomActions:
                     // Set the target
                     target = (new __1.Site()).UserCustomActions();
                     // Log
-                    console.log("[gd-sprest] Creating the site user custom actions.");
+                    console.log("[gd-sprest][CustomAction] Creating the site user custom actions.");
                     // Create the user custom actions
-                    _this.createUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : null);
+                    _this.createUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : null, targetName);
                     break;
                 // Site User Custom Actions
                 case types_1.SPConfigTypes.WebUserCustomActions:
                     // Set the target
-                    target = (new __1.Web()).UserCustomActions();
+                    target = (new __1.Web(_this._webUrl)).UserCustomActions();
                     // Log
-                    console.log("[gd-sprest] Creating the web user custom actions.");
+                    console.log("[gd-sprest][CustomAction] Creating the web user custom actions.");
                     // Create the user custom actions
-                    _this.createUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null);
+                    _this.createUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null, targetName);
                     break;
+            }
+            // Ensure the callback and target objects exist
+            if (callback && target) {
+                // Wait for the target requests to complete
+                target.done(function () {
+                    // Execute the callback
+                    callback();
+                });
             }
             // Return the target object
             return target;
         };
         // Method to uninstall by the configuration type
-        this.uninstallByType = function (cfgType, webUrl) {
+        this.uninstallByType = function (cfgType, callback, targetName) {
             var target = null;
+            // Update the target name
+            targetName = targetName ? targetName.toLowerCase() : targetName;
             // Execute the method based on the index
             switch (cfgType) {
                 // Content Types
                 case types_1.SPConfigTypes.ContentTypes:
                     // Set the target
-                    target = (new __1.Web(webUrl)).ContentTypes();
+                    target = (new __1.Web(_this._webUrl)).ContentTypes();
                     // Log
-                    //console.log("[gd-sprest] Creating the content types.");
+                    //console.log("[gd-sprest][ContentType] Creating the content types.");
                     // Create the content types
-                    //this.createContentTypes(target);
+                    //this.createContentTypes(target, targetName);
                     break;
                 // Fields
                 case types_1.SPConfigTypes.Fields:
                     // Set the target
-                    target = (new __1.Web(webUrl)).Fields();
+                    target = (new __1.Web(_this._webUrl)).Fields();
                     // Log
-                    console.log("[gd-sprest] Removing the site columns.");
+                    console.log("[gd-sprest][Field] Removing the site columns.");
                     // Remove the fields
                     _this.removeFields(target, _this._configuration.FieldCfg);
                     break;
                 // Lists
                 case types_1.SPConfigTypes.Lists:
                     // Set the target
-                    target = (new __1.Web(webUrl)).Lists();
+                    target = (new __1.Web(_this._webUrl)).Lists();
                     // Log
-                    console.log("[gd-sprest] Removing the lists.");
+                    console.log("[gd-sprest][List] Removing the lists.");
                     // Remove the lists
-                    _this.removeLists(target, _this._configuration.ListCfg);
+                    _this.removeLists(target, _this._configuration.ListCfg, targetName);
                     break;
                 // Site User Custom Actions
                 case types_1.SPConfigTypes.SiteUserCustomActions:
                     // Set the target
                     target = (new __1.Site()).UserCustomActions();
                     // Log
-                    console.log("[gd-sprest] Removing the site user custom actions.");
+                    console.log("[gd-sprest][CustomAction] Removing the site user custom actions.");
                     // Remove the site user custom actions
-                    _this.removeUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : null);
+                    _this.removeUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : null, targetName);
                     break;
                 // Site User Custom Actions
                 case types_1.SPConfigTypes.WebUserCustomActions:
                     // Set the target
-                    target = (new __1.Web()).UserCustomActions();
+                    target = (new __1.Web(_this._webUrl)).UserCustomActions();
                     // Log
-                    console.log("[gd-sprest] Removing the web user custom actions.");
+                    console.log("[gd-sprest][CustomAction] Removing the web user custom actions.");
                     // Remove the web user custom actions
-                    _this.removeUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null);
+                    _this.removeUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null, targetName);
                     break;
+            }
+            // Ensure the callback and target objects exist
+            if (callback && target) {
+                // Wait for the target requests to complete
+                target.done(function () {
+                    // Execute the callback
+                    callback();
+                });
             }
             // Return the target object
             return target;
@@ -129,7 +144,7 @@ var SPConfig = (function () {
          * Methods
          */
         // Method to create the content types
-        this.createContentTypes = function (contentTypes) {
+        this.createContentTypes = function (contentTypes, ctName) {
             // TO DO
         };
         // Method to create the fields
@@ -154,11 +169,11 @@ var SPConfig = (function () {
                             // See if the response was successful
                             if (response.existsFl) {
                                 // Log
-                                console.log("[gd-sprest] The title field was successfully updated to '" + titleFieldName + "' for the '" + listName + "' list.");
+                                console.log("[gd-sprest][Field] The title field was successfully updated to '" + titleFieldName + "' for the '" + listName + "' list.");
                             }
                             else {
                                 // Log
-                                console.log("[gd-sprest] Error updating the title field '" + titleFieldName + "' for the '" + listName + "' list.");
+                                console.log("[gd-sprest][Field] Error updating the title field '" + titleFieldName + "' for the '" + listName + "' list.");
                             }
                         });
                         // Continue the loop
@@ -169,7 +184,7 @@ var SPConfig = (function () {
                         // Increment the counter
                         counter++;
                         // Log
-                        console.log("[gd-sprest] The field '" + field.InternalName + "' already exists" + (listName ? " in the '" + listName + "' list" : "") + ".");
+                        console.log("[gd-sprest][Field] The field '" + field.InternalName + "' already exists" + (listName ? " in the '" + listName + "' list" : "") + ".");
                     }
                 }
                 // Parse the custom fields
@@ -179,28 +194,33 @@ var SPConfig = (function () {
                         continue;
                     }
                     // Log
-                    console.log("[gd-sprest] Creating the field '" + customFields[i].Name + "' field" + (listName ? " in the '" + listName + "' list" : "") + ".");
+                    console.log("[gd-sprest][Field] Creating the field '" + customFields[i].Name + "' field" + (listName ? " in the '" + listName + "' list" : "") + ".");
                     // Create the field, but wait for the previous request to complete first
                     fields.createFieldAsXml(customFields[i].SchemaXml).execute(true);
                 }
             });
         };
         // Method to create the lists
-        this.createLists = function (lists, cfg) {
+        this.createLists = function (lists, cfg, listName) {
             // Ensure lists exist
             if (cfg == null || cfg.length == 0) {
                 return;
             }
             var _loop_1 = function (i) {
                 var listInfo = cfg[i].ListInformation;
+                // See if we are creating a specific list
+                if (listName && listInfo.Title.toLowerCase() != listName) {
+                    return "continue";
+                }
                 // Get the list
                 lists.getByTitle(listInfo.Title).execute(function (list) {
+                    var promise = new utils_1.Promise();
                     // See if the list exists
                     if (list.existsFl) {
                         // Log
-                        console.log("[gd-sprest] The list '" + listInfo.Title + "' already exists.");
+                        console.log("[gd-sprest][List] The list '" + listInfo.Title + "' already exists.");
                         // Update the list
-                        _this.updateList(list, cfg[i]);
+                        _this.updateList(list.Title, list, cfg[i]);
                     }
                     else {
                         // Remove spaces from the list name
@@ -216,15 +236,20 @@ var SPConfig = (function () {
                                 // Update the list
                                 list.update({ Title: listName_1 }).execute(function () {
                                     // Update the list
-                                    _this.updateList(lists.getByTitle(listName_1), cfg[i]);
+                                    list = lists.getByTitle(listName_1);
+                                    _this.updateList(listName_1, list, cfg[i]);
                                 });
                             }
                             else {
                                 // Update the list
-                                _this.updateList(list, cfg[i]);
+                                _this.updateList(list.Title, list, cfg[i]);
                             }
                         });
                     }
+                    // Wait for the list to be created, and resolve the promise
+                    list.done(function () { promise.resolve(); });
+                    // Return the promise
+                    return promise;
                 }, true);
             };
             // Parse the configuration
@@ -234,7 +259,7 @@ var SPConfig = (function () {
             ;
         };
         // Method to create the list views
-        this.createListViews = function (list, cfg) {
+        this.createListViews = function (listName, list, cfg) {
             // Ensure view configurations exist
             if (cfg == null || cfg.length == 0) {
                 return;
@@ -245,19 +270,19 @@ var SPConfig = (function () {
                     // Ensure the view exists
                     if (view.existsFl) {
                         // Log
-                        console.log("[gd-sprest] The '" + cfg[i].ViewName + "' view already exists for the '" + list.Title + "' list.");
+                        console.log("[gd-sprest][List] The '" + cfg[i].ViewName + "' view already exists for the '" + listName + "' list.");
                         // Update the view
-                        _this.updateListView(view, cfg[i]);
+                        _this.updateListView(listName, view, cfg[i]);
                     }
                     else {
                         // Log
-                        console.log("[gd-sprest] Creating the '" + cfg[i].ViewName + "' view for the '" + list.Title + "' list.");
+                        console.log("[gd-sprest][List] Creating the '" + cfg[i].ViewName + "' view for the '" + listName + "' list.");
                         // Create the view
                         list.Views().add({
                             Title: cfg[i].ViewName
                         }).execute(function (view) {
                             // Update the view
-                            _this.updateListView(view, cfg[i]);
+                            _this.updateListView(listName, view, cfg[i]);
                         });
                     }
                 });
@@ -268,12 +293,16 @@ var SPConfig = (function () {
             }
         };
         // Method to create the user custom actions
-        this.createUserCustomActions = function (customActions, cfg) {
+        this.createUserCustomActions = function (customActions, cfg, customActionName) {
             // Ensure custom actions exist
             if (cfg == null || cfg.length == 0) {
                 return;
             }
             var _loop_3 = function (i) {
+                // See if we are creating a specific custom action
+                if (customActionName && cfg[i].Name.toLowerCase() != customActionName) {
+                    return "continue";
+                }
                 // Query for this custom action
                 customActions.query({
                     Filter: "Name eq '" + cfg[i].Name + "'"
@@ -282,11 +311,11 @@ var SPConfig = (function () {
                     // See if this custom action exists
                     if (ca.existsFl) {
                         // Log
-                        console.log("[gd-sprest] The custom action '" + cfg[i].Name + "' already exists.");
+                        console.log("[gd-sprest][CustomAction] The custom action '" + cfg[i].Name + "' already exists.");
                     }
                     else {
                         // Log
-                        console.log("[gd-sprest] Creating the '" + cfg[i].Name + "' custom action.");
+                        console.log("[gd-sprest][CustomAction] Creating the '" + cfg[i].Name + "' custom action.");
                         // Create the custom action
                         customActions.add(cfg[i]).execute();
                     }
@@ -317,7 +346,7 @@ var SPConfig = (function () {
             // TO DO
         };
         // Method to remove the user custom actions
-        this.removeUserCustomActions = function (customActions, cfg) {
+        this.removeUserCustomActions = function (customActions, cfg, customActionName) {
             // Ensure custom actions exist
             if (cfg == null || cfg.length == 0) {
                 return;
@@ -327,13 +356,17 @@ var SPConfig = (function () {
                 // Parse the configuration
                 for (var i = 0; i < cfg.length; i++) {
                     var caName = cfg[i].Name.toLowerCase();
+                    // See if we are removing a specific custom action
+                    if (customActionName && customActionName != caName.toLowerCase()) {
+                        continue;
+                    }
                     // Parse the custom actions
                     for (var j = 0; j < customActions.results.length; j++) {
                         var ca = customActions.results[j];
                         // See if this is a custom action
                         if (ca.Name.toLowerCase() == caName) {
                             // Log
-                            console.log("[gd-sprest] Deleting the '" + ca.Name + "' custom action.");
+                            console.log("[gd-sprest][CustomAction] Deleting the '" + ca.Name + "' custom action.");
                             // Delete the custom action
                             ca.delete().execute(true);
                             // Break from the loop
@@ -344,7 +377,9 @@ var SPConfig = (function () {
             });
         };
         // Method to update the list
-        this.updateList = function (list, cfg) {
+        this.updateList = function (listName, list, cfg) {
+            // Log
+            console.log("[gd-sprest][List] Updating the fields and views of the '" + cfg.ListInformation.Title + "' list.");
             // Get the fields
             var fields = list.Fields();
             // Create the fields
@@ -352,64 +387,66 @@ var SPConfig = (function () {
             // Wait for the requests to complete
             fields.done(function () {
                 // Create the views
-                _this.createListViews(list, cfg.ViewInformation);
+                _this.createListViews(listName, list, cfg.ViewInformation);
             });
         };
         // Method to update the view
-        this.updateListView = function (view, cfg) {
+        this.updateListView = function (listName, view, viewCfg) {
             // See if the view fields are defined
-            if (cfg.ViewFields && cfg.ViewFields.length > 0) {
+            if (viewCfg.ViewFields && viewCfg.ViewFields.length > 0) {
                 // Log
-                console.log("[gd-sprest] Updating the view fields for the '" + view.Title + "' view.");
+                console.log("[gd-sprest][List] Updating the view fields for the '" + viewCfg.ViewName + "' view in the '" + listName + "' list.");
                 // Clear the view fields
                 view.ViewFields().removeAllViewFields().execute(true);
                 // Parse the view fields
-                for (var i = 0; i < cfg.ViewFields.length; i++) {
+                for (var i = 0; i < viewCfg.ViewFields.length; i++) {
                     // Add the view field
-                    view.ViewFields().addViewField(cfg.ViewFields[i]).execute(true);
+                    view.ViewFields().addViewField(viewCfg.ViewFields[i]).execute(true);
                 }
             }
             // See if we are updating the view properties
-            if (cfg.JSLink || cfg.ViewQuery) {
+            if (viewCfg.JSLink || viewCfg.ViewQuery) {
                 var props = {};
                 // Log
-                console.log("[gd-sprest] Updating the view properties for the '" + view.Title + "' view.");
+                console.log("[gd-sprest][List] Updating the view properties for the '" + viewCfg.ViewName + "' view in the '" + listName + "' list.");
                 // Set the properties
-                cfg.JSLink ? props["JSLink"] = cfg.JSLink : null;
-                cfg.ViewQuery ? props["ViewQuery"] = cfg.ViewQuery : null;
+                viewCfg.JSLink ? props["JSLink"] = viewCfg.JSLink : null;
+                viewCfg.ViewQuery ? props["ViewQuery"] = viewCfg.ViewQuery : null;
                 // Update the view
                 view.update(props).execute(true);
             }
             // Wait for the view requests to complete
             view.done(function () {
                 // Log
-                console.log("[gd-sprest] The view '" + view.Title + "' was updated successfully.");
+                console.log("[gd-sprest][List] The view '" + view.Title + "' was updated successfully in the '" + listName + "' list.");
             });
         };
         // Save the configuration
         this._configuration = cfg;
+        // Save the target web url
+        this._webUrl = webUrl;
     }
     /**
      * Public Methods
      */
     // Method to install the configuration
-    SPConfig.prototype.install = function (webUrl, callback, cfgType) {
+    SPConfig.prototype.install = function (callback, cfgType) {
         var _this = this;
         // Default the index
         cfgType = typeof (cfgType) === "number" ? cfgType : 0;
         // Uninstall by the type
-        var target = this.installByType(cfgType, webUrl);
+        var target = this.installByType(cfgType);
         // Ensure the target exists
         if (target) {
             // Wait for the target requests to complete
             target.done(function () {
                 // Execute the next method
-                _this.install(webUrl, callback, cfgType + 1);
+                _this.install(callback, cfgType + 1);
             });
         }
         else {
             // Log
-            console.log("[gd-sprest] The configuration script completed.");
+            console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
             // See if the callback exists
             if (callback && typeof (callback) === "function") {
                 // Execute the callback
@@ -417,19 +454,27 @@ var SPConfig = (function () {
             }
         }
     };
+    // Method to install a specific content type
+    SPConfig.prototype.installContentType = function (ctName, callback) { this.installByType(types_1.SPConfigTypes.ContentTypes, callback, ctName); };
+    // Method to install a specific list
+    SPConfig.prototype.installList = function (listName, callback) { this.installByType(types_1.SPConfigTypes.Lists, callback, listName); };
+    // Method to install a specific site custom action
+    SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(types_1.SPConfigTypes.SiteUserCustomActions, callback, caName); };
+    // Method to install a specific web custom action
+    SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(types_1.SPConfigTypes.WebUserCustomActions, callback, caName); };
     // Method to uninstall the configuration
-    SPConfig.prototype.uninstall = function (webUrl, callback, cfgType) {
+    SPConfig.prototype.uninstall = function (callback, cfgType) {
         var _this = this;
         // Default the index
         cfgType = typeof (cfgType) === "number" ? cfgType : 4;
         // Uninstall by the type
-        var target = this.uninstallByType(cfgType, webUrl);
+        var target = this.uninstallByType(cfgType);
         // Ensure the target exists
         if (target) {
             // Wait for the target requests to complete
             target.done(function () {
                 // Execute the next method
-                _this.uninstall(webUrl, callback, cfgType - 1);
+                _this.uninstall(callback, cfgType - 1);
             });
         }
         else {
@@ -442,6 +487,14 @@ var SPConfig = (function () {
             }
         }
     };
+    // Method to install a specific content type
+    SPConfig.prototype.uninstallContentType = function (ctName, callback) { this.uninstallByType(types_1.SPConfigTypes.ContentTypes, callback, ctName); };
+    // Method to install a specific list
+    SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(types_1.SPConfigTypes.Lists, callback, listName); };
+    // Method to install a specific site custom action
+    SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(types_1.SPConfigTypes.SiteUserCustomActions, callback, caName); };
+    // Method to install a specific web custom action
+    SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(types_1.SPConfigTypes.WebUserCustomActions, callback, caName); };
     // Method to remove the fields
     SPConfig.prototype.removeFields = function (fields, customFields, listInfo) {
         var _this = this;
@@ -457,7 +510,7 @@ var SPConfig = (function () {
                 // See if this is a custom field
                 if (_this.isCustomField(field, customFields)) {
                     // Log
-                    console.log("[gd-sprest] Deleting the '" + field.InternalName + "' field.");
+                    console.log("[gd-sprest][Field] Deleting the '" + field.InternalName + "' field.");
                     // Delete it
                     field.delete().execute(true);
                 }
@@ -465,7 +518,7 @@ var SPConfig = (function () {
         });
     };
     // Method to remove the lists
-    SPConfig.prototype.removeLists = function (lists, cfg) {
+    SPConfig.prototype.removeLists = function (lists, cfg, targetList) {
         // Ensure lists exist
         if (cfg == null || cfg.length == 0) {
             return;
@@ -475,13 +528,17 @@ var SPConfig = (function () {
             // Parse the configuration
             for (var i = 0; i < cfg.length; i++) {
                 var listName = cfg[i].ListInformation.Title.toLowerCase();
+                // See if we are removing a specific list
+                if (targetList && targetList != listName.toLowerCase()) {
+                    continue;
+                }
                 // Parse the lists
                 for (var j = 0; j < lists.results.length; j++) {
                     var list = lists.results[j];
                     // See if this is a custom list
                     if (list.Title.toLowerCase() == listName) {
                         // Log
-                        console.log("[gd-sprest] Deleting the '" + list.Title + "' list.");
+                        console.log("[gd-sprest][List] Deleting the '" + list.Title + "' list.");
                         // Delete the list
                         list.delete().execute(true);
                         // Break from the loop
