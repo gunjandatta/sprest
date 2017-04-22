@@ -729,7 +729,7 @@ export class SPConfig {
                         console.log("[gd-sprest][WebPart] Deleting the '" + file.Name + "' webpart.");
 
                         // Delete it
-                        file.delete().execute(true);
+                        file.delete().execute();
 
                         // See if all the webparts have been removed
                         if(++counter == cfg.length) { break; }
