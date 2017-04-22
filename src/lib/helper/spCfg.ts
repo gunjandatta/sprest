@@ -4,8 +4,9 @@ import {
     ComplexTypes,
     IContentTypes,
     IField, IFields,
-    IList, ILists,
-    ISPCfgFieldInfo, ISPConfigProps, ISPCfgListInfo, ISPCfgViewInfo,
+    IFile,
+    IList, ILists, IListItem, IListItems,
+    ISPCfgFieldInfo, ISPConfigProps, ISPCfgListInfo, ISPCfgViewInfo, ISPCfgWebPartInfo,
     IUserCustomAction, IUserCustomActions,
     IView
 } from "../../definitions";
@@ -74,7 +75,7 @@ export class SPConfig {
 
     // Method to install by configuration type
     installByType = (cfgType:number, callback?:any, targetName?:string) => {
-        let target:IContentTypes | IFields | ILists | IUserCustomActions = null;
+        let target:IContentTypes | IFields | IList | ILists | IUserCustomActions = null;
 
         // Update the target name
         targetName = targetName ? targetName.toLowerCase() : targetName;
@@ -92,6 +93,7 @@ export class SPConfig {
                 // Create the content types
                 //this.createContentTypes(target, targetName);
                 break;
+
             // Fields
             case SPConfigTypes.Fields:
                 // Set the target
@@ -103,6 +105,7 @@ export class SPConfig {
                 // Create the fields
                 this.createFields(target, this._configuration.FieldCfg);
                 break;
+
             // Lists
             case SPConfigTypes.Lists:
                 // Set the target
@@ -114,6 +117,7 @@ export class SPConfig {
                 // Create the lists
                 this.createLists(target, this._configuration.ListCfg, targetName);
                 break;
+
             // Site User Custom Actions
             case SPConfigTypes.SiteUserCustomActions:
                 // Set the target
@@ -125,6 +129,19 @@ export class SPConfig {
                 // Create the user custom actions
                 this.createUserCustomActions(target, this._configuration.CustomActionCfg ? this._configuration.CustomActionCfg.Site : null, targetName);
                 break;
+
+            // Web Parts
+            case SPConfigTypes.WebParts:
+                // Set the target
+                target = (new Web(ContextInfo.siteServerRelativeUrl)).Lists("Web Part Gallery");
+
+                // Log
+                console.log("[gd-sprest][WebPart] Creating the web parts.");
+
+                // Create the web parts
+                this.createWebParts(target, this._configuration.WebPartCfg ? this._configuration.WebPartCfg : null);
+                break;
+
             // Site User Custom Actions
             case SPConfigTypes.WebUserCustomActions:
                 // Set the target
@@ -166,7 +183,7 @@ export class SPConfig {
     // Method to uninstall the configuration
     uninstall(callback?:any, cfgType?:number) {
         // Default the index
-        cfgType = typeof(cfgType) === "number" ? cfgType : 4;
+        cfgType = typeof(cfgType) === "number" ? cfgType : 5;
 
         // Uninstall by the type
         let target = this.uninstallByType(cfgType);
@@ -192,7 +209,7 @@ export class SPConfig {
 
     // Method to uninstall by the configuration type
     uninstallByType = (cfgType:number, callback?:any, targetName?:string) => {
-        let target:IContentTypes | IFields | ILists | IUserCustomActions = null;
+        let target:IContentTypes | IFields | IList | ILists | IUserCustomActions = null;
 
         // Update the target name
         targetName = targetName ? targetName.toLowerCase() : targetName;
@@ -210,6 +227,7 @@ export class SPConfig {
                 // Create the content types
                 //this.createContentTypes(target, targetName);
                 break;
+
             // Fields
             case SPConfigTypes.Fields:
                 // Set the target
@@ -221,6 +239,7 @@ export class SPConfig {
                 // Remove the fields
                 this.removeFields(target, this._configuration.FieldCfg);
                 break;
+
             // Lists
             case SPConfigTypes.Lists:
                 // Set the target
@@ -232,6 +251,7 @@ export class SPConfig {
                 // Remove the lists
                 this.removeLists(target, this._configuration.ListCfg, targetName);
                 break;
+
             // Site User Custom Actions
             case SPConfigTypes.SiteUserCustomActions:
                 // Set the target
@@ -243,6 +263,19 @@ export class SPConfig {
                 // Remove the site user custom actions
                 this.removeUserCustomActions(target, this._configuration.CustomActionCfg ? this._configuration.CustomActionCfg.Site : null, targetName);
                 break;
+
+            // Web Parts
+            case SPConfigTypes.WebParts:
+                // Set the target
+                target = (new Web(ContextInfo.siteServerRelativeUrl)).Lists("Web Part Gallery");
+
+                // Log
+                console.log("[gd-sprest][WebPart] Removing the web parts.");
+
+                // Create the web parts
+                this.removeWebParts(target, this._configuration.WebPartCfg ? this._configuration.WebPartCfg : null);
+                break;
+
             // Site User Custom Actions
             case SPConfigTypes.WebUserCustomActions:
                 // Set the target
@@ -296,7 +329,7 @@ export class SPConfig {
         if(customFields == null || customFields.length == 0) { return; }
 
         // Execute the request to get the fields
-        fields.execute((fields:IFields) => {
+        fields.execute(() => {
             let counter = 0;
             let fldTitle:IField = null;
             let titleFieldName = listInfo ? listInfo.TitleFieldDisplayName : null;
@@ -470,14 +503,84 @@ export class SPConfig {
         }
     }
 
+    // Method to create the web parts
+    private createWebParts = (list:IList, cfg:Array<ISPCfgWebPartInfo>, listInfo?:ISPCfgListInfo) => {
+        // Ensure the configuration exists
+        if(cfg == null || cfg.length == 0) { return; }
+
+        // Get the web parts
+        list.Items()
+            // Set the query
+            .query({
+                GetAllItems: true,
+                Select: ["Title"],
+                Top: 500
+            })
+            // Execute the request
+            .execute((items:IListItems) => {
+                let counter = 0;
+                let promise = new Promise();
+
+                // Parse the list items
+                for(let i=0; i<items.results.length; i++) {
+                    let item = items.results[i];
+
+                    // See if this is a custom webpart
+                    if(this.isCustomWebPart(item, cfg)) {
+                        // Increment the counter
+                        counter ++;
+
+                        // Log
+                        console.log("[gd-sprest][WebPart] The webpart '" + cfg[i].Title + "' already exists.");
+                    }
+                }
+
+                // Get the root folder
+                let rootFolder = list.RootFolder().Files();
+
+                // Parse the web parts
+                for(let i=0; i<cfg.length; i++) {
+                    let wpCfg = cfg[i];
+
+                    // See if the web part exists
+                    if(wpCfg.Item) { continue; }
+
+                    // Log
+                    console.log("[gd-sprest][WebPart] Creating the '" + wpCfg.Title + "' webpart.");
+
+                    // Trim the xml
+                    let xml = wpCfg.XML.trim();
+
+                    // Convert the string to an array buffer
+                    let buffer = new ArrayBuffer(xml.length * 2);
+                    let bufferView = new Uint16Array(buffer);
+                    for(let j=0; j<xml.length; j++) {
+                        bufferView[j] = xml.charCodeAt(j);
+                    }
+
+                    // Create the webpart, but execute the requests one at a time
+                    rootFolder.add(true, cfg[i].Title.toLowerCase().replace(/ /g, "_") + ".webpart", buffer).execute((file:IFile) => {
+                        // Log
+                        console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+                    });
+                }
+
+                // Wait for the requests to complete and resolve the promise
+                rootFolder.done(() => { promise.resolve(); });
+
+                // Return a promise
+                return promise;
+            });
+    }
+
     // Method to get the custom fields
     private isCustomField = (field:IField, customFields:Array<ISPCfgFieldInfo>) => {
         // Parse the custom fields
-        for(let j=0; j<customFields.length; j++) {
+        for(let i=0; i<customFields.length; i++) {
             // See if this is a custom field
-            if(customFields[j].Name == field.InternalName) {
+            if(customFields[i].Name == field.InternalName) {
                 // Save a reference to the field and break from the loop
-                customFields[j].Field = field;
+                customFields[i].Field = field;
 
                 // Is a custom field
                 return true;
@@ -485,6 +588,24 @@ export class SPConfig {
         }
 
         // Not a custom field
+        return false;
+    }
+
+    // Method to get the custom webpart
+    private isCustomWebPart = (item:IListItem, webparts:Array<ISPCfgWebPartInfo>) => {
+        // Parse the webparts
+        for(let i=0; i<webparts.length; i++) {
+            // See if this is a custom field
+            if(webparts[i].Title.toLowerCase() == item["Title"].toLowerCase()) {
+                // Save a reference to the list item
+                webparts[i].Item = item;
+
+                // Is a custom web part
+                return true;
+            }
+        }
+
+        // Not a custom web part
         return false;
     }
 
@@ -583,6 +704,37 @@ export class SPConfig {
                 }
             }
         });
+    }
+
+    // Method to remove the web parts
+    private removeWebParts(list:IList, cfg:Array<ISPCfgWebPartInfo>) {
+        // Ensure the configuration exists
+        if(cfg == null || cfg.length == 0) { return; }
+
+        // Get the web parts
+        list.Items()
+            // Set the query
+            .query({
+                GetAllItems: true,
+                Select: ["Title"],
+                Top: 500
+            })
+            // Execute the request
+            .execute((items:IListItems) => {
+                // Parse the list items
+                for(let i=0; i<items.results.length; i++) {
+                    let item = items.results[i];
+
+                    // See if this is a custom webpart
+                    if(this.isCustomWebPart(item, cfg)) {
+                        // Log
+                        console.log("[gd-sprest][WebPart] Deleting the '" + item["Title"] + "' webpart.");
+
+                        // Delete it
+                        item.delete().execute(true);
+                    }
+                }
+            });
     }
 
     // Method to update the list

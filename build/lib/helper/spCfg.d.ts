@@ -1,4 +1,4 @@
-import { IContentTypes, IFields, ILists, ISPConfigProps, IUserCustomActions } from "../../definitions";
+import { IContentTypes, IFields, IList, ILists, ISPConfigProps, IUserCustomActions } from "../../definitions";
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
 export declare class SPConfig {
@@ -15,13 +15,13 @@ export declare class SPConfig {
      * Public Methods
      */
     install(callback?: any, cfgType?: number): void;
-    installByType: (cfgType: number, callback?: any, targetName?: string) => IFields | IContentTypes | IUserCustomActions | ILists;
+    installByType: (cfgType: number, callback?: any, targetName?: string) => IFields | IContentTypes | IList | IUserCustomActions | ILists;
     installContentType(ctName: string, callback?: any): void;
     installList(listName: string, callback?: any): void;
     installSiteCustomAction(caName: string, callback?: any): void;
     installWebCustomAction(caName: string, callback?: any): void;
     uninstall(callback?: any, cfgType?: number): void;
-    uninstallByType: (cfgType: number, callback?: any, targetName?: string) => IFields | IContentTypes | IUserCustomActions | ILists;
+    uninstallByType: (cfgType: number, callback?: any, targetName?: string) => IFields | IContentTypes | IList | IUserCustomActions | ILists;
     uninstallContentType(ctName: string, callback?: any): void;
     uninstallList(listName: string, callback?: any): void;
     uninstallSiteCustomAction(caName: string, callback?: any): void;
@@ -34,11 +34,14 @@ export declare class SPConfig {
     private createLists;
     private createListViews;
     private createUserCustomActions;
+    private createWebParts;
     private isCustomField;
+    private isCustomWebPart;
     private removeContentTypes;
     private removeFields(fields, customFields, listInfo?);
     private removeLists(lists, cfg, targetList?);
     private removeUserCustomActions;
+    private removeWebParts(list, cfg);
     private updateList;
     private updateListView;
 }

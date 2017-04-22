@@ -225,7 +225,7 @@ function testFile() {
     var buffer = new ArrayBuffer(fileContent.length * 2);
     var bufferView = new Uint16Array(buffer);
     for(var i=0; i<fileContent.length; i++) {
-        bufView[i] = fileContent.charCodeAt(i);
+        bufferView[i] = fileContent.charCodeAt(i);
     }
 
     // Copy the file
