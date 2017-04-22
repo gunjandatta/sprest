@@ -2,8 +2,8 @@ import {
     ComplexTypes,
     IBase,
     IField,
+    IFile,
     IFolder,
-    IListItem,
     IPromise,
     IView,
     IWeb
@@ -226,11 +226,11 @@ export interface ISPCfgViewInfo {
  * SharePoint Configuration - WebPart Information
  */
 export interface ISPCfgWebPartInfo {
-    /** The webpart list item. */
-    Item?: IListItem;
+    /** The webpart file. */
+    File?: IFile;
 
-    /** The name of the webpart. */
-    Title:string;
+    /** The file name of the webpart. */
+    FileName:string;
 
     /** The webpart xml */
     XML:string;

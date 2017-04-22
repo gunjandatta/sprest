@@ -4,8 +4,8 @@ import {
     ComplexTypes,
     IContentTypes,
     IField, IFields,
-    IFile,
-    IList, ILists, IListItem, IListItems,
+    IFile, IFolder,
+    IList, ILists,
     ISPCfgFieldInfo, ISPConfigProps, ISPCfgListInfo, ISPCfgViewInfo, ISPCfgWebPartInfo,
     IUserCustomAction, IUserCustomActions,
     IView
@@ -75,7 +75,7 @@ export class SPConfig {
 
     // Method to install by configuration type
     installByType = (cfgType:number, callback?:any, targetName?:string) => {
-        let target:IContentTypes | IFields | IList | ILists | IUserCustomActions = null;
+        let target:IContentTypes | IFields | IFolder | ILists | IUserCustomActions = null;
 
         // Update the target name
         targetName = targetName ? targetName.toLowerCase() : targetName;
@@ -132,8 +132,12 @@ export class SPConfig {
 
             // Web Parts
             case SPConfigTypes.WebParts:
-                // Set the target
-                target = (new Web(ContextInfo.siteServerRelativeUrl)).Lists("Web Part Gallery");
+                // Set the target to the root web
+                target = (new Web(ContextInfo.siteServerRelativeUrl))
+                    // Get the web part gallery
+                    .Lists("Web Part Gallery")
+                    // Get the root folder
+                    .RootFolder();
 
                 // Log
                 console.log("[gd-sprest][WebPart] Creating the web parts.");
@@ -209,7 +213,7 @@ export class SPConfig {
 
     // Method to uninstall by the configuration type
     uninstallByType = (cfgType:number, callback?:any, targetName?:string) => {
-        let target:IContentTypes | IFields | IList | ILists | IUserCustomActions = null;
+        let target:IContentTypes | IFields | IFolder | ILists | IUserCustomActions = null;
 
         // Update the target name
         targetName = targetName ? targetName.toLowerCase() : targetName;
@@ -266,8 +270,12 @@ export class SPConfig {
 
             // Web Parts
             case SPConfigTypes.WebParts:
-                // Set the target
-                target = (new Web(ContextInfo.siteServerRelativeUrl)).Lists("Web Part Gallery");
+                // Set the target to the root web
+                target = (new Web(ContextInfo.siteServerRelativeUrl))
+                    // Get the web part gallery
+                    .Lists("Web Part Gallery")
+                    // Get the root folder
+                    .RootFolder();
 
                 // Log
                 console.log("[gd-sprest][WebPart] Removing the web parts.");
@@ -504,49 +512,44 @@ export class SPConfig {
     }
 
     // Method to create the web parts
-    private createWebParts = (list:IList, cfg:Array<ISPCfgWebPartInfo>, listInfo?:ISPCfgListInfo) => {
+    private createWebParts = (folder:IFolder, cfg:Array<ISPCfgWebPartInfo>, listInfo?:ISPCfgListInfo) => {
         // Ensure the configuration exists
         if(cfg == null || cfg.length == 0) { return; }
 
-        // Get the web parts
-        list.Items()
+        // Get the webpart files
+        folder.Files()
             // Set the query
             .query({
                 GetAllItems: true,
-                Select: ["Title"],
                 Top: 500
             })
             // Execute the request
-            .execute((items:IListItems) => {
+            .execute((files) => {
                 let counter = 0;
-                let promise = new Promise();
 
-                // Parse the list items
-                for(let i=0; i<items.results.length; i++) {
-                    let item = items.results[i];
+                // Parse the files
+                for(let i=0; i<files.results.length; i++) {
+                    let file = files.results[i];
 
                     // See if this is a custom webpart
-                    if(this.isCustomWebPart(item, cfg)) {
-                        // Increment the counter
-                        counter ++;
-
+                    if(this.isCustomWebPart(file, cfg)) {
                         // Log
-                        console.log("[gd-sprest][WebPart] The webpart '" + cfg[i].Title + "' already exists.");
+                        console.log("[gd-sprest][WebPart] The webpart '" + cfg[i].FileName + "' already exists.");
+
+                        // See if all the webparts have been removed
+                        if(++counter == cfg.length) { break; }
                     }
                 }
-
-                // Get the root folder
-                let rootFolder = list.RootFolder().Files();
 
                 // Parse the web parts
                 for(let i=0; i<cfg.length; i++) {
                     let wpCfg = cfg[i];
 
                     // See if the web part exists
-                    if(wpCfg.Item) { continue; }
+                    if(wpCfg.File) { continue; }
 
                     // Log
-                    console.log("[gd-sprest][WebPart] Creating the '" + wpCfg.Title + "' webpart.");
+                    console.log("[gd-sprest][WebPart] Creating the '" + wpCfg.FileName + "' webpart.");
 
                     // Trim the xml
                     let xml = wpCfg.XML.trim();
@@ -559,19 +562,13 @@ export class SPConfig {
                     }
 
                     // Create the webpart, but execute the requests one at a time
-                    rootFolder.add(true, cfg[i].Title.toLowerCase().replace(/ /g, "_") + ".webpart", buffer).execute((file:IFile) => {
+                    folder.Files().add(true, cfg[i].FileName, buffer).execute((file:IFile) => {
                         // Log
                         console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
                     });
                 }
-
-                // Wait for the requests to complete and resolve the promise
-                rootFolder.done(() => { promise.resolve(); });
-
-                // Return a promise
-                return promise;
             });
-    }
+        }
 
     // Method to get the custom fields
     private isCustomField = (field:IField, customFields:Array<ISPCfgFieldInfo>) => {
@@ -592,13 +589,13 @@ export class SPConfig {
     }
 
     // Method to get the custom webpart
-    private isCustomWebPart = (item:IListItem, webparts:Array<ISPCfgWebPartInfo>) => {
+    private isCustomWebPart = (file:IFile, webparts:Array<ISPCfgWebPartInfo>) => {
         // Parse the webparts
         for(let i=0; i<webparts.length; i++) {
             // See if this is a custom field
-            if(webparts[i].Title.toLowerCase() == item["Title"].toLowerCase()) {
-                // Save a reference to the list item
-                webparts[i].Item = item;
+            if(webparts[i].FileName.toLowerCase() == file.Name.toLowerCase()) {
+                // Save a reference to the file
+                webparts[i].File = file;
 
                 // Is a custom web part
                 return true;
@@ -707,31 +704,35 @@ export class SPConfig {
     }
 
     // Method to remove the web parts
-    private removeWebParts(list:IList, cfg:Array<ISPCfgWebPartInfo>) {
+    private removeWebParts(folder:IFolder, cfg:Array<ISPCfgWebPartInfo>) {
         // Ensure the configuration exists
         if(cfg == null || cfg.length == 0) { return; }
 
-        // Get the web parts
-        list.Items()
+        // Get the webpart files
+        folder.Files()
             // Set the query
             .query({
                 GetAllItems: true,
-                Select: ["Title"],
                 Top: 500
             })
             // Execute the request
-            .execute((items:IListItems) => {
-                // Parse the list items
-                for(let i=0; i<items.results.length; i++) {
-                    let item = items.results[i];
+            .execute((files) => {
+                let counter = 0;
+
+                // Parse the files
+                for(let i=0; i<files.results.length; i++) {
+                    let file = files.results[i];
 
                     // See if this is a custom webpart
-                    if(this.isCustomWebPart(item, cfg)) {
+                    if(this.isCustomWebPart(file, cfg)) {
                         // Log
-                        console.log("[gd-sprest][WebPart] Deleting the '" + item["Title"] + "' webpart.");
+                        console.log("[gd-sprest][WebPart] Deleting the '" + file.Name + "' webpart.");
 
                         // Delete it
-                        item.delete().execute(true);
+                        file.delete().execute(true);
+
+                        // See if all the webparts have been removed
+                        if(++counter == cfg.length) { break; }
                     }
                 }
             });

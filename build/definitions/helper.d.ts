@@ -1,4 +1,4 @@
-import { ComplexTypes, IField, IFolder, IListItem, IPromise, IWeb } from ".";
+import { ComplexTypes, IField, IFile, IFolder, IPromise, IWeb } from ".";
 /**
  * App Helper Methods
  */
@@ -186,10 +186,10 @@ export interface ISPCfgViewInfo {
  * SharePoint Configuration - WebPart Information
  */
 export interface ISPCfgWebPartInfo {
-    /** The webpart list item. */
-    Item?: IListItem;
-    /** The name of the webpart. */
-    Title: string;
+    /** The webpart file. */
+    File?: IFile;
+    /** The file name of the webpart. */
+    FileName: string;
     /** The webpart xml */
     XML: string;
 }

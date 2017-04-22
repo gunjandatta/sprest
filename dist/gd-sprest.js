@@ -1543,8 +1543,8 @@ var SPConfig = function () {
                     break;
                 // Web Parts
                 case types_1.SPConfigTypes.WebParts:
-                    // Set the target
-                    target = new __1.Web(__1.ContextInfo.siteServerRelativeUrl).Lists("Web Part Gallery");
+                    // Set the target to the root web
+                    target = new __1.Web(__1.ContextInfo.siteServerRelativeUrl).Lists("Web Part Gallery").RootFolder();
                     // Log
                     console.log("[gd-sprest][WebPart] Creating the web parts.");
                     // Create the web parts
@@ -1616,8 +1616,8 @@ var SPConfig = function () {
                     break;
                 // Web Parts
                 case types_1.SPConfigTypes.WebParts:
-                    // Set the target
-                    target = new __1.Web(__1.ContextInfo.siteServerRelativeUrl).Lists("Web Part Gallery");
+                    // Set the target to the root web
+                    target = new __1.Web(__1.ContextInfo.siteServerRelativeUrl).Lists("Web Part Gallery").RootFolder();
                     // Log
                     console.log("[gd-sprest][WebPart] Removing the web parts.");
                     // Create the web parts
@@ -1826,41 +1826,39 @@ var SPConfig = function () {
             }
         };
         // Method to create the web parts
-        this.createWebParts = function (list, cfg, listInfo) {
+        this.createWebParts = function (folder, cfg, listInfo) {
             // Ensure the configuration exists
             if (cfg == null || cfg.length == 0) {
                 return;
             }
-            // Get the web parts
-            list.Items().query({
+            // Get the webpart files
+            folder.Files().query({
                 GetAllItems: true,
-                Select: ["Title"],
                 Top: 500
-            }).execute(function (items) {
+            }).execute(function (files) {
                 var counter = 0;
-                var promise = new utils_1.Promise();
-                // Parse the list items
-                for (var i = 0; i < items.results.length; i++) {
-                    var item = items.results[i];
+                // Parse the files
+                for (var i = 0; i < files.results.length; i++) {
+                    var file = files.results[i];
                     // See if this is a custom webpart
-                    if (_this.isCustomWebPart(item, cfg)) {
-                        // Increment the counter
-                        counter++;
+                    if (_this.isCustomWebPart(file, cfg)) {
                         // Log
-                        console.log("[gd-sprest][WebPart] The webpart '" + cfg[i].Title + "' already exists.");
+                        console.log("[gd-sprest][WebPart] The webpart '" + cfg[i].FileName + "' already exists.");
+                        // See if all the webparts have been removed
+                        if (++counter == cfg.length) {
+                            break;
+                        }
                     }
                 }
-                // Get the root folder
-                var rootFolder = list.RootFolder().Files();
                 // Parse the web parts
                 for (var i = 0; i < cfg.length; i++) {
                     var wpCfg = cfg[i];
                     // See if the web part exists
-                    if (wpCfg.Item) {
+                    if (wpCfg.File) {
                         continue;
                     }
                     // Log
-                    console.log("[gd-sprest][WebPart] Creating the '" + wpCfg.Title + "' webpart.");
+                    console.log("[gd-sprest][WebPart] Creating the '" + wpCfg.FileName + "' webpart.");
                     // Trim the xml
                     var xml = wpCfg.XML.trim();
                     // Convert the string to an array buffer
@@ -1870,17 +1868,11 @@ var SPConfig = function () {
                         bufferView[j] = xml.charCodeAt(j);
                     }
                     // Create the webpart, but execute the requests one at a time
-                    rootFolder.add(true, cfg[i].Title.toLowerCase().replace(/ /g, "_") + ".webpart", buffer).execute(function (file) {
+                    folder.Files().add(true, cfg[i].FileName, buffer).execute(function (file) {
                         // Log
                         console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
                     });
                 }
-                // Wait for the requests to complete and resolve the promise
-                rootFolder.done(function () {
-                    promise.resolve();
-                });
-                // Return a promise
-                return promise;
             });
         };
         // Method to get the custom fields
@@ -1899,13 +1891,13 @@ var SPConfig = function () {
             return false;
         };
         // Method to get the custom webpart
-        this.isCustomWebPart = function (item, webparts) {
+        this.isCustomWebPart = function (file, webparts) {
             // Parse the webparts
             for (var i = 0; i < webparts.length; i++) {
                 // See if this is a custom field
-                if (webparts[i].Title.toLowerCase() == item["Title"].toLowerCase()) {
-                    // Save a reference to the list item
-                    webparts[i].Item = item;
+                if (webparts[i].FileName.toLowerCase() == file.Name.toLowerCase()) {
+                    // Save a reference to the file
+                    webparts[i].File = file;
                     // Is a custom web part
                     return true;
                 }
@@ -2135,27 +2127,31 @@ var SPConfig = function () {
         });
     };
     // Method to remove the web parts
-    SPConfig.prototype.removeWebParts = function (list, cfg) {
+    SPConfig.prototype.removeWebParts = function (folder, cfg) {
         var _this = this;
         // Ensure the configuration exists
         if (cfg == null || cfg.length == 0) {
             return;
         }
-        // Get the web parts
-        list.Items().query({
+        // Get the webpart files
+        folder.Files().query({
             GetAllItems: true,
-            Select: ["Title"],
             Top: 500
-        }).execute(function (items) {
-            // Parse the list items
-            for (var i = 0; i < items.results.length; i++) {
-                var item = items.results[i];
+        }).execute(function (files) {
+            var counter = 0;
+            // Parse the files
+            for (var i = 0; i < files.results.length; i++) {
+                var file = files.results[i];
                 // See if this is a custom webpart
-                if (_this.isCustomWebPart(item, cfg)) {
+                if (_this.isCustomWebPart(file, cfg)) {
                     // Log
-                    console.log("[gd-sprest][WebPart] Deleting the '" + item["Title"] + "' webpart.");
+                    console.log("[gd-sprest][WebPart] Deleting the '" + file.Name + "' webpart.");
                     // Delete it
-                    item.delete().execute(true);
+                    file.delete().execute(true);
+                    // See if all the webparts have been removed
+                    if (++counter == cfg.length) {
+                        break;
+                    }
                 }
             }
         });
