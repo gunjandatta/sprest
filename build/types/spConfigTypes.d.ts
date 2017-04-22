@@ -7,5 +7,6 @@ export declare const SPConfigTypes: {
     ContentTypes: number;
     Lists: number;
     SiteUserCustomActions: number;
+    WebParts: number;
     WebUserCustomActions: number;
 };

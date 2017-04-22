@@ -1,4 +1,4 @@
-import { ComplexTypes, IField, IFolder, IPromise, IWeb } from ".";
+import { ComplexTypes, IField, IFolder, IListItem, IPromise, IWeb } from ".";
 /**
  * App Helper Methods
  */
@@ -183,6 +183,17 @@ export interface ISPCfgViewInfo {
     ViewQuery?: string;
 }
 /**
+ * SharePoint Configuration - WebPart Information
+ */
+export interface ISPCfgWebPartInfo {
+    /** The webpart list item. */
+    Item?: IListItem;
+    /** The name of the webpart. */
+    Title: string;
+    /** The webpart xml */
+    XML: string;
+}
+/**
  * SharePoint Configuration Methods
  */
 export interface ISPConfig {
@@ -269,9 +280,14 @@ export interface ISPConfig {
  * SharePoint Configuration - Properties
  */
 export interface ISPConfigProps {
+    /** The custom action configuration. */
     CustomActionCfg?: ISPCfgCustomActionInfo;
+    /** The site column configuration. */
     FieldCfg?: Array<ISPCfgFieldInfo>;
+    /** The list configuration. */
     ListCfg?: Array<ISPCfgListInfo>;
+    /** The web part configuration. */
+    WebPartCfg?: Array<ISPCfgWebPartInfo>;
 }
 /**
  * SharePoint Configuration - Types

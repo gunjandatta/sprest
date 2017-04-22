@@ -55,6 +55,15 @@ var SPConfig = (function () {
                     // Create the user custom actions
                     _this.createUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : null, targetName);
                     break;
+                // Web Parts
+                case types_1.SPConfigTypes.WebParts:
+                    // Set the target
+                    target = (new __1.Web(__1.ContextInfo.siteServerRelativeUrl)).Lists("Web Part Gallery");
+                    // Log
+                    console.log("[gd-sprest][WebPart] Creating the web parts.");
+                    // Create the web parts
+                    _this.createWebParts(target, _this._configuration.WebPartCfg ? _this._configuration.WebPartCfg : null);
+                    break;
                 // Site User Custom Actions
                 case types_1.SPConfigTypes.WebUserCustomActions:
                     // Set the target
@@ -119,6 +128,15 @@ var SPConfig = (function () {
                     // Remove the site user custom actions
                     _this.removeUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : null, targetName);
                     break;
+                // Web Parts
+                case types_1.SPConfigTypes.WebParts:
+                    // Set the target
+                    target = (new __1.Web(__1.ContextInfo.siteServerRelativeUrl)).Lists("Web Part Gallery");
+                    // Log
+                    console.log("[gd-sprest][WebPart] Removing the web parts.");
+                    // Create the web parts
+                    _this.removeWebParts(target, _this._configuration.WebPartCfg ? _this._configuration.WebPartCfg : null);
+                    break;
                 // Site User Custom Actions
                 case types_1.SPConfigTypes.WebUserCustomActions:
                     // Set the target
@@ -154,7 +172,7 @@ var SPConfig = (function () {
                 return;
             }
             // Execute the request to get the fields
-            fields.execute(function (fields) {
+            fields.execute(function () {
                 var counter = 0;
                 var fldTitle = null;
                 var titleFieldName = listInfo ? listInfo.TitleFieldDisplayName : null;
@@ -326,19 +344,92 @@ var SPConfig = (function () {
                 _loop_3(i);
             }
         };
+        // Method to create the web parts
+        this.createWebParts = function (list, cfg, listInfo) {
+            // Ensure the configuration exists
+            if (cfg == null || cfg.length == 0) {
+                return;
+            }
+            // Get the web parts
+            list.Items()
+                .query({
+                GetAllItems: true,
+                Select: ["Title"],
+                Top: 500
+            })
+                .execute(function (items) {
+                var counter = 0;
+                var promise = new utils_1.Promise();
+                // Parse the list items
+                for (var i = 0; i < items.results.length; i++) {
+                    var item = items.results[i];
+                    // See if this is a custom webpart
+                    if (_this.isCustomWebPart(item, cfg)) {
+                        // Increment the counter
+                        counter++;
+                        // Log
+                        console.log("[gd-sprest][WebPart] The webpart '" + cfg[i].Title + "' already exists.");
+                    }
+                }
+                // Get the root folder
+                var rootFolder = list.RootFolder().Files();
+                // Parse the web parts
+                for (var i = 0; i < cfg.length; i++) {
+                    var wpCfg = cfg[i];
+                    // See if the web part exists
+                    if (wpCfg.Item) {
+                        continue;
+                    }
+                    // Log
+                    console.log("[gd-sprest][WebPart] Creating the '" + wpCfg.Title + "' webpart.");
+                    // Trim the xml
+                    var xml = wpCfg.XML.trim();
+                    // Convert the string to an array buffer
+                    var buffer = new ArrayBuffer(xml.length * 2);
+                    var bufferView = new Uint16Array(buffer);
+                    for (var j = 0; j < xml.length; j++) {
+                        bufferView[j] = xml.charCodeAt(j);
+                    }
+                    // Create the webpart, but execute the requests one at a time
+                    rootFolder.add(true, cfg[i].Title.toLowerCase().replace(/ /g, "_") + ".webpart", buffer).execute(function (file) {
+                        // Log
+                        console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+                    });
+                }
+                // Wait for the requests to complete and resolve the promise
+                rootFolder.done(function () { promise.resolve(); });
+                // Return a promise
+                return promise;
+            });
+        };
         // Method to get the custom fields
         this.isCustomField = function (field, customFields) {
             // Parse the custom fields
-            for (var j = 0; j < customFields.length; j++) {
+            for (var i = 0; i < customFields.length; i++) {
                 // See if this is a custom field
-                if (customFields[j].Name == field.InternalName) {
+                if (customFields[i].Name == field.InternalName) {
                     // Save a reference to the field and break from the loop
-                    customFields[j].Field = field;
+                    customFields[i].Field = field;
                     // Is a custom field
                     return true;
                 }
             }
             // Not a custom field
+            return false;
+        };
+        // Method to get the custom webpart
+        this.isCustomWebPart = function (item, webparts) {
+            // Parse the webparts
+            for (var i = 0; i < webparts.length; i++) {
+                // See if this is a custom field
+                if (webparts[i].Title.toLowerCase() == item["Title"].toLowerCase()) {
+                    // Save a reference to the list item
+                    webparts[i].Item = item;
+                    // Is a custom web part
+                    return true;
+                }
+            }
+            // Not a custom web part
             return false;
         };
         // Method to remove the content types
@@ -466,7 +557,7 @@ var SPConfig = (function () {
     SPConfig.prototype.uninstall = function (callback, cfgType) {
         var _this = this;
         // Default the index
-        cfgType = typeof (cfgType) === "number" ? cfgType : 4;
+        cfgType = typeof (cfgType) === "number" ? cfgType : 5;
         // Uninstall by the type
         var target = this.uninstallByType(cfgType);
         // Ensure the target exists
@@ -544,6 +635,34 @@ var SPConfig = (function () {
                         // Break from the loop
                         break;
                     }
+                }
+            }
+        });
+    };
+    // Method to remove the web parts
+    SPConfig.prototype.removeWebParts = function (list, cfg) {
+        var _this = this;
+        // Ensure the configuration exists
+        if (cfg == null || cfg.length == 0) {
+            return;
+        }
+        // Get the web parts
+        list.Items()
+            .query({
+            GetAllItems: true,
+            Select: ["Title"],
+            Top: 500
+        })
+            .execute(function (items) {
+            // Parse the list items
+            for (var i = 0; i < items.results.length; i++) {
+                var item = items.results[i];
+                // See if this is a custom webpart
+                if (_this.isCustomWebPart(item, cfg)) {
+                    // Log
+                    console.log("[gd-sprest][WebPart] Deleting the '" + item["Title"] + "' webpart.");
+                    // Delete it
+                    item.delete().execute(true);
                 }
             }
         });

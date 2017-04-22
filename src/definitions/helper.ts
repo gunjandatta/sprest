@@ -3,6 +3,7 @@ import {
     IBase,
     IField,
     IFolder,
+    IListItem,
     IPromise,
     IView,
     IWeb
@@ -222,6 +223,20 @@ export interface ISPCfgViewInfo {
 }
 
 /**
+ * SharePoint Configuration - WebPart Information
+ */
+export interface ISPCfgWebPartInfo {
+    /** The webpart list item. */
+    Item?: IListItem;
+
+    /** The name of the webpart. */
+    Title:string;
+
+    /** The webpart xml */
+    XML:string;
+}
+
+/**
  * SharePoint Configuration Methods
  */
 export interface ISPConfig {
@@ -321,9 +336,17 @@ export interface ISPConfig {
  * SharePoint Configuration - Properties
  */
 export interface ISPConfigProps {
+    /** The custom action configuration. */
     CustomActionCfg?:ISPCfgCustomActionInfo;
+
+    /** The site column configuration. */
     FieldCfg?:Array<ISPCfgFieldInfo>;
+
+    /** The list configuration. */
     ListCfg?:Array<ISPCfgListInfo>;
+
+    /** The web part configuration. */
+    WebPartCfg?:Array<ISPCfgWebPartInfo>;
 }
 
 /**

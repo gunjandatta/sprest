@@ -7,5 +7,6 @@ export const SPConfigTypes = {
     ContentTypes: 1,
     Lists: 2,
     SiteUserCustomActions: 3,
+    WebParts: 5,
     WebUserCustomActions: 4
 }
