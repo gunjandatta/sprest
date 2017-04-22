@@ -12,7 +12,12 @@ An easy way to create, read, update and delete data using the SharePoint 2013/On
 * Easier to execute requests against the host web from a SharePoint Hosted App
 * Ability to control the order of the requests executed against the server
 * PowerShell-Like experience in the browser console
-* Create SharePoint assets (Content Types, Fields, Lists) through a configuration file
+* Create SharePoint solution assets through a configuration file
+    * Content Types (TBD - To Be Developed)
+    * Fields
+    * Lists
+    * User Custom Actions
+    * WebParts
 
 ## Demos:
 ### VS Code - Intellisense
