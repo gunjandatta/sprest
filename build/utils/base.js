@@ -325,6 +325,9 @@ var Base = (function () {
     Base.prototype.getCollection = function (method, args) {
         // Copy the target information
         var targetInfo = Object.create(this.targetInfo);
+        // Clear the target information properties from any previous requests
+        targetInfo.data = null;
+        targetInfo.method = null;
         // See if the metadata is defined for this object
         var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if (metadata && metadata.uri) {
@@ -353,6 +356,9 @@ var Base = (function () {
     Base.prototype.getProperty = function (propertyName, requestType) {
         // Copy the target information
         var targetInfo = Object.create(this.targetInfo);
+        // Clear the target information properties from any previous requests
+        targetInfo.data = null;
+        targetInfo.method = null;
         // See if the metadata is defined for this object
         var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if (metadata && metadata.uri) {

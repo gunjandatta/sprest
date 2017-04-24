@@ -415,6 +415,10 @@ export class Base {
         // Copy the target information
         let targetInfo = Object.create(this.targetInfo);
 
+        // Clear the target information properties from any previous requests
+        targetInfo.data = null;
+        targetInfo.method = null;
+
         // See if the metadata is defined for this object
         let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if(metadata && metadata.uri) {
@@ -450,6 +454,10 @@ export class Base {
     protected getProperty(propertyName:string, requestType?:string) {
         // Copy the target information
         let targetInfo = Object.create(this.targetInfo);
+
+        // Clear the target information properties from any previous requests
+        targetInfo.data = null;
+        targetInfo.method = null;
 
         // See if the metadata is defined for this object
         let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
