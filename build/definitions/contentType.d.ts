@@ -46,7 +46,7 @@ export interface IContentType extends IBase {
     /** Gets a value that specifies an identifier for the content type. */
     Id: ComplexTypes.ContentTypeId;
     /** Gets or sets the JSLink for the content type custom form template. The JSLink property is not supported on Survey or Events lists. A SharePoint calendar is an Events list. */
-    Jslink: string;
+    JSlink: string;
     MobileDisplayFormUrl: string;
     MobileEditFormUrl: string;
     MobileNewFormUrl: string;

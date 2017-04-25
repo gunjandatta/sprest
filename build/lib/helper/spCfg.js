@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = require("../../utils");
 var types_1 = require("../../types");
 var __1 = require("..");
 /*********************************************************************************************************************************/
@@ -24,9 +23,9 @@ var SPConfig = (function () {
                     // Set the target
                     target = (new __1.Web(_this._webUrl)).ContentTypes();
                     // Log
-                    //console.log("[gd-sprest][ContentType] Creating the content types.");
+                    console.log("[gd-sprest][ContentType] Creating the content types.");
                     // Create the content types
-                    //this.createContentTypes(target, targetName);
+                    _this.createContentTypes(target, _this._configuration.ContentTypes);
                     break;
                 // Fields
                 case types_1.SPConfigTypes.Fields:
@@ -99,9 +98,9 @@ var SPConfig = (function () {
                     // Set the target
                     target = (new __1.Web(_this._webUrl)).ContentTypes();
                     // Log
-                    //console.log("[gd-sprest][ContentType] Creating the content types.");
+                    console.log("[gd-sprest][Content Type] Removing the content types.");
                     // Create the content types
-                    //this.createContentTypes(target, targetName);
+                    _this.removeContentTypes(target, _this._configuration.ContentTypes);
                     break;
                 // Fields
                 case types_1.SPConfigTypes.Fields:
@@ -165,15 +164,100 @@ var SPConfig = (function () {
         /**
          * Methods
          */
+        // Method to create the content type
+        this.createContentType = function (cfgItem, contentTypes, web) {
+            // Create the web
+            web = web ? web : new __1.Web().execute();
+            // Get the content types of the web
+            web.ContentTypes()
+                .query({
+                Filter: "Name eq '" + (cfgItem.Name || cfgItem.ParentName) + "'",
+                Top: 1
+            })
+                .execute(function (parentContentTypes) {
+                // See if the content type exists
+                if (parentContentTypes.existsFl) {
+                    // Add the content type
+                    contentTypes.addAvailableContentType(parentContentTypes.results[0].Id.StringValue).execute(function (contentType) {
+                        var props = {};
+                        // See if we need to update the content type
+                        if (contentType.Name == cfgItem.Name && contentType.JSlink == cfgItem.JSLink) {
+                            return;
+                        }
+                        // Log
+                        console.log("[gd-sprest][Content Type] Updating the properties for the '" + cfgItem.Name + "' content type.");
+                        // Set the properties
+                        cfgItem.JSLink ? props["JSLink"] = cfgItem.JSLink : null;
+                        cfgItem.Name ? props["Name"] = cfgItem.Name : null;
+                        // Update the content type
+                        contentType.update(props).execute(function () {
+                            // Log
+                            console.log("[gd-sprest][Content Type] The properties for the '" + cfgItem.Name + "' was updated successfully.");
+                        });
+                    }, true);
+                }
+                else {
+                    // See if this is a sub-web
+                    if (web.ServerRelativeUrl != __1.ContextInfo.siteServerRelativeUrl) {
+                        // Log
+                        console.log("[gd-sprest][Content Type] The parent content type '" + cfgItem.ParentName + "' was not found in the current web.");
+                        // Check the root web
+                        _this.createContentType(cfgItem, contentTypes, new __1.Web(__1.ContextInfo.siteServerRelativeUrl));
+                    }
+                    else {
+                        // Log
+                        console.log("[gd-sprest][Content Type] The parent content type '" + cfgItem.ParentName + "' was not found in the root web.");
+                    }
+                }
+            });
+        };
         // Method to create the content types
-        this.createContentTypes = function (contentTypes, ctName) {
-            // TO DO
+        this.createContentTypes = function (contentTypes, cfg, listInfo) {
+            // Ensure configuration exist
+            if (cfg == null || cfg.length == 0) {
+                return;
+            }
+            // Clear the content types in the configuration
+            for (var i = 0; i < cfg.length; i++) {
+                cfg[i].ContentType = null;
+            }
+            // Execute the request to get the content types
+            contentTypes.execute(function () {
+                var counter = 0;
+                var listName = listInfo && listInfo.ListInformation ? listInfo.ListInformation.Title : null;
+                // Parse the content types
+                for (var i = 0; i < contentTypes.results.length; i++) {
+                    var contentType = contentTypes.results[i];
+                    // See if the content type is in the configuration
+                    if (_this.isInConfiguration(contentType, "Name", cfg, "Name", "ContentType")) {
+                        // Increment the counter
+                        counter++;
+                        // Log
+                        console.log("[gd-sprest][Content Type] The content type '" + contentType.Name + "' already exists in the " + (listName ? "'" + listName + "' list" : "current web") + ".");
+                    }
+                }
+                // Parse the configuration
+                for (var i = 0; i < cfg.length; i++) {
+                    // See if the content type exists
+                    if (cfg[i].ContentType) {
+                        continue;
+                    }
+                    // Log
+                    console.log("[gd-sprest][Content Type] Creating the '" + cfg[i].Name + "' content type in the " + (listName ? "'" + listName + "' list" : "current web") + ".");
+                    // Create the content type
+                    _this.createContentType(cfg[i], contentTypes);
+                }
+            });
         };
         // Method to create the fields
-        this.createFields = function (fields, customFields, listInfo) {
-            // Ensure fields exist
-            if (customFields == null || customFields.length == 0) {
+        this.createFields = function (fields, cfg, listInfo) {
+            // Ensure configuration exist
+            if (cfg == null || cfg.length == 0) {
                 return;
+            }
+            // Clear the fields in the configuration
+            for (var i = 0; i < cfg.length; i++) {
+                cfg[i].Field = null;
             }
             // Execute the request to get the fields
             fields.execute(function () {
@@ -201,24 +285,24 @@ var SPConfig = (function () {
                         // Continue the loop
                         continue;
                     }
-                    // See if this is a custom field
-                    if (_this.isCustomField(field, customFields)) {
+                    // See if the field is in the configuration
+                    if (_this.isInConfiguration(field, "InternalName", cfg, "Name", "Field")) {
                         // Increment the counter
                         counter++;
                         // Log
-                        console.log("[gd-sprest][Field] The field '" + field.InternalName + "' already exists" + (listName ? " in the '" + listName + "' list" : "") + ".");
+                        console.log("[gd-sprest][Field] The field '" + field.InternalName + "' already exists in the " + (listName ? "'" + listName + "' list" : "current web") + ".");
                     }
                 }
-                // Parse the custom fields
-                for (var i = 0; i < customFields.length; i++) {
+                // Parse the configuration
+                for (var i = 0; i < cfg.length; i++) {
                     // See if the field exists
-                    if (customFields[i].Field) {
+                    if (cfg[i].Field) {
                         continue;
                     }
                     // Log
-                    console.log("[gd-sprest][Field] Creating the field '" + customFields[i].Name + "' field" + (listName ? " in the '" + listName + "' list" : "") + ".");
+                    console.log("[gd-sprest][Field] Creating the field '" + cfg[i].Name + "' field in the " + (listName ? "'" + listName + "' list" : "current web") + ".");
                     // Create the field, but wait for the previous request to complete first
-                    fields.createFieldAsXml(customFields[i].SchemaXml).execute(true);
+                    fields.createFieldAsXml(cfg[i].SchemaXml).execute(true);
                 }
             });
         };
@@ -236,7 +320,6 @@ var SPConfig = (function () {
                 }
                 // Get the list
                 lists.getByTitle(listInfo.Title).execute(function (list) {
-                    var promise = new utils_1.Promise();
                     // See if the list exists
                     if (list.existsFl) {
                         // Log
@@ -268,10 +351,8 @@ var SPConfig = (function () {
                             }
                         });
                     }
-                    // Wait for the list to be created, and resolve the promise
-                    list.done(function () { promise.resolve(); });
-                    // Return the promise
-                    return promise;
+                    // Return the list
+                    return list;
                 }, true);
             };
             // Parse the configuration
@@ -354,6 +435,10 @@ var SPConfig = (function () {
             if (cfg == null || cfg.length == 0) {
                 return;
             }
+            // Clear the web parts in the configuration
+            for (var i = 0; i < cfg.length; i++) {
+                cfg[i].File = null;
+            }
             // Get the webpart files
             folder.Files()
                 .query({
@@ -365,8 +450,8 @@ var SPConfig = (function () {
                 // Parse the files
                 for (var i = 0; i < files.results.length; i++) {
                     var file = files.results[i];
-                    // See if this is a custom webpart
-                    if (_this.isCustomWebPart(file, cfg)) {
+                    // See if the webpart is in the configuration
+                    if (_this.isInConfiguration(file, "Name", cfg, "FileName", "File")) {
                         // Log
                         console.log("[gd-sprest][WebPart] The webpart '" + cfg[i].FileName + "' already exists.");
                         // See if all the webparts have been removed
@@ -400,39 +485,42 @@ var SPConfig = (function () {
                 }
             });
         };
-        // Method to get the custom fields
-        this.isCustomField = function (field, customFields) {
-            // Parse the custom fields
-            for (var i = 0; i < customFields.length; i++) {
-                // See if this is a custom field
-                if (customFields[i].Name == field.InternalName) {
-                    // Save a reference to the field and break from the loop
-                    customFields[i].Field = field;
-                    // Is a custom field
+        // Method to determine if the configuration contains the target
+        this.isInConfiguration = function (target, propName, cfg, cfgPropName, cfgRefName) {
+            // Parse the configuration
+            for (var i = 0; i < cfg.length; i++) {
+                var cfgItem = cfg[i];
+                // Compare the properties
+                if ((target[propName] + "").toLowerCase() == (cfgItem[cfgPropName] + "").toLowerCase()) {
+                    // Set the reference to the target
+                    cfgItem[cfgRefName] = target;
+                    // Is in the configuration
                     return true;
                 }
             }
-            // Not a custom field
-            return false;
-        };
-        // Method to get the custom webpart
-        this.isCustomWebPart = function (file, webparts) {
-            // Parse the webparts
-            for (var i = 0; i < webparts.length; i++) {
-                // See if this is a custom field
-                if (webparts[i].FileName.toLowerCase() == file.Name.toLowerCase()) {
-                    // Save a reference to the file
-                    webparts[i].File = file;
-                    // Is a custom web part
-                    return true;
-                }
-            }
-            // Not a custom web part
+            // Not in the configuration
             return false;
         };
         // Method to remove the content types
-        this.removeContentTypes = function () {
-            // TO DO
+        this.removeContentTypes = function (contentTypes, cfg) {
+            // Ensure configuration exist
+            if (cfg == null || cfg.length == 0) {
+                return;
+            }
+            // Get the content types
+            contentTypes.execute(function () {
+                // Parse the content types
+                for (var i = 0; i < contentTypes.results.length; i++) {
+                    var contentType = contentTypes.results[i];
+                    // See if the content type is in the configuration
+                    if (_this.isInConfiguration(contentType, "Name", cfg, "Name", "ContentType")) {
+                        // Log
+                        console.log("[gd-sprest][Content Type] Deleting the '" + contentType.Name + "' content type.");
+                        // Delete it
+                        contentType.delete().execute(true);
+                    }
+                }
+            });
         };
         // Method to remove the user custom actions
         this.removeUserCustomActions = function (customActions, cfg, customActionName) {
@@ -441,7 +529,7 @@ var SPConfig = (function () {
                 return;
             }
             // Get the custom actions
-            customActions.execute(function (customActions) {
+            customActions.execute(function () {
                 // Parse the configuration
                 for (var i = 0; i < cfg.length; i++) {
                     var caName = cfg[i].Name.toLowerCase();
@@ -475,8 +563,15 @@ var SPConfig = (function () {
             _this.createFields(fields, cfg.CustomFields, cfg);
             // Wait for the requests to complete
             fields.done(function () {
-                // Create the views
-                _this.createListViews(listName, list, cfg.ViewInformation);
+                // Get the content types
+                var contentTypes = list.ContentTypes();
+                // Create the content types
+                _this.createContentTypes(contentTypes, cfg.ContentTypes, cfg);
+                // Wait for the requests to complete
+                contentTypes.done(function () {
+                    // Create the views
+                    _this.createListViews(listName, list, cfg.ViewInformation);
+                });
             });
         };
         // Method to update the view
@@ -543,8 +638,6 @@ var SPConfig = (function () {
             }
         }
     };
-    // Method to install a specific content type
-    SPConfig.prototype.installContentType = function (ctName, callback) { this.installByType(types_1.SPConfigTypes.ContentTypes, callback, ctName); };
     // Method to install a specific list
     SPConfig.prototype.installList = function (listName, callback) { this.installByType(types_1.SPConfigTypes.Lists, callback, listName); };
     // Method to install a specific site custom action
@@ -576,8 +669,6 @@ var SPConfig = (function () {
             }
         }
     };
-    // Method to install a specific content type
-    SPConfig.prototype.uninstallContentType = function (ctName, callback) { this.uninstallByType(types_1.SPConfigTypes.ContentTypes, callback, ctName); };
     // Method to install a specific list
     SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(types_1.SPConfigTypes.Lists, callback, listName); };
     // Method to install a specific site custom action
@@ -585,19 +676,19 @@ var SPConfig = (function () {
     // Method to install a specific web custom action
     SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(types_1.SPConfigTypes.WebUserCustomActions, callback, caName); };
     // Method to remove the fields
-    SPConfig.prototype.removeFields = function (fields, customFields, listInfo) {
+    SPConfig.prototype.removeFields = function (fields, cfg, listInfo) {
         var _this = this;
-        // Ensure fields exist
-        if (customFields == null || customFields.length == 0) {
+        // Ensure configuration exist
+        if (cfg == null || cfg.length == 0) {
             return;
         }
         // Get the fields
-        fields.execute(function (fields) {
+        fields.execute(function () {
             // Parse the fields
             for (var i = 0; i < fields.results.length; i++) {
                 var field = fields.results[i];
-                // See if this is a custom field
-                if (_this.isCustomField(field, customFields)) {
+                // See if the field is in the configuration
+                if (_this.isInConfiguration(field, "InternalName", cfg, "Name", "Field")) {
                     // Log
                     console.log("[gd-sprest][Field] Deleting the '" + field.InternalName + "' field.");
                     // Delete it
@@ -608,12 +699,12 @@ var SPConfig = (function () {
     };
     // Method to remove the lists
     SPConfig.prototype.removeLists = function (lists, cfg, targetList) {
-        // Ensure lists exist
+        // Ensure configuration exist
         if (cfg == null || cfg.length == 0) {
             return;
         }
         // Get the lists
-        lists.execute(function (lists) {
+        lists.execute(function () {
             // Parse the configuration
             for (var i = 0; i < cfg.length; i++) {
                 var listName = cfg[i].ListInformation.Title.toLowerCase();
@@ -655,8 +746,8 @@ var SPConfig = (function () {
             // Parse the files
             for (var i = 0; i < files.results.length; i++) {
                 var file = files.results[i];
-                // See if this is a custom webpart
-                if (_this.isCustomWebPart(file, cfg)) {
+                // See if this webpart is in the configuration
+                if (_this.isInConfiguration(file, "Name", cfg, "FileName", "File")) {
                     // Log
                     console.log("[gd-sprest][WebPart] Deleting the '" + file.Name + "' webpart.");
                     // Delete it

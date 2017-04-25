@@ -16,29 +16,27 @@ export declare class SPConfig {
      */
     install(callback?: any, cfgType?: number): void;
     installByType: (cfgType: number, callback?: any, targetName?: string) => IFields | IContentTypes | IFolder | IUserCustomActions | ILists;
-    installContentType(ctName: string, callback?: any): void;
     installList(listName: string, callback?: any): void;
     installSiteCustomAction(caName: string, callback?: any): void;
     installWebCustomAction(caName: string, callback?: any): void;
     uninstall(callback?: any, cfgType?: number): void;
     uninstallByType: (cfgType: number, callback?: any, targetName?: string) => IFields | IContentTypes | IFolder | IUserCustomActions | ILists;
-    uninstallContentType(ctName: string, callback?: any): void;
     uninstallList(listName: string, callback?: any): void;
     uninstallSiteCustomAction(caName: string, callback?: any): void;
     uninstallWebCustomAction(caName: string, callback?: any): void;
     /**
      * Methods
      */
+    private createContentType;
     private createContentTypes;
     private createFields;
     private createLists;
     private createListViews;
     private createUserCustomActions;
     private createWebParts;
-    private isCustomField;
-    private isCustomWebPart;
+    private isInConfiguration;
     private removeContentTypes;
-    private removeFields(fields, customFields, listInfo?);
+    private removeFields(fields, cfg, listInfo?);
     private removeLists(lists, cfg, targetList?);
     private removeUserCustomActions;
     private removeWebParts(folder, cfg);

@@ -1695,7 +1695,7 @@ export interface IContentType extends IBase {
     /** Gets a value that specifies an identifier for the content type. */
     Id: ComplexTypes.ContentTypeId;
     /** Gets or sets the JSLink for the content type custom form template. The JSLink property is not supported on Survey or Events lists. A SharePoint calendar is an Events list. */
-    Jslink: string;
+    JSlink: string;
     MobileDisplayFormUrl: string;
     MobileEditFormUrl: string;
     MobileNewFormUrl: string;
@@ -2928,7 +2928,7 @@ export interface IGroup extends IBase {
     executeAndWait(): IGroup;
 }
 
-import { ComplexTypes, IField, IFile, IFolder, IPromise, IWeb } from ".";
+import { ComplexTypes, IContentType, IField, IFile, IFolder, IPromise, IWeb } from ".";
 /**
  * App Helper Methods
  */
@@ -3057,6 +3057,27 @@ export interface ILoader {
     waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean): any;
 }
 /**
+ * SharePoint Configuration - Content Type Information
+ */
+export interface ISPCfgContentTypeInfo {
+    /**
+     * The content type object.
+     */
+    ContentType?: IContentType;
+    /**
+     * The JSLink property.
+     */
+    JSLink?: string;
+    /**
+     * The content type name.
+     */
+    Name: string;
+    /**
+     * The parent content type name, required if different then the name.
+     */
+    ParentName?: string;
+}
+/**
  * SharePoint Configuration - Custom Action Information
  */
 export interface ISPCfgCustomActionInfo {
@@ -3090,6 +3111,8 @@ export interface ISPCfgFieldInfo {
  * SharePoint Configuration - List Information
  */
 export interface ISPCfgListInfo {
+    /** The content types. */
+    ContentTypes?: Array<ISPCfgContentTypeInfo>;
     /** The custom list fields. */
     CustomFields?: Array<ISPCfgFieldInfo>;
     /** The list creation information. */
@@ -3210,6 +3233,8 @@ export interface ISPConfig {
  * SharePoint Configuration - Properties
  */
 export interface ISPConfigProps {
+    /** The content types. */
+    ContentTypes?: Array<ISPCfgContentTypeInfo>;
     /** The custom action configuration. */
     CustomActionCfg?: ISPCfgCustomActionInfo;
     /** The site column configuration. */

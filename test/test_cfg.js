@@ -24,8 +24,11 @@ var spCfg = new $REST.Helper.SPConfig({
         }
     ],
 
-    // Test List
+    // Test Lists
     ListCfg: [
+        // Test creation of custom fields
+        // Test update of default view
+        // Test update of the 'Title' field
         {
             CustomFields: [
                 {
@@ -60,6 +63,20 @@ var spCfg = new $REST.Helper.SPConfig({
                     ViewName: "All Items"
                 }
             ]
+        },
+        // Test creation of a document library
+        // Test adding of content type
+        {
+            ContentTypes: [
+                {
+                    JSLink: "~site/siteassets/dev/test.js",
+                    Name: "Document Set"
+                }
+            ],
+            ListInformation: {
+                BaseTemplate: 101,
+                Title: "Test Doc Set"
+            }
         }
     ],
 

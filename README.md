@@ -13,7 +13,7 @@ An easy way to create, read, update and delete data using the SharePoint 2013/On
 * Ability to control the order of the requests executed against the server
 * PowerShell-Like experience in the browser console
 * Create SharePoint solution assets through a configuration file
-    * Content Types (TBD - To Be Developed)
+    * Content Types
     * Fields
     * Lists
     * User Custom Actions

@@ -2,13 +2,15 @@ import {Promise} from "../../utils";
 import {SPConfigTypes} from "../../types";
 import {
     ComplexTypes,
-    IContentTypes,
+    IContentType, IContentTypes,
     IField, IFields,
     IFile, IFolder,
     IList, ILists,
-    ISPCfgFieldInfo, ISPConfigProps, ISPCfgListInfo, ISPCfgViewInfo, ISPCfgWebPartInfo,
+    ISite,
+    ISPCfgContentTypeInfo, ISPConfigProps, ISPCfgFieldInfo, ISPCfgListInfo, ISPCfgViewInfo, ISPCfgWebPartInfo,
     IUserCustomAction, IUserCustomActions,
-    IView
+    IView,
+    IWeb
 } from "../../definitions";
 import {
     ContextInfo,
@@ -88,10 +90,10 @@ export class SPConfig {
                 target = (new Web(this._webUrl)).ContentTypes();
 
                 // Log
-                //console.log("[gd-sprest][ContentType] Creating the content types.");
+                console.log("[gd-sprest][ContentType] Creating the content types.");
 
                 // Create the content types
-                //this.createContentTypes(target, targetName);
+                this.createContentTypes(target, this._configuration.ContentTypes);
                 break;
 
             // Fields
@@ -172,9 +174,6 @@ export class SPConfig {
         return target;
     }
 
-    // Method to install a specific content type
-    installContentType(ctName:string, callback?:any) { this.installByType(SPConfigTypes.ContentTypes, callback, ctName); }
-
     // Method to install a specific list
     installList(listName:string, callback?:any) { this.installByType(SPConfigTypes.Lists, callback, listName); }
 
@@ -226,10 +225,10 @@ export class SPConfig {
                 target = (new Web(this._webUrl)).ContentTypes();
 
                 // Log
-                //console.log("[gd-sprest][ContentType] Creating the content types.");
+                console.log("[gd-sprest][Content Type] Removing the content types.");
 
                 // Create the content types
-                //this.createContentTypes(target, targetName);
+                this.removeContentTypes(target, this._configuration.ContentTypes);
                 break;
 
             // Fields
@@ -310,9 +309,6 @@ export class SPConfig {
         return target;
     }
 
-    // Method to install a specific content type
-    uninstallContentType(ctName:string, callback?:any) { this.uninstallByType(SPConfigTypes.ContentTypes, callback, ctName); }
-
     // Method to install a specific list
     uninstallList(listName:string, callback?:any) { this.uninstallByType(SPConfigTypes.Lists, callback, listName); }
 
@@ -326,15 +322,106 @@ export class SPConfig {
      * Methods
      */
 
+    // Method to create the content type
+    private createContentType = (cfgItem:ISPCfgContentTypeInfo, contentTypes:IContentTypes, web?:IWeb) => {
+        // Create the web
+        web = web ? web : new Web().execute();
+
+        // Get the content types of the web
+        web.ContentTypes()
+            // Query for the parent content type
+            .query({
+                Filter: "Name eq '" + (cfgItem.Name || cfgItem.ParentName) + "'",
+                Top: 1
+            })
+            // Execute the request
+            .execute((parentContentTypes:IContentTypes) => {
+                // See if the content type exists
+                if(parentContentTypes.existsFl) {
+                    // Add the content type
+                    contentTypes.addAvailableContentType(parentContentTypes.results[0].Id.StringValue).execute((contentType:IContentType) => {
+                        let props = {};
+
+                        // See if we need to update the content type
+                        if(contentType.Name == cfgItem.Name && contentType.JSlink == cfgItem.JSLink) { return; }
+
+                        // Log
+                        console.log("[gd-sprest][Content Type] Updating the properties for the '" + cfgItem.Name + "' content type.");
+
+                        // Set the properties
+                        cfgItem.JSLink ? props["JSLink"] = cfgItem.JSLink : null;
+                        cfgItem.Name ? props["Name"] = cfgItem.Name : null;
+
+                        // Update the content type
+                        contentType.update(props).execute(() => {
+                            // Log
+                            console.log("[gd-sprest][Content Type] The properties for the '" + cfgItem.Name + "' was updated successfully.");
+                        });
+                    }, true);
+                } else {
+                    // See if this is a sub-web
+                    if(web.ServerRelativeUrl != ContextInfo.siteServerRelativeUrl) {
+                        // Log
+                        console.log("[gd-sprest][Content Type] The parent content type '" + cfgItem.ParentName + "' was not found in the current web.");
+
+                        // Check the root web
+                        this.createContentType(cfgItem, contentTypes, new Web(ContextInfo.siteServerRelativeUrl));
+                    } else {
+                        // Log
+                        console.log("[gd-sprest][Content Type] The parent content type '" + cfgItem.ParentName + "' was not found in the root web.");
+                    }
+                }
+            });
+    }
+
     // Method to create the content types
-    private createContentTypes = (contentTypes:IContentTypes, ctName?:string) => {
-        // TO DO
+    private createContentTypes = (contentTypes:IContentTypes, cfg:Array<ISPCfgContentTypeInfo>, listInfo?:ISPCfgListInfo) => {
+        // Ensure configuration exist
+        if(cfg == null || cfg.length == 0) { return; }
+
+        // Clear the content types in the configuration
+        for(let i=0; i<cfg.length; i++) { cfg[i].ContentType = null; }
+
+        // Execute the request to get the content types
+        contentTypes.execute(() => {
+            let counter = 0;
+            let listName = listInfo && listInfo.ListInformation ? listInfo.ListInformation.Title : null;
+
+            // Parse the content types
+            for(let i=0; i<contentTypes.results.length; i++) {
+                let contentType = contentTypes.results[i];
+
+                // See if the content type is in the configuration
+                if(this.isInConfiguration(contentType, "Name", cfg, "Name", "ContentType")) {
+                    // Increment the counter
+                    counter ++;
+
+                    // Log
+                    console.log("[gd-sprest][Content Type] The content type '" + contentType.Name + "' already exists in the " + (listName ? "'" + listName + "' list" : "current web") + ".");
+                }
+            }
+
+            // Parse the configuration
+            for(let i=0; i<cfg.length; i++) {
+                // See if the content type exists
+                if(cfg[i].ContentType) { continue; }
+
+                // Log
+                console.log("[gd-sprest][Content Type] Creating the '" + cfg[i].Name + "' content type in the " + (listName ? "'" + listName + "' list" : "current web") + ".");
+
+                // Create the content type
+                this.createContentType(cfg[i], contentTypes);
+            }
+        });
     }
 
     // Method to create the fields
-    private createFields = (fields:IFields, customFields:Array<ISPCfgFieldInfo>, listInfo?:ISPCfgListInfo) => {
-        // Ensure fields exist
-        if(customFields == null || customFields.length == 0) { return; }
+    private createFields = (fields:IFields, cfg:Array<ISPCfgFieldInfo>, listInfo?:ISPCfgListInfo) => {
+        // Ensure configuration exist
+        if(cfg == null || cfg.length == 0) { return; }
+
+        // Clear the fields in the configuration
+        for(let i=0; i<cfg.length; i++) { cfg[i].Field = null; }
 
         // Execute the request to get the fields
         fields.execute(() => {
@@ -365,26 +452,26 @@ export class SPConfig {
                     continue;
                 }
 
-                // See if this is a custom field
-                if(this.isCustomField(field, customFields)) {
+                // See if the field is in the configuration
+                if(this.isInConfiguration(field, "InternalName", cfg, "Name", "Field")) {
                     // Increment the counter
                     counter ++;
 
                     // Log
-                    console.log("[gd-sprest][Field] The field '" + field.InternalName + "' already exists" + (listName ? " in the '" + listName + "' list" : "") + ".");
+                    console.log("[gd-sprest][Field] The field '" + field.InternalName + "' already exists in the " + (listName ? "'" + listName + "' list" : "current web") + ".");
                 }
             }
 
-            // Parse the custom fields
-            for(let i=0; i<customFields.length; i++) {
+            // Parse the configuration
+            for(let i=0; i<cfg.length; i++) {
                 // See if the field exists
-                if(customFields[i].Field) { continue; }
+                if(cfg[i].Field) { continue; }
 
                 // Log
-                console.log("[gd-sprest][Field] Creating the field '" + customFields[i].Name + "' field" + (listName ? " in the '" + listName + "' list" : "") + ".");
+                console.log("[gd-sprest][Field] Creating the field '" + cfg[i].Name + "' field in the " + (listName ? "'" + listName + "' list" : "current web") + ".");
 
                 // Create the field, but wait for the previous request to complete first
-                fields.createFieldAsXml(customFields[i].SchemaXml).execute(true);
+                fields.createFieldAsXml(cfg[i].SchemaXml).execute(true);
             }
         });
     }
@@ -403,8 +490,6 @@ export class SPConfig {
 
             // Get the list
             lists.getByTitle(listInfo.Title).execute((list:IList) => {
-                let promise = new Promise();
-
                 // See if the list exists
                 if(list.existsFl) {
                     // Log
@@ -439,11 +524,8 @@ export class SPConfig {
                     });
                 }
 
-                // Wait for the list to be created, and resolve the promise
-                list.done(() => { promise.resolve(); });
-
-                // Return the promise
-                return promise;
+                // Return the list
+                return list;
             }, true);
         };
     }
@@ -516,6 +598,9 @@ export class SPConfig {
         // Ensure the configuration exists
         if(cfg == null || cfg.length == 0) { return; }
 
+        // Clear the web parts in the configuration
+        for(let i=0; i<cfg.length; i++) { cfg[i].File = null; }
+
         // Get the webpart files
         folder.Files()
             // Set the query
@@ -531,8 +616,8 @@ export class SPConfig {
                 for(let i=0; i<files.results.length; i++) {
                     let file = files.results[i];
 
-                    // See if this is a custom webpart
-                    if(this.isCustomWebPart(file, cfg)) {
+                    // See if the webpart is in the configuration
+                    if(this.isInConfiguration(file, "Name", cfg, "FileName", "File")) {
                         // Log
                         console.log("[gd-sprest][WebPart] The webpart '" + cfg[i].FileName + "' already exists.");
 
@@ -568,62 +653,64 @@ export class SPConfig {
                     });
                 }
             });
-        }
-
-    // Method to get the custom fields
-    private isCustomField = (field:IField, customFields:Array<ISPCfgFieldInfo>) => {
-        // Parse the custom fields
-        for(let i=0; i<customFields.length; i++) {
-            // See if this is a custom field
-            if(customFields[i].Name == field.InternalName) {
-                // Save a reference to the field and break from the loop
-                customFields[i].Field = field;
-
-                // Is a custom field
-                return true;
-            }
-        }
-
-        // Not a custom field
-        return false;
     }
 
-    // Method to get the custom webpart
-    private isCustomWebPart = (file:IFile, webparts:Array<ISPCfgWebPartInfo>) => {
-        // Parse the webparts
-        for(let i=0; i<webparts.length; i++) {
-            // See if this is a custom field
-            if(webparts[i].FileName.toLowerCase() == file.Name.toLowerCase()) {
-                // Save a reference to the file
-                webparts[i].File = file;
+    // Method to determine if the configuration contains the target
+    private isInConfiguration = (target:IContentType | IField | ISPCfgFieldInfo, propName:string, cfg:Array<ISPCfgContentTypeInfo | ISPCfgFieldInfo | ISPCfgWebPartInfo>, cfgPropName:string, cfgRefName:string) => {
+        // Parse the configuration
+        for(let i=0; i<cfg.length; i++) {
+            let cfgItem = cfg[i];
 
-                // Is a custom web part
+            // Compare the properties
+            if((target[propName] + "").toLowerCase() == (cfgItem[cfgPropName] + "").toLowerCase()) {
+                // Set the reference to the target
+                cfgItem[cfgRefName] = target;
+
+                // Is in the configuration
                 return true;
             }
         }
 
-        // Not a custom web part
+        // Not in the configuration
         return false;
     }
 
     // Method to remove the content types
-    private removeContentTypes = () => {
-        // TO DO
+    private removeContentTypes = (contentTypes:IContentTypes, cfg:Array<ISPCfgContentTypeInfo>) => {
+        // Ensure configuration exist
+        if(cfg == null || cfg.length == 0) { return; }
+
+        // Get the content types
+        contentTypes.execute(() => {
+            // Parse the content types
+            for(let i=0; i<contentTypes.results.length; i++) {
+                let contentType = contentTypes.results[i];
+
+                // See if the content type is in the configuration
+                if(this.isInConfiguration(contentType, "Name", cfg, "Name", "ContentType")) {
+                    // Log
+                    console.log("[gd-sprest][Content Type] Deleting the '" + contentType.Name + "' content type.");
+
+                    // Delete it
+                    contentType.delete().execute(true);
+                }
+            }
+        });
     }
 
     // Method to remove the fields
-    private removeFields(fields:IFields, customFields:Array<ISPCfgFieldInfo>, listInfo?:ISPCfgListInfo) {
-        // Ensure fields exist
-        if(customFields == null || customFields.length == 0) { return; }
+    private removeFields(fields:IFields, cfg:Array<ISPCfgFieldInfo>, listInfo?:ISPCfgListInfo) {
+        // Ensure configuration exist
+        if(cfg == null || cfg.length == 0) { return; }
 
         // Get the fields
-        fields.execute((fields:IFields) => {
+        fields.execute(() => {
             // Parse the fields
             for(let i=0; i<fields.results.length; i++) {
                 let field = fields.results[i];
 
-                // See if this is a custom field
-                if(this.isCustomField(field, customFields)) {
+                // See if the field is in the configuration
+                if(this.isInConfiguration(field, "InternalName", cfg, "Name", "Field")) {
                     // Log
                     console.log("[gd-sprest][Field] Deleting the '" + field.InternalName + "' field.");
 
@@ -636,12 +723,11 @@ export class SPConfig {
 
     // Method to remove the lists
     private removeLists(lists:ILists, cfg:Array<ISPCfgListInfo>, targetList?:string) {
-        // Ensure lists exist
+        // Ensure configuration exist
         if(cfg == null || cfg.length == 0) { return; }
 
         // Get the lists
-        lists.execute((lists:ILists) => {
-
+        lists.execute(() => {
             // Parse the configuration
             for(let i=0; i<cfg.length; i++) {
                 let listName = cfg[i].ListInformation.Title.toLowerCase();
@@ -675,7 +761,7 @@ export class SPConfig {
         if(cfg == null || cfg.length == 0) { return; }
 
         // Get the custom actions
-        customActions.execute((customActions:IUserCustomActions) => {
+        customActions.execute(() => {
             // Parse the configuration
             for(let i=0; i<cfg.length; i++) {
                 let caName = cfg[i].Name.toLowerCase();
@@ -723,8 +809,8 @@ export class SPConfig {
                 for(let i=0; i<files.results.length; i++) {
                     let file = files.results[i];
 
-                    // See if this is a custom webpart
-                    if(this.isCustomWebPart(file, cfg)) {
+                    // See if this webpart is in the configuration
+                    if(this.isInConfiguration(file, "Name", cfg, "FileName", "File")) {
                         // Log
                         console.log("[gd-sprest][WebPart] Deleting the '" + file.Name + "' webpart.");
 
@@ -751,8 +837,17 @@ export class SPConfig {
 
         // Wait for the requests to complete
         fields.done(() => {
-            // Create the views
-            this.createListViews(listName, list, cfg.ViewInformation);
+            // Get the content types
+            let contentTypes = list.ContentTypes();
+
+            // Create the content types
+            this.createContentTypes(contentTypes, cfg.ContentTypes, cfg);
+
+            // Wait for the requests to complete
+            contentTypes.done(() => {
+                // Create the views
+                this.createListViews(listName, list, cfg.ViewInformation);
+            })
         });
     }
 
