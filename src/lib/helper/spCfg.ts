@@ -619,7 +619,7 @@ export class SPConfig {
                     // See if the webpart is in the configuration
                     if(this.isInConfiguration(file, "Name", cfg, "FileName", "File")) {
                         // Log
-                        console.log("[gd-sprest][WebPart] The webpart '" + cfg[i].FileName + "' already exists.");
+                        console.log("[gd-sprest][WebPart] The webpart '" + file.FileName + "' already exists.");
 
                         // See if all the webparts have been removed
                         if(++counter == cfg.length) { break; }

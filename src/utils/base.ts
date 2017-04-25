@@ -642,6 +642,9 @@ export class Base {
                             // Update the data collection
                             this.updateDataCollection(data.d.results);
 
+                            // Append the raw data results
+                            this["d"].results = this["d"].results.concat(data.d.results);
+
                             // Validate the data collection
                             return this.validateDataCollectionResults(request, promise);
                         }

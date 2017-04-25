@@ -515,6 +515,8 @@ var Base = (function () {
                         if (data.d) {
                             // Update the data collection
                             _this.updateDataCollection(data.d.results);
+                            // Append the raw data results
+                            _this["d"].results = _this["d"].results.concat(data.d.results);
                             // Validate the data collection
                             return _this.validateDataCollectionResults(request, promise);
                         }

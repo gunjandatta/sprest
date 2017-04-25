@@ -66,7 +66,7 @@ export {
  * SharePoint REST Library
  */
 const gd_sprest = {
-    __ver: 1.35,
+    __ver: 1.41,
     ContextInfo,
     DefaultRequestToHostFl: false,
     Email,
@@ -87,7 +87,7 @@ const gd_sprest = {
 export const $REST:Types.IREST = <any>gd_sprest;
 
 // See if the library doesn't exist, or is an older version
-if(window["$REST"] == null || window["$REST"].__ver == null || window["$REST"].__ver < 1.36) {
+if(window["$REST"] == null || window["$REST"].__ver == null || window["$REST"].__ver < gd_sprest.__ver) {
     // Set the global variable
     window["$REST"] = gd_sprest;
 }

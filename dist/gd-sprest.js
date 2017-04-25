@@ -296,7 +296,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.35,
+    __ver: 1.41,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -315,7 +315,7 @@ var gd_sprest = {
 // Export the $REST library
 exports.$REST = gd_sprest;
 // See if the library doesn't exist, or is an older version
-if (window["$REST"] == null || window["$REST"].__ver == null || window["$REST"].__ver < 1.36) {
+if (window["$REST"] == null || window["$REST"].__ver == null || window["$REST"].__ver < gd_sprest.__ver) {
     // Set the global variable
     window["$REST"] = gd_sprest;
 }
@@ -1922,7 +1922,7 @@ var SPConfig = function () {
                     // See if the webpart is in the configuration
                     if (_this.isInConfiguration(file, "Name", cfg, "FileName", "File")) {
                         // Log
-                        console.log("[gd-sprest][WebPart] The webpart '" + cfg[i].FileName + "' already exists.");
+                        console.log("[gd-sprest][WebPart] The webpart '" + file.FileName + "' already exists.");
                         // See if all the webparts have been removed
                         if (++counter == cfg.length) {
                             break;
@@ -6093,6 +6093,8 @@ var Base = function () {
                         if (data.d) {
                             // Update the data collection
                             _this.updateDataCollection(data.d.results);
+                            // Append the raw data results
+                            _this["d"].results = _this["d"].results.concat(data.d.results);
                             // Validate the data collection
                             return _this.validateDataCollectionResults(request, promise);
                         }
