@@ -477,9 +477,6 @@ export interface ListCreationInformation {
 
     /** The list name. */
     Title: string;
-
-    /** The list url. */
-    Url?: string;
 }
 
 /**

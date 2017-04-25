@@ -549,8 +549,6 @@ export interface ListCreationInformation {
     TemplateFeatureId?: string;
     /** The list name. */
     Title: string;
-    /** The list url. */
-    Url?: string;
 }
 /**
  * List Data Source
