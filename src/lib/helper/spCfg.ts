@@ -105,7 +105,7 @@ export class SPConfig {
                 console.log("[gd-sprest][Field] Creating the site columns.");
 
                 // Create the fields
-                this.createFields(target, this._configuration.FieldCfg);
+                this.createFields(target, this._configuration.Fields);
                 break;
 
             // Lists
@@ -240,7 +240,7 @@ export class SPConfig {
                 console.log("[gd-sprest][Field] Removing the site columns.");
 
                 // Remove the fields
-                this.removeFields(target, this._configuration.FieldCfg);
+                this.removeFields(target, this._configuration.Fields);
                 break;
 
             // Lists

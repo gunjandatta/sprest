@@ -34,7 +34,7 @@ var SPConfig = (function () {
                     // Log
                     console.log("[gd-sprest][Field] Creating the site columns.");
                     // Create the fields
-                    _this.createFields(target, _this._configuration.FieldCfg);
+                    _this.createFields(target, _this._configuration.Fields);
                     break;
                 // Lists
                 case types_1.SPConfigTypes.Lists:
@@ -109,7 +109,7 @@ var SPConfig = (function () {
                     // Log
                     console.log("[gd-sprest][Field] Removing the site columns.");
                     // Remove the fields
-                    _this.removeFields(target, _this._configuration.FieldCfg);
+                    _this.removeFields(target, _this._configuration.Fields);
                     break;
                 // Lists
                 case types_1.SPConfigTypes.Lists:

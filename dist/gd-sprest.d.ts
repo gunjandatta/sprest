@@ -3236,7 +3236,7 @@ export interface ISPConfigProps {
     /** The custom action configuration. */
     CustomActionCfg?: ISPCfgCustomActionInfo;
     /** The site column configuration. */
-    FieldCfg?: Array<ISPCfgFieldInfo>;
+    Fields?: Array<ISPCfgFieldInfo>;
     /** The list configuration. */
     ListCfg?: Array<ISPCfgListInfo>;
     /** The web part configuration. */

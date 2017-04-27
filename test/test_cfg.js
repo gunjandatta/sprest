@@ -1,7 +1,7 @@
 // Create a SharePointn Configuration object
 var spCfg = new $REST.Helper.SPConfig({
     // Site Fields
-    FieldCfg: [
+    Fields: [
         {
             Name: "TestField1",
             SchemaXml: '<Field ID="{AA3AF8EA-2D8D-4345-8BD9-6017205F2211}" Name="TestField1" StaticName="TestField1" DisplayName="Test Field 1" Type="Text" />'

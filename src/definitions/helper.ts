@@ -372,7 +372,7 @@ export interface ISPConfigProps {
     CustomActionCfg?:ISPCfgCustomActionInfo;
 
     /** The site column configuration. */
-    FieldCfg?:Array<ISPCfgFieldInfo>;
+    Fields?:Array<ISPCfgFieldInfo>;
 
     /** The list configuration. */
     ListCfg?:Array<ISPCfgListInfo>;
