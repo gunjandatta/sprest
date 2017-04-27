@@ -6,6 +6,7 @@ import {
     IField, IFields,
     IFile, IFolder,
     IList, ILists,
+    IListItems,
     ISite,
     ISPCfgContentTypeInfo, ISPConfigProps, ISPCfgFieldInfo, ISPCfgListInfo, ISPCfgViewInfo, ISPCfgWebPartInfo,
     IUserCustomAction, IUserCustomActions,
@@ -661,9 +662,9 @@ export class SPConfig {
                                     Filter: "FileLeafRef eq '" + cfg[i].FileName + "'"
                                 })
                                 // Execute the request
-                                .execute((item) => {
+                                .execute((items:IListItems) => {
                                     // Update the item
-                                    item.update({
+                                    items.results[0].update({
                                         Group: wpCfg.Group
                                     }).execute();
                                 });

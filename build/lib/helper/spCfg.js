@@ -487,9 +487,9 @@ var SPConfig = (function () {
                                 .query({
                                 Filter: "FileLeafRef eq '" + cfg[i].FileName + "'"
                             })
-                                .execute(function (item) {
+                                .execute(function (items) {
                                 // Update the item
-                                item.update({
+                                items.results[0].update({
                                     Group: wpCfg.Group
                                 }).execute();
                             });
