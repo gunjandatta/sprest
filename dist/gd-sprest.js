@@ -1929,12 +1929,11 @@ var SPConfig = function () {
                         }
                     }
                 }
-                // Parse the web parts
-                for (var i = 0; i < cfg.length; i++) {
+                var _loop_4 = function _loop_4(i) {
                     var wpCfg = cfg[i];
                     // See if the web part exists
                     if (wpCfg.File) {
-                        continue;
+                        return "continue";
                     }
                     // Log
                     console.log("[gd-sprest][WebPart] Creating the '" + wpCfg.FileName + "' webpart.");
@@ -1948,9 +1947,28 @@ var SPConfig = function () {
                     }
                     // Create the webpart, but execute the requests one at a time
                     folder.Files().add(true, cfg[i].FileName, buffer).execute(function (file) {
-                        // Log
-                        console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+                        // See if group exists
+                        if (wpCfg.Group) {
+                            // Set the target to the root web
+                            new __1.Web(__1.ContextInfo.siteServerRelativeUrl).Lists("Web Part Gallery").Items().query({
+                                Filter: "FileLeafRef eq '" + cfg[i].FileName + "'"
+                            }).execute(function (item) {
+                                // Update the item
+                                item.update({
+                                    Group: wpCfg.Group
+                                }).execute();
+                            });
+                        }
+                        // Wait for the requests to complete
+                        file.done(function () {
+                            // Log
+                            console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+                        });
                     });
+                };
+                // Parse the web parts
+                for (var i = 0; i < cfg.length; i++) {
+                    _loop_4(i);
                 }
             });
         };

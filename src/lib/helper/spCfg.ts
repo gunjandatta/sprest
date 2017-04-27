@@ -648,8 +648,32 @@ export class SPConfig {
 
                     // Create the webpart, but execute the requests one at a time
                     folder.Files().add(true, cfg[i].FileName, buffer).execute((file:IFile) => {
-                        // Log
-                        console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+                        // See if group exists
+                        if(wpCfg.Group) {
+                            // Set the target to the root web
+                            (new Web(ContextInfo.siteServerRelativeUrl))
+                                // Get the web part gallery
+                                .Lists("Web Part Gallery")
+                                // Get the Items
+                                .Items()
+                                // Query for this webpart
+                                .query({
+                                    Filter: "FileLeafRef eq '" + cfg[i].FileName + "'"
+                                })
+                                // Execute the request
+                                .execute((item) => {
+                                    // Update the item
+                                    item.update({
+                                        Group: wpCfg.Group
+                                    }).execute();
+                                });
+                        }
+
+                        // Wait for the requests to complete
+                        file.done(() => {
+                            // Log
+                            console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+                        });
                     });
                 }
             });

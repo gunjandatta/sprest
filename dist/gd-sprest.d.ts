@@ -3141,6 +3141,8 @@ export interface ISPCfgWebPartInfo {
     File?: IFile;
     /** The file name of the webpart. */
     FileName: string;
+    /** The webpart group. */
+    Group?: string;
     /** The webpart xml */
     XML: string;
 }
