@@ -450,6 +450,40 @@ export declare type PersonalSiteCapabilities = {
     Storage;
 };
 /**
+ * Principal Sources
+ */
+export declare type PrincipalSources = {
+    /** Search all principal sources. */
+    All;
+    /** Search the current membership provider. */
+    MembershipProvider;
+    /** Search no principal sources. */
+    None;
+    /** Search the current role provider. */
+    RoleProvider;
+    /** Search the user information list. */
+    UserInfoList;
+    /** Search active directory. */
+    Windows;
+};
+/**
+ * Principal Types
+ */
+export declare type PrincipalTypes = {
+    /** Return all entity types. */
+    All;
+    /** Return distribution list entity types. */
+    DistributionList;
+    /** Return no principal types. */
+    None;
+    /** Return security group entity types. */
+    SecurityGroup;
+    /** Return sharepoint group entity types. */
+    SharePointGroup;
+    /** Return user entity types. */
+    User;
+};
+/**
  * Reordering Rule Match Types
  */
 export declare type ReorderingRuleMatchType = {
@@ -481,6 +515,21 @@ export declare type RoleType = {
     Reader;
     /** Has Contributor rights, plus rights to cancel check out, delete items, manage lists, add and customize pages, define and apply themes and borders, and link style sheets. Includes all rights in the Contributor role, plus the following: AddAndCustomizePages, ApplyStyleSheets, ApplyThemeAndBorder, CancelCheckout, ManageLists.WebDesigners can modify the structure of the site and create new lists or document libraries. */
     WebDesigner;
+};
+/**
+ * URL Zones
+ */
+export declare type URLZones = {
+    /** Search the custom zone. */
+    Custom;
+    /** Search the default zone. */
+    Default;
+    /** Search the extranet zone. */
+    Extranet;
+    /** Search the internet zone. */
+    Internet;
+    /** Search the intranet zone. */
+    Intranet;
 };
 /**
  * User Custom Action Registration Types

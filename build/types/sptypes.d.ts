@@ -27,9 +27,9 @@ export declare const ControlMode: {
  * Draft Visibility Types
  */
 export declare const DraftVisibilityType: {
-    Approver: number;
-    Author: number;
     Reader: number;
+    Author: number;
+    Approver: number;
 };
 /**
  * Event Receiver Types
@@ -115,8 +115,8 @@ export declare const EventReceiverType: {
  * Event Receiver Synchronization Types
  */
 export declare const EventReceiverSynchronizationType: {
-    Asynchronous: number;
     Synchronization: number;
+    Asynchronous: number;
 };
 /**
  * Field Types
@@ -160,9 +160,9 @@ export declare const FieldType: {
  * File Template Types
 */
 export declare const FileTemplateType: {
-    FormPage: number;
     StandardPage: number;
     WikiPage: number;
+    FormPage: number;
 };
 /**
  * List Template Types
@@ -246,12 +246,6 @@ export declare const PageType: {
     View: number;
 };
 /**
- * Master Page Gallery Types
- */
-/**
- * Page Layout Types
- */
-/**
  * Personal Site Capabilities
  */
 export declare const PersonalSiteCapabilities: {
@@ -262,6 +256,28 @@ export declare const PersonalSiteCapabilities: {
     Profile: number;
     Social: number;
     Storage: number;
+};
+/**
+ * Principal Sources
+ */
+export declare const PrincipalSources: {
+    All: number;
+    MembershipProvider: number;
+    None: number;
+    RoleProvider: number;
+    UserInfoList: number;
+    Windows: number;
+};
+/**
+ * Principal Types
+ */
+export declare const PrincipalTypes: {
+    All: number;
+    DistributionList: number;
+    None: number;
+    SecurityGroup: number;
+    SharePointGroup: number;
+    User: number;
 };
 /**
  * Reordering Rule Match Types
@@ -288,6 +304,16 @@ export declare const RoleType: {
     None: number;
     Reader: number;
     WebDesigner: number;
+};
+/**
+ * URL Zones
+ */
+export declare const URLZones: {
+    Default: number;
+    Intranet: number;
+    Internet: number;
+    Custom: number;
+    Extranet: number;
 };
 /**
  * User Custom Action Registration Types
