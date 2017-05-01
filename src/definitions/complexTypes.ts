@@ -374,7 +374,24 @@ export interface FieldUrlValue {
  * Field User Value
  */
 export interface FieldUserValue {
+    ContentTypeDisp: string;
+    Created: string;
+    Department: string;
     Email: string;
+    FirstName: string;
+    ID: number;
+    ImnName: string;
+    JobTitle: string;
+    LastName: string;
+    MobilePhone: string;
+    Modified: string;
+    NameWithPicture: string;
+    NameWithPictureAndDetails: string;
+    Office: string;
+    SipAddress: string;
+    Title: string;
+    UserName: string;
+    WorkPhone: string;
 }
 
 /**
