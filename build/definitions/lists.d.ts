@@ -28,7 +28,7 @@ export interface ILists extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): ILists;
+    execute(callback?: (value?: ILists, ...args) => any): ILists;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -39,7 +39,7 @@ export interface ILists extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): ILists;
+    execute(callback: (value?: ILists, ...args) => any, waitFl: boolean): ILists;
     /**
      * Method to execute the request synchronously.
      */

@@ -29,7 +29,7 @@ export interface IRoleAssignments extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?:(...args) => any): IRoleAssignments;
+    execute(callback?:(value?:IRoleAssignments, ...args) => any): IRoleAssignments;
 
     /**
      * Method to execute the request.
@@ -42,7 +42,7 @@ export interface IRoleAssignments extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback:any, waitFl:boolean): IRoleAssignments;
+    execute(callback:(value?:IRoleAssignments, ...args) => any, waitFl:boolean): IRoleAssignments;
 
     /**
      * Method to execute the request synchronously.

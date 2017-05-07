@@ -21,7 +21,7 @@ export interface IAttachment extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IAttachment;
+    execute(callback?: (value?: IAttachment, ...args) => any): IAttachment;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -32,7 +32,7 @@ export interface IAttachment extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IAttachment;
+    execute(callback: (value?: IAttachment, ...args) => any, waitFl: boolean): IAttachment;
     /**
      * Method to execute the request synchronously.
      */

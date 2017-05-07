@@ -21,7 +21,7 @@ export interface IAttachment extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IAttachment;
+    execute(callback?: (value?: IAttachment, ...args) => any): IAttachment;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -32,7 +32,7 @@ export interface IAttachment extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IAttachment;
+    execute(callback: (value?: IAttachment, ...args) => any, waitFl: boolean): IAttachment;
     /**
      * Method to execute the request synchronously.
      */
@@ -62,7 +62,7 @@ export interface IAttachmentFiles extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IAttachmentFiles;
+    execute(callback?: (value?: IAttachmentFiles, ...args) => any): IAttachmentFiles;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -73,7 +73,7 @@ export interface IAttachmentFiles extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IAttachmentFiles;
+    execute(callback: (value?: IAttachmentFiles, ...args) => any, waitFl: boolean): IAttachmentFiles;
     /**
      * Method to execute the request synchronously.
      */
@@ -122,7 +122,7 @@ export interface IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IBase;
+    execute(callback?: (value?: IBase, ...args) => any): IBase;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -133,7 +133,7 @@ export interface IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IBase;
+    execute(callback: (value?: IBase, ...args) => any, waitFl: boolean): IBase;
     /**
      * Method to execute the request synchronously.
      */
@@ -1750,7 +1750,7 @@ export interface IContentType extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IContentType;
+    execute(callback?: (value?: IContentType, ...args) => any): IContentType;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -1761,7 +1761,7 @@ export interface IContentType extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IContentType;
+    execute(callback: (value?: IContentType, ...args) => any, waitFl: boolean): IContentType;
     /**
      * Method to execute the request synchronously.
      */
@@ -1800,7 +1800,7 @@ export interface IContentTypes extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IContentTypes;
+    execute(callback?: (value?: IContentTypes, ...args) => any): IContentTypes;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -1811,7 +1811,7 @@ export interface IContentTypes extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IContentTypes;
+    execute(callback: (value?: IContentTypes, ...args) => any, waitFl: boolean): IContentTypes;
     /**
      * Method to execute the request synchronously.
      */
@@ -1983,7 +1983,7 @@ export interface IEventReceiver extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IEventReceiver;
+    execute(callback?: (value?: IEventReceiver, ...args) => any): IEventReceiver;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -1994,7 +1994,7 @@ export interface IEventReceiver extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IEventReceiver;
+    execute(callback: (value?: IEventReceiver, ...args) => any, waitFl: boolean): IEventReceiver;
     /**
      * Method to execute the request synchronously.
      */
@@ -2028,7 +2028,7 @@ export interface IEventReceivers extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IEventReceivers;
+    execute(callback?: (value?: IEventReceivers, ...args) => any): IEventReceivers;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -2039,7 +2039,7 @@ export interface IEventReceivers extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IEventReceivers;
+    execute(callback: (value?: IEventReceivers, ...args) => any, waitFl: boolean): IEventReceivers;
     /**
      * Method to execute the request synchronously.
      */
@@ -2138,7 +2138,7 @@ export interface IField extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IField;
+    execute(callback?: (value?: IField, ...args) => any): IField;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -2149,7 +2149,7 @@ export interface IField extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IField;
+    execute(callback: (value?: IField, ...args) => any, waitFl: boolean): IField;
     /**
      * Method to execute the request synchronously.
      */
@@ -2216,7 +2216,7 @@ export interface IFieldLinks extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IFieldLinks;
+    execute(callback?: (value?: IFieldLinks, ...args) => any): IFieldLinks;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -2227,7 +2227,7 @@ export interface IFieldLinks extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IFieldLinks;
+    execute(callback: (value?: IFieldLinks, ...args) => any, waitFl: boolean): IFieldLinks;
     /**
      * Method to execute the request synchronously.
      */
@@ -2288,7 +2288,7 @@ export interface IFields extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IFields;
+    execute(callback?: (value?: IFields, ...args) => any): IFields;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -2299,7 +2299,7 @@ export interface IFields extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IFields;
+    execute(callback: (value?: IFields, ...args) => any, waitFl: boolean): IFields;
     /**
      * Method to execute the request synchronously.
      */
@@ -2465,7 +2465,7 @@ export interface IFile extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IFile;
+    execute(callback?: (value?: IFile, ...args) => any): IFile;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -2476,7 +2476,7 @@ export interface IFile extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IFile;
+    execute(callback: (value?: IFile, ...args) => any, waitFl: boolean): IFile;
     /**
      * Method to execute the request synchronously.
      */
@@ -2572,7 +2572,7 @@ export interface IFiles extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IFiles;
+    execute(callback?: (value?: IFiles, ...args) => any): IFiles;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -2583,7 +2583,7 @@ export interface IFiles extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IFiles;
+    execute(callback: (value?: IFiles, ...args) => any, waitFl: boolean): IFiles;
     /**
      * Method to execute the request synchronously.
      */
@@ -2641,7 +2641,7 @@ export interface IFileVersion extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IFileVersion;
+    execute(callback?: (value?: IFileVersion, ...args) => any): IFileVersion;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -2652,7 +2652,7 @@ export interface IFileVersion extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IFileVersion;
+    execute(callback: (value?: IFileVersion, ...args) => any, waitFl: boolean): IFileVersion;
     /**
      * Method to execute the request synchronously.
      */
@@ -2676,7 +2676,7 @@ export interface IFileVersions extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IFileVersions;
+    execute(callback?: (value?: IFileVersions, ...args) => any): IFileVersions;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -2687,7 +2687,7 @@ export interface IFileVersions extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IFileVersions;
+    execute(callback: (value?: IFileVersions, ...args) => any, waitFl: boolean): IFileVersions;
     /**
      * Method to execute the request synchronously.
      */
@@ -2773,7 +2773,7 @@ export interface IFolder extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IFolder;
+    execute(callback?: (value?: IFolder, ...args) => any): IFolder;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -2784,7 +2784,7 @@ export interface IFolder extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IFolder;
+    execute(callback: (value?: IFolder, ...args) => any, waitFl: boolean): IFolder;
     /**
      * Method to execute the request synchronously.
      */
@@ -2827,7 +2827,7 @@ export interface IFolders extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IFolders;
+    execute(callback?: (value?: IFolders, ...args) => any): IFolders;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -2838,7 +2838,7 @@ export interface IFolders extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IFolders;
+    execute(callback: (value?: IFolders, ...args) => any, waitFl: boolean): IFolders;
     /**
      * Method to execute the request synchronously.
      */
@@ -2925,7 +2925,7 @@ export interface IGroup extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IGroup;
+    execute(callback?: (value?: IGroup, ...args) => any): IGroup;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -2936,7 +2936,7 @@ export interface IGroup extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IGroup;
+    execute(callback: (value?: IGroup, ...args) => any, waitFl: boolean): IGroup;
     /**
      * Method to execute the request synchronously.
      */
@@ -3384,7 +3384,7 @@ export interface IListItems extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IListItems;
+    execute(callback?: (value?: IListItems, ...args) => any): IListItems;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -3395,7 +3395,7 @@ export interface IListItems extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IListItems;
+    execute(callback: (value?: IListItems, ...args) => any, waitFl: boolean): IListItems;
     /**
      * Method to execute the request synchronously.
      */
@@ -3467,7 +3467,7 @@ export interface ILimitedWebPartManager extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): ILimitedWebPartManager;
+    execute(callback?: (value?: ILimitedWebPartManager, ...args) => any): ILimitedWebPartManager;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -3478,7 +3478,7 @@ export interface ILimitedWebPartManager extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): ILimitedWebPartManager;
+    execute(callback: (value?: ILimitedWebPartManager, ...args) => any, waitFl: boolean): ILimitedWebPartManager;
     /**
      * Method to execute the request synchronously.
      */
@@ -3766,7 +3766,7 @@ export interface IList extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IList;
+    execute(callback?: (value?: IList, ...args) => any): IList;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -3777,7 +3777,7 @@ export interface IList extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IList;
+    execute(callback: (value?: IList, ...args) => any, waitFl: boolean): IList;
     /**
      * Method to execute the request synchronously.
      */
@@ -3956,7 +3956,7 @@ export interface IListItem extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IListItem;
+    execute(callback?: (value?: IListItem, ...args) => any): IListItem;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -3967,7 +3967,7 @@ export interface IListItem extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IListItem;
+    execute(callback: (value?: IListItem, ...args) => any, waitFl: boolean): IListItem;
     /**
      * Method to execute the request synchronously.
      */
@@ -4028,7 +4028,7 @@ export interface ILists extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): ILists;
+    execute(callback?: (value?: ILists, ...args) => any): ILists;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -4039,7 +4039,7 @@ export interface ILists extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): ILists;
+    execute(callback: (value?: ILists, ...args) => any, waitFl: boolean): ILists;
     /**
      * Method to execute the request synchronously.
      */
@@ -4142,7 +4142,7 @@ export interface IPeopleManager extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IPeopleManager;
+    execute(callback?: (value?: IPeopleManager, ...args) => any): IPeopleManager;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -4153,7 +4153,7 @@ export interface IPeopleManager extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IPeopleManager;
+    execute(callback: (value?: IPeopleManager, ...args) => any, waitFl: boolean): IPeopleManager;
     /**
      * Adds the specified user to the current user's list of followed users.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
@@ -4419,7 +4419,7 @@ export interface IPersonProperties extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IPersonProperties;
+    execute(callback?: (value?: IPersonProperties, ...args) => any): IPersonProperties;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -4430,7 +4430,7 @@ export interface IPersonProperties extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IPersonProperties;
+    execute(callback: (value?: IPersonProperties, ...args) => any, waitFl: boolean): IPersonProperties;
 }
 
 import { IBase, ITargetInfo, IUserProfile } from ".";
@@ -4455,7 +4455,7 @@ export interface IProfileLoader extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IProfileLoader;
+    execute(callback?: (value?: IProfileLoader, ...args) => any): IProfileLoader;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -4466,7 +4466,7 @@ export interface IProfileLoader extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IProfileLoader;
+    execute(callback: (value?: IProfileLoader, ...args) => any, waitFl: boolean): IProfileLoader;
     /**
      * Gets the user profile of the site owner.
      */
@@ -4822,7 +4822,7 @@ export interface IRoleAssignment extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IRoleAssignment;
+    execute(callback?: (value?: IRoleAssignment, ...args) => any): IRoleAssignment;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -4833,7 +4833,7 @@ export interface IRoleAssignment extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IRoleAssignment;
+    execute(callback: (value?: IRoleAssignment, ...args) => any, waitFl: boolean): IRoleAssignment;
     /**
      * Method to execute the request synchronously.
      */
@@ -4863,7 +4863,7 @@ export interface IRoleAssignments extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IRoleAssignments;
+    execute(callback?: (value?: IRoleAssignments, ...args) => any): IRoleAssignments;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -4874,7 +4874,7 @@ export interface IRoleAssignments extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IRoleAssignments;
+    execute(callback: (value?: IRoleAssignments, ...args) => any, waitFl: boolean): IRoleAssignments;
     /**
      * Method to execute the request synchronously.
      */
@@ -4934,7 +4934,7 @@ export interface IRoleDefinition extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IRoleDefinition;
+    execute(callback?: (value?: IRoleDefinition, ...args) => any): IRoleDefinition;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -4945,7 +4945,7 @@ export interface IRoleDefinition extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IRoleDefinition;
+    execute(callback: (value?: IRoleDefinition, ...args) => any, waitFl: boolean): IRoleDefinition;
     /**
      * Method to execute the request synchronously.
      */
@@ -4969,7 +4969,7 @@ export interface IRoleDefinitions extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IRoleDefinitions;
+    execute(callback?: (value?: IRoleDefinitions, ...args) => any): IRoleDefinitions;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -4980,7 +4980,7 @@ export interface IRoleDefinitions extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IRoleDefinitions;
+    execute(callback: (value?: IRoleDefinitions, ...args) => any, waitFl: boolean): IRoleDefinitions;
     /**
      * Method to execute the request synchronously.
      */
@@ -5047,7 +5047,7 @@ export interface SearchQueryResult extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): SearchQueryResult;
+    execute(callback?: (value?: SearchQueryResult, ...args) => any): SearchQueryResult;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -5058,7 +5058,7 @@ export interface SearchQueryResult extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): SearchQueryResult;
+    execute(callback: (value?: SearchQueryResult, ...args) => any, waitFl: boolean): SearchQueryResult;
     /**
      * Method to execute the request synchronously.
      */
@@ -5247,7 +5247,7 @@ export interface ISite extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): ISite;
+    execute(callback?: (value?: ISite, ...args) => any): ISite;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -5258,7 +5258,7 @@ export interface ISite extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): ISite;
+    execute(callback: (value?: ISite, ...args) => any, waitFl: boolean): ISite;
     /**
      * Method to execute the request synchronously.
      */
@@ -5352,7 +5352,7 @@ export interface ISiteGroups extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): ISiteGroups;
+    execute(callback?: (value?: ISiteGroups, ...args) => any): ISiteGroups;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -5363,7 +5363,7 @@ export interface ISiteGroups extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): ISiteGroups;
+    execute(callback: (value?: ISiteGroups, ...args) => any, waitFl: boolean): ISiteGroups;
     /**
      * Method to execute the request synchronously.
      */
@@ -5478,7 +5478,7 @@ export interface ISocialRestActor extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): ISocialRestActor;
+    execute(callback?: (value?: ISocialRestActor, ...args) => any): ISocialRestActor;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -5489,7 +5489,7 @@ export interface ISocialRestActor extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): ISocialRestActor;
+    execute(callback: (value?: ISocialRestActor, ...args) => any, waitFl: boolean): ISocialRestActor;
     /**
      * Method to execute the request synchronously.
      */
@@ -6198,7 +6198,7 @@ export interface IUser extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IUser;
+    execute(callback?: (value?: IUser, ...args) => any): IUser;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -6209,7 +6209,7 @@ export interface IUser extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IUser;
+    execute(callback: (value?: IUser, ...args) => any, waitFl: boolean): IUser;
     /**
      * Method to execute the request synchronously.
      */
@@ -6269,7 +6269,7 @@ export interface IUserCustomAction extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IUserCustomAction;
+    execute(callback?: (value?: IUserCustomAction, ...args) => any): IUserCustomAction;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -6280,7 +6280,7 @@ export interface IUserCustomAction extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IUserCustomAction;
+    execute(callback: (value?: IUserCustomAction, ...args) => any, waitFl: boolean): IUserCustomAction;
     /**
      * Method to execute the request synchronously.
      */
@@ -6313,7 +6313,7 @@ export interface IUserCustomActions extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IUserCustomActions;
+    execute(callback?: (value?: IUserCustomActions, ...args) => any): IUserCustomActions;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -6324,7 +6324,7 @@ export interface IUserCustomActions extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IUserCustomActions;
+    execute(callback: (value?: IUserCustomActions, ...args) => any, waitFl: boolean): IUserCustomActions;
     /**
      * Method to execute the request synchronously.
      */
@@ -6436,7 +6436,7 @@ export interface IUserProfile extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IUserProfile;
+    execute(callback?: (value?: IUserProfile, ...args) => any): IUserProfile;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -6447,7 +6447,7 @@ export interface IUserProfile extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IUserProfile;
+    execute(callback: (value?: IUserProfile, ...args) => any, waitFl: boolean): IUserProfile;
     /**
      * Sets the privacy settings for this profile.
      * @param publicFl - true to make all social data public; false to make all social data private.
@@ -6477,7 +6477,7 @@ export interface IUsers extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IUsers;
+    execute(callback?: (value?: IUsers, ...args) => any): IUsers;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -6488,7 +6488,7 @@ export interface IUsers extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IUsers;
+    execute(callback: (value?: IUsers, ...args) => any, waitFl: boolean): IUsers;
     /**
      * Method to execute the request synchronously.
      */
@@ -6558,7 +6558,7 @@ export interface IVersions extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IVersions;
+    execute(callback?: (value?: IVersions, ...args) => any): IVersions;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -6569,7 +6569,7 @@ export interface IVersions extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IVersions;
+    execute(callback: (value?: IVersions, ...args) => any, waitFl: boolean): IVersions;
     /**
      * Method to execute the request synchronously.
      */
@@ -6694,7 +6694,7 @@ export interface IView extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IView;
+    execute(callback?: (value?: IView, ...args) => any): IView;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -6705,7 +6705,7 @@ export interface IView extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IView;
+    execute(callback: (value?: IView, ...args) => any, waitFl: boolean): IView;
     /**
      * Method to execute the request synchronously.
      */
@@ -6747,7 +6747,7 @@ export interface IViewFields extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IViewFields;
+    execute(callback?: (value?: IViewFields, ...args) => any): IViewFields;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -6758,7 +6758,7 @@ export interface IViewFields extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IViewFields;
+    execute(callback: (value?: IViewFields, ...args) => any, waitFl: boolean): IViewFields;
     /**
      * Method to execute the request synchronously.
      */
@@ -6810,7 +6810,7 @@ export interface IViews extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IViews;
+    execute(callback?: (value?: IViews, ...args) => any): IViews;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -6821,7 +6821,7 @@ export interface IViews extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IViews;
+    execute(callback: (value?: IViews, ...args) => any, waitFl: boolean): IViews;
     /**
      * Method to execute the request synchronously.
      */
@@ -7195,7 +7195,7 @@ export interface IWeb extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IWeb;
+    execute(callback?: (value?: IWeb, ...args) => any): IWeb;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -7206,7 +7206,7 @@ export interface IWeb extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IWeb;
+    execute(callback: (value?: IWeb, ...args) => any, waitFl: boolean): IWeb;
     /**
      * Method to execute the request synchronously.
      */
@@ -7394,7 +7394,7 @@ export interface IWebs extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IWebs;
+    execute(callback?: (value?: IWebs, ...args) => any): IWebs;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -7405,7 +7405,7 @@ export interface IWebs extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IWebs;
+    execute(callback: (value?: IWebs, ...args) => any, waitFl: boolean): IWebs;
     /**
      * Method to execute the request synchronously.
      */

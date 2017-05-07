@@ -20,7 +20,7 @@ export interface IUsers extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IUsers;
+    execute(callback?: (value?: IUsers, ...args) => any): IUsers;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -31,7 +31,7 @@ export interface IUsers extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IUsers;
+    execute(callback: (value?: IUsers, ...args) => any, waitFl: boolean): IUsers;
     /**
      * Method to execute the request synchronously.
      */

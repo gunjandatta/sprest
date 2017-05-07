@@ -31,7 +31,7 @@ export interface IRoleDefinition extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IRoleDefinition;
+    execute(callback?: (value?: IRoleDefinition, ...args) => any): IRoleDefinition;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -42,7 +42,7 @@ export interface IRoleDefinition extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IRoleDefinition;
+    execute(callback: (value?: IRoleDefinition, ...args) => any, waitFl: boolean): IRoleDefinition;
     /**
      * Method to execute the request synchronously.
      */

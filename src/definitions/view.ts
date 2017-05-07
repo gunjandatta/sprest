@@ -144,7 +144,7 @@ export interface IView extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?:(...args) => any): IView;
+    execute(callback?:(value?:IView, ...args) => any): IView;
 
     /**
      * Method to execute the request.
@@ -157,7 +157,7 @@ export interface IView extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback:any, waitFl:boolean): IView;
+    execute(callback:(value?:IView, ...args) => any, waitFl:boolean): IView;
 
     /**
      * Method to execute the request synchronously.

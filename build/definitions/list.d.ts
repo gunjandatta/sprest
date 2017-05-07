@@ -274,7 +274,7 @@ export interface IList extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IList;
+    execute(callback?: (value?: IList, ...args) => any): IList;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -285,7 +285,7 @@ export interface IList extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IList;
+    execute(callback: (value?: IList, ...args) => any, waitFl: boolean): IList;
     /**
      * Method to execute the request synchronously.
      */

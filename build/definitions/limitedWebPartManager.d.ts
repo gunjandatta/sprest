@@ -15,7 +15,7 @@ export interface ILimitedWebPartManager extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): ILimitedWebPartManager;
+    execute(callback?: (value?: ILimitedWebPartManager, ...args) => any): ILimitedWebPartManager;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -26,7 +26,7 @@ export interface ILimitedWebPartManager extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): ILimitedWebPartManager;
+    execute(callback: (value?: ILimitedWebPartManager, ...args) => any, waitFl: boolean): ILimitedWebPartManager;
     /**
      * Method to execute the request synchronously.
      */

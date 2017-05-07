@@ -195,7 +195,7 @@ export interface ISite extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?:(...args) => any): ISite;
+    execute(callback?:(value?:ISite, ...args) => any): ISite;
 
     /**
      * Method to execute the request.
@@ -208,7 +208,7 @@ export interface ISite extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback:any, waitFl:boolean): ISite;
+    execute(callback:(value?:ISite, ...args) => any, waitFl:boolean): ISite;
 
     /**
      * Method to execute the request synchronously.

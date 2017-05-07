@@ -89,7 +89,7 @@ export interface IUserProfile extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IUserProfile;
+    execute(callback?: (value?: IUserProfile, ...args) => any): IUserProfile;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -100,7 +100,7 @@ export interface IUserProfile extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IUserProfile;
+    execute(callback: (value?: IUserProfile, ...args) => any, waitFl: boolean): IUserProfile;
     /**
      * Sets the privacy settings for this profile.
      * @param publicFl - true to make all social data public; false to make all social data private.

@@ -97,7 +97,7 @@ export interface IFolder extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?:(...args) => any): IFolder;
+    execute(callback?:(value?:IFolder, ...args) => any): IFolder;
 
     /**
      * Method to execute the request.
@@ -110,7 +110,7 @@ export interface IFolder extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback:any, waitFl:boolean): IFolder;
+    execute(callback:(value?:IFolder, ...args) => any, waitFl:boolean): IFolder;
 
     /**
      * Method to execute the request synchronously.

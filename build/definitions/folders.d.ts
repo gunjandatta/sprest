@@ -20,7 +20,7 @@ export interface IFolders extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IFolders;
+    execute(callback?: (value?: IFolders, ...args) => any): IFolders;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -31,7 +31,7 @@ export interface IFolders extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IFolders;
+    execute(callback: (value?: IFolders, ...args) => any, waitFl: boolean): IFolders;
     /**
      * Method to execute the request synchronously.
      */

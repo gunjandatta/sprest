@@ -51,7 +51,7 @@ export interface IUserCustomAction extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IUserCustomAction;
+    execute(callback?: (value?: IUserCustomAction, ...args) => any): IUserCustomAction;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -62,7 +62,7 @@ export interface IUserCustomAction extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IUserCustomAction;
+    execute(callback: (value?: IUserCustomAction, ...args) => any, waitFl: boolean): IUserCustomAction;
     /**
      * Method to execute the request synchronously.
      */

@@ -183,7 +183,7 @@ export interface IFile extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?:(...args) => any): IFile;
+    execute(callback?:(value?:IFile, ...args) => any): IFile;
 
     /**
      * Method to execute the request.
@@ -196,7 +196,7 @@ export interface IFile extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback:any, waitFl:boolean): IFile;
+    execute(callback:(value?:IFile, ...args) => any, waitFl:boolean): IFile;
 
     /**
      * Method to execute the request synchronously.

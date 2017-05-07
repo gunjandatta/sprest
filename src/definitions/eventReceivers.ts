@@ -29,7 +29,7 @@ export interface IEventReceivers extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?:(...args) => any): IEventReceivers;
+    execute(callback?:(value?:IEventReceivers, ...args) => any): IEventReceivers;
 
     /**
      * Method to execute the request.
@@ -42,7 +42,7 @@ export interface IEventReceivers extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback:any, waitFl:boolean): IEventReceivers;
+    execute(callback:(value?:IEventReceivers, ...args) => any, waitFl:boolean): IEventReceivers;
 
     /**
      * Method to execute the request synchronously.

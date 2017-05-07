@@ -29,7 +29,7 @@ export interface ISiteGroups extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?:(...args) => any): ISiteGroups;
+    execute(callback?:(value?:ISiteGroups, ...args) => any): ISiteGroups;
 
     /**
      * Method to execute the request.
@@ -42,7 +42,7 @@ export interface ISiteGroups extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback:any, waitFl:boolean): ISiteGroups;
+    execute(callback:(value?:ISiteGroups, ...args) => any, waitFl:boolean): ISiteGroups;
 
     /**
      * Method to execute the request synchronously.

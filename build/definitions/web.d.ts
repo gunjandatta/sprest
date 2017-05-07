@@ -346,7 +346,7 @@ export interface IWeb extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IWeb;
+    execute(callback?: (value?: IWeb, ...args) => any): IWeb;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -357,7 +357,7 @@ export interface IWeb extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IWeb;
+    execute(callback: (value?: IWeb, ...args) => any, waitFl: boolean): IWeb;
     /**
      * Method to execute the request synchronously.
      */

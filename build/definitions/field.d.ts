@@ -76,7 +76,7 @@ export interface IField extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IField;
+    execute(callback?: (value?: IField, ...args) => any): IField;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -87,7 +87,7 @@ export interface IField extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IField;
+    execute(callback: (value?: IField, ...args) => any, waitFl: boolean): IField;
     /**
      * Method to execute the request synchronously.
      */

@@ -340,7 +340,7 @@ export class SPConfig {
                 // See if the content type exists
                 if(parentContentTypes.existsFl) {
                     // Add the content type
-                    contentTypes.addAvailableContentType(parentContentTypes.results[0].Id.StringValue).execute((contentType:IContentType) => {
+                    contentTypes.addAvailableContentType(parentContentTypes.results[0].Id.StringValue).execute((contentType) => {
                         let props = {};
 
                         // See if we need to update the content type
@@ -490,7 +490,7 @@ export class SPConfig {
             if(listName && listInfo.Title.toLowerCase() != listName) { continue; }
 
             // Get the list
-            lists.getByTitle(listInfo.Title).execute((list:IList) => {
+            lists.getByTitle(listInfo.Title).execute((list) => {
                 // See if the list exists
                 if(list.existsFl) {
                     // Log
@@ -506,7 +506,7 @@ export class SPConfig {
                     // Add the list
                     lists.add(listInfo)
                     // Execute the request
-                    .execute((list:IList) => {
+                    .execute((list) => {
                         // Restore the list name in the configuration
                         listInfo.Title = listName;
 
@@ -539,7 +539,7 @@ export class SPConfig {
         // Parse the view configurations
         for(let i=0; i<cfg.length; i++) {
             // Get the view
-            list.Views().getByTitle(cfg[i].ViewName).execute((view:IView) => {
+            list.Views().getByTitle(cfg[i].ViewName).execute((view) => {
                 // Ensure the view exists
                 if(view.existsFl) {
                     // Log
@@ -554,7 +554,7 @@ export class SPConfig {
                     // Create the view
                     list.Views().add({
                         Title: cfg[i].ViewName
-                    }).execute((view:IView) => {
+                    }).execute((view) => {
                         // Update the view
                         this.updateListView(listName, view, cfg[i]);
                     });
@@ -578,7 +578,7 @@ export class SPConfig {
                 Filter: "Name eq '" + cfg[i].Name + "'"
             })
             // Execute the request, while waiting for the previous request to complete
-            .execute((ca:IUserCustomAction) => {
+            .execute((ca) => {
                 // See if this custom action exists
                 if(ca.existsFl) {
                     // Log
@@ -620,7 +620,7 @@ export class SPConfig {
                     // See if the webpart is in the configuration
                     if(this.isInConfiguration(file, "Name", cfg, "FileName", "File")) {
                         // Log
-                        console.log("[gd-sprest][WebPart] The webpart '" + file.FileName + "' already exists.");
+                        console.log("[gd-sprest][WebPart] The webpart '" + file.Name + "' already exists.");
 
                         // See if all the webparts have been removed
                         if(++counter == cfg.length) { break; }
@@ -648,7 +648,7 @@ export class SPConfig {
                     }
 
                     // Create the webpart, but execute the requests one at a time
-                    folder.Files().add(true, cfg[i].FileName, buffer).execute((file:IFile) => {
+                    folder.Files().add(true, cfg[i].FileName, buffer).execute((file) => {
                         // See if group exists
                         if(wpCfg.Group) {
                             // Set the target to the root web
@@ -662,7 +662,7 @@ export class SPConfig {
                                     Filter: "FileLeafRef eq '" + cfg[i].FileName + "'"
                                 })
                                 // Execute the request
-                                .execute((items:IListItems) => {
+                                .execute((items) => {
                                     // Update the item
                                     items.results[0].update({
                                         Group: wpCfg.Group
@@ -681,7 +681,7 @@ export class SPConfig {
     }
 
     // Method to determine if the configuration contains the target
-    private isInConfiguration = (target:IContentType | IField | ISPCfgFieldInfo, propName:string, cfg:Array<ISPCfgContentTypeInfo | ISPCfgFieldInfo | ISPCfgWebPartInfo>, cfgPropName:string, cfgRefName:string) => {
+    private isInConfiguration = (target:IContentType | IField | IFile | ISPCfgFieldInfo, propName:string, cfg:Array<ISPCfgContentTypeInfo | ISPCfgFieldInfo | ISPCfgWebPartInfo>, cfgPropName:string, cfgRefName:string) => {
         // Parse the configuration
         for(let i=0; i<cfg.length; i++) {
             let cfgItem = cfg[i];

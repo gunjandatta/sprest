@@ -35,7 +35,7 @@ export interface IFileVersion extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IFileVersion;
+    execute(callback?: (value?: IFileVersion, ...args) => any): IFileVersion;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -46,7 +46,7 @@ export interface IFileVersion extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IFileVersion;
+    execute(callback: (value?: IFileVersion, ...args) => any, waitFl: boolean): IFileVersion;
     /**
      * Method to execute the request synchronously.
      */

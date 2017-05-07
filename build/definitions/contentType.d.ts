@@ -86,7 +86,7 @@ export interface IContentType extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IContentType;
+    execute(callback?: (value?: IContentType, ...args) => any): IContentType;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -97,7 +97,7 @@ export interface IContentType extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IContentType;
+    execute(callback: (value?: IContentType, ...args) => any, waitFl: boolean): IContentType;
     /**
      * Method to execute the request synchronously.
      */

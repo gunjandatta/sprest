@@ -77,7 +77,7 @@ export interface ISocialRestActor extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): ISocialRestActor;
+    execute(callback?: (value?: ISocialRestActor, ...args) => any): ISocialRestActor;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -88,7 +88,7 @@ export interface ISocialRestActor extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): ISocialRestActor;
+    execute(callback: (value?: ISocialRestActor, ...args) => any, waitFl: boolean): ISocialRestActor;
     /**
      * Method to execute the request synchronously.
      */

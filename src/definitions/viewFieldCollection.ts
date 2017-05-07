@@ -33,7 +33,7 @@ export interface IViewFields extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?:(...args) => any): IViewFields;
+    execute(callback?:(value?:IViewFields, ...args) => any): IViewFields;
 
     /**
      * Method to execute the request.
@@ -46,7 +46,7 @@ export interface IViewFields extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback:any, waitFl:boolean): IViewFields;
+    execute(callback:(value?:IViewFields, ...args) => any, waitFl:boolean): IViewFields;
 
     /**
      * Method to execute the request synchronously.

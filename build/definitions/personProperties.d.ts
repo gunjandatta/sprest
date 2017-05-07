@@ -69,7 +69,7 @@ export interface IPersonProperties extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IPersonProperties;
+    execute(callback?: (value?: IPersonProperties, ...args) => any): IPersonProperties;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -80,5 +80,5 @@ export interface IPersonProperties extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IPersonProperties;
+    execute(callback: (value?: IPersonProperties, ...args) => any, waitFl: boolean): IPersonProperties;
 }

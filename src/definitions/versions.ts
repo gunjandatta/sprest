@@ -35,7 +35,7 @@ export interface IVersions extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?:(...args) => any): IVersions;
+    execute(callback?:(value?:IVersions, ...args) => any): IVersions;
 
     /**
      * Method to execute the request.
@@ -48,7 +48,7 @@ export interface IVersions extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback:any, waitFl:boolean): IVersions;
+    execute(callback:(value?:IVersions, ...args) => any, waitFl:boolean): IVersions;
 
     /**
      * Method to execute the request synchronously.

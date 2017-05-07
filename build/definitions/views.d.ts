@@ -19,7 +19,7 @@ export interface IViews extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): IViews;
+    execute(callback?: (value?: IViews, ...args) => any): IViews;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -30,7 +30,7 @@ export interface IViews extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): IViews;
+    execute(callback: (value?: IViews, ...args) => any, waitFl: boolean): IViews;
     /**
      * Method to execute the request synchronously.
      */

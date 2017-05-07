@@ -34,7 +34,7 @@ export interface SearchQueryResult extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (...args) => any): SearchQueryResult;
+    execute(callback?: (value?: SearchQueryResult, ...args) => any): SearchQueryResult;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
@@ -45,7 +45,7 @@ export interface SearchQueryResult extends IBase {
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: any, waitFl: boolean): SearchQueryResult;
+    execute(callback: (value?: SearchQueryResult, ...args) => any, waitFl: boolean): SearchQueryResult;
     /**
      * Method to execute the request synchronously.
      */
