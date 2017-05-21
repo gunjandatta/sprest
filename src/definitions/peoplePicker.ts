@@ -1,7 +1,6 @@
 import {
     IBase,
-    ITargetInfo,
-    SPTypes
+    ITargetInfo
 } from ".";
 /**
  * Entity Data
@@ -49,10 +48,10 @@ export interface PeoplePickerQuery {
     MaximumEntitySuggestions: number;
 
     /** The principal source. */
-    PrincipalSource?: SPTypes.PrincipalSources;
+    PrincipalSource?: number;
 
     /** The principal type. */
-    PrincipalType?: SPTypes.PrincipalTypes;
+    PrincipalType?: number;
 
     /** The query string. This value must be >= 3 characters. */
     QueryString?: string;
@@ -64,7 +63,7 @@ export interface PeoplePickerQuery {
     SharePointGroupID?: number;
 
     /** The url zone. */
-    UrlZone?: SPTypes.URLZones;
+    UrlZone?: number;
 
     /** Url zone specified flag. */
     UrlZoneSpecified?: boolean;
