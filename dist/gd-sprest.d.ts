@@ -4245,6 +4245,8 @@ import { IBase, ITargetInfo } from ".";
  * Entity Data
  */
 export interface EntityData {
+    /** Account Name */
+    AccountName: string;
     /** Department. */
     Department: string;
     /** EMail */
@@ -4255,6 +4257,10 @@ export interface EntityData {
     MobilePhone: string;
     /** Object ID */
     ObjectId: string;
+    /** Principal Type */
+    PrincipalType: string;
+    /** SharePoint User ID */
+    SPUserID: string;
     /** Title */
     Title: string;
 }

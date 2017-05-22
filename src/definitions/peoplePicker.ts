@@ -6,6 +6,9 @@ import {
  * Entity Data
  */
 export interface EntityData {
+    /** Account Name */
+    AccountName: string;
+
     /** Department. */
     Department: string;
 
@@ -20,6 +23,12 @@ export interface EntityData {
 
     /** Object ID */
     ObjectId: string;
+
+    /** Principal Type */
+    PrincipalType: string;
+
+    /** SharePoint User ID */
+    SPUserID: string;
 
     /** Title */
     Title: string;
