@@ -296,7 +296,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.44,
+    __ver: 1.46,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -6315,6 +6315,7 @@ var OData = function () {
     // The class constructor
     function OData(oData) {
         // Default the Variables
+        this._custom = oData && oData.Custom ? oData.Custom : null;
         this._expand = oData && oData.Expand ? oData.Expand : [];
         this._filter = oData && oData.Filter ? oData.Filter : null;
         this._getAllItems = oData && oData.GetAllItems ? oData.GetAllItems : false;
@@ -6323,10 +6324,21 @@ var OData = function () {
         this._skip = oData && oData.Skip ? oData.Skip : null;
         this._top = oData && oData.Top ? oData.Top : null;
     }
-    Object.defineProperty(OData.prototype, "Expand", {
+    Object.defineProperty(OData.prototype, "Custom", {
         /*********************************************************************************************************************************/
         // Properties
         /*********************************************************************************************************************************/
+        // Custom
+        get: function get() {
+            return this._custom;
+        },
+        set: function set(value) {
+            this._custom = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(OData.prototype, "Expand", {
         // Expand
         get: function get() {
             return this._expand;
@@ -6382,6 +6394,7 @@ var OData = function () {
             this._skip ? values.push("$skip=" + this._skip) : null;
             this._filter ? values.push("$filter=" + this._filter) : null;
             values.push(this.getQSValue("$expand", this._expand));
+            this._custom ? values.push(this._custom) : null;
             // Parse the values
             for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
                 var value = values_1[_i];

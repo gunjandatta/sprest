@@ -2,6 +2,8 @@
  * OData Settings
  */
 export interface ODataQuery {
+    /** An optional custom query string */
+    Custom?: string;
     /** The fields to expand. */
     Expand?: Array<string>;
     /** The filters. */

@@ -7,6 +7,7 @@ export class OData {
     /*********************************************************************************************************************************/
     // Global Variables
     /*********************************************************************************************************************************/
+    private _custom?: string;
     private _expand?: Array<string>;
     private _filter?: string;
     private _getAllItems?: boolean;
@@ -22,6 +23,7 @@ export class OData {
     // The class constructor
     constructor(oData:ODataQuery) {
         // Default the Variables
+        this._custom = oData && oData.Custom ? oData.Custom : null;
         this._expand = oData && oData.Expand ? oData.Expand : [];
         this._filter = oData && oData.Filter ? oData.Filter : null;
         this._getAllItems = oData && oData.GetAllItems ? oData.GetAllItems : false;
@@ -34,6 +36,10 @@ export class OData {
     /*********************************************************************************************************************************/
     // Properties
     /*********************************************************************************************************************************/
+
+    // Custom
+    get Custom():string { return this._custom; }
+    set Custom(value:string) { this._custom = value; }
 
     // Expand
     get Expand():Array<string> { return this._expand; }
@@ -63,6 +69,7 @@ export class OData {
         this._skip ? values.push("$skip=" + this._skip) : null;
         this._filter ? values.push("$filter=" + this._filter) : null;
         values.push(this.getQSValue("$expand", this._expand));
+        this._custom ? values.push(this._custom) : null;
 
         // Parse the values
         for(let value of values) {
