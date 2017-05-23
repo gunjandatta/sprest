@@ -471,8 +471,11 @@ export class SPConfig {
                 // Log
                 console.log("[gd-sprest][Field] Creating the field '" + cfg[i].Name + "' field in the " + (listName ? "'" + listName + "' list" : "current web") + ".");
 
-                // Create the field, but wait for the previous request to complete first
-                fields.createFieldAsXml(cfg[i].SchemaXml).execute(true);
+                // Update the schema xml
+                this.updateFieldSchemaXml(cfg[i].SchemaXml).done((schemaXml) => {
+                    // Create the field, but wait for the previous request to complete first
+                    fields.createFieldAsXml(schemaXml).execute(true);
+                });
             }
         });
     }
@@ -847,6 +850,44 @@ export class SPConfig {
                     }
                 }
             });
+    }
+
+    // Method to update the schema xml
+    private updateFieldSchemaXml = (schemaXml:string) => {
+        let promise = new Promise();
+
+        // Create the schema
+        let fieldInfo:HTMLElement = document.createElement("field");
+        fieldInfo.innerHTML = schemaXml;
+        fieldInfo = fieldInfo.querySelector("field") as HTMLElement;
+
+        // Get the field type
+        switch(fieldInfo.getAttribute("Type")) {
+            case "Lookup":
+            case "LookupMulti":
+                // Get the target list
+                (new List(fieldInfo.getAttribute("List"))).execute((list) => {
+                    // Ensure the list exists
+                    if(list.existsFl) {
+                        var startIdx = schemaXml.toLowerCase().indexOf("list=");
+                        var endIdx = schemaXml.indexOf(" ", startIdx);
+
+                        // Replace the List property
+                        schemaXml = schemaXml.substr(0, startIdx) + "List=\"" + list.Id + "\"" + schemaXml.substr(endIdx);
+                    }
+
+                    // Resolve the promise
+                    promise.resolve(schemaXml);
+                });
+                break;
+            default:
+                // Resolve the promise
+                promise.resolve(schemaXml);
+                break;
+        }
+
+        // Return the promise
+        return promise;
     }
 
     // Method to update the list

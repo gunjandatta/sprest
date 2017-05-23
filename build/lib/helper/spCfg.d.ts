@@ -40,6 +40,7 @@ export declare class SPConfig {
     private removeLists(lists, cfg, targetList?);
     private removeUserCustomActions;
     private removeWebParts(folder, cfg);
+    private updateFieldSchemaXml;
     private updateList;
     private updateListView;
 }

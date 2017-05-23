@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = require("../../utils");
 var types_1 = require("../../types");
 var __1 = require("..");
 /*********************************************************************************************************************************/
@@ -301,8 +302,11 @@ var SPConfig = (function () {
                     }
                     // Log
                     console.log("[gd-sprest][Field] Creating the field '" + cfg[i].Name + "' field in the " + (listName ? "'" + listName + "' list" : "current web") + ".");
-                    // Create the field, but wait for the previous request to complete first
-                    fields.createFieldAsXml(cfg[i].SchemaXml).execute(true);
+                    // Update the schema xml
+                    _this.updateFieldSchemaXml(cfg[i].SchemaXml).done(function (schemaXml) {
+                        // Create the field, but wait for the previous request to complete first
+                        fields.createFieldAsXml(schemaXml).execute(true);
+                    });
                 }
             });
         };
@@ -574,6 +578,38 @@ var SPConfig = (function () {
                     }
                 }
             });
+        };
+        // Method to update the schema xml
+        this.updateFieldSchemaXml = function (schemaXml) {
+            var promise = new utils_1.Promise();
+            // Create the schema
+            var fieldInfo = document.createElement("field");
+            fieldInfo.innerHTML = schemaXml;
+            fieldInfo = fieldInfo.querySelector("field");
+            // Get the field type
+            switch (fieldInfo.getAttribute("Type")) {
+                case "Lookup":
+                case "LookupMulti":
+                    // Get the target list
+                    (new __1.List(fieldInfo.getAttribute("List"))).execute(function (list) {
+                        // Ensure the list exists
+                        if (list.existsFl) {
+                            var startIdx = schemaXml.toLowerCase().indexOf("list=");
+                            var endIdx = schemaXml.indexOf(" ", startIdx);
+                            // Replace the List property
+                            schemaXml = schemaXml.substr(0, startIdx) + "List=\"" + list.Id + "\"" + schemaXml.substr(endIdx);
+                        }
+                        // Resolve the promise
+                        promise.resolve(schemaXml);
+                    });
+                    break;
+                default:
+                    // Resolve the promise
+                    promise.resolve(schemaXml);
+                    break;
+            }
+            // Return the promise
+            return promise;
         };
         // Method to update the list
         this.updateList = function (listName, list, cfg) {
