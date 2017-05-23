@@ -216,6 +216,8 @@ var SPConfig = (function () {
         this.createContentTypes = function (contentTypes, cfg, listInfo) {
             // Ensure configuration exist
             if (cfg == null || cfg.length == 0) {
+                // Log
+                console.log("[gd-sprest][Content Type] No content types exist in the configuration.");
                 return;
             }
             // Clear the content types in the configuration
@@ -254,6 +256,8 @@ var SPConfig = (function () {
         this.createFields = function (fields, cfg, listInfo) {
             // Ensure configuration exist
             if (cfg == null || cfg.length == 0) {
+                // Log
+                console.log("[gd-sprest][Fields] No fields exist in the " + (listInfo ? "list '" + listInfo.ListInformation.Title + "' " : "") + " configuration.");
                 return;
             }
             // Clear the fields in the configuration
@@ -312,8 +316,10 @@ var SPConfig = (function () {
         };
         // Method to create the lists
         this.createLists = function (lists, cfg, listName) {
-            // Ensure lists exist
+            // Ensure configuration exist
             if (cfg == null || cfg.length == 0) {
+                // Log
+                console.log("[gd-sprest][Lists] No lists exist in the configuration.");
                 return;
             }
             var _loop_1 = function (i) {
@@ -369,6 +375,8 @@ var SPConfig = (function () {
         this.createListViews = function (listName, list, cfg) {
             // Ensure view configurations exist
             if (cfg == null || cfg.length == 0) {
+                // Log
+                console.log("[gd-sprest][Lists] No views exist in the '" + list.Title + "' list configuration.");
                 return;
             }
             var _loop_2 = function (i) {
@@ -437,6 +445,8 @@ var SPConfig = (function () {
         this.createWebParts = function (folder, cfg, listInfo) {
             // Ensure the configuration exists
             if (cfg == null || cfg.length == 0) {
+                // Log
+                console.log("[gd-sprest][WebParts] No webparts exist in the configuration.");
                 return;
             }
             // Clear the web parts in the configuration
@@ -595,7 +605,7 @@ var SPConfig = (function () {
                         // Ensure the list exists
                         if (list.existsFl) {
                             var startIdx = schemaXml.toLowerCase().indexOf("list=");
-                            var endIdx = schemaXml.indexOf(" ", startIdx);
+                            var endIdx = schemaXml.indexOf(" ", startIdx + 5 + list.Title.length);
                             // Replace the List property
                             schemaXml = schemaXml.substr(0, startIdx) + "List=\"" + list.Id + "\"" + schemaXml.substr(endIdx);
                         }

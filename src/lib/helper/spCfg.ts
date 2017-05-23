@@ -378,7 +378,11 @@ export class SPConfig {
     // Method to create the content types
     private createContentTypes = (contentTypes:IContentTypes, cfg:Array<ISPCfgContentTypeInfo>, listInfo?:ISPCfgListInfo) => {
         // Ensure configuration exist
-        if(cfg == null || cfg.length == 0) { return; }
+        if(cfg == null || cfg.length == 0) {
+            // Log
+            console.log("[gd-sprest][Content Type] No content types exist in the configuration.");
+            return;
+        }
 
         // Clear the content types in the configuration
         for(let i=0; i<cfg.length; i++) { cfg[i].ContentType = null; }
@@ -419,7 +423,11 @@ export class SPConfig {
     // Method to create the fields
     private createFields = (fields:IFields, cfg:Array<ISPCfgFieldInfo>, listInfo?:ISPCfgListInfo) => {
         // Ensure configuration exist
-        if(cfg == null || cfg.length == 0) { return; }
+        if(cfg == null || cfg.length == 0) {
+            // Log
+            console.log("[gd-sprest][Fields] No fields exist in the " + (listInfo ? "list '" + listInfo.ListInformation.Title + "' " : "") + " configuration.");
+            return;
+        }
 
         // Clear the fields in the configuration
         for(let i=0; i<cfg.length; i++) { cfg[i].Field = null; }
@@ -482,8 +490,12 @@ export class SPConfig {
 
     // Method to create the lists
     private createLists = (lists:ILists, cfg:Array<ISPCfgListInfo>, listName?:string) => {
-        // Ensure lists exist
-        if(cfg == null || cfg.length == 0) { return; }
+        // Ensure configuration exist
+        if(cfg == null || cfg.length == 0) {
+            // Log
+            console.log("[gd-sprest][Lists] No lists exist in the configuration.");
+            return;
+        }
 
         // Parse the configuration
         for(let i=0; i<cfg.length; i++) {
@@ -537,7 +549,11 @@ export class SPConfig {
     // Method to create the list views
     private createListViews = (listName:string, list:IList, cfg:Array<ISPCfgViewInfo>) => {
         // Ensure view configurations exist
-        if(cfg == null || cfg.length == 0) { return; }
+        if(cfg == null || cfg.length == 0) {
+            // Log
+            console.log("[gd-sprest][Lists] No views exist in the '" + list.Title + "' list configuration.");
+            return;
+        }
 
         // Parse the view configurations
         for(let i=0; i<cfg.length; i++) {
@@ -600,7 +616,11 @@ export class SPConfig {
     // Method to create the web parts
     private createWebParts = (folder:IFolder, cfg:Array<ISPCfgWebPartInfo>, listInfo?:ISPCfgListInfo) => {
         // Ensure the configuration exists
-        if(cfg == null || cfg.length == 0) { return; }
+        if(cfg == null || cfg.length == 0) {
+            // Log
+            console.log("[gd-sprest][WebParts] No webparts exist in the configuration.");
+            return;
+        }
 
         // Clear the web parts in the configuration
         for(let i=0; i<cfg.length; i++) { cfg[i].File = null; }
@@ -870,7 +890,7 @@ export class SPConfig {
                     // Ensure the list exists
                     if(list.existsFl) {
                         var startIdx = schemaXml.toLowerCase().indexOf("list=");
-                        var endIdx = schemaXml.indexOf(" ", startIdx);
+                        var endIdx = schemaXml.indexOf(" ", startIdx + 5 + list.Title.length);
 
                         // Replace the List property
                         schemaXml = schemaXml.substr(0, startIdx) + "List=\"" + list.Id + "\"" + schemaXml.substr(endIdx);
