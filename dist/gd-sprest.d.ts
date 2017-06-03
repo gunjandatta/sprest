@@ -409,6 +409,15 @@ export interface FieldCalculationErrorValue {
     ErrorMessage: string;
 }
 /**
+ * Field Choices
+ */
+export interface FieldMultiChoiceValue {
+    __metadata?: {
+        type: string;
+    };
+    results: Array<string>;
+}
+/**
  * Field Creation Information
  */
 export interface FieldCreationInformation {
@@ -433,6 +442,9 @@ export interface FieldCreationInformation {
  * Field Geolocation Value
  */
 export interface FieldGeolocationValue {
+    __metadata?: {
+        type: string;
+    };
     Altitude: number;
     Latitude: number;
     Longitude: number;
@@ -442,6 +454,9 @@ export interface FieldGeolocationValue {
  * Field Lookup Value
  */
 export interface FieldLookupValue {
+    __metadata?: {
+        type: string;
+    };
     LookupId: number;
     LookupValue: string;
 }
@@ -449,6 +464,9 @@ export interface FieldLookupValue {
  * Field Rating Scale Question Answer
  */
 export interface FieldRatingScaleQuestionAnswer {
+    __metadata?: {
+        type: string;
+    };
     Answer: number;
     Question: string;
 }
@@ -456,6 +474,9 @@ export interface FieldRatingScaleQuestionAnswer {
  * Field Url Value
  */
 export interface FieldUrlValue {
+    __metadata?: {
+        type: string;
+    };
     Description: string;
     Url: string;
 }
@@ -463,6 +484,9 @@ export interface FieldUrlValue {
  * Field User Value
  */
 export interface FieldUserValue {
+    __metadata?: {
+        type: string;
+    };
     ContentTypeDisp: string;
     Created: string;
     Department: string;
