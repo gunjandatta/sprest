@@ -2206,7 +2206,9 @@ export interface IField extends IBase {
  */
 export interface IFieldBaseChoice extends IField {
     /** A value that specifies values that are available for selection in the field. */
-    Choices: Array<string>;
+    Choices: {
+        results: Array<string>;
+    };
     /** A value that specifies whether the field can accept values other than those specified by the Choices property. */
     FillInChoice: boolean;
     /** A value that specifies the internal values corresponding to Choices. */
