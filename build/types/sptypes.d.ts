@@ -1,10 +1,36 @@
 /**
+ * Calendar Types
+ */
+export declare const CalendarTypes: {
+    Gregorian: number;
+    JapaneseEmperorEra: number;
+    TaiwanCalendar: number;
+    KoreanTangunEra: number;
+    Hijri: number;
+    Thai: number;
+    HebrewLunar: number;
+    GregorianMiddleEastFrench: number;
+    GregorianArabic: number;
+    GregorianTransliteratedEnglish: number;
+    GregorianTransliteratedFrench: number;
+    KoreanandJapaneseLunar: number;
+    ChineseLunar: number;
+    SakaEra: number;
+};
+/**
  * Check Out Types
  */
 export declare const CheckOutType: {
     Online: number;
     Offline: number;
     None: number;
+};
+/**
+ * Choice Format Types
+ */
+export declare const ChoiceFormatType: {
+    Dropdown: number;
+    RadioButtons: number;
 };
 /**
  * Client Template Utility
@@ -22,6 +48,13 @@ export declare const ControlMode: {
     Edit: number;
     New: number;
     View: number;
+};
+/**
+ * Date Format
+ */
+export declare const DateFormat: {
+    DateOnly: number;
+    DateTime: number;
 };
 /**
  * Draft Visibility Types
@@ -119,6 +152,13 @@ export declare const EventReceiverSynchronizationType: {
     Asynchronous: number;
 };
 /**
+ * Field User Selection Types
+ */
+export declare const FieldUserSelectionType: {
+    PeopleOnly: number;
+    PeopleAndGroups: number;
+};
+/**
  * Field Types
  */
 export declare const FieldType: {
@@ -163,6 +203,14 @@ export declare const FileTemplateType: {
     StandardPage: number;
     WikiPage: number;
     FormPage: number;
+};
+/**
+ * Friendly Date Format
+ */
+export declare const FriendlyDateFormat: {
+    Unspecified: number;
+    Disabled: number;
+    Relative: number;
 };
 /**
  * List Template Types
@@ -228,6 +276,144 @@ export declare const ListTemplateType: {
     XMLForm: number;
 };
 /**
+ * Locale LCID Types
+ */
+export declare const LocaleLCIDType: {
+    Afrikaans: number;
+    Albanian: number;
+    ArabicAlgeria: number;
+    ArabicBahrain: number;
+    ArabicEgypt: number;
+    ArabicIraq: number;
+    ArabicJordan: number;
+    ArabicLebanon: number;
+    ArabicLibya: number;
+    ArabicMorocco: number;
+    ArabicOman: number;
+    ArabicQatar: number;
+    ArabicSaudiArabia: number;
+    ArabicSyria: number;
+    ArabicTunisia: number;
+    ArabicUAE: number;
+    ArabicYemen: number;
+    Armenian: number;
+    AzeriCyrillic: number;
+    AzeriLatin: number;
+    Basque: number;
+    Belarusian: number;
+    Bulgarian: number;
+    Catalan: number;
+    ChineseHongKongSAR: number;
+    ChineseMacaoSAR: number;
+    ChinesePRC: number;
+    ChineseSingapore: number;
+    ChineseTaiwan: number;
+    CroatianCroatia: number;
+    Czech: number;
+    Danish: number;
+    Divehi: number;
+    DutchBelgium: number;
+    DutchNetherlands: number;
+    EnglishAustralia: number;
+    EnglishBelize: number;
+    EnglishCanada: number;
+    EnglishCaribbean: number;
+    EnglishIreland: number;
+    EnglishJamaica: number;
+    EnglishNewZealand: number;
+    EnglishPhilippines: number;
+    EnglishSouthAfrica: number;
+    EnglishTrinidad: number;
+    EnglishUnitedKingdom: number;
+    EnglishUnitedStates: number;
+    EnglishZimbabwe: number;
+    Estonian: number;
+    Faeroese: number;
+    Finnish: number;
+    FrenchBelgium: number;
+    FrenchCanada: number;
+    FrenchFrance: number;
+    FrenchLuxembourg: number;
+    FrenchMonaco: number;
+    FrenchSwitzerland: number;
+    Galician: number;
+    Georgian: number;
+    GermanAustria: number;
+    GermanGermany: number;
+    GermanLiechtenstein: number;
+    GermanLuxembourg: number;
+    GermanSwitzerland: number;
+    Greek: number;
+    Gujarati: number;
+    HebrewIsrael: number;
+    HindiIndia: number;
+    Hungarian: number;
+    Icelandic: number;
+    Indonesian: number;
+    ItalianItaly: number;
+    ItalianSwitzerland: number;
+    Japanese: number;
+    Kannada: number;
+    Kazakh: number;
+    Konkani: number;
+    Korean: number;
+    KyrgyzCyrillic: number;
+    Latvian: number;
+    Lithuanian: number;
+    MacedonianFYROM: number;
+    Malay: number;
+    MalayBruneiDarussalam: number;
+    Marathi: number;
+    MongolianCyrillic: number;
+    NorwegianBokmal: number;
+    NorwegianNynorsk: number;
+    PersianIran: number;
+    Polish: number;
+    PortugueseBrazil: number;
+    PortuguesePortugal: number;
+    Punjabi: number;
+    Romanian: number;
+    Russian: number;
+    Sanskrit: number;
+    SerbianCyrillic: number;
+    SerbianLatin: number;
+    Slovak: number;
+    Slovenian: number;
+    SpanishArgentina: number;
+    SpanishBolivia: number;
+    SpanishChile: number;
+    SpanishColombia: number;
+    SpanishCostaRica: number;
+    SpanishDominicanRepublic: number;
+    SpanishEcuador: number;
+    SpanishElSalvador: number;
+    SpanishGuatemala: number;
+    SpanishHonduras: number;
+    SpanishMexico: number;
+    SpanishNicaragua: number;
+    SpanishPanama: number;
+    SpanishParaguay: number;
+    SpanishPeru: number;
+    SpanishPuertoRico: number;
+    SpanishSpain: number;
+    SpanishUruguay: number;
+    SpanishVenezuela: number;
+    Swahili: number;
+    Swedish: number;
+    SwedishFinland: number;
+    Syriac: number;
+    Tamil: number;
+    Tatar: number;
+    Telugu: number;
+    ThaiThailand: number;
+    Turkish: number;
+    Ukrainian: number;
+    UrduPakistan: number;
+    UzbekCyrillic: number;
+    UzbekLatin: number;
+    Vietnamese: number;
+};
+/**
  * Page Types
  */
 export declare const PageType: {
@@ -280,6 +466,14 @@ export declare const PrincipalTypes: {
     User: number;
 };
 /**
+ * Relationship Delete Behavior Types
+ */
+export declare const RelationshipDeleteBehaviorType: {
+    None: number;
+    Cascade: number;
+    Restrict: number;
+};
+/**
  * Reordering Rule Match Types
  */
 export declare const ReorderingRuleMatchType: {
@@ -304,6 +498,13 @@ export declare const RoleType: {
     None: number;
     Reader: number;
     WebDesigner: number;
+};
+/**
+ * URL Format Types
+ */
+export declare const UrlFormatType: {
+    Hyperlink: number;
+    Image: number;
 };
 /**
  * URL Zones

@@ -1,4 +1,37 @@
 /**
+ * Calendar Types
+ */
+export declare type CalendarType = {
+    /** Gregorian (localized) */
+    Gregorian;
+    /** Japanese Emperor Era */
+    JapaneseEmperorEra;
+    /** Taiwan Calendar */
+    TaiwanCalendar;
+    /** Korean Tangun Era */
+    KoreanTangunEra;
+    /** Hijri (Arabic Lunar) */
+    Hijri;
+    /** Thai */
+    Thai;
+    /** Hebrew Lunar */
+    HebrewLunar;
+    /** Gregorian (Middle East French) */
+    GregorianMiddleEastFrench;
+    /** Gregorian (Arabic) */
+    GregorianArabic;
+    /** Gregorian (Transliterated English) */
+    GregorianTransliteratedEnglish;
+    /** Gregorian (Transliterated French) */
+    GregorianTransliteratedFrench;
+    /** Korean and Japanese Lunar */
+    KoreanandJapaneseLunar;
+    /** Chinese Lunar */
+    ChineseLunar;
+    /** Saka Era */
+    SakaEra;
+};
+/**
  * Check Out Types
  */
 export declare type CheckOutType = {
@@ -8,6 +41,15 @@ export declare type CheckOutType = {
     Offline;
     /** None */
     None;
+};
+/**
+ * Choice Format Types
+ */
+export declare type ChoiceFormatType = {
+    /** Dropdown */
+    Dropdown;
+    /** Radio buttons */
+    RadioButtons;
 };
 /**
  * Control Modes
@@ -21,6 +63,15 @@ export declare type ControlMode = {
     Edit;
     /** Specifies that the control is in New mode. */
     New;
+};
+/**
+ * Date Format
+ */
+export declare type DateFormat = {
+    /** Displays only the date. */
+    DateOnly;
+    /** Displays the date and time. */
+    DateTime;
 };
 /**
  * Draft Visibility Types
@@ -269,6 +320,15 @@ export declare type FieldType = {
     WorkflowStatus;
 };
 /**
+ * Field User Selection Types
+ */
+export declare type FieldUserSelectionType = {
+    /** People only. */
+    PeopleOnly;
+    /** People and groups. */
+    PeopleAndGroups;
+};
+/**
  * File Template Types
 */
 export declare type FileTemplateType = {
@@ -278,6 +338,17 @@ export declare type FileTemplateType = {
     StandardPage;
     /** export typeeration whose value specifies default wiki template. */
     WikiPage;
+};
+/**
+ * Friendly Date Format
+ */
+export declare type FriendlyDateFormat = {
+    /** Unspecified */
+    Unspecified;
+    /** Disabled (standard absolute) */
+    Disabled;
+    /** Relative (standard friendly relative) */
+    Relative;
 };
 /**
  * List Template Types
@@ -401,6 +472,144 @@ export declare type ListTemplateType = {
     XMLForm;
 };
 /**
+ * Locale LCID Types
+ */
+export declare type LocaleLCIDType = {
+    Afrikaans;
+    Albanian;
+    ArabicAlgeria;
+    ArabicBahrain;
+    ArabicEgypt;
+    ArabicIraq;
+    ArabicJordan;
+    ArabicLebanon;
+    ArabicLibya;
+    ArabicMorocco;
+    ArabicOman;
+    ArabicQatar;
+    ArabicSaudiArabia;
+    ArabicSyria;
+    ArabicTunisia;
+    ArabicUAE;
+    ArabicYemen;
+    Armenian;
+    AzeriCyrillic;
+    AzeriLatin;
+    Basque;
+    Belarusian;
+    Bulgarian;
+    Catalan;
+    ChineseHongKongSAR;
+    ChineseMacaoSAR;
+    ChinesePRC;
+    ChineseSingapore;
+    ChineseTaiwan;
+    CroatianCroatia;
+    Czech;
+    Danish;
+    Divehi;
+    DutchBelgium;
+    DutchNetherlands;
+    EnglishAustralia;
+    EnglishBelize;
+    EnglishCanada;
+    EnglishCaribbean;
+    EnglishIreland;
+    EnglishJamaica;
+    EnglishNewZealand;
+    EnglishPhilippines;
+    EnglishSouthAfrica;
+    EnglishTrinidad;
+    EnglishUnitedKingdom;
+    EnglishUnitedStates;
+    EnglishZimbabwe;
+    Estonian;
+    Faeroese;
+    Finnish;
+    FrenchBelgium;
+    FrenchCanada;
+    FrenchFrance;
+    FrenchLuxembourg;
+    FrenchMonaco;
+    FrenchSwitzerland;
+    Galician;
+    Georgian;
+    GermanAustria;
+    GermanGermany;
+    GermanLiechtenstein;
+    GermanLuxembourg;
+    GermanSwitzerland;
+    Greek;
+    Gujarati;
+    HebrewIsrael;
+    HindiIndia;
+    Hungarian;
+    Icelandic;
+    Indonesian;
+    ItalianItaly;
+    ItalianSwitzerland;
+    Japanese;
+    Kannada;
+    Kazakh;
+    Konkani;
+    Korean;
+    KyrgyzCyrillic;
+    Latvian;
+    Lithuanian;
+    MacedonianFYROM;
+    Malay;
+    MalayBruneiDarussalam;
+    Marathi;
+    MongolianCyrillic;
+    NorwegianBokmal;
+    NorwegianNynorsk;
+    PersianIran;
+    Polish;
+    PortugueseBrazil;
+    PortuguesePortugal;
+    Punjabi;
+    Romanian;
+    Russian;
+    Sanskrit;
+    SerbianCyrillic;
+    SerbianLatin;
+    Slovak;
+    Slovenian;
+    SpanishArgentina;
+    SpanishBolivia;
+    SpanishChile;
+    SpanishColombia;
+    SpanishCostaRica;
+    SpanishDominicanRepublic;
+    SpanishEcuador;
+    SpanishElSalvador;
+    SpanishGuatemala;
+    SpanishHonduras;
+    SpanishMexico;
+    SpanishNicaragua;
+    SpanishPanama;
+    SpanishParaguay;
+    SpanishPeru;
+    SpanishPuertoRico;
+    SpanishSpain;
+    SpanishUruguay;
+    SpanishVenezuela;
+    Swahili;
+    Swedish;
+    SwedishFinland;
+    Syriac;
+    Tamil;
+    Tatar;
+    Telugu;
+    ThaiThailand;
+    Turkish;
+    Ukrainian;
+    UrduPakistan;
+    UzbekCyrillic;
+    UzbekLatin;
+    Vietnamese;
+};
+/**
  * Page Types
  */
 export declare type PageType = {
@@ -484,6 +693,17 @@ export declare type PrincipalTypes = {
     User;
 };
 /**
+ * Relationship Delete Behavior Types
+ */
+export declare type RelationshipDeleteBehaviorType = {
+    /** No relationship behavior is applied. */
+    None;
+    /** Cascade behavior. */
+    Cascade;
+    /** Restrict behavior. */
+    Restrict;
+};
+/**
  * Reordering Rule Match Types
  */
 export declare type ReorderingRuleMatchType = {
@@ -515,6 +735,15 @@ export declare type RoleType = {
     Reader;
     /** Has Contributor rights, plus rights to cancel check out, delete items, manage lists, add and customize pages, define and apply themes and borders, and link style sheets. Includes all rights in the Contributor role, plus the following: AddAndCustomizePages, ApplyStyleSheets, ApplyThemeAndBorder, CancelCheckout, ManageLists.WebDesigners can modify the structure of the site and create new lists or document libraries. */
     WebDesigner;
+};
+/**
+ * URL Format Types
+ */
+export declare type UrlFormatType = {
+    /** Hyperlink */
+    Hyperlink;
+    /** Image */
+    Image;
 };
 /**
  * URL Zones

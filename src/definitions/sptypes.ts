@@ -1,4 +1,51 @@
 /**
+ * Calendar Types
+ */
+export type CalendarType = {
+    /** Gregorian (localized) */
+    Gregorian,
+
+    /** Japanese Emperor Era */
+    JapaneseEmperorEra,
+
+    /** Taiwan Calendar */
+    TaiwanCalendar,
+
+    /** Korean Tangun Era */
+    KoreanTangunEra,
+
+    /** Hijri (Arabic Lunar) */
+    Hijri,
+
+    /** Thai */
+    Thai,
+
+    /** Hebrew Lunar */
+    HebrewLunar,
+
+    /** Gregorian (Middle East French) */
+    GregorianMiddleEastFrench,
+
+    /** Gregorian (Arabic) */
+    GregorianArabic,
+
+    /** Gregorian (Transliterated English) */
+    GregorianTransliteratedEnglish,
+
+    /** Gregorian (Transliterated French) */
+    GregorianTransliteratedFrench,
+
+    /** Korean and Japanese Lunar */
+    KoreanandJapaneseLunar,
+
+    /** Chinese Lunar */
+    ChineseLunar,
+
+    /** Saka Era */
+    SakaEra
+}
+
+/**
  * Check Out Types
  */
 export type CheckOutType = {
@@ -11,6 +58,18 @@ export type CheckOutType = {
     /** None */
     None
 };
+
+/**
+ * Choice Format Types
+ */
+export type ChoiceFormatType = {
+    /** Dropdown */
+    Dropdown,
+
+    /** Radio buttons */
+    RadioButtons
+};
+
 
 /**
  * Control Modes
@@ -30,6 +89,17 @@ export type ControlMode = {
 };
 
 /**
+ * Date Format
+ */
+export type DateFormat = {
+    /** Displays only the date. */
+    DateOnly,
+
+    /** Displays the date and time. */
+    DateTime
+}
+
+/**
  * Draft Visibility Types
  */
 export type DraftVisibilityType = {
@@ -39,8 +109,8 @@ export type DraftVisibilityType = {
     /** export typeeration whose values specify that the minimum permission is author. */
     Author,
 
-    /** export typeeration whose values specify that the minimum permission is reader. */ 
-    Reader 
+    /** export typeeration whose values specify that the minimum permission is reader. */
+    Reader
 };
 
 /**
@@ -297,67 +367,67 @@ export type FieldType = {
     /** Specifies that the field contains a Boolean value. */
     Boolean,
 
-    /** Specifies that the field is a calculated field. */ 
+    /** Specifies that the field is a calculated field. */
     Calculated,
 
-    /** Specifies that the field contains a single value from a set of specified values. */ 
+    /** Specifies that the field contains a single value from a set of specified values. */
     Choice,
 
-    /** Specifies that the field is a computed field. */ 
+    /** Specifies that the field is a computed field. */
     Computed,
 
-    /** Specifies that the field contains a content type identifier as a value. */ 
+    /** Specifies that the field contains a content type identifier as a value. */
     ContentTypeId,
 
-    /** Specifies that the field contains a monotonically increasing integer. */ 
+    /** Specifies that the field contains a monotonically increasing integer. */
     Counter,
 
-    /** Specifies that the field contains a link between projects in a Meeting Workspace site. */ 
+    /** Specifies that the field contains a link between projects in a Meeting Workspace site. */
     CrossProjectLink,
 
-    /** Specifies that the field contains a currency value. */ 
+    /** Specifies that the field contains a currency value. */
     Currency,
 
-    /** Specifies that the field contains a date and time value or a date-only value. */ 
+    /** Specifies that the field contains a date and time value or a date-only value. */
     DateTime,
 
-    /** Specifies that the type of the field was set to an invalid value. */ 
+    /** Specifies that the type of the field was set to an invalid value. */
     Error,
 
-    /** Specifies that the field contains the leaf name of a document as a value. */ 
+    /** Specifies that the field contains the leaf name of a document as a value. */
     File,
 
-    /** Specifies that the field contains geographical location values. */ 
+    /** Specifies that the field contains geographical location values. */
     Geolocation,
 
     /** Specifies that the field contains rating scale values for a survey list. */
     GridChoice,
 
-    /** Specifies that the field contains a GUID value. */ 
+    /** Specifies that the field contains a GUID value. */
     Guid,
 
-    /** Specifies that the field contains an integer value. */ 
+    /** Specifies that the field contains an integer value. */
     Integer,
 
-    /** Must not be used. */ 
+    /** Must not be used. */
     Invalid,
 
-    /** Specifies that the field is a lookup field. */ 
+    /** Specifies that the field is a lookup field. */
     Lookup,
 
-    /** Must not be used. */ 
+    /** Must not be used. */
     MaxItems,
 
-    /** Specifies that the field indicates moderation status. */ 
+    /** Specifies that the field indicates moderation status. */
     ModStat,
 
-    /** Specifies that the field contains one or more values from a set of specified values. */ 
+    /** Specifies that the field contains one or more values from a set of specified values. */
     MultiChoice,
 
-    /** Specifies that the field contains multiple lines of text. */ 
+    /** Specifies that the field contains multiple lines of text. */
     Note,
 
-    /** Specifies that the field contains a floating-point number value. */ 
+    /** Specifies that the field contains a floating-point number value. */
     Number,
 
     /** Specifies that the field separates questions in a survey list onto multiple pages. */
@@ -366,27 +436,38 @@ export type FieldType = {
     /** Specifies that the field indicates whether a meeting in a calendar list recurs. */
     Recurrence,
 
-    /** Specifies that the field contains a single line of text. */ 
+    /** Specifies that the field contains a single line of text. */
     Text,
 
-    /** Specifies that the field indicates the position of a discussion item in a threaded view of a discussion board. */ 
+    /** Specifies that the field indicates the position of a discussion item in a threaded view of a discussion board. */
     ThreadIndex,
 
     /** Specifies that the field indicates the thread for a discussion item in a threaded view of a discussion board. */
     Threading,
 
-    /** Specifies that the field contains a URI and an optional description of the URI. */ 
+    /** Specifies that the field contains a URI and an optional description of the URI. */
     URL,
 
-    /** Specifies that the field contains one or more users and groups as values. */ 
+    /** Specifies that the field contains one or more users and groups as values. */
     User,
 
-    /** Specifies that the field contains the most recent event in a workflow instance. */ 
+    /** Specifies that the field contains the most recent event in a workflow instance. */
     WorkflowEventType,
 
     /** Specifies that the field indicates the status of a workflow instance on a list item. */
     WorkflowStatus
-    };
+};
+
+/**
+ * Field User Selection Types
+ */
+export type FieldUserSelectionType = {
+    /** People only. */
+    PeopleOnly,
+
+    /** People and groups. */
+    PeopleAndGroups
+}
 
 /**
  * File Template Types
@@ -395,12 +476,26 @@ export type FileTemplateType = {
     /** export typeeration whose value specifies default form template. */
     FormPage,
 
-    /** export typeeration whose value specifies default view template. */ 
+    /** export typeeration whose value specifies default view template. */
     StandardPage,
 
-    /** export typeeration whose value specifies default wiki template. */ 
+    /** export typeeration whose value specifies default wiki template. */
     WikiPage
 };
+
+/**
+ * Friendly Date Format
+ */
+export type FriendlyDateFormat = {
+    /** Unspecified */
+    Unspecified,
+
+    /** Disabled (standard absolute) */
+    Disabled,
+
+    /** Relative (standard friendly relative) */
+    Relative
+}
 
 /**
  * List Template Types
@@ -582,46 +677,185 @@ export type ListTemplateType = {
 };
 
 /**
+ * Locale LCID Types
+ */
+export type LocaleLCIDType = {
+    Afrikaans,
+    Albanian,
+    ArabicAlgeria,
+    ArabicBahrain,
+    ArabicEgypt,
+    ArabicIraq,
+    ArabicJordan,
+    ArabicLebanon,
+    ArabicLibya,
+    ArabicMorocco,
+    ArabicOman,
+    ArabicQatar,
+    ArabicSaudiArabia,
+    ArabicSyria,
+    ArabicTunisia,
+    ArabicUAE,
+    ArabicYemen,
+    Armenian,
+    AzeriCyrillic,
+    AzeriLatin,
+    Basque,
+    Belarusian,
+    Bulgarian,
+    Catalan,
+    ChineseHongKongSAR,
+    ChineseMacaoSAR,
+    ChinesePRC,
+    ChineseSingapore,
+    ChineseTaiwan,
+    CroatianCroatia,
+    Czech,
+    Danish,
+    Divehi,
+    DutchBelgium,
+    DutchNetherlands,
+    EnglishAustralia,
+    EnglishBelize,
+    EnglishCanada,
+    EnglishCaribbean,
+    EnglishIreland,
+    EnglishJamaica,
+    EnglishNewZealand,
+    EnglishPhilippines,
+    EnglishSouthAfrica,
+    EnglishTrinidad,
+    EnglishUnitedKingdom,
+    EnglishUnitedStates,
+    EnglishZimbabwe,
+    Estonian,
+    Faeroese,
+    Finnish,
+    FrenchBelgium,
+    FrenchCanada,
+    FrenchFrance,
+    FrenchLuxembourg,
+    FrenchMonaco,
+    FrenchSwitzerland,
+    Galician,
+    Georgian,
+    GermanAustria,
+    GermanGermany,
+    GermanLiechtenstein,
+    GermanLuxembourg,
+    GermanSwitzerland,
+    Greek,
+    Gujarati,
+    HebrewIsrael,
+    HindiIndia,
+    Hungarian,
+    Icelandic,
+    Indonesian,
+    ItalianItaly,
+    ItalianSwitzerland,
+    Japanese,
+    Kannada,
+    Kazakh,
+    Konkani,
+    Korean,
+    KyrgyzCyrillic,
+    Latvian,
+    Lithuanian,
+    MacedonianFYROM,
+    Malay,
+    MalayBruneiDarussalam,
+    Marathi,
+    MongolianCyrillic,
+    NorwegianBokmal,
+    NorwegianNynorsk,
+    PersianIran,
+    Polish,
+    PortugueseBrazil,
+    PortuguesePortugal,
+    Punjabi,
+    Romanian,
+    Russian,
+    Sanskrit,
+    SerbianCyrillic,
+    SerbianLatin,
+    Slovak,
+    Slovenian,
+    SpanishArgentina,
+    SpanishBolivia,
+    SpanishChile,
+    SpanishColombia,
+    SpanishCostaRica,
+    SpanishDominicanRepublic,
+    SpanishEcuador,
+    SpanishElSalvador,
+    SpanishGuatemala,
+    SpanishHonduras,
+    SpanishMexico,
+    SpanishNicaragua,
+    SpanishPanama,
+    SpanishParaguay,
+    SpanishPeru,
+    SpanishPuertoRico,
+    SpanishSpain,
+    SpanishUruguay,
+    SpanishVenezuela,
+    Swahili,
+    Swedish,
+    SwedishFinland,
+    Syriac,
+    Tamil,
+    Tatar,
+    Telugu,
+    ThaiThailand,
+    Turkish,
+    Ukrainian,
+    UrduPakistan,
+    UzbekCyrillic,
+    UzbekLatin,
+    Vietnamese
+}
+
+/**
  * Page Types
  */
 export type PageType = {
     /** export typeeration whose values specify a page that is the default view for a list. */
     DefaultView,
 
-    /** export typeeration whose values specify a page suitable for display within a dialog box on a client computer. */ 
+    /** export typeeration whose values specify a page suitable for display within a dialog box on a client computer. */
     DialogView,
 
-    /** export typeeration whose values specify a list form for displaying a list item. */ 
+    /** export typeeration whose values specify a list form for displaying a list item. */
     DisplayForm,
 
-    /** export typeeration whose values specify a list form for displaying a list item, suitable for display within a dialog box on a client computer. */ 
+    /** export typeeration whose values specify a list form for displaying a list item, suitable for display within a dialog box on a client computer. */
     DisplayFormDialog,
 
-    /** export typeeration whose values specify a list form for editing a list item. */ 
+    /** export typeeration whose values specify a list form for editing a list item. */
     EditForm,
 
-    /** export typeeration whose values specify a list form for editing a list item, suitable for display within a dialog box on a client computer. */ 
+    /** export typeeration whose values specify a list form for editing a list item, suitable for display within a dialog box on a client computer. */
     EditFormDialog,
 
-    /** export typeeration whose values specify a page that does not correspond to a list view or a list form. */ 
+    /** export typeeration whose values specify a page that does not correspond to a list view or a list form. */
     Invalid,
 
-    /** export typeeration whose values specify a list form for creating a new list item. */ 
+    /** export typeeration whose values specify a list form for creating a new list item. */
     NewForm,
 
-    /** export typeeration whose values specify a list form for creating a new list item, suitable for display within a dialog box on a client computer. */ 
+    /** export typeeration whose values specify a list form for creating a new list item, suitable for display within a dialog box on a client computer. */
     NewFormDialog,
 
-    /** export typeeration whose values specify a page that is a list view and is not the default view for a list. */ 
+    /** export typeeration whose values specify a page that is a list view and is not the default view for a list. */
     NormalView,
 
-    /** export typeeration whose values specify the total number of valid page types. */ 
+    /** export typeeration whose values specify the total number of valid page types. */
     Page_MAXITEMS,
 
-    /** export typeeration whose values specify a list form for displaying or editing a list item and represented by a form template (.xsn) file. */ 
+    /** export typeeration whose values specify a list form for displaying or editing a list item and represented by a form template (.xsn) file. */
     SolutionForm,
 
-    /** export typeeration whose values specify a page that is a list view. */ 
+    /** export typeeration whose values specify a page that is a list view. */
     View
 };
 
@@ -706,6 +940,20 @@ export type PrincipalTypes = {
 }
 
 /**
+ * Relationship Delete Behavior Types
+ */
+export type RelationshipDeleteBehaviorType = {
+    /** No relationship behavior is applied. */
+    None,
+
+    /** Cascade behavior. */
+    Cascade,
+
+    /** Restrict behavior. */
+    Restrict
+};
+
+/**
  * Reordering Rule Match Types
  */
 export type ReorderingRuleMatchType = {
@@ -744,6 +992,17 @@ export type RoleType = {
 
     /** Has Contributor rights, plus rights to cancel check out, delete items, manage lists, add and customize pages, define and apply themes and borders, and link style sheets. Includes all rights in the Contributor role, plus the following: AddAndCustomizePages, ApplyStyleSheets, ApplyThemeAndBorder, CancelCheckout, ManageLists.WebDesigners can modify the structure of the site and create new lists or document libraries. */
     WebDesigner
+};
+
+/**
+ * URL Format Types
+ */
+export type UrlFormatType = {
+    /** Hyperlink */
+    Hyperlink,
+
+    /** Image */
+    Image
 };
 
 /**
@@ -793,18 +1052,18 @@ export type ViewType = {
     /** export typeeration whose values specify a calendar list view type. */
     Calendar,
 
-    /** export typeeration whose values specify a chart list view type. */ 
+    /** export typeeration whose values specify a chart list view type. */
     Chart,
 
-    /** export typeeration whose values specify a Gantt chart list view type. */ 
+    /** export typeeration whose values specify a Gantt chart list view type. */
     Gantt,
-    
+
     /** export typeeration whose values specify a datasheet list view type. */
     Grid,
-    
+
     /** export typeeration whose values specify an HTML list view type. */
     Html,
-    
+
     /** export typeeration whose values specify a list view type that displays recurring events. */
     Recurrence
 }

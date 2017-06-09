@@ -1,9 +1,32 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
+ * Calendar Types
+ */
+exports.CalendarTypes = {
+    Gregorian: 1,
+    JapaneseEmperorEra: 3,
+    TaiwanCalendar: 4,
+    KoreanTangunEra: 5,
+    Hijri: 6,
+    Thai: 7,
+    HebrewLunar: 8,
+    GregorianMiddleEastFrench: 9,
+    GregorianArabic: 10,
+    GregorianTransliteratedEnglish: 11,
+    GregorianTransliteratedFrench: 12,
+    KoreanandJapaneseLunar: 14,
+    ChineseLunar: 15,
+    SakaEra: 16
+};
+/**
  * Check Out Types
  */
 exports.CheckOutType = { Online: 0, Offline: 1, None: 2 };
+/**
+ * Choice Format Types
+ */
+exports.ChoiceFormatType = { Dropdown: 0, RadioButtons: 1 };
 /**
  * Client Template Utility
  */
@@ -15,6 +38,10 @@ exports.ClientTemplatesUtility = {
  * Control Modes
  */
 exports.ControlMode = { Invalid: 0, Display: 1, Edit: 2, New: 3, View: 4 };
+/**
+ * Date Format
+ */
+exports.DateFormat = { DateOnly: 0, DateTime: 1 };
 /**
  * Draft Visibility Types
  */
@@ -104,6 +131,10 @@ exports.EventReceiverType = {
  */
 exports.EventReceiverSynchronizationType = { Synchronization: 1, Asynchronous: 2 };
 /**
+ * Field User Selection Types
+ */
+exports.FieldUserSelectionType = { PeopleOnly: 0, PeopleAndGroups: 1 };
+/**
  * Field Types
  */
 exports.FieldType = {
@@ -145,6 +176,14 @@ exports.FieldType = {
  * File Template Types
 */
 exports.FileTemplateType = { StandardPage: 0, WikiPage: 1, FormPage: 2 };
+/**
+ * Friendly Date Format
+ */
+exports.FriendlyDateFormat = {
+    Unspecified: 0,
+    Disabled: 1,
+    Relative: 2
+};
 /**
  * List Template Types
 */
@@ -209,6 +248,144 @@ exports.ListTemplateType = {
     XMLForm: 115
 };
 /**
+ * Locale LCID Types
+ */
+exports.LocaleLCIDType = {
+    Afrikaans: 1078,
+    Albanian: 1052,
+    ArabicAlgeria: 5121,
+    ArabicBahrain: 15361,
+    ArabicEgypt: 3073,
+    ArabicIraq: 2049,
+    ArabicJordan: 11265,
+    ArabicLebanon: 12289,
+    ArabicLibya: 4097,
+    ArabicMorocco: 6145,
+    ArabicOman: 8193,
+    ArabicQatar: 16385,
+    ArabicSaudiArabia: 1025,
+    ArabicSyria: 10241,
+    ArabicTunisia: 7169,
+    ArabicUAE: 14337,
+    ArabicYemen: 9217,
+    Armenian: 1067,
+    AzeriCyrillic: 2092,
+    AzeriLatin: 1068,
+    Basque: 1069,
+    Belarusian: 1059,
+    Bulgarian: 1026,
+    Catalan: 1027,
+    ChineseHongKongSAR: 3076,
+    ChineseMacaoSAR: 5124,
+    ChinesePRC: 2052,
+    ChineseSingapore: 4100,
+    ChineseTaiwan: 1028,
+    CroatianCroatia: 1050,
+    Czech: 1029,
+    Danish: 1030,
+    Divehi: 1125,
+    DutchBelgium: 2067,
+    DutchNetherlands: 1043,
+    EnglishAustralia: 3081,
+    EnglishBelize: 10249,
+    EnglishCanada: 4105,
+    EnglishCaribbean: 9225,
+    EnglishIreland: 6153,
+    EnglishJamaica: 8201,
+    EnglishNewZealand: 5129,
+    EnglishPhilippines: 13321,
+    EnglishSouthAfrica: 7177,
+    EnglishTrinidad: 11273,
+    EnglishUnitedKingdom: 2057,
+    EnglishUnitedStates: 1033,
+    EnglishZimbabwe: 12297,
+    Estonian: 1061,
+    Faeroese: 1080,
+    Finnish: 1035,
+    FrenchBelgium: 2060,
+    FrenchCanada: 3084,
+    FrenchFrance: 1036,
+    FrenchLuxembourg: 5132,
+    FrenchMonaco: 6156,
+    FrenchSwitzerland: 4108,
+    Galician: 1110,
+    Georgian: 1079,
+    GermanAustria: 3079,
+    GermanGermany: 1031,
+    GermanLiechtenstein: 5127,
+    GermanLuxembourg: 4103,
+    GermanSwitzerland: 2055,
+    Greek: 1032,
+    Gujarati: 1095,
+    HebrewIsrael: 1037,
+    HindiIndia: 1081,
+    Hungarian: 1038,
+    Icelandic: 1039,
+    Indonesian: 1057,
+    ItalianItaly: 1040,
+    ItalianSwitzerland: 2064,
+    Japanese: 1041,
+    Kannada: 1099,
+    Kazakh: 1087,
+    Konkani: 1111,
+    Korean: 1042,
+    KyrgyzCyrillic: 1088,
+    Latvian: 1062,
+    Lithuanian: 1063,
+    MacedonianFYROM: 1071,
+    Malay: 1086,
+    MalayBruneiDarussalam: 2110,
+    Marathi: 1102,
+    MongolianCyrillic: 1104,
+    NorwegianBokmal: 1044,
+    NorwegianNynorsk: 2068,
+    PersianIran: 1065,
+    Polish: 1045,
+    PortugueseBrazil: 1046,
+    PortuguesePortugal: 2070,
+    Punjabi: 1094,
+    Romanian: 1048,
+    Russian: 1049,
+    Sanskrit: 1103,
+    SerbianCyrillic: 3098,
+    SerbianLatin: 2074,
+    Slovak: 1051,
+    Slovenian: 1060,
+    SpanishArgentina: 11274,
+    SpanishBolivia: 16394,
+    SpanishChile: 13322,
+    SpanishColombia: 9226,
+    SpanishCostaRica: 5130,
+    SpanishDominicanRepublic: 7178,
+    SpanishEcuador: 12298,
+    SpanishElSalvador: 17418,
+    SpanishGuatemala: 4106,
+    SpanishHonduras: 18442,
+    SpanishMexico: 2058,
+    SpanishNicaragua: 19466,
+    SpanishPanama: 6154,
+    SpanishParaguay: 15370,
+    SpanishPeru: 10250,
+    SpanishPuertoRico: 20490,
+    SpanishSpain: 3082,
+    SpanishUruguay: 14346,
+    SpanishVenezuela: 8202,
+    Swahili: 1089,
+    Swedish: 1053,
+    SwedishFinland: 2077,
+    Syriac: 1114,
+    Tamil: 1097,
+    Tatar: 1092,
+    Telugu: 1098,
+    ThaiThailand: 1054,
+    Turkish: 1055,
+    Ukrainian: 1058,
+    UrduPakistan: 1056,
+    UzbekCyrillic: 2115,
+    UzbekLatin: 1091,
+    Vietnamese: 1066,
+};
+/**
  * Page Types
  */
 exports.PageType = {
@@ -261,6 +438,10 @@ exports.PrincipalTypes = {
     User: 1
 };
 /**
+ * Relationship Delete Behavior Types
+ */
+exports.RelationshipDeleteBehaviorType = { None: 0, Cascade: 1, Restrict: 2 };
+/**
  * Reordering Rule Match Types
  */
 exports.ReorderingRuleMatchType = {
@@ -286,6 +467,10 @@ exports.RoleType = {
     Reader: 2,
     WebDesigner: 4
 };
+/**
+ * URL Format Types
+ */
+exports.UrlFormatType = { Hyperlink: 0, Image: 1 };
 /**
  * URL Zones
  */
