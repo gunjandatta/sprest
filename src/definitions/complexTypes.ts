@@ -390,7 +390,7 @@ export interface FieldUserValue {
     ContentTypeDisp: string;
     Created: string;
     Department: string;
-    EMail: string;
+    Email: string;
     FirstName: string;
     ID: number;
     ImnName: string;
