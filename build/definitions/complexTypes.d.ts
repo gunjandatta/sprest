@@ -280,7 +280,9 @@ export interface FieldMultiChoiceValue {
  */
 export interface FieldCreationInformation {
     /** The choices. */
-    Choices?: String;
+    Choices?: {
+        results: Array<string>;
+    };
     /** The field type. */
     FieldTypeKind: SPTypes.FieldType | number;
     /** Indicates whether only the first eight characters are used for the field name. */
@@ -348,7 +350,7 @@ export interface FieldUserValue {
     ContentTypeDisp: string;
     Created: string;
     Department: string;
-    EMail: string;
+    Email: string;
     FirstName: string;
     ID: number;
     ImnName: string;

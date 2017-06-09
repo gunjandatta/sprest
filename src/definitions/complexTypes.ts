@@ -320,7 +320,7 @@ export interface FieldMultiChoiceValue {
  */
 export interface FieldCreationInformation {
     /** The choices. */
-    Choices?: String;
+    Choices?:{ results: Array<string> };
 
     /** The field type. */
     FieldTypeKind: SPTypes.FieldType | number;
