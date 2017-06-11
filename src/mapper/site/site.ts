@@ -66,13 +66,15 @@ export const site = {
     // Returns the site at the specified URL.
     openWeb: {
         argNames: ["strUrl"],
-        requestType: RequestType.PostWithArgsValueOnly
+        requestType: RequestType.PostWithArgsValueOnly,
+        returnType: "web"
     },
     
     // Returns the site with the specified GUID.
     openWebById: {
         argNames: ["gWebId"],
-        requestType: RequestType.PostWithArgsValueOnly
+        requestType: RequestType.PostWithArgsValueOnly,
+        returnType: "web"
     },
     
     // Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)

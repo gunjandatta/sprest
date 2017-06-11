@@ -57,12 +57,14 @@ exports.site = {
     // Returns the site at the specified URL.
     openWeb: {
         argNames: ["strUrl"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
+        requestType: types_1.RequestType.PostWithArgsValueOnly,
+        returnType: "web"
     },
     // Returns the site with the specified GUID.
     openWebById: {
         argNames: ["gWebId"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
+        requestType: types_1.RequestType.PostWithArgsValueOnly,
+        returnType: "web"
     },
     // Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
     runHealthCheck: {

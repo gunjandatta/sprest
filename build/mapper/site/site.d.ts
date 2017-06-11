@@ -36,10 +36,12 @@ export declare const site: {
     openWeb: {
         argNames: string[];
         requestType: number;
+        returnType: string;
     };
     openWebById: {
         argNames: string[];
         requestType: number;
+        returnType: string;
     };
     runHealthCheck: {
         argNames: string[];
