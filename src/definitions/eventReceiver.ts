@@ -11,7 +11,7 @@ export interface IEventReceiver extends IBase {
      */
 
     /** Specifies the type of event. */
-    EventType: SPTypes.EventReceiverType;
+    EventType: SPTypes.EventReceiverType | number;
 
     /** The strong name of the assembly that is used for receiving events. */
     ReceiverAssembly?: string;
@@ -47,20 +47,20 @@ export interface IEventReceiver extends IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?:(value?:IEventReceiver, ...args) => any): IEventReceiver;
+    execute(callback?: (value?: IEventReceiver, ...args) => any): IEventReceiver;
 
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(waitFl:boolean): IEventReceiver;
+    execute(waitFl: boolean): IEventReceiver;
 
     /**
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback:(value?:IEventReceiver, ...args) => any, waitFl:boolean): IEventReceiver;
+    execute(callback: (value?: IEventReceiver, ...args) => any, waitFl: boolean): IEventReceiver;
 
     /**
      * Method to execute the request synchronously.

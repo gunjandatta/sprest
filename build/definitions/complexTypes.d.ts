@@ -246,7 +246,7 @@ export interface EncryptionOption {
  */
 export interface EventReceiverDefinitionCreationInformation {
     /** The event receiver type. */
-    EventType: SPTypes.EventReceiverType;
+    EventType: SPTypes.EventReceiverType | number;
     /** The strong name of the assembly that is used for receiving events. */
     ReceiverAssembly?: string;
     /** A string that represents the class that is used for receiving events. */

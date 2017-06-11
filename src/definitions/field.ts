@@ -178,13 +178,13 @@ export interface IFieldBaseChoice extends IField {
  */
 export interface IFieldCalculated extends IField {
     /** The date and time format that is displayed in the field. */
-    DateFormat: SPTypes.DateFormat;
+    DateFormat: SPTypes.DateFormat | number;
 
     /** A value that specifies the formula for the field. */
     Formula: string;
 
     /** A value that specifies the output format for the field. */
-    OutputType: SPTypes.FieldType;
+    OutputType: SPTypes.FieldType | number;
 }
 
 /**
@@ -192,7 +192,7 @@ export interface IFieldCalculated extends IField {
  */
 export interface IFieldChoice extends IFieldBaseChoice {
     /** Determines whether to display the choice field as option buttons (also known as "radio buttons") or as a drop-down list. */
-    EditFormat: SPTypes.ChoiceFormatType;
+    EditFormat: SPTypes.ChoiceFormatType | number;
 }
 
 /**
@@ -208,7 +208,7 @@ export interface IFieldComputed extends IField {
  */
 export interface IFieldCurrency extends IFieldNumber {
     /** A value that specifies the language code identifier (LCID) used to format the value of the field. */
-    CurrencyLocaleId: SPTypes.LocaleLCIDType;
+    CurrencyLocaleId: SPTypes.LocaleLCIDType | number;
 }
 
 /**
@@ -216,13 +216,13 @@ export interface IFieldCurrency extends IFieldNumber {
  */
 export interface IFieldDateTime extends IField {
     /** A value that specifies the calendar type of the field. */
-    DateTimeCalendarType: SPTypes.CalendarType;
+    DateTimeCalendarType: SPTypes.CalendarType | number;
 
     /** The format of the date and time that is displayed in the field. */
-    DisplayFormat: SPTypes.DateFormat;
+    DisplayFormat: SPTypes.DateFormat | number;
 
     /** Represents a date and time friendly format. */
-    FriendlyDisplayFormat: SPTypes.FriendlyDateFormat;
+    FriendlyDisplayFormat: SPTypes.FriendlyDateFormat | number;
 }
 
 /**
@@ -248,7 +248,7 @@ export interface IFieldLookup extends IField {
     PrimaryFieldId: string;
 
     /** A value that specifies the delete behavior of the lookup field. */
-    RelationshipDeleteBehavior: SPTypes.RelationshipDeleteBehaviorType;
+    RelationshipDeleteBehavior: SPTypes.RelationshipDeleteBehaviorType | number;
 }
 
 /**
@@ -330,7 +330,7 @@ export interface IFieldText extends IField {
  */
 export interface IFieldUrl extends IField {
     /** A value that specifies the display format for the value in the field. */
-    DisplayFormat: SPTypes.UrlFormatType;
+    DisplayFormat: SPTypes.UrlFormatType | number;
 }
 
 /**
@@ -347,5 +347,5 @@ export interface IFieldUser extends IFieldLookup {
     SelectionGroup: number;
 
     /** A value that specifies whether users and groups or only users can be selected. */
-    SelectionMode: SPTypes.FieldUserSelectionType;
+    SelectionMode: SPTypes.FieldUserSelectionType | number;
 }

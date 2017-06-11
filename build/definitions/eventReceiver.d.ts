@@ -7,7 +7,7 @@ export interface IEventReceiver extends IBase {
      * Properties
      */
     /** Specifies the type of event. */
-    EventType: SPTypes.EventReceiverType;
+    EventType: SPTypes.EventReceiverType | number;
     /** The strong name of the assembly that is used for receiving events. */
     ReceiverAssembly?: string;
     /** A string that represents the class that is used for receiving events. */

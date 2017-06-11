@@ -279,9 +279,9 @@ export interface EncryptionOption {
  */
 export interface EventReceiverDefinitionCreationInformation {
     /** The event receiver type. */
-    EventType: SPTypes.EventReceiverType;
+    EventType: SPTypes.EventReceiverType | number;
 
-    /** The strong name of the assembly that is used for receiving events. */        
+    /** The strong name of the assembly that is used for receiving events. */
     ReceiverAssembly?: string;
 
     /** A string that represents the class that is used for receiving events. */
@@ -293,9 +293,9 @@ export interface EventReceiverDefinitionCreationInformation {
     /** The URL of a web service that is used for receiving events. */
     ReceiverUrl?: string;
 
-    /** An integer that represents the relative sequence of the event. */        
+    /** An integer that represents the relative sequence of the event. */
     SequenceNumber?: number;
-    
+
     /** The execution synchronization of the event receiver. */
     Synchronization?: number;
 }
@@ -320,7 +320,7 @@ export interface FieldMultiChoiceValue {
  */
 export interface FieldCreationInformation {
     /** The choices. */
-    Choices?:{ results: Array<string> };
+    Choices?: { results: Array<string> };
 
     /** The field type. */
     FieldTypeKind: SPTypes.FieldType | number;
@@ -330,16 +330,16 @@ export interface FieldCreationInformation {
 
     /** The name of the source lookup field. */
     LookupFieldName?: string;
-    
+
     /** The ID of the target list for the source lookup field. */
     LookupListId?: any;
-    
+
     /** The ID of the site that contains the list that is the source for the lookup field value. */
     LookupWebId?: any;
-    
+
     /** A value that specifies whether the field requires a value. */
     Required?: boolean;
-    
+
     /** A value that specifies the display name of the field. */
     Title: string;
 }
@@ -1003,7 +1003,7 @@ export interface SearchRequest {
 
     /** The type of the client that issued the query. */
     ClientType?: string;
-    
+
     /** The managed properties that are used to determine how to collapse individual search  Results are collapsed into one or a specified number of results if they match any of the individual collapse specifications. Within a single collapse specification, results are collapsed if their properties match all individual properties in the collapse specification. */
     CollapseSpecification?: string;
 
@@ -1036,7 +1036,7 @@ export interface SearchRequest {
 
     /** A Boolean value that specifies whether stemming is enabled. */
     EnableStemming?: boolean;
-    
+
     /** A Boolean value that specifies whether to return block rank log information in the BlockRankLog property of the interleaved result table. A block rank log contains the textual information on the block score and the documents that were de-duplicated. */
     GenerateBlockRankLog?: boolean;
 
@@ -1062,7 +1062,7 @@ export interface SearchRequest {
 
     /** A Boolean value that specifies whether to return personal favorites with the search  */
     ProcessPersonalFavorites?: boolean;
-    
+
     /** Additional properties for the query. */
     Properties?: KeyValue;
 
@@ -1644,7 +1644,7 @@ export interface UserIdInfo {
 export interface ViewCreationInformation {
     /** The relative url to the jslink */
     JSLink?: string;
-    
+
     /** The new list view is a paged view. */
     Paged?: boolean;
 
