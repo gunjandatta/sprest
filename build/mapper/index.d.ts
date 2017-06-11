@@ -731,12 +731,10 @@ export declare const Mapper: {
         openWeb: {
             argNames: string[];
             requestType: number;
-            returnType: string;
         };
         openWebById: {
             argNames: string[];
             requestType: number;
-            returnType: string;
         };
         runHealthCheck: {
             argNames: string[];

@@ -296,7 +296,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.52,
+    __ver: 1.53,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -4388,14 +4388,12 @@ exports.site = {
     // Returns the site at the specified URL.
     openWeb: {
         argNames: ["strUrl"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly,
-        returnType: "web"
+        requestType: types_1.RequestType.PostWithArgsValueOnly
     },
     // Returns the site with the specified GUID.
     openWebById: {
         argNames: ["gWebId"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly,
-        returnType: "web"
+        requestType: types_1.RequestType.PostWithArgsValueOnly
     },
     // Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
     runHealthCheck: {
