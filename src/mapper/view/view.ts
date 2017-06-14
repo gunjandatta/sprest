@@ -17,6 +17,12 @@ export const view = {
         requestType: RequestType.Delete
     },
 
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    },
+
     // Returns the list view as HTML.
     renderAsHtml: {
         requestType: RequestType.Get

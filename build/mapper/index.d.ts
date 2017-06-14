@@ -82,6 +82,10 @@ export declare const Mapper: {
         delete: {
             requestType: number;
         };
+        query: {
+            argNames: string[];
+            requestType: number;
+        };
         setShowInDisplayForm: {
             argNames: string[];
             requestType: number;
@@ -227,6 +231,10 @@ export declare const Mapper: {
             argNames: string[];
             requestType: number;
         };
+        query: {
+            argNames: string[];
+            requestType: number;
+        };
         recycle: {
             requestType: number;
         };
@@ -276,6 +284,10 @@ export declare const Mapper: {
         delete: {
             requestType: number;
         };
+        query: {
+            argNames: string[];
+            requestType: number;
+        };
     };
     fileversions: {
         delete: {
@@ -295,6 +307,10 @@ export declare const Mapper: {
             argNames: string[];
             requestType: number;
             returnType: string;
+        };
+        query: {
+            argNames: string[];
+            requestType: number;
         };
         recycle: {
             requestType: number;
@@ -324,6 +340,10 @@ export declare const Mapper: {
     };
     group: {
         properties: string[];
+        query: {
+            argNames: string[];
+            requestType: number;
+        };
     };
     sitegroups: {
         add: {
@@ -424,6 +444,10 @@ export declare const Mapper: {
             requestType: number;
             returnType: string;
         };
+        query: {
+            argNames: string[];
+            requestType: number;
+        };
         recycle: {
             requestType: number;
         };
@@ -488,6 +512,10 @@ export declare const Mapper: {
         getUserEffectivePermissions: {
             argNames: string[];
             name: string;
+            requestType: number;
+        };
+        query: {
+            argNames: string[];
             requestType: number;
         };
         recycle: {
@@ -642,6 +670,10 @@ export declare const Mapper: {
         delete: {
             requestType: number;
         };
+        query: {
+            argNames: string[];
+            requestType: number;
+        };
     };
     roleassignments: {
         addRoleAssignment: {
@@ -664,6 +696,10 @@ export declare const Mapper: {
     };
     roledefinition: {
         delete: {
+            requestType: number;
+        };
+        query: {
+            argNames: string[];
             requestType: number;
         };
     };
@@ -736,6 +772,10 @@ export declare const Mapper: {
             argNames: string[];
             requestType: number;
         };
+        query: {
+            argNames: string[];
+            requestType: number;
+        };
         runHealthCheck: {
             argNames: string[];
             requestType: number;
@@ -804,6 +844,10 @@ export declare const Mapper: {
         delete: {
             requestType: number;
         };
+        query: {
+            argNames: string[];
+            requestType: number;
+        };
     };
     users: {
         add: {
@@ -843,6 +887,10 @@ export declare const Mapper: {
     };
     usercustomaction: {
         delete: {
+            requestType: number;
+        };
+        query: {
+            argNames: string[];
             requestType: number;
         };
     };
@@ -891,6 +939,10 @@ export declare const Mapper: {
             argNames: string[];
             requestType: number;
         };
+        query: {
+            argNames: string[];
+            requestType: number;
+        };
         restoreByLabel: {
             argNames: string[];
             requestType: number;
@@ -899,6 +951,10 @@ export declare const Mapper: {
     view: {
         properties: string[];
         delete: {
+            requestType: number;
+        };
+        query: {
+            argNames: string[];
             requestType: number;
         };
         renderAsHtml: {
@@ -1091,6 +1147,10 @@ export declare const Mapper: {
             requestType: number;
         };
         processExternalNotification: {
+            requestType: number;
+        };
+        query: {
+            argNames: string[];
             requestType: number;
         };
         registerPushNotificationSubscriber: {

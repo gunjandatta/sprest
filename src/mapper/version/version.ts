@@ -28,6 +28,12 @@ export const version = {
         requestType: RequestType.PostWithArgsValueOnly
     },
 
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    },
+
     // Restores a version, by the specified label.
     restoreByLabel: {
         argNames: ["label"],

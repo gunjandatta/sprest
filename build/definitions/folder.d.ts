@@ -1,4 +1,4 @@
-import { ComplexTypes, IBase, IFile, IFiles, IFolders, IPropertyValues } from ".";
+import { ComplexTypes, IBase, IFile, IFiles, IFolders, IPropertyValues, ODataQuery } from ".";
 /**
  * Folder
  */
@@ -89,6 +89,11 @@ export interface IFolder extends IBase {
      * @param serverRelativeUrl - The server-relative URL of the folder.
      */
     getByUrl(serverRelativeUrl: any): IFolder;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IFolder;
     /**
      * Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */

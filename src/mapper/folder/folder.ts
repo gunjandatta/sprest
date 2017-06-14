@@ -26,6 +26,12 @@ export const folder = {
         returnType: "folder"
     },
 
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    },
+
     // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
     recycle: {
         requestType: RequestType.Post

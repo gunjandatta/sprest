@@ -1,4 +1,4 @@
-import { IBase, IUser, IUsers } from ".";
+import { IBase, IUser, IUsers, ODataQuery } from ".";
 /**
  * Group
  */
@@ -80,4 +80,9 @@ export interface IGroup extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IGroup;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IGroup;
 }

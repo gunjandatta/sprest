@@ -98,6 +98,11 @@ exports.file = {
         argNames: ["comment"],
         requestType: types_1.RequestType.PostWithArgs
     },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
     // Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
     recycle: {
         requestType: types_1.RequestType.Get

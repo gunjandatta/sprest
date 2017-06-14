@@ -87,6 +87,11 @@ exports.list = {
         requestType: types_1.RequestType.GetWithArgsValueOnly,
         returnType: "view"
     },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
     // Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
     recycle: {
         requestType: types_1.RequestType.Post

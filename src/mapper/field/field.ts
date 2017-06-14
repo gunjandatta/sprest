@@ -9,6 +9,12 @@ export const field = {
         requestType: RequestType.Delete
     },
 
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    },
+
     // Sets the value of the ShowInDisplayForm property for this field.
     setShowInDisplayForm: {
         argNames: ["showInForm"],

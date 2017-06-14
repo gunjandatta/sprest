@@ -74,6 +74,12 @@ export const site = {
         argNames: ["gWebId"],
         requestType: RequestType.PostWithArgsValueOnly
     },
+
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    },
     
     // Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
     runHealthCheck: {

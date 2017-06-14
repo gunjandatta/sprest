@@ -1,4 +1,4 @@
-import { ComplexTypes, IBase, IFileVersions, IPropertyValues, IUser, SPTypes } from ".";
+import { ComplexTypes, IBase, IFileVersions, IPropertyValues, IUser, ODataQuery, SPTypes } from ".";
 /**
  * File
  */
@@ -178,6 +178,11 @@ export interface IFile extends IBase {
      * @param comment - The comment for the published file. It's length must be <= 1023.
      */
     publish(comment: any): IBase;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IFile;
     /**
      * Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */

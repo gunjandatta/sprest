@@ -8,6 +8,10 @@ export declare const folder: {
         requestType: number;
         returnType: string;
     };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
     recycle: {
         requestType: number;
     };

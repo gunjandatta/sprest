@@ -4,6 +4,10 @@ export declare const field: {
     delete: {
         requestType: number;
     };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
     setShowInDisplayForm: {
         argNames: string[];
         requestType: number;

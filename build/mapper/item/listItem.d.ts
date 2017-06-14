@@ -12,6 +12,10 @@ export declare const listitem: {
         name: string;
         requestType: number;
     };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
     recycle: {
         requestType: number;
     };

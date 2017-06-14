@@ -22,6 +22,11 @@ exports.folder = {
         requestType: types_1.RequestType.GetWithArgsValueOnly,
         returnType: "folder"
     },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
     // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
     recycle: {
         requestType: types_1.RequestType.Post

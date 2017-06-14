@@ -3176,6 +3176,11 @@ exports.field = {
     delete: {
         requestType: types_1.RequestType.Delete
     },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
     // Sets the value of the ShowInDisplayForm property for this field.
     setShowInDisplayForm: {
         argNames: ["showInForm"],
@@ -3291,6 +3296,11 @@ exports.fileversion = {
     // Deletes the object
     delete: {
         requestType: types_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
     }
 };
 //# sourceMappingURL=fileVersion.js.map
@@ -3423,6 +3433,11 @@ exports.file = {
         argNames: ["comment"],
         requestType: types_1.RequestType.PostWithArgs
     },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
     // Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
     recycle: {
         requestType: types_1.RequestType.Get
@@ -3523,6 +3538,11 @@ exports.folder = {
         requestType: types_1.RequestType.GetWithArgsValueOnly,
         returnType: "folder"
     },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
     // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
     recycle: {
         requestType: types_1.RequestType.Post
@@ -3584,11 +3604,20 @@ exports.folders = {
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var types_1 = __webpack_require__(0);
 exports.group = {
     /*********************************************************************************************************************************/
     // Properties
     /*********************************************************************************************************************************/
-    properties: ["Users|users|/getById([Name])|user"]
+    properties: ["Users|users|/getById([Name])|user"],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    }
 };
 //# sourceMappingURL=group.js.map
 
@@ -3800,6 +3829,11 @@ exports.listitem = {
         name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
         requestType: types_1.RequestType.GetReplace
     },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
     // Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
     recycle: {
         requestType: types_1.RequestType.Post
@@ -3932,6 +3966,11 @@ exports.list = {
         name: "getView",
         requestType: types_1.RequestType.GetWithArgsValueOnly,
         returnType: "view"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
     },
     // Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
     recycle: {
@@ -4205,6 +4244,11 @@ exports.roleassignment = {
     // Deletes the object
     delete: {
         requestType: types_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
     }
 };
 //# sourceMappingURL=roleAssignment.js.map
@@ -4262,6 +4306,11 @@ exports.roledefinition = {
     // Deletes the object
     delete: {
         requestType: types_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
     }
 };
 //# sourceMappingURL=roleDefinition.js.map
@@ -4395,6 +4444,11 @@ exports.site = {
         argNames: ["gWebId"],
         requestType: types_1.RequestType.PostWithArgsValueOnly
     },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
     // Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
     runHealthCheck: {
         argNames: ["ruleId", "bRepair", "bRunAlways"],
@@ -4494,6 +4548,11 @@ exports.usercustomaction = {
     // Deletes the object
     delete: {
         requestType: types_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
     }
 };
 //# sourceMappingURL=userCustomAction.js.map
@@ -4584,6 +4643,11 @@ exports.user = {
     // Deletes the object
     delete: {
         requestType: types_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
     }
 };
 //# sourceMappingURL=user.js.map
@@ -4678,6 +4742,11 @@ exports.version = {
         argNames: ["label"],
         requestType: types_1.RequestType.PostWithArgsValueOnly
     },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
     // Restores a version, by the specified label.
     restoreByLabel: {
         argNames: ["label"],
@@ -4746,6 +4815,11 @@ exports.view = {
     // Deletes the object
     delete: {
         requestType: types_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
     },
     // Returns the list view as HTML.
     renderAsHtml: {
@@ -4991,6 +5065,11 @@ exports.web = {
     // Processes a notification from an external system.
     processExternalNotification: {
         requestType: types_1.RequestType.PostWithArgsInBody
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
     },
     // Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
     registerPushNotificationSubscriber: {

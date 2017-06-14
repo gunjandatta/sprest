@@ -2101,7 +2101,7 @@ export interface IEventReceivers extends IBase {
     query(query: ODataQuery): IEventReceivers;
 }
 
-import { ComplexTypes, IBase, SPTypes } from ".";
+import { ComplexTypes, IBase, ODataQuery, SPTypes } from ".";
 /**
  * Field
  */
@@ -2195,6 +2195,11 @@ export interface IField extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IField;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IField;
     /**
      * Sets the value of the ShowInDisplayForm property for this field.
      * @param showInForm - Flag to show the field in the display form.
@@ -2523,7 +2528,7 @@ export interface IFields extends IBase {
     query(query: ODataQuery): IFields;
 }
 
-import { ComplexTypes, IBase, IFileVersions, IPropertyValues, IUser, SPTypes } from ".";
+import { ComplexTypes, IBase, IFileVersions, IPropertyValues, IUser, ODataQuery, SPTypes } from ".";
 /**
  * File
  */
@@ -2704,6 +2709,11 @@ export interface IFile extends IBase {
      */
     publish(comment: any): IBase;
     /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IFile;
+    /**
      * Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */
     recycle(): IBase;
@@ -2797,7 +2807,7 @@ export interface IFiles extends IBase {
     query(query: ODataQuery): IFiles;
 }
 
-import { IBase, IUser } from ".";
+import { IBase, IUser, ODataQuery } from ".";
 /**
  * File Version
  */
@@ -2850,6 +2860,11 @@ export interface IFileVersion extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IFileVersion;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IFileVersion;
 }
 
 import { IBase, IFileVersion, ODataQuery } from ".";
@@ -2896,7 +2911,7 @@ export interface IFileVersions extends IBase {
     query(query: ODataQuery): IFileVersions;
 }
 
-import { ComplexTypes, IBase, IFile, IFiles, IFolders, IPropertyValues } from ".";
+import { ComplexTypes, IBase, IFile, IFiles, IFolders, IPropertyValues, ODataQuery } from ".";
 /**
  * Folder
  */
@@ -2988,6 +3003,11 @@ export interface IFolder extends IBase {
      */
     getByUrl(serverRelativeUrl: any): IFolder;
     /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IFolder;
+    /**
      * Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */
     recycle(): IBase;
@@ -3052,7 +3072,7 @@ export interface IFolders extends IBase {
     query(query: ODataQuery): IFolders;
 }
 
-import { IBase, IUser, IUsers } from ".";
+import { IBase, IUser, IUsers, ODataQuery } from ".";
 /**
  * Group
  */
@@ -3134,6 +3154,11 @@ export interface IGroup extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IGroup;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IGroup;
 }
 
 import { ComplexTypes, IContentType, IField, IFile, IFolder, IPromise, IWeb } from ".";
@@ -3683,7 +3708,7 @@ export interface ILimitedWebPartManager extends IBase {
     WebParts(id: any): any;
 }
 
-import { ComplexTypes, IBase, IContentType, IContentTypes, IEventReceiver, IEventReceivers, IField, IFields, IFile, IFolder, IListItem, IListItems, IRoleAssignment, IRoleAssignments, ITargetInfo, IUserCustomAction, IUserCustomActions, IView, IViews, SPTypes } from ".";
+import { ComplexTypes, IBase, IContentType, IContentTypes, IEventReceiver, IEventReceivers, IField, IFields, IFile, IFolder, IListItem, IListItems, IRoleAssignment, IRoleAssignments, ITargetInfo, IUserCustomAction, IUserCustomActions, IView, IViews, ODataQuery, SPTypes } from ".";
 /**
  * List
  */
@@ -4021,6 +4046,11 @@ export interface IList extends IBase {
      */
     getViewById(viewId: any): IView;
     /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IList;
+    /**
      * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */
     recycle(): IBase;
@@ -4051,7 +4081,7 @@ export interface IList extends IBase {
     update(data: any): IBase;
 }
 
-import { ComplexTypes, IAttachment, IAttachmentFiles, IBase, IContentType, IFile, IFolder, IList, IPropertyValues, IRoleAssignment, IRoleAssignments } from ".";
+import { ComplexTypes, IAttachment, IAttachmentFiles, IBase, IContentType, IFile, IFolder, IList, IPropertyValues, IRoleAssignment, IRoleAssignments, ODataQuery } from ".";
 /**
  * List Item
  */
@@ -4170,6 +4200,11 @@ export interface IListItem extends IBase {
      * @param loginName - The login name.
      */
     getUserEffectivePermissions(loginName: any): IBase;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IListItem;
     /**
      * Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */
@@ -4994,7 +5029,7 @@ export interface VisualizationField {
     results: Array<VisualizationField>;
 }
 
-import { IBase, IRoleDefinitions } from ".";
+import { IBase, IRoleDefinitions, ODataQuery } from ".";
 /**
  * Role Assignment
  */
@@ -5039,6 +5074,11 @@ export interface IRoleAssignment extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IRoleAssignment;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IRoleAssignment;
 }
 
 import { IBase, IRoleAssignment, ODataQuery } from ".";
@@ -5102,7 +5142,7 @@ export interface IRoleAssignments extends IBase {
     query(query: ODataQuery): IRoleAssignments;
 }
 
-import { ComplexTypes, IBase, SPTypes } from ".";
+import { ComplexTypes, IBase, ODataQuery, SPTypes } from ".";
 /**
  * Role Definition
  */
@@ -5151,6 +5191,11 @@ export interface IRoleDefinition extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IRoleDefinition;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IRoleDefinition;
 }
 
 import { IBase, IRoleDefinition, ODataQuery, SPTypes } from ".";
@@ -5318,7 +5363,7 @@ export interface SearchSuggestionResult extends IBase {
     executeAndWait(): SearchSuggestionResult;
 }
 
-import { ComplexTypes, IAudit, IBase, IEventReceiver, IEventReceivers, ITargetInfo, IUser, IUserCustomAction, IUserCustomActions, IWeb } from ".";
+import { ComplexTypes, IAudit, IBase, IEventReceiver, IEventReceivers, ITargetInfo, IUser, IUserCustomAction, IUserCustomActions, IWeb, ODataQuery } from ".";
 /**
  * Site
  */
@@ -5505,6 +5550,11 @@ export interface ISite extends IBase {
      * @param gWebId - A GUID that specifies which site to return.
      */
     openWebById(gWebId: any): IWeb;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): ISite;
     /**
      * Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
      * @param ruleId - Specifies the rule or rules to be run. If the value is an empty GUID, all rules are run, otherwise only the specified rule is run.
@@ -6583,7 +6633,7 @@ export interface ITargetInfo {
     url?: string;
 }
 
-import { IBase, IGroup, ISiteGroups } from ".";
+import { IBase, IGroup, ISiteGroups, ODataQuery } from ".";
 /**
  * User
  */
@@ -6644,9 +6694,14 @@ export interface IUser extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IUser;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IUser;
 }
 
-import { ComplexTypes, IBase, SPTypes } from ".";
+import { ComplexTypes, IBase, ODataQuery, SPTypes } from ".";
 /**
  * User Custom Action
  */
@@ -6715,6 +6770,11 @@ export interface IUserCustomAction extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IUserCustomAction;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IUserCustomAction;
 }
 
 import { ComplexTypes, IBase, IUserCustomAction, ODataQuery } from ".";
@@ -7025,7 +7085,7 @@ export interface IVersions extends IBase {
     restoreByLabel(label: any): IBase;
 }
 
-import { ComplexTypes, IBase, IViewFields } from ".";
+import { ComplexTypes, IBase, IViewFields, ODataQuery } from ".";
 /**
  * View
  */
@@ -7140,6 +7200,11 @@ export interface IView extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IView;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IView;
     /**
      * Returns the list view as HTML.
      */
@@ -7277,7 +7342,7 @@ export interface IViews extends IBase {
     query(query: ODataQuery): IViews;
 }
 
-import { ComplexTypes, IBase, IContentType, IContentTypes, IEventReceiver, IEventReceivers, IField, IFields, IFile, IFolder, IFolders, IGroup, ISiteGroups, ILists, IList, IPropertyValues, IRoleDefinition, IRoleDefinitions, ITargetInfo, IUser, IUsers, IUserCustomAction, IUserCustomActions, IWebs } from ".";
+import { ComplexTypes, IBase, IContentType, IContentTypes, IEventReceiver, IEventReceivers, IField, IFields, IFile, IFolder, IFolders, IGroup, ISiteGroups, ILists, IList, IPropertyValues, IRoleDefinition, IRoleDefinitions, ITargetInfo, IUser, IUsers, IUserCustomAction, IUserCustomActions, IWebs, ODataQuery } from ".";
 /**
  * Web
  */
@@ -7780,6 +7845,11 @@ export interface IWeb extends IBase {
      * @param stream - The notification message from the external system.
      */
     processExternalNotification(stream: any): IBase;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IWeb;
     /**
      * Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
      * @param deviceAppInstanceId - The ID of the device app instance.

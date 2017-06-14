@@ -1,4 +1,4 @@
-import { IBase, IRoleDefinitions } from ".";
+import { IBase, IRoleDefinitions, ODataQuery } from ".";
 /**
  * Role Assignment
  */
@@ -43,4 +43,9 @@ export interface IRoleAssignment extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IRoleAssignment;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IRoleAssignment;
 }

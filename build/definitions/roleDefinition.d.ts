@@ -1,4 +1,4 @@
-import { ComplexTypes, IBase, SPTypes } from ".";
+import { ComplexTypes, IBase, ODataQuery, SPTypes } from ".";
 /**
  * Role Definition
  */
@@ -47,4 +47,9 @@ export interface IRoleDefinition extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IRoleDefinition;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IRoleDefinition;
 }

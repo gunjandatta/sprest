@@ -60,6 +60,10 @@ export declare const file: {
         argNames: string[];
         requestType: number;
     };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
     recycle: {
         requestType: number;
     };

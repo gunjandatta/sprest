@@ -1,6 +1,7 @@
 import {
     ComplexTypes,
     IBase,
+    ODataQuery,
     SPTypes
 } from ".";
 /**
@@ -133,6 +134,12 @@ export interface IField extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IField;
+
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query:ODataQuery): IField;
 
     /**
      * Sets the value of the ShowInDisplayForm property for this field.
