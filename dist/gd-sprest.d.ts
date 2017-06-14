@@ -403,6 +403,21 @@ export interface EventReceiverDefinitionCreationInformation {
     Synchronization?: number;
 }
 /**
+ * Field Attachment File
+ */
+export interface FieldAttachmentFile {
+    FileName: string;
+    FileNameAsPath: ResourcePath;
+    ServerRelativePath: ResourcePath;
+    ServerRelativeUrl: string;
+}
+/**
+ * Field Attachment Files
+ */
+export interface FieldAttachmentFiles {
+    results: Array<FieldAttachmentFile>;
+}
+/**
  * Field Calculation Error Value
  */
 export interface FieldCalculationErrorValue {
