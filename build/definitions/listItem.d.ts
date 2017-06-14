@@ -1,4 +1,4 @@
-import { ComplexTypes, IAttachment, IAttachmentFiles, IBase, IContentType, IFile, IFolder, IList, IPropertyValues, IRoleAssignment, IRoleAssignments } from ".";
+import { ComplexTypes, IAttachment, IAttachmentFiles, IBase, IContentType, IFile, IFolder, IList, IPropertyValues, IRoleAssignment, IRoleAssignments, ODataQuery } from ".";
 /**
  * List Item
  */
@@ -117,6 +117,11 @@ export interface IListItem extends IBase {
      * @param loginName - The login name.
      */
     getUserEffectivePermissions(loginName: any): IBase;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IListItem;
     /**
      * Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */

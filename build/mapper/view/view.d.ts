@@ -3,6 +3,10 @@ export declare const view: {
     delete: {
         requestType: number;
     };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
     renderAsHtml: {
         requestType: number;
     };

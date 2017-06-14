@@ -3,4 +3,8 @@ export declare const roleassignment: {
     delete: {
         requestType: number;
     };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
 };

@@ -12,6 +12,7 @@ import {
     ITargetInfo,
     IUserCustomAction, IUserCustomActions,
     IView, IViews,
+    ODataQuery,
     SPTypes
 } from ".";
 /**
@@ -455,6 +456,12 @@ export interface IList extends IBase {
      * @param viewId - The view id.
      */
     getViewById(viewId): IView;
+
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query:ODataQuery): IList;
 
     /**
      * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.

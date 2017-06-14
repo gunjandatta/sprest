@@ -1,7 +1,8 @@
 import {
     ComplexTypes,
     IBase,
-    IViewFields
+    IViewFields,
+    ODataQuery
 } from ".";
 /**
  * View
@@ -163,6 +164,12 @@ export interface IView extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IView;
+
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query:ODataQuery): IView;
 
     /**
      * Returns the list view as HTML.

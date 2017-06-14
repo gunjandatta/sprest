@@ -140,6 +140,10 @@ export declare const web: {
     processExternalNotification: {
         requestType: number;
     };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
     registerPushNotificationSubscriber: {
         argNames: string[];
         requestType: number;

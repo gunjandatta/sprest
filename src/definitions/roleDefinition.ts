@@ -1,6 +1,7 @@
 import {
     ComplexTypes,
     IBase,
+    ODataQuery,
     SPTypes
 } from ".";
 /**
@@ -64,4 +65,10 @@ export interface IRoleDefinition extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IRoleDefinition;
+
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query:ODataQuery): IRoleDefinition;
 }

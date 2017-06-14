@@ -41,6 +41,10 @@ export declare const site: {
         argNames: string[];
         requestType: number;
     };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
     runHealthCheck: {
         argNames: string[];
         requestType: number;

@@ -1,4 +1,4 @@
-import { ComplexTypes, IBase, IContentType, IContentTypes, IEventReceiver, IEventReceivers, IField, IFields, IFile, IFolder, IListItem, IListItems, IRoleAssignment, IRoleAssignments, ITargetInfo, IUserCustomAction, IUserCustomActions, IView, IViews, SPTypes } from ".";
+import { ComplexTypes, IBase, IContentType, IContentTypes, IEventReceiver, IEventReceivers, IField, IFields, IFile, IFolder, IListItem, IListItems, IRoleAssignment, IRoleAssignments, ITargetInfo, IUserCustomAction, IUserCustomActions, IView, IViews, ODataQuery, SPTypes } from ".";
 /**
  * List
  */
@@ -335,6 +335,11 @@ export interface IList extends IBase {
      * @param viewId - The view id.
      */
     getViewById(viewId: any): IView;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IList;
     /**
      * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */

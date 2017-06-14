@@ -1,4 +1,4 @@
-import { ComplexTypes, IAudit, IBase, IEventReceiver, IEventReceivers, ITargetInfo, IUser, IUserCustomAction, IUserCustomActions, IWeb } from ".";
+import { ComplexTypes, IAudit, IBase, IEventReceiver, IEventReceivers, ITargetInfo, IUser, IUserCustomAction, IUserCustomActions, IWeb, ODataQuery } from ".";
 /**
  * Site
  */
@@ -185,6 +185,11 @@ export interface ISite extends IBase {
      * @param gWebId - A GUID that specifies which site to return.
      */
     openWebById(gWebId: any): IWeb;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): ISite;
     /**
      * Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
      * @param ruleId - Specifies the rule or rules to be run. If the value is an empty GUID, all rules are run, otherwise only the specified rule is run.

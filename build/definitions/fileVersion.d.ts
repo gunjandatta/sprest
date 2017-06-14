@@ -1,4 +1,4 @@
-import { IBase, IUser } from ".";
+import { IBase, IUser, ODataQuery } from ".";
 /**
  * File Version
  */
@@ -51,4 +51,9 @@ export interface IFileVersion extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IFileVersion;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IFileVersion;
 }

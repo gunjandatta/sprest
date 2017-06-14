@@ -63,6 +63,10 @@ export declare const list: {
         requestType: number;
         returnType: string;
     };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
     recycle: {
         requestType: number;
     };

@@ -114,6 +114,12 @@ export const file = {
         requestType: RequestType.PostWithArgs
     },
 
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    },
+
     // Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
     recycle: {
         requestType: RequestType.Get

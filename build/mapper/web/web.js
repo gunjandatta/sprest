@@ -196,6 +196,11 @@ exports.web = {
     processExternalNotification: {
         requestType: types_1.RequestType.PostWithArgsInBody
     },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
     // Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
     registerPushNotificationSubscriber: {
         argNames: ["deviceappinstanceid", "servicetoken"],

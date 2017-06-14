@@ -17,6 +17,10 @@ export declare const version: {
         argNames: string[];
         requestType: number;
     };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
     restoreByLabel: {
         argNames: string[];
         requestType: number;

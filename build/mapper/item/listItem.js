@@ -30,6 +30,11 @@ exports.listitem = {
         name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
         requestType: types_1.RequestType.GetReplace
     },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
     // Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
     recycle: {
         requestType: types_1.RequestType.Post

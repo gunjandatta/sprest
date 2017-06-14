@@ -3,4 +3,8 @@ export declare const fileversion: {
     delete: {
         requestType: number;
     };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
 };

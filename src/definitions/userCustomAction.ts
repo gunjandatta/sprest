@@ -1,6 +1,7 @@
 import {
     ComplexTypes,
     IBase,
+    ODataQuery,
     SPTypes
 } from ".";
 /**
@@ -94,4 +95,10 @@ export interface IUserCustomAction extends IBase {
      * Method to execute the request synchronously.
      */
     executeAndWait(): IUserCustomAction;
+
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query:ODataQuery): IUserCustomAction;
 }

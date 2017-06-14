@@ -6,7 +6,8 @@ import {
     ITargetInfo,
     IUser,
     IUserCustomAction, IUserCustomActions,
-    IWeb
+    IWeb,
+    ODataQuery
 } from ".";
 /**
  * Site
@@ -263,6 +264,12 @@ export interface ISite extends IBase {
      * @param gWebId - A GUID that specifies which site to return.
      */
     openWebById(gWebId): IWeb;
+
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query:ODataQuery): ISite;
     
     /**
      * Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)

@@ -4,4 +4,8 @@ export declare const usercustomaction: {
     delete: {
         requestType: number;
     };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
 };
