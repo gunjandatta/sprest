@@ -296,7 +296,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.55,
+    __ver: 1.56,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -6088,6 +6088,7 @@ var Base = function () {
                     result["addMethods"] = this.addMethods;
                     result["base"] = this.base;
                     result["executeMethod"] = this.executeMethod;
+                    result["existsFl"] = true;
                     result["getProperty"] = this.getProperty;
                     result["parent"] = this;
                     result["targetInfo"] = this.targetInfo;

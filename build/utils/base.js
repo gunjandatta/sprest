@@ -415,6 +415,7 @@ var Base = (function () {
                     result["addMethods"] = this.addMethods;
                     result["base"] = this.base;
                     result["executeMethod"] = this.executeMethod;
+                    result["existsFl"] = true;
                     result["getProperty"] = this.getProperty;
                     result["parent"] = this;
                     result["targetInfo"] = this.targetInfo;
