@@ -151,12 +151,14 @@ export class MethodInfo {
         if(this.methodInfo.metadataType) {
             // See if parameters exist
             if(this.methodInfo.argNames) {
-                // Append the metadata to the first parameter
-                (this.methodData || this.methodParams)[this.methodInfo.argNames[0]]["__metadata"] = { "type": this.methodInfo.metadataType };
+                // Append the metadata to the first parameter, if it doesn't exist
+                (this.methodData || this.methodParams)[this.methodInfo.argNames[0]]["__metadata"] =
+                    (this.methodData || this.methodParams)[this.methodInfo.argNames[0]]["__metadata"] || { "type": this.methodInfo.metadataType };
             }
             else {
-                // Append the metadata to the parameters
-                (this.methodData || this.methodParams)["__metadata"] = { "type": this.methodInfo.metadataType };
+                // Append the metadata to the parameters, if it doesn't exist
+                (this.methodData || this.methodParams)["__metadata"] =
+                    (this.methodData || this.methodParams)["__metadata"] || { "type": this.methodInfo.metadataType };
             }
         }
     }
