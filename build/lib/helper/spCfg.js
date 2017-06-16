@@ -23,8 +23,6 @@ var SPConfig = (function () {
                 case types_1.SPConfigTypes.ContentTypes:
                     // Set the target
                     target = (new __1.Web(_this._webUrl)).ContentTypes();
-                    // Log
-                    console.log("[gd-sprest][ContentType] Creating the content types.");
                     // Create the content types
                     _this.createContentTypes(target, _this._configuration.ContentTypes);
                     break;
@@ -32,8 +30,6 @@ var SPConfig = (function () {
                 case types_1.SPConfigTypes.Fields:
                     // Set the target
                     target = (new __1.Web(_this._webUrl)).Fields();
-                    // Log
-                    console.log("[gd-sprest][Field] Creating the site columns.");
                     // Create the fields
                     _this.createFields(target, _this._configuration.Fields);
                     break;
@@ -41,8 +37,6 @@ var SPConfig = (function () {
                 case types_1.SPConfigTypes.Lists:
                     // Set the target
                     target = (new __1.Web(_this._webUrl)).Lists();
-                    // Log
-                    console.log("[gd-sprest][List] Creating the lists.");
                     // Create the lists
                     _this.createLists(target, _this._configuration.ListCfg, targetName);
                     break;
@@ -50,8 +44,6 @@ var SPConfig = (function () {
                 case types_1.SPConfigTypes.SiteUserCustomActions:
                     // Set the target
                     target = (new __1.Site()).UserCustomActions();
-                    // Log
-                    console.log("[gd-sprest][CustomAction] Creating the site user custom actions.");
                     // Create the user custom actions
                     _this.createUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : null, targetName);
                     break;
@@ -61,8 +53,6 @@ var SPConfig = (function () {
                     target = (new __1.Web(__1.ContextInfo.siteServerRelativeUrl))
                         .Lists("Web Part Gallery")
                         .RootFolder();
-                    // Log
-                    console.log("[gd-sprest][WebPart] Creating the web parts.");
                     // Create the web parts
                     _this.createWebParts(target, _this._configuration.WebPartCfg ? _this._configuration.WebPartCfg : null);
                     break;
@@ -70,8 +60,6 @@ var SPConfig = (function () {
                 case types_1.SPConfigTypes.WebUserCustomActions:
                     // Set the target
                     target = (new __1.Web(_this._webUrl)).UserCustomActions();
-                    // Log
-                    console.log("[gd-sprest][CustomAction] Creating the web user custom actions.");
                     // Create the user custom actions
                     _this.createUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null, targetName);
                     break;
@@ -98,8 +86,6 @@ var SPConfig = (function () {
                 case types_1.SPConfigTypes.ContentTypes:
                     // Set the target
                     target = (new __1.Web(_this._webUrl)).ContentTypes();
-                    // Log
-                    console.log("[gd-sprest][Content Type] Removing the content types.");
                     // Create the content types
                     _this.removeContentTypes(target, _this._configuration.ContentTypes);
                     break;
@@ -107,8 +93,6 @@ var SPConfig = (function () {
                 case types_1.SPConfigTypes.Fields:
                     // Set the target
                     target = (new __1.Web(_this._webUrl)).Fields();
-                    // Log
-                    console.log("[gd-sprest][Field] Removing the site columns.");
                     // Remove the fields
                     _this.removeFields(target, _this._configuration.Fields);
                     break;
@@ -116,8 +100,6 @@ var SPConfig = (function () {
                 case types_1.SPConfigTypes.Lists:
                     // Set the target
                     target = (new __1.Web(_this._webUrl)).Lists();
-                    // Log
-                    console.log("[gd-sprest][List] Removing the lists.");
                     // Remove the lists
                     _this.removeLists(target, _this._configuration.ListCfg, targetName);
                     break;
@@ -125,8 +107,6 @@ var SPConfig = (function () {
                 case types_1.SPConfigTypes.SiteUserCustomActions:
                     // Set the target
                     target = (new __1.Site()).UserCustomActions();
-                    // Log
-                    console.log("[gd-sprest][CustomAction] Removing the site user custom actions.");
                     // Remove the site user custom actions
                     _this.removeUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : null, targetName);
                     break;
@@ -136,8 +116,6 @@ var SPConfig = (function () {
                     target = (new __1.Web(__1.ContextInfo.siteServerRelativeUrl))
                         .Lists("Web Part Gallery")
                         .RootFolder();
-                    // Log
-                    console.log("[gd-sprest][WebPart] Removing the web parts.");
                     // Create the web parts
                     _this.removeWebParts(target, _this._configuration.WebPartCfg ? _this._configuration.WebPartCfg : null);
                     break;
@@ -145,8 +123,6 @@ var SPConfig = (function () {
                 case types_1.SPConfigTypes.WebUserCustomActions:
                     // Set the target
                     target = (new __1.Web(_this._webUrl)).UserCustomActions();
-                    // Log
-                    console.log("[gd-sprest][CustomAction] Removing the web user custom actions.");
                     // Remove the web user custom actions
                     _this.removeUserCustomActions(target, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null, targetName);
                     break;
@@ -216,10 +192,10 @@ var SPConfig = (function () {
         this.createContentTypes = function (contentTypes, cfg, listInfo) {
             // Ensure configuration exist
             if (cfg == null || cfg.length == 0) {
-                // Log
-                console.log("[gd-sprest][Content Type] No content types exist in the configuration.");
                 return;
             }
+            // Log
+            console.log("[gd-sprest][ContentType] Creating the content types.");
             // Clear the content types in the configuration
             for (var i = 0; i < cfg.length; i++) {
                 cfg[i].ContentType = null;
@@ -256,10 +232,10 @@ var SPConfig = (function () {
         this.createFields = function (fields, cfg, listInfo) {
             // Ensure configuration exist
             if (cfg == null || cfg.length == 0) {
-                // Log
-                console.log("[gd-sprest][Fields] No fields exist in the " + (listInfo ? "list '" + listInfo.ListInformation.Title + "' " : "") + " configuration.");
                 return;
             }
+            // Log
+            console.log("[gd-sprest][Field] Creating the site columns.");
             // Clear the fields in the configuration
             for (var i = 0; i < cfg.length; i++) {
                 cfg[i].Field = null;
@@ -318,10 +294,10 @@ var SPConfig = (function () {
         this.createLists = function (lists, cfg, listName) {
             // Ensure configuration exist
             if (cfg == null || cfg.length == 0) {
-                // Log
-                console.log("[gd-sprest][Lists] No lists exist in the configuration.");
                 return;
             }
+            // Log
+            console.log("[gd-sprest][List] Creating the lists.");
             var _loop_1 = function (i) {
                 var listInfo = cfg[i].ListInformation;
                 // See if we are creating a specific list
@@ -413,6 +389,8 @@ var SPConfig = (function () {
             if (cfg == null || cfg.length == 0) {
                 return;
             }
+            // Log
+            console.log("[gd-sprest][CustomAction] Creating the site/web user custom actions.");
             var _loop_3 = function (i) {
                 // See if we are creating a specific custom action
                 if (customActionName && cfg[i].Name.toLowerCase() != customActionName) {
@@ -445,10 +423,10 @@ var SPConfig = (function () {
         this.createWebParts = function (folder, cfg, listInfo) {
             // Ensure the configuration exists
             if (cfg == null || cfg.length == 0) {
-                // Log
-                console.log("[gd-sprest][WebParts] No webparts exist in the configuration.");
                 return;
             }
+            // Log
+            console.log("[gd-sprest][WebPart] Creating the web parts.");
             // Clear the web parts in the configuration
             for (var i = 0; i < cfg.length; i++) {
                 cfg[i].File = null;
@@ -543,6 +521,8 @@ var SPConfig = (function () {
             if (cfg == null || cfg.length == 0) {
                 return;
             }
+            // Log
+            console.log("[gd-sprest][Content Type] Removing the content types.");
             // Get the content types
             contentTypes.execute(function () {
                 // Parse the content types
@@ -564,6 +544,8 @@ var SPConfig = (function () {
             if (cfg == null || cfg.length == 0) {
                 return;
             }
+            // Log
+            console.log("[gd-sprest][CustomAction] Removing the site user custom actions.");
             // Get the custom actions
             customActions.execute(function () {
                 // Parse the configuration
@@ -750,6 +732,8 @@ var SPConfig = (function () {
         if (cfg == null || cfg.length == 0) {
             return;
         }
+        // Log
+        console.log("[gd-sprest][Field] Removing the site columns.");
         // Get the fields
         fields.execute(function () {
             // Parse the fields
@@ -771,6 +755,8 @@ var SPConfig = (function () {
         if (cfg == null || cfg.length == 0) {
             return;
         }
+        // Log
+        console.log("[gd-sprest][List] Removing the lists.");
         // Get the lists
         lists.execute(function () {
             // Parse the configuration
@@ -803,6 +789,8 @@ var SPConfig = (function () {
         if (cfg == null || cfg.length == 0) {
             return;
         }
+        // Log
+        console.log("[gd-sprest][WebPart] Removing the web parts.");
         // Get the webpart files
         folder.Files()
             .query({
