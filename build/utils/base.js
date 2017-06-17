@@ -430,8 +430,8 @@ var Base = (function () {
     };
     // Method to convert the input arguments into an object
     Base.prototype.updateDataObject = function () {
-        // Ensure the request doesn't have an error code
-        if (this.request.request.status < 400) {
+        // Ensure the request was successful
+        if (this.request.request.status >= 200 && this.request.request.status < 300) {
             // Return if we are expecting a buffer
             if (this.requestType == types_1.RequestType.GetBuffer) {
                 // Set the exists flag
