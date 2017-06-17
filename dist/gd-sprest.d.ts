@@ -3572,6 +3572,7 @@ export * from "./userCustomAction";
 export * from "./userCustomActions";
 export * from "./userProfile";
 export * from "./users";
+export * from "./version";
 export * from "./versions";
 export * from "./view";
 export * from "./viewFieldCollection";
@@ -7017,6 +7018,32 @@ export interface IUsers extends IBase {
      * @param loginName - The login name of the user to remove.
      */
     removeByLoginName(loginName: any): IBase;
+}
+
+import { IBase } from ".";
+/**
+ * Version
+ */
+export interface IVersion extends IBase {
+    /**
+     * Properties
+     */
+    /** The check-in comment. */
+    CheckInComment: string;
+    /** The created date. */
+    Created: string;
+    /** The version id. */
+    ID: number;
+    /** Flag determining if this is the current version. */
+    IsCurrentVersion: boolean;
+    /** The file length. */
+    Length: number;
+    /** The file size. */
+    Size: number;
+    /** The file url. */
+    Url: string;
+    /** The version label. */
+    VersionLabel: string;
 }
 
 import { IBase, ODataQuery } from ".";

@@ -54,6 +54,7 @@ export * from "./userCustomAction";
 export * from "./userCustomActions";
 export * from "./userProfile";
 export * from "./users";
+export * from "./version";
 export * from "./versions";
 export * from "./view";
 export * from "./viewFieldCollection";

@@ -1,6 +1,7 @@
 import {
     IBase,
-    ODataQuery
+    ODataQuery,
+    IVersion
 } from ".";
 /**
  * Versions
