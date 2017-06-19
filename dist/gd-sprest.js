@@ -1649,7 +1649,7 @@ var SPConfig = function () {
                 Top: 1
             }).execute(function (parentContentTypes) {
                 // See if the content type exists
-                if (parentContentTypes.existsFl) {
+                if (parentContentTypes.results && parentContentTypes.results.length > 0) {
                     // Add the content type
                     contentTypes.addAvailableContentType(parentContentTypes.results[0].Id.StringValue).execute(function (contentType) {
                         var props = {};

@@ -1,11 +1,9 @@
-import { ComplexTypes, IBase, IField, IFields, IFieldLink, IFieldLinks } from "..";
+import { IContentTypeMethods } from "./contentTypeMethods";
+import { IBase, IField, IFields, IFieldLink, IFieldLinks, IStringValue } from "..";
 /**
  * Content Type
  */
-export interface IContentType extends IBase {
-    /**
-     * Properties
-     */
+export interface IContentType extends IContentTypeMethods {
     /** Gets or sets a description of the content type. */
     Description: string;
     DescriptionResource(): IBase;
@@ -44,7 +42,7 @@ export interface IContentType extends IBase {
     /** Gets or sets a value that specifies whether the content type is unavailable for creation or usage directly from a user export interface. */
     Hidden: boolean;
     /** Gets a value that specifies an identifier for the content type. */
-    Id: ComplexTypes.ContentTypeId;
+    Id: IStringValue;
     /** Gets or sets the JSLink for the content type custom form template. The JSLink property is not supported on Survey or Events lists. A SharePoint calendar is an Events list. */
     JSlink: string;
     MobileDisplayFormUrl: string;
@@ -75,36 +73,4 @@ export interface IContentType extends IBase {
      * Gets a value that specifies the collection of workflow associations for the content type.
      */
     WorkflowAssociations(): IBase;
-    /**
-     * Methods
-     */
-    /**
-     * Deletes the content type.
-     */
-    delete(): IBase;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?: (value?: IContentType, ...args) => any): IContentType;
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl: boolean): IContentType;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback: (value?: IContentType, ...args) => any, waitFl: boolean): IContentType;
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IContentType;
-    /**
-     * Updates it's properties.
-     * @param data - The content type properties to update.
-     */
-    update(data: any): IBase;
 }

@@ -54,6 +54,23 @@ export interface IContainsConfidentialInfo {
 }
 
 /**
+ * Content Type Creation Information
+ */
+export interface IContentTypeCreationInformation {
+    /** The content type description. */
+    Description?: string;
+
+    /** The content type group. */
+    Group?: string;
+
+    /** The content type id. */
+    Id?: string;
+
+    /** The content type name. */
+    Name: string;
+}
+
+/**
  * Feature
  */
 export interface IFeature {

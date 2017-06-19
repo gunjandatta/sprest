@@ -300,9 +300,9 @@ export class SPConfig {
                 Top: 1
             })
             // Execute the request
-            .execute((parentContentTypes: IContentTypes) => {
+            .execute((parentContentTypes) => {
                 // See if the content type exists
-                if (parentContentTypes.existsFl) {
+                if (parentContentTypes.results && parentContentTypes.results.length > 0) {
                     // Add the content type
                     contentTypes.addAvailableContentType(parentContentTypes.results[0].Id.StringValue).execute((contentType) => {
                         let props = {};

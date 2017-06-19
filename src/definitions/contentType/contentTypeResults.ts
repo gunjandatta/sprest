@@ -1,19 +1,23 @@
 import { IContentTypeMethods } from "./contentTypeMethods";
 import {
     IBase,
-    IField, IFields,
-    IFieldLink, IFieldLinks,
-    IStringValue
+    IField,
+    IFieldLink,
+    IList,
+    IResourcePath,
+    IResults,
+    IStringValue,
+    IWeb
 } from "..";
 
 /**
- * Content Type
+ * Content Type Query Results
  */
-export interface IContentType extends IContentTypeMethods {
+export interface IContentTypeQueryResults extends IContentTypeMethods {
     /** Gets or sets a description of the content type. */
     Description: string;
 
-    DescriptionResource(): IBase;
+    DescriptionResource: IResourcePath;
 
     /** Gets or sets a value that specifies the name of a custom display form template to use for list items that have been assigned the content type. */
     DisplayFormTemplateName: string;
@@ -36,24 +40,12 @@ export interface IContentType extends IContentTypeMethods {
     /**
      * Gets the column (also known as field) references in the content type.
      */
-    FieldLinks(): IFieldLinks;
-
-    /**
-     * Gets the column (also known as field) reference in the content type.
-     * @param guid - The guid of the field link.
-     */
-    FieldLinks(guid: string): IFieldLink;
+    FieldLinks: IResults<IFieldLink>;
 
     /**
      * Gets the fields for the content type.
      */
-    Fields(): IFields;
-
-    /**
-     * Gets the field for the content type.
-     * @param internalNameOrTitle - The internal name or title of the field.
-     */
-    Fields(internalNameOrTitle: string): IField;
+    Fields: IResults<IField>;
 
     /** Gets or sets a value that specifies the content type group for the content type. */
     Group: string;
@@ -76,7 +68,7 @@ export interface IContentType extends IContentTypeMethods {
     /** Gets or sets a value that specifies the name of the content type. */
     Name: string;
 
-    NameResource(): IBase;
+    NameResource: IResourcePath;
 
     /** Gets or sets a value that specifies the name of the content type. */
     NewFormTemplateName: string;
@@ -85,7 +77,7 @@ export interface IContentType extends IContentTypeMethods {
     NewFormUrl: string;
 
     /** Gets the parent content type of the content type. */
-    Parent(): IContentType;
+    Parent: IList | IWeb;
 
     /** Gets or sets a value that specifies whether changes to the content type properties are denied. */
     Readonly: boolean;
@@ -108,5 +100,5 @@ export interface IContentType extends IContentTypeMethods {
     /**
      * Gets a value that specifies the collection of workflow associations for the content type.
      */
-    WorkflowAssociations(): IBase;
+    WorkflowAssociations: IResults<any>;
 }
