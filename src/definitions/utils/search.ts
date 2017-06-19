@@ -37,32 +37,7 @@ export interface ISearch extends IBase {
 /**
  * Search Query Result
  */
-export interface SearchQueryResult extends IBase {
-    query:ComplexTypes.SearchResult;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?:(value?:SearchQueryResult, ...args) => any): SearchQueryResult;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl:boolean): SearchQueryResult;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback:(value?:SearchQueryResult, ...args) => any, waitFl:boolean): SearchQueryResult;
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): SearchQueryResult;
+export interface SearchQueryResult extends IBase<SearchQueryResult, ComplexTypes.SearchResult> {
 }
 
 /**

@@ -14,8 +14,9 @@ import {
     IWeb,
     ODataQuery
 } from "..";
+
 /**
- * Site
+ * Site Query Results
  */
 export interface ISiteQueryResults extends ISiteMethods {
     /** A value that specifies whether creation of declarative workflows can be used on this site collection. */

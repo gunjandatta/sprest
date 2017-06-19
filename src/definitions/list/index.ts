@@ -1,3 +1,5 @@
+export * from "./attachment";
+export * from "./attachments";
 export * from "./item";
 export * from "./items";
 export * from "./list";

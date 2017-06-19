@@ -1,23 +1,20 @@
+import { IListItemMethods } from "./itemMethods";
 import {
-    ComplexTypes,
     IAttachment, IAttachmentFiles,
     IBase,
+    IBasePermissions,
     IContentType,
     IFile,
     IFolder,
     IList,
     IPropertyValues,
-    IRoleAssignment, IRoleAssignments,
-    ODataQuery
+    IRoleAssignment, IRoleAssignments
 } from "..";
+
 /**
  * List Item
  */
-export interface IListItem extends IBase {
-    /**
-     * Properties
-     */
-
+export interface IListItem extends IListItemMethods {
     /**
      * Get the attachment collection.
      */
@@ -27,7 +24,7 @@ export interface IListItem extends IBase {
      * Gets the specified attachment file.
      * @param fileName - The filename of the attachment.
      */
-    AttachmentFiles(fileName:string): IAttachment;
+    AttachmentFiles(fileName: string): IAttachment;
 
     /**
      * Gets a value that specifies the content type of the list item.
@@ -40,10 +37,10 @@ export interface IListItem extends IBase {
     DisplayName: string;
 
     /** Gets a value that specifies the effective permissions on the list item that are assigned to the current user. */
-    EffectiveBasePermissions: ComplexTypes.BasePermissions;
+    EffectiveBasePermissions: IBasePermissions;
 
     /** Gets the effective base permissions for the current user, as they should be displayed in UI. */
-    EffectiveBasePermissionsForUI: ComplexTypes.BasePermissions;
+    EffectiveBasePermissionsForUI: IBasePermissions;
 
     /**
      * Gets the values for the list item as HTML.
@@ -109,82 +106,7 @@ export interface IListItem extends IBase {
      * Gets the role assignment(s) for the securable object.
      * @param id - The role assignment id.
      */
-    RoleAssignments(id:string): IRoleAssignment;
+    RoleAssignments(id: string): IRoleAssignment;
 
     ServerRedirectedEmbedUrl: string;
-
-    /**
-     * Methods
-     */
-
-    /**
-     * Creates unique role assignments for the securable object.
-     * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
-     * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
-     */
-    breakRoleInheritance(copyRoleAssignments, clearSubScopes): IBase;
-
-    /**
-     * Deletes the list item.
-     */
-    delete(): IBase;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?:(value?:IListItem, ...args) => any): IListItem;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl:boolean): IListItem;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback:(value?:IListItem, ...args) => any, waitFl:boolean): IListItem;
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IListItem;
-
-    /**
-     * Gets the effective permissions that a specified user has on the list item.
-     * @param loginName - The login name.
-     */
-    getUserEffectivePermissions(loginName): IBase;
-
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query:ODataQuery): IListItem;
-
-    /**
-     * Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-     */
-    recycle(): IBase;
-
-    /**
-     * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
-     */
-    resetRoleInheritance(): IBase;
-
-    /**
-     * Updates it's properties.
-     * @param data - The list properties to update.
-     */
-    update(data): IBase;
-
-    /**
-     * Validates and sets the values of the specified collection of fields for the list item.
-     * @param formValues - The fields to change and their new values. Pass this parameter in the request body, as shown in the request example.
-     * @param bNewDocumentUpdate - True if the list item is a document being updated after upload; otherwise false. Pass this parameter in the request body, as shown in the request example, or in the URI path.
-     */
-    validateUpdateListItem(formValues, bNewDocumentUpdate);
 }

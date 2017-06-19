@@ -1,40 +1,13 @@
-import { ComplexTypes, IBase, IView, ODataQuery } from "..";
+import { IViewQueryResults } from "./viewResults";
+import { IBase, IResults, IView, IViewCreationInformation } from "..";
 /**
  * Views
  */
-export interface IViews extends IBase {
-    /**
-     * Properties
-     */
-    /** The view collection. */
-    results: Array<IView>;
-    /**
-     * Methods
-     */
+export interface IViews extends IResults<IView>, IBase<IResults<IView>, IResults<IViewQueryResults>> {
     /**
      * Adds a list view to the view collection.
      */
-    add(parameters: ComplexTypes.ViewCreationInformation): IView;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?: (value?: IViews, ...args) => any): IViews;
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl: boolean): IViews;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback: (value?: IViews, ...args) => any, waitFl: boolean): IViews;
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IViews;
+    add(parameters: IViewCreationInformation): IView;
     /**
      * Gets the list view with the specified ID.
      * @param id - The ID of the view.
@@ -49,9 +22,4 @@ export interface IViews extends IBase {
      * Method to get the next set of results.
      */
     next(): IViews;
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query: ODataQuery): IViews;
 }

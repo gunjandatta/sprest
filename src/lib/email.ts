@@ -54,4 +54,4 @@ class _Email extends Base {
         }, [properties]);
     }
 }
-export const Email:IEmail = new _Email();
+export const Email:IEmail = new _Email() as any;

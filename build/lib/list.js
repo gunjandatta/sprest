@@ -36,7 +36,7 @@ var _List = (function (_super) {
     // Method to get the list by the entity name.
     _List.getByEntityName = function (entityTypeName, callback, targetInfo) {
         // Query for the list
-        var list = (new web_1.Web(targetInfo))
+        var query = (new web_1.Web(targetInfo))
             .Lists()
             .query({
             Filter: "EntityTypeName eq '" + entityTypeName + "'",
@@ -45,13 +45,13 @@ var _List = (function (_super) {
         // See if the callback exists
         if (typeof (callback) != "function") {
             // Execute the request synchronously and return it
-            list = list.executeAndWait();
-            return list.existsFl ? list.results[0] : list;
+            var list = query.executeAndWait();
+            return list.results ? list.results[0] : list;
         }
         // Execute the request asynchronously
-        list.execute(function (lists) {
+        query.execute(function (lists) {
             // Execute the callback method
-            callback(lists.existsFl ? lists.results[0] : lists);
+            callback(lists.results ? lists.results[0] : lists);
         });
     };
     return _List;

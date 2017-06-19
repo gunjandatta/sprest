@@ -1,11 +1,12 @@
 import {
-    ComplexTypes,
     IBase,
     IContentType,
     IField,
     IFile,
     IFolder,
+    IListCreationInformation,
     IPromise,
+    IUserCustomActionCreationInformation,
     IView,
     IWeb
 } from "..";
@@ -186,12 +187,12 @@ export interface ISPCfgCustomActionInfo {
     /**
      * Custom actions to be created at the site collection level.
      */
-    Site?:Array<ComplexTypes.UserCustomActionCreationInformation>,
+    Site?:Array<IUserCustomActionCreationInformation>,
 
     /**
      * Custom actions to be created at the web level.
      */
-    Web?:Array<ComplexTypes.UserCustomActionCreationInformation>
+    Web?:Array<IUserCustomActionCreationInformation>
 }
 
 /**
@@ -225,7 +226,7 @@ export interface ISPCfgListInfo {
     CustomFields?:Array<ISPCfgFieldInfo>;
 
     /** The list creation information. */
-    ListInformation:ComplexTypes.ListCreationInformation;
+    ListInformation:IListCreationInformation;
 
     /** The title display name. */
     TitleFieldDisplayName?:string;

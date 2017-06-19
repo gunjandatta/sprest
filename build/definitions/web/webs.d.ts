@@ -1,8 +1,9 @@
-import { IBase, IResults, IWeb, IWebCreationInformation, ODataQuery } from "..";
+import { IWebQueryResult } from "./webResults";
+import { IBase, IResults, IWeb, IWebCreationInformation } from "..";
 /**
  * Webs
  */
-export interface IWebs extends IResults<IWeb>, IBase<IWebs> {
+export interface IWebs extends IResults<IWeb>, IBase<IResults<IWeb>, IResults<IWebQueryResult>> {
     /**
      * Methods
      */
@@ -15,9 +16,4 @@ export interface IWebs extends IResults<IWeb>, IBase<IWebs> {
      * Method to get the next set of results.
      */
     next(): IWebs;
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query: ODataQuery): IBase<IWebs>;
 }

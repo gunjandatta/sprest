@@ -1,4 +1,4 @@
-import { ComplexTypes, IContentType, IField, IFile, IFolder, IPromise, IWeb } from "..";
+import { IContentType, IField, IFile, IFolder, IListCreationInformation, IPromise, IUserCustomActionCreationInformation, IWeb } from "..";
 /**
  * App Helper Methods
  */
@@ -154,11 +154,11 @@ export interface ISPCfgCustomActionInfo {
     /**
      * Custom actions to be created at the site collection level.
      */
-    Site?: Array<ComplexTypes.UserCustomActionCreationInformation>;
+    Site?: Array<IUserCustomActionCreationInformation>;
     /**
      * Custom actions to be created at the web level.
      */
-    Web?: Array<ComplexTypes.UserCustomActionCreationInformation>;
+    Web?: Array<IUserCustomActionCreationInformation>;
 }
 /**
  * SharePoint Configuration - Field Information
@@ -186,7 +186,7 @@ export interface ISPCfgListInfo {
     /** The custom list fields. */
     CustomFields?: Array<ISPCfgFieldInfo>;
     /** The list creation information. */
-    ListInformation: ComplexTypes.ListCreationInformation;
+    ListInformation: IListCreationInformation;
     /** The title display name. */
     TitleFieldDisplayName?: string;
     /** The view information. */

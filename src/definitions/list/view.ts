@@ -1,17 +1,14 @@
+import { IViewMethods } from "./viewMethods";
 import {
-    ComplexTypes,
-    IBase,
+    IStringValue,
     IViewFields,
-    ODataQuery
+    IVisualization
 } from "..";
+
 /**
  * View
  */
-export interface IView extends IBase {
-    /**
-     * Properties
-     */
-
+export interface IView extends IViewMethods {
     /** Gets or sets a value that specifies fields and functions that define totals shown in a list view. If not null, the XML must conform to FieldRefDefinitionAggregation, as specified in [MS-WSSCAML]. */
     Aggregations: string;
 
@@ -22,7 +19,7 @@ export interface IView extends IBase {
     BaseViewId: string;
 
     /** Gets or sets the identifier of the content type with which the view is associated so that the view is available only on folders of this content type. */
-    ContentTypeId: ComplexTypes.ContentTypeId;
+    ContentTypeId: IStringValue;
 
     /** Gets or sets a value that specifies whether the list view is the default list view. */
     DefaultView: boolean;
@@ -113,7 +110,7 @@ export interface IView extends IBase {
     /** Gets or sets a value that specifies the view data for the list view. If not null, the XML must conform to FieldRefDefinitionViewData, as specified in [MS-WSSCAML]. */
     ViewData: string;
 
-    VisualizationInfo: ComplexTypes.Visualization;
+    VisualizationInfo: IVisualization;
 
     /**
      * Gets a value that specifies the collection of fields in the list view.
@@ -131,54 +128,4 @@ export interface IView extends IBase {
 
     /** Gets a value that specifies the type of the list view. Can be HTML, GRID, CALENDAR, RECURRENCE, CHART, or GANTT. */
     ViewType: string;
-
-    /**
-     * Methods
-     */
-
-    /**
-     * Deletes the view.
-     */
-    delete(): IBase;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?:(value?:IView, ...args) => any): IView;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl:boolean): IView;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback:(value?:IView, ...args) => any, waitFl:boolean): IView;
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IView;
-
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query:ODataQuery): IView;
-
-    /**
-     * Returns the list view as HTML.
-     */
-    renderAsHtml(): IBase;
-
-    /**
-     * Updates it's properties.
-     * @param data - The list properties to update.
-     */
-    update(data): IBase;
 }

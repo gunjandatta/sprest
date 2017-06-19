@@ -1,8 +1,9 @@
-import {IRequestType} from "..";
+import { IRequestType, ODataQuery } from "..";
+
 /**
  * The base class
  */
-export interface IBase<T = any> {
+export interface IBase<T = any, R = any> {
     /**
      * Properties
      */
@@ -23,29 +24,35 @@ export interface IBase<T = any> {
      * Method to wait for the requests to complete.
      * @param callback - The method to be executed after the request completes.
      */
-    done(callback?:(...args) => any);
+    done(callback?: (...args) => any);
 
     /**
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?:(value?:T, ...args) => any): T;
+    execute(callback?: (value?: T, ...args) => any): T;
 
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(waitFl:boolean): T;
+    execute(waitFl: boolean): T;
 
     /**
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback:(value?:T, ...args) => any, waitFl:boolean): T;
+    execute(callback: (value?: T, ...args) => any, waitFl: boolean): T;
 
     /**
      * Method to execute the request synchronously.
      */
     executeAndWait(): T;
+
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IBase<R>;
 }

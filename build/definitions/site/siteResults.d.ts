@@ -1,7 +1,7 @@
 import { ISiteMethods } from "./siteMethods";
 import { IAudit, IEventReceiver, IFeature, IRecycleBinItem, IResourcePath, IResults, IUpgradeInfo, IUsageInfo, IUser, IUserCustomAction, IWeb } from "..";
 /**
- * Site
+ * Site Query Results
  */
 export interface ISiteQueryResults extends ISiteMethods {
     /** A value that specifies whether creation of declarative workflows can be used on this site collection. */

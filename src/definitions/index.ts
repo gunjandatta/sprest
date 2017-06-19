@@ -1,4 +1,3 @@
-export * from "./attachment";
 import * as ComplexTypes from "./complexTypes";
 export * from "./contentType";
 export * from "./contextInfo";

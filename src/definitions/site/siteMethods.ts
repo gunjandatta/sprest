@@ -15,7 +15,7 @@ import {
 /**
  * Site Methods
  */
-export interface ISiteMethods extends IBase<ISite> {
+export interface ISiteMethods extends IBase<ISite, ISiteQueryResults> {
     /**
      * Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
      * @param upgrade - If true, the evaluation site collection MUST be upgraded when it is created. If false, the evaluation site collection MUST NOT be upgraded when it is created.
@@ -27,30 +27,6 @@ export interface ISiteMethods extends IBase<ISite> {
      * Extend the upgrade reminder date for this SPSite by the days specified at WebApplication.UpgradeReminderDelay.
      */
     extendUpgradeReminderDate(): IBase;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?: (value?: ISite, ...args) => any): ISite;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl: boolean): ISite;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback: (value?: ISite, ...args) => any, waitFl: boolean): ISite;
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): ISite;
 
     /**
      * Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
@@ -100,12 +76,6 @@ export interface ISiteMethods extends IBase<ISite> {
      * @param gWebId - A GUID that specifies which site to return.
      */
     openWebById(gWebId): IWeb;
-
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query: ODataQuery): ISiteQueryResults;
 
     /**
      * Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)

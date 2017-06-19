@@ -1,8 +1,8 @@
-import { IRequestType } from "..";
+import { IRequestType, ODataQuery } from "..";
 /**
  * The base class
  */
-export interface IBase<T = any> {
+export interface IBase<T = any, R = any> {
     /**
      * Properties
      */
@@ -39,4 +39,9 @@ export interface IBase<T = any> {
      * Method to execute the request synchronously.
      */
     executeAndWait(): T;
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query(query: ODataQuery): IBase<R>;
 }

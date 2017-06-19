@@ -1,4 +1,4 @@
-import { IUser } from "..";
+import { IUser, SPTypes } from "..";
 /**
  * App Tiles
  */
@@ -50,6 +50,61 @@ export interface IContainsConfidentialInfo {
  */
 export interface IFeature {
     DefinitionId: string;
+}
+/**
+ * Form
+ */
+export interface IForm {
+    Id: string;
+    ResourcePath: IResourcePath;
+    ServerRelativeUrl: string;
+    FormType: number;
+}
+/**
+ * Information Rights Management Settings
+ */
+export interface IInformationRightsManagementSettings {
+    AllowPrint: boolean;
+    AllowScript: boolean;
+    AllowWriteCopy: boolean;
+    DisableDocumentBrowserView: boolean;
+    DocumentAccessExpireDays: number;
+    DocumentLibraryProtectionExpireDate: string;
+    EnableDocumentAccessExpire: boolean;
+    EnableDocumentBrowserPublishingView: boolean;
+    EnableGroupProtection: boolean;
+    GroupName: string;
+    LicenseCacheExpireDays: number;
+    PolicyDescription: string;
+    PolicyTitle: string;
+    TemplateId: string;
+}
+/**
+ * List Creation Information
+ */
+export interface IListCreationInformation {
+    /** The list template type. */
+    BaseTemplate: SPTypes.ListTemplateType | number;
+    /** The list schema xml. */
+    CustomSchemaXml?: string;
+    /** The list of data source properties. */
+    DataSourceProperties?: Array<string>;
+    /** The list description. */
+    Description?: string;
+    /** The list document template type. */
+    DocumentTemplateType?: number;
+    /** Option to display the list on the quick launch. */
+    QuickLaunchOption?: number;
+    /** The list template feature id. */
+    TemplateFeatureId?: string;
+    /** The list name. */
+    Title: string;
+}
+/**
+ * List Data Source
+ */
+export interface IListDataSource {
+    Properties: Array<string>;
 }
 /**
  * List Template
@@ -156,6 +211,17 @@ export interface IResults<P> {
     results: Array<P>;
 }
 /**
+ * String Value
+ */
+export interface IStringValue {
+    StringValue: string;
+}
+/**
+ * Subscription
+ */
+export interface ISubscription {
+}
+/**
  * Theme Information
  */
 export interface IThemeInfo {
@@ -187,6 +253,95 @@ export interface IUsageInfo {
     Storage: number;
     StoragePercentageUsed: number;
     Visits: number;
+}
+/**
+ * User Custom Action Information
+ */
+export interface IUserCustomActionCreationInformation {
+    /** A value that specifies an implementation specific XML fragment that determines user export interface properties of the custom action. */
+    CommandUIExtension?: string;
+    /** The description of the custom action. */
+    Description?: string;
+    /** A value that specifies an implementation-specific value that determines the position of the custom action in the page. */
+    Group?: string;
+    /** The URL of the image associated with the custom action. */
+    ImageUrl?: string;
+    /** The location of the custom action. */
+    Location?: string;
+    /** The name of the custom action. */
+    Name: string;
+    /** The value that specifies the identifier of the object associated with the custom action. */
+    RegistrationId?: string;
+    /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
+    RegistrationType?: SPTypes.UserCustomActionRegistrationType | number;
+    /** The value that specifies the permissions needed for the custom action. */
+    Rights?: any;
+    /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
+    ScriptBlock?: string;
+    /** A value that specifies the URI of a file which contains the ECMAScript to execute on the page. */
+    ScriptSrc?: string;
+    /** The value that specifies an implementation-specific value that determines the order of the custom action that appears on the page. */
+    Sequence?: number;
+    /** The display title of the custom action. */
+    Title?: string;
+    /** The URL, URI, or ECMAScript (JScript, JavaScript) function associated with the action. */
+    Url?: string;
+}
+/**
+ * View Creation Information
+ */
+export interface IViewCreationInformation {
+    /** The relative url to the jslink */
+    JSLink?: string;
+    /** The new list view is a paged view. */
+    Paged?: boolean;
+    /** The new list view is a personal view. If the value is false, the new list view is a public view. */
+    PersonalView?: boolean;
+    /** The maximum number of list items that the new list view displays on a visual page of the list view. */
+    RowLimit?: number;
+    /** Option to set as default view. */
+    SetAsDefaultView?: boolean;
+    /** The name of the view. */
+    Title: string;
+    /** The query for the new list view. */
+    ViewQuery?: string;
+    /** The view type. */
+    ViewTypeKind?: SPTypes.ViewType | number;
+}
+/**
+ * Visualization
+ */
+export interface IVisualization {
+    DefaultScreen: IVisualizationStyleSet;
+    DetailView: IVisualizationStyleSet;
+    MediumScreen: IVisualizationStyleSet;
+    SmallScreen: IVisualizationStyleSet;
+    VisualizationAppInfo: IVisualizationAppInfo;
+    VisualizationType: number;
+}
+/**
+ * Visualization App Information
+ */
+export interface IVisualizationAppInfo {
+    DesignUri: string;
+    Id: string;
+    RuntimeUri: string;
+}
+/**
+ * Visualization Field
+ */
+export interface IVisualizationField {
+    InternalName: string;
+    Style: string;
+}
+/**
+ * Visualization Style Set
+ */
+export interface IVisualizationStyleSet {
+    AspectRatio: string;
+    BackgroundColor: string;
+    Fields: IVisualizationField;
+    MinHeight: string;
 }
 /**
  * Web Creation Information

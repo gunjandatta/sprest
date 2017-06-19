@@ -1,9 +1,9 @@
 import { IWebQueryResult } from "./webResults";
-import { IBase, IFile, IFolder, IList, IUser, IWeb, ODataQuery } from "..";
+import { IBase, IFile, IFolder, IList, IUser, IWeb } from "..";
 /**
  * Web Methods
  */
-export interface IWebMethods extends IBase<IWeb> {
+export interface IWebMethods extends IBase<IWeb, IWebQueryResult> {
     /**
      * Applies the theme specified by the contents of each of the files specified in the arguments to the site.
      * @param colorpaletteurl - The server-relative URL of the color palette file.
@@ -177,11 +177,6 @@ export interface IWebMethods extends IBase<IWeb> {
      * @param stream - The notification message from the external system.
      */
     processExternalNotification(stream: any): IBase;
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query: ODataQuery): IBase<IWebQueryResult>;
     /**
      * Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
      * @param deviceAppInstanceId - The ID of the device app instance.

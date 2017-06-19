@@ -25,7 +25,7 @@ class _List extends Base {
     // Method to get the list by the entity name.
     static getByEntityName(entityTypeName, callback, targetInfo?) {
         // Query for the list
-        let list = (new Web(targetInfo))
+        let query = (new Web(targetInfo))
             // Get the lists
             .Lists()
             // Set the query
@@ -37,14 +37,14 @@ class _List extends Base {
         // See if the callback exists
         if(typeof(callback) != "function") {
             // Execute the request synchronously and return it
-            list = list.executeAndWait();
-            return list.existsFl ? list.results[0] : list;
+            let list = query.executeAndWait();
+            return list.results ? list.results[0] : list;
         }
 
         // Execute the request asynchronously
-        list.execute((lists:ILists) => {
+        query.execute((lists) => {
             // Execute the callback method
-            callback(lists.existsFl ? lists.results[0] : lists);
+            callback(lists.results ? lists.results[0] : lists);
         });
     }
 }

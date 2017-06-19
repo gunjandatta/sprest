@@ -1,6 +1,7 @@
+import { IListMethods } from "./listMethods";
 import {
-    ComplexTypes,
     IBase,
+    IBasePermissions,
     IContentType, IContentTypes,
     IEventReceiver, IEventReceivers,
     IField, IFields,
@@ -8,23 +9,25 @@ import {
     IFolder,
     ILists,
     IListItem, IListItems,
+    IResourcePath,
     IRoleAssignment, IRoleAssignments,
+    IStringValue,
     ITargetInfo,
     IUserCustomAction, IUserCustomActions,
     IView, IViews,
-    ODataQuery,
     SPTypes
 } from "..";
+
 /**
  * List
  */
-export interface IList extends IBase {
+export interface IList extends IListMethods {
     /**
      * Constructor
      * @param listName - The name of the list.
      * @param targetInfo - (Optional) The target information.
      */
-    new(listName:string, targetInfo?:ITargetInfo): IList;
+    new (listName: string, targetInfo?: ITargetInfo): IList;
 
     /**
      * Properties
@@ -55,7 +58,7 @@ export interface IList extends IBase {
      * Gets the content types that are associated with the list.
      * @param id - The id of the content type.
      */
-    ContentTypes(id:string): IContentType;
+    ContentTypes(id: string): IContentType;
 
     /** Gets or sets a value that specifies whether content types are enabled for the list. */
     ContentTypesEnabled: boolean;
@@ -63,12 +66,12 @@ export interface IList extends IBase {
     /** Gets a value that specifies when the list was created. */
     Created: string;
 
-    CurrentChangeToken: ComplexTypes.ChangeToken;
+    CurrentChangeToken: IStringValue;
 
     /**
      * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
      */
-    DataSource(): ComplexTypes.ListDataSource;
+    DataSource(): Array<string>;
 
     /** Gets a value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
     DefaultContentApprovalWorkflowId: string;
@@ -101,7 +104,7 @@ export interface IList extends IBase {
     /** Gets or sets a value that specifies the description of the list. */
     Description: string;
 
-    DescriptionResouce(): ComplexTypes.ResourcePath;
+    DescriptionResouce(): IResourcePath;
 
     /** Gets or sets a value that specifies the reading order of the list. Returns ""NONE"", ""LTR"", or ""RTL"". */
     Direction: string;
@@ -115,12 +118,12 @@ export interface IList extends IBase {
     /**
      * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
      */
-    EffectiveBasePermissions(): ComplexTypes.BasePermissions;
+    EffectiveBasePermissions(): IBasePermissions;
 
     /**
      * Gets a value that specifies the effective permissions on the list that are for the user export interface.
     */
-    EffectiveBasePermissionsForUI(): ComplexTypes.BasePermissions;
+    EffectiveBasePermissionsForUI(): IBasePermissions;
 
     EnableAssignToEmail: boolean;
 
@@ -151,7 +154,7 @@ export interface IList extends IBase {
      * Gets the event receiver associated with the list.
      * @param id - The id of the event receiver.
     */
-    EventReceivers(id:string): IEventReceiver;
+    EventReceivers(id: string): IEventReceiver;
 
     ExcludeFromOfflineClient: boolean;
 
@@ -164,7 +167,7 @@ export interface IList extends IBase {
      * Gets the field in the list.
      * @param internalNameOrTitle - The internal name or title of the field.
      */
-    Fields(internalNameOrTitle:string): IField;
+    Fields(internalNameOrTitle: string): IField;
 
     FileSavePostProcessingEnabled: boolean;
 
@@ -185,7 +188,7 @@ export interface IList extends IBase {
      * Gets the list form in the list.
      * @param id - The id of the form.
      */
-    Forms(id:string): IBase;
+    Forms(id: string): IBase;
 
     /** Gets a value that specifies whether the list is an external list. */
     HasExternalDataSource: boolean;
@@ -244,7 +247,7 @@ export interface IList extends IBase {
      * Gets the list item in the list.
      * @param id - The id of the list item.
      */
-    Items(id:number): IListItem;
+    Items(id: number): IListItem;
 
     /** Gets a value that specifies the last time a list item was deleted from the list. */
     LastItemDeletedDate: string;
@@ -293,7 +296,7 @@ export interface IList extends IBase {
      * Gets the role assignments for the securable object.
      * @param id - The role assignment id.
      */
-    RoleAssignments(id:string): IRoleAssignment;
+    RoleAssignments(id: string): IRoleAssignment;
 
     /**
      * Gets the root folder of the list.
@@ -304,7 +307,7 @@ export interface IList extends IBase {
      * Gets the file in the root folder of the list.
      * @param url - The url of the file within the root folder.
      */
-    RootFolder(url:string): IFile;
+    RootFolder(url: string): IFile;
 
     /**
      * Gets a value that specifies the list schema of the list.
@@ -322,7 +325,7 @@ export interface IList extends IBase {
     /** Gets or sets the displayed title for the list. Its length must be <= 255 characters. */
     Title: string;
 
-    TitleResource(): ComplexTypes.ResourcePath;
+    TitleResource(): IResourcePath;
 
     /**
      * Gets the user custom actions for the list.
@@ -333,7 +336,7 @@ export interface IList extends IBase {
      * Gets the user custom action(s) for the list.
      * @param id - The id of the user custom action.
      */
-    UserCustomActions(id:string): IUserCustomAction;
+    UserCustomActions(id: string): IUserCustomAction;
 
     /**
      * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
@@ -354,7 +357,7 @@ export interface IList extends IBase {
      * Gets the view in the list.
      * @param id - The id of the view.
      */
-    Views(id:string): IView;
+    Views(id: string): IView;
 
     /**
      * Gets a value that specifies the collection of all workflow associations for the list.
@@ -362,141 +365,4 @@ export interface IList extends IBase {
     WorkflowAssociations(): string;
 
     WriteSecurity(): number;
-
-    /**
-     * Methods
-     */
-
-    /**
-     * Creates unique role assignments for the securable object.
-     * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
-     * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
-     */
-    breakRoleInheritance(copyRoleAssignments, clearSubScopes);
-
-    /**
-     * Deletes the list.
-     */
-    delete(): IBase;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?:(value?:IList, ...args) => any): IList;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl:boolean): IList;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback:(value?:IList, ...args) => any, waitFl:boolean): IList;
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IList;
-
-    /**
-     * A static method to get the list by the entity name.
-     * @param entityTypeName - The entity type name of the list.
-     * @param callback - The method to be executed after the request completes.
-     */
-    getByEntityName(entityTypeName:string, callback:(IList) => void, targetInfo?): IList;
-
-    /**
-     * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
-     * @param query - The change query.
-     */
-    getChanges(query): IBase;
-
-    /**
-     * Returns the list item with the specified list item identifier.
-     * @param id - The list item id.
-     */
-    getItemById(id): IListItem;
-
-    /**
-     * Returns a collection of items from the list based on the view xml.
-     * @param viewXml - The view xml CAML query.
-     */
-    getItems(viewXml): IListItems;
-
-    /**
-     * Returns a collection of items from the list based on the specified query.
-     * @camlQuery - The caml query.
-     */
-    getItemsByQuery(camlQuery): IListItems;
-
-    /**
-     * Returns a collection of items from the list based on the specified query.
-     * @query - The query that contains the change token.
-     */
-    getListItemChangesSinceToken(query): IBase;
-
-    /**
-     * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
-     */
-    getRelatedFields(): IBase;
-
-    /**
-     * Gets the effective user permissions for the current user.
-     * @param loginName - The user login name.
-     */
-    getUserEffectivePermissions(loginName): IBase;
-
-    /**
-     * Returns the list view with the specified view identifier.
-     * @param viewId - The view id.
-     */
-    getViewById(viewId): IView;
-
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query:ODataQuery): IList;
-
-    /**
-     * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-     */
-    recycle(): IBase;
-
-    /**
-     * Renders the list data.
-     * @param viewXml - A CAML query that defines the items and fields that you want returned.
-     */
-    renderListData(viewXml): IBase;
-
-    // 
-    // Types of modes: 1 - Display, 2 - Edit, 3 - New
-    /**
-     * Renders the list form data.
-     * @param itemId - The item id.
-     * @param formId - The identifier of the form.
-     * @param mode - The SP.ControlMode of the control used to display the item.
-     */
-    renderListFormData(itemId, formId, mode:SPTypes.ControlMode): IBase;
-
-    /**
-     * Reserves a list item ID for idempotent list item creation.
-     */
-    reserveListItemId(): IBase;
-
-    /**
-     * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
-     */
-    resetRoleInheritance(): IBase;
-
-    /**
-     * Updates it's properties.
-     * @param data - The list properties to update.
-     */
-    update(data): IBase;
 }
