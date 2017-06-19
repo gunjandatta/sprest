@@ -2,7 +2,7 @@ import { IRequestType } from ".";
 /**
  * The base class
  */
-export interface IBase {
+export interface IBase<T = any> {
     /**
      * Properties
      */
@@ -23,20 +23,20 @@ export interface IBase {
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (value?: IBase, ...args) => any): IBase;
+    execute(callback?: (value?: T, ...args) => any): T;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(waitFl: boolean): IBase;
+    execute(waitFl: boolean): T;
     /**
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: (value?: IBase, ...args) => any, waitFl: boolean): IBase;
+    execute(callback: (value?: T, ...args) => any, waitFl: boolean): T;
     /**
      * Method to execute the request synchronously.
      */
-    executeAndWait(): IBase;
+    executeAndWait(): T;
 }
