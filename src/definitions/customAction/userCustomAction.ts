@@ -1,17 +1,14 @@
+import { IUserCustomActionMethods } from "./userCustomActionMethods";
 import {
-    ComplexTypes,
     IBase,
-    ODataQuery,
+    IBasePermissions,
     SPTypes
 } from "..";
+
 /**
  * User Custom Action
  */
-export interface IUserCustomAction extends IBase {
-    /**
-     * Properties
-     */
-
+export interface IUserCustomAction extends IUserCustomActionMethods {
     /** Gets or sets a value that specifies an implementation specific XML fragment that determines user export interface properties of the custom action. */
     CommandUIExtension: string;
 
@@ -40,7 +37,7 @@ export interface IUserCustomAction extends IBase {
     RegistrationType: SPTypes.UserCustomActionRegistrationType | number;
 
     /** Gets or sets the value that specifies the permissions needed for the custom action. */
-    Rights: ComplexTypes.BasePermissions;
+    Rights: IBasePermissions;
 
     /** Gets a value that specifies the scope of the custom action. */
     Scope: number;
@@ -62,43 +59,4 @@ export interface IUserCustomAction extends IBase {
 
     /** Gets a value that specifies an implementation specific version identifier. */
     VersionOfUserCustomAction: string;
-
-    /**
-     * Methods
-     */
-
-    /**
-     * Deletes the user custom action.
-     */
-    delete(): IBase;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?:(value?:IUserCustomAction, ...args) => any): IUserCustomAction;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl:boolean): IUserCustomAction;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback:(value?:IUserCustomAction, ...args) => any, waitFl:boolean): IUserCustomAction;
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IUserCustomAction;
-
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query:ODataQuery): IUserCustomAction;
 }

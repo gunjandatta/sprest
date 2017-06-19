@@ -5,9 +5,6 @@ import { IBase, IContentType, IContentTypeCreationInformation, IResults } from "
  */
 export interface IContentTypes extends IResults<IContentType>, IBase<IResults<IContentType>, IResults<IContentTypeQueryResults>> {
     /**
-     * Methods
-     */
-    /**
      * Adds a content type to the collection.
      * @param parameters - The content type creation information.
      */

@@ -1,17 +1,14 @@
+import { IFieldMethods } from "./fieldMethods";
 import {
-    ComplexTypes,
     IBase,
-    ODataQuery,
+    IResourcePath,
     SPTypes
 } from "..";
+
 /**
  * Field
  */
-export interface IField extends IBase {
-    /**
-     * Properties
-     */
-
+export interface IField extends IFieldMethods {
     AutoIndexed: boolean;
 
     /** Gets a value that specifies whether the field can be deleted. */
@@ -23,7 +20,7 @@ export interface IField extends IBase {
     /** Gets or sets a value that specifies the description of the field. */
     Description: string;
 
-    DescriptionResource(): ComplexTypes.ResourcePath;
+    DescriptionResource(): IResourcePath;
 
     /** Gets or sets a value that specifies the reading order of the field. */
     Direction: string;
@@ -85,7 +82,7 @@ export interface IField extends IBase {
     /** Gets or sets value that specifies the display name of the field. */
     Title: string;
 
-    TitleResource(): ComplexTypes.ResourcePath;
+    TitleResource(): IResourcePath;
 
     /** Gets or sets a value that specifies the type of the field. */
     TypeAsString: string;
@@ -101,69 +98,6 @@ export interface IField extends IBase {
 
     /** Gets or sets a value that specifies the error message returned when data validation fails for the field. */
     ValidationMessage: string;
-
-    /**
-     * Methods
-     */
-
-    /**
-     * Deletes the field.
-     */
-    delete(): IBase;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?: (value?: IField, ...args) => any): IField;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl: boolean): IField;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback: (value?: IField, ...args) => any, waitFl: boolean): IField;
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IField;
-
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query:ODataQuery): IField;
-
-    /**
-     * Sets the value of the ShowInDisplayForm property for this field.
-     * @param showInForm - Flag to show the field in the display form.
-     */
-    setShowInDisplayForm(showInForm): IBase;
-
-    /**
-     * Sets the value of the ShowInEditForm property for this field.
-     * @param showInForm - Flag to show the field in the display form.
-     */
-    setShowInEditForm(showInForm): IBase;
-
-    /**
-     * Sets the value of the ShowInNewForm property for this field.
-     * @param showInForm - Flag to show the field in the display form.
-     */
-    setShowInNewForm(showInForm): IBase;
-
-    /**
-     * Updates it's properties.
-     * @param data - The field properties to update.
-     */
-    update(data): IBase;
 }
 
 /**

@@ -1,16 +1,9 @@
-import { ComplexTypes, IBase, IField, ODataQuery } from "..";
+import { IFieldQueryResults } from "./fieldResults";
+import { IBase, IField, IFieldCreationInformation, IResults } from "..";
 /**
  * Fields
  */
-export interface IFields extends IBase {
-    /**
-     * Properties
-     */
-    /** The field collection. */
-    results: Array<IField>;
-    /**
-     * Methods
-     */
+export interface IFields extends IResults<IField>, IBase<IResults<IField>, IResults<IFieldQueryResults>> {
     /**
      * Adds a field to the field collection.
      * @param parameters - The field properties.
@@ -20,7 +13,7 @@ export interface IFields extends IBase {
      * Adds a field to the field collection.
      * @param parameters - The field creation information.
      */
-    addField(parameters: ComplexTypes.FieldCreationInformation): IField;
+    addField(parameters: IFieldCreationInformation): IField;
     /**
      * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
      * @param displayName - The title of the new field.
@@ -34,26 +27,6 @@ export interface IFields extends IBase {
      * @param schemaXml - The schema XML definition of the field.
      */
     createFieldAsXml(schemaXml: any): IField;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?: (value?: IFields, ...args) => any): IFields;
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl: boolean): IFields;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback: (value?: IFields, ...args) => any, waitFl: boolean): IFields;
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IFields;
     /**
      * Gets the field with the specified ID.
      * @param id - The field id.
@@ -73,9 +46,4 @@ export interface IFields extends IBase {
      * Method to get the next set of results.
      */
     next(): IFields;
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query: ODataQuery): IFields;
 }

@@ -1,15 +1,13 @@
+import { IEventReceiverMethods } from "./eventReceiverMethods";
 import {
     IBase,
     SPTypes
 } from "..";
+
 /**
  * Event Receiver
  */
-export interface IEventReceiver extends IBase {
-    /**
-     * Properties
-     */
-
+export interface IEventReceiver extends IEventReceiverMethods {
     /** Specifies the type of event. */
     EventType: SPTypes.EventReceiverType | number;
 
@@ -33,43 +31,4 @@ export interface IEventReceiver extends IBase {
 
     /** The execution synchronization of the event receiver. */
     Synchronization?: SPTypes.EventReceiverSynchronizationType | number;
-
-    /**
-     * Methods
-     */
-
-    /**
-     * Deletes the event receiver.
-     */
-    delete(): IBase;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?: (value?: IEventReceiver, ...args) => any): IEventReceiver;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl: boolean): IEventReceiver;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback: (value?: IEventReceiver, ...args) => any, waitFl: boolean): IEventReceiver;
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IEventReceiver;
-
-    /**
-     * Updates it's properties.
-     * @param data - The field properties to update.
-     */
-    update(data): IBase;
 }

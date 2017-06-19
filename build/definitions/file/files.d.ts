@@ -1,13 +1,9 @@
-import { IBase, IFile, ODataQuery, SPTypes } from "..";
+import { IFileQueryResults } from "./fileResults";
+import { IBase, IFile, IResults, SPTypes } from "..";
 /**
  * Files
  */
-export interface IFiles extends IBase {
-    /**
-     * Properties
-     */
-    /** The file collection. */
-    results: Array<IFile>;
+export interface IFiles extends IResults<IFile>, IBase<IResults<IFile>, IResults<IFileQueryResults>> {
     /**
      * Methods
      */
@@ -25,26 +21,6 @@ export interface IFiles extends IBase {
      */
     addTemplateFile(urlOfFile: any, templateFileType: SPTypes.FileTemplateType): IBase;
     /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?: (value?: IFiles, ...args) => any): IFiles;
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl: boolean): IFiles;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback: (value?: IFiles, ...args) => any, waitFl: boolean): IFiles;
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IFiles;
-    /**
      * Get the file at the specified URL.
      * @param serverRelativeUrl - The name or server relative url of the file.
      */
@@ -53,9 +29,4 @@ export interface IFiles extends IBase {
      * Method to get the next set of results.
      */
     next(): IFiles;
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query: ODataQuery): IFiles;
 }

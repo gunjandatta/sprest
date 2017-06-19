@@ -402,7 +402,7 @@ var SPConfig = (function () {
                 })
                     .execute(function (ca) {
                     // See if this custom action exists
-                    if (ca.existsFl) {
+                    if (ca) {
                         // Log
                         console.log("[gd-sprest][CustomAction] The custom action '" + cfg[i].Name + "' already exists.");
                     }

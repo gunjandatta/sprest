@@ -4,7 +4,7 @@ import {
     ComplexTypes,
     IContentType, IContentTypes,
     IField, IFields,
-    IFile, IFolder,
+    IFile, IFileQueryResults, IFolder,
     IList, ILists,
     IListItems,
     ISite,
@@ -563,7 +563,7 @@ export class SPConfig {
                 // Execute the request, while waiting for the previous request to complete
                 .execute((ca) => {
                     // See if this custom action exists
-                    if (ca.existsFl) {
+                    if (ca) {
                         // Log
                         console.log("[gd-sprest][CustomAction] The custom action '" + cfg[i].Name + "' already exists.");
                     } else {
@@ -667,7 +667,7 @@ export class SPConfig {
     }
 
     // Method to determine if the configuration contains the target
-    private isInConfiguration = (target: IContentType | IField | IFile | ISPCfgFieldInfo, propName: string, cfg: Array<ISPCfgContentTypeInfo | ISPCfgFieldInfo | ISPCfgWebPartInfo>, cfgPropName: string, cfgRefName: string) => {
+    private isInConfiguration = (target: IContentType | IField | IFileQueryResults | ISPCfgFieldInfo, propName: string, cfg: Array<ISPCfgContentTypeInfo | ISPCfgFieldInfo | ISPCfgWebPartInfo>, cfgPropName: string, cfgRefName: string) => {
         // Parse the configuration
         for (let i = 0; i < cfg.length; i++) {
             let cfgItem = cfg[i];

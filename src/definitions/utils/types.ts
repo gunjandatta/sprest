@@ -71,10 +71,79 @@ export interface IContentTypeCreationInformation {
 }
 
 /**
+ * Event Receiver Definition Creation Information
+ */
+export interface IEventReceiverDefinitionCreationInformation {
+    /** The event receiver type. */
+    EventType: SPTypes.EventReceiverType | number;
+
+    /** The strong name of the assembly that is used for receiving events. */
+    ReceiverAssembly?: string;
+
+    /** A string that represents the class that is used for receiving events. */
+    ReceiverClass?: string;
+
+    /** The name of the event receiver. */
+    ReceiverName: string;
+
+    /** The URL of a web service that is used for receiving events. */
+    ReceiverUrl?: string;
+
+    /** An integer that represents the relative sequence of the event. */
+    SequenceNumber?: number;
+
+    /** The execution synchronization of the event receiver. */
+    Synchronization?: number;
+}
+
+/**
  * Feature
  */
 export interface IFeature {
     DefinitionId: string;
+}
+
+/**
+ * Field Creation Information 
+ */
+export interface IFieldCreationInformation {
+    /** The choices. */
+    Choices?: { results: Array<string> };
+
+    /** The field type. */
+    FieldTypeKind: SPTypes.FieldType | number;
+
+    /** Indicates whether only the first eight characters are used for the field name. */
+    IsCompactName?: boolean;
+
+    /** The name of the source lookup field. */
+    LookupFieldName?: string;
+
+    /** The ID of the target list for the source lookup field. */
+    LookupListId?: any;
+
+    /** The ID of the site that contains the list that is the source for the lookup field value. */
+    LookupWebId?: any;
+
+    /** A value that specifies whether the field requires a value. */
+    Required?: boolean;
+
+    /** A value that specifies the display name of the field. */
+    Title: string;
+}
+
+/**
+ * Field Link
+ */
+export interface IFieldLink {
+    DisplayName: string;
+    FieldInternalName: string;
+    Hidden: boolean;
+    Id: string;
+    Name: string;
+    ReadOnly: boolean;
+    Required: boolean;
+    ShowInDisplayForm: boolean;
 }
 
 /**

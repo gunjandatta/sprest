@@ -1,13 +1,11 @@
-import { ComplexTypes, IBase, IFile, IFiles, IFolders, IPropertyValues, ODataQuery } from "..";
+import { IFolderMethods } from "./folderMethods";
+import { IBase, IFile, IFiles, IFolders, IPropertyValues, IResourcePath, IStringValue } from "..";
 /**
  * Folder
  */
-export interface IFolder extends IBase {
-    /**
-     * Properties
-     */
+export interface IFolder extends IFolderMethods {
     /** Specifies the sequence in which content types are displayed. */
-    ContentTypeOrder: ComplexTypes.ContentTypeId;
+    ContentTypeOrder: IStringValue;
     /** Gets a value that specifies whether the file exists. */
     Exists: boolean;
     /**
@@ -46,61 +44,15 @@ export interface IFolder extends IBase {
      * Property Bag
      */
     Properties(): IPropertyValues;
-    ServerRelativePath: ComplexTypes.ResourcePath;
+    ServerRelativePath: IResourcePath;
     /** Gets the server-relative URL of the list folder. */
     ServerRelativeUrl: string;
     StorageMetrics(): IBase;
     TimeCreated: string;
     TimeLastModified: string;
     /** Gets or sets a value that specifies the content type order. */
-    UniqueContentTypeOrder: ComplexTypes.ContentTypeId;
+    UniqueContentTypeOrder: IStringValue;
     UniqueId: string;
     /** Gets or sets a value that specifies folder-relative URL for the list folder welcome page. */
     WelcomePage: string;
-    /**
-     * Methods
-     */
-    /**
-     * Deletes the folder.
-     */
-    delete(): IBase;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?: (value?: IFolder, ...args) => any): IFolder;
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl: boolean): IFolder;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback: (value?: IFolder, ...args) => any, waitFl: boolean): IFolder;
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IFolder;
-    /**
-     * Get the file at the specified URL.
-     * @param serverRelativeUrl - The server-relative URL of the folder.
-     */
-    getByUrl(serverRelativeUrl: any): IFolder;
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query: ODataQuery): IFolder;
-    /**
-     * Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-     */
-    recycle(): IBase;
-    /**
-     * Updates it's properties.
-     * @param data - The file properties to update.
-     */
-    update(data: any): IBase;
 }
