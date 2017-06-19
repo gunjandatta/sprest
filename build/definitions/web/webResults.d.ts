@@ -5,9 +5,6 @@ import { IAppTiles, IBase, IBasePermissions, IContainsConfidentialInfo, IContent
  */
 export interface IWebQueryResult extends IWebMethods {
     /**
-     * Properties
-     */
-    /**
      * Specifies whether the current user can create declarative workflows. If not disabled on the Web application, the value is the same as the AllowCreateDeclarativeWorkflow property of the site collection. Default value: true.
      */
     AllowCreateDeclarativeWorkflowForCurrentUser?: boolean;

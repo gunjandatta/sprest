@@ -5,9 +5,6 @@ import { IBase, IFile, IFolder, IList, IUser, IWeb, ODataQuery } from "..";
  */
 export interface IWebMethods extends IBase<IWeb> {
     /**
-     * Methods
-     */
-    /**
      * Applies the theme specified by the contents of each of the files specified in the arguments to the site.
      * @param colorpaletteurl - The server-relative URL of the color palette file.
      * @param fontschemeurl - The server-relative URL of the font scheme.

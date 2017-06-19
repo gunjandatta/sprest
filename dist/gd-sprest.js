@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 9);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -74,11 +74,11 @@
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var requestType_1 = __webpack_require__(71);
+var requestType_1 = __webpack_require__(72);
 exports.RequestType = requestType_1.RequestType;
-var spConfigTypes_1 = __webpack_require__(72);
+var spConfigTypes_1 = __webpack_require__(73);
 exports.SPConfigTypes = spConfigTypes_1.SPConfigTypes;
-var SPTypes = __webpack_require__(73);
+var SPTypes = __webpack_require__(74);
 exports.SPTypes = SPTypes;
 //# sourceMappingURL=index.js.map
 
@@ -95,13 +95,13 @@ function __export(m) {
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(74));
 __export(__webpack_require__(75));
 __export(__webpack_require__(76));
 __export(__webpack_require__(77));
 __export(__webpack_require__(78));
 __export(__webpack_require__(79));
 __export(__webpack_require__(80));
+__export(__webpack_require__(81));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -117,10 +117,9 @@ function __export(m) {
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(9));
 __export(__webpack_require__(10));
-__export(__webpack_require__(12));
-__export(__webpack_require__(16));
+__export(__webpack_require__(11));
+__export(__webpack_require__(13));
 __export(__webpack_require__(17));
 __export(__webpack_require__(18));
 __export(__webpack_require__(19));
@@ -129,6 +128,7 @@ __export(__webpack_require__(21));
 __export(__webpack_require__(22));
 __export(__webpack_require__(23));
 __export(__webpack_require__(24));
+__export(__webpack_require__(25));
 __export(__webpack_require__(3));
 //# sourceMappingURL=index.js.map
 
@@ -200,13 +200,15 @@ exports.Web = _Web;
 "use strict";
 
 
+function __export(m) {
+    for (var p in m) {
+        if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+    }
+}
 Object.defineProperty(exports, "__esModule", { value: true });
 var ComplexTypes = __webpack_require__(5);
 exports.ComplexTypes = ComplexTypes;
-var Results = __webpack_require__(6);
-exports.Results = Results;
-var SPTypes = __webpack_require__(7);
-exports.SPTypes = SPTypes;
+__export(__webpack_require__(6));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -227,7 +229,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=results.js.map
+var Results = __webpack_require__(7);
+exports.Results = Results;
+var SPTypes = __webpack_require__(8);
+exports.SPTypes = SPTypes;
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 /* 7 */
@@ -237,10 +243,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=sptypes.js.map
+//# sourceMappingURL=results.js.map
 
 /***/ }),
 /* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=sptypes.js.map
+
+/***/ }),
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -322,7 +338,7 @@ if (window["$REST"] == null || window["$REST"].__ver == null || window["$REST"].
 //# sourceMappingURL=gd-sprest.js.map
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -649,7 +665,7 @@ exports.ContextInfo = new _ContextInfo();
 //# sourceMappingURL=contextInfo.js.map
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -728,7 +744,7 @@ exports.Email = new _Email();
 //# sourceMappingURL=email.js.map
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1025,17 +1041,17 @@ exports.AppHelper = {
 //# sourceMappingURL=app.js.map
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = __webpack_require__(11);
-var jslink_1 = __webpack_require__(13);
-var loader_1 = __webpack_require__(14);
-var spCfg_1 = __webpack_require__(15);
+var app_1 = __webpack_require__(12);
+var jslink_1 = __webpack_require__(14);
+var loader_1 = __webpack_require__(15);
+var spCfg_1 = __webpack_require__(16);
 /**
  * Helper Methods
  */
@@ -1048,7 +1064,7 @@ exports.Helper = {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1419,7 +1435,7 @@ exports.JSLinkHelper = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1479,7 +1495,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2296,7 +2312,7 @@ exports.SPConfig = SPConfig;
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2414,7 +2430,7 @@ exports.JSLink = JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2485,7 +2501,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2535,7 +2551,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2585,7 +2601,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2636,7 +2652,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2724,7 +2740,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2791,7 +2807,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2869,7 +2885,7 @@ exports.SocialFeed = new _SocialFeed();
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2920,7 +2936,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2950,7 +2966,7 @@ exports.attachmentfiles = {
 //# sourceMappingURL=attachmentFiles.js.map
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2964,7 +2980,7 @@ exports.attachment = {};
 //# sourceMappingURL=attachment.js.map
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2985,7 +3001,7 @@ exports.audit = {
 //# sourceMappingURL=audit.js.map
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3016,7 +3032,7 @@ exports.contenttype = {
 //# sourceMappingURL=contentType.js.map
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3054,7 +3070,7 @@ exports.contenttypes = {
 //# sourceMappingURL=contentTypes.js.map
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3081,7 +3097,7 @@ exports.eventreceiver = {
 //# sourceMappingURL=eventReceiver.js.map
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3114,7 +3130,7 @@ exports.eventreceivers = {
 //# sourceMappingURL=eventReceivers.js.map
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3148,7 +3164,7 @@ exports.fieldlinks = {
 //# sourceMappingURL=fieldLinks.js.map
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3195,7 +3211,7 @@ exports.field = {
 //# sourceMappingURL=field.js.map
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3265,7 +3281,7 @@ exports.fields = {
 //# sourceMappingURL=fields.js.map
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3294,7 +3310,7 @@ exports.fileversion = {
 //# sourceMappingURL=fileVersion.js.map
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3319,7 +3335,7 @@ exports.fileversions = {
 //# sourceMappingURL=fileVersions.js.map
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3462,7 +3478,7 @@ exports.file = {
 //# sourceMappingURL=file.js.map
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3500,7 +3516,7 @@ exports.files = {
 //# sourceMappingURL=files.js.map
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3546,7 +3562,7 @@ exports.folder = {
 //# sourceMappingURL=folder.js.map
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3585,7 +3601,7 @@ exports.folders = {
 //# sourceMappingURL=folders.js.map
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3610,7 +3626,7 @@ exports.group = {
 //# sourceMappingURL=group.js.map
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3659,58 +3675,58 @@ exports.sitegroups = {
 //# sourceMappingURL=siteGroups.js.map
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var attachment_1 = __webpack_require__(26);
-var attachmentFiles_1 = __webpack_require__(25);
-var audit_1 = __webpack_require__(27);
-var contentType_1 = __webpack_require__(28);
-var contentTypes_1 = __webpack_require__(29);
-var eventReceiver_1 = __webpack_require__(30);
-var eventReceivers_1 = __webpack_require__(31);
-var field_1 = __webpack_require__(33);
-var fields_1 = __webpack_require__(34);
-var fieldLinks_1 = __webpack_require__(32);
-var file_1 = __webpack_require__(37);
-var files_1 = __webpack_require__(38);
-var fileVersion_1 = __webpack_require__(35);
-var fileVersions_1 = __webpack_require__(36);
-var folder_1 = __webpack_require__(39);
-var folders_1 = __webpack_require__(40);
-var group_1 = __webpack_require__(41);
-var siteGroups_1 = __webpack_require__(42);
-var items_1 = __webpack_require__(44);
-var limitedWebPartManager_1 = __webpack_require__(46);
-var list_1 = __webpack_require__(47);
-var listItem_1 = __webpack_require__(45);
-var lists_1 = __webpack_require__(48);
-var peopleManager_1 = __webpack_require__(49);
-var peoplePicker_1 = __webpack_require__(50);
-var profileLoader_1 = __webpack_require__(51);
-var propertyValues_1 = __webpack_require__(52);
-var roleAssignment_1 = __webpack_require__(53);
-var roleAssignments_1 = __webpack_require__(54);
-var roleDefinition_1 = __webpack_require__(55);
-var roleDefinitions_1 = __webpack_require__(56);
-var search_1 = __webpack_require__(57);
-var site_1 = __webpack_require__(58);
-var socialFeed_1 = __webpack_require__(59);
-var user_1 = __webpack_require__(63);
-var users_1 = __webpack_require__(64);
-var userCustomAction_1 = __webpack_require__(60);
-var userCustomActions_1 = __webpack_require__(61);
-var userProfile_1 = __webpack_require__(62);
-var version_1 = __webpack_require__(65);
-var view_1 = __webpack_require__(67);
-var views_1 = __webpack_require__(68);
-var viewFieldCollection_1 = __webpack_require__(66);
-var web_1 = __webpack_require__(69);
-var webs_1 = __webpack_require__(70);
+var attachment_1 = __webpack_require__(27);
+var attachmentFiles_1 = __webpack_require__(26);
+var audit_1 = __webpack_require__(28);
+var contentType_1 = __webpack_require__(29);
+var contentTypes_1 = __webpack_require__(30);
+var eventReceiver_1 = __webpack_require__(31);
+var eventReceivers_1 = __webpack_require__(32);
+var field_1 = __webpack_require__(34);
+var fields_1 = __webpack_require__(35);
+var fieldLinks_1 = __webpack_require__(33);
+var file_1 = __webpack_require__(38);
+var files_1 = __webpack_require__(39);
+var fileVersion_1 = __webpack_require__(36);
+var fileVersions_1 = __webpack_require__(37);
+var folder_1 = __webpack_require__(40);
+var folders_1 = __webpack_require__(41);
+var group_1 = __webpack_require__(42);
+var siteGroups_1 = __webpack_require__(43);
+var items_1 = __webpack_require__(45);
+var limitedWebPartManager_1 = __webpack_require__(47);
+var list_1 = __webpack_require__(48);
+var listItem_1 = __webpack_require__(46);
+var lists_1 = __webpack_require__(49);
+var peopleManager_1 = __webpack_require__(50);
+var peoplePicker_1 = __webpack_require__(51);
+var profileLoader_1 = __webpack_require__(52);
+var propertyValues_1 = __webpack_require__(53);
+var roleAssignment_1 = __webpack_require__(54);
+var roleAssignments_1 = __webpack_require__(55);
+var roleDefinition_1 = __webpack_require__(56);
+var roleDefinitions_1 = __webpack_require__(57);
+var search_1 = __webpack_require__(58);
+var site_1 = __webpack_require__(59);
+var socialFeed_1 = __webpack_require__(60);
+var user_1 = __webpack_require__(64);
+var users_1 = __webpack_require__(65);
+var userCustomAction_1 = __webpack_require__(61);
+var userCustomActions_1 = __webpack_require__(62);
+var userProfile_1 = __webpack_require__(63);
+var version_1 = __webpack_require__(66);
+var view_1 = __webpack_require__(68);
+var views_1 = __webpack_require__(69);
+var viewFieldCollection_1 = __webpack_require__(67);
+var web_1 = __webpack_require__(70);
+var webs_1 = __webpack_require__(71);
 /**
  * Mapper
  */
@@ -3749,7 +3765,7 @@ exports.Mapper = {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3784,7 +3800,7 @@ exports.items = {
 //# sourceMappingURL=items.js.map
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3846,7 +3862,7 @@ exports.listitem = {
 //# sourceMappingURL=listItem.js.map
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3868,7 +3884,7 @@ exports.limitedwebpartmanager = {
 //# sourceMappingURL=limitedWebPartManager.js.map
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3995,7 +4011,7 @@ exports.list = {
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4042,7 +4058,7 @@ exports.lists = {
 //# sourceMappingURL=lists.js.map
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4132,7 +4148,7 @@ exports.peoplemanager = {
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4162,7 +4178,7 @@ exports.peoplepicker = {
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4192,7 +4208,7 @@ exports.profileloader = {
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4213,7 +4229,7 @@ exports.propertyvalues = {
 //# sourceMappingURL=propertyValues.js.map
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4242,7 +4258,7 @@ exports.roleassignment = {
 //# sourceMappingURL=roleAssignment.js.map
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4279,7 +4295,7 @@ exports.roleassignments = {
 //# sourceMappingURL=roleAssignments.js.map
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4304,7 +4320,7 @@ exports.roledefinition = {
 //# sourceMappingURL=roleDefinition.js.map
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4343,7 +4359,7 @@ exports.roledefinitions = {
 //# sourceMappingURL=roleDefinitions.js.map
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4364,7 +4380,7 @@ exports.search = {
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4463,7 +4479,7 @@ exports.site = {
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4521,7 +4537,7 @@ exports.socialfeed = {
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4546,7 +4562,7 @@ exports.usercustomaction = {
 //# sourceMappingURL=userCustomAction.js.map
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4583,7 +4599,7 @@ exports.usercustomactions = {
 //# sourceMappingURL=userCustomActions.js.map
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4612,7 +4628,7 @@ exports.userprofile = {
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4641,7 +4657,7 @@ exports.user = {
 //# sourceMappingURL=user.js.map
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4698,7 +4714,7 @@ exports.users = {
 //# sourceMappingURL=users.js.map
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4744,7 +4760,7 @@ exports.version = {
 //# sourceMappingURL=version.js.map
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4784,7 +4800,7 @@ exports.viewfieldcollection = {
 //# sourceMappingURL=viewFieldCollection.js.map
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4824,7 +4840,7 @@ exports.view = {
 //# sourceMappingURL=view.js.map
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4863,7 +4879,7 @@ exports.views = {
 //# sourceMappingURL=views.js.map
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5083,7 +5099,7 @@ exports.web = {
 //# sourceMappingURL=web.js.map
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5109,7 +5125,7 @@ exports.webs = {
 //# sourceMappingURL=webs.js.map
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5142,7 +5158,7 @@ exports.RequestType = {
 //# sourceMappingURL=requestType.js.map
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5164,7 +5180,7 @@ exports.SPConfigTypes = {
 //# sourceMappingURL=spConfigTypes.js.map
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5664,7 +5680,7 @@ exports.ViewType = {
 //# sourceMappingURL=sptypes.js.map
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5672,7 +5688,7 @@ exports.ViewType = {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
-var mapper_1 = __webpack_require__(43);
+var mapper_1 = __webpack_require__(44);
 var types_1 = __webpack_require__(0);
 var _1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
@@ -6234,7 +6250,7 @@ exports.Base = Base;
 //# sourceMappingURL=base.js.map
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6327,7 +6343,7 @@ exports.Dependencies = Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6596,7 +6612,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6756,7 +6772,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6818,7 +6834,7 @@ exports.Promise = Promise;
 //# sourceMappingURL=promise.js.map
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6950,7 +6966,7 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

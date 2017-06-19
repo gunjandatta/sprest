@@ -15,12 +15,12 @@ export declare class SPConfig {
      * Public Methods
      */
     install(callback?: any, cfgType?: number): void;
-    installByType: (cfgType: number, callback?: any, targetName?: string) => IFields | IContentTypes | IFolder | IUserCustomActions | ILists;
+    installByType: (cfgType: number, callback?: any, targetName?: string) => IFields | IContentTypes | IUserCustomActions | IFolder | ILists;
     installList(listName: string, callback?: any): void;
     installSiteCustomAction(caName: string, callback?: any): void;
     installWebCustomAction(caName: string, callback?: any): void;
     uninstall(callback?: any, cfgType?: number): void;
-    uninstallByType: (cfgType: number, callback?: any, targetName?: string) => IFields | IContentTypes | IFolder | IUserCustomActions | ILists;
+    uninstallByType: (cfgType: number, callback?: any, targetName?: string) => IFields | IContentTypes | IUserCustomActions | IFolder | ILists;
     uninstallList(listName: string, callback?: any): void;
     uninstallSiteCustomAction(caName: string, callback?: any): void;
     uninstallWebCustomAction(caName: string, callback?: any): void;
