@@ -1,19 +1,36 @@
 import {
     IBase,
-    IContentTypeMethods,
-    IField, IFieldMethods, IFields,
+    IField, IFields,
     IFieldLink, IFieldLinks,
-    IStringValue
+    IList,
+    IResourcePath,
+    IResults,
+    IStringValue,
+    IWeb
 } from "..";
 
 /**
- * Content Type
+ * Content Type Methods
  */
-export interface IContentType extends IContentTypeMethods {
+export interface IContentTypeMethods {
+    /**
+     * Deletes the content type.
+     */
+    delete(): IBase;
+
+    /**
+     * Updates it's properties.
+     * @param data - The content type properties to update.
+     */
+    update(data): IBase;
+}
+
+/**
+ * Content Type Properties
+ */
+export interface IContentTypeProps {
     /** Gets or sets a description of the content type. */
     Description: string;
-
-    DescriptionResource(): IBase;
 
     /** Gets or sets a value that specifies the name of a custom display form template to use for list items that have been assigned the content type. */
     DisplayFormTemplateName: string;
@@ -32,28 +49,6 @@ export interface IContentType extends IContentTypeMethods {
 
     /** Gets or sets a value that specifies the URL of a custom edit form to use for list items that have been assigned the content type. */
     EditFormUrl: string;
-
-    /**
-     * Gets the column (also known as field) references in the content type.
-     */
-    FieldLinks(): IFieldLinks;
-
-    /**
-     * Gets the column (also known as field) reference in the content type.
-     * @param guid - The guid of the field link.
-     */
-    FieldLinks(guid: string): IBase<IFieldLink>;
-
-    /**
-     * Gets the fields for the content type.
-     */
-    Fields(): IFields;
-
-    /**
-     * Gets the field for the content type.
-     * @param internalNameOrTitle - The internal name or title of the field.
-     */
-    Fields(internalNameOrTitle: string): IFieldMethods;
 
     /** Gets or sets a value that specifies the content type group for the content type. */
     Group: string;
@@ -76,16 +71,11 @@ export interface IContentType extends IContentTypeMethods {
     /** Gets or sets a value that specifies the name of the content type. */
     Name: string;
 
-    NameResource(): IBase;
-
     /** Gets or sets a value that specifies the name of the content type. */
     NewFormTemplateName: string;
 
     /** Gets or sets a value that specifies the name of the content type. */
     NewFormUrl: string;
-
-    /** Gets the parent content type of the content type. */
-    Parent(): IContentTypeMethods;
 
     /** Gets or sets a value that specifies whether changes to the content type properties are denied. */
     Readonly: boolean;
@@ -104,9 +94,80 @@ export interface IContentType extends IContentTypeMethods {
 
     /** A string representation of the value of the Id. */
     StringId: string;
+}
+
+/**
+ * Content Type Query Properties
+ */
+export interface IContentTypeQueryProps {
+    DescriptionResource(): IBase;
+
+    /**
+     * Gets the column (also known as field) references in the content type.
+     */
+    FieldLinks(): IFieldLinks;
+
+    /**
+     * Gets the column (also known as field) reference in the content type.
+     * @param guid - The guid of the field link.
+     */
+    FieldLinks(guid: string): IBase<IFieldLink>;
+
+    /**
+     * Gets the fields for the content type.
+     */
+    Fields(): IFields;
+
+    /**
+     * Gets the field for the content type.
+     * @param internalNameOrTitle - The internal name or title of the field.
+     */
+    Fields(internalNameOrTitle: string): IFields;
+
+    NameResource(): IBase;
+
+    /** Gets the parent content type of the content type. */
+    Parent(): IContentTypeMethods;
 
     /**
      * Gets a value that specifies the collection of workflow associations for the content type.
      */
     WorkflowAssociations(): IBase;
 }
+
+/**
+ * Content Type Query Result
+ */
+export interface IContentTypeQueryResult extends IContentTypeMethods, IContentTypeProps {
+    DescriptionResource: IResourcePath;
+
+    /**
+     * Gets the column (also known as field) references in the content type.
+     */
+    FieldLinks: IResults<IFieldLink>;
+
+    /**
+     * Gets the fields for the content type.
+     */
+    Fields: IResults<IField>;
+
+    NameResource: IResourcePath;
+
+    /** Gets the parent content type of the content type. */
+    Parent: IList | IWeb;
+
+    /**
+     * Gets a value that specifies the collection of workflow associations for the content type.
+     */
+    WorkflowAssociations: IResults<any>;
+}
+
+/**
+ * Content Type Result
+ */
+export interface IContentTypeResult extends IContentTypeMethods, IContentTypeProps, IContentTypeQueryProps { }
+
+/**
+ * Content Type
+ */
+export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBase<IContentTypeResult, IContentTypeQueryResult> { }

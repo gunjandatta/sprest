@@ -1,12 +1,12 @@
 import {
     IBase, IBaseCollection,
-    IField, IFieldCreationInformation, IFieldMethods, IFieldQueryResults
+    IField, IFieldCreationInformation, IFieldQueryResult, IFieldResult
 } from "..";
 
 /**
  * Fields
  */
-export interface IFields extends IBaseCollection<IField, IFieldQueryResults> {
+export interface IFields extends IBaseCollection<IFieldResult, IFieldQueryResult> {
     /**
      * Adds a field to the field collection.
      * @param parameters - The field properties.
@@ -38,19 +38,19 @@ export interface IFields extends IBaseCollection<IField, IFieldQueryResults> {
      * Gets the field with the specified ID.
      * @param id - The field id.
      */
-    getById(id): IFieldMethods;
+    getById(id): IField;
 
     /**
      * Returns the first Field object with the specified internal name or title from the collection.
      * @param internalNameOrTitle - The internal name or title of the field.
      */
-    getByInternalNameOrTitle(internalNameOrTitle): IFieldMethods;
+    getByInternalNameOrTitle(internalNameOrTitle): IField;
 
     /**
      * Returns the first field object in the collection based on the title of the specified field.
      * @param title - The title of the field.
      */
-    getByTitle(title): IFieldMethods;
+    getByTitle(title): IField;
 
     /**
      * Method to get the next set of results.

@@ -1,13 +1,28 @@
 import {
     IBase,
-    IEventReceiverMethods,
     SPTypes
 } from "..";
 
 /**
- * Event Receiver
+ * Event Receiver Methods
  */
-export interface IEventReceiver extends IEventReceiverMethods {
+export interface IEventReceiverMethods {
+    /**
+     * Deletes the event receiver.
+     */
+    delete(): IBase;
+
+    /**
+     * Updates it's properties.
+     * @param data - The field properties to update.
+     */
+    update(data): IBase;
+}
+
+/**
+ * Event Receiver Properties
+ */
+export interface IEventReceiverProps {
     /** Specifies the type of event. */
     EventType: SPTypes.EventReceiverType | number;
 
@@ -32,3 +47,23 @@ export interface IEventReceiver extends IEventReceiverMethods {
     /** The execution synchronization of the event receiver. */
     Synchronization?: SPTypes.EventReceiverSynchronizationType | number;
 }
+
+/**
+ * Event Receiver Query Properties
+ */
+export interface IEventReceiverQueryProps { }
+
+/**
+ * Event Receiver Query Result
+ */
+export interface IEventReceiverQueryResult extends IEventReceiverMethods, IEventReceiverProps { }
+
+/**
+ * Event Receiver Result
+ */
+export interface IEventReceiverResult extends IEventReceiverMethods, IEventReceiverProps, IEventReceiverQueryProps { }
+
+/**
+ * Event Receiver
+ */
+export interface IEventReceiver extends IEventReceiverMethods, IEventReceiverQueryProps, IBase<IEventReceiverResult, IEventReceiverQueryResult> { }

@@ -1,14 +1,47 @@
 import {
     IBase,
-    IFieldMethods,
     IResourcePath,
     SPTypes
 } from "..";
 
 /**
- * Field
+ * Field Methods
  */
-export interface IField extends IFieldMethods {
+export interface IFieldMethods {
+    /**
+     * Deletes the field.
+     */
+    delete(): IBase;
+
+    /**
+     * Sets the value of the ShowInDisplayForm property for this field.
+     * @param showInForm - Flag to show the field in the display form.
+     */
+    setShowInDisplayForm(showInForm): IBase;
+
+    /**
+     * Sets the value of the ShowInEditForm property for this field.
+     * @param showInForm - Flag to show the field in the display form.
+     */
+    setShowInEditForm(showInForm): IBase;
+
+    /**
+     * Sets the value of the ShowInNewForm property for this field.
+     * @param showInForm - Flag to show the field in the display form.
+     */
+    setShowInNewForm(showInForm): IBase;
+
+    /**
+     * Updates it's properties.
+     * @param data - The field properties to update.
+     */
+    update(data): IBase;
+}
+
+/**
+ * Field Properties
+ */
+export interface IFieldProps {
     AutoIndexed: boolean;
 
     /** Gets a value that specifies whether the field can be deleted. */
@@ -19,8 +52,6 @@ export interface IField extends IFieldMethods {
 
     /** Gets or sets a value that specifies the description of the field. */
     Description: string;
-
-    DescriptionResource(): IBase<IResourcePath>;
 
     /** Gets or sets a value that specifies the reading order of the field. */
     Direction: string;
@@ -82,8 +113,6 @@ export interface IField extends IFieldMethods {
     /** Gets or sets value that specifies the display name of the field. */
     Title: string;
 
-    TitleResource(): IBase<IResourcePath>;
-
     /** Gets or sets a value that specifies the type of the field. */
     TypeAsString: string;
 
@@ -99,6 +128,34 @@ export interface IField extends IFieldMethods {
     /** Gets or sets a value that specifies the error message returned when data validation fails for the field. */
     ValidationMessage: string;
 }
+
+/**
+ * Field Query Properties
+ */
+export interface IFieldQueryProps {
+    DescriptionResource(): IBase<IResourcePath>;
+
+    TitleResource(): IBase<IResourcePath>;
+}
+
+/**
+ * Field Query Result
+ */
+export interface IFieldQueryResult extends IFieldMethods, IFieldProps {
+    DescriptionResource: IResourcePath;
+
+    TitleResource: IResourcePath;
+}
+
+/**
+ * Field Result
+ */
+export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryProps { }
+
+/**
+ * Field
+ */
+export interface IField extends IFieldMethods, IFieldQueryProps, IBase<IFieldResult, IFieldQueryResult> { }
 
 /**
  * Base Choice Field
