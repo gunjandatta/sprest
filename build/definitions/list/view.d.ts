@@ -1,8 +1,26 @@
-import { IBase, IStringValue, IViewFields, IViewMethods, IVisualization } from "..";
+import { IBase, IResults, IStringValue, IViewFields, IVisualization } from "..";
 /**
- * View
+ * View Methods
  */
-export interface IView extends IViewMethods {
+export interface IViewMethods {
+    /**
+     * Deletes the view.
+     */
+    delete(): IBase;
+    /**
+     * Returns the list view as HTML.
+     */
+    renderAsHtml(): IBase;
+    /**
+     * Updates it's properties.
+     * @param data - The list properties to update.
+     */
+    update(data: any): IBase;
+}
+/**
+ * View Properties
+ */
+export interface IViewProps {
     /** Gets or sets a value that specifies fields and functions that define totals shown in a list view. If not null, the XML must conform to FieldRefDefinitionAggregation, as specified in [MS-WSSCAML]. */
     Aggregations: string;
     /** Gets or sets a value that specifies whether totals are shown in the list view. */
@@ -71,10 +89,6 @@ export interface IView extends IViewMethods {
     /** Gets or sets a value that specifies the view data for the list view. If not null, the XML must conform to FieldRefDefinitionViewData, as specified in [MS-WSSCAML]. */
     ViewData: string;
     VisualizationInfo: IVisualization;
-    /**
-     * Gets a value that specifies the collection of fields in the list view.
-     */
-    ViewFields(): IBase<IViewFields>;
     /** Gets or sets a value that specifies the joins that are used in the list view. If not null, the XML must conform to ListJoinsDefinition, as specified in [MS-WSSCAML]. */
     ViewJoins: string;
     /** Gets or sets a value that specifies the projected fields that will be used by the list view. If not null, the XML must conform to ProjectedFieldsDefinitionType, as specified in [MS-WSSCAML]. */
@@ -83,4 +97,28 @@ export interface IView extends IViewMethods {
     ViewQuery: string;
     /** Gets a value that specifies the type of the list view. Can be HTML, GRID, CALENDAR, RECURRENCE, CHART, or GANTT. */
     ViewType: string;
+}
+/**
+ * View Query Properties
+ */
+export interface IViewQueryProps {
+    /** Gets a value that specifies the collection of fields in the list view. */
+    ViewFields(): IBase<IViewFields>;
+}
+/**
+ * View Query Result
+ */
+export interface IViewQueryResult extends IViewMethods, IViewProps {
+    /** A value that specifies the collection of fields in the list view. */
+    ViewFields: IResults<string>;
+}
+/**
+ * View Result
+ */
+export interface IViewResult extends IViewMethods, IViewProps, IViewQueryProps {
+}
+/**
+ * View
+ */
+export interface IView extends IViewMethods, IViewQueryProps, IBase<IViewResult, IViewQueryResult> {
 }

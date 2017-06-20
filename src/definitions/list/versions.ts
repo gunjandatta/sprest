@@ -39,5 +39,5 @@ export interface IVersions extends IBaseCollection<IVersion, IVersion> {
      * Restores a version, by the specified label.
      * @param label - The version label to restore.
      */
-    restoreByLabel(label): IBase;
+    restoreByLabel(label): IBase<IVersion>;
 }

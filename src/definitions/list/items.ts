@@ -1,11 +1,12 @@
 import {
     IBase, IBaseCollection,
-    IListItem, IListItemMethods, IListItemQueryResults
+    IListItem, IListItemQueryResult, IListItemResult
 } from "..";
+
 /**
  * List Items
  */
-export interface IListItems extends IBaseCollection<IListItem, IListItemQueryResults> {
+export interface IListItems extends IBaseCollection<IListItemResult, IListItemQueryResult> {
     /**
      * Adds an item to the list item collection.
      * @param data - The item properties.
@@ -16,7 +17,7 @@ export interface IListItems extends IBaseCollection<IListItem, IListItemQueryRes
      * Gets an item by the specified id.
      * @param id - The item id.
      */
-    getById(id): IListItemMethods;
+    getById(id): IListItem;
 
     /**
      * Method to get the next set of results.

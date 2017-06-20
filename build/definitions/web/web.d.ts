@@ -1,4 +1,4 @@
-import { IAppTiles, IBase, IContentTypeMethods, IContentTypes, IEventReceiverMethods, IEventReceivers, IFieldMethods, IFields, IFileMethods, IFolderMethods, IFolders, IGroup, ISiteGroups, IListMethods, ILists, INavigation, IPropertyValues, IResourcePath, IRoleDefinitionMethods, IRoleDefinitions, ITargetInfo, IUserMethods, IUsers, IUserCustomActionMethods, IUserCustomActions, IWebMethods, IWebs } from "..";
+import { IAppTiles, IBase, IContentTypeMethods, IContentTypes, IEventReceiverMethods, IEventReceivers, IFieldMethods, IFields, IFileMethods, IFolderMethods, IFolders, IGroup, ISiteGroups, IList, ILists, INavigation, IPropertyValues, IResourcePath, IRoleDefinitionMethods, IRoleDefinitions, ITargetInfo, IUserMethods, IUsers, IUserCustomActionMethods, IUserCustomActions, IWebMethods, IWebs } from "..";
 /**
  * Web
  */
@@ -149,7 +149,7 @@ export interface IWeb extends IWebMethods {
      * Gets the list in the Web.
      * @param name - The list name.
      */
-    Lists(name: string): IListMethods;
+    Lists(name: string): IList;
     /**
      * Gets the list definitions and list templates available for creating lists on the site.
      */

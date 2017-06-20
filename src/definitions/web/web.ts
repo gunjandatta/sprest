@@ -7,7 +7,7 @@ import {
     IFileMethods,
     IFolderMethods, IFolders,
     IGroup, ISiteGroups,
-    IListMethods, ILists,
+    IList, ILists,
     INavigation,
     IPropertyValues,
     IResourcePath,
@@ -212,7 +212,7 @@ export interface IWeb extends IWebMethods {
      * Gets the list in the Web.
      * @param name - The list name.
      */
-    Lists(name: string): IListMethods;
+    Lists(name: string): IList;
 
     /**
      * Gets the list definitions and list templates available for creating lists on the site.

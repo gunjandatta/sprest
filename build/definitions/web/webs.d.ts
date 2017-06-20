@@ -1,8 +1,8 @@
-import { IBase, IResults, IWeb, IWebCreationInformation, IWebQueryResult } from "..";
+import { IBase, IBaseCollection, IWeb, IWebCreationInformation, IWebQueryResult } from "..";
 /**
  * Webs
  */
-export interface IWebs extends IResults<IWeb>, IBase<IResults<IWeb>, IResults<IWebQueryResult>> {
+export interface IWebs extends IBaseCollection<IWeb, IWebQueryResult> {
     /**
      * Methods
      */

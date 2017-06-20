@@ -6,33 +6,135 @@ import {
     IField, IFieldMethods, IFields,
     IFile, IFileMethods,
     IFolder, IFolderMethods,
-    IListMethods, ILists,
+    IForm,
+    IInformationRightsManagementSettings,
+    IListDataSource,
+    ILists,
     IListItem, IListItemMethods, IListItems,
     IResourcePath,
+    IResults,
     IRoleAssignment, IRoleAssignmentMethods, IRoleAssignments,
     IStringValue,
+    ISubscription,
     ITargetInfo,
     IUserCustomAction, IUserCustomActionMethods, IUserCustomActions,
-    IView, IViewMethods, IViews,
+    IView, IViews,
     IWeb, IWebMethods,
     SPTypes
 } from "..";
 
 /**
- * List
+ * List Methods
  */
-export interface IList extends IListMethods {
+export interface IListMethods {
     /**
-     * Constructor
-     * @param listName - The name of the list.
-     * @param targetInfo - (Optional) The target information.
+     * Creates unique role assignments for the securable object.
+     * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
+     * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
      */
-    new (listName: string, targetInfo?: ITargetInfo): IList;
+    breakRoleInheritance(copyRoleAssignments, clearSubScopes);
 
     /**
-     * Properties
+     * Deletes the list.
      */
+    delete(): IBase;
 
+    /**
+     * A static method to get the list by the entity name.
+     * @param entityTypeName - The entity type name of the list.
+     * @param callback - The method to be executed after the request completes.
+     */
+    getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): IBase<IList>;
+
+    /**
+     * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
+     * @param query - The change query.
+     */
+    getChanges(query): IBase;
+
+    /**
+     * Returns the list item with the specified list item identifier.
+     * @param id - The list item id.
+     */
+    getItemById(id): IListItemMethods;
+
+    /**
+     * Returns a collection of items from the list based on the view xml.
+     * @param viewXml - The view xml CAML query.
+     */
+    getItems(viewXml): IBase<IListItems>;
+
+    /**
+     * Returns a collection of items from the list based on the specified query.
+     * @camlQuery - The caml query.
+     */
+    getItemsByQuery(camlQuery): IBase<IListItems>;
+
+    /**
+     * Returns a collection of items from the list based on the specified query.
+     * @query - The query that contains the change token.
+     */
+    getListItemChangesSinceToken(query): IBase<IListItems>;
+
+    /**
+     * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
+     */
+    getRelatedFields(): IBase;
+
+    /**
+     * Gets the effective user permissions for the current user.
+     * @param loginName - The user login name.
+     */
+    getUserEffectivePermissions(loginName): IBase;
+
+    /**
+     * Returns the list view with the specified view identifier.
+     * @param viewId - The view id.
+     */
+    getViewById(viewId): IBase<IView>;
+
+    /**
+     * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+     */
+    recycle(): IBase;
+
+    /**
+     * Renders the list data.
+     * @param viewXml - A CAML query that defines the items and fields that you want returned.
+     */
+    renderListData(viewXml): IBase;
+
+    // 
+    // Types of modes: 1 - Display, 2 - Edit, 3 - New
+    /**
+     * Renders the list form data.
+     * @param itemId - The item id.
+     * @param formId - The identifier of the form.
+     * @param mode - The SP.ControlMode of the control used to display the item.
+     */
+    renderListFormData(itemId, formId, mode: SPTypes.ControlMode): IBase;
+
+    /**
+     * Reserves a list item ID for idempotent list item creation.
+     */
+    reserveListItemId(): IBase;
+
+    /**
+     * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+     */
+    resetRoleInheritance(): IBase;
+
+    /**
+     * Updates it's properties.
+     * @param data - The list properties to update.
+     */
+    update(data): IBase;
+}
+
+/**
+ * List Properties
+ */
+export interface IListProps {
     /** Gets a value that specifies whether the list supports content types. */
     AllowContentTypes: boolean;
 
@@ -49,17 +151,6 @@ export interface IList extends IListMethods {
      */
     BrowserFileHandling: number;
 
-    /**
-     * Gets the content types that are associated with the list.
-     */
-    ContentTypes(): IContentTypes;
-
-    /**
-     * Gets the content types that are associated with the list.
-     * @param id - The id of the content type.
-     */
-    ContentTypes(id: string): IContentTypeMethods;
-
     /** Gets or sets a value that specifies whether content types are enabled for the list. */
     ContentTypesEnabled: boolean;
 
@@ -68,43 +159,11 @@ export interface IList extends IListMethods {
 
     CurrentChangeToken: IStringValue;
 
-    /**
-     * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
-     */
-    DataSource(): IBase<Array<string>>;
-
     /** Gets a value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
     DefaultContentApprovalWorkflowId: string;
 
-    /**
-     * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
-     */
-    DefaultDisplayFormUrl(): IBase<string>;
-
-    /**
-     * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-     */
-    DefaultEditFormUrl(): IBase<string>;
-
-    /**
-     * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-     */
-    DefaultNewFormUrl(): IBase<string>;
-
-    /**
-     * Gets the default list view.
-    */
-    DefaultView(): IViewMethods;
-
-    /**
-     * Gets the URL of the default view for the list.
-     */
-    DefaultViewUrl(): IBase<string>;
-
     /** Gets or sets a value that specifies the description of the list. */
     Description: string;
-
-    DescriptionResouce(): IBase<IResourcePath>;
 
     /** Gets or sets a value that specifies the reading order of the list. Returns ""NONE"", ""LTR"", or ""RTL"". */
     Direction: string;
@@ -114,16 +173,6 @@ export interface IList extends IListMethods {
 
     /** Gets or sets a value that specifies the minimum permission required to view minor versions and drafts within the list. Represents an SP.DraftVisibilityType value: Reader = 0; Author = 1; Approver = 2. */
     DraftVersionVisibility: number;
-
-    /**
-     * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
-     */
-    EffectiveBasePermissions(): IBase<IBasePermissions>;
-
-    /**
-     * Gets a value that specifies the effective permissions on the list that are for the user export interface.
-    */
-    EffectiveBasePermissionsForUI(): IBase<IBasePermissions>;
 
     EnableAssignToEmail: boolean;
 
@@ -145,58 +194,15 @@ export interface IList extends IListMethods {
     /**  */
     EntityTypeName: string;
 
-    /**
-     * Gets the event receivers associated with the list.
-    */
-    EventReceivers(): IBase<IEventReceivers>;
-
-    /**
-     * Gets the event receiver associated with the list.
-     * @param id - The id of the event receiver.
-    */
-    EventReceivers(id: string): IEventReceiverMethods;
-
     ExcludeFromOfflineClient: boolean;
 
-    /**
-     * Gets the fields in the list.
-     */
-    Fields(): IBase<IFields>;
-
-    /**
-     * Gets the field in the list.
-     * @param internalNameOrTitle - The internal name or title of the field.
-     */
-    Fields(internalNameOrTitle: string): IFieldMethods;
-
     FileSavePostProcessingEnabled: boolean;
-
-    /**
-     * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-     */
-    FirstUniqueAncestorSecurableObject(): IBase<string>;
 
     /** Gets or sets a value that indicates whether forced checkout is enabled for the document library. */
     ForceCheckout: boolean;
 
-    /**
-     * Gets the list forms in the list.
-     */
-    Forms(): IBase;
-
-    /**
-     * Gets the list form in the list.
-     * @param id - The id of the form.
-     */
-    Forms(id: string): IBase;
-
     /** Gets a value that specifies whether the list is an external list. */
     HasExternalDataSource: boolean;
-
-    /**
-     * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
-     */
-    HasUniqueRoleAssignments(): IBase;
 
     /** Gets or sets a Boolean value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
     Hidden: boolean;
@@ -206,11 +212,6 @@ export interface IList extends IListMethods {
 
     /** Gets a value that specifies the URI for the icon of the list. */
     ImageUrl: string;
-
-    /**
-     * Gets a value that specifies the information rights management settings.
-    */
-    InformationRightsManagementSettings(): IBase;
 
     /**  */
     IrmEnabled: boolean;
@@ -230,24 +231,8 @@ export interface IList extends IListMethods {
     /**  */
     IsPrivate: boolean;
 
-    /**
-     * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
-     */
-    IsSiteAssetsLibrary(): IBase<boolean>;
-
     /** Gets a value that specifies the number of list items in the list. */
     ItemCount: number;
-
-    /**
-     * Gets the list items in the list.
-     */
-    Items(): IListItems;
-
-    /**
-     * Gets the list item in the list.
-     * @param id - The id of the list item.
-     */
-    Items(id: number): IListItemMethods;
 
     /** Gets a value that specifies the last time a list item was deleted from the list. */
     LastItemDeletedDate: string;
@@ -270,6 +255,144 @@ export interface IList extends IListMethods {
     /** Gets or sets a value that specifies that the crawler must not crawl the list. */
     NoCrawl: boolean;
 
+    /** Gets a value that specifies the server-relative URL of the site that contains the list. */
+    ParentWebUrl: string;
+
+    ParserDisabled: boolean;
+
+    ReadSecurity: number;
+
+    /** Gets a value that indicates whether folders can be created within the list. */
+    ServerTemplateCanCreateFolders: boolean;
+
+    /** Gets a value that specifies the feature identifier of the feature that contains the list schema for the list. Returns an empty GUID if the list schema is not contained within a feature. */
+    TemplateFeatureId: string;
+
+    /** Gets or sets the displayed title for the list. Its length must be <= 255 characters. */
+    Title: string;
+}
+
+/**
+ * List Query Properties
+ */
+export interface IListQueryProps {
+    /**
+     * Gets the content types that are associated with the list.
+     */
+    ContentTypes(): IContentTypes;
+
+    /**
+     * Gets the content types that are associated with the list.
+     * @param id - The id of the content type.
+     */
+    ContentTypes(id: string): IContentTypeMethods;
+
+    /**
+     * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
+     */
+    DataSource(): IBase<Array<string>>;
+
+    /**
+     * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
+     */
+    DefaultDisplayFormUrl(): IBase<string>;
+
+    /**
+     * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
+     */
+    DefaultEditFormUrl(): IBase<string>;
+
+    /**
+     * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
+     */
+    DefaultNewFormUrl(): IBase<string>;
+
+    /**
+     * Gets the default list view.
+    */
+    DefaultView(): IView;
+
+    /**
+     * Gets the URL of the default view for the list.
+     */
+    DefaultViewUrl(): IBase<string>;
+
+    DescriptionResouce(): IBase<IResourcePath>;
+
+    /**
+     * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
+     */
+    EffectiveBasePermissions(): IBase<IBasePermissions>;
+
+    /**
+     * Gets a value that specifies the effective permissions on the list that are for the user export interface.
+    */
+    EffectiveBasePermissionsForUI(): IBase<IBasePermissions>;
+
+    /**
+     * Gets the event receivers associated with the list.
+    */
+    EventReceivers(): IBase<IEventReceivers>;
+
+    /**
+     * Gets the event receiver associated with the list.
+     * @param id - The id of the event receiver.
+    */
+    EventReceivers(id: string): IEventReceiverMethods;
+
+    /**
+     * Gets the fields in the list.
+     */
+    Fields(): IBase<IFields>;
+
+    /**
+     * Gets the field in the list.
+     * @param internalNameOrTitle - The internal name or title of the field.
+     */
+    Fields(internalNameOrTitle: string): IFieldMethods;
+
+    /**
+     * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+     */
+    FirstUniqueAncestorSecurableObject(): IBase<string>;
+
+    /**
+     * Gets the list forms in the list.
+     */
+    Forms(): IBase;
+
+    /**
+     * Gets the list form in the list.
+     * @param id - The id of the form.
+     */
+    Forms(id: string): IBase;
+
+    /**
+     * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
+     */
+    HasUniqueRoleAssignments(): IBase;
+
+    /**
+     * Gets a value that specifies the information rights management settings.
+    */
+    InformationRightsManagementSettings(): IBase;
+
+    /**
+     * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
+     */
+    IsSiteAssetsLibrary(): IBase<boolean>;
+
+    /**
+     * Gets the list items in the list.
+     */
+    Items(): IListItems;
+
+    /**
+     * Gets the list item in the list.
+     * @param id - The id of the list item.
+     */
+    Items(id: number): IListItemMethods;
+
     /**
      * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
      */
@@ -279,13 +402,6 @@ export interface IList extends IListMethods {
      * Gets a value that specifies the site that contains the list.
      */
     ParentWeb(): IWebMethods;
-
-    /** Gets a value that specifies the server-relative URL of the site that contains the list. */
-    ParentWebUrl: string;
-
-    ParserDisabled: boolean;
-
-    ReadSecurity: number;
 
     /**
      * Gets the role assignments for the securable object.
@@ -314,16 +430,7 @@ export interface IList extends IListMethods {
      */
     SchemaXml(): IBase<string>;
 
-    /** Gets a value that indicates whether folders can be created within the list. */
-    ServerTemplateCanCreateFolders: boolean;
-
     Subscriptions(): IBase<IBase>;
-
-    /** Gets a value that specifies the feature identifier of the feature that contains the list schema for the list. Returns an empty GUID if the list schema is not contained within a feature. */
-    TemplateFeatureId: string;
-
-    /** Gets or sets the displayed title for the list. Its length must be <= 255 characters. */
-    Title: string;
 
     TitleResource(): IBase<IResourcePath>;
 
@@ -357,7 +464,7 @@ export interface IList extends IListMethods {
      * Gets the view in the list.
      * @param id - The id of the view.
      */
-    Views(id: string): IViewMethods;
+    Views(id: string): IView;
 
     /**
      * Gets a value that specifies the collection of all workflow associations for the list.
@@ -365,4 +472,169 @@ export interface IList extends IListMethods {
     WorkflowAssociations(): IBase<string>;
 
     WriteSecurity(): IBase<number>;
+}
+
+/**
+ * List Query Result
+ */
+export interface IListQueryResult extends IListMethods, IListProps {
+    /**
+     * Gets the content types that are associated with the list.
+     */
+    ContentTypes: IResults<IContentType>;
+
+    /**
+     * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
+     */
+    DataSource: IListDataSource;
+
+    /**
+     * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
+     */
+    DefaultDisplayFormUrl: string;
+
+    /**
+     * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
+     */
+    DefaultEditFormUrl: string;
+
+    /**
+     * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
+     */
+    DefaultNewFormUrl: string;
+
+    /**
+     * Gets the default list view.
+    */
+    DefaultView: IView;
+
+    /**
+     * Gets the URL of the default view for the list.
+     */
+    DefaultViewUrl: string;
+
+    DescriptionResouce: IResourcePath;
+
+    /**
+     * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
+     */
+    EffectiveBasePermissions: IBasePermissions;
+
+    /**
+     * Gets a value that specifies the effective permissions on the list that are for the user export interface.
+    */
+    EffectiveBasePermissionsForUI: IBasePermissions;
+
+    /**
+     * Gets the event receivers associated with the list.
+    */
+    EventReceivers: IResults<IEventReceiver>;
+
+    /**
+     * Gets the fields in the list.
+     */
+    Fields: IResults<IField>;
+
+    /**
+     * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+     */
+    FirstUniqueAncestorSecurableObject: IWeb;
+
+    /**
+     * Gets the list forms in the list.
+     */
+    Forms: IResults<IForm>;
+
+    /**
+     * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
+     */
+    HasUniqueRoleAssignments: boolean;
+
+    /**
+     * Gets a value that specifies the information rights management settings.
+    */
+    InformationRightsManagementSettings: IInformationRightsManagementSettings;
+
+    /**
+     * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
+     */
+    IsSiteAssetsLibrary: boolean;
+
+    /**
+     * Gets the list items in the list.
+     */
+    Items: IResults<IListItem>;
+
+    /**
+     * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
+     */
+    OnQuickLaunch: boolean;
+
+    /**
+     * Gets a value that specifies the site that contains the list.
+     */
+    ParentWeb: IWeb;
+
+    /**
+     * Gets the role assignments for the securable object.
+     */
+    RoleAssignments: IResults<IRoleAssignment>;
+
+    /**
+     * Gets the root folder of the list.
+     */
+    RootFolder: IFolder;
+
+    /**
+     * Gets a value that specifies the list schema of the list.
+     */
+    SchemaXml: string;
+
+    Subscriptions: IResults<ISubscription>;
+
+    TitleResource: IResourcePath;
+
+    /**
+     * Gets the user custom actions for the list.
+     */
+    UserCustomActions: IResults<IUserCustomAction>;
+
+    /**
+     * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
+     */
+    ValidationFormula: string;
+
+    /**
+     * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
+     */
+    ValidationMessage: string;
+
+    /**
+     * Gets the views in the list.
+     */
+    Views: IResults<IView>;
+
+    /**
+     * Gets a value that specifies the collection of all workflow associations for the list.
+     */
+    WorkflowAssociations: IResults<string>;
+
+    WriteSecurity: number;
+}
+
+/**
+ * List Result
+ */
+export interface IListResult extends IListMethods, IListProps, IListQueryProps {}
+
+/**
+ * List
+ */
+export interface IList extends IListMethods, IListQueryProps, IBase<IListResult, IListQueryResult> {
+    /**
+     * Constructor
+     * @param listName - The name of the list.
+     * @param targetInfo - (Optional) The target information.
+     */
+    new (listName: string, targetInfo?: ITargetInfo): IList;
 }

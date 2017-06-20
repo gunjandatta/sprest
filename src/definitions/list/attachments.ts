@@ -12,7 +12,7 @@ export interface IAttachmentFiles extends IBaseCollection<IAttachmentFiles, IAtt
      * @param fileName - The filename of the attachment.
      * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
      */
-    add(fileName, content): IBase;
+    add(fileName, content): IBase<IAttachment>;
 
     /**
      * Method to get the next set of results.

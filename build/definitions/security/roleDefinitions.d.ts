@@ -1,8 +1,8 @@
-import { IBase, IRoleDefinition, IRoleDefinitionMethods, IResults, SPTypes } from "..";
+import { IBase, IBaseCollection, IRoleDefinition, IRoleDefinitionMethods, SPTypes } from "..";
 /**
  * Role Definitions
  */
-export interface IRoleDefinitions extends IResults<IRoleDefinition>, IBase<IResults<IRoleDefinition>, IResults<IRoleDefinition>> {
+export interface IRoleDefinitions extends IBaseCollection<IRoleDefinition, IRoleDefinition> {
     /**
      * Gets the role definition with the specified ID from the collection.
      * @param roleDefId - The ID of the role definition that defines the permissions to assign.

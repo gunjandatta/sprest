@@ -1,8 +1,8 @@
-import { IBase, IList, IListCreationInformation, IListMethods, IListQueryResults, IResults } from "..";
+import { IBase, IBaseCollection, IList, IListCreationInformation, IListQueryResult, IListResult } from "..";
 /**
  * Lists
  */
-export interface ILists extends IResults<IList>, IBase<IResults<IList>, IResults<IListQueryResults>> {
+export interface ILists extends IBaseCollection<IListResult, IListQueryResult> {
     /**
      * Adds a list to the list collection.
      * @param parameters - The list creation information.
@@ -20,12 +20,12 @@ export interface ILists extends IResults<IList>, IBase<IResults<IList>, IResults
      * Returns the list with the specified list identifier.
      * @param id - The list id.
      */
-    getById(id: any): IListMethods;
+    getById(id: any): IList;
     /**
      * Returns the list with the specified title from the collection.
      * @param title - The list title.
      */
-    getByTitle(title: any): IListMethods;
+    getByTitle(title: any): IList;
     /**
      * Method to get the next set of results.
      */

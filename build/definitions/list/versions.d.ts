@@ -1,8 +1,8 @@
-import { IBase, IResults, IVersion } from "..";
+import { IBase, IBaseCollection, IVersion } from "..";
 /**
  * Versions
  */
-export interface IVersions extends IResults<IVersion>, IBase<IResults<IVersion>, IResults<IVersion>> {
+export interface IVersions extends IBaseCollection<IVersion, IVersion> {
     /**
      * Deletes all versions in the collection.
      */
@@ -30,5 +30,5 @@ export interface IVersions extends IResults<IVersion>, IBase<IResults<IVersion>,
      * Restores a version, by the specified label.
      * @param label - The version label to restore.
      */
-    restoreByLabel(label: any): IBase;
+    restoreByLabel(label: any): IBase<IVersion>;
 }

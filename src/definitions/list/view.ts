@@ -1,14 +1,36 @@
 import {
     IBase,
+    IResults,
     IStringValue,
-    IViewFields, IViewMethods,
+    IViewFields,
     IVisualization
 } from "..";
 
 /**
- * View
+ * View Methods
  */
-export interface IView extends IViewMethods {
+export interface IViewMethods {
+    /**
+     * Deletes the view.
+     */
+    delete(): IBase;
+
+    /**
+     * Returns the list view as HTML.
+     */
+    renderAsHtml(): IBase;
+
+    /**
+     * Updates it's properties.
+     * @param data - The list properties to update.
+     */
+    update(data): IBase;
+}
+
+/**
+ * View Properties
+ */
+export interface IViewProps {
     /** Gets or sets a value that specifies fields and functions that define totals shown in a list view. If not null, the XML must conform to FieldRefDefinitionAggregation, as specified in [MS-WSSCAML]. */
     Aggregations: string;
 
@@ -112,11 +134,6 @@ export interface IView extends IViewMethods {
 
     VisualizationInfo: IVisualization;
 
-    /**
-     * Gets a value that specifies the collection of fields in the list view.
-     */
-    ViewFields(): IBase<IViewFields>;
-
     /** Gets or sets a value that specifies the joins that are used in the list view. If not null, the XML must conform to ListJoinsDefinition, as specified in [MS-WSSCAML]. */
     ViewJoins: string;
 
@@ -129,3 +146,29 @@ export interface IView extends IViewMethods {
     /** Gets a value that specifies the type of the list view. Can be HTML, GRID, CALENDAR, RECURRENCE, CHART, or GANTT. */
     ViewType: string;
 }
+
+/**
+ * View Query Properties
+ */
+export interface IViewQueryProps {
+    /** Gets a value that specifies the collection of fields in the list view. */
+    ViewFields(): IBase<IViewFields>;
+}
+
+/**
+ * View Query Result
+ */
+export interface IViewQueryResult extends IViewMethods, IViewProps {
+    /** A value that specifies the collection of fields in the list view. */
+    ViewFields: IResults<string>;
+}
+
+/**
+ * View Result
+ */
+export interface IViewResult extends IViewMethods, IViewProps, IViewQueryProps { }
+
+/**
+ * View
+ */
+export interface IView extends IViewMethods, IViewQueryProps, IBase<IViewResult, IViewQueryResult> { }

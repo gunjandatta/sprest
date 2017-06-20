@@ -29,6 +29,23 @@ export interface IAppTiles {
 }
 
 /**
+ * Attachment
+ */
+export interface IAttachment {
+    /** The filename. */
+    FileName: string;
+
+    /** The filename as a path. */
+    FileNameAsPath: IResourcePath;
+
+    /** The server relative path. */
+    ServerRelativePath: IResourcePath;
+
+    /** The server relative url. */
+    ServerRelativeUrl: string;
+}
+
+/**
  * Audit
  */
 export interface IAudit {
