@@ -1,7 +1,6 @@
-import { IListItemQueryResults } from "./itemResults";
 import {
     IBase,
-    IListItem,
+    IListItem, IListItemQueryResults,
     IResults
 } from "..";
 /**

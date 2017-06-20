@@ -1,5 +1,4 @@
-import { IFieldQueryResults } from "./fieldResults";
-import { IBase, IField, IFieldCreationInformation, IResults } from "..";
+import { IBase, IField, IFieldCreationInformation, IFieldQueryResults, IResults } from "..";
 /**
  * Fields
  */

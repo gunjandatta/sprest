@@ -1,16 +1,13 @@
 import {
     IBase,
-    IUser, IUsers,
-    ODataQuery
+    IGroupQueryResults,
+    IUser, IUsers
 } from "..";
+
 /**
  * Group
  */
-export interface IGroup extends IBase {
-    /**
-     * Properties
-     */
-
+export interface IGroup extends IBase<IGroup, IGroupQueryResults> {
     /** Gets or sets a value that indicates whether the group members can edit membership in the group. */
     AllowMembersEditMembership: boolean;
 
@@ -79,38 +76,4 @@ export interface IGroup extends IBase {
      * @param id - The user id.
      */
     Users(id): IUser;
-
-    /**
-     * Methods
-     */
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?:(value?:IGroup, ...args) => any): IGroup;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl:boolean): IGroup;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback:(value?:IGroup, ...args) => any, waitFl:boolean): IGroup;
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IGroup;
-
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query:ODataQuery): IGroup;
 }

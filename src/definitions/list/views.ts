@@ -1,8 +1,7 @@
-import { IViewQueryResults } from "./viewResults";
 import {
     IBase,
     IResults,
-    IView, IViewCreationInformation
+    IView, IViewCreationInformation, IViewQueryResults
 } from "..";
 
 /**

@@ -147,6 +147,17 @@ export interface IFieldLink {
 }
 
 /**
+ * Group Creation Information
+ */
+export interface IGroupCreationInformation {
+    /** The group description. */
+    Description?: string;
+
+    /** The group name. */
+    Title: string;
+}
+
+/**
  * Form
  */
 export interface IForm {
@@ -373,6 +384,15 @@ export interface IUsageInfo {
 }
 
 /**
+ * User Creation Information
+ */
+export interface IUserCreationInformation {
+    Email?: string;
+    LoginName: string;
+    Title?: string;
+}
+
+/**
  * User Custom Action Information
  */
 export interface IUserCustomActionCreationInformation {
@@ -417,6 +437,35 @@ export interface IUserCustomActionCreationInformation {
 
     /** The URL, URI, or ECMAScript (JScript, JavaScript) function associated with the action. */
     Url?: string;
+}
+
+/**
+ * Version
+ */
+export interface IVersion {
+    /** The check-in comment. */
+    CheckInComment: string;
+
+    /** The created date. */
+    Created: string;
+
+    /** The version id. */
+    ID: number;
+
+    /** Flag determining if this is the current version. */
+    IsCurrentVersion: boolean;
+
+    /** The file length. */    
+    Length: number;
+
+    /** The file size. */
+    Size: number;
+
+    /** The file url. */
+    Url: string;
+
+    /** The version label. */
+    VersionLabel: string;
 }
 
 /**

@@ -1,12 +1,10 @@
-import { IWebQueryResult } from "./webResults";
 import {
     IBase,
     IFile,
     IFolder,
     IList,
     IUser,
-    IWeb,
-    ODataQuery
+    IWeb, IWebQueryResult
 } from "..";
 
 /**

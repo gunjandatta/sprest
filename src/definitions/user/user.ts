@@ -1,17 +1,15 @@
+import { IUserMethods } from "./userMethods";
 import {
     IBase,
     IGroup,
     ISiteGroups,
     ODataQuery
 } from "..";
+
 /**
  * User
  */
-export interface IUser extends IBase {
-    /**
-     * Properties
-     */
-
+export interface IUser extends IUserMethods {
     /** Gets or sets the email address of the user. */
     Email: string;
 
@@ -24,7 +22,7 @@ export interface IUser extends IBase {
      * Gets the group of which the user is a member.
      * @param id - The group id.
      */
-    Groups(id:number): IGroup;
+    Groups(id: number): IGroup;
 
     /** Gets a value that specifies the member identifier for the user or group. */
     Id: string;
@@ -48,43 +46,4 @@ export interface IUser extends IBase {
 
     /** Gets the information of the user that contains the user's name identifier and the issuer of the user's name identifier. */
     UserId: string;
-
-    /**
-     * Methods
-     */
-
-    /**
-     * Deletes the user custom action.
-     */
-    delete(): IBase;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?:(value?:IUser, ...args) => any): IUser;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl:boolean): IUser;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback:(value?:IUser, ...args) => any, waitFl:boolean): IUser;
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IUser;
-
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query:ODataQuery): IUser;
 }

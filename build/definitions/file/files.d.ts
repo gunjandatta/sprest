@@ -1,5 +1,4 @@
-import { IFileQueryResults } from "./fileResults";
-import { IBase, IFile, IResults, SPTypes } from "..";
+import { IBase, IFile, IFileQueryResults, IResults, SPTypes } from "..";
 /**
  * Files
  */

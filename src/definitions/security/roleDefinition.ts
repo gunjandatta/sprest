@@ -1,19 +1,15 @@
+import { IRoleDefinitionMethods } from "./roleDefinitionMethods";
 import {
-    ComplexTypes,
-    IBase,
-    ODataQuery,
+    IBasePermissions,
     SPTypes
 } from "..";
+
 /**
  * Role Definition
  */
-export interface IRoleDefinition extends IBase {
-    /**
-     * Properties
-     */
-
+export interface IRoleDefinition extends IRoleDefinitionMethods {
     /** Gets or sets a value that specifies the base permissions for the role definition. */
-    BasePermissions: ComplexTypes.BasePermissions;
+    BasePermissions: IBasePermissions;
 
     /** Gets or sets a value that specifies the description of the role definition. */
     Description: string;
@@ -32,43 +28,4 @@ export interface IRoleDefinition extends IBase {
 
     /** Gets a value that specifies the type of the role definition. Represents an SP.RoleType value. See RoleType in the .NET client object model reference for a list of role type values. */
     RoleTypeKind: SPTypes.RoleType | number;
-
-    /**
-     * Methods
-     */
-
-    /**
-     * Deletes the role definition.
-     */
-    delete(): IBase;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?:(value?:IRoleDefinition, ...args) => any): IRoleDefinition;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl:boolean): IRoleDefinition;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback:(value?:IRoleDefinition, ...args) => any, waitFl:boolean): IRoleDefinition;
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IRoleDefinition;
-
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query:ODataQuery): IRoleDefinition;
 }

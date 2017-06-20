@@ -1,8 +1,8 @@
-import {IBase} from "..";
+import { IBase } from "..";
 /**
  * Limited Web Part Manager
  */
-export interface ILimitedWebPartManager extends IBase {
+export interface ILimitedWebPartManager extends IBase<ILimitedWebPartManager, ILimitedWebPartManager> {
     /**
      * Properties
      */
@@ -14,30 +14,6 @@ export interface ILimitedWebPartManager extends IBase {
     /**
      * Methods
      */
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?:(value?:ILimitedWebPartManager, ...args) => any): ILimitedWebPartManager;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl:boolean): ILimitedWebPartManager;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback:(value?:ILimitedWebPartManager, ...args) => any, waitFl:boolean): ILimitedWebPartManager;
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): ILimitedWebPartManager;
 
     /**
      * Gets a webpart by its id.

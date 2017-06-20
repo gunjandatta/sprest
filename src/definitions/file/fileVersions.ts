@@ -1,7 +1,6 @@
-import { IFileVersionQueryResults } from "./fileVersionResults";
 import {
     IBase,
-    IFileVersion,
+    IFileVersion, IFileVersionQueryResults,
     IResults
 } from "..";
 

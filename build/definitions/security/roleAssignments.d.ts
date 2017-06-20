@@ -1,42 +1,14 @@
-import { IBase, IRoleAssignment, ODataQuery } from "..";
+import { IBase, IResults, IRoleAssignment, IRoleAssignmentQueryResults } from "..";
 /**
- * RoleAssignments
+ * Role Assignments
  */
-export interface IRoleAssignments extends IBase {
-    /**
-     * Properties
-     */
-    /** The role assignment collection. */
-    results: Array<IRoleAssignment>;
-    /**
-     * Methods
-     */
+export interface IRoleAssignments extends IResults<IRoleAssignment>, IBase<IResults<IRoleAssignment>, IResults<IRoleAssignmentQueryResults>> {
     /**
      * Adds a new role assignment with the specified principal and role definitions to the collection.
      * @param principalId - The ID of the user or group to assign permissions to.
      * @param roleDefId - The ID of the role definition that defines the permissions to assign.
      */
     addRoleAssignment(principalId: any, roleDefId: any): IRoleAssignment;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?: (value?: IRoleAssignments, ...args) => any): IRoleAssignments;
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl: boolean): IRoleAssignments;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback: (value?: IRoleAssignments, ...args) => any, waitFl: boolean): IRoleAssignments;
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IRoleAssignments;
     /**
      * Gets the role assignment associated with the specified principal ID from the collection.
      * @param principalId - The ID of the user or group to assign permissions to.
@@ -52,9 +24,4 @@ export interface IRoleAssignments extends IBase {
      * Method to get the next set of results.
      */
     next(): IRoleAssignments;
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query: ODataQuery): IRoleAssignments;
 }

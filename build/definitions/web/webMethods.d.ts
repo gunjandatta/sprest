@@ -1,5 +1,4 @@
-import { IWebQueryResult } from "./webResults";
-import { IBase, IFile, IFolder, IList, IUser, IWeb } from "..";
+import { IBase, IFile, IFolder, IList, IUser, IWeb, IWebQueryResult } from "..";
 /**
  * Web Methods
  */

@@ -1,5 +1,4 @@
-import { IContentTypeQueryResults } from "./contentTypeResults";
-import { IBase, IContentType } from "..";
+import { IBase, IContentType, IContentTypeQueryResults } from "..";
 /**
  * Content Type Methods
  */

@@ -1,10 +1,9 @@
-import { ISiteQueryResults } from "./siteResults";
 import {
     IAudit,
     IBase,
     IEventReceiver, IEventReceivers,
     IResourcePath,
-    ISite,
+    ISite, ISiteQueryResults,
     ITargetInfo,
     IUser,
     IUserCustomAction, IUserCustomActions,

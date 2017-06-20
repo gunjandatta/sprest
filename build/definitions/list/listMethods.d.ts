@@ -1,5 +1,4 @@
-import { IListQueryResults } from "./listResults";
-import { IBase, IList, IListItem, IListItems, IView, SPTypes } from "..";
+import { IBase, IList, IListQueryResults, IListItem, IListItems, IView, SPTypes } from "..";
 /**
  * List Methods
  */

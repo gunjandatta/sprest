@@ -1,7 +1,6 @@
-import { IViewQueryResults } from "./viewResults";
 import {
     IBase,
-    IView
+    IView, IViewQueryResults
 } from "..";
 
 /**

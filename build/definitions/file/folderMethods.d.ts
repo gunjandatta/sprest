@@ -1,5 +1,4 @@
-import { IFolderQueryResults } from "./folderResults";
-import { IBase, IFolder } from "..";
+import { IBase, IFolder, IFolderQueryResults } from "..";
 /**
  * Folder Methods
  */

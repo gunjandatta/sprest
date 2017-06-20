@@ -1,113 +1,78 @@
-import {ComplexTypes} from ".";
+import { IBasePermissions } from ".";
 /**
  * Context Information
  */
 export interface IContextInfo {
     /** Alerts Enabled */
-    alertsEnabled:boolean;
-
+    alertsEnabled: boolean;
     /** Allow Silverlight Prompt */
-    allowSilverlightPrompt:boolean;
-
+    allowSilverlightPrompt: boolean;
     /** Client Server Time Delta */
-    clientServerTimeDelta:number;
-
+    clientServerTimeDelta: number;
     /** Cross Domain Photos Enabled */
-    crossDomainPhotosEnabled:boolean;
-
+    crossDomainPhotosEnabled: boolean;
     /** Current Culture Name */
-    currentCultureName:string;
-
+    currentCultureName: string;
     /** Current Language */
-    currentLanguage:string;
-
+    currentLanguage: string;
     /** Current UI Culture Name */
-    currentUICultureName:string;
-
+    currentUICultureName: string;
     /** Environment */
-    env:string;
-
+    env: string;
     /** True if the _spPageContextInfo object exists, flase otherwise. */
-    existsFl:boolean;
-
+    existsFl: boolean;
     /** Has Manage Web Permissions */
-    hasManageWebPermissions:boolean;
-
+    hasManageWebPermissions: boolean;
     /** Is Anonymous Guest User */
-    isAnonymousGuestUser:boolean;
-
+    isAnonymousGuestUser: boolean;
     /** Is App Web */
-    isAppWeb:boolean;
-
+    isAppWeb: boolean;
     /** Is Site Administrator */
-    isSiteAdmin:boolean;
-
+    isSiteAdmin: boolean;
     /** Layouts Url */
-    layoutsUrl:string;
-
+    layoutsUrl: string;
     /** Page Item Id */
-    pageItemId:number;
-
+    pageItemId: number;
     /** Page List Id */
-    pageListId:string;
-
+    pageListId: string;
     /** Page Personalization Scope */
-    pagePersonalizationScope:number;
-
+    pagePersonalizationScope: number;
     /** Profile Url */
-    profileUrl:string;
-
+    profileUrl: string;
     /** Server Request Path */
-    serverRequestPath:string;
-
+    serverRequestPath: string;
     /** Site Absolute Url */
-    siteAbsoluteUrl:string;
-
+    siteAbsoluteUrl: string;
     /** Site Client Tag */
-    siteClientTag:string;
-
+    siteClientTag: string;
     /** Site Server Relative Url */
-    siteServerRelativeUrl:string;
-
+    siteServerRelativeUrl: string;
     /** System User Key */
-    systemUserKey:string;
-
+    systemUserKey: string;
     /** Tenant App Version */
-    tenantAppVersion:string;
-
+    tenantAppVersion: string;
     /** Theme Cache Token */
-    themeCacheToken:string;
-
+    themeCacheToken: string;
     /** Update From Digest Page Loaded */
-    updateFromDigestPageLoaded:Date;
-
+    updateFromDigestPageLoaded: Date;
     /** User Id */
-    userId:number;
-
+    userId: number;
     /** User Login Name */
-    userLoginName:string;
-
+    userLoginName: string;
     /** Web Absolute Url */
-    webAbsoluteUrl:string;
-
+    webAbsoluteUrl: string;
     /** Web Language */
-    webLanguage:number;
-
+    webLanguage: number;
     /** Web Logo Url */
-    webLogoUrl:string;
-
+    webLogoUrl: string;
     /** Web Permissions Mask */
-    webPermMask:ComplexTypes.BasePermissions;
-
+    webPermMask: IBasePermissions;
     /** Web Server Relative Url */
-    webServerRelativeUrl:string;
-
+    webServerRelativeUrl: string;
     /** Web Template */
-    webTemplate:string;
-
+    webTemplate: string;
     /** Web Title */
-    webTitle:string;
-
+    webTitle: string;
     /** Web UI Version */
-    webUIVersion:number;
+    webUIVersion: number;
 }

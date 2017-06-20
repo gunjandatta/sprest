@@ -1,9 +1,7 @@
-import {IWebQueryResult} from "./webResults";
 import {
     IBase,
     IResults,
-    IWeb,
-    IWebCreationInformation
+    IWeb, IWebCreationInformation, IWebQueryResult
 } from "..";
 
 /**

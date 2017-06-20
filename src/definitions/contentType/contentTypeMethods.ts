@@ -1,7 +1,6 @@
-import { IContentTypeQueryResults } from "./contentTypeResults";
 import {
     IBase,
-    IContentType
+    IContentType, IContentTypeQueryResults
 } from "..";
 
 /**

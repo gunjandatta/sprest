@@ -1,41 +1,13 @@
-import { ComplexTypes, IBase, IGroup, ODataQuery } from "..";
+import { IBase, IGroup, IGroupCreationInformation, IGroupQueryResults, IResults } from "..";
 /**
  * Site Groups
  */
-export interface ISiteGroups extends IBase {
-    /**
-     * Properties
-     */
-    /** The site group collection. */
-    results: Array<IGroup>;
-    /**
-     * Methods
-     */
+export interface ISiteGroups extends IResults<IGroup>, IBase<IResults<IGroup>, IResults<IGroupQueryResults>> {
     /**
      * Adds a site to the site collection.
      * @param groupInfo - The group creation information.
      */
-    add(groupInfo: ComplexTypes.GroupCreationInformation): IGroup;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?: (value?: ISiteGroups, ...args) => any): ISiteGroups;
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl: boolean): ISiteGroups;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback: (value?: ISiteGroups, ...args) => any, waitFl: boolean): ISiteGroups;
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): ISiteGroups;
+    add(groupInfo: IGroupCreationInformation): IGroup;
     /**
      * Returns a group from the collection based on the member ID of the group.
      * @param id - The site group id.
@@ -50,11 +22,6 @@ export interface ISiteGroups extends IBase {
      * Method to get the next set of results.
      */
     next(): ISiteGroups;
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query: ODataQuery): ISiteGroups;
     /**
      * Removes the group with the specified member ID from the collection.
      * @param id - The ID of the group to remove.

@@ -81,7 +81,7 @@ export interface PeoplePickerUser {
     ProviderName: string;
 }
 /**
- * Client People Picker
+ * People Picker
  */
 export interface IPeoplePicker extends IBase {
     /**
@@ -95,21 +95,21 @@ export interface IPeoplePicker extends IBase {
     /** Method to resolve users.
      * @param query - The people picker query.
     */
-    clientPeoplePickerResolveUser(query: PeoplePickerQuery): IPeoplePickerResolveUser;
+    clientPeoplePickerResolveUser(query: PeoplePickerQuery): IBase<IPeoplePickerResolveUser>;
     /** Method to search for users.
      * @param query - The people picker query.
     */
-    clientPeoplePickerSearchUser(query: PeoplePickerQuery): IPeoplePickerSearchUser;
+    clientPeoplePickerSearchUser(query: PeoplePickerQuery): IBase<IPeoplePickerSearchUser>;
 }
 /**
  * People Picker Resolve User
  */
-export interface IPeoplePickerResolveUser extends IBase {
+export interface IPeoplePickerResolveUser {
     ClientPeoplePickerResolveUser: Array<PeoplePickerUser>;
 }
 /**
  * People Picker Search User
  */
-export interface IPeoplePickerSearchUser extends IBase {
+export interface IPeoplePickerSearchUser {
     ClientPeoplePickerSearchUser: Array<PeoplePickerUser>;
 }

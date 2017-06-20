@@ -1,5 +1,4 @@
-import { ISiteQueryResults } from "./siteResults";
-import { IBase, ISite, IWeb } from "..";
+import { IBase, ISite, ISiteQueryResults, IWeb } from "..";
 /**
  * Site Methods
  */

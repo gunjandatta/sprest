@@ -1,5 +1,4 @@
-import { IViewQueryResults } from "./viewResults";
-import { IBase, IView } from "..";
+import { IBase, IView, IViewQueryResults } from "..";
 /**
  * View Methods
  */

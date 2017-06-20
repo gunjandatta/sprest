@@ -1,4 +1,3 @@
-import { IListItemQueryResults } from "./itemResults";
 import {
     IAttachment,
     IBase,
@@ -6,7 +5,7 @@ import {
     IFile,
     IFolder,
     IList,
-    IListItem,
+    IListItem, IListItemQueryResults,
     IPropertyValues,
     IRoleAssignment
 } from "..";

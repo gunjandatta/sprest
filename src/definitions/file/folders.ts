@@ -1,7 +1,6 @@
-import { IFolderQueryResults } from "./folderResults";
 import {
     IBase,
-    IFolder,
+    IFolder, IFolderQueryResults,
     IResults
 } from "..";
 

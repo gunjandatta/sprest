@@ -1,7 +1,6 @@
-import { IFileQueryResults } from "./fileResults";
 import {
     IBase,
-    IFile,
+    IFile, IFileQueryResults,
     IResults,
     SPTypes
 } from "..";

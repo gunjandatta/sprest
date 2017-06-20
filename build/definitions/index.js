@@ -5,5 +5,5 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var ComplexTypes = require("./complexTypes");
 exports.ComplexTypes = ComplexTypes;
-__export(require("./utils"));
+__export(require("./lib"));
 //# sourceMappingURL=index.js.map

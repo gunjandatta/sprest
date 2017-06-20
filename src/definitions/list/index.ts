@@ -6,6 +6,7 @@ export * from "./items";
 export * from "./list";
 export * from "./listResults";
 export * from "./lists";
+export * from "./versions";
 export * from "./view";
 export * from "./viewFieldCollection";
 export * from "./viewResults";

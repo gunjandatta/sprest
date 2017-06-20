@@ -1,5 +1,4 @@
-import { IFileVersionQueryResults } from "./fileVersionResults";
-import { IBase, IFileVersion, IResults } from "..";
+import { IBase, IFileVersion, IFileVersionQueryResults, IResults } from "..";
 /**
  * File Versions
  */

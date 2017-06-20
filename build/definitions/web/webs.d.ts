@@ -1,5 +1,4 @@
-import { IWebQueryResult } from "./webResults";
-import { IBase, IResults, IWeb, IWebCreationInformation } from "..";
+import { IBase, IResults, IWeb, IWebCreationInformation, IWebQueryResult } from "..";
 /**
  * Webs
  */

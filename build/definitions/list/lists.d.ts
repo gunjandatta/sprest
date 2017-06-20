@@ -1,5 +1,4 @@
-import { IListQueryResults } from "./listResults";
-import { IBase, IList, IListCreationInformation, IResults } from "..";
+import { IBase, IList, IListCreationInformation, IListQueryResults, IResults } from "..";
 /**
  * Lists
  */
