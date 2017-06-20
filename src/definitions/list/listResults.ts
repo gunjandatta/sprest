@@ -1,4 +1,3 @@
-import { IListMethods } from "./listMethods";
 import {
     IBase,
     IBasePermissions,
@@ -10,7 +9,7 @@ import {
     IForm,
     IInformationRightsManagementSettings,
     IListDataSource,
-    IListItem,
+    IListItem, IListMethods,
     IResourcePath,
     IResults,
     IRoleAssignment,

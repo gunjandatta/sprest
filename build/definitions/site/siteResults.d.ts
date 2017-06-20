@@ -1,5 +1,4 @@
-import { ISiteMethods } from "./siteMethods";
-import { IAudit, IEventReceiver, IFeature, IRecycleBinItem, IResourcePath, IResults, IUpgradeInfo, IUsageInfo, IUser, IUserCustomAction, IWeb } from "..";
+import { IAudit, IEventReceiver, IFeature, IRecycleBinItem, IResourcePath, IResults, ISiteMethods, IUpgradeInfo, IUsageInfo, IUser, IUserCustomAction, IWeb } from "..";
 /**
  * Site Query Results
  */

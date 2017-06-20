@@ -11,7 +11,7 @@ export interface IFolderMethods extends IBase<IFolder, IFolderQueryResults> {
      * Get the file at the specified URL.
      * @param serverRelativeUrl - The server-relative URL of the folder.
      */
-    getByUrl(serverRelativeUrl: any): IFolder;
+    getByUrl(serverRelativeUrl: any): IFolderMethods;
     /**
      * Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
      */

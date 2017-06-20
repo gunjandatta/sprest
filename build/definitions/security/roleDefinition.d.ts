@@ -1,5 +1,4 @@
-import { IRoleDefinitionMethods } from "./roleDefinitionMethods";
-import { IBasePermissions, SPTypes } from "..";
+import { IBasePermissions, IRoleDefinitionMethods, SPTypes } from "..";
 /**
  * Role Definition
  */

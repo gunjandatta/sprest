@@ -1,5 +1,4 @@
-import { IEventReceiverMethods } from "./eventReceiverMethods";
-import { SPTypes } from "..";
+import { IEventReceiverMethods, SPTypes } from "..";
 /**
  * Event Receiver
  */

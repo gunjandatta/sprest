@@ -1,5 +1,4 @@
-import { IListItemMethods } from "./itemMethods";
-import { IAttachment, IBase, IBasePermissions, IContentType, IFile, IFolder, IList, IResults, IRoleAssignment } from "..";
+import { IAttachment, IBase, IBasePermissions, IContentType, IFile, IFolder, IList, IListItemMethods, IResults, IRoleAssignment } from "..";
 /**
  * List Item Query Results
  */

@@ -1,5 +1,4 @@
-import { IFieldMethods } from "./fieldMethods";
-import { IResourcePath, SPTypes } from "..";
+import { IFieldMethods, IResourcePath, SPTypes } from "..";
 /**
  * Field Query Results
  */

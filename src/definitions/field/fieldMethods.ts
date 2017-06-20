@@ -1,8 +1,7 @@
-import { IFieldQueryResults } from "./fieldResults";
 import {
     ComplexTypes,
     IBase,
-    IField,
+    IField, IFieldQueryResults,
     SPTypes
 } from "..";
 

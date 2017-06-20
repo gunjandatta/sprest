@@ -1,8 +1,7 @@
-import { IFolderMethods } from "./folderMethods";
 import {
     IBase,
-    IFile, IFiles,
-    IFolders,
+    IFile, IFileMethods, IFiles,
+    IFolderMethods, IFolders,
     IPropertyValues,
     IResourcePath,
     IResults,
@@ -28,7 +27,7 @@ export interface IFolder extends IFolderMethods {
      * Gets the file contained in the folder.
      * @param url - The url of the file within the current folder.
      */
-    Files(url: string): IFile;
+    Files(url: string): IFileMethods;
 
     /**
      * Gets the folders contained in the list folder.
@@ -39,7 +38,7 @@ export interface IFolder extends IFolderMethods {
      * Gets the folder contained in the list folder.
      * @param url - The url of the sub-folder within the current folder.
      */
-    Folders(url: string): IFolder;
+    Folders(url: string): IFolderMethods;
 
     /** Gets a value that specifies the count of items in the list folder. */
     ItemCount: number;
@@ -58,12 +57,12 @@ export interface IFolder extends IFolderMethods {
     /**
      * Gets the parent list folder of the folder.
      */
-    ParentFolder(): IFolder;
+    ParentFolder(): IFolderMethods;
 
     /**
      * Property Bag
      */
-    Properties(): IPropertyValues;
+    Properties(): IBase<IPropertyValues>;
 
     ServerRelativePath: IResourcePath;
 

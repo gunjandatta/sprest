@@ -19,5 +19,5 @@ export interface ILimitedWebPartManager extends IBase<ILimitedWebPartManager, IL
      * Gets a webpart by its id.
      * @param id - The web part id.
      */
-    WebParts(id);
+    WebParts(id): IBase;
 }

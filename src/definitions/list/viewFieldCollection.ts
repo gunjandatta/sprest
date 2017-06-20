@@ -1,11 +1,10 @@
 import {
-    IBase,
-    ODataQuery
+    IBase
 } from "..";
 /**
  * View Fields
  */
-export interface IViewFields extends IBase {
+export interface IViewFields extends IBase<IViewFields, IViewFields> {
     /**
      * Properties
      */
@@ -30,30 +29,6 @@ export interface IViewFields extends IBase {
     addViewField(fieldName): IBase;
 
     /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?:(value?:IViewFields, ...args) => any): IViewFields;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl:boolean): IViewFields;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback:(value?:IViewFields, ...args) => any, waitFl:boolean): IViewFields;
-
-    /**
-     * Method to execute the request synchronously.
-     */
-    executeAndWait(): IViewFields;
-
-    /**
      * Moves the field with the specified field internal name to the specified position in the collection.
      * @param field - The case-sensitive internal name of the field to move. Send this parameter and the index parameter in the request body, as shown in the example.
      * @param index - The zero-based index of the new position for the field. Send this parameter and the field parameter in the request body, as shown in the example.
@@ -63,13 +38,7 @@ export interface IViewFields extends IBase {
     /**
      * Method to get the next set of results.
      */
-    next(): IViewFields;
-
-    /**
-     * Queries the collection.
-     * @param oData - The OData information.
-     */
-    query(query:ODataQuery): IViewFields;
+    next(): IBase<IViewFields>;
 
     /**
      * Removes all the fields from the collection.

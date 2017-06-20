@@ -1,6 +1,6 @@
-import { IContentTypeMethods } from "./contentTypeMethods";
 import {
     IBase,
+    IContentTypeMethods,
     IField,
     IFieldLink,
     IList,

@@ -1,4 +1,3 @@
-import { IWebMethods } from "./webMethods";
 import {
     IAppTiles,
     IBase,
@@ -22,7 +21,7 @@ import {
     IThemeInfo,
     IUser,
     IUserCustomAction,
-    IWeb, IWebInfo,
+    IWeb, IWebInfo, IWebMethods,
     IWorkflowTemplate
 } from "..";
 

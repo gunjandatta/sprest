@@ -1,5 +1,4 @@
-import { IUserQueryResults } from "./userResults";
-import { IBase, IUser } from "..";
+import { IBase, IUser, IUserQueryResults } from "..";
 /**
  * User Methods
  */

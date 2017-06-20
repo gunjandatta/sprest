@@ -1,7 +1,7 @@
 import {
     IBase,
     IResults,
-    IView, IViewCreationInformation, IViewQueryResults
+    IView, IViewCreationInformation, IViewMethods, IViewQueryResults
 } from "..";
 
 /**
@@ -11,22 +11,22 @@ export interface IViews extends IResults<IView>, IBase<IResults<IView>, IResults
     /**
      * Adds a list view to the view collection.
      */
-    add(parameters: IViewCreationInformation): IView;
+    add(parameters: IViewCreationInformation): IBase<IView>;
 
     /**
      * Gets the list view with the specified ID.
      * @param id - The ID of the view.
      */
-    getById(id): IView;
+    getById(id): IViewMethods;
 
     /**
      * Gets the list view with the specified title.
      * @param title - The case-sensitive title of the view.
      */
-    getByTitle(title): IView;
+    getByTitle(title): IViewMethods;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IViews;
+    next(): IBase<IViews>;
 }

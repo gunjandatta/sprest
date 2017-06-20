@@ -6,7 +6,7 @@ import {
 /**
  * People Manager
  */
-export interface IPeopleManager extends IBase {
+export interface IPeopleManager extends IBase<IPeopleManager> {
         /**
      * Constructor
      * @param targetInfo - (Optional) The target information.
@@ -43,25 +43,6 @@ export interface IPeopleManager extends IBase {
     amIFollowing(accountName:string) : IBase;
 
     /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?:(value?:IPeopleManager, ...args) => any): IPeopleManager;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl:boolean): IPeopleManager;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback:(value?:IPeopleManager, ...args) => any, waitFl:boolean): IPeopleManager;
-
-    /**
      * Adds the specified user to the current user's list of followed users.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
@@ -83,39 +64,39 @@ export interface IPeopleManager extends IBase {
      * Gets the people who are following the specified user.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    getFollowersFor(accountName:string) : IPersonProperties;
+    getFollowersFor(accountName:string) : IBase<IPersonProperties>;
 
     /**
      * Gets the people who are following the current user.
      */
-    getMyFollowers() : IPersonProperties;
+    getMyFollowers() : IBase<IPersonProperties>;
 
     /**
      * Gets user properties for the current user.
      */
-    getMyProperties() : IPersonProperties;
+    getMyProperties() : IBase<IPersonProperties>;
 
     /**
      * Gets suggestions for who the current user might want to follow.
      */
-    getMySuggestions() : IPersonProperties;
+    getMySuggestions() : IBase<IPersonProperties>;
 
     /**
      * Gets the people who the specified user is following.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    getPeopleFollowedBy(accountName:string) : IPersonProperties;
+    getPeopleFollowedBy(accountName:string) : IBase<IPersonProperties>;
 
     /**
      * Gets the people who the current user is following.
      */
-    getPeopleFollowedByMe() : IPersonProperties;
+    getPeopleFollowedByMe() : IBase<IPersonProperties>;
 
     /**
      * Gets user properties for the specified user.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    getPropertiesFor(accountName:string) : IPersonProperties;
+    getPropertiesFor(accountName:string) : IBase<IPersonProperties>;
 
     /**
      * Gets the most popular tags.
@@ -127,7 +108,7 @@ export interface IPeopleManager extends IBase {
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      * @param propertyName - The case-sensitive name of the property to get.
      */
-    getUserProfilePropertyFor(accountName:string, propertyName:string) : IPersonProperties;
+    getUserProfilePropertyFor(accountName:string, propertyName:string) : IBase<IPersonProperties>;
 
     /**
      * Removes the specified user from the user's list of suggested people to follow.

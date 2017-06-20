@@ -1,6 +1,6 @@
 import {
     IBase,
-    IList, IListCreationInformation, IListQueryResults,
+    IList, IListCreationInformation, IListMethods, IListQueryResults,
     IResults
 } from "..";
 
@@ -12,32 +12,32 @@ export interface ILists extends IResults<IList>, IBase<IResults<IList>, IResults
      * Adds a list to the list collection.
      * @param parameters - The list creation information.
      */
-    add(parameters: IListCreationInformation): IList;
+    add(parameters: IListCreationInformation): IBase<IList>;
 
     /**
      * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
      */
-    ensureSiteAssetsLibrary(): IBase;
+    ensureSiteAssetsLibrary(): IBase<IList>;
 
     /**
      * Gets a list that is the default location for wiki pages.
      */
-    ensureSitePagesLibrary(): IBase;
+    ensureSitePagesLibrary(): IBase<IList>;
 
     /**
      * Returns the list with the specified list identifier.
      * @param id - The list id.
      */
-    getById(id): IList;
+    getById(id): IListMethods;
 
     /**
      * Returns the list with the specified title from the collection.
      * @param title - The list title.
      */
-    getByTitle(title): IList;
+    getByTitle(title): IListMethods;
 
     /**
      * Method to get the next set of results.
      */
-    next(): ILists;
+    next(): IBase<ILists>;
 }

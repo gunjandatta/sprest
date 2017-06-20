@@ -1,5 +1,4 @@
-import { IWebMethods } from "./webMethods";
-import { IAppTiles, IBase, IBasePermissions, IContainsConfidentialInfo, IContentType, IEventReceiver, IFeature, IField, IFolder, IGroup, IList, IListTemplate, INavigation, IRecycleBinItem, IRegionalSettings, IResourcePath, IResults, IRoleDefinition, IThemeInfo, IUser, IUserCustomAction, IWeb, IWebInfo, IWorkflowTemplate } from "..";
+import { IAppTiles, IBase, IBasePermissions, IContainsConfidentialInfo, IContentType, IEventReceiver, IFeature, IField, IFolder, IGroup, IList, IListTemplate, INavigation, IRecycleBinItem, IRegionalSettings, IResourcePath, IResults, IRoleDefinition, IThemeInfo, IUser, IUserCustomAction, IWeb, IWebInfo, IWebMethods, IWorkflowTemplate } from "..";
 /**
  * Web Query Results
  */

@@ -1,6 +1,6 @@
 import {
     IBase,
-    IFile,
+    IFileMethods,
     IFolder,
     IList,
     IUser,
@@ -126,19 +126,19 @@ export interface IWebMethods extends IBase<IWeb, IWebQueryResult> {
      * Returns the file object located at the specified server-relative URL.
      * @param url - The server relative url of the file.
      */
-    getFileByServerRelativeUrl(url): IFile;
+    getFileByServerRelativeUrl(url): IFileMethods;
 
     /**
      * Returns the folder object located at the specified server-relative URL.
      * @param url - The server relative url of the folder.
      */
-    getFolderByServerRelativeUrl(url): IFolder;
+    getFolderByServerRelativeUrl(url): IBase<IFolder>;
 
     /**
      * The list at the specified site-relative URL. (SharePoint Online only)
      * @param url - The server relative url of the list.
      */
-    getList(url): IList;
+    getList(url): IBase<IList>;
 
     /**
      * The push notification subscriber over the site for the specified device application instance ID.
@@ -169,7 +169,7 @@ export interface IWebMethods extends IBase<IWeb, IWebQueryResult> {
      * Returns the user corresponding to the specified member identifier for the current site.
      * @param id - The user id.
      */
-    getUserById(id): IUser;
+    getUserById(id): IBase<IUser>;
 
     /**
      * The effective permissions that the specified user has within the current application scope.

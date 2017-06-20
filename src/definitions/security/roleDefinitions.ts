@@ -1,6 +1,6 @@
 import {
     IBase,
-    IRoleDefinition,
+    IRoleDefinition, IRoleDefinitionMethods,
     IResults,
     SPTypes
 } from "..";
@@ -13,22 +13,22 @@ export interface IRoleDefinitions extends IResults<IRoleDefinition>, IBase<IResu
      * Gets the role definition with the specified ID from the collection.
      * @param roleDefId - The ID of the role definition that defines the permissions to assign.
      */
-    getById(roleDefId): IRoleDefinition;
+    getById(roleDefId): IRoleDefinitionMethods;
 
     /**
      * Gets the role definition with the specified name.
      * @param name -
      */
-    getByName(name): IRoleDefinition;
+    getByName(name): IRoleDefinitionMethods;
 
     /**
      * Gets the role definition with the specified role type.
      * @param roleType - The RoleTypeKind of the role definition.
      */
-    getByType(roleType: SPTypes.RoleType): IRoleDefinition;
+    getByType(roleType: SPTypes.RoleType): IRoleDefinitionMethods;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IRoleDefinitions;
+    next(): IBase<IRoleDefinitions>;
 }

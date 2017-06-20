@@ -1,7 +1,7 @@
-import { IContentTypeMethods } from "./contentTypeMethods";
 import {
     IBase,
-    IField, IFields,
+    IContentTypeMethods,
+    IField, IFieldMethods, IFields,
     IFieldLink, IFieldLinks,
     IStringValue
 } from "..";
@@ -42,7 +42,7 @@ export interface IContentType extends IContentTypeMethods {
      * Gets the column (also known as field) reference in the content type.
      * @param guid - The guid of the field link.
      */
-    FieldLinks(guid: string): IFieldLink;
+    FieldLinks(guid: string): IBase<IFieldLink>;
 
     /**
      * Gets the fields for the content type.
@@ -53,7 +53,7 @@ export interface IContentType extends IContentTypeMethods {
      * Gets the field for the content type.
      * @param internalNameOrTitle - The internal name or title of the field.
      */
-    Fields(internalNameOrTitle: string): IField;
+    Fields(internalNameOrTitle: string): IFieldMethods;
 
     /** Gets or sets a value that specifies the content type group for the content type. */
     Group: string;
@@ -85,7 +85,7 @@ export interface IContentType extends IContentTypeMethods {
     NewFormUrl: string;
 
     /** Gets the parent content type of the content type. */
-    Parent(): IContentType;
+    Parent(): IContentTypeMethods;
 
     /** Gets or sets a value that specifies whether changes to the content type properties are denied. */
     Readonly: boolean;

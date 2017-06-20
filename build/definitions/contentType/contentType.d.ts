@@ -1,5 +1,4 @@
-import { IContentTypeMethods } from "./contentTypeMethods";
-import { IBase, IField, IFields, IFieldLink, IFieldLinks, IStringValue } from "..";
+import { IBase, IContentTypeMethods, IFieldMethods, IFields, IFieldLink, IFieldLinks, IStringValue } from "..";
 /**
  * Content Type
  */
@@ -27,7 +26,7 @@ export interface IContentType extends IContentTypeMethods {
      * Gets the column (also known as field) reference in the content type.
      * @param guid - The guid of the field link.
      */
-    FieldLinks(guid: string): IFieldLink;
+    FieldLinks(guid: string): IBase<IFieldLink>;
     /**
      * Gets the fields for the content type.
      */
@@ -36,7 +35,7 @@ export interface IContentType extends IContentTypeMethods {
      * Gets the field for the content type.
      * @param internalNameOrTitle - The internal name or title of the field.
      */
-    Fields(internalNameOrTitle: string): IField;
+    Fields(internalNameOrTitle: string): IFieldMethods;
     /** Gets or sets a value that specifies the content type group for the content type. */
     Group: string;
     /** Gets or sets a value that specifies whether the content type is unavailable for creation or usage directly from a user export interface. */
@@ -56,7 +55,7 @@ export interface IContentType extends IContentTypeMethods {
     /** Gets or sets a value that specifies the name of the content type. */
     NewFormUrl: string;
     /** Gets the parent content type of the content type. */
-    Parent(): IContentType;
+    Parent(): IContentTypeMethods;
     /** Gets or sets a value that specifies whether changes to the content type properties are denied. */
     Readonly: boolean;
     /** Gets a value that specifies the XML Schema representing the content type. */

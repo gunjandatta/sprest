@@ -1,5 +1,4 @@
-import { IFileMethods } from "./fileMethods";
-import { IBase, IFileVersions, IPropertyValues, IResourcePath, IUser, SPTypes } from "..";
+import { IBase, IFileMethods, IFileVersions, IPropertyValues, IResourcePath, IUserMethods, SPTypes } from "..";
 /**
  * File
  */
@@ -7,11 +6,11 @@ export interface IFile extends IFileMethods {
     /**
      * Gets a value that specifies the user who added the file.
      */
-    Author(): IUser;
+    Author(): IUserMethods;
     /**
      * Gets a value that returns the user who has checked out the file.
      */
-    CheckedOutByUser(): IUser;
+    CheckedOutByUser(): IUserMethods;
     /** Gets a value that returns the comment used when a document is checked in to a document library. */
     CheckInComment: string;
     /** Gets a value that indicates how the file is checked out of a document library. Represents an SP.CheckOutType value: . The checkout state of a file is independent of its locked state. */
@@ -38,7 +37,7 @@ export interface IFile extends IFileMethods {
     /**
      * Gets a value that returns the user that owns the current lock on the file.
      */
-    LockedByUser(): IUser;
+    LockedByUser(): IUserMethods;
     /** Gets a value that specifies the major version of the file. */
     MajorVersion: number;
     /** Gets a value that specifies the minor version of the file. */
@@ -46,13 +45,13 @@ export interface IFile extends IFileMethods {
     /**
      * Gets a value that returns the user who last modified the file.
      */
-    ModifiedBy(): IUser;
+    ModifiedBy(): IUserMethods;
     /** Gets the name of the file including the extension. */
     Name: string;
     /**
      * Property Bag
      */
-    Properties(): IPropertyValues;
+    Properties(): IBase<IPropertyValues>;
     ServerRelativePath: IResourcePath;
     /** Gets the relative URL of the file based on the URL for the server. */
     ServerRelativeUrl: string;
@@ -72,6 +71,6 @@ export interface IFile extends IFileMethods {
     /**
      * Gets a value that returns a collection of file version objects that represent the versions of the file.
      */
-    Versions(): IFileVersions;
+    Versions(): IBase<IFileVersions>;
     WebId: string;
 }

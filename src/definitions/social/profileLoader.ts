@@ -6,7 +6,7 @@ import {
 /**
  * Profile Loader
  */
-export interface IProfileLoader extends IBase {
+export interface IProfileLoader extends IBase<IProfileLoader> {
     /**
      * Constructor
      * @param targetInfo - (Optional) The target information.
@@ -24,31 +24,12 @@ export interface IProfileLoader extends IBase {
     createPersonalSiteEnqueueBulk(emailIDs:Array<string>): IBase;
 
     /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?:(value?:IProfileLoader, ...args) => any): IProfileLoader;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl:boolean): IProfileLoader;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback:(value?:IProfileLoader, ...args) => any, waitFl:boolean): IProfileLoader;
-
-    /**
      * Gets the user profile of the site owner.
      */
-    getOwnerUserProfile(): IUserProfile;
+    getOwnerUserProfile(): IBase<IUserProfile>;
 
     /**
      * Gets the user profile that corresponds to the current user.
      */
-    getUserProfile(): IUserProfile;
+    getUserProfile(): IBase<IUserProfile>;
 }

@@ -1,9 +1,8 @@
-import { IUserMethods } from "./userMethods";
 import {
     IBase,
     IGroup,
     ISiteGroups,
-    ODataQuery
+    IUserMethods
 } from "..";
 
 /**
@@ -22,7 +21,7 @@ export interface IUser extends IUserMethods {
      * Gets the group of which the user is a member.
      * @param id - The group id.
      */
-    Groups(id: number): IGroup;
+    Groups(id: number): IBase<IGroup>;
 
     /** Gets a value that specifies the member identifier for the user or group. */
     Id: string;

@@ -1,5 +1,4 @@
-import { IFieldMethods } from "./fieldMethods";
-import { IResourcePath, SPTypes } from "..";
+import { IBase, IFieldMethods, IResourcePath, SPTypes } from "..";
 /**
  * Field
  */
@@ -11,7 +10,7 @@ export interface IField extends IFieldMethods {
     DefaultValue: string;
     /** Gets or sets a value that specifies the description of the field. */
     Description: string;
-    DescriptionResource(): IResourcePath;
+    DescriptionResource(): IBase<IResourcePath>;
     /** Gets or sets a value that specifies the reading order of the field. */
     Direction: string;
     /** Gets or sets a value that specifies whether to require unique field values in a list or library column. */
@@ -52,7 +51,7 @@ export interface IField extends IFieldMethods {
     StaticName: string;
     /** Gets or sets value that specifies the display name of the field. */
     Title: string;
-    TitleResource(): IResourcePath;
+    TitleResource(): IBase<IResourcePath>;
     /** Gets or sets a value that specifies the type of the field. */
     TypeAsString: string;
     /** Gets a value that specifies the display name for the type of the field. */

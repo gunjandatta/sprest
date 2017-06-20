@@ -1,5 +1,4 @@
-import { IUserMethods } from "./userMethods";
-import { IGroup, ISiteGroups } from "..";
+import { IBase, IGroup, ISiteGroups, IUserMethods } from "..";
 /**
  * User
  */
@@ -14,7 +13,7 @@ export interface IUser extends IUserMethods {
      * Gets the group of which the user is a member.
      * @param id - The group id.
      */
-    Groups(id: number): IGroup;
+    Groups(id: number): IBase<IGroup>;
     /** Gets a value that specifies the member identifier for the user or group. */
     Id: string;
     /** Gets a value that indicates whether this member should be hidden in the UI. */

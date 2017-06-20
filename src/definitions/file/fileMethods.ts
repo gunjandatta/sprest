@@ -1,9 +1,7 @@
-import { IFileQueryResults } from "./fileResults";
 import {
     ComplexTypes,
     IBase,
-    IFile,
-    IFileVersions,
+    IFile, IFileQueryResults, IFileVersions,
     IPropertyValues,
     IUser,
     ODataQuery,

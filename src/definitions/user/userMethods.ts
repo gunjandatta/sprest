@@ -1,7 +1,6 @@
-import { IUserQueryResults } from "./userResults";
 import {
     IBase,
-    IUser
+    IUser, IUserQueryResults
 } from "..";
 
 /**

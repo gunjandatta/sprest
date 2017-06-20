@@ -1,6 +1,6 @@
-import { IRoleDefinitionMethods } from "./roleDefinitionMethods";
 import {
     IBasePermissions,
+    IRoleDefinitionMethods,
     SPTypes
 } from "..";
 

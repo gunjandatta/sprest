@@ -1,7 +1,7 @@
-import { IViewMethods } from "./viewMethods";
 import {
+    IBase,
     IStringValue,
-    IViewFields,
+    IViewFields, IViewMethods,
     IVisualization
 } from "..";
 
@@ -115,7 +115,7 @@ export interface IView extends IViewMethods {
     /**
      * Gets a value that specifies the collection of fields in the list view.
      */
-    ViewFields(): IViewFields;
+    ViewFields(): IBase<IViewFields>;
 
     /** Gets or sets a value that specifies the joins that are used in the list view. If not null, the XML must conform to ListJoinsDefinition, as specified in [MS-WSSCAML]. */
     ViewJoins: string;

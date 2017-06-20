@@ -1,5 +1,4 @@
-import { IListMethods } from "./listMethods";
-import { IBasePermissions, IContentType, IEventReceiver, IField, IFolder, IForm, IInformationRightsManagementSettings, IListDataSource, IListItem, IResourcePath, IResults, IRoleAssignment, IStringValue, ISubscription, IUserCustomAction, IView, IWeb, SPTypes } from "..";
+import { IBasePermissions, IContentType, IEventReceiver, IField, IFolder, IForm, IInformationRightsManagementSettings, IListDataSource, IListItem, IListMethods, IResourcePath, IResults, IRoleAssignment, IStringValue, ISubscription, IUserCustomAction, IView, IWeb, SPTypes } from "..";
 /**
  * List Query Results
  */

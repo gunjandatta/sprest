@@ -1,20 +1,20 @@
-import { IListMethods } from "./listMethods";
 import {
     IBase,
     IBasePermissions,
-    IContentType, IContentTypes,
-    IEventReceiver, IEventReceivers,
-    IField, IFields,
-    IFile,
-    IFolder,
-    ILists,
-    IListItem, IListItems,
+    IContentType, IContentTypeMethods, IContentTypes,
+    IEventReceiver, IEventReceiverMethods, IEventReceivers,
+    IField, IFieldMethods, IFields,
+    IFile, IFileMethods,
+    IFolder, IFolderMethods,
+    IListMethods, ILists,
+    IListItem, IListItemMethods, IListItems,
     IResourcePath,
-    IRoleAssignment, IRoleAssignments,
+    IRoleAssignment, IRoleAssignmentMethods, IRoleAssignments,
     IStringValue,
     ITargetInfo,
-    IUserCustomAction, IUserCustomActions,
-    IView, IViews,
+    IUserCustomAction, IUserCustomActionMethods, IUserCustomActions,
+    IView, IViewMethods, IViews,
+    IWeb, IWebMethods,
     SPTypes
 } from "..";
 
@@ -58,7 +58,7 @@ export interface IList extends IListMethods {
      * Gets the content types that are associated with the list.
      * @param id - The id of the content type.
      */
-    ContentTypes(id: string): IContentType;
+    ContentTypes(id: string): IContentTypeMethods;
 
     /** Gets or sets a value that specifies whether content types are enabled for the list. */
     ContentTypesEnabled: boolean;
@@ -71,7 +71,7 @@ export interface IList extends IListMethods {
     /**
      * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
      */
-    DataSource(): Array<string>;
+    DataSource(): IBase<Array<string>>;
 
     /** Gets a value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
     DefaultContentApprovalWorkflowId: string;
@@ -79,32 +79,32 @@ export interface IList extends IListMethods {
     /**
      * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
      */
-    DefaultDisplayFormUrl(): string;
+    DefaultDisplayFormUrl(): IBase<string>;
 
     /**
      * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
      */
-    DefaultEditFormUrl(): string;
+    DefaultEditFormUrl(): IBase<string>;
 
     /**
      * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
      */
-    DefaultNewFormUrl(): string;
+    DefaultNewFormUrl(): IBase<string>;
 
     /**
      * Gets the default list view.
     */
-    DefaultView(): IView;
+    DefaultView(): IViewMethods;
 
     /**
      * Gets the URL of the default view for the list.
      */
-    DefaultViewUrl(): string;
+    DefaultViewUrl(): IBase<string>;
 
     /** Gets or sets a value that specifies the description of the list. */
     Description: string;
 
-    DescriptionResouce(): IResourcePath;
+    DescriptionResouce(): IBase<IResourcePath>;
 
     /** Gets or sets a value that specifies the reading order of the list. Returns ""NONE"", ""LTR"", or ""RTL"". */
     Direction: string;
@@ -118,12 +118,12 @@ export interface IList extends IListMethods {
     /**
      * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
      */
-    EffectiveBasePermissions(): IBasePermissions;
+    EffectiveBasePermissions(): IBase<IBasePermissions>;
 
     /**
      * Gets a value that specifies the effective permissions on the list that are for the user export interface.
     */
-    EffectiveBasePermissionsForUI(): IBasePermissions;
+    EffectiveBasePermissionsForUI(): IBase<IBasePermissions>;
 
     EnableAssignToEmail: boolean;
 
@@ -148,33 +148,33 @@ export interface IList extends IListMethods {
     /**
      * Gets the event receivers associated with the list.
     */
-    EventReceivers(): IEventReceivers;
+    EventReceivers(): IBase<IEventReceivers>;
 
     /**
      * Gets the event receiver associated with the list.
      * @param id - The id of the event receiver.
     */
-    EventReceivers(id: string): IEventReceiver;
+    EventReceivers(id: string): IEventReceiverMethods;
 
     ExcludeFromOfflineClient: boolean;
 
     /**
      * Gets the fields in the list.
      */
-    Fields(): IFields;
+    Fields(): IBase<IFields>;
 
     /**
      * Gets the field in the list.
      * @param internalNameOrTitle - The internal name or title of the field.
      */
-    Fields(internalNameOrTitle: string): IField;
+    Fields(internalNameOrTitle: string): IFieldMethods;
 
     FileSavePostProcessingEnabled: boolean;
 
     /**
      * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
      */
-    FirstUniqueAncestorSecurableObject(): string;
+    FirstUniqueAncestorSecurableObject(): IBase<string>;
 
     /** Gets or sets a value that indicates whether forced checkout is enabled for the document library. */
     ForceCheckout: boolean;
@@ -233,7 +233,7 @@ export interface IList extends IListMethods {
     /**
      * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
      */
-    IsSiteAssetsLibrary(): boolean;
+    IsSiteAssetsLibrary(): IBase<boolean>;
 
     /** Gets a value that specifies the number of list items in the list. */
     ItemCount: number;
@@ -247,7 +247,7 @@ export interface IList extends IListMethods {
      * Gets the list item in the list.
      * @param id - The id of the list item.
      */
-    Items(id: number): IListItem;
+    Items(id: number): IListItemMethods;
 
     /** Gets a value that specifies the last time a list item was deleted from the list. */
     LastItemDeletedDate: string;
@@ -273,12 +273,12 @@ export interface IList extends IListMethods {
     /**
      * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
      */
-    OnQuickLaunch(): boolean;
+    OnQuickLaunch(): IBase<boolean>;
 
     /**
      * Gets a value that specifies the site that contains the list.
      */
-    ParentWeb(): IBase;
+    ParentWeb(): IWebMethods;
 
     /** Gets a value that specifies the server-relative URL of the site that contains the list. */
     ParentWebUrl: string;
@@ -296,28 +296,28 @@ export interface IList extends IListMethods {
      * Gets the role assignments for the securable object.
      * @param id - The role assignment id.
      */
-    RoleAssignments(id: string): IRoleAssignment;
+    RoleAssignments(id: string): IRoleAssignmentMethods;
 
     /**
      * Gets the root folder of the list.
      */
-    RootFolder(): IFolder;
+    RootFolder(): IFolderMethods;
 
     /**
      * Gets the file in the root folder of the list.
      * @param url - The url of the file within the root folder.
      */
-    RootFolder(url: string): IFile;
+    RootFolder(url: string): IFileMethods;
 
     /**
      * Gets a value that specifies the list schema of the list.
      */
-    SchemaXml(): string;
+    SchemaXml(): IBase<string>;
 
     /** Gets a value that indicates whether folders can be created within the list. */
     ServerTemplateCanCreateFolders: boolean;
 
-    Subscriptions(): IBase;
+    Subscriptions(): IBase<IBase>;
 
     /** Gets a value that specifies the feature identifier of the feature that contains the list schema for the list. Returns an empty GUID if the list schema is not contained within a feature. */
     TemplateFeatureId: string;
@@ -325,7 +325,7 @@ export interface IList extends IListMethods {
     /** Gets or sets the displayed title for the list. Its length must be <= 255 characters. */
     Title: string;
 
-    TitleResource(): IResourcePath;
+    TitleResource(): IBase<IResourcePath>;
 
     /**
      * Gets the user custom actions for the list.
@@ -336,17 +336,17 @@ export interface IList extends IListMethods {
      * Gets the user custom action(s) for the list.
      * @param id - The id of the user custom action.
      */
-    UserCustomActions(id: string): IUserCustomAction;
+    UserCustomActions(id: string): IUserCustomActionMethods;
 
     /**
      * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
      */
-    ValidationFormula(): string;
+    ValidationFormula(): IBase<string>;
 
     /**
      * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
      */
-    ValidationMessage(): string;
+    ValidationMessage(): IBase<string>;
 
     /**
      * Gets the views in the list.
@@ -357,12 +357,12 @@ export interface IList extends IListMethods {
      * Gets the view in the list.
      * @param id - The id of the view.
      */
-    Views(id: string): IView;
+    Views(id: string): IViewMethods;
 
     /**
      * Gets a value that specifies the collection of all workflow associations for the list.
      */
-    WorkflowAssociations(): string;
+    WorkflowAssociations(): IBase<string>;
 
-    WriteSecurity(): number;
+    WriteSecurity(): IBase<number>;
 }

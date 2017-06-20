@@ -1,8 +1,7 @@
-import { IFolderMethods } from "./folderMethods";
 import {
     IBase,
     IFile,
-    IFolder,
+    IFolder, IFolderMethods,
     IListItem,
     IPropertyValues,
     IResourcePath,

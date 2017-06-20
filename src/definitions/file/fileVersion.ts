@@ -1,7 +1,7 @@
-import { IFileVersionMethods } from "./fileVersionMethods";
 import {
     IBase,
-    IUser
+    IFileVersionMethods,
+    IUser, IUserMethods
 } from "..";
 
 /**
@@ -17,7 +17,7 @@ export interface IFileVersion extends IFileVersionMethods {
     /**
      * Gets a value that specifies the user that represents the creator of the file version.
      */
-    CreatedBy(): IUser;
+    CreatedBy(): IUserMethods;
 
     /** Gets the internal identifier for the file version. */
     ID: number;

@@ -1,4 +1,4 @@
-import { IBase, IContentType, IContentTypeCreationInformation, IContentTypeQueryResults, IResults } from "..";
+import { IBase, IContentType, IContentTypeMethods, IContentTypeCreationInformation, IContentTypeQueryResults, IResults } from "..";
 /**
  * Content Types
  */
@@ -7,19 +7,19 @@ export interface IContentTypes extends IResults<IContentType>, IBase<IResults<IC
      * Adds a content type to the collection.
      * @param parameters - The content type creation information.
      */
-    add(parameters: IContentTypeCreationInformation): IContentType;
+    add(parameters: IContentTypeCreationInformation): IBase<IContentType>;
     /**
      * Adds an existing content type to this collection.
      * @param contentTypeId - The content type id to add.
      */
-    addAvailableContentType(contentTypeId: any): IContentType;
+    addAvailableContentType(contentTypeId: any): IContentTypeMethods;
     /**
      * Gets a content type by id.
      * @param id - The content type id.
      */
-    getById(id: any): IContentType;
+    getById(id: any): IContentTypeMethods;
     /**
      * Method to get the next set of results.
      */
-    next(): IContentTypes;
+    next(): IBase<IContentTypes>;
 }

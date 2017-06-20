@@ -1,5 +1,4 @@
-import { IContentTypeMethods } from "./contentTypeMethods";
-import { IField, IFieldLink, IList, IResourcePath, IResults, IStringValue, IWeb } from "..";
+import { IContentTypeMethods, IField, IFieldLink, IList, IResourcePath, IResults, IStringValue, IWeb } from "..";
 /**
  * Content Type Query Results
  */

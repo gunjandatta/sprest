@@ -6,5 +6,5 @@ export interface IFileVersions extends IResults<IFileVersion>, IBase<IResults<IF
     /**
      * Method to get the next set of results.
      */
-    next(): IFileVersions;
+    next(): IBase<IFileVersions>;
 }

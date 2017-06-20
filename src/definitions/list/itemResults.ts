@@ -1,4 +1,3 @@
-import { IListItemMethods } from "./itemMethods";
 import {
     IAttachment,
     IBase,
@@ -6,7 +5,7 @@ import {
     IContentType,
     IFile,
     IFolder,
-    IList,
+    IList, IListItemMethods,
     IPropertyValues,
     IResults,
     IRoleAssignment

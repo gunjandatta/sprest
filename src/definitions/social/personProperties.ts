@@ -5,11 +5,7 @@ import {
 /**
  * Person Properties
  */
-export interface IPersonProperties extends IBase {
-    /**
-     * Properties
-     */
-
+export interface IPersonProperties extends IBase<IPersonProperties> {
     /**
      * The user's account name.
      */
@@ -79,26 +75,4 @@ export interface IPersonProperties extends IBase {
      * The URL of the user's profile page.
      */
     UserUrl: string;
-
-    /**
-     * Methods
-     */
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?:(value?:IPersonProperties, ...args) => any): IPersonProperties;
-
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl:boolean): IPersonProperties;
-
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback:(value?:IPersonProperties, ...args) => any, waitFl:boolean): IPersonProperties;
 }

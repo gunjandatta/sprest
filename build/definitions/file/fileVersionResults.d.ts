@@ -1,5 +1,4 @@
-import { IFileVersionMethods } from "./fileVersionMethods";
-import { IUser } from "..";
+import { IFileVersionMethods, IUser } from "..";
 /**
  * File Version Query Results
  */

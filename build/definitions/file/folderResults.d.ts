@@ -1,5 +1,4 @@
-import { IFolderMethods } from "./folderMethods";
-import { IBase, IFile, IFolder, IListItem, IPropertyValues, IResourcePath, IResults, IStringValue } from "..";
+import { IBase, IFile, IFolder, IFolderMethods, IListItem, IPropertyValues, IResourcePath, IResults, IStringValue } from "..";
 /**
  * Folder Query Results
  */

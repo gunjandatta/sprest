@@ -1,5 +1,4 @@
-import { IViewMethods } from "./viewMethods";
-import { IResults, IStringValue, IVisualization } from "..";
+import { IResults, IStringValue, IViewMethods, IVisualization } from "..";
 /**
  * View Query Results
  */

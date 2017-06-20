@@ -1,10 +1,9 @@
-import {IFileMethods} from "./fileMethods";
 import {
     IBase,
-    IFileVersions,
+    IFileMethods, IFileVersions,
     IPropertyValues,
     IResourcePath,
-    IUser,
+    IUser, IUserMethods,
     SPTypes
 } from "..";
 
@@ -15,12 +14,12 @@ export interface IFile extends IFileMethods {
     /**
      * Gets a value that specifies the user who added the file.
      */
-    Author(): IUser;
+    Author(): IUserMethods;
 
     /**
      * Gets a value that returns the user who has checked out the file.
      */
-    CheckedOutByUser(): IUser;
+    CheckedOutByUser(): IUserMethods;
 
     /** Gets a value that returns the comment used when a document is checked in to a document library. */
     CheckInComment: string;
@@ -60,7 +59,7 @@ export interface IFile extends IFileMethods {
     /**
      * Gets a value that returns the user that owns the current lock on the file.
      */
-    LockedByUser(): IUser;
+    LockedByUser(): IUserMethods;
 
     /** Gets a value that specifies the major version of the file. */
     MajorVersion: number;
@@ -71,7 +70,7 @@ export interface IFile extends IFileMethods {
     /**
      * Gets a value that returns the user who last modified the file.
      */
-    ModifiedBy(): IUser;
+    ModifiedBy(): IUserMethods;
 
     /** Gets the name of the file including the extension. */
     Name: string;
@@ -79,7 +78,7 @@ export interface IFile extends IFileMethods {
     /**
      * Property Bag
      */
-    Properties(): IPropertyValues;
+    Properties(): IBase<IPropertyValues>;
 
     ServerRelativePath: IResourcePath;
 
@@ -110,7 +109,7 @@ export interface IFile extends IFileMethods {
     /**
      * Gets a value that returns a collection of file version objects that represent the versions of the file.
      */
-    Versions(): IFileVersions;
+    Versions(): IBase<IFileVersions>;
 
     WebId: string;
 }

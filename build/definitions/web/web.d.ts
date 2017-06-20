@@ -1,5 +1,4 @@
-import { IWebMethods } from "./webMethods";
-import { IBase, IContentType, IContentTypes, IEventReceiver, IEventReceivers, IField, IFields, IFile, IFolder, IFolders, IGroup, ISiteGroups, ILists, IList, IPropertyValues, IResourcePath, IRoleDefinition, IRoleDefinitions, ITargetInfo, IUser, IUsers, IUserCustomAction, IUserCustomActions, IWebs } from "..";
+import { IAppTiles, IBase, IContentTypeMethods, IContentTypes, IEventReceiverMethods, IEventReceivers, IFieldMethods, IFields, IFileMethods, IFolderMethods, IFolders, IGroup, ISiteGroups, IListMethods, ILists, INavigation, IPropertyValues, IResourcePath, IRoleDefinitionMethods, IRoleDefinitions, ITargetInfo, IUserMethods, IUsers, IUserCustomActionMethods, IUserCustomActions, IWebMethods, IWebs } from "..";
 /**
  * Web
  */
@@ -13,61 +12,61 @@ export interface IWeb extends IWebMethods {
     /**
      * Specifies whether the current user can create declarative workflows. If not disabled on the Web application, the value is the same as the AllowCreateDeclarativeWorkflow property of the site collection. Default value: true.
      */
-    AllowCreateDeclarativeWorkflowForCurrentUser(): IBase;
+    AllowCreateDeclarativeWorkflowForCurrentUser(): IBase<boolean>;
     /**
      * Gets a value that specifies whether the current user is allowed to use a designer application to customize this site.
      */
-    AllowDesignerForCurrentUser(): IBase;
+    AllowDesignerForCurrentUser(): IBase<boolean>;
     /**
      * Gets a value that specifies whether the current user is allowed to edit the master page.
      */
-    AllowMasterPageEditingForCurrentUser(): IBase;
+    AllowMasterPageEditingForCurrentUser(): IBase<boolean>;
     /**
      * Property Bag
      */
-    AllProperties(): IPropertyValues;
+    AllProperties(): IBase<IPropertyValues>;
     /**
      * Gets a value that specifies whether the current user is allowed to revert the site to a default site template.
      */
-    AllowRevertFromTemplateForCurrentUser(): IBase;
+    AllowRevertFromTemplateForCurrentUser(): IBase<boolean>;
     /** Gets a value that specifies whether the site allows RSS feeds. */
     AllowRssFeeds: boolean;
     /**
      * Specifies whether the current user can save declarative workflows as a template. If not disabled on the Web application, the value is the same as the AllowSaveDeclarativeWorkflowAsTemplate property of the site collection. Default value: true.
      */
-    AllowSaveDeclarativeWorkflowAsTemplateForCurrentUser(): IBase;
+    AllowSaveDeclarativeWorkflowAsTemplateForCurrentUser(): IBase<boolean>;
     /**
      * Specifies whether the current user can save or publish declarative workflows. If not disabled on the Web application, the value is the same as the AllowSavePublishDeclarativeWorkflowAsTemplate property of the site collection. When enabled, can only be set by a site collection administrator. Default value: true.
      */
-    AllowSavePublishDeclarativeWorkflowForCurrentUser(): IBase;
+    AllowSavePublishDeclarativeWorkflowForCurrentUser(): IBase<boolean>;
     /**
      * Gets a collection of metadata for the Web site.
      */
     AllProperties(): IBase;
     /** The instance Id of the App Instance that this web represents. */
     AppInstanceId: string;
-    AppTiles(): IBase;
+    AppTiles(): IAppTiles;
     /**
      * Gets or sets the group of users who have been given contribute permissions to the Web site.
      */
-    AssociatedMemberGroup(): IGroup;
+    AssociatedMemberGroup(): IBase<IGroup>;
     /**
      * Gets or sets the associated owner group of the Web site.
      */
-    AssociatedOwnerGroup(): IGroup;
+    AssociatedOwnerGroup(): IBase<IGroup>;
     /**
      * Gets or sets the associated visitor group of the Web site.
      */
-    AssociatedVisitorGroup(): IGroup;
-    Author(): IUser;
+    AssociatedVisitorGroup(): IBase<IGroup>;
+    Author(): IUserMethods;
     /**
      * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
      */
-    AvailableContentTypes(): IBase;
+    AvailableContentTypes(): IBase<IContentTypes>;
     /**
      * Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
      */
-    AvailableFields(): IBase;
+    AvailableFields(): IBase<IFields>;
     ClientWebParts(): IBase;
     /** Gets either the identifier (ID) of the site definition configuration that was used to create the site, or the ID of the site definition configuration from which the site template used to create the site was derived. */
     Configuration: number;
@@ -79,19 +78,19 @@ export interface IWeb extends IWebMethods {
      * Gets the content type that are associated with the web.
      * @param id - The id of the content type.
      */
-    ContentTypes(id: string): IContentType;
+    ContentTypes(id: string): IContentTypeMethods;
     /** Gets a value that specifies when the site was created. */
     Created: string;
     /**
      * Gets the current user of the site.
      */
-    CurrentUser(): IUser;
+    CurrentUser(): IUserMethods;
     /** Gets or sets the URL for a custom master page file to apply to the website. */
     CustomMasterUrl: string;
     DataLeakagePreventionStatusInfo(): IBase;
     /** Gets or sets the description for the site. */
     Description: string;
-    DescriptionResource(): IResourcePath;
+    DescriptionResource(): IBase<IResourcePath>;
     /**
      * Gets the URL where the current user can download SharePoint Designer.
      */
@@ -101,7 +100,7 @@ export interface IWeb extends IWebMethods {
     /**
      * Represents the intersection of permissions of the app principal and the user principal. In the app-only case, this property returns only the permissions of the app principal. To check only user permissions (ignoring app permissions), use the GetUserEffectivePermissions method.
      */
-    EffectiveBasePermissions(): string;
+    EffectiveBasePermissions(): IBase<string>;
     /** Gets or sets a Boolean value that specifies whether the Web site should use Minimal Download Strategy. */
     EnableMinimalDownload: boolean;
     ExcludeFromOfflineClient: boolean;
@@ -113,7 +112,7 @@ export interface IWeb extends IWebMethods {
      * Gets the event receiver associated with the web.
      * @param id - The id of the event receiver.
     */
-    EventReceivers(id: string): IEventReceiver;
+    EventReceivers(id: string): IEventReceiverMethods;
     /**
      * Gets a value that specifies the collection of features that are currently activated in the site.
      */
@@ -126,7 +125,7 @@ export interface IWeb extends IWebMethods {
      * Gets the field in the web.
      * @param internalNameOrTitle - The internal name or title of the field.
      */
-    Fields(internalNameOrTitle: string): IField;
+    Fields(internalNameOrTitle: string): IFieldMethods;
     /**
      * Gets the folders contained in the root folder.
      */
@@ -135,7 +134,7 @@ export interface IWeb extends IWebMethods {
      * Gets the folder contained in the root folder.
      * @param url - The url of the sub-folder within the current folder.
      */
-    Folders(url: string): IFolder;
+    Folders(url: string): IFolderMethods;
     /** Gets a value that specifies the site identifier for the site. */
     Id: string;
     /** Gets a value that specifies the LCID for the language that is used on the site. */
@@ -150,7 +149,7 @@ export interface IWeb extends IWebMethods {
      * Gets the list in the Web.
      * @param name - The list name.
      */
-    Lists(name: string): IList;
+    Lists(name: string): IListMethods;
     /**
      * Gets the list definitions and list templates available for creating lists on the site.
      */
@@ -166,7 +165,7 @@ export interface IWeb extends IWebMethods {
     /**
      * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
      */
-    Navigation(): IBase;
+    Navigation(): IBase<INavigation>;
     NoCrawl: boolean;
     NotificationsInOneDriveForBusinessEnabled: boolean;
     NotificationsInSharePointEnabled: boolean;
@@ -174,7 +173,7 @@ export interface IWeb extends IWebMethods {
     /**
      * Gets the parent website of the specified website.
      */
-    ParentWeb(): IBase;
+    ParentWeb(): IWebMethods;
     PreviewFeaturesEnabled: boolean;
     /**
      * Gets the collection of push notification subscribers over the site.
@@ -201,16 +200,16 @@ export interface IWeb extends IWebMethods {
      * Gets the role definitions for the web.
      * @param name - The role definition name.
      */
-    RoleDefinitions(name: string): IRoleDefinition;
+    RoleDefinitions(name: string): IRoleDefinitionMethods;
     /**
      * Gets the root folder in the web.
      */
-    RootFolder(): IFolder;
+    RootFolder(): IFolderMethods;
     /**
      * Gets the file in the web's root folder.
      * @param url - (Optional) The url of the file within the root folder.
      */
-    RootFolder(url: string): IFile;
+    RootFolder(url: string): IFileMethods;
     /**
      * Gets or sets a Boolean value that specifies whether the Web site can be saved as a site template.
      */
@@ -230,7 +229,7 @@ export interface IWeb extends IWebMethods {
      * Gets the site groups for the web.
      * @param name - The group name.
      */
-    SiteGroups(name: string): IGroup;
+    SiteGroups(name: string): IBase<IGroup>;
     SiteLogoDescription: string;
     SiteLogoUrl: string;
     /**
@@ -240,16 +239,16 @@ export interface IWeb extends IWebMethods {
     /**
      * Gets the collection of all users that belong to the site collection.
      */
-    SiteUsers(): IUsers;
+    SiteUsers(): IBase<IUsers>;
     /**
      * Gets the collection of all users that belong to the site collection.
      * @param id - The user id.
      */
-    SiteUsers(id: any): IUser;
+    SiteUsers(id: any): IUserMethods;
     /**
      * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
      */
-    SupportedUILanguageIds(): Number;
+    SupportedUILanguageIds(): IBase<Number>;
     /** Gets or sets a value that specifies whether the RSS feeds are enabled on the site. */
     SyndicationEnabled: boolean;
     TenantTagPolicyEnabled: boolean;
@@ -262,7 +261,7 @@ export interface IWeb extends IWebMethods {
     ThirdPartyMdmEnabled: boolean;
     /** Gets or sets the title for the Web site. */
     Title: string;
-    TitleResource(): IResourcePath;
+    TitleResource(): IBase<IResourcePath>;
     /** Gets or sets value that specifies whether the tree view is enabled on the site. */
     TreeViewEnabled: boolean;
     /** Gets or sets the user export interface (UI) version of the Web site. */
@@ -279,7 +278,7 @@ export interface IWeb extends IWebMethods {
      * Gets the user custom action for the web.
      * @param id - The id of the user custom action.
      */
-    UserCustomActions(id: string): IUserCustomAction;
+    UserCustomActions(id: string): IUserCustomActionMethods;
     /**
      * Represents key properties of the subsites of a site.
      */

@@ -1,5 +1,4 @@
-import { IListItemMethods } from "./itemMethods";
-import { IAttachment, IAttachmentFiles, IBase, IBasePermissions, IContentType, IFile, IFolder, IList, IPropertyValues, IRoleAssignment, IRoleAssignments } from "..";
+import { IAttachment, IAttachmentFiles, IBase, IBasePermissions, IContentTypeMethods, IFileMethods, IFolderMethods, IListMethods, IListItemMethods, IPropertyValues, IRoleAssignmentMethods, IRoleAssignments } from "..";
 /**
  * List Item
  */
@@ -7,16 +6,16 @@ export interface IListItem extends IListItemMethods {
     /**
      * Get the attachment collection.
      */
-    AttachmentFiles(): IAttachmentFiles;
+    AttachmentFiles(): IBase<IAttachmentFiles>;
     /**
      * Gets the specified attachment file.
      * @param fileName - The filename of the attachment.
      */
-    AttachmentFiles(fileName: string): IAttachment;
+    AttachmentFiles(fileName: string): IBase<IAttachment>;
     /**
      * Gets a value that specifies the content type of the list item.
      */
-    ContentType(): IContentType;
+    ContentType(): IContentTypeMethods;
     /**
      * Gets a value that specifies the display name of the list item.
      */
@@ -40,33 +39,33 @@ export interface IListItem extends IListItemMethods {
     /**
      * Gets the file that is represented by the item from a document library.
      */
-    File(): IFile;
+    File(): IFileMethods;
     /** Gets a value that specifies whether the list item is a file or a list folder. Represents an SP.FileSystemObjectType value: Invalid = -1; File = 0; Folder = 1; Web = 2. */
     FileSystemObjectType: number;
     /**
      * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
      */
-    FirstUniqueAncestorSecurableObject(): string;
+    FirstUniqueAncestorSecurableObject(): IBase<string>;
     /**
      * Gets a folder object that is associated with a folder item.
      */
-    Folder(): IFolder;
+    Folder(): IFolderMethods;
     GetDlpPolicyTip(): IBase;
     /**
      * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
      */
-    HasUniqueRoleAssignments(): string;
+    HasUniqueRoleAssignments(): IBase<string>;
     IconOverlay: string;
     /** Gets a value that specifies the list item identifier. */
     Id: number;
     /**
      * Gets the parent list that contains the list item.
      */
-    ParentList(): IList;
+    ParentList(): IListMethods;
     /**
      * Property Bag
      */
-    Properties(): IPropertyValues;
+    Properties(): IBase<IPropertyValues>;
     /**
      * Gets the role assignments for the securable object.
      */
@@ -75,6 +74,6 @@ export interface IListItem extends IListItemMethods {
      * Gets the role assignment(s) for the securable object.
      * @param id - The role assignment id.
      */
-    RoleAssignments(id: string): IRoleAssignment;
+    RoleAssignments(id: string): IRoleAssignmentMethods;
     ServerRedirectedEmbedUrl: string;
 }

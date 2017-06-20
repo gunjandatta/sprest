@@ -1,7 +1,7 @@
-import { IUserCustomActionMethods } from "./userCustomActionMethods";
 import {
     IBase,
     IBasePermissions,
+    IUserCustomActionMethods,
     SPTypes
 } from "..";
 

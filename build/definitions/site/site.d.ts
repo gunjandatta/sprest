@@ -1,5 +1,4 @@
-import { ISiteMethods } from "./siteMethods";
-import { IAudit, IBase, IEventReceiver, IEventReceivers, IResourcePath, ITargetInfo, IUpgradeInfo, IUsageInfo, IUser, IUserCustomAction, IUserCustomActions, IWeb } from "..";
+import { IAudit, IBase, IEventReceiverMethods, IEventReceivers, IResourcePath, ISiteMethods, ITargetInfo, IUpgradeInfo, IUsageInfo, IUserMethods, IUserCustomActionMethods, IUserCustomActions, IWebMethods } from "..";
 /**
  * Site
  */
@@ -27,7 +26,7 @@ export interface ISite extends ISiteMethods {
     AllowSelfServiceUpgrade: boolean;
     /** Whether upgrade evaluation site collection is allowed. */
     AllowSelfServiceUpgradeEvaluation: boolean;
-    Audit(): IAudit;
+    Audit(): IBase<IAudit>;
     AuditLogTrimmingRetention: number;
     /** Property indicating whether or not this object can be upgraded. */
     CanUpgrade: boolean;
@@ -46,7 +45,7 @@ export interface ISite extends ISiteMethods {
      * Gets the event receiver associated with the site.
      * @param id - The id of the event receiver.
     */
-    EventReceivers(id: string): IEventReceiver;
+    EventReceivers(id: string): IEventReceiverMethods;
     ExternalSharingTipsEnabled: boolean;
     /**
      * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
@@ -63,18 +62,18 @@ export interface ISite extends ISiteMethods {
     /**
      * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
      */
-    Owner(): IUser;
+    Owner(): IUserMethods;
     /** Specifies the primary URI of this site collection, including the host name, port number, and path. */
     PrimaryUri: string;
     /** Gets or sets a Boolean value that specifies whether the site collection is read-only, locked, and unavailable for write access. */
     ReadOnly: boolean;
     /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-    RecycleBin(): IBase;
+    RecycleBin(): IBase<IBase>;
     RequiredDesignerVersion: string;
     /**
      * Gets a value that returns the top-level site of the site collection.
      */
-    RootWeb(): IWeb;
+    RootWeb(): IWebMethods;
     SandboxedCodeActivationCapability: number;
     SecondaryContact(): IBase;
     ServerRelativePath: IResourcePath;
@@ -111,5 +110,5 @@ export interface ISite extends ISiteMethods {
      * Gets the user custom action(s) for the list.
      * @param id - The id of the user custom action.
      */
-    UserCustomActions(id: string): IUserCustomAction;
+    UserCustomActions(id: string): IUserCustomActionMethods;
 }

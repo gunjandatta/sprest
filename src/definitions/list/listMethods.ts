@@ -5,9 +5,8 @@ import {
     IField,
     IFile,
     IFolder,
-    IList, IListQueryResults,
-    ILists,
-    IListItem, IListItems,
+    IList, IListQueryResults, ILists,
+    IListItemMethods, IListItems,
     IRoleAssignment,
     ITargetInfo,
     IUserCustomAction,
@@ -36,7 +35,7 @@ export interface IListMethods extends IBase<IList, IListQueryResults> {
      * @param entityTypeName - The entity type name of the list.
      * @param callback - The method to be executed after the request completes.
      */
-    getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): IList;
+    getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): IBase<IList>;
 
     /**
      * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
@@ -48,25 +47,25 @@ export interface IListMethods extends IBase<IList, IListQueryResults> {
      * Returns the list item with the specified list item identifier.
      * @param id - The list item id.
      */
-    getItemById(id): IListItem;
+    getItemById(id): IListItemMethods;
 
     /**
      * Returns a collection of items from the list based on the view xml.
      * @param viewXml - The view xml CAML query.
      */
-    getItems(viewXml): IListItems;
+    getItems(viewXml): IBase<IListItems>;
 
     /**
      * Returns a collection of items from the list based on the specified query.
      * @camlQuery - The caml query.
      */
-    getItemsByQuery(camlQuery): IListItems;
+    getItemsByQuery(camlQuery): IBase<IListItems>;
 
     /**
      * Returns a collection of items from the list based on the specified query.
      * @query - The query that contains the change token.
      */
-    getListItemChangesSinceToken(query): IBase;
+    getListItemChangesSinceToken(query): IBase<IListItems>;
 
     /**
      * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
@@ -83,7 +82,7 @@ export interface IListMethods extends IBase<IList, IListQueryResults> {
      * Returns the list view with the specified view identifier.
      * @param viewId - The view id.
      */
-    getViewById(viewId): IView;
+    getViewById(viewId): IBase<IView>;
 
     /**
      * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.

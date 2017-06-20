@@ -1,8 +1,8 @@
-import { IBase, ISite, ITargetInfo, SPTypes } from "..";
+import { IBase, IWeb, ITargetInfo, SPTypes } from "..";
 /**
  * User Profile
  */
-export interface IUserProfile extends IBase {
+export interface IUserProfile extends IBase<IUserProfile> {
     /**
      * Constructor
      * @param targetInfo - (Optional) The target information.
@@ -14,7 +14,7 @@ export interface IUserProfile extends IBase {
     /**
      * An object containing the user's FollowedDocumentsUrl and FollowedSitesUrl.
      */
-    FollowedContent(): any;
+    FollowedContent(): IBase<any>;
     /**
      * The account name of the user. (SharePoint Online only)
      */
@@ -37,7 +37,7 @@ export interface IUserProfile extends IBase {
     /**
      * The personal site of the user.
      */
-    PersonalSite(): ISite;
+    PersonalSite(): IBase<IWeb>;
     /**
      * The capabilities of the user's personal site.
      */
@@ -85,22 +85,6 @@ export interface IUserProfile extends IBase {
      * @param interactiveFl - True if this is an interactively (web) initiated request, or false if this is a non-interactively (client) initiated request.
      */
     createPersonalSiteEnque(interactiveFl: boolean): IBase;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?: (value?: IUserProfile, ...args) => any): IUserProfile;
-    /**
-     * Method to execute the request.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(waitFl: boolean): IUserProfile;
-    /**
-     * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     * @param waitFl - Flag to execute the request, after the previous requests have completed.
-     */
-    execute(callback: (value?: IUserProfile, ...args) => any, waitFl: boolean): IUserProfile;
     /**
      * Sets the privacy settings for this profile.
      * @param publicFl - true to make all social data public; false to make all social data private.

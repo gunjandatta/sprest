@@ -1,6 +1,6 @@
-import { IFileVersionMethods } from "./fileVersionMethods";
 import {
     IBase,
+    IFileVersionMethods,
     IUser
 } from "..";
 

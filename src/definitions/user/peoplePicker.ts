@@ -146,7 +146,7 @@ export interface IPeoplePicker extends IBase {
  */
 export interface IPeoplePickerResolveUser {
     // The client people picker resolve user results
-    ClientPeoplePickerResolveUser: Array<PeoplePickerUser>;
+    ClientPeoplePickerResolveUser: IBase<Array<PeoplePickerUser>>;
 }
 
 /**
@@ -154,5 +154,5 @@ export interface IPeoplePickerResolveUser {
  */
 export interface IPeoplePickerSearchUser {
     // The client people picker search user results
-    ClientPeoplePickerSearchUser: Array<PeoplePickerUser>;
+    ClientPeoplePickerSearchUser: IBase<Array<PeoplePickerUser>>;
 }

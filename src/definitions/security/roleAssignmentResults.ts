@@ -1,7 +1,7 @@
-import { IRoleAssignmentMethods } from "./roleAssignmentMethods";
 import {
     IBase,
     IResults,
+    IRoleAssignmentMethods,
     IRoleDefinition,
     IUser
 } from "..";

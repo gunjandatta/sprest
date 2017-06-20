@@ -1,5 +1,4 @@
-import { IUserMethods } from "./userMethods";
-import { IGroup, IResults } from "..";
+import { IGroup, IResults, IUserMethods } from "..";
 /**
  * User Query Results
  */

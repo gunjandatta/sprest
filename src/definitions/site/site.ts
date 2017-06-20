@@ -1,15 +1,14 @@
-import { ISiteMethods } from "./siteMethods";
 import {
     IAudit,
     IBase,
-    IEventReceiver, IEventReceivers,
+    IEventReceiverMethods, IEventReceivers,
     IResourcePath,
+    ISiteMethods,
     ITargetInfo,
     IUpgradeInfo, IUsageInfo,
-    IUser,
-    IUserCustomAction, IUserCustomActions,
-    IWeb,
-    ODataQuery
+    IUserMethods,
+    IUserCustomActionMethods, IUserCustomActions,
+    IWebMethods
 } from "..";
 
 /**
@@ -49,7 +48,7 @@ export interface ISite extends ISiteMethods {
     /** Whether upgrade evaluation site collection is allowed. */
     AllowSelfServiceUpgradeEvaluation: boolean;
 
-    Audit(): IAudit;
+    Audit(): IBase<IAudit>;
 
     AuditLogTrimmingRetention: number;
 
@@ -78,7 +77,7 @@ export interface ISite extends ISiteMethods {
      * Gets the event receiver associated with the site.
      * @param id - The id of the event receiver.
     */
-    EventReceivers(id: string): IEventReceiver;
+    EventReceivers(id: string): IEventReceiverMethods;
 
     ExternalSharingTipsEnabled: boolean;
 
@@ -103,7 +102,7 @@ export interface ISite extends ISiteMethods {
     /**
      * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
      */
-    Owner(): IUser;
+    Owner(): IUserMethods;
 
     /** Specifies the primary URI of this site collection, including the host name, port number, and path. */
     PrimaryUri: string;
@@ -112,14 +111,14 @@ export interface ISite extends ISiteMethods {
     ReadOnly: boolean;
 
     /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-    RecycleBin(): IBase;
+    RecycleBin(): IBase<IBase>;
 
     RequiredDesignerVersion: string;
 
     /**
      * Gets a value that returns the top-level site of the site collection.
      */
-    RootWeb(): IWeb;
+    RootWeb(): IWebMethods;
 
     SandboxedCodeActivationCapability: number;
 
@@ -177,5 +176,5 @@ export interface ISite extends ISiteMethods {
      * Gets the user custom action(s) for the list.
      * @param id - The id of the user custom action.
      */
-    UserCustomActions(id: string): IUserCustomAction;
+    UserCustomActions(id: string): IUserCustomActionMethods;
 }

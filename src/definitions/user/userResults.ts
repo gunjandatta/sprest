@@ -1,8 +1,8 @@
-import { IUserMethods } from "./userMethods";
 import {
     IBase,
     IGroup,
-    IResults
+    IResults,
+    IUserMethods
 } from "..";
 
 /**

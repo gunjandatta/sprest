@@ -7,14 +7,14 @@ export interface IEventReceivers extends IResults<IEventReceiver>, IBase<IResult
      * Adds an event receiver to the collection.
      * @param parameters - The event receiver definition creation information.
      */
-    add(parameters: IEventReceiverDefinitionCreationInformation): IEventReceiver;
+    add(parameters: IEventReceiverDefinitionCreationInformation): IBase<IEventReceiver>;
     /**
      * Gets an event receiver in the collection.
      * @param id - The id of the event receiver.
      */
-    getById(id: string): IEventReceiver;
+    getById(id: string): IBase<IEventReceiver>;
     /**
      * Method to get the next set of results.
      */
-    next(): IEventReceivers;
+    next(): IBase<IEventReceivers>;
 }

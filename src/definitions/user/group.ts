@@ -1,7 +1,7 @@
 import {
     IBase,
     IGroupQueryResults,
-    IUser, IUsers
+    IUserMethods, IUsers
 } from "..";
 
 /**
@@ -17,22 +17,22 @@ export interface IGroup extends IBase<IGroup, IGroupQueryResults> {
     /**
      * Gets or sets a value that indicates whether the request to join or leave the group can be accepted automatically.
      */
-    AutoAcceptRequestToJoinLeave(): boolean;
+    AutoAcceptRequestToJoinLeave(): IBase<boolean>;
 
     /**
      * Gets a value that indicates whether the current user can edit the membership of the group.
      */
-    CanCurrentUserEditMembership(): boolean;
+    CanCurrentUserEditMembership(): IBase<boolean>;
 
     /**
      * Gets a value that indicates whether the current user can manage the group.
      */
-    CanCurrentUserManageGroup(): boolean;
+    CanCurrentUserManageGroup(): IBase<boolean>;
 
     /**
      * Gets a value that indicates whether the current user can view the membership of the group.
      */
-    CanCurrentUserViewMembership(): boolean;
+    CanCurrentUserViewMembership(): IBase<boolean>;
 
     /** Gets or sets the description of the group. */
     Description: string;
@@ -52,7 +52,7 @@ export interface IGroup extends IBase<IGroup, IGroupQueryResults> {
     /**
      * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.
      */
-    Owner(): IUser;
+    Owner(): IUserMethods;
 
     /** Gets the name for the owner of this group. */
     OwnerTitle: string;
@@ -75,5 +75,5 @@ export interface IGroup extends IBase<IGroup, IGroupQueryResults> {
      * Gets a collection of user objects that represents all of the users in the group.
      * @param id - The user id.
      */
-    Users(id): IUser;
+    Users(id): IUserMethods;
 }

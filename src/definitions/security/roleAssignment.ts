@@ -1,7 +1,9 @@
-import { IRoleAssignmentMethods } from "./roleAssignmentMethods";
 import {
     IBase,
-    IRoleDefinitions
+    IGroup,
+    IRoleAssignmentMethods,
+    IRoleDefinitions,
+    IUser
 } from "..";
 
 /**
@@ -15,7 +17,7 @@ export interface IRoleAssignment extends IRoleAssignmentMethods {
     /**
      * Gets the user or group that corresponds to the Role Assignment.
      */
-    Member(): IBase;
+    Member(): IBase<IGroup | IUser>;
 
     /** The unique identifier of the role assignment. */
     PrincipalId: string;

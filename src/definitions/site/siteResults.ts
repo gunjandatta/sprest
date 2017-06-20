@@ -1,4 +1,3 @@
-import { ISiteMethods } from "./siteMethods";
 import {
     IAudit,
     IBase,
@@ -7,6 +6,7 @@ import {
     IRecycleBinItem,
     IResourcePath,
     IResults,
+    ISiteMethods,
     ITargetInfo,
     IUpgradeInfo, IUsageInfo,
     IUser,

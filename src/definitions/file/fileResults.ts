@@ -1,7 +1,6 @@
-import {IFileMethods} from "./fileMethods";
 import {
     IBase,
-    IFileVersions,
+    IFileMethods, IFileVersions,
     IInformationRightsManagementSettings,
     IListItem,
     IPropertyValues,

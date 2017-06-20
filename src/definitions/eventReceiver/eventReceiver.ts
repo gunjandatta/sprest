@@ -1,6 +1,6 @@
-import { IEventReceiverMethods } from "./eventReceiverMethods";
 import {
     IBase,
+    IEventReceiverMethods,
     SPTypes
 } from "..";
 

@@ -1,8 +1,8 @@
-import { IViewMethods } from "./viewMethods";
 import {
     IBase,
     IResults,
     IStringValue,
+    IViewMethods,
     IVisualization
 } from "..";
 

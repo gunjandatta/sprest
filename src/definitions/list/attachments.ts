@@ -18,5 +18,5 @@ export interface IAttachmentFiles extends IResults<IAttachment>, IBase<IAttachme
     /**
      * Method to get the next set of results.
      */
-    next(): IAttachmentFiles;
+    next(): IBase<IAttachmentFiles>;
 }

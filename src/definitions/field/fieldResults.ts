@@ -1,6 +1,6 @@
-import { IFieldMethods } from "./fieldMethods";
 import {
     IBase,
+    IFieldMethods,
     IResourcePath,
     SPTypes
 } from "..";

@@ -1,6 +1,6 @@
 import {
     IBase,
-    IFile, IFileQueryResults,
+    IFile, IFileMethods, IFileQueryResults,
     IResults,
     SPTypes
 } from "..";
@@ -19,7 +19,7 @@ export interface IFiles extends IResults<IFile>, IBase<IResults<IFile>, IResults
      * @param url - The folder-relative URL of the file.
      * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
      */
-    add(overwrite, url, content): IFile;
+    add(overwrite, url, content): IBase<IFile>;
 
     /**
      * Adds a ghosted file to an existing list or document library.
@@ -32,10 +32,10 @@ export interface IFiles extends IResults<IFile>, IBase<IResults<IFile>, IResults
      * Get the file at the specified URL.
      * @param serverRelativeUrl - The name or server relative url of the file.
      */
-    getByUrl(serverRelativeUrl): IFile;
+    getByUrl(serverRelativeUrl): IFileMethods;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IFiles;
+    next(): IBase<IFiles>;
 }

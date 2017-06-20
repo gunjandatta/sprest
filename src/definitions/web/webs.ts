@@ -16,10 +16,10 @@ export interface IWebs extends IResults<IWeb>, IBase<IResults<IWeb>, IResults<IW
      * Adds a site to the site collection.
      * @param parameters - The web creation information.
      */
-    add(parameters:IWebCreationInformation): IWeb;
+    add(parameters:IWebCreationInformation): IBase<IWeb>;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IWebs;
+    next(): IBase<IWebs>;
 }

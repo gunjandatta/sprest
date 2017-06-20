@@ -3,9 +3,6 @@ import { IBase, IResourcePath } from "..";
  * Attachment
  */
 export interface IAttachment extends IBase<IAttachment, IAttachment> {
-    /**
-     * Properties
-     */
     /** The filename. */
     FileName: string;
     /** The filename as a path. */

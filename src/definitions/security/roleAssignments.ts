@@ -13,13 +13,13 @@ export interface IRoleAssignments extends IResults<IRoleAssignment>, IBase<IResu
      * @param principalId - The ID of the user or group to assign permissions to.
      * @param roleDefId - The ID of the role definition that defines the permissions to assign.
      */
-    addRoleAssignment(principalId, roleDefId): IRoleAssignment;
+    addRoleAssignment(principalId, roleDefId): IBase<IRoleAssignment>;
 
     /**
      * Gets the role assignment associated with the specified principal ID from the collection.
      * @param principalId - The ID of the user or group to assign permissions to.
      */
-    getByPrincipalId(principalId): IRoleAssignment;
+    getByPrincipalId(principalId): IBase<IRoleAssignment>;
 
     /**
      * Gets the role definition with the specified role type.
@@ -31,5 +31,5 @@ export interface IRoleAssignments extends IResults<IRoleAssignment>, IBase<IResu
     /**
      * Method to get the next set of results.
      */
-    next(): IRoleAssignments;
+    next(): IBase<IRoleAssignments>;
 }

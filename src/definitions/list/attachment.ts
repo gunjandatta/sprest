@@ -7,10 +7,6 @@ import {
  * Attachment
  */
 export interface IAttachment extends IBase<IAttachment, IAttachment> {
-    /**
-     * Properties
-     */
-
     /** The filename. */
     FileName: string;
 

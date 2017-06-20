@@ -48,12 +48,12 @@ export interface ISiteMethods extends IBase<ISite, ISiteQueryResults> {
      * Returns the site at the specified URL.
      * @param strUrl - The server-relative URL or site-relative URL of the site to return. If strUrl is empty, the top-level site is returned.
      */
-    openWeb(strUrl: any): IWeb;
+    openWeb(strUrl: any): IBase<IWeb>;
     /**
      * Returns the site with the specified GUID.
      * @param gWebId - A GUID that specifies which site to return.
      */
-    openWebById(gWebId: any): IWeb;
+    openWebById(gWebId: any): IBase<IWeb>;
     /**
      * Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
      * @param ruleId - Specifies the rule or rules to be run. If the value is an empty GUID, all rules are run, otherwise only the specified rule is run.

@@ -1,5 +1,4 @@
-import { IRoleAssignmentMethods } from "./roleAssignmentMethods";
-import { IResults, IRoleDefinition, IUser } from "..";
+import { IResults, IRoleAssignmentMethods, IRoleDefinition, IUser } from "..";
 /**
  * Role Assignment Query Results
  */

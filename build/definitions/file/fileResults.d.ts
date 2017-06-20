@@ -1,5 +1,4 @@
-import { IFileMethods } from "./fileMethods";
-import { IBase, IFileVersions, IInformationRightsManagementSettings, IListItem, IPropertyValues, IResourcePath, IResults, IUser, SPTypes } from "..";
+import { IBase, IFileMethods, IFileVersions, IInformationRightsManagementSettings, IListItem, IPropertyValues, IResourcePath, IResults, IUser, SPTypes } from "..";
 /**
  * File Query Results
  */

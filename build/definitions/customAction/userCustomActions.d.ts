@@ -1,4 +1,4 @@
-import { IBase, IResults, IUserCustomAction, IUserCustomActionCreationInformation } from "..";
+import { IBase, IResults, IUserCustomAction, IUserCustomActionCreationInformation, IUserCustomActionMethods } from "..";
 /**
  * User Custom Actions
  */
@@ -7,7 +7,7 @@ export interface IUserCustomActions extends IResults<IUserCustomAction>, IBase<I
      * Adds a custom actino to the user custom action collection.
      * @param parameters - The user custom action information.
      */
-    add(parameters: IUserCustomActionCreationInformation): IUserCustomAction;
+    add(parameters: IUserCustomActionCreationInformation): IBase<IUserCustomAction>;
     /**
      * Deletes all custom actions in the collection.
      */
@@ -16,9 +16,9 @@ export interface IUserCustomActions extends IResults<IUserCustomAction>, IBase<I
      * Returns the custom action with the specified identifier.
      * @param id - The ID of the user custom action to get.
      */
-    getById(id: any): IUserCustomAction;
+    getById(id: any): IUserCustomActionMethods;
     /**
      * Method to get the next set of results.
      */
-    next(): IUserCustomActions;
+    next(): IBase<IUserCustomActions>;
 }

@@ -29,12 +29,12 @@ export interface IVersions extends IResults<IVersion>, IBase<IResults<IVersion>,
      * Gets the version with the specified ID.
      * @param id - The version id to get.
      */
-    getById(id): IBase;
+    getById(id): IBase<IVersion>;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IVersions;
+    next(): IBase<IVersions>;
 
     /**
      * Restores a version, by the specified label.
