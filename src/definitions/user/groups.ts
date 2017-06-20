@@ -1,12 +1,11 @@
 import {
-    IBase,
-    IGroup, IGroupCreationInformation, IGroupQueryResults,
-    IResults
+    IBase, IBaseCollection,
+    IGroup, IGroupCreationInformation, IGroupQueryResults
 } from "..";
 /**
  * Site Groups
  */
-export interface ISiteGroups extends IResults<IGroup>, IBase<IResults<IGroup>, IResults<IGroupQueryResults>> {
+export interface ISiteGroups extends IBaseCollection<IGroup, IGroupQueryResults> {
     /**
      * Adds a site to the site collection.
      * @param groupInfo - The group creation information.

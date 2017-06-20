@@ -1,13 +1,12 @@
 import {
-    IBase,
-    IResults,
+    IBase, IBaseCollection,
     IView, IViewCreationInformation, IViewMethods, IViewQueryResults
 } from "..";
 
 /**
  * Views
  */
-export interface IViews extends IResults<IView>, IBase<IResults<IView>, IResults<IViewQueryResults>> {
+export interface IViews extends IBaseCollection<IView, IViewQueryResults> {
     /**
      * Adds a list view to the view collection.
      */

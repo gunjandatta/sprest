@@ -1,13 +1,12 @@
 import {
     IAttachment,
-    IBase,
-    IResults
+    IBase, IBaseCollection
 } from "..";
 
 /**
  * Attachment Files
  */
-export interface IAttachmentFiles extends IResults<IAttachment>, IBase<IAttachmentFiles, IResults<IAttachment>> {
+export interface IAttachmentFiles extends IBaseCollection<IAttachmentFiles, IAttachment> {
     /**
      * Adds the attachment that is represented by the specified file name and byte array to the list item.
      * @param fileName - The filename of the attachment.

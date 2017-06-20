@@ -1,13 +1,12 @@
 import {
-    IBase,
-    IResults,
+    IBase, IBaseCollection,
     IUserCustomAction, IUserCustomActionCreationInformation, IUserCustomActionMethods
 } from "..";
 
 /**
  * User Custom Actions
  */
-export interface IUserCustomActions extends IResults<IUserCustomAction>, IBase<IResults<IUserCustomAction>, IResults<IUserCustomAction>> {
+export interface IUserCustomActions extends IBaseCollection<IUserCustomAction, IUserCustomAction> {
     /**
      * Adds a custom actino to the user custom action collection. 
      * @param parameters - The user custom action information.

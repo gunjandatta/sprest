@@ -1,13 +1,12 @@
 import {
-    IBase,
-    IContentType, IContentTypeMethods, IContentTypeCreationInformation, IContentTypeQueryResults,
-    IResults
+    IBase, IBaseCollection,
+    IContentType, IContentTypeMethods, IContentTypeCreationInformation, IContentTypeQueryResults
 } from "..";
 
 /**
  * Content Types
  */
-export interface IContentTypes extends IResults<IContentType>, IBase<IResults<IContentType>, IResults<IContentTypeQueryResults>> {
+export interface IContentTypes extends IBaseCollection<IContentType, IContentTypeQueryResults> {
     /**
      * Adds a content type to the collection.
      * @param parameters - The content type creation information.

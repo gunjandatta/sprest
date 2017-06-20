@@ -1,4 +1,4 @@
-import { IRequestType, ODataQuery } from "..";
+import { IRequestType, IResults, ODataQuery } from "..";
 
 /**
  * The base class
@@ -56,3 +56,8 @@ export interface IBase<T = any, R = any> {
      */
     query(query: ODataQuery): IBase<R>;
 }
+
+/**
+ * Base Collection
+ */
+export interface IBaseCollection<T, R> extends IResults<T>, IBase<IResults<T>, IResults<R>> {}

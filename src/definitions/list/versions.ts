@@ -1,13 +1,12 @@
 import {
-    IBase,
-    IResults,
+    IBase, IBaseCollection,
     IVersion
 } from "..";
 
 /**
  * Versions
  */
-export interface IVersions extends IResults<IVersion>, IBase<IResults<IVersion>, IResults<IVersion>> {
+export interface IVersions extends IBaseCollection<IVersion, IVersion> {
     /**
      * Deletes all versions in the collection.
      */

@@ -1,12 +1,11 @@
 import {
-    IBase,
-    IListItem, IListItemMethods, IListItemQueryResults,
-    IResults
+    IBase, IBaseCollection,
+    IListItem, IListItemMethods, IListItemQueryResults
 } from "..";
 /**
  * List Items
  */
-export interface IListItems extends IResults<IListItem>, IBase<IResults<IListItem>, IResults<IListItemQueryResults>> {
+export interface IListItems extends IBaseCollection<IListItem, IListItemQueryResults> {
     /**
      * Adds an item to the list item collection.
      * @param data - The item properties.

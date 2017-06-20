@@ -1,13 +1,12 @@
 import {
-    IBase,
-    IField, IFieldCreationInformation, IFieldMethods, IFieldQueryResults,
-    IResults
+    IBase, IBaseCollection,
+    IField, IFieldCreationInformation, IFieldMethods, IFieldQueryResults
 } from "..";
 
 /**
  * Fields
  */
-export interface IFields extends IResults<IField>, IBase<IResults<IField>, IResults<IFieldQueryResults>> {
+export interface IFields extends IBaseCollection<IField, IFieldQueryResults> {
     /**
      * Adds a field to the field collection.
      * @param parameters - The field properties.

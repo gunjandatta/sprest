@@ -1,13 +1,12 @@
 import {
-    IBase,
-    IList, IListCreationInformation, IListMethods, IListQueryResults,
-    IResults
+    IBase, IBaseCollection,
+    IList, IListCreationInformation, IListMethods, IListQueryResults
 } from "..";
 
 /**
  * Lists
  */
-export interface ILists extends IResults<IList>, IBase<IResults<IList>, IResults<IListQueryResults>> {
+export interface ILists extends IBaseCollection<IList, IListQueryResults> {
     /**
      * Adds a list to the list collection.
      * @param parameters - The list creation information.

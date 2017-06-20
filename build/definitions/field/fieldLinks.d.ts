@@ -1,8 +1,8 @@
-import { IBase, IFieldLink, IResults } from "..";
+import { IBase, IBaseCollection, IFieldLink } from "..";
 /**
  * Field Links
  */
-export interface IFieldLinks extends IResults<IFieldLink>, IBase<IResults<IFieldLink>, IResults<IFieldLink>> {
+export interface IFieldLinks extends IBaseCollection<IFieldLink, IFieldLink> {
     /**
      * Adds a content type to the collection.
      * @param data - The field link properties.

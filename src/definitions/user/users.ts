@@ -1,13 +1,12 @@
 import {
-    IBase,
-    IResults,
+    IBase, IBaseCollection,
     IUser, IUserCreationInformation, IUserMethods, IUserQueryResults
 } from "..";
 
 /**
  * Users
  */
-export interface IUsers extends IResults<IUser>, IBase<IResults<IUser>, IResults<IUserQueryResults>> {
+export interface IUsers extends IBaseCollection<IUser, IUserQueryResults> {
     /**
      * Adds a site to the site collection.
      * @param userInfo - The user creation information.
