@@ -1,4 +1,4 @@
-import { IBase, IUser } from "..";
+import { IBase, IUser, IUserResult } from "..";
 /**
  * File Version Methods
  */
@@ -12,11 +12,6 @@ export interface IFileVersionMethods {
  * File Version Properties
  */
 export interface IFileVersionProps {
-}
-/**
- * File Version Query Properties
- */
-export interface IFileVersionQueryProps {
     /** Gets a value that specifies the check-in comment. */
     CheckInComment: string;
     /** Gets a value that specifies the creation date and time for the file version. */
@@ -33,25 +28,30 @@ export interface IFileVersionQueryProps {
     VersionLabel: string;
 }
 /**
- * File Version Query Result
+ * File Version Query Properties
  */
-export interface IFileVersionQueryResult extends IFileVersionMethods, IFileVersionProps {
+export interface IFileVersionQueryProps {
     /**
      * Gets a value that specifies the user that represents the creator of the file version.
      */
     CreatedBy(): IUser;
 }
 /**
- * File Version Result
+ * File Version Query Result
  */
-export interface IFileVersionResult extends IFileVersionMethods, IFileVersionProps, IFileVersionQueryProps {
+export interface IFileVersionQueryResult extends IFileVersionMethods, IFileVersionProps {
     /**
      * A value that specifies the user that represents the creator of the file version.
      */
-    CreatedBy: IUser;
+    CreatedBy: IUserResult;
+}
+/**
+ * File Version Result
+ */
+export interface IFileVersionResult extends IFileVersionMethods, IFileVersionProps, IFileVersionQueryProps {
 }
 /**
  * File Version
  */
-export interface IFileVersion extends IFileVersionMethods, IFileVersionQueryProps, IBase<IFileVersionResult, IFileVersionQueryResult> {
+export interface IFileVersion extends IFileVersionMethods, IFileVersionQueryProps, IBase<IFileVersion, IFileVersionResult, IFileVersionQueryResult> {
 }

@@ -6,7 +6,7 @@ import {
 /**
  * Views
  */
-export interface IViews extends IBaseCollection<IViewResult, IViewQueryResult> {
+export interface IViews extends IBaseCollection<IViews, IViewResult, IViewQueryResult> {
     /**
      * Adds a list view to the view collection.
      */

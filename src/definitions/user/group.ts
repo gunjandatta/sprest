@@ -1,7 +1,7 @@
 import {
     IBase,
     IResults,
-    IUser, IUsers
+    IUser, IUserResult, IUsers
 } from "..";
 
 /**
@@ -115,12 +115,12 @@ export interface IGroupQueryResult extends IGroupMethods, IGroupProps {
     /**
      * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.
      */
-    Owner: IUser;
+    Owner: IUserResult;
 
     /**
      * Gets a collection of user objects that represents all of the users in the group.
      */
-    Users: IResults<IUsers>;
+    Users: IResults<IUserResult>;
 }
 
 /**
@@ -131,4 +131,4 @@ export interface IGroupResult extends IGroupMethods, IGroupProps, IGroupQueryPro
 /**
  * Group
  */
-export interface IGroup extends IGroupMethods, IGroupQueryProps, IBase<IGroupResult, IGroupQueryResult> { }
+export interface IGroup extends IGroupMethods, IGroupQueryProps, IBase<IGroup, IGroupResult, IGroupQueryResult> { }

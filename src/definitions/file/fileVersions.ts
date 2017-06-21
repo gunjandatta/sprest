@@ -6,7 +6,7 @@ import {
 /**
  * File Versions
  */
-export interface IFileVersions extends IBaseCollection<IFileVersionResult, IFileVersionQueryResult> {
+export interface IFileVersions extends IBaseCollection<IFileVersions, IFileVersionResult, IFileVersionQueryResult> {
     /**
      * Method to get the next set of results.
      */

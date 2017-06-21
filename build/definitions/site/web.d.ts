@@ -1,4 +1,4 @@
-import { IAppTiles, IBase, IBasePermissions, IContainsConfidentialInfo, IContentType, IContentTypes, IEventReceiver, IEventReceivers, IFeature, IField, IFields, IFile, IFolder, IFolders, IGroup, ISiteGroups, IList, IListTemplate, ILists, INavigation, IPropertyValues, IRecycleBinItem, IRegionalSettings, IResourcePath, IResults, IRoleDefinition, IRoleDefinitions, ITargetInfo, IThemeInfo, IUser, IUsers, IUserCustomAction, IUserCustomActions, IWebInfo, IWebs, IWorkflowTemplate } from "..";
+import { IAppTiles, IBase, IBasePermissions, IContainsConfidentialInfo, IContentType, IContentTypeResult, IContentTypes, IEventReceiver, IEventReceiverResult, IEventReceivers, IFeature, IField, IFieldResult, IFields, IFile, IFolder, IFolderResult, IFolders, IGroup, IGroupResult, ISiteGroups, IList, IListResult, IListTemplate, ILists, INavigation, IPropertyValues, IRecycleBinItem, IRegionalSettings, IResourcePath, IResults, IRoleDefinition, IRoleDefinitionResult, IRoleDefinitions, ITargetInfo, IThemeInfo, IUser, IUserResult, IUsers, IUserCustomAction, IUserCustomActionResult, IUserCustomActions, IWebInfo, IWebResult, IWebs, IWorkflowTemplate } from "..";
 /**
  * Web Methods
  */
@@ -528,34 +528,34 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * The group of users who have been given contribute permissions to the Web site.
      */
-    AssociatedMemberGroup: IGroup;
+    AssociatedMemberGroup: IGroupResult;
     /**
      * The associated owner group of the Web site.
      */
-    AssociatedOwnerGroup: IGroup;
+    AssociatedOwnerGroup: IGroupResult;
     /**
      * The associated visitor group of the Web site.
      */
-    AssociatedVisitorGroup: IGroup;
+    AssociatedVisitorGroup: IGroupResult;
     /** */
-    Author: IUser;
+    Author: IUserResult;
     /**
      * The collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
      */
-    AvailableContentTypes: IResults<IContentType>;
+    AvailableContentTypes: IResults<IContentTypeResult>;
     /**
      * A value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
      */
-    AvailableFields: IResults<IField>;
+    AvailableFields: IResults<IFieldResult>;
     ClientWebParts: IBase;
     /**
      * Gets the content types that are associated with the web.
      */
-    ContentTypes: IResults<IContentType>;
+    ContentTypes: IResults<IContentTypeResult>;
     /**
      * Gets the current user of the site.
      */
-    CurrentUser: IUser;
+    CurrentUser: IUserResult;
     DataLeakagePreventionStatusInfo: IContainsConfidentialInfo;
     DescriptionResource: IResourcePath;
     /**
@@ -569,7 +569,7 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * Gets the event receivers associated with the web.
     */
-    EventReceivers: IResults<IEventReceiver>;
+    EventReceivers: IResults<IEventReceiverResult>;
     /**
      * Gets a value that specifies the collection of features that are currently activated in the site.
      */
@@ -577,15 +577,15 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * The fields in the web.
      */
-    Fields: IResults<IField>;
+    Fields: IResults<IFieldResult>;
     /**
      * The folders contained in the root folder.
      */
-    Folders: IResults<IFolder>;
+    Folders: IResults<IFolderResult>;
     /**
      * Gets the lists in the Web.
      */
-    Lists: IResults<IList>;
+    Lists: IResults<IListResult>;
     /**
      * The list definitions and list templates available for creating lists on the site.
      */
@@ -597,7 +597,7 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * Gets the parent website of the specified website.
      */
-    ParentWeb: IWeb;
+    ParentWeb: IWebResult;
     /**
      * Gets the collection of push notification subscribers over the site.
      */
@@ -613,11 +613,11 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * Gets the role definitions for the web.
      */
-    RoleDefinitions: IResults<IRoleDefinition>;
+    RoleDefinitions: IResults<IRoleDefinitionResult>;
     /**
      * Gets the root folder in the web.
      */
-    RootFolder: IFolder;
+    RootFolder: IFolderResult;
     /**
      * Gets a value that specifies whether the current user is able to view the file system structure of this site.
      */
@@ -625,15 +625,15 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * Gets the site groups for the web.
      */
-    SiteGroups: IResults<IGroup>;
+    SiteGroups: IResults<IGroupResult>;
     /**
      * Gets the UserInfo list of the site collection that contains the Web site.
      */
-    SiteUserInfoList: IList;
+    SiteUserInfoList: IListResult;
     /**
      * The collection of all users that belong to the site collection.
      */
-    SiteUsers: IResults<IUser>;
+    SiteUsers: IResults<IUserResult>;
     /**
      * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
      */
@@ -646,7 +646,7 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * Gets the user custom actions for the web.
      */
-    UserCustomActions: IResults<IUserCustomAction>;
+    UserCustomActions: IResults<IUserCustomActionResult>;
     /**
      * Represents key properties of the subsites of a site.
      */
@@ -654,7 +654,7 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * A Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
      */
-    Webs: IResults<IWeb>;
+    Webs: IResults<IWebResult>;
     /** The name of the site definition or site template that was used to create the site. */
     WebTemplate: string;
     /**
@@ -674,7 +674,7 @@ export interface IWebResult extends IWebMethods, IWebProps, IWebQueryProps {
 /**
  * Web
  */
-export interface IWeb extends IWebMethods, IWebQueryProps, IBase<IWebResult, IWebQueryResult> {
+export interface IWeb extends IWebMethods, IWebQueryProps, IBase<IWeb, IWebResult, IWebQueryResult> {
     /**
      * Constructor
      * @param url - (Optional) The web url.

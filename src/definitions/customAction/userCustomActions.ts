@@ -6,7 +6,7 @@ import {
 /**
  * User Custom Actions
  */
-export interface IUserCustomActions extends IBaseCollection<IUserCustomActionResult, IUserCustomActionQueryResult> {
+export interface IUserCustomActions extends IBaseCollection<IUserCustomActions, IUserCustomActionResult, IUserCustomActionQueryResult> {
     /**
      * Adds a custom actino to the user custom action collection. 
      * @param parameters - The user custom action information.

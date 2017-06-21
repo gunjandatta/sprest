@@ -1,4 +1,4 @@
-import { IBase, IField, IFields, IFieldLink, IFieldLinks, IList, IResourcePath, IResults, IStringValue, IWeb } from "..";
+import { IBase, IFieldResult, IFields, IFieldLink, IFieldLinks, IListResult, IResourcePath, IResults, IStringValue, IWebResult } from "..";
 /**
  * Content Type Methods
  */
@@ -104,10 +104,10 @@ export interface IContentTypeQueryResult extends IContentTypeMethods, IContentTy
     /**
      * Gets the fields for the content type.
      */
-    Fields: IResults<IField>;
+    Fields: IResults<IFieldResult>;
     NameResource: IResourcePath;
     /** Gets the parent content type of the content type. */
-    Parent: IList | IWeb;
+    Parent: IListResult | IWebResult;
     /**
      * Gets a value that specifies the collection of workflow associations for the content type.
      */
@@ -121,5 +121,5 @@ export interface IContentTypeResult extends IContentTypeMethods, IContentTypePro
 /**
  * Content Type
  */
-export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBase<IContentTypeResult, IContentTypeQueryResult> {
+export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBase<IContentType, IContentTypeResult, IContentTypeQueryResult> {
 }

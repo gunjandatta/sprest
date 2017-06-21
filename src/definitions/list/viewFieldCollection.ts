@@ -4,7 +4,7 @@ import {
 /**
  * View Fields
  */
-export interface IViewFields extends IBase<IViewFields, IViewFields> {
+export interface IViewFields extends IBase<IViewFields, IViewFields, IViewFields> {
     /**
      * Properties
      */

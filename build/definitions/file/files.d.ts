@@ -1,8 +1,8 @@
-import { IBase, IBaseCollection, IFile, IFileQueryResult, IFieldResult, SPTypes } from "..";
+import { IBase, IBaseCollection, IFile, IFileQueryResult, IFileResult, SPTypes } from "..";
 /**
  * Files
  */
-export interface IFiles extends IBaseCollection<IFieldResult, IFileQueryResult> {
+export interface IFiles extends IBaseCollection<IFiles, IFileResult, IFileQueryResult> {
     /**
      * Methods
      */

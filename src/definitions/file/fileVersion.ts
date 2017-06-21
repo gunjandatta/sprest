@@ -1,6 +1,6 @@
 import {
     IBase,
-    IUser
+    IUser, IUserResult
 } from "..";
 
 /**
@@ -16,12 +16,7 @@ export interface IFileVersionMethods {
 /**
  * File Version Properties
  */
-export interface IFileVersionProps {}
-
-/**
- * File Version Query Properties
- */
-export interface IFileVersionQueryProps {
+export interface IFileVersionProps {
     /** Gets a value that specifies the check-in comment. */
     CheckInComment: string;
 
@@ -45,9 +40,9 @@ export interface IFileVersionQueryProps {
 }
 
 /**
- * File Version Query Result
+ * File Version Query Properties
  */
-export interface IFileVersionQueryResult extends IFileVersionMethods, IFileVersionProps {
+export interface IFileVersionQueryProps {
     /**
      * Gets a value that specifies the user that represents the creator of the file version.
      */
@@ -55,16 +50,21 @@ export interface IFileVersionQueryResult extends IFileVersionMethods, IFileVersi
 }
 
 /**
- * File Version Result
+ * File Version Query Result
  */
-export interface IFileVersionResult extends IFileVersionMethods, IFileVersionProps, IFileVersionQueryProps {
+export interface IFileVersionQueryResult extends IFileVersionMethods, IFileVersionProps {
     /**
      * A value that specifies the user that represents the creator of the file version.
      */
-    CreatedBy: IUser;
+    CreatedBy: IUserResult;
 }
+
+/**
+ * File Version Result
+ */
+export interface IFileVersionResult extends IFileVersionMethods, IFileVersionProps, IFileVersionQueryProps {}
 
 /**
  * File Version
  */
-export interface IFileVersion extends IFileVersionMethods, IFileVersionQueryProps, IBase<IFileVersionResult, IFileVersionQueryResult> {}
+export interface IFileVersion extends IFileVersionMethods, IFileVersionQueryProps, IBase<IFileVersion, IFileVersionResult, IFileVersionQueryResult> {}

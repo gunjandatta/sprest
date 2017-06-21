@@ -112,7 +112,7 @@ export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryPro
 /**
  * Field
  */
-export interface IField extends IFieldMethods, IFieldQueryProps, IBase<IFieldResult, IFieldQueryResult> {
+export interface IField extends IFieldMethods, IFieldQueryProps, IBase<IField, IFieldResult, IFieldQueryResult> {
 }
 /**
  * Base Choice Field

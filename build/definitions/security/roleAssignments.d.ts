@@ -2,7 +2,7 @@ import { IBase, IBaseCollection, IRoleAssignment, IRoleAssignmentQueryResult, IR
 /**
  * Role Assignments
  */
-export interface IRoleAssignments extends IBaseCollection<IRoleAssignmentResult, IRoleAssignmentQueryResult> {
+export interface IRoleAssignments extends IBaseCollection<IRoleAssignments, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
     /**
      * Adds a new role assignment with the specified principal and role definitions to the collection.
      * @param principalId - The ID of the user or group to assign permissions to.

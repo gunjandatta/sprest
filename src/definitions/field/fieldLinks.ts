@@ -6,7 +6,7 @@ import {
 /**
  * Field Links
  */
-export interface IFieldLinks extends IBaseCollection<IFieldLink, IFieldLink> {
+export interface IFieldLinks extends IBaseCollection<IFieldLink, IFieldLink, IFieldLink> {
     /**
      * Adds a content type to the collection.
      * @param data - The field link properties.

@@ -2,7 +2,7 @@ import { IRequestType, IResults, ODataQuery } from "..";
 /**
  * The base class
  */
-export interface IBase<T = any, R = any> {
+export interface IBase<Type = any, Result = any, QueryResult = any> {
     /**
      * Properties
      */
@@ -20,33 +20,38 @@ export interface IBase<T = any, R = any> {
      */
     done(callback?: (...args) => any): any;
     /**
+     * Method to wait for the requests to complete.
+     * @param callback - The method to be executed after the request completes.
+     */
+    done(callback?: (value?: Result, ...args) => any): any;
+    /**
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */
-    execute(callback?: (value?: T, ...args) => any): T;
+    execute(callback?: (value?: Result, ...args) => any): Type;
     /**
      * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(waitFl: boolean): T;
+    execute(waitFl: boolean): Type;
     /**
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: (value?: T, ...args) => any, waitFl: boolean): T;
+    execute(callback: (value?: Result, ...args) => any, waitFl: boolean): Type;
     /**
      * Method to execute the request synchronously.
      */
-    executeAndWait(): T;
+    executeAndWait(): Result;
     /**
      * Queries the collection.
      * @param oData - The OData information.
      */
-    query(query: ODataQuery): IBase<R>;
+    query(query: ODataQuery): IBase<Result, QueryResult>;
 }
 /**
  * Base Collection
  */
-export interface IBaseCollection<T, R> extends IResults<T>, IBase<IResults<T>, IResults<R>> {
+export interface IBaseCollection<Type = any, Result = any, QueryResult = any> extends IResults<Type>, IBase<IResults<Type>, IResults<Result>, IResults<QueryResult>> {
 }

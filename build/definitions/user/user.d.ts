@@ -1,4 +1,4 @@
-import { IBase, IGroup, IResults, ISiteGroups } from "..";
+import { IBase, IGroup, IResults, ISiteGroups, IUser } from "..";
 /**
  * User Methods
  */
@@ -61,5 +61,5 @@ export interface IUserResult extends IUserMethods, IUserProps, IUserQueryProps {
 /**
  * User
  */
-export interface IUser extends IUserMethods, IUserQueryProps, IBase<IUserResult, IUserQueryResult> {
+export interface IUser extends IUserMethods, IUserQueryProps, IBase<IUser, IUserResult, IUserQueryResult> {
 }

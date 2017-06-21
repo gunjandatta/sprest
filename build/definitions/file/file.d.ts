@@ -1,4 +1,4 @@
-import { IBase, IFileVersions, IInformationRightsManagementSettings, IListItem, IPropertyValues, IResourcePath, IResults, IUser, IUserMethods, SPTypes } from "..";
+import { IBase, IFileVersionResult, IFileVersions, IInformationRightsManagementSettings, IListItemResult, IPropertyValues, IResourcePath, IResults, IUser, IUserResult, SPTypes } from "..";
 /**
  * File Methods
  */
@@ -200,25 +200,25 @@ export interface IFileQueryResult extends IFileMethods, IFileProps {
     /**
      * Gets a value that specifies the user who added the file.
      */
-    Author: IUser;
+    Author: IUserResult;
     /**
      * Gets a value that returns the user who has checked out the file.
      */
-    CheckedOutByUser: IUserMethods;
+    CheckedOutByUser: IUserResult;
     EffectiveInformationRightsManagementSettings: IBase;
     InformationRightsManagementSettings: IInformationRightsManagementSettings;
     /**
      * Gets a value that specifies the list item field values for the list item corresponding to the file.
      */
-    ListItemAllFields: IListItem;
+    ListItemAllFields: IListItemResult;
     /**
      * Gets a value that returns the user that owns the current lock on the file.
      */
-    LockedByUser: IUser;
+    LockedByUser: IUserResult;
     /**
      * Gets a value that returns the user who last modified the file.
      */
-    ModifiedBy: IUser;
+    ModifiedBy: IUserResult;
     /**
      * Property Bag
      */
@@ -227,7 +227,7 @@ export interface IFileQueryResult extends IFileMethods, IFileProps {
     /**
      * Gets a value that returns a collection of file version objects that represent the versions of the file.
      */
-    Versions: IFileVersions;
+    Versions: IResults<IFileVersionResult>;
 }
 /**
  * File Result
@@ -237,5 +237,5 @@ export interface IFileResult extends IFileMethods, IFileProps, IFileQueryProps {
 /**
  * File
  */
-export interface IFile extends IFileMethods, IFileQueryProps, IBase<IFileResult, IFileQueryResult> {
+export interface IFile extends IFileMethods, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> {
 }

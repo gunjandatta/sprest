@@ -49,5 +49,5 @@ export interface IRoleAssignmentResult extends IRoleAssignmentMethods, IRoleAssi
 /**
  * Role Assignment
  */
-export interface IRoleAssignment extends IRoleAssignmentMethods, IRoleAssignmentQueryProps, IBase<IRoleAssignmentResult, IRoleAssignmentQueryResult> {
+export interface IRoleAssignment extends IRoleAssignmentMethods, IRoleAssignmentQueryProps, IBase<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
 }

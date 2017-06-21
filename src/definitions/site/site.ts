@@ -1,7 +1,7 @@
 import {
     IAudit,
     IBase,
-    IEventReceiver, IEventReceivers,
+    IEventReceiver, IEventReceiverResult, IEventReceivers,
     IFeature,
     IRecycleBinItem,
     IResourcePath,
@@ -9,9 +9,9 @@ import {
     ISiteMethods,
     ITargetInfo,
     IUpgradeInfo, IUsageInfo,
-    IUser,
-    IUserCustomAction, IUserCustomActions,
-    IWeb
+    IUser, IUserResult,
+    IUserCustomAction, IUserCustomActionResult, IUserCustomActions,
+    IWeb, IWebResult
 } from "..";
 
 /**
@@ -279,7 +279,7 @@ export interface ISiteQueryResult extends ISiteMethods, ISiteProps {
     /**
      * Gets the event receivers associated with the site.
     */
-    EventReceivers: IResults<IEventReceiver>;
+    EventReceivers: IResults<IEventReceiverResult>;
 
     /**
      * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
@@ -289,7 +289,7 @@ export interface ISiteQueryResult extends ISiteMethods, ISiteProps {
     /**
      * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
      */
-    Owner: IUser;
+    Owner: IUserResult;
 
     /** Gets a value that specifies the collection of recycle bin items for the site collection. */
     RecycleBin: IResults<IRecycleBinItem>;
@@ -297,14 +297,14 @@ export interface ISiteQueryResult extends ISiteMethods, ISiteProps {
     /**
      * Gets a value that returns the top-level site of the site collection.
      */
-    RootWeb: IWeb;
+    RootWeb: IWebResult;
 
-    SecondaryContact: IUser;
+    SecondaryContact: IUserResult;
 
     /**
      * Gets the user custom action for the list.
      */
-    UserCustomActions: IResults<IUserCustomAction>;
+    UserCustomActions: IResults<IUserCustomActionResult>;
 }
 
 /**
@@ -315,7 +315,7 @@ export interface ISiteResult extends ISiteMethods, ISiteProps, ISiteQueryProps {
 /**
  * Site
  */
-export interface ISite extends ISiteMethods, ISiteQueryProps, IBase<ISiteResult, ISiteQueryResult> {
+export interface ISite extends ISiteMethods, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {
     /**
      * Constructor
      * @param url - (Optional) The site url.

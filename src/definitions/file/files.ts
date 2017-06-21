@@ -1,13 +1,13 @@
 import {
     IBase, IBaseCollection,
-    IFile, IFileMethods, IFileQueryResult, IFieldResult,
+    IFile, IFileMethods, IFileQueryResult, IFileResult,
     SPTypes
 } from "..";
 
 /**
  * Files
  */
-export interface IFiles extends IBaseCollection<IFieldResult, IFileQueryResult> {
+export interface IFiles extends IBaseCollection<IFiles, IFileResult, IFileQueryResult> {
     /**
      * Methods
      */

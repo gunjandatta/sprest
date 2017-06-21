@@ -2,7 +2,7 @@ import { IBase, IBaseCollection, IVersion } from "..";
 /**
  * Versions
  */
-export interface IVersions extends IBaseCollection<IVersion, IVersion> {
+export interface IVersions extends IBaseCollection<IVersions, IVersion, IVersion> {
     /**
      * Deletes all versions in the collection.
      */

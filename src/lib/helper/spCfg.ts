@@ -4,7 +4,7 @@ import {
     ComplexTypes,
     IContentType, IContentTypes,
     IField, IFields,
-    IFile, IFileQueryResults, IFolder,
+    IFile, IFolder,
     IList, ILists,
     IListItems,
     ISite,

@@ -89,4 +89,4 @@ export interface IUserCustomActionResult extends IUserCustomActionMethods, IUser
 /**
  * User Custom Action
  */
-export interface IUserCustomAction extends IUserCustomActionMethods, IUserCustomActionQueryProps, IBase<IUserCustomActionResult, IUserCustomActionQueryResult> {}
+export interface IUserCustomAction extends IUserCustomActionMethods, IUserCustomActionQueryProps, IBase<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> {}

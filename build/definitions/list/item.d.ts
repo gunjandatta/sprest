@@ -1,4 +1,4 @@
-import { IAttachment, IAttachmentFiles, IBase, IBasePermissions, IContentType, IFile, IFolder, IList, IPropertyValues, IResults, IRoleAssignment, IRoleAssignments } from "..";
+import { IAttachment, IAttachmentFiles, IBase, IBasePermissions, IContentType, IContentTypeResult, IFile, IFileResult, IFolder, IFolderResult, IList, IListResult, IPropertyValues, IResults, IRoleAssignment, IRoleAssignmentResult, IRoleAssignments } from "..";
 /**
  * List Item Methods
  */
@@ -132,7 +132,7 @@ export interface IListItemQueryResult extends IListItemMethods, IListItemProps {
     /**
      * Gets a value that specifies the content type of the list item.
      */
-    ContentType: IContentType;
+    ContentType: IContentTypeResult;
     /**
      * Gets the values for the list item as HTML.
      */
@@ -148,15 +148,15 @@ export interface IListItemQueryResult extends IListItemMethods, IListItemProps {
     /**
      * Gets the file that is represented by the item from a document library.
      */
-    File: IFile;
+    File: IFileResult;
     /**
      * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
      */
-    FirstUniqueAncestorSecurableObject: IList;
+    FirstUniqueAncestorSecurableObject: IListResult;
     /**
      * Gets a folder object that is associated with a folder item.
      */
-    Folder: IFolder;
+    Folder: IFolderResult;
     GetDlpPolicyTip(): IBase;
     /**
      * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
@@ -165,7 +165,7 @@ export interface IListItemQueryResult extends IListItemMethods, IListItemProps {
     /**
      * Gets the parent list that contains the list item.
      */
-    ParentList: IList;
+    ParentList: IListResult;
     /**
      * Property Bag
      */
@@ -173,7 +173,7 @@ export interface IListItemQueryResult extends IListItemMethods, IListItemProps {
     /**
      * Gets the role assignments for the securable object.
      */
-    RoleAssignments: IResults<IRoleAssignment>;
+    RoleAssignments: IResults<IRoleAssignmentResult>;
 }
 /**
  * List Item Result
@@ -183,5 +183,5 @@ export interface IListItemResult extends IListItemMethods, IListItemProps, IList
 /**
  * List Item
  */
-export interface IListItem extends IListItemMethods, IListItemQueryProps, IBase<IListItemResult, IListItemQueryResult> {
+export interface IListItem extends IListItemMethods, IListItemQueryProps, IBase<IListItem, IListItemResult, IListItemQueryResult> {
 }

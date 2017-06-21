@@ -1,4 +1,4 @@
-import { IBase, IFile, IFiles, IFolders, IListItem, IPropertyValues, IResourcePath, IResults, IStringValue } from "..";
+import { IBase, IFile, IFileResult, IFiles, IFolders, IListItem, IListItemResult, IPropertyValues, IResourcePath, IResults, IStringValue } from "..";
 /**
  * Folder Methods
  */
@@ -90,19 +90,19 @@ export interface IFolderQueryResult extends IFolderMethods, IFolderProps {
     /**
      * Gets the files contained in the folder.
      */
-    Files: IResults<IFile>;
+    Files: IResults<IFileResult>;
     /**
      * Gets the folders contained in the list folder.
      */
-    Folders: IResults<IFolder>;
+    Folders: IResults<IFolderResult>;
     /**
      * Specifies the list item field (2) values for the list item corresponding to the file.
      */
-    ListItemAllFields: IListItem;
+    ListItemAllFields: IListItemResult;
     /**
      * Gets the parent list folder of the folder.
      */
-    ParentFolder: IFolder;
+    ParentFolder: IFolderResult;
     /**
      * Property Bag
      */
@@ -117,5 +117,5 @@ export interface IFolderResult extends IFolderMethods, IFolderProps, IFolderQuer
 /**
  * Folder
  */
-export interface IFolder extends IFolderMethods, IFolderQueryProps, IBase<IFolderResult, IFolderQueryResult> {
+export interface IFolder extends IFolderMethods, IFolderQueryProps, IBase<IFolder, IFolderResult, IFolderQueryResult> {
 }

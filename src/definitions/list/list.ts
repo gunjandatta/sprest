@@ -1,25 +1,25 @@
 import {
     IBase,
     IBasePermissions,
-    IContentType, IContentTypes,
-    IEventReceiver, IEventReceivers,
-    IField, IFields,
-    IFile,
-    IFolder,
+    IContentType, IContentTypeResult, IContentTypes,
+    IEventReceiver, IEventReceiverResult, IEventReceivers,
+    IField, IFieldResult, IFields,
+    IFile, IFileResult,
+    IFolder, IFolderResult,
     IForm,
     IInformationRightsManagementSettings,
     IListDataSource,
     ILists,
-    IListItem, IListItems,
+    IListItem, IListItemResult, IListItems,
     IResourcePath,
     IResults,
-    IRoleAssignment, IRoleAssignments,
+    IRoleAssignment, IRoleAssignmentResult, IRoleAssignments,
     IStringValue,
     ISubscription,
     ITargetInfo,
-    IUserCustomAction, IUserCustomActions,
-    IView, IViews,
-    IWeb,
+    IUserCustomAction, IUserCustomActionResult, IUserCustomActions,
+    IView, IViewResult, IViews,
+    IWeb, IWebResult,
     SPTypes
 } from "..";
 
@@ -481,7 +481,7 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the content types that are associated with the list.
      */
-    ContentTypes: IResults<IContentType>;
+    ContentTypes: IResults<IContentTypeResult>;
 
     /**
      * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
@@ -506,7 +506,7 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the default list view.
     */
-    DefaultView: IView;
+    DefaultView: IViewResult;
 
     /**
      * Gets the URL of the default view for the list.
@@ -528,17 +528,17 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the event receivers associated with the list.
     */
-    EventReceivers: IResults<IEventReceiver>;
+    EventReceivers: IResults<IEventReceiverResult>;
 
     /**
      * Gets the fields in the list.
      */
-    Fields: IResults<IField>;
+    Fields: IResults<IFieldResult>;
 
     /**
      * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
      */
-    FirstUniqueAncestorSecurableObject: IWeb;
+    FirstUniqueAncestorSecurableObject: IWebResult;
 
     /**
      * Gets the list forms in the list.
@@ -563,7 +563,7 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the list items in the list.
      */
-    Items: IResults<IListItem>;
+    Items: IResults<IListItemResult>;
 
     /**
      * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
@@ -573,17 +573,17 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets a value that specifies the site that contains the list.
      */
-    ParentWeb: IWeb;
+    ParentWeb: IWebResult;
 
     /**
      * Gets the role assignments for the securable object.
      */
-    RoleAssignments: IResults<IRoleAssignment>;
+    RoleAssignments: IResults<IRoleAssignmentResult>;
 
     /**
      * Gets the root folder of the list.
      */
-    RootFolder: IFolder;
+    RootFolder: IFolderResult;
 
     /**
      * Gets a value that specifies the list schema of the list.
@@ -597,7 +597,7 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the user custom actions for the list.
      */
-    UserCustomActions: IResults<IUserCustomAction>;
+    UserCustomActions: IResults<IUserCustomActionResult>;
 
     /**
      * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
@@ -612,7 +612,7 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the views in the list.
      */
-    Views: IResults<IView>;
+    Views: IResults<IViewResult>;
 
     /**
      * Gets a value that specifies the collection of all workflow associations for the list.
@@ -630,7 +630,7 @@ export interface IListResult extends IListMethods, IListProps, IListQueryProps {
 /**
  * List
  */
-export interface IList extends IListMethods, IListQueryProps, IBase<IListResult, IListQueryResult> {
+export interface IList extends IListMethods, IListQueryProps, IBase<IList, IListResult, IListQueryResult> {
     /**
      * Constructor
      * @param listName - The name of the list.
