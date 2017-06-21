@@ -2,7 +2,7 @@ import { IBase, IBaseCollection, IField, IFieldCreationInformation, IFieldQueryR
 /**
  * Fields
  */
-export interface IFields extends IBaseCollection<IFields, IFieldResult, IFieldQueryResult> {
+export interface IFields extends IBaseCollection<IField, IFieldResult, IFieldQueryResult> {
     /**
      * Adds a field to the field collection.
      * @param parameters - The field properties.

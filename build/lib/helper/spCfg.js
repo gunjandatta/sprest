@@ -659,14 +659,6 @@ var SPConfig = (function () {
         this._configuration = cfg;
         // Save the target web url
         this._webUrl = webUrl;
-        (new __1.Web())
-            .execute(function (web) {
-            web.ContentTypes().execute(function (ct) {
-            });
-        })
-            .query({}).execute(function (w) {
-            w.ContentTypes.results[0];
-        });
     }
     /**
      * Public Methods

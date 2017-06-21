@@ -53,5 +53,5 @@ export interface IBase<Type = any, Result = any, QueryResult = any> {
 /**
  * Base Collection
  */
-export interface IBaseCollection<Type = any, Result = any, QueryResult = any> extends IResults<Type>, IBase<IResults<Type>, IResults<Result>, IResults<QueryResult>> {
+export interface IBaseCollection<Type = any, Result = any, QueryResult = any> extends IResults<Type>, IBase<IResults<Result>, IResults<Result>, IResults<QueryResult>> {
 }

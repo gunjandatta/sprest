@@ -6,7 +6,7 @@ import {
 /**
  * List Items
  */
-export interface IListItems extends IBaseCollection<IListItems, IListItemResult, IListItemQueryResult> {
+export interface IListItems extends IBaseCollection<IListItem, IListItemResult, IListItemQueryResult> {
     /**
      * Adds an item to the list item collection.
      * @param data - The item properties.

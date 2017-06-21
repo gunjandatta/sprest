@@ -6,7 +6,7 @@ import {
 /**
  * Users
  */
-export interface IUsers extends IBaseCollection<IUsers, IUserResult, IUserQueryResult> {
+export interface IUsers extends IBaseCollection<IUser, IUserResult, IUserQueryResult> {
     /**
      * Adds a site to the site collection.
      * @param userInfo - The user creation information.

@@ -2,7 +2,7 @@ import { IBase, IBaseCollection, IGroup, IGroupCreationInformation, IGroupQueryR
 /**
  * Site Groups
  */
-export interface ISiteGroups extends IBaseCollection<ISiteGroups, IGroupResult, IGroupQueryResult> {
+export interface ISiteGroups extends IBaseCollection<IGroup, IGroupResult, IGroupQueryResult> {
     /**
      * Adds a site to the site collection.
      * @param groupInfo - The group creation information.

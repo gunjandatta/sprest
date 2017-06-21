@@ -6,7 +6,7 @@ import {
 /**
  * Lists
  */
-export interface ILists extends IBaseCollection<ILists, IListResult, IListQueryResult> {
+export interface ILists extends IBaseCollection<IList, IListResult, IListQueryResult> {
     /**
      * Adds a list to the list collection.
      * @param parameters - The list creation information.

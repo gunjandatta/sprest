@@ -7,7 +7,7 @@ import {
 /**
  * Files
  */
-export interface IFiles extends IBaseCollection<IFiles, IFileResult, IFileQueryResult> {
+export interface IFiles extends IBaseCollection<IFile, IFileResult, IFileQueryResult> {
     /**
      * Methods
      */

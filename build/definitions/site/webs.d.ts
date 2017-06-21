@@ -2,7 +2,7 @@ import { IBase, IBaseCollection, IWeb, IWebCreationInformation, IWebQueryResult,
 /**
  * Webs
  */
-export interface IWebs extends IBaseCollection<IWebs, IWebResult, IWebQueryResult> {
+export interface IWebs extends IBaseCollection<IWeb, IWebResult, IWebQueryResult> {
     /**
      * Adds a site to the site collection.
      * @param parameters - The web creation information.

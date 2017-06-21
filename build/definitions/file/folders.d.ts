@@ -2,7 +2,7 @@ import { IBase, IBaseCollection, IFolder, IFolderQueryResult, IFolderResult } fr
 /**
  * Folders
  */
-export interface IFolders extends IBaseCollection<IFolders, IFolderResult, IFolderQueryResult> {
+export interface IFolders extends IBaseCollection<IFolder, IFolderResult, IFolderQueryResult> {
     /**
      * Adds the folder that is located at the specified URL to the collection.
      * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.

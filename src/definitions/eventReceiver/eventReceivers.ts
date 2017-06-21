@@ -5,7 +5,7 @@ import {
 /**
  * Event Receivers
  */
-export interface IEventReceivers extends IBaseCollection<IEventReceivers, IEventReceiverResult, IEventReceiverQueryResult> {
+export interface IEventReceivers extends IBaseCollection<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> {
     /**
      * Adds an event receiver to the collection.
      * @param parameters - The event receiver definition creation information.

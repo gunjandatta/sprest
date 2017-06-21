@@ -2,7 +2,7 @@ import { IBase, IBaseCollection, IRoleDefinition, IRoleDefinitionQueryResult, IR
 /**
  * Role Definitions
  */
-export interface IRoleDefinitions extends IBaseCollection<IRoleDefinitions, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
+export interface IRoleDefinitions extends IBaseCollection<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
     /**
      * Gets the role definition with the specified ID from the collection.
      * @param roleDefId - The ID of the role definition that defines the permissions to assign.

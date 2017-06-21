@@ -6,7 +6,7 @@ import {
 /**
  * Content Types
  */
-export interface IContentTypes extends IBaseCollection<IContentTypes, IContentTypeResult, IContentTypeQueryResult> {
+export interface IContentTypes extends IBaseCollection<IContentType, IContentTypeResult, IContentTypeQueryResult> {
     /**
      * Adds a content type to the collection.
      * @param parameters - The content type creation information.
