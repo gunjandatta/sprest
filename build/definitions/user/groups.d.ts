@@ -1,8 +1,8 @@
-import { IBase, IBaseCollection, IGroup, IGroupCreationInformation, IGroupQueryResults } from "..";
+import { IBase, IBaseCollection, IGroup, IGroupCreationInformation, IGroupQueryResult, IGroupResult } from "..";
 /**
  * Site Groups
  */
-export interface ISiteGroups extends IBaseCollection<IGroup, IGroupQueryResults> {
+export interface ISiteGroups extends IBaseCollection<IGroupResult, IGroupQueryResult> {
     /**
      * Adds a site to the site collection.
      * @param groupInfo - The group creation information.
@@ -12,12 +12,12 @@ export interface ISiteGroups extends IBaseCollection<IGroup, IGroupQueryResults>
      * Returns a group from the collection based on the member ID of the group.
      * @param id - The site group id.
      */
-    getById(id: any): IBase<IGroup>;
+    getById(id: any): IGroup;
     /**
      * Returns a cross-site group from the collection based on the name of the group.
      * @param name - The name of the group. The group name is specified in its LoginName property.
      */
-    getByName(name: any): IBase<IGroup>;
+    getByName(name: any): IGroup;
     /**
      * Method to get the next set of results.
      */

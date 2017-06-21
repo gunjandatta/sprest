@@ -1,12 +1,12 @@
 import {
     IBase, IBaseCollection,
-    IWeb, IWebCreationInformation, IWebQueryResult
+    IWeb, IWebCreationInformation, IWebQueryResult, IWebResult
 } from "..";
 
 /**
  * Webs
  */
-export interface IWebs extends IBaseCollection<IWeb, IWebQueryResult> {
+export interface IWebs extends IBaseCollection<IWebResult, IWebQueryResult> {
     /**
      * Methods
      */

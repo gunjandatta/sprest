@@ -1,8 +1,17 @@
-import { IBasePermissions, IUserCustomActionMethods, SPTypes } from "..";
+import { IBase, IBasePermissions, IUserCustomActionMethods, SPTypes } from "..";
 /**
- * User Custom Action
+ * User Custom Action Methods
  */
-export interface IUserCustomAction extends IUserCustomActionMethods {
+export interface IUserCustomActionMethods {
+    /**
+     * Deletes the user custom action.
+     */
+    delete(): IBase;
+}
+/**
+ * User Custom Action Properties
+ */
+export interface IUserCustomActionProps {
     /** Gets or sets a value that specifies an implementation specific XML fragment that determines user export interface properties of the custom action. */
     CommandUIExtension: string;
     /** Gets or sets the description of the custom action. */
@@ -37,4 +46,24 @@ export interface IUserCustomAction extends IUserCustomActionMethods {
     Url: string;
     /** Gets a value that specifies an implementation specific version identifier. */
     VersionOfUserCustomAction: string;
+}
+/**
+ * User Custom Action Query Properties
+ */
+export interface IUserCustomActionQueryProps {
+}
+/**
+ * User Custom Action Query Result
+ */
+export interface IUserCustomActionQueryResult extends IUserCustomActionMethods, IUserCustomActionProps {
+}
+/**
+ * User Custom Action Result
+ */
+export interface IUserCustomActionResult extends IUserCustomActionMethods, IUserCustomActionProps, IUserCustomActionQueryProps {
+}
+/**
+ * User Custom Action
+ */
+export interface IUserCustomAction extends IUserCustomActionMethods, IUserCustomActionQueryProps, IBase<IUserCustomActionResult, IUserCustomActionQueryResult> {
 }

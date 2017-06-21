@@ -1,11 +1,24 @@
-import { IBase, IContentTypeMethods, IFieldMethods, IFields, IFieldLink, IFieldLinks, IStringValue } from "..";
+import { IBase, IField, IFields, IFieldLink, IFieldLinks, IList, IResourcePath, IResults, IStringValue, IWeb } from "..";
 /**
- * Content Type
+ * Content Type Methods
  */
-export interface IContentType extends IContentTypeMethods {
+export interface IContentTypeMethods {
+    /**
+     * Deletes the content type.
+     */
+    delete(): IBase;
+    /**
+     * Updates it's properties.
+     * @param data - The content type properties to update.
+     */
+    update(data: any): IBase;
+}
+/**
+ * Content Type Properties
+ */
+export interface IContentTypeProps {
     /** Gets or sets a description of the content type. */
     Description: string;
-    DescriptionResource(): IBase;
     /** Gets or sets a value that specifies the name of a custom display form template to use for list items that have been assigned the content type. */
     DisplayFormTemplateName: string;
     /** Gets or sets a value that specifies the URL of a custom display form to use for list items that have been assigned the content type. */
@@ -18,6 +31,41 @@ export interface IContentType extends IContentTypeMethods {
     EditFormTemplateName: string;
     /** Gets or sets a value that specifies the URL of a custom edit form to use for list items that have been assigned the content type. */
     EditFormUrl: string;
+    /** Gets or sets a value that specifies the content type group for the content type. */
+    Group: string;
+    /** Gets or sets a value that specifies whether the content type is unavailable for creation or usage directly from a user export interface. */
+    Hidden: boolean;
+    /** Gets a value that specifies an identifier for the content type. */
+    Id: IStringValue;
+    /** Gets or sets the JSLink for the content type custom form template. The JSLink property is not supported on Survey or Events lists. A SharePoint calendar is an Events list. */
+    JSlink: string;
+    MobileDisplayFormUrl: string;
+    MobileEditFormUrl: string;
+    MobileNewFormUrl: string;
+    /** Gets or sets a value that specifies the name of the content type. */
+    Name: string;
+    /** Gets or sets a value that specifies the name of the content type. */
+    NewFormTemplateName: string;
+    /** Gets or sets a value that specifies the name of the content type. */
+    NewFormUrl: string;
+    /** Gets or sets a value that specifies whether changes to the content type properties are denied. */
+    Readonly: boolean;
+    /** Gets a value that specifies the XML Schema representing the content type. */
+    SchemaXml: string;
+    /** Gets a non-localized version of the XML schema that defines the content type. */
+    SchemaXmlWithResourceTokens: string;
+    /** Gets a value that specifies a server-relative path to the content type scope of the content type. */
+    Scope: string;
+    /** Gets or sets whether the content type can be modified. */
+    Sealed: boolean;
+    /** A string representation of the value of the Id. */
+    StringId: string;
+}
+/**
+ * Content Type Query Properties
+ */
+export interface IContentTypeQueryProps {
+    DescriptionResource(): IBase;
     /**
      * Gets the column (also known as field) references in the content type.
      */
@@ -35,41 +83,43 @@ export interface IContentType extends IContentTypeMethods {
      * Gets the field for the content type.
      * @param internalNameOrTitle - The internal name or title of the field.
      */
-    Fields(internalNameOrTitle: string): IFieldMethods;
-    /** Gets or sets a value that specifies the content type group for the content type. */
-    Group: string;
-    /** Gets or sets a value that specifies whether the content type is unavailable for creation or usage directly from a user export interface. */
-    Hidden: boolean;
-    /** Gets a value that specifies an identifier for the content type. */
-    Id: IStringValue;
-    /** Gets or sets the JSLink for the content type custom form template. The JSLink property is not supported on Survey or Events lists. A SharePoint calendar is an Events list. */
-    JSlink: string;
-    MobileDisplayFormUrl: string;
-    MobileEditFormUrl: string;
-    MobileNewFormUrl: string;
-    /** Gets or sets a value that specifies the name of the content type. */
-    Name: string;
+    Fields(internalNameOrTitle: string): IFields;
     NameResource(): IBase;
-    /** Gets or sets a value that specifies the name of the content type. */
-    NewFormTemplateName: string;
-    /** Gets or sets a value that specifies the name of the content type. */
-    NewFormUrl: string;
     /** Gets the parent content type of the content type. */
     Parent(): IContentTypeMethods;
-    /** Gets or sets a value that specifies whether changes to the content type properties are denied. */
-    Readonly: boolean;
-    /** Gets a value that specifies the XML Schema representing the content type. */
-    SchemaXml: string;
-    /** Gets a non-localized version of the XML schema that defines the content type. */
-    SchemaXmlWithResourceTokens: string;
-    /** Gets a value that specifies a server-relative path to the content type scope of the content type. */
-    Scope: string;
-    /** Gets or sets whether the content type can be modified. */
-    Sealed: boolean;
-    /** A string representation of the value of the Id. */
-    StringId: string;
     /**
      * Gets a value that specifies the collection of workflow associations for the content type.
      */
     WorkflowAssociations(): IBase;
+}
+/**
+ * Content Type Query Result
+ */
+export interface IContentTypeQueryResult extends IContentTypeMethods, IContentTypeProps {
+    DescriptionResource: IResourcePath;
+    /**
+     * Gets the column (also known as field) references in the content type.
+     */
+    FieldLinks: IResults<IFieldLink>;
+    /**
+     * Gets the fields for the content type.
+     */
+    Fields: IResults<IField>;
+    NameResource: IResourcePath;
+    /** Gets the parent content type of the content type. */
+    Parent: IList | IWeb;
+    /**
+     * Gets a value that specifies the collection of workflow associations for the content type.
+     */
+    WorkflowAssociations: IResults<any>;
+}
+/**
+ * Content Type Result
+ */
+export interface IContentTypeResult extends IContentTypeMethods, IContentTypeProps, IContentTypeQueryProps {
+}
+/**
+ * Content Type
+ */
+export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBase<IContentTypeResult, IContentTypeQueryResult> {
 }

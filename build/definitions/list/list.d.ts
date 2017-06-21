@@ -1,4 +1,4 @@
-import { IBase, IBasePermissions, IContentType, IContentTypeMethods, IContentTypes, IEventReceiver, IEventReceiverMethods, IEventReceivers, IField, IFieldMethods, IFields, IFileMethods, IFolder, IFolderMethods, IForm, IInformationRightsManagementSettings, IListDataSource, IListItem, IListItemMethods, IListItems, IResourcePath, IResults, IRoleAssignment, IRoleAssignmentMethods, IRoleAssignments, IStringValue, ISubscription, ITargetInfo, IUserCustomAction, IUserCustomActionMethods, IUserCustomActions, IView, IViews, IWeb, IWebMethods, SPTypes } from "..";
+import { IBase, IBasePermissions, IContentType, IContentTypes, IEventReceiver, IEventReceivers, IField, IFields, IFile, IFolder, IForm, IInformationRightsManagementSettings, IListDataSource, IListItem, IListItems, IResourcePath, IResults, IRoleAssignment, IRoleAssignments, IStringValue, ISubscription, ITargetInfo, IUserCustomAction, IUserCustomActions, IView, IViews, IWeb, SPTypes } from "..";
 /**
  * List Methods
  */
@@ -28,7 +28,7 @@ export interface IListMethods {
      * Returns the list item with the specified list item identifier.
      * @param id - The list item id.
      */
-    getItemById(id: any): IListItemMethods;
+    getItemById(id: any): IListItem;
     /**
      * Returns a collection of items from the list based on the view xml.
      * @param viewXml - The view xml CAML query.
@@ -193,7 +193,7 @@ export interface IListQueryProps {
      * Gets the content types that are associated with the list.
      * @param id - The id of the content type.
      */
-    ContentTypes(id: string): IContentTypeMethods;
+    ContentTypes(id: string): IContentType;
     /**
      * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
      */
@@ -230,21 +230,21 @@ export interface IListQueryProps {
     /**
      * Gets the event receivers associated with the list.
     */
-    EventReceivers(): IBase<IEventReceivers>;
+    EventReceivers(): IEventReceivers;
     /**
      * Gets the event receiver associated with the list.
      * @param id - The id of the event receiver.
     */
-    EventReceivers(id: string): IEventReceiverMethods;
+    EventReceivers(id: string): IEventReceiver;
     /**
      * Gets the fields in the list.
      */
-    Fields(): IBase<IFields>;
+    Fields(): IFields;
     /**
      * Gets the field in the list.
      * @param internalNameOrTitle - The internal name or title of the field.
      */
-    Fields(internalNameOrTitle: string): IFieldMethods;
+    Fields(internalNameOrTitle: string): IField;
     /**
      * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
      */
@@ -278,7 +278,7 @@ export interface IListQueryProps {
      * Gets the list item in the list.
      * @param id - The id of the list item.
      */
-    Items(id: number): IListItemMethods;
+    Items(id: number): IListItem;
     /**
      * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
      */
@@ -286,7 +286,7 @@ export interface IListQueryProps {
     /**
      * Gets a value that specifies the site that contains the list.
      */
-    ParentWeb(): IWebMethods;
+    ParentWeb(): IWeb;
     /**
      * Gets the role assignments for the securable object.
      */
@@ -295,16 +295,16 @@ export interface IListQueryProps {
      * Gets the role assignments for the securable object.
      * @param id - The role assignment id.
      */
-    RoleAssignments(id: string): IRoleAssignmentMethods;
+    RoleAssignments(id: string): IRoleAssignment;
     /**
      * Gets the root folder of the list.
      */
-    RootFolder(): IFolderMethods;
+    RootFolder(): IFolder;
     /**
      * Gets the file in the root folder of the list.
      * @param url - The url of the file within the root folder.
      */
-    RootFolder(url: string): IFileMethods;
+    RootFolder(url: string): IFile;
     /**
      * Gets a value that specifies the list schema of the list.
      */
@@ -319,7 +319,7 @@ export interface IListQueryProps {
      * Gets the user custom action(s) for the list.
      * @param id - The id of the user custom action.
      */
-    UserCustomActions(id: string): IUserCustomActionMethods;
+    UserCustomActions(id: string): IUserCustomAction;
     /**
      * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
      */

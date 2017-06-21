@@ -1,13 +1,23 @@
 import {
+    IBase,
     IBasePermissions,
-    IRoleDefinitionMethods,
     SPTypes
 } from "..";
 
 /**
- * Role Definition
+ * Role Definition Methods
  */
-export interface IRoleDefinition extends IRoleDefinitionMethods {
+export interface IRoleDefinitionMethods {
+    /**
+     * Deletes the role definition.
+     */
+    delete(): IBase;
+}
+
+/**
+ * Role Definition Properties
+ */
+export interface IRoleDefinitionProps {
     /** Gets or sets a value that specifies the base permissions for the role definition. */
     BasePermissions: IBasePermissions;
 
@@ -29,3 +39,23 @@ export interface IRoleDefinition extends IRoleDefinitionMethods {
     /** Gets a value that specifies the type of the role definition. Represents an SP.RoleType value. See RoleType in the .NET client object model reference for a list of role type values. */
     RoleTypeKind: SPTypes.RoleType | number;
 }
+
+/**
+ * Role Definition Query Properties
+ */
+export interface IRoleDefinitionQueryProps { }
+
+/**
+ * Role Definition Query Result
+ */
+export interface IRoleDefinitionQueryResult extends IRoleDefinitionMethods, IRoleDefinitionProps { }
+
+/**
+ * Role Definition Result
+ */
+export interface IRoleDefinitionResult extends IRoleDefinitionMethods, IRoleDefinitionProps, IRoleDefinitionQueryProps { }
+
+/**
+ * Role Definition
+ */
+export interface IRoleDefinition extends IRoleDefinitionMethods, IRoleDefinitionQueryProps, IBase<IRoleDefinitionResult, IRoleDefinitionQueryResult> { }

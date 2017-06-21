@@ -1,8 +1,8 @@
-import { IBase, IBaseCollection, IFileVersion, IFileVersionQueryResults } from "..";
+import { IBase, IBaseCollection, IFileVersionQueryResult, IFileVersionResult } from "..";
 /**
  * File Versions
  */
-export interface IFileVersions extends IBaseCollection<IFileVersion, IFileVersionQueryResults> {
+export interface IFileVersions extends IBaseCollection<IFileVersionResult, IFileVersionQueryResult> {
     /**
      * Method to get the next set of results.
      */

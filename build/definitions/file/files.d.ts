@@ -1,8 +1,8 @@
-import { IBase, IBaseCollection, IFile, IFileMethods, IFileQueryResults, SPTypes } from "..";
+import { IBase, IBaseCollection, IFile, IFileQueryResult, IFieldResult, SPTypes } from "..";
 /**
  * Files
  */
-export interface IFiles extends IBaseCollection<IFile, IFileQueryResults> {
+export interface IFiles extends IBaseCollection<IFieldResult, IFileQueryResult> {
     /**
      * Methods
      */
@@ -18,12 +18,12 @@ export interface IFiles extends IBaseCollection<IFile, IFileQueryResults> {
      * @param urlOfFile - The server-relative URL where you want to save the file.
      * @param templateFileType - The SP.TemplateFileType to use to create the file.
      */
-    addTemplateFile(urlOfFile: any, templateFileType: SPTypes.FileTemplateType): IBase;
+    addTemplateFile(urlOfFile: any, templateFileType: SPTypes.FileTemplateType): IBase<IFile>;
     /**
      * Get the file at the specified URL.
      * @param serverRelativeUrl - The name or server relative url of the file.
      */
-    getByUrl(serverRelativeUrl: any): IFileMethods;
+    getByUrl(serverRelativeUrl: any): IFile;
     /**
      * Method to get the next set of results.
      */

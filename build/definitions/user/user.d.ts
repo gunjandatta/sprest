@@ -1,19 +1,19 @@
-import { IBase, IGroup, ISiteGroups, IUserMethods } from "..";
+import { IBase, IGroup, IResults, ISiteGroups } from "..";
 /**
- * User
+ * User Methods
  */
-export interface IUser extends IUserMethods {
+export interface IUserMethods {
+    /**
+     * Deletes the user custom action.
+     */
+    delete(): IBase;
+}
+/**
+ * User Properties
+ */
+export interface IUserProps {
     /** Gets or sets the email address of the user. */
     Email: string;
-    /**
-     * Gets the groups of which the user is a member.
-     */
-    Groups(): ISiteGroups;
-    /**
-     * Gets the group of which the user is a member.
-     * @param id - The group id.
-     */
-    Groups(id: number): IBase<IGroup>;
     /** Gets a value that specifies the member identifier for the user or group. */
     Id: string;
     /** Gets a value that indicates whether this member should be hidden in the UI. */
@@ -29,4 +29,37 @@ export interface IUser extends IUserMethods {
     Title: string;
     /** Gets the information of the user that contains the user's name identifier and the issuer of the user's name identifier. */
     UserId: string;
+}
+/**
+ * User Query Properties
+ */
+export interface IUserQueryProps {
+    /**
+     * Gets the groups of which the user is a member.
+     */
+    Groups(): ISiteGroups;
+    /**
+     * Gets the group of which the user is a member.
+     * @param id - The group id.
+     */
+    Groups(id: number): IBase<IGroup>;
+}
+/**
+ * User Query Result
+ */
+export interface IUserQueryResult extends IUserMethods, IUserProps {
+    /**
+     * Gets the groups of which the user is a member.
+     */
+    Groups: IResults<IGroup>;
+}
+/**
+ * User Result
+ */
+export interface IUserResult extends IUserMethods, IUserProps, IUserQueryProps {
+}
+/**
+ * User
+ */
+export interface IUser extends IUserMethods, IUserQueryProps, IBase<IUserResult, IUserQueryResult> {
 }

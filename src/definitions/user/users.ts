@@ -1,12 +1,12 @@
 import {
     IBase, IBaseCollection,
-    IUser, IUserCreationInformation, IUserMethods, IUserQueryResults
+    IUser, IUserCreationInformation, IUserQueryResult, IUserResult
 } from "..";
 
 /**
  * Users
  */
-export interface IUsers extends IBaseCollection<IUser, IUserQueryResults> {
+export interface IUsers extends IBaseCollection<IUserResult, IUserQueryResult> {
     /**
      * Adds a site to the site collection.
      * @param userInfo - The user creation information.
@@ -17,19 +17,19 @@ export interface IUsers extends IBaseCollection<IUser, IUserQueryResults> {
      * Gets the user with the specified email address.
      * @param email - The email of the user to get.
      */
-    getByEmail(email): IUserMethods;
+    getByEmail(email): IUser;
 
     /**
      * Gets the user with the specified member identifier (ID).
      * @param id - The ID of the user to get.
      */
-    getById(id): IUserMethods;
+    getById(id): IUser;
 
     /**
      * Gets the user with the specified login name.
      * @param loginName - The login name of the user to get, passed as an alias in the query string.
      */
-    getByLoginName(loginName): IUserMethods;
+    getByLoginName(loginName): IUser;
 
     /**
      * Method to get the next set of results.
