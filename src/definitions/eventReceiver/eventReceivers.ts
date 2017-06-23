@@ -11,18 +11,18 @@ export interface IEventReceiversMethods {
      * Adds an event receiver to the collection.
      * @param parameters - The event receiver definition creation information.
      */
-    add(parameters: IEventReceiverDefinitionCreationInformation): IBase<IEventReceiverResult>;
+    add(parameters: IEventReceiverDefinitionCreationInformation): IBase<IEventReceiver, IEventReceiverResult>;
 
     /**
      * Gets an event receiver in the collection.
      * @param id - The id of the event receiver.
      */
-    getById(id: string): IBase<IEventReceiverResult>;
+    getById(id: string): IBase<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult>;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IBase<IEventReceivers>;
+    next(): IBase<IEventReceivers, IEventReceiverResults>;
 }
 
 /**

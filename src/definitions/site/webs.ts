@@ -11,12 +11,12 @@ export interface IWebsMethods {
      * Adds a site to the site collection.
      * @param parameters - The web creation information.
      */
-    add(parameters: IWebCreationInformation): IBase<IWebResult>;
+    add(parameters: IWebCreationInformation): IBase<IWeb, IWebResult>;
 
     /**
      * Method to get the next set of results.
      */
-    next(): IBase<IWebResults>;
+    next(): IBase<IWebs, IWebResults>;
 }
 
 /**

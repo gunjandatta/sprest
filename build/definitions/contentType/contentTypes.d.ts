@@ -7,21 +7,21 @@ export interface IContentTypesMethods {
      * Adds a content type to the collection.
      * @param parameters - The content type creation information.
      */
-    add(parameters: IContentTypeCreationInformation): IBase<IContentTypeResult>;
+    add(parameters: IContentTypeCreationInformation): IBase<IContentType, IContentTypeResult>;
     /**
      * Adds an existing content type to this collection.
      * @param contentTypeId - The content type id to add.
      */
-    addAvailableContentType(contentTypeId: any): IBase<IContentTypeResult>;
+    addAvailableContentType(contentTypeId: any): IBase<IContentType, IContentTypeResult>;
     /**
      * Gets a content type by id.
      * @param id - The content type id.
      */
-    getById(id: any): IBase<IContentTypeResult>;
+    getById(id: any): IBase<IContentType, IContentTypeResult, IContentTypeQueryResult>;
     /**
      * Method to get the next set of results.
      */
-    next(): IBase<IContentTypes>;
+    next(): IBase<IContentTypes, IContentTypeResults>;
 }
 /**
  * Content Types
