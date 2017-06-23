@@ -7,9 +7,9 @@ import {
     IFile, IFolder,
     IList, ILists,
     IListItems,
-    ISite,
+    ISite, ISiteQueryResult,
     ISPCfgContentTypeInfo, ISPConfigProps, ISPCfgFieldInfo, ISPCfgListInfo, ISPCfgViewInfo, ISPCfgWebPartInfo,
-    IUserCustomAction, IUserCustomActions,
+    IUserCustomActionResult, IUserCustomActionResults,
     IView,
     IWeb
 } from "../../definitions";
@@ -286,6 +286,95 @@ export class SPConfig {
     /**
      * Methods
      */
+
+    // Method to see if an object exists in a collection
+    private isInCollection = (key: string, value: string, collection: Array<any>) => {
+        let valueLower = value.toLowerCase();
+
+        // Parse the collection
+        for (let i = 0; i < collection.length; i++) {
+            // See if the item exists
+            if (valueLower == collection[i][key].toLowerCase()) {
+                // Return true
+                return true;
+            }
+        }
+
+        // Not in the collection
+        return false;
+    }
+
+    // Method to install the site components
+    private installSite = () => {
+        let promise = new Promise();
+
+        // Ensure site user custom actions exist
+        if (this._configuration.CustomActionCfg == null || this._configuration.CustomActionCfg.Site == null) {
+            // Resolve the promise
+            promise.resolve();
+        }
+
+        // Get the site
+        (new Site(this._webUrl))
+            // Expand the user custom actions
+            .query({
+                Expand: ["UserCustomActions"]
+            })
+            // Execute the request
+            .execute(site => {
+                // Install the user custom actions
+                this.installUserCustomActions(site.UserCustomActions);
+
+                // Wait for the requests to complete
+                site.UserCustomActions.done(() => {
+                    // Resolve the promise
+                    promise.resolve(site);
+                });
+            });
+
+        // Return the promise
+        return promise;
+    }
+
+    // Method to install the user custom actions
+    private installUserCustomActions = (customActions: IUserCustomActionResults) => {
+        // Parse the custom actions
+        for (let i = 0; i < this._configuration.CustomActionCfg.Site.length; i++) {
+            let customAction = this._configuration.CustomActionCfg.Site[i];
+
+            // See if this custom action already exists
+            if (this.isInCollection("Name", customAction.Name, customActions.results)) {
+                // Log
+                console.log("[gd-sprest][Site] The custom action '" + customAction.Name + "' already exists.");
+            } else {
+                // Add the custom action
+                customActions.add(customAction).execute(true);
+            }
+        }
+    }
+
+    // Method to get the web
+    private getWeb = () => {
+        let promise = new Promise();
+
+        // Get the web
+        (new Web(this._webUrl))
+            // Expand the content types, fields, lists and user custom actions
+            .query({
+                Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
+            })
+            // Execute the request
+            .execute(web => {
+                // 
+                // Resolve the promise
+                promise.resolve(web);
+            });
+
+        // Return the promise
+        return promise;
+    }
+
+
 
     // Method to create the content type
     private createContentType = (cfgItem: ISPCfgContentTypeInfo, contentTypes: IContentTypes, web?: IWeb) => {
