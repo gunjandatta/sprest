@@ -7,7 +7,7 @@ An easy way to create, read, update and delete data using the SharePoint 2013/On
 [![Total Downloads](https://img.shields.io/npm/dt/gd-sprest.svg)](https://www.npmjs.com/package/gd-sprest)
 
 ## Benefits:
-* Intellisense
+* Full intellisense for the REST API
 * Easy to develop against the SharePoint REST API
 * Easier to execute requests against the host web from a SharePoint Hosted App
 * Ability to control the order of the requests executed against the server
