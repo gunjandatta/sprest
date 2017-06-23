@@ -10,7 +10,7 @@ import {
     IInformationRightsManagementSettings,
     IListDataSource,
     ILists,
-    IListItem, IListItemResults, IListItems,
+    IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems,
     IResourcePath,
     IResults,
     IRoleAssignment, IRoleAssignmentResults, IRoleAssignments,
@@ -18,7 +18,7 @@ import {
     ISubscription,
     ITargetInfo,
     IUserCustomAction, IUserCustomActionResults, IUserCustomActions,
-    IView, IViewResult, IViewResults, IViews,
+    IView, IViewQueryResult, IViewResult, IViewResults, IViews,
     IWeb, IWebResult,
     SPTypes
 } from "..";
@@ -44,7 +44,7 @@ export interface IListMethods {
      * @param entityTypeName - The entity type name of the list.
      * @param callback - The method to be executed after the request completes.
      */
-    getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): IBase<IList>;
+    getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): IBase<IList, IListResult, IListQueryResult>;
 
     /**
      * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
@@ -56,25 +56,25 @@ export interface IListMethods {
      * Returns the list item with the specified list item identifier.
      * @param id - The list item id.
      */
-    getItemById(id): IListItem;
+    getItemById(id): IListItem & IBase<IListItem, IListItemResult, IListItemQueryResult>;
 
     /**
      * Returns a collection of items from the list based on the view xml.
      * @param viewXml - The view xml CAML query.
      */
-    getItems(viewXml): IBase<IListItems>;
+    getItems(viewXml): IBase<IListItems, IListItemResults>;
 
     /**
      * Returns a collection of items from the list based on the specified query.
      * @camlQuery - The caml query.
      */
-    getItemsByQuery(camlQuery): IBase<IListItems>;
+    getItemsByQuery(camlQuery): IBase<IListItems, IListItemResults>;
 
     /**
      * Returns a collection of items from the list based on the specified query.
      * @query - The query that contains the change token.
      */
-    getListItemChangesSinceToken(query): IBase<IListItems>;
+    getListItemChangesSinceToken(query): IBase<IListItems, IListItemResults>;
 
     /**
      * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
@@ -91,7 +91,7 @@ export interface IListMethods {
      * Returns the list view with the specified view identifier.
      * @param viewId - The view id.
      */
-    getViewById(viewId): IBase<IView>;
+    getViewById(viewId): IView & IBase<IView, IViewResult, IViewQueryResult>;
 
     /**
      * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.

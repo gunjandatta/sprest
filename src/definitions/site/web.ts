@@ -7,10 +7,10 @@ import {
     IEventReceiver, IEventReceiverResult, IEventReceiverResults, IEventReceivers,
     IFeature,
     IField, IFieldResult, IFieldResults, IFields,
-    IFile, IFileResult, IFileResults,
-    IFolder, IFolderResult, IFolderResults, IFolders,
+    IFile, IFileQueryResult, IFileResult, IFileResults,
+    IFolder, IFolderQueryResult, IFolderResult, IFolderResults, IFolders,
     IGroup, IGroupResult, ISiteGroupResults, ISiteGroups,
-    IList, IListResult, IListResults, IListTemplate, ILists,
+    IList, IListQueryResult, IListResult, IListResults, ILists, IListTemplate,
     INavigation,
     IPropertyValues,
     IRecycleBinItem,
@@ -20,7 +20,7 @@ import {
     IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionResults, IRoleDefinitions,
     ITargetInfo,
     IThemeInfo,
-    IUser, IUserResult, IUserResults, IUsers,
+    IUser, IUserQueryResult, IUserResult, IUserResults, IUsers,
     IUserCustomAction, IUserCustomActionResults, IUserCustomActions,
     IWebInfo, IWebResult, IWebResults, IWebs,
     IWorkflowTemplate
@@ -69,6 +69,11 @@ export interface IWebMethods {
      * @param low - The lowest permission range value.
      */
     doesUserHavePermissions(high, low): IBase;
+
+    /**
+     * Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, it will add the user to the site.
+     */
+    ensureUser(loginName:string): IBase<IUser, IUserResult, IUserQueryResult>;
 
     /**
      * Sends data to an OData service.
@@ -145,19 +150,19 @@ export interface IWebMethods {
      * Returns the file object located at the specified server-relative URL.
      * @param url - The server relative url of the file.
      */
-    getFileByServerRelativeUrl(url): IFile;
+    getFileByServerRelativeUrl(url): IFile & IBase<IFile, IFileResult, IFileQueryResult>;
 
     /**
      * Returns the folder object located at the specified server-relative URL.
      * @param url - The server relative url of the folder.
      */
-    getFolderByServerRelativeUrl(url): IBase<IFolder>;
+    getFolderByServerRelativeUrl(url): IFolder & IBase<IFolder, IFolderResult, IFolderQueryResult>;
 
     /**
      * The list at the specified site-relative URL. (SharePoint Online only)
      * @param url - The server relative url of the list.
      */
-    getList(url): IBase<IList>;
+    getList(url): IList & IBase<IList, IListResult, IListQueryResult>;
 
     /**
      * The push notification subscriber over the site for the specified device application instance ID.
@@ -188,7 +193,7 @@ export interface IWebMethods {
      * Returns the user corresponding to the specified member identifier for the current site.
      * @param id - The user id.
      */
-    getUserById(id): IBase<IUser>;
+    getUserById(id): IUser & IBase<IUser, IUserResult, IUserQueryResult>;
 
     /**
      * The effective permissions that the specified user has within the current application scope.

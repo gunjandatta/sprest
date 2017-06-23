@@ -1,4 +1,4 @@
-import { IAppTiles, IBase, IBasePermissions, IContainsConfidentialInfo, IContentType, IContentTypeResult, IContentTypeResults, IContentTypes, IEventReceiver, IEventReceiverResults, IEventReceivers, IFeature, IField, IFieldResult, IFieldResults, IFields, IFile, IFolder, IFolderResult, IFolderResults, IFolders, IGroup, IGroupResult, ISiteGroupResults, ISiteGroups, IList, IListResult, IListResults, IListTemplate, ILists, INavigation, IPropertyValues, IRecycleBinItem, IRegionalSettings, IResourcePath, IResults, IRoleDefinition, IRoleDefinitionResults, IRoleDefinitions, ITargetInfo, IThemeInfo, IUser, IUserResult, IUserResults, IUsers, IUserCustomAction, IUserCustomActionResults, IUserCustomActions, IWebInfo, IWebResult, IWebResults, IWebs, IWorkflowTemplate } from "..";
+import { IAppTiles, IBase, IBasePermissions, IContainsConfidentialInfo, IContentType, IContentTypeResult, IContentTypeResults, IContentTypes, IEventReceiver, IEventReceiverResults, IEventReceivers, IFeature, IField, IFieldResult, IFieldResults, IFields, IFile, IFileQueryResult, IFileResult, IFolder, IFolderQueryResult, IFolderResult, IFolderResults, IFolders, IGroup, IGroupResult, ISiteGroupResults, ISiteGroups, IList, IListQueryResult, IListResult, IListResults, ILists, IListTemplate, INavigation, IPropertyValues, IRecycleBinItem, IRegionalSettings, IResourcePath, IResults, IRoleDefinition, IRoleDefinitionResults, IRoleDefinitions, ITargetInfo, IThemeInfo, IUser, IUserQueryResult, IUserResult, IUserResults, IUsers, IUserCustomAction, IUserCustomActionResults, IUserCustomActions, IWebInfo, IWebResult, IWebResults, IWebs, IWorkflowTemplate } from "..";
 /**
  * Web Methods
  */
@@ -37,6 +37,10 @@ export interface IWebMethods {
      * @param low - The lowest permission range value.
      */
     doesUserHavePermissions(high: any, low: any): IBase;
+    /**
+     * Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, it will add the user to the site.
+     */
+    ensureUser(loginName: string): IBase<IUser, IUserResult, IUserQueryResult>;
     /**
      * Sends data to an OData service.
      * @param inputStream - The OData input object. Used for create or update operations only.
@@ -100,17 +104,17 @@ export interface IWebMethods {
      * Returns the file object located at the specified server-relative URL.
      * @param url - The server relative url of the file.
      */
-    getFileByServerRelativeUrl(url: any): IFile;
+    getFileByServerRelativeUrl(url: any): IFile & IBase<IFile, IFileResult, IFileQueryResult>;
     /**
      * Returns the folder object located at the specified server-relative URL.
      * @param url - The server relative url of the folder.
      */
-    getFolderByServerRelativeUrl(url: any): IBase<IFolder>;
+    getFolderByServerRelativeUrl(url: any): IFolder & IBase<IFolder, IFolderResult, IFolderQueryResult>;
     /**
      * The list at the specified site-relative URL. (SharePoint Online only)
      * @param url - The server relative url of the list.
      */
-    getList(url: any): IBase<IList>;
+    getList(url: any): IList & IBase<IList, IListResult, IListQueryResult>;
     /**
      * The push notification subscriber over the site for the specified device application instance ID.
      * @param id - The ID of the device app instance.
@@ -136,7 +140,7 @@ export interface IWebMethods {
      * Returns the user corresponding to the specified member identifier for the current site.
      * @param id - The user id.
      */
-    getUserById(id: any): IBase<IUser>;
+    getUserById(id: any): IUser & IBase<IUser, IUserResult, IUserQueryResult>;
     /**
      * The effective permissions that the specified user has within the current application scope.
      * @param loginName - The user login name.

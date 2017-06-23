@@ -11,7 +11,7 @@ import {
     IUpgradeInfo, IUsageInfo,
     IUser, IUserResult,
     IUserCustomAction, IUserCustomActionResults, IUserCustomActions,
-    IWeb, IWebResult
+    IWeb, IWebQueryResult, IWebResult
 } from "..";
 
 /**
@@ -71,13 +71,13 @@ export interface ISiteMethods {
      * Returns the site at the specified URL.
      * @param strUrl - The server-relative URL or site-relative URL of the site to return. If strUrl is empty, the top-level site is returned.
      */
-    openWeb(strUrl): IBase<IWeb>;
+    openWeb(strUrl): IBase<IWeb, IWebResult, IWebQueryResult>;
 
     /**
      * Returns the site with the specified GUID.
      * @param gWebId - A GUID that specifies which site to return.
      */
-    openWebById(gWebId): IBase<IWeb>;
+    openWebById(gWebId): IBase<IWeb, IWebResult, IWebQueryResult>;
 
     /**
      * Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)

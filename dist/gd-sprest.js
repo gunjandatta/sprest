@@ -312,7 +312,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.63,
+    __ver: 1.64,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -4891,7 +4891,7 @@ exports.web = {
     },
     // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
     ensureUser: {
-        argNames: ["logonName"],
+        argNames: ["loginName"],
         requestType: types_1.RequestType.PostWithArgsInBody
     },
     // Sends data to an OData service.

@@ -22,7 +22,7 @@ export interface IFolderMethods {
      * Get the folder at the specified URL.
      * @param serverRelativeUrl - The server-relative URL of the folder.
      */
-    getByUrl(serverRelativeUrl): IFolder;
+    getByUrl(serverRelativeUrl): IFolder & IBase<IFolder, IFolderResult, IFolderQueryResult>;
 
     /**
      * Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
