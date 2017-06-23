@@ -62,9 +62,9 @@ export interface IFileVersionQueryResult extends IFileVersionMethods, IFileVersi
 /**
  * File Version Result
  */
-export interface IFileVersionResult extends IFileVersionMethods, IFileVersionProps, IFileVersionQueryProps {}
+export interface IFileVersionResult extends IFileVersionMethods, IFileVersionProps, IFileVersionQueryProps, IBase<IFileVersion, IFileVersionResult, IFileVersionQueryResult> { }
 
 /**
  * File Version
  */
-export interface IFileVersion extends IFileVersionMethods, IFileVersionQueryProps, IBase<IFileVersion, IFileVersionResult, IFileVersionQueryResult> {}
+export interface IFileVersion extends IFileVersionMethods, IFileVersionQueryProps, IBase<IFileVersion, IFileVersionResult, IFileVersionQueryResult> { }

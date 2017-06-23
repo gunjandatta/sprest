@@ -47,7 +47,7 @@ export interface IEventReceiverQueryResult extends IEventReceiverMethods, IEvent
 /**
  * Event Receiver Result
  */
-export interface IEventReceiverResult extends IEventReceiverMethods, IEventReceiverProps, IEventReceiverQueryProps {
+export interface IEventReceiverResult extends IEventReceiverMethods, IEventReceiverProps, IEventReceiverQueryProps, IBase<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> {
 }
 /**
  * Event Receiver

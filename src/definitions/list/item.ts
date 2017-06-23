@@ -8,7 +8,7 @@ import {
     IList, IListResult,
     IPropertyValues,
     IResults,
-    IRoleAssignment, IRoleAssignmentResult, IRoleAssignments
+    IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentResults, IRoleAssignments
 } from "..";
 
 /**
@@ -226,15 +226,15 @@ export interface IListItemQueryResult extends IListItemMethods, IListItemProps {
     /**
      * Gets the role assignments for the securable object.
      */
-    RoleAssignments: IResults<IRoleAssignmentResult>;
+    RoleAssignments: IRoleAssignmentResults;
 }
 
 /**
  * List Item Result
  */
-export interface IListItemResult extends IListItemMethods, IListItemProps, IListItemQueryProps {}
+export interface IListItemResult extends IListItemMethods, IListItemProps, IListItemQueryProps, IBase<IListItem, IListItemResult, IListItemQueryResult> { }
 
 /**
  * List Item
  */
-export interface IListItem extends IListItemMethods, IListItemQueryProps, IBase<IListItem, IListItemResult, IListItemQueryResult> {}
+export interface IListItem extends IListItemMethods, IListItemQueryProps, IBase<IListItem, IListItemResult, IListItemQueryResult> { }

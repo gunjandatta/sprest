@@ -1,4 +1,4 @@
-import { IBase, IBasePermissions, IContentType, IContentTypeResult, IContentTypes, IEventReceiver, IEventReceiverResult, IEventReceivers, IField, IFieldResult, IFields, IFile, IFolder, IFolderResult, IForm, IInformationRightsManagementSettings, IListDataSource, IListItem, IListItemResult, IListItems, IResourcePath, IResults, IRoleAssignment, IRoleAssignmentResult, IRoleAssignments, IStringValue, ISubscription, ITargetInfo, IUserCustomAction, IUserCustomActionResults, IUserCustomActions, IView, IViewResult, IViews, IWeb, IWebResult, SPTypes } from "..";
+import { IBase, IBasePermissions, IContentType, IContentTypeResults, IContentTypes, IEventReceiver, IEventReceiverResults, IEventReceivers, IField, IFieldResults, IFields, IFile, IFolder, IFolderResult, IForm, IInformationRightsManagementSettings, IListDataSource, IListItem, IListItemResults, IListItems, IResourcePath, IResults, IRoleAssignment, IRoleAssignmentResults, IRoleAssignments, IStringValue, ISubscription, ITargetInfo, IUserCustomAction, IUserCustomActionResults, IUserCustomActions, IView, IViewResult, IViewResults, IViews, IWeb, IWebResult, SPTypes } from "..";
 /**
  * List Methods
  */
@@ -350,7 +350,7 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the content types that are associated with the list.
      */
-    ContentTypes: IResults<IContentTypeResult>;
+    ContentTypes: IContentTypeResults;
     /**
      * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
      */
@@ -387,11 +387,11 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the event receivers associated with the list.
     */
-    EventReceivers: IResults<IEventReceiverResult>;
+    EventReceivers: IEventReceiverResults;
     /**
      * Gets the fields in the list.
      */
-    Fields: IResults<IFieldResult>;
+    Fields: IFieldResults;
     /**
      * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
      */
@@ -415,7 +415,7 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the list items in the list.
      */
-    Items: IResults<IListItemResult>;
+    Items: IListItemResults;
     /**
      * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
      */
@@ -427,7 +427,7 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the role assignments for the securable object.
      */
-    RoleAssignments: IResults<IRoleAssignmentResult>;
+    RoleAssignments: IRoleAssignmentResults;
     /**
      * Gets the root folder of the list.
      */
@@ -453,7 +453,7 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the views in the list.
      */
-    Views: IResults<IViewResult>;
+    Views: IViewResults;
     /**
      * Gets a value that specifies the collection of all workflow associations for the list.
      */
@@ -463,7 +463,7 @@ export interface IListQueryResult extends IListMethods, IListProps {
 /**
  * List Result
  */
-export interface IListResult extends IListMethods, IListProps, IListQueryProps {
+export interface IListResult extends IListMethods, IListProps, IListQueryProps, IBase<IList, IListResult, IListQueryResult> {
 }
 /**
  * List

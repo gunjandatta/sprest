@@ -61,9 +61,9 @@ export interface IFieldsMethods {
 /**
  * Fields
  */
-export interface IFields extends IBaseCollection<IField, IFieldResult, IFieldQueryResult> { }
+export interface IFields extends IFieldsMethods, IBaseCollection<IField, IFieldResult, IFieldQueryResult> { }
 
 /**
  * Field Results
  */
-export interface IFieldResults extends IBaseCollection<IFieldResult, IFieldResult, IFieldQueryResult> { }
+export interface IFieldResults extends IFieldsMethods, IBaseCollection<IFieldResult, IFieldResult, IFieldQueryResult> { }

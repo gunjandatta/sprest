@@ -1,4 +1,4 @@
-import { IBase, IGroup, IResults, ISiteGroups, IUser } from "..";
+import { IBase, IGroup, ISiteGroupResults, ISiteGroups, IUser } from "..";
 /**
  * User Methods
  */
@@ -51,12 +51,12 @@ export interface IUserQueryResult extends IUserMethods, IUserProps {
     /**
      * Gets the groups of which the user is a member.
      */
-    Groups: IResults<IGroup>;
+    Groups: ISiteGroupResults;
 }
 /**
  * User Result
  */
-export interface IUserResult extends IUserMethods, IUserProps, IUserQueryProps {
+export interface IUserResult extends IUserMethods, IUserProps, IUserQueryProps, IBase<IUser, IUserResult, IUserQueryResult> {
 }
 /**
  * User

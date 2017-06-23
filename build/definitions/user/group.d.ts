@@ -1,4 +1,4 @@
-import { IBase, IResults, IUser, IUserResult, IUsers } from "..";
+import { IBase, IUser, IUserResult, IUserResults, IUsers } from "..";
 /**
  * Group Methods
  */
@@ -92,12 +92,12 @@ export interface IGroupQueryResult extends IGroupMethods, IGroupProps {
     /**
      * Gets a collection of user objects that represents all of the users in the group.
      */
-    Users: IResults<IUserResult>;
+    Users: IUserResults;
 }
 /**
  * Group Result
  */
-export interface IGroupResult extends IGroupMethods, IGroupProps, IGroupQueryProps {
+export interface IGroupResult extends IGroupMethods, IGroupProps, IGroupQueryProps, IBase<IGroup, IGroupResult, IGroupQueryResult> {
 }
 /**
  * Group

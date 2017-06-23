@@ -1,4 +1,4 @@
-import { IAttachment, IAttachmentFiles, IBase, IBasePermissions, IContentType, IContentTypeResult, IFile, IFileResult, IFolder, IFolderResult, IList, IListResult, IPropertyValues, IResults, IRoleAssignment, IRoleAssignmentResult, IRoleAssignments } from "..";
+import { IAttachment, IAttachmentFiles, IBase, IBasePermissions, IContentType, IContentTypeResult, IFile, IFileResult, IFolder, IFolderResult, IList, IListResult, IPropertyValues, IResults, IRoleAssignment, IRoleAssignmentResults, IRoleAssignments } from "..";
 /**
  * List Item Methods
  */
@@ -173,12 +173,12 @@ export interface IListItemQueryResult extends IListItemMethods, IListItemProps {
     /**
      * Gets the role assignments for the securable object.
      */
-    RoleAssignments: IResults<IRoleAssignmentResult>;
+    RoleAssignments: IRoleAssignmentResults;
 }
 /**
  * List Item Result
  */
-export interface IListItemResult extends IListItemMethods, IListItemProps, IListItemQueryProps {
+export interface IListItemResult extends IListItemMethods, IListItemProps, IListItemQueryProps, IBase<IListItem, IListItemResult, IListItemQueryResult> {
 }
 /**
  * List Item

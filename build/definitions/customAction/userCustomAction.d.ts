@@ -60,7 +60,7 @@ export interface IUserCustomActionQueryResult extends IUserCustomActionMethods, 
 /**
  * User Custom Action Result
  */
-export interface IUserCustomActionResult extends IUserCustomActionMethods, IUserCustomActionProps, IUserCustomActionQueryProps {
+export interface IUserCustomActionResult extends IUserCustomActionMethods, IUserCustomActionProps, IUserCustomActionQueryProps, IBase<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> {
 }
 /**
  * User Custom Action

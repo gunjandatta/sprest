@@ -310,7 +310,7 @@ export interface ISiteQueryResult extends ISiteMethods, ISiteProps {
 /**
  * Site Result
  */
-export interface ISiteResult extends ISiteMethods, ISiteProps, ISiteQueryProps {}
+export interface ISiteResult extends ISiteMethods, ISiteProps, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {}
 
 /**
  * Site

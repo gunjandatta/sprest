@@ -115,7 +115,7 @@ export interface IViewQueryResult extends IViewMethods, IViewProps {
 /**
  * View Result
  */
-export interface IViewResult extends IViewMethods, IViewProps, IViewQueryProps {
+export interface IViewResult extends IViewMethods, IViewProps, IViewQueryProps, IBase<IView, IViewResult, IViewQueryResult> {
 }
 /**
  * View

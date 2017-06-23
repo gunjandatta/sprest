@@ -165,7 +165,7 @@ export interface IContentTypeQueryResult extends IContentTypeMethods, IContentTy
 /**
  * Content Type Result
  */
-export interface IContentTypeResult extends IContentTypeMethods, IContentTypeProps, IContentTypeQueryProps { }
+export interface IContentTypeResult extends IContentTypeMethods, IContentTypeProps, IContentTypeQueryProps, IBase<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
 
 /**
  * Content Type

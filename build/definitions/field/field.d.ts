@@ -107,7 +107,7 @@ export interface IFieldQueryResult extends IFieldMethods, IFieldProps {
 /**
  * Field Result
  */
-export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryProps {
+export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryProps, IBase<IField, IFieldResult, IFieldQueryResult> {
 }
 /**
  * Field

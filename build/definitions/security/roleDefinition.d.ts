@@ -40,7 +40,7 @@ export interface IRoleDefinitionQueryResult extends IRoleDefinitionMethods, IRol
 /**
  * Role Definition Result
  */
-export interface IRoleDefinitionResult extends IRoleDefinitionMethods, IRoleDefinitionProps, IRoleDefinitionQueryProps {
+export interface IRoleDefinitionResult extends IRoleDefinitionMethods, IRoleDefinitionProps, IRoleDefinitionQueryProps, IBase<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
 }
 /**
  * Role Definition

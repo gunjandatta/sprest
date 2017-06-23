@@ -11,7 +11,7 @@ export interface IListsMethods {
      * Adds a list to the list collection.
      * @param parameters - The list creation information.
      */
-    add(parameters: IListCreationInformation): IBase<IList>;
+    add(parameters: IListCreationInformation): IBase<IListResult>;
 
     /**
      * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.

@@ -232,7 +232,7 @@ export interface IFileQueryResult extends IFileMethods, IFileProps {
 /**
  * File Result
  */
-export interface IFileResult extends IFileMethods, IFileProps, IFileQueryProps {
+export interface IFileResult extends IFileMethods, IFileProps, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> {
 }
 /**
  * File

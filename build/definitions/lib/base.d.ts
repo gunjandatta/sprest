@@ -2,7 +2,7 @@ import { IRequestType, IResults, ODataQuery } from "..";
 /**
  * The base class
  */
-export interface IBase<Type = any, Result = any, QueryResult = any> {
+export interface IBase<Type = any, Result = Type, QueryResult = Result> {
     /**
      * Properties
      */
@@ -53,5 +53,5 @@ export interface IBase<Type = any, Result = any, QueryResult = any> {
 /**
  * Base Collection
  */
-export interface IBaseCollection<Type = any, Result = any, QueryResult = any> extends IResults<Type>, IBase<IResults<Result>, IResults<Result>, IResults<QueryResult>> {
+export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IResults<Type>, IBase<IResults<Result>, IResults<Result>, IResults<QueryResult>> {
 }

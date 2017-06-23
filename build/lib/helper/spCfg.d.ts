@@ -27,9 +27,12 @@ export declare class SPConfig {
     /**
      * Methods
      */
-    private isInCollection;
+    private installContentTypes;
+    private installFields;
+    private installLists;
     private installSite;
     private installUserCustomActions;
+    private isInCollection;
     private getWeb;
     private createContentType;
     private createContentTypes;
