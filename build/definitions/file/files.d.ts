@@ -1,8 +1,8 @@
 import { IBase, IBaseCollection, IFile, IFileQueryResult, IFileResult, SPTypes } from "..";
 /**
- * Files
+ * Methods
  */
-export interface IFiles extends IBaseCollection<IFile, IFileResult, IFileQueryResult> {
+export interface IFilesMethods {
     /**
      * Methods
      */
@@ -28,4 +28,14 @@ export interface IFiles extends IBaseCollection<IFile, IFileResult, IFileQueryRe
      * Method to get the next set of results.
      */
     next(): IBase<IFiles>;
+}
+/**
+ * Files
+ */
+export interface IFiles extends IFilesMethods, IBaseCollection<IFile, IFileResult, IFileQueryResult> {
+}
+/**
+ * File Results
+ */
+export interface IFileResults extends IFilesMethods, IBaseCollection<IFileResult, IFileResult, IFileQueryResult> {
 }

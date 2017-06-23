@@ -1,4 +1,4 @@
-import { IBase, IBasePermissions, IContentType, IContentTypeResult, IContentTypes, IEventReceiver, IEventReceiverResult, IEventReceivers, IField, IFieldResult, IFields, IFile, IFolder, IFolderResult, IForm, IInformationRightsManagementSettings, IListDataSource, IListItem, IListItemResult, IListItems, IResourcePath, IResults, IRoleAssignment, IRoleAssignmentResult, IRoleAssignments, IStringValue, ISubscription, ITargetInfo, IUserCustomAction, IUserCustomActionResult, IUserCustomActions, IView, IViewResult, IViews, IWeb, IWebResult, SPTypes } from "..";
+import { IBase, IBasePermissions, IContentType, IContentTypeResult, IContentTypes, IEventReceiver, IEventReceiverResult, IEventReceivers, IField, IFieldResult, IFields, IFile, IFolder, IFolderResult, IForm, IInformationRightsManagementSettings, IListDataSource, IListItem, IListItemResult, IListItems, IResourcePath, IResults, IRoleAssignment, IRoleAssignmentResult, IRoleAssignments, IStringValue, ISubscription, ITargetInfo, IUserCustomAction, IUserCustomActionResults, IUserCustomActions, IView, IViewResult, IViews, IWeb, IWebResult, SPTypes } from "..";
 /**
  * List Methods
  */
@@ -441,7 +441,7 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the user custom actions for the list.
      */
-    UserCustomActions: IResults<IUserCustomActionResult>;
+    UserCustomActions: IUserCustomActionResults;
     /**
      * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
      */

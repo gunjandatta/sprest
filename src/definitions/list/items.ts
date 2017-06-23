@@ -4,9 +4,9 @@ import {
 } from "..";
 
 /**
- * List Items
+ * Methods
  */
-export interface IListItems extends IBaseCollection<IListItem, IListItemResult, IListItemQueryResult> {
+export interface IListItemsMethods {
     /**
      * Adds an item to the list item collection.
      * @param data - The item properties.
@@ -24,3 +24,13 @@ export interface IListItems extends IBaseCollection<IListItem, IListItemResult, 
      */
     next(): IBase<IListItems>;
 }
+
+/**
+ * List Items
+ */
+export interface IListItems extends IListItemsMethods, IBaseCollection<IListItem, IListItemResult, IListItemQueryResult> { }
+
+/**
+ * List Item Results
+ */
+export interface IListItemResults extends IListItemsMethods, IBaseCollection<IListItemResult, IListItemResult, IListItemQueryResult> { }

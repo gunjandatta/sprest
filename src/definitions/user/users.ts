@@ -4,9 +4,9 @@ import {
 } from "..";
 
 /**
- * Users
+ * Methods
  */
-export interface IUsers extends IBaseCollection<IUser, IUserResult, IUserQueryResult> {
+export interface IUsersMethods {
     /**
      * Adds a site to the site collection.
      * @param userInfo - The user creation information.
@@ -48,3 +48,13 @@ export interface IUsers extends IBaseCollection<IUser, IUserResult, IUserQueryRe
      */
     removeByLoginName(loginName): IBase;
 }
+
+/**
+ * Users
+ */
+export interface IUsers extends IUsersMethods, IBaseCollection<IUser, IUserResult, IUserQueryResult> { }
+
+/**
+ * User Results
+ */
+export interface IUserResults extends IUsersMethods, IBaseCollection<IUserResult, IUserResult, IUserQueryResult> { }

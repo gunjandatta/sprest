@@ -4,9 +4,9 @@ import {
 } from "..";
 
 /**
- * Fields
+ * Methods
  */
-export interface IFields extends IBaseCollection<IField, IFieldResult, IFieldQueryResult> {
+export interface IFieldsMethods {
     /**
      * Adds a field to the field collection.
      * @param parameters - The field properties.
@@ -57,3 +57,13 @@ export interface IFields extends IBaseCollection<IField, IFieldResult, IFieldQue
      */
     next(): IBase<IFields>;
 }
+
+/**
+ * Fields
+ */
+export interface IFields extends IBaseCollection<IField, IFieldResult, IFieldQueryResult> { }
+
+/**
+ * Field Results
+ */
+export interface IFieldResults extends IBaseCollection<IFieldResult, IFieldResult, IFieldQueryResult> { }

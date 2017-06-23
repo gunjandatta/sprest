@@ -1,4 +1,4 @@
-import { IAppTiles, IBase, IBasePermissions, IContainsConfidentialInfo, IContentType, IContentTypeResult, IContentTypes, IEventReceiver, IEventReceiverResult, IEventReceivers, IFeature, IField, IFieldResult, IFields, IFile, IFolder, IFolderResult, IFolders, IGroup, IGroupResult, ISiteGroups, IList, IListResult, IListTemplate, ILists, INavigation, IPropertyValues, IRecycleBinItem, IRegionalSettings, IResourcePath, IResults, IRoleDefinition, IRoleDefinitionResult, IRoleDefinitions, ITargetInfo, IThemeInfo, IUser, IUserResult, IUsers, IUserCustomAction, IUserCustomActionResult, IUserCustomActions, IWebInfo, IWebResult, IWebs, IWorkflowTemplate } from "..";
+import { IAppTiles, IBase, IBasePermissions, IContainsConfidentialInfo, IContentType, IContentTypeResult, IContentTypes, IEventReceiver, IEventReceiverResult, IEventReceivers, IFeature, IField, IFieldResult, IFields, IFile, IFolder, IFolderResult, IFolders, IGroup, IGroupResult, ISiteGroups, IList, IListResult, IListTemplate, ILists, INavigation, IPropertyValues, IRecycleBinItem, IRegionalSettings, IResourcePath, IResults, IRoleDefinition, IRoleDefinitionResult, IRoleDefinitions, ITargetInfo, IThemeInfo, IUser, IUserResult, IUsers, IUserCustomAction, IUserCustomActionResults, IUserCustomActions, IWebInfo, IWebResult, IWebs, IWorkflowTemplate } from "..";
 /**
  * Web Methods
  */
@@ -646,7 +646,7 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * Gets the user custom actions for the web.
      */
-    UserCustomActions: IResults<IUserCustomActionResult>;
+    UserCustomActions: IUserCustomActionResults;
     /**
      * Represents key properties of the subsites of a site.
      */

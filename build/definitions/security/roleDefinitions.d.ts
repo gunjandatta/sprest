@@ -1,8 +1,8 @@
 import { IBase, IBaseCollection, IRoleDefinition, IRoleDefinitionQueryResult, IRoleDefinitionResult, SPTypes } from "..";
 /**
- * Role Definitions
+ * Methods
  */
-export interface IRoleDefinitions extends IBaseCollection<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
+export interface IRoleDefinitionsMethods {
     /**
      * Gets the role definition with the specified ID from the collection.
      * @param roleDefId - The ID of the role definition that defines the permissions to assign.
@@ -22,4 +22,14 @@ export interface IRoleDefinitions extends IBaseCollection<IRoleDefinition, IRole
      * Method to get the next set of results.
      */
     next(): IBase<IRoleDefinitions>;
+}
+/**
+ * Role Definitions
+ */
+export interface IRoleDefinitions extends IRoleDefinitionsMethods, IBaseCollection<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
+}
+/**
+ * Role Definition Results
+ */
+export interface IRoleDefinitionResults extends IRoleDefinitionsMethods, IBaseCollection<IRoleDefinitionResult, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
 }

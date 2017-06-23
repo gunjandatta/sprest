@@ -4,9 +4,9 @@ import {
 } from "..";
 
 /**
- * Lists
+ * Methods
  */
-export interface ILists extends IBaseCollection<IList, IListResult, IListQueryResult> {
+export interface IListsMethods {
     /**
      * Adds a list to the list collection.
      * @param parameters - The list creation information.
@@ -40,3 +40,13 @@ export interface ILists extends IBaseCollection<IList, IListResult, IListQueryRe
      */
     next(): IBase<ILists>;
 }
+
+/**
+ * Lists
+ */
+export interface ILists extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> {}
+
+/**
+ * List Results
+ */
+export interface IListResults extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> {}

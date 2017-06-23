@@ -10,7 +10,7 @@ import {
     ITargetInfo,
     IUpgradeInfo, IUsageInfo,
     IUser, IUserResult,
-    IUserCustomAction, IUserCustomActionResult, IUserCustomActions,
+    IUserCustomAction, IUserCustomActionResults, IUserCustomActions,
     IWeb, IWebResult
 } from "..";
 
@@ -304,7 +304,7 @@ export interface ISiteQueryResult extends ISiteMethods, ISiteProps {
     /**
      * Gets the user custom action for the list.
      */
-    UserCustomActions: IResults<IUserCustomActionResult>;
+    UserCustomActions: IUserCustomActionResults;
 }
 
 /**

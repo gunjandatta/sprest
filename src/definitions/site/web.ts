@@ -21,7 +21,7 @@ import {
     ITargetInfo,
     IThemeInfo,
     IUser, IUserResult, IUsers,
-    IUserCustomAction, IUserCustomActionResult, IUserCustomActions,
+    IUserCustomAction, IUserCustomActionResults, IUserCustomActions,
     IWebInfo, IWebResult, IWebs,
     IWorkflowTemplate
 } from "..";
@@ -846,7 +846,7 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * Gets the user custom actions for the web.
      */
-    UserCustomActions: IResults<IUserCustomActionResult>;
+    UserCustomActions: IUserCustomActionResults;
 
     /**
      * Represents key properties of the subsites of a site.

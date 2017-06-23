@@ -1,4 +1,4 @@
-import { IAudit, IBase, IEventReceiver, IEventReceiverResult, IEventReceivers, IFeature, IRecycleBinItem, IResourcePath, IResults, ISiteMethods, ITargetInfo, IUpgradeInfo, IUsageInfo, IUser, IUserResult, IUserCustomAction, IUserCustomActionResult, IUserCustomActions, IWeb, IWebResult } from "..";
+import { IAudit, IBase, IEventReceiver, IEventReceiverResult, IEventReceivers, IFeature, IRecycleBinItem, IResourcePath, IResults, ISiteMethods, ITargetInfo, IUpgradeInfo, IUsageInfo, IUser, IUserResult, IUserCustomAction, IUserCustomActionResults, IUserCustomActions, IWeb, IWebResult } from "..";
 /**
  * Site Methods
  */
@@ -215,7 +215,7 @@ export interface ISiteQueryResult extends ISiteMethods, ISiteProps {
     /**
      * Gets the user custom action for the list.
      */
-    UserCustomActions: IResults<IUserCustomActionResult>;
+    UserCustomActions: IUserCustomActionResults;
 }
 /**
  * Site Result

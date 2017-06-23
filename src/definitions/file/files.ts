@@ -5,9 +5,9 @@ import {
 } from "..";
 
 /**
- * Files
+ * Methods
  */
-export interface IFiles extends IBaseCollection<IFile, IFileResult, IFileQueryResult> {
+export interface IFilesMethods {
     /**
      * Methods
      */
@@ -38,3 +38,13 @@ export interface IFiles extends IBaseCollection<IFile, IFileResult, IFileQueryRe
      */
     next(): IBase<IFiles>;
 }
+
+/**
+ * Files
+ */
+export interface IFiles extends IFilesMethods, IBaseCollection<IFile, IFileResult, IFileQueryResult> { }
+
+/**
+ * File Results
+ */
+export interface IFileResults extends IFilesMethods, IBaseCollection<IFileResult, IFileResult, IFileQueryResult> { }

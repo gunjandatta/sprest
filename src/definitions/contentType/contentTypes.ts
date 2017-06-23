@@ -4,9 +4,9 @@ import {
 } from "..";
 
 /**
- * Content Types
+ * Methods
  */
-export interface IContentTypes extends IBaseCollection<IContentType, IContentTypeResult, IContentTypeQueryResult> {
+export interface IContentTypesMethods {
     /**
      * Adds a content type to the collection.
      * @param parameters - The content type creation information.
@@ -30,3 +30,13 @@ export interface IContentTypes extends IBaseCollection<IContentType, IContentTyp
      */
     next(): IBase<IContentTypes>;
 }
+
+/**
+ * Content Types
+ */
+export interface IContentTypes extends IContentTypesMethods, IBaseCollection<IContentType, IContentTypeResult, IContentTypeQueryResult> { }
+
+/**
+ * Content Type Results
+ */
+export interface IContentTypeResults extends IContentTypesMethods, IBaseCollection<IContentTypeResult, IContentTypeResult, IContentTypeQueryResult> { }

@@ -1,12 +1,13 @@
 import {
     IBase, IBaseCollection,
+    IResults,
     IUserCustomAction, IUserCustomActionCreationInformation, IUserCustomActionQueryResult, IUserCustomActionResult
 } from "..";
 
 /**
- * User Custom Actions
+ * Methods
  */
-export interface IUserCustomActions extends IBaseCollection<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> {
+export interface IUserCustomActionsMethods {
     /**
      * Adds a custom actino to the user custom action collection. 
      * @param parameters - The user custom action information.
@@ -29,3 +30,14 @@ export interface IUserCustomActions extends IBaseCollection<IUserCustomAction, I
      */
     next(): IBase<IUserCustomActions>;
 }
+
+/**
+ * User Custom Actions
+ */
+export interface IUserCustomActions extends IUserCustomActionsMethods, IBaseCollection<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> {
+}
+
+/**
+ * User Custom Action Results
+ */
+export interface IUserCustomActionResults extends IUserCustomActionsMethods, IBaseCollection<IUserCustomActionResult, IUserCustomActionResult, IUserCustomActionQueryResult> { }

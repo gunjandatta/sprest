@@ -1,4 +1,4 @@
-import { IContentTypes, IFields, IFolder, ILists, ISPConfigProps, IUserCustomActions } from "../../definitions";
+import { ISPConfigProps } from "../../definitions";
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
 export declare class SPConfig {
@@ -15,18 +15,22 @@ export declare class SPConfig {
      * Public Methods
      */
     install(callback?: any, cfgType?: number): void;
-    installByType: (cfgType: number, callback?: any, targetName?: string) => IFields | IContentTypes | IUserCustomActions | IFolder | ILists;
+    installByType: (cfgType: number, callback?: any, targetName?: string) => any;
     installList(listName: string, callback?: any): void;
     installSiteCustomAction(caName: string, callback?: any): void;
     installWebCustomAction(caName: string, callback?: any): void;
     uninstall(callback?: any, cfgType?: number): void;
-    uninstallByType: (cfgType: number, callback?: any, targetName?: string) => IFields | IContentTypes | IUserCustomActions | IFolder | ILists;
+    uninstallByType: (cfgType: number, callback?: any, targetName?: string) => any;
     uninstallList(listName: string, callback?: any): void;
     uninstallSiteCustomAction(caName: string, callback?: any): void;
     uninstallWebCustomAction(caName: string, callback?: any): void;
     /**
      * Methods
      */
+    private isInCollection;
+    private installSite;
+    private installUserCustomActions;
+    private getWeb;
     private createContentType;
     private createContentTypes;
     private createFields;

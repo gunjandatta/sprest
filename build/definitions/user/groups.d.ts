@@ -1,8 +1,8 @@
 import { IBase, IBaseCollection, IGroup, IGroupCreationInformation, IGroupQueryResult, IGroupResult } from "..";
 /**
- * Site Groups
+ * Methods
  */
-export interface ISiteGroups extends IBaseCollection<IGroup, IGroupResult, IGroupQueryResult> {
+export interface ISiteGroupsMethods {
     /**
      * Adds a site to the site collection.
      * @param groupInfo - The group creation information.
@@ -32,4 +32,14 @@ export interface ISiteGroups extends IBaseCollection<IGroup, IGroupResult, IGrou
      * @param name - The name of the group to remove. The group name is specified in its LoginName property.
      */
     removeByLoginName(name: any): IBase;
+}
+/**
+ * Site Groups
+ */
+export interface ISiteGroups extends ISiteGroupsMethods, IBaseCollection<IGroup, IGroupResult, IGroupQueryResult> {
+}
+/**
+ * Site Group Results
+ */
+export interface ISiteGroupResults extends ISiteGroupsMethods, IBaseCollection<IGroupResult, IGroupResult, IGroupQueryResult> {
 }

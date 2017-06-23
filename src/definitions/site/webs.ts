@@ -4,17 +4,27 @@ import {
 } from "..";
 
 /**
- * Webs
+ * Methods
  */
-export interface IWebs extends IBaseCollection<IWeb, IWebResult, IWebQueryResult> {
+export interface IWebsMethods {
     /**
      * Adds a site to the site collection.
      * @param parameters - The web creation information.
      */
-    add(parameters:IWebCreationInformation): IBase<IWeb>;
+    add(parameters: IWebCreationInformation): IBase<IWeb>;
 
     /**
      * Method to get the next set of results.
      */
     next(): IBase<IWebs>;
 }
+
+/**
+ * Webs
+ */
+export interface IWebs extends IWebsMethods, IBaseCollection<IWeb, IWebResult, IWebQueryResult> { }
+
+/**
+ * Web Results
+ */
+export interface IWebResults extends IWebsMethods, IBaseCollection<IWebResult, IWebResult, IWebQueryResult> { }

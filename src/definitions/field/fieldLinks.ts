@@ -3,6 +3,7 @@ import {
     IFieldLink,
     IResults
 } from "..";
+
 /**
  * Field Links
  */

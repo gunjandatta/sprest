@@ -1,8 +1,8 @@
 import { IBase, IBaseCollection, IEventReceiver, IEventReceiverDefinitionCreationInformation, IEventReceiverQueryResult, IEventReceiverResult } from "..";
 /**
- * Event Receivers
+ * Methods
  */
-export interface IEventReceivers extends IBaseCollection<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> {
+export interface IEventReceiversMethods {
     /**
      * Adds an event receiver to the collection.
      * @param parameters - The event receiver definition creation information.
@@ -17,4 +17,14 @@ export interface IEventReceivers extends IBaseCollection<IEventReceiver, IEventR
      * Method to get the next set of results.
      */
     next(): IBase<IEventReceivers>;
+}
+/**
+ * Event Receivers
+ */
+export interface IEventReceivers extends IEventReceiversMethods, IBaseCollection<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> {
+}
+/**
+ * Event Receiver Results
+ */
+export interface IEventReceiverResults extends IEventReceiversMethods, IBaseCollection<IEventReceiverResult, IEventReceiverResult, IEventReceiverQueryResult> {
 }

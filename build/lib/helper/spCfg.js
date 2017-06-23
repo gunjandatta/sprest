@@ -141,6 +141,77 @@ var SPConfig = (function () {
         /**
          * Methods
          */
+        // Method to see if an object exists in a collection
+        this.isInCollection = function (key, value, collection) {
+            var valueLower = value.toLowerCase();
+            // Parse the collection
+            for (var i = 0; i < collection.length; i++) {
+                // See if the item exists
+                if (valueLower == collection[i][key].toLowerCase()) {
+                    // Return true
+                    return true;
+                }
+            }
+            // Not in the collection
+            return false;
+        };
+        // Method to install the site components
+        this.installSite = function () {
+            var promise = new utils_1.Promise();
+            // Ensure site user custom actions exist
+            if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
+                // Resolve the promise
+                promise.resolve();
+            }
+            // Get the site
+            (new __1.Site(_this._webUrl))
+                .query({
+                Expand: ["UserCustomActions"]
+            })
+                .execute(function (site) {
+                // Install the user custom actions
+                _this.installUserCustomActions(site.UserCustomActions);
+                // Wait for the requests to complete
+                site.UserCustomActions.done(function () {
+                    // Resolve the promise
+                    promise.resolve(site);
+                });
+            });
+            // Return the promise
+            return promise;
+        };
+        // Method to install the user custom actions
+        this.installUserCustomActions = function (customActions) {
+            // Parse the custom actions
+            for (var i = 0; i < _this._configuration.CustomActionCfg.Site.length; i++) {
+                var customAction = _this._configuration.CustomActionCfg.Site[i];
+                // See if this custom action already exists
+                if (_this.isInCollection("Name", customAction.Name, customActions.results)) {
+                    // Log
+                    console.log("[gd-sprest][Site] The custom action '" + customAction.Name + "' already exists.");
+                }
+                else {
+                    // Add the custom action
+                    customActions.add(customAction).execute(true);
+                }
+            }
+        };
+        // Method to get the web
+        this.getWeb = function () {
+            var promise = new utils_1.Promise();
+            // Get the web
+            (new __1.Web(_this._webUrl))
+                .query({
+                Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
+            })
+                .execute(function (web) {
+                // 
+                // Resolve the promise
+                promise.resolve(web);
+            });
+            // Return the promise
+            return promise;
+        };
         // Method to create the content type
         this.createContentType = function (cfgItem, contentTypes, web) {
             // Create the web

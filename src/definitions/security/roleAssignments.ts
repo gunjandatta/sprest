@@ -4,9 +4,9 @@ import {
 } from "..";
 
 /**
- * Role Assignments
+ * Methods
  */
-export interface IRoleAssignments extends IBaseCollection<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
+export interface IRoleAssignmentsMethods {
     /**
      * Adds a new role assignment with the specified principal and role definitions to the collection.
      * @param principalId - The ID of the user or group to assign permissions to.
@@ -32,3 +32,13 @@ export interface IRoleAssignments extends IBaseCollection<IRoleAssignment, IRole
      */
     next(): IBase<IRoleAssignments>;
 }
+
+/**
+ * Role Assignments
+ */
+export interface IRoleAssignments extends IRoleAssignmentsMethods, IBaseCollection<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
+
+/**
+ * Role Assignment Results
+ */
+export interface IRoleAssignmentResults extends IRoleAssignmentsMethods, IBaseCollection<IRoleAssignmentResult, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
