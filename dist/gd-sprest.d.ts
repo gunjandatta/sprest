@@ -3529,7 +3529,6 @@ export * from "./security";
 export * from "./site";
 export * from "./social";
 export * from "./user";
-export * from "./web";
 export * from "./webpart";
 export { ComplexTypes };
 

@@ -12,18 +12,18 @@ export interface IFilesMethods {
      * @param url - The folder-relative URL of the file.
      * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
      */
-    add(overwrite: any, url: any, content: any): IBase<IFile>;
+    add(overwrite: any, url: any, content: any): IBase<IFileResult>;
     /**
      * Adds a ghosted file to an existing list or document library.
      * @param urlOfFile - The server-relative URL where you want to save the file.
      * @param templateFileType - The SP.TemplateFileType to use to create the file.
      */
-    addTemplateFile(urlOfFile: any, templateFileType: SPTypes.FileTemplateType): IBase<IFile>;
+    addTemplateFile(urlOfFile: any, templateFileType: SPTypes.FileTemplateType): IBase<IFileResult>;
     /**
      * Get the file at the specified URL.
      * @param serverRelativeUrl - The name or server relative url of the file.
      */
-    getByUrl(serverRelativeUrl: any): IFile;
+    getByUrl(serverRelativeUrl: any): IBase<IFileResult>;
     /**
      * Method to get the next set of results.
      */

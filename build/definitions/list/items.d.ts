@@ -7,12 +7,12 @@ export interface IListItemsMethods {
      * Adds an item to the list item collection.
      * @param data - The item properties.
      */
-    add(data: any): IBase<IListItem>;
+    add(data: any): IBase<IListItemResult>;
     /**
      * Gets an item by the specified id.
      * @param id - The item id.
      */
-    getById(id: any): IListItem;
+    getById(id: any): IBase<IListItemResult>;
     /**
      * Method to get the next set of results.
      */

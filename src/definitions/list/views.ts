@@ -10,19 +10,19 @@ export interface IViewsMethods {
     /**
      * Adds a list view to the view collection.
      */
-    add(parameters: IViewCreationInformation): IBase<IView>;
+    add(parameters: IViewCreationInformation): IBase<IViewResult>;
 
     /**
      * Gets the list view with the specified ID.
      * @param id - The ID of the view.
      */
-    getById(id): IView;
+    getById(id): IBase<IViewResult>;
 
     /**
      * Gets the list view with the specified title.
      * @param title - The case-sensitive title of the view.
      */
-    getByTitle(title): IView;
+    getByTitle(title): IBase<IViewResult>;
 
     /**
      * Method to get the next set of results.
