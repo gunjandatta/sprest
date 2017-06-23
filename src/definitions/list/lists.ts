@@ -27,13 +27,13 @@ export interface IListsMethods {
      * Returns the list with the specified list identifier.
      * @param id - The list id.
      */
-    getById(id): IBase<IList, IListResult, IListQueryResult>;
+    getById(id): IList & IBase<IList, IListResult, IListQueryResult>;
 
     /**
      * Returns the list with the specified title from the collection.
      * @param title - The list title.
      */
-    getByTitle(title): IBase<IList, IListResult, IListQueryResult>;
+    getByTitle(title): IList & IBase<IList, IListResult, IListQueryResult>;
 
     /**
      * Method to get the next set of results.

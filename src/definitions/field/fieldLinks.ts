@@ -18,7 +18,7 @@ export interface IFieldLinks extends IBaseCollection<IFieldLink, IFieldLink, IFi
      * Gets the field link by its id.
      * @param id - The id of the field.
      */
-    getById(id): IBase<IFieldLink>;
+    getById(id): IFieldLink & IBase<IFieldLink>;
 
     /**
      * Method to get the next set of results.

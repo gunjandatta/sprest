@@ -23,7 +23,7 @@ export interface IUserCustomActionsMethods {
      * Returns the custom action with the specified identifier.
      * @param id - The ID of the user custom action to get.
      */
-    getById(id): IBase<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult>;
+    getById(id): IUserCustomAction & IBase<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult>;
 
     /**
      * Method to get the next set of results.

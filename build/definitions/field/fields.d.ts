@@ -30,17 +30,17 @@ export interface IFieldsMethods {
      * Gets the field with the specified ID.
      * @param id - The field id.
      */
-    getById(id: any): IBase<IField, IFieldResult, IFieldQueryResult>;
+    getById(id: any): IField & IBase<IField, IFieldResult, IFieldQueryResult>;
     /**
      * Returns the first Field object with the specified internal name or title from the collection.
      * @param internalNameOrTitle - The internal name or title of the field.
      */
-    getByInternalNameOrTitle(internalNameOrTitle: any): IBase<IField, IFieldResult, IFieldQueryResult>;
+    getByInternalNameOrTitle(internalNameOrTitle: any): IField & IBase<IField, IFieldResult, IFieldQueryResult>;
     /**
      * Returns the first field object in the collection based on the title of the specified field.
      * @param title - The title of the field.
      */
-    getByTitle(title: any): IBase<IField, IFieldResult, IFieldQueryResult>;
+    getByTitle(title: any): IField & IBase<IField, IFieldResult, IFieldQueryResult>;
     /**
      * Method to get the next set of results.
      */

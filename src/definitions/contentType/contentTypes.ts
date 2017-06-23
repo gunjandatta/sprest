@@ -23,7 +23,7 @@ export interface IContentTypesMethods {
      * Gets a content type by id.
      * @param id - The content type id.
      */
-    getById(id): IBase<IContentType, IContentTypeResult, IContentTypeQueryResult>;
+    getById(id): IContentType & IBase<IContentType, IContentTypeResult, IContentTypeQueryResult>;
 
     /**
      * Method to get the next set of results.

@@ -11,7 +11,7 @@ export interface IWebsMethods {
     /**
      * Method to get the next set of results.
      */
-    next(): IBase<IWebs, IWebResults>;
+    next(): IWebs & IBase<IWebs, IWebResults>;
 }
 /**
  * Webs

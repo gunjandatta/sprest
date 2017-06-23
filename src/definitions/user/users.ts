@@ -17,19 +17,19 @@ export interface IUsersMethods {
      * Gets the user with the specified email address.
      * @param email - The email of the user to get.
      */
-    getByEmail(email): IBase<IUser, IUserResult, IUserQueryResult>;
+    getByEmail(email): IUser & IBase<IUser, IUserResult, IUserQueryResult>;
 
     /**
      * Gets the user with the specified member identifier (ID).
      * @param id - The ID of the user to get.
      */
-    getById(id): IBase<IUser, IUserResult, IUserQueryResult>;
+    getById(id): IUser & IBase<IUser, IUserResult, IUserQueryResult>;
 
     /**
      * Gets the user with the specified login name.
      * @param loginName - The login name of the user to get, passed as an alias in the query string.
      */
-    getByLoginName(loginName): IBase<IUser, IUserResult, IUserQueryResult>;
+    getByLoginName(loginName): IUser & IBase<IUser, IUserResult, IUserQueryResult>;
 
     /**
      * Method to get the next set of results.

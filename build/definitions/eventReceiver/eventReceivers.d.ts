@@ -12,7 +12,7 @@ export interface IEventReceiversMethods {
      * Gets an event receiver in the collection.
      * @param id - The id of the event receiver.
      */
-    getById(id: string): IBase<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult>;
+    getById(id: string): IEventReceiver & IBase<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult>;
     /**
      * Method to get the next set of results.
      */

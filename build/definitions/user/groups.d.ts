@@ -12,12 +12,12 @@ export interface ISiteGroupsMethods {
      * Returns a group from the collection based on the member ID of the group.
      * @param id - The site group id.
      */
-    getById(id: any): IBase<IGroup, IGroupResult, IGroupQueryResult>;
+    getById(id: any): IGroup & IBase<IGroup, IGroupResult, IGroupQueryResult>;
     /**
      * Returns a cross-site group from the collection based on the name of the group.
      * @param name - The name of the group. The group name is specified in its LoginName property.
      */
-    getByName(name: any): IBase<IGroup, IGroupResult, IGroupQueryResult>;
+    getByName(name: any): IGroup & IBase<IGroup, IGroupResult, IGroupQueryResult>;
     /**
      * Method to get the next set of results.
      */

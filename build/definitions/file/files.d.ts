@@ -23,7 +23,7 @@ export interface IFilesMethods {
      * Get the file at the specified URL.
      * @param serverRelativeUrl - The name or server relative url of the file.
      */
-    getByUrl(serverRelativeUrl: any): IBase<IFile, IFileResult, IFileQueryResult>;
+    getByUrl(serverRelativeUrl: any): IFile & IBase<IFile, IFileResult, IFileQueryResult>;
     /**
      * Method to get the next set of results.
      */

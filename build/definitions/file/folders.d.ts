@@ -12,7 +12,7 @@ export interface IFoldersMethods {
      * Get the file at the specified URL.
      * @param serverRelativeUrl - The server-relative URL of the folder.
      */
-    getbyurl(serverRelativeUrl: any): IBase<IFolder, IFolderResult, IFolderQueryResult>;
+    getbyurl(serverRelativeUrl: any): IFolder & IBase<IFolder, IFolderResult, IFolderQueryResult>;
     /**
      * Method to get the next set of results.
      */

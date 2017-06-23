@@ -17,7 +17,7 @@ export interface IListItemsMethods {
      * Gets an item by the specified id.
      * @param id - The item id.
      */
-    getById(id): IBase<IListItem, IListItemResult, IListItemQueryResult>;
+    getById(id): IListItem & IBase<IListItem, IListItemResult, IListItemQueryResult>;
 
     /**
      * Method to get the next set of results.
