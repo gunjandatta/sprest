@@ -152,7 +152,7 @@ export interface IViewProps {
  */
 export interface IViewQueryProps {
     /** Gets a value that specifies the collection of fields in the list view. */
-    ViewFields(): IBase<IViewFields>;
+    ViewFields(): IViewFields;
 }
 
 /**

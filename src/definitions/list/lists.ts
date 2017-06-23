@@ -16,24 +16,24 @@ export interface IListsMethods {
     /**
      * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
      */
-    ensureSiteAssetsLibrary(): IBase<IList>;
+    ensureSiteAssetsLibrary(): IBase<IListResult>;
 
     /**
      * Gets a list that is the default location for wiki pages.
      */
-    ensureSitePagesLibrary(): IBase<IList>;
+    ensureSitePagesLibrary(): IBase<IListResult>;
 
     /**
      * Returns the list with the specified list identifier.
      * @param id - The list id.
      */
-    getById(id): IList;
+    getById(id): IBase<IListResult>;
 
     /**
      * Returns the list with the specified title from the collection.
      * @param title - The list title.
      */
-    getByTitle(title): IList;
+    getByTitle(title): IBase<IListResult>;
 
     /**
      * Method to get the next set of results.
@@ -44,9 +44,9 @@ export interface IListsMethods {
 /**
  * Lists
  */
-export interface ILists extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> {}
+export interface ILists extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> { }
 
 /**
  * List Results
  */
-export interface IListResults extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> {}
+export interface IListResults extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> { }

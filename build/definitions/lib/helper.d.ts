@@ -146,6 +146,10 @@ export interface ISPCfgContentTypeInfo {
      * The parent content type name, required if different then the name.
      */
     ParentName?: string;
+    /**
+     * The url of the web containing the parent content type, required if the parent content type doesn't exist in the current web.
+     */
+    ParentWebUrl?: string;
 }
 /**
  * SharePoint Configuration - Custom Action Information

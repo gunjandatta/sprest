@@ -11,21 +11,21 @@ export interface IListsMethods {
     /**
      * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
      */
-    ensureSiteAssetsLibrary(): IBase<IList>;
+    ensureSiteAssetsLibrary(): IBase<IListResult>;
     /**
      * Gets a list that is the default location for wiki pages.
      */
-    ensureSitePagesLibrary(): IBase<IList>;
+    ensureSitePagesLibrary(): IBase<IListResult>;
     /**
      * Returns the list with the specified list identifier.
      * @param id - The list id.
      */
-    getById(id: any): IList;
+    getById(id: any): IBase<IListResult>;
     /**
      * Returns the list with the specified title from the collection.
      * @param title - The list title.
      */
-    getByTitle(title: any): IList;
+    getByTitle(title: any): IBase<IListResult>;
     /**
      * Method to get the next set of results.
      */

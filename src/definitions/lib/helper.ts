@@ -21,7 +21,7 @@ export interface IHelperApp {
      * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
      * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
      */
-    copyFileToHostWeb(srcFileUrl:string, dstFolder:IFolder, overwriteFl?:boolean, rootWebFl?:boolean): IPromise;
+    copyFileToHostWeb(srcFileUrl: string, dstFolder: IFolder, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
 
     /**
      * Method to copy a file from the app web to the host web.
@@ -30,7 +30,7 @@ export interface IHelperApp {
      * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
      * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
      */
-    copyFileToHostWeb(srcFileUrl:string, dstFolderUrl:string, overwriteFl?:boolean, rootWebFl?:boolean): IPromise;
+    copyFileToHostWeb(srcFileUrl: string, dstFolderUrl: string, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
 
     /**
      * Method to copy a file from the app web to the host web
@@ -38,14 +38,14 @@ export interface IHelperApp {
      * @param folderUrls - An array of destination folder urls, relative to the host web.
      * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
      */
-    copyFilesToHostWeb(fileUrls:Array<string>, folderUrls:Array<string>, overwriteFl?:boolean, rootWebFl?:boolean): IPromise;
+    copyFilesToHostWeb(fileUrls: Array<string>, folderUrls: Array<string>, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
 
     /**
      * Method to create sub-folders.
      * @param folder - The app web relative url to the source file.
      * @param subFolderUrl - The host web relative url of the destination folder.
      */
-    createSubFolders(folder:IFolder, subFolderUrl:string): IPromise;
+    createSubFolders(folder: IFolder, subFolderUrl: string): IPromise;
 
     /**
      * Method to get the file content.
@@ -53,28 +53,28 @@ export interface IHelperApp {
      * @param fileUrls - An array of file urls, relative to the web.
      * @param createFl - Flag to create the folder, if it doesn't exist.
      */
-    getFolder(web:IWeb, folderUrl:string, createFl?:boolean): IPromise;
+    getFolder(web: IWeb, folderUrl: string, createFl?: boolean): IPromise;
 
     /**
      * Method to remove empty folders
      * @param web - The web containing the files.
      * @param folderUrls - An array of folder urls, relative to the web.
      */
-    removeEmptyFolders(web:IWeb, folderUrls:Array<string>): IPromise;
+    removeEmptyFolders(web: IWeb, folderUrls: Array<string>): IPromise;
 
     /**
      * Method to remove files from a web.
      * @param web - The web containing the files.
      * @param fileUrl - The file url, relative to the web.
      */
-    removeFile(web:IWeb, fileUrl:string): IPromise;
+    removeFile(web: IWeb, fileUrl: string): IPromise;
 
     /**
      * Method to remove files from a web.
      * @param web - The web containing the files.
      * @param fileUrls - An array of file urls, relative to the web.
      */
-    removeFiles(web:IWeb, fileUrls:Array<string>): IPromise;
+    removeFiles(web: IWeb, fileUrls: Array<string>): IPromise;
 }
 
 /**
@@ -87,26 +87,26 @@ export interface IHelperJSLink {
      * @param field - The field to disable edit.
      * @param requireValueFl - Flag to only disable the field, if a value exists.
      */
-    disableEdit(ctx:any, field:any, requireValueFl?:boolean):string;
+    disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
 
     /**
      * Disable quick edit for the specified field.
      * @param ctx - The client context.
      * @param field - The field to disable edit.
      */
-    disableQuickEdit(ctx:any, field:any);
+    disableQuickEdit(ctx: any, field: any);
 
     /**
      * Returns the list view.
      * @param ctx - The client context.
      */
-    getListView(ctx:any);
+    getListView(ctx: any);
 
     /**
      * Returns the list view items.
      * @param ctx - The client context.
      */
-    getListViewItems(ctx:any);
+    getListViewItems(ctx: any);
 
     /**
      * Returns the selected list view items
@@ -124,14 +124,14 @@ export interface IHelperJSLink {
      * @param ctx - The client context.
      * @param field - The field to hide.
      */
-    hideField(ctx:any, field:any);
+    hideField(ctx: any, field: any);
 
     /**
      * Removes the field and html from the page.
      * @param ctx - The client context.
      * @param field - The field to remove.
      */
-    removeField(ctx:any, field:any);
+    removeField(ctx: any, field: any);
 
     /**
      * Method to render the default html for a field.
@@ -139,7 +139,7 @@ export interface IHelperJSLink {
      * @param field - The form field.
      * @param formType - The form type. (Display, Edit, New or View)
      */
-    renderField(ctx, field, formType?:number);
+    renderField(ctx, field, formType?: number);
 }
 
 /**
@@ -152,7 +152,7 @@ export interface ILoader {
      * @param timeout - The max time (ms) to wait for the libraries to be loaded.
      * @param loadLibraries - Flag to load the core libraries manually.
      */
-    waitForSPLibs(callback:any, timeout?:number, loadLibraries?:boolean);
+    waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean);
 }
 
 /**
@@ -162,22 +162,27 @@ export interface ISPCfgContentTypeInfo {
     /**
      * The content type object.
      */
-    ContentType?:IContentType;
+    ContentType?: IContentType;
 
     /**
      * The JSLink property.
      */
-    JSLink?:string;
+    JSLink?: string;
 
     /**
      * The content type name.
      */
-    Name:string;
+    Name: string;
 
     /**
      * The parent content type name, required if different then the name.
      */
-    ParentName?:string;
+    ParentName?: string;
+
+    /**
+     * The url of the web containing the parent content type, required if the parent content type doesn't exist in the current web.
+     */
+    ParentWebUrl?: string;
 }
 
 /**
@@ -187,12 +192,12 @@ export interface ISPCfgCustomActionInfo {
     /**
      * Custom actions to be created at the site collection level.
      */
-    Site?:Array<IUserCustomActionCreationInformation>,
+    Site?: Array<IUserCustomActionCreationInformation>,
 
     /**
      * Custom actions to be created at the web level.
      */
-    Web?:Array<IUserCustomActionCreationInformation>
+    Web?: Array<IUserCustomActionCreationInformation>
 }
 
 /**
@@ -202,17 +207,17 @@ export interface ISPCfgFieldInfo {
     /**
      * The field object.
      */
-    Field?:IField;
+    Field?: IField;
 
     /**
      * The internal field name.
      */
-    Name:string;
+    Name: string;
 
     /**
      * The schema definition of the field.
      */
-    SchemaXml:string;
+    SchemaXml: string;
 }
 
 /**
@@ -220,19 +225,19 @@ export interface ISPCfgFieldInfo {
  */
 export interface ISPCfgListInfo {
     /** The content types. */
-    ContentTypes?:Array<ISPCfgContentTypeInfo>;
+    ContentTypes?: Array<ISPCfgContentTypeInfo>;
 
     /** The custom list fields. */
-    CustomFields?:Array<ISPCfgFieldInfo>;
+    CustomFields?: Array<ISPCfgFieldInfo>;
 
     /** The list creation information. */
-    ListInformation:IListCreationInformation;
+    ListInformation: IListCreationInformation;
 
     /** The title display name. */
-    TitleFieldDisplayName?:string;
+    TitleFieldDisplayName?: string;
 
     /** The view information. */
-    ViewInformation?:Array<ISPCfgViewInfo>;
+    ViewInformation?: Array<ISPCfgViewInfo>;
 }
 
 /**
@@ -240,16 +245,16 @@ export interface ISPCfgListInfo {
  */
 export interface ISPCfgViewInfo {
     /** The JSLink property. */
-    JSLink?:string;
+    JSLink?: string;
 
     /** The view fields. */
-    ViewFields?:Array<string>;
+    ViewFields?: Array<string>;
 
     /** The view name. */
-    ViewName:string;
+    ViewName: string;
 
     /** The view query. */
-    ViewQuery?:string;
+    ViewQuery?: string;
 }
 
 /**
@@ -260,13 +265,13 @@ export interface ISPCfgWebPartInfo {
     File?: IFile;
 
     /** The file name of the webpart. */
-    FileName:string;
+    FileName: string;
 
     /** The webpart group. */
-    Group?:string;
+    Group?: string;
 
     /** The webpart xml */
-    XML:string;
+    XML: string;
 }
 
 /**
@@ -278,13 +283,13 @@ export interface ISPConfig {
      * @param cfg - The SharePoint configuration information.
      * @param webUrl - An optional string representing the relative web url.
      */
-    new(cfg:ISPConfigProps, webUrl?:string);
+    new (cfg: ISPConfigProps, webUrl?: string);
 
     /**
      * Method to install the configuration
      * @param callback - An optional function called after the execution completes.
      */
-    install(callback?:() => void);
+    install(callback?: () => void);
 
     /**
      * Method to install by the configuration type.
@@ -292,41 +297,41 @@ export interface ISPConfig {
      * @param callback - An optional function called after the execution completes.
      * @param targetName - The target configuration type to install.
      */
-    installByType(cfgType:ISPConfigTypes, callback?:any, targetName?:string);
+    installByType(cfgType: ISPConfigTypes, callback?: any, targetName?: string);
 
     /**
      * Method to install a specific content type
      * @param ctName - The content type to install.
      * @param callback - An optional function called after the execution completes.
      */
-    installContentType(ctName:string, callback?:any);
+    installContentType(ctName: string, callback?: any);
 
     /**
      * Method to install a specific list
      * @param listName - The list to install.
      * @param callback - An optional function called after the execution completes.
      */
-    installList(listName:string, callback?:any);
+    installList(listName: string, callback?: any);
 
     /**
      * Method to install a specific site custom action
      * @param caName - The site user custom action to install.
      * @param callback - An optional function called after the execution completes.
      */
-    installSiteCustomAction(caName:string, callback?:any);
+    installSiteCustomAction(caName: string, callback?: any);
 
     /**
      * Method to install a specific web custom action
      * @param caName - The web user custom action to install.
      * @param callback - An optional function called after the execution completes.
      */
-    installWebCustomAction(caName:string, callback?:any);
+    installWebCustomAction(caName: string, callback?: any);
 
     /**
      * Method to install the configuration
      * @param callback - An optional function called after the execution completes.
      */
-    uninstall(callback?:() => void);
+    uninstall(callback?: () => void);
 
     /**
      * Method to uninstall by the configuration type.
@@ -334,35 +339,35 @@ export interface ISPConfig {
      * @param callback - An optional function called after the execution completes.
      * @param targetName - The target configuration type to uninstall.
      */
-    uninstallByType(cfgType:ISPConfigTypes, callback?:any, targetName?:string);
+    uninstallByType(cfgType: ISPConfigTypes, callback?: any, targetName?: string);
 
     /**
      * Method to uninstall a specific content type
      * @param ctName - The content type to uninstall.
      * @param callback - An optional function called after the execution completes.
      */
-    uninstallContentType(ctName:string, callback?:any);
+    uninstallContentType(ctName: string, callback?: any);
 
     /**
      * Method to uninstall a specific list
      * @param listName - The list to uninstall.
      * @param callback - An optional function called after the execution completes.
      */
-    uninstallList(listName:string, callback?:any);
+    uninstallList(listName: string, callback?: any);
 
     /**
      * Method to uninstall a specific site custom action
      * @param caName - The site user custom action to uninstall.
      * @param callback - An optional function called after the execution completes.
      */
-    uninstallSiteCustomAction(caName:string, callback?:any);
+    uninstallSiteCustomAction(caName: string, callback?: any);
 
     /**
      * Method to uninstall a specific web custom action
      * @param caName - The web user custom action to uninstall.
      * @param callback - An optional function called after the execution completes.
      */
-    uninstallWebCustomAction(caName:string, callback?:any);
+    uninstallWebCustomAction(caName: string, callback?: any);
 }
 
 /**
@@ -370,19 +375,19 @@ export interface ISPConfig {
  */
 export interface ISPConfigProps {
     /** The content types. */
-    ContentTypes?:Array<ISPCfgContentTypeInfo>;
-    
+    ContentTypes?: Array<ISPCfgContentTypeInfo>;
+
     /** The custom action configuration. */
-    CustomActionCfg?:ISPCfgCustomActionInfo;
+    CustomActionCfg?: ISPCfgCustomActionInfo;
 
     /** The site column configuration. */
-    Fields?:Array<ISPCfgFieldInfo>;
+    Fields?: Array<ISPCfgFieldInfo>;
 
     /** The list configuration. */
-    ListCfg?:Array<ISPCfgListInfo>;
+    ListCfg?: Array<ISPCfgListInfo>;
 
     /** The web part configuration. */
-    WebPartCfg?:Array<ISPCfgWebPartInfo>;
+    WebPartCfg?: Array<ISPCfgWebPartInfo>;
 }
 
 /**
@@ -412,17 +417,17 @@ export interface IHelper {
     /**
      * App-Model helper methods
      */
-    App:IHelperApp,
+    App: IHelperApp,
 
     /**
      * JSLink helper methods
      */
-    JSLink:IHelperJSLink,
+    JSLink: IHelperJSLink,
 
     /**
      * Loader
      */
-    Loader:ILoader,
+    Loader: ILoader,
 
     /**
      * Web helper methods

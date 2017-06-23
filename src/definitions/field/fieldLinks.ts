@@ -12,7 +12,7 @@ export interface IFieldLinks extends IBaseCollection<IFieldLink, IFieldLink, IFi
      * Adds a content type to the collection.
      * @param data - The field link properties.
      */
-    add(data): IBase;
+    add(data): IBase<IFieldLink>;
 
     /**
      * Gets the field link by its id.

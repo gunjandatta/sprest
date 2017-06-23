@@ -11,19 +11,19 @@ export interface ISiteGroupsMethods {
      * Adds a site to the site collection.
      * @param groupInfo - The group creation information.
      */
-    add(groupInfo: IGroupCreationInformation): IBase<IGroup>;
+    add(groupInfo: IGroupCreationInformation): IBase<IGroupResult>;
 
     /**
      * Returns a group from the collection based on the member ID of the group.
      * @param id - The site group id.
      */
-    getById(id): IGroup;
+    getById(id): IBase<IGroupResult>;
 
     /**
      * Returns a cross-site group from the collection based on the name of the group.
      * @param name - The name of the group. The group name is specified in its LoginName property.
      */
-    getByName(name): IGroup;
+    getByName(name): IBase<IGroupResult>;
 
     /**
      * Method to get the next set of results.

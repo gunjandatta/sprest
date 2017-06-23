@@ -5,7 +5,9 @@ export declare class SPConfig {
     /**
      * Global Properties
      */
+    private _cfgType;
     private _configuration;
+    private _targetName;
     private _webUrl;
     /**
      * Constructor
@@ -14,40 +16,35 @@ export declare class SPConfig {
     /**
      * Public Methods
      */
-    install(callback?: any, cfgType?: number): void;
-    installByType: (cfgType: number, callback?: any, targetName?: string) => any;
+    install(callback?: any, cfgType?: number, targetName?: string): void;
+    installByType: (cfgType: number, callback?: any, targetName?: string) => void;
     installList(listName: string, callback?: any): void;
     installSiteCustomAction(caName: string, callback?: any): void;
     installWebCustomAction(caName: string, callback?: any): void;
-    uninstall(callback?: any, cfgType?: number): void;
-    uninstallByType: (cfgType: number, callback?: any, targetName?: string) => any;
+    uninstall(callback?: any, cfgType?: number, targetName?: string): void;
+    uninstallByType: (cfgType: number, callback?: any, targetName?: string) => void;
     uninstallList(listName: string, callback?: any): void;
     uninstallSiteCustomAction(caName: string, callback?: any): void;
     uninstallWebCustomAction(caName: string, callback?: any): void;
     /**
      * Methods
      */
-    private installContentTypes;
-    private installFields;
-    private installLists;
-    private installSite;
-    private installUserCustomActions;
-    private isInCollection;
-    private getWeb;
-    private createContentType;
     private createContentTypes;
     private createFields;
     private createLists;
-    private createListViews;
     private createUserCustomActions;
+    private createViews;
     private createWebParts;
-    private isInConfiguration;
+    private installSite;
+    private installWeb;
+    private isInCollection;
     private removeContentTypes;
-    private removeFields(fields, cfg, listInfo?);
-    private removeLists(lists, cfg, targetList?);
+    private removeFields;
+    private removeLists;
     private removeUserCustomActions;
-    private removeWebParts(folder, cfg);
+    private removeWebParts;
     private updateFieldSchemaXml;
-    private updateList;
-    private updateListView;
+    private updateLists;
+    private uninstallSite;
+    private uninstallWeb;
 }

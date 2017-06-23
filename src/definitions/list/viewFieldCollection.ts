@@ -1,6 +1,7 @@
 import {
     IBase
 } from "..";
+
 /**
  * View Fields
  */

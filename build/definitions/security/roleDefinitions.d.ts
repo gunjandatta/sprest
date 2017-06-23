@@ -7,17 +7,17 @@ export interface IRoleDefinitionsMethods {
      * Gets the role definition with the specified ID from the collection.
      * @param roleDefId - The ID of the role definition that defines the permissions to assign.
      */
-    getById(roleDefId: any): IRoleDefinition;
+    getById(roleDefId: any): IBase<IRoleDefinitionResult>;
     /**
      * Gets the role definition with the specified name.
      * @param name -
      */
-    getByName(name: any): IRoleDefinition;
+    getByName(name: any): IBase<IRoleDefinitionResult>;
     /**
      * Gets the role definition with the specified role type.
      * @param roleType - The RoleTypeKind of the role definition.
      */
-    getByType(roleType: SPTypes.RoleType): IRoleDefinition;
+    getByType(roleType: SPTypes.RoleType): IBase<IRoleDefinitionResult>;
     /**
      * Method to get the next set of results.
      */
