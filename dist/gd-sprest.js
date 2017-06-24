@@ -312,7 +312,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.64,
+    __ver: 1.65,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -1651,7 +1651,7 @@ var SPConfig = function () {
             var _loop_4 = function _loop_4(i) {
                 var cfgList = cfgLists[i];
                 // See if this content type already exists
-                if (_this.isInCollection("Name", cfgList.ListInformation.Title, lists.results)) {
+                if (_this.isInCollection("Title", cfgList.ListInformation.Title, lists.results)) {
                     // Log
                     console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
                 } else {
@@ -1925,6 +1925,12 @@ var SPConfig = function () {
         // Method to remove the content type
         this.removeContentTypes = function (contentTypes, cfgContentTypes) {
             var promise = new utils_1.Promise();
+            // Ensure the content types exist
+            if (cfgContentTypes == null || cfgContentTypes.length == 0) {
+                // Resolve the promise and return it
+                promise.resolve();
+                return promise;
+            }
             var _loop_7 = function _loop_7(i) {
                 var cfgContentType = cfgContentTypes[i];
                 // Get the field
@@ -1952,6 +1958,12 @@ var SPConfig = function () {
         // Method to remove the fields
         this.removeFields = function (fields, cfgFields) {
             var promise = new utils_1.Promise();
+            // Ensure the fields exist
+            if (cfgFields == null || cfgFields.length == 0) {
+                // Resolve the promise and return it
+                promise.resolve();
+                return promise;
+            }
             var _loop_8 = function _loop_8(i) {
                 var cfgField = cfgFields[i];
                 // Get the field
@@ -1979,6 +1991,12 @@ var SPConfig = function () {
         // Method to remove the lists
         this.removeLists = function (lists, cfgLists) {
             var promise = new utils_1.Promise();
+            // Ensure the lists exist
+            if (cfgLists == null || cfgLists.length == 0) {
+                // Resolve the promise and return it
+                promise.resolve();
+                return promise;
+            }
             var _loop_9 = function _loop_9(i) {
                 var cfgList = cfgLists[i];
                 // Get the list
@@ -2006,6 +2024,12 @@ var SPConfig = function () {
         // Method to remove the user custom actions
         this.removeUserCustomActions = function (customActions, cfgCustomActions) {
             var promise = new utils_1.Promise();
+            // Ensure the custom actions exist
+            if (cfgCustomActions == null || cfgCustomActions.length == 0) {
+                // Resolve the promise and return it
+                promise.resolve();
+                return promise;
+            }
             var _loop_10 = function _loop_10(i) {
                 var cfgCustomAction = cfgCustomActions[i];
                 // Get the custom action
@@ -5865,6 +5889,7 @@ var Base = function () {
                 // Generate a method for this property
                 obj["get_" + key] = obj["get_" + key] ? obj["get_" + key] : new Function("return this.getCollection('" + key + "', arguments);");
             } else {
+                // Set the property, based on the property name
                 switch (key) {
                     case "ClientPeoplePickerResolveUser":
                     case "ClientPeoplePickerSearchUser":
@@ -5874,6 +5899,24 @@ var Base = function () {
                         // Append the property to this object
                         obj[key] = value;
                         break;
+                }
+                // See if this is a collection
+                if (obj[key] && obj[key].results) {
+                    // Add the references
+                    obj[key]["addMethods"] = this.addMethods;
+                    obj[key]["base"] = this.base;
+                    obj[key]["executeMethod"] = this.executeMethod;
+                    obj[key]["existsFl"] = true;
+                    obj[key]["getProperty"] = this.getProperty;
+                    obj[key]["parent"] = this;
+                    obj[key]["targetInfo"] = Object.create(this.targetInfo);
+                    obj[key]["updateMetadataUri"] = this.updateMetadataUri;
+                    // Update the target endpoint
+                    obj[key]["targetInfo"].endpoint = this.targetInfo.endpoint.split("/")[0] + "/" + key;
+                    // Add the methods
+                    this.addMethods(obj[key], value);
+                    // Update the data collection
+                    this.updateDataCollection(obj[key].results);
                 }
             }
         }

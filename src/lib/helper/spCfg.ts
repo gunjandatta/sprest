@@ -267,7 +267,7 @@ export class SPConfig {
             let cfgList = cfgLists[i];
 
             // See if this content type already exists
-            if (this.isInCollection("Name", cfgList.ListInformation.Title, lists.results)) {
+            if (this.isInCollection("Title", cfgList.ListInformation.Title, lists.results)) {
                 // Log
                 console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
             } else {
@@ -601,6 +601,13 @@ export class SPConfig {
     private removeContentTypes = (contentTypes: IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>) => {
         let promise = new Promise();
 
+        // Ensure the content types exist
+        if (cfgContentTypes == null || cfgContentTypes.length == 0) {
+            // Resolve the promise and return it
+            promise.resolve();
+            return promise;
+        }
+
         // Parse the configuration
         for (let i = 0; i < cfgContentTypes.length; i++) {
             let cfgContentType = cfgContentTypes[i];
@@ -629,6 +636,13 @@ export class SPConfig {
     // Method to remove the fields
     private removeFields = (fields: IFieldResults, cfgFields: Array<ISPCfgFieldInfo>) => {
         let promise = new Promise();
+
+        // Ensure the fields exist
+        if (cfgFields == null || cfgFields.length == 0) {
+            // Resolve the promise and return it
+            promise.resolve();
+            return promise;
+        }
 
         // Parse the configuration
         for (let i = 0; i < cfgFields.length; i++) {
@@ -659,6 +673,13 @@ export class SPConfig {
     private removeLists = (lists: IListResults, cfgLists: Array<ISPCfgListInfo>) => {
         let promise = new Promise();
 
+        // Ensure the lists exist
+        if (cfgLists == null || cfgLists.length == 0) {
+            // Resolve the promise and return it
+            promise.resolve();
+            return promise;
+        }
+
         // Parse the configuration
         for (let i = 0; i < cfgLists.length; i++) {
             let cfgList = cfgLists[i];
@@ -686,6 +707,13 @@ export class SPConfig {
     // Method to remove the user custom actions
     private removeUserCustomActions = (customActions: IUserCustomActionResults, cfgCustomActions: Array<IUserCustomActionCreationInformation>) => {
         let promise = new Promise();
+
+        // Ensure the custom actions exist
+        if (cfgCustomActions == null || cfgCustomActions.length == 0) {
+            // Resolve the promise and return it
+            promise.resolve();
+            return promise;
+        }
 
         // Parse the configuration
         for (let i = 0; i < cfgCustomActions.length; i++) {

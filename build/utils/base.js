@@ -219,6 +219,7 @@ var Base = (function () {
                 obj["get_" + key] = obj["get_" + key] ? obj["get_" + key] : new Function("return this.getCollection('" + key + "', arguments);");
             }
             else {
+                // Set the property, based on the property name
                 switch (key) {
                     case "ClientPeoplePickerResolveUser":
                     case "ClientPeoplePickerSearchUser":
@@ -228,6 +229,24 @@ var Base = (function () {
                         // Append the property to this object
                         obj[key] = value;
                         break;
+                }
+                // See if this is a collection
+                if (obj[key] && obj[key].results) {
+                    // Add the references
+                    obj[key]["addMethods"] = this.addMethods;
+                    obj[key]["base"] = this.base;
+                    obj[key]["executeMethod"] = this.executeMethod;
+                    obj[key]["existsFl"] = true;
+                    obj[key]["getProperty"] = this.getProperty;
+                    obj[key]["parent"] = this;
+                    obj[key]["targetInfo"] = Object.create(this.targetInfo);
+                    obj[key]["updateMetadataUri"] = this.updateMetadataUri;
+                    // Update the target endpoint
+                    obj[key]["targetInfo"].endpoint = this.targetInfo.endpoint.split("/")[0] + "/" + key;
+                    // Add the methods
+                    this.addMethods(obj[key], value);
+                    // Update the data collection
+                    this.updateDataCollection(obj[key].results);
                 }
             }
         }

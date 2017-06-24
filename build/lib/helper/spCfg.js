@@ -149,7 +149,7 @@ var SPConfig = (function () {
             var _loop_4 = function (i) {
                 var cfgList = cfgLists[i];
                 // See if this content type already exists
-                if (_this.isInCollection("Name", cfgList.ListInformation.Title, lists.results)) {
+                if (_this.isInCollection("Title", cfgList.ListInformation.Title, lists.results)) {
                     // Log
                     console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
                 }
@@ -443,6 +443,12 @@ var SPConfig = (function () {
         // Method to remove the content type
         this.removeContentTypes = function (contentTypes, cfgContentTypes) {
             var promise = new utils_1.Promise();
+            // Ensure the content types exist
+            if (cfgContentTypes == null || cfgContentTypes.length == 0) {
+                // Resolve the promise and return it
+                promise.resolve();
+                return promise;
+            }
             var _loop_7 = function (i) {
                 var cfgContentType = cfgContentTypes[i];
                 // Get the field
@@ -470,6 +476,12 @@ var SPConfig = (function () {
         // Method to remove the fields
         this.removeFields = function (fields, cfgFields) {
             var promise = new utils_1.Promise();
+            // Ensure the fields exist
+            if (cfgFields == null || cfgFields.length == 0) {
+                // Resolve the promise and return it
+                promise.resolve();
+                return promise;
+            }
             var _loop_8 = function (i) {
                 var cfgField = cfgFields[i];
                 // Get the field
@@ -497,6 +509,12 @@ var SPConfig = (function () {
         // Method to remove the lists
         this.removeLists = function (lists, cfgLists) {
             var promise = new utils_1.Promise();
+            // Ensure the lists exist
+            if (cfgLists == null || cfgLists.length == 0) {
+                // Resolve the promise and return it
+                promise.resolve();
+                return promise;
+            }
             var _loop_9 = function (i) {
                 var cfgList = cfgLists[i];
                 // Get the list
@@ -524,6 +542,12 @@ var SPConfig = (function () {
         // Method to remove the user custom actions
         this.removeUserCustomActions = function (customActions, cfgCustomActions) {
             var promise = new utils_1.Promise();
+            // Ensure the custom actions exist
+            if (cfgCustomActions == null || cfgCustomActions.length == 0) {
+                // Resolve the promise and return it
+                promise.resolve();
+                return promise;
+            }
             var _loop_10 = function (i) {
                 var cfgCustomAction = cfgCustomActions[i];
                 // Get the custom action
