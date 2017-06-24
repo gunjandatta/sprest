@@ -18,7 +18,7 @@ export class Base {
     /*********************************************************************************************************************************/
     constructor(targetInfo:ITargetInfo) {
         // Default the properties
-        this.targetInfo = targetInfo || {};
+        this.targetInfo = Object.create(targetInfo || {});
         this.requestType = 0;
         this.waitFlags = [];
     }
@@ -312,7 +312,7 @@ export class Base {
                     objCollection["results"] = obj[key].results;
 
                     // Update the endpoint for this request to point to this property
-                    objCollection.targetInfo.endpoint = this.targetInfo.endpoint.split("?")[0] + "/" + key;
+                    objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
 
                     // Add the methods
                     this.addMethods(objCollection, objCollection);

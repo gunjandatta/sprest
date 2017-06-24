@@ -312,7 +312,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.67,
+    __ver: 1.68,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -5683,7 +5683,7 @@ var Base = function () {
     /*********************************************************************************************************************************/
     function Base(targetInfo) {
         // Default the properties
-        this.targetInfo = targetInfo || {};
+        this.targetInfo = Object.create(targetInfo || {});
         this.requestType = 0;
         this.waitFlags = [];
     }
@@ -5903,7 +5903,7 @@ var Base = function () {
                     objCollection.responses = [];
                     objCollection["results"] = obj[key].results;
                     // Update the endpoint for this request to point to this property
-                    objCollection.targetInfo.endpoint = this.targetInfo.endpoint.split("?")[0] + "/" + key;
+                    objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
                     // Add the methods
                     this.addMethods(objCollection, objCollection);
                     // Update the data collection
