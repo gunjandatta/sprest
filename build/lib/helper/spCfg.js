@@ -391,7 +391,7 @@ var SPConfig = (function () {
             })
                 .execute(function (site) {
                 // Install the user custom actions
-                _this.createUserCustomActions(site.UserCustomActions, _this._configuration.CustomActionCfg.Site).done(function () {
+                _this.createUserCustomActions(site.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : []).done(function () {
                     // Resolve the promise
                     promise.resolve(site);
                 });

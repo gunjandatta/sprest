@@ -49,7 +49,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.65,
+    __ver: 1.66,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,

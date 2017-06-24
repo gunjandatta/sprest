@@ -232,21 +232,18 @@ var Base = (function () {
                 }
                 // See if this is a collection
                 if (obj[key] && obj[key].results) {
-                    // Add the references
-                    obj[key]["addMethods"] = this.addMethods;
-                    obj[key]["base"] = this.base;
-                    obj[key]["executeMethod"] = this.executeMethod;
-                    obj[key]["existsFl"] = true;
-                    obj[key]["getProperty"] = this.getProperty;
-                    obj[key]["parent"] = this;
-                    obj[key]["targetInfo"] = Object.create(this.targetInfo);
-                    obj[key]["updateMetadataUri"] = this.updateMetadataUri;
-                    // Update the target endpoint
-                    obj[key]["targetInfo"].endpoint = this.targetInfo.endpoint.split("/")[0] + "/" + key;
+                    // Create this property as a new request
+                    var objCollection = new Base(this.targetInfo);
+                    objCollection.responses = [];
+                    objCollection["results"] = obj[key].results;
+                    // Update the endpoint for this request to point to this property
+                    objCollection.targetInfo = this.targetInfo.endpoint.split("?")[0] + "/" + key;
                     // Add the methods
-                    this.addMethods(obj[key], value);
+                    this.addMethods(objCollection, objCollection);
                     // Update the data collection
-                    this.updateDataCollection(obj[key].results);
+                    this.updateDataCollection(objCollection["results"]);
+                    // Update the property
+                    obj[key] = objCollection;
                 }
             }
         }

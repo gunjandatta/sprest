@@ -538,7 +538,7 @@ export class SPConfig {
             // Execute the request
             .execute(site => {
                 // Install the user custom actions
-                this.createUserCustomActions(site.UserCustomActions, this._configuration.CustomActionCfg.Site).done(() => {
+                this.createUserCustomActions(site.UserCustomActions, this._configuration.CustomActionCfg ? this._configuration.CustomActionCfg.Site : []).done(() => {
                     // Resolve the promise
                     promise.resolve(site);
                 });
