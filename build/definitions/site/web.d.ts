@@ -309,15 +309,15 @@ export interface IWebQueryProps {
     /**
      * Gets or sets the group of users who have been given contribute permissions to the Web site.
      */
-    AssociatedMemberGroup(): IBase<IGroup>;
+    AssociatedMemberGroup(): IGroup;
     /**
      * Gets or sets the associated owner group of the Web site.
      */
-    AssociatedOwnerGroup(): IBase<IGroup>;
+    AssociatedOwnerGroup(): IGroup;
     /**
      * Gets or sets the associated visitor group of the Web site.
      */
-    AssociatedVisitorGroup(): IBase<IGroup>;
+    AssociatedVisitorGroup(): IGroup;
     Author(): IUser;
     /**
      * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
@@ -450,7 +450,7 @@ export interface IWebQueryProps {
      * Gets the site groups for the web.
      * @param name - The group name.
      */
-    SiteGroups(name: string): IBase<IGroup>;
+    SiteGroups(name: string): IGroup;
     /**
      * Gets the UserInfo list of the site collection that contains the Web site.
      */
@@ -458,7 +458,7 @@ export interface IWebQueryProps {
     /**
      * Gets the collection of all users that belong to the site collection.
      */
-    SiteUsers(): IBase<IUsers>;
+    SiteUsers(): IUsers;
     /**
      * Gets the collection of all users that belong to the site collection.
      * @param id - The user id.

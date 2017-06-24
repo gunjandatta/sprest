@@ -249,7 +249,7 @@ export interface ISiteQueryProps {
     Owner(): IUser;
 
     /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-    RecycleBin(): IBase<IBase>;
+    RecycleBin(): IBase<IResults<IRecycleBinItem>>;
 
     /**
      * Gets a value that returns the top-level site of the site collection.
