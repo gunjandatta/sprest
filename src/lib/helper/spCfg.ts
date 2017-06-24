@@ -63,16 +63,16 @@ export class SPConfig {
             // Install the site components
             this.installSite().done(() => {
                 // Create the webparts
-                this.createWebParts().done(() => {
-                    // Log
-                    console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                this.createWebParts();
 
-                    // See if the callback exists
-                    if (callback && typeof (callback) === "function") {
-                        // Execute the callback
-                        callback();
-                    }
-                });
+                // Log
+                console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+
+                // See if the callback exists
+                if (callback && typeof (callback) === "function") {
+                    // Execute the callback
+                    callback();
+                }
             });
         });
     }
@@ -450,14 +450,9 @@ export class SPConfig {
     // Method to create the web parts
     private createWebParts = () => {
         let cfgWebParts = this._configuration.WebPartCfg;
-        let promise = new Promise();
 
         // Ensure the configuration exists
-        if (cfgWebParts == null || cfgWebParts.length == 0) {
-            // Resolve the promise and return it
-            promise.resolve();
-            return promise;
-        }
+        if (cfgWebParts == null || cfgWebParts.length == 0) { return; }
 
         // Log
         console.log("[gd-sprest][WebPart] Creating the web parts.");

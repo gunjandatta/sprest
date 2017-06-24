@@ -312,7 +312,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.66,
+    __ver: 1.67,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -1813,12 +1813,9 @@ var SPConfig = function () {
         // Method to create the web parts
         this.createWebParts = function () {
             var cfgWebParts = _this._configuration.WebPartCfg;
-            var promise = new utils_1.Promise();
             // Ensure the configuration exists
             if (cfgWebParts == null || cfgWebParts.length == 0) {
-                // Resolve the promise and return it
-                promise.resolve();
-                return promise;
+                return;
             }
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
@@ -2232,15 +2229,14 @@ var SPConfig = function () {
             // Install the site components
             _this.installSite().done(function () {
                 // Create the webparts
-                _this.createWebParts().done(function () {
-                    // Log
-                    console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
-                    // See if the callback exists
-                    if (callback && typeof callback === "function") {
-                        // Execute the callback
-                        callback();
-                    }
-                });
+                _this.createWebParts();
+                // Log
+                console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                // See if the callback exists
+                if (callback && typeof callback === "function") {
+                    // Execute the callback
+                    callback();
+                }
             });
         });
     };
@@ -5907,7 +5903,7 @@ var Base = function () {
                     objCollection.responses = [];
                     objCollection["results"] = obj[key].results;
                     // Update the endpoint for this request to point to this property
-                    objCollection.targetInfo = this.targetInfo.endpoint.split("?")[0] + "/" + key;
+                    objCollection.targetInfo.endpoint = this.targetInfo.endpoint.split("?")[0] + "/" + key;
                     // Add the methods
                     this.addMethods(objCollection, objCollection);
                     // Update the data collection

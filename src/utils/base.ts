@@ -312,7 +312,7 @@ export class Base {
                     objCollection["results"] = obj[key].results;
 
                     // Update the endpoint for this request to point to this property
-                    objCollection.targetInfo = this.targetInfo.endpoint.split("?")[0] + "/" + key;
+                    objCollection.targetInfo.endpoint = this.targetInfo.endpoint.split("?")[0] + "/" + key;
 
                     // Add the methods
                     this.addMethods(objCollection, objCollection);
