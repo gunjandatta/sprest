@@ -312,7 +312,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.70,
+    __ver: 1.71,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -5899,19 +5899,22 @@ var Base = function () {
                         break;
                 }
                 // See if this is a collection
-                if (obj[key] && obj[key].results && _typeof(obj[key].results) === "object") {
-                    // Create this property as a new request
-                    var objCollection = new Base(this.targetInfo);
-                    objCollection.responses = [];
-                    objCollection["results"] = obj[key].results;
-                    // Update the endpoint for this request to point to this property
-                    objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
-                    // Add the methods
-                    this.addMethods(objCollection, objCollection);
-                    // Update the data collection
-                    this.updateDataCollection(objCollection["results"]);
-                    // Update the property
-                    obj[key] = objCollection;
+                if (obj[key] && obj[key].results) {
+                    // Ensure the collection is an object
+                    if (obj[key].results.length == 0 || _typeof(obj[key].results[0]) === "object") {
+                        // Create this property as a new request
+                        var objCollection = new Base(this.targetInfo);
+                        objCollection.responses = [];
+                        objCollection["results"] = obj[key].results;
+                        // Update the endpoint for this request to point to this property
+                        objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
+                        // Add the methods
+                        this.addMethods(objCollection, objCollection);
+                        // Update the data collection
+                        this.updateDataCollection(objCollection["results"]);
+                        // Update the property
+                        obj[key] = objCollection;
+                    }
                 }
             }
         }

@@ -305,23 +305,26 @@ export class Base {
                 }
 
                 // See if this is a collection
-                if(obj[key] && obj[key].results && typeof(obj[key].results) === "object") {
-                    // Create this property as a new request
-                    let objCollection = new Base(this.targetInfo);
-                    objCollection.responses = [];
-                    objCollection["results"] = obj[key].results;
+                if(obj[key] && obj[key].results) {
+                    // Ensure the collection is an object
+                    if(obj[key].results.length == 0 || typeof(obj[key].results[0]) === "object") {
+                        // Create this property as a new request
+                        let objCollection = new Base(this.targetInfo);
+                        objCollection.responses = [];
+                        objCollection["results"] = obj[key].results;
 
-                    // Update the endpoint for this request to point to this property
-                    objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
+                        // Update the endpoint for this request to point to this property
+                        objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
 
-                    // Add the methods
-                    this.addMethods(objCollection, objCollection);
+                        // Add the methods
+                        this.addMethods(objCollection, objCollection);
 
-                    // Update the data collection
-                    this.updateDataCollection(objCollection["results"]);
+                        // Update the data collection
+                        this.updateDataCollection(objCollection["results"]);
 
-                    // Update the property
-                    obj[key] = objCollection;
+                        // Update the property
+                        obj[key] = objCollection;
+                    }
                 }
             }
         }
