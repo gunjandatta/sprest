@@ -1,5 +1,5 @@
 import {
-    IAttachment, IAttachmentFiles,
+    IAttachment, IAttachmentFiles, IAttachmentFilesMethods,
     IBase,
     IBasePermissions,
     IContentType, IContentTypeResult,
@@ -90,7 +90,7 @@ export interface IListItemQueryProps {
     /**
      * Get the attachment collection.
      */
-    AttachmentFiles(): IBase<IAttachmentFiles>;
+    AttachmentFiles(): IAttachmentFiles;
 
     /**
      * Gets the specified attachment file.
@@ -169,7 +169,7 @@ export interface IListItemQueryResult extends IListItemMethods, IListItemProps {
     /**
      * Get the attachment collection.
      */
-    AttachmentFiles: IResults<IAttachment>;
+    AttachmentFiles: IAttachmentFilesMethods & IResults<IAttachment>;
 
     /**
      * Gets a value that specifies the content type of the list item.

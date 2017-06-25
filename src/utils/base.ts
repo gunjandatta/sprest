@@ -305,7 +305,7 @@ export class Base {
                 }
 
                 // See if this is a collection
-                if(obj[key] && obj[key].results) {
+                if(obj[key] && obj[key].results && typeof(obj[key].results) === "object") {
                     // Create this property as a new request
                     let objCollection = new Base(this.targetInfo);
                     objCollection.responses = [];

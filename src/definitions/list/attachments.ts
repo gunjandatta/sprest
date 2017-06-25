@@ -4,9 +4,9 @@ import {
 } from "..";
 
 /**
- * Attachment Files
+ * Methods
  */
-export interface IAttachmentFiles extends IBaseCollection<IAttachment, IAttachmentFiles, IAttachment> {
+export interface IAttachmentFilesMethods {
     /**
      * Adds the attachment that is represented by the specified file name and byte array to the list item.
      * @param fileName - The filename of the attachment.
@@ -19,3 +19,8 @@ export interface IAttachmentFiles extends IBaseCollection<IAttachment, IAttachme
      */
     next(): IBase<IAttachmentFiles>;
 }
+
+/**
+ * Attachment Files
+ */
+export interface IAttachmentFiles extends IAttachmentFilesMethods, IBaseCollection<IAttachment, IAttachmentFiles, IAttachment> { }

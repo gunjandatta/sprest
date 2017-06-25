@@ -5668,6 +5668,8 @@ exports.ViewType = {
 "use strict";
 
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
 var mapper_1 = __webpack_require__(44);
@@ -5897,7 +5899,7 @@ var Base = function () {
                         break;
                 }
                 // See if this is a collection
-                if (obj[key] && obj[key].results) {
+                if (obj[key] && obj[key].results && _typeof(obj[key].results) === "object") {
                     // Create this property as a new request
                     var objCollection = new Base(this.targetInfo);
                     objCollection.responses = [];

@@ -1,4 +1,4 @@
-import { IAttachment, IAttachmentFiles, IBase, IBasePermissions, IContentType, IContentTypeResult, IFile, IFileResult, IFolder, IFolderResult, IList, IListResult, IPropertyValues, IResults, IRoleAssignment, IRoleAssignmentResults, IRoleAssignments } from "..";
+import { IAttachment, IAttachmentFiles, IAttachmentFilesMethods, IBase, IBasePermissions, IContentType, IContentTypeResult, IFile, IFileResult, IFolder, IFolderResult, IList, IListResult, IPropertyValues, IResults, IRoleAssignment, IRoleAssignmentResults, IRoleAssignments } from "..";
 /**
  * List Item Methods
  */
@@ -64,7 +64,7 @@ export interface IListItemQueryProps {
     /**
      * Get the attachment collection.
      */
-    AttachmentFiles(): IBase<IAttachmentFiles>;
+    AttachmentFiles(): IAttachmentFiles;
     /**
      * Gets the specified attachment file.
      * @param fileName - The filename of the attachment.
@@ -128,7 +128,7 @@ export interface IListItemQueryResult extends IListItemMethods, IListItemProps {
     /**
      * Get the attachment collection.
      */
-    AttachmentFiles: IResults<IAttachment>;
+    AttachmentFiles: IAttachmentFilesMethods & IResults<IAttachment>;
     /**
      * Gets a value that specifies the content type of the list item.
      */
