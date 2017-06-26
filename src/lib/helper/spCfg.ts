@@ -224,9 +224,9 @@ export class SPConfig {
                 console.log("[gd-sprest][Field] Creating the '" + cfgField.Name + "' field.");
 
                 // Update the schema xml
-                this.updateFieldSchemaXml(cfgField[i].SchemaXml).done((schemaXml) => {
+                this.updateFieldSchemaXml(cfgField.SchemaXml).done((schemaXml) => {
                     // Add the field
-                    fields.createFieldAsXml(cfgField.SchemaXml).execute((field) => {
+                    fields.createFieldAsXml(schemaXml).execute((field) => {
                         // See if it was successful
                         if (field.existsFl) {
                             // Log
@@ -310,8 +310,11 @@ export class SPConfig {
 
         // Wait for the requests to complete
         lists.done(() => {
-            // Resolve the promise
-            promise.resolve();
+            // Update the lists
+            this.updateLists(cfgLists).done(() => {
+                // Resolve the promise
+                promise.resolve();
+            });
         });
 
         // Return a promise
@@ -397,13 +400,14 @@ export class SPConfig {
 
         // Wait for the requests to complete
         views.done(() => {
+            let counter = 0;
+
             // Parse the views
             for (let i = 0; i < cfgViews.length; i++) {
                 let cfgView = cfgViews[i];
 
                 // Get the view
                 let view: IViewResult = this.isInCollection("Title", cfgView.ViewName, views.results);
-                if (view == null) { continue; }
 
                 // See if the view fields are defined
                 if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
@@ -434,13 +438,16 @@ export class SPConfig {
                     // Update the view
                     view.update(props).execute(true);
                 }
-            }
 
-            // Wait for the view requests to complete
-            views.done(() => {
-                // Resolve the promise
-                promise.resolve();
-            });
+                // Wait for the requests to complete
+                view.done(() => {
+                    // See if we are done
+                    if(++counter >= cfgViews.length) {
+                        // Resolve the promise
+                        promise.resolve();
+                    }
+                })
+            }
         });
 
         // Return the promise
@@ -838,7 +845,7 @@ export class SPConfig {
                 .Lists(cfgList.ListInformation.Title)
                 // Expand the content types, fields and views
                 .query({
-                    Expand: ["Content Types", "Fields", "Views"]
+                    Expand: ["ContentTypes", "Fields", "Views"]
                 })
                 // Execute the request
                 .execute(list => {

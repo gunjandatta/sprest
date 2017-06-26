@@ -539,24 +539,25 @@ export class Base {
             // Save the results
             this["results"] = this["results"] ? this["results"].concat(results) : results;
 
-            // Update the flag
-            this["existsFl"] = results.length > 0;
-
             // See if only one object exists
             if(this["results"].length > 0) {
                 let results = this["results"];
                 
                 // Parse the results
                 for(let result of results) {
-                    // Add the references
+                    // Add the base references
                     result["addMethods"] = this.addMethods;
                     result["base"] = this.base;
+                    result["done"] = this.done;
+                    result["execute"] = this.execute;
+                    result["executeAndWait"] = this.executeAndWait
                     result["executeMethod"] = this.executeMethod;
                     result["existsFl"] = true;
                     result["getProperty"] = this.getProperty;
                     result["parent"] = this;
                     result["targetInfo"] = this.targetInfo;
                     result["updateMetadataUri"] = this.updateMetadataUri;
+                    result["waitForRequestsToComplete"] = this.waitForRequestsToComplete;
 
                     // Update the metadata
                     this.updateMetadata(result);
