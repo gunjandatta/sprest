@@ -312,7 +312,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.71,
+    __ver: 1.72,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -1611,9 +1611,9 @@ var SPConfig = function () {
                     // Log
                     console.log("[gd-sprest][Field] Creating the '" + cfgField.Name + "' field.");
                     // Update the schema xml
-                    _this.updateFieldSchemaXml(cfgField[i].SchemaXml).done(function (schemaXml) {
+                    _this.updateFieldSchemaXml(cfgField.SchemaXml).done(function (schemaXml) {
                         // Add the field
-                        fields.createFieldAsXml(cfgField.SchemaXml).execute(function (field) {
+                        fields.createFieldAsXml(schemaXml).execute(function (field) {
                             // See if it was successful
                             if (field.existsFl) {
                                 // Log
@@ -1692,8 +1692,11 @@ var SPConfig = function () {
             }
             // Wait for the requests to complete
             lists.done(function () {
-                // Resolve the promise
-                promise.resolve();
+                // Update the lists
+                _this.updateLists(cfgLists).done(function () {
+                    // Resolve the promise
+                    promise.resolve();
+                });
             });
             // Return a promise
             return promise;
@@ -1769,14 +1772,12 @@ var SPConfig = function () {
             }
             // Wait for the requests to complete
             views.done(function () {
+                var counter = 0;
                 // Parse the views
                 for (var i = 0; i < cfgViews.length; i++) {
                     var cfgView = cfgViews[i];
                     // Get the view
                     var view = _this.isInCollection("Title", cfgView.ViewName, views.results);
-                    if (view == null) {
-                        continue;
-                    }
                     // See if the view fields are defined
                     if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
                         // Log
@@ -1800,12 +1801,15 @@ var SPConfig = function () {
                         // Update the view
                         view.update(props).execute(true);
                     }
+                    // Wait for the requests to complete
+                    view.done(function () {
+                        // See if we are done
+                        if (++counter >= cfgViews.length) {
+                            // Resolve the promise
+                            promise.resolve();
+                        }
+                    });
                 }
-                // Wait for the view requests to complete
-                views.done(function () {
-                    // Resolve the promise
-                    promise.resolve();
-                });
             });
             // Return the promise
             return promise;
@@ -2130,7 +2134,7 @@ var SPConfig = function () {
             if (cfgList) {
                 // Get the web
                 new __1.Web(_this._webUrl).Lists(cfgList.ListInformation.Title).query({
-                    Expand: ["Content Types", "Fields", "Views"]
+                    Expand: ["ContentTypes", "Fields", "Views"]
                 }).execute(function (list) {
                     // See if the title field is being updated
                     if (cfgList.TitleFieldDisplayName) {
@@ -6083,23 +6087,25 @@ var Base = function () {
         if (results) {
             // Save the results
             this["results"] = this["results"] ? this["results"].concat(results) : results;
-            // Update the flag
-            this["existsFl"] = results.length > 0;
             // See if only one object exists
             if (this["results"].length > 0) {
                 var results_1 = this["results"];
                 // Parse the results
                 for (var _i = 0, results_2 = results_1; _i < results_2.length; _i++) {
                     var result = results_2[_i];
-                    // Add the references
+                    // Add the base references
                     result["addMethods"] = this.addMethods;
                     result["base"] = this.base;
+                    result["done"] = this.done;
+                    result["execute"] = this.execute;
+                    result["executeAndWait"] = this.executeAndWait;
                     result["executeMethod"] = this.executeMethod;
                     result["existsFl"] = true;
                     result["getProperty"] = this.getProperty;
                     result["parent"] = this;
                     result["targetInfo"] = this.targetInfo;
                     result["updateMetadataUri"] = this.updateMetadataUri;
+                    result["waitForRequestsToComplete"] = this.waitForRequestsToComplete;
                     // Update the metadata
                     this.updateMetadata(result);
                     // Add the methods

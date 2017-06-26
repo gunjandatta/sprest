@@ -108,9 +108,9 @@ var SPConfig = (function () {
                     // Log
                     console.log("[gd-sprest][Field] Creating the '" + cfgField.Name + "' field.");
                     // Update the schema xml
-                    _this.updateFieldSchemaXml(cfgField[i].SchemaXml).done(function (schemaXml) {
+                    _this.updateFieldSchemaXml(cfgField.SchemaXml).done(function (schemaXml) {
                         // Add the field
-                        fields.createFieldAsXml(cfgField.SchemaXml).execute(function (field) {
+                        fields.createFieldAsXml(schemaXml).execute(function (field) {
                             // See if it was successful
                             if (field.existsFl) {
                                 // Log
@@ -194,8 +194,11 @@ var SPConfig = (function () {
             }
             // Wait for the requests to complete
             lists.done(function () {
-                // Resolve the promise
-                promise.resolve();
+                // Update the lists
+                _this.updateLists(cfgLists).done(function () {
+                    // Resolve the promise
+                    promise.resolve();
+                });
             });
             // Return a promise
             return promise;
@@ -274,14 +277,12 @@ var SPConfig = (function () {
             }
             // Wait for the requests to complete
             views.done(function () {
+                var counter = 0;
                 // Parse the views
                 for (var i = 0; i < cfgViews.length; i++) {
                     var cfgView = cfgViews[i];
                     // Get the view
                     var view = _this.isInCollection("Title", cfgView.ViewName, views.results);
-                    if (view == null) {
-                        continue;
-                    }
                     // See if the view fields are defined
                     if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
                         // Log
@@ -305,12 +306,15 @@ var SPConfig = (function () {
                         // Update the view
                         view.update(props).execute(true);
                     }
+                    // Wait for the requests to complete
+                    view.done(function () {
+                        // See if we are done
+                        if (++counter >= cfgViews.length) {
+                            // Resolve the promise
+                            promise.resolve();
+                        }
+                    });
                 }
-                // Wait for the view requests to complete
-                views.done(function () {
-                    // Resolve the promise
-                    promise.resolve();
-                });
             });
             // Return the promise
             return promise;
@@ -654,7 +658,7 @@ var SPConfig = (function () {
                 (new __1.Web(_this._webUrl))
                     .Lists(cfgList.ListInformation.Title)
                     .query({
-                    Expand: ["Content Types", "Fields", "Views"]
+                    Expand: ["ContentTypes", "Fields", "Views"]
                 })
                     .execute(function (list) {
                     // See if the title field is being updated
