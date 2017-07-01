@@ -202,7 +202,7 @@ export class Base {
         objType = (objType[objType.length - 1]);
         objType = objType.split('.');
         objType = (objType[objType.length - 1]).toLowerCase();
-        objType += isCollection && data.results.length > 1 ? "s" : "";
+        objType += isCollection ? "s" : "";
 
         // See if this is a field
         if((/^field/.test(objType) || /field$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {

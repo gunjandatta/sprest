@@ -45,6 +45,7 @@ export declare class SPConfig {
     private removeWebParts;
     private updateFieldSchemaXml;
     private updateLists;
+    private updateViews;
     private uninstallSite;
     private uninstallWeb;
 }

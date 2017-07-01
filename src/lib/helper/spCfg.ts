@@ -8,7 +8,7 @@ import {
     IListItemResult, IListItemResults,
     ISPCfgContentTypeInfo, ISPCfgCustomActionInfo, ISPConfigProps, ISPCfgFieldInfo, ISPCfgListInfo, ISPCfgViewInfo, ISPCfgWebPartInfo,
     IUserCustomActionResult, IUserCustomActionResults, IUserCustomActionCreationInformation,
-    IViewResult, IViewResults
+    IView, IViewResult, IViewResults
 } from "../../definitions";
 import {
     ContextInfo,
@@ -161,7 +161,7 @@ export class SPConfig {
                         contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(ct => {
                             // Add the content type to the results
                             contentTypes.results.push(ct);
-                        });
+                        }, true);
                     } else {
                         // Log
                         console.log("[gd-sprest][Content Type] The parent content type '" + cfgContentType.Name + "' was not found.");
@@ -390,9 +390,6 @@ export class SPConfig {
                         // Log
                         console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' failed to be created.");
                         console.log("[gd-sprest][View] Error: " + view.response);
-
-                        // Add the view to the results
-                        views.results.push(view);
                     }
                 }, true);
             }
@@ -400,54 +397,11 @@ export class SPConfig {
 
         // Wait for the requests to complete
         views.done(() => {
-            let counter = 0;
-
-            // Parse the views
-            for (let i = 0; i < cfgViews.length; i++) {
-                let cfgView = cfgViews[i];
-
-                // Get the view
-                let view: IViewResult = this.isInCollection("Title", cfgView.ViewName, views.results);
-
-                // See if the view fields are defined
-                if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
-                    // Log
-                    console.log("[gd-sprest][View] Updating the view fields for the '" + cfgView.ViewName + "' view.");
-
-                    // Clear the view fields
-                    view.ViewFields().removeAllViewFields().execute(true);
-
-                    // Parse the view fields
-                    for (let i = 0; i < cfgView.ViewFields.length; i++) {
-                        // Add the view field
-                        view.ViewFields().addViewField(cfgView.ViewFields[i]).execute(true);
-                    }
-                }
-
-                // See if we are updating the view properties
-                if (cfgView.JSLink || cfgView.ViewQuery) {
-                    let props = {};
-
-                    // Log
-                    console.log("[gd-sprest][View] Updating the view properties for the '" + cfgView.ViewName + "' view.");
-
-                    // Set the properties
-                    cfgView.JSLink ? props["JSLink"] = cfgView.JSLink : null;
-                    cfgView.ViewQuery ? props["ViewQuery"] = cfgView.ViewQuery : null;
-
-                    // Update the view
-                    view.update(props).execute(true);
-                }
-
-                // Wait for the requests to complete
-                view.done(() => {
-                    // See if we are done
-                    if(++counter >= cfgViews.length) {
-                        // Resolve the promise
-                        promise.resolve();
-                    }
-                })
-            }
+            // Update the views
+            this.updateViews(views, cfgViews).done(() => {
+                // Resolve the promise
+                promise.resolve();
+            });
         });
 
         // Return the promise
@@ -887,6 +841,62 @@ export class SPConfig {
         }
 
         // Return a promise
+        return promise;
+    }
+
+    // Method to update the views
+    private updateViews = (views: IViewResults, cfgViews: Array<ISPCfgViewInfo>) => {
+        let counter = 0;
+        let promise = new Promise();
+
+        // Parse the views
+        for (let i = 0; i < cfgViews.length; i++) {
+            let cfgView = cfgViews[i];
+
+            // Get the view
+            let view: IView = views.getByTitle(cfgView.ViewName);
+
+            // See if the view fields are defined
+            if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
+                // Log
+                console.log("[gd-sprest][View] Updating the view fields for the '" + cfgView.ViewName + "' view.");
+
+                // Clear the view fields
+                view.ViewFields().removeAllViewFields().execute(true);
+
+                // Parse the view fields
+                for (let i = 0; i < cfgView.ViewFields.length; i++) {
+                    // Add the view field
+                    view.ViewFields().addViewField(cfgView.ViewFields[i]).execute(true);
+                }
+            }
+
+            // See if we are updating the view properties
+            if (cfgView.JSLink || cfgView.ViewQuery) {
+                let props = {};
+
+                // Log
+                console.log("[gd-sprest][View] Updating the view properties for the '" + cfgView.ViewName + "' view.");
+
+                // Set the properties
+                cfgView.JSLink ? props["JSLink"] = cfgView.JSLink : null;
+                cfgView.ViewQuery ? props["ViewQuery"] = cfgView.ViewQuery : null;
+
+                // Update the view
+                view.update(props).execute(true);
+            }
+
+            // Wait for the requests to complete
+            view.done(() => {
+                // See if we are done
+                if(++counter >= cfgViews.length) {
+                    // Resolve the promise
+                    promise.resolve();
+                }
+            })
+        }
+
+        // Return the promise
         return promise;
     }
 

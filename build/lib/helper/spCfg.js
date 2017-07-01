@@ -46,7 +46,7 @@ var SPConfig = (function () {
                             contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
                                 // Add the content type to the results
                                 contentTypes.results.push(ct);
-                            });
+                            }, true);
                         }
                         else {
                             // Log
@@ -265,8 +265,6 @@ var SPConfig = (function () {
                             // Log
                             console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' failed to be created.");
                             console.log("[gd-sprest][View] Error: " + view.response);
-                            // Add the view to the results
-                            views.results.push(view);
                         }
                     }, true);
                 }
@@ -277,44 +275,11 @@ var SPConfig = (function () {
             }
             // Wait for the requests to complete
             views.done(function () {
-                var counter = 0;
-                // Parse the views
-                for (var i = 0; i < cfgViews.length; i++) {
-                    var cfgView = cfgViews[i];
-                    // Get the view
-                    var view = _this.isInCollection("Title", cfgView.ViewName, views.results);
-                    // See if the view fields are defined
-                    if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
-                        // Log
-                        console.log("[gd-sprest][View] Updating the view fields for the '" + cfgView.ViewName + "' view.");
-                        // Clear the view fields
-                        view.ViewFields().removeAllViewFields().execute(true);
-                        // Parse the view fields
-                        for (var i_1 = 0; i_1 < cfgView.ViewFields.length; i_1++) {
-                            // Add the view field
-                            view.ViewFields().addViewField(cfgView.ViewFields[i_1]).execute(true);
-                        }
-                    }
-                    // See if we are updating the view properties
-                    if (cfgView.JSLink || cfgView.ViewQuery) {
-                        var props = {};
-                        // Log
-                        console.log("[gd-sprest][View] Updating the view properties for the '" + cfgView.ViewName + "' view.");
-                        // Set the properties
-                        cfgView.JSLink ? props["JSLink"] = cfgView.JSLink : null;
-                        cfgView.ViewQuery ? props["ViewQuery"] = cfgView.ViewQuery : null;
-                        // Update the view
-                        view.update(props).execute(true);
-                    }
-                    // Wait for the requests to complete
-                    view.done(function () {
-                        // See if we are done
-                        if (++counter >= cfgViews.length) {
-                            // Resolve the promise
-                            promise.resolve();
-                        }
-                    });
-                }
+                // Update the views
+                _this.updateViews(views, cfgViews).done(function () {
+                    // Resolve the promise
+                    promise.resolve();
+                });
             });
             // Return the promise
             return promise;
@@ -697,6 +662,50 @@ var SPConfig = (function () {
                 promise.resolve();
             }
             // Return a promise
+            return promise;
+        };
+        // Method to update the views
+        this.updateViews = function (views, cfgViews) {
+            var counter = 0;
+            var promise = new utils_1.Promise();
+            // Parse the views
+            for (var i = 0; i < cfgViews.length; i++) {
+                var cfgView = cfgViews[i];
+                // Get the view
+                var view = views.getByTitle(cfgView.ViewName);
+                // See if the view fields are defined
+                if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
+                    // Log
+                    console.log("[gd-sprest][View] Updating the view fields for the '" + cfgView.ViewName + "' view.");
+                    // Clear the view fields
+                    view.ViewFields().removeAllViewFields().execute(true);
+                    // Parse the view fields
+                    for (var i_1 = 0; i_1 < cfgView.ViewFields.length; i_1++) {
+                        // Add the view field
+                        view.ViewFields().addViewField(cfgView.ViewFields[i_1]).execute(true);
+                    }
+                }
+                // See if we are updating the view properties
+                if (cfgView.JSLink || cfgView.ViewQuery) {
+                    var props = {};
+                    // Log
+                    console.log("[gd-sprest][View] Updating the view properties for the '" + cfgView.ViewName + "' view.");
+                    // Set the properties
+                    cfgView.JSLink ? props["JSLink"] = cfgView.JSLink : null;
+                    cfgView.ViewQuery ? props["ViewQuery"] = cfgView.ViewQuery : null;
+                    // Update the view
+                    view.update(props).execute(true);
+                }
+                // Wait for the requests to complete
+                view.done(function () {
+                    // See if we are done
+                    if (++counter >= cfgViews.length) {
+                        // Resolve the promise
+                        promise.resolve();
+                    }
+                });
+            }
+            // Return the promise
             return promise;
         };
         // Method to uninstall the site components
