@@ -117,7 +117,7 @@ export interface IField extends IFieldMethods, IFieldQueryProps, IBase<IField, I
 /**
  * Base Choice Field
  */
-export interface IFieldBaseChoice extends IField {
+export interface IFieldBaseChoice extends IFieldResult {
     /** A value that specifies values that are available for selection in the field. */
     Choices: {
         results: Array<string>;
@@ -130,7 +130,7 @@ export interface IFieldBaseChoice extends IField {
 /**
  * Calculated Field
  */
-export interface IFieldCalculated extends IField {
+export interface IFieldCalculated extends IFieldResult {
     /** The date and time format that is displayed in the field. */
     DateFormat: SPTypes.DateFormat | number;
     /** A value that specifies the formula for the field. */
@@ -148,7 +148,7 @@ export interface IFieldChoice extends IFieldBaseChoice {
 /**
  * Computed Field
  */
-export interface IFieldComputed extends IField {
+export interface IFieldComputed extends IFieldResult {
     /** A value that specifies whether a lookup field can reference the field. */
     EnableLookup: boolean;
 }
@@ -162,7 +162,7 @@ export interface IFieldCurrency extends IFieldNumber {
 /**
  * Date/Time Field
  */
-export interface IFieldDateTime extends IField {
+export interface IFieldDateTime extends IFieldResult {
     /** A value that specifies the calendar type of the field. */
     DateTimeCalendarType: SPTypes.CalendarType | number;
     /** The format of the date and time that is displayed in the field. */
@@ -173,7 +173,7 @@ export interface IFieldDateTime extends IField {
 /**
  * Lookup Field
  */
-export interface IFieldLookup extends IField {
+export interface IFieldLookup extends IFieldResult {
     /** A value that specifies whether the lookup field allows multiple values. You cannot set a deletion constraint on a lookup field that allows multiple values. */
     AllowMultipleValues: boolean;
     /** A value that specifies whether this lookup field is returned by SP.List.getRelatedFields from the list being looked up to. Always returns false if the field represents a secondary column in a multiple-column lookup. Secondary columns are not discoverable from the source list. */
@@ -197,7 +197,7 @@ export interface IFieldMultiChoice extends IFieldBaseChoice {
 /**
  * Note Field
  */
-export interface IFieldNote extends IField {
+export interface IFieldNote extends IFieldResult {
     /** A value that specifies whether a hyperlink is allowed as a value of the field. */
     AllowHyperlink: boolean;
     /** A value that specifies whether all changes to the value of the field are displayed in list forms. */
@@ -214,7 +214,7 @@ export interface IFieldNote extends IField {
 /**
  * Number Field
  */
-export interface IFieldNumber extends IField {
+export interface IFieldNumber extends IFieldResult {
     /** A value that specifies the minimum allowed value for the field. */
     MaximumValue: number;
     /** A value that specifies the minimum allowed value for the field. */
@@ -242,14 +242,14 @@ export interface IFieldRatingScale extends IFieldBaseChoice {
 /**
  * Text Field
  */
-export interface IFieldText extends IField {
+export interface IFieldText extends IFieldResult {
     /** A value that specifies the maximum number of characters allowed in the value of the field. */
     MaxLength: number;
 }
 /**
  * URL Field
  */
-export interface IFieldUrl extends IField {
+export interface IFieldUrl extends IFieldResult {
     /** A value that specifies the display format for the value in the field. */
     DisplayFormat: SPTypes.UrlFormatType | number;
 }
