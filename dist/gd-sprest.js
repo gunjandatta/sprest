@@ -312,7 +312,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.73,
+    __ver: 1.74,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -1642,6 +1642,15 @@ var SPConfig = function () {
         // Method to create the lists
         this.createLists = function (lists, cfgLists) {
             var promise = new utils_1.Promise();
+            // See if the configuration type exists
+            if (_this._cfgType) {
+                // Ensure it's for this type
+                if (_this._cfgType != types_1.SPConfigTypes.Lists) {
+                    // Resolve the promise
+                    promise.resolve();
+                    return promise;
+                }
+            }
             // Ensure the lists exist
             if (cfgLists == null || cfgLists.length == 0) {
                 // Resolve the promise and return it
@@ -1650,6 +1659,13 @@ var SPConfig = function () {
             }
             var _loop_4 = function _loop_4(i) {
                 var cfgList = cfgLists[i];
+                // See if the target name exists
+                if (_this._cfgType && _this._targetName) {
+                    // Ensure it's for this list
+                    if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
+                        return "continue";
+                    }
+                }
                 // See if this content type already exists
                 if (_this.isInCollection("Title", cfgList.ListInformation.Title, lists.results)) {
                     // Log
@@ -1704,6 +1720,15 @@ var SPConfig = function () {
         // Method to create the user custom actions
         this.createUserCustomActions = function (customActions, cfgCustomActions) {
             var promise = new utils_1.Promise();
+            // See if the configuration type exists
+            if (_this._cfgType) {
+                // Ensure it's for this type
+                if (_this._cfgType != types_1.SPConfigTypes.SiteUserCustomActions || _this._cfgType != types_1.SPConfigTypes.WebUserCustomActions) {
+                    // Resolve the promise
+                    promise.resolve();
+                    return promise;
+                }
+            }
             // Ensure the lists exist
             if (cfgCustomActions == null || cfgCustomActions.length == 0) {
                 // Resolve the promise and return it
@@ -1713,6 +1738,14 @@ var SPConfig = function () {
             // Parse the custom actions
             for (var i = 0; i < cfgCustomActions.length; i++) {
                 var cfgCustomAction = cfgCustomActions[i];
+                // See if the target name exists
+                if (_this._cfgType && _this._targetName) {
+                    // Ensure it's for this custom action
+                    if (cfgCustomAction.Name.toLowerCase() != _this._targetName || cfgCustomAction.Title.toLowerCase() != _this._targetName) {
+                        // Skip this custom action
+                        continue;
+                    }
+                }
                 // See if this custom action already exists
                 if (_this.isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
                     // Log
@@ -1782,6 +1815,13 @@ var SPConfig = function () {
         // Method to create the web parts
         this.createWebParts = function () {
             var cfgWebParts = _this._configuration.WebPartCfg;
+            // See if the configuration type exists
+            if (_this._cfgType) {
+                // Ensure it's for this type
+                if (_this._cfgType != types_1.SPConfigTypes.Lists) {
+                    return;
+                }
+            }
             // Ensure the configuration exists
             if (cfgWebParts == null || cfgWebParts.length == 0) {
                 return;
@@ -1794,6 +1834,13 @@ var SPConfig = function () {
             }).execute(function (folder) {
                 var _loop_6 = function _loop_6(i) {
                     var cfgWebPart = cfgWebParts[i];
+                    // See if the target name exists
+                    if (_this._cfgType && _this._targetName) {
+                        // Ensure it's for this list
+                        if (cfgWebPart.FileName.toLowerCase() != _this._targetName) {
+                            return "continue";
+                        }
+                    }
                     // See if this webpart exists
                     var file = _this.isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
                     if (file.existsFl) {
@@ -1836,6 +1883,14 @@ var SPConfig = function () {
         // Method to install the site components
         this.installSite = function () {
             var promise = new utils_1.Promise();
+            // Ensure site actions exist
+            if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site) {
+                // Resolve the promise
+                promise.resolve();
+                return;
+            }
+            // Log
+            console.log("[gd-sprest] Loading the site information...");
             // Get the site
             new __1.Site(_this._webUrl).query({
                 Expand: ["UserCustomActions"]
@@ -1852,6 +1907,8 @@ var SPConfig = function () {
         // Method to install the web components
         this.installWeb = function () {
             var promise = new utils_1.Promise();
+            // Log
+            console.log("[gd-sprest] Loading the web information...");
             // Get the web
             new __1.Web(_this._webUrl).query({
                 Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
@@ -1957,6 +2014,15 @@ var SPConfig = function () {
         // Method to remove the lists
         this.removeLists = function (lists, cfgLists) {
             var promise = new utils_1.Promise();
+            // See if the configuration type exists
+            if (_this._cfgType) {
+                // Ensure it's for this type
+                if (_this._cfgType != types_1.SPConfigTypes.Lists) {
+                    // Resolve the promise
+                    promise.resolve();
+                    return promise;
+                }
+            }
             // Ensure the lists exist
             if (cfgLists == null || cfgLists.length == 0) {
                 // Resolve the promise and return it
@@ -1965,6 +2031,13 @@ var SPConfig = function () {
             }
             var _loop_9 = function _loop_9(i) {
                 var cfgList = cfgLists[i];
+                // See if the target name exists
+                if (_this._cfgType && _this._targetName) {
+                    // Ensure it's for this list
+                    if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
+                        return "continue";
+                    }
+                }
                 // Get the list
                 var list = _this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
                 if (list) {
@@ -1990,6 +2063,15 @@ var SPConfig = function () {
         // Method to remove the user custom actions
         this.removeUserCustomActions = function (customActions, cfgCustomActions) {
             var promise = new utils_1.Promise();
+            // See if the configuration type exists
+            if (_this._cfgType) {
+                // Ensure it's for this type
+                if (_this._cfgType != types_1.SPConfigTypes.SiteUserCustomActions || _this._cfgType != types_1.SPConfigTypes.WebUserCustomActions) {
+                    // Resolve the promise
+                    promise.resolve();
+                    return promise;
+                }
+            }
             // Ensure the custom actions exist
             if (cfgCustomActions == null || cfgCustomActions.length == 0) {
                 // Resolve the promise and return it
@@ -1998,6 +2080,13 @@ var SPConfig = function () {
             }
             var _loop_10 = function _loop_10(i) {
                 var cfgCustomAction = cfgCustomActions[i];
+                // See if the target name exists
+                if (_this._cfgType && _this._targetName) {
+                    // Ensure it's for this custom action
+                    if (cfgCustomAction.Name.toLowerCase() != _this._targetName || cfgCustomAction.Title.toLowerCase() != _this._targetName) {
+                        return "continue";
+                    }
+                }
                 // Get the custom action
                 var ca = _this.isInCollection("Title", cfgCustomAction.Name, customActions.results);
                 if (ca) {
@@ -2024,6 +2113,15 @@ var SPConfig = function () {
         this.removeWebParts = function () {
             var cfgWebParts = _this._configuration.WebPartCfg;
             var promise = new utils_1.Promise();
+            // See if the configuration type exists
+            if (_this._cfgType) {
+                // Ensure it's for this type
+                if (_this._cfgType != types_1.SPConfigTypes.WebParts) {
+                    // Resolve the promise
+                    promise.resolve();
+                    return promise;
+                }
+            }
             // Ensure the configuration exists
             if (cfgWebParts == null || cfgWebParts.length == 0) {
                 // Resolve the promise and return it
@@ -2036,6 +2134,13 @@ var SPConfig = function () {
             new __1.Web(__1.ContextInfo.siteServerRelativeUrl).Lists("Web Part Gallery").RootFolder().Files().execute(function (files) {
                 var _loop_11 = function _loop_11(i) {
                     var cfgWebPart = cfgWebParts[i];
+                    // See if the target name exists
+                    if (_this._cfgType && _this._targetName) {
+                        // Ensure it's for this list
+                        if (cfgWebPart.FileName.toLowerCase() != _this._targetName) {
+                            return "continue";
+                        }
+                    }
                     // Get the file
                     var file = _this.isInCollection("Name", cfgWebPart.FileName, files.results);
                     if (file) {
@@ -2236,7 +2341,7 @@ var SPConfig = function () {
         var _this = this;
         // Update the global variables
         this._cfgType = cfgType;
-        this._targetName = targetName;
+        this._targetName = targetName ? targetName.toLowerCase() : null;
         // Install the web components
         this.installWeb().done(function () {
             // Install the site components

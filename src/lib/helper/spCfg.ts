@@ -56,7 +56,7 @@ export class SPConfig {
     install(callback?: any, cfgType?: number, targetName?: string) {
         // Update the global variables
         this._cfgType = cfgType;
-        this._targetName = targetName;
+        this._targetName = targetName ? targetName.toLowerCase() : null;
 
         // Install the web components
         this.installWeb().done(() => {
@@ -255,6 +255,16 @@ export class SPConfig {
     private createLists = (lists: IListResults, cfgLists: Array<ISPCfgListInfo>) => {
         let promise = new Promise();
 
+        // See if the configuration type exists
+        if (this._cfgType) {
+            // Ensure it's for this type
+            if (this._cfgType != SPConfigTypes.Lists) {
+                // Resolve the promise
+                promise.resolve();
+                return promise;
+            }
+        }
+
         // Ensure the lists exist
         if (cfgLists == null || cfgLists.length == 0) {
             // Resolve the promise and return it
@@ -265,6 +275,15 @@ export class SPConfig {
         // Parse the content types
         for (let i = 0; i < cfgLists.length; i++) {
             let cfgList = cfgLists[i];
+
+            // See if the target name exists
+            if (this._cfgType && this._targetName) {
+                // Ensure it's for this list
+                if (cfgList.ListInformation.Title.toLowerCase() != this._targetName) {
+                    // Skip this list
+                    continue;
+                }
+            }
 
             // See if this content type already exists
             if (this.isInCollection("Title", cfgList.ListInformation.Title, lists.results)) {
@@ -325,6 +344,16 @@ export class SPConfig {
     private createUserCustomActions = (customActions: IUserCustomActionResults, cfgCustomActions: Array<IUserCustomActionCreationInformation>) => {
         let promise = new Promise();
 
+        // See if the configuration type exists
+        if (this._cfgType) {
+            // Ensure it's for this type
+            if (this._cfgType != SPConfigTypes.SiteUserCustomActions || this._cfgType != SPConfigTypes.WebUserCustomActions) {
+                // Resolve the promise
+                promise.resolve();
+                return promise;
+            }
+        }
+
         // Ensure the lists exist
         if (cfgCustomActions == null || cfgCustomActions.length == 0) {
             // Resolve the promise and return it
@@ -335,6 +364,16 @@ export class SPConfig {
         // Parse the custom actions
         for (let i = 0; i < cfgCustomActions.length; i++) {
             let cfgCustomAction = cfgCustomActions[i];
+
+            // See if the target name exists
+            if (this._cfgType && this._targetName) {
+                // Ensure it's for this custom action
+                if (cfgCustomAction.Name.toLowerCase() != this._targetName ||
+                    cfgCustomAction.Title.toLowerCase() != this._targetName) {
+                    // Skip this custom action
+                    continue;
+                }
+            }
 
             // See if this custom action already exists
             if (this.isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
@@ -412,6 +451,12 @@ export class SPConfig {
     private createWebParts = () => {
         let cfgWebParts = this._configuration.WebPartCfg;
 
+        // See if the configuration type exists
+        if (this._cfgType) {
+            // Ensure it's for this type
+            if (this._cfgType != SPConfigTypes.Lists) { return; }
+        }
+
         // Ensure the configuration exists
         if (cfgWebParts == null || cfgWebParts.length == 0) { return; }
 
@@ -433,6 +478,15 @@ export class SPConfig {
                 // Parse the configuration
                 for (let i = 0; i < cfgWebParts.length; i++) {
                     let cfgWebPart = cfgWebParts[i];
+
+                    // See if the target name exists
+                    if (this._cfgType && this._targetName) {
+                        // Ensure it's for this list
+                        if (cfgWebPart.FileName.toLowerCase() != this._targetName) {
+                            // Skip this list
+                            continue;
+                        }
+                    }
 
                     // See if this webpart exists
                     let file: IFileResult = this.isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
@@ -485,6 +539,16 @@ export class SPConfig {
     private installSite = () => {
         let promise = new Promise();
 
+        // Ensure site actions exist
+        if (this._configuration.CustomActionCfg == null || this._configuration.CustomActionCfg.Site) {
+            // Resolve the promise
+            promise.resolve();
+            return;
+        }
+
+        // Log
+        console.log("[gd-sprest] Loading the site information...");
+
         // Get the site
         (new Site(this._webUrl))
             // Expand the user custom actions
@@ -507,6 +571,9 @@ export class SPConfig {
     // Method to install the web components
     private installWeb = () => {
         let promise = new Promise();
+
+        // Log
+        console.log("[gd-sprest] Loading the web information...");
 
         // Get the web
         (new Web(this._webUrl))
@@ -629,6 +696,16 @@ export class SPConfig {
     private removeLists = (lists: IListResults, cfgLists: Array<ISPCfgListInfo>) => {
         let promise = new Promise();
 
+        // See if the configuration type exists
+        if (this._cfgType) {
+            // Ensure it's for this type
+            if (this._cfgType != SPConfigTypes.Lists) {
+                // Resolve the promise
+                promise.resolve();
+                return promise;
+            }
+        }
+
         // Ensure the lists exist
         if (cfgLists == null || cfgLists.length == 0) {
             // Resolve the promise and return it
@@ -639,6 +716,15 @@ export class SPConfig {
         // Parse the configuration
         for (let i = 0; i < cfgLists.length; i++) {
             let cfgList = cfgLists[i];
+
+            // See if the target name exists
+            if (this._cfgType && this._targetName) {
+                // Ensure it's for this list
+                if (cfgList.ListInformation.Title.toLowerCase() != this._targetName) {
+                    // Skip this list
+                    continue;
+                }
+            }
 
             // Get the list
             let list: IListResult = this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
@@ -664,6 +750,16 @@ export class SPConfig {
     private removeUserCustomActions = (customActions: IUserCustomActionResults, cfgCustomActions: Array<IUserCustomActionCreationInformation>) => {
         let promise = new Promise();
 
+        // See if the configuration type exists
+        if (this._cfgType) {
+            // Ensure it's for this type
+            if (this._cfgType != SPConfigTypes.SiteUserCustomActions || this._cfgType != SPConfigTypes.WebUserCustomActions) {
+                // Resolve the promise
+                promise.resolve();
+                return promise;
+            }
+        }
+
         // Ensure the custom actions exist
         if (cfgCustomActions == null || cfgCustomActions.length == 0) {
             // Resolve the promise and return it
@@ -674,6 +770,16 @@ export class SPConfig {
         // Parse the configuration
         for (let i = 0; i < cfgCustomActions.length; i++) {
             let cfgCustomAction = cfgCustomActions[i];
+
+            // See if the target name exists
+            if (this._cfgType && this._targetName) {
+                // Ensure it's for this custom action
+                if (cfgCustomAction.Name.toLowerCase() != this._targetName ||
+                    cfgCustomAction.Title.toLowerCase() != this._targetName) {
+                    // Skip this custom action
+                    continue;
+                }
+            }
 
             // Get the custom action
             let ca: IUserCustomActionResult = this.isInCollection("Title", cfgCustomAction.Name, customActions.results);
@@ -701,6 +807,16 @@ export class SPConfig {
         let cfgWebParts = this._configuration.WebPartCfg;
         let promise = new Promise();
 
+        // See if the configuration type exists
+        if (this._cfgType) {
+            // Ensure it's for this type
+            if (this._cfgType != SPConfigTypes.WebParts) {
+                // Resolve the promise
+                promise.resolve();
+                return promise;
+            }
+        }
+
         // Ensure the configuration exists
         if (cfgWebParts == null || cfgWebParts.length == 0) {
             // Resolve the promise and return it
@@ -724,6 +840,15 @@ export class SPConfig {
                 // Parse the configuration
                 for (let i = 0; i < cfgWebParts.length; i++) {
                     let cfgWebPart = cfgWebParts[i];
+
+                    // See if the target name exists
+                    if (this._cfgType && this._targetName) {
+                        // Ensure it's for this list
+                        if (cfgWebPart.FileName.toLowerCase() != this._targetName) {
+                            // Skip this list
+                            continue;
+                        }
+                    }
 
                     // Get the file
                     let file: IFileResult = this.isInCollection("Name", cfgWebPart.FileName, files.results);
@@ -889,7 +1014,7 @@ export class SPConfig {
             // Wait for the requests to complete
             view.done(() => {
                 // See if we are done
-                if(++counter >= cfgViews.length) {
+                if (++counter >= cfgViews.length) {
                     // Resolve the promise
                     promise.resolve();
                 }
