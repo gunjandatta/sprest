@@ -1,16 +1,10 @@
 {
     "compilerOptions": {
+        "declaration": true,
         "outDir": "build",
         "sourceMap": true,
         "target": "es5"
     },
-    "exclude": [
-        "build",
-        "dist",
-        "images",
-        "node_modules",
-        "test"
-    ],
     "include": [
         "src/**/*.ts"
     ]

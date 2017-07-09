@@ -45,8 +45,8 @@ class _Search extends Base {
         return argNames;
     }
 
-    /** The query method */
-    query(settings) {
+    /** The search query method */
+    searchquery(settings) {
         // Execute the request
         return this.executeMethod("query", {
             argNames: this.getArgNames(settings),

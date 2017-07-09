@@ -51,8 +51,8 @@ var _Search = (function (_super) {
         // Return the argument names
         return argNames;
     };
-    /** The query method */
-    _Search.prototype.query = function (settings) {
+    /** The search query method */
+    _Search.prototype.searchquery = function (settings) {
         // Execute the request
         return this.executeMethod("query", {
             argNames: this.getArgNames(settings),
