@@ -312,7 +312,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.75,
+    __ver: 1.76,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -1887,7 +1887,7 @@ var SPConfig = function () {
             if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site) {
                 // Resolve the promise
                 promise.resolve();
-                return;
+                return promise;
             }
             // Log
             console.log("[gd-sprest] Loading the site information...");
@@ -2290,6 +2290,12 @@ var SPConfig = function () {
         // Method to uninstall the site components
         this.uninstallSite = function () {
             var promise = new utils_1.Promise();
+            // Ensure site actions exist
+            if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site) {
+                // Resolve the promise
+                promise.resolve();
+                return promise;
+            }
             // Get the site
             new __1.Site(_this._webUrl).query({
                 Expand: ["UserCustomActions"]

@@ -543,7 +543,7 @@ export class SPConfig {
         if (this._configuration.CustomActionCfg == null || this._configuration.CustomActionCfg.Site) {
             // Resolve the promise
             promise.resolve();
-            return;
+            return promise;
         }
 
         // Log
@@ -1028,6 +1028,13 @@ export class SPConfig {
     // Method to uninstall the site components
     private uninstallSite = () => {
         let promise = new Promise();
+
+        // Ensure site actions exist
+        if (this._configuration.CustomActionCfg == null || this._configuration.CustomActionCfg.Site) {
+            // Resolve the promise
+            promise.resolve();
+            return promise;
+        }
 
         // Get the site
         (new Site(this._webUrl))
