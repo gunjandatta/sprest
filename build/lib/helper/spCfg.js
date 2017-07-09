@@ -324,7 +324,7 @@ var SPConfig = (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.Lists) {
+                if (_this._cfgType != types_1.SPConfigTypes.WebParts) {
                     return;
                 }
             }

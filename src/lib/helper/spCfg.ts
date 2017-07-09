@@ -454,7 +454,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != SPConfigTypes.Lists) { return; }
+            if (this._cfgType != SPConfigTypes.WebParts) { return; }
         }
 
         // Ensure the configuration exists

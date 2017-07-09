@@ -312,7 +312,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.76,
+    __ver: 1.77,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -1818,7 +1818,7 @@ var SPConfig = function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.Lists) {
+                if (_this._cfgType != types_1.SPConfigTypes.WebParts) {
                     return;
                 }
             }
