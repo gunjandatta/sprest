@@ -1,9 +1,13 @@
-import { IBasePermissions } from ".";
+import { IBase, IBasePermissions, IContextWebInfo } from ".";
 
 /**
  * Context Information
  */
-export interface IContextInfo {
+export interface IContextInformation {
+    /**
+     * Properties
+     */
+
     /** Alerts Enabled */
     alertsEnabled: boolean;
 
@@ -111,4 +115,14 @@ export interface IContextInfo {
 
     /** Web UI Version */
     webUIVersion: number;
+
+    /**
+     * Methods
+     */
+
+    /**
+     * Method to get the web context information.
+     * @param url - The relative url of the web.
+     */
+    getWeb(url: string): IBase<IContextWebInfo>;
 }

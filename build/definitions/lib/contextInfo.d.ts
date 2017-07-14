@@ -1,8 +1,11 @@
-import { IBasePermissions } from ".";
+import { IBase, IBasePermissions, IContextWebInfo } from ".";
 /**
  * Context Information
  */
-export interface IContextInfo {
+export interface IContextInformation {
+    /**
+     * Properties
+     */
     /** Alerts Enabled */
     alertsEnabled: boolean;
     /** Allow Silverlight Prompt */
@@ -75,4 +78,12 @@ export interface IContextInfo {
     webTitle: string;
     /** Web UI Version */
     webUIVersion: number;
+    /**
+     * Methods
+     */
+    /**
+     * Method to get the web context information.
+     * @param url - The relative url of the web.
+     */
+    getWeb(url: string): IBase<IContextWebInfo>;
 }

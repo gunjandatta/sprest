@@ -1,4 +1,4 @@
-// Create a SharePointn Configuration object
+// Create a SharePoint Configuration object
 var spCfg = new $REST.Helper.SPConfig({
     // Site Fields
     Fields: [

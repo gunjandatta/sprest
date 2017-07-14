@@ -3,10 +3,10 @@ var webpack = require("webpack");
 
 module.exports = function(env) {
     // Is production
-    var isProduction = env && env.isProd;
+    var isProduction = env && env.isProd ? true : false;
 
-    // Return the configuration
-    return {
+    // Create the configuration
+    let cfg = {
         // Target the output of the typescript compiler
         context: path.join(__dirname, "build"),
 
@@ -43,14 +43,18 @@ module.exports = function(env) {
                     }
                 }
             ]
-        },
-
-        // Plugins
-        plugins: [
-            // Minify the output
-            new webpack.optimize.UglifyJsPlugin({
-                compress: isProduction
-            })
-        ]
+        }
     };
+
+    // See if this is production
+    if(isProduction) {
+        // Plugins
+        cfg.plugins = [
+            // Minify the output
+            new webpack.optimize.UglifyJsPlugin({ compress: true })
+        ]
+    }
+
+    // Return the configuration
+    return cfg;
 }

@@ -88,6 +88,18 @@ export interface IContentTypeCreationInformation {
 }
 
 /**
+ * Context Information
+ */
+export interface IContextInfo {
+    FormDigestTimeoutSeconds: number;
+    FormDigestValue: string;
+    LibraryVersion: string;
+    SiteFullUrl: string;
+    SupportedSchemaVersions: IResults<string>;
+    WebFullUrl: string;
+}
+
+/**
  * Entity Data
  */
 export interface IEntityData {
@@ -681,6 +693,13 @@ export interface IVisualizationStyleSet {
     BackgroundColor: string;
     Fields: IVisualizationField;
     MinHeight: string;
+}
+
+/**
+ * Web Context Information
+ */
+export interface IContextWebInfo {
+    GetContextWebInformation: IContextInfo;
 }
 
 /**
