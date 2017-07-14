@@ -31,6 +31,9 @@ export class TargetInfo {
     // The request data
     requestData:any;
 
+    // The form digest
+    get requestDigest():string { return this.targetInfo.requestDigest; }
+
     // The request header
     requestHeaders:string[];
 

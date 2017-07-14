@@ -86,15 +86,23 @@ export class XHRRequest {
 
     // Method to default the request headers
     private defaultHeaders() {
-        // Get the request digest
-        let requestDigest:any = document.querySelector("#__REQUESTDIGEST");
-        requestDigest = requestDigest ? requestDigest.value : "";
-
         // Set the default headers
         this.xhr.setRequestHeader("Accept", "application/json;odata=verbose");
         this.xhr.setRequestHeader("Content-Type", "application/json;odata=verbose");
         this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
-        this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
+
+        // See if the request digest has been defined
+        if(this.targetInfo.requestDigest) {
+            // Set the request digest
+            this.xhr.setRequestHeader("X-RequestDigest", this.targetInfo.requestDigest);
+        } else {
+            // Get the request digest
+            let requestDigest:any = document.querySelector("#__REQUESTDIGEST");
+            requestDigest = requestDigest ? requestDigest.value : "";
+
+            // Set the request digest
+            this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
+        }
 
         // See if we are deleting or updating the data
         if(this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE") {

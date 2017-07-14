@@ -10,6 +10,7 @@ export declare class TargetInfo {
     readonly bufferFl: boolean;
     readonly callback: (...args) => void;
     requestData: any;
+    readonly requestDigest: string;
     requestHeaders: string[];
     requestMethod: string;
     requestUrl: string;

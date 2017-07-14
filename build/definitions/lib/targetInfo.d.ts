@@ -10,10 +10,12 @@ export interface ITargetInfo {
     data?: any;
     /** True to default the request to the web api, site api otherwise. */
     defaultToWebFl?: boolean;
-    /** The method to execute. */
-    method?: string;
     /** The endpoint of the request. */
     endpoint?: string;
+    /** The method to execute. */
+    method?: string;
+    /** The request digest to use for the request. */
+    requestDigest?: string;
     /** The url of the site/web to execute the request against. */
     url?: string;
 }

@@ -32,6 +32,12 @@ var TargetInfo = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TargetInfo.prototype, "requestDigest", {
+        // The form digest
+        get: function () { return this.targetInfo.requestDigest; },
+        enumerable: true,
+        configurable: true
+    });
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
