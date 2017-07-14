@@ -1,14 +1,16 @@
 import {
     IBase,
-    IContentType,
-    IField,
-    IFile,
-    IFolder,
+    IContentTypeResult,
+    IContentTypeCreationInformation,
+    IFieldResult,
+    IFileResult,
+    IFolderResult,
+    IListQueryResult, IListResult,
     IListCreationInformation,
     IPromise,
     IUserCustomActionCreationInformation,
-    IView,
-    IWeb
+    IView, IViewResult,
+    IWebResult
 } from "..";
 /**
  * App Helper Methods
@@ -21,7 +23,7 @@ export interface IHelperApp {
      * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
      * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
      */
-    copyFileToHostWeb(srcFileUrl: string, dstFolder: IFolder, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
+    copyFileToHostWeb(srcFileUrl: string, dstFolder: IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
 
     /**
      * Method to copy a file from the app web to the host web.
@@ -45,7 +47,7 @@ export interface IHelperApp {
      * @param folder - The app web relative url to the source file.
      * @param subFolderUrl - The host web relative url of the destination folder.
      */
-    createSubFolders(folder: IFolder, subFolderUrl: string): IPromise;
+    createSubFolders(folder: IFolderResult, subFolderUrl: string): IPromise;
 
     /**
      * Method to get the file content.
@@ -53,28 +55,28 @@ export interface IHelperApp {
      * @param fileUrls - An array of file urls, relative to the web.
      * @param createFl - Flag to create the folder, if it doesn't exist.
      */
-    getFolder(web: IWeb, folderUrl: string, createFl?: boolean): IPromise;
+    getFolder(web: IWebResult, folderUrl: string, createFl?: boolean): IPromise;
 
     /**
      * Method to remove empty folders
      * @param web - The web containing the files.
      * @param folderUrls - An array of folder urls, relative to the web.
      */
-    removeEmptyFolders(web: IWeb, folderUrls: Array<string>): IPromise;
+    removeEmptyFolders(web: IWebResult, folderUrls: Array<string>): IPromise;
 
     /**
      * Method to remove files from a web.
      * @param web - The web containing the files.
      * @param fileUrl - The file url, relative to the web.
      */
-    removeFile(web: IWeb, fileUrl: string): IPromise;
+    removeFile(web: IWebResult, fileUrl: string): IPromise;
 
     /**
      * Method to remove files from a web.
      * @param web - The web containing the files.
      * @param fileUrls - An array of file urls, relative to the web.
      */
-    removeFiles(web: IWeb, fileUrls: Array<string>): IPromise;
+    removeFiles(web: IWebResult, fileUrls: Array<string>): IPromise;
 }
 
 /**
@@ -158,21 +160,21 @@ export interface ILoader {
 /**
  * SharePoint Configuration - Content Type Information
  */
-export interface ISPCfgContentTypeInfo {
+export interface ISPCfgContentTypeInfo extends IContentTypeCreationInformation {
     /**
-     * The content type object.
+     * The content type. (This value is set internally.)
      */
-    ContentType?: IContentType;
+    ContentType?: IContentTypeResult;
+
+    /**
+     * The field references.
+     */
+    FieldRefs?: Array<string>;
 
     /**
      * The JSLink property.
      */
     JSLink?: string;
-
-    /**
-     * The content type name.
-     */
-    Name: string;
 
     /**
      * The parent content type name, required if different then the name.
@@ -183,6 +185,16 @@ export interface ISPCfgContentTypeInfo {
      * The url of the web containing the parent content type, required if the parent content type doesn't exist in the current web.
      */
     ParentWebUrl?: string;
+
+    /**
+     * Event triggered after the content type is created.
+     */
+    onCreated?: (ct: IContentTypeResult) => void;
+
+    /**
+     * Event triggered after the content type is updated.
+     */
+    onUpdated?: (ct: IContentTypeResult) => void;
 }
 
 /**
@@ -205,11 +217,6 @@ export interface ISPCfgCustomActionInfo {
  */
 export interface ISPCfgFieldInfo {
     /**
-     * The field object.
-     */
-    Field?: IField;
-
-    /**
      * The internal field name.
      */
     Name: string;
@@ -218,6 +225,16 @@ export interface ISPCfgFieldInfo {
      * The schema definition of the field.
      */
     SchemaXml: string;
+
+    /**
+     * Event triggered after the field is created.
+     */
+    onCreated?: (field: IFieldResult) => void;
+
+    /**
+     * Event triggered after the field is updated.
+     */
+    onUpdated?: (field: IFieldResult) => void;
 }
 
 /**
@@ -238,6 +255,16 @@ export interface ISPCfgListInfo {
 
     /** The view information. */
     ViewInformation?: Array<ISPCfgViewInfo>;
+
+    /**
+     * Event triggered after the list is created or updated.
+     */
+    onCreated?: (list: IListResult) => void;
+
+    /**
+     * Event triggered after the list is updated.
+     */
+    onUpdated?: (list: IListQueryResult) => void;
 }
 
 /**
@@ -255,15 +282,22 @@ export interface ISPCfgViewInfo {
 
     /** The view query. */
     ViewQuery?: string;
+
+    /**
+     * Event triggered after the view is created or updated.
+     */
+    onCreated?: (view: IViewResult) => void;
+
+    /**
+     * Event triggered after the view is updated.
+     */
+    onUpdated?: (view: IView) => void;
 }
 
 /**
  * SharePoint Configuration - WebPart Information
  */
 export interface ISPCfgWebPartInfo {
-    /** The webpart file. */
-    File?: IFile;
-
     /** The file name of the webpart. */
     FileName: string;
 
@@ -272,6 +306,16 @@ export interface ISPCfgWebPartInfo {
 
     /** The webpart xml */
     XML: string;
+
+    /**
+     * Event triggered after the webpart file is created.
+     */
+    onCreated?: (file: IFileResult) => void;
+
+    /**
+     * Event triggered after the webpart file is updated.
+     */
+    onUpdated?: (file: IFileResult) => void;
 }
 
 /**

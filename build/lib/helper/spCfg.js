@@ -31,28 +31,74 @@ var SPConfig = (function () {
             var _loop_1 = function (i) {
                 var cfgContentType = cfgContentTypes[i];
                 // See if this content type already exists
-                if (_this.isInCollection("Name", cfgContentType.Name, contentTypes.results)) {
+                var ct = _this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                if (ct) {
                     // Log
                     console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' already exists.");
+                    // Update the configuration
+                    cfgContentType.ContentType = ct;
                 }
                 else {
                     // Log
                     console.log("[gd-sprest][Content Type] Creating the '" + cfgContentType.Name + "' content type.");
-                    // Get the content type from the current web
-                    (new __1.Web(cfgContentType.ParentWebUrl || _this._webUrl)).ContentTypes().query({ Filter: "Name eq '" + (cfgContentType.Name || cfgContentType.ParentName) + "'" }).execute(function (parent) {
-                        // See if the parent exists
-                        if (parent.results[0]) {
-                            // Add the available content type
-                            contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
-                                // Add the content type to the results
-                                contentTypes.results.push(ct);
-                            }, true);
-                        }
-                        else {
-                            // Log
-                            console.log("[gd-sprest][Content Type] The parent content type '" + cfgContentType.Name + "' was not found.");
-                        }
-                    });
+                    // See if the parent name exists
+                    if (cfgContentType.ParentName) {
+                        // Get the web containing the parent content type
+                        (new __1.Web(cfgContentType.ParentWebUrl || _this._webUrl))
+                            .ContentTypes()
+                            .query({
+                            Filter: "Name eq '" + cfgContentType.ParentName + "'"
+                        })
+                            .execute(function (parent) {
+                            // See if the parent exists
+                            if (parent.results[0]) {
+                                // Add the available content type
+                                contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
+                                    // See if it was successful
+                                    if (ct.existsFl) {
+                                        // Log
+                                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                        // Update the configuration
+                                        cfgContentType.ContentType = ct;
+                                        // Trigger the event
+                                        cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                    }
+                                    else {
+                                        // Log
+                                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
+                                        console.error("[gd-sprest][Field] Error: " + ct.response);
+                                    }
+                                }, true);
+                            }
+                            else {
+                                // Log
+                                console.log("[gd-sprest][Content Type] The parent content type '" + cfgContentType.Name + "' was not found.");
+                            }
+                        });
+                    }
+                    else {
+                        // Create the content type
+                        contentTypes.add({
+                            Description: cfgContentType.Description,
+                            Group: cfgContentType.Group,
+                            Name: cfgContentType.Name
+                        }).execute(function (ct) {
+                            // See if it was successful
+                            if (ct.existsFl) {
+                                // Log
+                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                // Update the configuration
+                                cfgContentType.ContentType = ct;
+                                // Trigger the event
+                                cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                            }
+                            else {
+                                // Log
+                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
+                                console.error("[gd-sprest][Field] Error: " + ct.response);
+                            }
+                        });
+                    }
                 }
             };
             // Parse the configuration
@@ -63,16 +109,66 @@ var SPConfig = (function () {
             contentTypes.done(function () {
                 var _loop_2 = function (i) {
                     var cfgContentType = cfgContentTypes[i];
-                    // See if we need to update the properties
-                    if (cfgContentType.JSLink) {
-                        var ct_1 = _this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
-                        if (ct_1) {
-                            // Update the content type
-                            ct_1.update({ JSLink: cfgContentType.JSLink }).execute(function () {
-                                // Log
-                                console.log("[gd-sprest][Content Type] The '" + ct_1.Name + "' content type properties were updated successfully.");
-                            });
-                        }
+                    var cfgUpdate = {};
+                    var updateFl = false;
+                    // Ensure the content type exists
+                    if (cfgContentType.ContentType == null) {
+                        return "continue";
+                    }
+                    /**
+                     * See if we need to update the properties
+                     */
+                    // Description
+                    if (cfgContentType.ContentType.Description != cfgContentType.Description) {
+                        // Update the configuration
+                        cfgUpdate.Description = cfgContentType.Description;
+                        // Log
+                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Description requires update.");
+                        // Set the flag
+                        updateFl = true;
+                    }
+                    // Group
+                    if (cfgContentType.ContentType.Group != cfgContentType.Group) {
+                        // Update the configuration
+                        cfgUpdate.Group = cfgContentType.Group;
+                        // Log
+                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Group requires update.");
+                        // Set the flag
+                        updateFl = true;
+                    }
+                    // JSLink
+                    if (cfgContentType.ContentType.JSlink != cfgContentType.JSLink) {
+                        // Update the configuration
+                        cfgUpdate.JSLink = cfgContentType.JSLink;
+                        // Log
+                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] JSLink requires update.");
+                        // Set the flag
+                        updateFl = true;
+                    }
+                    // Name
+                    if (cfgContentType.ContentType.Name != cfgContentType.Name) {
+                        // Update the configuration
+                        cfgUpdate.Name = cfgContentType.Name;
+                        // Log
+                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Name requires update.");
+                        // Set the flag
+                        updateFl = true;
+                    }
+                    // See if an update is needed
+                    if (updateFl) {
+                        // Log
+                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the webpart.");
+                        // Update the content type
+                        cfgContentType.ContentType.update({ JSLink: cfgContentType.JSLink }).execute(function () {
+                            // Log
+                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
+                            // Trigger the event
+                            cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
+                        });
+                    }
+                    else {
+                        // Trigger the event
+                        cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
                     }
                 };
                 // Parse the configuration
@@ -100,9 +196,12 @@ var SPConfig = (function () {
             var _loop_3 = function (i) {
                 var cfgField = cfgFields[i];
                 // See if this field already exists
-                if (_this.isInCollection("InternalName", cfgField.Name, fields.results)) {
+                var field = _this.isInCollection("InternalName", cfgField.Name, fields.results);
+                if (field) {
                     // Log
                     console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' already exists.");
+                    // Trigger the event
+                    cfgField.onUpdated ? cfgField.onUpdated(field) : null;
                 }
                 else {
                     // Log
@@ -115,11 +214,13 @@ var SPConfig = (function () {
                             if (field.existsFl) {
                                 // Log
                                 console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' was created successfully.");
+                                // Trigger the event
+                                cfgField.onCreated ? cfgField.onCreated(field) : null;
                             }
                             else {
                                 // Log
                                 console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' failed to be created.");
-                                console.log("[gd-sprest][Field] Error: " + field.response);
+                                console.error("[gd-sprest][Field] Error: " + field.response);
                             }
                         }, true);
                     });
@@ -165,7 +266,8 @@ var SPConfig = (function () {
                     }
                 }
                 // See if this content type already exists
-                if (_this.isInCollection("Title", cfgList.ListInformation.Title, lists.results)) {
+                var list = _this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                if (list) {
                     // Log
                     console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
                 }
@@ -195,6 +297,8 @@ var SPConfig = (function () {
                                 // Log
                                 console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
                             }
+                            // Trigger the event
+                            cfgList.onCreated ? cfgList.onCreated(list) : null;
                         }
                         else {
                             // Log
@@ -294,6 +398,8 @@ var SPConfig = (function () {
                         if (view.existsFl) {
                             // Log
                             console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' was created successfully.");
+                            // Trigger the event
+                            cfgView.onCreated ? cfgView.onCreated(view) : null;
                         }
                         else {
                             // Log
@@ -356,6 +462,8 @@ var SPConfig = (function () {
                     if (file.existsFl) {
                         // Log
                         console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
+                        // Trigger the event
+                        cfgWebPart.onUpdated ? cfgWebPart.onUpdated(file) : null;
                     }
                     else {
                         // Trim the xml
@@ -386,6 +494,8 @@ var SPConfig = (function () {
                             }
                             // Log
                             console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+                            // Trigger the event
+                            cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
                         });
                     }
                 };
@@ -757,6 +867,8 @@ var SPConfig = (function () {
                         _this.createContentTypes(list.ContentTypes, cfgList.ContentTypes).done(function () {
                             // Update the views
                             _this.createViews(list.Views, cfgList.ViewInformation).done(function () {
+                                // Trigger the event
+                                cfgList.onUpdated ? cfgList.onUpdated(list) : null;
                                 // Update the next list
                                 _this.updateLists(cfgLists, idx + 1, promise);
                             });
@@ -775,8 +887,7 @@ var SPConfig = (function () {
         this.updateViews = function (views, cfgViews) {
             var counter = 0;
             var promise = new utils_1.Promise();
-            // Parse the views
-            for (var i = 0; i < cfgViews.length; i++) {
+            var _loop_12 = function (i) {
                 var cfgView = cfgViews[i];
                 // Get the view
                 var view = views.getByTitle(cfgView.ViewName);
@@ -805,12 +916,22 @@ var SPConfig = (function () {
                 }
                 // Wait for the requests to complete
                 view.done(function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Trigger the event
+                    cfgView.onUpdated ? cfgView.onUpdated(view) : null;
                     // See if we are done
                     if (++counter >= cfgViews.length) {
                         // Resolve the promise
                         promise.resolve();
                     }
                 });
+            };
+            // Parse the views
+            for (var i = 0; i < cfgViews.length; i++) {
+                _loop_12(i);
             }
             // Return the promise
             return promise;
