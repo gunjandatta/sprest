@@ -14,7 +14,6 @@ class _Search extends Base {
 
         // Default the properties
         this.defaultToWebFl = true;
-        this.responses = [];
         this.targetInfo.endpoint = "search";
 
         // See if the web url exists

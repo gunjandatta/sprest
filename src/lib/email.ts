@@ -16,7 +16,6 @@ class _Email extends Base {
 
         // Default the properties
         this.defaultToWebFl = true;
-        this.responses = [];
         this.targetInfo.endpoint = "SP.Utilities.Utility.SendEmail";
     }
 

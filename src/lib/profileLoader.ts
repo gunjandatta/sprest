@@ -13,7 +13,6 @@ class _ProfileLoader extends Base {
 
         // Default the properties
         this.defaultToWebFl = true;
-        this.responses = [];
         this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
         this.targetInfo.method = "POST";
 

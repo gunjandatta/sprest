@@ -168,7 +168,6 @@ var _Web = function (_super) {
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.defaultToWebFl = true;
-        _this.responses = [];
         _this.targetInfo.endpoint = "web";
         // See if the web url exists
         if (url) {
@@ -247,7 +246,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.81,
+    __ver: 1.82,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -1254,6 +1253,7 @@ var Base = function () {
     function Base(targetInfo) {
         // Default the properties
         this.targetInfo = Object.create(targetInfo || {});
+        this.responses = [];
         this.requestType = 0;
         this.waitFlags = [];
     }
@@ -1472,7 +1472,6 @@ var Base = function () {
                     if (obj[key].results.length == 0 || _typeof(obj[key].results[0]) === "object") {
                         // Create this property as a new request
                         var objCollection = new Base(this.targetInfo);
-                        objCollection.responses = [];
                         objCollection["results"] = obj[key].results;
                         // Update the endpoint for this request to point to this property
                         objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
@@ -4943,7 +4942,6 @@ var _Email = function (_super) {
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.defaultToWebFl = true;
-        _this.responses = [];
         _this.targetInfo.endpoint = "SP.Utilities.Utility.SendEmail";
         return _this;
     }
@@ -6928,7 +6926,6 @@ var _List = function (_super) {
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.defaultToWebFl = true;
-        _this.responses = [];
         _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
         // Add the methods
         _this.addMethods(_this, { __metadata: { type: "list" } });
@@ -6997,7 +6994,6 @@ var _PeopleManager = function (_super) {
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.defaultToWebFl = true;
-        _this.responses = [];
         _this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
         // Add the methods
         _this.addMethods(_this, { __metadata: { type: "peoplemanager" } });
@@ -7047,7 +7043,6 @@ var _PeoplePicker = function (_super) {
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.defaultToWebFl = true;
-        _this.responses = [];
         _this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
         // Add the methods
         _this.addMethods(_this, { __metadata: { type: "peoplepicker" } });
@@ -7097,7 +7092,6 @@ var _ProfileLoader = function (_super) {
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.defaultToWebFl = true;
-        _this.responses = [];
         _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
         _this.targetInfo.method = "POST";
         // Add the methods
@@ -7149,7 +7143,6 @@ var _Search = function (_super) {
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.defaultToWebFl = true;
-        _this.responses = [];
         _this.targetInfo.endpoint = "search";
         // See if the web url exists
         if (url) {
@@ -7238,7 +7231,6 @@ var _Site = function (_super) {
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.defaultToWebFl = true;
-        _this.responses = [];
         _this.targetInfo.endpoint = "site";
         // See if the web url exists
         if (url) {
@@ -7304,7 +7296,6 @@ var _SocialFeed = function (_super) {
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.defaultToWebFl = true;
-        _this.responses = [];
         _this.targetInfo.endpoint = "social.feed";
         // Add the methods
         _this.addMethods(_this, { __metadata: { type: "socialfeed" } });
@@ -7381,7 +7372,6 @@ var _UserProfile = function (_super) {
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.defaultToWebFl = true;
-        _this.responses = [];
         _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
         _this.targetInfo.method = "POST";
         // Add the methods

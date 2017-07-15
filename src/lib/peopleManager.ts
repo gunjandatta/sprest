@@ -13,7 +13,6 @@ class _PeopleManager extends Base {
 
         // Default the properties
         this.defaultToWebFl = true;
-        this.responses = [];
         this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
 
         // Add the methods

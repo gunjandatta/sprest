@@ -19,6 +19,7 @@ export class Base {
     constructor(targetInfo:ITargetInfo) {
         // Default the properties
         this.targetInfo = Object.create(targetInfo || {});
+        this.responses = [];
         this.requestType = 0;
         this.waitFlags = [];
     }
@@ -310,7 +311,6 @@ export class Base {
                     if(obj[key].results.length == 0 || typeof(obj[key].results[0]) === "object") {
                         // Create this property as a new request
                         let objCollection = new Base(this.targetInfo);
-                        objCollection.responses = [];
                         objCollection["results"] = obj[key].results;
 
                         // Update the endpoint for this request to point to this property

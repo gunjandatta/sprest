@@ -27,7 +27,6 @@ var _Site = (function (_super) {
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.defaultToWebFl = true;
-        _this.responses = [];
         _this.targetInfo.endpoint = "site";
         // See if the web url exists
         if (url) {

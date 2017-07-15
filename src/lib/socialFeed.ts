@@ -14,7 +14,6 @@ class _SocialFeed extends Base {
 
         // Default the properties
         this.defaultToWebFl = true;
-        this.responses = [];
         this.targetInfo.endpoint = "social.feed";
 
         // Add the methods
