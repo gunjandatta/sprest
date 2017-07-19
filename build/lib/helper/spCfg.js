@@ -961,7 +961,7 @@ var SPConfig = (function () {
         this.uninstallSite = function () {
             var promise = new utils_1.Promise();
             // Ensure site actions exist
-            if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site) {
+            if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
