@@ -834,6 +834,15 @@ var SPConfig = (function () {
             promise = promise ? promise : new utils_1.Promise();
             // Get the list configuration
             var cfgList = cfgLists[idx];
+            // See if the target name exists
+            if (_this._targetName) {
+                // Ensure it's for this list
+                if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
+                    // Update the next list
+                    _this.updateLists(cfgLists, idx + 1, promise);
+                    return;
+                }
+            }
             // Ensure the configuration exists
             if (cfgList) {
                 // Get the web

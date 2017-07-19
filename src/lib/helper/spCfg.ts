@@ -1049,6 +1049,16 @@ export class SPConfig {
         // Get the list configuration
         let cfgList = cfgLists[idx];
 
+        // See if the target name exists
+        if(this._targetName) {
+            // Ensure it's for this list
+            if (cfgList.ListInformation.Title.toLowerCase() != this._targetName) {
+                // Update the next list
+                this.updateLists(cfgLists, idx + 1, promise);
+                return;
+            }
+        }
+
         // Ensure the configuration exists
         if (cfgList) {
             // Get the web
