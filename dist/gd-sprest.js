@@ -6085,7 +6085,17 @@ var SPConfig = function () {
                     console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
                 } else {
                     // Add the custom action
-                    customActions.add(cfgCustomAction).execute(true);
+                    customActions.add(cfgCustomAction).execute(function (ca) {
+                        // Ensure it exists
+                        if (ca.existsFl) {
+                            // Log
+                            console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was created successfully.");
+                        } else {
+                            // Log
+                            console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' failed to be created.");
+                            console.log("[gd-sprest][Custom Action] Error: " + ca.response);
+                        }
+                    }, true);
                 }
             }
             // Wait for the requests to complete
