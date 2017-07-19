@@ -576,8 +576,10 @@ var SPConfig = (function () {
             var valueLower = value.toLowerCase();
             // Parse the collection
             for (var i = 0; i < collection.length; i++) {
+                var keyValue = collection[i][key];
+                keyValue = keyValue ? keyValue.toLowerCase() : "";
                 // See if the item exists
-                if (valueLower == collection[i][key].toLowerCase()) {
+                if (valueLower == keyValue) {
                     // Return true
                     return collection[i];
                 }
@@ -729,7 +731,7 @@ var SPConfig = (function () {
                     }
                 }
                 // Get the custom action
-                var ca = _this.isInCollection("Title", cfgCustomAction.Name, customActions.results);
+                var ca = _this.isInCollection("Name", cfgCustomAction.Name, customActions.results);
                 if (ca) {
                     // Remove the custom action
                     ca.delete().execute(function () {

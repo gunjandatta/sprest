@@ -752,8 +752,11 @@ export class SPConfig {
 
         // Parse the collection
         for (let i = 0; i < collection.length; i++) {
+            let keyValue = collection[i][key];
+            keyValue = keyValue ? keyValue.toLowerCase() : "";
+
             // See if the item exists
-            if (valueLower == collection[i][key].toLowerCase()) {
+            if (valueLower == keyValue) {
                 // Return true
                 return collection[i];
             }
@@ -925,7 +928,7 @@ export class SPConfig {
             }
 
             // Get the custom action
-            let ca: IUserCustomActionResult = this.isInCollection("Title", cfgCustomAction.Name, customActions.results);
+            let ca: IUserCustomActionResult = this.isInCollection("Name", cfgCustomAction.Name, customActions.results);
             if (ca) {
                 // Remove the custom action
                 ca.delete().execute(() => {
