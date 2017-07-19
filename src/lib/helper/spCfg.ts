@@ -1055,7 +1055,9 @@ export class SPConfig {
             if (cfgList.ListInformation.Title.toLowerCase() != this._targetName) {
                 // Update the next list
                 this.updateLists(cfgLists, idx + 1, promise);
-                return;
+
+                // Return the promise
+                return promise;
             }
         }
 

@@ -246,7 +246,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.83,
+    __ver: 1.84,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -6545,7 +6545,8 @@ var SPConfig = function () {
                 if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
                     // Update the next list
                     _this.updateLists(cfgLists, idx + 1, promise);
-                    return;
+                    // Return the promise
+                    return promise;
                 }
             }
             // Ensure the configuration exists

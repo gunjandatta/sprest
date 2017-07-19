@@ -840,7 +840,8 @@ var SPConfig = (function () {
                 if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
                     // Update the next list
                     _this.updateLists(cfgLists, idx + 1, promise);
-                    return;
+                    // Return the promise
+                    return promise;
                 }
             }
             // Ensure the configuration exists
