@@ -673,7 +673,7 @@ export class SPConfig {
         let promise = new Promise();
 
         // Ensure site actions exist
-        if (this._configuration.CustomActionCfg == null || this._configuration.CustomActionCfg.Site) {
+        if (this._configuration.CustomActionCfg == null || this._configuration.CustomActionCfg.Site == null) {
             // Resolve the promise
             promise.resolve();
             return promise;
