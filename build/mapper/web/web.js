@@ -55,7 +55,7 @@ exports.web = {
     },
     // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
     ensureUser: {
-        argNames: ["loginName"],
+        argNames: ["logonName"],
         requestType: types_1.RequestType.PostWithArgsInBody
     },
     // Sends data to an OData service.
