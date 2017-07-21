@@ -238,6 +238,11 @@ var Base = (function () {
                         // Create this property as a new request
                         var objCollection = new Base(this.targetInfo);
                         objCollection["results"] = obj[key].results;
+                        // See no results exist
+                        if (objCollection["results"].length == 0) {
+                            // Set the metadata type to the key
+                            objCollection["__metadata"] = { type: key };
+                        }
                         // Update the endpoint for this request to point to this property
                         objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
                         // Add the methods
