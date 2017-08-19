@@ -1211,20 +1211,20 @@ var _ContextInfo = function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * Methods
+     */
+    // Method to get the context information for a web
+    _ContextInfo.getWeb = function (url) {
+        // Create a new base object
+        return new utils_1.Base({
+            endpoint: "contextinfo",
+            method: "POST",
+            url: url
+        });
+    };
     return _ContextInfo;
 }();
-/**
- * Methods
- */
-// Method to get the context information for a web
-_ContextInfo.getWeb = function (url) {
-    // Create a new base object
-    return new utils_1.Base({
-        endpoint: "contextinfo",
-        method: "POST",
-        url: url
-    });
-};
 exports.ContextInfo = _ContextInfo;
 //# sourceMappingURL=contextInfo.js.map
 
