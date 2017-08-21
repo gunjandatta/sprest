@@ -325,14 +325,6 @@ export interface FieldCalculationErrorValue {
 }
 
 /**
- * Field Choices
- */
-export interface FieldMultiChoiceValue {
-    __metadata?: { type: string };
-    results: Array<string>;
-}
-
-/**
  * Field Creation Information 
  */
 export interface FieldCreationInformation {
@@ -379,6 +371,22 @@ export interface FieldLookupValue {
     __metadata?: { type: string };
     LookupId: number;
     LookupValue: string;
+}
+
+/**
+ * Field Multi-Choice
+ */
+export interface FieldMultiChoiceValue {
+    __metadata?: { type: string };
+    results: Array<string>;
+}
+
+/**
+ * Field Multi-Lookup
+ */
+export interface FieldMultiLookupValue {
+    __metadata?: { type: string };
+    results: Array<FieldLookupValue>;
 }
 
 /**
