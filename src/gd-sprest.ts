@@ -27,7 +27,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
 import * as Types from "./definitions";
-import {RequestType, SPTypes} from "./types";
+import { RequestType, SPTypes } from "./types";
 import {
     ContextInfo,
     Email,
@@ -84,10 +84,10 @@ const gd_sprest = {
 }
 
 // Export the $REST library
-export const $REST:Types.IREST = <any>gd_sprest;
+export const $REST: Types.IREST = <any>gd_sprest;
 
 // See if the library doesn't exist, or is an older version
-if(window["$REST"] == null || window["$REST"].__ver == null || window["$REST"].__ver < gd_sprest.__ver) {
+if (ContextInfo.window.$REST == null || ContextInfo.window.$REST.__ver == null || ContextInfo.window.$REST.__ver < gd_sprest.__ver) {
     // Set the global variable
-    window["$REST"] = gd_sprest;
+    ContextInfo.window.$REST = gd_sprest;
 }

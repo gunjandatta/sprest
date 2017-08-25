@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var _1 = require(".");
 /**
  * JS Link
  */
@@ -88,7 +89,7 @@ var JSLink = (function () {
      */
     JSLink.prototype.register = function () {
         // Get the template manager
-        var templateManager = window["SPClientTemplates"];
+        var templateManager = _1.ContextInfo.window.SPClientTemplates;
         templateManager = templateManager ? templateManager.TemplateManager : null;
         // Ensure it exists
         if (templateManager) {

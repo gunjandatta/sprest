@@ -65,11 +65,11 @@ var Dependencies = (function () {
     Dependencies.prototype.waitForPageContext = function () {
         var counter = 0;
         // Check every 10ms
-        var intervalId = window.setInterval(function () {
+        var intervalId = lib_1.ContextInfo.window.setInterval(function () {
             // See if the page context exists, and ensure we haven't hit the max attempts
             if (this.pageContextExists() || ++counter >= this.MAX_WAIT) {
                 // Clear the interval
-                window.clearInterval(intervalId);
+                lib_1.ContextInfo.window.clearInterval(intervalId);
                 // Resolve the promise
                 this.promise.resolve();
             }

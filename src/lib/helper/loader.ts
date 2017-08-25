@@ -1,3 +1,5 @@
+import { ContextInfo } from "..";
+
 /**
  * Loader
  */
@@ -6,27 +8,27 @@ export const Loader = {
     loaded: false,
 
     // Method to wait for the SharePoint core libraries to be loaded
-    waitForSPLibs: (callback, timeout?:number, loadLibraries?:boolean) => {
+    waitForSPLibs: (callback, timeout?: number, loadLibraries?: boolean) => {
         let counter = 0;
 
         // Default the flag to load the libraries
-        loadLibraries = typeof(loadLibraries) === "boolean" ? loadLibraries : false;
+        loadLibraries = typeof (loadLibraries) === "boolean" ? loadLibraries : false;
 
         // Default the timeout (5 seconds)
-        timeout = typeof(timeout) === "number" ? timeout : 2500;
+        timeout = typeof (timeout) === "number" ? timeout : 2500;
 
         // Determine the number of iterations
         let maxLoops = timeout / 25;
 
         // See if the flag has already been set
-        if(this.loaded) {
+        if (this.loaded) {
             // Execute the callback
             callback();
             return;
         }
 
         // See if we are loading the libraries
-        if(loadLibraries) {
+        if (loadLibraries) {
             // Parse the files to load
             ["MicrosoftAjax.js", "init.js", "sp.runtime.js", "sp.js", "sp.core.js", "core.js"].every((fileName) => {
                 // Create the script element
@@ -49,7 +51,7 @@ export const Loader = {
             let maxLoopFl = ++counter > maxLoops;
 
             // See if the page context exists or if we have hit the max attempts
-            if(window["_spPageContextInfo"] || maxLoopFl) {
+            if (ContextInfo.existsFl || maxLoopFl) {
                 // Stop the loop
                 clearInterval(intervalId);
 

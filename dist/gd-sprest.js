@@ -265,9 +265,9 @@ var gd_sprest = {
 // Export the $REST library
 exports.$REST = gd_sprest;
 // See if the library doesn't exist, or is an older version
-if (window["$REST"] == null || window["$REST"].__ver == null || window["$REST"].__ver < gd_sprest.__ver) {
+if (lib_1.ContextInfo.window.$REST == null || lib_1.ContextInfo.window.$REST.__ver == null || lib_1.ContextInfo.window.$REST.__ver < gd_sprest.__ver) {
     // Set the global variable
-    window["$REST"] = gd_sprest;
+    lib_1.ContextInfo.window.$REST = gd_sprest;
 }
 //# sourceMappingURL=gd-sprest.js.map
 
@@ -906,7 +906,7 @@ var _ContextInfo = function () {
     Object.defineProperty(_ContextInfo, "_contextInfo", {
         // The current context information
         get: function get() {
-            return window["_spPageContextInfo"] || {
+            return this.window["_spPageContextInfo"] || {
                 existsFl: false,
                 isAppWeb: false,
                 siteAbsoluteUrl: "",
@@ -1207,6 +1207,14 @@ var _ContextInfo = function () {
         // Web UI Version
         get: function get() {
             return this._contextInfo.webUIVersion;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "window", {
+        // Window
+        get: function get() {
+            return typeof window == "undefined" ? {} : window;
         },
         enumerable: true,
         configurable: true
@@ -1797,7 +1805,7 @@ var Base = function () {
     Base.prototype.waitForRequestsToComplete = function (callback, requestIdx) {
         var _this = this;
         // Loop until the requests have completed
-        var intervalId = window.setInterval(function () {
+        var intervalId = lib_1.ContextInfo.window.setInterval(function () {
             var counter = 0;
             // Parse the responses to the requests
             for (var _i = 0, _a = _this.base.responses; _i < _a.length; _i++) {
@@ -1816,7 +1824,7 @@ var Base = function () {
                 }
             }
             // Clear the interval
-            window.clearInterval(intervalId);
+            lib_1.ContextInfo.window.clearInterval(intervalId);
             // Execute the callback
             callback();
         }, 10);
@@ -4093,11 +4101,11 @@ var Dependencies = function () {
     Dependencies.prototype.waitForPageContext = function () {
         var counter = 0;
         // Check every 10ms
-        var intervalId = window.setInterval(function () {
+        var intervalId = lib_1.ContextInfo.window.setInterval(function () {
             // See if the page context exists, and ensure we haven't hit the max attempts
             if (this.pageContextExists() || ++counter >= this.MAX_WAIT) {
                 // Clear the interval
-                window.clearInterval(intervalId);
+                lib_1.ContextInfo.window.clearInterval(intervalId);
                 // Resolve the promise
                 this.promise.resolve();
             }
@@ -4697,7 +4705,7 @@ var TargetInfo = function () {
         var hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
         var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
         // See if we are defaulting the url for the app web
-        if (window["$REST"].DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && this.targetInfo.url == null) {
+        if (lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && this.targetInfo.url == null) {
             // Default the url to the host web
             this.targetInfo.url = hostUrl;
         }
@@ -5026,7 +5034,7 @@ exports.AppHelper = {
     copyFileToHostWeb: function copyFileToHostWeb(fileUrl, dstFolder, overwriteFl, rootWebFl) {
         var srcFile = null;
         var promise = new utils_1.Promise();
-        var origVal = window["$REST"].DefaultRequestToHostFl;
+        var origVal = __1.ContextInfo.window.$REST.DefaultRequestToHostFl;
         // Ensure the current web is an app web
         if (!__1.ContextInfo.isAppWeb) {
             // Error
@@ -5034,7 +5042,7 @@ exports.AppHelper = {
             return;
         }
         // Get the host web
-        window["$REST"].DefaultRequestToHostFl = true;
+        __1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
         var web = new __1.Web(rootWebFl ? __1.ContextInfo.siteServerRelativeUrl : null);
         // See if the folder url was given
         if (typeof dstFolder === "string") {
@@ -5050,8 +5058,8 @@ exports.AppHelper = {
             var fileName = fileUrl.split("/");
             fileName = fileName[fileName.length - 1];
             // Set the file urls
-            var dstFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-            var srcFileUrl_1 = window["SP"].Utilities.UrlBuilder.urlCombine(__1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+            var dstFileUrl = __1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
+            var srcFileUrl_1 = __1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(__1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
             // Get the destination file
             web.getFileByServerRelativeUrl(dstFileUrl).execute(function (file) {
                 var promise = new utils_1.Promise();
@@ -5069,7 +5077,7 @@ exports.AppHelper = {
                 return promise;
             });
             // Target the current web
-            window["$REST"].DefaultRequestToHostFl = false;
+            __1.ContextInfo.window.$REST.DefaultRequestToHostFl = false;
             // Get the current web
             new __1.Web().getFileByServerRelativeUrl(srcFileUrl_1).content().execute(function (content) {
                 var promise = new utils_1.Promise();
@@ -5077,7 +5085,7 @@ exports.AppHelper = {
                 var fileName = srcFileUrl_1.split("/");
                 fileName = fileName[fileName.length - 1];
                 // Target the host web
-                window["$REST"].DefaultRequestToHostFl = true;
+                __1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
                 // Add the file to the folder
                 dstFolder.Files().add(true, fileName, content.response).execute(function (file) {
                     // Save a reference to this file
@@ -5171,7 +5179,7 @@ exports.AppHelper = {
         // Wait for the requests to complete
         web.done(function () {
             // Set the destination folder url
-            var dstFolderUrl = window["SP"].Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, folderUrl.substr(folderUrl[0] == "/" ? 1 : 0));
+            var dstFolderUrl = __1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, folderUrl.substr(folderUrl[0] == "/" ? 1 : 0));
             // Get the folder
             web.getFolderByServerRelativeUrl(folderUrl).execute(function (folder) {
                 var promise = new utils_1.Promise();
@@ -5313,6 +5321,7 @@ exports.AppHelper = {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var types_1 = __webpack_require__(0);
+var __1 = __webpack_require__(2);
 /**
  * JSLink Helper Methods
  */
@@ -5330,112 +5339,112 @@ exports.JSLinkHelper = {
      */
     _fieldToMethodMapper: {
         'Attachments': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldAttachments_Default"],
-            2: window["SPFieldAttachments_Default"],
-            3: window["SPFieldAttachments_Default"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldAttachments_Default"],
+            2: __1.ContextInfo.window["SPFieldAttachments_Default"],
+            3: __1.ContextInfo.window["SPFieldAttachments_Default"]
         },
         'Boolean': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_DefaultNoEncode"],
-            2: window["SPFieldBoolean_Edit"],
-            3: window["SPFieldBoolean_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_DefaultNoEncode"],
+            2: __1.ContextInfo.window["SPFieldBoolean_Edit"],
+            3: __1.ContextInfo.window["SPFieldBoolean_Edit"]
         },
         'Currency': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPFieldNumber_Edit"],
-            3: window["SPFieldNumber_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPFieldNumber_Edit"],
+            3: __1.ContextInfo.window["SPFieldNumber_Edit"]
         },
         'Calculated': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPField_FormDisplay_Empty"],
-            3: window["SPField_FormDisplay_Empty"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPField_FormDisplay_Empty"],
+            3: __1.ContextInfo.window["SPField_FormDisplay_Empty"]
         },
         'Choice': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPFieldChoice_Edit"],
-            3: window["SPFieldChoice_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPFieldChoice_Edit"],
+            3: __1.ContextInfo.window["SPFieldChoice_Edit"]
         },
         'Computed': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPField_FormDisplay_Default"],
-            3: window["SPField_FormDisplay_Default"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            3: __1.ContextInfo.window["SPField_FormDisplay_Default"]
         },
         'DateTime': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldDateTime_Display"],
-            2: window["SPFieldDateTime_Edit"],
-            3: window["SPFieldDateTime_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldDateTime_Display"],
+            2: __1.ContextInfo.window["SPFieldDateTime_Edit"],
+            3: __1.ContextInfo.window["SPFieldDateTime_Edit"]
         },
         'File': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldFile_Display"],
-            2: window["SPFieldFile_Edit"],
-            3: window["SPFieldFile_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldFile_Display"],
+            2: __1.ContextInfo.window["SPFieldFile_Edit"],
+            3: __1.ContextInfo.window["SPFieldFile_Edit"]
         },
         'Integer': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPFieldNumber_Edit"],
-            3: window["SPFieldNumber_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPFieldNumber_Edit"],
+            3: __1.ContextInfo.window["SPFieldNumber_Edit"]
         },
         'Lookup': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldLookup_Display"],
-            2: window["SPFieldLookup_Edit"],
-            3: window["SPFieldLookup_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldLookup_Display"],
+            2: __1.ContextInfo.window["SPFieldLookup_Edit"],
+            3: __1.ContextInfo.window["SPFieldLookup_Edit"]
         },
         'LookupMulti': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldLookup_Display"],
-            2: window["SPFieldLookup_Edit"],
-            3: window["SPFieldLookup_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldLookup_Display"],
+            2: __1.ContextInfo.window["SPFieldLookup_Edit"],
+            3: __1.ContextInfo.window["SPFieldLookup_Edit"]
         },
         'MultiChoice': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPFieldMultiChoice_Edit"],
-            3: window["SPFieldMultiChoice_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPFieldMultiChoice_Edit"],
+            3: __1.ContextInfo.window["SPFieldMultiChoice_Edit"]
         },
         'Note': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldNote_Display"],
-            2: window["SPFieldNote_Edit"],
-            3: window["SPFieldNote_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldNote_Display"],
+            2: __1.ContextInfo.window["SPFieldNote_Edit"],
+            3: __1.ContextInfo.window["SPFieldNote_Edit"]
         },
         'Number': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPFieldNumber_Edit"],
-            3: window["SPFieldNumber_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPFieldNumber_Edit"],
+            3: __1.ContextInfo.window["SPFieldNumber_Edit"]
         },
         'Text': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPFieldText_Edit"],
-            3: window["SPFieldText_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPFieldText_Edit"],
+            3: __1.ContextInfo.window["SPFieldText_Edit"]
         },
         'URL': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldUrl_Display"],
-            2: window["SPFieldUrl_Edit"],
-            3: window["SPFieldUrl_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldUrl_Display"],
+            2: __1.ContextInfo.window["SPFieldUrl_Edit"],
+            3: __1.ContextInfo.window["SPFieldUrl_Edit"]
         },
         'User': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldUser_Display"],
-            2: window["SPClientPeoplePickerCSRTemplate"],
-            3: window["SPClientPeoplePickerCSRTemplate"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldUser_Display"],
+            2: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
+            3: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
         },
         'UserMulti': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldUserMulti_Display"],
-            2: window["SPClientPeoplePickerCSRTemplate"],
-            3: window["SPClientPeoplePickerCSRTemplate"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldUserMulti_Display"],
+            2: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
+            3: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
         }
     },
     /**
@@ -5534,7 +5543,7 @@ exports.JSLinkHelper = {
      */
     getListViewSelectedItems: function getListViewSelectedItems() {
         // Return the selected items
-        return window["SP"].ListOperation.Selection.getSelectedItems();
+        return __1.ContextInfo.window["SP"].ListOperation.Selection.getSelectedItems();
     },
     /**
      * Returns the webpart containing the JSLink field/form/view.
@@ -5555,7 +5564,7 @@ exports.JSLinkHelper = {
             // Set the flag
             exports.JSLinkHelper.hideEventFl = true;
             // Create the event
-            window.addEventListener("load", function () {
+            __1.ContextInfo.window.addEventListener("load", function () {
                 // Query for the elements to hide
                 var fieldElements = document.querySelectorAll(".hide-field");
                 for (var _i = 0, fieldElements_1 = fieldElements; _i < fieldElements_1.length; _i++) {
@@ -5615,55 +5624,55 @@ exports.JSLinkHelper = {
         var fieldRenderer = null;
         switch (field.Type) {
             case "AllDayEvent":
-                fieldRenderer = new window["AllDayEventFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["AllDayEventFieldRenderer"](field.Name);
                 break;
             case "Attachments":
-                fieldRenderer = new window["AttachmentFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["AttachmentFieldRenderer"](field.Name);
                 break;
             case "BusinessData":
-                fieldRenderer = new window["BusinessDataFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["BusinessDataFieldRenderer"](field.Name);
                 break;
             case "Computed":
-                fieldRenderer = new window["ComputedFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["ComputedFieldRenderer"](field.Name);
                 break;
             case "CrossProjectLink":
-                fieldRenderer = new window["ProjectLinkFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["ProjectLinkFieldRenderer"](field.Name);
                 break;
             case "Currency":
-                fieldRenderer = new window["NumberFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["NumberFieldRenderer"](field.Name);
                 break;
             case "DateTime":
-                fieldRenderer = new window["DateTimeFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["DateTimeFieldRenderer"](field.Name);
                 break;
             case "Lookup":
-                fieldRenderer = new window["LookupFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["LookupFieldRenderer"](field.Name);
                 break;
             case "LookupMulti":
-                fieldRenderer = new window["LookupFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["LookupFieldRenderer"](field.Name);
                 break;
             case "Note":
-                fieldRenderer = new window["NoteFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["NoteFieldRenderer"](field.Name);
                 break;
             case "Number":
-                fieldRenderer = new window["NumberFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["NumberFieldRenderer"](field.Name);
                 break;
             case "Recurrence":
-                fieldRenderer = new window["RecurrenceFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["RecurrenceFieldRenderer"](field.Name);
                 break;
             case "Text":
-                fieldRenderer = new window["TextFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["TextFieldRenderer"](field.Name);
                 break;
             case "URL":
-                fieldRenderer = new window["UrlFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["UrlFieldRenderer"](field.Name);
                 break;
             case "User":
-                fieldRenderer = new window["UserFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["UserFieldRenderer"](field.Name);
                 break;
             case "UserMulti":
-                fieldRenderer = new window["UserFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["UserFieldRenderer"](field.Name);
                 break;
             case "WorkflowStatus":
-                fieldRenderer = new window["RawFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["RawFieldRenderer"](field.Name);
                 break;
         }
         ;
@@ -5684,6 +5693,7 @@ exports.JSLinkHelper = {
 
 var _this = undefined;
 Object.defineProperty(exports, "__esModule", { value: true });
+var __1 = __webpack_require__(2);
 /**
  * Loader
  */
@@ -5724,7 +5734,7 @@ exports.Loader = {
         var intervalId = setInterval(function () {
             var maxLoopFl = ++counter > maxLoops;
             // See if the page context exists or if we have hit the max attempts
-            if (window["_spPageContextInfo"] || maxLoopFl) {
+            if (__1.ContextInfo.existsFl || maxLoopFl) {
                 // Stop the loop
                 clearInterval(intervalId);
                 // Execute the callback
@@ -6802,6 +6812,7 @@ exports.SPConfig = SPConfig;
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var _1 = __webpack_require__(2);
 /**
  * JS Link
  */
@@ -6899,7 +6910,7 @@ var JSLink = function () {
      */
     JSLink.prototype.register = function () {
         // Get the template manager
-        var templateManager = window["SPClientTemplates"];
+        var templateManager = _1.ContextInfo.window.SPClientTemplates;
         templateManager = templateManager ? templateManager.TemplateManager : null;
         // Ensure it exists
         if (templateManager) {

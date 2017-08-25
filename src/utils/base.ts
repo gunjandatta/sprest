@@ -707,7 +707,7 @@ export class Base {
     // Method to wait for the parent requests to complete
     private waitForRequestsToComplete(callback: () => void, requestIdx?: number) {
         // Loop until the requests have completed
-        let intervalId = window.setInterval(() => {
+        let intervalId = ContextInfo.window.setInterval(() => {
             let counter = 0;
 
             // Parse the responses to the requests
@@ -723,7 +723,7 @@ export class Base {
             }
 
             // Clear the interval
-            window.clearInterval(intervalId);
+            ContextInfo.window.clearInterval(intervalId);
 
             // Execute the callback
             callback();

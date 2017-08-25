@@ -1,5 +1,5 @@
-import {ITargetInfo} from "../definitions";
-import {ContextInfo} from "../lib";
+import { ITargetInfo } from "../definitions";
+import { ContextInfo } from "../lib";
 /*********************************************************************************************************************************/
 // Target Information
 // This class will take the target information and create the request url.
@@ -8,7 +8,7 @@ export class TargetInfo {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
-    constructor(targetInfo:ITargetInfo) {
+    constructor(targetInfo: ITargetInfo) {
         // Default the properties
         this.targetInfo = targetInfo || {};
         this.requestData = this.targetInfo.data;
@@ -23,40 +23,40 @@ export class TargetInfo {
     /*********************************************************************************************************************************/
 
     // Flag to determine if the request returns an array buffer
-    get bufferFl():boolean { return this.targetInfo.bufferFl; }
+    get bufferFl(): boolean { return this.targetInfo.bufferFl; }
 
     // The callback method to execute after the asynchronous request completes
-    get callback():(...args) => void { return this.targetInfo.callback; }
+    get callback(): (...args) => void { return this.targetInfo.callback; }
 
     // The request data
-    requestData:any;
+    requestData: any;
 
     // The form digest
-    get requestDigest():string { return this.targetInfo.requestDigest; }
+    get requestDigest(): string { return this.targetInfo.requestDigest; }
 
     // The request header
-    requestHeaders:string[];
+    requestHeaders: string[];
 
     // The request method
-    requestMethod:string;
+    requestMethod: string;
 
     // The request url
-    requestUrl:string;
+    requestUrl: string;
 
     /*********************************************************************************************************************************/
     // Private Variables
     /*********************************************************************************************************************************/
 
     // The target information
-    private targetInfo:ITargetInfo;
+    private targetInfo: ITargetInfo;
 
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
 
     // Method to get the domain url
-    private getDomainUrl():string {
-        let url:any = document.location.href;
+    private getDomainUrl(): string {
+        let url: any = document.location.href;
 
         // See if this is an app web
         if (ContextInfo.isAppWeb) {
@@ -76,9 +76,9 @@ export class TargetInfo {
     }
 
     // Method to get a query string value
-    private static getQueryStringValue(key:string) {
+    private static getQueryStringValue(key: string) {
         // Get the query string
-        var queryString:any = document.location.href.split('?');
+        var queryString: any = document.location.href.split('?');
         queryString = queryString.length > 1 ? queryString[1] : queryString[0];
 
         // Parse the values
@@ -105,23 +105,23 @@ export class TargetInfo {
         let template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
 
         // See if we are defaulting the url for the app web
-        if(window["$REST"].DefaultRequestToHostFl && ContextInfo.isAppWeb && this.targetInfo.url == null) {
+        if (ContextInfo.window.$REST.DefaultRequestToHostFl && ContextInfo.isAppWeb && this.targetInfo.url == null) {
             // Default the url to the host web
             this.targetInfo.url = hostUrl;
         }
 
         // Ensure the url exists
-        if(this.targetInfo.url == null) {
+        if (this.targetInfo.url == null) {
             // Default the url to the current site/web url
             this.targetInfo.url = this.targetInfo.defaultToWebFl == false ? ContextInfo.siteAbsoluteUrl : ContextInfo.webAbsoluteUrl;
         }
         // Else, see if the url already contains the full request
-        else if(/\/_api\//.test(this.targetInfo.url)) {
+        else if (/\/_api\//.test(this.targetInfo.url)) {
             // Get the url
             var url = this.targetInfo.url.toLowerCase().split("/_api/");
 
             // See if this is the app web and we are executing against a different web
-            if(ContextInfo.isAppWeb && url[0] != ContextInfo.webAbsoluteUrl.toLowerCase()) {
+            if (ContextInfo.isAppWeb && url[0] != ContextInfo.webAbsoluteUrl.toLowerCase()) {
                 // Set the request url
                 this.requestUrl = ContextInfo.webAbsoluteUrl + "/_api/SP.AppContextSite(@target)/" + url[1] +
                     (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") +
@@ -135,13 +135,13 @@ export class TargetInfo {
         }
 
         // See if this is a relative url
-        if(this.targetInfo.url.indexOf("http") != 0) {
+        if (this.targetInfo.url.indexOf("http") != 0) {
             // Add the domain
             this.targetInfo.url = this.getDomainUrl() + this.targetInfo.url;
         }
 
         // See if this is the app web, and we are executing against a different web
-        if(ContextInfo.isAppWeb && this.targetInfo.url != ContextInfo.webAbsoluteUrl) {
+        if (ContextInfo.isAppWeb && this.targetInfo.url != ContextInfo.webAbsoluteUrl) {
             // Append the start character for the query string
             let endpoint = this.targetInfo.endpoint +
                 (this.targetInfo.endpoint.indexOf("?") > 0 ? "&" : "?");
