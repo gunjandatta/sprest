@@ -574,7 +574,7 @@ var Base = (function () {
     Base.prototype.waitForRequestsToComplete = function (callback, requestIdx) {
         var _this = this;
         // Loop until the requests have completed
-        var intervalId = window.setInterval(function () {
+        var intervalId = lib_1.ContextInfo.window.setInterval(function () {
             var counter = 0;
             // Parse the responses to the requests
             for (var _i = 0, _a = _this.base.responses; _i < _a.length; _i++) {
@@ -593,7 +593,7 @@ var Base = (function () {
                 }
             }
             // Clear the interval
-            window.clearInterval(intervalId);
+            lib_1.ContextInfo.window.clearInterval(intervalId);
             // Execute the callback
             callback();
         }, 10);

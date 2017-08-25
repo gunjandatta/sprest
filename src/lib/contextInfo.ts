@@ -7,7 +7,7 @@ import { Base } from "../utils";
 class _ContextInfo {
     // The current context information
     private static get _contextInfo(): any {
-        return window["_spPageContextInfo"] ||
+        return this.window["_spPageContextInfo"] ||
             {
                 existsFl: false,
                 isAppWeb: false,
@@ -130,6 +130,9 @@ class _ContextInfo {
 
     // Web UI Version
     static get webUIVersion() { return this._contextInfo.webUIVersion; }
+
+    // Window
+    static get window() { return typeof (window) == "undefined" ? {} : window; }
 
     /**
      * Methods

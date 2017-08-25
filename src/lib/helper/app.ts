@@ -11,7 +11,7 @@ export const AppHelper = {
     copyFileToHostWeb: (fileUrl, dstFolder, overwriteFl, rootWebFl) => {
         let srcFile = null;
         let promise = new Promise();
-        let origVal = window["$REST"].DefaultRequestToHostFl;
+        let origVal = ContextInfo.window.$REST.DefaultRequestToHostFl;
 
         // Ensure the current web is an app web
         if(!ContextInfo.isAppWeb) {
@@ -21,7 +21,7 @@ export const AppHelper = {
         }
 
         // Get the host web
-        window["$REST"].DefaultRequestToHostFl = true;
+        ContextInfo.window.$REST.DefaultRequestToHostFl = true;
         let web = (new Web(rootWebFl ? ContextInfo.siteServerRelativeUrl : null));
 
         // See if the folder url was given
@@ -40,8 +40,8 @@ export const AppHelper = {
             fileName = fileName[fileName.length-1];
 
             // Set the file urls
-            let dstFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-            let srcFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+            let dstFileUrl = ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
+            let srcFileUrl = ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
 
             // Get the destination file
             web.getFileByServerRelativeUrl(dstFileUrl)
@@ -63,7 +63,7 @@ export const AppHelper = {
                 });
 
             // Target the current web
-            window["$REST"].DefaultRequestToHostFl = false;
+            ContextInfo.window.$REST.DefaultRequestToHostFl = false;
 
             // Get the current web
             (new Web())
@@ -79,7 +79,7 @@ export const AppHelper = {
                     fileName = fileName[fileName.length-1];
 
                     // Target the host web
-                    window["$REST"].DefaultRequestToHostFl = true;
+                    ContextInfo.window.$REST.DefaultRequestToHostFl = true;
 
                     // Add the file to the folder
                     (dstFolder).Files().add(true, fileName, content.response)
@@ -196,7 +196,7 @@ export const AppHelper = {
         // Wait for the requests to complete
         web.done(() => {
             // Set the destination folder url
-            let dstFolderUrl = window["SP"].Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, folderUrl.substr(folderUrl[0] == "/" ? 1 : 0));
+            let dstFolderUrl = ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, folderUrl.substr(folderUrl[0] == "/" ? 1 : 0));
 
             // Get the folder
             web.getFolderByServerRelativeUrl(folderUrl)

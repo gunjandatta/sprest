@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var types_1 = require("../../types");
+var __1 = require("..");
 /**
  * JSLink Helper Methods
  */
@@ -18,112 +19,112 @@ exports.JSLinkHelper = {
      */
     _fieldToMethodMapper: {
         'Attachments': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldAttachments_Default"],
-            2: window["SPFieldAttachments_Default"],
-            3: window["SPFieldAttachments_Default"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldAttachments_Default"],
+            2: __1.ContextInfo.window["SPFieldAttachments_Default"],
+            3: __1.ContextInfo.window["SPFieldAttachments_Default"]
         },
         'Boolean': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_DefaultNoEncode"],
-            2: window["SPFieldBoolean_Edit"],
-            3: window["SPFieldBoolean_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_DefaultNoEncode"],
+            2: __1.ContextInfo.window["SPFieldBoolean_Edit"],
+            3: __1.ContextInfo.window["SPFieldBoolean_Edit"]
         },
         'Currency': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPFieldNumber_Edit"],
-            3: window["SPFieldNumber_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPFieldNumber_Edit"],
+            3: __1.ContextInfo.window["SPFieldNumber_Edit"]
         },
         'Calculated': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPField_FormDisplay_Empty"],
-            3: window["SPField_FormDisplay_Empty"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPField_FormDisplay_Empty"],
+            3: __1.ContextInfo.window["SPField_FormDisplay_Empty"]
         },
         'Choice': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPFieldChoice_Edit"],
-            3: window["SPFieldChoice_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPFieldChoice_Edit"],
+            3: __1.ContextInfo.window["SPFieldChoice_Edit"]
         },
         'Computed': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPField_FormDisplay_Default"],
-            3: window["SPField_FormDisplay_Default"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            3: __1.ContextInfo.window["SPField_FormDisplay_Default"]
         },
         'DateTime': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldDateTime_Display"],
-            2: window["SPFieldDateTime_Edit"],
-            3: window["SPFieldDateTime_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldDateTime_Display"],
+            2: __1.ContextInfo.window["SPFieldDateTime_Edit"],
+            3: __1.ContextInfo.window["SPFieldDateTime_Edit"]
         },
         'File': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldFile_Display"],
-            2: window["SPFieldFile_Edit"],
-            3: window["SPFieldFile_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldFile_Display"],
+            2: __1.ContextInfo.window["SPFieldFile_Edit"],
+            3: __1.ContextInfo.window["SPFieldFile_Edit"]
         },
         'Integer': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPFieldNumber_Edit"],
-            3: window["SPFieldNumber_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPFieldNumber_Edit"],
+            3: __1.ContextInfo.window["SPFieldNumber_Edit"]
         },
         'Lookup': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldLookup_Display"],
-            2: window["SPFieldLookup_Edit"],
-            3: window["SPFieldLookup_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldLookup_Display"],
+            2: __1.ContextInfo.window["SPFieldLookup_Edit"],
+            3: __1.ContextInfo.window["SPFieldLookup_Edit"]
         },
         'LookupMulti': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldLookup_Display"],
-            2: window["SPFieldLookup_Edit"],
-            3: window["SPFieldLookup_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldLookup_Display"],
+            2: __1.ContextInfo.window["SPFieldLookup_Edit"],
+            3: __1.ContextInfo.window["SPFieldLookup_Edit"]
         },
         'MultiChoice': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPFieldMultiChoice_Edit"],
-            3: window["SPFieldMultiChoice_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPFieldMultiChoice_Edit"],
+            3: __1.ContextInfo.window["SPFieldMultiChoice_Edit"]
         },
         'Note': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldNote_Display"],
-            2: window["SPFieldNote_Edit"],
-            3: window["SPFieldNote_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldNote_Display"],
+            2: __1.ContextInfo.window["SPFieldNote_Edit"],
+            3: __1.ContextInfo.window["SPFieldNote_Edit"]
         },
         'Number': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPFieldNumber_Edit"],
-            3: window["SPFieldNumber_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPFieldNumber_Edit"],
+            3: __1.ContextInfo.window["SPFieldNumber_Edit"]
         },
         'Text': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPField_FormDisplay_Default"],
-            2: window["SPFieldText_Edit"],
-            3: window["SPFieldText_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: __1.ContextInfo.window["SPFieldText_Edit"],
+            3: __1.ContextInfo.window["SPFieldText_Edit"]
         },
         'URL': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldUrl_Display"],
-            2: window["SPFieldUrl_Edit"],
-            3: window["SPFieldUrl_Edit"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldUrl_Display"],
+            2: __1.ContextInfo.window["SPFieldUrl_Edit"],
+            3: __1.ContextInfo.window["SPFieldUrl_Edit"]
         },
         'User': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldUser_Display"],
-            2: window["SPClientPeoplePickerCSRTemplate"],
-            3: window["SPClientPeoplePickerCSRTemplate"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldUser_Display"],
+            2: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
+            3: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
         },
         'UserMulti': {
-            4: window["RenderFieldValueDefault"],
-            1: window["SPFieldUserMulti_Display"],
-            2: window["SPClientPeoplePickerCSRTemplate"],
-            3: window["SPClientPeoplePickerCSRTemplate"]
+            4: __1.ContextInfo.window["RenderFieldValueDefault"],
+            1: __1.ContextInfo.window["SPFieldUserMulti_Display"],
+            2: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
+            3: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
         }
     },
     /**
@@ -225,7 +226,7 @@ exports.JSLinkHelper = {
      */
     getListViewSelectedItems: function () {
         // Return the selected items
-        return window["SP"].ListOperation.Selection.getSelectedItems();
+        return __1.ContextInfo.window["SP"].ListOperation.Selection.getSelectedItems();
     },
     /**
      * Returns the webpart containing the JSLink field/form/view.
@@ -246,7 +247,7 @@ exports.JSLinkHelper = {
             // Set the flag
             exports.JSLinkHelper.hideEventFl = true;
             // Create the event
-            window.addEventListener("load", function () {
+            __1.ContextInfo.window.addEventListener("load", function () {
                 // Query for the elements to hide
                 var fieldElements = document.querySelectorAll(".hide-field");
                 for (var _i = 0, fieldElements_1 = fieldElements; _i < fieldElements_1.length; _i++) {
@@ -306,55 +307,55 @@ exports.JSLinkHelper = {
         var fieldRenderer = null;
         switch (field.Type) {
             case "AllDayEvent":
-                fieldRenderer = new window["AllDayEventFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["AllDayEventFieldRenderer"](field.Name);
                 break;
             case "Attachments":
-                fieldRenderer = new window["AttachmentFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["AttachmentFieldRenderer"](field.Name);
                 break;
             case "BusinessData":
-                fieldRenderer = new window["BusinessDataFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["BusinessDataFieldRenderer"](field.Name);
                 break;
             case "Computed":
-                fieldRenderer = new window["ComputedFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["ComputedFieldRenderer"](field.Name);
                 break;
             case "CrossProjectLink":
-                fieldRenderer = new window["ProjectLinkFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["ProjectLinkFieldRenderer"](field.Name);
                 break;
             case "Currency":
-                fieldRenderer = new window["NumberFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["NumberFieldRenderer"](field.Name);
                 break;
             case "DateTime":
-                fieldRenderer = new window["DateTimeFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["DateTimeFieldRenderer"](field.Name);
                 break;
             case "Lookup":
-                fieldRenderer = new window["LookupFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["LookupFieldRenderer"](field.Name);
                 break;
             case "LookupMulti":
-                fieldRenderer = new window["LookupFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["LookupFieldRenderer"](field.Name);
                 break;
             case "Note":
-                fieldRenderer = new window["NoteFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["NoteFieldRenderer"](field.Name);
                 break;
             case "Number":
-                fieldRenderer = new window["NumberFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["NumberFieldRenderer"](field.Name);
                 break;
             case "Recurrence":
-                fieldRenderer = new window["RecurrenceFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["RecurrenceFieldRenderer"](field.Name);
                 break;
             case "Text":
-                fieldRenderer = new window["TextFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["TextFieldRenderer"](field.Name);
                 break;
             case "URL":
-                fieldRenderer = new window["UrlFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["UrlFieldRenderer"](field.Name);
                 break;
             case "User":
-                fieldRenderer = new window["UserFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["UserFieldRenderer"](field.Name);
                 break;
             case "UserMulti":
-                fieldRenderer = new window["UserFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["UserFieldRenderer"](field.Name);
                 break;
             case "WorkflowStatus":
-                fieldRenderer = new window["RawFieldRenderer"](field.Name);
+                fieldRenderer = new __1.ContextInfo.window["RawFieldRenderer"](field.Name);
                 break;
         }
         ;

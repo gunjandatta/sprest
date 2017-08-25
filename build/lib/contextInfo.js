@@ -11,7 +11,7 @@ var _ContextInfo = (function () {
     Object.defineProperty(_ContextInfo, "_contextInfo", {
         // The current context information
         get: function () {
-            return window["_spPageContextInfo"] ||
+            return this.window["_spPageContextInfo"] ||
                 {
                     existsFl: false,
                     isAppWeb: false,
@@ -242,6 +242,12 @@ var _ContextInfo = (function () {
     Object.defineProperty(_ContextInfo, "webUIVersion", {
         // Web UI Version
         get: function () { return this._contextInfo.webUIVersion; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "window", {
+        // Window
+        get: function () { return typeof (window) == "undefined" ? {} : window; },
         enumerable: true,
         configurable: true
     });

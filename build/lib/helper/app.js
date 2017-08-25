@@ -11,7 +11,7 @@ exports.AppHelper = {
     copyFileToHostWeb: function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
         var srcFile = null;
         var promise = new utils_1.Promise();
-        var origVal = window["$REST"].DefaultRequestToHostFl;
+        var origVal = __1.ContextInfo.window.$REST.DefaultRequestToHostFl;
         // Ensure the current web is an app web
         if (!__1.ContextInfo.isAppWeb) {
             // Error
@@ -19,7 +19,7 @@ exports.AppHelper = {
             return;
         }
         // Get the host web
-        window["$REST"].DefaultRequestToHostFl = true;
+        __1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
         var web = (new __1.Web(rootWebFl ? __1.ContextInfo.siteServerRelativeUrl : null));
         // See if the folder url was given
         if (typeof (dstFolder) === "string") {
@@ -36,8 +36,8 @@ exports.AppHelper = {
             var fileName = fileUrl.split("/");
             fileName = fileName[fileName.length - 1];
             // Set the file urls
-            var dstFileUrl = window["SP"].Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-            var srcFileUrl_1 = window["SP"].Utilities.UrlBuilder.urlCombine(__1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+            var dstFileUrl = __1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
+            var srcFileUrl_1 = __1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(__1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
             // Get the destination file
             web.getFileByServerRelativeUrl(dstFileUrl)
                 .execute(function (file) {
@@ -55,7 +55,7 @@ exports.AppHelper = {
                 return promise;
             });
             // Target the current web
-            window["$REST"].DefaultRequestToHostFl = false;
+            __1.ContextInfo.window.$REST.DefaultRequestToHostFl = false;
             // Get the current web
             (new __1.Web())
                 .getFileByServerRelativeUrl(srcFileUrl_1)
@@ -66,7 +66,7 @@ exports.AppHelper = {
                 var fileName = srcFileUrl_1.split("/");
                 fileName = fileName[fileName.length - 1];
                 // Target the host web
-                window["$REST"].DefaultRequestToHostFl = true;
+                __1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
                 // Add the file to the folder
                 (dstFolder).Files().add(true, fileName, content.response)
                     .execute(function (file) {
@@ -162,7 +162,7 @@ exports.AppHelper = {
         // Wait for the requests to complete
         web.done(function () {
             // Set the destination folder url
-            var dstFolderUrl = window["SP"].Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, folderUrl.substr(folderUrl[0] == "/" ? 1 : 0));
+            var dstFolderUrl = __1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, folderUrl.substr(folderUrl[0] == "/" ? 1 : 0));
             // Get the folder
             web.getFolderByServerRelativeUrl(folderUrl)
                 .execute(function (folder) {

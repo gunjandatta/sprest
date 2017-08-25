@@ -78,6 +78,15 @@ export interface IContextInformation {
     webTitle: string;
     /** Web UI Version */
     webUIVersion: number;
+    /** Window */
+    window: {
+        $REST: any;
+        addEventListener: any;
+        clearInterval: any;
+        setInterval: any;
+        SP: any;
+        SPClientTemplates: any;
+    };
     /**
      * Methods
      */

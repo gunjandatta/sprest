@@ -1,6 +1,7 @@
 "use strict";
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+var __1 = require("..");
 /**
  * Loader
  */
@@ -41,7 +42,7 @@ exports.Loader = {
         var intervalId = setInterval(function () {
             var maxLoopFl = ++counter > maxLoops;
             // See if the page context exists or if we have hit the max attempts
-            if (window["_spPageContextInfo"] || maxLoopFl) {
+            if (__1.ContextInfo.existsFl || maxLoopFl) {
                 // Stop the loop
                 clearInterval(intervalId);
                 // Execute the callback

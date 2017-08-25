@@ -68,8 +68,8 @@ var gd_sprest = {
 // Export the $REST library
 exports.$REST = gd_sprest;
 // See if the library doesn't exist, or is an older version
-if (window["$REST"] == null || window["$REST"].__ver == null || window["$REST"].__ver < gd_sprest.__ver) {
+if (lib_1.ContextInfo.window.$REST == null || lib_1.ContextInfo.window.$REST.__ver == null || lib_1.ContextInfo.window.$REST.__ver < gd_sprest.__ver) {
     // Set the global variable
-    window["$REST"] = gd_sprest;
+    lib_1.ContextInfo.window.$REST = gd_sprest;
 }
 //# sourceMappingURL=gd-sprest.js.map
