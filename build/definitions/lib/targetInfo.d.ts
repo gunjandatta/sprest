@@ -1,4 +1,15 @@
 /**
+ * Request Information
+ */
+export interface IRequestInfo {
+    /** The data being sent in the body of the request. */
+    data?: object;
+    /** The request method (GET/POST) */
+    method: string;
+    /** The url of the request. */
+    url: string;
+}
+/**
  * Target Information
  */
 export interface ITargetInfo {
@@ -16,6 +27,8 @@ export interface ITargetInfo {
     method?: string;
     /** The request digest to use for the request. */
     requestDigest?: string;
+    /** The request information. */
+    requestInfo?: object;
     /** The url of the site/web to execute the request against. */
     url?: string;
 }

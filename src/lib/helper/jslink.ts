@@ -251,7 +251,7 @@ export const JSLinkHelper = {
      */
     getWebPart: (ctx) => {
         // Return the webpart
-        return document.querySelector("#WebPart" + (ctx.FormUniqueId || ctx.wpq));
+        return ContextInfo.document.querySelector("#WebPart" + (ctx.FormUniqueId || ctx.wpq));
     },
 
     /**
@@ -268,7 +268,7 @@ export const JSLinkHelper = {
             // Create the event
             ContextInfo.window.addEventListener("load", () => {
                 // Query for the elements to hide
-                let fieldElements: any = document.querySelectorAll(".hide-field");
+                let fieldElements: any = ContextInfo.document.querySelectorAll(".hide-field");
                 for (let fieldElement of fieldElements) {
                     // Get the parent row
                     let parentRow = fieldElement.parentNode && fieldElement.parentNode.parentNode ? fieldElement.parentNode.parentNode : null;

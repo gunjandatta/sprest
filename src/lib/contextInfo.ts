@@ -44,6 +44,9 @@ class _ContextInfo {
     // Current UI Culture Name
     static get currentUICultureName() { return this._contextInfo.currentUICultureName; }
 
+    // Document
+    static get document() { return this.window.document; }
+
     // Environment
     static get env() { return this._contextInfo.env; }
 
@@ -132,7 +135,7 @@ class _ContextInfo {
     static get webUIVersion() { return this._contextInfo.webUIVersion; }
 
     // Window
-    static get window() { return typeof (window) == "undefined" ? {} : window; }
+    static get window() { return typeof (window) == "undefined" ? {} as any : window; }
 
     /**
      * Methods

@@ -1,4 +1,4 @@
-import { IMethodInfo, ITargetInfo } from "../definitions";
+import { IMethodInfo, IRequestInfo, ITargetInfo } from "../definitions";
 import { ContextInfo } from "../lib";
 import { Mapper } from "../mapper";
 import { RequestType } from "../types";
@@ -154,6 +154,9 @@ export class Base {
 
     // Method to execute the request synchronously.
     executeAndWait() { return this.executeRequest(false); }
+
+    // Method to get the request information
+    getInfo(): IRequestInfo { return (new TargetInfo(this.targetInfo)).requestInfo; }
 
     /*********************************************************************************************************************************/
     // Private Variables

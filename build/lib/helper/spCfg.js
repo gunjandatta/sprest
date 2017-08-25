@@ -812,7 +812,7 @@ var SPConfig = (function () {
         this.updateFieldSchemaXml = function (schemaXml) {
             var promise = new utils_1.Promise();
             // Create the schema
-            var fieldInfo = document.createElement("field");
+            var fieldInfo = __1.ContextInfo.document.createElement("field");
             fieldInfo.innerHTML = schemaXml;
             fieldInfo = fieldInfo.querySelector("field");
             // Get the field type

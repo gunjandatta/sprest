@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = require("../lib");
 var _1 = require(".");
 /*********************************************************************************************************************************/
 // Request
@@ -92,7 +93,7 @@ var XHRRequest = (function () {
         }
         else {
             // Get the request digest
-            var requestDigest = document.querySelector("#__REQUESTDIGEST");
+            var requestDigest = lib_1.ContextInfo.document.querySelector("#__REQUESTDIGEST");
             requestDigest = requestDigest ? requestDigest.value : "";
             // Set the request digest
             this.xhr.setRequestHeader("X-RequestDigest", requestDigest);

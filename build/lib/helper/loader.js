@@ -28,12 +28,12 @@ exports.Loader = {
             // Parse the files to load
             ["MicrosoftAjax.js", "init.js", "sp.runtime.js", "sp.js", "sp.core.js", "core.js"].every(function (fileName) {
                 // Create the script element
-                var el = document.createElement("script");
+                var el = __1.ContextInfo.document.createElement("script");
                 // Set the properties
                 el.setAttribute("src", "/_layouts/15/" + fileName);
                 el.setAttribute("type", "text/javascript");
                 // Add the element to the head
-                document.head.appendChild(el);
+                __1.ContextInfo.document.head.appendChild(el);
                 // Continue the loop
                 return true;
             });

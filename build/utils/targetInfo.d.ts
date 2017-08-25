@@ -1,4 +1,4 @@
-import { ITargetInfo } from "../definitions";
+import { IRequestInfo, ITargetInfo } from "../definitions";
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
 export declare class TargetInfo {
@@ -11,6 +11,7 @@ export declare class TargetInfo {
     readonly callback: (...args) => void;
     requestData: any;
     readonly requestDigest: string;
+    readonly requestInfo: IRequestInfo;
     requestHeaders: string[];
     requestMethod: string;
     requestUrl: string;

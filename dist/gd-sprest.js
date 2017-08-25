@@ -979,6 +979,14 @@ var _ContextInfo = function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(_ContextInfo, "document", {
+        // Document
+        get: function get() {
+            return this.window.document;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(_ContextInfo, "env", {
         // Environment
         get: function get() {
@@ -1375,6 +1383,10 @@ var Base = function () {
     // Method to execute the request synchronously.
     Base.prototype.executeAndWait = function () {
         return this.executeRequest(false);
+    };
+    // Method to get the request information
+    Base.prototype.getInfo = function () {
+        return new _1.TargetInfo(this.targetInfo).requestInfo;
     };
     /*********************************************************************************************************************************/
     // Private Methods
@@ -4086,12 +4098,12 @@ var Dependencies = function () {
             // Load the required scripts
             for (var fileName in this.SCRIPTS) {
                 // Create the script element
-                var elScript = document.createElement("script");
+                var elScript = lib_1.ContextInfo.document.createElement("script");
                 // Set the properties
                 elScript.setAttribute("src", "/_layouts/15/" + fileName);
                 elScript.setAttribute("type", "text/javascript");
                 // Add the script element to the head
-                document.head.appendChild(elScript);
+                lib_1.ContextInfo.document.head.appendChild(elScript);
             }
             // Wait for the page context to exist
             this.waitForPageContext();
@@ -4659,12 +4671,25 @@ var TargetInfo = function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TargetInfo.prototype, "requestInfo", {
+        // The request information
+        get: function get() {
+            // Return the request information
+            return {
+                data: this.targetInfo.data,
+                method: this.targetInfo.method,
+                url: this.targetInfo.url
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     // Method to get the domain url
     TargetInfo.prototype.getDomainUrl = function () {
-        var url = document.location.href;
+        var url = lib_1.ContextInfo.document.location.href;
         // See if this is an app web
         if (lib_1.ContextInfo.isAppWeb) {
             // Set the url to the host url
@@ -4682,7 +4707,7 @@ var TargetInfo = function () {
     // Method to get a query string value
     TargetInfo.getQueryStringValue = function (key) {
         // Get the query string
-        var queryString = document.location.href.split('?');
+        var queryString = lib_1.ContextInfo.existsFl ? lib_1.ContextInfo.document.location.href.split('?') : [""];
         queryString = queryString.length > 1 ? queryString[1] : queryString[0];
         // Parse the values
         var values = queryString.split('&');
@@ -4705,7 +4730,7 @@ var TargetInfo = function () {
         var hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
         var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
         // See if we are defaulting the url for the app web
-        if (lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && this.targetInfo.url == null) {
+        if (lib_1.ContextInfo.existsFl && lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && this.targetInfo.url == null) {
             // Default the url to the host web
             this.targetInfo.url = hostUrl;
         }
@@ -4755,6 +4780,7 @@ exports.TargetInfo = TargetInfo;
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
 var _1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // Request
@@ -4853,7 +4879,7 @@ var XHRRequest = function () {
             this.xhr.setRequestHeader("X-RequestDigest", this.targetInfo.requestDigest);
         } else {
             // Get the request digest
-            var requestDigest = document.querySelector("#__REQUESTDIGEST");
+            var requestDigest = lib_1.ContextInfo.document.querySelector("#__REQUESTDIGEST");
             requestDigest = requestDigest ? requestDigest.value : "";
             // Set the request digest
             this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
@@ -5551,7 +5577,7 @@ exports.JSLinkHelper = {
      */
     getWebPart: function getWebPart(ctx) {
         // Return the webpart
-        return document.querySelector("#WebPart" + (ctx.FormUniqueId || ctx.wpq));
+        return __1.ContextInfo.document.querySelector("#WebPart" + (ctx.FormUniqueId || ctx.wpq));
     },
     /**
      * Hides the specified field.
@@ -5566,7 +5592,7 @@ exports.JSLinkHelper = {
             // Create the event
             __1.ContextInfo.window.addEventListener("load", function () {
                 // Query for the elements to hide
-                var fieldElements = document.querySelectorAll(".hide-field");
+                var fieldElements = __1.ContextInfo.document.querySelectorAll(".hide-field");
                 for (var _i = 0, fieldElements_1 = fieldElements; _i < fieldElements_1.length; _i++) {
                     var fieldElement = fieldElements_1[_i];
                     // Get the parent row
@@ -5720,12 +5746,12 @@ exports.Loader = {
             // Parse the files to load
             ["MicrosoftAjax.js", "init.js", "sp.runtime.js", "sp.js", "sp.core.js", "core.js"].every(function (fileName) {
                 // Create the script element
-                var el = document.createElement("script");
+                var el = __1.ContextInfo.document.createElement("script");
                 // Set the properties
                 el.setAttribute("src", "/_layouts/15/" + fileName);
                 el.setAttribute("type", "text/javascript");
                 // Add the element to the head
-                document.head.appendChild(el);
+                __1.ContextInfo.document.head.appendChild(el);
                 // Continue the loop
                 return true;
             });
@@ -6531,7 +6557,7 @@ var SPConfig = function () {
         this.updateFieldSchemaXml = function (schemaXml) {
             var promise = new utils_1.Promise();
             // Create the schema
-            var fieldInfo = document.createElement("field");
+            var fieldInfo = __1.ContextInfo.document.createElement("field");
             fieldInfo.innerHTML = schemaXml;
             fieldInfo = fieldInfo.querySelector("field");
             // Get the field type

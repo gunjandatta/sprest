@@ -1,3 +1,4 @@
+import { ContextInfo } from "../lib";
 import {
     Promise,
     TargetInfo
@@ -10,7 +11,7 @@ export class XHRRequest {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
-    constructor(asyncFl:boolean, targetInfo:TargetInfo, callback?:(...args) => void) {
+    constructor(asyncFl: boolean, targetInfo: TargetInfo, callback?: (...args) => void) {
         // Default the properties
         this.asyncFl = asyncFl;
         this.promise = new Promise(callback || targetInfo.callback);
@@ -26,7 +27,7 @@ export class XHRRequest {
     /*********************************************************************************************************************************/
 
     // Flag indicating the request has completed
-    get completedFl():boolean { return this.xhr ? this.xhr.readyState == 4 : false; }
+    get completedFl(): boolean { return this.xhr ? this.xhr.readyState == 4 : false; }
 
     // The response
     get response() { return this.xhr ? this.xhr.response : null; }
@@ -38,23 +39,23 @@ export class XHRRequest {
     get requestData() { return this.targetInfo.requestData; }
 
     // The reqest url
-    get requestUrl():string { return this.xhr ? this.xhr.responseURL : null; }
+    get requestUrl(): string { return this.xhr ? this.xhr.responseURL : null; }
 
     /*********************************************************************************************************************************/
     // Private Variables
     /*********************************************************************************************************************************/
 
     // The flag to determine if the request is executed asynchronously or synchronously
-    private asyncFl:boolean;
+    private asyncFl: boolean;
 
     // The target information
-    private targetInfo:TargetInfo;
+    private targetInfo: TargetInfo;
 
     // The promise
-    private promise:Promise;
+    private promise: Promise;
 
     // The xml http request object
-    private xhr:any;
+    private xhr: any;
 
     /*********************************************************************************************************************************/
     // Private Methods
@@ -63,7 +64,7 @@ export class XHRRequest {
     // Method to create the xml http request
     private createXHR() {
         // See if the generic object doesn't exist
-        if (typeof(XMLHttpRequest) !== "undefined") {
+        if (typeof (XMLHttpRequest) !== "undefined") {
             // Create an instance of the xml http request object
             return new XMLHttpRequest();
         }
@@ -92,12 +93,12 @@ export class XHRRequest {
         this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
 
         // See if the request digest has been defined
-        if(this.targetInfo.requestDigest) {
+        if (this.targetInfo.requestDigest) {
             // Set the request digest
             this.xhr.setRequestHeader("X-RequestDigest", this.targetInfo.requestDigest);
         } else {
             // Get the request digest
-            let requestDigest:any = document.querySelector("#__REQUESTDIGEST");
+            let requestDigest: any = ContextInfo.document.querySelector("#__REQUESTDIGEST");
             requestDigest = requestDigest ? requestDigest.value : "";
 
             // Set the request digest
@@ -105,7 +106,7 @@ export class XHRRequest {
         }
 
         // See if we are deleting or updating the data
-        if(this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE") {
+        if (this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE") {
             // Append the header for deleting/updating
             this.xhr.setRequestHeader("IF-MATCH", "*");
         }
@@ -123,17 +124,17 @@ export class XHRRequest {
     // Method to execute the xml http request
     private execute() {
         // Ensure the xml http request exists
-        if(this.xhr == null) { return null; }
+        if (this.xhr == null) { return null; }
 
         // Open the request
         this.xhr.open(this.targetInfo.requestMethod == "GET" ? "GET" : "POST", this.targetInfo.requestUrl, this.asyncFl);
 
         // See if we are making an asynchronous request
-        if(this.asyncFl) {
+        if (this.asyncFl) {
             // Set the state change event
             this.xhr.onreadystatechange = () => {
                 // See if the request has finished
-                if(this.xhr.readyState == 4) {
+                if (this.xhr.readyState == 4) {
                     // Resolve the promise
                     this.promise.resolve(this);
                 }
@@ -142,7 +143,7 @@ export class XHRRequest {
 
         // See if we the response type is an array buffer
         // Note - Updating the response type is only allow for asynchronous requests. Any error will be thrown otherwise.
-        if(this.targetInfo.bufferFl && this.asyncFl) {
+        if (this.targetInfo.bufferFl && this.asyncFl) {
             // Set the response type
             this.xhr.responseType = "arraybuffer";
         }
@@ -151,7 +152,7 @@ export class XHRRequest {
             this.defaultHeaders();
 
             // Ensure the arguments passed is defaulted as a string, unless it's an array buffer
-            if(this.targetInfo.requestData && typeof(this.targetInfo.requestData) !== "string") {
+            if (this.targetInfo.requestData && typeof (this.targetInfo.requestData) !== "string") {
                 // Stringify the data object, if it's not an array buffer
                 this.targetInfo.requestData = this.targetInfo.requestData.byteLength ? this.targetInfo.requestData : JSON.stringify(this.targetInfo.requestData);
             }

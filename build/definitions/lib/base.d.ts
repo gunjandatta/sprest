@@ -1,4 +1,4 @@
-import { IRequestType, IResults, ODataQuery } from "..";
+import { IRequestInfo, IRequestType, IResults, ODataQuery } from "..";
 /**
  * The base class
  */
@@ -44,6 +44,10 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
      * Method to execute the request synchronously.
      */
     executeAndWait(): Result;
+    /**
+     * Method to get the request information.
+     */
+    getInfo(): IRequestInfo;
     /**
      * Queries the collection.
      * @param oData - The OData information.

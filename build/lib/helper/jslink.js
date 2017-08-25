@@ -234,7 +234,7 @@ exports.JSLinkHelper = {
      */
     getWebPart: function (ctx) {
         // Return the webpart
-        return document.querySelector("#WebPart" + (ctx.FormUniqueId || ctx.wpq));
+        return __1.ContextInfo.document.querySelector("#WebPart" + (ctx.FormUniqueId || ctx.wpq));
     },
     /**
      * Hides the specified field.
@@ -249,7 +249,7 @@ exports.JSLinkHelper = {
             // Create the event
             __1.ContextInfo.window.addEventListener("load", function () {
                 // Query for the elements to hide
-                var fieldElements = document.querySelectorAll(".hide-field");
+                var fieldElements = __1.ContextInfo.document.querySelectorAll(".hide-field");
                 for (var _i = 0, fieldElements_1 = fieldElements; _i < fieldElements_1.length; _i++) {
                     var fieldElement = fieldElements_1[_i];
                     // Get the parent row
