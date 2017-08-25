@@ -32,14 +32,14 @@ export const Loader = {
             // Parse the files to load
             ["MicrosoftAjax.js", "init.js", "sp.runtime.js", "sp.js", "sp.core.js", "core.js"].every((fileName) => {
                 // Create the script element
-                let el = document.createElement("script");
+                let el = ContextInfo.document.createElement("script");
 
                 // Set the properties
                 el.setAttribute("src", "/_layouts/15/" + fileName);
                 el.setAttribute("type", "text/javascript");
 
                 // Add the element to the head
-                document.head.appendChild(el);
+                ContextInfo.document.head.appendChild(el);
 
                 // Continue the loop
                 return true;

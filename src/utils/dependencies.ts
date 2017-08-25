@@ -48,14 +48,14 @@ export class Dependencies {
             // Load the required scripts
             for (var fileName in this.SCRIPTS) {
                 // Create the script element
-                let elScript = document.createElement("script");
+                let elScript = ContextInfo.document.createElement("script");
 
                 // Set the properties
                 elScript.setAttribute("src", "/_layouts/15/" + fileName);
                 elScript.setAttribute("type", "text/javascript");
 
                 // Add the script element to the head
-                document.head.appendChild(elScript);
+                ContextInfo.document.head.appendChild(elScript);
             }
 
             // Wait for the page context to exist

@@ -128,6 +128,8 @@ var Base = (function () {
     };
     // Method to execute the request synchronously.
     Base.prototype.executeAndWait = function () { return this.executeRequest(false); };
+    // Method to get the request information
+    Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
     /*********************************************************************************************************************************/
     // Private Methods
     /*********************************************************************************************************************************/

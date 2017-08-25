@@ -29,6 +29,9 @@ export interface IContextInformation {
     /** Current UI Culture Name */
     currentUICultureName: string;
 
+    /** Document */
+    document: HTMLDocument;
+
     /** Environment */
     env: string;
 
@@ -121,6 +124,7 @@ export interface IContextInformation {
         $REST: any;
         addEventListener: any;
         clearInterval: any;
+        document: HTMLDocument;
         setInterval: any;
         SP: any;
         SPClientTemplates: any;

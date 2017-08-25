@@ -38,12 +38,25 @@ var TargetInfo = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(TargetInfo.prototype, "requestInfo", {
+        // The request information
+        get: function () {
+            // Return the request information
+            return {
+                data: this.targetInfo.data,
+                method: this.targetInfo.method,
+                url: this.targetInfo.url
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     // Method to get the domain url
     TargetInfo.prototype.getDomainUrl = function () {
-        var url = document.location.href;
+        var url = lib_1.ContextInfo.document.location.href;
         // See if this is an app web
         if (lib_1.ContextInfo.isAppWeb) {
             // Set the url to the host url
@@ -61,7 +74,7 @@ var TargetInfo = (function () {
     // Method to get a query string value
     TargetInfo.getQueryStringValue = function (key) {
         // Get the query string
-        var queryString = document.location.href.split('?');
+        var queryString = lib_1.ContextInfo.existsFl ? lib_1.ContextInfo.document.location.href.split('?') : [""];
         queryString = queryString.length > 1 ? queryString[1] : queryString[0];
         // Parse the values
         var values = queryString.split('&');
@@ -84,7 +97,7 @@ var TargetInfo = (function () {
         var hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
         var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
         // See if we are defaulting the url for the app web
-        if (lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && this.targetInfo.url == null) {
+        if (lib_1.ContextInfo.existsFl && lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && this.targetInfo.url == null) {
             // Default the url to the host web
             this.targetInfo.url = hostUrl;
         }

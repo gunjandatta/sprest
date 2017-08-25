@@ -1020,7 +1020,7 @@ export class SPConfig {
         let promise = new Promise();
 
         // Create the schema
-        let fieldInfo: HTMLElement = document.createElement("field");
+        let fieldInfo: HTMLElement = ContextInfo.document.createElement("field");
         fieldInfo.innerHTML = schemaXml;
         fieldInfo = fieldInfo.querySelector("field") as HTMLElement;
 

@@ -20,6 +20,8 @@ export interface IContextInformation {
     currentLanguage: string;
     /** Current UI Culture Name */
     currentUICultureName: string;
+    /** Document */
+    document: HTMLDocument;
     /** Environment */
     env: string;
     /** True if the _spPageContextInfo object exists, flase otherwise. */
@@ -83,6 +85,7 @@ export interface IContextInformation {
         $REST: any;
         addEventListener: any;
         clearInterval: any;
+        document: HTMLDocument;
         setInterval: any;
         SP: any;
         SPClientTemplates: any;

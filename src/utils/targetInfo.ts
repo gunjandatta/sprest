@@ -1,4 +1,4 @@
-import { ITargetInfo } from "../definitions";
+import { IRequestInfo, ITargetInfo } from "../definitions";
 import { ContextInfo } from "../lib";
 /*********************************************************************************************************************************/
 // Target Information
@@ -34,6 +34,16 @@ export class TargetInfo {
     // The form digest
     get requestDigest(): string { return this.targetInfo.requestDigest; }
 
+    // The request information
+    get requestInfo(): IRequestInfo {
+        // Return the request information
+        return {
+            data: this.targetInfo.data,
+            method: this.targetInfo.method,
+            url: this.targetInfo.url
+        };
+    }
+
     // The request header
     requestHeaders: string[];
 
@@ -56,7 +66,7 @@ export class TargetInfo {
 
     // Method to get the domain url
     private getDomainUrl(): string {
-        let url: any = document.location.href;
+        let url: any = ContextInfo.document.location.href;
 
         // See if this is an app web
         if (ContextInfo.isAppWeb) {
@@ -78,7 +88,7 @@ export class TargetInfo {
     // Method to get a query string value
     private static getQueryStringValue(key: string) {
         // Get the query string
-        var queryString: any = document.location.href.split('?');
+        var queryString: any = ContextInfo.existsFl ? ContextInfo.document.location.href.split('?') : [""];
         queryString = queryString.length > 1 ? queryString[1] : queryString[0];
 
         // Parse the values
@@ -105,7 +115,7 @@ export class TargetInfo {
         let template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
 
         // See if we are defaulting the url for the app web
-        if (ContextInfo.window.$REST.DefaultRequestToHostFl && ContextInfo.isAppWeb && this.targetInfo.url == null) {
+        if (ContextInfo.existsFl && ContextInfo.window.$REST.DefaultRequestToHostFl && ContextInfo.isAppWeb && this.targetInfo.url == null) {
             // Default the url to the host web
             this.targetInfo.url = hostUrl;
         }

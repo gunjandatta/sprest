@@ -71,6 +71,12 @@ var _ContextInfo = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(_ContextInfo, "document", {
+        // Document
+        get: function () { return this.window.document; },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(_ContextInfo, "env", {
         // Environment
         get: function () { return this._contextInfo.env; },

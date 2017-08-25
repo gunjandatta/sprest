@@ -50,12 +50,12 @@ var Dependencies = (function () {
             // Load the required scripts
             for (var fileName in this.SCRIPTS) {
                 // Create the script element
-                var elScript = document.createElement("script");
+                var elScript = lib_1.ContextInfo.document.createElement("script");
                 // Set the properties
                 elScript.setAttribute("src", "/_layouts/15/" + fileName);
                 elScript.setAttribute("type", "text/javascript");
                 // Add the script element to the head
-                document.head.appendChild(elScript);
+                lib_1.ContextInfo.document.head.appendChild(elScript);
             }
             // Wait for the page context to exist
             this.waitForPageContext();
