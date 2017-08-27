@@ -230,6 +230,9 @@ export interface IFieldLookup extends IFieldResult {
     /** A value that specifies whether the lookup field allows multiple values. You cannot set a deletion constraint on a lookup field that allows multiple values. */
     AllowMultipleValues: boolean;
 
+    /** Flag to determine if this is a dependent lookup field. */
+    IsDependentLookup: boolean;
+
     /** A value that specifies whether this lookup field is returned by SP.List.getRelatedFields from the list being looked up to. Always returns false if the field represents a secondary column in a multiple-column lookup. Secondary columns are not discoverable from the source list. */
     IsRelationship: boolean;
 
@@ -247,6 +250,38 @@ export interface IFieldLookup extends IFieldResult {
 
     /** A value that specifies the delete behavior of the lookup field. */
     RelationshipDeleteBehavior: SPTypes.RelationshipDeleteBehaviorType | number;
+}
+
+/**
+ * Managed Metadata Field
+ */
+export interface IFieldManagedMetadata extends IFieldLookup {
+    /** Flag to determine if the anchor is valid. */
+    IsAnchorValid: boolean;
+
+    /** Flag to determine if this is a keyword. */
+    IsKeyword: boolean;
+
+    /** Flag to determine if the path is rendered. */
+    IsPathRendered: boolean;
+
+    /** Flag to determine if the term set is valid. */
+    IsTermSetValid: boolean;
+
+    /** A valid that specifies if the term is pinned to filters pane. */
+    PinnedToFiltersPane: boolean;
+
+    /** A value that specifies if the term is shown in the filters pane. */
+    ShowInFiltersPane: number;
+
+    /** The term store id. */
+    SspId: string;
+
+    /** The term set id. */
+    TermSetId: string;
+
+    /** Flag to determine if the field was created by the user. */
+    UserCreated: boolean;
 }
 
 /**
