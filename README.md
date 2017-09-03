@@ -42,6 +42,8 @@ An easy way to develop against the SharePoint 2013/Online REST API.
 * [SharePoint JS-Link Starter Project](https://github.com/gunjandatta/sp-jslink)
 * [SharePoint React/Redux Starter Project](https://github.com/gunjandatta/sp-react-redux)
 * [SharePoint Scripts Starter Project](https://github.com/gunjandatta/sp-scripts)
+* [SharePoint React Components](https://github.com/gunjandatta/sprest-react)
+* [WebPart Examples](https://github.com/gunjandatta/sprest-webparts)
 
 ## Get Started:
 ### Node Package Manager
