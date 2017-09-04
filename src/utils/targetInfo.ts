@@ -38,9 +38,9 @@ export class TargetInfo {
     get requestInfo(): IRequestInfo {
         // Return the request information
         return {
-            data: this.targetInfo.data,
-            method: this.targetInfo.method,
-            url: this.targetInfo.url
+            data: this.requestData,
+            method: this.requestMethod,
+            url: this.requestUrl
         };
     }
 

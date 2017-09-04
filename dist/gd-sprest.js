@@ -4676,9 +4676,9 @@ var TargetInfo = function () {
         get: function get() {
             // Return the request information
             return {
-                data: this.targetInfo.data,
-                method: this.targetInfo.method,
-                url: this.targetInfo.url
+                data: this.requestData,
+                method: this.requestMethod,
+                url: this.requestUrl
             };
         },
         enumerable: true,
