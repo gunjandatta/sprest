@@ -4,7 +4,7 @@ var _1 = require(".");
 /**
  * JS Link
  */
-var JSLink = (function () {
+var JSLink = /** @class */ (function () {
     function JSLink() {
     }
     Object.defineProperty(JSLink.prototype, "BaseViewID", {
