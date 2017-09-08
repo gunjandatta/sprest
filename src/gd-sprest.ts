@@ -66,17 +66,17 @@ export {
  * SharePoint REST Library
  */
 const gd_sprest = {
-    __ver: 1.95,
+    __ver: 1.96,
     ContextInfo,
     DefaultRequestToHostFl: false,
     Email,
     Helper,
     JSLink,
     List: (listName: string, targetInfo?: Types.ITargetInfo) => { return new List(listName, targetInfo); },
-    PeopleManager,
-    PeoplePicker,
-    ProfileLoader,
-    Search,
+    PeopleManager: (targetInfo?: Types.ITargetInfo) => { return new PeopleManager(targetInfo); },
+    PeoplePicker: (targetInfo?: Types.ITargetInfo) => { return new PeoplePicker(targetInfo); },
+    ProfileLoader: (targetInfo?: Types.ITargetInfo) => { return new ProfileLoader(targetInfo); },
+    Search: (url?: string, targetInfo?: Types.ITargetInfo) => { return new Search(url, targetInfo); },
     Site: (url?: string, targetInfo?: Types.ITargetInfo) => { return new Site(url, targetInfo); },
     SocialFeed,
     UserProfile,
