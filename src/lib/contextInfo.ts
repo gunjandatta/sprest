@@ -1,5 +1,6 @@
 import { IContextInformation, IContextWebInfo } from "../definitions";
 import { Base } from "../utils";
+
 /*********************************************************************************************************************************/
 // Context Information
 // This class will return the _spPageContextInfo.

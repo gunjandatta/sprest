@@ -173,7 +173,7 @@ export class SPConfig {
                                 // Add the available content type
                                 contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(ct => {
                                     // See if it was successful
-                                    if(ct.existsFl) {
+                                    if (ct.existsFl) {
                                         // Log
                                         console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
 
@@ -201,7 +201,7 @@ export class SPConfig {
                         Name: cfgContentType.Name
                     }).execute((ct) => {
                         // See if it was successful
-                        if(ct.existsFl) {
+                        if (ct.existsFl) {
                             // Log
                             console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
 
@@ -225,18 +225,18 @@ export class SPConfig {
             // Parse the configuration
             for (let i = 0; i < cfgContentTypes.length; i++) {
                 let cfgContentType = cfgContentTypes[i];
-                let cfgUpdate:ISPCfgContentTypeInfo = {} as any;
+                let cfgUpdate: ISPCfgContentTypeInfo = {} as any;
                 let updateFl = false;
 
                 // Ensure the content type exists
-                if(cfgContentType.ContentType == null) { continue; }
+                if (cfgContentType.ContentType == null) { continue; }
 
                 /**
                  * See if we need to update the properties
                  */
 
                 // Description
-                if(cfgContentType.ContentType.Description != cfgContentType.Description) {
+                if (cfgContentType.ContentType.Description != cfgContentType.Description) {
                     // Update the configuration
                     cfgUpdate.Description = cfgContentType.Description;
 
@@ -248,7 +248,7 @@ export class SPConfig {
                 }
 
                 // Group
-                if(cfgContentType.ContentType.Group != cfgContentType.Group) {
+                if (cfgContentType.ContentType.Group != cfgContentType.Group) {
                     // Update the configuration
                     cfgUpdate.Group = cfgContentType.Group;
 
@@ -260,7 +260,7 @@ export class SPConfig {
                 }
 
                 // JSLink
-                if(cfgContentType.ContentType.JSlink != cfgContentType.JSLink) {
+                if (cfgContentType.ContentType.JSlink != cfgContentType.JSLink) {
                     // Update the configuration
                     cfgUpdate.JSLink = cfgContentType.JSLink;
 
@@ -272,7 +272,7 @@ export class SPConfig {
                 }
 
                 // Name
-                if(cfgContentType.ContentType.Name != cfgContentType.Name) {
+                if (cfgContentType.ContentType.Name != cfgContentType.Name) {
                     // Update the configuration
                     cfgUpdate.Name = cfgContentType.Name;
 
@@ -1063,7 +1063,7 @@ export class SPConfig {
         let cfgList = cfgLists[idx];
 
         // See if the target name exists
-        if(this._targetName) {
+        if (this._targetName) {
             // Ensure it's for this list
             if (cfgList.ListInformation.Title.toLowerCase() != this._targetName) {
                 // Update the next list

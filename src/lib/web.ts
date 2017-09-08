@@ -1,10 +1,10 @@
-import {IWeb} from "../definitions";
-import {Base} from "../utils";
+import { IWeb } from "../definitions";
+import { Base } from "../utils";
+
 /*********************************************************************************************************************************/
 // Web
 /*********************************************************************************************************************************/
-class _Web extends Base {
-
+class _Web extends Base<IWeb> {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
@@ -17,13 +17,13 @@ class _Web extends Base {
         this.targetInfo.endpoint = "web";
 
         // See if the web url exists
-        if(url) {
+        if (url) {
             // Set the settings
             this.targetInfo.url = url;
         }
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "web" } } );
+        this.addMethods(this, { __metadata: { type: "web" } });
     }
 
     // Method to determine if the current user has access, based on the permissions.
@@ -32,4 +32,4 @@ class _Web extends Base {
         return true;
     };
 }
-export const Web:IWeb = <any>_Web;
+export const Web: IWeb = _Web as any;

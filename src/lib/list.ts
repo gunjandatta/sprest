@@ -1,6 +1,7 @@
-import {IList, ILists} from "../definitions";
-import {Base} from "../utils";
-import {Web} from "./web";
+import { IList, ILists } from "../definitions";
+import { Base } from "../utils";
+import { Web } from "./web";
+
 /*********************************************************************************************************************************/
 // List
 // The SPList object.
@@ -18,7 +19,7 @@ class _List extends Base {
         this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "list" } } );
+        this.addMethods(this, { __metadata: { type: "list" } });
     }
 
     // Method to get the list by the entity name.
@@ -34,7 +35,7 @@ class _List extends Base {
             });
 
         // See if the callback exists
-        if(typeof(callback) != "function") {
+        if (typeof (callback) != "function") {
             // Execute the request synchronously and return it
             let list = query.executeAndWait();
             return list.results ? list.results[0] : list;
@@ -47,4 +48,4 @@ class _List extends Base {
         });
     }
 }
-export const List:IList = <any>_List;
+export const List: IList = <any>_List;

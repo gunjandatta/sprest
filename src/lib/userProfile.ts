@@ -1,5 +1,6 @@
-import {IUserProfile} from "../definitions";
-import {Base} from "../utils";
+import { IUserProfile } from "../definitions";
+import { Base } from "../utils";
+
 /*********************************************************************************************************************************/
 // User Profile
 /*********************************************************************************************************************************/
@@ -17,7 +18,7 @@ class _UserProfile extends Base {
         this.targetInfo.method = "POST";
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "userprofile" } } );
+        this.addMethods(this, { __metadata: { type: "userprofile" } });
     }
 }
-export const UserProfile:IUserProfile = <any>_UserProfile;
+export const UserProfile: IUserProfile = <any>_UserProfile;

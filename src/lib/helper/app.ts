@@ -1,8 +1,9 @@
-import {Promise} from "../../utils";
+import { Promise } from "../../utils";
 import {
     ContextInfo,
     Web
 } from "..";
+
 /*********************************************************************************************************************************/
 // App Helper Methods
 /*********************************************************************************************************************************/
@@ -14,7 +15,7 @@ export const AppHelper = {
         let origVal = ContextInfo.window.$REST.DefaultRequestToHostFl;
 
         // Ensure the current web is an app web
-        if(!ContextInfo.isAppWeb) {
+        if (!ContextInfo.isAppWeb) {
             // Error
             console.error("[gd-sprest] The current web is not an app web.");
             return;
@@ -25,7 +26,7 @@ export const AppHelper = {
         let web = (new Web(rootWebFl ? ContextInfo.siteServerRelativeUrl : null));
 
         // See if the folder url was given
-        if(typeof(dstFolder) === "string") {
+        if (typeof (dstFolder) === "string") {
             // Get the folder
             this.getFolder(web, dstFolder, true)
                 .done((folder) => {
@@ -37,7 +38,7 @@ export const AppHelper = {
         } else {
             // Get the file name
             let fileName = fileUrl.split("/");
-            fileName = fileName[fileName.length-1];
+            fileName = fileName[fileName.length - 1];
 
             // Set the file urls
             let dstFileUrl = ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
@@ -50,7 +51,7 @@ export const AppHelper = {
                     let promise = new Promise();
 
                     // See if the file exists
-                    if(file.Exists) {
+                    if (file.Exists) {
                         // Check out the file, and resolve the promise
                         file.checkout().execute(() => { promise.resolve(); });
                     } else {
@@ -76,7 +77,7 @@ export const AppHelper = {
 
                     // Get the file name
                     let fileName = srcFileUrl.split("/");
-                    fileName = fileName[fileName.length-1];
+                    fileName = fileName[fileName.length - 1];
 
                     // Target the host web
                     ContextInfo.window.$REST.DefaultRequestToHostFl = true;
@@ -121,7 +122,7 @@ export const AppHelper = {
         promise = promise ? promise : new Promise();
 
         // Ensure the array is not empty
-        if(fileUrls.length == idx || folderUrls.length == idx) {
+        if (fileUrls.length == idx || folderUrls.length == idx) {
             // Resolve the promise and return it
             promise.resolve(files, folders);
             return promise;
@@ -159,7 +160,7 @@ export const AppHelper = {
             // Method to add additional sub folders
             let addSubFolders = (subFolder) => {
                 // See if we are done
-                if(subFolderUrl.length == 0) {
+                if (subFolderUrl.length == 0) {
                     // Resolve the promise
                     promise.resolve(subFolder);
                 } else {
@@ -169,7 +170,7 @@ export const AppHelper = {
             };
 
             // Ensure the sub-folder exists
-            if(subFolder.Exists) {
+            if (subFolder.Exists) {
                 // Add the rest of the sub folders
                 addSubFolders(subFolder);
             } else {
@@ -188,7 +189,7 @@ export const AppHelper = {
         let promise = new Promise();
 
         // Ensure the web exists
-        if(!web.existsFl) {
+        if (!web.existsFl) {
             // Get the web
             web.execute();
         }
@@ -205,10 +206,10 @@ export const AppHelper = {
                     let promise = new Promise();
 
                     // Ensure the folder exists
-                    if(folder.Exists) {
+                    if (folder.Exists) {
                         // Save a reference to the folder
                         dstFolder = folder;
-                        
+
                         // Resolve the promise
                         promise.resolve();
                     } else {
@@ -242,26 +243,26 @@ export const AppHelper = {
         let promise = new Promise();
 
         // Ensure folder urls exist
-        if(folderUrls.length == 0) {
+        if (folderUrls.length == 0) {
             // Resolve the promise and return it
             promise.resolve();
         } else {
             let prevFolderUrl = null;
 
             // Sort the urls alphabetically, then from longest to shortest
-            folderUrls.sort().sort(function(a, b) { return a.length > b.length ? -1 : 1; });
+            folderUrls.sort().sort(function (a, b) { return a.length > b.length ? -1 : 1; });
 
             // Parse the folders
-            for(let folderUrl of folderUrls) {
+            for (let folderUrl of folderUrls) {
                 let folder = null;
 
                 // See if we already removed this folder
-                if(folderUrl == prevFolderUrl) { continue; }
+                if (folderUrl == prevFolderUrl) { continue; }
                 else { prevFolderUrl = folderUrl; }
 
                 // Parse the folder names
                 let folderNames = folderUrl.split('/');
-                for(let folderName of folderNames) {
+                for (let folderName of folderNames) {
                     // Get the sub-folder
                     folder = folder ? folder.Folders(folderName) : web.Folders(folderName);
                 }
@@ -271,7 +272,7 @@ export const AppHelper = {
                     let promise = new Promise();
 
                     // See if the folder is empty
-                    if(folder.ItemCount == 0) {
+                    if (folder.ItemCount == 0) {
                         // Delete the folder, and resolve the promise
                         folder.delete().execute(() => { promise.resolve(); });
                     } else {
@@ -299,15 +300,15 @@ export const AppHelper = {
         let folders = fileUrl.split('/');
 
         // Parse the folders
-        for(let i=0; i<folders.length-1; i++) {
+        for (let i = 0; i < folders.length - 1; i++) {
             // Get the folder
             folder = folder ? folder.Folders(folders[i]) : web.Folders(folders[i]);
         }
 
         // Get the file
-        folder.Files(folders[folders.length-1]).execute((file) => {
+        folder.Files(folders[folders.length - 1]).execute((file) => {
             // See if it exists
-            if(file.Exists) {
+            if (file.Exists) {
                 // Delete it and resolve the promise
                 file.delete().execute(() => { promise.resolve(); });
             } else {
@@ -324,9 +325,9 @@ export const AppHelper = {
     removeFiles: (web, fileUrls, idx, promise) => {
         idx = idx ? idx : 0;
         promise = promise ? promise : new Promise();
-        
+
         // See if we have removed all files
-        if(fileUrls.length == idx) {
+        if (fileUrls.length == idx) {
             // Resolve the promise and return it
             promise.resolve();
         } else {
