@@ -55,7 +55,7 @@ npm install gd-sprest --save
 const $REST = require("gd-sprest);
 
 // Create a new generic list.
-request = (new $REST.Web("https://dev.sharepoint.com")).Lists().add({ BaseTemplate: $REST.SPTypes.ListTemplateType.GenericList, Title: "New List" });
+request = $REST.Web("https://dev.sharepoint.com").Lists().add({ BaseTemplate: $REST.SPTypes.ListTemplateType.GenericList, Title: "New List" });
 console.log(request.getInfo());
 
 // Console Output:
