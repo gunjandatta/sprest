@@ -1,6 +1,7 @@
-import {ISite} from "../definitions";
-import {Base} from "../utils";
-import {Web} from ".";
+import { ISite } from "../definitions";
+import { Base } from "../utils";
+import { Web } from ".";
+
 /*********************************************************************************************************************************/
 // Site
 // The SPSite object.
@@ -18,13 +19,13 @@ class _Site extends Base {
         this.targetInfo.endpoint = "site";
 
         // See if the web url exists
-        if(url) {
+        if (url) {
             // Set the settings
             this.targetInfo.url = url;
         }
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "site" } } );
+        this.addMethods(this, { __metadata: { type: "site" } });
     }
 
     // Method to get the root web
@@ -36,4 +37,4 @@ class _Site extends Base {
         return true;
     };
 }
-export const Site:ISite = <any>_Site;
+export const Site: ISite = <any>_Site;

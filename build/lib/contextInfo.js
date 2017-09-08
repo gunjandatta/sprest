@@ -5,7 +5,7 @@ var utils_1 = require("../utils");
 // Context Information
 // This class will return the _spPageContextInfo.
 /*********************************************************************************************************************************/
-var _ContextInfo = (function () {
+var _ContextInfo = /** @class */ (function () {
     function _ContextInfo() {
     }
     Object.defineProperty(_ContextInfo, "_contextInfo", {

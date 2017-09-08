@@ -1,5 +1,6 @@
-import {IPeopleManager} from "../definitions";
-import {Base} from "../utils";
+import { IPeopleManager } from "../definitions";
+import { Base } from "../utils";
+
 /*********************************************************************************************************************************/
 // People Manager
 /*********************************************************************************************************************************/
@@ -16,7 +17,7 @@ class _PeopleManager extends Base {
         this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "peoplemanager" } } );
+        this.addMethods(this, { __metadata: { type: "peoplemanager" } });
     }
 }
-export const PeopleManager:IPeopleManager = <any>_PeopleManager;
+export const PeopleManager: IPeopleManager = <any>_PeopleManager;

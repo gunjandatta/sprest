@@ -2,7 +2,7 @@ import { IMethodInfo, IRequestInfo, ITargetInfo } from "../definitions";
 import { XHRRequest } from ".";
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
-export declare class Base {
+export declare class Base<Type = any, Result = Type, QueryResult = Result> {
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
     constructor(targetInfo: ITargetInfo);
@@ -33,11 +33,11 @@ export declare class Base {
     /*********************************************************************************************************************************/
     protected addMethods(obj: any, data: any): void;
     private addProperties(obj, data);
-    protected executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): Base;
+    protected executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
     protected executeRequest(asyncFl: boolean, callback?: (...args) => void): this;
     private getCollection(method, args?);
-    protected getProperty(propertyName: string, requestType?: string): Base;
-    protected getNextSetOfResults(): Base;
+    protected getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
+    protected getNextSetOfResults(): Base<any, any, any>;
     private updateDataCollection(results);
     protected updateDataObject(): void;
     private updateMetadata(data);

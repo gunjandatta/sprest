@@ -1,5 +1,6 @@
-import {IPeoplePicker} from "../definitions";
-import {Base} from "../utils";
+import { IPeoplePicker } from "../definitions";
+import { Base } from "../utils";
+
 /*********************************************************************************************************************************/
 // People Picker
 /*********************************************************************************************************************************/
@@ -16,7 +17,7 @@ class _PeoplePicker extends Base {
         this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "peoplepicker" } } );
+        this.addMethods(this, { __metadata: { type: "peoplepicker" } });
     }
 }
-export const PeoplePicker:IPeoplePicker = <any>_PeoplePicker;
+export const PeoplePicker: IPeoplePicker = <any>_PeoplePicker;

@@ -1,6 +1,7 @@
-import {ISocialFeed} from "../definitions";
-import {RequestType} from "../types";
-import {Base} from "../utils";
+import { ISocialFeed } from "../definitions";
+import { RequestType } from "../types";
+import { Base } from "../utils";
+
 /*********************************************************************************************************************************/
 // Social Feed
 /*********************************************************************************************************************************/
@@ -17,7 +18,7 @@ class _SocialFeed extends Base {
         this.targetInfo.endpoint = "social.feed";
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "socialfeed" } } );
+        this.addMethods(this, { __metadata: { type: "socialfeed" } });
     }
 
     /*********************************************************************************************************************************/
@@ -54,4 +55,4 @@ class _SocialFeed extends Base {
         }, [postInfo]);
     }
 }
-export const SocialFeed:ISocialFeed = <any>(new _SocialFeed());
+export const SocialFeed: ISocialFeed = <any>(new _SocialFeed());

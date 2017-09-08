@@ -1,6 +1,7 @@
-import {ISearch} from "../definitions";
-import {RequestType} from "../types";
-import {Base} from "../utils";
+import { ISearch } from "../definitions";
+import { RequestType } from "../types";
+import { Base } from "../utils";
+
 /*********************************************************************************************************************************/
 // Search
 /*********************************************************************************************************************************/
@@ -17,13 +18,13 @@ class _Search extends Base {
         this.targetInfo.endpoint = "search";
 
         // See if the web url exists
-        if(url) {
+        if (url) {
             // Set the settings
             this.targetInfo.url = url;
         }
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "search" } } );
+        this.addMethods(this, { __metadata: { type: "search" } });
     }
 
     /*********************************************************************************************************************************/
@@ -35,7 +36,7 @@ class _Search extends Base {
         let argNames = [];
 
         // Parse the arguments
-        for(let key in parameters) {
+        for (let key in parameters) {
             // Append the argument to the array
             argNames.push(key);
         }
@@ -64,4 +65,4 @@ class _Search extends Base {
         }, settings);
     }
 }
-export const Search:ISearch = <any>_Search;
+export const Search: ISearch = <any>_Search;
