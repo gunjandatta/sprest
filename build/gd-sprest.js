@@ -49,17 +49,17 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.95,
+    __ver: 1.96,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
     Helper: lib_1.Helper,
     JSLink: lib_1.JSLink,
     List: function (listName, targetInfo) { return new lib_1.List(listName, targetInfo); },
-    PeopleManager: lib_1.PeopleManager,
-    PeoplePicker: lib_1.PeoplePicker,
-    ProfileLoader: lib_1.ProfileLoader,
-    Search: lib_1.Search,
+    PeopleManager: function (targetInfo) { return new lib_1.PeopleManager(targetInfo); },
+    PeoplePicker: function (targetInfo) { return new lib_1.PeoplePicker(targetInfo); },
+    ProfileLoader: function (targetInfo) { return new lib_1.ProfileLoader(targetInfo); },
+    Search: function (url, targetInfo) { return new lib_1.Search(url, targetInfo); },
     Site: function (url, targetInfo) { return new lib_1.Site(url, targetInfo); },
     SocialFeed: lib_1.SocialFeed,
     UserProfile: lib_1.UserProfile,

@@ -50,7 +50,21 @@ An easy way to develop against the SharePoint 2013/Online REST API.
 ```
 npm install gd-sprest --save
 ```
-### NodeJS
+#### JavaScript
+```
+var $REST = require("gd-sprest");
+
+// Get the current web and lists
+$REST.Web().query({
+    Expand: ["Lists"]
+}).execute(function(web) {
+    // Parse the lists
+    for(var i=0; i<web.Lists.results.length; i++) {
+        var list = web.Lists.results[i];
+    }
+});
+```
+#### NodeJS
 ```
 const $REST = require("gd-sprest);
 
@@ -65,7 +79,30 @@ console.log(request.getInfo());
 //     url: 'https://dev.sharepoint.com'
 // }
 ```
-### React
+#### TypeScript
+```
+import { List }
+
+// Get the "Site Assets" library, fields and views
+(new List("Site Assets"))
+    // Query the list
+    .query({
+        Expand: ["Fields", "Views"]
+    })
+    // Execute the request
+    .execute((list) => {
+        // Parse the fields
+        for(let i=0; i<list.Fields.results.length; i++) {
+            let field = list.Fields.results[i];
+        }
+
+        // Parse the views
+        for(let i=0; i<list.Views.results.length; i++) {
+            let field = list.Views.results[i];
+        }
+    });
+```
+#### React
 ```
 import {
     ContextInfo,
@@ -86,7 +123,8 @@ import {
     Web
 } from "gd-sprest";
 ```
-### Manual
+
+### In Browser Requests
 1. Download the gd-sprest.min.js script from the "dist" folder
 2. Upload the script file to a SharePoint document library
 3. Reference the script in any page
