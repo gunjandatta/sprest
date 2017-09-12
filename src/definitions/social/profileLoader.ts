@@ -11,7 +11,7 @@ export interface IProfileLoader extends IBase<IProfileLoader> {
      * Constructor
      * @param targetInfo - (Optional) The target information.
      */
-    new(targetInfo?:ITargetInfo): IProfileLoader;
+    new(targetInfo?: ITargetInfo): IProfileLoader;
 
     /**
      * Methods
@@ -21,7 +21,7 @@ export interface IProfileLoader extends IBase<IProfileLoader> {
      * Provisions one or more users' personal sites. (My Site administrator on SharePoint Online only)
      * @param emailIDs - The email addresses of the users to provision sites for. Maximum 200 characters.
      */
-    createPersonalSiteEnqueueBulk(emailIDs:Array<string>): IBase;
+    createPersonalSiteEnqueueBulk(emailIDs: Array<string>): IBase;
 
     /**
      * Gets the user profile of the site owner.

@@ -4,9 +4,9 @@ import { IBase, IPersonProperties, ITargetInfo } from "..";
  */
 export interface IPeopleManager extends IBase<IPeopleManager> {
     /**
- * Constructor
- * @param targetInfo - (Optional) The target information.
- */
+     * Constructor
+     * @param targetInfo - (Optional) The target information.
+     */
     new (targetInfo?: ITargetInfo): IPeopleManager;
     /**
      * Properties

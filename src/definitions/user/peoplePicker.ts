@@ -12,7 +12,7 @@ export interface IPeoplePicker extends IBase {
      * Constructor
      * @param settings - The search settings.
      */
-    new(settings?:ITargetInfo): IPeoplePicker;
+    new(settings?: ITargetInfo): IPeoplePicker;
 
     /**
      * Methods
@@ -21,10 +21,10 @@ export interface IPeoplePicker extends IBase {
     /** Method to resolve users.
      * @param query - The people picker query.
     */
-    clientPeoplePickerResolveUser(query:IPeoplePickerQuery): IBase<IPeoplePickerResolveUser>;
+    clientPeoplePickerResolveUser(query: IPeoplePickerQuery): IBase<IPeoplePickerResolveUser>;
 
     /** Method to search for users.
      * @param query - The people picker query.
     */
-    clientPeoplePickerSearchUser(query:IPeoplePickerQuery): IBase<IPeoplePickerSearchUser>;
+    clientPeoplePickerSearchUser(query: IPeoplePickerQuery): IBase<IPeoplePickerSearchUser>;
 }
