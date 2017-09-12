@@ -7,11 +7,11 @@ import {
  * People Manager
  */
 export interface IPeopleManager extends IBase<IPeopleManager> {
-        /**
+    /**
      * Constructor
      * @param targetInfo - (Optional) The target information.
      */
-    new(targetInfo?:ITargetInfo): IPeopleManager;
+    new(targetInfo?: ITargetInfo): IPeopleManager;
 
     /**
      * Properties
@@ -34,110 +34,110 @@ export interface IPeopleManager extends IBase<IPeopleManager> {
     /** Checks whether the specified user is following the current user.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
     */
-    amIFollowedBy(accountName:string) : IBase;
+    amIFollowedBy(accountName: string): IBase;
 
     /**
      * Checks whether the current user is following the specified user.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    amIFollowing(accountName:string) : IBase;
+    amIFollowing(accountName: string): IBase;
 
     /**
      * Adds the specified user to the current user's list of followed users.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    follow(accountName:string) : IBase;
+    follow(accountName: string): IBase;
 
     /**
      * Adds the specified tag to the current user's list of followed tags.
      * @param id - The ID of the tag to start following.
      */
-    followTag(id:string) : IBase;
+    followTag(id: string): IBase;
 
     /**
      * Gets tags that the user is following.
      * @param maxCount - The maximum number of tags to get.
      */
-    getFollowedTags(maxCount:number) : IBase;
+    getFollowedTags(maxCount: number): IBase;
 
     /**
      * Gets the people who are following the specified user.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    getFollowersFor(accountName:string) : IBase<IPersonProperties>;
+    getFollowersFor(accountName: string): IBase<IPersonProperties>;
 
     /**
      * Gets the people who are following the current user.
      */
-    getMyFollowers() : IBase<IPersonProperties>;
+    getMyFollowers(): IBase<IPersonProperties>;
 
     /**
      * Gets user properties for the current user.
      */
-    getMyProperties() : IBase<IPersonProperties>;
+    getMyProperties(): IBase<IPersonProperties>;
 
     /**
      * Gets suggestions for who the current user might want to follow.
      */
-    getMySuggestions() : IBase<IPersonProperties>;
+    getMySuggestions(): IBase<IPersonProperties>;
 
     /**
      * Gets the people who the specified user is following.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    getPeopleFollowedBy(accountName:string) : IBase<IPersonProperties>;
+    getPeopleFollowedBy(accountName: string): IBase<IPersonProperties>;
 
     /**
      * Gets the people who the current user is following.
      */
-    getPeopleFollowedByMe() : IBase<IPersonProperties>;
+    getPeopleFollowedByMe(): IBase<IPersonProperties>;
 
     /**
      * Gets user properties for the specified user.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    getPropertiesFor(accountName:string) : IBase<IPersonProperties>;
+    getPropertiesFor(accountName: string): IBase<IPersonProperties>;
 
     /**
      * Gets the most popular tags.
      */
-    getTrendingTags() : IBase;
+    getTrendingTags(): IBase;
 
     /**
      * Gets the specified user profile property for the specified user.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      * @param propertyName - The case-sensitive name of the property to get.
      */
-    getUserProfilePropertyFor(accountName:string, propertyName:string) : IBase<IPersonProperties>;
+    getUserProfilePropertyFor(accountName: string, propertyName: string): IBase<IPersonProperties>;
 
     /**
      * Removes the specified user from the user's list of suggested people to follow.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    hideSuggestion(accountName:string) : IBase;
+    hideSuggestion(accountName: string): IBase;
 
     /**
      * Checks whether the first user is following the second user.
      * @param possibleFollowerAccountName - The account name of the user who might be following possiblefolloweeaccountname, encoded and passed as an alias in the query string.
      * @param possibleFolloweeAccountName - The account name of the user who might be followed, encoded and passed as an alias in the query string.
      */
-    isFollowing(possibleFollowerAccountName:string, possibleFolloweeAccountName:string) : IBase;
+    isFollowing(possibleFollowerAccountName: string, possibleFolloweeAccountName: string): IBase;
 
     /**
      * Uploads and sets the user profile picture. Users can upload a picture to their own profile only.
      * @param stream - The picture in BMP, JPEG, or PNG format of up to 4.76MB.
      */
-    setMyProfilePicture(stream:any) : IBase;
+    setMyProfilePicture(stream: any): IBase;
 
     /**
      * Remove the specified user from the current user's list of followed users.
      * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
      */
-    stopFollowing(accountName:string) : IBase;
+    stopFollowing(accountName: string): IBase;
 
     /**
      * Remove the specified tag from the current user's list of followed tags.
      * @param id - The ID of the tag to stop following.
      */
-    stopFollowingTag(id:string) : IBase;
+    stopFollowingTag(id: string): IBase;
 }

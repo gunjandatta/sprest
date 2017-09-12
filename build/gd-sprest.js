@@ -49,7 +49,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 1.96,
+    __ver: 1.98,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -62,7 +62,7 @@ var gd_sprest = {
     Search: function (url, targetInfo) { return new lib_1.Search(url, targetInfo); },
     Site: function (url, targetInfo) { return new lib_1.Site(url, targetInfo); },
     SocialFeed: lib_1.SocialFeed,
-    UserProfile: lib_1.UserProfile,
+    UserProfile: function (targetInfo) { return new lib_1.UserProfile(targetInfo); },
     Web: function (url, targetInfo) { return new lib_1.Web(url, targetInfo); }
 };
 // Export the $REST library

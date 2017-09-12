@@ -66,7 +66,7 @@ export {
  * SharePoint REST Library
  */
 const gd_sprest = {
-    __ver: 1.96,
+    __ver: 1.98,
     ContextInfo,
     DefaultRequestToHostFl: false,
     Email,
@@ -79,7 +79,7 @@ const gd_sprest = {
     Search: (url?: string, targetInfo?: Types.ITargetInfo) => { return new Search(url, targetInfo); },
     Site: (url?: string, targetInfo?: Types.ITargetInfo) => { return new Site(url, targetInfo); },
     SocialFeed,
-    UserProfile,
+    UserProfile: (targetInfo?: Types.ITargetInfo) => { return new UserProfile(targetInfo); },
     Web: (url?: string, targetInfo?: Types.ITargetInfo) => { return new Web(url, targetInfo); }
 }
 

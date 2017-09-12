@@ -73,7 +73,7 @@ export interface IWebMethods {
     /**
      * Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, it will add the user to the site.
      */
-    ensureUser(loginName:string): IBase<IUser, IUserResult, IUserQueryResult>;
+    ensureUser(loginName: string): IBase<IUser, IUserResult, IUserQueryResult>;
 
     /**
      * Sends data to an OData service.
@@ -187,7 +187,7 @@ export interface IWebMethods {
      * @param nWebTemplateFilter - The ID of the template used in the site definition of the sites.
      * @param nConfigurationFilter - The ID of the site template used to provision the sites.
      */
-    getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): IBase;
+    getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): IBase<IResults<IWebInfo>>;
 
     /**
      * Returns the user corresponding to the specified member identifier for the current site.
@@ -880,7 +880,7 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
 /**
  * Web Result
  */
-export interface IWebResult extends IWebMethods, IWebProps, IWebQueryProps, IWebQueryProps, IBase<IWeb, IWebResult, IWebQueryResult> {}
+export interface IWebResult extends IWebMethods, IWebProps, IWebQueryProps, IWebQueryProps, IBase<IWeb, IWebResult, IWebQueryResult> { }
 
 /**
  * Web
@@ -891,5 +891,5 @@ export interface IWeb extends IWebMethods, IWebQueryProps, IBase<IWeb, IWebResul
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
      */
-    new (url?: string, targetInfo?: ITargetInfo): IWeb;
+    new(url?: string, targetInfo?: ITargetInfo): IWeb;
 }

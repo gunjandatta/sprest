@@ -135,7 +135,7 @@ export interface IWebMethods {
      * @param nWebTemplateFilter - The ID of the template used in the site definition of the sites.
      * @param nConfigurationFilter - The ID of the site template used to provision the sites.
      */
-    getSubwebsFilteredForCurrentUser(nWebTemplateFilter: any, nConfigurationFilter: any): IBase;
+    getSubwebsFilteredForCurrentUser(nWebTemplateFilter: any, nConfigurationFilter: any): IBase<IResults<IWebInfo>>;
     /**
      * Returns the user corresponding to the specified member identifier for the current site.
      * @param id - The user id.
