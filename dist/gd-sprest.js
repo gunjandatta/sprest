@@ -246,7 +246,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.00,
+    __ver: 2.01,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -1410,19 +1410,15 @@ var Base = /** @class */function () {
         var _this = this;
         // Return a promise
         return new es6_promise_1.Promise(function () {
-            // Execute this request, and wait for all of them to complete
-            _this.execute().done(function () {
-                var args = [];
-                for (var _i = 0; _i < arguments.length; _i++) {
-                    args[_i] = arguments[_i];
-                }
+            // Execute this request
+            _this.execute(function (request) {
                 // Ensure the request was successful
-                if (args.length > 0 && args[0].existsFl) {
+                if (request && request.existsFl) {
                     // Resolve the request
-                    resolve ? resolve.apply(_this, args) : null;
+                    resolve ? resolve.apply(_this, request) : null;
                 } else {
                     // Reject the request
-                    reject ? reject.apply(_this, args) : null;
+                    reject ? reject.apply(_this, request) : null;
                 }
             });
         });
