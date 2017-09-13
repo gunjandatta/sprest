@@ -19,7 +19,7 @@ exports.web = {
         "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
         "RoleDefinitions|roledefinitions|/getByName('[Name]')|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
         "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user", "ThemeInfo", "TitleResource",
-        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
+        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos|webinfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
     ],
     /*********************************************************************************************************************************/
     // Methods
@@ -154,7 +154,8 @@ exports.web = {
     // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
     getSubwebsFilteredForCurrentUser: {
         argNames: ["nwebtemplatefilter", "nconfigurationfilter"],
-        requestType: types_1.RequestType.GetWithArgs
+        requestType: types_1.RequestType.GetWithArgs,
+        returnType: "webinfos"
     },
     // Returns the user corresponding to the specified member identifier for the current site.
     getUserById: {
@@ -196,7 +197,7 @@ exports.web = {
     processExternalNotification: {
         requestType: types_1.RequestType.PostWithArgsInBody
     },
-    // Queries the collection
+    // Queries the object
     query: {
         argNames: ["oData"],
         requestType: types_1.RequestType.OData
