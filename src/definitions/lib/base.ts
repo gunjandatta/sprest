@@ -72,7 +72,7 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
      * @param resolve - Method to execute for successful requests.
      * @param reject - Method to execute for unsuccessful requests.
      */
-    then(resolve?: (value?: Result, ...args) => void, reject?: (value?: Result, ...args) => void): PromiseLike<Result>;
+    then(resolve?: (value?: Result) => void, reject?: (value?: Result) => void): PromiseLike<Result>;
 }
 
 /**
