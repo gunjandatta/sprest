@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var es6_promise_1 = require("es6-promise");
 var lib_1 = require("../lib");
 var mapper_1 = require("../mapper");
 var types_1 = require("../types");
@@ -126,10 +127,33 @@ var Base = /** @class */ (function () {
         // Return this object
         return this;
     };
-    // Method to execute the request synchronously.
+    // Method to execute the request synchronously
     Base.prototype.executeAndWait = function () { return this.executeRequest(false); };
     // Method to get the request information
     Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
+    // Method to execute the request asynchronously
+    Base.prototype.then = function (resolve, reject) {
+        var _this = this;
+        // Return a promise
+        return new es6_promise_1.Promise(function () {
+            // Execute this request, and wait for all of them to complete
+            _this.execute().done(function () {
+                var args = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    args[_i] = arguments[_i];
+                }
+                // Ensure the request was successful
+                if (args.length > 0 && args[0].existsFl) {
+                    // Resolve the request
+                    resolve ? resolve.apply(_this, args) : null;
+                }
+                else {
+                    // Reject the request
+                    reject ? reject.apply(_this, args) : null;
+                }
+            });
+        });
+    };
     /*********************************************************************************************************************************/
     // Private Methods
     /*********************************************************************************************************************************/

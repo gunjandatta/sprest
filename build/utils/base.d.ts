@@ -18,6 +18,7 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> {
     execute(...args: any[]): this;
     executeAndWait(): this;
     getInfo(): IRequestInfo;
+    then(resolve: any, reject: any): PromiseLike<Base>;
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
     private base;

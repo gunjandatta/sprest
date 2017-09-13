@@ -1,3 +1,4 @@
+import { Promise as P } from "es6-promise";
 import { IMethodInfo, IRequestInfo, ITargetInfo } from "../definitions";
 import { ContextInfo } from "../lib";
 import { Mapper } from "../mapper";
@@ -8,6 +9,7 @@ import {
     TargetInfo,
     XHRRequest
 } from ".";
+
 /*********************************************************************************************************************************/
 // Base
 // This is the base class for all objects.
@@ -152,11 +154,29 @@ export class Base<Type = any, Result = Type, QueryResult = Result> {
         return this;
     }
 
-    // Method to execute the request synchronously.
+    // Method to execute the request synchronously
     executeAndWait() { return this.executeRequest(false); }
 
     // Method to get the request information
     getInfo(): IRequestInfo { return (new TargetInfo(this.targetInfo)).requestInfo; }
+
+    // Method to execute the request asynchronously
+    then(resolve, reject): PromiseLike<Base> {
+        // Return a promise
+        return new P(() => {
+            // Execute this request, and wait for all of them to complete
+            this.execute().done((...args: Array<Base>) => {
+                // Ensure the request was successful
+                if (args.length > 0 && args[0].existsFl) {
+                    // Resolve the request
+                    resolve ? resolve.apply(this, args) : null;
+                } else {
+                    // Reject the request
+                    reject ? reject.apply(this, args) : null;
+                }
+            });
+        });
+    }
 
     /*********************************************************************************************************************************/
     // Private Variables
