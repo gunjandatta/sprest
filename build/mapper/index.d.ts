@@ -1116,6 +1116,7 @@ export declare const Mapper: {
         getSubwebsFilteredForCurrentUser: {
             argNames: string[];
             requestType: number;
+            returnType: string;
         };
         getUserById: {
             argNames: string[];
@@ -1167,6 +1168,12 @@ export declare const Mapper: {
             metadataType: string;
             name: string;
             requestMethod: string;
+            requestType: number;
+        };
+    };
+    webinfos: {
+        query: {
+            argNames: string[];
             requestType: number;
         };
     };

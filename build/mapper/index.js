@@ -44,6 +44,7 @@ var view_1 = require("./view/view");
 var views_1 = require("./view/views");
 var viewFieldCollection_1 = require("./viewFieldCollection/viewFieldCollection");
 var web_1 = require("./web/web");
+var webinfos_1 = require("./web/webinfos");
 var webs_1 = require("./web/webs");
 /**
  * Mapper
@@ -78,6 +79,6 @@ exports.Mapper = {
     version: version_1.version,
     view: view_1.view, views: views_1.views,
     viewfieldcollection: viewFieldCollection_1.viewfieldcollection,
-    web: web_1.web, webs: webs_1.webs
+    web: web_1.web, webinfos: webinfos_1.webinfos, webs: webs_1.webs
 };
 //# sourceMappingURL=index.js.map

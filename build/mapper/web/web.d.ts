@@ -107,6 +107,7 @@ export declare const web: {
     getSubwebsFilteredForCurrentUser: {
         argNames: string[];
         requestType: number;
+        returnType: string;
     };
     getUserById: {
         argNames: string[];
