@@ -53,6 +53,12 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
      * @param oData - The OData information.
      */
     query(query: ODataQuery): IBase<Result, QueryResult>;
+    /**
+     * Method to execute this request and previous ones to complete.
+     * @param resolve - Method to execute for successful requests.
+     * @param reject - Method to execute for unsuccessful requests.
+     */
+    then(resolve?: (value?: Result, ...args) => void, reject?: (value?: Result, ...args) => void): PromiseLike<Result>;
 }
 /**
  * Base Collection
