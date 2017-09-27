@@ -1,7 +1,6 @@
 .vscode
 .gitignore
 dist
-docs
 images
 src
 test
