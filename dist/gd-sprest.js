@@ -246,7 +246,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.01,
+    __ver: 2.02,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -8666,33 +8666,37 @@ var _Search = /** @class */function (_super) {
     // Methods
     /*********************************************************************************************************************************/
     // Method to compute the argument names
-    _Search.prototype.getArgNames = function (parameters) {
-        var argNames = [];
+    _Search.prototype.getArguments = function (parameters) {
+        var names = [];
+        var values = [];
         // Parse the arguments
         for (var key in parameters) {
             // Append the argument to the array
-            argNames.push(key);
+            names.push(key);
+            values.push(parameters[key]);
         }
         // Return the argument names
-        return argNames;
+        return { names: names, values: values };
     };
     /** The search query method */
     _Search.prototype.searchquery = function (settings) {
+        var args = this.getArguments(settings);
         // Execute the request
         return this.executeMethod("query", {
-            argNames: this.getArgNames(settings),
+            argNames: args.names,
             name: "query",
             requestType: types_1.RequestType.GetWithArgs
-        }, settings);
+        }, args.values);
     };
     /** The suggest method */
     _Search.prototype.suggest = function (settings) {
+        var args = this.getArguments(settings);
         // Execute the request
         return this.executeMethod("suggest", {
-            argNames: this.getArgNames(settings),
+            argNames: args.names,
             name: "suggest",
             requestType: types_1.RequestType.GetWithArgs
-        }, settings);
+        }, args.values);
     };
     return _Search;
 }(utils_1.Base);

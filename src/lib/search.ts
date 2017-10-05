@@ -32,37 +32,43 @@ class _Search extends Base {
     /*********************************************************************************************************************************/
 
     // Method to compute the argument names
-    getArgNames(parameters) {
-        let argNames = [];
+    getArguments(parameters) {
+        let names = [];
+        let values = [];
 
         // Parse the arguments
         for (let key in parameters) {
             // Append the argument to the array
-            argNames.push(key);
+            names.push(key);
+            values.push(parameters[key]);
         }
 
         // Return the argument names
-        return argNames;
+        return { names, values };
     }
 
     /** The search query method */
     searchquery(settings) {
+        let args = this.getArguments(settings);
+
         // Execute the request
         return this.executeMethod("query", {
-            argNames: this.getArgNames(settings),
+            argNames: args.names,
             name: "query",
             requestType: RequestType.GetWithArgs
-        }, settings);
+        }, args.values);
     }
 
     /** The suggest method */
     suggest(settings) {
+        let args = this.getArguments(settings);
+
         // Execute the request
         return this.executeMethod("suggest", {
-            argNames: this.getArgNames(settings),
+            argNames: args.names,
             name: "suggest",
             requestType: RequestType.GetWithArgs
-        }, settings);
+        }, args.values);
     }
 }
 export const Search: ISearch = <any>_Search;
