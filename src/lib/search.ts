@@ -31,44 +31,38 @@ class _Search extends Base {
     // Methods
     /*********************************************************************************************************************************/
 
-    // Method to compute the argument names
-    getArguments(parameters) {
-        let names = [];
-        let values = [];
+    // Method to compute the query
+    getQuery(parameters) {
+        let query = "";
 
-        // Parse the arguments
+        // Parse the parameters
         for (let key in parameters) {
-            // Append the argument to the array
-            names.push(key);
-            values.push(parameters[key]);
+            // Append the parameter to the query
+            query += (query == "" ? "" : "&") + key + "='" + parameters[key] + "'";
         }
 
-        // Return the argument names
-        return { names, values };
+        // Return the query
+        return [query];
     }
 
     /** The search query method */
     searchquery(settings) {
-        let args = this.getArguments(settings);
-
         // Execute the request
         return this.executeMethod("query", {
-            argNames: args.names,
-            name: "query",
-            requestType: RequestType.GetWithArgs
-        }, args.values);
+            argNames: ["query"],
+            name: "query?[[query]]",
+            requestType: RequestType.GetReplace
+        }, this.getQuery(settings));
     }
 
     /** The suggest method */
     suggest(settings) {
-        let args = this.getArguments(settings);
-
         // Execute the request
-        return this.executeMethod("suggest", {
-            argNames: args.names,
-            name: "suggest",
-            requestType: RequestType.GetWithArgs
-        }, args.values);
+        return this.executeMethod("query", {
+            argNames: ["query"],
+            name: "suggest?[[query]]",
+            requestType: RequestType.GetReplace
+        }, this.getQuery(settings));
     }
 }
 export const Search: ISearch = <any>_Search;
