@@ -1,55 +1,36 @@
-# SharePoint Online/On-Premise REST Framework
-An easy way to develop against the SharePoint 2013/Online REST API.
-*Please report issues. I am constantly updating/fixing/testing to make this library better.*
-
 [![Current Version](https://badge.fury.io/js/gd-sprest.svg)](https://www.npmjs.com/package/gd-sprest)
 [![Downloads](https://img.shields.io/npm/dm/gd-sprest.svg)](https://www.npmjs.com/package/gd-sprest)
 [![Total Downloads](https://img.shields.io/npm/dt/gd-sprest.svg)](https://www.npmjs.com/package/gd-sprest)
+# SharePoint Online/On-Premise REST Framework
+## Overview:
+The SharePoint REST Framework was designed for SharePoint 2013, but works in both SharePoint 2013/2016 and Office 365. This framework is designed to remove the overhead of SharePoint development, allowing the developer to focus on the client requirements. A reference to the associated github projects are listed below:
+* [gd-sprest](https://github.com/gunjandatta/sprest) - An easy way to execute requests against the SharePoint 2013/Online REST api
+* [gd-sprest-react](https://github.com/gunjandatta/sprest-react) - Extends the [Office Fabric React Framework](https://dev.office.com/fabric) with components designed for SharePoint 2013/Online.
+* [gd-sprest-webparts](https://github.com/gunjandatta/sprest-webparts) - Example SharePoint 2013/Online modern webparts.
+### gd-sprest vs pnp-js-core
+The gd-sprest library is similar to the pnp-js-core, with the main difference being the ability to be used within the browser console window. This feature provides a "Powershell-Like" experience within the browser console window. Some reasons to use this functionality:
+* No access to the server farm
+* Ability to create scripts which can be tested in staging before running aginst production
+* For more efficient development of code, the developer has the ability to test code requests without having to deploy the solution
+* Easy way to perform research and development, by exploring the REST api
+### Bugs/Feature Requests/Help
+[Click Here](https://github.com/gunjandatta/sprest/issues) to report any bugs, request any new features or need help with code examples. Pull requests are welcomed for anyone interested in submitting them. Feel free to [email](mailto:github@dattabase.com) for other questions.
+### Security
+The REST api execute requests based on the user's permissions. There is no way to elevate priviledges requests against the SharePoint REST.
 
-## Benefits:
-* Ability to control the order of asynchronous requests
-* Ability to generate request urls for NodeJS applications
-* Easy to execute requests to/from the App/Host web
-* Full intellisense for the REST API
-* PowerShell-Like experience in the browser console
-* Create SharePoint solution assets through a configuration file
-    * Content Types
-    * Fields
-    * Lists
-    * User Custom Actions
-    * WebParts
-
-## Demos:
-### VS Code - Intellisense
-![VS Code](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/demo-VSCode.gif)
-
-### PowerShell-Like Experience in the Browser Console
-![PowerShell](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/demo-ConsoleWindow.gif)
-
-### SharePoint Configuration - Easily create solution assets
-![Automation](https://raw.githubusercontent.com/gunjandatta/sprest/master/images/demo-SPConfig.gif)
-
-## Documentation:
-[Click here](https://github.com/gunjandatta/sprest/wiki) to view the documentation for the framework.
-
-### Example Projects
-* [Add/Remove Site Collection User Custom Actions](https://github.com/gunjandatta/sprest-sitecustomactions)
-* [Calendar Event Callout](https://github.com/gunjandatta/sp-event-callout)
-* [Office Fabric BCS List](https://github.com/gunjandatta/sprest-bcs-list)
-* [Office Fabric React](https://github.com/gunjandatta/sprest-fabric-react)
-* [Office Fabric UI Dashboard](https://github.com/gunjandatta/sprest-list)
-* [Query >5000 Items Example](https://github.com/gunjandatta/sprest-large-list)
-* [SharePoint JS-Link Starter Project](https://github.com/gunjandatta/sp-jslink)
-* [SharePoint React/Redux Starter Project](https://github.com/gunjandatta/sp-react-redux)
-* [SharePoint Scripts Starter Project](https://github.com/gunjandatta/sp-scripts)
-* [SharePoint React Components](https://github.com/gunjandatta/sprest-react)
-* [WebPart Examples](https://github.com/gunjandatta/sprest-webparts)
-
-## Get Started:
-### Node Package Manager
+## Get Started
+### Packages
+#### NPM
+Add the npm package to your project:
 ```
-npm install gd-sprest --save
+npm --save install gd-sprest
 ```
+#### Bower
+Add the package from bower:
+```
+bower install gd-sprest
+```
+### Code Examples
 #### JavaScript
 ```
 var $REST = require("gd-sprest");
@@ -69,7 +50,13 @@ $REST.Web().query({
 const $REST = require("gd-sprest);
 
 // Create a new generic list.
-request = $REST.Web("https://dev.sharepoint.com").Lists().add({ BaseTemplate: $REST.SPTypes.ListTemplateType.GenericList, Title: "New List" });
+request = $REST.Web("https://dev.sharepoint.com")
+    .Lists().add({
+        BaseTemplate: $REST.SPTypes.ListTemplateType.GenericList,
+        Title: "New List"
+    });
+
+// Log the request information
 console.log(request.getInfo());
 
 // Console Output:
@@ -102,9 +89,14 @@ import { List }
         }
     });
 ```
-#### React
+
+## Development
+### Add-In Model
+The add-in model uses the app web for SharePoint Hosted Apps/Add-Ins. The provider hosted model would use CSOM, and not this library. This framework has built-in helper methods and a global flag for determining which web the request should execute against Host vs App/Add-In. The request will be automatically updated based on the target web, so there is no additional code required from the developer. This allows the developer to create a single source of code that works against both the SharePoint and App/Add-In webs.
+### Available Libraries
 ```
 import {
+    $REST,
     ContextInfo,
     Email,
     Helper,
@@ -123,9 +115,39 @@ import {
     Web
 } from "gd-sprest";
 ```
-
-### In Browser Requests
-1. Download the gd-sprest.min.js script from the "dist" folder
-2. Upload the script file to a SharePoint document library
-3. Reference the script in any page
-4. Open the console window and use the $REST global variable
+### Automation
+The "SharePoint Configuration" class allows the developer to define configuration files for the SharePoint solution. This class contains built-in methods for execution (install, uninstall, etc), so there is no need to write additional code.
+### Intellisense
+One of the more important features of this framework is the intellisense. The classes have been setup to ensure the developer does not need to define the output type of the request. The "Types" and "SPTypes" classes can both be imported into the project. The "Types" class includes allows of the interfaces available in the library. The "SPTypes" class contains all of the enumerators in SharePoint. These interfaces can be used to provide intellisense for the custom variables.
+### Modern Experience in SharePoint 2013
+The gd-sprest-react library contains SharePoint components:
+* Field
+* Item Form
+* Panel
+* People Picker
+* WebParts
+These components use the office fabric ui, to provide an Office 365 experience within SharePoint 2013.
+### WebParts
+The webpart component allows the developer to easialy assign react components to be rendered based on the page's state (Display/Edit). This component currently supports webpart, publishing and wiki pages. The following webpart components are available:
+* Configuration - A react component to be used when the page is being edited, displaying an "Edit Configuration" button to render a panel for custom webpart properties.
+    * List Configuration - Inherits the configuration webpart, displaying a web url and list dropdown.
+    * Field Configuration - Inherits the list configuration webpart, adding a field picker.
+    * Search Configuration - Inherits the field configuration webpart, filtering the field picker to field types supported by the search webpart.
+* List - Allows the developer to define an OData or CAML query, and contains two methods:
+    * onRenderContainer - Optional method with the query results passed as the input parameter.
+    * onRenderItem - Requires method with the item result passed as the input parameter.
+* Search - Inherits the list webpart, adding a search textbox. Based on the configuration fields, a mapper is created based on the item data. This feature will automatically filter the items displayed.
+* Tabs - Displays all associated webparts within the same zone in tabs.
+### Various Project Examples
+* [Add/Remove Site Collection User Custom Actions](https://github.com/gunjandatta/sprest-sitecustomactions)
+* [Calendar Event Callout](https://github.com/gunjandatta/sp-event-callout)
+* [Office Fabric BCS List](https://github.com/gunjandatta/sprest-bcs-list)
+* [Office Fabric React](https://github.com/gunjandatta/sprest-fabric-react)
+* [Office Fabric UI Dashboard](https://github.com/gunjandatta/sprest-list)
+* [Query >5000 Items Example](https://github.com/gunjandatta/sprest-large-list)
+* [SharePoint JS-Link Starter Project](https://github.com/gunjandatta/sp-jslink)
+* [SharePoint React/Redux Starter Project](https://github.com/gunjandatta/sp-react-redux)
+* [SharePoint Scripts Starter Project](https://github.com/gunjandatta/sp-scripts)
+* [SharePoint React Components](https://github.com/gunjandatta/sprest-react)
+* [WebPart Examples](https://github.com/gunjandatta/sprest-webparts)
+* [Wiki](https://github.com/gunjandatta/sprest/wiki)
