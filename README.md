@@ -17,7 +17,7 @@ The gd-sprest library is similar to the pnp-js-core, with the main difference be
 * Easy way to perform research and development, by exploring the REST api
 
 ### Bugs/Feature Requests/Help
-[Click Here](https://github.com/gunjandatta/sprest/issues) to report any bugs, request any new features or need help with code examples. Pull requests are welcomed for anyone interested in submitting them. Feel free to [email](mailto:github@dattabase.com) for other questions.
+[Click Here](https://github.com/gunjandatta/sprest/issues) to report any bugs, request any new features or if need help with code examples. Pull requests are welcomed for anyone interested in submitting them. Feel free to [email](mailto:github@dattabase.com) for other questions.
 
 ### Security
 The REST api execute requests based on the user's permissions. There is no way to elevate priviledges requests against the SharePoint REST.
