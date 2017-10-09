@@ -70,6 +70,13 @@ export interface Number {
     results: Array<number>;
 }
 /**
+ * Object
+ */
+export interface Object {
+    /** A collection of objects. */
+    results: Array<object>;
+}
+/**
  * Parameter Information
  */
 export interface ParameterInformation {

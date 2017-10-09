@@ -1072,7 +1072,7 @@ export interface SearchRequest {
     HitHighlightedMultivaluePropertyLimit?: number;
 
     /** The properties to highlight in the search result summary when the property value matches the search terms entered by the user. */
-    HithighlightedProperties?: String;
+    HithighlightedProperties?: Results.String;
 
     /** The maximum number of characters to display in the hit-highlighted summary generated for a search result. */
     MaxSnippetLength?: number;
@@ -1107,7 +1107,7 @@ export interface SearchRequest {
     RankingModelId?: string;
 
     /** The set of refinement filters used when issuing a refinement query. For GET requests, the RefinementFilters parameter is specified as an FQL filter. For POST requests, the RefinementFilters parameter is specified as an array of FQL filters. */
-    RefinementFilters?: String;
+    RefinementFilters?: Results.String;
 
     /** The set of refiners to return in a search result. */
     Refiners?: string;
@@ -1125,10 +1125,10 @@ export interface SearchRequest {
     RowsPerPage?: number;
 
     /** The managed properties to return in the search  To return a managed property, set the property's retrievable flag to true in the search schema. */
-    SelectProperties?: String;
+    SelectProperties?: Results.String;
 
     /** The list of properties by which the search results are ordered. */
-    SortList?: Array<any>;
+    SortList?: Results.Object;
 
     /** The result source ID to use for executing the search query. */
     SourceId?: string;

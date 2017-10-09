@@ -962,7 +962,7 @@ export interface SearchRequest {
     /** The number of properties to show hit highlighting for in the search  */
     HitHighlightedMultivaluePropertyLimit?: number;
     /** The properties to highlight in the search result summary when the property value matches the search terms entered by the user. */
-    HithighlightedProperties?: String;
+    HithighlightedProperties?: Results.String;
     /** The maximum number of characters to display in the hit-highlighted summary generated for a search result. */
     MaxSnippetLength?: number;
     QLSQuerySession?: string;
@@ -985,7 +985,7 @@ export interface SearchRequest {
     /** The ID of the ranking model to use for the query. */
     RankingModelId?: string;
     /** The set of refinement filters used when issuing a refinement query. For GET requests, the RefinementFilters parameter is specified as an FQL filter. For POST requests, the RefinementFilters parameter is specified as an array of FQL filters. */
-    RefinementFilters?: String;
+    RefinementFilters?: Results.String;
     /** The set of refiners to return in a search result. */
     Refiners?: string;
     /** Special rules for reordering search  These rules can specify that documents matching certain conditions are ranked higher or lower in the  */
@@ -997,9 +997,9 @@ export interface SearchRequest {
     /** The maximum number of rows to return per page. Compared to RowLimit, RowsPerPage refers to the maximum number of rows to return per page, and is used primarily when you want to implement paging for search  */
     RowsPerPage?: number;
     /** The managed properties to return in the search  To return a managed property, set the property's retrievable flag to true in the search schema. */
-    SelectProperties?: String;
+    SelectProperties?: Results.String;
     /** The list of properties by which the search results are ordered. */
-    SortList?: Array<any>;
+    SortList?: Results.Object;
     /** The result source ID to use for executing the search query. */
     SourceId?: string;
     /** The first row that is included in the search results that are returned. You use this parameter when you want to implement paging for search  */
