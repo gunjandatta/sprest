@@ -80,6 +80,14 @@ export interface Number {
 }
 
 /**
+ * Object
+ */
+export interface Object {
+    /** A collection of objects. */
+    results: Array<object>;
+}
+
+/**
  * Parameter Information
  */
 export interface ParameterInformation {
