@@ -246,7 +246,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.04,
+    __ver: 2.05,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -8051,7 +8051,7 @@ var SPConfig = /** @class */function () {
             if (cfgList) {
                 // Get the web
                 new __1.Web(_this._webUrl).Lists(cfgList.ListInformation.Title).query({
-                    Expand: ["ContentTypes", "Fields", "Views"]
+                    Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
                 }).execute(function (list) {
                     // See if the title field is being updated
                     if (cfgList.TitleFieldDisplayName) {
@@ -8084,6 +8084,8 @@ var SPConfig = /** @class */function () {
                             });
                         });
                     });
+                    // Update the user custom actions
+                    _this.createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
                 });
             } else {
                 // Resolve the promise

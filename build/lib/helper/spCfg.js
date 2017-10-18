@@ -863,7 +863,7 @@ var SPConfig = /** @class */ (function () {
                 (new __1.Web(_this._webUrl))
                     .Lists(cfgList.ListInformation.Title)
                     .query({
-                    Expand: ["ContentTypes", "Fields", "Views"]
+                    Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
                 })
                     .execute(function (list) {
                     // See if the title field is being updated
@@ -897,6 +897,8 @@ var SPConfig = /** @class */ (function () {
                             });
                         });
                     });
+                    // Update the user custom actions
+                    _this.createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
                 });
             }
             else {
