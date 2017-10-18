@@ -29,10 +29,10 @@ Add the npm package to your project:
 ```
 npm --save install gd-sprest
 ```
-#### Bower
-Add the package from bower:
+#### Yarn
+Add the package from yarn:
 ```
-bower install gd-sprest
+yarn add gd-sprest
 ```
 ### Code Examples
 #### JavaScript

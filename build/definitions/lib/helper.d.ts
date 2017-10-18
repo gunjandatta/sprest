@@ -205,6 +205,8 @@ export interface ISPCfgListInfo {
     ListInformation: IListCreationInformation;
     /** The title display name. */
     TitleFieldDisplayName?: string;
+    /** The user custom actions. */
+    UserCustomActions?: Array<IUserCustomActionCreationInformation>;
     /** The view information. */
     ViewInformation?: Array<ISPCfgViewInfo>;
     /**

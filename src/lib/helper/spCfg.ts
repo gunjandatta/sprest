@@ -1082,7 +1082,7 @@ export class SPConfig {
                 .Lists(cfgList.ListInformation.Title)
                 // Expand the content types, fields and views
                 .query({
-                    Expand: ["ContentTypes", "Fields", "Views"]
+                    Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
                 })
                 // Execute the request
                 .execute(list => {
@@ -1120,6 +1120,9 @@ export class SPConfig {
                             });
                         })
                     });
+
+                    // Update the user custom actions
+                    this.createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
                 });
         } else {
             // Resolve the promise
