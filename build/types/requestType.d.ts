@@ -1,4 +1,5 @@
 export declare const RequestType: {
+    Batch: number;
     Custom: number;
     Delete: number;
     Merge: number;

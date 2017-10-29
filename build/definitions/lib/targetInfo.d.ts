@@ -27,6 +27,8 @@ export interface ITargetInfo {
     method?: string;
     /** The request digest to use for the request. */
     requestDigest?: string;
+    /** The request header. */
+    requestHeader?: object;
     /** The request information. */
     requestInfo?: object;
     /** The url of the site/web to execute the request against. */

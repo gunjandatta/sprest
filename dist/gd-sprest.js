@@ -99,6 +99,7 @@ __export(__webpack_require__(68));
 __export(__webpack_require__(69));
 __export(__webpack_require__(70));
 __export(__webpack_require__(71));
+__export(__webpack_require__(72));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -115,9 +116,8 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(13));
-__export(__webpack_require__(72));
 __export(__webpack_require__(73));
-__export(__webpack_require__(78));
+__export(__webpack_require__(74));
 __export(__webpack_require__(79));
 __export(__webpack_require__(80));
 __export(__webpack_require__(81));
@@ -126,6 +126,7 @@ __export(__webpack_require__(83));
 __export(__webpack_require__(84));
 __export(__webpack_require__(85));
 __export(__webpack_require__(86));
+__export(__webpack_require__(87));
 __export(__webpack_require__(3));
 //# sourceMappingURL=index.js.map
 
@@ -360,10 +361,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Request Type
 exports.RequestType = {
     // Requests
-    Custom: 0,
-    Delete: 1,
-    Merge: 2,
-    OData: 3,
+    Batch: 0,
+    Custom: 1,
+    Delete: 2,
+    Merge: 3,
+    OData: 4,
     // Get Requests
     Get: 10,
     GetBuffer: 11,
@@ -1301,6 +1303,38 @@ var Base = /** @class */function () {
     /*********************************************************************************************************************************/
     // Public Methods
     /*********************************************************************************************************************************/
+    // Method to execute this request as a batch request
+    Base.prototype.batch = function (arg) {
+        var callback = null;
+        var appendFl = false;
+        // See if the input is a boolean
+        if (typeof arg === "boolean") {
+            // Set the flag
+            appendFl = arg;
+        } else {
+            // Set the callback
+            callback = arg;
+        }
+        // Set the base
+        this.base = this.base ? this.base : this;
+        // See if we are appending this request
+        if (appendFl && this.base.batchRequests) {
+            // Append the request
+            this.base.batchRequests[this.base.batchRequests.length - 1].push({
+                targetInfo: new _1.TargetInfo(this.targetInfo)
+            });
+        } else {
+            // Ensure the batch requests exist
+            this.base.batchRequests = this.base.batchRequests || [];
+            // Create the request
+            this.base.batchRequests.push([{
+                callback: callback,
+                targetInfo: new _1.TargetInfo(this.targetInfo)
+            }]);
+        }
+        // Return this object
+        return this;
+    };
     // Method to wait for the requests to complete
     Base.prototype.done = function (callback) {
         var _this = this;
@@ -1432,7 +1466,7 @@ var Base = /** @class */function () {
         // Determine the metadata
         var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
         // Determine the object type
-        var objType = metadata && metadata.type ? metadata.type : this.targetInfo.endpoint;
+        var objType = metadata && metadata.type ? metadata.type : obj.targetInfo.endpoint;
         objType = objType.split('/');
         objType = objType[objType.length - 1];
         objType = objType.split('.');
@@ -1526,7 +1560,7 @@ var Base = /** @class */function () {
                     // Ensure the collection is an object
                     if (obj[key].results.length == 0 || _typeof(obj[key].results[0]) === "object") {
                         // Create this property as a new request
-                        var objCollection = new Base(this.targetInfo);
+                        var objCollection = new Base(obj.targetInfo);
                         objCollection["results"] = obj[key].results;
                         // See no results exist
                         if (objCollection["results"].length == 0) {
@@ -1536,9 +1570,9 @@ var Base = /** @class */function () {
                         // Update the endpoint for this request to point to this property
                         objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
                         // Add the methods
-                        this.addMethods(objCollection, objCollection);
+                        obj.addMethods(objCollection, objCollection);
                         // Update the data collection
-                        this.updateDataCollection(objCollection["results"]);
+                        obj.updateDataCollection(obj, objCollection["results"]);
                         // Update the property
                         obj[key] = objCollection;
                     }
@@ -1596,6 +1630,8 @@ var Base = /** @class */function () {
     // Method to execute the request
     Base.prototype.executeRequest = function (asyncFl, callback) {
         var _this = this;
+        var isBatchRequest = this.base && this.base.batchRequests && this.base.batchRequests.length > 0;
+        var targetInfo = isBatchRequest ? _1.Batch.getTargetInfo(this.base.batchRequests) : new _1.TargetInfo(this.targetInfo);
         // See if this is an asynchronous request
         if (asyncFl) {
             // See if the request already exists
@@ -1604,11 +1640,11 @@ var Base = /** @class */function () {
                 callback ? callback(this) : null;
             } else {
                 // Create the request
-                this.request = new _1.XHRRequest(asyncFl, new _1.TargetInfo(this.targetInfo), function () {
+                this.request = new _1.XHRRequest(asyncFl, targetInfo, function () {
                     // Update this data object
-                    _this.updateDataObject();
+                    _this.updateDataObject(isBatchRequest);
                     // Validate the data collection
-                    _this.validateDataCollectionResults(_this.request).done(function () {
+                    isBatchRequest ? null : _this.validateDataCollectionResults(_this.request).done(function () {
                         // Execute the callback
                         callback ? callback(_this) : null;
                     });
@@ -1618,9 +1654,9 @@ var Base = /** @class */function () {
             return this;
         } else {
             // Create the request
-            this.request = new _1.XHRRequest(asyncFl, new _1.TargetInfo(this.targetInfo));
+            this.request = new _1.XHRRequest(asyncFl, targetInfo);
             // Update this data object
-            this.updateDataObject();
+            this.updateDataObject(isBatchRequest);
             // See if this is a collection and has more results
             if (this["d"] && this["d"].__next) {
                 // Add the "next" method to get the next set of results
@@ -1705,40 +1741,40 @@ var Base = /** @class */function () {
         return obj;
     };
     // Method to update a collection object
-    Base.prototype.updateDataCollection = function (results) {
+    Base.prototype.updateDataCollection = function (obj, results) {
         // Ensure this is a collection
         if (results) {
             // Save the results
-            this["results"] = this["results"] ? this["results"].concat(results) : results;
+            obj["results"] = obj["results"] ? obj["results"].concat(results) : results;
             // See if only one object exists
-            if (this["results"].length > 0) {
-                var results_1 = this["results"];
+            if (obj["results"].length > 0) {
+                var results_1 = obj["results"];
                 // Parse the results
                 for (var _i = 0, results_2 = results_1; _i < results_2.length; _i++) {
                     var result = results_2[_i];
                     // Add the base references
-                    result["addMethods"] = this.addMethods;
-                    result["base"] = this.base;
-                    result["done"] = this.done;
-                    result["execute"] = this.execute;
-                    result["executeAndWait"] = this.executeAndWait;
-                    result["executeMethod"] = this.executeMethod;
+                    result["addMethods"] = obj.addMethods;
+                    result["base"] = obj.base;
+                    result["done"] = obj.done;
+                    result["execute"] = obj.execute;
+                    result["executeAndWait"] = obj.executeAndWait;
+                    result["executeMethod"] = obj.executeMethod;
                     result["existsFl"] = true;
-                    result["getProperty"] = this.getProperty;
-                    result["parent"] = this;
-                    result["targetInfo"] = this.targetInfo;
-                    result["updateMetadataUri"] = this.updateMetadataUri;
-                    result["waitForRequestsToComplete"] = this.waitForRequestsToComplete;
+                    result["getProperty"] = obj.getProperty;
+                    result["parent"] = obj;
+                    result["targetInfo"] = obj.targetInfo;
+                    result["updateMetadataUri"] = obj.updateMetadataUri;
+                    result["waitForRequestsToComplete"] = obj.waitForRequestsToComplete;
                     // Update the metadata
-                    this.updateMetadata(result);
+                    obj.updateMetadata(obj, result);
                     // Add the methods
-                    this.addMethods(result, result);
+                    obj.addMethods(result, result);
                 }
             }
         }
     };
     // Method to convert the input arguments into an object
-    Base.prototype.updateDataObject = function () {
+    Base.prototype.updateDataObject = function (isBatchRequest) {
         // Ensure the request was successful
         if (this.request.request.status >= 200 && this.request.request.status < 300) {
             // Return if we are expecting a buffer
@@ -1746,30 +1782,52 @@ var Base = /** @class */function () {
                 // Set the exists flag
                 this["existsFl"] = this.request.response != null;
             } else {
-                // Get the response
-                var response = this.request.response;
-                response = response === "" ? "{}" : response;
-                // Convert the response
-                var data = JSON.parse(response);
-                this["existsFl"] = typeof this["Exists"] === "boolean" ? this["Exists"] : data.error == null;
-                // See if the data properties exists
-                if (data.d) {
-                    // Save a reference to it
-                    this["d"] = data.d;
-                    // Update the metadata
-                    this.updateMetadata(data.d);
-                    // Update this object's properties
-                    this.addProperties(this, data.d);
-                    // Add the methods
-                    this.addMethods(this, data.d);
-                    // Update the data collection
-                    this.updateDataCollection(data.d.results);
+                var responseIdx = 0;
+                var responses = isBatchRequest ? this.request.response.split("\n") : [this.request.response];
+                // Parse the responses
+                for (var i = 0; i < responses.length; i++) {
+                    var batchRequest = isBatchRequest && this.base.batchRequests[responseIdx] ? this.base.batchRequests[responseIdx][0] : null;
+                    var data = null;
+                    // Try to convert the response
+                    var response = responses[i];
+                    response = response === "" ? "{}" : response;
+                    try {
+                        data = JSON.parse(response);
+                    } catch (ex) {
+                        continue;
+                    }
+                    // Set the object based on the request type
+                    var obj = isBatchRequest ? Object.create(this) : this;
+                    // Set the exists flag
+                    obj["existsFl"] = typeof obj["Exists"] === "boolean" ? obj["Exists"] : data.error == null;
+                    // See if the data properties exists
+                    if (data.d) {
+                        // Save a reference to it
+                        obj["d"] = data.d;
+                        // Update the metadata
+                        obj.updateMetadata(obj, data.d);
+                        // Update this object's properties
+                        obj.addProperties(obj, data.d);
+                        // Add the methods
+                        obj.addMethods(obj, data.d);
+                        // Update the data collection
+                        obj.updateDataCollection(obj, data.d.results);
+                    }
+                    // See if the batch request exists
+                    if (batchRequest) {
+                        // Set the response object
+                        batchRequest.response = obj;
+                        // Execute the callback for this batch request
+                        batchRequest.callback ? batchRequest.callback(obj) : null;
+                    }
+                    // Increment the response index
+                    responseIdx++;
                 }
             }
         }
     };
     // Method to update the metadata
-    Base.prototype.updateMetadata = function (data) {
+    Base.prototype.updateMetadata = function (obj, data) {
         // Ensure this is the app web
         if (!lib_1.ContextInfo.isAppWeb) {
             return;
@@ -1777,7 +1835,7 @@ var Base = /** @class */function () {
         // Get the url information
         var hostUrl = lib_1.ContextInfo.webAbsoluteUrl.toLowerCase();
         var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
-        var targetUrl = this.targetInfo && this.targetInfo.url ? this.targetInfo.url.toLowerCase() : null;
+        var targetUrl = obj.targetInfo && obj.targetInfo.url ? obj.targetInfo.url.toLowerCase() : null;
         // Ensure the urls exist
         if (hostUrl == null || requestUrl == null || targetUrl == null) {
             return;
@@ -1822,7 +1880,7 @@ var Base = /** @class */function () {
                         var data = JSON.parse(request.response);
                         if (data.d) {
                             // Update the data collection
-                            _this.updateDataCollection(data.d.results);
+                            _this.updateDataCollection(_this, data.d.results);
                             // Append the raw data results
                             _this["d"].results = _this["d"].results.concat(data.d.results);
                             // Validate the data collection
@@ -5488,6 +5546,108 @@ exports.webs = {
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var _1 = __webpack_require__(1);
+/**
+ * Batch Requests
+ */
+var Batch = /** @class */function () {
+    function Batch() {}
+    /**
+     * Methods
+     */
+    // Method to generate a batch request
+    Batch.getTargetInfo = function (requests) {
+        var batchId = "batch_" + this.guid();
+        var batchRequests = [];
+        // Parse the requests
+        for (var i = 0; i < requests.length; i++) {
+            // Create the batch request
+            batchRequests.push(this.createBatch(batchId, requests[i]));
+        }
+        // End the batch request
+        batchRequests.push("--" + batchId + "--");
+        // Return the target info
+        return new _1.TargetInfo({
+            endpoint: "$batch",
+            method: "POST",
+            data: batchRequests.join("\r\n"),
+            requestHeader: {
+                "Content-Type": 'multipart/mixed; boundary="' + batchId + '"'
+            }
+        });
+    };
+    // Method to generate a guid
+    Batch.guid = function () {
+        // Set the batch id
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : r & 0x3 | 0x8;
+            return v.toString(16);
+        });
+    };
+    // Method to generate a batch request
+    Batch.createBatch = function (batchId, requests) {
+        // Create the batch request
+        var batch = ["--" + batchId];
+        // See if multiple requests exist
+        if (requests.length > 1) {
+            var changesets = [];
+            var changesetId = "change_" + this.guid();
+            // Parse the requests
+            for (var i = 0; i < requests.length; i++) {
+                var request = [];
+                var targetInfo = requests[i].targetInfo;
+                // Create a change set
+                request.push("--" + changesetId);
+                request.push("Content-Type: application/http");
+                request.push("Content-Transfer-Encoding: binary");
+                request.push("");
+                request.push((targetInfo.requestMethod == "GET" ? "GET " : "POST ") + targetInfo.requestUrl + " HTTP/1.1");
+                request.push("Accept: application/json;odata=verbose");
+                request.push("");
+                targetInfo.requestData ? request.push(JSON.stringify(targetInfo.requestData)) : null;
+                request.push("");
+                // Add the request to the change set
+                changesets.push(request);
+            }
+            // End the change set
+            changesets.push("--" + changesetId + "--");
+            // Generate the change set
+            var changeset = changesets.join("\r\n");
+            // Add the change set information to the batch
+            batch.push("Content-Type: multipart/mixed; boundary=" + changesetId);
+            batch.push("Content-Length: " + changeset.length);
+            batch.push("");
+            batch.push(changeset);
+            batch.push("");
+        } else if (requests[0]) {
+            var targetInfo = requests[0].targetInfo;
+            // Add the request to the batch
+            batch.push("Content-Type: application/http");
+            batch.push("Content-Transfer-Encoding: binary");
+            batch.push("");
+            batch.push((targetInfo.requestMethod == "GET" ? "GET " : "POST ") + targetInfo.requestUrl + " HTTP/1.1");
+            batch.push("Accept: application/json;odata=verbose");
+            batch.push("");
+            targetInfo.requestData ? batch.push(JSON.stringify(targetInfo.requestData)) : null;
+            batch.push("");
+        }
+        // Return the batch request
+        return batch.join("\r\n");
+    };
+    return Batch;
+}();
+exports.Batch = Batch;
+//# sourceMappingURL=batch.js.map
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
 var _1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
@@ -5574,7 +5734,7 @@ exports.Dependencies = Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5843,7 +6003,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6003,7 +6163,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6065,7 +6225,7 @@ exports.Promise = Promise;
 //# sourceMappingURL=promise.js.map
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6085,6 +6245,7 @@ var TargetInfo = /** @class */function () {
         // Default the properties
         this.targetInfo = targetInfo || {};
         this.requestData = this.targetInfo.data;
+        this.requestHeaders = this.targetInfo.requestHeader;
         this.requestMethod = this.targetInfo.method ? this.targetInfo.method : "GET";
         // Set the request url
         this.setRequestUrl();
@@ -6104,6 +6265,14 @@ var TargetInfo = /** @class */function () {
         // The callback method to execute after the asynchronous request completes
         get: function get() {
             return this.targetInfo.callback;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TargetInfo.prototype, "isBatchRequest", {
+        // Flag to determine if this is a batch request
+        get: function get() {
+            return this.targetInfo.endpoint == "$batch";
         },
         enumerable: true,
         configurable: true
@@ -6218,7 +6387,7 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6314,9 +6483,19 @@ var XHRRequest = /** @class */function () {
     };
     // Method to default the request headers
     XHRRequest.prototype.defaultHeaders = function () {
-        // Set the default headers
-        this.xhr.setRequestHeader("Accept", "application/json;odata=verbose");
-        this.xhr.setRequestHeader("Content-Type", "application/json;odata=verbose");
+        // See if the custom headers exist
+        if (this.targetInfo.requestHeaders) {
+            // Parse the custom headers
+            for (var header in this.targetInfo.requestHeaders) {
+                // Add the header
+                this.xhr.setRequestHeader(header, this.targetInfo.requestHeaders[header]);
+            }
+        } else {
+            // Set the default headers
+            this.xhr.setRequestHeader("Accept", "application/json;odata=verbose");
+            this.xhr.setRequestHeader("Content-Type", "application/json;odata=verbose");
+        }
+        // Set the method
         this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
         // See if the request digest has been defined
         if (this.targetInfo.requestDigest) {
@@ -6333,14 +6512,6 @@ var XHRRequest = /** @class */function () {
         if (this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE") {
             // Append the header for deleting/updating
             this.xhr.setRequestHeader("IF-MATCH", "*");
-        }
-        // See if the custom headers exist
-        if (this.targetInfo.requestHeaders) {
-            // Parse the custom headers
-            for (var header in this.targetInfo.requestHeaders) {
-                // Add the header
-                this.xhr.setRequestHeader(header, this.targetInfo.requestHeaders[header]);
-            }
         }
     };
     // Method to execute the xml http request
@@ -6386,7 +6557,7 @@ exports.XHRRequest = XHRRequest;
 //# sourceMappingURL=xhrRequest.js.map
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6464,17 +6635,17 @@ exports.Email = new _Email();
 //# sourceMappingURL=email.js.map
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = __webpack_require__(74);
-var jslink_1 = __webpack_require__(75);
-var loader_1 = __webpack_require__(76);
-var spCfg_1 = __webpack_require__(77);
+var app_1 = __webpack_require__(75);
+var jslink_1 = __webpack_require__(76);
+var loader_1 = __webpack_require__(77);
+var spCfg_1 = __webpack_require__(78);
 /**
  * Helper Methods
  */
@@ -6487,7 +6658,7 @@ exports.Helper = {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6784,7 +6955,7 @@ exports.AppHelper = {
 //# sourceMappingURL=app.js.map
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7156,7 +7327,7 @@ exports.JSLinkHelper = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7217,7 +7388,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8278,7 +8449,7 @@ exports.SPConfig = SPConfig;
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8397,7 +8568,7 @@ exports.JSLink = JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8467,7 +8638,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8516,7 +8687,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8565,7 +8736,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8615,7 +8786,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8702,7 +8873,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8768,7 +8939,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8845,7 +9016,7 @@ exports.SocialFeed = new _SocialFeed();
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

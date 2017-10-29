@@ -12,6 +12,7 @@ export class TargetInfo {
         // Default the properties
         this.targetInfo = targetInfo || {};
         this.requestData = this.targetInfo.data;
+        this.requestHeaders = this.targetInfo.requestHeader;
         this.requestMethod = this.targetInfo.method ? this.targetInfo.method : "GET";
 
         // Set the request url
@@ -27,6 +28,9 @@ export class TargetInfo {
 
     // The callback method to execute after the asynchronous request completes
     get callback(): (...args) => void { return this.targetInfo.callback; }
+
+    // Flag to determine if this is a batch request
+    get isBatchRequest(): boolean { return this.targetInfo.endpoint == "$batch"; }
 
     // The request data
     requestData: any;
@@ -45,7 +49,7 @@ export class TargetInfo {
     }
 
     // The request header
-    requestHeaders: string[];
+    requestHeaders: object;
 
     // The request method
     requestMethod: string;

@@ -37,6 +37,9 @@ export interface ITargetInfo {
     /** The request digest to use for the request. */
     requestDigest?: string;
 
+    /** The request header. */
+    requestHeader?: object;
+
     /** The request information. */
     requestInfo?: object;
 

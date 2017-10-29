@@ -9,10 +9,11 @@ export declare class TargetInfo {
     /*********************************************************************************************************************************/
     readonly bufferFl: boolean;
     readonly callback: (...args) => void;
+    readonly isBatchRequest: boolean;
     requestData: any;
     readonly requestDigest: string;
     readonly requestInfo: IRequestInfo;
-    requestHeaders: string[];
+    requestHeaders: object;
     requestMethod: string;
     requestUrl: string;
     /*********************************************************************************************************************************/
