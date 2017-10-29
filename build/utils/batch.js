@@ -47,7 +47,7 @@ var Batch = /** @class */ (function () {
         var requiresChangeset = requests[0] && requests[0].targetInfo.requestMethod != "GET";
         if (requiresChangeset) {
             var changesets = [];
-            var changesetId = "change_" + this.guid();
+            var changesetId = "changeset_" + this.guid();
             // Parse the requests
             for (var i = 0; i < requests.length; i++) {
                 var request = [];
