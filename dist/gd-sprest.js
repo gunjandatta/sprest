@@ -247,7 +247,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.15,
+    __ver: 2.16,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -265,6 +265,7 @@ var gd_sprest = {
     ProfileLoader: function ProfileLoader(targetInfo) {
         return new lib_1.ProfileLoader(targetInfo);
     },
+    RequestType: types_1.RequestType,
     Search: function Search(url, targetInfo) {
         return new lib_1.Search(url, targetInfo);
     },
@@ -272,6 +273,8 @@ var gd_sprest = {
         return new lib_1.Site(url, targetInfo);
     },
     SocialFeed: lib_1.SocialFeed,
+    SPTypes: types_1.SPTypes,
+    Types: Types,
     UserProfile: function UserProfile(targetInfo) {
         return new lib_1.UserProfile(targetInfo);
     },
