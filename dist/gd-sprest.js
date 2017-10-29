@@ -247,7 +247,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.05,
+    __ver: 2.06,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -361,11 +361,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Request Type
 exports.RequestType = {
     // Requests
-    Batch: 0,
-    Custom: 1,
-    Delete: 2,
-    Merge: 3,
-    OData: 4,
+    Custom: 0,
+    Delete: 1,
+    Merge: 2,
+    OData: 3,
     // Get Requests
     Get: 10,
     GetBuffer: 11,
