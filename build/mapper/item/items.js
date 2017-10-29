@@ -8,7 +8,7 @@ exports.items = {
     // Adds an item to the list item collection.
     add: {
         metadataType: function (obj) {
-            return obj["ListItemEntityTypeFullName"] || (obj.Parent && obj.Parent["ListItemEntityTypeFullName"]) || "SP.ListItem";
+            return (obj.parent && obj.parent["ListItemEntityTypeFullName"]) || "SP.ListItem";
         },
         name: "",
         requestType: types_1.RequestType.PostWithArgsInBody

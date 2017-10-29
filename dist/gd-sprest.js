@@ -247,7 +247,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.09,
+    __ver: 2.10,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -4171,7 +4171,7 @@ exports.items = {
     // Adds an item to the list item collection.
     add: {
         metadataType: function metadataType(obj) {
-            return obj["ListItemEntityTypeFullName"] || obj.Parent && obj.Parent["ListItemEntityTypeFullName"] || "SP.ListItem";
+            return obj.parent && obj.parent["ListItemEntityTypeFullName"] || "SP.ListItem";
         },
         name: "",
         requestType: types_1.RequestType.PostWithArgsInBody
