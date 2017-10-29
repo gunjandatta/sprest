@@ -694,7 +694,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> {
                     if (isBatchRequest) {
                         // Get the batch request
                         let batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
-                        if (batchRequest) {
+                        if (batchRequest == null) {
                             // Update the batch indexes
                             batchIdx++;
                             batchRequestIdx = 0;

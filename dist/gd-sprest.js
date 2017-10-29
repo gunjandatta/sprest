@@ -247,7 +247,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.13,
+    __ver: 2.14,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -1816,7 +1816,7 @@ var Base = /** @class */function () {
                     if (isBatchRequest) {
                         // Get the batch request
                         var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
-                        if (batchRequest) {
+                        if (batchRequest == null) {
                             // Update the batch indexes
                             batchIdx++;
                             batchRequestIdx = 0;

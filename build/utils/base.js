@@ -558,7 +558,7 @@ var Base = /** @class */ (function () {
                     if (isBatchRequest) {
                         // Get the batch request
                         var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
-                        if (batchRequest) {
+                        if (batchRequest == null) {
                             // Update the batch indexes
                             batchIdx++;
                             batchRequestIdx = 0;
