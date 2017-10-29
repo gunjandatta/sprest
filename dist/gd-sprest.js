@@ -1781,11 +1781,11 @@ var Base = /** @class */function () {
                 // Set the exists flag
                 this["existsFl"] = this.request.response != null;
             } else {
-                var responseIdx = 0;
+                var batchIdx = 0;
+                var batchRequestIdx = 0;
                 var responses = isBatchRequest ? this.request.response.split("\n") : [this.request.response];
                 // Parse the responses
                 for (var i = 0; i < responses.length; i++) {
-                    var batchRequest = isBatchRequest && this.base.batchRequests[responseIdx] ? this.base.batchRequests[responseIdx][0] : null;
                     var data = null;
                     // Try to convert the response
                     var response = responses[i];
@@ -1813,14 +1813,24 @@ var Base = /** @class */function () {
                         obj.updateDataCollection(obj, data.d.results);
                     }
                     // See if the batch request exists
-                    if (batchRequest) {
-                        // Set the response object
-                        batchRequest.response = obj;
-                        // Execute the callback for this batch request
-                        batchRequest.callback ? batchRequest.callback(obj) : null;
+                    if (isBatchRequest) {
+                        // Get the batch request
+                        var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                        if (batchRequest) {
+                            // Update the batch indexes
+                            batchIdx++;
+                            batchRequestIdx = 0;
+                            // Update the batch request
+                            batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                        }
+                        // Ensure the batch request exists
+                        if (batchRequest) {
+                            // Set the response object
+                            batchRequest.response = typeof data === "string" ? data : obj;
+                            // Execute the callback if it exists
+                            batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
+                        }
                     }
-                    // Increment the response index
-                    responseIdx++;
                 }
             }
         }
