@@ -51,7 +51,7 @@ export class Batch {
         let requiresChangeset = requests[0] && requests[0].targetInfo.requestMethod != "GET";
         if (requiresChangeset) {
             let changesets = [];
-            let changesetId = "change_" + this.guid();
+            let changesetId = "changeset_" + this.guid();
 
             // Parse the requests
             for (let i = 0; i < requests.length; i++) {

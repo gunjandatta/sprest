@@ -247,7 +247,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.11,
+    __ver: 2.12,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -5592,7 +5592,7 @@ var Batch = /** @class */function () {
         var requiresChangeset = requests[0] && requests[0].targetInfo.requestMethod != "GET";
         if (requiresChangeset) {
             var changesets = [];
-            var changesetId = "change_" + this.guid();
+            var changesetId = "changeset_" + this.guid();
             // Parse the requests
             for (var i = 0; i < requests.length; i++) {
                 var request = [];
