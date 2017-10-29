@@ -47,8 +47,9 @@ export class Batch {
         // Create the batch request
         let batch = ["--" + batchId];
 
-        // See if multiple requests exist
-        if (requests.length > 1) {
+        // See if this is a "GET" request
+        let requiresChangeset = requests.length > 1 || requests[0] || requests[0].targetInfo.requestMethod != "GET";
+        if (requiresChangeset) {
             let changesets = [];
             let changesetId = "change_" + this.guid();
 

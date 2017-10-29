@@ -43,8 +43,9 @@ var Batch = /** @class */ (function () {
     Batch.createBatch = function (batchId, requests) {
         // Create the batch request
         var batch = ["--" + batchId];
-        // See if multiple requests exist
-        if (requests.length > 1) {
+        // See if this is a "GET" request
+        var requiresChangeset = requests.length > 1 || requests[0] || requests[0].targetInfo.requestMethod != "GET";
+        if (requiresChangeset) {
             var changesets = [];
             var changesetId = "change_" + this.guid();
             // Parse the requests
