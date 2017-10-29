@@ -64,7 +64,7 @@ export class Batch {
                 request.push("Content-Transfer-Encoding: binary");
                 request.push("");
                 request.push("POST " + targetInfo.requestUrl + " HTTP/1.1");
-                request.push("Accept: application/json;odata=verbose");
+                request.push("Content-Type: application/json;odata=verbose");
                 request.push("");
                 targetInfo.requestData ? request.push(targetInfo.requestData) : null;
                 request.push("");

@@ -653,12 +653,12 @@ export class Base<Type = any, Result = Type, QueryResult = Result> {
                 this["existsFl"] = this.request.response != null;
             }
             else {
-                let responseIdx = 0;
+                let batchIdx = 0;
+                let batchRequestIdx = 0;
                 let responses = isBatchRequest ? this.request.response.split("\n") : [this.request.response];
 
                 // Parse the responses
                 for (let i = 0; i < responses.length; i++) {
-                    let batchRequest = isBatchRequest && this.base.batchRequests[responseIdx] ? this.base.batchRequests[responseIdx][0] : null;
                     let data = null;
 
                     // Try to convert the response
@@ -691,16 +691,27 @@ export class Base<Type = any, Result = Type, QueryResult = Result> {
                     }
 
                     // See if the batch request exists
-                    if (batchRequest) {
-                        // Set the response object
-                        batchRequest.response = obj;
+                    if (isBatchRequest) {
+                        // Get the batch request
+                        let batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                        if (batchRequest) {
+                            // Update the batch indexes
+                            batchIdx++;
+                            batchRequestIdx = 0;
 
-                        // Execute the callback for this batch request
-                        batchRequest.callback ? batchRequest.callback(obj) : null;
+                            // Update the batch request
+                            batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                        }
+
+                        // Ensure the batch request exists
+                        if (batchRequest) {
+                            // Set the response object
+                            batchRequest.response = typeof(data) === "string" ? data : obj;
+
+                            // Execute the callback if it exists
+                            batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
+                        }
                     }
-
-                    // Increment the response index
-                    responseIdx++;
                 }
             }
         }
