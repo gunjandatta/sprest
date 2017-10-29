@@ -368,8 +368,8 @@ var Base = /** @class */ (function () {
         var targetInfo = isBatchRequest ? _1.Batch.getTargetInfo(this.base.batchRequests) : new _1.TargetInfo(this.targetInfo);
         // See if this is an asynchronous request
         if (asyncFl) {
-            // See if the request already exists
-            if (this.request) {
+            // See if this not a batch request, and it already exists
+            if (this.request && !isBatchRequest) {
                 // Execute the callback
                 callback ? callback(this) : null;
             }
@@ -530,7 +530,7 @@ var Base = /** @class */ (function () {
                     var data = null;
                     // Try to convert the response
                     var response = responses[i];
-                    response = response === "" ? "{}" : response;
+                    response = response === "" && !isBatchRequest ? "{}" : response;
                     try {
                         data = JSON.parse(response);
                     }

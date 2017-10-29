@@ -247,7 +247,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.06,
+    __ver: 2.11,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -1633,8 +1633,8 @@ var Base = /** @class */function () {
         var targetInfo = isBatchRequest ? _1.Batch.getTargetInfo(this.base.batchRequests) : new _1.TargetInfo(this.targetInfo);
         // See if this is an asynchronous request
         if (asyncFl) {
-            // See if the request already exists
-            if (this.request) {
+            // See if this not a batch request, and it already exists
+            if (this.request && !isBatchRequest) {
                 // Execute the callback
                 callback ? callback(this) : null;
             } else {
@@ -1789,7 +1789,7 @@ var Base = /** @class */function () {
                     var data = null;
                     // Try to convert the response
                     var response = responses[i];
-                    response = response === "" ? "{}" : response;
+                    response = response === "" && !isBatchRequest ? "{}" : response;
                     try {
                         data = JSON.parse(response);
                     } catch (ex) {
@@ -4171,7 +4171,7 @@ exports.items = {
     // Adds an item to the list item collection.
     add: {
         metadataType: function metadataType(obj) {
-            return obj.Parent && obj.Parent["ListItemEntityTypeFullName"] ? obj.Parent["ListItemEntityTypeFullName"] : "SP.ListItem";
+            return obj.parent && obj.parent["ListItemEntityTypeFullName"] || "SP.ListItem";
         },
         name: "",
         requestType: types_1.RequestType.PostWithArgsInBody
@@ -5588,8 +5588,9 @@ var Batch = /** @class */function () {
     Batch.createBatch = function (batchId, requests) {
         // Create the batch request
         var batch = ["--" + batchId];
-        // See if multiple requests exist
-        if (requests.length > 1) {
+        // Determine if the batch requires a change set
+        var requiresChangeset = requests[0] && requests[0].targetInfo.requestMethod != "GET";
+        if (requiresChangeset) {
             var changesets = [];
             var changesetId = "change_" + this.guid();
             // Parse the requests
@@ -5601,13 +5602,13 @@ var Batch = /** @class */function () {
                 request.push("Content-Type: application/http");
                 request.push("Content-Transfer-Encoding: binary");
                 request.push("");
-                request.push((targetInfo.requestMethod == "GET" ? "GET " : "POST ") + targetInfo.requestUrl + " HTTP/1.1");
+                request.push("POST " + targetInfo.requestUrl + " HTTP/1.1");
                 request.push("Accept: application/json;odata=verbose");
                 request.push("");
-                targetInfo.requestData ? request.push(JSON.stringify(targetInfo.requestData)) : null;
+                targetInfo.requestData ? request.push(targetInfo.requestData) : null;
                 request.push("");
                 // Add the request to the change set
-                changesets.push(request);
+                changesets.push(request.join("\r\n"));
             }
             // End the change set
             changesets.push("--" + changesetId + "--");
@@ -5616,6 +5617,7 @@ var Batch = /** @class */function () {
             // Add the change set information to the batch
             batch.push("Content-Type: multipart/mixed; boundary=" + changesetId);
             batch.push("Content-Length: " + changeset.length);
+            batch.push("Content-Transfer-Encoding: binary");
             batch.push("");
             batch.push(changeset);
             batch.push("");
@@ -5625,10 +5627,10 @@ var Batch = /** @class */function () {
             batch.push("Content-Type: application/http");
             batch.push("Content-Transfer-Encoding: binary");
             batch.push("");
-            batch.push((targetInfo.requestMethod == "GET" ? "GET " : "POST ") + targetInfo.requestUrl + " HTTP/1.1");
+            batch.push("GET " + targetInfo.requestUrl + " HTTP/1.1");
             batch.push("Accept: application/json;odata=verbose");
             batch.push("");
-            targetInfo.requestData ? batch.push(JSON.stringify(targetInfo.requestData)) : null;
+            targetInfo.requestData ? batch.push(targetInfo.requestData) : null;
             batch.push("");
         }
         // Return the batch request

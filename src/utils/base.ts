@@ -469,8 +469,8 @@ export class Base<Type = any, Result = Type, QueryResult = Result> {
 
         // See if this is an asynchronous request
         if (asyncFl) {
-            // See if the request already exists
-            if (this.request) {
+            // See if this not a batch request, and it already exists
+            if (this.request && !isBatchRequest) {
                 // Execute the callback
                 callback ? callback(this) : null;
             } else {
@@ -663,7 +663,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> {
 
                     // Try to convert the response
                     let response = responses[i];
-                    response = response === "" ? "{}" : response;
+                    response = response === "" && !isBatchRequest ? "{}" : response;
                     try { data = JSON.parse(response); } catch (ex) { continue; }
 
                     // Set the object based on the request type
