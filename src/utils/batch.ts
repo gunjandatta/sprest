@@ -82,6 +82,7 @@ export class Batch {
             // Add the change set information to the batch
             batch.push("Content-Type: multipart/mixed; boundary=" + changesetId);
             batch.push("Content-Length: " + changeset.length);
+            batch.push("Content-Transfer-Encoding: binary");
             batch.push("");
             batch.push(changeset);
             batch.push("");

@@ -247,7 +247,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.10,
+    __ver: 2.11,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -5617,6 +5617,7 @@ var Batch = /** @class */function () {
             // Add the change set information to the batch
             batch.push("Content-Type: multipart/mixed; boundary=" + changesetId);
             batch.push("Content-Length: " + changeset.length);
+            batch.push("Content-Transfer-Encoding: binary");
             batch.push("");
             batch.push(changeset);
             batch.push("");
