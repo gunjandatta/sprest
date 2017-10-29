@@ -664,7 +664,8 @@ export class Base<Type = any, Result = Type, QueryResult = Result> {
                     // Try to convert the response
                     let response = responses[i];
                     response = response === "" && !isBatchRequest ? "{}" : response;
-                    try { data = JSON.parse(response); } catch (ex) { continue; }
+                    try { data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response); }
+                    catch (ex) { continue; }
 
                     // Set the object based on the request type
                     let obj = isBatchRequest ? Object.create(this) : this;
