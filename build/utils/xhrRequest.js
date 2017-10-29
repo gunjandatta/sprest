@@ -82,9 +82,20 @@ var XHRRequest = /** @class */ (function () {
     };
     // Method to default the request headers
     XHRRequest.prototype.defaultHeaders = function () {
-        // Set the default headers
-        this.xhr.setRequestHeader("Accept", "application/json;odata=verbose");
-        this.xhr.setRequestHeader("Content-Type", "application/json;odata=verbose");
+        // See if the custom headers exist
+        if (this.targetInfo.requestHeaders) {
+            // Parse the custom headers
+            for (var header in this.targetInfo.requestHeaders) {
+                // Add the header
+                this.xhr.setRequestHeader(header, this.targetInfo.requestHeaders[header]);
+            }
+        }
+        else {
+            // Set the default headers
+            this.xhr.setRequestHeader("Accept", "application/json;odata=verbose");
+            this.xhr.setRequestHeader("Content-Type", "application/json;odata=verbose");
+        }
+        // Set the method
         this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
         // See if the request digest has been defined
         if (this.targetInfo.requestDigest) {
@@ -102,14 +113,6 @@ var XHRRequest = /** @class */ (function () {
         if (this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE") {
             // Append the header for deleting/updating
             this.xhr.setRequestHeader("IF-MATCH", "*");
-        }
-        // See if the custom headers exist
-        if (this.targetInfo.requestHeaders) {
-            // Parse the custom headers
-            for (var header in this.targetInfo.requestHeaders) {
-                // Add the header
-                this.xhr.setRequestHeader(header, this.targetInfo.requestHeaders[header]);
-            }
         }
     };
     // Method to execute the xml http request

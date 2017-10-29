@@ -14,6 +14,7 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> {
     readonly response: any;
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
+    batch(arg?: any): this;
     done(callback: (...args) => any): void;
     execute(...args: any[]): this;
     executeAndWait(): this;
@@ -22,6 +23,7 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> {
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
     private base;
+    private batchRequests;
     protected defaultToWebFl: boolean;
     protected getAllItemsFl: boolean;
     private promise;
@@ -39,9 +41,9 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> {
     private getCollection(method, args?);
     protected getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
     protected getNextSetOfResults(): Base<any, any, any>;
-    private updateDataCollection(results);
-    protected updateDataObject(): void;
-    private updateMetadata(data);
+    private updateDataCollection(obj, results);
+    protected updateDataObject(isBatchRequest: boolean): void;
+    private updateMetadata(obj, data);
     private updateMetadataUri(metadata, targetInfo);
     private validateDataCollectionResults(request, promise?);
     private waitForRequestsToComplete(callback, requestIdx?);

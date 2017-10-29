@@ -1,4 +1,5 @@
 export * from "./base";
+export * from "./batch";
 export * from "./dependencies";
 export * from "./methodInfo";
 export * from "./oData";

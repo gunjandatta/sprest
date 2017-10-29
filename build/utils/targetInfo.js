@@ -13,6 +13,7 @@ var TargetInfo = /** @class */ (function () {
         // Default the properties
         this.targetInfo = targetInfo || {};
         this.requestData = this.targetInfo.data;
+        this.requestHeaders = this.targetInfo.requestHeader;
         this.requestMethod = this.targetInfo.method ? this.targetInfo.method : "GET";
         // Set the request url
         this.setRequestUrl();
@@ -29,6 +30,12 @@ var TargetInfo = /** @class */ (function () {
     Object.defineProperty(TargetInfo.prototype, "callback", {
         // The callback method to execute after the asynchronous request completes
         get: function () { return this.targetInfo.callback; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TargetInfo.prototype, "isBatchRequest", {
+        // Flag to determine if this is a batch request
+        get: function () { return this.targetInfo.endpoint == "$batch"; },
         enumerable: true,
         configurable: true
     });

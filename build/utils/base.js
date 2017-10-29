@@ -29,6 +29,40 @@ var Base = /** @class */ (function () {
     /*********************************************************************************************************************************/
     // Public Methods
     /*********************************************************************************************************************************/
+    // Method to execute this request as a batch request
+    Base.prototype.batch = function (arg) {
+        var callback = null;
+        var appendFl = false;
+        // See if the input is a boolean
+        if (typeof (arg) === "boolean") {
+            // Set the flag
+            appendFl = arg;
+        }
+        else {
+            // Set the callback
+            callback = arg;
+        }
+        // Set the base
+        this.base = this.base ? this.base : this;
+        // See if we are appending this request
+        if (appendFl && this.base.batchRequests) {
+            // Append the request
+            this.base.batchRequests[this.base.batchRequests.length - 1].push({
+                targetInfo: new _1.TargetInfo(this.targetInfo)
+            });
+        }
+        else {
+            // Ensure the batch requests exist
+            this.base.batchRequests = this.base.batchRequests || [];
+            // Create the request
+            this.base.batchRequests.push([{
+                    callback: callback,
+                    targetInfo: new _1.TargetInfo(this.targetInfo)
+                }]);
+        }
+        // Return this object
+        return this;
+    };
     // Method to wait for the requests to complete
     Base.prototype.done = function (callback) {
         var _this = this;
@@ -159,7 +193,7 @@ var Base = /** @class */ (function () {
         // Determine the metadata
         var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
         // Determine the object type
-        var objType = metadata && metadata.type ? metadata.type : this.targetInfo.endpoint;
+        var objType = metadata && metadata.type ? metadata.type : obj.targetInfo.endpoint;
         objType = objType.split('/');
         objType = (objType[objType.length - 1]);
         objType = objType.split('.');
@@ -258,7 +292,7 @@ var Base = /** @class */ (function () {
                     // Ensure the collection is an object
                     if (obj[key].results.length == 0 || typeof (obj[key].results[0]) === "object") {
                         // Create this property as a new request
-                        var objCollection = new Base(this.targetInfo);
+                        var objCollection = new Base(obj.targetInfo);
                         objCollection["results"] = obj[key].results;
                         // See no results exist
                         if (objCollection["results"].length == 0) {
@@ -268,9 +302,9 @@ var Base = /** @class */ (function () {
                         // Update the endpoint for this request to point to this property
                         objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
                         // Add the methods
-                        this.addMethods(objCollection, objCollection);
+                        obj.addMethods(objCollection, objCollection);
                         // Update the data collection
-                        this.updateDataCollection(objCollection["results"]);
+                        obj.updateDataCollection(obj, objCollection["results"]);
                         // Update the property
                         obj[key] = objCollection;
                     }
@@ -330,6 +364,8 @@ var Base = /** @class */ (function () {
     // Method to execute the request
     Base.prototype.executeRequest = function (asyncFl, callback) {
         var _this = this;
+        var isBatchRequest = this.base && this.base.batchRequests && this.base.batchRequests.length > 0;
+        var targetInfo = isBatchRequest ? _1.Batch.getTargetInfo(this.base.batchRequests) : new _1.TargetInfo(this.targetInfo);
         // See if this is an asynchronous request
         if (asyncFl) {
             // See if the request already exists
@@ -339,11 +375,11 @@ var Base = /** @class */ (function () {
             }
             else {
                 // Create the request
-                this.request = new _1.XHRRequest(asyncFl, new _1.TargetInfo(this.targetInfo), function () {
+                this.request = new _1.XHRRequest(asyncFl, targetInfo, function () {
                     // Update this data object
-                    _this.updateDataObject();
+                    _this.updateDataObject(isBatchRequest);
                     // Validate the data collection
-                    _this.validateDataCollectionResults(_this.request).done(function () {
+                    isBatchRequest ? null : _this.validateDataCollectionResults(_this.request).done(function () {
                         // Execute the callback
                         callback ? callback(_this) : null;
                     });
@@ -355,9 +391,9 @@ var Base = /** @class */ (function () {
         }
         else {
             // Create the request
-            this.request = new _1.XHRRequest(asyncFl, new _1.TargetInfo(this.targetInfo));
+            this.request = new _1.XHRRequest(asyncFl, targetInfo);
             // Update this data object
-            this.updateDataObject();
+            this.updateDataObject(isBatchRequest);
             // See if this is a collection and has more results
             if (this["d"] && this["d"].__next) {
                 // Add the "next" method to get the next set of results
@@ -444,40 +480,40 @@ var Base = /** @class */ (function () {
         return obj;
     };
     // Method to update a collection object
-    Base.prototype.updateDataCollection = function (results) {
+    Base.prototype.updateDataCollection = function (obj, results) {
         // Ensure this is a collection
         if (results) {
             // Save the results
-            this["results"] = this["results"] ? this["results"].concat(results) : results;
+            obj["results"] = obj["results"] ? obj["results"].concat(results) : results;
             // See if only one object exists
-            if (this["results"].length > 0) {
-                var results_1 = this["results"];
+            if (obj["results"].length > 0) {
+                var results_1 = obj["results"];
                 // Parse the results
                 for (var _i = 0, results_2 = results_1; _i < results_2.length; _i++) {
                     var result = results_2[_i];
                     // Add the base references
-                    result["addMethods"] = this.addMethods;
-                    result["base"] = this.base;
-                    result["done"] = this.done;
-                    result["execute"] = this.execute;
-                    result["executeAndWait"] = this.executeAndWait;
-                    result["executeMethod"] = this.executeMethod;
+                    result["addMethods"] = obj.addMethods;
+                    result["base"] = obj.base;
+                    result["done"] = obj.done;
+                    result["execute"] = obj.execute;
+                    result["executeAndWait"] = obj.executeAndWait;
+                    result["executeMethod"] = obj.executeMethod;
                     result["existsFl"] = true;
-                    result["getProperty"] = this.getProperty;
-                    result["parent"] = this;
-                    result["targetInfo"] = this.targetInfo;
-                    result["updateMetadataUri"] = this.updateMetadataUri;
-                    result["waitForRequestsToComplete"] = this.waitForRequestsToComplete;
+                    result["getProperty"] = obj.getProperty;
+                    result["parent"] = obj;
+                    result["targetInfo"] = obj.targetInfo;
+                    result["updateMetadataUri"] = obj.updateMetadataUri;
+                    result["waitForRequestsToComplete"] = obj.waitForRequestsToComplete;
                     // Update the metadata
-                    this.updateMetadata(result);
+                    obj.updateMetadata(obj, result);
                     // Add the methods
-                    this.addMethods(result, result);
+                    obj.addMethods(result, result);
                 }
             }
         }
     };
     // Method to convert the input arguments into an object
-    Base.prototype.updateDataObject = function () {
+    Base.prototype.updateDataObject = function (isBatchRequest) {
         // Ensure the request was successful
         if (this.request.request.status >= 200 && this.request.request.status < 300) {
             // Return if we are expecting a buffer
@@ -486,30 +522,53 @@ var Base = /** @class */ (function () {
                 this["existsFl"] = this.request.response != null;
             }
             else {
-                // Get the response
-                var response = this.request.response;
-                response = response === "" ? "{}" : response;
-                // Convert the response
-                var data = JSON.parse(response);
-                this["existsFl"] = typeof (this["Exists"]) === "boolean" ? this["Exists"] : data.error == null;
-                // See if the data properties exists
-                if (data.d) {
-                    // Save a reference to it
-                    this["d"] = data.d;
-                    // Update the metadata
-                    this.updateMetadata(data.d);
-                    // Update this object's properties
-                    this.addProperties(this, data.d);
-                    // Add the methods
-                    this.addMethods(this, data.d);
-                    // Update the data collection
-                    this.updateDataCollection(data.d.results);
+                var responseIdx = 0;
+                var responses = isBatchRequest ? this.request.response.split("\n") : [this.request.response];
+                // Parse the responses
+                for (var i = 0; i < responses.length; i++) {
+                    var batchRequest = isBatchRequest && this.base.batchRequests[responseIdx] ? this.base.batchRequests[responseIdx][0] : null;
+                    var data = null;
+                    // Try to convert the response
+                    var response = responses[i];
+                    response = response === "" ? "{}" : response;
+                    try {
+                        data = JSON.parse(response);
+                    }
+                    catch (ex) {
+                        continue;
+                    }
+                    // Set the object based on the request type
+                    var obj = isBatchRequest ? Object.create(this) : this;
+                    // Set the exists flag
+                    obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
+                    // See if the data properties exists
+                    if (data.d) {
+                        // Save a reference to it
+                        obj["d"] = data.d;
+                        // Update the metadata
+                        obj.updateMetadata(obj, data.d);
+                        // Update this object's properties
+                        obj.addProperties(obj, data.d);
+                        // Add the methods
+                        obj.addMethods(obj, data.d);
+                        // Update the data collection
+                        obj.updateDataCollection(obj, data.d.results);
+                    }
+                    // See if the batch request exists
+                    if (batchRequest) {
+                        // Set the response object
+                        batchRequest.response = obj;
+                        // Execute the callback for this batch request
+                        batchRequest.callback ? batchRequest.callback(obj) : null;
+                    }
+                    // Increment the response index
+                    responseIdx++;
                 }
             }
         }
     };
     // Method to update the metadata
-    Base.prototype.updateMetadata = function (data) {
+    Base.prototype.updateMetadata = function (obj, data) {
         // Ensure this is the app web
         if (!lib_1.ContextInfo.isAppWeb) {
             return;
@@ -517,7 +576,7 @@ var Base = /** @class */ (function () {
         // Get the url information
         var hostUrl = lib_1.ContextInfo.webAbsoluteUrl.toLowerCase();
         var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
-        var targetUrl = this.targetInfo && this.targetInfo.url ? this.targetInfo.url.toLowerCase() : null;
+        var targetUrl = obj.targetInfo && obj.targetInfo.url ? obj.targetInfo.url.toLowerCase() : null;
         // Ensure the urls exist
         if (hostUrl == null || requestUrl == null || targetUrl == null) {
             return;
@@ -563,7 +622,7 @@ var Base = /** @class */ (function () {
                         var data = JSON.parse(request.response);
                         if (data.d) {
                             // Update the data collection
-                            _this.updateDataCollection(data.d.results);
+                            _this.updateDataCollection(_this, data.d.results);
                             // Append the raw data results
                             _this["d"].results = _this["d"].results.concat(data.d.results);
                             // Validate the data collection

@@ -15,6 +15,18 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
     /** The request type */
     requestType: IRequestType;
     /**
+     * Method to execute the request as a batch.
+     * Currently available in SharePoint Online only.
+     * @param callback - The method to be executed after the request completes.
+     */
+    batch(callback?: (value?: Result, ...args) => any): Type;
+    /**
+     * Method to execute the request as a batch.
+     * Currently available in SharePoint Online only.
+     * @param appendFl - Flag to execute the request as part of a change set.
+     */
+    batch(appendFl?: boolean): Type;
+    /**
      * Method to wait for the requests to complete.
      * @param callback - The method to be executed after the request completes.
      */
