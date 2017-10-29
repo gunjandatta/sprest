@@ -59,10 +59,10 @@ var Batch = /** @class */ (function () {
                 request.push((targetInfo.requestMethod == "GET" ? "GET " : "POST ") + targetInfo.requestUrl + " HTTP/1.1");
                 request.push("Accept: application/json;odata=verbose");
                 request.push("");
-                targetInfo.requestData ? request.push(JSON.stringify(targetInfo.requestData)) : null;
+                targetInfo.requestData ? request.push(targetInfo.requestData) : null;
                 request.push("");
                 // Add the request to the change set
-                changesets.push(request);
+                changesets.push(request.join("\r\n"));
             }
             // End the change set
             changesets.push("--" + changesetId + "--");
@@ -84,7 +84,7 @@ var Batch = /** @class */ (function () {
             batch.push((targetInfo.requestMethod == "GET" ? "GET " : "POST ") + targetInfo.requestUrl + " HTTP/1.1");
             batch.push("Accept: application/json;odata=verbose");
             batch.push("");
-            targetInfo.requestData ? batch.push(JSON.stringify(targetInfo.requestData)) : null;
+            targetInfo.requestData ? batch.push(targetInfo.requestData) : null;
             batch.push("");
         }
         // Return the batch request
