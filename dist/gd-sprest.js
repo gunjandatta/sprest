@@ -1832,6 +1832,8 @@ var Base = /** @class */function () {
                         }
                     }
                 }
+                // Clear the batch requests
+                this.base.batchRequests = null;
             }
         }
     };

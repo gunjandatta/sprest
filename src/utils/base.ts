@@ -707,13 +707,16 @@ export class Base<Type = any, Result = Type, QueryResult = Result> {
                         // Ensure the batch request exists
                         if (batchRequest) {
                             // Set the response object
-                            batchRequest.response = typeof(data) === "string" ? data : obj;
+                            batchRequest.response = typeof (data) === "string" ? data : obj;
 
                             // Execute the callback if it exists
                             batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
                         }
                     }
                 }
+
+                // Clear the batch requests
+                this.base.batchRequests = null;
             }
         }
     }
