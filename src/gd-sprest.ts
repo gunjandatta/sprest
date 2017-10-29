@@ -66,7 +66,7 @@ export {
  * SharePoint REST Library
  */
 const gd_sprest = {
-    __ver: 2.15,
+    __ver: 2.16,
     ContextInfo,
     DefaultRequestToHostFl: false,
     Email,
@@ -76,9 +76,12 @@ const gd_sprest = {
     PeopleManager: (targetInfo?: Types.ITargetInfo) => { return new PeopleManager(targetInfo); },
     PeoplePicker: (targetInfo?: Types.ITargetInfo) => { return new PeoplePicker(targetInfo); },
     ProfileLoader: (targetInfo?: Types.ITargetInfo) => { return new ProfileLoader(targetInfo); },
+    RequestType,
     Search: (url?: string, targetInfo?: Types.ITargetInfo) => { return new Search(url, targetInfo); },
     Site: (url?: string, targetInfo?: Types.ITargetInfo) => { return new Site(url, targetInfo); },
     SocialFeed,
+    SPTypes,
+    Types,
     UserProfile: (targetInfo?: Types.ITargetInfo) => { return new UserProfile(targetInfo); },
     Web: (url?: string, targetInfo?: Types.ITargetInfo) => { return new Web(url, targetInfo); }
 }
