@@ -247,7 +247,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.12,
+    __ver: 2.13,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -5603,7 +5603,7 @@ var Batch = /** @class */function () {
                 request.push("Content-Transfer-Encoding: binary");
                 request.push("");
                 request.push("POST " + targetInfo.requestUrl + " HTTP/1.1");
-                request.push("Accept: application/json;odata=verbose");
+                request.push("Content-Type: application/json;odata=verbose");
                 request.push("");
                 targetInfo.requestData ? request.push(targetInfo.requestData) : null;
                 request.push("");
