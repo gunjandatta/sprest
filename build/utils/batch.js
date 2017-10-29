@@ -43,8 +43,8 @@ var Batch = /** @class */ (function () {
     Batch.createBatch = function (batchId, requests) {
         // Create the batch request
         var batch = ["--" + batchId];
-        // See if this is a "GET" request
-        var requiresChangeset = requests.length > 1 || requests[0] || requests[0].targetInfo.requestMethod != "GET";
+        // Determine if the batch requires a change set
+        var requiresChangeset = requests[0] && requests[0].targetInfo.requestMethod != "GET";
         if (requiresChangeset) {
             var changesets = [];
             var changesetId = "change_" + this.guid();
@@ -57,7 +57,7 @@ var Batch = /** @class */ (function () {
                 request.push("Content-Type: application/http");
                 request.push("Content-Transfer-Encoding: binary");
                 request.push("");
-                request.push((targetInfo.requestMethod == "GET" ? "GET " : "POST ") + targetInfo.requestUrl + " HTTP/1.1");
+                request.push("POST " + targetInfo.requestUrl + " HTTP/1.1");
                 request.push("Accept: application/json;odata=verbose");
                 request.push("");
                 targetInfo.requestData ? request.push(targetInfo.requestData) : null;
@@ -82,7 +82,7 @@ var Batch = /** @class */ (function () {
             batch.push("Content-Type: application/http");
             batch.push("Content-Transfer-Encoding: binary");
             batch.push("");
-            batch.push((targetInfo.requestMethod == "GET" ? "GET " : "POST ") + targetInfo.requestUrl + " HTTP/1.1");
+            batch.push("GET " + targetInfo.requestUrl + " HTTP/1.1");
             batch.push("Accept: application/json;odata=verbose");
             batch.push("");
             targetInfo.requestData ? batch.push(targetInfo.requestData) : null;

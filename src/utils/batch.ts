@@ -47,8 +47,8 @@ export class Batch {
         // Create the batch request
         let batch = ["--" + batchId];
 
-        // See if this is a "GET" request
-        let requiresChangeset = requests.length > 1 || requests[0] || requests[0].targetInfo.requestMethod != "GET";
+        // Determine if the batch requires a change set
+        let requiresChangeset = requests[0] && requests[0].targetInfo.requestMethod != "GET";
         if (requiresChangeset) {
             let changesets = [];
             let changesetId = "change_" + this.guid();
@@ -63,7 +63,7 @@ export class Batch {
                 request.push("Content-Type: application/http");
                 request.push("Content-Transfer-Encoding: binary");
                 request.push("");
-                request.push((targetInfo.requestMethod == "GET" ? "GET " : "POST ") + targetInfo.requestUrl + " HTTP/1.1");
+                request.push("POST " + targetInfo.requestUrl + " HTTP/1.1");
                 request.push("Accept: application/json;odata=verbose");
                 request.push("");
                 targetInfo.requestData ? request.push(targetInfo.requestData) : null;
@@ -94,7 +94,7 @@ export class Batch {
             batch.push("Content-Type: application/http");
             batch.push("Content-Transfer-Encoding: binary");
             batch.push("");
-            batch.push((targetInfo.requestMethod == "GET" ? "GET " : "POST ") + targetInfo.requestUrl + " HTTP/1.1");
+            batch.push("GET " + targetInfo.requestUrl + " HTTP/1.1");
             batch.push("Accept: application/json;odata=verbose");
             batch.push("");
             targetInfo.requestData ? batch.push(targetInfo.requestData) : null;
