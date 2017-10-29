@@ -532,7 +532,7 @@ var Base = /** @class */ (function () {
                     var response = responses[i];
                     response = response === "" && !isBatchRequest ? "{}" : response;
                     try {
-                        data = JSON.parse(response);
+                        data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response);
                     }
                     catch (ex) {
                         continue;
@@ -558,7 +558,7 @@ var Base = /** @class */ (function () {
                     if (isBatchRequest) {
                         // Get the batch request
                         var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
-                        if (batchRequest) {
+                        if (batchRequest == null) {
                             // Update the batch indexes
                             batchIdx++;
                             batchRequestIdx = 0;

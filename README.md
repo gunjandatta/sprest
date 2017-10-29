@@ -154,7 +154,7 @@ The webpart component allows the developer to easialy assign react components to
 * Tabs - Displays all associated webparts within the same zone in tabs.
 
 ### Various Project Examples
-
+_The [gd-sprest-webparts](https://github.com/gunjandatta/sprest-webparts) github project contains the latest code samples._
 * [Add/Remove Site Collection User Custom Actions](https://github.com/gunjandatta/sprest-sitecustomactions)
 * [Calendar Event Callout](https://github.com/gunjandatta/sp-event-callout)
 * [Office Fabric BCS List](https://github.com/gunjandatta/sprest-bcs-list)
@@ -165,4 +165,3 @@ The webpart component allows the developer to easialy assign react components to
 * [SharePoint React/Redux Starter Project](https://github.com/gunjandatta/sp-react-redux)
 * [SharePoint Scripts Starter Project](https://github.com/gunjandatta/sp-scripts)
 * [SharePoint React Components](https://github.com/gunjandatta/sprest-react)
-* [WebPart Examples](https://github.com/gunjandatta/sprest-webparts)
