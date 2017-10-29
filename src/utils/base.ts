@@ -442,8 +442,14 @@ export class Base<Type = any, Result = Type, QueryResult = Result> {
         }
         // Else, ensure the method url exists
         else if (methodInfo.url && methodInfo.url.length > 0) {
-            // Append the method to the endpoint
-            targetInfo.endpoint = (targetInfo.endpoint ? targetInfo.endpoint + "/" : "") + methodInfo.url;
+            // See if the endpoint exists, and the method is not a query string
+            if (targetInfo.endpoint && methodInfo.url && methodInfo.url.indexOf("?") != 0) {
+                // Add a "/" separator to the url
+                targetInfo.endpoint += "/";
+            }
+
+            // Append the url
+            targetInfo.endpoint += methodInfo.url;
         }
 
         // Create a new object
