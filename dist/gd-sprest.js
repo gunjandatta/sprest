@@ -247,7 +247,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.08,
+    __ver: 2.09,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -1633,8 +1633,8 @@ var Base = /** @class */function () {
         var targetInfo = isBatchRequest ? _1.Batch.getTargetInfo(this.base.batchRequests) : new _1.TargetInfo(this.targetInfo);
         // See if this is an asynchronous request
         if (asyncFl) {
-            // See if the request already exists
-            if (this.request) {
+            // See if this not a batch request, and it already exists
+            if (this.request && !isBatchRequest) {
                 // Execute the callback
                 callback ? callback(this) : null;
             } else {
@@ -1789,7 +1789,7 @@ var Base = /** @class */function () {
                     var data = null;
                     // Try to convert the response
                     var response = responses[i];
-                    response = response === "" ? "{}" : response;
+                    response = response === "" && !isBatchRequest ? "{}" : response;
                     try {
                         data = JSON.parse(response);
                     } catch (ex) {
@@ -4171,7 +4171,7 @@ exports.items = {
     // Adds an item to the list item collection.
     add: {
         metadataType: function metadataType(obj) {
-            return obj.Parent && obj.Parent["ListItemEntityTypeFullName"] ? obj.Parent["ListItemEntityTypeFullName"] : "SP.ListItem";
+            return obj["ListItemEntityTypeFullName"] || obj.Parent && obj.Parent["ListItemEntityTypeFullName"] || "SP.ListItem";
         },
         name: "",
         requestType: types_1.RequestType.PostWithArgsInBody
