@@ -449,7 +449,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> {
             }
 
             // Append the url
-            targetInfo.endpoint += methodInfo.url;
+            targetInfo.endpoint = targetInfo.endpoint + methodInfo.url;
         }
 
         // Create a new object

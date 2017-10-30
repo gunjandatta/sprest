@@ -352,7 +352,7 @@ var Base = /** @class */ (function () {
                 targetInfo.endpoint += "/";
             }
             // Append the url
-            targetInfo.endpoint += methodInfo.url;
+            targetInfo.endpoint = targetInfo.endpoint + methodInfo.url;
         }
         // Create a new object
         var obj = new Base(targetInfo);
