@@ -725,7 +725,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> {
                 }
 
                 // Clear the batch requests
-                this.base.batchRequests = null;
+                if (isBatchRequest) { this.base.batchRequests = null; }
             }
         }
     }

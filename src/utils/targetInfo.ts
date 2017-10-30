@@ -115,7 +115,9 @@ export class TargetInfo {
 
     // Method to set the request url
     private setRequestUrl() {
+        let endpoint = this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "";
         let hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
+        let qs = (endpoint.indexOf("?") === -1 ? "?" : "&") + "@target='{{Target}}'";
         let template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
 
         // See if we are defaulting the url for the app web
@@ -137,9 +139,8 @@ export class TargetInfo {
             // See if this is the app web and we are executing against a different web
             if (ContextInfo.isAppWeb && url[0] != ContextInfo.webAbsoluteUrl.toLowerCase()) {
                 // Set the request url
-                this.requestUrl = ContextInfo.webAbsoluteUrl + "/_api/SP.AppContextSite(@target)/" + url[1] +
-                    (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") +
-                    "?@target='" + url[0] + "'";
+                this.requestUrl = ContextInfo.webAbsoluteUrl + "/_api/SP.AppContextSite(@target)/" +
+                    url[1] + endpoint + qs.replace(/{{Target}}/g, url[0]);
             }
             else {
                 // Set the request url
@@ -156,15 +157,11 @@ export class TargetInfo {
 
         // See if this is the app web, and we are executing against a different web
         if (ContextInfo.isAppWeb && this.targetInfo.url != ContextInfo.webAbsoluteUrl) {
-            // Append the start character for the query string
-            let endpoint = this.targetInfo.endpoint +
-                (this.targetInfo.endpoint.indexOf("?") > 0 ? "&" : "?");
-
             // Set the request url
             this.requestUrl = template
                 .replace(/{{Url}}/g, ContextInfo.webAbsoluteUrl)
-                .replace(/{{EndPoint}}/g, "SP.AppContextSite(@target)/" + endpoint)
-                .replace(/{{TargetUrl}}/g, "@target='" + this.targetInfo.url + "'");
+                .replace(/{{EndPoint}}/g, "SP.AppContextSite(@target)" + endpoint)
+                .replace(/{{TargetUrl}}/g, qs.replace(/{{Target}}/g, this.targetInfo.url));
         } else {
             // Set the request url
             this.requestUrl = template

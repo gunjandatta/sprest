@@ -247,7 +247,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.19,
+    __ver: 2.20,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -1843,7 +1843,9 @@ var Base = /** @class */function () {
                     }
                 }
                 // Clear the batch requests
-                this.base.batchRequests = null;
+                if (isBatchRequest) {
+                    this.base.batchRequests = null;
+                }
             }
         }
     };
@@ -6364,7 +6366,9 @@ var TargetInfo = /** @class */function () {
     };
     // Method to set the request url
     TargetInfo.prototype.setRequestUrl = function () {
+        var endpoint = this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "";
         var hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
+        var qs = (endpoint.indexOf("?") === -1 ? "?" : "&") + "@target='{{Target}}'";
         var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
         // See if we are defaulting the url for the app web
         if (lib_1.ContextInfo.existsFl && lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && this.targetInfo.url == null) {
@@ -6381,7 +6385,7 @@ var TargetInfo = /** @class */function () {
             // See if this is the app web and we are executing against a different web
             if (lib_1.ContextInfo.isAppWeb && url[0] != lib_1.ContextInfo.webAbsoluteUrl.toLowerCase()) {
                 // Set the request url
-                this.requestUrl = lib_1.ContextInfo.webAbsoluteUrl + "/_api/SP.AppContextSite(@target)/" + url[1] + (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "") + "?@target='" + url[0] + "'";
+                this.requestUrl = lib_1.ContextInfo.webAbsoluteUrl + "/_api/SP.AppContextSite(@target)/" + url[1] + endpoint + qs.replace(/{{Target}}/g, url[0]);
             } else {
                 // Set the request url
                 this.requestUrl = this.targetInfo.url + (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "");
@@ -6395,10 +6399,8 @@ var TargetInfo = /** @class */function () {
         }
         // See if this is the app web, and we are executing against a different web
         if (lib_1.ContextInfo.isAppWeb && this.targetInfo.url != lib_1.ContextInfo.webAbsoluteUrl) {
-            // Append the start character for the query string
-            var endpoint = this.targetInfo.endpoint + (this.targetInfo.endpoint.indexOf("?") > 0 ? "&" : "?");
             // Set the request url
-            this.requestUrl = template.replace(/{{Url}}/g, lib_1.ContextInfo.webAbsoluteUrl).replace(/{{EndPoint}}/g, "SP.AppContextSite(@target)/" + endpoint).replace(/{{TargetUrl}}/g, "@target='" + this.targetInfo.url + "'");
+            this.requestUrl = template.replace(/{{Url}}/g, lib_1.ContextInfo.webAbsoluteUrl).replace(/{{EndPoint}}/g, "SP.AppContextSite(@target)" + endpoint).replace(/{{TargetUrl}}/g, qs.replace(/{{Target}}/g, this.targetInfo.url));
         } else {
             // Set the request url
             this.requestUrl = template.replace(/{{Url}}/g, this.targetInfo.url).replace(/{{EndPoint}}/g, this.targetInfo.endpoint).replace(/{{TargetUrl}}/g, "");
