@@ -1,5 +1,6 @@
 var path = require("path");
 var webpack = require("webpack");
+var UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = function(env) {
     // Is production
@@ -51,7 +52,7 @@ module.exports = function(env) {
         // Plugins
         cfg.plugins = [
             // Minify the output
-            new webpack.optimize.UglifyJsPlugin({ compress: true })
+            new UglifyJsPlugin()
         ]
     }
 

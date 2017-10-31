@@ -1,4 +1,4 @@
-import { IMethodInfo, IRequestInfo, ITargetInfo } from "../definitions";
+import { IBase, IMethodInfo, IRequestInfo, ITargetInfo } from "../definitions";
 import { XHRRequest } from ".";
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
@@ -19,7 +19,7 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> {
     execute(...args: any[]): this;
     executeAndWait(): this;
     getInfo(): IRequestInfo;
-    then(resolve: any, reject: any): PromiseLike<Base>;
+    then(resolve: any, reject: any): PromiseLike<IBase>;
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
     private base;
