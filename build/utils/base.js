@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var es6_promise_1 = require("es6-promise");
 var lib_1 = require("../lib");
 var mapper_1 = require("../mapper");
 var types_1 = require("../types");
@@ -169,7 +168,7 @@ var Base = /** @class */ (function () {
     Base.prototype.then = function (resolve, reject) {
         var _this = this;
         // Return a promise
-        return new es6_promise_1.Promise(function () {
+        return new _1.Promise(function () {
             // Execute this request
             _this.execute(function (request) {
                 // Ensure the request was successful

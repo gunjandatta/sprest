@@ -38,6 +38,13 @@ var Promise = /** @class */ (function () {
         // Execute the callback
         this.executeMethod();
     };
+    // Method to execute after the promise completes
+    Promise.prototype.then = function (onfulfilled, onrejected) {
+        // Execute the done method
+        this.done(onfulfilled);
+        // Return this promise
+        return this;
+    };
     /*********************************************************************************************************************************/
     // Private Methods
     /*********************************************************************************************************************************/

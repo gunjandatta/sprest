@@ -1,5 +1,4 @@
-import { Promise as P } from "es6-promise";
-import { IMethodInfo, IRequestInfo, ITargetInfo } from "../definitions";
+import { IBase, IMethodInfo, IRequestInfo, ITargetInfo } from "../definitions";
 import { ContextInfo } from "../lib";
 import { Mapper } from "../mapper";
 import { RequestType } from "../types";
@@ -200,9 +199,9 @@ export class Base<Type = any, Result = Type, QueryResult = Result> {
     getInfo(): IRequestInfo { return (new TargetInfo(this.targetInfo)).requestInfo; }
 
     // Method to execute the request asynchronously
-    then(resolve, reject): PromiseLike<Base> {
+    then(resolve, reject): PromiseLike<IBase> {
         // Return a promise
-        return new P(() => {
+        return new Promise(() => {
             // Execute this request
             this.execute((request: Base) => {
                 // Ensure the request was successful
