@@ -417,7 +417,6 @@ export interface FieldUserValue {
     Department: string;
     Email: string;
     FirstName: string;
-    Id: number;
     ID: number;
     ImnName: string;
     JobTitle: string;
