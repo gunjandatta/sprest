@@ -371,25 +371,24 @@ export interface FieldUserValue {
     __metadata?: {
         type: string;
     };
-    ContentTypeDisp: string;
-    Created: string;
-    Department: string;
-    Email: string;
-    FirstName: string;
-    Id: number;
-    ID: number;
-    ImnName: string;
-    JobTitle: string;
-    LastName: string;
-    MobilePhone: string;
-    Modified: string;
-    NameWithPicture: string;
-    NameWithPictureAndDetails: string;
-    Office: string;
-    SipAddress: string;
-    Title: string;
-    UserName: string;
-    WorkPhone: string;
+    ContentTypeDisp?: string;
+    Created?: string;
+    Department?: string;
+    Email?: string;
+    FirstName?: string;
+    ID?: number;
+    ImnName?: string;
+    JobTitle?: string;
+    LastName?: string;
+    MobilePhone?: string;
+    Modified?: string;
+    NameWithPicture?: string;
+    NameWithPictureAndDetails?: string;
+    Office?: string;
+    SipAddress?: string;
+    Title?: string;
+    UserName?: string;
+    WorkPhone?: string;
 }
 /**
  * File Collection Add Parameters
