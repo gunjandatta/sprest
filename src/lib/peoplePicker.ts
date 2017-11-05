@@ -15,7 +15,8 @@ class _PeoplePicker extends Base {
         // Default the properties
         this.defaultToWebFl = true;
         this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
-
+        this.targetInfo.overrideDefaultRequestToHostFl = true;
+        
         // Add the methods
         this.addMethods(this, { __metadata: { type: "peoplepicker" } });
     }

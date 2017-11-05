@@ -106,7 +106,7 @@ var TargetInfo = /** @class */ (function () {
         var qs = (endpoint.indexOf("?") === -1 ? "?" : "&") + "@target='{{Target}}'";
         var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
         // See if we are defaulting the url for the app web
-        if (lib_1.ContextInfo.existsFl && lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && this.targetInfo.url == null) {
+        if (lib_1.ContextInfo.existsFl && lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && !this.targetInfo.overrideDefaultRequestToHostFl && this.targetInfo.url == null) {
             // Default the url to the host web
             this.targetInfo.url = hostUrl;
         }

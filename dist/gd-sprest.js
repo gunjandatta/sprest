@@ -247,7 +247,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 var gd_sprest = {
-    __ver: 2.22,
+    __ver: 2.24,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -4990,7 +4990,7 @@ var TargetInfo = /** @class */function () {
         var qs = (endpoint.indexOf("?") === -1 ? "?" : "&") + "@target='{{Target}}'";
         var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
         // See if we are defaulting the url for the app web
-        if (lib_1.ContextInfo.existsFl && lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && this.targetInfo.url == null) {
+        if (lib_1.ContextInfo.existsFl && lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && !this.targetInfo.overrideDefaultRequestToHostFl && this.targetInfo.url == null) {
             // Default the url to the host web
             this.targetInfo.url = hostUrl;
         }
@@ -7370,6 +7370,7 @@ var _PeoplePicker = /** @class */function (_super) {
         // Default the properties
         _this.defaultToWebFl = true;
         _this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
+        _this.targetInfo.overrideDefaultRequestToHostFl = true;
         // Add the methods
         _this.addMethods(_this, { __metadata: { type: "peoplepicker" } });
         return _this;

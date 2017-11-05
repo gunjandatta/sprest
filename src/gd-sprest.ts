@@ -66,7 +66,7 @@ export {
  * SharePoint REST Library
  */
 const gd_sprest = {
-    __ver: 2.22,
+    __ver: 2.24,
     ContextInfo,
     DefaultRequestToHostFl: false,
     Email,

@@ -34,6 +34,9 @@ export interface ITargetInfo {
     /** The method to execute. */
     method?: string;
 
+    /** True to override the default request to host flag. */
+    overrideDefaultRequestToHostFl?: boolean;
+
     /** The request digest to use for the request. */
     requestDigest?: string;
 

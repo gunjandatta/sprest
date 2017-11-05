@@ -417,7 +417,7 @@ export interface FieldUserValue {
     Department?: string;
     Email?: string;
     FirstName?: string;
-    ID: number;
+    ID?: number;
     ImnName?: string;
     JobTitle?: string;
     LastName?: string;
@@ -427,8 +427,8 @@ export interface FieldUserValue {
     NameWithPictureAndDetails?: string;
     Office?: string;
     SipAddress?: string;
-    Title: string;
-    UserName: string;
+    Title?: string;
+    UserName?: string;
     WorkPhone?: string;
 }
 

@@ -26,6 +26,7 @@ var _PeoplePicker = /** @class */ (function (_super) {
         // Default the properties
         _this.defaultToWebFl = true;
         _this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
+        _this.targetInfo.overrideDefaultRequestToHostFl = true;
         // Add the methods
         _this.addMethods(_this, { __metadata: { type: "peoplepicker" } });
         return _this;
