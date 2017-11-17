@@ -42,7 +42,7 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> {
     protected getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
     protected getNextSetOfResults(): Base<any, any, any>;
     private updateDataCollection(obj, results);
-    protected updateDataObject(isBatchRequest: boolean): void;
+    protected updateDataObject(isBatchRequest: boolean): any;
     private updateMetadata(obj, data);
     private updateMetadataUri(metadata, targetInfo);
     private validateDataCollectionResults(request, promise?);

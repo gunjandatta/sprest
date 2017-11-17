@@ -657,75 +657,73 @@ export class Base<Type = any, Result = Type, QueryResult = Result> {
         if (this.request.request.status >= 200 && this.request.request.status < 300) {
             // Return if we are expecting a buffer
             if (this.requestType == RequestType.GetBuffer) {
-                // Set the exists flag
-                this["existsFl"] = this.request.response != null;
+                // Return the response
+                return this.response;
             }
-            else {
-                let batchIdx = 0;
-                let batchRequestIdx = 0;
-                let responses = isBatchRequest ? this.request.response.split("\n") : [this.request.response];
 
-                // Parse the responses
-                for (let i = 0; i < responses.length; i++) {
-                    let data = null;
+            // Parse the responses
+            let batchIdx = 0;
+            let batchRequestIdx = 0;
+            let responses = isBatchRequest ? this.request.response.split("\n") : [this.request.response];
+            for (let i = 0; i < responses.length; i++) {
+                let data = null;
 
-                    // Try to convert the response
-                    let response = responses[i];
-                    response = response === "" && !isBatchRequest ? "{}" : response;
-                    try { data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response); }
-                    catch (ex) { continue; }
+                // Try to convert the response
+                let response = responses[i];
+                response = response === "" && !isBatchRequest ? "{}" : response;
+                try { data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response); }
+                catch (ex) { continue; }
 
-                    // Set the object based on the request type
-                    let obj = isBatchRequest ? Object.create(this) : this;
+                // Set the object based on the request type
+                let obj = isBatchRequest ? Object.create(this) : this;
 
-                    // Set the exists flag
-                    obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
+                // Set the exists flag
+                obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
 
-                    // See if the data properties exists
-                    if (data.d) {
-                        // Save a reference to it
-                        obj["d"] = data.d;
+                // See if the data properties exists
+                if (data.d) {
+                    // Save a reference to it
+                    obj["d"] = data.d;
 
-                        // Update the metadata
-                        obj.updateMetadata(obj, data.d);
+                    // Update the metadata
+                    obj.updateMetadata(obj, data.d);
 
-                        // Update this object's properties
-                        obj.addProperties(obj, data.d);
+                    // Update this object's properties
+                    obj.addProperties(obj, data.d);
 
-                        // Add the methods
-                        obj.addMethods(obj, data.d);
+                    // Add the methods
+                    obj.addMethods(obj, data.d);
 
-                        // Update the data collection
-                        obj.updateDataCollection(obj, data.d.results);
-                    }
-
-                    // See if the batch request exists
-                    if (isBatchRequest) {
-                        // Get the batch request
-                        let batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
-                        if (batchRequest == null) {
-                            // Update the batch indexes
-                            batchIdx++;
-                            batchRequestIdx = 0;
-
-                            // Update the batch request
-                            batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
-                        }
-
-                        // Ensure the batch request exists
-                        if (batchRequest) {
-                            // Set the response object
-                            batchRequest.response = typeof (data) === "string" ? data : obj;
-
-                            // Execute the callback if it exists
-                            batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
-                        }
-                    }
+                    // Update the data collection
+                    obj.updateDataCollection(obj, data.d.results);
                 }
 
-                // Clear the batch requests
-                if (isBatchRequest) { this.base.batchRequests = null; }
+                // See if the batch request exists
+                if (isBatchRequest) {
+                    // Get the batch request
+                    let batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                    if (batchRequest == null) {
+                        // Update the batch indexes
+                        batchIdx++;
+                        batchRequestIdx = 0;
+
+                        // Update the batch request
+                        batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                    }
+
+                    // Ensure the batch request exists
+                    if (batchRequest) {
+                        // Set the response object
+                        batchRequest.response = typeof (data) === "string" ? data : obj;
+
+                        // Execute the callback if it exists
+                        batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
+                    }
+                }
             }
+
+            // Clear the batch requests
+            if (isBatchRequest) { this.base.batchRequests = null; }
         }
     }
 

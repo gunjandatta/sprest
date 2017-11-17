@@ -99,7 +99,7 @@ export interface IFileMethods {
     /**
      * Opens the file as a stream.
      */
-    openBinaryStream(): IBase<{ response: any }>;
+    openBinaryStream(): IBase;
 
     /**
      * Submits the file for content approval with the specified comment.

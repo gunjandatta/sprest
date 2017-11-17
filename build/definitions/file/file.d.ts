@@ -76,9 +76,7 @@ export interface IFileMethods {
     /**
      * Opens the file as a stream.
      */
-    openBinaryStream(): IBase<{
-        response: any;
-    }>;
+    openBinaryStream(): IBase;
     /**
      * Submits the file for content approval with the specified comment.
      * @param comment - The comment for the published file. It's length must be <= 1023.
