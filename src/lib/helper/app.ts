@@ -83,7 +83,7 @@ export const AppHelper = {
                     ContextInfo.window.$REST.DefaultRequestToHostFl = true;
 
                     // Add the file to the folder
-                    (dstFolder).Files().add(true, fileName, content.response)
+                    (dstFolder).Files().add(true, fileName, content)
                         // Execute the request
                         .execute((file) => {
                             // Save a reference to this file

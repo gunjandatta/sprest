@@ -68,7 +68,7 @@ exports.AppHelper = {
                 // Target the host web
                 __1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
                 // Add the file to the folder
-                (dstFolder).Files().add(true, fileName, content.response)
+                (dstFolder).Files().add(true, fileName, content)
                     .execute(function (file) {
                     // Save a reference to this file
                     srcFile = file;
