@@ -99,7 +99,7 @@ export interface IFileMethods {
     /**
      * Opens the file as a stream.
      */
-    openBinaryStream(): IBase;
+    openBinaryStream(): IBase<{ response: any }>;
 
     /**
      * Submits the file for content approval with the specified comment.
@@ -305,9 +305,9 @@ export interface IFileQueryResult extends IFileMethods, IFileProps {
 /**
  * File Result
  */
-export interface IFileResult extends IFileMethods, IFileProps, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> {}
+export interface IFileResult extends IFileMethods, IFileProps, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> { }
 
 /**
  * File
  */
-export interface IFile extends IFileMethods, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> {}
+export interface IFile extends IFileMethods, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> { }
