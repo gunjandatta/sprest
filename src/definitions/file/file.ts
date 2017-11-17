@@ -305,9 +305,9 @@ export interface IFileQueryResult extends IFileMethods, IFileProps {
 /**
  * File Result
  */
-export interface IFileResult extends IFileMethods, IFileProps, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> {}
+export interface IFileResult extends IFileMethods, IFileProps, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> { }
 
 /**
  * File
  */
-export interface IFile extends IFileMethods, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> {}
+export interface IFile extends IFileMethods, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> { }

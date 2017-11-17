@@ -1,10 +1,19 @@
+var dts = require("dts-bundle");
 var path = require("path");
 var webpack = require("webpack");
-var UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+// Set the export
+module.exports = env => {
+    let isProd = env && env.production;
 
-module.exports = function(env) {
-    // Is production
-    var isProduction = env && env.isProd ? true : false;
+    // See if this is the production environment
+    if(isProd) {
+        // Bundle the header file
+        dts.bundle({
+            name: "gd-sprest",
+            main: "build/gd-sprest.d.ts",
+            out: "../dist/gd-sprest.d.ts"
+        });
+    }
 
     // Create the configuration
     let cfg = {
@@ -17,7 +26,7 @@ module.exports = function(env) {
         // Output
         output: {
             // Filename
-            filename: isProduction ? "gd-sprest.min.js" : "gd-sprest.js",
+            filename: isProd ? "gd-sprest.min.js" : "gd-sprest.js",
             // Folder
             path: path.join(__dirname, "dist")
         },
@@ -46,15 +55,6 @@ module.exports = function(env) {
             ]
         }
     };
-
-    // See if this is production
-    if(isProduction) {
-        // Plugins
-        cfg.plugins = [
-            // Minify the output
-            new UglifyJsPlugin()
-        ]
-    }
 
     // Return the configuration
     return cfg;

@@ -1787,64 +1787,63 @@ var Base = /** @class */function () {
         if (this.request.request.status >= 200 && this.request.request.status < 300) {
             // Return if we are expecting a buffer
             if (this.requestType == types_1.RequestType.GetBuffer) {
+                // Return the response
+                return this.response;
+            }
+            // Parse the responses
+            var batchIdx = 0;
+            var batchRequestIdx = 0;
+            var responses = isBatchRequest ? this.request.response.split("\n") : [this.request.response];
+            for (var i = 0; i < responses.length; i++) {
+                var data = null;
+                // Try to convert the response
+                var response = responses[i];
+                response = response === "" && !isBatchRequest ? "{}" : response;
+                try {
+                    data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response);
+                } catch (ex) {
+                    continue;
+                }
+                // Set the object based on the request type
+                var obj = isBatchRequest ? Object.create(this) : this;
                 // Set the exists flag
-                this["existsFl"] = this.request.response != null;
-            } else {
-                var batchIdx = 0;
-                var batchRequestIdx = 0;
-                var responses = isBatchRequest ? this.request.response.split("\n") : [this.request.response];
-                // Parse the responses
-                for (var i = 0; i < responses.length; i++) {
-                    var data = null;
-                    // Try to convert the response
-                    var response = responses[i];
-                    response = response === "" && !isBatchRequest ? "{}" : response;
-                    try {
-                        data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response);
-                    } catch (ex) {
-                        continue;
-                    }
-                    // Set the object based on the request type
-                    var obj = isBatchRequest ? Object.create(this) : this;
-                    // Set the exists flag
-                    obj["existsFl"] = typeof obj["Exists"] === "boolean" ? obj["Exists"] : data.error == null;
-                    // See if the data properties exists
-                    if (data.d) {
-                        // Save a reference to it
-                        obj["d"] = data.d;
-                        // Update the metadata
-                        obj.updateMetadata(obj, data.d);
-                        // Update this object's properties
-                        obj.addProperties(obj, data.d);
-                        // Add the methods
-                        obj.addMethods(obj, data.d);
-                        // Update the data collection
-                        obj.updateDataCollection(obj, data.d.results);
-                    }
-                    // See if the batch request exists
-                    if (isBatchRequest) {
-                        // Get the batch request
-                        var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
-                        if (batchRequest == null) {
-                            // Update the batch indexes
-                            batchIdx++;
-                            batchRequestIdx = 0;
-                            // Update the batch request
-                            batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
-                        }
-                        // Ensure the batch request exists
-                        if (batchRequest) {
-                            // Set the response object
-                            batchRequest.response = typeof data === "string" ? data : obj;
-                            // Execute the callback if it exists
-                            batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
-                        }
-                    }
+                obj["existsFl"] = typeof obj["Exists"] === "boolean" ? obj["Exists"] : data.error == null;
+                // See if the data properties exists
+                if (data.d) {
+                    // Save a reference to it
+                    obj["d"] = data.d;
+                    // Update the metadata
+                    obj.updateMetadata(obj, data.d);
+                    // Update this object's properties
+                    obj.addProperties(obj, data.d);
+                    // Add the methods
+                    obj.addMethods(obj, data.d);
+                    // Update the data collection
+                    obj.updateDataCollection(obj, data.d.results);
                 }
-                // Clear the batch requests
+                // See if the batch request exists
                 if (isBatchRequest) {
-                    this.base.batchRequests = null;
+                    // Get the batch request
+                    var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                    if (batchRequest == null) {
+                        // Update the batch indexes
+                        batchIdx++;
+                        batchRequestIdx = 0;
+                        // Update the batch request
+                        batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                    }
+                    // Ensure the batch request exists
+                    if (batchRequest) {
+                        // Set the response object
+                        batchRequest.response = typeof data === "string" ? data : obj;
+                        // Execute the callback if it exists
+                        batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
+                    }
                 }
+            }
+            // Clear the batch requests
+            if (isBatchRequest) {
+                this.base.batchRequests = null;
             }
         }
     };
@@ -5373,7 +5372,7 @@ exports.AppHelper = {
                 // Target the host web
                 __1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
                 // Add the file to the folder
-                dstFolder.Files().add(true, fileName, content.response).execute(function (file) {
+                dstFolder.Files().add(true, fileName, content).execute(function (file) {
                     // Save a reference to this file
                     srcFile = file;
                     // Check in the file
