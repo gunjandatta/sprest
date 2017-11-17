@@ -33,7 +33,7 @@
   },
   "scripts": {
     "build": "tsc && webpack",
-    "package": "tsc && webpack -p --env.isProd",
+    "package": "tsc && webpack && webpack -p --env.isProd",
     "prod": "tsc && webpack -p --env.isProd"
   },
   "dependencies": {}
