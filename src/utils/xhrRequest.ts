@@ -1,8 +1,8 @@
-import { ContextInfo } from "../lib/index";
+import { ContextInfo } from "../lib";
 import {
     Promise,
     TargetInfo
-} from "./index";
+} from ".";
 /*********************************************************************************************************************************/
 // Request
 // This class will execute the xml http request.

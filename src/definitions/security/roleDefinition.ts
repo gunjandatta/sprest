@@ -2,7 +2,7 @@ import {
     IBase,
     IBasePermissions,
     SPTypes
-} from "../index"
+} from "..";
 
 /**
  * Role Definition Methods

@@ -1,4 +1,4 @@
-import { TargetInfo } from "./index";
+import { TargetInfo } from ".";
 
 /**
  * Batch Requests

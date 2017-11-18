@@ -1,6 +1,6 @@
 import {
     IBase
-} from "../index"
+} from "..";
 
 /**
  * View Fields

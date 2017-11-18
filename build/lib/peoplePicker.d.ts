@@ -1,2 +1,2 @@
-import { IPeoplePicker } from "../definitions/index";
+import { IPeoplePicker } from "../definitions";
 export declare const PeoplePicker: IPeoplePicker;

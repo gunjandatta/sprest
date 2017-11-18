@@ -1,5 +1,5 @@
-import { IPeoplePicker } from "../definitions/index";
-import { Base } from "../utils/index";
+import { IPeoplePicker } from "../definitions";
+import { Base } from "../utils";
 
 /*********************************************************************************************************************************/
 // People Picker

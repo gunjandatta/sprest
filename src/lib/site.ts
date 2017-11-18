@@ -1,6 +1,6 @@
-import { ISite } from "../definitions/index";
-import { Base } from "../utils/index";
-import { Web } from "./index";
+import { ISite } from "../definitions";
+import { Base } from "../utils";
+import { Web } from ".";
 
 /*********************************************************************************************************************************/
 // Site

@@ -1,2 +1,2 @@
-import { ISocialFeed } from "../definitions/index";
+import { ISocialFeed } from "../definitions";
 export declare const SocialFeed: ISocialFeed;

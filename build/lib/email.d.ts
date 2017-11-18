@@ -1,2 +1,2 @@
-import { IEmail } from "../definitions/index";
+import { IEmail } from "../definitions";
 export declare const Email: IEmail;

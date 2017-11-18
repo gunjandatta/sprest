@@ -1,4 +1,4 @@
-import { IContextInformation, IEmail, IHelper, IList, IPeopleManager, IPeoplePicker, IProfileLoader, ISearch, ISite, ISocialFeed, ITargetInfo, IUserProfile, IWeb } from "../index";
+import { IContextInformation, IEmail, IHelper, IList, IPeopleManager, IPeoplePicker, IProfileLoader, ISearch, ISite, ISocialFeed, ITargetInfo, IUserProfile, IWeb } from "..";
 /**
  * SharePoint REST Library
  */

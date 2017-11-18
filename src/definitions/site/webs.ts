@@ -1,7 +1,7 @@
 import {
     IBase, IBaseCollection,
     IWeb, IWebCreationInformation, IWebQueryResult, IWebResult
-} from "../index"
+} from "..";
 
 /**
  * Methods

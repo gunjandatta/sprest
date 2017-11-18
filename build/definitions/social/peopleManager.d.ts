@@ -1,4 +1,4 @@
-import { IBase, IPersonProperties, ITargetInfo } from "../index";
+import { IBase, IPersonProperties, ITargetInfo } from "..";
 /**
  * People Manager
  */

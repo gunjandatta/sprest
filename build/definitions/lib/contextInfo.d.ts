@@ -1,4 +1,4 @@
-import { IBase, IBasePermissions, IContextWebInfo } from "./index";
+import { IBase, IBasePermissions, IContextWebInfo } from ".";
 /**
  * Context Information
  */

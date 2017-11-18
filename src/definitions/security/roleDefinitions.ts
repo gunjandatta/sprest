@@ -2,7 +2,7 @@ import {
     IBase, IBaseCollection,
     IRoleDefinition, IRoleDefinitionQueryResult, IRoleDefinitionResult,
     SPTypes
-} from "../index"
+} from "..";
 
 /**
  * Methods

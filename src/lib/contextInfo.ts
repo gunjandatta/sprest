@@ -1,5 +1,5 @@
-import { IContextInformation, IContextWebInfo } from "../definitions/index";
-import { Base } from "../utils/index";
+import { IContextInformation, IContextWebInfo } from "../definitions";
+import { Base } from "../utils";
 
 /*********************************************************************************************************************************/
 // Context Information

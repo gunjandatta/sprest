@@ -24,7 +24,7 @@ import {
     IUserCustomAction, IUserCustomActionResults, IUserCustomActions,
     IWebInfo, IWebResult, IWebResults, IWebs,
     IWorkflowTemplate
-} from "../index"
+} from "..";
 
 /**
  * Web Methods

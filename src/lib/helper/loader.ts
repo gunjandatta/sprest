@@ -1,4 +1,4 @@
-import { ContextInfo } from "../index"
+import { ContextInfo } from "..";
 
 /**
  * Loader

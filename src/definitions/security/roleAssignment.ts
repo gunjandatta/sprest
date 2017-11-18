@@ -4,7 +4,7 @@ import {
     IResults,
     IRoleDefinition, IRoleDefinitions,
     IUser
-} from "../index"
+} from "..";
 
 /**
  * Role Assignment Methods

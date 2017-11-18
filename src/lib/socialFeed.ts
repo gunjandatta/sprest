@@ -1,6 +1,6 @@
-import { ISocialFeed } from "../definitions/index";
-import { RequestType } from "../types/index";
-import { Base } from "../utils/index";
+import { ISocialFeed } from "../definitions";
+import { RequestType } from "../types";
+import { Base } from "../utils";
 
 /*********************************************************************************************************************************/
 // Social Feed

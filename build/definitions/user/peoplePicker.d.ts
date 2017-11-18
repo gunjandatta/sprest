@@ -1,4 +1,4 @@
-import { IBase, IPeoplePickerQuery, IPeoplePickerResolveUser, IPeoplePickerSearchUser, ITargetInfo } from "../index";
+import { IBase, IPeoplePickerQuery, IPeoplePickerResolveUser, IPeoplePickerSearchUser, ITargetInfo } from "..";
 /**
  * People Picker
  */

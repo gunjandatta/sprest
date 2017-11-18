@@ -4,7 +4,7 @@ import {
     IResults,
     ISiteGroupResults, ISiteGroups,
     IUser
-} from "../index"
+} from "..";
 
 /**
  * User Methods

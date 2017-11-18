@@ -1,5 +1,5 @@
-import { IWeb } from "../definitions/index";
-import { Base } from "../utils/index";
+import { IWeb } from "../definitions";
+import { Base } from "../utils";
 
 /*********************************************************************************************************************************/
 // Web

@@ -1,4 +1,4 @@
-import {IHelper} from "../../definitions/index";
+import {IHelper} from "../../definitions";
 import {AppHelper} from "./app";
 import {JSLinkHelper} from "./jslink";
 import {Loader} from "./loader";

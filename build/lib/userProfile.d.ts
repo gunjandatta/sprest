@@ -1,2 +1,2 @@
-import { IUserProfile } from "../definitions/index";
+import { IUserProfile } from "../definitions";
 export declare const UserProfile: IUserProfile;

@@ -1,4 +1,4 @@
-import { IBase, IFieldResult, IFields, IFieldLink, IFieldLinks, IListResult, IResourcePath, IResults, IStringValue, IWebResult } from "../index";
+import { IBase, IFieldResult, IFields, IFieldLink, IFieldLinks, IListResult, IResourcePath, IResults, IStringValue, IWebResult } from "..";
 /**
  * Content Type Methods
  */

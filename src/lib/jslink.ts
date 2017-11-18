@@ -1,6 +1,6 @@
-import { IJSLink, ITemplates } from "../definitions/index";
-import { SPTypes } from "../types/index";
-import { ContextInfo } from "./index";
+import { IJSLink, ITemplates } from "../definitions";
+import { SPTypes } from "../types";
+import { ContextInfo } from ".";
 
 /**
  * JS Link

@@ -1,5 +1,5 @@
-import { IUserProfile } from "../definitions/index";
-import { Base } from "../utils/index";
+import { IUserProfile } from "../definitions";
+import { Base } from "../utils";
 
 /*********************************************************************************************************************************/
 // User Profile

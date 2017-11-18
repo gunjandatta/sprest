@@ -1,2 +1,2 @@
-import { ISearch } from "../definitions/index";
+import { ISearch } from "../definitions";
 export declare const Search: ISearch;

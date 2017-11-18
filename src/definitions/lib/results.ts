@@ -1,4 +1,4 @@
-import {ComplexTypes} from "../index"
+import {ComplexTypes} from "..";
 /**
  * App License
  */

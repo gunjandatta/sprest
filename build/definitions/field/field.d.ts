@@ -1,4 +1,4 @@
-import { IBase, IResourcePath, SPTypes } from "../index";
+import { IBase, IResourcePath, SPTypes } from "..";
 /**
  * Field Methods
  */

@@ -2,7 +2,7 @@ import {
     IBase,
     IResults,
     IUser, IUserResult, IUserResults, IUsers
-} from "../index"
+} from "..";
 
 /**
  * Group Methods

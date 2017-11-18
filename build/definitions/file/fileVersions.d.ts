@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection, IFileVersion, IFileVersionQueryResult, IFileVersionResult } from "../index";
+import { IBase, IBaseCollection, IFileVersion, IFileVersionQueryResult, IFileVersionResult } from "..";
 /**
  * File Versions
  */

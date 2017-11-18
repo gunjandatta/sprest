@@ -1,7 +1,7 @@
 import {
     ComplexTypes,
     IBase
-} from "../index"
+} from "..";
 /**
  * Social Feed
  */

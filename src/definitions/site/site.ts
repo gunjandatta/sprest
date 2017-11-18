@@ -12,7 +12,7 @@ import {
     IUser, IUserResult,
     IUserCustomAction, IUserCustomActionResults, IUserCustomActions,
     IWeb, IWebQueryResult, IWebResult
-} from "../index"
+} from "..";
 
 /**
  * Site Methods

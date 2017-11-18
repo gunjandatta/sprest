@@ -2,7 +2,7 @@ import {
     IBase,
     ITargetInfo,
     IUserProfile
-} from "../index"
+} from "..";
 /**
  * Profile Loader
  */

@@ -1,7 +1,7 @@
 import {
     IUser,
     SPTypes
-} from "../index"
+} from "..";
 
 /**
  * App Tiles

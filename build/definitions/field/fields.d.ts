@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection, IField, IFieldCreationInformation, IFieldQueryResult, IFieldResult } from "../index";
+import { IBase, IBaseCollection, IField, IFieldCreationInformation, IFieldQueryResult, IFieldResult } from "..";
 /**
  * Methods
  */

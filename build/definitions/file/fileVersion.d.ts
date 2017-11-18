@@ -1,4 +1,4 @@
-import { IBase, IUser, IUserResult } from "../index";
+import { IBase, IUser, IUserResult } from "..";
 /**
  * File Version Methods
  */

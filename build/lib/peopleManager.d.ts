@@ -1,2 +1,2 @@
-import { IPeopleManager } from "../definitions/index";
+import { IPeopleManager } from "../definitions";
 export declare const PeopleManager: IPeopleManager;

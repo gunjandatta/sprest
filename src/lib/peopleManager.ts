@@ -1,5 +1,5 @@
-import { IPeopleManager } from "../definitions/index";
-import { Base } from "../utils/index";
+import { IPeopleManager } from "../definitions";
+import { Base } from "../utils";
 
 /*********************************************************************************************************************************/
 // People Manager

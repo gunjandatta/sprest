@@ -1,7 +1,7 @@
 import {
     IAttachment,
     IBase, IBaseCollection
-} from "../index"
+} from "..";
 
 /**
  * Methods

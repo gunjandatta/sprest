@@ -1,4 +1,4 @@
-import { IContentTypeResult, IContentTypeCreationInformation, IFieldResult, IFileResult, IFolderResult, IListQueryResult, IListResult, IListCreationInformation, IPromise, IUserCustomActionCreationInformation, IView, IViewResult, IWebResult } from "../index";
+import { IContentTypeResult, IContentTypeCreationInformation, IFieldResult, IFileResult, IFolderResult, IListQueryResult, IListResult, IListCreationInformation, IPromise, IUserCustomActionCreationInformation, IView, IViewResult, IWebResult } from "..";
 /**
  * App Helper Methods
  */

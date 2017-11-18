@@ -1,2 +1,2 @@
-import { IProfileLoader } from "../definitions/index";
+import { IProfileLoader } from "../definitions";
 export declare const ProfileLoader: IProfileLoader;

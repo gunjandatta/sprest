@@ -7,7 +7,7 @@ import {
     IResults,
     IStringValue,
     IWeb, IWebResult
-} from "../index"
+} from "..";
 
 /**
  * Content Type Methods

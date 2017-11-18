@@ -1,4 +1,4 @@
-import { IBase, IBasePermissions, IUserCustomActionMethods, SPTypes } from "../index";
+import { IBase, IBasePermissions, IUserCustomActionMethods, SPTypes } from "..";
 /**
  * User Custom Action Methods
  */

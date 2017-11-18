@@ -1,4 +1,4 @@
-import { ComplexTypes, IBase } from "../index";
+import { ComplexTypes, IBase } from "..";
 /**
  * Email Properties
  */

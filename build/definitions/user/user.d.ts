@@ -1,4 +1,4 @@
-import { IBase, IGroup, ISiteGroupResults, ISiteGroups, IUser } from "../index";
+import { IBase, IGroup, ISiteGroupResults, ISiteGroups, IUser } from "..";
 /**
  * User Methods
  */

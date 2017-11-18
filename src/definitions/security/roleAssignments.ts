@@ -1,7 +1,7 @@
 import {
     IBase, IBaseCollection,
     IRoleAssignment, IRoleAssignmentQueryResult, IRoleAssignmentResult
-} from "../index"
+} from "..";
 
 /**
  * Methods

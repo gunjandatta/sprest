@@ -26,8 +26,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-import * as Types from "./definitions/index";
-import { RequestType, SPTypes } from "./types/index";
+import * as Types from "./definitions";
+import { RequestType, SPTypes } from "./types";
 import {
     ContextInfo,
     Email,
@@ -42,7 +42,7 @@ import {
     SocialFeed,
     UserProfile,
     Web
-} from "./lib/index";
+} from "./lib";
 export {
     ContextInfo,
     Email,

@@ -1,14 +1,14 @@
-import { IBase, IMethodInfo, IRequestInfo, ITargetInfo } from "../definitions/index";
-import { ContextInfo } from "../lib/index";
-import { Mapper } from "../mapper/index";
-import { RequestType } from "../types/index";
+import { IBase, IMethodInfo, IRequestInfo, ITargetInfo } from "../definitions";
+import { ContextInfo } from "../lib";
+import { Mapper } from "../mapper";
+import { RequestType } from "../types";
 import {
     Batch,
     MethodInfo,
     Promise,
     TargetInfo,
     XHRRequest
-} from "./index";
+} from ".";
 
 /*********************************************************************************************************************************/
 // Base

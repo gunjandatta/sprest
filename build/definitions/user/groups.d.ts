@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection, IGroup, IGroupCreationInformation, IGroupQueryResult, IGroupResult } from "../index";
+import { IBase, IBaseCollection, IGroup, IGroupCreationInformation, IGroupQueryResult, IGroupResult } from "..";
 /**
  * Methods
  */

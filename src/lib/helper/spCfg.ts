@@ -1,5 +1,5 @@
-import { Promise } from "../../utils/index";
-import { SPConfigTypes } from "../../types/index";
+import { Promise } from "../../utils";
+import { SPConfigTypes } from "../../types";
 import {
     IContentTypeResult, IContentTypeResults,
     IFieldResult, IFieldResults,
@@ -9,13 +9,13 @@ import {
     ISPCfgContentTypeInfo, ISPCfgCustomActionInfo, ISPConfigProps, ISPCfgFieldInfo, ISPCfgListInfo, ISPCfgViewInfo, ISPCfgWebPartInfo,
     IUserCustomActionResult, IUserCustomActionResults, IUserCustomActionCreationInformation,
     IView, IViewResult, IViewResults
-} from "../../definitions/index";
+} from "../../definitions";
 import {
     ContextInfo,
     List,
     Site,
     Web
-} from "../index";
+} from "..";
 
 /*********************************************************************************************************************************/
 // SharePoint Configuration

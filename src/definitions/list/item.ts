@@ -9,7 +9,7 @@ import {
     IPropertyValues,
     IResults,
     IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentResults, IRoleAssignments
-} from "../index"
+} from "..";
 
 /**
  * List Item Methods

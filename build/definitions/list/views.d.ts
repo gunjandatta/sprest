@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection, IView, IViewCreationInformation, IViewQueryResult, IViewResult } from "../index";
+import { IBase, IBaseCollection, IView, IViewCreationInformation, IViewQueryResult, IViewResult } from "..";
 /**
  * Methods
  */

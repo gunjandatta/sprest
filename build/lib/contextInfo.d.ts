@@ -1,2 +1,2 @@
-import { IContextInformation } from "../definitions/index";
+import { IContextInformation } from "../definitions";
 export declare const ContextInfo: IContextInformation;

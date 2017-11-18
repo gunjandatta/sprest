@@ -1,5 +1,5 @@
-import { ContextInfo } from "../lib/index";
-import { Promise } from "./index";
+import { ContextInfo } from "../lib";
+import { Promise } from ".";
 /*********************************************************************************************************************************/
 // Dependencies
 // This class will ensure the core SP scripts are loaded on the page.

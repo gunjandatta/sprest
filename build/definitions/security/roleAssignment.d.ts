@@ -1,4 +1,4 @@
-import { IBase, IGroup, IResults, IRoleDefinition, IRoleDefinitions, IUser } from "../index";
+import { IBase, IGroup, IResults, IRoleDefinition, IRoleDefinitions, IUser } from "..";
 /**
  * Role Assignment Methods
  */

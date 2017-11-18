@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection, IEventReceiver, IEventReceiverDefinitionCreationInformation, IEventReceiverQueryResult, IEventReceiverResult } from "../index";
+import { IBase, IBaseCollection, IEventReceiver, IEventReceiverDefinitionCreationInformation, IEventReceiverQueryResult, IEventReceiverResult } from "..";
 /**
  * Methods
  */

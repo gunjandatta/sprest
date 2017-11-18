@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection, IWeb, IWebCreationInformation, IWebQueryResult, IWebResult } from "../index";
+import { IBase, IBaseCollection, IWeb, IWebCreationInformation, IWebQueryResult, IWebResult } from "..";
 /**
  * Methods
  */

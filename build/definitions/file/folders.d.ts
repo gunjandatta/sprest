@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection, IFolder, IFolderQueryResult, IFolderResult } from "../index";
+import { IBase, IBaseCollection, IFolder, IFolderQueryResult, IFolderResult } from "..";
 /**
  * Methods
  */

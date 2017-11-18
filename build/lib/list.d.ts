@@ -1,2 +1,2 @@
-import { IList } from "../definitions/index";
+import { IList } from "../definitions";
 export declare const List: IList;

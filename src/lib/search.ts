@@ -1,6 +1,6 @@
-import { ISearch } from "../definitions/index";
-import { RequestType } from "../types/index";
-import { Base } from "../utils/index";
+import { ISearch } from "../definitions";
+import { RequestType } from "../types";
+import { Base } from "../utils";
 
 /*********************************************************************************************************************************/
 // Search

@@ -1,5 +1,5 @@
-import { IBase, IMethodInfo, IRequestInfo, ITargetInfo } from "../definitions/index";
-import { XHRRequest } from "./index";
+import { IBase, IMethodInfo, IRequestInfo, ITargetInfo } from "../definitions";
+import { XHRRequest } from ".";
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
 export declare class Base<Type = any, Result = Type, QueryResult = Result> {

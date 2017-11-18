@@ -1,6 +1,6 @@
-import {IMethodInfo} from "../definitions/index";
-import {RequestType} from "../types/index";
-import {OData} from "./index";
+import {IMethodInfo} from "../definitions";
+import {RequestType} from "../types";
+import {OData} from ".";
 /*********************************************************************************************************************************/
 // Method Information
 // This class will create the method information for the request.

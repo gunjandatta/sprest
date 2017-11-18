@@ -1,4 +1,4 @@
-import { IHelper } from "../../definitions/index";
+import { IHelper } from "../../definitions";
 /**
  * Helper Methods
  */

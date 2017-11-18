@@ -1,7 +1,7 @@
 import {
     IBase, IBaseCollection,
     IEventReceiver, IEventReceiverDefinitionCreationInformation, IEventReceiverQueryResult, IEventReceiverResult
-} from "../index"
+} from "..";
 
 /**
  * Methods

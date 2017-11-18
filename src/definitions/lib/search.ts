@@ -2,7 +2,7 @@ import {
     ComplexTypes,
     IBase,
     ITargetInfo
-} from "../index"
+} from "..";
 
 /**
  * Search

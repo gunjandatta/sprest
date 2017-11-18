@@ -2,7 +2,7 @@ import {
     IBase,
     IPersonProperties,
     ITargetInfo
-} from "../index"
+} from "..";
 /**
  * People Manager
  */

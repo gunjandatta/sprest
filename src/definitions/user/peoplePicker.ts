@@ -2,7 +2,7 @@ import {
     IBase,
     IPeoplePickerQuery, IPeoplePickerResolveUser, IPeoplePickerSearchUser,
     ITargetInfo
-} from "../index"
+} from "..";
 
 /**
  * People Picker

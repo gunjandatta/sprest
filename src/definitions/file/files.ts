@@ -2,7 +2,7 @@ import {
     IBase, IBaseCollection,
     IFile, IFileMethods, IFileQueryResult, IFileResult,
     SPTypes
-} from "../index"
+} from "..";
 
 /**
  * Methods
