@@ -18,7 +18,7 @@ The gd-sprest library is similar to the pnp-js-core, with the main difference be
 * No access to the server farm
 * Ability to create scripts which can be tested in staging before running aginst production
 * For more efficient development of code, the developer has the ability to test code requests without having to deploy the solution
-* Easy way to perform research and development, by exploring the REST api
+* Easy way to perform research and development by exploring the REST API with the available intellisense
 
 ### Bugs/Feature Requests/Help
 [Click Here](https://github.com/gunjandatta/sprest/issues) to report any bugs, request any new features or if need help with code examples. Pull requests are welcomed for anyone interested in submitting them. Feel free to [email](mailto:github@dattabase.com) for other questions.
