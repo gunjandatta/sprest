@@ -1,17 +1,17 @@
 import * as ComplexTypes from "./complexTypes";
-export * from "./contentType";
-export * from "./customAction";
-export * from "./eventReceiver";
-export * from "./field";
-export * from "./file";
-export * from "./lib";
-export * from "./list";
+export * from "./contentType/index";
+export * from "./customAction/index";
+export * from "./eventReceiver/index";
+export * from "./field/index";
+export * from "./file/index";
+export * from "./lib/index";
+export * from "./list/index";
 export * from "./propertyValues";
-export * from "./security";
-export * from "./site";
-export * from "./social";
-export * from "./user";
-export * from "./webpart";
+export * from "./security/index";
+export * from "./site/index";
+export * from "./social/index";
+export * from "./user/index";
+export * from "./webpart/index";
 export {
     ComplexTypes
 };

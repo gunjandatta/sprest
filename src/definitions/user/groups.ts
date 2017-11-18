@@ -1,7 +1,7 @@
 import {
     IBase, IBaseCollection,
     IGroup, IGroupCreationInformation, IGroupQueryResult, IGroupResult
-} from "..";
+} from "../index"
 
 /**
  * Methods

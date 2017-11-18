@@ -1,5 +1,5 @@
-import { IRequestInfo, ITargetInfo } from "../definitions";
-import { ContextInfo } from "../lib";
+import { IRequestInfo, ITargetInfo } from "../definitions/index";
+import { ContextInfo } from "../lib/index";
 /*********************************************************************************************************************************/
 // Target Information
 // This class will take the target information and create the request url.

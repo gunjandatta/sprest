@@ -1,6 +1,6 @@
-import {IEmail} from "../definitions";
-import {Base} from "../utils";
-import {RequestType} from "../types";
+import {IEmail} from "../definitions/index";
+import {Base} from "../utils/index";
+import {RequestType} from "../types/index";
 
 /*********************************************************************************************************************************/
 // Email

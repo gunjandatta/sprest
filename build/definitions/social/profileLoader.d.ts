@@ -1,4 +1,4 @@
-import { IBase, ITargetInfo, IUserProfile } from "..";
+import { IBase, ITargetInfo, IUserProfile } from "../index";
 /**
  * Profile Loader
  */

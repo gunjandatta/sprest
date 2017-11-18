@@ -1,7 +1,7 @@
 import {
     IBase,
     SPTypes
-} from "..";
+} from "../index"
 
 /**
  * Event Receiver Methods

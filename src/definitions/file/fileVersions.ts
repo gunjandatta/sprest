@@ -1,7 +1,7 @@
 import {
     IBase, IBaseCollection,
     IFileVersion, IFileVersionQueryResult, IFileVersionResult
-} from "..";
+} from "../index"
 
 /**
  * File Versions

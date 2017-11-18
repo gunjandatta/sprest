@@ -1,4 +1,4 @@
-import { IBase, IResults, IStringValue, IViewFields, IVisualization } from "..";
+import { IBase, IResults, IStringValue, IViewFields, IVisualization } from "../index";
 /**
  * View Methods
  */

@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection, IVersion } from "..";
+import { IBase, IBaseCollection, IVersion } from "../index";
 /**
  * Versions
  */

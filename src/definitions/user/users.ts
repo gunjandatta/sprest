@@ -1,7 +1,7 @@
 import {
     IBase, IBaseCollection,
     IUser, IUserCreationInformation, IUserQueryResult, IUserResult
-} from "..";
+} from "../index"
 
 /**
  * Methods

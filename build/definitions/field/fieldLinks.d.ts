@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection, IFieldLink } from "..";
+import { IBase, IBaseCollection, IFieldLink } from "../index";
 /**
  * Field Links
  */

@@ -1,7 +1,7 @@
 import {
     IBase,
     IUser, IUserResult
-} from "..";
+} from "../index"
 
 /**
  * File Version Methods

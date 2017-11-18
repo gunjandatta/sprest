@@ -1,4 +1,4 @@
-import { IRequestInfo, IRequestType, IResults, ODataQuery } from "..";
+import { IRequestInfo, IRequestType, IResults, ODataQuery } from "../index"
 
 /**
  * The base class

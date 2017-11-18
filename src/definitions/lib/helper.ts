@@ -11,7 +11,7 @@ import {
     IUserCustomActionCreationInformation,
     IView, IViewResult,
     IWebResult
-} from "..";
+} from "../index"
 /**
  * App Helper Methods
  */

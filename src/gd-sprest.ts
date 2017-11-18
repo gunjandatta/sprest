@@ -26,8 +26,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-import * as Types from "./definitions";
-import { RequestType, SPTypes } from "./types";
+import * as Types from "./definitions/index";
+import { RequestType, SPTypes } from "./types/index";
 import {
     ContextInfo,
     Email,
@@ -42,7 +42,7 @@ import {
     SocialFeed,
     UserProfile,
     Web
-} from "./lib";
+} from "./lib/index";
 export {
     ContextInfo,
     Email,
@@ -66,7 +66,7 @@ export {
  * SharePoint REST Library
  */
 const gd_sprest = {
-    __ver: 2.24,
+    __ver: 2.25,
     ContextInfo,
     DefaultRequestToHostFl: false,
     Email,

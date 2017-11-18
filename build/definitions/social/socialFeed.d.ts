@@ -1,4 +1,4 @@
-import { ComplexTypes, IBase } from "..";
+import { ComplexTypes, IBase } from "../index";
 /**
  * Social Feed
  */

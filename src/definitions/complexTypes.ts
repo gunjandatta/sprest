@@ -1,7 +1,7 @@
 import {
     Results,
     SPTypes
-} from ".";
+} from "./index"
 /**
  * App License
  */

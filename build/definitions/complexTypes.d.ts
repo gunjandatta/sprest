@@ -1,4 +1,4 @@
-import { Results, SPTypes } from ".";
+import { Results, SPTypes } from "./index";
 /**
  * App License
  */

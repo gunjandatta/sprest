@@ -1,4 +1,4 @@
-import {ODataQuery} from "../definitions";
+import {ODataQuery} from "../definitions/index";
 /*********************************************************************************************************************************/
 // OData
 // Class for generating the OData query string.

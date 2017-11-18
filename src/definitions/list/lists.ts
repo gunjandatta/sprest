@@ -1,7 +1,7 @@
 import {
     IBase, IBaseCollection,
     IList, IListCreationInformation, IListQueryResult, IListResult
-} from "..";
+} from "../index"
 
 /**
  * Methods

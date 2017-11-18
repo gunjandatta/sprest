@@ -2,7 +2,7 @@ import {
     IBase,
     IResourcePath,
     SPTypes
-} from "..";
+} from "../index"
 
 /**
  * Field Methods

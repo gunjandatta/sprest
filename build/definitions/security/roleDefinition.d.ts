@@ -1,4 +1,4 @@
-import { IBase, IBasePermissions, SPTypes } from "..";
+import { IBase, IBasePermissions, SPTypes } from "../index";
 /**
  * Role Definition Methods
  */

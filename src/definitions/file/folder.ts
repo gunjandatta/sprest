@@ -7,7 +7,7 @@ import {
     IResourcePath,
     IResults,
     IStringValue
-} from "..";
+} from "../index"
 
 /**
  * Folder Methods

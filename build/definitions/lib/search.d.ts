@@ -1,4 +1,4 @@
-import { ComplexTypes, IBase, ITargetInfo } from "..";
+import { ComplexTypes, IBase, ITargetInfo } from "../index";
 /**
  * Search
  */

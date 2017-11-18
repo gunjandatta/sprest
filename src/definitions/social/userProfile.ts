@@ -3,7 +3,7 @@ import {
     IWeb,
     ITargetInfo,
     SPTypes
-} from "..";
+} from "../index"
 /**
  * User Profile
  */

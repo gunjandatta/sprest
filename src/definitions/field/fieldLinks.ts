@@ -2,7 +2,7 @@ import {
     IBase, IBaseCollection,
     IFieldLink,
     IResults
-} from "..";
+} from "../index"
 
 /**
  * Field Links

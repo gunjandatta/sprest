@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection, IFile, IFileQueryResult, IFileResult, SPTypes } from "..";
+import { IBase, IBaseCollection, IFile, IFileQueryResult, IFileResult, SPTypes } from "../index";
 /**
  * Methods
  */

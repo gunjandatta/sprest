@@ -1,4 +1,4 @@
-import { IAttachment, IBase, IBaseCollection } from "..";
+import { IAttachment, IBase, IBaseCollection } from "../index";
 /**
  * Methods
  */

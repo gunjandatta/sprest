@@ -1,7 +1,7 @@
 import {
     IBase, IBaseCollection,
     IView, IViewCreationInformation, IViewQueryResult, IViewResult
-} from "..";
+} from "../index"
 
 /**
  * Methods

@@ -1,5 +1,5 @@
-import { IProfileLoader } from "../definitions";
-import { Base } from "../utils";
+import { IProfileLoader } from "../definitions/index";
+import { Base } from "../utils/index";
 
 /*********************************************************************************************************************************/
 // Profile Loader

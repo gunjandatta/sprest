@@ -1,4 +1,4 @@
-import { IUser, SPTypes } from "..";
+import { IUser, SPTypes } from "../index";
 /**
  * App Tiles
  */

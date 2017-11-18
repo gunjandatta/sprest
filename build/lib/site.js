@@ -1,51 +1,50 @@
-"use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = require("../utils");
-var _1 = require(".");
-/*********************************************************************************************************************************/
-// Site
-// The SPSite object.
-/*********************************************************************************************************************************/
-var _Site = /** @class */ (function (_super) {
-    __extends(_Site, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _Site(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "site";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
+System.register(["../utils/index", "./index"], function (exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
+    var index_1, index_2, _Site, Site;
+    return {
+        setters: [
+            function (index_1_1) {
+                index_1 = index_1_1;
+            },
+            function (index_2_1) {
+                index_2 = index_2_1;
+            }
+        ],
+        execute: function () {
+            /*********************************************************************************************************************************/
+            // Site
+            // The SPSite object.
+            /*********************************************************************************************************************************/
+            _Site = class _Site extends index_1.Base {
+                /*********************************************************************************************************************************/
+                // Constructor
+                /*********************************************************************************************************************************/
+                constructor(url, targetInfo) {
+                    // Call the base constructor
+                    super(targetInfo);
+                    // Default the properties
+                    this.defaultToWebFl = true;
+                    this.targetInfo.endpoint = "site";
+                    // See if the web url exists
+                    if (url) {
+                        // Set the settings
+                        this.targetInfo.url = url;
+                    }
+                    // Add the methods
+                    this.addMethods(this, { __metadata: { type: "site" } });
+                }
+                // Method to get the root web
+                getRootWeb() { return new index_2.Web(null, this.targetInfo); }
+                // Method to determine if the current user has access, based on the permissions.
+                hasAccess(permissions) {
+                    // TO DO
+                    return true;
+                }
+                ;
+            };
+            exports_1("Site", Site = _Site);
         }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "site" } });
-        return _this;
-    }
-    // Method to get the root web
-    _Site.prototype.getRootWeb = function () { return new _1.Web(null, this.targetInfo); };
-    // Method to determine if the current user has access, based on the permissions.
-    _Site.prototype.hasAccess = function (permissions) {
-        // TO DO
-        return true;
     };
-    ;
-    return _Site;
-}(utils_1.Base));
-exports.Site = _Site;
+});
 //# sourceMappingURL=site.js.map

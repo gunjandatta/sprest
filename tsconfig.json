@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
         "declaration": true,
+        "module": "system",
         "outDir": "build",
         "sourceMap": true,
-        "target": "es5"
+        "target": "es2015"
     },
     "include": [
         "src/**/*.ts"

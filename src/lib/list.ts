@@ -1,5 +1,5 @@
-import { IList, ILists } from "../definitions";
-import { Base } from "../utils";
+import { IList, ILists } from "../definitions/index";
+import { Base } from "../utils/index";
 import { Web } from "./web";
 
 /*********************************************************************************************************************************/

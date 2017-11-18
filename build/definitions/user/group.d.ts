@@ -1,4 +1,4 @@
-import { IBase, IUser, IUserResult, IUserResults, IUsers } from "..";
+import { IBase, IUser, IUserResult, IUserResults, IUsers } from "../index";
 /**
  * Group Methods
  */

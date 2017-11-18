@@ -1,18 +1,29 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = require("../../types");
-/*********************************************************************************************************************************/
-// Methods
-/*********************************************************************************************************************************/
-exports.usercustomaction = {
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
+System.register(["../../types/index"], function (exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
+    var index_1, usercustomaction;
+    return {
+        setters: [
+            function (index_1_1) {
+                index_1 = index_1_1;
+            }
+        ],
+        execute: function () {
+            /*********************************************************************************************************************************/
+            // Methods
+            /*********************************************************************************************************************************/
+            exports_1("usercustomaction", usercustomaction = {
+                // Deletes the object
+                delete: {
+                    requestType: index_1.RequestType.Delete
+                },
+                // Queries the collection
+                query: {
+                    argNames: ["oData"],
+                    requestType: index_1.RequestType.OData
+                }
+            });
+        }
+    };
+});
 //# sourceMappingURL=userCustomAction.js.map

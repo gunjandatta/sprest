@@ -1,5 +1,5 @@
-import { SPTypes } from "../../types";
-import { ContextInfo } from ".."
+import { SPTypes } from "../../types/index";
+import { ContextInfo } from "../index"
 
 /**
  * JSLink Helper Methods

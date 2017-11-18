@@ -1,4 +1,4 @@
-import { IBase, IWeb, ITargetInfo, SPTypes } from "..";
+import { IBase, IWeb, ITargetInfo, SPTypes } from "../index";
 /**
  * User Profile
  */

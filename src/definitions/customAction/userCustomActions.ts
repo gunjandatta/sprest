@@ -2,7 +2,7 @@ import {
     IBase, IBaseCollection,
     IResults,
     IUserCustomAction, IUserCustomActionCreationInformation, IUserCustomActionQueryResult, IUserCustomActionResult
-} from "..";
+} from "../index"
 
 /**
  * Methods

@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection, IUserCustomAction, IUserCustomActionCreationInformation, IUserCustomActionQueryResult, IUserCustomActionResult } from "..";
+import { IBase, IBaseCollection, IUserCustomAction, IUserCustomActionCreationInformation, IUserCustomActionQueryResult, IUserCustomActionResult } from "../index";
 /**
  * Methods
  */

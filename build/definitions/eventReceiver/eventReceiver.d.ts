@@ -1,4 +1,4 @@
-import { IBase, SPTypes } from "..";
+import { IBase, SPTypes } from "../index";
 /**
  * Event Receiver Methods
  */

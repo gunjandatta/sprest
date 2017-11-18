@@ -12,7 +12,7 @@ import {
     ITargetInfo,
     IUserProfile,
     IWeb
-} from "..";
+} from "../index"
 
 /**
  * SharePoint REST Library

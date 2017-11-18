@@ -1,8 +1,8 @@
-import { Promise } from "../../utils";
+import { Promise } from "../../utils/index";
 import {
     ContextInfo,
     Web
-} from "..";
+} from "../index"
 
 /*********************************************************************************************************************************/
 // App Helper Methods

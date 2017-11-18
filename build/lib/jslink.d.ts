@@ -1,4 +1,4 @@
-import { IJSLink, ITemplates } from "../definitions";
+import { IJSLink, ITemplates } from "../definitions/index";
 /**
  * JS Link
  */

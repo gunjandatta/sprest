@@ -1,7 +1,7 @@
 import {
     IBase, IBaseCollection,
     IContentType, IContentTypeCreationInformation, IContentTypeQueryResult, IContentTypeResult
-} from "..";
+} from "../index"
 
 /**
  * Methods

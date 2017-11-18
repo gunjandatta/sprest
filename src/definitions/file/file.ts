@@ -8,7 +8,7 @@ import {
     IResults,
     IUser, IUserResult,
     SPTypes
-} from "..";
+} from "../index"
 
 /**
  * File Methods

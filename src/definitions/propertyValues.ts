@@ -2,7 +2,7 @@ import {
     ComplexTypes,
     IBase,
     ODataQuery
-} from ".";
+} from "./index"
 /**
  * Property Values
  */

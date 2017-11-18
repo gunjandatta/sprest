@@ -1,4 +1,4 @@
-import { ComplexTypes, IBase, ODataQuery } from ".";
+import { ComplexTypes, IBase, ODataQuery } from "./index";
 /**
  * Property Values
  */

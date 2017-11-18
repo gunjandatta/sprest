@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection, IListItem, IListItemQueryResult, IListItemResult } from "..";
+import { IBase, IBaseCollection, IListItem, IListItemQueryResult, IListItemResult } from "../index";
 /**
  * Methods
  */

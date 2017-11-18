@@ -3,7 +3,7 @@ import {
     IBasePermissions,
     IUserCustomActionMethods,
     SPTypes
-} from "..";
+} from "../index"
 
 /**
  * User Custom Action Methods

@@ -1,7 +1,7 @@
 import {
     IBase, IBaseCollection,
     IVersion
-} from "..";
+} from "../index"
 
 /**
  * Versions

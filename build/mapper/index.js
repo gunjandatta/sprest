@@ -1,84 +1,185 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var attachment_1 = require("./attachment/attachment");
-var attachmentFiles_1 = require("./attachmentFiles/attachmentFiles");
-var audit_1 = require("./audit/audit");
-var contentType_1 = require("./contentType/contentType");
-var contentTypes_1 = require("./contentType/contentTypes");
-var eventReceiver_1 = require("./eventReceiver/eventReceiver");
-var eventReceivers_1 = require("./eventReceiver/eventReceivers");
-var field_1 = require("./field/field");
-var fields_1 = require("./field/fields");
-var fieldLinks_1 = require("./fieldLink/fieldLinks");
-var file_1 = require("./file/file");
-var files_1 = require("./file/files");
-var fileVersion_1 = require("./fileVersion/fileVersion");
-var fileVersions_1 = require("./fileVersion/fileVersions");
-var folder_1 = require("./folder/folder");
-var folders_1 = require("./folder/folders");
-var group_1 = require("./group/group");
-var siteGroups_1 = require("./group/siteGroups");
-var items_1 = require("./item/items");
-var limitedWebPartManager_1 = require("./limitedWebPartManager/limitedWebPartManager");
-var list_1 = require("./list/list");
-var listItem_1 = require("./item/listItem");
-var lists_1 = require("./list/lists");
-var peopleManager_1 = require("./peopleManager/peopleManager");
-var peoplePicker_1 = require("./peoplePicker/peoplePicker");
-var profileLoader_1 = require("./profileLoader/profileLoader");
-var propertyValues_1 = require("./propertyValues/propertyValues");
-var roleAssignment_1 = require("./roleAssignment/roleAssignment");
-var roleAssignments_1 = require("./roleAssignment/roleAssignments");
-var roleDefinition_1 = require("./roleDefinition/roleDefinition");
-var roleDefinitions_1 = require("./roleDefinition/roleDefinitions");
-var search_1 = require("./search/search");
-var site_1 = require("./site/site");
-var socialFeed_1 = require("./socialFeed/socialFeed");
-var user_1 = require("./user/user");
-var users_1 = require("./user/users");
-var userCustomAction_1 = require("./userCustomAction/userCustomAction");
-var userCustomActions_1 = require("./userCustomAction/userCustomActions");
-var userProfile_1 = require("./userProfile/userProfile");
-var version_1 = require("./version/version");
-var view_1 = require("./view/view");
-var views_1 = require("./view/views");
-var viewFieldCollection_1 = require("./viewFieldCollection/viewFieldCollection");
-var web_1 = require("./web/web");
-var webinfos_1 = require("./web/webinfos");
-var webs_1 = require("./web/webs");
-/**
- * Mapper
- */
-exports.Mapper = {
-    attachment: attachment_1.attachment,
-    attachmentfiles: attachmentFiles_1.attachmentfiles,
-    audit: audit_1.audit,
-    contenttype: contentType_1.contenttype, contenttypes: contentTypes_1.contenttypes,
-    eventreceiver: eventReceiver_1.eventreceiver, eventreceivers: eventReceivers_1.eventreceivers,
-    field: field_1.field, fields: fields_1.fields,
-    fieldlinks: fieldLinks_1.fieldlinks,
-    file: file_1.file, files: files_1.files,
-    fileversion: fileVersion_1.fileversion, fileversions: fileVersions_1.fileversions,
-    folder: folder_1.folder, folders: folders_1.folders,
-    group: group_1.group, sitegroups: siteGroups_1.sitegroups,
-    limitedwebpartmanager: limitedWebPartManager_1.limitedwebpartmanager,
-    list: list_1.list, lists: lists_1.lists,
-    listitem: listItem_1.listitem, items: items_1.items,
-    peoplemanager: peopleManager_1.peoplemanager,
-    peoplepicker: peoplePicker_1.peoplepicker,
-    profileloader: profileLoader_1.profileloader,
-    propertyvalues: propertyValues_1.propertyvalues,
-    roleassignment: roleAssignment_1.roleassignment, roleassignments: roleAssignments_1.roleassignments,
-    roledefinition: roleDefinition_1.roledefinition, roledefinitions: roleDefinitions_1.roledefinitions,
-    search: search_1.search,
-    site: site_1.site,
-    socialfeed: socialFeed_1.socialfeed,
-    user: user_1.user, users: users_1.users,
-    usercustomaction: userCustomAction_1.usercustomaction, usercustomactions: userCustomActions_1.usercustomactions,
-    userprofile: userProfile_1.userprofile,
-    version: version_1.version,
-    view: view_1.view, views: views_1.views,
-    viewfieldcollection: viewFieldCollection_1.viewfieldcollection,
-    web: web_1.web, webinfos: webinfos_1.webinfos, webs: webs_1.webs
-};
+System.register(["./attachment/attachment", "./attachmentFiles/attachmentFiles", "./audit/audit", "./contentType/contentType", "./contentType/contentTypes", "./eventReceiver/eventReceiver", "./eventReceiver/eventReceivers", "./field/field", "./field/fields", "./fieldLink/fieldLinks", "./file/file", "./file/files", "./fileVersion/fileVersion", "./fileVersion/fileVersions", "./folder/folder", "./folder/folders", "./group/group", "./group/siteGroups", "./item/items", "./limitedWebPartManager/limitedWebPartManager", "./list/list", "./item/listItem", "./list/lists", "./peopleManager/peopleManager", "./peoplePicker/peoplePicker", "./profileLoader/profileLoader", "./propertyValues/propertyValues", "./roleAssignment/roleAssignment", "./roleAssignment/roleAssignments", "./roleDefinition/roleDefinition", "./roleDefinition/roleDefinitions", "./search/search", "./site/site", "./socialFeed/socialFeed", "./user/user", "./user/users", "./userCustomAction/userCustomAction", "./userCustomAction/userCustomActions", "./userProfile/userProfile", "./version/version", "./view/view", "./view/views", "./viewFieldCollection/viewFieldCollection", "./web/web", "./web/webinfos", "./web/webs"], function (exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
+    var attachment_1, attachmentFiles_1, audit_1, contentType_1, contentTypes_1, eventReceiver_1, eventReceivers_1, field_1, fields_1, fieldLinks_1, file_1, files_1, fileVersion_1, fileVersions_1, folder_1, folders_1, group_1, siteGroups_1, items_1, limitedWebPartManager_1, list_1, listItem_1, lists_1, peopleManager_1, peoplePicker_1, profileLoader_1, propertyValues_1, roleAssignment_1, roleAssignments_1, roleDefinition_1, roleDefinitions_1, search_1, site_1, socialFeed_1, user_1, users_1, userCustomAction_1, userCustomActions_1, userProfile_1, version_1, view_1, views_1, viewFieldCollection_1, web_1, webinfos_1, webs_1, Mapper;
+    return {
+        setters: [
+            function (attachment_1_1) {
+                attachment_1 = attachment_1_1;
+            },
+            function (attachmentFiles_1_1) {
+                attachmentFiles_1 = attachmentFiles_1_1;
+            },
+            function (audit_1_1) {
+                audit_1 = audit_1_1;
+            },
+            function (contentType_1_1) {
+                contentType_1 = contentType_1_1;
+            },
+            function (contentTypes_1_1) {
+                contentTypes_1 = contentTypes_1_1;
+            },
+            function (eventReceiver_1_1) {
+                eventReceiver_1 = eventReceiver_1_1;
+            },
+            function (eventReceivers_1_1) {
+                eventReceivers_1 = eventReceivers_1_1;
+            },
+            function (field_1_1) {
+                field_1 = field_1_1;
+            },
+            function (fields_1_1) {
+                fields_1 = fields_1_1;
+            },
+            function (fieldLinks_1_1) {
+                fieldLinks_1 = fieldLinks_1_1;
+            },
+            function (file_1_1) {
+                file_1 = file_1_1;
+            },
+            function (files_1_1) {
+                files_1 = files_1_1;
+            },
+            function (fileVersion_1_1) {
+                fileVersion_1 = fileVersion_1_1;
+            },
+            function (fileVersions_1_1) {
+                fileVersions_1 = fileVersions_1_1;
+            },
+            function (folder_1_1) {
+                folder_1 = folder_1_1;
+            },
+            function (folders_1_1) {
+                folders_1 = folders_1_1;
+            },
+            function (group_1_1) {
+                group_1 = group_1_1;
+            },
+            function (siteGroups_1_1) {
+                siteGroups_1 = siteGroups_1_1;
+            },
+            function (items_1_1) {
+                items_1 = items_1_1;
+            },
+            function (limitedWebPartManager_1_1) {
+                limitedWebPartManager_1 = limitedWebPartManager_1_1;
+            },
+            function (list_1_1) {
+                list_1 = list_1_1;
+            },
+            function (listItem_1_1) {
+                listItem_1 = listItem_1_1;
+            },
+            function (lists_1_1) {
+                lists_1 = lists_1_1;
+            },
+            function (peopleManager_1_1) {
+                peopleManager_1 = peopleManager_1_1;
+            },
+            function (peoplePicker_1_1) {
+                peoplePicker_1 = peoplePicker_1_1;
+            },
+            function (profileLoader_1_1) {
+                profileLoader_1 = profileLoader_1_1;
+            },
+            function (propertyValues_1_1) {
+                propertyValues_1 = propertyValues_1_1;
+            },
+            function (roleAssignment_1_1) {
+                roleAssignment_1 = roleAssignment_1_1;
+            },
+            function (roleAssignments_1_1) {
+                roleAssignments_1 = roleAssignments_1_1;
+            },
+            function (roleDefinition_1_1) {
+                roleDefinition_1 = roleDefinition_1_1;
+            },
+            function (roleDefinitions_1_1) {
+                roleDefinitions_1 = roleDefinitions_1_1;
+            },
+            function (search_1_1) {
+                search_1 = search_1_1;
+            },
+            function (site_1_1) {
+                site_1 = site_1_1;
+            },
+            function (socialFeed_1_1) {
+                socialFeed_1 = socialFeed_1_1;
+            },
+            function (user_1_1) {
+                user_1 = user_1_1;
+            },
+            function (users_1_1) {
+                users_1 = users_1_1;
+            },
+            function (userCustomAction_1_1) {
+                userCustomAction_1 = userCustomAction_1_1;
+            },
+            function (userCustomActions_1_1) {
+                userCustomActions_1 = userCustomActions_1_1;
+            },
+            function (userProfile_1_1) {
+                userProfile_1 = userProfile_1_1;
+            },
+            function (version_1_1) {
+                version_1 = version_1_1;
+            },
+            function (view_1_1) {
+                view_1 = view_1_1;
+            },
+            function (views_1_1) {
+                views_1 = views_1_1;
+            },
+            function (viewFieldCollection_1_1) {
+                viewFieldCollection_1 = viewFieldCollection_1_1;
+            },
+            function (web_1_1) {
+                web_1 = web_1_1;
+            },
+            function (webinfos_1_1) {
+                webinfos_1 = webinfos_1_1;
+            },
+            function (webs_1_1) {
+                webs_1 = webs_1_1;
+            }
+        ],
+        execute: function () {
+            /**
+             * Mapper
+             */
+            exports_1("Mapper", Mapper = {
+                attachment,
+                attachmentfiles,
+                audit,
+                contenttype, contenttypes,
+                eventreceiver, eventreceivers,
+                field, fields,
+                fieldlinks,
+                file, files,
+                fileversion, fileversions,
+                folder, folders,
+                group, sitegroups,
+                limitedwebpartmanager,
+                list, lists,
+                listitem, items,
+                peoplemanager,
+                peoplepicker,
+                profileloader,
+                propertyvalues,
+                roleassignment, roleassignments,
+                roledefinition, roledefinitions,
+                search,
+                site,
+                socialfeed,
+                user, users,
+                usercustomaction, usercustomactions,
+                userprofile,
+                version,
+                view, views,
+                viewfieldcollection,
+                web, webinfos, webs
+            });
+        }
+    };
+});
 //# sourceMappingURL=index.js.map

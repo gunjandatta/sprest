@@ -1,2 +1,2 @@
-import { IWeb } from "../definitions";
+import { IWeb } from "../definitions/index";
 export declare const Web: IWeb;

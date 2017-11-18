@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection, IRoleAssignment, IRoleAssignmentQueryResult, IRoleAssignmentResult } from "..";
+import { IBase, IBaseCollection, IRoleAssignment, IRoleAssignmentQueryResult, IRoleAssignmentResult } from "../index";
 /**
  * Methods
  */

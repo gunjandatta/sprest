@@ -1,4 +1,4 @@
-import { IBase, IFileVersionResult, IFileVersions, IInformationRightsManagementSettings, IListItemResult, IPropertyValues, IResourcePath, IResults, IUser, IUserResult, SPTypes } from "..";
+import { IBase, IFileVersionResult, IFileVersions, IInformationRightsManagementSettings, IListItemResult, IPropertyValues, IResourcePath, IResults, IUser, IUserResult, SPTypes } from "../index";
 /**
  * File Methods
  */

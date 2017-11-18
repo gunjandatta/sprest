@@ -1,7 +1,7 @@
 import {
     ComplexTypes,
     IBase
-} from "..";
+} from "../index"
 /**
  * Email Properties
  */

@@ -1,37 +1,34 @@
-"use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+System.register(["../utils/index"], function (exports_1, context_1) {
+    "use strict";
+    var __moduleName = context_1 && context_1.id;
+    var index_1, _ProfileLoader, ProfileLoader;
+    return {
+        setters: [
+            function (index_1_1) {
+                index_1 = index_1_1;
+            }
+        ],
+        execute: function () {
+            /*********************************************************************************************************************************/
+            // Profile Loader
+            /*********************************************************************************************************************************/
+            _ProfileLoader = class _ProfileLoader extends index_1.Base {
+                /*********************************************************************************************************************************/
+                // Constructor
+                /*********************************************************************************************************************************/
+                constructor(targetInfo) {
+                    // Call the base constructor
+                    super(targetInfo);
+                    // Default the properties
+                    this.defaultToWebFl = true;
+                    this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+                    this.targetInfo.method = "POST";
+                    // Add the methods
+                    this.addMethods(this, { __metadata: { type: "profileloader" } });
+                }
+            };
+            exports_1("ProfileLoader", ProfileLoader = _ProfileLoader);
+        }
     };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = require("../utils");
-/*********************************************************************************************************************************/
-// Profile Loader
-/*********************************************************************************************************************************/
-var _ProfileLoader = /** @class */ (function (_super) {
-    __extends(_ProfileLoader, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _ProfileLoader(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
-        _this.targetInfo.method = "POST";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "profileloader" } });
-        return _this;
-    }
-    return _ProfileLoader;
-}(utils_1.Base));
-exports.ProfileLoader = _ProfileLoader;
+});
 //# sourceMappingURL=profileLoader.js.map

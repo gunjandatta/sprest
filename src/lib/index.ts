@@ -1,6 +1,6 @@
 export * from "./contextInfo";
 export * from "./email";
-export * from "./helper";
+export * from "./helper/index";
 export * from "./jslink";
 export * from "./list";
 export * from "./peopleManager";

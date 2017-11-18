@@ -4,7 +4,7 @@ import {
     IStringValue,
     IViewFields,
     IVisualization
-} from "..";
+} from "../index"
 
 /**
  * View Methods

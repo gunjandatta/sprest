@@ -21,7 +21,7 @@ import {
     IView, IViewQueryResult, IViewResult, IViewResults, IViews,
     IWeb, IWebResult,
     SPTypes
-} from "..";
+} from "../index"
 
 /**
  * List Methods
