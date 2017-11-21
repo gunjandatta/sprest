@@ -1,6 +1,5 @@
 import {
     IAudit,
-    IBase,
     IEventReceiver, IEventReceiverResult, IEventReceivers,
     IFeature,
     IRecycleBinItem,
@@ -13,6 +12,7 @@ import {
     IUserCustomAction, IUserCustomActionResults, IUserCustomActions,
     IWeb, IWebQueryResult, IWebResult
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * Site Methods

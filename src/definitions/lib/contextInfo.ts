@@ -1,4 +1,5 @@
-import { IBase, IBasePermissions, IContextWebInfo } from ".";
+import { IBasePermissions, IContextWebInfo } from ".";
+import { IBase } from "../../utils";
 
 /**
  * Context Information

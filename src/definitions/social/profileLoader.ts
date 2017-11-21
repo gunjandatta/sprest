@@ -1,8 +1,9 @@
 import {
-    IBase,
     ITargetInfo,
     IUserProfile
 } from "..";
+import { IBase } from "../../utils";
+
 /**
  * Profile Loader
  */

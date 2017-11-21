@@ -1,4 +1,5 @@
-import { IBase, IBaseCollection, IList, IListCreationInformation, IListQueryResult, IListResult } from "..";
+import { IList, IListCreationInformation, IListQueryResult, IListResult } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 /**
  * Methods
  */

@@ -1,8 +1,8 @@
 import {
-    IBase,
     IResults,
     IUser, IUserResult, IUserResults, IUsers
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * Group Methods

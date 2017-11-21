@@ -1,7 +1,7 @@
 import {
-    IBase,
     SPTypes
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * Event Receiver Methods

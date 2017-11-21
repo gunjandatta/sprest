@@ -1,6 +1,5 @@
 import {
     IAppTiles,
-    IBase,
     IBasePermissions,
     IContainsConfidentialInfo,
     IContentType, IContentTypeResult, IContentTypeResults, IContentTypes,
@@ -25,6 +24,7 @@ import {
     IWebInfo, IWebResult, IWebResults, IWebs,
     IWorkflowTemplate
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * Web Methods

@@ -1,8 +1,8 @@
 import {
-    IBase, IBaseCollection,
     IFieldLink,
     IResults
 } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 
 /**
  * Field Links

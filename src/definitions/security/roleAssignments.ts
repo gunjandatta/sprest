@@ -1,7 +1,7 @@
 import {
-    IBase, IBaseCollection,
     IRoleAssignment, IRoleAssignmentQueryResult, IRoleAssignmentResult
 } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 
 /**
  * Methods

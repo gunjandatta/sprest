@@ -1,7 +1,6 @@
-import {
-    ComplexTypes,
-    IBase
-} from "..";
+import { ComplexTypes } from "..";
+import { IBase } from "../../utils";
+
 /**
  * Social Feed
  */
@@ -14,13 +13,13 @@ export interface ISocialFeed {
      * Gets information about the specified user and the current user.
      * @param accountName - The login name of the user.
      */
-    actor(accountName:string): IBase<ISocialRestActor>;
+    actor(accountName: string): IBase<ISocialRestActor>;
 
     /**
      * Gets the feed of activity by the specified user (Personal feed type) or gets the specified site feed.
      * @param accountName - The login name of the user.
      */
-    actorFeed(accountName:string): IBase<ISocialRestThread>;
+    actorFeed(accountName: string): IBase<ISocialRestThread>;
 
     /**
      * Gets the feed of microblog posts that mention the current user, represented by MentionReference thread types, and sets the user's unread mention count to 0.
@@ -66,13 +65,13 @@ export interface ISocialFeed {
      * Creates a root post in the specified site feed.
      * @param accountName - The login name of the user.
      */
-    postToFeed(accountName:string, postInfo:ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
+    postToFeed(accountName: string, postInfo: ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
 
     /**
      * Creates a root post in the current user's feed.
      * @param creationData - The post creation data.
      */
-    postToMyFeed(creationData:ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
+    postToMyFeed(creationData: ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
 }
 
 /**
@@ -83,11 +82,11 @@ export interface ISocialRestActor extends IBase<ISocialRestActor> {
      * Properties
      */
 
-    FollowableItem?:string;
+    FollowableItem?: string;
 
-    FollwableItemActor:ComplexTypes.SocialActor;
+    FollwableItemActor: ComplexTypes.SocialActor;
 
-    Me:ComplexTypes.SocialActor;
+    Me: ComplexTypes.SocialActor;
 
     /**
      * Methods
@@ -104,7 +103,7 @@ export interface ISocialRestFeed extends IBase<ISocialRestFeed> {
      * Properties
      */
 
-    SocialFeed:ComplexTypes.SocialFeed;
+    SocialFeed: ComplexTypes.SocialFeed;
 
     /**
      * Methods
@@ -113,7 +112,7 @@ export interface ISocialRestFeed extends IBase<ISocialRestFeed> {
     /**
      * Creates a root post in the user's feed.
      */
-    post(postInfo:ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
+    post(postInfo: ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
 }
 
 /**
@@ -126,7 +125,7 @@ export interface ISocialRestThread extends IBase<ISocialRestThread> {
 
     ID?: string;
 
-    SocialThread:ComplexTypes.SocialThread;
+    SocialThread: ComplexTypes.SocialThread;
 
     /**
      * Methods
@@ -134,5 +133,5 @@ export interface ISocialRestThread extends IBase<ISocialRestThread> {
 
     delete(): IBase<ISocialRestThread>;
 
-    reply(restCreationData:ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
+    reply(restCreationData: ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
 }

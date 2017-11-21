@@ -1,5 +1,4 @@
 import {
-    IBase,
     IField, IFieldResult, IFields,
     IFieldLink, IFieldLinks,
     IList, IListResult,
@@ -8,6 +7,7 @@ import {
     IStringValue,
     IWeb, IWebResult
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * Content Type Methods

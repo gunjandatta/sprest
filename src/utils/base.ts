@@ -1,4 +1,4 @@
-import { IBase, IMethodInfo, IRequestInfo, ITargetInfo } from "../definitions";
+import { IMethodInfo, IRequestInfo, IRequestType, IResults, ITargetInfo, ODataQuery } from "../definitions";
 import { ContextInfo } from "../lib";
 import { Mapper } from "../mapper";
 import { RequestType } from "../types";
@@ -10,11 +10,105 @@ import {
     XHRRequest
 } from ".";
 
+/**
+ * Base
+ */
+export interface IBase<Type = any, Result = Type, QueryResult = Result> {
+    /**
+     * Properties
+     */
+
+    /** True, if the object exists, false otherwise. */
+    existsFl: boolean;
+
+    /** The parent object, which created this object. */
+    parent: any;
+
+    /** The response */
+    response: string;
+
+    /** The request type */
+    requestType: IRequestType;
+
+    /**
+     * Method to execute the request as a batch.
+     * Currently available in SharePoint Online only.
+     * @param callback - The method to be executed after the request completes.
+     */
+    batch(callback?: (value?: Result, ...args) => any): Type;
+
+    /**
+     * Method to execute the request as a batch.
+     * Currently available in SharePoint Online only.
+     * @param appendFl - Flag to execute the request as part of a change set.
+     */
+    batch(appendFl?: boolean): Type;
+
+    /**
+     * Method to wait for the requests to complete.
+     * @param callback - The method to be executed after the request completes.
+     */
+    done(callback?: (...args) => any);
+
+    /**
+     * Method to wait for the requests to complete.
+     * @param callback - The method to be executed after the request completes.
+     */
+    done(callback?: (value?: Result, ...args) => any);
+
+    /**
+     * Method to execute the request.
+     * @param callback - The method to be executed after the request completes.
+     */
+    execute(callback?: (value?: Result, ...args) => any): Type;
+
+    /**
+     * Method to execute the request.
+     * @param waitFl - Flag to execute the request, after the previous requests have completed.
+     */
+    execute(waitFl: boolean): Type;
+
+    /**
+     * Method to execute the request.
+     * @param callback - The method to be executed after the request completes.
+     * @param waitFl - Flag to execute the request, after the previous requests have completed.
+     */
+    execute(callback: (value?: Result, ...args) => any, waitFl: boolean): Type;
+
+    /**
+     * Method to execute the request synchronously.
+     */
+    executeAndWait(): Result;
+
+    /**
+     * Method to get the request information.
+     */
+    getInfo(): IRequestInfo;
+
+    /**
+     * Queries the collection.
+     * @param oData - The OData information.
+     */
+    query?(query: ODataQuery): IBase<Result, QueryResult>;
+
+    /**
+     * Method to execute this request and previous ones to complete.
+     * @param resolve - Method to execute for successful requests.
+     * @param reject - Method to execute for unsuccessful requests.
+     */
+    then(resolve?: (value?: Result) => void, reject?: (value?: Result) => void): PromiseLike<Result>;
+}
+
+/**
+ * Base Collection
+ */
+export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IResults<Type>, IBase<IResults<Result>, IResults<Result>, IResults<QueryResult>> { }
+
 /*********************************************************************************************************************************/
 // Base
 // This is the base class for all objects.
 /*********************************************************************************************************************************/
-export class Base<Type = any, Result = Type, QueryResult = Result> {
+export class Base<Type = any, Result = Type, QueryResult = Result> implements IBase {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/

@@ -1,4 +1,5 @@
-import { IBase } from "../definitions";
+import { IBase } from ".";
+
 /*********************************************************************************************************************************/
 // Promise
 // This is a lightweight promise library.

@@ -1,4 +1,5 @@
-import { IBase, IBaseCollection, IFolder, IFolderQueryResult, IFolderResult } from "..";
+import { IFolder, IFolderQueryResult, IFolderResult } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 /**
  * Methods
  */

@@ -1,4 +1,5 @@
-import { IBase, IBaseCollection, IUser, IUserCreationInformation, IUserQueryResult, IUserResult } from "..";
+import { IUser, IUserCreationInformation, IUserQueryResult, IUserResult } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 /**
  * Methods
  */

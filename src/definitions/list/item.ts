@@ -1,6 +1,5 @@
 import {
     IAttachment, IAttachmentFiles, IAttachmentFilesMethods,
-    IBase,
     IBasePermissions,
     IContentType, IContentTypeResult,
     IFile, IFileResult,
@@ -10,6 +9,7 @@ import {
     IResults,
     IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentResults, IRoleAssignments
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * List Item Methods

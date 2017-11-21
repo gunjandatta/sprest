@@ -1,6 +1,4 @@
-import {
-    IBase
-} from "..";
+import { IBase } from "../../utils";
 
 /**
  * View Fields

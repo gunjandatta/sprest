@@ -1,7 +1,8 @@
 import {
-    ComplexTypes,
-    IBase
+    ComplexTypes
 } from "..";
+import { IBase } from "../../utils";
+
 /**
  * Email Properties
  */

@@ -1,8 +1,8 @@
 import {
-    IBase,
     IPeoplePickerQuery, IPeoplePickerResolveUser, IPeoplePickerSearchUser,
     ITargetInfo
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * People Picker

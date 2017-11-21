@@ -1,4 +1,5 @@
-import { IBase } from "..";
+import { IBase } from "../../utils";
+
 /**
  * Limited Web Part Manager
  */

@@ -1,7 +1,7 @@
 import {
-    IBase, IBaseCollection,
     IField, IFieldCreationInformation, IFieldQueryResult, IFieldResult
 } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 
 /**
  * Methods

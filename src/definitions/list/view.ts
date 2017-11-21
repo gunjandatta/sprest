@@ -1,10 +1,10 @@
 import {
-    IBase,
     IResults,
     IStringValue,
     IViewFields,
     IVisualization
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * View Methods

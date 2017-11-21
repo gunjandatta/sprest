@@ -1,4 +1,5 @@
-import { IBase, IBaseCollection, IContentType, IContentTypeCreationInformation, IContentTypeQueryResult, IContentTypeResult } from "..";
+import { IContentType, IContentTypeCreationInformation, IContentTypeQueryResult, IContentTypeResult } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 /**
  * Methods
  */

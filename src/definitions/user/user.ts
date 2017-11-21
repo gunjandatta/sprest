@@ -1,10 +1,10 @@
 import {
-    IBase,
     IGroup,
     IResults,
     ISiteGroupResults, ISiteGroups,
     IUser
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * User Methods

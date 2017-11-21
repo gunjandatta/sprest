@@ -1,4 +1,5 @@
-import { IBase, IBaseCollection, IListItem, IListItemQueryResult, IListItemResult } from "..";
+import { IListItem, IListItemQueryResult, IListItemResult } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 /**
  * Methods
  */

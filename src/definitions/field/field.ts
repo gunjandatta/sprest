@@ -1,8 +1,8 @@
 import {
-    IBase,
     IResourcePath,
     SPTypes
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * Field Methods

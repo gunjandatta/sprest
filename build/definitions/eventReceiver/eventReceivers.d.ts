@@ -1,4 +1,5 @@
-import { IBase, IBaseCollection, IEventReceiver, IEventReceiverDefinitionCreationInformation, IEventReceiverQueryResult, IEventReceiverResult } from "..";
+import { IEventReceiver, IEventReceiverDefinitionCreationInformation, IEventReceiverQueryResult, IEventReceiverResult } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 /**
  * Methods
  */

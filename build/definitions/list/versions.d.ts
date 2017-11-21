@@ -1,4 +1,5 @@
-import { IBase, IBaseCollection, IVersion } from "..";
+import { IVersion } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 /**
  * Versions
  */

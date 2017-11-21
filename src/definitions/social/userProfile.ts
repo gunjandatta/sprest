@@ -1,9 +1,6 @@
-import {
-    IBase,
-    IWeb,
-    ITargetInfo,
-    SPTypes
-} from "..";
+import { IWeb, ITargetInfo, SPTypes } from "..";
+import { IBase } from "../../utils";
+
 /**
  * User Profile
  */
@@ -12,7 +9,7 @@ export interface IUserProfile extends IBase<IUserProfile> {
      * Constructor
      * @param targetInfo - (Optional) The target information.
      */
-    new(targetInfo?:ITargetInfo): IUserProfile;
+    new(targetInfo?: ITargetInfo): IUserProfile;
 
     /**
      * Properties
@@ -114,11 +111,11 @@ export interface IUserProfile extends IBase<IUserProfile> {
      * For SharePoint Online development, My Site Host administrators can also use the CreatePersonalSiteEnqueueBulk method to create personal sites for one or more users.
      * @param interactiveFl - True if this is an interactively (web) initiated request, or false if this is a non-interactively (client) initiated request.
      */
-    createPersonalSiteEnque(interactiveFl:boolean): IBase;
+    createPersonalSiteEnque(interactiveFl: boolean): IBase;
 
     /**
      * Sets the privacy settings for this profile.
      * @param publicFl - true to make all social data public; false to make all social data private.
      */
-    shareAllSocialData(publicFl:boolean): IBase;
+    shareAllSocialData(publicFl: boolean): IBase;
 }

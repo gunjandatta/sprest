@@ -1,7 +1,7 @@
 import {
-    IBase, IBaseCollection,
     IGroup, IGroupCreationInformation, IGroupQueryResult, IGroupResult
 } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 
 /**
  * Methods

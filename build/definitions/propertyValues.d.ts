@@ -1,4 +1,5 @@
-import { ComplexTypes, IBase, ODataQuery } from ".";
+import { ComplexTypes, ODataQuery } from ".";
+import { IBase } from "../utils";
 /**
  * Property Values
  */

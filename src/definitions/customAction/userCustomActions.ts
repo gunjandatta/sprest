@@ -1,8 +1,8 @@
 import {
-    IBase, IBaseCollection,
     IResults,
     IUserCustomAction, IUserCustomActionCreationInformation, IUserCustomActionQueryResult, IUserCustomActionResult
 } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 
 /**
  * Methods

@@ -1,4 +1,5 @@
-import { IBase, IBasePermissions, IContentType, IContentTypeResults, IContentTypes, IEventReceiver, IEventReceiverResults, IEventReceivers, IField, IFieldResults, IFields, IFile, IFolder, IFolderResult, IForm, IInformationRightsManagementSettings, IListDataSource, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IResourcePath, IResults, IRoleAssignment, IRoleAssignmentResults, IRoleAssignments, IStringValue, ISubscription, ITargetInfo, IUserCustomAction, IUserCustomActionResults, IUserCustomActions, IView, IViewQueryResult, IViewResult, IViewResults, IViews, IWeb, IWebResult, SPTypes } from "..";
+import { IBasePermissions, IContentType, IContentTypeResults, IContentTypes, IEventReceiver, IEventReceiverResults, IEventReceivers, IField, IFieldResults, IFields, IFile, IFolder, IFolderResult, IForm, IInformationRightsManagementSettings, IListDataSource, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IResourcePath, IResults, IRoleAssignment, IRoleAssignmentResults, IRoleAssignments, IStringValue, ISubscription, ITargetInfo, IUserCustomAction, IUserCustomActionResults, IUserCustomActions, IView, IViewQueryResult, IViewResult, IViewResults, IViews, IWeb, IWebResult, SPTypes } from "..";
+import { IBase } from "../../utils";
 /**
  * List Methods
  */

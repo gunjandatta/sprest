@@ -1,4 +1,5 @@
-import { ComplexTypes, IBase, ITargetInfo } from "..";
+import { ComplexTypes, ITargetInfo } from "..";
+import { IBase } from "../../utils";
 /**
  * Search
  */

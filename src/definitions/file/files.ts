@@ -1,8 +1,8 @@
 import {
-    IBase, IBaseCollection,
     IFile, IFileMethods, IFileQueryResult, IFileResult,
     SPTypes
 } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 
 /**
  * Methods

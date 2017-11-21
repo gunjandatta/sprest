@@ -1,7 +1,6 @@
-import {
-    ComplexTypes,
-    IBase
-} from "..";
+import { ComplexTypes } from "..";
+import { IBase } from "../../utils";
+
 /**
  * Person Properties
  */

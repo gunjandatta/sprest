@@ -1,5 +1,4 @@
 import {
-    IBase,
     IFileVersionResult, IFileVersions,
     IInformationRightsManagementSettings,
     IList, IListItem, IListItemResult,
@@ -9,6 +8,7 @@ import {
     IUser, IUserResult,
     SPTypes
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * File Methods

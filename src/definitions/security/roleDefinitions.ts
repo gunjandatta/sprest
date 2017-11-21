@@ -1,8 +1,8 @@
 import {
-    IBase, IBaseCollection,
     IRoleDefinition, IRoleDefinitionQueryResult, IRoleDefinitionResult,
     SPTypes
 } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 
 /**
  * Methods

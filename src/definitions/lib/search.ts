@@ -1,8 +1,8 @@
 import {
     ComplexTypes,
-    IBase,
     ITargetInfo
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * Search

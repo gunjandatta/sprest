@@ -1,4 +1,5 @@
-import { IBase, IFile, IFileResults, IFiles, IFolderResults, IFolders, IListItem, IListItemResults, IPropertyValues, IResourcePath, IStringValue } from "..";
+import { IFile, IFileResults, IFiles, IFolderResults, IFolders, IListItem, IListItemResults, IPropertyValues, IResourcePath, IStringValue } from "..";
+import { IBase } from "../../utils";
 /**
  * Folder Methods
  */

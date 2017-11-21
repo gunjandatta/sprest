@@ -2,6 +2,7 @@ import {
     Results,
     SPTypes
 } from ".";
+
 /**
  * App License
  */

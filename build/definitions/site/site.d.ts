@@ -1,4 +1,5 @@
-import { IAudit, IBase, IEventReceiver, IEventReceiverResult, IEventReceivers, IFeature, IRecycleBinItem, IResourcePath, IResults, ISiteMethods, ITargetInfo, IUpgradeInfo, IUsageInfo, IUser, IUserResult, IUserCustomAction, IUserCustomActionResults, IUserCustomActions, IWeb, IWebQueryResult, IWebResult } from "..";
+import { IAudit, IEventReceiver, IEventReceiverResult, IEventReceivers, IFeature, IRecycleBinItem, IResourcePath, IResults, ISiteMethods, ITargetInfo, IUpgradeInfo, IUsageInfo, IUser, IUserResult, IUserCustomAction, IUserCustomActionResults, IUserCustomActions, IWeb, IWebQueryResult, IWebResult } from "..";
+import { IBase } from "../../utils";
 /**
  * Site Methods
  */

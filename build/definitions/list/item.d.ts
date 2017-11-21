@@ -1,4 +1,5 @@
-import { IAttachment, IAttachmentFiles, IAttachmentFilesMethods, IBase, IBasePermissions, IContentType, IContentTypeResult, IFile, IFileResult, IFolder, IFolderResult, IList, IListResult, IPropertyValues, IResults, IRoleAssignment, IRoleAssignmentResults, IRoleAssignments } from "..";
+import { IAttachment, IAttachmentFiles, IAttachmentFilesMethods, IBasePermissions, IContentType, IContentTypeResult, IFile, IFileResult, IFolder, IFolderResult, IList, IListResult, IPropertyValues, IResults, IRoleAssignment, IRoleAssignmentResults, IRoleAssignments } from "..";
+import { IBase } from "../../utils";
 /**
  * List Item Methods
  */

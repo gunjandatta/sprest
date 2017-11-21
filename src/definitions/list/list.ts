@@ -1,5 +1,4 @@
 import {
-    IBase,
     IBasePermissions,
     IContentType, IContentTypeResults, IContentTypes,
     IEventReceiver, IEventReceiverResults, IEventReceivers,
@@ -22,6 +21,7 @@ import {
     IWeb, IWebResult,
     SPTypes
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * List Methods

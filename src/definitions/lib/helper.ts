@@ -1,5 +1,4 @@
 import {
-    IBase,
     IContentTypeResult,
     IContentTypeCreationInformation,
     IFieldResult,
@@ -12,6 +11,8 @@ import {
     IView, IViewResult,
     IWebResult
 } from "..";
+import { IBase } from "../../utils";
+
 /**
  * App Helper Methods
  */

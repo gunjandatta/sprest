@@ -1,4 +1,5 @@
-import { IBase, IBaseCollection, IView, IViewCreationInformation, IViewQueryResult, IViewResult } from "..";
+import { IView, IViewCreationInformation, IViewQueryResult, IViewResult } from "..";
+import { IBase, IBaseCollection } from "../../utils";
 /**
  * Methods
  */

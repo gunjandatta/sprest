@@ -1,5 +1,4 @@
 import {
-    IBase,
     IFile, IFileResult, IFileResults, IFiles,
     IFolderResults, IFolders,
     IListItem, IListItemResults,
@@ -8,6 +7,7 @@ import {
     IResults,
     IStringValue
 } from "..";
+import { IBase } from "../../utils";
 
 /**
  * Folder Methods
