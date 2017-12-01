@@ -1,5 +1,5 @@
-import { IMethodInfo, IRequestInfo, IRequestType, IResults, ITargetInfo, ODataQuery } from "../definitions";
-import { XHRRequest } from ".";
+import { IRequestInfo, IRequestType, IResults, ITargetInfo, ODataQuery } from "../definitions";
+import { IMethodInfo, XHRRequest } from ".";
 /**
  * Base
  */

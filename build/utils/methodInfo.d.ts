@@ -1,7 +1,22 @@
-import { IMethodInfo } from "../definitions";
+/**
+ * Method Information Settings
+ */
+export interface IMethodInfo {
+    argNames?: Array<string>;
+    argValues?: Array<any>;
+    data?: any;
+    getAllItemsFl?: boolean;
+    inheritMetadataType?: boolean;
+    metadataType?: string;
+    name?: string;
+    replaceEndpointFl?: boolean;
+    requestMethod?: string;
+    requestType?: number;
+    returnType?: string;
+}
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
-export declare class MethodInfo {
+export declare class MethodInfo implements IMethodInfo {
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
     constructor(methodName: string, methodInfo: IMethodInfo, args: any);

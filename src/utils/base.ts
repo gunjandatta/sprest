@@ -1,10 +1,10 @@
-import { IMethodInfo, IRequestInfo, IRequestType, IResults, ITargetInfo, ODataQuery } from "../definitions";
+import { IRequestInfo, IRequestType, IResults, ITargetInfo, ODataQuery } from "../definitions";
 import { ContextInfo } from "../lib";
 import { Mapper } from "../mapper";
 import { RequestType } from "../types";
 import {
     Batch,
-    MethodInfo,
+    MethodInfo, IMethodInfo,
     Promise,
     TargetInfo,
     XHRRequest

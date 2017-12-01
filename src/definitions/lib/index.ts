@@ -5,7 +5,6 @@ export * from "./contextInfo";
 export * from "./email";
 export * from "./helper";
 export * from "./jsLink";
-export * from "./methodInfo";
 export * from "./oData";
 export * from "./promise";
 export * from "./requestType";
