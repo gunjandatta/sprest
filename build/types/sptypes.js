@@ -37,7 +37,13 @@ exports.ClientTemplatesUtility = {
 /**
  * Control Modes
  */
-exports.ControlMode = { Invalid: 0, Display: 1, Edit: 2, New: 3, View: 4 };
+exports.ControlMode = {
+    Invalid: 0,
+    Display: 1,
+    Edit: 2,
+    New: 3,
+    View: 4
+};
 /**
  * Date Format
  */
@@ -46,6 +52,10 @@ exports.DateFormat = { DateOnly: 0, DateTime: 1 };
  * Draft Visibility Types
  */
 exports.DraftVisibilityType = { Reader: 0, Author: 1, Approver: 2 };
+/**
+ * Event Receiver Synchronization Types
+ */
+exports.EventReceiverSynchronizationType = { Synchronization: 1, Asynchronous: 2 };
 /**
  * Event Receiver Types
  */
@@ -127,14 +137,6 @@ exports.EventReceiverType = {
     ContextEvent: 32766
 };
 /**
- * Event Receiver Synchronization Types
- */
-exports.EventReceiverSynchronizationType = { Synchronization: 1, Asynchronous: 2 };
-/**
- * Field User Selection Types
- */
-exports.FieldUserSelectionType = { PeopleOnly: 0, PeopleAndGroups: 1 };
-/**
  * Field Types
  */
 exports.FieldType = {
@@ -172,6 +174,10 @@ exports.FieldType = {
     WorkflowEventType: 30,
     WorkflowStatus: 28
 };
+/**
+ * Field User Selection Types
+ */
+exports.FieldUserSelectionType = { PeopleOnly: 0, PeopleAndGroups: 1 };
 /**
  * File Template Types
 */
