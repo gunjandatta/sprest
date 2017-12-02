@@ -22,41 +22,29 @@ export interface ITemplates {
     OnPreRender?: any;
 }
 /**
- * JS Link Template
+ * JS Link Configuration
  */
-export interface IJSLink {
+export interface IJSLinkCfg {
+    /** The base view id. */
     BaseViewID?: number | string;
+    /** The list template type. */
     ListTemplateType?: number;
+    /** The post render event. */
     OnPostRender?: any;
+    /** The pre render event. */
     OnPreRender?: any;
+    /** The JSLink template overrides. */
     Templates?: ITemplates;
 }
 /**
  * JS Link
  */
-export declare class JSLink {
-    /**
-     * Template Properties
-     */
-    private _baseViewID;
-    BaseViewID: number | string;
-    private _listTemplateType;
-    ListTemplateType: number;
-    private _onPostRender;
-    OnPostRender: any;
-    private _onPreRender;
-    OnPreRender: any;
-    private _templates;
-    Templates: ITemplates;
-    /**
-     * Methods
-     */
-    /**
-     * Returns the CSR template.
-     */
-    getTemplate(): IJSLink;
-    /**
-     * Method to register the CSR override.
-     */
+export interface IJSLink extends IJSLinkCfg {
+    /** Constructor */
+    new (cfg?: IJSLinkCfg): IJSLink;
+    /** Method to get the template configuration. */
+    getTemplate(): IJSLinkCfg;
+    /** Method to register the JSLink template override. */
     register(): void;
 }
+export declare const JSLink: IJSLink;

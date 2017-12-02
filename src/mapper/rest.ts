@@ -1,4 +1,4 @@
-import { IContextInformation, IEmail, IHelper } from "../lib";
+import { IContextInformation, IEmail, IHelper, IJSLink } from "../lib";
 import { ITargetInfo } from "../utils";
 import { Types } from ".";
 
@@ -6,6 +6,11 @@ import { Types } from ".";
  * SharePoint REST Library
  */
 export interface IREST {
+    /**
+     * The version number of the library.
+     */
+    __ver: number;
+
     /**
      * A reference to the _spPageContextInfo global variable.
      */
@@ -25,6 +30,11 @@ export interface IREST {
      * Helper methods.
      */
     Helper: IHelper;
+
+    /**
+     * Use this helper library for implementing JSLink solutions.
+     */
+    JSLink: IJSLink;
 
     /**
      * Use this api to interact with SharePoint lists and libraries.

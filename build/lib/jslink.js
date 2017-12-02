@@ -4,30 +4,42 @@ var _1 = require(".");
 /**
  * JS Link
  */
-var JSLink = /** @class */ (function () {
-    function JSLink() {
+var _JSLink = /** @class */ (function () {
+    /**
+     * Constructor
+     */
+    function _JSLink(cfg) {
+        // See if the configuration exists
+        if (cfg) {
+            // Set the properties
+            this._baseViewID = cfg.BaseViewID;
+            this._listTemplateType = cfg.ListTemplateType;
+            this._onPostRender = cfg.OnPostRender;
+            this._onPreRender = cfg.OnPreRender;
+            this._templates = cfg.Templates;
+        }
     }
-    Object.defineProperty(JSLink.prototype, "BaseViewID", {
+    Object.defineProperty(_JSLink.prototype, "BaseViewID", {
         set: function (value) { this._baseViewID = value; },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(JSLink.prototype, "ListTemplateType", {
+    Object.defineProperty(_JSLink.prototype, "ListTemplateType", {
         set: function (value) { this._listTemplateType = value; },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(JSLink.prototype, "OnPostRender", {
+    Object.defineProperty(_JSLink.prototype, "OnPostRender", {
         set: function (value) { this._onPostRender = value; },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(JSLink.prototype, "OnPreRender", {
+    Object.defineProperty(_JSLink.prototype, "OnPreRender", {
         set: function (value) { this._onPreRender = value; },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(JSLink.prototype, "Templates", {
+    Object.defineProperty(_JSLink.prototype, "Templates", {
         set: function (value) { this._templates = value; },
         enumerable: true,
         configurable: true
@@ -38,7 +50,7 @@ var JSLink = /** @class */ (function () {
     /**
      * Returns the CSR template.
      */
-    JSLink.prototype.getTemplate = function () {
+    _JSLink.prototype.getTemplate = function () {
         var template = {};
         // Add the properties
         if (this._baseViewID) {
@@ -87,7 +99,7 @@ var JSLink = /** @class */ (function () {
     /**
      * Method to register the CSR override.
      */
-    JSLink.prototype.register = function () {
+    _JSLink.prototype.register = function () {
         // Get the template manager
         var templateManager = _1.ContextInfo.window.SPClientTemplates;
         templateManager = templateManager ? templateManager.TemplateManager : null;
@@ -97,7 +109,7 @@ var JSLink = /** @class */ (function () {
             templateManager.RegisterTemplateOverrides(this.getTemplate());
         }
     };
-    return JSLink;
+    return _JSLink;
 }());
-exports.JSLink = JSLink;
+exports.JSLink = _JSLink;
 //# sourceMappingURL=jslink.js.map

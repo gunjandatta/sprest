@@ -49,7 +49,7 @@ exports.Web = lib_1.Web;
 /**
  * SharePoint REST Library
  */
-var gd_sprest = {
+exports.$REST = {
     __ver: 2.26,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
@@ -68,7 +68,6 @@ var gd_sprest = {
     ProfileLoader: function ProfileLoader(targetInfo) {
         return new lib_1.ProfileLoader(targetInfo);
     },
-    RequestType: types_1.RequestType,
     Search: function Search(url, targetInfo) {
         return new lib_1.Search(url, targetInfo);
     },
@@ -76,8 +75,6 @@ var gd_sprest = {
         return new lib_1.Site(url, targetInfo);
     },
     SocialFeed: lib_1.SocialFeed,
-    SPTypes: types_1.SPTypes,
-    Types: mapper_1.Types,
     UserProfile: function UserProfile(targetInfo) {
         return new lib_1.UserProfile(targetInfo);
     },
@@ -85,11 +82,10 @@ var gd_sprest = {
         return new lib_1.Web(url, targetInfo);
     }
 };
-// Export the $REST library
-exports.$REST = gd_sprest;
 // See if the library doesn't exist, or is an older version
-if (lib_1.ContextInfo.window.$REST == null || lib_1.ContextInfo.window.$REST.__ver == null || lib_1.ContextInfo.window.$REST.__ver < gd_sprest.__ver) {
+var global = lib_1.ContextInfo.window.$REST;
+if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {
     // Set the global variable
-    lib_1.ContextInfo.window.$REST = gd_sprest;
+    lib_1.ContextInfo.window.$REST = exports.$REST;
 }
 //# sourceMappingURL=gd-sprest.js.map

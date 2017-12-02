@@ -28,6 +28,9 @@ declare module 'gd-sprest' {
     import { RequestType, SPTypes } from "gd-sprest/types";
     import { ContextInfo, Email, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Web } from "gd-sprest/lib";
     export { ContextInfo, Email, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Web };
+    /**
+        * SharePoint REST Library
+        */
     export const $REST: Types.IREST;
 }
 
@@ -1951,33 +1954,32 @@ declare module 'gd-sprest/lib/jslink' {
             OnPreRender?: any;
     }
     /**
-        * JS Link Template
+        * JS Link Configuration
         */
-    export interface IJSLink {
+    export interface IJSLinkCfg {
+            /** The base view id. */
             BaseViewID?: number | string;
+            /** The list template type. */
             ListTemplateType?: number;
+            /** The post render event. */
             OnPostRender?: any;
+            /** The pre render event. */
             OnPreRender?: any;
+            /** The JSLink template overrides. */
             Templates?: ITemplates;
     }
     /**
         * JS Link
         */
-    export class JSLink {
-            BaseViewID: number | string;
-            ListTemplateType: number;
-            OnPostRender: any;
-            OnPreRender: any;
-            Templates: ITemplates;
-            /**
-                * Returns the CSR template.
-                */
-            getTemplate(): IJSLink;
-            /**
-                * Method to register the CSR override.
-                */
+    export interface IJSLink extends IJSLinkCfg {
+            /** Constructor */
+            new (cfg?: IJSLinkCfg): IJSLink;
+            /** Method to get the template configuration. */
+            getTemplate(): IJSLinkCfg;
+            /** Method to register the JSLink template override. */
             register(): void;
     }
+    export const JSLink: IJSLink;
 }
 
 declare module 'gd-sprest/lib/list' {
@@ -4650,13 +4652,17 @@ declare module 'gd-sprest/mapper/propertyValues' {
 }
 
 declare module 'gd-sprest/mapper/rest' {
-    import { IContextInformation, IEmail, IHelper } from "gd-sprest/lib";
+    import { IContextInformation, IEmail, IHelper, IJSLink } from "gd-sprest/lib";
     import { ITargetInfo } from "gd-sprest/utils";
     import { Types } from "gd-sprest/mapper";
     /**
         * SharePoint REST Library
         */
     export interface IREST {
+            /**
+                * The version number of the library.
+                */
+            __ver: number;
             /**
                 * A reference to the _spPageContextInfo global variable.
                 */
@@ -4673,6 +4679,10 @@ declare module 'gd-sprest/mapper/rest' {
                 * Helper methods.
                 */
             Helper: IHelper;
+            /**
+                * Use this helper library for implementing JSLink solutions.
+                */
+            JSLink: IJSLink;
             /**
                 * Use this api to interact with SharePoint lists and libraries.
                 * @param listName - The name of the list.
