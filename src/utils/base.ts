@@ -3,7 +3,6 @@ import { Mapper, Types } from "../mapper";
 import { RequestType, IRequestType } from "../types";
 import {
     Batch,
-    ODataQuery,
     MethodInfo, IMethodInfo,
     Promise,
     TargetInfo,
@@ -90,7 +89,7 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
      * Queries the collection.
      * @param oData - The OData information.
      */
-    query?(query: ODataQuery): IBase<Result, QueryResult>;
+    query?(query: Types.ODataQuery): IBase<Result, QueryResult>;
 
     /**
      * Method to execute this request and previous ones to complete.

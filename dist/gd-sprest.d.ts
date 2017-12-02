@@ -1396,6 +1396,30 @@ declare module 'gd-sprest/mapper/types' {
             Url: string;
     }
     /**
+        * OData Query
+        */
+    export interface ODataQuery {
+            /** An optional custom query string */
+            Custom?: string;
+            /** The properties to expand. */
+            Expand?: Array<string>;
+            /** The filters. */
+            Filter?: string;
+            /**
+                * Flag to get all items.
+                * Use this flag to get past the 5000 limit.
+                */
+            GetAllItems?: boolean;
+            /** The order by fields. */
+            OrderBy?: Array<string>;
+            /** The fields to select. */
+            Select?: Array<string>;
+            /** The number of results to skip. */
+            Skip?: number;
+            /** The max number of results to return. */
+            Top?: number;
+    }
+    /**
         * Recycle Bin Item
         */
     export interface IRecycleBinItem {
@@ -5034,7 +5058,7 @@ declare module 'gd-sprest/mapper/list' {
 }
 
 declare module 'gd-sprest/mapper/propertyValues' {
-    import { IBase, ODataQuery } from "gd-sprest/utils";
+    import { IBase } from "gd-sprest/utils";
     import { Types } from "gd-sprest/mapper";
     /**
         * Property Values
@@ -5044,7 +5068,7 @@ declare module 'gd-sprest/mapper/propertyValues' {
                 * Queries the collection.
                 * @param oData - The OData information.
                 */
-            query(query: ODataQuery): IPropertyValues;
+            query(query: Types.ODataQuery): IPropertyValues;
     }
 }
 
@@ -10298,7 +10322,7 @@ declare module 'gd-sprest/mapper/userCustomAction/userCustomActions' {
 declare module 'gd-sprest/utils/base' {
     import { Types } from "gd-sprest/mapper";
     import { IRequestType } from "gd-sprest/types";
-    import { ODataQuery, IMethodInfo, XHRRequest, IRequestInfo, ITargetInfo } from "gd-sprest/utils";
+    import { IMethodInfo, XHRRequest, IRequestInfo, ITargetInfo } from "gd-sprest/utils";
     /**
         * Base
         */
@@ -10361,7 +10385,7 @@ declare module 'gd-sprest/utils/base' {
                 * Queries the collection.
                 * @param oData - The OData information.
                 */
-            query?(query: ODataQuery): IBase<Result, QueryResult>;
+            query?(query: Types.ODataQuery): IBase<Result, QueryResult>;
             /**
                 * Method to execute this request and previous ones to complete.
                 * @param resolve - Method to execute for successful requests.
@@ -10467,46 +10491,23 @@ declare module 'gd-sprest/utils/methodInfo' {
 }
 
 declare module 'gd-sprest/utils/oData' {
+    import { Types } from "gd-sprest/mapper";
     /**
-        * OData Query
-        */
-    export interface ODataQuery {
-            /** An optional custom query string */
-            Custom?: string;
-            /** The properties to expand. */
-            Expand?: Array<string>;
-            /** The filters. */
-            Filter?: string;
-            /**
-                * Flag to get all items.
-                * Use this flag to get past the 5000 limit.
-                */
-            GetAllItems?: boolean;
-            /** The order by fields. */
-            OrderBy?: Array<string>;
-            /** The fields to select. */
-            Select?: Array<string>;
-            /** The number of results to skip. */
-            Skip?: number;
-            /** The max number of results to return. */
-            Top?: number;
-    }
-    /**
-        * OData
-        */
+      * OData
+      */
     export class OData {
-            /*********************************************************************************************************************************/
-            constructor(oData: ODataQuery);
-            /*********************************************************************************************************************************/
-            Custom: string;
-            Expand: Array<string>;
-            Filter: string;
-            GetAllItems: boolean;
-            OrderBy: Array<string>;
-            readonly QueryString: string;
-            Select: Array<string>;
-            Skip: number;
-            Top: number;
+        /*********************************************************************************************************************************/
+        constructor(oData: Types.ODataQuery);
+        /*********************************************************************************************************************************/
+        Custom: string;
+        Expand: Array<string>;
+        Filter: string;
+        GetAllItems: boolean;
+        OrderBy: Array<string>;
+        readonly QueryString: string;
+        Select: Array<string>;
+        Skip: number;
+        Top: number;
     }
 }
 
