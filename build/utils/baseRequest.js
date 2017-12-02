@@ -9,12 +9,13 @@ var BaseRequest = /** @class */ (function () {
     function BaseRequest() {
     }
     Object.defineProperty(BaseRequest.prototype, "response", {
-        // Method to return the xml http request's response
+        // Returns the request's raw response
         get: function () { return this.xhr ? this.xhr.response : null; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BaseRequest.prototype, "status", {
+        // Returns the status of the request
         get: function () { return this.xhr ? this.xhr.status : null; },
         enumerable: true,
         configurable: true
@@ -161,6 +162,20 @@ var BaseRequest = /** @class */ (function () {
         // Return the object
         return obj;
     };
+    // Method to get the next set of results
+    BaseRequest.prototype.getNextSetOfResults = function (base) {
+        // Create the target information to query the next set of results
+        var targetInfo = Object.create(base.targetInfo);
+        targetInfo.endpoint = "";
+        targetInfo.url = base["d"].__next;
+        // Create a new object
+        var obj = new _1.Base(targetInfo);
+        // Set the properties
+        obj.base = base.base ? base.base : base;
+        obj.parent = base;
+        // Return the object
+        return obj;
+    };
     // Method to return a property of the base object
     BaseRequest.prototype.getProperty = function (base, propertyName, requestType) {
         // Copy the target information
@@ -189,20 +204,6 @@ var BaseRequest = /** @class */ (function () {
         obj.parent = base;
         // Add the methods
         requestType ? _1.Request.addMethods(obj, { __metadata: { type: requestType } }) : null;
-        // Return the object
-        return obj;
-    };
-    // Method to get the next set of results
-    BaseRequest.prototype.getNextSetOfResults = function (base) {
-        // Create the target information to query the next set of results
-        var targetInfo = Object.create(base.targetInfo);
-        targetInfo.endpoint = "";
-        targetInfo.url = base["d"].__next;
-        // Create a new object
-        var obj = new _1.Base(targetInfo);
-        // Set the properties
-        obj.base = base.base ? base.base : base;
-        obj.parent = base;
         // Return the object
         return obj;
     };

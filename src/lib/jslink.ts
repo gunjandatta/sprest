@@ -159,4 +159,4 @@ class _JSLink {
         }
     }
 }
-export const JSLink: IJSLink = <any>_JSLink;
+export const JSLink: IJSLink = _JSLink as any;

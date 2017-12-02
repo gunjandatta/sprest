@@ -7,11 +7,11 @@ var _1 = require(".");
 /**
  * Request Helper Methods
  */
-var Request = /** @class */ (function () {
-    function Request() {
+var _Request = /** @class */ (function () {
+    function _Request() {
     }
     // Method to add the methods to base object
-    Request.addMethods = function (base, data) {
+    _Request.addMethods = function (base, data) {
         var isCollection = data.results && data.results.length > 0;
         // Determine the metadata
         var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
@@ -85,7 +85,7 @@ var Request = /** @class */ (function () {
         }
     };
     // Method to add properties to the base object
-    Request.addProperties = function (base, data) {
+    _Request.addProperties = function (base, data) {
         // Parse the data properties
         for (var key in data) {
             var value = data[key];
@@ -136,7 +136,7 @@ var Request = /** @class */ (function () {
         }
     };
     // Method to update a collection object
-    Request.updateDataCollection = function (obj, results) {
+    _Request.updateDataCollection = function (obj, results) {
         // Ensure the base is a collection
         if (results) {
             // Save the results
@@ -169,7 +169,7 @@ var Request = /** @class */ (function () {
         }
     };
     // Method to convert the input arguments into an object
-    Request.updateDataObject = function (base, isBatchRequest) {
+    _Request.updateDataObject = function (base, isBatchRequest) {
         // Ensure the request was successful
         if (base.request.status >= 200 && base.request.status < 300) {
             // Return if we are expecting a buffer
@@ -235,7 +235,7 @@ var Request = /** @class */ (function () {
         }
     };
     // Method to update the metadata
-    Request.updateMetadata = function (base, data) {
+    _Request.updateMetadata = function (base, data) {
         // Ensure the base is the app web
         if (!lib_1.ContextInfo.isAppWeb) {
             return;
@@ -255,7 +255,7 @@ var Request = /** @class */ (function () {
         // Update the metadata uri
         data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
     };
-    return Request;
+    return _Request;
 }());
-exports.Request = Request;
+exports.Request = _Request;
 //# sourceMappingURL=request.js.map

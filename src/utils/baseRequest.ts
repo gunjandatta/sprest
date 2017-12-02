@@ -7,10 +7,46 @@ import {
 /**
  * Base Request
  */
-export class BaseRequest {
-    // Method to return the xml http request's response
+export interface IBaseRequest {
+    /** The request's raw response. */
+    response: string;
+
+    /** The request's status. */
+    status: number;
+
+    /** The request. */
+    xhr: XHRRequest;
+
+    /** Method to execute the request. */
+    executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any);
+
+    /** Method to execute the request. */
+    executeRequest(base: Base, asyncFl: boolean, callback?: (...args) => void);
+
+    /** Gets the property as a collection. */
+    getCollection(base: Base, method: string, args?: any);
+
+    /** Gets the next set of results. */
+    getNextSetOfResults(base: Base);
+
+    /** Gets the property. */
+    getProperty(base: Base, propertyName: string, requestType?: string);
+
+    /** Updates the metdata uri. */
+    updateMetadataUri(metadata, targetInfo: ITargetInfo);
+
+    /** Validates the data collection results. */
+    validateDataCollectionResults(base: Base, request: XHRRequest, promise?: Promise);
+}
+
+/**
+ * Base Request
+ */
+export class BaseRequest implements IBaseRequest {
+    // Returns the request's raw response
     get response() { return this.xhr ? this.xhr.response : null; }
 
+    // Returns the status of the request
     get status() { return this.xhr ? this.xhr.status : null; }
 
     // The request
@@ -187,6 +223,24 @@ export class BaseRequest {
         return obj;
     }
 
+    // Method to get the next set of results
+    getNextSetOfResults(base: Base) {
+        // Create the target information to query the next set of results
+        let targetInfo = Object.create(base.targetInfo);
+        targetInfo.endpoint = "";
+        targetInfo.url = base["d"].__next;
+
+        // Create a new object
+        let obj = new Base(targetInfo);
+
+        // Set the properties
+        obj.base = base.base ? base.base : base;
+        obj.parent = base;
+
+        // Return the object
+        return obj;
+    }
+
     // Method to return a property of the base object
     getProperty(base: Base, propertyName: string, requestType?: string) {
         // Copy the target information
@@ -222,24 +276,6 @@ export class BaseRequest {
 
         // Add the methods
         requestType ? Request.addMethods(obj, { __metadata: { type: requestType } }) : null;
-
-        // Return the object
-        return obj;
-    }
-
-    // Method to get the next set of results
-    getNextSetOfResults(base: Base) {
-        // Create the target information to query the next set of results
-        let targetInfo = Object.create(base.targetInfo);
-        targetInfo.endpoint = "";
-        targetInfo.url = base["d"].__next;
-
-        // Create a new object
-        let obj = new Base(targetInfo);
-
-        // Set the properties
-        obj.base = base.base ? base.base : base;
-        obj.parent = base;
 
         // Return the object
         return obj;
