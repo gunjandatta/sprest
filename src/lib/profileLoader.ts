@@ -1,4 +1,4 @@
-import { IProfileLoader } from "../definitions";
+import { Types } from "../mapper";
 import { Base } from "../utils";
 
 /*********************************************************************************************************************************/
@@ -21,4 +21,4 @@ class _ProfileLoader extends Base {
         this.addMethods(this, { __metadata: { type: "profileloader" } });
     }
 }
-export const ProfileLoader: IProfileLoader = <any>_ProfileLoader;
+export const ProfileLoader: Types.IProfileLoader = <any>_ProfileLoader;

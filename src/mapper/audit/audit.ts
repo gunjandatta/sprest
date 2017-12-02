@@ -1,12 +1,6 @@
-import {RequestType} from "../../types";
-
-/*********************************************************************************************************************************/
-// Library
-/*********************************************************************************************************************************/
-export const audit = {
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: RequestType.OData
-    }
-};
+/**
+ * Audit
+ */
+export interface IAudit {
+    AuditFlags: number;
+}

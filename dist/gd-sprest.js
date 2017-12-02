@@ -27,8 +27,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-var Types = require("./definitions");
-exports.Types = Types;
+var mapper_1 = require("./mapper");
+exports.Types = mapper_1.Types;
 var types_1 = require("./types");
 exports.RequestType = types_1.RequestType;
 exports.SPTypes = types_1.SPTypes;
@@ -77,7 +77,7 @@ var gd_sprest = {
     },
     SocialFeed: lib_1.SocialFeed,
     SPTypes: types_1.SPTypes,
-    Types: Types,
+    Types: mapper_1.Types,
     UserProfile: function UserProfile(targetInfo) {
         return new lib_1.UserProfile(targetInfo);
     },

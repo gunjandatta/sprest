@@ -1,4 +1,4 @@
-import { ISearch } from "../definitions";
+import { Types } from "../mapper";
 import { RequestType } from "../types";
 import { Base } from "../utils";
 
@@ -65,4 +65,4 @@ class _Search extends Base {
         }, this.getQuery(settings));
     }
 }
-export const Search: ISearch = <any>_Search;
+export const Search: Types.ISearch = <any>_Search;

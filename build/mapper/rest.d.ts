@@ -1,0 +1,72 @@
+import { IContextInformation, IEmail, IHelper } from "../lib";
+import { ITargetInfo } from "../utils";
+import { Types } from ".";
+/**
+ * SharePoint REST Library
+ */
+export interface IREST {
+    /**
+     * A reference to the _spPageContextInfo global variable.
+     */
+    ContextInfo: IContextInformation;
+    /**
+     * False by default.
+     */
+    DefaultRequestToHostFl: boolean;
+    /**
+     * Use this api to send emails.
+     */
+    Email: IEmail;
+    /**
+     * Helper methods.
+     */
+    Helper: IHelper;
+    /**
+     * Use this api to interact with SharePoint lists and libraries.
+     * @param listName - The name of the list.
+     * @param targetInfo - (Optional) The target information.
+     */
+    List: (listName: string, targetInfo?: ITargetInfo) => Types.IList;
+    /**
+     * Use this api to interact with SharePoint user profiles.
+     * @param targetInfo - (Optional) The target information.
+     */
+    PeopleManager: (targetInfo?: ITargetInfo) => Types.IPeopleManager;
+    /**
+     * Use this api to search for users.
+     * @param settings - The search settings.
+     */
+    PeoplePicker: (settings?: ITargetInfo) => Types.IPeoplePicker;
+    /**
+     * Use this api to interact with the user profile loader.
+     * @param targetInfo - (Optional) The target information.
+     */
+    ProfileLoader: (targetInfo?: ITargetInfo) => Types.IProfileLoader;
+    /**
+     * Use this api to interact with the SharePoint search service.
+     * @param url - The optional url to execute the search against.
+     * @param settings - The search settings.
+     */
+    Search: (url?: string, settings?: ITargetInfo) => Types.ISearch;
+    /**
+     * Use this api to interact with a SharePoint site collection.
+     * @param url - (Optional) The site url.
+     * @param targetInfo - (Optional) The target information.
+     */
+    Site: (url?: string, targetInfo?: ITargetInfo) => Types.ISite;
+    /**
+     * Use this api to interact with the current user's social profile.
+     */
+    SocialFeed: Types.ISocialFeed;
+    /**
+     * Use this api to interact with the current user's profile.
+     * @param targetInfo - (Optional) The target information.
+     */
+    UserProfile: (targetInfo?: ITargetInfo) => Types.IUserProfile;
+    /**
+     * Use this api to interact with a SharePoint web.
+     * @param url - (Optional) The web url.
+     * @param targetInfo - (Optional) The target information.
+     */
+    Web: (url?: string, targetInfo?: ITargetInfo) => Types.IWeb;
+}

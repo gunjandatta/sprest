@@ -1,2 +1,2 @@
-import { ISite } from "../definitions";
-export declare const Site: ISite;
+import { Types } from "../mapper";
+export declare const Site: Types.ISite;

@@ -1,8 +1,8 @@
-import {RequestType} from "./requestType";
-import {SPConfigTypes} from "./spConfigTypes";
+import { RequestType, IRequestType } from "./requestType";
+import { SPConfigTypes } from "./spConfigTypes";
 import * as SPTypes from "./sptypes";
 export {
-    RequestType,
+    RequestType, IRequestType,
     SPConfigTypes,
     SPTypes
 };

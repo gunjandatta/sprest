@@ -1,6 +1,3 @@
-/**
- * Mapper
- */
 export declare const Mapper: {
     attachment: {};
     attachmentfiles: {
@@ -1189,3 +1186,8 @@ export declare const Mapper: {
         };
     };
 };
+/**
+ * Types
+ */
+import * as Types from "./types";
+export { Types };

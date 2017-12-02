@@ -1,84 +1,53 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var attachment_1 = require("./attachment/attachment");
-var attachmentFiles_1 = require("./attachmentFiles/attachmentFiles");
-var audit_1 = require("./audit/audit");
-var contentType_1 = require("./contentType/contentType");
-var contentTypes_1 = require("./contentType/contentTypes");
-var eventReceiver_1 = require("./eventReceiver/eventReceiver");
-var eventReceivers_1 = require("./eventReceiver/eventReceivers");
-var field_1 = require("./field/field");
-var fields_1 = require("./field/fields");
-var fieldLinks_1 = require("./fieldLink/fieldLinks");
-var file_1 = require("./file/file");
-var files_1 = require("./file/files");
-var fileVersion_1 = require("./fileVersion/fileVersion");
-var fileVersions_1 = require("./fileVersion/fileVersions");
-var folder_1 = require("./folder/folder");
-var folders_1 = require("./folder/folders");
-var group_1 = require("./group/group");
-var siteGroups_1 = require("./group/siteGroups");
-var items_1 = require("./item/items");
-var limitedWebPartManager_1 = require("./limitedWebPartManager/limitedWebPartManager");
-var list_1 = require("./list/list");
-var listItem_1 = require("./item/listItem");
-var lists_1 = require("./list/lists");
-var peopleManager_1 = require("./peopleManager/peopleManager");
-var peoplePicker_1 = require("./peoplePicker/peoplePicker");
-var profileLoader_1 = require("./profileLoader/profileLoader");
-var propertyValues_1 = require("./propertyValues/propertyValues");
-var roleAssignment_1 = require("./roleAssignment/roleAssignment");
-var roleAssignments_1 = require("./roleAssignment/roleAssignments");
-var roleDefinition_1 = require("./roleDefinition/roleDefinition");
-var roleDefinitions_1 = require("./roleDefinition/roleDefinitions");
-var search_1 = require("./search/search");
-var site_1 = require("./site/site");
-var socialFeed_1 = require("./socialFeed/socialFeed");
-var user_1 = require("./user/user");
-var users_1 = require("./user/users");
-var userCustomAction_1 = require("./userCustomAction/userCustomAction");
-var userCustomActions_1 = require("./userCustomAction/userCustomActions");
-var userProfile_1 = require("./userProfile/userProfile");
-var version_1 = require("./version/version");
-var view_1 = require("./view/view");
-var views_1 = require("./view/views");
-var viewFieldCollection_1 = require("./viewFieldCollection/viewFieldCollection");
-var web_1 = require("./web/web");
-var webinfos_1 = require("./web/webinfos");
-var webs_1 = require("./web/webs");
 /**
  * Mapper
  */
+var mapper_1 = require("./audit/mapper");
+var mapper_2 = require("./eventReceiver/mapper");
+var mapper_3 = require("./file/mapper");
+var mapper_4 = require("./list/mapper");
+var mapper_5 = require("./propertyValues/mapper");
+var mapper_6 = require("./search/mapper");
+var mapper_7 = require("./security/mapper");
+var mapper_8 = require("./site/mapper");
+var mapper_9 = require("./social/mapper");
+var mapper_10 = require("./user/mapper");
+var mapper_11 = require("./userCustomAction/mapper");
 exports.Mapper = {
-    attachment: attachment_1.attachment,
-    attachmentfiles: attachmentFiles_1.attachmentfiles,
-    audit: audit_1.audit,
-    contenttype: contentType_1.contenttype, contenttypes: contentTypes_1.contenttypes,
-    eventreceiver: eventReceiver_1.eventreceiver, eventreceivers: eventReceivers_1.eventreceivers,
-    field: field_1.field, fields: fields_1.fields,
-    fieldlinks: fieldLinks_1.fieldlinks,
-    file: file_1.file, files: files_1.files,
-    fileversion: fileVersion_1.fileversion, fileversions: fileVersions_1.fileversions,
-    folder: folder_1.folder, folders: folders_1.folders,
-    group: group_1.group, sitegroups: siteGroups_1.sitegroups,
-    limitedwebpartmanager: limitedWebPartManager_1.limitedwebpartmanager,
-    list: list_1.list, lists: lists_1.lists,
-    listitem: listItem_1.listitem, items: items_1.items,
-    peoplemanager: peopleManager_1.peoplemanager,
-    peoplepicker: peoplePicker_1.peoplepicker,
-    profileloader: profileLoader_1.profileloader,
-    propertyvalues: propertyValues_1.propertyvalues,
-    roleassignment: roleAssignment_1.roleassignment, roleassignments: roleAssignments_1.roleassignments,
-    roledefinition: roleDefinition_1.roledefinition, roledefinitions: roleDefinitions_1.roledefinitions,
-    search: search_1.search,
-    site: site_1.site,
-    socialfeed: socialFeed_1.socialfeed,
-    user: user_1.user, users: users_1.users,
-    usercustomaction: userCustomAction_1.usercustomaction, usercustomactions: userCustomActions_1.usercustomactions,
-    userprofile: userProfile_1.userprofile,
-    version: version_1.version,
-    view: view_1.view, views: views_1.views,
-    viewfieldcollection: viewFieldCollection_1.viewfieldcollection,
-    web: web_1.web, webinfos: webinfos_1.webinfos, webs: webs_1.webs
+    attachment: mapper_3.attachment, attachmentfiles: mapper_3.attachmentfiles,
+    audit: mapper_1.audit,
+    contenttype: mapper_4.contenttype, contenttypes: mapper_4.contenttypes,
+    eventreceiver: mapper_2.eventreceiver, eventreceivers: mapper_2.eventreceivers,
+    field: mapper_4.field, fields: mapper_4.fields,
+    fieldlinks: mapper_4.fieldlinks,
+    file: mapper_3.file, files: mapper_3.files,
+    fileversion: mapper_3.fileversion, fileversions: mapper_3.fileversions,
+    folder: mapper_3.folder, folders: mapper_3.folders,
+    group: mapper_10.group, sitegroups: mapper_10.sitegroups,
+    limitedwebpartmanager: mapper_3.limitedwebpartmanager,
+    list: mapper_4.list, lists: mapper_4.lists,
+    listitem: mapper_4.listitem, items: mapper_4.items,
+    peoplemanager: mapper_9.peoplemanager,
+    peoplepicker: mapper_10.peoplepicker,
+    profileloader: mapper_9.profileloader,
+    propertyvalues: mapper_5.propertyvalues,
+    roleassignment: mapper_7.roleassignment, roleassignments: mapper_7.roleassignments,
+    roledefinition: mapper_7.roledefinition, roledefinitions: mapper_7.roledefinitions,
+    search: mapper_6.search,
+    site: mapper_8.site,
+    socialfeed: mapper_9.socialfeed,
+    user: mapper_10.user, users: mapper_10.users,
+    usercustomaction: mapper_11.usercustomaction, usercustomactions: mapper_11.usercustomactions,
+    userprofile: mapper_9.userprofile,
+    version: mapper_4.version,
+    view: mapper_4.view, views: mapper_4.views,
+    viewfieldcollection: mapper_4.viewfieldcollection,
+    web: mapper_8.web, webinfos: mapper_8.webinfos, webs: mapper_8.webs
 };
+/**
+ * Types
+ */
+var Types = require("./types");
+exports.Types = Types;
 //# sourceMappingURL=index.js.map

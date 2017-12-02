@@ -1,10 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
-/*********************************************************************************************************************************/
-// Context Information
-// This class will return the _spPageContextInfo.
-/*********************************************************************************************************************************/
+/**
+ * Context Information
+ */
 var _ContextInfo = /** @class */ (function () {
     function _ContextInfo() {
     }

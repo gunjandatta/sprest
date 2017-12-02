@@ -1,2 +1,2 @@
-import { ISocialFeed } from "../definitions";
-export declare const SocialFeed: ISocialFeed;
+import { Types } from "../mapper";
+export declare const SocialFeed: Types.ISocialFeed;

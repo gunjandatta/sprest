@@ -1,25 +1,311 @@
+import { Types } from "../../mapper";
 import { Promise } from "../../utils";
 import { SPConfigTypes } from "../../types";
-import {
-    IContentTypeResult, IContentTypeResults,
-    IFieldResult, IFieldResults,
-    IFileResult, IFolderResult,
-    IListResult, IListResults,
-    IListItemResult, IListItemResults,
-    ISPCfgContentTypeInfo, ISPCfgCustomActionInfo, ISPConfigProps, ISPCfgFieldInfo, ISPCfgListInfo, ISPCfgViewInfo, ISPCfgWebPartInfo,
-    IUserCustomActionResult, IUserCustomActionResults, IUserCustomActionCreationInformation,
-    IView, IViewResult, IViewResults
-} from "../../definitions";
-import {
-    ContextInfo,
-    List,
-    Site,
-    Web
-} from "..";
+import { ContextInfo, List, Site, Web } from "..";
 
-/*********************************************************************************************************************************/
-// SharePoint Configuration
-/*********************************************************************************************************************************/
+/**
+ * SharePoint Configuration - Content Type Information
+ */
+export interface ISPCfgContentTypeInfo extends Types.IContentTypeCreationInformation {
+    /**
+     * The content type. (This value is set internally.)
+     */
+    ContentType?: Types.IContentTypeResult;
+
+    /**
+     * The field references.
+     */
+    FieldRefs?: Array<string>;
+
+    /**
+     * The JSLink property.
+     */
+    JSLink?: string;
+
+    /**
+     * The parent content type name, required if different then the name.
+     */
+    ParentName?: string;
+
+    /**
+     * The url of the web containing the parent content type, required if the parent content type doesn't exist in the current web.
+     */
+    ParentWebUrl?: string;
+
+    /**
+     * Event triggered after the content type is created.
+     */
+    onCreated?: (ct: Types.IContentTypeResult) => void;
+
+    /**
+     * Event triggered after the content type is updated.
+     */
+    onUpdated?: (ct: Types.IContentTypeResult) => void;
+}
+
+/**
+ * SharePoint Configuration - Custom Action Information
+ */
+export interface ISPCfgCustomActionInfo {
+    /**
+     * Custom actions to be created at the site collection level.
+     */
+    Site?: Array<Types.IUserCustomActionCreationInformation>,
+
+    /**
+     * Custom actions to be created at the web level.
+     */
+    Web?: Array<Types.IUserCustomActionCreationInformation>
+}
+
+/**
+ * SharePoint Configuration - Field Information
+ */
+export interface ISPCfgFieldInfo {
+    /**
+     * The internal field name.
+     */
+    Name: string;
+
+    /**
+     * The schema definition of the field.
+     */
+    SchemaXml: string;
+
+    /**
+     * Event triggered after the field is created.
+     */
+    onCreated?: (field: Types.IFieldResult) => void;
+
+    /**
+     * Event triggered after the field is updated.
+     */
+    onUpdated?: (field: Types.IFieldResult) => void;
+}
+
+/**
+ * SharePoint Configuration - List Information
+ */
+export interface ISPCfgListInfo {
+    /** The content types. */
+    ContentTypes?: Array<ISPCfgContentTypeInfo>;
+
+    /** The custom list fields. */
+    CustomFields?: Array<ISPCfgFieldInfo>;
+
+    /** The list creation information. */
+    ListInformation: Types.IListCreationInformation;
+
+    /** The title display name. */
+    TitleFieldDisplayName?: string;
+
+    /** The user custom actions. */
+    UserCustomActions?: Array<Types.IUserCustomActionCreationInformation>;
+
+    /** The view information. */
+    ViewInformation?: Array<ISPCfgViewInfo>;
+
+    /**
+     * Event triggered after the list is created or updated.
+     */
+    onCreated?: (list: Types.IListResult) => void;
+
+    /**
+     * Event triggered after the list is updated.
+     */
+    onUpdated?: (list: Types.IListQueryResult) => void;
+}
+
+/**
+ * SharePoint Configuration - View Information
+ */
+export interface ISPCfgViewInfo {
+    /** The JSLink property. */
+    JSLink?: string;
+
+    /** The view fields. */
+    ViewFields?: Array<string>;
+
+    /** The view name. */
+    ViewName: string;
+
+    /** The view query. */
+    ViewQuery?: string;
+
+    /**
+     * Event triggered after the view is created or updated.
+     */
+    onCreated?: (view: Types.IViewResult) => void;
+
+    /**
+     * Event triggered after the view is updated.
+     */
+    onUpdated?: (view: Types.IView) => void;
+}
+
+/**
+ * SharePoint Configuration - WebPart Information
+ */
+export interface ISPCfgWebPartInfo {
+    /** The file name of the webpart. */
+    FileName: string;
+
+    /** The webpart group. */
+    Group?: string;
+
+    /** The webpart xml */
+    XML: string;
+
+    /**
+     * Event triggered after the webpart file is created.
+     */
+    onCreated?: (file: Types.IFileResult) => void;
+
+    /**
+     * Event triggered after the webpart file is updated.
+     */
+    onUpdated?: (file: Types.IFileResult) => void;
+}
+
+/**
+ * SharePoint Configuration Methods
+ */
+export interface ISPConfig {
+    /**
+     * Constructor
+     * @param cfg - The SharePoint configuration information.
+     * @param webUrl - An optional string representing the relative web url.
+     */
+    new(cfg: ISPConfigProps, webUrl?: string);
+
+    /**
+     * Method to install the configuration
+     * @param callback - An optional function called after the execution completes.
+     */
+    install(callback?: () => void);
+
+    /**
+     * Method to install by the configuration type.
+     * @param cfgType - The configuration type.
+     * @param callback - An optional function called after the execution completes.
+     * @param targetName - The target configuration type to install.
+     */
+    installByType(cfgType: ISPConfigTypes, callback?: any, targetName?: string);
+
+    /**
+     * Method to install a specific content type
+     * @param ctName - The content type to install.
+     * @param callback - An optional function called after the execution completes.
+     */
+    installContentType(ctName: string, callback?: any);
+
+    /**
+     * Method to install a specific list
+     * @param listName - The list to install.
+     * @param callback - An optional function called after the execution completes.
+     */
+    installList(listName: string, callback?: any);
+
+    /**
+     * Method to install a specific site custom action
+     * @param caName - The site user custom action to install.
+     * @param callback - An optional function called after the execution completes.
+     */
+    installSiteCustomAction(caName: string, callback?: any);
+
+    /**
+     * Method to install a specific web custom action
+     * @param caName - The web user custom action to install.
+     * @param callback - An optional function called after the execution completes.
+     */
+    installWebCustomAction(caName: string, callback?: any);
+
+    /**
+     * Method to install the configuration
+     * @param callback - An optional function called after the execution completes.
+     */
+    uninstall(callback?: () => void);
+
+    /**
+     * Method to uninstall by the configuration type.
+     * @param cfgType - The configuration type.
+     * @param callback - An optional function called after the execution completes.
+     * @param targetName - The target configuration type to uninstall.
+     */
+    uninstallByType(cfgType: ISPConfigTypes, callback?: any, targetName?: string);
+
+    /**
+     * Method to uninstall a specific content type
+     * @param ctName - The content type to uninstall.
+     * @param callback - An optional function called after the execution completes.
+     */
+    uninstallContentType(ctName: string, callback?: any);
+
+    /**
+     * Method to uninstall a specific list
+     * @param listName - The list to uninstall.
+     * @param callback - An optional function called after the execution completes.
+     */
+    uninstallList(listName: string, callback?: any);
+
+    /**
+     * Method to uninstall a specific site custom action
+     * @param caName - The site user custom action to uninstall.
+     * @param callback - An optional function called after the execution completes.
+     */
+    uninstallSiteCustomAction(caName: string, callback?: any);
+
+    /**
+     * Method to uninstall a specific web custom action
+     * @param caName - The web user custom action to uninstall.
+     * @param callback - An optional function called after the execution completes.
+     */
+    uninstallWebCustomAction(caName: string, callback?: any);
+}
+
+/**
+ * SharePoint Configuration - Properties
+ */
+export interface ISPConfigProps {
+    /** The content types. */
+    ContentTypes?: Array<ISPCfgContentTypeInfo>;
+
+    /** The custom action configuration. */
+    CustomActionCfg?: ISPCfgCustomActionInfo;
+
+    /** The site column configuration. */
+    Fields?: Array<ISPCfgFieldInfo>;
+
+    /** The list configuration. */
+    ListCfg?: Array<ISPCfgListInfo>;
+
+    /** The web part configuration. */
+    WebPartCfg?: Array<ISPCfgWebPartInfo>;
+}
+
+/**
+ * SharePoint Configuration - Types
+ */
+export interface ISPConfigTypes {
+    /** Fields */
+    Fields: number;
+
+    /** Content Types */
+    ContentTypes: number;
+
+    /** Lists */
+    Lists: number;
+
+    /** Site User Custom Actions */
+    SiteUserCustomActions: number;
+
+    /** Web User Custom Actions */
+    WebUserCustomActions: number;
+}
+
+/**
+ * SharePoint Configuration
+ */
 export class SPConfig {
     /**
      * Global Properties
@@ -131,7 +417,7 @@ export class SPConfig {
      */
 
     // Method to create the content types
-    private createContentTypes = (contentTypes: IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>) => {
+    private createContentTypes = (contentTypes: Types.IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>) => {
         let promise = new Promise();
 
         // Ensure the content types exist
@@ -314,7 +600,7 @@ export class SPConfig {
     }
 
     // Method to create the fields
-    private createFields = (fields: IFieldResults, cfgFields: Array<ISPCfgFieldInfo>) => {
+    private createFields = (fields: Types.IFieldResults, cfgFields: Array<ISPCfgFieldInfo>) => {
         let promise = new Promise();
 
         // Ensure the fields exist
@@ -372,7 +658,7 @@ export class SPConfig {
     }
 
     // Method to create the lists
-    private createLists = (lists: IListResults, cfgLists: Array<ISPCfgListInfo>) => {
+    private createLists = (lists: Types.IListResults, cfgLists: Array<ISPCfgListInfo>) => {
         let promise = new Promise();
 
         // See if the configuration type exists
@@ -465,7 +751,7 @@ export class SPConfig {
     }
 
     // Method to create the user custom actions
-    private createUserCustomActions = (customActions: IUserCustomActionResults, cfgCustomActions: Array<IUserCustomActionCreationInformation>) => {
+    private createUserCustomActions = (customActions: Types.IUserCustomActionResults, cfgCustomActions: Array<Types.IUserCustomActionCreationInformation>) => {
         let promise = new Promise();
 
         // See if the configuration type exists
@@ -530,7 +816,7 @@ export class SPConfig {
     }
 
     // Method to create the list views
-    private createViews = (views: IViewResults, cfgViews: Array<ISPCfgViewInfo>) => {
+    private createViews = (views: Types.IViewResults, cfgViews: Array<ISPCfgViewInfo>) => {
         let promise = new Promise();
 
         // Ensure the list views exist
@@ -545,7 +831,7 @@ export class SPConfig {
             let cfgView = cfgViews[i];
 
             // See if this view exists
-            let view: IViewResult = this.isInCollection("Title", cfgView.ViewName, views.results);
+            let view: Types.IViewResult = this.isInCollection("Title", cfgView.ViewName, views.results);
             if (view) {
                 // Log
                 console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' already exists.");
@@ -626,7 +912,7 @@ export class SPConfig {
                     }
 
                     // See if this webpart exists
-                    let file: IFileResult = this.isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
+                    let file: Types.IFileResult = this.isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
                     if (file.existsFl) {
                         // Log
                         console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
@@ -767,7 +1053,7 @@ export class SPConfig {
     }
 
     // Method to remove the content type
-    private removeContentTypes = (contentTypes: IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>) => {
+    private removeContentTypes = (contentTypes: Types.IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>) => {
         let promise = new Promise();
 
         // Ensure the content types exist
@@ -782,7 +1068,7 @@ export class SPConfig {
             let cfgContentType = cfgContentTypes[i];
 
             // Get the field
-            let ct: IContentTypeResult = this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
+            let ct: Types.IContentTypeResult = this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
             if (ct) {
                 // Remove the field
                 ct.delete().execute(() => {
@@ -803,7 +1089,7 @@ export class SPConfig {
     }
 
     // Method to remove the fields
-    private removeFields = (fields: IFieldResults, cfgFields: Array<ISPCfgFieldInfo>) => {
+    private removeFields = (fields: Types.IFieldResults, cfgFields: Array<ISPCfgFieldInfo>) => {
         let promise = new Promise();
 
         // Ensure the fields exist
@@ -818,7 +1104,7 @@ export class SPConfig {
             let cfgField = cfgFields[i];
 
             // Get the field
-            let field: IFieldResult = this.isInCollection("InternalName", cfgField.Name, fields.results);
+            let field: Types.IFieldResult = this.isInCollection("InternalName", cfgField.Name, fields.results);
             if (field) {
                 // Remove the field
                 field.delete().execute(() => {
@@ -839,7 +1125,7 @@ export class SPConfig {
     }
 
     // Method to remove the lists
-    private removeLists = (lists: IListResults, cfgLists: Array<ISPCfgListInfo>) => {
+    private removeLists = (lists: Types.IListResults, cfgLists: Array<ISPCfgListInfo>) => {
         let promise = new Promise();
 
         // See if the configuration type exists
@@ -873,7 +1159,7 @@ export class SPConfig {
             }
 
             // Get the list
-            let list: IListResult = this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+            let list: Types.IListResult = this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
             if (list) {
                 // Remove the list
                 list.delete().execute(() => {
@@ -893,7 +1179,7 @@ export class SPConfig {
         return promise;
     }
     // Method to remove the user custom actions
-    private removeUserCustomActions = (customActions: IUserCustomActionResults, cfgCustomActions: Array<IUserCustomActionCreationInformation>) => {
+    private removeUserCustomActions = (customActions: Types.IUserCustomActionResults, cfgCustomActions: Array<Types.IUserCustomActionCreationInformation>) => {
         let promise = new Promise();
 
         // See if the configuration type exists
@@ -928,7 +1214,7 @@ export class SPConfig {
             }
 
             // Get the custom action
-            let ca: IUserCustomActionResult = this.isInCollection("Name", cfgCustomAction.Name, customActions.results);
+            let ca: Types.IUserCustomActionResult = this.isInCollection("Name", cfgCustomAction.Name, customActions.results);
             if (ca) {
                 // Remove the custom action
                 ca.delete().execute(() => {
@@ -997,7 +1283,7 @@ export class SPConfig {
                     }
 
                     // Get the file
-                    let file: IFileResult = this.isInCollection("Name", cfgWebPart.FileName, files.results);
+                    let file: Types.IFileResult = this.isInCollection("Name", cfgWebPart.FileName, files.results);
                     if (file) {
                         // Remove the file
                         file.delete().execute(() => {
@@ -1134,7 +1420,7 @@ export class SPConfig {
     }
 
     // Method to update the views
-    private updateViews = (views: IViewResults, cfgViews: Array<ISPCfgViewInfo>) => {
+    private updateViews = (views: Types.IViewResults, cfgViews: Array<ISPCfgViewInfo>) => {
         let counter = 0;
         let promise = new Promise();
 
@@ -1143,7 +1429,7 @@ export class SPConfig {
             let cfgView = cfgViews[i];
 
             // Get the view
-            let view: IView = views.getByTitle(cfgView.ViewName);
+            let view: Types.IView = views.getByTitle(cfgView.ViewName);
 
             // See if the view fields are defined
             if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {

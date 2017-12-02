@@ -26,7 +26,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-import * as Types from "./definitions";
+import { Types } from "./mapper";
 import { RequestType, SPTypes } from "./types";
 import {
     ContextInfo,
@@ -72,18 +72,18 @@ const gd_sprest = {
     Email,
     Helper,
     JSLink,
-    List: (listName: string, targetInfo?: Types.ITargetInfo) => { return new List(listName, targetInfo); },
-    PeopleManager: (targetInfo?: Types.ITargetInfo) => { return new PeopleManager(targetInfo); },
-    PeoplePicker: (targetInfo?: Types.ITargetInfo) => { return new PeoplePicker(targetInfo); },
-    ProfileLoader: (targetInfo?: Types.ITargetInfo) => { return new ProfileLoader(targetInfo); },
+    List: (listName, targetInfo) => { return new List(listName, targetInfo); },
+    PeopleManager: (targetInfo) => { return new PeopleManager(targetInfo); },
+    PeoplePicker: (targetInfo) => { return new PeoplePicker(targetInfo); },
+    ProfileLoader: (targetInfo) => { return new ProfileLoader(targetInfo); },
     RequestType,
-    Search: (url?: string, targetInfo?: Types.ITargetInfo) => { return new Search(url, targetInfo); },
-    Site: (url?: string, targetInfo?: Types.ITargetInfo) => { return new Site(url, targetInfo); },
+    Search: (url, targetInfo) => { return new Search(url, targetInfo); },
+    Site: (url, targetInfo) => { return new Site(url, targetInfo); },
     SocialFeed,
     SPTypes,
     Types,
-    UserProfile: (targetInfo?: Types.ITargetInfo) => { return new UserProfile(targetInfo); },
-    Web: (url?: string, targetInfo?: Types.ITargetInfo) => { return new Web(url, targetInfo); }
+    UserProfile: (targetInfo) => { return new UserProfile(targetInfo); },
+    Web: (url, targetInfo) => { return new Web(url, targetInfo); }
 }
 
 // Export the $REST library

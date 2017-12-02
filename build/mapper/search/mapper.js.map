@@ -1,0 +1,1 @@
+{"version":3,"file":"mapper.js","sourceRoot":"","sources":["../../../src/mapper/search/mapper.ts"],"names":[],"mappings":";;AAAA,qCAA0C;AAE1C;;GAEG;AACU,QAAA,MAAM,GAAG;IAClB,SAAS,EAAE;QACP,QAAQ,EAAE,CAAC,SAAS,CAAC;QACrB,YAAY,EAAE,mDAAmD;QACjE,WAAW,EAAE,mBAAW,CAAC,kBAAkB;KAC9C;CACJ,CAAA"}

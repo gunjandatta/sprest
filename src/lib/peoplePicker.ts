@@ -1,4 +1,4 @@
-import { IPeoplePicker } from "../definitions";
+import { Types } from "../mapper";
 import { Base } from "../utils";
 
 /*********************************************************************************************************************************/
@@ -21,4 +21,4 @@ class _PeoplePicker extends Base {
         this.addMethods(this, { __metadata: { type: "peoplepicker" } });
     }
 }
-export const PeoplePicker: IPeoplePicker = <any>_PeoplePicker;
+export const PeoplePicker: Types.IPeoplePicker = <any>_PeoplePicker;

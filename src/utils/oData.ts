@@ -1,8 +1,38 @@
-import {ODataQuery} from "../definitions";
-/*********************************************************************************************************************************/
-// OData
-// Class for generating the OData query string.
-/*********************************************************************************************************************************/
+/**
+ * OData Query
+ */
+export interface ODataQuery {
+    /** An optional custom query string */
+    Custom?: string;
+    
+    /** The properties to expand. */
+    Expand?: Array<string>;
+
+    /** The filters. */
+    Filter?: string;
+
+    /**
+     * Flag to get all items.
+     * Use this flag to get past the 5000 limit.
+     */
+    GetAllItems?: boolean;
+
+    /** The order by fields. */
+    OrderBy?: Array<string>;
+
+    /** The fields to select. */
+    Select?: Array<string>;
+
+    /** The number of results to skip. */
+    Skip?: number;
+
+    /** The max number of results to return. */
+    Top?: number;
+}
+
+/**
+ * OData
+ */
 export class OData {
     /*********************************************************************************************************************************/
     // Global Variables
@@ -21,7 +51,7 @@ export class OData {
     /*********************************************************************************************************************************/
 
     // The class constructor
-    constructor(oData:ODataQuery) {
+    constructor(oData: ODataQuery) {
         // Default the Variables
         this._custom = oData && oData.Custom ? oData.Custom : null;
         this._expand = oData && oData.Expand ? oData.Expand : [];
@@ -38,24 +68,24 @@ export class OData {
     /*********************************************************************************************************************************/
 
     // Custom
-    get Custom():string { return this._custom; }
-    set Custom(value:string) { this._custom = value; }
+    get Custom(): string { return this._custom; }
+    set Custom(value: string) { this._custom = value; }
 
     // Expand
-    get Expand():Array<string> { return this._expand; }
-    set Expand(value:Array<string>) { this._expand = value; }
+    get Expand(): Array<string> { return this._expand; }
+    set Expand(value: Array<string>) { this._expand = value; }
 
     // Filter
-    get Filter():string { return this._filter; }
-    set Filter(value:string) { this._filter = value; }
+    get Filter(): string { return this._filter; }
+    set Filter(value: string) { this._filter = value; }
 
     // Flag to get all items
-    get GetAllItems():boolean { return this._getAllItems; }
-    set GetAllItems(value:boolean) { this._getAllItems = value; }
+    get GetAllItems(): boolean { return this._getAllItems; }
+    set GetAllItems(value: boolean) { this._getAllItems = value; }
 
     // Order By
-    get OrderBy():Array<string> { return this._orderBy; }
-    set OrderBy(value:Array<string>) { this._orderBy = value; }
+    get OrderBy(): Array<string> { return this._orderBy; }
+    set OrderBy(value: Array<string>) { this._orderBy = value; }
 
     // Query String
     get QueryString() {
@@ -72,9 +102,9 @@ export class OData {
         this._custom ? values.push(this._custom) : null;
 
         // Parse the values
-        for(let value of values) {
+        for (let value of values) {
             // Ensure a value exists
-            if(value && value != "") {
+            if (value && value != "") {
                 // Append the query string value
                 qs += (qs == "" ? "" : "&") + value;
             }
@@ -85,23 +115,23 @@ export class OData {
     }
 
     // Select
-    get Select():Array<string> { return this._select; }
-    set Select(value:Array<string>) { this._select = value; }
+    get Select(): Array<string> { return this._select; }
+    set Select(value: Array<string>) { this._select = value; }
 
     // Skip
-    get Skip():number { return this._skip; }
-    set Skip(value:number) { this._skip = value; }
+    get Skip(): number { return this._skip; }
+    set Skip(value: number) { this._skip = value; }
 
     // Top
-    get Top():number { return this._top; }
-    set Top(value:number) { this._top = value; }
+    get Top(): number { return this._top; }
+    set Top(value: number) { this._top = value; }
 
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
 
     // Method to convert the array of strings to a query string value.
-    private getQSValue(qsKey:string, keys?:Array<string>) {
+    private getQSValue(qsKey: string, keys?: Array<string>) {
         // Return the query string
         return keys.length > 0 ? qsKey + "=" + keys.join(",") : "";
     }

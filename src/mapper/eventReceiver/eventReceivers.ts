@@ -1,26 +1,36 @@
-import {RequestType} from "../../types";
+import { IBase, IBaseCollection } from "../../utils";
+import {
+    IEventReceiver, IEventReceiverDefinitionCreationInformation, IEventReceiverQueryResult, IEventReceiverResult
+} from ".";
 
-/*********************************************************************************************************************************/
-// Methods
-/*********************************************************************************************************************************/
-export const eventreceivers = {
-    // Adds an event receiver to the collection.
-    add: {
-        metadataType: "SP.EventReceiverDefinition",
-        name: "",
-        requestType: RequestType.PostWithArgsInBody
-    },
+/**
+ * Methods
+ */
+export interface IEventReceiversMethods {
+    /**
+     * Adds an event receiver to the collection.
+     * @param parameters - The event receiver definition creation information.
+     */
+    add(parameters: IEventReceiverDefinitionCreationInformation): IBase<IEventReceiver, IEventReceiverResult>;
 
-    // Gets an event receiver by it's id.
-    getById: {
-        argNames: ["id"],
-        requestType: RequestType.GetWithArgsValueOnly,
-        returnType: "eventreceiver"
-    },
+    /**
+     * Gets an event receiver in the collection.
+     * @param id - The id of the event receiver.
+     */
+    getById(id: string): IEventReceiver & IBase<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult>;
 
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: RequestType.OData
-    }
-};
+    /**
+     * Method to get the next set of results.
+     */
+    next(): IBase<IEventReceivers, IEventReceiverResults>;
+}
+
+/**
+ * Event Receivers
+ */
+export interface IEventReceivers extends IEventReceiversMethods, IBaseCollection<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> { }
+
+/**
+ * Event Receiver Results
+ */
+export interface IEventReceiverResults extends IEventReceiversMethods, IBaseCollection<IEventReceiverResult, IEventReceiverResult, IEventReceiverQueryResult> { }
