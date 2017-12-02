@@ -195,10 +195,7 @@ export class Request {
         // Ensure the request was successful
         if (base.request.status >= 200 && base.request.status < 300) {
             // Return if we are expecting a buffer
-            if (base.requestType == RequestType.GetBuffer) {
-                // Return the response
-                return base.response;
-            }
+            if (base.requestType == RequestType.GetBuffer) { return; }
 
             // Parse the responses
             let batchIdx = 0;

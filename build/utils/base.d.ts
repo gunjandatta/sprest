@@ -105,7 +105,7 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> {
     batch(arg?: any): this;
     done(callback: (...args) => any): void;
     execute(...args: any[]): this;
-    executeAndWait(): Base<any, any, any> | BaseRequest;
+    executeAndWait(): any;
     getInfo(): IRequestInfo;
     then(resolve: any, reject: any): PromiseLike<IBase>;
     waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;

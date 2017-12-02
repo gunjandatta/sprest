@@ -20,10 +20,10 @@ export class BaseRequest {
     executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any) {
         let targetInfo: ITargetInfo = null;
 
-        // See if the metadata is defined for this object
-        let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
+        // See if the metadata is defined for the base object
+        let metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
         if (metadata && metadata.uri) {
-            // Create the target information and use the url defined for this object
+            // Create the target information and use the url defined for the base object
             targetInfo = {
                 url: metadata.uri
             };
@@ -103,34 +103,46 @@ export class BaseRequest {
             } else {
                 // Create the request
                 this.xhr = new XHRRequest(asyncFl, targetInfo, () => {
-                    // Update this data object
+                    // See if we are returning a file buffer
+                    if (base.requestType == RequestType.GetBuffer) {
+                        // Execute the callback
+                        callback ? callback(this.xhr.response) : null;
+                    }
+
+                    // Update the data object
                     Request.updateDataObject(base, isBatchRequest);
 
                     // Validate the data collection
                     isBatchRequest ? null : this.validateDataCollectionResults(base, this.xhr).done(() => {
                         // Execute the callback
-                        callback ? callback(this) : null;
+                        callback ? callback(base) : null;
                     });
                 });
             }
         }
-        // Else, see if we already executed this response
-        else if (this.xhr) { return this; }
+        // Else, see if we already executed this request
+        else if (this.xhr) { return base; }
         // Else, we haven't executed this request
         else {
             // Create the request
             this.xhr = new XHRRequest(asyncFl, targetInfo);
 
-            // Update this object
+            // See if we are returning a file buffer
+            if (base.requestType == RequestType.GetBuffer) {
+                // Return the response
+                return this.xhr.response;
+            }
+
+            // Update the base object
             Request.updateDataObject(base, isBatchRequest);
 
-            // See if this is a collection and has more results
+            // See if the base is a collection and has more results
             if (base["d"] && base["d"].__next) {
                 // Add the "next" method to get the next set of results
                 base["next"] = new Function("return this.request.getNextSetOfResults();");
             }
 
-            // Return this object
+            // Return the base object
             return base;
         }
     }
@@ -144,8 +156,8 @@ export class BaseRequest {
         targetInfo.data = null;
         targetInfo.method = null;
 
-        // See if the metadata is defined for this object
-        let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
+        // See if the metadata is defined for the base object
+        let metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
         if (metadata && metadata.uri) {
             // Update the url of the target information
             targetInfo.url = metadata.uri;
@@ -175,7 +187,7 @@ export class BaseRequest {
         return obj;
     }
 
-    // Method to return a property of this object
+    // Method to return a property of the base object
     getProperty(base: Base, propertyName: string, requestType?: string) {
         // Copy the target information
         let targetInfo = Object.create(base.targetInfo);
@@ -184,7 +196,7 @@ export class BaseRequest {
         targetInfo.data = null;
         targetInfo.method = null;
 
-        // See if the metadata is defined for this object
+        // See if the metadata is defined for the base object
         let metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
         if (metadata && metadata.uri) {
             // Update the url of the target information
@@ -258,7 +270,7 @@ export class BaseRequest {
 
             // See if there are more items to get
             if (data.d && data.d.__next) {
-                // See if we are getting all items in this request
+                // See if we are getting all items in the base request
                 if (base.getAllItemsFl) {
                     // Create the target information to query the next set of results
                     let targetInfo = Object.create(base.targetInfo);
@@ -271,10 +283,10 @@ export class BaseRequest {
                         let data = JSON.parse(request.response);
                         if (data.d) {
                             // Update the data collection
-                            Request.updateDataCollection(this, data.d.results);
+                            Request.updateDataCollection(base, data.d.results);
 
                             // Append the raw data results
-                            this["d"].results = this["d"].results.concat(data.d.results);
+                            base["d"].results = base["d"].results.concat(data.d.results);
 
                             // Validate the data collection
                             return this.validateDataCollectionResults(base, request, promise);

@@ -3305,10 +3305,10 @@ var BaseRequest = /** @class */ (function () {
     // Method to execute a method
     BaseRequest.prototype.executeMethod = function (base, methodName, methodConfig, args) {
         var targetInfo = null;
-        // See if the metadata is defined for this object
-        var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
+        // See if the metadata is defined for the base object
+        var metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
         if (metadata && metadata.uri) {
-            // Create the target information and use the url defined for this object
+            // Create the target information and use the url defined for the base object
             targetInfo = {
                 url: metadata.uri
             };
@@ -3376,30 +3376,40 @@ var BaseRequest = /** @class */ (function () {
             else {
                 // Create the request
                 this.xhr = new _1.XHRRequest(asyncFl, targetInfo, function () {
-                    // Update this data object
+                    // See if we are returning a file buffer
+                    if (base.requestType == types_1.RequestType.GetBuffer) {
+                        // Execute the callback
+                        callback ? callback(_this.xhr.response) : null;
+                    }
+                    // Update the data object
                     _1.Request.updateDataObject(base, isBatchRequest);
                     // Validate the data collection
                     isBatchRequest ? null : _this.validateDataCollectionResults(base, _this.xhr).done(function () {
                         // Execute the callback
-                        callback ? callback(_this) : null;
+                        callback ? callback(base) : null;
                     });
                 });
             }
         }
         else if (this.xhr) {
-            return this;
+            return base;
         }
         else {
             // Create the request
             this.xhr = new _1.XHRRequest(asyncFl, targetInfo);
-            // Update this object
+            // See if we are returning a file buffer
+            if (base.requestType == types_1.RequestType.GetBuffer) {
+                // Return the response
+                return this.xhr.response;
+            }
+            // Update the base object
             _1.Request.updateDataObject(base, isBatchRequest);
-            // See if this is a collection and has more results
+            // See if the base is a collection and has more results
             if (base["d"] && base["d"].__next) {
                 // Add the "next" method to get the next set of results
                 base["next"] = new Function("return this.request.getNextSetOfResults();");
             }
-            // Return this object
+            // Return the base object
             return base;
         }
     };
@@ -3410,8 +3420,8 @@ var BaseRequest = /** @class */ (function () {
         // Clear the target information properties from any previous requests
         targetInfo.data = null;
         targetInfo.method = null;
-        // See if the metadata is defined for this object
-        var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
+        // See if the metadata is defined for the base object
+        var metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
         if (metadata && metadata.uri) {
             // Update the url of the target information
             targetInfo.url = metadata.uri;
@@ -3434,14 +3444,14 @@ var BaseRequest = /** @class */ (function () {
         // Return the object
         return obj;
     };
-    // Method to return a property of this object
+    // Method to return a property of the base object
     BaseRequest.prototype.getProperty = function (base, propertyName, requestType) {
         // Copy the target information
         var targetInfo = Object.create(base.targetInfo);
         // Clear the target information properties from any previous requests
         targetInfo.data = null;
         targetInfo.method = null;
-        // See if the metadata is defined for this object
+        // See if the metadata is defined for the base object
         var metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
         if (metadata && metadata.uri) {
             // Update the url of the target information
@@ -3501,7 +3511,7 @@ var BaseRequest = /** @class */ (function () {
             var data = JSON.parse(request.response);
             // See if there are more items to get
             if (data.d && data.d.__next) {
-                // See if we are getting all items in this request
+                // See if we are getting all items in the base request
                 if (base.getAllItemsFl) {
                     // Create the target information to query the next set of results
                     var targetInfo = Object.create(base.targetInfo);
@@ -3513,9 +3523,9 @@ var BaseRequest = /** @class */ (function () {
                         var data = JSON.parse(request.response);
                         if (data.d) {
                             // Update the data collection
-                            _1.Request.updateDataCollection(_this, data.d.results);
+                            _1.Request.updateDataCollection(base, data.d.results);
                             // Append the raw data results
-                            _this["d"].results = _this["d"].results.concat(data.d.results);
+                            base["d"].results = base["d"].results.concat(data.d.results);
                             // Validate the data collection
                             return _this.validateDataCollectionResults(base, request, promise);
                         }
@@ -4368,8 +4378,7 @@ var Request = /** @class */ (function () {
         if (base.request.status >= 200 && base.request.status < 300) {
             // Return if we are expecting a buffer
             if (base.requestType == types_1.RequestType.GetBuffer) {
-                // Return the response
-                return base.response;
+                return;
             }
             // Parse the responses
             var batchIdx = 0;

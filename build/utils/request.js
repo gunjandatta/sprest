@@ -174,8 +174,7 @@ var Request = /** @class */ (function () {
         if (base.request.status >= 200 && base.request.status < 300) {
             // Return if we are expecting a buffer
             if (base.requestType == types_1.RequestType.GetBuffer) {
-                // Return the response
-                return base.response;
+                return;
             }
             // Parse the responses
             var batchIdx = 0;

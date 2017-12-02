@@ -6,6 +6,6 @@ export declare class Request {
     static addMethods(base: Base, data: any): void;
     static addProperties(base: any, data: any): void;
     static updateDataCollection(obj: any, results: any): void;
-    static updateDataObject(base: Base, isBatchRequest: boolean): any;
+    static updateDataObject(base: Base, isBatchRequest: boolean): void;
     static updateMetadata(base: any, data: any): void;
 }
