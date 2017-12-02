@@ -5,44 +5,82 @@ import { ContextInfo } from ".";
  * Fields Template
  */
 export interface IFieldTemplate {
-    DisplayForm?:any;
-    EditForm?:any;
-    Name:string;
-    NewForm?:any;
-    View?:any;
+    DisplayForm?: any;
+    EditForm?: any;
+    Name: string;
+    NewForm?: any;
+    View?: any;
 }
 
 /**
  * Templates
  */
 export interface ITemplates {
-    Body?:any;
-    Footer?:any;
-    Fields?:Array<IFieldTemplate>;
-    Group?:any;
-    Header?:any;
-    Item?:any;
-    OnPostRender?:any;
-    OnPreRender?:any;
+    Body?: any;
+    Footer?: any;
+    Fields?: Array<IFieldTemplate>;
+    Group?: any;
+    Header?: any;
+    Item?: any;
+    OnPostRender?: any;
+    OnPreRender?: any;
 }
 
 /**
- * JS Link Template
+ * JS Link Configuration
  */
-export interface IJSLink {
-    BaseViewID?:number | string;
+export interface IJSLinkCfg {
+    /** The base view id. */
+    BaseViewID?: number | string;
+
+    /** The list template type. */
     ListTemplateType?: number;
-    OnPostRender?:any;
-    OnPreRender?:any;
+
+    /** The post render event. */
+    OnPostRender?: any;
+
+    /** The pre render event. */
+    OnPreRender?: any;
+
+    /** The JSLink template overrides. */
     Templates?: ITemplates;
 }
 
 /**
  * JS Link
  */
-export class JSLink {
+export interface IJSLink extends IJSLinkCfg {
+    /** Constructor */
+    new(cfg?: IJSLinkCfg): IJSLink;
+
+    /** Method to get the template configuration. */
+    getTemplate(): IJSLinkCfg;
+
+    /** Method to register the JSLink template override. */
+    register(): void;
+}
+
+/**
+ * JS Link
+ */
+class _JSLink {
     /**
-     * Template Properties
+     * Constructor
+     */
+    constructor(cfg?: IJSLinkCfg) {
+        // See if the configuration exists
+        if (cfg) {
+            // Set the properties
+            this._baseViewID = cfg.BaseViewID;
+            this._listTemplateType = cfg.ListTemplateType;
+            this._onPostRender = cfg.OnPostRender;
+            this._onPreRender = cfg.OnPreRender;
+            this._templates = cfg.Templates;
+        }
+    }
+
+    /**
+     * Properties
      */
 
     // Base View ID
@@ -72,8 +110,8 @@ export class JSLink {
     /**
      * Returns the CSR template.
      */
-    getTemplate(): IJSLink {
-        let template: IJSLink = {};
+    getTemplate(): IJSLinkCfg {
+        let template: IJSLinkCfg = {};
 
         // Add the properties
         if (this._baseViewID) { template.BaseViewID = this._baseViewID; }
@@ -121,3 +159,4 @@ export class JSLink {
         }
     }
 }
+export const JSLink: IJSLink = <any>_JSLink;

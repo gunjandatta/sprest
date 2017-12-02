@@ -28,6 +28,9 @@ declare module 'gd-sprest' {
     import { RequestType, SPTypes } from "gd-sprest/types";
     import { ContextInfo, Email, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Web } from "gd-sprest/lib";
     export { ContextInfo, Email, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Web };
+    /**
+        * SharePoint REST Library
+        */
     export const $REST: Types.IREST;
 }
 
@@ -1396,6 +1399,30 @@ declare module 'gd-sprest/mapper/types' {
             Url: string;
     }
     /**
+        * OData Query
+        */
+    export interface ODataQuery {
+            /** An optional custom query string */
+            Custom?: string;
+            /** The properties to expand. */
+            Expand?: Array<string>;
+            /** The filters. */
+            Filter?: string;
+            /**
+                * Flag to get all items.
+                * Use this flag to get past the 5000 limit.
+                */
+            GetAllItems?: boolean;
+            /** The order by fields. */
+            OrderBy?: Array<string>;
+            /** The fields to select. */
+            Select?: Array<string>;
+            /** The number of results to skip. */
+            Skip?: number;
+            /** The max number of results to return. */
+            Top?: number;
+    }
+    /**
         * Recycle Bin Item
         */
     export interface IRecycleBinItem {
@@ -1628,545 +1655,111 @@ declare module 'gd-sprest/types/spConfigTypes' {
 }
 
 declare module 'gd-sprest/types/sptypes' {
+    import { Types } from "gd-sprest/mapper";
     /**
         * Calendar Types
         */
-    export const CalendarTypes: {
-            Gregorian: number;
-            JapaneseEmperorEra: number;
-            TaiwanCalendar: number;
-            KoreanTangunEra: number;
-            Hijri: number;
-            Thai: number;
-            HebrewLunar: number;
-            GregorianMiddleEastFrench: number;
-            GregorianArabic: number;
-            GregorianTransliteratedEnglish: number;
-            GregorianTransliteratedFrench: number;
-            KoreanandJapaneseLunar: number;
-            ChineseLunar: number;
-            SakaEra: number;
-    };
+    export const CalendarTypes: Types.SPTypes.CalendarType;
     /**
         * Check Out Types
         */
-    export const CheckOutType: {
-            Online: number;
-            Offline: number;
-            None: number;
-    };
+    export const CheckOutType: Types.SPTypes.CheckOutType;
     /**
         * Choice Format Types
         */
-    export const ChoiceFormatType: {
-            Dropdown: number;
-            RadioButtons: number;
-    };
+    export const ChoiceFormatType: Types.SPTypes.ChoiceFormatType;
     /**
         * Client Template Utility
         */
-    export const ClientTemplatesUtility: {
-            UserLookupDelimitString: string;
-            UserMultiValueDelimitString: string;
-    };
+    export const ClientTemplatesUtility: Types.SPTypes.ClientTemplateUtility;
     /**
         * Control Modes
         */
-    export const ControlMode: {
-            Invalid: number;
-            Display: number;
-            Edit: number;
-            New: number;
-            View: number;
-    };
+    export const ControlMode: Types.SPTypes.ControlMode;
     /**
         * Date Format
         */
-    export const DateFormat: {
-            DateOnly: number;
-            DateTime: number;
-    };
+    export const DateFormat: Types.SPTypes.DateFormat;
     /**
         * Draft Visibility Types
         */
-    export const DraftVisibilityType: {
-            Reader: number;
-            Author: number;
-            Approver: number;
-    };
-    /**
-        * Event Receiver Types
-        */
-    export const EventReceiverType: {
-            ItemAdding: number;
-            ItemUpdating: number;
-            ItemDeleting: number;
-            ItemCheckingIn: number;
-            ItemCheckingOut: number;
-            ItemUncheckingOut: number;
-            ItemAttachmentAdding: number;
-            ItemAttachmentDeleting: number;
-            ItemFileMoving: number;
-            ItemVersionDeleting: number;
-            FieldAdding: number;
-            FieldUpdating: number;
-            FieldDeleting: number;
-            ListAdding: number;
-            ListDeleting: number;
-            SiteDeleting: number;
-            WebDeleting: number;
-            WebMoving: number;
-            WebAdding: number;
-            GroupAdding: number;
-            GroupUpdating: number;
-            GroupDeleting: number;
-            GroupUserAdding: number;
-            GroupUserDeleting: number;
-            RoleDefinitionAdding: number;
-            RoleDefinitionUpdating: number;
-            RoleDefinitionDeleting: number;
-            RoleAssignmentAdding: number;
-            RoleAssignmentDeleting: number;
-            InheritanceBreaking: number;
-            InheritanceResetting: number;
-            WorkflowStarting: number;
-            ItemAdded: number;
-            ItemUpdated: number;
-            ItemDeleted: number;
-            ItemCheckedIn: number;
-            ItemCheckedOut: number;
-            ItemUncheckedOut: number;
-            ItemAttachmentAdded: number;
-            ItemAttachmentDeleted: number;
-            ItemFileMoved: number;
-            ItemFileConverted: number;
-            ItemVersionDeleted: number;
-            FieldAdded: number;
-            FieldUpdated: number;
-            FieldDeleted: number;
-            ListAdded: number;
-            ListDeleted: number;
-            SiteDeleted: number;
-            WebDeleted: number;
-            WebMoved: number;
-            WebProvisioned: number;
-            GroupAdded: number;
-            GroupUpdated: number;
-            GroupDeleted: number;
-            GroupUserAdded: number;
-            GroupUserDeleted: number;
-            RoleDefinitionAdded: number;
-            RoleDefinitionUpdated: number;
-            RoleDefinitionDeleted: number;
-            RoleAssignmentAdded: number;
-            RoleAssignmentDeleted: number;
-            InheritanceBroken: number;
-            InheritanceReset: number;
-            WorkflowStarted: number;
-            WorkflowPostponed: number;
-            WorkflowCompleted: number;
-            EntityInstanceAdded: number;
-            EntityInstanceUpdated: number;
-            EntityInstanceDeleted: number;
-            AppInstalled: number;
-            AppUpgraded: number;
-            AppUninstalling: number;
-            EmailReceived: number;
-            ContextEvent: number;
-    };
+    export const DraftVisibilityType: Types.SPTypes.DraftVisibilityType;
     /**
         * Event Receiver Synchronization Types
         */
-    export const EventReceiverSynchronizationType: {
-            Synchronization: number;
-            Asynchronous: number;
-    };
+    export const EventReceiverSynchronizationType: Types.SPTypes.EventReceiverSynchronizationType;
     /**
-        * Field User Selection Types
+        * Event Receiver Types
         */
-    export const FieldUserSelectionType: {
-            PeopleOnly: number;
-            PeopleAndGroups: number;
-    };
+    export const EventReceiverType: Types.SPTypes.EventReceiverType;
     /**
         * Field Types
         */
-    export const FieldType: {
-            AllDayEvent: number;
-            Attachments: number;
-            Boolean: number;
-            Calculated: number;
-            Choice: number;
-            Computed: number;
-            ContentTypeId: number;
-            Counter: number;
-            CrossProjectLink: number;
-            Currency: number;
-            DateTime: number;
-            Error: number;
-            File: number;
-            Geolocation: number;
-            GridChoice: number;
-            Guid: number;
-            Integer: number;
-            Invalid: number;
-            Lookup: number;
-            MaxItems: number;
-            ModStat: number;
-            MultiChoice: number;
-            Note: number;
-            Number: number;
-            PageSeparator: number;
-            Recurrence: number;
-            Text: number;
-            ThreadIndex: number;
-            Threading: number;
-            URL: number;
-            User: number;
-            WorkflowEventType: number;
-            WorkflowStatus: number;
-    };
+    export const FieldType: Types.SPTypes.FieldType;
+    /**
+        * Field User Selection Types
+        */
+    export const FieldUserSelectionType: Types.SPTypes.FieldUserSelectionType;
     /**
         * File Template Types
      */
-    export const FileTemplateType: {
-            StandardPage: number;
-            WikiPage: number;
-            FormPage: number;
-    };
+    export const FileTemplateType: Types.SPTypes.FileTemplateType;
     /**
         * Friendly Date Format
         */
-    export const FriendlyDateFormat: {
-            Unspecified: number;
-            Disabled: number;
-            Relative: number;
-    };
+    export const FriendlyDateFormat: Types.SPTypes.FriendlyDateFormat;
     /**
         * List Template Types
      */
-    export const ListTemplateType: {
-            AccessRequest: number;
-            AdminTasks: number;
-            Agenda: number;
-            AppDataCatalog: number;
-            Announcements: number;
-            CallTrack: number;
-            Categories: number;
-            Circulation: number;
-            Comments: number;
-            Contacts: number;
-            CustomGrid: number;
-            DataConnectionLibrary: number;
-            DataSources: number;
-            Decision: number;
-            DesignCatalog: number;
-            DeveloperSiteDraftApps: number;
-            DiscussionBoard: number;
-            DocumentLibrary: number;
-            Events: number;
-            ExternalList: number;
-            Facility: number;
-            GanttTasks: number;
-            GenericList: number;
-            HealthReports: number;
-            HealthRules: number;
-            HelpLibrary: number;
-            Holidays: number;
-            HomePageLibrary: number;
-            IMEDic: number;
-            IssueTracking: number;
-            Links: number;
-            ListTemplateCatalog: number;
-            MasterPageCatalog: number;
-            MaintenanceLogs: number;
-            MeetingObjective: number;
-            Meetings: number;
-            MeetingUser: number;
-            MySiteDocumentLibrary: number;
-            Posts: number;
-            NoCodePublic: number;
-            NoCodeWorkflows: number;
-            PictureLibrary: number;
-            SolutionCatalog: number;
-            Survey: number;
-            Tasks: number;
-            TasksWithTimelineAndHierarchy: number;
-            TextBox: number;
-            ThemeCatalog: number;
-            ThingsToBring: number;
-            Timecard: number;
-            UserInformation: number;
-            WebPageLibrary: number;
-            WebPartCatalog: number;
-            WebTemplateCatalog: number;
-            Whereabouts: number;
-            WorkflowHistory: number;
-            WorkflowProcess: number;
-            XMLForm: number;
-    };
+    export const ListTemplateType: Types.SPTypes.ListTemplateType;
     /**
         * Locale LCID Types
         */
-    export const LocaleLCIDType: {
-            Afrikaans: number;
-            Albanian: number;
-            ArabicAlgeria: number;
-            ArabicBahrain: number;
-            ArabicEgypt: number;
-            ArabicIraq: number;
-            ArabicJordan: number;
-            ArabicLebanon: number;
-            ArabicLibya: number;
-            ArabicMorocco: number;
-            ArabicOman: number;
-            ArabicQatar: number;
-            ArabicSaudiArabia: number;
-            ArabicSyria: number;
-            ArabicTunisia: number;
-            ArabicUAE: number;
-            ArabicYemen: number;
-            Armenian: number;
-            AzeriCyrillic: number;
-            AzeriLatin: number;
-            Basque: number;
-            Belarusian: number;
-            Bulgarian: number;
-            Catalan: number;
-            ChineseHongKongSAR: number;
-            ChineseMacaoSAR: number;
-            ChinesePRC: number;
-            ChineseSingapore: number;
-            ChineseTaiwan: number;
-            CroatianCroatia: number;
-            Czech: number;
-            Danish: number;
-            Divehi: number;
-            DutchBelgium: number;
-            DutchNetherlands: number;
-            EnglishAustralia: number;
-            EnglishBelize: number;
-            EnglishCanada: number;
-            EnglishCaribbean: number;
-            EnglishIreland: number;
-            EnglishJamaica: number;
-            EnglishNewZealand: number;
-            EnglishPhilippines: number;
-            EnglishSouthAfrica: number;
-            EnglishTrinidad: number;
-            EnglishUnitedKingdom: number;
-            EnglishUnitedStates: number;
-            EnglishZimbabwe: number;
-            Estonian: number;
-            Faeroese: number;
-            Finnish: number;
-            FrenchBelgium: number;
-            FrenchCanada: number;
-            FrenchFrance: number;
-            FrenchLuxembourg: number;
-            FrenchMonaco: number;
-            FrenchSwitzerland: number;
-            Galician: number;
-            Georgian: number;
-            GermanAustria: number;
-            GermanGermany: number;
-            GermanLiechtenstein: number;
-            GermanLuxembourg: number;
-            GermanSwitzerland: number;
-            Greek: number;
-            Gujarati: number;
-            HebrewIsrael: number;
-            HindiIndia: number;
-            Hungarian: number;
-            Icelandic: number;
-            Indonesian: number;
-            ItalianItaly: number;
-            ItalianSwitzerland: number;
-            Japanese: number;
-            Kannada: number;
-            Kazakh: number;
-            Konkani: number;
-            Korean: number;
-            KyrgyzCyrillic: number;
-            Latvian: number;
-            Lithuanian: number;
-            MacedonianFYROM: number;
-            Malay: number;
-            MalayBruneiDarussalam: number;
-            Marathi: number;
-            MongolianCyrillic: number;
-            NorwegianBokmal: number;
-            NorwegianNynorsk: number;
-            PersianIran: number;
-            Polish: number;
-            PortugueseBrazil: number;
-            PortuguesePortugal: number;
-            Punjabi: number;
-            Romanian: number;
-            Russian: number;
-            Sanskrit: number;
-            SerbianCyrillic: number;
-            SerbianLatin: number;
-            Slovak: number;
-            Slovenian: number;
-            SpanishArgentina: number;
-            SpanishBolivia: number;
-            SpanishChile: number;
-            SpanishColombia: number;
-            SpanishCostaRica: number;
-            SpanishDominicanRepublic: number;
-            SpanishEcuador: number;
-            SpanishElSalvador: number;
-            SpanishGuatemala: number;
-            SpanishHonduras: number;
-            SpanishMexico: number;
-            SpanishNicaragua: number;
-            SpanishPanama: number;
-            SpanishParaguay: number;
-            SpanishPeru: number;
-            SpanishPuertoRico: number;
-            SpanishSpain: number;
-            SpanishUruguay: number;
-            SpanishVenezuela: number;
-            Swahili: number;
-            Swedish: number;
-            SwedishFinland: number;
-            Syriac: number;
-            Tamil: number;
-            Tatar: number;
-            Telugu: number;
-            ThaiThailand: number;
-            Turkish: number;
-            Ukrainian: number;
-            UrduPakistan: number;
-            UzbekCyrillic: number;
-            UzbekLatin: number;
-            Vietnamese: number;
-    };
+    export const LocaleLCIDType: Types.SPTypes.LocaleLCIDType;
     /**
         * Page Types
         */
-    export const PageType: {
-            DefaultView: number;
-            DialogView: number;
-            DisplayForm: number;
-            DisplayFormDialog: number;
-            EditForm: number;
-            EditFormDialog: number;
-            Invalid: number;
-            NewForm: number;
-            NewFormDialog: number;
-            NormalView: number;
-            Page_MAXITEMS: number;
-            SolutionForm: number;
-            View: number;
-    };
+    export const PageType: Types.SPTypes.PageType;
     /**
         * Personal Site Capabilities
         */
-    export const PersonalSiteCapabilities: {
-            Education: number;
-            Guest: number;
-            MyTasksDashboard: number;
-            None: number;
-            Profile: number;
-            Social: number;
-            Storage: number;
-    };
+    export const PersonalSiteCapabilities: Types.SPTypes.PersonalSiteCapabilities;
     /**
         * Principal Sources
         */
-    export const PrincipalSources: {
-            All: number;
-            MembershipProvider: number;
-            None: number;
-            RoleProvider: number;
-            UserInfoList: number;
-            Windows: number;
-    };
+    export const PrincipalSources: Types.SPTypes.PrincipalSources;
     /**
         * Principal Types
         */
-    export const PrincipalTypes: {
-            All: number;
-            DistributionList: number;
-            None: number;
-            SecurityGroup: number;
-            SharePointGroup: number;
-            User: number;
-    };
+    export const PrincipalTypes: Types.SPTypes.PrincipalTypes;
     /**
         * Relationship Delete Behavior Types
         */
-    export const RelationshipDeleteBehaviorType: {
-            None: number;
-            Cascade: number;
-            Restrict: number;
-    };
+    export const RelationshipDeleteBehaviorType: Types.SPTypes.RelationshipDeleteBehaviorType;
     /**
         * Reordering Rule Match Types
         */
-    export const ReorderingRuleMatchType: {
-            ContentTypeIs: number;
-            FileExtensionMatches: number;
-            ManualCondition: number;
-            ResultContainsKeyword: number;
-            ResultHasTag: number;
-            TitleContainsKeyword: number;
-            TitleMatchesKeyword: number;
-            UrlExactlyMatches: number;
-            UrlStartsWith: number;
-    };
+    export const ReorderingRuleMatchType: Types.SPTypes.ReorderingRuleMatchType;
     /**
         * Role Types
         */
-    export const RoleType: {
-            Administrator: number;
-            Contributor: number;
-            Editor: number;
-            Guest: number;
-            None: number;
-            Reader: number;
-            WebDesigner: number;
-    };
+    export const RoleType: Types.SPTypes.RoleType;
     /**
         * URL Format Types
         */
-    export const UrlFormatType: {
-            Hyperlink: number;
-            Image: number;
-    };
+    export const UrlFormatType: Types.SPTypes.UrlFormatType;
     /**
         * URL Zones
         */
-    export const URLZones: {
-            Default: number;
-            Intranet: number;
-            Internet: number;
-            Custom: number;
-            Extranet: number;
-    };
+    export const URLZones: Types.SPTypes.URLZones;
     /**
         * User Custom Action Registration Types
         */
-    export const UserCustomActionRegistrationType: {
-            None: number;
-            List: number;
-            ContentType: number;
-            ProgId: number;
-            FileType: number;
-    };
+    export const UserCustomActionRegistrationType: Types.SPTypes.UserCustomActionRegistrationType;
     /**
         * View Types
         */
-    export const ViewType: {
-            Calendar: number;
-            Chart: number;
-            Gantt: number;
-            Grid: number;
-            Html: number;
-            Recurrence: number;
-    };
+    export const ViewType: Types.SPTypes.ViewType;
 }
 
 declare module 'gd-sprest/lib/contextInfo' {
@@ -2361,33 +1954,32 @@ declare module 'gd-sprest/lib/jslink' {
             OnPreRender?: any;
     }
     /**
-        * JS Link Template
+        * JS Link Configuration
         */
-    export interface IJSLink {
+    export interface IJSLinkCfg {
+            /** The base view id. */
             BaseViewID?: number | string;
+            /** The list template type. */
             ListTemplateType?: number;
+            /** The post render event. */
             OnPostRender?: any;
+            /** The pre render event. */
             OnPreRender?: any;
+            /** The JSLink template overrides. */
             Templates?: ITemplates;
     }
     /**
         * JS Link
         */
-    export class JSLink {
-            BaseViewID: number | string;
-            ListTemplateType: number;
-            OnPostRender: any;
-            OnPreRender: any;
-            Templates: ITemplates;
-            /**
-                * Returns the CSR template.
-                */
-            getTemplate(): IJSLink;
-            /**
-                * Method to register the CSR override.
-                */
+    export interface IJSLink extends IJSLinkCfg {
+            /** Constructor */
+            new (cfg?: IJSLinkCfg): IJSLink;
+            /** Method to get the template configuration. */
+            getTemplate(): IJSLinkCfg;
+            /** Method to register the JSLink template override. */
             register(): void;
     }
+    export const JSLink: IJSLink;
 }
 
 declare module 'gd-sprest/lib/list' {
@@ -4201,788 +3793,799 @@ declare module 'gd-sprest/mapper/sptypes' {
         */
     export type CalendarType = {
             /** Gregorian (localized) */
-            Gregorian;
+            Gregorian: number;
             /** Japanese Emperor Era */
-            JapaneseEmperorEra;
+            JapaneseEmperorEra: number;
             /** Taiwan Calendar */
-            TaiwanCalendar;
+            TaiwanCalendar: number;
             /** Korean Tangun Era */
-            KoreanTangunEra;
+            KoreanTangunEra: number;
             /** Hijri (Arabic Lunar) */
-            Hijri;
+            Hijri: number;
             /** Thai */
-            Thai;
+            Thai: number;
             /** Hebrew Lunar */
-            HebrewLunar;
+            HebrewLunar: number;
             /** Gregorian (Middle East French) */
-            GregorianMiddleEastFrench;
+            GregorianMiddleEastFrench: number;
             /** Gregorian (Arabic) */
-            GregorianArabic;
+            GregorianArabic: number;
             /** Gregorian (Transliterated English) */
-            GregorianTransliteratedEnglish;
+            GregorianTransliteratedEnglish: number;
             /** Gregorian (Transliterated French) */
-            GregorianTransliteratedFrench;
+            GregorianTransliteratedFrench: number;
             /** Korean and Japanese Lunar */
-            KoreanandJapaneseLunar;
+            KoreanandJapaneseLunar: number;
             /** Chinese Lunar */
-            ChineseLunar;
+            ChineseLunar: number;
             /** Saka Era */
-            SakaEra;
+            SakaEra: number;
     };
     /**
         * Check Out Types
         */
     export type CheckOutType = {
             /** Online */
-            Online;
+            Online: number;
             /** Offline */
-            Offline;
+            Offline: number;
             /** None */
-            None;
+            None: number;
     };
     /**
         * Choice Format Types
         */
     export type ChoiceFormatType = {
             /** Dropdown */
-            Dropdown;
+            Dropdown: number;
             /** Radio buttons */
-            RadioButtons;
+            RadioButtons: number;
+    };
+    /**
+        * Client Template Utility
+        */
+    export type ClientTemplateUtility = {
+            /** User Lookup Delimiter */
+            UserLookupDelimitString: string;
+            /** Multi-User Value Delimiter */
+            UserMultiValueDelimitString: string;
     };
     /**
         * Control Modes
         */
     export type ControlMode = {
             /** A placeholder value in the export typeeration indicating that it has no valid display mode from one of the other export typeeration values. */
-            Invalid;
+            Invalid: number;
             /** Specifies that the control is in display mode. */
-            Display;
+            Display: number;
             /** Specifies that the control is in edit mode. */
-            Edit;
-            /** Specifies that the control is in New mode. */
-            New;
+            Edit: number;
+            /** Specifies that the control is in new mode. */
+            New: number;
+            /** Specifies that the control is in view mode. */
+            View: number;
     };
     /**
         * Date Format
         */
     export type DateFormat = {
             /** Displays only the date. */
-            DateOnly;
+            DateOnly: number;
             /** Displays the date and time. */
-            DateTime;
+            DateTime: number;
     };
     /**
         * Draft Visibility Types
         */
     export type DraftVisibilityType = {
             /** export typeeration whose values specify that the minimum permission is approver. */
-            Approver;
+            Approver: number;
             /** export typeeration whose values specify that the minimum permission is author. */
-            Author;
+            Author: number;
             /** export typeeration whose values specify that the minimum permission is reader. */
-            Reader;
+            Reader: number;
     };
     /**
         * Event Receiver Types
         */
     export type EventReceiverType = {
             /** Event that occurs before an item has been added. */
-            ItemAdding;
+            ItemAdding: number;
             /** Event that occurs before an item is updated. */
-            ItemUpdating;
+            ItemUpdating: number;
             /** Event that occurs before an item is deleted. */
-            ItemDeleting;
+            ItemDeleting: number;
             /** Event that occurs before an item has been checked in. */
-            ItemCheckingIn;
+            ItemCheckingIn: number;
             /** Event that occurs before an item is checked out. */
-            ItemCheckingOut;
+            ItemCheckingOut: number;
             /** Event that occurs before an item is unchecked out. */
-            ItemUncheckingOut;
+            ItemUncheckingOut: number;
             /** Event that occurs before an attachment has been added to an item. */
-            ItemAttachmentAdding;
+            ItemAttachmentAdding: number;
             /** Event that occurs before an attachment has been removed from the item. */
-            ItemAttachmentDeleting;
+            ItemAttachmentDeleting: number;
             /** Event that occurs before a file is moved. */
-            ItemFileMoving;
+            ItemFileMoving: number;
             /** Event that occurs before a document version is deleted. */
-            ItemVersionDeleting;
+            ItemVersionDeleting: number;
             /** Event that occurs before a field is added to a list. */
-            FieldAdding;
+            FieldAdding: number;
             /** Event that occurs before a field is updated. */
-            FieldUpdating;
+            FieldUpdating: number;
             /** Event that occurs before a field is removed from a list. */
-            FieldDeleting;
+            FieldDeleting: number;
             /** Event that occurs before a list is created. */
-            ListAdding;
+            ListAdding: number;
             /** Event that occurs before a list is deleted. */
-            ListDeleting;
+            ListDeleting: number;
             /** Event that occurs before a site collection is deleted. */
-            SiteDeleting;
+            SiteDeleting: number;
             /** Event that occurs before a site is deleted. */
-            WebDeleting;
+            WebDeleting: number;
             /** Event that occurs before a site URL has been changed. */
-            WebMoving;
+            WebMoving: number;
             /** Event that occurs before a new site is created. */
-            WebAdding;
+            WebAdding: number;
             /** Event that occurs before a security group is added. */
-            GroupAdding;
+            GroupAdding: number;
             /** Event that occurs before a security group is updated. */
-            GroupUpdating;
+            GroupUpdating: number;
             /** Event that occurs before a security group is deleted. */
-            GroupDeleting;
+            GroupDeleting: number;
             /** Event that occurs before a user is added to a security group. */
-            GroupUserAdding;
+            GroupUserAdding: number;
             /** Event that occurs before a user is deleted from a security group. */
-            GroupUserDeleting;
+            GroupUserDeleting: number;
             /** Event that occurs before a role definition is added. */
-            RoleDefinitionAdding;
+            RoleDefinitionAdding: number;
             /** Event that occurs before a role definition is updated. */
-            RoleDefinitionUpdating;
+            RoleDefinitionUpdating: number;
             /** Event that occurs before a role definition is deleted. */
-            RoleDefinitionDeleting;
+            RoleDefinitionDeleting: number;
             /** Event that occurs before a role assignment is added. */
-            RoleAssignmentAdding;
+            RoleAssignmentAdding: number;
             /** Event that occurs before a role assignment is deleted. */
-            RoleAssignmentDeleting;
+            RoleAssignmentDeleting: number;
             /** Event that occurs before an inheritance is broken. */
-            InheritanceBreaking;
+            InheritanceBreaking: number;
             /** Event that occurs before an inheritance is restored. */
-            InheritanceResetting;
+            InheritanceResetting: number;
             /** Event that occurs before a workflow starts running. */
-            WorkflowStarting;
+            WorkflowStarting: number;
             /** Event that occurs after an item has been added. */
-            ItemAdded;
+            ItemAdded: number;
             /** Event that occurs after an item has been updated. */
-            ItemUpdated;
+            ItemUpdated: number;
             /** Event that occurs after an item has been deleted. */
-            ItemDeleted;
+            ItemDeleted: number;
             /** Event that occurs after an item has been checked in. */
-            ItemCheckedIn;
+            ItemCheckedIn: number;
             /** Event that occurs after an item has been checked out. */
-            ItemCheckedOut;
+            ItemCheckedOut: number;
             /** Event that occurs after an item has been unchecked out. */
-            ItemUncheckedOut;
+            ItemUncheckedOut: number;
             /** Event that occurs after an attachment has been added to the item. */
-            ItemAttachmentAdded;
+            ItemAttachmentAdded: number;
             /** Event that occurs after an attachment has been removed from the item. */
-            ItemAttachmentDeleted;
+            ItemAttachmentDeleted: number;
             /** Event that occurs after a file has been moved. */
-            ItemFileMoved;
+            ItemFileMoved: number;
             /** Event that occurs after a file is transformed from one type to another. */
-            ItemFileConverted;
+            ItemFileConverted: number;
             /** Event that occurs after a document version is deleted. */
-            ItemVersionDeleted;
+            ItemVersionDeleted: number;
             /** Event that occurs after a field has been added. */
-            FieldAdded;
+            FieldAdded: number;
             /** Event that occurs after a field has been updated. */
-            FieldUpdated;
+            FieldUpdated: number;
             /** Event that occurs after a field has been removed. */
-            FieldDeleted;
+            FieldDeleted: number;
             /** Event that occurs after a list has been created. */
-            ListAdded;
+            ListAdded: number;
             /** Event that occurs after a list has been deleted. */
-            ListDeleted;
+            ListDeleted: number;
             /** Event that occurs after a site collection has been deleted. */
-            SiteDeleted;
+            SiteDeleted: number;
             /** Event that occurs after a site has been deleted. */
-            WebDeleted;
+            WebDeleted: number;
             /** Event that occurs after a site URL has been changed. */
-            WebMoved;
+            WebMoved: number;
             /** Event that occurs after a new site has been created, but before that new site is provisioned. */
-            WebProvisioned;
+            WebProvisioned: number;
             /** Event that occurs happens after a security group is added. */
-            GroupAdded;
+            GroupAdded: number;
             /** Event that occurs after a security group is updated. */
-            GroupUpdated;
+            GroupUpdated: number;
             /** Event that occurs after a security group is deleted. */
-            GroupDeleted;
+            GroupDeleted: number;
             /** Event that occurs after a user is added to a security group. */
-            GroupUserAdded;
+            GroupUserAdded: number;
             /** Event that occurs after a user is deleted from a security group. */
-            GroupUserDeleted;
+            GroupUserDeleted: number;
             /** Event that occurs after a role definition is added. */
-            RoleDefinitionAdded;
+            RoleDefinitionAdded: number;
             /** Event that occurs after a role definition is updated. */
-            RoleDefinitionUpdated;
+            RoleDefinitionUpdated: number;
             /** Event that occurs after a role definition is deleted. */
-            RoleDefinitionDeleted;
+            RoleDefinitionDeleted: number;
             /** Event that occurs after a role assignment is added. */
-            RoleAssignmentAdded;
+            RoleAssignmentAdded: number;
             /** Event that occurs after a role definition is deleted. */
-            RoleAssignmentDeleted;
+            RoleAssignmentDeleted: number;
             /** Event that occurs after an inheritance is broken. */
-            InheritanceBroken;
+            InheritanceBroken: number;
             /** Event that occurs after an inheritance is restored. */
-            InheritanceReset;
+            InheritanceReset: number;
             /** Event that occurs after a workflow has started running. */
-            WorkflowStarted;
+            WorkflowStarted: number;
             /** Event that occurs after a workflow has been postponed. */
-            WorkflowPostponed;
+            WorkflowPostponed: number;
             /** Event that occurs after a workflow has completed running. */
-            WorkflowCompleted;
+            WorkflowCompleted: number;
             /** Event that occurs when an instance of an external content type has been added. */
-            EntityInstanceAdded;
+            EntityInstanceAdded: number;
             /** Event that occurs when an instance of an external content type has been updated. */
-            EntityInstanceUpdated;
+            EntityInstanceUpdated: number;
             /** Event that occurs when an instance of an external content type has been deleted. */
-            EntityInstanceDeleted;
+            EntityInstanceDeleted: number;
             /** Event that occurs after an app is installed. */
-            AppInstalled;
+            AppInstalled: number;
             /** Event that occurs after an app is upgraded. */
-            AppUpgraded;
+            AppUpgraded: number;
             /** Event that occurs before an app is uninstalled. */
-            AppUninstalling;
+            AppUninstalling: number;
             /** Event that occurs after a list receives an e-mail message. */
-            EmailReceived;
+            EmailReceived: number;
             /** Identifies workflow event receivers, and is therefore not a true event type. */
-            ContextEvent;
+            ContextEvent: number;
     };
     /**
         * Event Receiver Synchronization Types
         */
     export type EventReceiverSynchronizationType = {
             /** Event to be triggered asynchronously. */
-            Asynchronous;
+            Asynchronous: number;
             /** Event to be triggered synchronously. */
-            Synchronization;
+            Synchronization: number;
     };
     /**
         * Field Types
         */
     export type FieldType = {
             /** Specifies that the field indicates whether a meeting in a calendar list is an all-day event. */
-            AllDayEvent;
+            AllDayEvent: number;
             /** Specifies that the field indicates whether the list item has attachments. */
-            Attachments;
+            Attachments: number;
             /** Specifies that the field contains a Boolean value. */
-            Boolean;
+            Boolean: number;
             /** Specifies that the field is a calculated field. */
-            Calculated;
+            Calculated: number;
             /** Specifies that the field contains a single value from a set of specified values. */
-            Choice;
+            Choice: number;
             /** Specifies that the field is a computed field. */
-            Computed;
+            Computed: number;
             /** Specifies that the field contains a content type identifier as a value. */
-            ContentTypeId;
+            ContentTypeId: number;
             /** Specifies that the field contains a monotonically increasing integer. */
-            Counter;
+            Counter: number;
             /** Specifies that the field contains a link between projects in a Meeting Workspace site. */
-            CrossProjectLink;
+            CrossProjectLink: number;
             /** Specifies that the field contains a currency value. */
-            Currency;
+            Currency: number;
             /** Specifies that the field contains a date and time value or a date-only value. */
-            DateTime;
+            DateTime: number;
             /** Specifies that the type of the field was set to an invalid value. */
-            Error;
+            Error: number;
             /** Specifies that the field contains the leaf name of a document as a value. */
-            File;
+            File: number;
             /** Specifies that the field contains geographical location values. */
-            Geolocation;
+            Geolocation: number;
             /** Specifies that the field contains rating scale values for a survey list. */
-            GridChoice;
+            GridChoice: number;
             /** Specifies that the field contains a GUID value. */
-            Guid;
+            Guid: number;
             /** Specifies that the field contains an integer value. */
-            Integer;
+            Integer: number;
             /** Must not be used. */
-            Invalid;
+            Invalid: number;
             /** Specifies that the field is a lookup field. */
-            Lookup;
+            Lookup: number;
             /** Must not be used. */
-            MaxItems;
+            MaxItems: number;
             /** Specifies that the field indicates moderation status. */
-            ModStat;
+            ModStat: number;
             /** Specifies that the field contains one or more values from a set of specified values. */
-            MultiChoice;
+            MultiChoice: number;
             /** Specifies that the field contains multiple lines of text. */
-            Note;
+            Note: number;
             /** Specifies that the field contains a floating-point number value. */
-            Number;
+            Number: number;
             /** Specifies that the field separates questions in a survey list onto multiple pages. */
-            PageSeparator;
+            PageSeparator: number;
             /** Specifies that the field indicates whether a meeting in a calendar list recurs. */
-            Recurrence;
+            Recurrence: number;
             /** Specifies that the field contains a single line of text. */
-            Text;
+            Text: number;
             /** Specifies that the field indicates the position of a discussion item in a threaded view of a discussion board. */
-            ThreadIndex;
+            ThreadIndex: number;
             /** Specifies that the field indicates the thread for a discussion item in a threaded view of a discussion board. */
-            Threading;
+            Threading: number;
             /** Specifies that the field contains a URI and an optional description of the URI. */
-            URL;
+            URL: number;
             /** Specifies that the field contains one or more users and groups as values. */
-            User;
+            User: number;
             /** Specifies that the field contains the most recent event in a workflow instance. */
-            WorkflowEventType;
+            WorkflowEventType: number;
             /** Specifies that the field indicates the status of a workflow instance on a list item. */
-            WorkflowStatus;
+            WorkflowStatus: number;
     };
     /**
         * Field User Selection Types
         */
     export type FieldUserSelectionType = {
             /** People only. */
-            PeopleOnly;
+            PeopleOnly: number;
             /** People and groups. */
-            PeopleAndGroups;
+            PeopleAndGroups: number;
     };
     /**
         * File Template Types
      */
     export type FileTemplateType = {
             /** export typeeration whose value specifies default form template. */
-            FormPage;
+            FormPage: number;
             /** export typeeration whose value specifies default view template. */
-            StandardPage;
+            StandardPage: number;
             /** export typeeration whose value specifies default wiki template. */
-            WikiPage;
+            WikiPage: number;
     };
     /**
         * Friendly Date Format
         */
     export type FriendlyDateFormat = {
             /** Unspecified */
-            Unspecified;
+            Unspecified: number;
             /** Disabled (standard absolute) */
-            Disabled;
+            Disabled: number;
             /** Relative (standard friendly relative) */
-            Relative;
+            Relative: number;
     };
     /**
         * List Template Types
      */
     export type ListTemplateType = {
             /** Access Request List */
-            AccessRequest;
+            AccessRequest: number;
             /** Administrator Tasks */
-            AdminTasks;
+            AdminTasks: number;
             /** Agenda (Meeting) */
-            Agenda;
+            Agenda: number;
             /** App Data Catalog */
-            AppDataCatalog;
+            AppDataCatalog: number;
             /** Announcements */
-            Announcements;
+            Announcements: number;
             /** Call Track */
-            CallTrack;
+            CallTrack: number;
             /** Categories (Blog) */
-            Categories;
+            Categories: number;
             /** Circulation */
-            Circulation;
+            Circulation: number;
             /** Comments (Blog) */
-            Comments;
+            Comments: number;
             /** Contacts */
-            Contacts;
+            Contacts: number;
             /** Custom grid for a list */
-            CustomGrid;
+            CustomGrid: number;
             /** Data connection library for sharing information about external data connections */
-            DataConnectionLibrary;
+            DataConnectionLibrary: number;
             /** Data sources for a site */
-            DataSources;
+            DataSources: number;
             /** Decisions (Meeting) */
-            Decision;
+            Decision: number;
             /** Design Catalog */
-            DesignCatalog;
+            DesignCatalog: number;
             /** Draft Apps library in Developer Site */
-            DeveloperSiteDraftApps;
+            DeveloperSiteDraftApps: number;
             /** Discussion board */
-            DiscussionBoard;
+            DiscussionBoard: number;
             /** Document library */
-            DocumentLibrary;
+            DocumentLibrary: number;
             /** Calendar */
-            Events;
+            Events: number;
             /** External */
-            ExternalList;
+            ExternalList: number;
             /** Facility */
-            Facility;
+            Facility: number;
             /** Project Tasks */
-            GanttTasks;
+            GanttTasks: number;
             /** Custom list */
-            GenericList;
+            GenericList: number;
             /** Health Reports */
-            HealthReports;
+            HealthReports: number;
             /** Health Rules */
-            HealthRules;
+            HealthRules: number;
             /** Help Library */
-            HelpLibrary;
+            HelpLibrary: number;
             /** Holidays */
-            Holidays;
+            Holidays: number;
             /** Workspace Pages (Meeting) */
-            HomePageLibrary;
+            HomePageLibrary: number;
             /** IME (Input Method Editor) Dictionary */
-            IMEDic;
+            IMEDic: number;
             /** Issue tracking */
-            IssueTracking;
+            IssueTracking: number;
             /** Links */
-            Links;
+            Links: number;
             /** List Template gallery */
-            ListTemplateCatalog;
+            ListTemplateCatalog: number;
             /** Master Page gallery */
-            MasterPageCatalog;
+            MasterPageCatalog: number;
             /** Maintenance Logs Library */
-            MaintenanceLogs;
+            MaintenanceLogs: number;
             /** Objectives (Meeting) */
-            MeetingObjective;
+            MeetingObjective: number;
             /** Meeting Series (Meeting) */
-            Meetings;
+            Meetings: number;
             /** Attendees (Meeting) */
-            MeetingUser;
+            MeetingUser: number;
             /** My Site Document Library */
-            MySiteDocumentLibrary;
+            MySiteDocumentLibrary: number;
             /** Posts (Blog) */
-            Posts;
+            Posts: number;
             /** No Code Public Workflow */
-            NoCodePublic;
+            NoCodePublic: number;
             /** No Code Workflows */
-            NoCodeWorkflows;
+            NoCodeWorkflows: number;
             /** Picture library */
-            PictureLibrary;
+            PictureLibrary: number;
             /** Solutions */
-            SolutionCatalog;
+            SolutionCatalog: number;
             /** Survey */
-            Survey;
+            Survey: number;
             /** Tasks */
-            Tasks;
+            Tasks: number;
             /** Tasks with Timeline and Hierarchy */
-            TasksWithTimelineAndHierarchy;
+            TasksWithTimelineAndHierarchy: number;
             /** Text Box (Meeting) */
-            TextBox;
+            TextBox: number;
             /** Themes */
-            ThemeCatalog;
+            ThemeCatalog: number;
             /** Things To Bring (Meeting) */
-            ThingsToBring;
+            ThingsToBring: number;
             /** Timecard */
-            Timecard;
+            Timecard: number;
             /** User Information */
-            UserInformation;
+            UserInformation: number;
             /** Wiki Page Library */
-            WebPageLibrary;
+            WebPageLibrary: number;
             /** Web Part gallery */
-            WebPartCatalog;
+            WebPartCatalog: number;
             /** Site template gallery */
-            WebTemplateCatalog;
+            WebTemplateCatalog: number;
             /** Whereabouts */
-            Whereabouts;
+            Whereabouts: number;
             /** Workflow History */
-            WorkflowHistory;
+            WorkflowHistory: number;
             /** Custom Workflow Process */
-            WorkflowProcess;
+            WorkflowProcess: number;
             /** XML Form library */
-            XMLForm;
+            XMLForm: number;
     };
     /**
         * Locale LCID Types
         */
     export type LocaleLCIDType = {
-            Afrikaans;
-            Albanian;
-            ArabicAlgeria;
-            ArabicBahrain;
-            ArabicEgypt;
-            ArabicIraq;
-            ArabicJordan;
-            ArabicLebanon;
-            ArabicLibya;
-            ArabicMorocco;
-            ArabicOman;
-            ArabicQatar;
-            ArabicSaudiArabia;
-            ArabicSyria;
-            ArabicTunisia;
-            ArabicUAE;
-            ArabicYemen;
-            Armenian;
-            AzeriCyrillic;
-            AzeriLatin;
-            Basque;
-            Belarusian;
-            Bulgarian;
-            Catalan;
-            ChineseHongKongSAR;
-            ChineseMacaoSAR;
-            ChinesePRC;
-            ChineseSingapore;
-            ChineseTaiwan;
-            CroatianCroatia;
-            Czech;
-            Danish;
-            Divehi;
-            DutchBelgium;
-            DutchNetherlands;
-            EnglishAustralia;
-            EnglishBelize;
-            EnglishCanada;
-            EnglishCaribbean;
-            EnglishIreland;
-            EnglishJamaica;
-            EnglishNewZealand;
-            EnglishPhilippines;
-            EnglishSouthAfrica;
-            EnglishTrinidad;
-            EnglishUnitedKingdom;
-            EnglishUnitedStates;
-            EnglishZimbabwe;
-            Estonian;
-            Faeroese;
-            Finnish;
-            FrenchBelgium;
-            FrenchCanada;
-            FrenchFrance;
-            FrenchLuxembourg;
-            FrenchMonaco;
-            FrenchSwitzerland;
-            Galician;
-            Georgian;
-            GermanAustria;
-            GermanGermany;
-            GermanLiechtenstein;
-            GermanLuxembourg;
-            GermanSwitzerland;
-            Greek;
-            Gujarati;
-            HebrewIsrael;
-            HindiIndia;
-            Hungarian;
-            Icelandic;
-            Indonesian;
-            ItalianItaly;
-            ItalianSwitzerland;
-            Japanese;
-            Kannada;
-            Kazakh;
-            Konkani;
-            Korean;
-            KyrgyzCyrillic;
-            Latvian;
-            Lithuanian;
-            MacedonianFYROM;
-            Malay;
-            MalayBruneiDarussalam;
-            Marathi;
-            MongolianCyrillic;
-            NorwegianBokmal;
-            NorwegianNynorsk;
-            PersianIran;
-            Polish;
-            PortugueseBrazil;
-            PortuguesePortugal;
-            Punjabi;
-            Romanian;
-            Russian;
-            Sanskrit;
-            SerbianCyrillic;
-            SerbianLatin;
-            Slovak;
-            Slovenian;
-            SpanishArgentina;
-            SpanishBolivia;
-            SpanishChile;
-            SpanishColombia;
-            SpanishCostaRica;
-            SpanishDominicanRepublic;
-            SpanishEcuador;
-            SpanishElSalvador;
-            SpanishGuatemala;
-            SpanishHonduras;
-            SpanishMexico;
-            SpanishNicaragua;
-            SpanishPanama;
-            SpanishParaguay;
-            SpanishPeru;
-            SpanishPuertoRico;
-            SpanishSpain;
-            SpanishUruguay;
-            SpanishVenezuela;
-            Swahili;
-            Swedish;
-            SwedishFinland;
-            Syriac;
-            Tamil;
-            Tatar;
-            Telugu;
-            ThaiThailand;
-            Turkish;
-            Ukrainian;
-            UrduPakistan;
-            UzbekCyrillic;
-            UzbekLatin;
-            Vietnamese;
+            Afrikaans: number;
+            Albanian: number;
+            ArabicAlgeria: number;
+            ArabicBahrain: number;
+            ArabicEgypt: number;
+            ArabicIraq: number;
+            ArabicJordan: number;
+            ArabicLebanon: number;
+            ArabicLibya: number;
+            ArabicMorocco: number;
+            ArabicOman: number;
+            ArabicQatar: number;
+            ArabicSaudiArabia: number;
+            ArabicSyria: number;
+            ArabicTunisia: number;
+            ArabicUAE: number;
+            ArabicYemen: number;
+            Armenian: number;
+            AzeriCyrillic: number;
+            AzeriLatin: number;
+            Basque: number;
+            Belarusian: number;
+            Bulgarian: number;
+            Catalan: number;
+            ChineseHongKongSAR: number;
+            ChineseMacaoSAR: number;
+            ChinesePRC: number;
+            ChineseSingapore: number;
+            ChineseTaiwan: number;
+            CroatianCroatia: number;
+            Czech: number;
+            Danish: number;
+            Divehi: number;
+            DutchBelgium: number;
+            DutchNetherlands: number;
+            EnglishAustralia: number;
+            EnglishBelize: number;
+            EnglishCanada: number;
+            EnglishCaribbean: number;
+            EnglishIreland: number;
+            EnglishJamaica: number;
+            EnglishNewZealand: number;
+            EnglishPhilippines: number;
+            EnglishSouthAfrica: number;
+            EnglishTrinidad: number;
+            EnglishUnitedKingdom: number;
+            EnglishUnitedStates: number;
+            EnglishZimbabwe: number;
+            Estonian: number;
+            Faeroese: number;
+            Finnish: number;
+            FrenchBelgium: number;
+            FrenchCanada: number;
+            FrenchFrance: number;
+            FrenchLuxembourg: number;
+            FrenchMonaco: number;
+            FrenchSwitzerland: number;
+            Galician: number;
+            Georgian: number;
+            GermanAustria: number;
+            GermanGermany: number;
+            GermanLiechtenstein: number;
+            GermanLuxembourg: number;
+            GermanSwitzerland: number;
+            Greek: number;
+            Gujarati: number;
+            HebrewIsrael: number;
+            HindiIndia: number;
+            Hungarian: number;
+            Icelandic: number;
+            Indonesian: number;
+            ItalianItaly: number;
+            ItalianSwitzerland: number;
+            Japanese: number;
+            Kannada: number;
+            Kazakh: number;
+            Konkani: number;
+            Korean: number;
+            KyrgyzCyrillic: number;
+            Latvian: number;
+            Lithuanian: number;
+            MacedonianFYROM: number;
+            Malay: number;
+            MalayBruneiDarussalam: number;
+            Marathi: number;
+            MongolianCyrillic: number;
+            NorwegianBokmal: number;
+            NorwegianNynorsk: number;
+            PersianIran: number;
+            Polish: number;
+            PortugueseBrazil: number;
+            PortuguesePortugal: number;
+            Punjabi: number;
+            Romanian: number;
+            Russian: number;
+            Sanskrit: number;
+            SerbianCyrillic: number;
+            SerbianLatin: number;
+            Slovak: number;
+            Slovenian: number;
+            SpanishArgentina: number;
+            SpanishBolivia: number;
+            SpanishChile: number;
+            SpanishColombia: number;
+            SpanishCostaRica: number;
+            SpanishDominicanRepublic: number;
+            SpanishEcuador: number;
+            SpanishElSalvador: number;
+            SpanishGuatemala: number;
+            SpanishHonduras: number;
+            SpanishMexico: number;
+            SpanishNicaragua: number;
+            SpanishPanama: number;
+            SpanishParaguay: number;
+            SpanishPeru: number;
+            SpanishPuertoRico: number;
+            SpanishSpain: number;
+            SpanishUruguay: number;
+            SpanishVenezuela: number;
+            Swahili: number;
+            Swedish: number;
+            SwedishFinland: number;
+            Syriac: number;
+            Tamil: number;
+            Tatar: number;
+            Telugu: number;
+            ThaiThailand: number;
+            Turkish: number;
+            Ukrainian: number;
+            UrduPakistan: number;
+            UzbekCyrillic: number;
+            UzbekLatin: number;
+            Vietnamese: number;
     };
     /**
         * Page Types
         */
     export type PageType = {
             /** export typeeration whose values specify a page that is the default view for a list. */
-            DefaultView;
+            DefaultView: number;
             /** export typeeration whose values specify a page suitable for display within a dialog box on a client computer. */
-            DialogView;
+            DialogView: number;
             /** export typeeration whose values specify a list form for displaying a list item. */
-            DisplayForm;
+            DisplayForm: number;
             /** export typeeration whose values specify a list form for displaying a list item, suitable for display within a dialog box on a client computer. */
-            DisplayFormDialog;
+            DisplayFormDialog: number;
             /** export typeeration whose values specify a list form for editing a list item. */
-            EditForm;
+            EditForm: number;
             /** export typeeration whose values specify a list form for editing a list item, suitable for display within a dialog box on a client computer. */
-            EditFormDialog;
+            EditFormDialog: number;
             /** export typeeration whose values specify a page that does not correspond to a list view or a list form. */
-            Invalid;
+            Invalid: number;
             /** export typeeration whose values specify a list form for creating a new list item. */
-            NewForm;
+            NewForm: number;
             /** export typeeration whose values specify a list form for creating a new list item, suitable for display within a dialog box on a client computer. */
-            NewFormDialog;
+            NewFormDialog: number;
             /** export typeeration whose values specify a page that is a list view and is not the default view for a list. */
-            NormalView;
+            NormalView: number;
             /** export typeeration whose values specify the total number of valid page types. */
-            Page_MAXITEMS;
+            Page_MAXITEMS: number;
             /** export typeeration whose values specify a list form for displaying or editing a list item and represented by a form template (.xsn) file. */
-            SolutionForm;
+            SolutionForm: number;
             /** export typeeration whose values specify a page that is a list view. */
-            View;
+            View: number;
     };
     /**
         * Personal Site Capabilities
         */
     export type PersonalSiteCapabilities = {
-            Education;
-            Guest;
-            MyTasksDashboard;
-            None;
-            Profile;
-            Social;
-            Storage;
+            Education: number;
+            Guest: number;
+            MyTasksDashboard: number;
+            None: number;
+            Profile: number;
+            Social: number;
+            Storage: number;
     };
     /**
         * Principal Sources
         */
     export type PrincipalSources = {
             /** Search all principal sources. */
-            All;
+            All: number;
             /** Search the current membership provider. */
-            MembershipProvider;
+            MembershipProvider: number;
             /** Search no principal sources. */
-            None;
+            None: number;
             /** Search the current role provider. */
-            RoleProvider;
+            RoleProvider: number;
             /** Search the user information list. */
-            UserInfoList;
+            UserInfoList: number;
             /** Search active directory. */
-            Windows;
+            Windows: number;
     };
     /**
         * Principal Types
         */
     export type PrincipalTypes = {
             /** Return all entity types. */
-            All;
+            All: number;
             /** Return distribution list entity types. */
-            DistributionList;
+            DistributionList: number;
             /** Return no principal types. */
-            None;
+            None: number;
             /** Return security group entity types. */
-            SecurityGroup;
+            SecurityGroup: number;
             /** Return sharepoint group entity types. */
-            SharePointGroup;
+            SharePointGroup: number;
             /** Return user entity types. */
-            User;
+            User: number;
     };
     /**
         * Relationship Delete Behavior Types
         */
     export type RelationshipDeleteBehaviorType = {
             /** No relationship behavior is applied. */
-            None;
+            None: number;
             /** Cascade behavior. */
-            Cascade;
+            Cascade: number;
             /** Restrict behavior. */
-            Restrict;
+            Restrict: number;
     };
     /**
         * Reordering Rule Match Types
         */
     export type ReorderingRuleMatchType = {
-            ResultContainsKeyword;
-            TitleContainsKeyword;
-            TitleMatchesKeyword;
-            UrlStartsWith;
-            UrlExactlyMatches;
-            ContentTypeIs;
-            FileExtensionMatches;
-            ResultHasTag;
-            ManualCondition;
+            ResultContainsKeyword: number;
+            TitleContainsKeyword: number;
+            TitleMatchesKeyword: number;
+            UrlStartsWith: number;
+            UrlExactlyMatches: number;
+            ContentTypeIs: number;
+            FileExtensionMatches: number;
+            ResultHasTag: number;
+            ManualCondition: number;
     };
     /**
         * Role Types
         */
     export type RoleType = {
             /** Has all rights from other roles, plus rights to manage roles and view usage analysis data. Includes all rights in the WebDesigner role, plus the following: ManageListPermissions, ManageRoles, ManageSubwebs, ViewUsageData. The Administrator role cannot be customized or deleted, and must always contain at least one member. Members of the Administrator role always have access to, or can grant themselves access to, any item in the Web site. */
-            Administrator;
+            Administrator: number;
             /** Has Reader rights, plus rights to add items, edit items, delete items, manage list permissions, manage personal views, personalize Web Part Pages, and browse directories. Includes all rights in the Reader role, plus the following: AddDelPrivateWebParts, AddListItems, BrowseDirectories, CreatePersonalGroups, DeleteListItems, EditListItems, ManagePersonalViews, UpdatePersonalWebParts. Contributors cannot create new lists or document libraries, but they can add content to existing lists and document libraries. */
-            Contributor;
+            Contributor: number;
             /** Has Contributor rights, plus rights to manage lists. Includes all rights in the Contributor role. Editors can create new lists or document libraries. */
-            Editor;
+            Editor: number;
             /** Has limited rights to view pages and specific page elements. This role is used to give users access to a particular page, list, or item in a list, without granting rights to view the entire site. Users cannot be added explicitly to the Guest role; users who are given access to lists or document libraries by way of per-list permissions are added automatically to the Guest role. The Guest role cannot be customized or deleted. */
-            Guest;
+            Guest: number;
             /** export typeeration whose values specify that there are no rights on the Web site. */
-            None;
+            None: number;
             /** Has rights to view items, personalize Web parts, use alerts, and create a top-level Web site using Self-Service Site Creation. A reader can only read a site; the reader cannot add content. When a reader creates a site using Self-Service Site Creation, the reader becomes the site owner and a member of the Administrator role for the new site. This does not affect the user's role membership for any other site. Rights included: CreateSSCSite, ViewListItems, ViewPages. */
-            Reader;
+            Reader: number;
             /** Has Contributor rights, plus rights to cancel check out, delete items, manage lists, add and customize pages, define and apply themes and borders, and link style sheets. Includes all rights in the Contributor role, plus the following: AddAndCustomizePages, ApplyStyleSheets, ApplyThemeAndBorder, CancelCheckout, ManageLists.WebDesigners can modify the structure of the site and create new lists or document libraries. */
-            WebDesigner;
+            WebDesigner: number;
     };
     /**
         * URL Format Types
         */
     export type UrlFormatType = {
             /** Hyperlink */
-            Hyperlink;
+            Hyperlink: number;
             /** Image */
-            Image;
+            Image: number;
     };
     /**
         * URL Zones
         */
     export type URLZones = {
             /** Search the custom zone. */
-            Custom;
+            Custom: number;
             /** Search the default zone. */
-            Default;
+            Default: number;
             /** Search the extranet zone. */
-            Extranet;
+            Extranet: number;
             /** Search the internet zone. */
-            Internet;
+            Internet: number;
             /** Search the intranet zone. */
-            Intranet;
+            Intranet: number;
     };
     /**
         * User Custom Action Registration Types
         */
     export type UserCustomActionRegistrationType = {
             /** export typeeration whose values specify that the object association is not specified. */
-            None;
+            None: number;
             /** export typeeration whose values specify that the custom action is associated with a list. */
-            List;
+            List: number;
             /** export typeeration whose values specify that the custom action is associated with a content type. */
-            ContentType;
+            ContentType: number;
             /** export typeeration whose values specify that the custom action is associated with a ProgID. */
-            ProgId;
+            ProgId: number;
             /** export typeeration whose values specify that the custom action is associated with a file extension. */
-            FileType;
+            FileType: number;
     };
     /**
         * View Types
         */
     export type ViewType = {
             /** export typeeration whose values specify a calendar list view type. */
-            Calendar;
+            Calendar: number;
             /** export typeeration whose values specify a chart list view type. */
-            Chart;
+            Chart: number;
             /** export typeeration whose values specify a Gantt chart list view type. */
-            Gantt;
+            Gantt: number;
             /** export typeeration whose values specify a datasheet list view type. */
-            Grid;
+            Grid: number;
             /** export typeeration whose values specify an HTML list view type. */
-            Html;
+            Html: number;
             /** export typeeration whose values specify a list view type that displays recurring events. */
-            Recurrence;
+            Recurrence: number;
     };
 }
 
@@ -5034,7 +4637,7 @@ declare module 'gd-sprest/mapper/list' {
 }
 
 declare module 'gd-sprest/mapper/propertyValues' {
-    import { IBase, ODataQuery } from "gd-sprest/utils";
+    import { IBase } from "gd-sprest/utils";
     import { Types } from "gd-sprest/mapper";
     /**
         * Property Values
@@ -5044,18 +4647,22 @@ declare module 'gd-sprest/mapper/propertyValues' {
                 * Queries the collection.
                 * @param oData - The OData information.
                 */
-            query(query: ODataQuery): IPropertyValues;
+            query(query: Types.ODataQuery): IPropertyValues;
     }
 }
 
 declare module 'gd-sprest/mapper/rest' {
-    import { IContextInformation, IEmail, IHelper } from "gd-sprest/lib";
+    import { IContextInformation, IEmail, IHelper, IJSLink } from "gd-sprest/lib";
     import { ITargetInfo } from "gd-sprest/utils";
     import { Types } from "gd-sprest/mapper";
     /**
         * SharePoint REST Library
         */
     export interface IREST {
+            /**
+                * The version number of the library.
+                */
+            __ver: number;
             /**
                 * A reference to the _spPageContextInfo global variable.
                 */
@@ -5072,6 +4679,10 @@ declare module 'gd-sprest/mapper/rest' {
                 * Helper methods.
                 */
             Helper: IHelper;
+            /**
+                * Use this helper library for implementing JSLink solutions.
+                */
+            JSLink: IJSLink;
             /**
                 * Use this api to interact with SharePoint lists and libraries.
                 * @param listName - The name of the list.
@@ -10298,7 +9909,7 @@ declare module 'gd-sprest/mapper/userCustomAction/userCustomActions' {
 declare module 'gd-sprest/utils/base' {
     import { Types } from "gd-sprest/mapper";
     import { IRequestType } from "gd-sprest/types";
-    import { ODataQuery, IMethodInfo, XHRRequest, IRequestInfo, ITargetInfo } from "gd-sprest/utils";
+    import { IMethodInfo, XHRRequest, IRequestInfo, ITargetInfo } from "gd-sprest/utils";
     /**
         * Base
         */
@@ -10361,7 +9972,7 @@ declare module 'gd-sprest/utils/base' {
                 * Queries the collection.
                 * @param oData - The OData information.
                 */
-            query?(query: ODataQuery): IBase<Result, QueryResult>;
+            query?(query: Types.ODataQuery): IBase<Result, QueryResult>;
             /**
                 * Method to execute this request and previous ones to complete.
                 * @param resolve - Method to execute for successful requests.
@@ -10467,46 +10078,23 @@ declare module 'gd-sprest/utils/methodInfo' {
 }
 
 declare module 'gd-sprest/utils/oData' {
+    import { Types } from "gd-sprest/mapper";
     /**
-        * OData Query
-        */
-    export interface ODataQuery {
-            /** An optional custom query string */
-            Custom?: string;
-            /** The properties to expand. */
-            Expand?: Array<string>;
-            /** The filters. */
-            Filter?: string;
-            /**
-                * Flag to get all items.
-                * Use this flag to get past the 5000 limit.
-                */
-            GetAllItems?: boolean;
-            /** The order by fields. */
-            OrderBy?: Array<string>;
-            /** The fields to select. */
-            Select?: Array<string>;
-            /** The number of results to skip. */
-            Skip?: number;
-            /** The max number of results to return. */
-            Top?: number;
-    }
-    /**
-        * OData
-        */
+      * OData
+      */
     export class OData {
-            /*********************************************************************************************************************************/
-            constructor(oData: ODataQuery);
-            /*********************************************************************************************************************************/
-            Custom: string;
-            Expand: Array<string>;
-            Filter: string;
-            GetAllItems: boolean;
-            OrderBy: Array<string>;
-            readonly QueryString: string;
-            Select: Array<string>;
-            Skip: number;
-            Top: number;
+        /*********************************************************************************************************************************/
+        constructor(oData: Types.ODataQuery);
+        /*********************************************************************************************************************************/
+        Custom: string;
+        Expand: Array<string>;
+        Filter: string;
+        GetAllItems: boolean;
+        OrderBy: Array<string>;
+        readonly QueryString: string;
+        Select: Array<string>;
+        Skip: number;
+        Top: number;
     }
 }
 

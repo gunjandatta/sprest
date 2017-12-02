@@ -1,4 +1,4 @@
-import { IBase, ODataQuery } from "../utils";
+import { IBase } from "../utils";
 import { Types } from ".";
 
 /**
@@ -9,5 +9,5 @@ export interface IPropertyValues extends IBase, Types.ComplexTypes.KeyValue {
      * Queries the collection.
      * @param oData - The OData information.
      */
-    query(query: ODataQuery): IPropertyValues;
+    query(query: Types.ODataQuery): IPropertyValues;
 }

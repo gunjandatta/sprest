@@ -65,8 +65,8 @@ export {
 /**
  * SharePoint REST Library
  */
-const gd_sprest = {
-    __ver: 2.25,
+export const $REST: Types.IREST = {
+    __ver: 2.27,
     ContextInfo,
     DefaultRequestToHostFl: false,
     Email,
@@ -76,21 +76,16 @@ const gd_sprest = {
     PeopleManager: (targetInfo) => { return new PeopleManager(targetInfo); },
     PeoplePicker: (targetInfo) => { return new PeoplePicker(targetInfo); },
     ProfileLoader: (targetInfo) => { return new ProfileLoader(targetInfo); },
-    RequestType,
     Search: (url, targetInfo) => { return new Search(url, targetInfo); },
     Site: (url, targetInfo) => { return new Site(url, targetInfo); },
     SocialFeed,
-    SPTypes,
-    Types,
     UserProfile: (targetInfo) => { return new UserProfile(targetInfo); },
     Web: (url, targetInfo) => { return new Web(url, targetInfo); }
-}
-
-// Export the $REST library
-export const $REST: Types.IREST = <any>gd_sprest;
+};
 
 // See if the library doesn't exist, or is an older version
-if (ContextInfo.window.$REST == null || ContextInfo.window.$REST.__ver == null || ContextInfo.window.$REST.__ver < gd_sprest.__ver) {
+let global: Types.IREST = ContextInfo.window.$REST;
+if (global == null || global.__ver == null || global.__ver < $REST.__ver) {
     // Set the global variable
-    ContextInfo.window.$REST = gd_sprest;
+    ContextInfo.window.$REST = $REST;
 }

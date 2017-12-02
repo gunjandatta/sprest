@@ -1,6 +1,6 @@
 import { Types } from "../mapper";
 import { IRequestType } from "../types";
-import { ODataQuery, IMethodInfo, XHRRequest, IRequestInfo, ITargetInfo } from ".";
+import { IMethodInfo, XHRRequest, IRequestInfo, ITargetInfo } from ".";
 /**
  * Base
  */
@@ -66,7 +66,7 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
      * Queries the collection.
      * @param oData - The OData information.
      */
-    query?(query: ODataQuery): IBase<Result, QueryResult>;
+    query?(query: Types.ODataQuery): IBase<Result, QueryResult>;
     /**
      * Method to execute this request and previous ones to complete.
      * @param resolve - Method to execute for successful requests.

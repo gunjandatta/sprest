@@ -48,8 +48,8 @@ exports.Web = lib_1.Web;
 /**
  * SharePoint REST Library
  */
-var gd_sprest = {
-    __ver: 2.25,
+exports.$REST = {
+    __ver: 2.27,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -59,20 +59,16 @@ var gd_sprest = {
     PeopleManager: function (targetInfo) { return new lib_1.PeopleManager(targetInfo); },
     PeoplePicker: function (targetInfo) { return new lib_1.PeoplePicker(targetInfo); },
     ProfileLoader: function (targetInfo) { return new lib_1.ProfileLoader(targetInfo); },
-    RequestType: types_1.RequestType,
     Search: function (url, targetInfo) { return new lib_1.Search(url, targetInfo); },
     Site: function (url, targetInfo) { return new lib_1.Site(url, targetInfo); },
     SocialFeed: lib_1.SocialFeed,
-    SPTypes: types_1.SPTypes,
-    Types: mapper_1.Types,
     UserProfile: function (targetInfo) { return new lib_1.UserProfile(targetInfo); },
     Web: function (url, targetInfo) { return new lib_1.Web(url, targetInfo); }
 };
-// Export the $REST library
-exports.$REST = gd_sprest;
 // See if the library doesn't exist, or is an older version
-if (lib_1.ContextInfo.window.$REST == null || lib_1.ContextInfo.window.$REST.__ver == null || lib_1.ContextInfo.window.$REST.__ver < gd_sprest.__ver) {
+var global = lib_1.ContextInfo.window.$REST;
+if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {
     // Set the global variable
-    lib_1.ContextInfo.window.$REST = gd_sprest;
+    lib_1.ContextInfo.window.$REST = exports.$REST;
 }
 //# sourceMappingURL=gd-sprest.js.map
