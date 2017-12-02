@@ -1,4 +1,4 @@
-import { IUserProfile } from "../definitions";
+import { Types } from "../mapper";
 import { Base } from "../utils";
 
 /*********************************************************************************************************************************/
@@ -21,4 +21,4 @@ class _UserProfile extends Base {
         this.addMethods(this, { __metadata: { type: "userprofile" } });
     }
 }
-export const UserProfile: IUserProfile = <any>_UserProfile;
+export const UserProfile: Types.IUserProfile = <any>_UserProfile;

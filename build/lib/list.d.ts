@@ -1,2 +1,2 @@
-import { IList } from "../definitions";
-export declare const List: IList;
+import { Types } from "../mapper";
+export declare const List: Types.IList;

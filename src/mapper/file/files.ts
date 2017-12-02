@@ -1,32 +1,50 @@
-import {RequestType} from "../../types";
+import { IBase, IBaseCollection } from "../../utils";
+import { Types } from "..";
+import {
+    IFile, IFileMethods, IFileQueryResult, IFileResult,
+} from ".";
 
-/*********************************************************************************************************************************/
-// Methods
-/*********************************************************************************************************************************/
-export const files = {
-    // Adds a file to this collection.
-    add: {
-        argNames: ["overwrite", "url"],
-        requestType: RequestType.PostWithArgs
-    },
+/**
+ * Methods
+ */
+export interface IFilesMethods {
+    /**
+     * Methods
+     */
 
-    // Adds a ghosted file to an existing list or document library.
-    // Template File Types: StandardPage = 0; WikiPage = 1; FormPage = 2
-    addTemplateFile: {
-        argNames: ["urlOfFile", "templateFileType"],
-        requestType: RequestType.PostWithArgs
-    },
+    /**
+     * Adds a file to this collection.
+     * @param overwrite - true to overwrite the file if it already exists; otherwise false.
+     * @param url - The folder-relative URL of the file.
+     * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
+     */
+    add(overwrite, url, content): IBase<IFile, IFileResult>;
 
-    // Get the file at the specified URL.
-    getByUrl: {
-        argNames: ["serverRelativeUrl"],
-        requestType: RequestType.GetWithArgsValueOnly,
-        returnType: "file"
-    },
+    /**
+     * Adds a ghosted file to an existing list or document library.
+     * @param urlOfFile - The server-relative URL where you want to save the file.
+     * @param templateFileType - The SP.TemplateFileType to use to create the file.
+     */
+    addTemplateFile(urlOfFile, templateFileType: Types.SPTypes.FileTemplateType): IBase<IFile, IFileResult>;
 
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: RequestType.OData
-    }
-};
+    /**
+     * Get the file at the specified URL.
+     * @param serverRelativeUrl - The name or server relative url of the file.
+     */
+    getByUrl(serverRelativeUrl): IFile & IBase<IFile, IFileResult, IFileQueryResult>;
+
+    /**
+     * Method to get the next set of results.
+     */
+    next(): IBase<IFiles>;
+}
+
+/**
+ * Files
+ */
+export interface IFiles extends IFilesMethods, IBaseCollection<IFile, IFileResult, IFileQueryResult> { }
+
+/**
+ * File Results
+ */
+export interface IFileResults extends IFilesMethods, IBaseCollection<IFileResult, IFileResult, IFileQueryResult> { }

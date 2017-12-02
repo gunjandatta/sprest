@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../../utils");
 var types_1 = require("../../types");
 var __1 = require("..");
-/*********************************************************************************************************************************/
-// SharePoint Configuration
-/*********************************************************************************************************************************/
+/**
+ * SharePoint Configuration
+ */
 var SPConfig = /** @class */ (function () {
     /**
      * Constructor

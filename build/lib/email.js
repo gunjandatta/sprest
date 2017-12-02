@@ -10,12 +10,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = require("../utils");
 var types_1 = require("../types");
-/*********************************************************************************************************************************/
-// Email
-// The SP.Utilities.Utility.SendEmail object.
-/*********************************************************************************************************************************/
+var utils_1 = require("../utils");
+/**
+ * Email
+ */
 var _Email = /** @class */ (function (_super) {
     __extends(_Email, _super);
     /*********************************************************************************************************************************/

@@ -4,6 +4,7 @@ var app_1 = require("./app");
 var jslink_1 = require("./jslink");
 var loader_1 = require("./loader");
 var spCfg_1 = require("./spCfg");
+;
 /**
  * Helper Methods
  */

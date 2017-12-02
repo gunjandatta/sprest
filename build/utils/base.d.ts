@@ -1,5 +1,6 @@
-import { IRequestInfo, IRequestType, IResults, ITargetInfo, ODataQuery } from "../definitions";
-import { IMethodInfo, XHRRequest } from ".";
+import { Types } from "../mapper";
+import { IRequestType } from "../types";
+import { ODataQuery, IMethodInfo, XHRRequest, IRequestInfo, ITargetInfo } from ".";
 /**
  * Base
  */
@@ -76,7 +77,7 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
 /**
  * Base Collection
  */
-export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IResults<Type>, IBase<IResults<Result>, IResults<Result>, IResults<QueryResult>> {
+export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.IResults<Type>, IBase<Types.IResults<Result>, Types.IResults<Result>, Types.IResults<QueryResult>> {
 }
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/

@@ -1,4 +1,4 @@
-import { ISite } from "../definitions";
+import { Types } from "../mapper";
 import { Base } from "../utils";
 import { Web } from ".";
 
@@ -37,4 +37,4 @@ class _Site extends Base {
         return true;
     };
 }
-export const Site: ISite = <any>_Site;
+export const Site: Types.ISite = <any>_Site;

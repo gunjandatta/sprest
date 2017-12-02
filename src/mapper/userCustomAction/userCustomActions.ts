@@ -1,31 +1,40 @@
-import {RequestType} from "../../types";
+import { IBase, IBaseCollection } from "../../utils";
+import { IUserCustomAction, IUserCustomActionCreationInformation, IUserCustomActionQueryResult, IUserCustomActionResult } from ".";
 
-/*********************************************************************************************************************************/
-// Methods
-/*********************************************************************************************************************************/
-export const usercustomactions = {
-    // Adds a user custom action to the collection.
-    add: {
-        metadataType: "SP.UserCustomAction",
-        name: "",
-        requestType: RequestType.PostWithArgsInBody
-    },
+/**
+ * Methods
+ */
+export interface IUserCustomActionsMethods {
+    /**
+     * Adds a custom actino to the user custom action collection. 
+     * @param parameters - The user custom action information.
+     */
+    add(parameters: IUserCustomActionCreationInformation): IBase<IUserCustomAction, IUserCustomActionResult>;
 
-    // Deletes all custom actions in the collection.
-    clear: {
-        requestType: RequestType.Post
-    },
+    /**
+     * Deletes all custom actions in the collection.
+     */
+    clear(): IBase;
 
-    // Returns the custom action with the specified identifier.
-    getById: {
-        argNames: ["id"],
-        requestType: RequestType.GetWithArgsValueOnly,
-        returnType: "usercustomaction"
-    },
+    /**
+     * Returns the custom action with the specified identifier.
+     * @param id - The ID of the user custom action to get.
+     */
+    getById(id): IUserCustomAction & IBase<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult>;
 
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: RequestType.OData
-    }
-};
+    /**
+     * Method to get the next set of results.
+     */
+    next(): IBase<IUserCustomActions, IUserCustomActionResults>;
+}
+
+/**
+ * User Custom Actions
+ */
+export interface IUserCustomActions extends IUserCustomActionsMethods, IBaseCollection<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> {
+}
+
+/**
+ * User Custom Action Results
+ */
+export interface IUserCustomActionResults extends IUserCustomActionsMethods, IBaseCollection<IUserCustomActionResult, IUserCustomActionResult, IUserCustomActionQueryResult> { }

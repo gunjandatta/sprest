@@ -1,13 +1,37 @@
-import {IHelper} from "../../definitions";
-import {AppHelper} from "./app";
-import {JSLinkHelper} from "./jslink";
-import {Loader} from "./loader";
-import {SPConfig} from "./spCfg";
+import { AppHelper, IHelperApp } from "./app";
+import { JSLinkHelper, IHelperJSLink } from "./jslink";
+import { Loader, ILoader } from "./loader";
+import { SPConfig, ISPConfig } from "./spCfg";
+
+/**
+ * Helper
+ */
+export interface IHelper {
+    /**
+     * App-Model helper methods
+     */
+    App: IHelperApp,
+
+    /**
+     * JSLink helper methods
+     */
+    JSLink: IHelperJSLink,
+
+    /**
+     * Loader
+     */
+    Loader: ILoader,
+
+    /**
+     * Web helper methods
+     */
+    SPConfig: ISPConfig
+};
 
 /**
  * Helper Methods
  */
-export const Helper:IHelper = {
+export const Helper: IHelper = {
     App: <any>AppHelper,
     JSLink: <any>JSLinkHelper,
     Loader: <any>Loader,

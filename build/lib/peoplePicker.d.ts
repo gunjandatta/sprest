@@ -1,2 +1,2 @@
-import { IPeoplePicker } from "../definitions";
-export declare const PeoplePicker: IPeoplePicker;
+import { Types } from "../mapper";
+export declare const PeoplePicker: Types.IPeoplePicker;

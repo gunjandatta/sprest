@@ -1,4 +1,4 @@
-import { IList, ILists } from "../definitions";
+import { Types } from "../mapper";
 import { Base } from "../utils";
 import { Web } from "./web";
 
@@ -48,4 +48,4 @@ class _List extends Base {
         });
     }
 }
-export const List: IList = <any>_List;
+export const List: Types.IList = <any>_List;

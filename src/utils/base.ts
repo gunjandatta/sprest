@@ -1,13 +1,14 @@
-import { IRequestInfo, IRequestType, IResults, ITargetInfo, ODataQuery } from "../definitions";
 import { ContextInfo } from "../lib";
-import { Mapper } from "../mapper";
-import { RequestType } from "../types";
+import { Mapper, Types } from "../mapper";
+import { RequestType, IRequestType } from "../types";
 import {
     Batch,
+    ODataQuery,
     MethodInfo, IMethodInfo,
     Promise,
     TargetInfo,
-    XHRRequest
+    XHRRequest,
+    IRequestInfo, ITargetInfo
 } from ".";
 
 /**
@@ -102,7 +103,7 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
 /**
  * Base Collection
  */
-export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends IResults<Type>, IBase<IResults<Result>, IResults<Result>, IResults<QueryResult>> { }
+export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.IResults<Type>, IBase<Types.IResults<Result>, Types.IResults<Result>, Types.IResults<QueryResult>> { }
 
 /*********************************************************************************************************************************/
 // Base

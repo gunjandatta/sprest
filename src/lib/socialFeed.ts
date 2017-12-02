@@ -1,4 +1,4 @@
-import { ISocialFeed } from "../definitions";
+import { Types } from "../mapper";
 import { RequestType } from "../types";
 import { Base } from "../utils";
 
@@ -55,4 +55,4 @@ class _SocialFeed extends Base {
         }, [postInfo]);
     }
 }
-export const SocialFeed: ISocialFeed = <any>(new _SocialFeed());
+export const SocialFeed: Types.ISocialFeed = <any>(new _SocialFeed());
