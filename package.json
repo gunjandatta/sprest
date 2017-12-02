@@ -34,7 +34,7 @@
     "build-lib": "dts-bundle --name gd-sprest --main build/gd-sprest.d.ts --out ../dist/gd-sprest.d.ts",
     "build-es2015": "npx babel build/gd-sprest.js --out-file dist/gd-sprest.js --presets=es2015",
     "minify": "uglifyjs --compress --mangle --output dist/gd-sprest.min.js dist/gd-sprest.js",
-    "publish": "npm run build && npm run build-lib && npm run build-es2015 && npm run minify"
+    "package": "npm run build && npm run build-lib && npm run build-es2015 && npm run minify"
   },
   "dependencies": {}
 }
