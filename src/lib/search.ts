@@ -1,6 +1,6 @@
 import { Types } from "../mapper";
 import { RequestType } from "../types";
-import { Base } from "../utils";
+import { Base, Request } from "../utils";
 
 /*********************************************************************************************************************************/
 // Search
@@ -24,7 +24,7 @@ class _Search extends Base {
         }
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "search" } });
+        Request.addMethods(this, { __metadata: { type: "search" } });
     }
 
     /*********************************************************************************************************************************/

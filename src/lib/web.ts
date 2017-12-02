@@ -1,5 +1,5 @@
 import { Types } from "../mapper";
-import { Base } from "../utils";
+import { Base, Request } from "../utils";
 
 /*********************************************************************************************************************************/
 // Web
@@ -23,7 +23,7 @@ class _Web extends Base<Types.IWeb> {
         }
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "web" } });
+        Request.addMethods(this, { __metadata: { type: "web" } });
     }
 
     // Method to determine if the current user has access, based on the permissions.

@@ -1,5 +1,5 @@
 import { Types } from "../mapper";
-import { Base } from "../utils";
+import { Base, Request } from "../utils";
 
 /*********************************************************************************************************************************/
 // People Picker
@@ -18,7 +18,7 @@ class _PeoplePicker extends Base {
         this.targetInfo.overrideDefaultRequestToHostFl = true;
         
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "peoplepicker" } });
+        Request.addMethods(this, { __metadata: { type: "peoplepicker" } });
     }
 }
 export const PeoplePicker: Types.IPeoplePicker = <any>_PeoplePicker;

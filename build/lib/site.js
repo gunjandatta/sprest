@@ -34,7 +34,7 @@ var _Site = /** @class */ (function (_super) {
             _this.targetInfo.url = url;
         }
         // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "site" } });
+        utils_1.Request.addMethods(_this, { __metadata: { type: "site" } });
         return _this;
     }
     // Method to get the root web

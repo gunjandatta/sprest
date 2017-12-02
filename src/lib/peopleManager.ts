@@ -1,5 +1,5 @@
 import { Types } from "../mapper";
-import { Base } from "../utils";
+import { Base, Request } from "../utils";
 
 /*********************************************************************************************************************************/
 // People Manager
@@ -17,7 +17,7 @@ class _PeopleManager extends Base {
         this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "peoplemanager" } });
+        Request.addMethods(this, { __metadata: { type: "peoplemanager" } });
     }
 }
 export const PeopleManager: Types.IPeopleManager = <any>_PeopleManager;

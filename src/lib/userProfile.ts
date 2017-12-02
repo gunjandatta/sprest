@@ -1,5 +1,5 @@
 import { Types } from "../mapper";
-import { Base } from "../utils";
+import { Base, Request } from "../utils";
 
 /*********************************************************************************************************************************/
 // User Profile
@@ -18,7 +18,7 @@ class _UserProfile extends Base {
         this.targetInfo.method = "POST";
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "userprofile" } });
+        Request.addMethods(this, { __metadata: { type: "userprofile" } });
     }
 }
 export const UserProfile: Types.IUserProfile = <any>_UserProfile;

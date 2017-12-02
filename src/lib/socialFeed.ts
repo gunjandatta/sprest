@@ -1,6 +1,6 @@
 import { Types } from "../mapper";
 import { RequestType } from "../types";
-import { Base } from "../utils";
+import { Base, Request } from "../utils";
 
 /*********************************************************************************************************************************/
 // Social Feed
@@ -18,7 +18,7 @@ class _SocialFeed extends Base {
         this.targetInfo.endpoint = "social.feed";
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "socialfeed" } });
+        Request.addMethods(this, { __metadata: { type: "socialfeed" } });
     }
 
     /*********************************************************************************************************************************/

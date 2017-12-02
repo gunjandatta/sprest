@@ -28,7 +28,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         _this.defaultToWebFl = true;
         _this.targetInfo.endpoint = "social.feed";
         // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "socialfeed" } });
+        utils_1.Request.addMethods(_this, { __metadata: { type: "socialfeed" } });
         return _this;
     }
     /*********************************************************************************************************************************/

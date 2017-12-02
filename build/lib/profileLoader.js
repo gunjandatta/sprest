@@ -28,7 +28,7 @@ var _ProfileLoader = /** @class */ (function (_super) {
         _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
         _this.targetInfo.method = "POST";
         // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "profileloader" } });
+        utils_1.Request.addMethods(_this, { __metadata: { type: "profileloader" } });
         return _this;
     }
     return _ProfileLoader;
