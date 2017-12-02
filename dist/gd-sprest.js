@@ -293,7 +293,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.27,
+    __ver: 2.28,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -3292,12 +3292,13 @@ var BaseRequest = /** @class */ (function () {
     function BaseRequest() {
     }
     Object.defineProperty(BaseRequest.prototype, "response", {
-        // Method to return the xml http request's response
+        // Returns the request's raw response
         get: function () { return this.xhr ? this.xhr.response : null; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(BaseRequest.prototype, "status", {
+        // Returns the status of the request
         get: function () { return this.xhr ? this.xhr.status : null; },
         enumerable: true,
         configurable: true
@@ -3444,6 +3445,20 @@ var BaseRequest = /** @class */ (function () {
         // Return the object
         return obj;
     };
+    // Method to get the next set of results
+    BaseRequest.prototype.getNextSetOfResults = function (base) {
+        // Create the target information to query the next set of results
+        var targetInfo = Object.create(base.targetInfo);
+        targetInfo.endpoint = "";
+        targetInfo.url = base["d"].__next;
+        // Create a new object
+        var obj = new _1.Base(targetInfo);
+        // Set the properties
+        obj.base = base.base ? base.base : base;
+        obj.parent = base;
+        // Return the object
+        return obj;
+    };
     // Method to return a property of the base object
     BaseRequest.prototype.getProperty = function (base, propertyName, requestType) {
         // Copy the target information
@@ -3472,20 +3487,6 @@ var BaseRequest = /** @class */ (function () {
         obj.parent = base;
         // Add the methods
         requestType ? _1.Request.addMethods(obj, { __metadata: { type: requestType } }) : null;
-        // Return the object
-        return obj;
-    };
-    // Method to get the next set of results
-    BaseRequest.prototype.getNextSetOfResults = function (base) {
-        // Create the target information to query the next set of results
-        var targetInfo = Object.create(base.targetInfo);
-        targetInfo.endpoint = "";
-        targetInfo.url = base["d"].__next;
-        // Create a new object
-        var obj = new _1.Base(targetInfo);
-        // Set the properties
-        obj.base = base.base ? base.base : base;
-        obj.parent = base;
         // Return the object
         return obj;
     };
@@ -4211,11 +4212,11 @@ var _1 = __webpack_require__(1);
 /**
  * Request Helper Methods
  */
-var Request = /** @class */ (function () {
-    function Request() {
+var _Request = /** @class */ (function () {
+    function _Request() {
     }
     // Method to add the methods to base object
-    Request.addMethods = function (base, data) {
+    _Request.addMethods = function (base, data) {
         var isCollection = data.results && data.results.length > 0;
         // Determine the metadata
         var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
@@ -4289,7 +4290,7 @@ var Request = /** @class */ (function () {
         }
     };
     // Method to add properties to the base object
-    Request.addProperties = function (base, data) {
+    _Request.addProperties = function (base, data) {
         // Parse the data properties
         for (var key in data) {
             var value = data[key];
@@ -4340,7 +4341,7 @@ var Request = /** @class */ (function () {
         }
     };
     // Method to update a collection object
-    Request.updateDataCollection = function (obj, results) {
+    _Request.updateDataCollection = function (obj, results) {
         // Ensure the base is a collection
         if (results) {
             // Save the results
@@ -4373,7 +4374,7 @@ var Request = /** @class */ (function () {
         }
     };
     // Method to convert the input arguments into an object
-    Request.updateDataObject = function (base, isBatchRequest) {
+    _Request.updateDataObject = function (base, isBatchRequest) {
         // Ensure the request was successful
         if (base.request.status >= 200 && base.request.status < 300) {
             // Return if we are expecting a buffer
@@ -4439,7 +4440,7 @@ var Request = /** @class */ (function () {
         }
     };
     // Method to update the metadata
-    Request.updateMetadata = function (base, data) {
+    _Request.updateMetadata = function (base, data) {
         // Ensure the base is the app web
         if (!lib_1.ContextInfo.isAppWeb) {
             return;
@@ -4459,9 +4460,9 @@ var Request = /** @class */ (function () {
         // Update the metadata uri
         data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
     };
-    return Request;
+    return _Request;
 }());
-exports.Request = Request;
+exports.Request = _Request;
 //# sourceMappingURL=request.js.map
 
 /***/ }),

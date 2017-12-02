@@ -6,7 +6,27 @@ import { Base } from ".";
 /**
  * Request Helper Methods
  */
-export class Request {
+export interface IRequest {
+    /** Adds methods based on the object type. */
+    addMethods(base: Base, data: any);
+
+    /** Adds properties based on the object type. */
+    addProperties(base: Base, data: any);
+
+    /** Updates the data collection objects. */
+    updateDataCollection(obj: Base, results: Array<Base>);
+
+    /** Updates the data object. */
+    updateDataObject(base: Base, isBatchRequest: boolean);
+
+    /** Updates the metadata. */
+    updateMetadata(base, data);
+}
+
+/**
+ * Request Helper Methods
+ */
+class _Request {
     // Method to add the methods to base object
     static addMethods(base: Base, data) {
         let isCollection = data.results && data.results.length > 0;
@@ -283,3 +303,4 @@ export class Request {
         data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
     }
 }
+export const Request: IRequest = _Request as any;

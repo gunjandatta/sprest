@@ -71,6 +71,12 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
      * @param reject - Method to execute for unsuccessful requests.
      */
     then(resolve?: (value?: Result) => void, reject?: (value?: Result) => void): PromiseLike<Result>;
+    /**
+     * Method to wait for the parent requests to complete
+     * @param callback - The callback method.
+     * @param requestIdx - The request index.
+     */
+    waitForRequestsToComplete(callback: () => void, requestIdx?: number): any;
 }
 /**
  * Base Collection
@@ -79,7 +85,7 @@ export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result
 }
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
-export declare class Base<Type = any, Result = Type, QueryResult = Result> {
+export declare class Base<Type = any, Result = Type, QueryResult = Result> implements IBase {
     /**
      * Constructor
      * @param targetInfo - The target information.
