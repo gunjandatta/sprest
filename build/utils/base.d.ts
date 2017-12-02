@@ -1,13 +1,11 @@
 import { Types } from "../mapper";
 import { IRequestType } from "../types";
-import { IMethodInfo, Promise, TargetInfo, XHRRequest, IRequestInfo, ITargetInfo } from ".";
+import { BaseRequest, TargetInfo, IRequestInfo, ITargetInfo } from ".";
 /**
  * Base
  */
 export interface IBase<Type = any, Result = Type, QueryResult = Result> {
-    /**
-     * Properties
-     */
+    defaultToWebFl: boolean;
     /** True, if the object exists, false otherwise. */
     existsFl: boolean;
     /** The parent object, which created this object. */
@@ -81,26 +79,12 @@ export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result
 }
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
-export declare class Base<Type = any, Result = Type, QueryResult = Result> implements IBase {
-    /*********************************************************************************************************************************/
-    /*********************************************************************************************************************************/
+export declare class Base<Type = any, Result = Type, QueryResult = Result> {
+    /**
+     * Constructor
+     * @param targetInfo - The target information.
+     */
     constructor(targetInfo: ITargetInfo);
-    /*********************************************************************************************************************************/
-    /*********************************************************************************************************************************/
-    existsFl: any;
-    parent: Base;
-    requestType: any;
-    readonly response: any;
-    /*********************************************************************************************************************************/
-    /*********************************************************************************************************************************/
-    batch(arg?: any): this;
-    done(callback: (...args) => any): void;
-    execute(...args: any[]): this;
-    executeAndWait(): this;
-    getInfo(): IRequestInfo;
-    then(resolve: any, reject: any): PromiseLike<IBase>;
-    /*********************************************************************************************************************************/
-    /*********************************************************************************************************************************/
     base: Base;
     batchRequests: Array<Array<{
         callback?: any;
@@ -108,21 +92,21 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> imple
         targetInfo: TargetInfo;
     }>>;
     defaultToWebFl: boolean;
+    existsFl: any;
     getAllItemsFl: boolean;
-    promise: Promise;
-    request: XHRRequest;
-    responses: Array<Base>;
+    parent: Base;
+    request: BaseRequest;
+    requestType: any;
+    readonly response: any;
     responseIndex: number;
+    responses: Array<Base>;
     targetInfo: ITargetInfo;
     waitFlags: Array<boolean>;
-    /*********************************************************************************************************************************/
-    /*********************************************************************************************************************************/
-    protected executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
-    protected executeRequest(asyncFl: boolean, callback?: (...args) => void): this;
-    private getCollection(method, args?);
-    protected getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
-    protected getNextSetOfResults(): Base<any, any, any>;
-    private updateMetadataUri(metadata, targetInfo);
-    private validateDataCollectionResults(request, promise?);
-    private waitForRequestsToComplete(callback, requestIdx?);
+    batch(arg?: any): this;
+    done(callback: (...args) => any): void;
+    execute(...args: any[]): this;
+    executeAndWait(): Base<any, any, any> | BaseRequest;
+    getInfo(): IRequestInfo;
+    then(resolve: any, reject: any): PromiseLike<IBase>;
+    waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
 }

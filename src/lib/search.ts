@@ -48,7 +48,7 @@ class _Search extends Base {
     /** The search query method */
     searchquery(settings) {
         // Execute the request
-        return this.executeMethod("query", {
+        return this.request.executeMethod(this, "query", {
             argNames: ["query"],
             name: "query?[[query]]",
             requestType: RequestType.GetReplace
@@ -58,7 +58,7 @@ class _Search extends Base {
     /** The suggest method */
     suggest(settings) {
         // Execute the request
-        return this.executeMethod("query", {
+        return this.request.executeMethod(this, "query", {
             argNames: ["query"],
             name: "suggest?[[query]]",
             requestType: RequestType.GetReplace

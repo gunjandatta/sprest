@@ -61,11 +61,11 @@ var Request = /** @class */ (function () {
                                 subPropName = subPropName.replace(/'/g, "\\'");
                                 // Add the property
                                 base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
-                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
+                                    "return this.request.getProperty(this, name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             }
                             else {
                                 // Add the property
-                                base[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
+                                base[propName] = new Function("return this.request.getProperty(this, '" + propName + "', '" + propType + "');");
                             }
                         }
                     }
@@ -80,7 +80,7 @@ var Request = /** @class */ (function () {
                     methodInfo.metadataType = methods[methodName].metadataType(base);
                 }
                 // Add the method to the object
-                base[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+                base[methodName] = new Function("return this.request.executeMethod(this, '" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
             }
         }
     };
@@ -96,7 +96,7 @@ var Request = /** @class */ (function () {
             // See if the base is a collection property
             if (value && value.__deferred && value.__deferred.uri) {
                 // Generate a method for the base property
-                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.getCollection('" + key + "', arguments);");
+                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.request.getCollection(this, '" + key + "', arguments);");
             }
             else {
                 // Set the property, based on the property name
@@ -161,9 +161,9 @@ var Request = /** @class */ (function () {
                     result["updateMetadataUri"] = obj.updateMetadataUri;
                     result["waitForRequestsToComplete"] = obj.waitForRequestsToComplete;
                     // Update the metadata
-                    obj.updateMetadata(obj, result);
+                    this.updateMetadata(obj, result);
                     // Add the methods
-                    obj.addMethods(result, result);
+                    this.addMethods(result, result);
                 }
             }
         }
@@ -171,7 +171,7 @@ var Request = /** @class */ (function () {
     // Method to convert the input arguments into an object
     Request.updateDataObject = function (base, isBatchRequest) {
         // Ensure the request was successful
-        if (base.request.request.status >= 200 && base.request.request.status < 300) {
+        if (base.request.status >= 200 && base.request.status < 300) {
             // Return if we are expecting a buffer
             if (base.requestType == types_1.RequestType.GetBuffer) {
                 // Return the response
@@ -201,13 +201,13 @@ var Request = /** @class */ (function () {
                     // Save a reference to it
                     obj["d"] = data.d;
                     // Update the metadata
-                    obj.updateMetadata(obj, data.d);
+                    this.updateMetadata(obj, data.d);
                     // Update the base object's properties
-                    obj.addProperties(obj, data.d);
+                    this.addProperties(obj, data.d);
                     // Add the methods
-                    obj.addMethods(obj, data.d);
+                    this.addMethods(obj, data.d);
                     // Update the data collection
-                    obj.updateDataCollection(obj, data.d.results);
+                    this.updateDataCollection(obj, data.d.results);
                 }
                 // See if the batch request exists
                 if (isBatchRequest) {

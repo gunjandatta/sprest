@@ -1,4 +1,5 @@
 export * from "./base";
+export * from "./baseRequest";
 export * from "./batch";
 export * from "./dependencies";
 export * from "./methodInfo";

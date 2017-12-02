@@ -4765,11 +4765,13 @@ declare module 'gd-sprest/mapper/userCustomAction' {
 
 declare module 'gd-sprest/utils' {
     export * from "gd-sprest/utils/base";
+    export * from "gd-sprest/utils/baseRequest";
     export * from "gd-sprest/utils/batch";
     export * from "gd-sprest/utils/dependencies";
     export * from "gd-sprest/utils/methodInfo";
     export * from "gd-sprest/utils/oData";
     export * from "gd-sprest/utils/promise";
+    export * from "gd-sprest/utils/request";
     export * from "gd-sprest/utils/targetInfo";
     export * from "gd-sprest/utils/xhrRequest";
 }
@@ -9909,11 +9911,12 @@ declare module 'gd-sprest/mapper/userCustomAction/userCustomActions' {
 declare module 'gd-sprest/utils/base' {
     import { Types } from "gd-sprest/mapper";
     import { IRequestType } from "gd-sprest/types";
-    import { IMethodInfo, XHRRequest, IRequestInfo, ITargetInfo } from "gd-sprest/utils";
+    import { BaseRequest, TargetInfo, IRequestInfo, ITargetInfo } from "gd-sprest/utils";
     /**
         * Base
         */
     export interface IBase<Type = any, Result = Type, QueryResult = Result> {
+            defaultToWebFl: boolean;
             /** True, if the object exists, false otherwise. */
             existsFl: boolean;
             /** The parent object, which created this object. */
@@ -9986,33 +9989,55 @@ declare module 'gd-sprest/utils/base' {
     export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.IResults<Type>, IBase<Types.IResults<Result>, Types.IResults<Result>, Types.IResults<QueryResult>> {
     }
     /*********************************************************************************************************************************/
-    export class Base<Type = any, Result = Type, QueryResult = Result> implements IBase {
-            /*********************************************************************************************************************************/
+    export class Base<Type = any, Result = Type, QueryResult = Result> {
+            /**
+                * Constructor
+                * @param targetInfo - The target information.
+                */
             constructor(targetInfo: ITargetInfo);
-            /*********************************************************************************************************************************/
+            base: Base;
+            batchRequests: Array<Array<{
+                    callback?: any;
+                    response?: Base;
+                    targetInfo: TargetInfo;
+            }>>;
+            defaultToWebFl: boolean;
             existsFl: any;
+            getAllItemsFl: boolean;
             parent: Base;
+            request: BaseRequest;
             requestType: any;
             readonly response: any;
-            /*********************************************************************************************************************************/
+            responseIndex: number;
+            responses: Array<Base>;
+            targetInfo: ITargetInfo;
+            waitFlags: Array<boolean>;
             batch(arg?: any): this;
             done(callback: (...args) => any): void;
             execute(...args: any[]): this;
-            executeAndWait(): this;
+            executeAndWait(): BaseRequest;
             getInfo(): IRequestInfo;
             then(resolve: any, reject: any): PromiseLike<IBase>;
-            protected defaultToWebFl: boolean;
-            protected getAllItemsFl: boolean;
-            protected request: XHRRequest;
-            protected responses: Array<Base>;
-            protected targetInfo: ITargetInfo;
-            /*********************************************************************************************************************************/
-            protected addMethods(obj: any, data: any): void;
-            protected executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
-            protected executeRequest(asyncFl: boolean, callback?: (...args) => void): this;
-            protected getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
-            protected getNextSetOfResults(): Base<any, any, any>;
-            protected updateDataObject(isBatchRequest: boolean): any;
+            waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
+    }
+}
+
+declare module 'gd-sprest/utils/baseRequest' {
+    import { Base, Promise, XHRRequest, IMethodInfo, ITargetInfo } from "gd-sprest/utils";
+    /**
+      * Base Request
+      */
+    export class BaseRequest {
+        readonly response: any;
+        readonly status: number;
+        xhr: XHRRequest;
+        executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
+        executeRequest(base: Base, asyncFl: boolean, callback?: (...args) => void): this;
+        getCollection(base: Base, method: string, args?: any): Base<any, any, any>;
+        getProperty(base: Base, propertyName: string, requestType?: string): Base<any, any, any>;
+        getNextSetOfResults(base: Base): Base<any, any, any>;
+        updateMetadataUri(metadata: any, targetInfo: ITargetInfo): void;
+        validateDataCollectionResults(base: Base, request: XHRRequest, promise?: Promise): Promise;
     }
 }
 
@@ -10133,6 +10158,20 @@ declare module 'gd-sprest/utils/promise' {
     }
 }
 
+declare module 'gd-sprest/utils/request' {
+    import { Base } from "gd-sprest/utils";
+    /**
+      * Request Helper Methods
+      */
+    export class Request {
+        static addMethods(base: Base, data: any): void;
+        static addProperties(base: any, data: any): void;
+        static updateDataCollection(obj: any, results: any): void;
+        static updateDataObject(base: Base, isBatchRequest: boolean): any;
+        static updateMetadata(base: any, data: any): void;
+    }
+}
+
 declare module 'gd-sprest/utils/targetInfo' {
     /**
         * Request Information
@@ -10203,6 +10242,7 @@ declare module 'gd-sprest/utils/xhrRequest' {
         readonly request: any;
         readonly requestData: any;
         readonly requestUrl: string;
+        readonly status: number;
     }
 }
 

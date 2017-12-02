@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "declaration": true,
-        "module": "commonJS",
         "outDir": "build",
         "sourceMap": true,
         "target": "es5"

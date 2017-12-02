@@ -4,6 +4,7 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./base"));
+__export(require("./baseRequest"));
 __export(require("./batch"));
 __export(require("./dependencies"));
 __export(require("./methodInfo"));
