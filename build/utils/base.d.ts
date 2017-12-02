@@ -1,13 +1,11 @@
 import { Types } from "../mapper";
 import { IRequestType } from "../types";
-import { IMethodInfo, XHRRequest, IRequestInfo, ITargetInfo } from ".";
+import { BaseRequest, TargetInfo, IRequestInfo, ITargetInfo } from ".";
 /**
  * Base
  */
 export interface IBase<Type = any, Result = Type, QueryResult = Result> {
-    /**
-     * Properties
-     */
+    defaultToWebFl: boolean;
     /** True, if the object exists, false otherwise. */
     existsFl: boolean;
     /** The parent object, which created this object. */
@@ -81,49 +79,34 @@ export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result
 }
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
-export declare class Base<Type = any, Result = Type, QueryResult = Result> implements IBase {
-    /*********************************************************************************************************************************/
-    /*********************************************************************************************************************************/
+export declare class Base<Type = any, Result = Type, QueryResult = Result> {
+    /**
+     * Constructor
+     * @param targetInfo - The target information.
+     */
     constructor(targetInfo: ITargetInfo);
-    /*********************************************************************************************************************************/
-    /*********************************************************************************************************************************/
+    base: Base;
+    batchRequests: Array<Array<{
+        callback?: any;
+        response?: Base;
+        targetInfo: TargetInfo;
+    }>>;
+    defaultToWebFl: boolean;
     existsFl: any;
+    getAllItemsFl: boolean;
     parent: Base;
+    request: BaseRequest;
     requestType: any;
     readonly response: any;
-    /*********************************************************************************************************************************/
-    /*********************************************************************************************************************************/
+    responseIndex: number;
+    responses: Array<Base>;
+    targetInfo: ITargetInfo;
+    waitFlags: Array<boolean>;
     batch(arg?: any): this;
     done(callback: (...args) => any): void;
     execute(...args: any[]): this;
-    executeAndWait(): this;
+    executeAndWait(): any;
     getInfo(): IRequestInfo;
     then(resolve: any, reject: any): PromiseLike<IBase>;
-    /*********************************************************************************************************************************/
-    /*********************************************************************************************************************************/
-    private base;
-    private batchRequests;
-    protected defaultToWebFl: boolean;
-    protected getAllItemsFl: boolean;
-    private promise;
-    protected request: XHRRequest;
-    protected responses: Array<Base>;
-    private responseIndex;
-    protected targetInfo: ITargetInfo;
-    private waitFlags;
-    /*********************************************************************************************************************************/
-    /*********************************************************************************************************************************/
-    protected addMethods(obj: any, data: any): void;
-    private addProperties(obj, data);
-    protected executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
-    protected executeRequest(asyncFl: boolean, callback?: (...args) => void): this;
-    private getCollection(method, args?);
-    protected getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
-    protected getNextSetOfResults(): Base<any, any, any>;
-    private updateDataCollection(obj, results);
-    protected updateDataObject(isBatchRequest: boolean): any;
-    private updateMetadata(obj, data);
-    private updateMetadataUri(metadata, targetInfo);
-    private validateDataCollectionResults(request, promise?);
-    private waitForRequestsToComplete(callback, requestIdx?);
+    waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
 }

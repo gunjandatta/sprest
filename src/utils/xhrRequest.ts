@@ -42,6 +42,9 @@ export class XHRRequest {
     // The reqest url
     get requestUrl(): string { return this.xhr ? this.xhr.responseURL : null; }
 
+    // The request status
+    get status(): number { return this.xhr ? this.xhr.status : null }
+
     /*********************************************************************************************************************************/
     // Private Variables
     /*********************************************************************************************************************************/

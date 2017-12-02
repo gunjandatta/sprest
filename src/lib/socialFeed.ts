@@ -1,6 +1,6 @@
 import { Types } from "../mapper";
 import { RequestType } from "../types";
-import { Base } from "../utils";
+import { Base, Request } from "../utils";
 
 /*********************************************************************************************************************************/
 // Social Feed
@@ -18,7 +18,7 @@ class _SocialFeed extends Base {
         this.targetInfo.endpoint = "social.feed";
 
         // Add the methods
-        this.addMethods(this, { __metadata: { type: "socialfeed" } });
+        Request.addMethods(this, { __metadata: { type: "socialfeed" } });
     }
 
     /*********************************************************************************************************************************/
@@ -33,7 +33,7 @@ class _SocialFeed extends Base {
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
 
-        return this.executeMethod("postToMyFeed", {
+        return this.request.executeMethod(this, "postToMyFeed", {
             argNames: ["restCreationData"],
             name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
             requestType: RequestType.PostWithArgsInBody
@@ -48,7 +48,7 @@ class _SocialFeed extends Base {
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
 
-        return this.executeMethod("postToMyFeed", {
+        return this.request.executeMethod(this, "postToMyFeed", {
             argNames: ["restCreationData"],
             name: "my/feed/post",
             requestType: RequestType.PostWithArgsInBody

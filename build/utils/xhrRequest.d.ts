@@ -12,6 +12,7 @@ export declare class XHRRequest {
     readonly request: any;
     readonly requestData: any;
     readonly requestUrl: string;
+    readonly status: number;
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
     private asyncFl;

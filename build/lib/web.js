@@ -32,7 +32,7 @@ var _Web = /** @class */ (function (_super) {
             _this.targetInfo.url = url;
         }
         // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "web" } });
+        utils_1.Request.addMethods(_this, { __metadata: { type: "web" } });
         return _this;
     }
     // Method to determine if the current user has access, based on the permissions.

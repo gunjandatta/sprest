@@ -27,7 +27,7 @@ var _PeopleManager = /** @class */ (function (_super) {
         _this.defaultToWebFl = true;
         _this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
         // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "peoplemanager" } });
+        utils_1.Request.addMethods(_this, { __metadata: { type: "peoplemanager" } });
         return _this;
     }
     return _PeopleManager;

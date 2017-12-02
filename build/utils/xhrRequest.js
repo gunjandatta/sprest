@@ -52,6 +52,12 @@ var XHRRequest = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(XHRRequest.prototype, "status", {
+        // The request status
+        get: function () { return this.xhr ? this.xhr.status : null; },
+        enumerable: true,
+        configurable: true
+    });
     /*********************************************************************************************************************************/
     // Private Methods
     /*********************************************************************************************************************************/
