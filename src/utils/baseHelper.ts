@@ -1,14 +1,14 @@
 import { ContextInfo } from "../lib";
 import { Mapper } from "../mapper";
 import { RequestType } from "../types";
-import { Base, BaseExecution } from ".";
+import { Base } from ".";
 
 /**
  * Request Helper Methods
  */
 export interface IBaseHelper {
     /** The base object. */
-    base: BaseExecution;
+    base: Base;
 
     /** The request type */
     requestType: number;
@@ -20,13 +20,13 @@ export interface IBaseHelper {
     status: number;
 
     /** Adds methods based on the object type. */
-    addMethods(base: BaseExecution, data: any);
+    addMethods(base: Base, data: any);
 
     /** Adds properties based on the object type. */
-    addProperties(base: BaseExecution, data: any);
+    addProperties(base: Base, data: any);
 
     /** Updates the data collection objects. */
-    updateDataCollection(obj: BaseExecution, results: Array<BaseExecution>);
+    updateDataCollection(obj: Base, results: Array<Base>);
 
     /** Updates the data object. */
     updateDataObject(isBatchRequest: boolean);
@@ -39,13 +39,13 @@ export interface IBaseHelper {
  * Request Helper
  */
 export class BaseHelper implements IBaseHelper {
-    base: BaseExecution;
+    base: Base;
     requestType: number;
     response: string;
     status: number;
 
     // Method to add the methods to base object
-    addMethods(base: BaseExecution, data) {
+    addMethods(base: Base, data) {
         let isCollection = data.results && data.results.length > 0;
 
         // Determine the metadata
@@ -105,10 +105,10 @@ export class BaseHelper implements IBaseHelper {
                                 // Add the property
                                 base[propName] = new Function("name",
                                     "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
-                                    "return this.getProperty(this, name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
+                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             } else {
                                 // Add the property
-                                base[propName] = new Function("return this.getProperty(this, '" + propName + "', '" + propType + "');");
+                                base[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
                             }
                         }
                     }
@@ -127,7 +127,7 @@ export class BaseHelper implements IBaseHelper {
                 }
 
                 // Add the method to the object
-                base[methodName] = new Function("return this.executeMethod(this, '" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+                base[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
             }
         }
     }

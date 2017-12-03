@@ -294,7 +294,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.28,
+    __ver: 2.29,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -3125,11 +3125,11 @@ var BaseHelper = /** @class */ (function () {
                                 subPropName = subPropName.replace(/'/g, "\\'");
                                 // Add the property
                                 base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
-                                    "return this.getProperty(this, name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
+                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             }
                             else {
                                 // Add the property
-                                base[propName] = new Function("return this.getProperty(this, '" + propName + "', '" + propType + "');");
+                                base[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
                             }
                         }
                     }
@@ -3144,7 +3144,7 @@ var BaseHelper = /** @class */ (function () {
                     methodInfo.metadataType = methods[methodName].metadataType(base);
                 }
                 // Add the method to the object
-                base[methodName] = new Function("return this.executeMethod(this, '" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+                base[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
             }
         }
     };
@@ -3352,10 +3352,10 @@ var BaseRequest = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     // Method to execute a method
-    BaseRequest.prototype.executeMethod = function (base, methodName, methodConfig, args) {
+    BaseRequest.prototype.executeMethod = function (methodName, methodConfig, args) {
         var targetInfo = null;
         // See if the metadata is defined for the base object
-        var metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
+        var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if (metadata && metadata.uri) {
             // Create the target information and use the url defined for the base object
             targetInfo = {
@@ -3371,7 +3371,7 @@ var BaseRequest = /** @class */ (function (_super) {
         }
         else {
             // Copy the target information
-            targetInfo = Object.create(base.targetInfo);
+            targetInfo = Object.create(this.targetInfo);
         }
         // Get the method information
         var methodInfo = new _1.MethodInfo(methodName, methodConfig, args);
@@ -3398,9 +3398,9 @@ var BaseRequest = /** @class */ (function (_super) {
         // Create a new object
         var obj = new _1.Base(targetInfo);
         // Set the properties
-        obj.base = base.base ? base.base : base;
+        obj.base = this.base ? this.base : this;
         obj.getAllItemsFl = methodInfo.getAllItemsFl;
-        obj.parent = base;
+        obj.parent = this;
         obj.requestType = methodConfig.requestType;
         // Ensure the return type exists
         if (methodConfig.returnType) {
@@ -3436,7 +3436,7 @@ var BaseRequest = /** @class */ (function (_super) {
                     // Update the data object
                     _this.updateDataObject(isBatchRequest);
                     // Validate the data collection
-                    isBatchRequest ? null : _this.validateDataCollectionResults(_this, _this.xhr).done(function () {
+                    isBatchRequest ? null : _this.validateDataCollectionResults().done(function () {
                         // Execute the callback
                         callback ? callback(_this) : null;
                     });
@@ -3462,7 +3462,7 @@ var BaseRequest = /** @class */ (function (_super) {
             // See if the base is a collection and has more results
             if (this["d"] && this["d"].__next) {
                 // Add the "next" method to get the next set of results
-                this["next"] = new Function("return this.getNextSetOfResults(this);");
+                this["next"] = new Function("return this.getNextSetOfResults();");
             }
             // Return the base object
             return this;
@@ -3500,28 +3500,28 @@ var BaseRequest = /** @class */ (function (_super) {
         return obj;
     };
     // Method to get the next set of results
-    BaseRequest.prototype.getNextSetOfResults = function (base) {
+    BaseRequest.prototype.getNextSetOfResults = function () {
         // Create the target information to query the next set of results
-        var targetInfo = Object.create(base.targetInfo);
+        var targetInfo = Object.create(this.targetInfo);
         targetInfo.endpoint = "";
-        targetInfo.url = base["d"].__next;
+        targetInfo.url = this["d"].__next;
         // Create a new object
         var obj = new _1.Base(targetInfo);
         // Set the properties
-        obj.base = base.base ? base.base : base;
-        obj.parent = base;
+        obj.base = this.base ? this.base : this;
+        obj.parent = this;
         // Return the object
         return obj;
     };
     // Method to return a property of the base object
-    BaseRequest.prototype.getProperty = function (base, propertyName, requestType) {
+    BaseRequest.prototype.getProperty = function (propertyName, requestType) {
         // Copy the target information
-        var targetInfo = Object.create(base.targetInfo);
+        var targetInfo = Object.create(this.targetInfo);
         // Clear the target information properties from any previous requests
         targetInfo.data = null;
         targetInfo.method = null;
         // See if the metadata is defined for the base object
-        var metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
+        var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if (metadata && metadata.uri) {
             // Update the url of the target information
             targetInfo.url = metadata.uri;
@@ -3537,8 +3537,8 @@ var BaseRequest = /** @class */ (function (_super) {
         // Create a new object
         var obj = new _1.Base(targetInfo);
         // Set the properties
-        obj.base = base.base ? base.base : base;
-        obj.parent = base;
+        obj.base = this.base ? this.base : this;
+        obj.parent = this;
         // Add the methods
         requestType ? this.addMethods(obj, { __metadata: { type: requestType } }) : null;
         // Return the object
@@ -3557,19 +3557,19 @@ var BaseRequest = /** @class */ (function (_super) {
         }
     };
     // Method to validate the data collection results
-    BaseRequest.prototype.validateDataCollectionResults = function (base, request, promise) {
+    BaseRequest.prototype.validateDataCollectionResults = function (promise) {
         var _this = this;
         promise = promise || new _1.Promise();
         // Validate the response
-        if (request && request.status < 400 && typeof (request.response) === "string" && request.response.length > 0) {
+        if (this.xhr && this.status < 400 && typeof (this.response) === "string" && this.response.length > 0) {
             // Convert the response and ensure the data property exists
-            var data = JSON.parse(request.response);
+            var data = JSON.parse(this.response);
             // See if there are more items to get
             if (data.d && data.d.__next) {
                 // See if we are getting all items in the base request
-                if (base.getAllItemsFl) {
+                if (this.getAllItemsFl) {
                     // Create the target information to query the next set of results
-                    var targetInfo = Object.create(base.targetInfo);
+                    var targetInfo = Object.create(this.targetInfo);
                     targetInfo.endpoint = "";
                     targetInfo.url = data.d.__next;
                     // Create a new object
@@ -3578,11 +3578,11 @@ var BaseRequest = /** @class */ (function (_super) {
                         var data = JSON.parse(request.response);
                         if (data.d) {
                             // Update the data collection
-                            _this.updateDataCollection(base, data.d.results);
+                            _this.updateDataCollection(_this, data.d.results);
                             // Append the raw data results
-                            base["d"].results = base["d"].results.concat(data.d.results);
+                            _this["d"].results = _this["d"].results.concat(data.d.results);
                             // Validate the data collection
-                            return _this.validateDataCollectionResults(base, request, promise);
+                            return _this.validateDataCollectionResults(promise);
                         }
                         // Resolve the promise
                         promise.resolve();
@@ -3590,7 +3590,7 @@ var BaseRequest = /** @class */ (function (_super) {
                 }
                 else {
                     // Add a method to get the next set of results
-                    this["next"] = new Function("return this.getNextSetOfResults(this);");
+                    this["next"] = new Function("return this.getNextSetOfResults();");
                     // Resolve the promise
                     promise.resolve();
                 }
@@ -4901,7 +4901,7 @@ var _Email = /** @class */ (function (_super) {
             }
         }
         // Execute the method, and return the email object
-        return this.executeMethod(this, "send", {
+        return this.executeMethod("send", {
             argNames: ["properties"],
             name: "",
             metadataType: "SP.Utilities.EmailProperties",
@@ -7135,7 +7135,7 @@ var _Search = /** @class */ (function (_super) {
     /** The search query method */
     _Search.prototype.searchquery = function (settings) {
         // Execute the request
-        return this.executeMethod(this, "query", {
+        return this.executeMethod("query", {
             argNames: ["query"],
             name: "query?[[query]]",
             requestType: types_1.RequestType.GetReplace
@@ -7144,7 +7144,7 @@ var _Search = /** @class */ (function (_super) {
     /** The suggest method */
     _Search.prototype.suggest = function (settings) {
         // Execute the request
-        return this.executeMethod(this, "query", {
+        return this.executeMethod("query", {
             argNames: ["query"],
             name: "suggest?[[query]]",
             requestType: types_1.RequestType.GetReplace
@@ -7259,7 +7259,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.executeMethod(this, "postToMyFeed", {
+        return this.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
             requestType: types_1.RequestType.PostWithArgsInBody
@@ -7271,7 +7271,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.executeMethod(this, "postToMyFeed", {
+        return this.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "my/feed/post",
             requestType: types_1.RequestType.PostWithArgsInBody

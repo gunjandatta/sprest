@@ -19,7 +19,7 @@ export interface IBaseRequest extends IBaseHelper {
     xhr: XHRRequest;
 
     /** Method to execute the request. */
-    executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any);
+    executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
 
     /** Method to execute the request. */
     executeRequest(asyncFl: boolean, callback?: (...args) => void);
@@ -28,16 +28,16 @@ export interface IBaseRequest extends IBaseHelper {
     getCollection(method: string, args?: any);
 
     /** Gets the next set of results. */
-    getNextSetOfResults(base: Base);
+    getNextSetOfResults();
 
     /** Gets the property. */
-    getProperty(base: Base, propertyName: string, requestType?: string);
+    getProperty(propertyName: string, requestType?: string);
 
     /** Updates the metdata uri. */
     updateMetadataUri(metadata, targetInfo: ITargetInfo);
 
     /** Validates the data collection results. */
-    validateDataCollectionResults(base: Base, request: XHRRequest, promise?: Promise);
+    validateDataCollectionResults(promise?: Promise);
 }
 
 /**
@@ -50,11 +50,11 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
     xhr: XHRRequest;
 
     // Method to execute a method
-    executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any) {
+    executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any) {
         let targetInfo: ITargetInfo = null;
 
         // See if the metadata is defined for the base object
-        let metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
+        let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if (metadata && metadata.uri) {
             // Create the target information and use the url defined for the base object
             targetInfo = {
@@ -72,7 +72,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
         }
         else {
             // Copy the target information
-            targetInfo = Object.create(base.targetInfo);
+            targetInfo = Object.create(this.targetInfo);
         }
 
         // Get the method information
@@ -107,9 +107,9 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
         let obj = new Base(targetInfo);
 
         // Set the properties
-        obj.base = base.base ? base.base : base;
+        obj.base = this.base ? this.base : this as any;
         obj.getAllItemsFl = methodInfo.getAllItemsFl;
-        obj.parent = base;
+        obj.parent = this as any;
         obj.requestType = methodConfig.requestType;
 
         // Ensure the return type exists
@@ -150,7 +150,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
                     this.updateDataObject(isBatchRequest);
 
                     // Validate the data collection
-                    isBatchRequest ? null : this.validateDataCollectionResults(this, this.xhr).done(() => {
+                    isBatchRequest ? null : this.validateDataCollectionResults().done(() => {
                         // Execute the callback
                         callback ? callback(this) : null;
                     });
@@ -180,7 +180,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
             // See if the base is a collection and has more results
             if (this["d"] && this["d"].__next) {
                 // Add the "next" method to get the next set of results
-                this["next"] = new Function("return this.getNextSetOfResults(this);");
+                this["next"] = new Function("return this.getNextSetOfResults();");
             }
 
             // Return the base object
@@ -229,34 +229,34 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
     }
 
     // Method to get the next set of results
-    getNextSetOfResults(base: Base) {
+    getNextSetOfResults() {
         // Create the target information to query the next set of results
-        let targetInfo = Object.create(base.targetInfo);
+        let targetInfo = Object.create(this.targetInfo);
         targetInfo.endpoint = "";
-        targetInfo.url = base["d"].__next;
+        targetInfo.url = this["d"].__next;
 
         // Create a new object
         let obj = new Base(targetInfo);
 
         // Set the properties
-        obj.base = base.base ? base.base : base;
-        obj.parent = base;
+        obj.base = this.base ? this.base : this as any;
+        obj.parent = this as any;
 
         // Return the object
         return obj;
     }
 
     // Method to return a property of the base object
-    getProperty(base: Base, propertyName: string, requestType?: string) {
+    getProperty(propertyName: string, requestType?: string) {
         // Copy the target information
-        let targetInfo = Object.create(base.targetInfo);
+        let targetInfo = Object.create(this.targetInfo);
 
         // Clear the target information properties from any previous requests
         targetInfo.data = null;
         targetInfo.method = null;
 
         // See if the metadata is defined for the base object
-        let metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
+        let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if (metadata && metadata.uri) {
             // Update the url of the target information
             targetInfo.url = metadata.uri;
@@ -276,8 +276,8 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
         let obj = new Base(targetInfo);
 
         // Set the properties
-        obj.base = base.base ? base.base : base;
-        obj.parent = base;
+        obj.base = this.base ? this.base : this as any;
+        obj.parent = this as any;
 
         // Add the methods
         requestType ? this.addMethods(obj, { __metadata: { type: requestType } }) : null;
@@ -301,20 +301,20 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
     }
 
     // Method to validate the data collection results
-    validateDataCollectionResults(base: BaseRequest, request: XHRRequest, promise?: Promise) {
+    validateDataCollectionResults(promise?: Promise) {
         promise = promise || new Promise();
 
         // Validate the response
-        if (request && request.status < 400 && typeof (request.response) === "string" && request.response.length > 0) {
+        if (this.xhr && this.status < 400 && typeof (this.response) === "string" && this.response.length > 0) {
             // Convert the response and ensure the data property exists
-            let data = JSON.parse(request.response);
+            let data = JSON.parse(this.response);
 
             // See if there are more items to get
             if (data.d && data.d.__next) {
                 // See if we are getting all items in the base request
-                if (base.getAllItemsFl) {
+                if (this.getAllItemsFl) {
                     // Create the target information to query the next set of results
-                    let targetInfo = Object.create(base.targetInfo);
+                    let targetInfo = Object.create(this.targetInfo);
                     targetInfo.endpoint = "";
                     targetInfo.url = data.d.__next;
 
@@ -324,13 +324,13 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
                         let data = JSON.parse(request.response);
                         if (data.d) {
                             // Update the data collection
-                            this.updateDataCollection(base, data.d.results);
+                            this.updateDataCollection(this, data.d.results);
 
                             // Append the raw data results
-                            base["d"].results = base["d"].results.concat(data.d.results);
+                            this["d"].results = this["d"].results.concat(data.d.results);
 
                             // Validate the data collection
-                            return this.validateDataCollectionResults(base, request, promise);
+                            return this.validateDataCollectionResults(promise);
                         }
 
                         // Resolve the promise
@@ -338,7 +338,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
                     });
                 } else {
                     // Add a method to get the next set of results
-                    this["next"] = new Function("return this.getNextSetOfResults(this);");
+                    this["next"] = new Function("return this.getNextSetOfResults();");
 
                     // Resolve the promise
                     promise.resolve();

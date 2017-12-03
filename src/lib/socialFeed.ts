@@ -33,7 +33,7 @@ class _SocialFeed extends Base {
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
 
-        return this.executeMethod(this, "postToMyFeed", {
+        return this.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
             requestType: RequestType.PostWithArgsInBody
@@ -48,7 +48,7 @@ class _SocialFeed extends Base {
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
 
-        return this.executeMethod(this, "postToMyFeed", {
+        return this.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "my/feed/post",
             requestType: RequestType.PostWithArgsInBody

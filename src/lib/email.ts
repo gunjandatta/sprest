@@ -89,7 +89,7 @@ class _Email extends Base {
         }
 
         // Execute the method, and return the email object
-        return this.executeMethod(this, "send", {
+        return this.executeMethod("send", {
             argNames: ["properties"],
             name: "",
             metadataType: "SP.Utilities.EmailProperties",

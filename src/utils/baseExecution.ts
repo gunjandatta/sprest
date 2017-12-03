@@ -91,7 +91,7 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest {
         }
 
         // Set the base
-        this.base = this.base ? this.base : this;
+        this.base = this.base ? this.base : this as any;
 
         // See if we are appending this request
         if (appendFl && this.base.batchRequests) {
@@ -132,7 +132,7 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest {
         }
 
         // Set the base
-        this.base = this.base ? this.base : this;
+        this.base = this.base ? this.base : this as any;
 
         // Set the response index
         this.responseIndex = this.base.responses.length;

@@ -40,7 +40,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.executeMethod(this, "postToMyFeed", {
+        return this.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
             requestType: types_1.RequestType.PostWithArgsInBody
@@ -52,7 +52,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.executeMethod(this, "postToMyFeed", {
+        return this.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "my/feed/post",
             requestType: types_1.RequestType.PostWithArgsInBody

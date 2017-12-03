@@ -61,11 +61,11 @@ var BaseHelper = /** @class */ (function () {
                                 subPropName = subPropName.replace(/'/g, "\\'");
                                 // Add the property
                                 base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
-                                    "return this.getProperty(this, name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
+                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             }
                             else {
                                 // Add the property
-                                base[propName] = new Function("return this.getProperty(this, '" + propName + "', '" + propType + "');");
+                                base[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
                             }
                         }
                     }
@@ -80,7 +80,7 @@ var BaseHelper = /** @class */ (function () {
                     methodInfo.metadataType = methods[methodName].metadataType(base);
                 }
                 // Add the method to the object
-                base[methodName] = new Function("return this.executeMethod(this, '" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+                base[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
             }
         }
     };

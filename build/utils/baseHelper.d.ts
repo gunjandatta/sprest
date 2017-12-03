@@ -1,10 +1,10 @@
-import { BaseExecution } from ".";
+import { Base } from ".";
 /**
  * Request Helper Methods
  */
 export interface IBaseHelper {
     /** The base object. */
-    base: BaseExecution;
+    base: Base;
     /** The request type */
     requestType: number;
     /** The request's raw response. */
@@ -12,11 +12,11 @@ export interface IBaseHelper {
     /** The request's status. */
     status: number;
     /** Adds methods based on the object type. */
-    addMethods(base: BaseExecution, data: any): any;
+    addMethods(base: Base, data: any): any;
     /** Adds properties based on the object type. */
-    addProperties(base: BaseExecution, data: any): any;
+    addProperties(base: Base, data: any): any;
     /** Updates the data collection objects. */
-    updateDataCollection(obj: BaseExecution, results: Array<BaseExecution>): any;
+    updateDataCollection(obj: Base, results: Array<Base>): any;
     /** Updates the data object. */
     updateDataObject(isBatchRequest: boolean): any;
     /** Updates the metadata. */
@@ -26,11 +26,11 @@ export interface IBaseHelper {
  * Request Helper
  */
 export declare class BaseHelper implements IBaseHelper {
-    base: BaseExecution;
+    base: Base;
     requestType: number;
     response: string;
     status: number;
-    addMethods(base: BaseExecution, data: any): void;
+    addMethods(base: Base, data: any): void;
     addProperties(base: any, data: any): void;
     updateDataCollection(obj: any, results: any): void;
     updateDataObject(isBatchRequest: boolean): void;

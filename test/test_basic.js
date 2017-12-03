@@ -218,7 +218,7 @@ function testFile() {
     var fileContent = file.content().executeAndWait();
 
     // Test
-    assert(fileContent, "read file buffer", "existsFl", true);
+    assert(fileContent, "read file buffer", "length", fileContent ? fileContent.length : 0);
 
     // Note - The content will be a string, since I'm executing this synchronously.
     // We will need to convert the content to a buffer

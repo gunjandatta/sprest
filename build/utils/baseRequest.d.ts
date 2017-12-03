@@ -10,19 +10,19 @@ export interface IBaseRequest extends IBaseHelper {
     /** The request. */
     xhr: XHRRequest;
     /** Method to execute the request. */
-    executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any): any;
+    executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): any;
     /** Method to execute the request. */
     executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
     /** Gets the property as a collection. */
     getCollection(method: string, args?: any): any;
     /** Gets the next set of results. */
-    getNextSetOfResults(base: Base): any;
+    getNextSetOfResults(): any;
     /** Gets the property. */
-    getProperty(base: Base, propertyName: string, requestType?: string): any;
+    getProperty(propertyName: string, requestType?: string): any;
     /** Updates the metdata uri. */
     updateMetadataUri(metadata: any, targetInfo: ITargetInfo): any;
     /** Validates the data collection results. */
-    validateDataCollectionResults(base: Base, request: XHRRequest, promise?: Promise): any;
+    validateDataCollectionResults(promise?: Promise): any;
 }
 /**
  * Base Request
@@ -32,11 +32,11 @@ export declare class BaseRequest extends BaseHelper implements IBaseRequest {
     requestType: number;
     targetInfo: ITargetInfo;
     xhr: XHRRequest;
-    executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
+    executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
     executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
     getCollection(method: string, args?: any): Base<any, any, any>;
-    getNextSetOfResults(base: Base): Base<any, any, any>;
-    getProperty(base: Base, propertyName: string, requestType?: string): Base<any, any, any>;
+    getNextSetOfResults(): Base<any, any, any>;
+    getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
     updateMetadataUri(metadata: any, targetInfo: ITargetInfo): void;
-    validateDataCollectionResults(base: BaseRequest, request: XHRRequest, promise?: Promise): Promise;
+    validateDataCollectionResults(promise?: Promise): Promise;
 }

@@ -53,7 +53,7 @@ var _Search = /** @class */ (function (_super) {
     /** The search query method */
     _Search.prototype.searchquery = function (settings) {
         // Execute the request
-        return this.executeMethod(this, "query", {
+        return this.executeMethod("query", {
             argNames: ["query"],
             name: "query?[[query]]",
             requestType: types_1.RequestType.GetReplace
@@ -62,7 +62,7 @@ var _Search = /** @class */ (function (_super) {
     /** The suggest method */
     _Search.prototype.suggest = function (settings) {
         // Execute the request
-        return this.executeMethod(this, "query", {
+        return this.executeMethod("query", {
             argNames: ["query"],
             name: "suggest?[[query]]",
             requestType: types_1.RequestType.GetReplace

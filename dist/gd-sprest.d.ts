@@ -9910,13 +9910,13 @@ declare module 'gd-sprest/mapper/userCustomAction/userCustomActions' {
 }
 
 declare module 'gd-sprest/utils/baseHelper' {
-    import { BaseExecution } from "gd-sprest/utils";
+    import { Base } from "gd-sprest/utils";
     /**
         * Request Helper Methods
         */
     export interface IBaseHelper {
             /** The base object. */
-            base: BaseExecution;
+            base: Base;
             /** The request type */
             requestType: number;
             /** The request's raw response. */
@@ -9924,11 +9924,11 @@ declare module 'gd-sprest/utils/baseHelper' {
             /** The request's status. */
             status: number;
             /** Adds methods based on the object type. */
-            addMethods(base: BaseExecution, data: any): any;
+            addMethods(base: Base, data: any): any;
             /** Adds properties based on the object type. */
-            addProperties(base: BaseExecution, data: any): any;
+            addProperties(base: Base, data: any): any;
             /** Updates the data collection objects. */
-            updateDataCollection(obj: BaseExecution, results: Array<BaseExecution>): any;
+            updateDataCollection(obj: Base, results: Array<Base>): any;
             /** Updates the data object. */
             updateDataObject(isBatchRequest: boolean): any;
             /** Updates the metadata. */
@@ -9938,11 +9938,11 @@ declare module 'gd-sprest/utils/baseHelper' {
         * Request Helper
         */
     export class BaseHelper implements IBaseHelper {
-            base: BaseExecution;
+            base: Base;
             requestType: number;
             response: string;
             status: number;
-            addMethods(base: BaseExecution, data: any): void;
+            addMethods(base: Base, data: any): void;
             addProperties(base: any, data: any): void;
             updateDataCollection(obj: any, results: any): void;
             updateDataObject(isBatchRequest: boolean): void;
@@ -9963,19 +9963,19 @@ declare module 'gd-sprest/utils/baseRequest' {
             /** The request. */
             xhr: XHRRequest;
             /** Method to execute the request. */
-            executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any): any;
+            executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): any;
             /** Method to execute the request. */
             executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
             /** Gets the property as a collection. */
             getCollection(method: string, args?: any): any;
             /** Gets the next set of results. */
-            getNextSetOfResults(base: Base): any;
+            getNextSetOfResults(): any;
             /** Gets the property. */
-            getProperty(base: Base, propertyName: string, requestType?: string): any;
+            getProperty(propertyName: string, requestType?: string): any;
             /** Updates the metdata uri. */
             updateMetadataUri(metadata: any, targetInfo: ITargetInfo): any;
             /** Validates the data collection results. */
-            validateDataCollectionResults(base: Base, request: XHRRequest, promise?: Promise): any;
+            validateDataCollectionResults(promise?: Promise): any;
     }
     /**
         * Base Request
@@ -9985,13 +9985,13 @@ declare module 'gd-sprest/utils/baseRequest' {
             requestType: number;
             targetInfo: ITargetInfo;
             xhr: XHRRequest;
-            executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
+            executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
             executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
             getCollection(method: string, args?: any): Base<any, any, any>;
-            getNextSetOfResults(base: Base): Base<any, any, any>;
-            getProperty(base: Base, propertyName: string, requestType?: string): Base<any, any, any>;
+            getNextSetOfResults(): Base<any, any, any>;
+            getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
             updateMetadataUri(metadata: any, targetInfo: ITargetInfo): void;
-            validateDataCollectionResults(base: BaseRequest, request: XHRRequest, promise?: Promise): Promise;
+            validateDataCollectionResults(promise?: Promise): Promise;
     }
 }
 
