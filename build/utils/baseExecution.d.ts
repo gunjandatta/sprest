@@ -18,6 +18,18 @@ export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest 
     /** The wait flags. */
     waitFlags: Array<boolean>;
     /**
+     * Method to execute the request as a batch.
+     * Currently available in SharePoint Online only.
+     * @param callback - The method to be executed after the request completes.
+     */
+    batch(callback?: (value?: Result, ...args) => any): Type;
+    /**
+     * Method to execute the request as a batch.
+     * Currently available in SharePoint Online only.
+     * @param appendFl - Flag to execute the request as part of a change set.
+     */
+    batch(appendFl?: boolean): Type;
+    /**
      * Method to execute the request.
      * @param callback - The method to be executed after the request completes.
      */

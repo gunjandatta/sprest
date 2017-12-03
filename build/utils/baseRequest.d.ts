@@ -3,6 +3,8 @@ import { Base, BaseHelper, IBaseHelper, Promise, XHRRequest, IMethodInfo, ITarge
  * Base Request
  */
 export interface IBaseRequest extends IBaseHelper {
+    /** Flag to get all items. */
+    getAllItemsFl: boolean;
     /** The target information. */
     targetInfo: ITargetInfo;
     /** The request. */
@@ -12,7 +14,7 @@ export interface IBaseRequest extends IBaseHelper {
     /** Method to execute the request. */
     executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
     /** Gets the property as a collection. */
-    getCollection(base: Base, method: string, args?: any): any;
+    getCollection(method: string, args?: any): any;
     /** Gets the next set of results. */
     getNextSetOfResults(base: Base): any;
     /** Gets the property. */
@@ -26,14 +28,15 @@ export interface IBaseRequest extends IBaseHelper {
  * Base Request
  */
 export declare class BaseRequest extends BaseHelper implements IBaseRequest {
+    getAllItemsFl: boolean;
     requestType: number;
     targetInfo: ITargetInfo;
     xhr: XHRRequest;
     executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
     executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
-    getCollection(base: Base, method: string, args?: any): Base<any, any, any>;
+    getCollection(method: string, args?: any): Base<any, any, any>;
     getNextSetOfResults(base: Base): Base<any, any, any>;
     getProperty(base: Base, propertyName: string, requestType?: string): Base<any, any, any>;
     updateMetadataUri(metadata: any, targetInfo: ITargetInfo): void;
-    validateDataCollectionResults(base: Base, request: XHRRequest, promise?: Promise): Promise;
+    validateDataCollectionResults(base: BaseRequest, request: XHRRequest, promise?: Promise): Promise;
 }

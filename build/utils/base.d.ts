@@ -12,18 +12,6 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
     /** The response */
     response: string;
     /**
-     * Method to execute the request as a batch.
-     * Currently available in SharePoint Online only.
-     * @param callback - The method to be executed after the request completes.
-     */
-    batch(callback?: (value?: Result, ...args) => any): Type;
-    /**
-     * Method to execute the request as a batch.
-     * Currently available in SharePoint Online only.
-     * @param appendFl - Flag to execute the request as part of a change set.
-     */
-    batch(appendFl?: boolean): Type;
-    /**
      * Method to wait for the requests to complete.
      * @param callback - The method to be executed after the request completes.
      */
@@ -64,7 +52,6 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> exten
     constructor(targetInfo: ITargetInfo);
     defaultToWebFl: boolean;
     existsFl: any;
-    getAllItemsFl: boolean;
     done(callback: (...args) => any): void;
     getInfo(): IRequestInfo;
     then(resolve: any, reject: any): PromiseLike<IBase>;

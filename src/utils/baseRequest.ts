@@ -25,7 +25,7 @@ export interface IBaseRequest extends IBaseHelper {
     executeRequest(asyncFl: boolean, callback?: (...args) => void);
 
     /** Gets the property as a collection. */
-    getCollection(base: Base, method: string, args?: any);
+    getCollection(method: string, args?: any);
 
     /** Gets the next set of results. */
     getNextSetOfResults(base: Base);
@@ -180,7 +180,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
             // See if the base is a collection and has more results
             if (this["d"] && this["d"].__next) {
                 // Add the "next" method to get the next set of results
-                this["next"] = new Function("return this.request.getNextSetOfResults();");
+                this["next"] = new Function("return this.getNextSetOfResults(this);");
             }
 
             // Return the base object
@@ -189,16 +189,16 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
     }
 
     // Method to return a collection
-    getCollection(base: Base, method: string, args?: any) {
+    getCollection(method: string, args?: any) {
         // Copy the target information
-        let targetInfo = Object.create(base.targetInfo);
+        let targetInfo = Object.create(this.targetInfo);
 
         // Clear the target information properties from any previous requests
         targetInfo.data = null;
         targetInfo.method = null;
 
         // See if the metadata is defined for the base object
-        let metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
+        let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if (metadata && metadata.uri) {
             // Update the url of the target information
             targetInfo.url = metadata.uri;
@@ -221,8 +221,8 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
         let obj = new Base(targetInfo);
 
         // Set the properties
-        obj.base = base.base ? base.base : base;
-        obj.parent = base;
+        obj.base = this.base ? this.base : this as any;
+        obj.parent = this as any;
 
         // Return the object
         return obj;
@@ -338,7 +338,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
                     });
                 } else {
                     // Add a method to get the next set of results
-                    this["next"] = new Function("return this.request.getNextSetOfResults();");
+                    this["next"] = new Function("return this.getNextSetOfResults(this);");
 
                     // Resolve the promise
                     promise.resolve();

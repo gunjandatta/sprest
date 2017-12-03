@@ -105,10 +105,10 @@ export class BaseHelper implements IBaseHelper {
                                 // Add the property
                                 base[propName] = new Function("name",
                                     "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
-                                    "return this.request.getProperty(this, name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
+                                    "return this.getProperty(this, name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             } else {
                                 // Add the property
-                                base[propName] = new Function("return this.request.getProperty(this, '" + propName + "', '" + propType + "');");
+                                base[propName] = new Function("return this.getProperty(this, '" + propName + "', '" + propType + "');");
                             }
                         }
                     }
@@ -127,7 +127,7 @@ export class BaseHelper implements IBaseHelper {
                 }
 
                 // Add the method to the object
-                base[methodName] = new Function("return this.request.executeMethod(this, '" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+                base[methodName] = new Function("return this.executeMethod(this, '" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
             }
         }
     }
@@ -144,7 +144,7 @@ export class BaseHelper implements IBaseHelper {
             // See if the base is a collection property
             if (value && value.__deferred && value.__deferred.uri) {
                 // Generate a method for the base property
-                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.request.getCollection(this, '" + key + "', arguments);");
+                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.getCollection('" + key + "', arguments);");
             }
             else {
                 // Set the property, based on the property name

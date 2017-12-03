@@ -131,21 +131,21 @@ var BaseRequest = /** @class */ (function (_super) {
             // See if the base is a collection and has more results
             if (this["d"] && this["d"].__next) {
                 // Add the "next" method to get the next set of results
-                this["next"] = new Function("return this.request.getNextSetOfResults();");
+                this["next"] = new Function("return this.getNextSetOfResults(this);");
             }
             // Return the base object
             return this;
         }
     };
     // Method to return a collection
-    BaseRequest.prototype.getCollection = function (base, method, args) {
+    BaseRequest.prototype.getCollection = function (method, args) {
         // Copy the target information
-        var targetInfo = Object.create(base.targetInfo);
+        var targetInfo = Object.create(this.targetInfo);
         // Clear the target information properties from any previous requests
         targetInfo.data = null;
         targetInfo.method = null;
         // See if the metadata is defined for the base object
-        var metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
+        var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if (metadata && metadata.uri) {
             // Update the url of the target information
             targetInfo.url = metadata.uri;
@@ -163,8 +163,8 @@ var BaseRequest = /** @class */ (function (_super) {
         // Create a new object
         var obj = new _1.Base(targetInfo);
         // Set the properties
-        obj.base = base.base ? base.base : base;
-        obj.parent = base;
+        obj.base = this.base ? this.base : this;
+        obj.parent = this;
         // Return the object
         return obj;
     };
@@ -259,7 +259,7 @@ var BaseRequest = /** @class */ (function (_super) {
                 }
                 else {
                     // Add a method to get the next set of results
-                    this["next"] = new Function("return this.request.getNextSetOfResults();");
+                    this["next"] = new Function("return this.getNextSetOfResults(this);");
                     // Resolve the promise
                     promise.resolve();
                 }
