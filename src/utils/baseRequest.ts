@@ -9,6 +9,9 @@ import {
  * Base Request
  */
 export interface IBaseRequest extends IBaseHelper {
+    /** Flag to get all items. */
+    getAllItemsFl: boolean;
+
     /** The target information. */
     targetInfo: ITargetInfo;
 
@@ -41,6 +44,7 @@ export interface IBaseRequest extends IBaseHelper {
  * Base Request
  */
 export class BaseRequest extends BaseHelper implements IBaseRequest {
+    getAllItemsFl: boolean;
     requestType: number;
     targetInfo: ITargetInfo;
     xhr: XHRRequest;
@@ -146,7 +150,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
                     this.updateDataObject(isBatchRequest);
 
                     // Validate the data collection
-                    isBatchRequest ? null : this.validateDataCollectionResults(this as any, this.xhr).done(() => {
+                    isBatchRequest ? null : this.validateDataCollectionResults(this, this.xhr).done(() => {
                         // Execute the callback
                         callback ? callback(this) : null;
                     });
@@ -297,7 +301,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
     }
 
     // Method to validate the data collection results
-    validateDataCollectionResults(base: Base, request: XHRRequest, promise?: Promise) {
+    validateDataCollectionResults(base: BaseRequest, request: XHRRequest, promise?: Promise) {
         promise = promise || new Promise();
 
         // Validate the response

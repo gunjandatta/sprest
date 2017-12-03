@@ -1,8 +1,14 @@
-import { BaseRequest, IBaseRequest } from ".";
+import { BaseRequest, TargetInfo, IBaseRequest } from ".";
 /**
  * Base Execution
  */
 export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest {
+    /** The batch requests. */
+    batchRequests: Array<Array<{
+        callback?: any;
+        response?: BaseExecution;
+        targetInfo: TargetInfo;
+    }>>;
     /** The parent. */
     parent: BaseExecution;
     /** The index of this object in the responses array. */
@@ -42,10 +48,16 @@ export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest 
  * Base Execution
  */
 export declare class BaseExecution<Type = any, Result = Type> extends BaseRequest {
+    batchRequests: Array<Array<{
+        callback?: any;
+        response?: BaseExecution;
+        targetInfo: TargetInfo;
+    }>>;
     parent: BaseExecution;
     responseIndex: number;
     responses: Array<BaseExecution>;
     waitFlags: Array<boolean>;
+    batch(arg?: any): this;
     execute(...args: any[]): this;
     executeAndWait(): any;
     waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;

@@ -1,10 +1,13 @@
 import { ContextInfo } from "../lib";
-import { BaseRequest, IBaseRequest } from ".";
+import { BaseRequest, TargetInfo, IBaseRequest } from ".";
 
 /**
  * Base Execution
  */
 export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest {
+    /** The batch requests. */
+    batchRequests: Array<Array<{ callback?: any, response?: BaseExecution, targetInfo: TargetInfo }>>;
+
     /** The parent. */
     parent: BaseExecution;
 
@@ -53,10 +56,49 @@ export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest 
  * Base Execution
  */
 export class BaseExecution<Type = any, Result = Type> extends BaseRequest {
+    batchRequests: Array<Array<{ callback?: any, response?: BaseExecution, targetInfo: TargetInfo }>>;
     parent: BaseExecution;
     responseIndex: number;
     responses: Array<BaseExecution>;
     waitFlags: Array<boolean>;
+
+    // Method to execute this request as a batch request
+    batch(arg?) {
+        let callback = null;
+        let appendFl = false;
+
+        // See if the input is a boolean
+        if (typeof (arg) === "boolean") {
+            // Set the flag
+            appendFl = arg;
+        } else {
+            // Set the callback
+            callback = arg;
+        }
+
+        // Set the base
+        this.base = this.base ? this.base : this;
+
+        // See if we are appending this request
+        if (appendFl && this.base.batchRequests) {
+            // Append the request
+            this.base.batchRequests[this.base.batchRequests.length - 1].push({
+                targetInfo: new TargetInfo(this.targetInfo)
+            });
+        } else {
+            // Ensure the batch requests exist
+            this.base.batchRequests = this.base.batchRequests || [];
+
+            // Create the request
+            this.base.batchRequests.push([{
+                callback,
+                targetInfo: new TargetInfo(this.targetInfo)
+            }]);
+        }
+
+        // Return this object
+        return this;
+    }
 
     // Method to execute the request
     execute(...args) {
@@ -76,7 +118,7 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest {
         }
 
         // Set the base
-        this.base = this.base ? this.base : this as any;
+        this.base = this.base ? this.base : this;
 
         // Set the response index
         this.responseIndex = this.base.responses.length;

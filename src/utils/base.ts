@@ -90,55 +90,11 @@ export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseE
         this.waitFlags = [];
     }
 
-    // The batch requests
-    batchRequests: Array<Array<{ callback?: any, response?: Base, targetInfo: TargetInfo }>>;
-
     // Flag to default the url to the current web url, site otherwise
     defaultToWebFl: boolean;
 
     // Flag to determine if the requested object exists
     existsFl;
-
-    // Flag to get all items
-    getAllItemsFl: boolean;
-
-    // Method to execute this request as a batch request
-    batch(arg?) {
-        let callback = null;
-        let appendFl = false;
-
-        // See if the input is a boolean
-        if (typeof (arg) === "boolean") {
-            // Set the flag
-            appendFl = arg;
-        } else {
-            // Set the callback
-            callback = arg;
-        }
-
-        // Set the base
-        this.base = this.base ? this.base : this;
-
-        // See if we are appending this request
-        if (appendFl && this.base.batchRequests) {
-            // Append the request
-            this.base.batchRequests[this.base.batchRequests.length - 1].push({
-                targetInfo: new TargetInfo(this.targetInfo)
-            });
-        } else {
-            // Ensure the batch requests exist
-            this.base.batchRequests = this.base.batchRequests || [];
-
-            // Create the request
-            this.base.batchRequests.push([{
-                callback,
-                targetInfo: new TargetInfo(this.targetInfo)
-            }]);
-        }
-
-        // Return this object
-        return this;
-    }
 
     // Method to wait for the requests to complete
     done(callback: (...args) => any) {

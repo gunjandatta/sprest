@@ -20,6 +20,40 @@ var BaseExecution = /** @class */ (function (_super) {
     function BaseExecution() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    // Method to execute this request as a batch request
+    BaseExecution.prototype.batch = function (arg) {
+        var callback = null;
+        var appendFl = false;
+        // See if the input is a boolean
+        if (typeof (arg) === "boolean") {
+            // Set the flag
+            appendFl = arg;
+        }
+        else {
+            // Set the callback
+            callback = arg;
+        }
+        // Set the base
+        this.base = this.base ? this.base : this;
+        // See if we are appending this request
+        if (appendFl && this.base.batchRequests) {
+            // Append the request
+            this.base.batchRequests[this.base.batchRequests.length - 1].push({
+                targetInfo: new _1.TargetInfo(this.targetInfo)
+            });
+        }
+        else {
+            // Ensure the batch requests exist
+            this.base.batchRequests = this.base.batchRequests || [];
+            // Create the request
+            this.base.batchRequests.push([{
+                    callback: callback,
+                    targetInfo: new _1.TargetInfo(this.targetInfo)
+                }]);
+        }
+        // Return this object
+        return this;
+    };
     // Method to execute the request
     BaseExecution.prototype.execute = function () {
         var _this = this;

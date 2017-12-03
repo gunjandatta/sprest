@@ -1,5 +1,5 @@
 import { Types } from "../mapper";
-import { BaseExecution, TargetInfo, IBaseExecution, IRequestInfo, ITargetInfo } from ".";
+import { BaseExecution, IBaseExecution, IRequestInfo, ITargetInfo } from ".";
 /**
  * Base
  */
@@ -62,15 +62,9 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> exten
      * @param targetInfo - The target information.
      */
     constructor(targetInfo: ITargetInfo);
-    batchRequests: Array<Array<{
-        callback?: any;
-        response?: Base;
-        targetInfo: TargetInfo;
-    }>>;
     defaultToWebFl: boolean;
     existsFl: any;
     getAllItemsFl: boolean;
-    batch(arg?: any): this;
     done(callback: (...args) => any): void;
     getInfo(): IRequestInfo;
     then(resolve: any, reject: any): PromiseLike<IBase>;

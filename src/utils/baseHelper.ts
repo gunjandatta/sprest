@@ -1,14 +1,14 @@
 import { ContextInfo } from "../lib";
 import { Mapper } from "../mapper";
 import { RequestType } from "../types";
-import { Base } from ".";
+import { Base, BaseExecution } from ".";
 
 /**
  * Request Helper Methods
  */
 export interface IBaseHelper {
     /** The base object. */
-    base: Base;
+    base: BaseExecution;
 
     /** The request type */
     requestType: number;
@@ -20,13 +20,13 @@ export interface IBaseHelper {
     status: number;
 
     /** Adds methods based on the object type. */
-    addMethods(base: Base, data: any);
+    addMethods(base: BaseExecution, data: any);
 
     /** Adds properties based on the object type. */
-    addProperties(base: Base, data: any);
+    addProperties(base: BaseExecution, data: any);
 
     /** Updates the data collection objects. */
-    updateDataCollection(obj: Base, results: Array<Base>);
+    updateDataCollection(obj: BaseExecution, results: Array<BaseExecution>);
 
     /** Updates the data object. */
     updateDataObject(isBatchRequest: boolean);
@@ -39,13 +39,13 @@ export interface IBaseHelper {
  * Request Helper
  */
 export class BaseHelper implements IBaseHelper {
-    base: Base;
+    base: BaseExecution;
     requestType: number;
     response: string;
     status: number;
 
     // Method to add the methods to base object
-    addMethods(base: Base, data) {
+    addMethods(base: BaseExecution, data) {
         let isCollection = data.results && data.results.length > 0;
 
         // Determine the metadata
