@@ -1,10 +1,9 @@
 import { Types } from "../mapper";
-import { IRequestType } from "../types";
-import { BaseRequest, TargetInfo, IRequestInfo, ITargetInfo } from ".";
+import { BaseRequest, TargetInfo, IBaseRequest, IRequestInfo, ITargetInfo } from ".";
 /**
  * Base
  */
-export interface IBase<Type = any, Result = Type, QueryResult = Result> {
+export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseRequest {
     defaultToWebFl: boolean;
     /** True, if the object exists, false otherwise. */
     existsFl: boolean;
@@ -12,8 +11,6 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
     parent: any;
     /** The response */
     response: string;
-    /** The request type */
-    requestType: IRequestType;
     /**
      * Method to execute the request as a batch.
      * Currently available in SharePoint Online only.
@@ -85,13 +82,12 @@ export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result
 }
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
-export declare class Base<Type = any, Result = Type, QueryResult = Result> implements IBase {
+export declare class Base<Type = any, Result = Type, QueryResult = Result> extends BaseRequest implements IBase {
     /**
      * Constructor
      * @param targetInfo - The target information.
      */
     constructor(targetInfo: ITargetInfo);
-    base: Base;
     batchRequests: Array<Array<{
         callback?: any;
         response?: Base;
@@ -101,12 +97,8 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> imple
     existsFl: any;
     getAllItemsFl: boolean;
     parent: Base;
-    request: BaseRequest;
-    requestType: any;
-    readonly response: any;
     responseIndex: number;
     responses: Array<Base>;
-    targetInfo: ITargetInfo;
     waitFlags: Array<boolean>;
     batch(arg?: any): this;
     done(callback: (...args) => any): void;

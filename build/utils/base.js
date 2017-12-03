@@ -1,4 +1,14 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 var _1 = require(".");
@@ -6,25 +16,21 @@ var _1 = require(".");
 // Base
 // This is the base class for all objects.
 /*********************************************************************************************************************************/
-var Base = /** @class */ (function () {
+var Base = /** @class */ (function (_super) {
+    __extends(Base, _super);
     /**
      * Constructor
      * @param targetInfo - The target information.
      */
     function Base(targetInfo) {
+        var _this = _super.call(this) || this;
         // Default the properties
-        this.targetInfo = Object.create(targetInfo || {});
-        this.responses = [];
-        this.request = new _1.BaseRequest();
-        this.requestType = 0;
-        this.waitFlags = [];
+        _this.targetInfo = Object.create(targetInfo || {});
+        _this.responses = [];
+        _this.requestType = 0;
+        _this.waitFlags = [];
+        return _this;
     }
-    Object.defineProperty(Base.prototype, "response", {
-        // Method to return the xml http request's response
-        get: function () { return this.request ? this.request.response : null; },
-        enumerable: true,
-        configurable: true
-    });
     // Method to execute this request as a batch request
     Base.prototype.batch = function (arg) {
         var callback = null;
@@ -108,7 +114,7 @@ var Base = /** @class */ (function () {
             // Wait for the responses to execute
             this.waitForRequestsToComplete(function () {
                 // Execute this request
-                _this.request.executeRequest(_this, true, function () {
+                _this.executeRequest(true, function () {
                     // See if there is a callback
                     if (callback) {
                         // Set the base to this object, and clear requests
@@ -138,7 +144,7 @@ var Base = /** @class */ (function () {
         }
         else {
             // Execute this request
-            this.request.executeRequest(this, true, function () {
+            this.executeRequest(true, function () {
                 // Execute the callback and see if it returns a promise
                 var returnVal = callback ? callback(_this) : null;
                 if (returnVal && typeof (returnVal.done) === "function") {
@@ -158,7 +164,7 @@ var Base = /** @class */ (function () {
         return this;
     };
     // Method to execute the request synchronously
-    Base.prototype.executeAndWait = function () { return this.request.executeRequest(this, false); };
+    Base.prototype.executeAndWait = function () { return this.executeRequest(false); };
     // Method to get the request information
     Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
     // Method to execute the request asynchronously
@@ -194,7 +200,7 @@ var Base = /** @class */ (function () {
                     break;
                 }
                 // Return if the request hasn't completed
-                if (response.request == null || !response.request.xhr.completedFl) {
+                if (response.xhr == null || !response.xhr.completedFl) {
                     return;
                 }
                 // Ensure the wait flag is set for the previous request
@@ -209,6 +215,6 @@ var Base = /** @class */ (function () {
         }, 10);
     };
     return Base;
-}());
+}(_1.BaseRequest));
 exports.Base = Base;
 //# sourceMappingURL=base.js.map

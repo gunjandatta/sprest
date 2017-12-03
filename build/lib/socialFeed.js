@@ -28,7 +28,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         _this.defaultToWebFl = true;
         _this.targetInfo.endpoint = "social.feed";
         // Add the methods
-        utils_1.Request.addMethods(_this, { __metadata: { type: "socialfeed" } });
+        _this.addMethods(_this, { __metadata: { type: "socialfeed" } });
         return _this;
     }
     /*********************************************************************************************************************************/
@@ -40,7 +40,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.request.executeMethod(this, "postToMyFeed", {
+        return this.executeMethod(this, "postToMyFeed", {
             argNames: ["restCreationData"],
             name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
             requestType: types_1.RequestType.PostWithArgsInBody
@@ -52,7 +52,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.request.executeMethod(this, "postToMyFeed", {
+        return this.executeMethod(this, "postToMyFeed", {
             argNames: ["restCreationData"],
             name: "my/feed/post",
             requestType: types_1.RequestType.PostWithArgsInBody

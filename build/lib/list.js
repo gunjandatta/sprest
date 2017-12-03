@@ -29,7 +29,7 @@ var _List = /** @class */ (function (_super) {
         _this.defaultToWebFl = true;
         _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
         // Add the methods
-        utils_1.Request.addMethods(_this, { __metadata: { type: "list" } });
+        _this.addMethods(_this, { __metadata: { type: "list" } });
         return _this;
     }
     // Method to get the list by the entity name.

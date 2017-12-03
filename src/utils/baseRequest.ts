@@ -1,18 +1,28 @@
-import { RequestType } from "../types";
+import { RequestType, IRequestType } from "../types";
 import {
-    Base, Batch, MethodInfo, Promise, Request, TargetInfo, XHRRequest,
+    Base, BaseHelper, IBaseHelper,
+    Batch, MethodInfo, Promise, TargetInfo, XHRRequest,
     IMethodInfo, ITargetInfo
 } from ".";
 
 /**
  * Base Request
  */
-export interface IBaseRequest {
+export interface IBaseRequest extends IBaseHelper {
+    /** The base object. */
+    base: Base;
+
     /** The request's raw response. */
     response: string;
 
+    /** The request type */
+    requestType: number;
+
     /** The request's status. */
     status: number;
+
+    /** The target information. */
+    targetInfo: ITargetInfo;
 
     /** The request. */
     xhr: XHRRequest;
@@ -21,7 +31,7 @@ export interface IBaseRequest {
     executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any);
 
     /** Method to execute the request. */
-    executeRequest(base: Base, asyncFl: boolean, callback?: (...args) => void);
+    executeRequest(asyncFl: boolean, callback?: (...args) => void);
 
     /** Gets the property as a collection. */
     getCollection(base: Base, method: string, args?: any);
@@ -42,15 +52,17 @@ export interface IBaseRequest {
 /**
  * Base Request
  */
-export class BaseRequest implements IBaseRequest {
+export class BaseRequest extends BaseHelper implements IBaseRequest {
+    base: Base;
+    requestType: number;
+    targetInfo: ITargetInfo;
+    xhr: XHRRequest;
+
     // Returns the request's raw response
     get response() { return this.xhr ? this.xhr.response : null; }
 
     // Returns the status of the request
     get status() { return this.xhr ? this.xhr.status : null; }
-
-    // The request
-    xhr: XHRRequest;
 
     // Method to execute a method
     executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any) {
@@ -118,7 +130,7 @@ export class BaseRequest implements IBaseRequest {
         // Ensure the return type exists
         if (methodConfig.returnType) {
             // Add the methods
-            Request.addMethods(obj, { __metadata: { type: methodConfig.returnType } });
+            this.addMethods(obj, { __metadata: { type: methodConfig.returnType } });
         }
 
         // Return the object
@@ -126,60 +138,60 @@ export class BaseRequest implements IBaseRequest {
     }
 
     // Method to execute the request
-    executeRequest(base: Base, asyncFl: boolean, callback?: (...args) => void) {
-        let isBatchRequest = base.base && base.base.batchRequests && base.base.batchRequests.length > 0;
-        let targetInfo = isBatchRequest ? Batch.getTargetInfo(base.base.batchRequests) : new TargetInfo(base.targetInfo);
+    executeRequest(asyncFl: boolean, callback?: (...args) => void) {
+        let isBatchRequest = this.base && this.base.batchRequests && this.base.batchRequests.length > 0;
+        let targetInfo = isBatchRequest ? Batch.getTargetInfo(this.base.batchRequests) : new TargetInfo(this.targetInfo);
 
         // See if this is an asynchronous request
         if (asyncFl) {
             // See if the not a batch request, and it already exists
             if (this.xhr && !isBatchRequest) {
                 // Execute the callback
-                callback ? callback(base) : null;
+                callback ? callback(this) : null;
             } else {
                 // Create the request
                 this.xhr = new XHRRequest(asyncFl, targetInfo, () => {
                     // See if we are returning a file buffer
-                    if (base.requestType == RequestType.GetBuffer) {
+                    if (this.requestType == RequestType.GetBuffer) {
                         // Execute the callback
                         callback ? callback(this.xhr.response) : null;
                     }
 
                     // Update the data object
-                    Request.updateDataObject(base, isBatchRequest);
+                    this.updateDataObject(this as any, isBatchRequest);
 
                     // Validate the data collection
-                    isBatchRequest ? null : this.validateDataCollectionResults(base, this.xhr).done(() => {
+                    isBatchRequest ? null : this.validateDataCollectionResults(this as any, this.xhr).done(() => {
                         // Execute the callback
-                        callback ? callback(base) : null;
+                        callback ? callback(this) : null;
                     });
                 });
             }
         }
         // Else, see if we already executed this request
-        else if (this.xhr) { return base; }
+        else if (this.xhr) { return this; }
         // Else, we haven't executed this request
         else {
             // Create the request
             this.xhr = new XHRRequest(asyncFl, targetInfo);
 
             // See if we are returning a file buffer
-            if (base.requestType == RequestType.GetBuffer) {
+            if (this.requestType == RequestType.GetBuffer) {
                 // Return the response
                 return this.xhr.response;
             }
 
             // Update the base object
-            Request.updateDataObject(base, isBatchRequest);
+            this.updateDataObject(this as any, isBatchRequest);
 
             // See if the base is a collection and has more results
-            if (base["d"] && base["d"].__next) {
+            if (this["d"] && this["d"].__next) {
                 // Add the "next" method to get the next set of results
-                base["next"] = new Function("return this.request.getNextSetOfResults();");
+                this["next"] = new Function("return this.request.getNextSetOfResults();");
             }
 
             // Return the base object
-            return base;
+            return this;
         }
     }
 
@@ -275,7 +287,7 @@ export class BaseRequest implements IBaseRequest {
         obj.parent = base;
 
         // Add the methods
-        requestType ? Request.addMethods(obj, { __metadata: { type: requestType } }) : null;
+        requestType ? this.addMethods(obj, { __metadata: { type: requestType } }) : null;
 
         // Return the object
         return obj;
@@ -319,7 +331,7 @@ export class BaseRequest implements IBaseRequest {
                         let data = JSON.parse(request.response);
                         if (data.d) {
                             // Update the data collection
-                            Request.updateDataCollection(base, data.d.results);
+                            this.updateDataCollection(base, data.d.results);
 
                             // Append the raw data results
                             base["d"].results = base["d"].results.concat(data.d.results);

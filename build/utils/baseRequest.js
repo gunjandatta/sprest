@@ -1,12 +1,24 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var types_1 = require("../types");
 var _1 = require(".");
 /**
  * Base Request
  */
-var BaseRequest = /** @class */ (function () {
+var BaseRequest = /** @class */ (function (_super) {
+    __extends(BaseRequest, _super);
     function BaseRequest() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     Object.defineProperty(BaseRequest.prototype, "response", {
         // Returns the request's raw response
@@ -74,61 +86,61 @@ var BaseRequest = /** @class */ (function () {
         // Ensure the return type exists
         if (methodConfig.returnType) {
             // Add the methods
-            _1.Request.addMethods(obj, { __metadata: { type: methodConfig.returnType } });
+            this.addMethods(obj, { __metadata: { type: methodConfig.returnType } });
         }
         // Return the object
         return obj;
     };
     // Method to execute the request
-    BaseRequest.prototype.executeRequest = function (base, asyncFl, callback) {
+    BaseRequest.prototype.executeRequest = function (asyncFl, callback) {
         var _this = this;
-        var isBatchRequest = base.base && base.base.batchRequests && base.base.batchRequests.length > 0;
-        var targetInfo = isBatchRequest ? _1.Batch.getTargetInfo(base.base.batchRequests) : new _1.TargetInfo(base.targetInfo);
+        var isBatchRequest = this.base && this.base.batchRequests && this.base.batchRequests.length > 0;
+        var targetInfo = isBatchRequest ? _1.Batch.getTargetInfo(this.base.batchRequests) : new _1.TargetInfo(this.targetInfo);
         // See if this is an asynchronous request
         if (asyncFl) {
             // See if the not a batch request, and it already exists
             if (this.xhr && !isBatchRequest) {
                 // Execute the callback
-                callback ? callback(base) : null;
+                callback ? callback(this) : null;
             }
             else {
                 // Create the request
                 this.xhr = new _1.XHRRequest(asyncFl, targetInfo, function () {
                     // See if we are returning a file buffer
-                    if (base.requestType == types_1.RequestType.GetBuffer) {
+                    if (_this.requestType == types_1.RequestType.GetBuffer) {
                         // Execute the callback
                         callback ? callback(_this.xhr.response) : null;
                     }
                     // Update the data object
-                    _1.Request.updateDataObject(base, isBatchRequest);
+                    _this.updateDataObject(_this, isBatchRequest);
                     // Validate the data collection
-                    isBatchRequest ? null : _this.validateDataCollectionResults(base, _this.xhr).done(function () {
+                    isBatchRequest ? null : _this.validateDataCollectionResults(_this, _this.xhr).done(function () {
                         // Execute the callback
-                        callback ? callback(base) : null;
+                        callback ? callback(_this) : null;
                     });
                 });
             }
         }
         else if (this.xhr) {
-            return base;
+            return this;
         }
         else {
             // Create the request
             this.xhr = new _1.XHRRequest(asyncFl, targetInfo);
             // See if we are returning a file buffer
-            if (base.requestType == types_1.RequestType.GetBuffer) {
+            if (this.requestType == types_1.RequestType.GetBuffer) {
                 // Return the response
                 return this.xhr.response;
             }
             // Update the base object
-            _1.Request.updateDataObject(base, isBatchRequest);
+            this.updateDataObject(this, isBatchRequest);
             // See if the base is a collection and has more results
-            if (base["d"] && base["d"].__next) {
+            if (this["d"] && this["d"].__next) {
                 // Add the "next" method to get the next set of results
-                base["next"] = new Function("return this.request.getNextSetOfResults();");
+                this["next"] = new Function("return this.request.getNextSetOfResults();");
             }
             // Return the base object
-            return base;
+            return this;
         }
     };
     // Method to return a collection
@@ -203,7 +215,7 @@ var BaseRequest = /** @class */ (function () {
         obj.base = base.base ? base.base : base;
         obj.parent = base;
         // Add the methods
-        requestType ? _1.Request.addMethods(obj, { __metadata: { type: requestType } }) : null;
+        requestType ? this.addMethods(obj, { __metadata: { type: requestType } }) : null;
         // Return the object
         return obj;
     };
@@ -241,7 +253,7 @@ var BaseRequest = /** @class */ (function () {
                         var data = JSON.parse(request.response);
                         if (data.d) {
                             // Update the data collection
-                            _1.Request.updateDataCollection(base, data.d.results);
+                            _this.updateDataCollection(base, data.d.results);
                             // Append the raw data results
                             base["d"].results = base["d"].results.concat(data.d.results);
                             // Validate the data collection
@@ -271,6 +283,6 @@ var BaseRequest = /** @class */ (function () {
         return promise;
     };
     return BaseRequest;
-}());
+}(_1.BaseHelper));
 exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map

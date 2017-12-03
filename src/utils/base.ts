@@ -1,17 +1,14 @@
 import { ContextInfo } from "../lib";
 import { Types } from "../mapper";
-import { IRequestType } from "../types";
 import {
-    BaseRequest, Batch,
-    Promise,
-    TargetInfo,
-    IRequestInfo, ITargetInfo
+    BaseRequest, Batch, Promise, TargetInfo,
+    IBaseRequest, IRequestInfo, ITargetInfo
 } from ".";
 
 /**
  * Base
  */
-export interface IBase<Type = any, Result = Type, QueryResult = Result> {
+export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseRequest {
     // Flag to default the url to the current web url, site otherwise
     defaultToWebFl: boolean;
 
@@ -23,9 +20,6 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> {
 
     /** The response */
     response: string;
-
-    /** The request type */
-    requestType: IRequestType;
 
     /**
      * Method to execute the request as a batch.
@@ -112,22 +106,20 @@ export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result
 // Base
 // This is the base class for all objects.
 /*********************************************************************************************************************************/
-export class Base<Type = any, Result = Type, QueryResult = Result> implements IBase {
+export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseRequest implements IBase {
     /**
      * Constructor
      * @param targetInfo - The target information.
      */
     constructor(targetInfo: ITargetInfo) {
+        super();
+
         // Default the properties
         this.targetInfo = Object.create(targetInfo || {});
         this.responses = [];
-        this.request = new BaseRequest();
         this.requestType = 0;
         this.waitFlags = [];
     }
-
-    // The base object
-    base: Base;
 
     // The batch requests
     batchRequests: Array<Array<{ callback?: any, response?: Base, targetInfo: TargetInfo }>>;
@@ -144,23 +136,11 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
     // The parent
     parent: Base;
 
-    // The request
-    request: BaseRequest;
-
-    // The request type
-    requestType;
-
-    // Method to return the xml http request's response
-    get response() { return this.request ? this.request.response : null; }
-
     // The index of this object in the responses array
     responseIndex: number;
 
     // The responses
     responses: Array<Base>;
-
-    // The base settings
-    targetInfo: ITargetInfo;
 
     // The wait flags
     waitFlags: Array<boolean>;
@@ -257,7 +237,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
             // Wait for the responses to execute
             this.waitForRequestsToComplete(() => {
                 // Execute this request
-                this.request.executeRequest(this, true, () => {
+                this.executeRequest(true, () => {
                     // See if there is a callback
                     if (callback) {
                         // Set the base to this object, and clear requests
@@ -291,7 +271,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
             }, this.responseIndex);
         } else {
             // Execute this request
-            this.request.executeRequest(this, true, () => {
+            this.executeRequest(true, () => {
                 // Execute the callback and see if it returns a promise
                 let returnVal = callback ? callback(this) : null;
                 if (returnVal && typeof (returnVal.done) === "function") {
@@ -312,7 +292,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
     }
 
     // Method to execute the request synchronously
-    executeAndWait() { return this.request.executeRequest(this, false); }
+    executeAndWait() { return this.executeRequest(false); }
 
     // Method to get the request information
     getInfo(): IRequestInfo { return (new TargetInfo(this.targetInfo)).requestInfo; }
@@ -347,7 +327,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> implements IB
                 if (requestIdx == counter++) { break; }
 
                 // Return if the request hasn't completed
-                if (response.request == null || !response.request.xhr.completedFl) { return; }
+                if (response.xhr == null || !response.xhr.completedFl) { return; }
 
                 // Ensure the wait flag is set for the previous request
                 if (counter > 0 && this.base.waitFlags[counter - 1] != true) { return; }

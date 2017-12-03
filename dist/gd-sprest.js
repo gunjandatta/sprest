@@ -223,7 +223,7 @@ var _Web = /** @class */ (function (_super) {
             _this.targetInfo.url = url;
         }
         // Add the methods
-        utils_1.Request.addMethods(_this, { __metadata: { type: "web" } });
+        _this.addMethods(_this, { __metadata: { type: "web" } });
         return _this;
     }
     // Method to determine if the current user has access, based on the permissions.
@@ -3062,6 +3062,16 @@ exports.ContextInfo = _ContextInfo;
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
 var _1 = __webpack_require__(1);
@@ -3069,25 +3079,21 @@ var _1 = __webpack_require__(1);
 // Base
 // This is the base class for all objects.
 /*********************************************************************************************************************************/
-var Base = /** @class */ (function () {
+var Base = /** @class */ (function (_super) {
+    __extends(Base, _super);
     /**
      * Constructor
      * @param targetInfo - The target information.
      */
     function Base(targetInfo) {
+        var _this = _super.call(this) || this;
         // Default the properties
-        this.targetInfo = Object.create(targetInfo || {});
-        this.responses = [];
-        this.request = new _1.BaseRequest();
-        this.requestType = 0;
-        this.waitFlags = [];
+        _this.targetInfo = Object.create(targetInfo || {});
+        _this.responses = [];
+        _this.requestType = 0;
+        _this.waitFlags = [];
+        return _this;
     }
-    Object.defineProperty(Base.prototype, "response", {
-        // Method to return the xml http request's response
-        get: function () { return this.request ? this.request.response : null; },
-        enumerable: true,
-        configurable: true
-    });
     // Method to execute this request as a batch request
     Base.prototype.batch = function (arg) {
         var callback = null;
@@ -3171,7 +3177,7 @@ var Base = /** @class */ (function () {
             // Wait for the responses to execute
             this.waitForRequestsToComplete(function () {
                 // Execute this request
-                _this.request.executeRequest(_this, true, function () {
+                _this.executeRequest(true, function () {
                     // See if there is a callback
                     if (callback) {
                         // Set the base to this object, and clear requests
@@ -3201,7 +3207,7 @@ var Base = /** @class */ (function () {
         }
         else {
             // Execute this request
-            this.request.executeRequest(this, true, function () {
+            this.executeRequest(true, function () {
                 // Execute the callback and see if it returns a promise
                 var returnVal = callback ? callback(_this) : null;
                 if (returnVal && typeof (returnVal.done) === "function") {
@@ -3221,7 +3227,7 @@ var Base = /** @class */ (function () {
         return this;
     };
     // Method to execute the request synchronously
-    Base.prototype.executeAndWait = function () { return this.request.executeRequest(this, false); };
+    Base.prototype.executeAndWait = function () { return this.executeRequest(false); };
     // Method to get the request information
     Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
     // Method to execute the request asynchronously
@@ -3257,7 +3263,7 @@ var Base = /** @class */ (function () {
                     break;
                 }
                 // Return if the request hasn't completed
-                if (response.request == null || !response.request.xhr.completedFl) {
+                if (response.xhr == null || !response.xhr.completedFl) {
                     return;
                 }
                 // Ensure the wait flag is set for the previous request
@@ -3272,7 +3278,7 @@ var Base = /** @class */ (function () {
         }, 10);
     };
     return Base;
-}());
+}(_1.BaseRequest));
 exports.Base = Base;
 //# sourceMappingURL=base.js.map
 
@@ -3283,13 +3289,292 @@ exports.Base = Base;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
+var mapper_1 = __webpack_require__(3);
+var types_1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
+/**
+ * Request Helper
+ */
+var BaseHelper = /** @class */ (function () {
+    function BaseHelper() {
+    }
+    // Method to add the methods to base object
+    BaseHelper.prototype.addMethods = function (base, data) {
+        var isCollection = data.results && data.results.length > 0;
+        // Determine the metadata
+        var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
+        // Determine the object type
+        var objType = metadata && metadata.type ? metadata.type : base.targetInfo.endpoint;
+        objType = objType.split('/');
+        objType = (objType[objType.length - 1]);
+        objType = objType.split('.');
+        objType = (objType[objType.length - 1]).toLowerCase();
+        objType += isCollection ? "s" : "";
+        // See if the base is a field
+        if ((/^field/.test(objType) || /field$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
+            // Update the type
+            objType = "field" + (isCollection ? "s" : "");
+        }
+        else if (/item$/.test(objType)) {
+            // Update the type
+            objType = "listitem";
+        }
+        else if (/items$/.test(objType)) {
+            // Update the type
+            objType = "items";
+        }
+        // Get the methods for the base object
+        var methods = mapper_1.Mapper[objType];
+        if (methods) {
+            // Parse the methods
+            for (var methodName in methods) {
+                // Get the method information
+                var methodInfo = methods[methodName] ? methods[methodName] : {};
+                // See if the base is the "Properties" definition for the object
+                if (methodName == "properties") {
+                    // Parse the properties
+                    for (var _i = 0, methodInfo_1 = methodInfo; _i < methodInfo_1.length; _i++) {
+                        var property = methodInfo_1[_i];
+                        var propInfo = property.split("|");
+                        // Get the metadata type
+                        var propName = propInfo[0];
+                        var propType = propInfo.length > 1 ? propInfo[1] : null;
+                        var subPropName = propInfo.length > 2 ? propInfo[2] : null;
+                        var subPropType = propInfo.length > 3 ? propInfo[3] : null;
+                        // See if the property is null or is a collection
+                        if (base[propName] == null || (base[propName].__deferred && base[propName].__deferred.uri)) {
+                            // See if the base property has a sub-property defined for it
+                            if (propInfo.length == 4) {
+                                // Update the ' char in the property name
+                                subPropName = subPropName.replace(/'/g, "\\'");
+                                // Add the property
+                                base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
+                                    "return this.request.getProperty(this, name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
+                            }
+                            else {
+                                // Add the property
+                                base[propName] = new Function("return this.request.getProperty(this, '" + propName + "', '" + propType + "');");
+                            }
+                        }
+                    }
+                    // Continue the loop
+                    continue;
+                }
+                // See if the base object has a dynamic metadata type
+                if (typeof (methodInfo.metadataType) === "function") {
+                    // Clone the object properties
+                    methodInfo = JSON.parse(JSON.stringify(methodInfo));
+                    // Set the metadata type
+                    methodInfo.metadataType = methods[methodName].metadataType(base);
+                }
+                // Add the method to the object
+                base[methodName] = new Function("return this.request.executeMethod(this, '" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+            }
+        }
+    };
+    // Method to add properties to the base object
+    BaseHelper.prototype.addProperties = function (base, data) {
+        // Parse the data properties
+        for (var key in data) {
+            var value = data[key];
+            // Skip properties
+            if (key == "__metadata" || key == "results") {
+                continue;
+            }
+            // See if the base is a collection property
+            if (value && value.__deferred && value.__deferred.uri) {
+                // Generate a method for the base property
+                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.request.getCollection(this, '" + key + "', arguments);");
+            }
+            else {
+                // Set the property, based on the property name
+                switch (key) {
+                    case "ClientPeoplePickerResolveUser":
+                    case "ClientPeoplePickerSearchUser":
+                        base[key] = JSON.parse(value);
+                        break;
+                    default:
+                        // Append the property to the base object
+                        base[key] = value;
+                        break;
+                }
+                // See if the base is a collection
+                if (base[key] && base[key].results) {
+                    // Ensure the collection is an object
+                    if (base[key].results.length == 0 || typeof (base[key].results[0]) === "object") {
+                        // Create the base property as a new request
+                        var objCollection = new _1.Base(base.targetInfo);
+                        objCollection["results"] = base[key].results;
+                        // See no results exist
+                        if (objCollection["results"].length == 0) {
+                            // Set the metadata type to the key
+                            objCollection["__metadata"] = { type: key };
+                        }
+                        // Update the endpoint for the base request to point to the base property
+                        objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
+                        // Add the methods
+                        base.addMethods(objCollection, objCollection);
+                        // Update the data collection
+                        base.updateDataCollection(base, objCollection["results"]);
+                        // Update the property
+                        base[key] = objCollection;
+                    }
+                }
+            }
+        }
+    };
+    // Method to update a collection object
+    BaseHelper.prototype.updateDataCollection = function (obj, results) {
+        // Ensure the base is a collection
+        if (results) {
+            // Save the results
+            obj["results"] = obj["results"] ? obj["results"].concat(results) : results;
+            // See if only one object exists
+            if (obj["results"].length > 0) {
+                var results_1 = obj["results"];
+                // Parse the results
+                for (var _i = 0, results_2 = results_1; _i < results_2.length; _i++) {
+                    var result = results_2[_i];
+                    // Add the base references
+                    result["addMethods"] = obj.addMethods;
+                    result["base"] = obj.base;
+                    result["done"] = obj.done;
+                    result["execute"] = obj.execute;
+                    result["executeAndWait"] = obj.executeAndWait;
+                    result["executeMethod"] = obj.executeMethod;
+                    result["existsFl"] = true;
+                    result["getProperty"] = obj.getProperty;
+                    result["parent"] = obj;
+                    result["targetInfo"] = obj.targetInfo;
+                    result["updateMetadataUri"] = obj.updateMetadataUri;
+                    result["waitForRequestsToComplete"] = obj.waitForRequestsToComplete;
+                    // Update the metadata
+                    this.updateMetadata(obj, result);
+                    // Add the methods
+                    this.addMethods(result, result);
+                }
+            }
+        }
+    };
+    // Method to convert the input arguments into an object
+    BaseHelper.prototype.updateDataObject = function (base, isBatchRequest) {
+        // Ensure the request was successful
+        if (base.status >= 200 && base.status < 300) {
+            // Return if we are expecting a buffer
+            if (base.requestType == types_1.RequestType.GetBuffer) {
+                return;
+            }
+            // Parse the responses
+            var batchIdx = 0;
+            var batchRequestIdx = 0;
+            var responses = isBatchRequest ? base.response.split("\n") : [base.response];
+            for (var i = 0; i < responses.length; i++) {
+                var data = null;
+                // Try to convert the response
+                var response = responses[i];
+                response = response === "" && !isBatchRequest ? "{}" : response;
+                try {
+                    data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response);
+                }
+                catch (ex) {
+                    continue;
+                }
+                // Set the object based on the request type
+                var obj = isBatchRequest ? Object.create(base) : base;
+                // Set the exists flag
+                obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
+                // See if the data properties exists
+                if (data.d) {
+                    // Save a reference to it
+                    obj["d"] = data.d;
+                    // Update the metadata
+                    this.updateMetadata(obj, data.d);
+                    // Update the base object's properties
+                    this.addProperties(obj, data.d);
+                    // Add the methods
+                    this.addMethods(obj, data.d);
+                    // Update the data collection
+                    this.updateDataCollection(obj, data.d.results);
+                }
+                // See if the batch request exists
+                if (isBatchRequest) {
+                    // Get the batch request
+                    var batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                    if (batchRequest == null) {
+                        // Update the batch indexes
+                        batchIdx++;
+                        batchRequestIdx = 0;
+                        // Update the batch request
+                        batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                    }
+                    // Ensure the batch request exists
+                    if (batchRequest) {
+                        // Set the response object
+                        batchRequest.response = typeof (data) === "string" ? data : obj;
+                        // Execute the callback if it exists
+                        batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
+                    }
+                }
+            }
+            // Clear the batch requests
+            if (isBatchRequest) {
+                base.base.batchRequests = null;
+            }
+        }
+    };
+    // Method to update the metadata
+    BaseHelper.prototype.updateMetadata = function (base, data) {
+        // Ensure the base is the app web
+        if (!lib_1.ContextInfo.isAppWeb) {
+            return;
+        }
+        // Get the url information
+        var hostUrl = lib_1.ContextInfo.webAbsoluteUrl.toLowerCase();
+        var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
+        var targetUrl = base.targetInfo && base.targetInfo.url ? base.targetInfo.url.toLowerCase() : null;
+        // Ensure the urls exist
+        if (hostUrl == null || requestUrl == null || targetUrl == null) {
+            return;
+        }
+        // See if we need to make an update
+        if (targetUrl.indexOf(hostUrl) == 0) {
+            return;
+        }
+        // Update the metadata uri
+        data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
+    };
+    return BaseHelper;
+}());
+exports.BaseHelper = BaseHelper;
+//# sourceMappingURL=baseHelper.js.map
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
 var types_1 = __webpack_require__(0);
 var _1 = __webpack_require__(1);
 /**
  * Base Request
  */
-var BaseRequest = /** @class */ (function () {
+var BaseRequest = /** @class */ (function (_super) {
+    __extends(BaseRequest, _super);
     function BaseRequest() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     Object.defineProperty(BaseRequest.prototype, "response", {
         // Returns the request's raw response
@@ -3357,61 +3642,61 @@ var BaseRequest = /** @class */ (function () {
         // Ensure the return type exists
         if (methodConfig.returnType) {
             // Add the methods
-            _1.Request.addMethods(obj, { __metadata: { type: methodConfig.returnType } });
+            this.addMethods(obj, { __metadata: { type: methodConfig.returnType } });
         }
         // Return the object
         return obj;
     };
     // Method to execute the request
-    BaseRequest.prototype.executeRequest = function (base, asyncFl, callback) {
+    BaseRequest.prototype.executeRequest = function (asyncFl, callback) {
         var _this = this;
-        var isBatchRequest = base.base && base.base.batchRequests && base.base.batchRequests.length > 0;
-        var targetInfo = isBatchRequest ? _1.Batch.getTargetInfo(base.base.batchRequests) : new _1.TargetInfo(base.targetInfo);
+        var isBatchRequest = this.base && this.base.batchRequests && this.base.batchRequests.length > 0;
+        var targetInfo = isBatchRequest ? _1.Batch.getTargetInfo(this.base.batchRequests) : new _1.TargetInfo(this.targetInfo);
         // See if this is an asynchronous request
         if (asyncFl) {
             // See if the not a batch request, and it already exists
             if (this.xhr && !isBatchRequest) {
                 // Execute the callback
-                callback ? callback(base) : null;
+                callback ? callback(this) : null;
             }
             else {
                 // Create the request
                 this.xhr = new _1.XHRRequest(asyncFl, targetInfo, function () {
                     // See if we are returning a file buffer
-                    if (base.requestType == types_1.RequestType.GetBuffer) {
+                    if (_this.requestType == types_1.RequestType.GetBuffer) {
                         // Execute the callback
                         callback ? callback(_this.xhr.response) : null;
                     }
                     // Update the data object
-                    _1.Request.updateDataObject(base, isBatchRequest);
+                    _this.updateDataObject(_this, isBatchRequest);
                     // Validate the data collection
-                    isBatchRequest ? null : _this.validateDataCollectionResults(base, _this.xhr).done(function () {
+                    isBatchRequest ? null : _this.validateDataCollectionResults(_this, _this.xhr).done(function () {
                         // Execute the callback
-                        callback ? callback(base) : null;
+                        callback ? callback(_this) : null;
                     });
                 });
             }
         }
         else if (this.xhr) {
-            return base;
+            return this;
         }
         else {
             // Create the request
             this.xhr = new _1.XHRRequest(asyncFl, targetInfo);
             // See if we are returning a file buffer
-            if (base.requestType == types_1.RequestType.GetBuffer) {
+            if (this.requestType == types_1.RequestType.GetBuffer) {
                 // Return the response
                 return this.xhr.response;
             }
             // Update the base object
-            _1.Request.updateDataObject(base, isBatchRequest);
+            this.updateDataObject(this, isBatchRequest);
             // See if the base is a collection and has more results
-            if (base["d"] && base["d"].__next) {
+            if (this["d"] && this["d"].__next) {
                 // Add the "next" method to get the next set of results
-                base["next"] = new Function("return this.request.getNextSetOfResults();");
+                this["next"] = new Function("return this.request.getNextSetOfResults();");
             }
             // Return the base object
-            return base;
+            return this;
         }
     };
     // Method to return a collection
@@ -3486,7 +3771,7 @@ var BaseRequest = /** @class */ (function () {
         obj.base = base.base ? base.base : base;
         obj.parent = base;
         // Add the methods
-        requestType ? _1.Request.addMethods(obj, { __metadata: { type: requestType } }) : null;
+        requestType ? this.addMethods(obj, { __metadata: { type: requestType } }) : null;
         // Return the object
         return obj;
     };
@@ -3524,7 +3809,7 @@ var BaseRequest = /** @class */ (function () {
                         var data = JSON.parse(request.response);
                         if (data.d) {
                             // Update the data collection
-                            _1.Request.updateDataCollection(base, data.d.results);
+                            _this.updateDataCollection(base, data.d.results);
                             // Append the raw data results
                             base["d"].results = base["d"].results.concat(data.d.results);
                             // Validate the data collection
@@ -3554,12 +3839,12 @@ var BaseRequest = /** @class */ (function () {
         return promise;
     };
     return BaseRequest;
-}());
+}(_1.BaseHelper));
 exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3663,7 +3948,7 @@ exports.Batch = Batch;
 //# sourceMappingURL=batch.js.map
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3750,7 +4035,7 @@ exports.Dependencies = Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4006,7 +4291,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4132,7 +4417,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4197,273 +4482,6 @@ var Promise = /** @class */ (function () {
 }());
 exports.Promise = Promise;
 //# sourceMappingURL=promise.js.map
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
-var mapper_1 = __webpack_require__(3);
-var types_1 = __webpack_require__(0);
-var _1 = __webpack_require__(1);
-/**
- * Request Helper Methods
- */
-var _Request = /** @class */ (function () {
-    function _Request() {
-    }
-    // Method to add the methods to base object
-    _Request.addMethods = function (base, data) {
-        var isCollection = data.results && data.results.length > 0;
-        // Determine the metadata
-        var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
-        // Determine the object type
-        var objType = metadata && metadata.type ? metadata.type : base.targetInfo.endpoint;
-        objType = objType.split('/');
-        objType = (objType[objType.length - 1]);
-        objType = objType.split('.');
-        objType = (objType[objType.length - 1]).toLowerCase();
-        objType += isCollection ? "s" : "";
-        // See if the base is a field
-        if ((/^field/.test(objType) || /field$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
-            // Update the type
-            objType = "field" + (isCollection ? "s" : "");
-        }
-        else if (/item$/.test(objType)) {
-            // Update the type
-            objType = "listitem";
-        }
-        else if (/items$/.test(objType)) {
-            // Update the type
-            objType = "items";
-        }
-        // Get the methods for the base object
-        var methods = mapper_1.Mapper[objType];
-        if (methods) {
-            // Parse the methods
-            for (var methodName in methods) {
-                // Get the method information
-                var methodInfo = methods[methodName] ? methods[methodName] : {};
-                // See if the base is the "Properties" definition for the object
-                if (methodName == "properties") {
-                    // Parse the properties
-                    for (var _i = 0, methodInfo_1 = methodInfo; _i < methodInfo_1.length; _i++) {
-                        var property = methodInfo_1[_i];
-                        var propInfo = property.split("|");
-                        // Get the metadata type
-                        var propName = propInfo[0];
-                        var propType = propInfo.length > 1 ? propInfo[1] : null;
-                        var subPropName = propInfo.length > 2 ? propInfo[2] : null;
-                        var subPropType = propInfo.length > 3 ? propInfo[3] : null;
-                        // See if the property is null or is a collection
-                        if (base[propName] == null || (base[propName].__deferred && base[propName].__deferred.uri)) {
-                            // See if the base property has a sub-property defined for it
-                            if (propInfo.length == 4) {
-                                // Update the ' char in the property name
-                                subPropName = subPropName.replace(/'/g, "\\'");
-                                // Add the property
-                                base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
-                                    "return this.request.getProperty(this, name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
-                            }
-                            else {
-                                // Add the property
-                                base[propName] = new Function("return this.request.getProperty(this, '" + propName + "', '" + propType + "');");
-                            }
-                        }
-                    }
-                    // Continue the loop
-                    continue;
-                }
-                // See if the base object has a dynamic metadata type
-                if (typeof (methodInfo.metadataType) === "function") {
-                    // Clone the object properties
-                    methodInfo = JSON.parse(JSON.stringify(methodInfo));
-                    // Set the metadata type
-                    methodInfo.metadataType = methods[methodName].metadataType(base);
-                }
-                // Add the method to the object
-                base[methodName] = new Function("return this.request.executeMethod(this, '" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
-            }
-        }
-    };
-    // Method to add properties to the base object
-    _Request.addProperties = function (base, data) {
-        // Parse the data properties
-        for (var key in data) {
-            var value = data[key];
-            // Skip properties
-            if (key == "__metadata" || key == "results") {
-                continue;
-            }
-            // See if the base is a collection property
-            if (value && value.__deferred && value.__deferred.uri) {
-                // Generate a method for the base property
-                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.request.getCollection(this, '" + key + "', arguments);");
-            }
-            else {
-                // Set the property, based on the property name
-                switch (key) {
-                    case "ClientPeoplePickerResolveUser":
-                    case "ClientPeoplePickerSearchUser":
-                        base[key] = JSON.parse(value);
-                        break;
-                    default:
-                        // Append the property to the base object
-                        base[key] = value;
-                        break;
-                }
-                // See if the base is a collection
-                if (base[key] && base[key].results) {
-                    // Ensure the collection is an object
-                    if (base[key].results.length == 0 || typeof (base[key].results[0]) === "object") {
-                        // Create the base property as a new request
-                        var objCollection = new _1.Base(base.targetInfo);
-                        objCollection["results"] = base[key].results;
-                        // See no results exist
-                        if (objCollection["results"].length == 0) {
-                            // Set the metadata type to the key
-                            objCollection["__metadata"] = { type: key };
-                        }
-                        // Update the endpoint for the base request to point to the base property
-                        objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
-                        // Add the methods
-                        base.addMethods(objCollection, objCollection);
-                        // Update the data collection
-                        base.updateDataCollection(base, objCollection["results"]);
-                        // Update the property
-                        base[key] = objCollection;
-                    }
-                }
-            }
-        }
-    };
-    // Method to update a collection object
-    _Request.updateDataCollection = function (obj, results) {
-        // Ensure the base is a collection
-        if (results) {
-            // Save the results
-            obj["results"] = obj["results"] ? obj["results"].concat(results) : results;
-            // See if only one object exists
-            if (obj["results"].length > 0) {
-                var results_1 = obj["results"];
-                // Parse the results
-                for (var _i = 0, results_2 = results_1; _i < results_2.length; _i++) {
-                    var result = results_2[_i];
-                    // Add the base references
-                    result["addMethods"] = obj.addMethods;
-                    result["base"] = obj.base;
-                    result["done"] = obj.done;
-                    result["execute"] = obj.execute;
-                    result["executeAndWait"] = obj.executeAndWait;
-                    result["executeMethod"] = obj.executeMethod;
-                    result["existsFl"] = true;
-                    result["getProperty"] = obj.getProperty;
-                    result["parent"] = obj;
-                    result["targetInfo"] = obj.targetInfo;
-                    result["updateMetadataUri"] = obj.updateMetadataUri;
-                    result["waitForRequestsToComplete"] = obj.waitForRequestsToComplete;
-                    // Update the metadata
-                    this.updateMetadata(obj, result);
-                    // Add the methods
-                    this.addMethods(result, result);
-                }
-            }
-        }
-    };
-    // Method to convert the input arguments into an object
-    _Request.updateDataObject = function (base, isBatchRequest) {
-        // Ensure the request was successful
-        if (base.request.status >= 200 && base.request.status < 300) {
-            // Return if we are expecting a buffer
-            if (base.requestType == types_1.RequestType.GetBuffer) {
-                return;
-            }
-            // Parse the responses
-            var batchIdx = 0;
-            var batchRequestIdx = 0;
-            var responses = isBatchRequest ? base.request.response.split("\n") : [base.request.response];
-            for (var i = 0; i < responses.length; i++) {
-                var data = null;
-                // Try to convert the response
-                var response = responses[i];
-                response = response === "" && !isBatchRequest ? "{}" : response;
-                try {
-                    data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response);
-                }
-                catch (ex) {
-                    continue;
-                }
-                // Set the object based on the request type
-                var obj = isBatchRequest ? Object.create(base) : base;
-                // Set the exists flag
-                obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
-                // See if the data properties exists
-                if (data.d) {
-                    // Save a reference to it
-                    obj["d"] = data.d;
-                    // Update the metadata
-                    this.updateMetadata(obj, data.d);
-                    // Update the base object's properties
-                    this.addProperties(obj, data.d);
-                    // Add the methods
-                    this.addMethods(obj, data.d);
-                    // Update the data collection
-                    this.updateDataCollection(obj, data.d.results);
-                }
-                // See if the batch request exists
-                if (isBatchRequest) {
-                    // Get the batch request
-                    var batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
-                    if (batchRequest == null) {
-                        // Update the batch indexes
-                        batchIdx++;
-                        batchRequestIdx = 0;
-                        // Update the batch request
-                        batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
-                    }
-                    // Ensure the batch request exists
-                    if (batchRequest) {
-                        // Set the response object
-                        batchRequest.response = typeof (data) === "string" ? data : obj;
-                        // Execute the callback if it exists
-                        batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
-                    }
-                }
-            }
-            // Clear the batch requests
-            if (isBatchRequest) {
-                base.base.batchRequests = null;
-            }
-        }
-    };
-    // Method to update the metadata
-    _Request.updateMetadata = function (base, data) {
-        // Ensure the base is the app web
-        if (!lib_1.ContextInfo.isAppWeb) {
-            return;
-        }
-        // Get the url information
-        var hostUrl = lib_1.ContextInfo.webAbsoluteUrl.toLowerCase();
-        var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
-        var targetUrl = base.targetInfo && base.targetInfo.url ? base.targetInfo.url.toLowerCase() : null;
-        // Ensure the urls exist
-        if (hostUrl == null || requestUrl == null || targetUrl == null) {
-            return;
-        }
-        // See if we need to make an update
-        if (targetUrl.indexOf(hostUrl) == 0) {
-            return;
-        }
-        // Update the metadata uri
-        data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
-    };
-    return _Request;
-}());
-exports.Request = _Request;
-//# sourceMappingURL=request.js.map
 
 /***/ }),
 /* 35 */
@@ -4857,7 +4875,7 @@ var _Email = /** @class */ (function (_super) {
             }
         }
         // Execute the method, and return the email object
-        return this.request.executeMethod(this, "send", {
+        return this.executeMethod(this, "send", {
             argNames: ["properties"],
             name: "",
             metadataType: "SP.Utilities.EmailProperties",
@@ -6874,7 +6892,7 @@ var _List = /** @class */ (function (_super) {
         _this.defaultToWebFl = true;
         _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
         // Add the methods
-        utils_1.Request.addMethods(_this, { __metadata: { type: "list" } });
+        _this.addMethods(_this, { __metadata: { type: "list" } });
         return _this;
     }
     // Method to get the list by the entity name.
@@ -6937,7 +6955,7 @@ var _PeopleManager = /** @class */ (function (_super) {
         _this.defaultToWebFl = true;
         _this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
         // Add the methods
-        utils_1.Request.addMethods(_this, { __metadata: { type: "peoplemanager" } });
+        _this.addMethods(_this, { __metadata: { type: "peoplemanager" } });
         return _this;
     }
     return _PeopleManager;
@@ -6980,7 +6998,7 @@ var _PeoplePicker = /** @class */ (function (_super) {
         _this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
         _this.targetInfo.overrideDefaultRequestToHostFl = true;
         // Add the methods
-        utils_1.Request.addMethods(_this, { __metadata: { type: "peoplepicker" } });
+        _this.addMethods(_this, { __metadata: { type: "peoplepicker" } });
         return _this;
     }
     return _PeoplePicker;
@@ -7023,7 +7041,7 @@ var _ProfileLoader = /** @class */ (function (_super) {
         _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
         _this.targetInfo.method = "POST";
         // Add the methods
-        utils_1.Request.addMethods(_this, { __metadata: { type: "profileloader" } });
+        _this.addMethods(_this, { __metadata: { type: "profileloader" } });
         return _this;
     }
     return _ProfileLoader;
@@ -7071,7 +7089,7 @@ var _Search = /** @class */ (function (_super) {
             _this.targetInfo.url = url;
         }
         // Add the methods
-        utils_1.Request.addMethods(_this, { __metadata: { type: "search" } });
+        _this.addMethods(_this, { __metadata: { type: "search" } });
         return _this;
     }
     /*********************************************************************************************************************************/
@@ -7091,7 +7109,7 @@ var _Search = /** @class */ (function (_super) {
     /** The search query method */
     _Search.prototype.searchquery = function (settings) {
         // Execute the request
-        return this.request.executeMethod(this, "query", {
+        return this.executeMethod(this, "query", {
             argNames: ["query"],
             name: "query?[[query]]",
             requestType: types_1.RequestType.GetReplace
@@ -7100,7 +7118,7 @@ var _Search = /** @class */ (function (_super) {
     /** The suggest method */
     _Search.prototype.suggest = function (settings) {
         // Execute the request
-        return this.request.executeMethod(this, "query", {
+        return this.executeMethod(this, "query", {
             argNames: ["query"],
             name: "suggest?[[query]]",
             requestType: types_1.RequestType.GetReplace
@@ -7152,7 +7170,7 @@ var _Site = /** @class */ (function (_super) {
             _this.targetInfo.url = url;
         }
         // Add the methods
-        utils_1.Request.addMethods(_this, { __metadata: { type: "site" } });
+        _this.addMethods(_this, { __metadata: { type: "site" } });
         return _this;
     }
     // Method to get the root web
@@ -7203,7 +7221,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         _this.defaultToWebFl = true;
         _this.targetInfo.endpoint = "social.feed";
         // Add the methods
-        utils_1.Request.addMethods(_this, { __metadata: { type: "socialfeed" } });
+        _this.addMethods(_this, { __metadata: { type: "socialfeed" } });
         return _this;
     }
     /*********************************************************************************************************************************/
@@ -7215,7 +7233,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.request.executeMethod(this, "postToMyFeed", {
+        return this.executeMethod(this, "postToMyFeed", {
             argNames: ["restCreationData"],
             name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
             requestType: types_1.RequestType.PostWithArgsInBody
@@ -7227,7 +7245,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.request.executeMethod(this, "postToMyFeed", {
+        return this.executeMethod(this, "postToMyFeed", {
             argNames: ["restCreationData"],
             name: "my/feed/post",
             requestType: types_1.RequestType.PostWithArgsInBody
@@ -7273,7 +7291,7 @@ var _UserProfile = /** @class */ (function (_super) {
         _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
         _this.targetInfo.method = "POST";
         // Add the methods
-        utils_1.Request.addMethods(_this, { __metadata: { type: "userprofile" } });
+        _this.addMethods(_this, { __metadata: { type: "userprofile" } });
         return _this;
     }
     return _UserProfile;
