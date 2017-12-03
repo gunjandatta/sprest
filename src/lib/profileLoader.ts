@@ -1,5 +1,5 @@
 import { Types } from "../mapper";
-import { Base, Request } from "../utils";
+import { Base } from "../utils";
 
 /*********************************************************************************************************************************/
 // Profile Loader
@@ -18,7 +18,7 @@ class _ProfileLoader extends Base {
         this.targetInfo.method = "POST";
 
         // Add the methods
-        Request.addMethods(this, { __metadata: { type: "profileloader" } });
+        this.addMethods(this, { __metadata: { type: "profileloader" } });
     }
 }
 export const ProfileLoader: Types.IProfileLoader = _ProfileLoader as any;

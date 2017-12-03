@@ -1,5 +1,5 @@
 import { Types } from "../mapper";
-import { Base, Request } from "../utils";
+import { Base } from "../utils";
 import { Web } from "./web";
 
 /*********************************************************************************************************************************/
@@ -19,7 +19,7 @@ class _List extends Base {
         this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
 
         // Add the methods
-        Request.addMethods(this, { __metadata: { type: "list" } });
+        this.addMethods(this, { __metadata: { type: "list" } });
     }
 
     // Method to get the list by the entity name.

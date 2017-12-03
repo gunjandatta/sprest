@@ -1,6 +1,6 @@
 import { Types } from "../mapper";
 import { RequestType } from "../types";
-import { Base, Request } from "../utils";
+import { Base } from "../utils";
 
 /*********************************************************************************************************************************/
 // Search
@@ -24,7 +24,7 @@ class _Search extends Base {
         }
 
         // Add the methods
-        Request.addMethods(this, { __metadata: { type: "search" } });
+        this.addMethods(this, { __metadata: { type: "search" } });
     }
 
     /*********************************************************************************************************************************/
@@ -48,7 +48,7 @@ class _Search extends Base {
     /** The search query method */
     searchquery(settings) {
         // Execute the request
-        return this.request.executeMethod(this, "query", {
+        return this.executeMethod("query", {
             argNames: ["query"],
             name: "query?[[query]]",
             requestType: RequestType.GetReplace
@@ -58,7 +58,7 @@ class _Search extends Base {
     /** The suggest method */
     suggest(settings) {
         // Execute the request
-        return this.request.executeMethod(this, "query", {
+        return this.executeMethod("query", {
             argNames: ["query"],
             name: "suggest?[[query]]",
             requestType: RequestType.GetReplace

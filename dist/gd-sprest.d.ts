@@ -4764,14 +4764,15 @@ declare module 'gd-sprest/mapper/userCustomAction' {
 }
 
 declare module 'gd-sprest/utils' {
-    export * from "gd-sprest/utils/base";
+    export * from "gd-sprest/utils/baseHelper";
     export * from "gd-sprest/utils/baseRequest";
+    export * from "gd-sprest/utils/baseExecution";
+    export * from "gd-sprest/utils/base";
     export * from "gd-sprest/utils/batch";
     export * from "gd-sprest/utils/dependencies";
     export * from "gd-sprest/utils/methodInfo";
     export * from "gd-sprest/utils/oData";
     export * from "gd-sprest/utils/promise";
-    export * from "gd-sprest/utils/request";
     export * from "gd-sprest/utils/targetInfo";
     export * from "gd-sprest/utils/xhrRequest";
 }
@@ -9908,23 +9909,112 @@ declare module 'gd-sprest/mapper/userCustomAction/userCustomActions' {
     }
 }
 
-declare module 'gd-sprest/utils/base' {
-    import { Types } from "gd-sprest/mapper";
-    import { IRequestType } from "gd-sprest/types";
-    import { BaseRequest, TargetInfo, IRequestInfo, ITargetInfo } from "gd-sprest/utils";
+declare module 'gd-sprest/utils/baseHelper' {
+    import { Base } from "gd-sprest/utils";
     /**
-        * Base
+        * Request Helper Methods
         */
-    export interface IBase<Type = any, Result = Type, QueryResult = Result> {
-            defaultToWebFl: boolean;
-            /** True, if the object exists, false otherwise. */
-            existsFl: boolean;
-            /** The parent object, which created this object. */
-            parent: any;
-            /** The response */
-            response: string;
+    export interface IBaseHelper {
+            /** The base object. */
+            base: Base;
             /** The request type */
-            requestType: IRequestType;
+            requestType: number;
+            /** The request's raw response. */
+            response: string;
+            /** The request's status. */
+            status: number;
+            /** Adds methods based on the object type. */
+            addMethods(base: Base, data: any): any;
+            /** Adds properties based on the object type. */
+            addProperties(base: Base, data: any): any;
+            /** Updates the data collection objects. */
+            updateDataCollection(obj: Base, results: Array<Base>): any;
+            /** Updates the data object. */
+            updateDataObject(isBatchRequest: boolean): any;
+            /** Updates the metadata. */
+            updateMetadata(base: any, data: any): any;
+    }
+    /**
+        * Request Helper
+        */
+    export class BaseHelper implements IBaseHelper {
+            base: Base;
+            requestType: number;
+            response: string;
+            status: number;
+            addMethods(base: Base, data: any): void;
+            addProperties(base: any, data: any): void;
+            updateDataCollection(obj: any, results: any): void;
+            updateDataObject(isBatchRequest: boolean): void;
+            updateMetadata(base: any, data: any): void;
+    }
+}
+
+declare module 'gd-sprest/utils/baseRequest' {
+    import { Base, BaseHelper, IBaseHelper, Promise, XHRRequest, IMethodInfo, ITargetInfo } from "gd-sprest/utils";
+    /**
+        * Base Request
+        */
+    export interface IBaseRequest extends IBaseHelper {
+            /** Flag to get all items. */
+            getAllItemsFl: boolean;
+            /** The target information. */
+            targetInfo: ITargetInfo;
+            /** The request. */
+            xhr: XHRRequest;
+            /** Method to execute the request. */
+            executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): any;
+            /** Method to execute the request. */
+            executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
+            /** Gets the property as a collection. */
+            getCollection(method: string, args?: any): any;
+            /** Gets the next set of results. */
+            getNextSetOfResults(): any;
+            /** Gets the property. */
+            getProperty(propertyName: string, requestType?: string): any;
+            /** Updates the metdata uri. */
+            updateMetadataUri(metadata: any, targetInfo: ITargetInfo): any;
+            /** Validates the data collection results. */
+            validateDataCollectionResults(promise?: Promise): any;
+    }
+    /**
+        * Base Request
+        */
+    export class BaseRequest extends BaseHelper implements IBaseRequest {
+            getAllItemsFl: boolean;
+            requestType: number;
+            targetInfo: ITargetInfo;
+            xhr: XHRRequest;
+            executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
+            executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
+            getCollection(method: string, args?: any): Base<any, any, any>;
+            getNextSetOfResults(): Base<any, any, any>;
+            getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
+            updateMetadataUri(metadata: any, targetInfo: ITargetInfo): void;
+            validateDataCollectionResults(promise?: Promise): Promise;
+    }
+}
+
+declare module 'gd-sprest/utils/baseExecution' {
+    import { BaseRequest, TargetInfo, IBaseRequest } from "gd-sprest/utils";
+    /**
+        * Base Execution
+        */
+    export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest {
+            /** The batch requests. */
+            batchRequests: Array<Array<{
+                    callback?: any;
+                    response?: BaseExecution;
+                    targetInfo: TargetInfo;
+            }>>;
+            /** The parent. */
+            parent: BaseExecution;
+            /** The index of this object in the responses array. */
+            responseIndex: number;
+            /** The responses. */
+            responses: Array<BaseExecution>;
+            /** The wait flags. */
+            waitFlags: Array<boolean>;
             /**
                 * Method to execute the request as a batch.
                 * Currently available in SharePoint Online only.
@@ -9937,16 +10027,6 @@ declare module 'gd-sprest/utils/base' {
                 * @param appendFl - Flag to execute the request as part of a change set.
                 */
             batch(appendFl?: boolean): Type;
-            /**
-                * Method to wait for the requests to complete.
-                * @param callback - The method to be executed after the request completes.
-                */
-            done(callback?: (...args) => any): any;
-            /**
-                * Method to wait for the requests to complete.
-                * @param callback - The method to be executed after the request completes.
-                */
-            done(callback?: (value?: Result, ...args) => any): any;
             /**
                 * Method to execute the request.
                 * @param callback - The method to be executed after the request completes.
@@ -9968,6 +10048,57 @@ declare module 'gd-sprest/utils/base' {
                 */
             executeAndWait(): Result;
             /**
+                * Method to wait for the parent requests to complete
+                * @param callback - The callback method.
+                * @param requestIdx - The request index.
+                */
+            waitForRequestsToComplete(callback: () => void, requestIdx?: number): any;
+    }
+    /**
+        * Base Execution
+        */
+    export class BaseExecution<Type = any, Result = Type> extends BaseRequest {
+            batchRequests: Array<Array<{
+                    callback?: any;
+                    response?: BaseExecution;
+                    targetInfo: TargetInfo;
+            }>>;
+            parent: BaseExecution;
+            responseIndex: number;
+            responses: Array<BaseExecution>;
+            waitFlags: Array<boolean>;
+            batch(arg?: any): this;
+            execute(...args: any[]): this;
+            executeAndWait(): any;
+            waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
+    }
+}
+
+declare module 'gd-sprest/utils/base' {
+    import { Types } from "gd-sprest/mapper";
+    import { BaseExecution, IBaseExecution, IRequestInfo, ITargetInfo } from "gd-sprest/utils";
+    /**
+        * Base
+        */
+    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result> {
+            defaultToWebFl: boolean;
+            /** True, if the object exists, false otherwise. */
+            existsFl: boolean;
+            /** The parent object, which created this object. */
+            parent: any;
+            /** The response */
+            response: string;
+            /**
+                * Method to wait for the requests to complete.
+                * @param callback - The method to be executed after the request completes.
+                */
+            done(callback?: (...args) => any): any;
+            /**
+                * Method to wait for the requests to complete.
+                * @param callback - The method to be executed after the request completes.
+                */
+            done(callback?: (value?: Result, ...args) => any): any;
+            /**
                 * Method to get the request information.
                 */
             getInfo(): IRequestInfo;
@@ -9982,12 +10113,6 @@ declare module 'gd-sprest/utils/base' {
                 * @param reject - Method to execute for unsuccessful requests.
                 */
             then(resolve?: (value?: Result) => void, reject?: (value?: Result) => void): PromiseLike<Result>;
-            /**
-                * Method to wait for the parent requests to complete
-                * @param callback - The callback method.
-                * @param requestIdx - The request index.
-                */
-            waitForRequestsToComplete(callback: () => void, requestIdx?: number): any;
     }
     /**
         * Base Collection
@@ -9995,80 +10120,17 @@ declare module 'gd-sprest/utils/base' {
     export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.IResults<Type>, IBase<Types.IResults<Result>, Types.IResults<Result>, Types.IResults<QueryResult>> {
     }
     /*********************************************************************************************************************************/
-    export class Base<Type = any, Result = Type, QueryResult = Result> implements IBase {
+    export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements IBase {
             /**
                 * Constructor
                 * @param targetInfo - The target information.
                 */
             constructor(targetInfo: ITargetInfo);
-            base: Base;
-            batchRequests: Array<Array<{
-                    callback?: any;
-                    response?: Base;
-                    targetInfo: TargetInfo;
-            }>>;
             defaultToWebFl: boolean;
             existsFl: any;
-            getAllItemsFl: boolean;
-            parent: Base;
-            request: BaseRequest;
-            requestType: any;
-            readonly response: any;
-            responseIndex: number;
-            responses: Array<Base>;
-            targetInfo: ITargetInfo;
-            waitFlags: Array<boolean>;
-            batch(arg?: any): this;
             done(callback: (...args) => any): void;
-            execute(...args: any[]): this;
-            executeAndWait(): any;
             getInfo(): IRequestInfo;
             then(resolve: any, reject: any): PromiseLike<IBase>;
-            waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
-    }
-}
-
-declare module 'gd-sprest/utils/baseRequest' {
-    import { Base, Promise, XHRRequest, IMethodInfo, ITargetInfo } from "gd-sprest/utils";
-    /**
-        * Base Request
-        */
-    export interface IBaseRequest {
-            /** The request's raw response. */
-            response: string;
-            /** The request's status. */
-            status: number;
-            /** The request. */
-            xhr: XHRRequest;
-            /** Method to execute the request. */
-            executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any): any;
-            /** Method to execute the request. */
-            executeRequest(base: Base, asyncFl: boolean, callback?: (...args) => void): any;
-            /** Gets the property as a collection. */
-            getCollection(base: Base, method: string, args?: any): any;
-            /** Gets the next set of results. */
-            getNextSetOfResults(base: Base): any;
-            /** Gets the property. */
-            getProperty(base: Base, propertyName: string, requestType?: string): any;
-            /** Updates the metdata uri. */
-            updateMetadataUri(metadata: any, targetInfo: ITargetInfo): any;
-            /** Validates the data collection results. */
-            validateDataCollectionResults(base: Base, request: XHRRequest, promise?: Promise): any;
-    }
-    /**
-        * Base Request
-        */
-    export class BaseRequest implements IBaseRequest {
-            readonly response: any;
-            readonly status: number;
-            xhr: XHRRequest;
-            executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
-            executeRequest(base: Base, asyncFl: boolean, callback?: (...args) => void): any;
-            getCollection(base: Base, method: string, args?: any): Base<any, any, any>;
-            getNextSetOfResults(base: Base): Base<any, any, any>;
-            getProperty(base: Base, propertyName: string, requestType?: string): Base<any, any, any>;
-            updateMetadataUri(metadata: any, targetInfo: ITargetInfo): void;
-            validateDataCollectionResults(base: Base, request: XHRRequest, promise?: Promise): Promise;
     }
 }
 
@@ -10187,26 +10249,6 @@ declare module 'gd-sprest/utils/promise' {
             resolve(...args: any[]): void;
             then<TResult1 = IBase, TResult2 = never>(onfulfilled?: ((value: IBase) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): any;
     }
-}
-
-declare module 'gd-sprest/utils/request' {
-    import { Base } from "gd-sprest/utils";
-    /**
-      * Request Helper Methods
-      */
-    export interface IRequest {
-        /** Adds methods based on the object type. */
-        addMethods(base: Base, data: any): any;
-        /** Adds properties based on the object type. */
-        addProperties(base: Base, data: any): any;
-        /** Updates the data collection objects. */
-        updateDataCollection(obj: Base, results: Array<Base>): any;
-        /** Updates the data object. */
-        updateDataObject(base: Base, isBatchRequest: boolean): any;
-        /** Updates the metadata. */
-        updateMetadata(base: any, data: any): any;
-    }
-    export const Request: IRequest;
 }
 
 declare module 'gd-sprest/utils/targetInfo' {

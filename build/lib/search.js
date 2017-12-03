@@ -33,7 +33,7 @@ var _Search = /** @class */ (function (_super) {
             _this.targetInfo.url = url;
         }
         // Add the methods
-        utils_1.Request.addMethods(_this, { __metadata: { type: "search" } });
+        _this.addMethods(_this, { __metadata: { type: "search" } });
         return _this;
     }
     /*********************************************************************************************************************************/
@@ -53,7 +53,7 @@ var _Search = /** @class */ (function (_super) {
     /** The search query method */
     _Search.prototype.searchquery = function (settings) {
         // Execute the request
-        return this.request.executeMethod(this, "query", {
+        return this.executeMethod("query", {
             argNames: ["query"],
             name: "query?[[query]]",
             requestType: types_1.RequestType.GetReplace
@@ -62,7 +62,7 @@ var _Search = /** @class */ (function (_super) {
     /** The suggest method */
     _Search.prototype.suggest = function (settings) {
         // Execute the request
-        return this.request.executeMethod(this, "query", {
+        return this.executeMethod("query", {
             argNames: ["query"],
             name: "suggest?[[query]]",
             requestType: types_1.RequestType.GetReplace

@@ -1,7 +1,7 @@
 var path = require("path");
 var webpack = require("webpack");
 
-// Set the export
+// WebPack Configuration
 module.exports = {
     entry: "./build/gd-sprest.js",
     output: {

@@ -52,7 +52,7 @@ var _Email = /** @class */ (function (_super) {
             }
         }
         // Execute the method, and return the email object
-        return this.request.executeMethod(this, "send", {
+        return this.executeMethod("send", {
             argNames: ["properties"],
             name: "",
             metadataType: "SP.Utilities.EmailProperties",

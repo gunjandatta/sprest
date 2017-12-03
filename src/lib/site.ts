@@ -1,5 +1,5 @@
 import { Types } from "../mapper";
-import { Base, Request } from "../utils";
+import { Base } from "../utils";
 import { Web } from ".";
 
 /*********************************************************************************************************************************/
@@ -25,7 +25,7 @@ class _Site extends Base {
         }
 
         // Add the methods
-        Request.addMethods(this, { __metadata: { type: "site" } });
+        this.addMethods(this, { __metadata: { type: "site" } });
     }
 
     // Method to get the root web

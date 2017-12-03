@@ -5,13 +5,13 @@ var mapper_1 = require("../mapper");
 var types_1 = require("../types");
 var _1 = require(".");
 /**
- * Request Helper Methods
+ * Request Helper
  */
-var _Request = /** @class */ (function () {
-    function _Request() {
+var BaseHelper = /** @class */ (function () {
+    function BaseHelper() {
     }
     // Method to add the methods to base object
-    _Request.addMethods = function (base, data) {
+    BaseHelper.prototype.addMethods = function (base, data) {
         var isCollection = data.results && data.results.length > 0;
         // Determine the metadata
         var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
@@ -61,11 +61,11 @@ var _Request = /** @class */ (function () {
                                 subPropName = subPropName.replace(/'/g, "\\'");
                                 // Add the property
                                 base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
-                                    "return this.request.getProperty(this, name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
+                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             }
                             else {
                                 // Add the property
-                                base[propName] = new Function("return this.request.getProperty(this, '" + propName + "', '" + propType + "');");
+                                base[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
                             }
                         }
                     }
@@ -80,12 +80,12 @@ var _Request = /** @class */ (function () {
                     methodInfo.metadataType = methods[methodName].metadataType(base);
                 }
                 // Add the method to the object
-                base[methodName] = new Function("return this.request.executeMethod(this, '" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+                base[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
             }
         }
     };
     // Method to add properties to the base object
-    _Request.addProperties = function (base, data) {
+    BaseHelper.prototype.addProperties = function (base, data) {
         // Parse the data properties
         for (var key in data) {
             var value = data[key];
@@ -96,7 +96,7 @@ var _Request = /** @class */ (function () {
             // See if the base is a collection property
             if (value && value.__deferred && value.__deferred.uri) {
                 // Generate a method for the base property
-                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.request.getCollection(this, '" + key + "', arguments);");
+                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.getCollection('" + key + "', arguments);");
             }
             else {
                 // Set the property, based on the property name
@@ -136,7 +136,7 @@ var _Request = /** @class */ (function () {
         }
     };
     // Method to update a collection object
-    _Request.updateDataCollection = function (obj, results) {
+    BaseHelper.prototype.updateDataCollection = function (obj, results) {
         // Ensure the base is a collection
         if (results) {
             // Save the results
@@ -169,17 +169,17 @@ var _Request = /** @class */ (function () {
         }
     };
     // Method to convert the input arguments into an object
-    _Request.updateDataObject = function (base, isBatchRequest) {
+    BaseHelper.prototype.updateDataObject = function (isBatchRequest) {
         // Ensure the request was successful
-        if (base.request.status >= 200 && base.request.status < 300) {
+        if (this.status >= 200 && this.status < 300) {
             // Return if we are expecting a buffer
-            if (base.requestType == types_1.RequestType.GetBuffer) {
+            if (this.requestType == types_1.RequestType.GetBuffer) {
                 return;
             }
             // Parse the responses
             var batchIdx = 0;
             var batchRequestIdx = 0;
-            var responses = isBatchRequest ? base.request.response.split("\n") : [base.request.response];
+            var responses = isBatchRequest ? this.response.split("\n") : [this.response];
             for (var i = 0; i < responses.length; i++) {
                 var data = null;
                 // Try to convert the response
@@ -192,7 +192,7 @@ var _Request = /** @class */ (function () {
                     continue;
                 }
                 // Set the object based on the request type
-                var obj = isBatchRequest ? Object.create(base) : base;
+                var obj = isBatchRequest ? Object.create(this) : this;
                 // Set the exists flag
                 obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
                 // See if the data properties exists
@@ -211,13 +211,13 @@ var _Request = /** @class */ (function () {
                 // See if the batch request exists
                 if (isBatchRequest) {
                     // Get the batch request
-                    var batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                    var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
                     if (batchRequest == null) {
                         // Update the batch indexes
                         batchIdx++;
                         batchRequestIdx = 0;
                         // Update the batch request
-                        batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                        batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
                     }
                     // Ensure the batch request exists
                     if (batchRequest) {
@@ -230,12 +230,12 @@ var _Request = /** @class */ (function () {
             }
             // Clear the batch requests
             if (isBatchRequest) {
-                base.base.batchRequests = null;
+                this.base.batchRequests = null;
             }
         }
     };
     // Method to update the metadata
-    _Request.updateMetadata = function (base, data) {
+    BaseHelper.prototype.updateMetadata = function (base, data) {
         // Ensure the base is the app web
         if (!lib_1.ContextInfo.isAppWeb) {
             return;
@@ -255,7 +255,7 @@ var _Request = /** @class */ (function () {
         // Update the metadata uri
         data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
     };
-    return _Request;
+    return BaseHelper;
 }());
-exports.Request = _Request;
-//# sourceMappingURL=request.js.map
+exports.BaseHelper = BaseHelper;
+//# sourceMappingURL=baseHelper.js.map

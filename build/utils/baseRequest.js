@@ -1,30 +1,30 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var types_1 = require("../types");
 var _1 = require(".");
 /**
  * Base Request
  */
-var BaseRequest = /** @class */ (function () {
+var BaseRequest = /** @class */ (function (_super) {
+    __extends(BaseRequest, _super);
     function BaseRequest() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    Object.defineProperty(BaseRequest.prototype, "response", {
-        // Returns the request's raw response
-        get: function () { return this.xhr ? this.xhr.response : null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseRequest.prototype, "status", {
-        // Returns the status of the request
-        get: function () { return this.xhr ? this.xhr.status : null; },
-        enumerable: true,
-        configurable: true
-    });
     // Method to execute a method
-    BaseRequest.prototype.executeMethod = function (base, methodName, methodConfig, args) {
+    BaseRequest.prototype.executeMethod = function (methodName, methodConfig, args) {
         var targetInfo = null;
         // See if the metadata is defined for the base object
-        var metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
+        var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if (metadata && metadata.uri) {
             // Create the target information and use the url defined for the base object
             targetInfo = {
@@ -40,7 +40,7 @@ var BaseRequest = /** @class */ (function () {
         }
         else {
             // Copy the target information
-            targetInfo = Object.create(base.targetInfo);
+            targetInfo = Object.create(this.targetInfo);
         }
         // Get the method information
         var methodInfo = new _1.MethodInfo(methodName, methodConfig, args);
@@ -67,79 +67,85 @@ var BaseRequest = /** @class */ (function () {
         // Create a new object
         var obj = new _1.Base(targetInfo);
         // Set the properties
-        obj.base = base.base ? base.base : base;
+        obj.base = this.base ? this.base : this;
         obj.getAllItemsFl = methodInfo.getAllItemsFl;
-        obj.parent = base;
+        obj.parent = this;
         obj.requestType = methodConfig.requestType;
         // Ensure the return type exists
         if (methodConfig.returnType) {
             // Add the methods
-            _1.Request.addMethods(obj, { __metadata: { type: methodConfig.returnType } });
+            this.addMethods(obj, { __metadata: { type: methodConfig.returnType } });
         }
         // Return the object
         return obj;
     };
     // Method to execute the request
-    BaseRequest.prototype.executeRequest = function (base, asyncFl, callback) {
+    BaseRequest.prototype.executeRequest = function (asyncFl, callback) {
         var _this = this;
-        var isBatchRequest = base.base && base.base.batchRequests && base.base.batchRequests.length > 0;
-        var targetInfo = isBatchRequest ? _1.Batch.getTargetInfo(base.base.batchRequests) : new _1.TargetInfo(base.targetInfo);
+        var isBatchRequest = this.base && this.base.batchRequests && this.base.batchRequests.length > 0;
+        var targetInfo = isBatchRequest ? _1.Batch.getTargetInfo(this.base.batchRequests) : new _1.TargetInfo(this.targetInfo);
         // See if this is an asynchronous request
         if (asyncFl) {
             // See if the not a batch request, and it already exists
             if (this.xhr && !isBatchRequest) {
                 // Execute the callback
-                callback ? callback(base) : null;
+                callback ? callback(this) : null;
             }
             else {
                 // Create the request
                 this.xhr = new _1.XHRRequest(asyncFl, targetInfo, function () {
+                    // Update the response and status
+                    _this.response = _this.xhr.response;
+                    _this.status = _this.xhr.status;
                     // See if we are returning a file buffer
-                    if (base.requestType == types_1.RequestType.GetBuffer) {
+                    if (_this.requestType == types_1.RequestType.GetBuffer) {
                         // Execute the callback
                         callback ? callback(_this.xhr.response) : null;
                     }
                     // Update the data object
-                    _1.Request.updateDataObject(base, isBatchRequest);
+                    _this.updateDataObject(isBatchRequest);
                     // Validate the data collection
-                    isBatchRequest ? null : _this.validateDataCollectionResults(base, _this.xhr).done(function () {
+                    isBatchRequest ? null : _this.validateDataCollectionResults().done(function () {
                         // Execute the callback
-                        callback ? callback(base) : null;
+                        callback ? callback(_this) : null;
                     });
                 });
             }
         }
         else if (this.xhr) {
-            return base;
+            return this;
         }
         else {
             // Create the request
             this.xhr = new _1.XHRRequest(asyncFl, targetInfo);
+            // Update the response and status
+            this.response = this.xhr.response;
+            this.status = this.xhr.status;
             // See if we are returning a file buffer
-            if (base.requestType == types_1.RequestType.GetBuffer) {
+            if (this.requestType == types_1.RequestType.GetBuffer) {
                 // Return the response
                 return this.xhr.response;
             }
             // Update the base object
-            _1.Request.updateDataObject(base, isBatchRequest);
+            this.updateDataObject(isBatchRequest);
             // See if the base is a collection and has more results
-            if (base["d"] && base["d"].__next) {
+            if (this["d"] && this["d"].__next) {
                 // Add the "next" method to get the next set of results
-                base["next"] = new Function("return this.request.getNextSetOfResults();");
+                this["next"] = new Function("return this.getNextSetOfResults();");
             }
             // Return the base object
-            return base;
+            return this;
         }
     };
     // Method to return a collection
-    BaseRequest.prototype.getCollection = function (base, method, args) {
+    BaseRequest.prototype.getCollection = function (method, args) {
         // Copy the target information
-        var targetInfo = Object.create(base.targetInfo);
+        var targetInfo = Object.create(this.targetInfo);
         // Clear the target information properties from any previous requests
         targetInfo.data = null;
         targetInfo.method = null;
         // See if the metadata is defined for the base object
-        var metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
+        var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if (metadata && metadata.uri) {
             // Update the url of the target information
             targetInfo.url = metadata.uri;
@@ -157,34 +163,34 @@ var BaseRequest = /** @class */ (function () {
         // Create a new object
         var obj = new _1.Base(targetInfo);
         // Set the properties
-        obj.base = base.base ? base.base : base;
-        obj.parent = base;
+        obj.base = this.base ? this.base : this;
+        obj.parent = this;
         // Return the object
         return obj;
     };
     // Method to get the next set of results
-    BaseRequest.prototype.getNextSetOfResults = function (base) {
+    BaseRequest.prototype.getNextSetOfResults = function () {
         // Create the target information to query the next set of results
-        var targetInfo = Object.create(base.targetInfo);
+        var targetInfo = Object.create(this.targetInfo);
         targetInfo.endpoint = "";
-        targetInfo.url = base["d"].__next;
+        targetInfo.url = this["d"].__next;
         // Create a new object
         var obj = new _1.Base(targetInfo);
         // Set the properties
-        obj.base = base.base ? base.base : base;
-        obj.parent = base;
+        obj.base = this.base ? this.base : this;
+        obj.parent = this;
         // Return the object
         return obj;
     };
     // Method to return a property of the base object
-    BaseRequest.prototype.getProperty = function (base, propertyName, requestType) {
+    BaseRequest.prototype.getProperty = function (propertyName, requestType) {
         // Copy the target information
-        var targetInfo = Object.create(base.targetInfo);
+        var targetInfo = Object.create(this.targetInfo);
         // Clear the target information properties from any previous requests
         targetInfo.data = null;
         targetInfo.method = null;
         // See if the metadata is defined for the base object
-        var metadata = base["d"] ? base["d"].__metadata : base["__metadata"];
+        var metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
         if (metadata && metadata.uri) {
             // Update the url of the target information
             targetInfo.url = metadata.uri;
@@ -200,10 +206,10 @@ var BaseRequest = /** @class */ (function () {
         // Create a new object
         var obj = new _1.Base(targetInfo);
         // Set the properties
-        obj.base = base.base ? base.base : base;
-        obj.parent = base;
+        obj.base = this.base ? this.base : this;
+        obj.parent = this;
         // Add the methods
-        requestType ? _1.Request.addMethods(obj, { __metadata: { type: requestType } }) : null;
+        requestType ? this.addMethods(obj, { __metadata: { type: requestType } }) : null;
         // Return the object
         return obj;
     };
@@ -220,19 +226,19 @@ var BaseRequest = /** @class */ (function () {
         }
     };
     // Method to validate the data collection results
-    BaseRequest.prototype.validateDataCollectionResults = function (base, request, promise) {
+    BaseRequest.prototype.validateDataCollectionResults = function (promise) {
         var _this = this;
         promise = promise || new _1.Promise();
         // Validate the response
-        if (request && request.status < 400 && typeof (request.response) === "string" && request.response.length > 0) {
+        if (this.xhr && this.status < 400 && typeof (this.response) === "string" && this.response.length > 0) {
             // Convert the response and ensure the data property exists
-            var data = JSON.parse(request.response);
+            var data = JSON.parse(this.response);
             // See if there are more items to get
             if (data.d && data.d.__next) {
                 // See if we are getting all items in the base request
-                if (base.getAllItemsFl) {
+                if (this.getAllItemsFl) {
                     // Create the target information to query the next set of results
-                    var targetInfo = Object.create(base.targetInfo);
+                    var targetInfo = Object.create(this.targetInfo);
                     targetInfo.endpoint = "";
                     targetInfo.url = data.d.__next;
                     // Create a new object
@@ -241,11 +247,11 @@ var BaseRequest = /** @class */ (function () {
                         var data = JSON.parse(request.response);
                         if (data.d) {
                             // Update the data collection
-                            _1.Request.updateDataCollection(base, data.d.results);
+                            _this.updateDataCollection(_this, data.d.results);
                             // Append the raw data results
-                            base["d"].results = base["d"].results.concat(data.d.results);
+                            _this["d"].results = _this["d"].results.concat(data.d.results);
                             // Validate the data collection
-                            return _this.validateDataCollectionResults(base, request, promise);
+                            return _this.validateDataCollectionResults(promise);
                         }
                         // Resolve the promise
                         promise.resolve();
@@ -253,7 +259,7 @@ var BaseRequest = /** @class */ (function () {
                 }
                 else {
                     // Add a method to get the next set of results
-                    this["next"] = new Function("return this.request.getNextSetOfResults();");
+                    this["next"] = new Function("return this.getNextSetOfResults();");
                     // Resolve the promise
                     promise.resolve();
                 }
@@ -271,6 +277,6 @@ var BaseRequest = /** @class */ (function () {
         return promise;
     };
     return BaseRequest;
-}());
+}(_1.BaseHelper));
 exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map

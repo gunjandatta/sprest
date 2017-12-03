@@ -6,7 +6,19 @@ import { Base } from ".";
 /**
  * Request Helper Methods
  */
-export interface IRequest {
+export interface IBaseHelper {
+    /** The base object. */
+    base: Base;
+
+    /** The request type */
+    requestType: number;
+
+    /** The request's raw response. */
+    response: string;
+
+    /** The request's status. */
+    status: number;
+
     /** Adds methods based on the object type. */
     addMethods(base: Base, data: any);
 
@@ -17,18 +29,23 @@ export interface IRequest {
     updateDataCollection(obj: Base, results: Array<Base>);
 
     /** Updates the data object. */
-    updateDataObject(base: Base, isBatchRequest: boolean);
+    updateDataObject(isBatchRequest: boolean);
 
     /** Updates the metadata. */
     updateMetadata(base, data);
 }
 
 /**
- * Request Helper Methods
+ * Request Helper
  */
-class _Request {
+export class BaseHelper implements IBaseHelper {
+    base: Base;
+    requestType: number;
+    response: string;
+    status: number;
+
     // Method to add the methods to base object
-    static addMethods(base: Base, data) {
+    addMethods(base: Base, data) {
         let isCollection = data.results && data.results.length > 0;
 
         // Determine the metadata
@@ -88,10 +105,10 @@ class _Request {
                                 // Add the property
                                 base[propName] = new Function("name",
                                     "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
-                                    "return this.request.getProperty(this, name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
+                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             } else {
                                 // Add the property
-                                base[propName] = new Function("return this.request.getProperty(this, '" + propName + "', '" + propType + "');");
+                                base[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
                             }
                         }
                     }
@@ -110,13 +127,13 @@ class _Request {
                 }
 
                 // Add the method to the object
-                base[methodName] = new Function("return this.request.executeMethod(this, '" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+                base[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
             }
         }
     }
 
     // Method to add properties to the base object
-    static addProperties(base, data) {
+    addProperties(base, data) {
         // Parse the data properties
         for (var key in data) {
             let value = data[key];
@@ -127,7 +144,7 @@ class _Request {
             // See if the base is a collection property
             if (value && value.__deferred && value.__deferred.uri) {
                 // Generate a method for the base property
-                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.request.getCollection(this, '" + key + "', arguments);");
+                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.getCollection('" + key + "', arguments);");
             }
             else {
                 // Set the property, based on the property name
@@ -174,7 +191,7 @@ class _Request {
     }
 
     // Method to update a collection object
-    static updateDataCollection(obj, results) {
+    updateDataCollection(obj, results) {
         // Ensure the base is a collection
         if (results) {
             // Save the results
@@ -211,16 +228,16 @@ class _Request {
     }
 
     // Method to convert the input arguments into an object
-    static updateDataObject(base: Base, isBatchRequest: boolean) {
+    updateDataObject(isBatchRequest: boolean) {
         // Ensure the request was successful
-        if (base.request.status >= 200 && base.request.status < 300) {
+        if (this.status >= 200 && this.status < 300) {
             // Return if we are expecting a buffer
-            if (base.requestType == RequestType.GetBuffer) { return; }
+            if (this.requestType == RequestType.GetBuffer) { return; }
 
             // Parse the responses
             let batchIdx = 0;
             let batchRequestIdx = 0;
-            let responses = isBatchRequest ? base.request.response.split("\n") : [base.request.response];
+            let responses = isBatchRequest ? this.response.split("\n") : [this.response];
             for (let i = 0; i < responses.length; i++) {
                 let data = null;
 
@@ -231,7 +248,7 @@ class _Request {
                 catch (ex) { continue; }
 
                 // Set the object based on the request type
-                let obj = isBatchRequest ? Object.create(base) : base;
+                let obj = isBatchRequest ? Object.create(this) : this;
 
                 // Set the exists flag
                 obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
@@ -257,14 +274,14 @@ class _Request {
                 // See if the batch request exists
                 if (isBatchRequest) {
                     // Get the batch request
-                    let batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                    let batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
                     if (batchRequest == null) {
                         // Update the batch indexes
                         batchIdx++;
                         batchRequestIdx = 0;
 
                         // Update the batch request
-                        batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                        batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
                     }
 
                     // Ensure the batch request exists
@@ -279,12 +296,12 @@ class _Request {
             }
 
             // Clear the batch requests
-            if (isBatchRequest) { base.base.batchRequests = null; }
+            if (isBatchRequest) { this.base.batchRequests = null; }
         }
     }
 
     // Method to update the metadata
-    static updateMetadata(base, data) {
+    updateMetadata(base, data) {
         // Ensure the base is the app web
         if (!ContextInfo.isAppWeb) { return; }
 
@@ -303,4 +320,3 @@ class _Request {
         data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
     }
 }
-export const Request: IRequest = _Request as any;
