@@ -8,7 +8,6 @@ __export(require("./baseRequest"));
 __export(require("./baseExecution"));
 __export(require("./base"));
 __export(require("./batch"));
-__export(require("./dependencies"));
 __export(require("./methodInfo"));
 __export(require("./oData"));
 __export(require("./promise"));

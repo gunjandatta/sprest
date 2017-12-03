@@ -190,35 +190,7 @@ export interface ISPConfig {
      * @param callback - An optional function called after the execution completes.
      * @param targetName - The target configuration type to install.
      */
-    installByType(cfgType: ISPConfigTypes, callback?: any, targetName?: string);
-
-    /**
-     * Method to install a specific content type
-     * @param ctName - The content type to install.
-     * @param callback - An optional function called after the execution completes.
-     */
-    installContentType(ctName: string, callback?: any);
-
-    /**
-     * Method to install a specific list
-     * @param listName - The list to install.
-     * @param callback - An optional function called after the execution completes.
-     */
-    installList(listName: string, callback?: any);
-
-    /**
-     * Method to install a specific site custom action
-     * @param caName - The site user custom action to install.
-     * @param callback - An optional function called after the execution completes.
-     */
-    installSiteCustomAction(caName: string, callback?: any);
-
-    /**
-     * Method to install a specific web custom action
-     * @param caName - The web user custom action to install.
-     * @param callback - An optional function called after the execution completes.
-     */
-    installWebCustomAction(caName: string, callback?: any);
+    installByType(cfgType: number, callback?: any, targetName?: string);
 
     /**
      * Method to install the configuration
@@ -232,35 +204,7 @@ export interface ISPConfig {
      * @param callback - An optional function called after the execution completes.
      * @param targetName - The target configuration type to uninstall.
      */
-    uninstallByType(cfgType: ISPConfigTypes, callback?: any, targetName?: string);
-
-    /**
-     * Method to uninstall a specific content type
-     * @param ctName - The content type to uninstall.
-     * @param callback - An optional function called after the execution completes.
-     */
-    uninstallContentType(ctName: string, callback?: any);
-
-    /**
-     * Method to uninstall a specific list
-     * @param listName - The list to uninstall.
-     * @param callback - An optional function called after the execution completes.
-     */
-    uninstallList(listName: string, callback?: any);
-
-    /**
-     * Method to uninstall a specific site custom action
-     * @param caName - The site user custom action to uninstall.
-     * @param callback - An optional function called after the execution completes.
-     */
-    uninstallSiteCustomAction(caName: string, callback?: any);
-
-    /**
-     * Method to uninstall a specific web custom action
-     * @param caName - The web user custom action to uninstall.
-     * @param callback - An optional function called after the execution completes.
-     */
-    uninstallWebCustomAction(caName: string, callback?: any);
+    uninstallByType(cfgType: number, callback?: any, targetName?: string);
 }
 
 /**

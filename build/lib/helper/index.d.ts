@@ -1,4 +1,5 @@
 import { IHelperApp } from "./app";
+import { IDependencies } from "./dependencies";
 import { IHelperJSLink } from "./jslink";
 import { ILoader } from "./loader";
 import { ISPConfig } from "./spCfg";
@@ -10,6 +11,10 @@ export interface IHelper {
      * App-Model helper methods
      */
     App: IHelperApp;
+    /**
+     * Dependencies
+     */
+    Dependencies: IDependencies;
     /**
      * JSLink helper methods
      */
