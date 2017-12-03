@@ -3,14 +3,6 @@ import { Base, BaseHelper, IBaseHelper, Promise, XHRRequest, IMethodInfo, ITarge
  * Base Request
  */
 export interface IBaseRequest extends IBaseHelper {
-    /** The base object. */
-    base: Base;
-    /** The request's raw response. */
-    response: string;
-    /** The request type */
-    requestType: number;
-    /** The request's status. */
-    status: number;
     /** The target information. */
     targetInfo: ITargetInfo;
     /** The request. */
@@ -34,12 +26,9 @@ export interface IBaseRequest extends IBaseHelper {
  * Base Request
  */
 export declare class BaseRequest extends BaseHelper implements IBaseRequest {
-    base: Base;
     requestType: number;
     targetInfo: ITargetInfo;
     xhr: XHRRequest;
-    readonly response: any;
-    readonly status: number;
     executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
     executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
     getCollection(base: Base, method: string, args?: any): Base<any, any, any>;

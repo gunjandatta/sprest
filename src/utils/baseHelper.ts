@@ -7,6 +7,18 @@ import { Base } from ".";
  * Request Helper Methods
  */
 export interface IBaseHelper {
+    /** The base object. */
+    base: Base;
+
+    /** The request type */
+    requestType: number;
+
+    /** The request's raw response. */
+    response: string;
+
+    /** The request's status. */
+    status: number;
+
     /** Adds methods based on the object type. */
     addMethods(base: Base, data: any);
 
@@ -17,7 +29,7 @@ export interface IBaseHelper {
     updateDataCollection(obj: Base, results: Array<Base>);
 
     /** Updates the data object. */
-    updateDataObject(base: Base, isBatchRequest: boolean);
+    updateDataObject(isBatchRequest: boolean);
 
     /** Updates the metadata. */
     updateMetadata(base, data);
@@ -27,6 +39,11 @@ export interface IBaseHelper {
  * Request Helper
  */
 export class BaseHelper implements IBaseHelper {
+    base: Base;
+    requestType: number;
+    response: string;
+    status: number;
+
     // Method to add the methods to base object
     addMethods(base: Base, data) {
         let isCollection = data.results && data.results.length > 0;
@@ -211,16 +228,16 @@ export class BaseHelper implements IBaseHelper {
     }
 
     // Method to convert the input arguments into an object
-    updateDataObject(base: Base, isBatchRequest: boolean) {
+    updateDataObject(isBatchRequest: boolean) {
         // Ensure the request was successful
-        if (base.status >= 200 && base.status < 300) {
+        if (this.status >= 200 && this.status < 300) {
             // Return if we are expecting a buffer
-            if (base.requestType == RequestType.GetBuffer) { return; }
+            if (this.requestType == RequestType.GetBuffer) { return; }
 
             // Parse the responses
             let batchIdx = 0;
             let batchRequestIdx = 0;
-            let responses = isBatchRequest ? base.response.split("\n") : [base.response];
+            let responses = isBatchRequest ? this.response.split("\n") : [this.response];
             for (let i = 0; i < responses.length; i++) {
                 let data = null;
 
@@ -231,7 +248,7 @@ export class BaseHelper implements IBaseHelper {
                 catch (ex) { continue; }
 
                 // Set the object based on the request type
-                let obj = isBatchRequest ? Object.create(base) : base;
+                let obj = isBatchRequest ? Object.create(this) : this;
 
                 // Set the exists flag
                 obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
@@ -257,14 +274,14 @@ export class BaseHelper implements IBaseHelper {
                 // See if the batch request exists
                 if (isBatchRequest) {
                     // Get the batch request
-                    let batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                    let batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
                     if (batchRequest == null) {
                         // Update the batch indexes
                         batchIdx++;
                         batchRequestIdx = 0;
 
                         // Update the batch request
-                        batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                        batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
                     }
 
                     // Ensure the batch request exists
@@ -279,7 +296,7 @@ export class BaseHelper implements IBaseHelper {
             }
 
             // Clear the batch requests
-            if (isBatchRequest) { base.base.batchRequests = null; }
+            if (isBatchRequest) { this.base.batchRequests = null; }
         }
     }
 

@@ -20,18 +20,6 @@ var BaseRequest = /** @class */ (function (_super) {
     function BaseRequest() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Object.defineProperty(BaseRequest.prototype, "response", {
-        // Returns the request's raw response
-        get: function () { return this.xhr ? this.xhr.response : null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseRequest.prototype, "status", {
-        // Returns the status of the request
-        get: function () { return this.xhr ? this.xhr.status : null; },
-        enumerable: true,
-        configurable: true
-    });
     // Method to execute a method
     BaseRequest.prototype.executeMethod = function (base, methodName, methodConfig, args) {
         var targetInfo = null;
@@ -106,13 +94,16 @@ var BaseRequest = /** @class */ (function (_super) {
             else {
                 // Create the request
                 this.xhr = new _1.XHRRequest(asyncFl, targetInfo, function () {
+                    // Update the response and status
+                    _this.response = _this.xhr.response;
+                    _this.status = _this.xhr.status;
                     // See if we are returning a file buffer
                     if (_this.requestType == types_1.RequestType.GetBuffer) {
                         // Execute the callback
                         callback ? callback(_this.xhr.response) : null;
                     }
                     // Update the data object
-                    _this.updateDataObject(_this, isBatchRequest);
+                    _this.updateDataObject(isBatchRequest);
                     // Validate the data collection
                     isBatchRequest ? null : _this.validateDataCollectionResults(_this, _this.xhr).done(function () {
                         // Execute the callback
@@ -127,13 +118,16 @@ var BaseRequest = /** @class */ (function (_super) {
         else {
             // Create the request
             this.xhr = new _1.XHRRequest(asyncFl, targetInfo);
+            // Update the response and status
+            this.response = this.xhr.response;
+            this.status = this.xhr.status;
             // See if we are returning a file buffer
             if (this.requestType == types_1.RequestType.GetBuffer) {
                 // Return the response
                 return this.xhr.response;
             }
             // Update the base object
-            this.updateDataObject(this, isBatchRequest);
+            this.updateDataObject(isBatchRequest);
             // See if the base is a collection and has more results
             if (this["d"] && this["d"].__next) {
                 // Add the "next" method to get the next set of results

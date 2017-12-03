@@ -9,18 +9,6 @@ import {
  * Base Request
  */
 export interface IBaseRequest extends IBaseHelper {
-    /** The base object. */
-    base: Base;
-
-    /** The request's raw response. */
-    response: string;
-
-    /** The request type */
-    requestType: number;
-
-    /** The request's status. */
-    status: number;
-
     /** The target information. */
     targetInfo: ITargetInfo;
 
@@ -53,16 +41,9 @@ export interface IBaseRequest extends IBaseHelper {
  * Base Request
  */
 export class BaseRequest extends BaseHelper implements IBaseRequest {
-    base: Base;
     requestType: number;
     targetInfo: ITargetInfo;
     xhr: XHRRequest;
-
-    // Returns the request's raw response
-    get response() { return this.xhr ? this.xhr.response : null; }
-
-    // Returns the status of the request
-    get status() { return this.xhr ? this.xhr.status : null; }
 
     // Method to execute a method
     executeMethod(base: Base, methodName: string, methodConfig: IMethodInfo, args?: any) {
@@ -151,6 +132,10 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
             } else {
                 // Create the request
                 this.xhr = new XHRRequest(asyncFl, targetInfo, () => {
+                    // Update the response and status
+                    this.response = this.xhr.response;
+                    this.status = this.xhr.status;
+
                     // See if we are returning a file buffer
                     if (this.requestType == RequestType.GetBuffer) {
                         // Execute the callback
@@ -158,7 +143,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
                     }
 
                     // Update the data object
-                    this.updateDataObject(this as any, isBatchRequest);
+                    this.updateDataObject(isBatchRequest);
 
                     // Validate the data collection
                     isBatchRequest ? null : this.validateDataCollectionResults(this as any, this.xhr).done(() => {
@@ -175,6 +160,10 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
             // Create the request
             this.xhr = new XHRRequest(asyncFl, targetInfo);
 
+            // Update the response and status
+            this.response = this.xhr.response;
+            this.status = this.xhr.status;
+
             // See if we are returning a file buffer
             if (this.requestType == RequestType.GetBuffer) {
                 // Return the response
@@ -182,7 +171,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
             }
 
             // Update the base object
-            this.updateDataObject(this as any, isBatchRequest);
+            this.updateDataObject(isBatchRequest);
 
             // See if the base is a collection and has more results
             if (this["d"] && this["d"].__next) {

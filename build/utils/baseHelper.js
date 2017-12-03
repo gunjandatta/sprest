@@ -169,17 +169,17 @@ var BaseHelper = /** @class */ (function () {
         }
     };
     // Method to convert the input arguments into an object
-    BaseHelper.prototype.updateDataObject = function (base, isBatchRequest) {
+    BaseHelper.prototype.updateDataObject = function (isBatchRequest) {
         // Ensure the request was successful
-        if (base.status >= 200 && base.status < 300) {
+        if (this.status >= 200 && this.status < 300) {
             // Return if we are expecting a buffer
-            if (base.requestType == types_1.RequestType.GetBuffer) {
+            if (this.requestType == types_1.RequestType.GetBuffer) {
                 return;
             }
             // Parse the responses
             var batchIdx = 0;
             var batchRequestIdx = 0;
-            var responses = isBatchRequest ? base.response.split("\n") : [base.response];
+            var responses = isBatchRequest ? this.response.split("\n") : [this.response];
             for (var i = 0; i < responses.length; i++) {
                 var data = null;
                 // Try to convert the response
@@ -192,7 +192,7 @@ var BaseHelper = /** @class */ (function () {
                     continue;
                 }
                 // Set the object based on the request type
-                var obj = isBatchRequest ? Object.create(base) : base;
+                var obj = isBatchRequest ? Object.create(this) : this;
                 // Set the exists flag
                 obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
                 // See if the data properties exists
@@ -211,13 +211,13 @@ var BaseHelper = /** @class */ (function () {
                 // See if the batch request exists
                 if (isBatchRequest) {
                     // Get the batch request
-                    var batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                    var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
                     if (batchRequest == null) {
                         // Update the batch indexes
                         batchIdx++;
                         batchRequestIdx = 0;
                         // Update the batch request
-                        batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                        batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
                     }
                     // Ensure the batch request exists
                     if (batchRequest) {
@@ -230,7 +230,7 @@ var BaseHelper = /** @class */ (function () {
             }
             // Clear the batch requests
             if (isBatchRequest) {
-                base.base.batchRequests = null;
+                this.base.batchRequests = null;
             }
         }
     };

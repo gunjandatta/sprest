@@ -98,6 +98,7 @@ __export(__webpack_require__(33));
 __export(__webpack_require__(34));
 __export(__webpack_require__(35));
 __export(__webpack_require__(36));
+__export(__webpack_require__(37));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -111,9 +112,8 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(26));
-__export(__webpack_require__(37));
 __export(__webpack_require__(38));
-__export(__webpack_require__(43));
+__export(__webpack_require__(39));
 __export(__webpack_require__(44));
 __export(__webpack_require__(45));
 __export(__webpack_require__(46));
@@ -122,6 +122,7 @@ __export(__webpack_require__(48));
 __export(__webpack_require__(49));
 __export(__webpack_require__(50));
 __export(__webpack_require__(51));
+__export(__webpack_require__(52));
 __export(__webpack_require__(4));
 //# sourceMappingURL=index.js.map
 
@@ -3073,7 +3074,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
 var _1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // Base
@@ -3146,8 +3146,61 @@ var Base = /** @class */ (function (_super) {
             callback ? callback.apply(_this, responses) : null;
         });
     };
+    // Method to get the request information
+    Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
+    // Method to execute the request asynchronously
+    Base.prototype.then = function (resolve, reject) {
+        var _this = this;
+        // Return a promise
+        return new _1.Promise(function () {
+            // Execute this request
+            _this.execute(function (request) {
+                // Ensure the request was successful
+                if (request && request.existsFl) {
+                    // Resolve the request
+                    resolve ? resolve.apply(_this, request) : null;
+                }
+                else {
+                    // Reject the request
+                    reject ? reject.apply(_this, request) : null;
+                }
+            });
+        });
+    };
+    return Base;
+}(_1.BaseExecution));
+exports.Base = Base;
+//# sourceMappingURL=base.js.map
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
+var _1 = __webpack_require__(1);
+/**
+ * Base Execution
+ */
+var BaseExecution = /** @class */ (function (_super) {
+    __extends(BaseExecution, _super);
+    function BaseExecution() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
     // Method to execute the request
-    Base.prototype.execute = function () {
+    BaseExecution.prototype.execute = function () {
         var _this = this;
         var args = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -3227,37 +3280,16 @@ var Base = /** @class */ (function (_super) {
         return this;
     };
     // Method to execute the request synchronously
-    Base.prototype.executeAndWait = function () { return this.executeRequest(false); };
-    // Method to get the request information
-    Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
-    // Method to execute the request asynchronously
-    Base.prototype.then = function (resolve, reject) {
-        var _this = this;
-        // Return a promise
-        return new _1.Promise(function () {
-            // Execute this request
-            _this.execute(function (request) {
-                // Ensure the request was successful
-                if (request && request.existsFl) {
-                    // Resolve the request
-                    resolve ? resolve.apply(_this, request) : null;
-                }
-                else {
-                    // Reject the request
-                    reject ? reject.apply(_this, request) : null;
-                }
-            });
-        });
-    };
+    BaseExecution.prototype.executeAndWait = function () { return this.executeRequest(false); };
     // Method to wait for the parent requests to complete
-    Base.prototype.waitForRequestsToComplete = function (callback, requestIdx) {
+    BaseExecution.prototype.waitForRequestsToComplete = function (callback, requestIdx) {
         var _this = this;
         // Loop until the requests have completed
         var intervalId = lib_1.ContextInfo.window.setInterval(function () {
             var counter = 0;
             // Parse the responses to the requests
-            for (var _i = 0, _a = _this.base.responses; _i < _a.length; _i++) {
-                var response = _a[_i];
+            for (var i = 0; i < _this.base.responses.length; i++) {
+                var response = _this.base.responses[i];
                 // See if we are waiting until a specified index
                 if (requestIdx == counter++) {
                     break;
@@ -3277,13 +3309,13 @@ var Base = /** @class */ (function (_super) {
             callback();
         }, 10);
     };
-    return Base;
+    return BaseExecution;
 }(_1.BaseRequest));
-exports.Base = Base;
-//# sourceMappingURL=base.js.map
+exports.BaseExecution = BaseExecution;
+//# sourceMappingURL=baseExecution.js.map
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3458,17 +3490,17 @@ var BaseHelper = /** @class */ (function () {
         }
     };
     // Method to convert the input arguments into an object
-    BaseHelper.prototype.updateDataObject = function (base, isBatchRequest) {
+    BaseHelper.prototype.updateDataObject = function (isBatchRequest) {
         // Ensure the request was successful
-        if (base.status >= 200 && base.status < 300) {
+        if (this.status >= 200 && this.status < 300) {
             // Return if we are expecting a buffer
-            if (base.requestType == types_1.RequestType.GetBuffer) {
+            if (this.requestType == types_1.RequestType.GetBuffer) {
                 return;
             }
             // Parse the responses
             var batchIdx = 0;
             var batchRequestIdx = 0;
-            var responses = isBatchRequest ? base.response.split("\n") : [base.response];
+            var responses = isBatchRequest ? this.response.split("\n") : [this.response];
             for (var i = 0; i < responses.length; i++) {
                 var data = null;
                 // Try to convert the response
@@ -3481,7 +3513,7 @@ var BaseHelper = /** @class */ (function () {
                     continue;
                 }
                 // Set the object based on the request type
-                var obj = isBatchRequest ? Object.create(base) : base;
+                var obj = isBatchRequest ? Object.create(this) : this;
                 // Set the exists flag
                 obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
                 // See if the data properties exists
@@ -3500,13 +3532,13 @@ var BaseHelper = /** @class */ (function () {
                 // See if the batch request exists
                 if (isBatchRequest) {
                     // Get the batch request
-                    var batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                    var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
                     if (batchRequest == null) {
                         // Update the batch indexes
                         batchIdx++;
                         batchRequestIdx = 0;
                         // Update the batch request
-                        batchRequest = base.base.batchRequests[batchIdx][batchRequestIdx++];
+                        batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
                     }
                     // Ensure the batch request exists
                     if (batchRequest) {
@@ -3519,7 +3551,7 @@ var BaseHelper = /** @class */ (function () {
             }
             // Clear the batch requests
             if (isBatchRequest) {
-                base.base.batchRequests = null;
+                this.base.batchRequests = null;
             }
         }
     };
@@ -3550,7 +3582,7 @@ exports.BaseHelper = BaseHelper;
 //# sourceMappingURL=baseHelper.js.map
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3576,18 +3608,6 @@ var BaseRequest = /** @class */ (function (_super) {
     function BaseRequest() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Object.defineProperty(BaseRequest.prototype, "response", {
-        // Returns the request's raw response
-        get: function () { return this.xhr ? this.xhr.response : null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(BaseRequest.prototype, "status", {
-        // Returns the status of the request
-        get: function () { return this.xhr ? this.xhr.status : null; },
-        enumerable: true,
-        configurable: true
-    });
     // Method to execute a method
     BaseRequest.prototype.executeMethod = function (base, methodName, methodConfig, args) {
         var targetInfo = null;
@@ -3662,13 +3682,16 @@ var BaseRequest = /** @class */ (function (_super) {
             else {
                 // Create the request
                 this.xhr = new _1.XHRRequest(asyncFl, targetInfo, function () {
+                    // Update the response and status
+                    _this.response = _this.xhr.response;
+                    _this.status = _this.xhr.status;
                     // See if we are returning a file buffer
                     if (_this.requestType == types_1.RequestType.GetBuffer) {
                         // Execute the callback
                         callback ? callback(_this.xhr.response) : null;
                     }
                     // Update the data object
-                    _this.updateDataObject(_this, isBatchRequest);
+                    _this.updateDataObject(isBatchRequest);
                     // Validate the data collection
                     isBatchRequest ? null : _this.validateDataCollectionResults(_this, _this.xhr).done(function () {
                         // Execute the callback
@@ -3683,13 +3706,16 @@ var BaseRequest = /** @class */ (function (_super) {
         else {
             // Create the request
             this.xhr = new _1.XHRRequest(asyncFl, targetInfo);
+            // Update the response and status
+            this.response = this.xhr.response;
+            this.status = this.xhr.status;
             // See if we are returning a file buffer
             if (this.requestType == types_1.RequestType.GetBuffer) {
                 // Return the response
                 return this.xhr.response;
             }
             // Update the base object
-            this.updateDataObject(this, isBatchRequest);
+            this.updateDataObject(isBatchRequest);
             // See if the base is a collection and has more results
             if (this["d"] && this["d"].__next) {
                 // Add the "next" method to get the next set of results
@@ -3844,7 +3870,7 @@ exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3948,7 +3974,7 @@ exports.Batch = Batch;
 //# sourceMappingURL=batch.js.map
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4035,7 +4061,7 @@ exports.Dependencies = Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4291,7 +4317,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4417,7 +4443,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4484,7 +4510,7 @@ exports.Promise = Promise;
 //# sourceMappingURL=promise.js.map
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4646,7 +4672,7 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4817,7 +4843,7 @@ exports.XHRRequest = XHRRequest;
 //# sourceMappingURL=xhrRequest.js.map
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4888,16 +4914,16 @@ exports.Email = new _Email();
 //# sourceMappingURL=email.js.map
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = __webpack_require__(39);
-var jslink_1 = __webpack_require__(40);
-var loader_1 = __webpack_require__(41);
-var spCfg_1 = __webpack_require__(42);
+var app_1 = __webpack_require__(40);
+var jslink_1 = __webpack_require__(41);
+var loader_1 = __webpack_require__(42);
+var spCfg_1 = __webpack_require__(43);
 ;
 /**
  * Helper Methods
@@ -4911,7 +4937,7 @@ exports.Helper = {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5212,7 +5238,7 @@ exports.AppHelper = {
 //# sourceMappingURL=app.js.map
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5586,7 +5612,7 @@ exports.JSLinkHelper = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5646,7 +5672,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6736,7 +6762,7 @@ exports.SPConfig = SPConfig;
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6857,7 +6883,7 @@ exports.JSLink = _JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6922,7 +6948,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6964,7 +6990,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7007,7 +7033,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7050,7 +7076,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7130,7 +7156,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7187,7 +7213,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7257,7 +7283,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
