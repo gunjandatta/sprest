@@ -1327,23 +1327,25 @@ declare module 'gd-sprest/mapper/types' {
         */
     export interface IEntityData {
             /** Account Name */
-            AccountName: string;
+            AccountName?: string;
             /** Department. */
-            Department: string;
+            Department?: string;
             /** EMail */
-            Email: string;
+            Email?: string;
             /** */
-            IsAltSecIdPresent: boolean;
+            IsAltSecIdPresent?: boolean;
             /** Mobile Phone */
-            MobilePhone: string;
+            MobilePhone?: string;
             /** Object ID */
-            ObjectId: string;
+            ObjectId?: string;
             /** Principal Type */
-            PrincipalType: string;
+            PrincipalType?: string;
+            /** SharePoint Group ID */
+            SPGroupID?: string;
             /** SharePoint User ID */
-            SPUserID: string;
+            SPUserID?: string;
             /** Title */
-            Title: string;
+            Title?: string;
     }
     /**
         * Feature
