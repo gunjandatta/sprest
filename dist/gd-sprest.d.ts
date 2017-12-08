@@ -1327,23 +1327,25 @@ declare module 'gd-sprest/mapper/types' {
         */
     export interface IEntityData {
             /** Account Name */
-            AccountName: string;
+            AccountName?: string;
             /** Department. */
-            Department: string;
+            Department?: string;
             /** EMail */
-            Email: string;
+            Email?: string;
             /** */
-            IsAltSecIdPresent: boolean;
+            IsAltSecIdPresent?: boolean;
             /** Mobile Phone */
-            MobilePhone: string;
+            MobilePhone?: string;
             /** Object ID */
-            ObjectId: string;
+            ObjectId?: string;
             /** Principal Type */
-            PrincipalType: string;
+            PrincipalType?: string;
+            /** SharePoint Group ID */
+            SPGroupID?: string;
             /** SharePoint User ID */
-            SPUserID: string;
+            SPUserID?: string;
             /** Title */
-            Title: string;
+            Title?: string;
     }
     /**
         * Feature
@@ -1899,6 +1901,7 @@ declare module 'gd-sprest/lib/email' {
 
 declare module 'gd-sprest/lib/helper' {
     import { IHelperApp } from "gd-sprest/lib/helper/app";
+    import { IDependencies } from "gd-sprest/lib/helper/dependencies";
     import { IHelperJSLink } from "gd-sprest/lib/helper/jslink";
     import { ILoader } from "gd-sprest/lib/helper/loader";
     import { ISPConfig } from "gd-sprest/lib/helper/spCfg";
@@ -1910,6 +1913,10 @@ declare module 'gd-sprest/lib/helper' {
                 * App-Model helper methods
                 */
             App: IHelperApp;
+            /**
+                * Dependencies
+                */
+            Dependencies: IDependencies;
             /**
                 * JSLink helper methods
                 */
@@ -4769,7 +4776,6 @@ declare module 'gd-sprest/utils' {
     export * from "gd-sprest/utils/baseExecution";
     export * from "gd-sprest/utils/base";
     export * from "gd-sprest/utils/batch";
-    export * from "gd-sprest/utils/dependencies";
     export * from "gd-sprest/utils/methodInfo";
     export * from "gd-sprest/utils/oData";
     export * from "gd-sprest/utils/promise";
@@ -4849,6 +4855,59 @@ declare module 'gd-sprest/lib/helper/app' {
             removeFile: (web: any, fileUrl: any) => Promise;
             removeFiles: (web: any, fileUrls: any, idx: any, promise: any) => any;
     };
+}
+
+declare module 'gd-sprest/lib/helper/dependencies' {
+    import { Promise } from "gd-sprest/utils";
+    /**
+        * Dependencies
+        */
+    export interface IDependencies {
+            /**
+                * Constructor
+                * @param callback - The method to execute after the dependencies are loaded.
+                */
+            constructor(callback: (...args) => void): any;
+            /** The maximum amount of time to wait for the scripts to be loaded. */
+            MAX_WAIT: number;
+            /** Flag to determine if the page context information exists */
+            pageContextExistsFl: boolean;
+            /** The promise. */
+            promise: Promise;
+            /** The script file names to load. */
+            SCRIPTS: Array<string>;
+            /**
+                * Method to ensure the SP classes are loaded
+                */
+            loadDependencies(): any;
+            /**
+                * Method to wait for the page context to be loaded
+                */
+            waitForPageContext(): any;
+    }
+    /**
+        * Dependencies
+        * This class will ensure the core SP scripts are loaded on the page.
+        */
+    export class Dependencies {
+            MAX_WAIT: number;
+            promise: Promise;
+            readonly pageContextExistsFl: boolean;
+            SCRIPTS: Array<string>;
+            /**
+                * Constructor
+                * @param callback - The method to execute after the scripts have been loaded.
+                */
+            constructor(callback: (...args) => void);
+            /**
+                * Method to ensure the SP classes are loaded
+                */
+            loadDependencies(): void;
+            /**
+                * Method to wait for the page context to be loaded
+                */
+            waitForPageContext(): void;
+    }
 }
 
 declare module 'gd-sprest/lib/helper/jslink' {
@@ -5212,31 +5271,7 @@ declare module 'gd-sprest/lib/helper/spCfg' {
                 * @param callback - An optional function called after the execution completes.
                 * @param targetName - The target configuration type to install.
                 */
-            installByType(cfgType: ISPConfigTypes, callback?: any, targetName?: string): any;
-            /**
-                * Method to install a specific content type
-                * @param ctName - The content type to install.
-                * @param callback - An optional function called after the execution completes.
-                */
-            installContentType(ctName: string, callback?: any): any;
-            /**
-                * Method to install a specific list
-                * @param listName - The list to install.
-                * @param callback - An optional function called after the execution completes.
-                */
-            installList(listName: string, callback?: any): any;
-            /**
-                * Method to install a specific site custom action
-                * @param caName - The site user custom action to install.
-                * @param callback - An optional function called after the execution completes.
-                */
-            installSiteCustomAction(caName: string, callback?: any): any;
-            /**
-                * Method to install a specific web custom action
-                * @param caName - The web user custom action to install.
-                * @param callback - An optional function called after the execution completes.
-                */
-            installWebCustomAction(caName: string, callback?: any): any;
+            installByType(cfgType: number, callback?: any, targetName?: string): any;
             /**
                 * Method to install the configuration
                 * @param callback - An optional function called after the execution completes.
@@ -5248,31 +5283,7 @@ declare module 'gd-sprest/lib/helper/spCfg' {
                 * @param callback - An optional function called after the execution completes.
                 * @param targetName - The target configuration type to uninstall.
                 */
-            uninstallByType(cfgType: ISPConfigTypes, callback?: any, targetName?: string): any;
-            /**
-                * Method to uninstall a specific content type
-                * @param ctName - The content type to uninstall.
-                * @param callback - An optional function called after the execution completes.
-                */
-            uninstallContentType(ctName: string, callback?: any): any;
-            /**
-                * Method to uninstall a specific list
-                * @param listName - The list to uninstall.
-                * @param callback - An optional function called after the execution completes.
-                */
-            uninstallList(listName: string, callback?: any): any;
-            /**
-                * Method to uninstall a specific site custom action
-                * @param caName - The site user custom action to uninstall.
-                * @param callback - An optional function called after the execution completes.
-                */
-            uninstallSiteCustomAction(caName: string, callback?: any): any;
-            /**
-                * Method to uninstall a specific web custom action
-                * @param caName - The web user custom action to uninstall.
-                * @param callback - An optional function called after the execution completes.
-                */
-            uninstallWebCustomAction(caName: string, callback?: any): any;
+            uninstallByType(cfgType: number, callback?: any, targetName?: string): any;
     }
     /**
         * SharePoint Configuration - Properties
@@ -10147,21 +10158,6 @@ declare module 'gd-sprest/utils/batch' {
                     callback?: any;
                     targetInfo: TargetInfo;
             }>>): TargetInfo;
-    }
-}
-
-declare module 'gd-sprest/utils/dependencies' {
-    import { Promise } from "gd-sprest/utils";
-    /*********************************************************************************************************************************/
-    export class Dependencies {
-        /*********************************************************************************************************************************/
-        readonly MAX_WAIT: number;
-        readonly SCRIPTS: Array<string>;
-        /*********************************************************************************************************************************/
-        constructor(callback: (...args) => void);
-        /*********************************************************************************************************************************/
-        promise: Promise;
-        readonly pageContextExistsFl: boolean;
     }
 }
 

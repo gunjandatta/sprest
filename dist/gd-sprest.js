@@ -98,7 +98,6 @@ __export(__webpack_require__(33));
 __export(__webpack_require__(34));
 __export(__webpack_require__(35));
 __export(__webpack_require__(36));
-__export(__webpack_require__(37));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -112,8 +111,8 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(26));
+__export(__webpack_require__(37));
 __export(__webpack_require__(38));
-__export(__webpack_require__(39));
 __export(__webpack_require__(44));
 __export(__webpack_require__(45));
 __export(__webpack_require__(46));
@@ -294,7 +293,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.29,
+    __ver: 2.30,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Email: lib_1.Email,
@@ -3980,93 +3979,6 @@ exports.Batch = Batch;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(1);
-/*********************************************************************************************************************************/
-// Dependencies
-// This class will ensure the core SP scripts are loaded on the page.
-/*********************************************************************************************************************************/
-var Dependencies = /** @class */ (function () {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function Dependencies(callback) {
-        // Default the properties
-        this.promise = new _1.Promise(callback);
-        // Load the dependencies
-        this.loadDependencies();
-    }
-    Object.defineProperty(Dependencies.prototype, "MAX_WAIT", {
-        /*********************************************************************************************************************************/
-        // Constants
-        /*********************************************************************************************************************************/
-        get: function () { return 5; },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(Dependencies.prototype, "SCRIPTS", {
-        get: function () { return ["MicrosoftAjax.js", "init.js", "sp.runtime.js", "sp.js", "sp.core.js", "core.js"]; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(Dependencies.prototype, "pageContextExistsFl", {
-        // Flag to determine if the page context information exists
-        get: function () { return lib_1.ContextInfo.webAbsoluteUrl != ""; },
-        enumerable: true,
-        configurable: true
-    });
-    /*********************************************************************************************************************************/
-    // Private Methods
-    /*********************************************************************************************************************************/
-    // Method to ensure the SP classes are loaded
-    Dependencies.prototype.loadDependencies = function () {
-        // See if the page context exists
-        if (this.pageContextExistsFl) {
-            // Resolve the promise
-            this.promise.resolve();
-        }
-        else {
-            // Load the required scripts
-            for (var fileName in this.SCRIPTS) {
-                // Create the script element
-                var elScript = lib_1.ContextInfo.document.createElement("script");
-                // Set the properties
-                elScript.setAttribute("src", "/_layouts/15/" + fileName);
-                elScript.setAttribute("type", "text/javascript");
-                // Add the script element to the head
-                lib_1.ContextInfo.document.head.appendChild(elScript);
-            }
-            // Wait for the page context to exist
-            this.waitForPageContext();
-        }
-    };
-    // Method to wait for the page context to be loaded
-    Dependencies.prototype.waitForPageContext = function () {
-        var counter = 0;
-        // Check every 10ms
-        var intervalId = lib_1.ContextInfo.window.setInterval(function () {
-            // See if the page context exists, and ensure we haven't hit the max attempts
-            if (this.pageContextExists() || ++counter >= this.MAX_WAIT) {
-                // Clear the interval
-                lib_1.ContextInfo.window.clearInterval(intervalId);
-                // Resolve the promise
-                this.promise.resolve();
-            }
-        }, 10);
-    };
-    return Dependencies;
-}());
-exports.Dependencies = Dependencies;
-//# sourceMappingURL=dependencies.js.map
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
 var types_1 = __webpack_require__(0);
 var _1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
@@ -4317,7 +4229,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4443,7 +4355,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4510,7 +4422,7 @@ exports.Promise = Promise;
 //# sourceMappingURL=promise.js.map
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4672,7 +4584,7 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4843,7 +4755,7 @@ exports.XHRRequest = XHRRequest;
 //# sourceMappingURL=xhrRequest.js.map
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4914,13 +4826,14 @@ exports.Email = new _Email();
 //# sourceMappingURL=email.js.map
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = __webpack_require__(40);
+var app_1 = __webpack_require__(39);
+var dependencies_1 = __webpack_require__(40);
 var jslink_1 = __webpack_require__(41);
 var loader_1 = __webpack_require__(42);
 var spCfg_1 = __webpack_require__(43);
@@ -4930,6 +4843,7 @@ var spCfg_1 = __webpack_require__(43);
  */
 exports.Helper = {
     App: app_1.AppHelper,
+    Dependencies: dependencies_1.Dependencies,
     JSLink: jslink_1.JSLinkHelper,
     Loader: loader_1.Loader,
     SPConfig: spCfg_1.SPConfig
@@ -4937,7 +4851,7 @@ exports.Helper = {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5236,6 +5150,84 @@ exports.AppHelper = {
     }
 };
 //# sourceMappingURL=app.js.map
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(1);
+var __1 = __webpack_require__(2);
+/**
+ * Dependencies
+ * This class will ensure the core SP scripts are loaded on the page.
+ */
+var Dependencies = /** @class */ (function () {
+    /**
+     * Constructor
+     * @param callback - The method to execute after the scripts have been loaded.
+     */
+    function Dependencies(callback) {
+        // Default the properties
+        this.MAX_WAIT = 5;
+        this.promise = new utils_1.Promise(callback);
+        this.SCRIPTS = [
+            "MicrosoftAjax.js", "init.js", "sp.runtime.js", "sp.js", "sp.core.js", "core.js"
+        ];
+        // Load the dependencies
+        this.loadDependencies();
+    }
+    Object.defineProperty(Dependencies.prototype, "pageContextExistsFl", {
+        get: function () { return __1.ContextInfo.webAbsoluteUrl != ""; },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Method to ensure the SP classes are loaded
+     */
+    Dependencies.prototype.loadDependencies = function () {
+        // See if the page context exists
+        if (this.pageContextExistsFl) {
+            // Resolve the promise
+            this.promise.resolve();
+        }
+        else {
+            // Load the required scripts
+            for (var fileName in this.SCRIPTS) {
+                // Create the script element
+                var elScript = __1.ContextInfo.document.createElement("script");
+                // Set the properties
+                elScript.setAttribute("src", "/_layouts/15/" + fileName);
+                elScript.setAttribute("type", "text/javascript");
+                // Add the script element to the head
+                __1.ContextInfo.document.head.appendChild(elScript);
+            }
+            // Wait for the page context to exist
+            this.waitForPageContext();
+        }
+    };
+    /**
+     * Method to wait for the page context to be loaded
+     */
+    Dependencies.prototype.waitForPageContext = function () {
+        var counter = 0;
+        // Check every 10ms
+        var intervalId = __1.ContextInfo.window.setInterval(function () {
+            // See if the page context exists, and ensure we haven't hit the max attempts
+            if (this.pageContextExists || ++counter >= this.MAX_WAIT) {
+                // Clear the interval
+                __1.ContextInfo.window.clearInterval(intervalId);
+                // Resolve the promise
+                this.promise.resolve();
+            }
+        }, 10);
+    };
+    return Dependencies;
+}());
+exports.Dependencies = Dependencies;
+//# sourceMappingURL=dependencies.js.map
 
 /***/ }),
 /* 41 */
