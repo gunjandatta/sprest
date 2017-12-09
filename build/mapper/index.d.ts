@@ -866,6 +866,7 @@ export declare const Mapper: {
             argNames: string[];
             name: string;
             requestType: number;
+            returnType: string;
         };
         SiteCollectionAppCatalogsSites: {
             requestType: number;

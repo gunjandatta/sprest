@@ -139,7 +139,7 @@ exports.tenantappcatalog = {
     // Properties
     /*********************************************************************************************************************************/
     properties: [
-        "AvailableApps|availableapps|/getById('[Id]')|tenantapp"
+        "AvailableApps|tenantapps|/getById('[Id]')|tenantapp"
     ],
     /*********************************************************************************************************************************/
     // Methods
@@ -153,7 +153,8 @@ exports.tenantappcatalog = {
     GetById: {
         argNames: ["guid"],
         name: "AvailableApps/getById('[[guid]]')",
-        requestType: types_1.RequestType.GetReplace
+        requestType: types_1.RequestType.GetReplace,
+        returnType: "tenantapp"
     },
     // Gets the site collection app catalog sites
     SiteCollectionAppCatalogsSites: {

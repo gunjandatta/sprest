@@ -111,6 +111,7 @@ export declare const tenantappcatalog: {
         argNames: string[];
         name: string;
         requestType: number;
+        returnType: string;
     };
     SiteCollectionAppCatalogsSites: {
         requestType: number;

@@ -11,7 +11,7 @@ export interface ITenantAppCatalogMethods {
      * @param overwrite - Flag to overwrite the solution.
      * @param url - The file name of the solution.
      */
-    Add(overwrite?: boolean, url?: string);
+    Add(overwrite?: boolean, url?: string): IBase<ITenantApp>;
 
     /**
      * Deploy solution package in tenant app catalog
@@ -41,13 +41,17 @@ export interface ITenantAppCatalogProps {
  * Tenant App Catalog Query Properties
  */
 export interface ITenantAppCatalogQueryProps {
+    /**
+     * List available packages from tenant app catalog
+     * REST API for getting list of available SharePoint Framework solutions or add-ins in tenant app catalog.
+     */
+    AvailableApps(): ITenantApps;
 }
 
 /**
  * Tenant App Catalog Query Result
  */
-export interface ITenantAppCatalogQueryResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps, IBase<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> {
-}
+export interface ITenantAppCatalogQueryResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps {}
 
 /**
  * Tenant App Catalog Result

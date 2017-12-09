@@ -162,7 +162,7 @@ export const tenantappcatalog = {
     // Properties
     /*********************************************************************************************************************************/
     properties: [
-        "AvailableApps|availableapps|/getById('[Id]')|tenantapp"
+        "AvailableApps|tenantapps|/getById('[Id]')|tenantapp"
     ],
 
     /*********************************************************************************************************************************/
@@ -179,7 +179,8 @@ export const tenantappcatalog = {
     GetById: {
         argNames: ["guid"],
         name: "AvailableApps/getById('[[guid]]')",
-        requestType: RequestType.GetReplace
+        requestType: RequestType.GetReplace,
+        returnType: "tenantapp"
     },
 
     // Gets the site collection app catalog sites
