@@ -4754,6 +4754,9 @@ declare module 'gd-sprest/mapper/security' {
 
 declare module 'gd-sprest/mapper/site' {
     export * from "gd-sprest/mapper/site/site";
+    export * from "gd-sprest/mapper/site/tenantApp";
+    export * from "gd-sprest/mapper/site/tenantApps";
+    export * from "gd-sprest/mapper/site/tenantAppCatalog";
     export * from "gd-sprest/mapper/site/web";
     export * from "gd-sprest/mapper/site/webs";
 }
@@ -8615,10 +8618,132 @@ declare module 'gd-sprest/mapper/site/site' {
     }
 }
 
+declare module 'gd-sprest/mapper/site/tenantApp' {
+    import { IBase } from "gd-sprest/utils";
+    /**
+        * Methods
+        */
+    export interface ITenantAppMethods {
+            /**
+                * Deploy solution package in tenant app catalog
+                * Enable solution to be available to install to specific sites. This API is designed to be executed in the context of the tenant app catalog site.
+                */
+            Deploy(): IBase;
+            /**
+                * Install solution package from tenant app catalog to SharePoint site
+                * Install a solution package with specific identifier from tenant app catalog to the site based on URL context. This REST call can be executed in the context of the site where the install operation should happen.
+                */
+            Install(): IBase;
+            /**
+                * Remove solution package from tenant app catalog
+                * Remove the solution package from the tenant app catalog. This API is designed to be executed in the context of the tenant app catalog site.
+                */
+            Remove(): IBase;
+            /**
+                * Retract solution package in the tenant app catalog
+                * Retract solution to be available from the sites. This API is designed to be executed in the context of the tenant app catalog site.
+                */
+            Retract(): IBase;
+            /**
+                * Uninstall solution package from SharePoint site
+                * Uninstall a solution package from the site. This REST call can be executed in the context of the site where the uninstall operation should happen.
+                */
+            Uninstall(): IBase;
+            /**
+                * Upgrade solution package in SharePoint site
+                * Upgrade a solution package from the site to a newer version available in the tenant app catalog. This REST call can be executed in the context of the site where the upgrade operation should happen.
+                */
+            Upgrade(): IBase;
+    }
+    /**
+        * Tenant App
+        */
+    export interface ITenantApp extends ITenantAppMethods, IBase<ITenantApp> {
+    }
+}
+
+declare module 'gd-sprest/mapper/site/tenantApps' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils";
+    import { ITenantApp } from "gd-sprest/mapper/site";
+    /**
+        * Methods
+        */
+    export interface ITenantAppsMethods {
+            /**
+                * Details on individual solution package from tenant app catalog
+                * REST API for getting details on individual SharePoint Framework solution or add-in available in the tenant app catalog.
+                * @param guid - The app id.
+                */
+            GetById(guid: string): IBase<ITenantApp>;
+    }
+    /**
+        * Tenant Apps
+        */
+    export interface ITenantApps extends ITenantAppsMethods, IBaseCollection<ITenantApp> {
+    }
+}
+
+declare module 'gd-sprest/mapper/site/tenantAppCatalog' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils";
+    import { ITenantApp, ITenantApps } from "gd-sprest/mapper/site";
+    /**
+        * Tenant App Catalog Methods
+        */
+    export interface ITenantAppCatalogMethods {
+            /**
+                * Add solution package to tenant app catalog
+                * Adding solution to the tenant app catalog. This API is designed to be executed in the context of the tenant app catalog site.
+                * @param overwrite - Flag to overwrite the solution.
+                * @param url - The file name of the solution.
+                */
+            Add(overwrite?: boolean, url?: string): any;
+            /**
+                * Deploy solution package in tenant app catalog
+                * Enable solution to be available to install to specific sites. This API is designed to be executed in the context of the tenant app catalog site.
+                * @param guid - The app id.
+                */
+            GetById(guid: string): IBase<ITenantApp>;
+    }
+    /**
+        * Tenant App Catalog Properties
+        */
+    export interface ITenantAppCatalogProps {
+            /**
+                * List available packages from tenant app catalog
+                * REST API for getting list of available SharePoint Framework solutions or add-ins in tenant app catalog.
+                */
+            AvailableApps(): ITenantApps;
+            /**
+                * No documentation available. Need to research this.
+                */
+            SiteCollectionAppCatalogsSites(): IBaseCollection;
+    }
+    /**
+        * Tenant App Catalog Query Properties
+        */
+    export interface ITenantAppCatalogQueryProps {
+    }
+    /**
+        * Tenant App Catalog Query Result
+        */
+    export interface ITenantAppCatalogQueryResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps, IBase<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> {
+    }
+    /**
+        * Tenant App Catalog Result
+        */
+    export interface ITenantAppCatalogResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps, ITenantAppCatalogQueryProps, IBase<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> {
+    }
+    /**
+        * Tenant App Catalog
+        */
+    export interface ITenantAppCatalog extends ITenantAppCatalogMethods, ITenantAppCatalogQueryProps, IBase<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> {
+    }
+}
+
 declare module 'gd-sprest/mapper/site/web' {
     import { IBase, ITargetInfo } from "gd-sprest/utils";
     import { Types } from "gd-sprest/mapper";
-    import { IWebInfo, IWebResult, IWebResults, IWebs } from "gd-sprest/mapper/site";
+    import { ITenantAppCatalog, IWebInfo, IWebResult, IWebResults, IWebs } from "gd-sprest/mapper/site";
     /**
         * Web Creation Information
         */
@@ -9127,6 +9252,8 @@ declare module 'gd-sprest/mapper/site/web' {
                 * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
                 */
             SupportedUILanguageIds(): IBase<Number>;
+            /** Gets the tenant app catalog. */
+            TenantAppCatalog(): ITenantAppCatalog;
             /**
                 * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
                 */
@@ -9301,6 +9428,8 @@ declare module 'gd-sprest/mapper/site/web' {
                 * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
                 */
             SupportedUILanguageIds: Types.IResults<number>;
+            /** Gets the tenant app catalog. */
+            TenantAppCatalog: ITenantAppCatalog;
             /**
                 * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
                 */
@@ -9332,7 +9461,7 @@ declare module 'gd-sprest/mapper/site/web' {
     /**
         * Web Result
         */
-    export interface IWebResult extends IWebMethods, IWebProps, IWebQueryProps, IWebQueryProps, IBase<IWeb, IWebResult, IWebQueryResult> {
+    export interface IWebResult extends IWebMethods, IWebProps, IWebQueryProps, IBase<IWeb, IWebResult, IWebQueryResult> {
     }
     /**
         * Web

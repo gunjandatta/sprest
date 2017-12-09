@@ -2045,6 +2045,71 @@ exports.site = {
     }
 };
 /**
+ * Tenant App
+ */
+exports.tenantapp = {
+    // Deploy solution package in tenant app catalog
+    Deploy: {
+        requestType: types_1.RequestType.Post
+    },
+    // Install solution package from tenant app catalog to SharePoint site
+    Install: {
+        requestType: types_1.RequestType.Post
+    },
+    // Remove solution package from tenant app catalog
+    Remove: {
+        requestType: types_1.RequestType.Post
+    },
+    // Retract solution package in the tenant app catalog
+    Retract: {
+        requestType: types_1.RequestType.Post
+    },
+    // Upgrade solution package in SharePoint site
+    Upgrade: {
+        requestType: types_1.RequestType.Post
+    },
+    // Uninstall solution package from SharePoint site
+    Uninstall: {
+        requestType: types_1.RequestType.Post
+    }
+};
+/**
+ * Tenant Apps
+ */
+exports.tenantapps = {
+    GetById: {
+        argNames: ["guid"],
+        requestType: types_1.RequestType.GetWithArgsInQS,
+        returnType: "tenantapp"
+    }
+};
+/**
+ * Tenant App Catalog
+ */
+exports.tenantappcatalog = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "AvailableApps|availableapps|/getById('[Id]')|tenantapp",
+        "SiteCollectionAppCatalogsSites"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Adds the folder that is located at the specified URL to the collection.
+    Add: {
+        argNames: ["overwrite", "url"],
+        requestType: types_1.RequestType.PostWithArgsInQS
+    },
+    // Get an app by id.
+    GetById: {
+        argNames: ["guid"],
+        name: "AvailableApps/getById('[[guid]]')",
+        requestType: types_1.RequestType.GetReplace
+    }
+};
+/**
  * Web
  */
 exports.web = {
@@ -2061,7 +2126,8 @@ exports.web = {
         "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb",
         "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
         "RoleDefinitions|roledefinitions|/getByName('[Name]')|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
-        "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user", "ThemeInfo", "TitleResource",
+        "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user",
+        "TenantAppCatalog|tenantappcatalog", "ThemeInfo", "TitleResource",
         "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos|webinfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
     ],
     /*********************************************************************************************************************************/

@@ -109,6 +109,82 @@ export const site = {
 };
 
 /**
+ * Tenant App
+ */
+export const tenantapp = {
+    // Deploy solution package in tenant app catalog
+    Deploy: {
+        requestType: RequestType.Post
+    },
+
+    // Install solution package from tenant app catalog to SharePoint site
+    Install: {
+        requestType: RequestType.Post
+    },
+
+    // Remove solution package from tenant app catalog
+    Remove: {
+        requestType: RequestType.Post
+    },
+
+    // Retract solution package in the tenant app catalog
+    Retract: {
+        requestType: RequestType.Post
+    },
+
+    // Upgrade solution package in SharePoint site
+    Upgrade: {
+        requestType: RequestType.Post
+    },
+
+    // Uninstall solution package from SharePoint site
+    Uninstall: {
+        requestType: RequestType.Post
+    }
+}
+
+/**
+ * Tenant Apps
+ */
+export const tenantapps = {
+    GetById: {
+        argNames: ["guid"],
+        requestType: RequestType.GetWithArgsInQS,
+        returnType: "tenantapp"
+    }
+}
+
+/**
+ * Tenant App Catalog
+ */
+export const tenantappcatalog = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "AvailableApps|availableapps|/getById('[Id]')|tenantapp",
+        "SiteCollectionAppCatalogsSites"
+    ],
+
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+
+    // Adds the folder that is located at the specified URL to the collection.
+    Add: {
+        argNames: ["overwrite", "url"],
+        requestType: RequestType.PostWithArgsInQS
+    },
+
+    // Get an app by id.
+    GetById: {
+        argNames: ["guid"],
+        name: "AvailableApps/getById('[[guid]]')",
+        requestType: RequestType.GetReplace
+    }
+}
+
+/**
  * Web
  */
 export const web = {
@@ -126,7 +202,8 @@ export const web = {
         "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb",
         "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
         "RoleDefinitions|roledefinitions|/getByName('[Name]')|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
-        "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user", "ThemeInfo", "TitleResource",
+        "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user",
+        "TenantAppCatalog|tenantappcatalog", "ThemeInfo", "TitleResource",
         "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos|webinfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
     ],
 
