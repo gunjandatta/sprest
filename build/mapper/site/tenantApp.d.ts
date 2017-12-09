@@ -35,7 +35,33 @@ export interface ITenantAppMethods {
     Upgrade(): IBase;
 }
 /**
+ * Properties
+ */
+export interface ITenantAppProps {
+    /** The app version. */
+    AppCatalogVersion: string;
+    /** Flag indicating an upgrade is available. */
+    CanUpgrade: boolean;
+    /** Flag indicating if the current version is deployed. */
+    CurrentVersionDeployed: boolean;
+    /** Flag indicating if the app is deployed. */
+    Deployed: boolean;
+    /** The app id. */
+    ID: string;
+    /** The installed version. */
+    InstalledVersion: string;
+    /** Flag indicating if this is a client-side solution. */
+    IsClientSideSolution: boolean;
+    /** The app title. */
+    Title: string;
+}
+/**
+ * Tenant App Result
+ */
+export interface ITenantAppResult extends ITenantAppMethods, ITenantAppProps, IBase<ITenantApp, ITenantAppResult> {
+}
+/**
  * Tenant App
  */
-export interface ITenantApp extends ITenantAppMethods, IBase<ITenantApp> {
+export interface ITenantApp extends ITenantAppMethods, IBase<ITenantApp, ITenantAppResult> {
 }

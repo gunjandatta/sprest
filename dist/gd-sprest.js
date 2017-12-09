@@ -2017,7 +2017,7 @@ exports.site = {
         argNames: ["gWebId"],
         requestType: types_1.RequestType.PostWithArgsValueOnly
     },
-    // Queries the collection
+    // Queries the object
     query: {
         argNames: ["oData"],
         requestType: types_1.RequestType.OData
@@ -2057,6 +2057,11 @@ exports.tenantapp = {
     Install: {
         requestType: types_1.RequestType.Post
     },
+    // Queries the object
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
     // Remove solution package from tenant app catalog
     Remove: {
         requestType: types_1.RequestType.Post
@@ -2078,10 +2083,16 @@ exports.tenantapp = {
  * Tenant Apps
  */
 exports.tenantapps = {
+    // Get an app by id
     GetById: {
         argNames: ["guid"],
-        requestType: types_1.RequestType.GetWithArgsInQS,
+        requestType: types_1.RequestType.GetWithArgsValueOnly,
         returnType: "tenantapp"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
     }
 };
 /**
@@ -2100,7 +2111,7 @@ exports.tenantappcatalog = {
     // Adds the folder that is located at the specified URL to the collection.
     Add: {
         argNames: ["overwrite", "url"],
-        requestType: types_1.RequestType.PostWithArgsInQS
+        requestType: types_1.RequestType.PostWithArgs
     },
     // Get an app by id.
     GetById: {
@@ -3169,6 +3180,14 @@ var BaseHelper = /** @class */ (function () {
             // Update the type
             objType = "items";
         }
+        else if (/corporatecatalogappmetadata/.test(objType)) {
+            // Update the type
+            objType = "tenantapp";
+        }
+        else if (/corporatecatalogappmetadatas/.test(objType)) {
+            // Update the type
+            objType = "tenantapps";
+        }
         // Get the methods for the base object
         var methods = mapper_1.Mapper[objType];
         if (methods) {
@@ -3503,13 +3522,15 @@ var BaseRequest = /** @class */ (function (_super) {
                         // Execute the callback
                         callback ? callback(_this.xhr.response) : null;
                     }
-                    // Update the data object
-                    _this.updateDataObject(isBatchRequest);
-                    // Validate the data collection
-                    isBatchRequest ? null : _this.validateDataCollectionResults().done(function () {
-                        // Execute the callback
-                        callback ? callback(_this) : null;
-                    });
+                    else {
+                        // Update the data object
+                        _this.updateDataObject(isBatchRequest);
+                        // Validate the data collection
+                        isBatchRequest ? null : _this.validateDataCollectionResults().done(function () {
+                            // Execute the callback
+                            callback ? callback(_this) : null;
+                        });
+                    }
                 });
             }
         }
@@ -3618,12 +3639,16 @@ var BaseRequest = /** @class */ (function (_super) {
     BaseRequest.prototype.updateMetadataUri = function (metadata, targetInfo) {
         // See if this is a field
         if (/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
-            // Fix the uri reference
+            // Fix the url reference
             targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
         }
         else if (/SP.EventReceiverDefinition/.test(metadata.type)) {
-            // Fix the uri reference
+            // Fix the url reference
             targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
+        }
+        else if (/Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata/.test(targetInfo.url)) {
+            // Fix the url reference
+            targetInfo.url = targetInfo.url.split("Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata")[0] + "web/tenantappcatalog/availableapps/getbyid('" + this["ID"] + "')";
         }
     };
     // Method to validate the data collection results
@@ -3774,7 +3799,7 @@ var BaseExecution = /** @class */ (function (_super) {
             // Wait for the responses to execute
             this.waitForRequestsToComplete(function () {
                 // Execute this request
-                _this.executeRequest(true, function () {
+                _this.executeRequest(true, function (response) {
                     // See if there is a callback
                     if (callback) {
                         // Set the base to this object, and clear requests
@@ -3782,7 +3807,7 @@ var BaseExecution = /** @class */ (function (_super) {
                         _this.base = _this;
                         _this.base.responses = [];
                         // Execute the callback and see if it returns a promise
-                        var returnVal = callback(_this);
+                        var returnVal = callback(response);
                         if (returnVal && typeof (returnVal.done) === "function") {
                             // Wait for the promise to complete
                             returnVal.done(function () {
@@ -3804,9 +3829,9 @@ var BaseExecution = /** @class */ (function (_super) {
         }
         else {
             // Execute this request
-            this.executeRequest(true, function () {
+            this.executeRequest(true, function (response) {
                 // Execute the callback and see if it returns a promise
-                var returnVal = callback ? callback(_this) : null;
+                var returnVal = callback ? callback(response) : null;
                 if (returnVal && typeof (returnVal.done) === "function") {
                     // Wait for the promise to complete
                     returnVal.done(function () {
@@ -4509,37 +4534,16 @@ var TargetInfo = /** @class */ (function () {
     /*********************************************************************************************************************************/
     function TargetInfo(targetInfo) {
         // Default the properties
-        this.targetInfo = targetInfo || {};
-        this.requestData = this.targetInfo.data;
-        this.requestHeaders = this.targetInfo.requestHeader;
-        this.requestMethod = this.targetInfo.method ? this.targetInfo.method : "GET";
+        this.request = targetInfo || {};
+        this.requestData = this.request.data;
+        this.requestHeaders = this.request.requestHeader;
+        this.requestMethod = this.request.method ? this.request.method : "GET";
         // Set the request url
         this.setRequestUrl();
     }
-    Object.defineProperty(TargetInfo.prototype, "bufferFl", {
-        /*********************************************************************************************************************************/
-        // Public Properties
-        /*********************************************************************************************************************************/
-        // Flag to determine if the request returns an array buffer
-        get: function () { return this.targetInfo.bufferFl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TargetInfo.prototype, "callback", {
-        // The callback method to execute after the asynchronous request completes
-        get: function () { return this.targetInfo.callback; },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(TargetInfo.prototype, "isBatchRequest", {
         // Flag to determine if this is a batch request
-        get: function () { return this.targetInfo.endpoint == "$batch"; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TargetInfo.prototype, "requestDigest", {
-        // The form digest
-        get: function () { return this.targetInfo.requestDigest; },
+        get: function () { return this.request.endpoint == "$batch"; },
         enumerable: true,
         configurable: true
     });
@@ -4599,23 +4603,23 @@ var TargetInfo = /** @class */ (function () {
     };
     // Method to set the request url
     TargetInfo.prototype.setRequestUrl = function () {
-        var endpoint = this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "";
+        var endpoint = this.request.endpoint ? "/" + this.request.endpoint : "";
         var hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
         var qs = (endpoint.indexOf("?") === -1 ? "?" : "&") + "@target='{{Target}}'";
         var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
         // See if we are defaulting the url for the app web
-        if (lib_1.ContextInfo.existsFl && lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && !this.targetInfo.overrideDefaultRequestToHostFl && this.targetInfo.url == null) {
+        if (lib_1.ContextInfo.existsFl && lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && !this.request.overrideDefaultRequestToHostFl && this.request.url == null) {
             // Default the url to the host web
-            this.targetInfo.url = hostUrl;
+            this.request.url = hostUrl;
         }
         // Ensure the url exists
-        if (this.targetInfo.url == null) {
+        if (this.request.url == null) {
             // Default the url to the current site/web url
-            this.targetInfo.url = this.targetInfo.defaultToWebFl == false ? lib_1.ContextInfo.siteAbsoluteUrl : lib_1.ContextInfo.webAbsoluteUrl;
+            this.request.url = this.request.defaultToWebFl == false ? lib_1.ContextInfo.siteAbsoluteUrl : lib_1.ContextInfo.webAbsoluteUrl;
         }
-        else if (/\/_api\//.test(this.targetInfo.url)) {
+        else if (/\/_api\//.test(this.request.url)) {
             // Get the url
-            var url = this.targetInfo.url.toLowerCase().split("/_api/");
+            var url = this.request.url.toLowerCase().split("/_api/");
             // See if this is the app web and we are executing against a different web
             if (lib_1.ContextInfo.isAppWeb && url[0] != lib_1.ContextInfo.webAbsoluteUrl.toLowerCase()) {
                 // Set the request url
@@ -4624,28 +4628,28 @@ var TargetInfo = /** @class */ (function () {
             }
             else {
                 // Set the request url
-                this.requestUrl = this.targetInfo.url + (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "");
+                this.requestUrl = this.request.url + (this.request.endpoint ? "/" + this.request.endpoint : "");
             }
             return;
         }
         // See if this is a relative url
-        if (this.targetInfo.url.indexOf("http") != 0) {
+        if (this.request.url.indexOf("http") != 0) {
             // Add the domain
-            this.targetInfo.url = this.getDomainUrl() + this.targetInfo.url;
+            this.request.url = this.getDomainUrl() + this.request.url;
         }
         // See if this is the app web, and we are executing against a different web
-        if (lib_1.ContextInfo.isAppWeb && this.targetInfo.url != lib_1.ContextInfo.webAbsoluteUrl) {
+        if (lib_1.ContextInfo.isAppWeb && this.request.url != lib_1.ContextInfo.webAbsoluteUrl) {
             // Set the request url
             this.requestUrl = template
                 .replace(/{{Url}}/g, lib_1.ContextInfo.webAbsoluteUrl)
                 .replace(/{{EndPoint}}/g, "SP.AppContextSite(@target)" + endpoint)
-                .replace(/{{TargetUrl}}/g, qs.replace(/{{Target}}/g, this.targetInfo.url));
+                .replace(/{{TargetUrl}}/g, qs.replace(/{{Target}}/g, this.request.url));
         }
         else {
             // Set the request url
             this.requestUrl = template
-                .replace(/{{Url}}/g, this.targetInfo.url)
-                .replace(/{{EndPoint}}/g, this.targetInfo.endpoint)
+                .replace(/{{Url}}/g, this.request.url)
+                .replace(/{{EndPoint}}/g, this.request.endpoint)
                 .replace(/{{TargetUrl}}/g, "");
         }
     };
@@ -4674,7 +4678,7 @@ var XHRRequest = /** @class */ (function () {
     function XHRRequest(asyncFl, targetInfo, callback) {
         // Default the properties
         this.asyncFl = asyncFl;
-        this.promise = new _1.Promise(callback || targetInfo.callback);
+        this.promise = new _1.Promise(callback || targetInfo.request.callback);
         this.targetInfo = targetInfo;
         this.xhr = this.createXHR();
         // Execute the request
@@ -4765,9 +4769,9 @@ var XHRRequest = /** @class */ (function () {
         // Set the method
         this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
         // See if the request digest has been defined
-        if (this.targetInfo.requestDigest) {
+        if (this.targetInfo.request.requestDigest) {
             // Set the request digest
-            this.xhr.setRequestHeader("X-RequestDigest", this.targetInfo.requestDigest);
+            this.xhr.setRequestHeader("X-RequestDigest", this.targetInfo.request.requestDigest);
         }
         else {
             // Get the request digest
@@ -4804,7 +4808,7 @@ var XHRRequest = /** @class */ (function () {
         }
         // See if we the response type is an array buffer
         // Note - Updating the response type is only allow for asynchronous requests. Any error will be thrown otherwise.
-        if (this.targetInfo.bufferFl && this.asyncFl) {
+        if (this.targetInfo.request.bufferFl && this.asyncFl) {
             // Set the response type
             this.xhr.responseType = "arraybuffer";
         }
@@ -4818,7 +4822,7 @@ var XHRRequest = /** @class */ (function () {
             }
         }
         // Execute the request
-        this.targetInfo.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+        this.targetInfo.request.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
     };
     return XHRRequest;
 }());

@@ -85,7 +85,7 @@ var BaseExecution = /** @class */ (function (_super) {
             // Wait for the responses to execute
             this.waitForRequestsToComplete(function () {
                 // Execute this request
-                _this.executeRequest(true, function () {
+                _this.executeRequest(true, function (response) {
                     // See if there is a callback
                     if (callback) {
                         // Set the base to this object, and clear requests
@@ -93,7 +93,7 @@ var BaseExecution = /** @class */ (function (_super) {
                         _this.base = _this;
                         _this.base.responses = [];
                         // Execute the callback and see if it returns a promise
-                        var returnVal = callback(_this);
+                        var returnVal = callback(response);
                         if (returnVal && typeof (returnVal.done) === "function") {
                             // Wait for the promise to complete
                             returnVal.done(function () {
@@ -115,9 +115,9 @@ var BaseExecution = /** @class */ (function (_super) {
         }
         else {
             // Execute this request
-            this.executeRequest(true, function () {
+            this.executeRequest(true, function (response) {
                 // Execute the callback and see if it returns a promise
-                var returnVal = callback ? callback(_this) : null;
+                var returnVal = callback ? callback(response) : null;
                 if (returnVal && typeof (returnVal.done) === "function") {
                     // Wait for the promise to complete
                     returnVal.done(function () {

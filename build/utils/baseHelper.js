@@ -35,6 +35,14 @@ var BaseHelper = /** @class */ (function () {
             // Update the type
             objType = "items";
         }
+        else if (/corporatecatalogappmetadata/.test(objType)) {
+            // Update the type
+            objType = "tenantapp";
+        }
+        else if (/corporatecatalogappmetadatas/.test(objType)) {
+            // Update the type
+            objType = "tenantapps";
+        }
         // Get the methods for the base object
         var methods = mapper_1.Mapper[objType];
         if (methods) {

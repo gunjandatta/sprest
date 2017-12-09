@@ -880,6 +880,10 @@ declare module 'gd-sprest/mapper' {
             Install: {
                 requestType: number;
             };
+            query: {
+                argNames: string[];
+                requestType: number;
+            };
             Remove: {
                 requestType: number;
             };
@@ -914,6 +918,10 @@ declare module 'gd-sprest/mapper' {
                 argNames: string[];
                 requestType: number;
                 returnType: string;
+            };
+            query: {
+                argNames: string[];
+                requestType: number;
             };
         };
         user: {
@@ -8699,9 +8707,35 @@ declare module 'gd-sprest/mapper/site/tenantApp' {
             Upgrade(): IBase;
     }
     /**
+        * Properties
+        */
+    export interface ITenantAppProps {
+            /** The app version. */
+            AppCatalogVersion: string;
+            /** Flag indicating an upgrade is available. */
+            CanUpgrade: boolean;
+            /** Flag indicating if the current version is deployed. */
+            CurrentVersionDeployed: boolean;
+            /** Flag indicating if the app is deployed. */
+            Deployed: boolean;
+            /** The app id. */
+            ID: string;
+            /** The installed version. */
+            InstalledVersion: string;
+            /** Flag indicating if this is a client-side solution. */
+            IsClientSideSolution: boolean;
+            /** The app title. */
+            Title: string;
+    }
+    /**
+        * Tenant App Result
+        */
+    export interface ITenantAppResult extends ITenantAppMethods, ITenantAppProps, IBase<ITenantApp, ITenantAppResult> {
+    }
+    /**
         * Tenant App
         */
-    export interface ITenantApp extends ITenantAppMethods, IBase<ITenantApp> {
+    export interface ITenantApp extends ITenantAppMethods, IBase<ITenantApp, ITenantAppResult> {
     }
 }
 
@@ -8728,6 +8762,7 @@ declare module 'gd-sprest/mapper/site/tenantApps' {
 
 declare module 'gd-sprest/mapper/site/tenantAppCatalog' {
     import { IBase, IBaseCollection } from "gd-sprest/utils";
+    import { Types } from "gd-sprest/mapper";
     import { ITenantApp, ITenantApps } from "gd-sprest/mapper/site";
     /**
         * Tenant App Catalog Methods
@@ -8739,13 +8774,13 @@ declare module 'gd-sprest/mapper/site/tenantAppCatalog' {
                 * @param overwrite - Flag to overwrite the solution.
                 * @param url - The file name of the solution.
                 */
-            Add(overwrite?: boolean, url?: string): IBase<ITenantApp>;
+            Add(overwrite?: boolean, url?: string): IBase<Types.IFile, Types.IFileResult>;
             /**
                 * Deploy solution package in tenant app catalog
                 * Enable solution to be available to install to specific sites. This API is designed to be executed in the context of the tenant app catalog site.
                 * @param guid - The app id.
                 */
-            GetById(guid: string): IBase<ITenantApp>;
+            GetById(guid: string): ITenantApp;
     }
     /**
         * Tenant App Catalog Properties
@@ -10470,11 +10505,9 @@ declare module 'gd-sprest/utils/targetInfo' {
             /*********************************************************************************************************************************/
             constructor(targetInfo: ITargetInfo);
             /*********************************************************************************************************************************/
-            readonly bufferFl: boolean;
-            readonly callback: (...args) => void;
+            request: ITargetInfo;
             readonly isBatchRequest: boolean;
             requestData: any;
-            readonly requestDigest: string;
             readonly requestInfo: IRequestInfo;
             requestHeaders: object;
             requestMethod: string;

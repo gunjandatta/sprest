@@ -15,7 +15,7 @@ export class XHRRequest {
     constructor(asyncFl: boolean, targetInfo: TargetInfo, callback?: (...args) => void) {
         // Default the properties
         this.asyncFl = asyncFl;
-        this.promise = new Promise(callback || targetInfo.callback);
+        this.promise = new Promise(callback || targetInfo.request.callback);
         this.targetInfo = targetInfo;
         this.xhr = this.createXHR();
 
@@ -108,9 +108,9 @@ export class XHRRequest {
         this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
         
         // See if the request digest has been defined
-        if (this.targetInfo.requestDigest) {
+        if (this.targetInfo.request.requestDigest) {
             // Set the request digest
-            this.xhr.setRequestHeader("X-RequestDigest", this.targetInfo.requestDigest);
+            this.xhr.setRequestHeader("X-RequestDigest", this.targetInfo.request.requestDigest);
         } else {
             // Get the request digest
             let requestDigest: any = ContextInfo.document.querySelector("#__REQUESTDIGEST");
@@ -149,7 +149,7 @@ export class XHRRequest {
 
         // See if we the response type is an array buffer
         // Note - Updating the response type is only allow for asynchronous requests. Any error will be thrown otherwise.
-        if (this.targetInfo.bufferFl && this.asyncFl) {
+        if (this.targetInfo.request.bufferFl && this.asyncFl) {
             // Set the response type
             this.xhr.responseType = "arraybuffer";
         }
@@ -165,6 +165,6 @@ export class XHRRequest {
         }
 
         // Execute the request
-        this.targetInfo.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+        this.targetInfo.request.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
     }
 }

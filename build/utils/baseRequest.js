@@ -102,13 +102,15 @@ var BaseRequest = /** @class */ (function (_super) {
                         // Execute the callback
                         callback ? callback(_this.xhr.response) : null;
                     }
-                    // Update the data object
-                    _this.updateDataObject(isBatchRequest);
-                    // Validate the data collection
-                    isBatchRequest ? null : _this.validateDataCollectionResults().done(function () {
-                        // Execute the callback
-                        callback ? callback(_this) : null;
-                    });
+                    else {
+                        // Update the data object
+                        _this.updateDataObject(isBatchRequest);
+                        // Validate the data collection
+                        isBatchRequest ? null : _this.validateDataCollectionResults().done(function () {
+                            // Execute the callback
+                            callback ? callback(_this) : null;
+                        });
+                    }
                 });
             }
         }
@@ -217,12 +219,16 @@ var BaseRequest = /** @class */ (function (_super) {
     BaseRequest.prototype.updateMetadataUri = function (metadata, targetInfo) {
         // See if this is a field
         if (/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
-            // Fix the uri reference
+            // Fix the url reference
             targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
         }
         else if (/SP.EventReceiverDefinition/.test(metadata.type)) {
-            // Fix the uri reference
+            // Fix the url reference
             targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
+        }
+        else if (/Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata/.test(targetInfo.url)) {
+            // Fix the url reference
+            targetInfo.url = targetInfo.url.split("Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata")[0] + "web/tenantappcatalog/availableapps/getbyid('" + this["ID"] + "')";
         }
     };
     // Method to validate the data collection results

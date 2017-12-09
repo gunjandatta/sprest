@@ -64,7 +64,7 @@ exports.site = {
         argNames: ["gWebId"],
         requestType: types_1.RequestType.PostWithArgsValueOnly
     },
-    // Queries the collection
+    // Queries the object
     query: {
         argNames: ["oData"],
         requestType: types_1.RequestType.OData
@@ -104,6 +104,11 @@ exports.tenantapp = {
     Install: {
         requestType: types_1.RequestType.Post
     },
+    // Queries the object
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
     // Remove solution package from tenant app catalog
     Remove: {
         requestType: types_1.RequestType.Post
@@ -125,10 +130,16 @@ exports.tenantapp = {
  * Tenant Apps
  */
 exports.tenantapps = {
+    // Get an app by id
     GetById: {
         argNames: ["guid"],
-        requestType: types_1.RequestType.GetWithArgsInQS,
+        requestType: types_1.RequestType.GetWithArgsValueOnly,
         returnType: "tenantapp"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
     }
 };
 /**
@@ -147,7 +158,7 @@ exports.tenantappcatalog = {
     // Adds the folder that is located at the specified URL to the collection.
     Add: {
         argNames: ["overwrite", "url"],
-        requestType: types_1.RequestType.PostWithArgsInQS
+        requestType: types_1.RequestType.PostWithArgs
     },
     // Get an app by id.
     GetById: {

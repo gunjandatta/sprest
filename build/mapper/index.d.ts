@@ -843,6 +843,10 @@ export declare const Mapper: {
         Install: {
             requestType: number;
         };
+        query: {
+            argNames: string[];
+            requestType: number;
+        };
         Remove: {
             requestType: number;
         };
@@ -877,6 +881,10 @@ export declare const Mapper: {
             argNames: string[];
             requestType: number;
             returnType: string;
+        };
+        query: {
+            argNames: string[];
+            requestType: number;
         };
     };
     user: {

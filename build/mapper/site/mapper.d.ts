@@ -75,6 +75,10 @@ export declare const tenantapp: {
     Install: {
         requestType: number;
     };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
     Remove: {
         requestType: number;
     };
@@ -96,6 +100,10 @@ export declare const tenantapps: {
         argNames: string[];
         requestType: number;
         returnType: string;
+    };
+    query: {
+        argNames: string[];
+        requestType: number;
     };
 };
 /**

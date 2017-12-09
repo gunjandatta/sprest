@@ -1,4 +1,5 @@
 import { IBase, IBaseCollection } from "../../utils";
+import { Types } from "..";
 import { ITenantApp, ITenantApps } from ".";
 
 /**
@@ -11,14 +12,14 @@ export interface ITenantAppCatalogMethods {
      * @param overwrite - Flag to overwrite the solution.
      * @param url - The file name of the solution.
      */
-    Add(overwrite?: boolean, url?: string): IBase<ITenantApp>;
+    Add(overwrite?: boolean, url?: string): IBase<Types.IFile, Types.IFileResult>;
 
     /**
      * Deploy solution package in tenant app catalog
      * Enable solution to be available to install to specific sites. This API is designed to be executed in the context of the tenant app catalog site.
      * @param guid - The app id.
      */
-    GetById(guid: string): IBase<ITenantApp>;
+    GetById(guid: string): ITenantApp;
 }
 
 /**
@@ -51,7 +52,7 @@ export interface ITenantAppCatalogQueryProps {
 /**
  * Tenant App Catalog Query Result
  */
-export interface ITenantAppCatalogQueryResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps {}
+export interface ITenantAppCatalogQueryResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps { }
 
 /**
  * Tenant App Catalog Result

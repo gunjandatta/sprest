@@ -48,6 +48,9 @@ function runTests() {
         if (checkboxes[i].checked) {
             // Run the selected test
             switch (checkboxes[i].value) {
+                case "alm":
+                    testALM();
+                    break;
                 case "file":
                     testFile();
                     break;
@@ -63,6 +66,73 @@ function runTests() {
             }
         }
     }
+}
+
+function testALM() {
+    // Log
+    writeToLog("ALM", LogType.Header);
+
+    // Log
+    writeToLog("Getting the solution package.", LogType.SubHeader);
+
+    // Get this file
+    var file = $REST.Web().getFileByServerRelativeUrl("/sites/dev/siteassets/sprest/hello-world-web-part.sppkg").executeAndWait();
+
+    // Test
+    assert(file, "read file", "Exists", true);
+
+    // Log
+    writeToLog("Adding the Solution Package", LogType.SubHeader)
+
+    // Read the content types of this file
+    file.content().execute(function (content) {
+        // Add the app file
+        var appFile = $REST.Web().TenantAppCatalog().Add(true, "hw-webpart.sppkg", content).executeAndWait();
+
+        // Get the app
+        $REST.Web().TenantAppCatalog().AvailableApps().query({ Filter: "Title eq 'hello-world-web-part-client-side-solution'" }).execute(function (apps) {
+            var app = apps.results[0];
+
+            // Ensure the app exists
+            assert(app, "query app", "existsFl", true);
+
+            // Ensure it's deployed
+            if (app.Deployed) {
+                // Log
+                writeToLog("App is already deployed.", LogType.Info);
+            } else {
+                // Deploy the app
+                app.Deploy().execute(function (response) {
+                    // Ensure it was deployed
+                    assert(response, "deploy app", "Deploy", null);
+                }, true)
+            }
+
+            // Ensure it's deployed
+            if (app.Deployed) {
+                // Log
+                writeToLog("App is already deployed.", LogType.Info);
+            } else {
+                // Deploy the app
+                app.Deploy().execute(function (response) {
+                    // Ensure it was deployed
+                    assert(response, "deploy app", "Deploy", null);
+                })
+            }
+
+            // Retract the app
+            app.Retract().execute(function (response) {
+                // Ensure it was retracted
+                assert(response, "retract app", "Retract", null);
+
+                // Remove the app
+                app.Remove().execute(function (response) {
+                    // Ensure it was removed
+                    assert(response, "remove app", "Remove", null);
+                });
+            })
+        });
+    });
 }
 
 function testContentType(list) {

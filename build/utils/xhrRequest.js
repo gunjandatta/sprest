@@ -13,7 +13,7 @@ var XHRRequest = /** @class */ (function () {
     function XHRRequest(asyncFl, targetInfo, callback) {
         // Default the properties
         this.asyncFl = asyncFl;
-        this.promise = new _1.Promise(callback || targetInfo.callback);
+        this.promise = new _1.Promise(callback || targetInfo.request.callback);
         this.targetInfo = targetInfo;
         this.xhr = this.createXHR();
         // Execute the request
@@ -104,9 +104,9 @@ var XHRRequest = /** @class */ (function () {
         // Set the method
         this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
         // See if the request digest has been defined
-        if (this.targetInfo.requestDigest) {
+        if (this.targetInfo.request.requestDigest) {
             // Set the request digest
-            this.xhr.setRequestHeader("X-RequestDigest", this.targetInfo.requestDigest);
+            this.xhr.setRequestHeader("X-RequestDigest", this.targetInfo.request.requestDigest);
         }
         else {
             // Get the request digest
@@ -143,7 +143,7 @@ var XHRRequest = /** @class */ (function () {
         }
         // See if we the response type is an array buffer
         // Note - Updating the response type is only allow for asynchronous requests. Any error will be thrown otherwise.
-        if (this.targetInfo.bufferFl && this.asyncFl) {
+        if (this.targetInfo.request.bufferFl && this.asyncFl) {
             // Set the response type
             this.xhr.responseType = "arraybuffer";
         }
@@ -157,7 +157,7 @@ var XHRRequest = /** @class */ (function () {
             }
         }
         // Execute the request
-        this.targetInfo.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
+        this.targetInfo.request.bufferFl || this.targetInfo.requestData == null ? this.xhr.send() : this.xhr.send(this.targetInfo.requestData);
     };
     return XHRRequest;
 }());

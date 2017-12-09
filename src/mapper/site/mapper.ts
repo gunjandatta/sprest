@@ -75,7 +75,7 @@ export const site = {
         requestType: RequestType.PostWithArgsValueOnly
     },
 
-    // Queries the collection
+    // Queries the object
     query: {
         argNames: ["oData"],
         requestType: RequestType.OData
@@ -122,6 +122,12 @@ export const tenantapp = {
         requestType: RequestType.Post
     },
 
+    // Queries the object
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    },
+
     // Remove solution package from tenant app catalog
     Remove: {
         requestType: RequestType.Post
@@ -147,10 +153,17 @@ export const tenantapp = {
  * Tenant Apps
  */
 export const tenantapps = {
+    // Get an app by id
     GetById: {
         argNames: ["guid"],
-        requestType: RequestType.GetWithArgsInQS,
+        requestType: RequestType.GetWithArgsValueOnly,
         returnType: "tenantapp"
+    },
+
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
     }
 }
 
@@ -172,7 +185,7 @@ export const tenantappcatalog = {
     // Adds the folder that is located at the specified URL to the collection.
     Add: {
         argNames: ["overwrite", "url"],
-        requestType: RequestType.PostWithArgsInQS
+        requestType: RequestType.PostWithArgs
     },
 
     // Get an app by id.

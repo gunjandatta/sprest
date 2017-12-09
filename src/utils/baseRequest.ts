@@ -144,16 +144,16 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
                     if (this.requestType == RequestType.GetBuffer) {
                         // Execute the callback
                         callback ? callback(this.xhr.response) : null;
+                    } else {
+                        // Update the data object
+                        this.updateDataObject(isBatchRequest);
+
+                        // Validate the data collection
+                        isBatchRequest ? null : this.validateDataCollectionResults().done(() => {
+                            // Execute the callback
+                            callback ? callback(this) : null;
+                        });
                     }
-
-                    // Update the data object
-                    this.updateDataObject(isBatchRequest);
-
-                    // Validate the data collection
-                    isBatchRequest ? null : this.validateDataCollectionResults().done(() => {
-                        // Execute the callback
-                        callback ? callback(this) : null;
-                    });
                 });
             }
         }
@@ -290,13 +290,18 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
     updateMetadataUri(metadata, targetInfo: ITargetInfo) {
         // See if this is a field
         if (/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
-            // Fix the uri reference
+            // Fix the url reference
             targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
         }
         // Else, see if this is an event receiver
         else if (/SP.EventReceiverDefinition/.test(metadata.type)) {
-            // Fix the uri reference
+            // Fix the url reference
             targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
+        }
+        // Else, see if this is a tenant app
+        else if (/Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata/.test(targetInfo.url)) {
+            // Fix the url reference
+            targetInfo.url = targetInfo.url.split("Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata")[0] + "web/tenantappcatalog/availableapps/getbyid('" + this["ID"] + "')";
         }
     }
 
