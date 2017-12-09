@@ -867,6 +867,9 @@ export declare const Mapper: {
             name: string;
             requestType: number;
         };
+        SiteCollectionAppCatalogsSites: {
+            requestType: number;
+        };
     };
     tenantapps: {
         GetById: {

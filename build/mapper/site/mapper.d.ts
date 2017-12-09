@@ -112,6 +112,9 @@ export declare const tenantappcatalog: {
         name: string;
         requestType: number;
     };
+    SiteCollectionAppCatalogsSites: {
+        requestType: number;
+    };
 };
 /**
  * Web

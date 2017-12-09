@@ -904,6 +904,9 @@ declare module 'gd-sprest/mapper' {
                 name: string;
                 requestType: number;
             };
+            SiteCollectionAppCatalogsSites: {
+                requestType: number;
+            };
         };
         tenantapps: {
             GetById: {

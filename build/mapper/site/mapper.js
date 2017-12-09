@@ -139,8 +139,7 @@ exports.tenantappcatalog = {
     // Properties
     /*********************************************************************************************************************************/
     properties: [
-        "AvailableApps|availableapps|/getById('[Id]')|tenantapp",
-        "SiteCollectionAppCatalogsSites"
+        "AvailableApps|availableapps|/getById('[Id]')|tenantapp"
     ],
     /*********************************************************************************************************************************/
     // Methods
@@ -155,6 +154,10 @@ exports.tenantappcatalog = {
         argNames: ["guid"],
         name: "AvailableApps/getById('[[guid]]')",
         requestType: types_1.RequestType.GetReplace
+    },
+    // Gets the site collection app catalog sites
+    SiteCollectionAppCatalogsSites: {
+        requestType: types_1.RequestType.Post
     }
 };
 /**
