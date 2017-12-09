@@ -873,6 +873,45 @@ declare module 'gd-sprest/mapper' {
                 requestType: number;
             };
         };
+        tenantapp: {
+            Deploy: {
+                requestType: number;
+            };
+            Install: {
+                requestType: number;
+            };
+            Remove: {
+                requestType: number;
+            };
+            Retract: {
+                requestType: number;
+            };
+            Upgrade: {
+                requestType: number;
+            };
+            Uninstall: {
+                requestType: number;
+            };
+        };
+        tenantappcatalog: {
+            properties: string[];
+            Add: {
+                argNames: string[];
+                requestType: number;
+            };
+            GetById: {
+                argNames: string[];
+                name: string;
+                requestType: number;
+            };
+        };
+        tenantapps: {
+            GetById: {
+                argNames: string[];
+                requestType: number;
+                returnType: string;
+            };
+        };
         user: {
             properties: string[];
             delete: {

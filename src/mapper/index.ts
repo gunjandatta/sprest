@@ -25,6 +25,7 @@ import {
 } from "./security/mapper";
 import {
     site,
+    tenantapp, tenantappcatalog, tenantapps,
     web, webinfos, webs
 } from "./site/mapper";
 import {
@@ -62,6 +63,7 @@ export const Mapper = {
     search,
     site,
     socialfeed,
+    tenantapp, tenantappcatalog, tenantapps,
     user, users,
     usercustomaction, usercustomactions,
     userprofile,

@@ -37,6 +37,7 @@ exports.Mapper = {
     search: mapper_6.search,
     site: mapper_8.site,
     socialfeed: mapper_9.socialfeed,
+    tenantapp: mapper_8.tenantapp, tenantappcatalog: mapper_8.tenantappcatalog, tenantapps: mapper_8.tenantapps,
     user: mapper_10.user, users: mapper_10.users,
     usercustomaction: mapper_11.usercustomaction, usercustomactions: mapper_11.usercustomactions,
     userprofile: mapper_9.userprofile,
