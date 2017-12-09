@@ -10,37 +10,16 @@ var TargetInfo = /** @class */ (function () {
     /*********************************************************************************************************************************/
     function TargetInfo(targetInfo) {
         // Default the properties
-        this.targetInfo = targetInfo || {};
-        this.requestData = this.targetInfo.data;
-        this.requestHeaders = this.targetInfo.requestHeader;
-        this.requestMethod = this.targetInfo.method ? this.targetInfo.method : "GET";
+        this.request = targetInfo || {};
+        this.requestData = this.request.data;
+        this.requestHeaders = this.request.requestHeader;
+        this.requestMethod = this.request.method ? this.request.method : "GET";
         // Set the request url
         this.setRequestUrl();
     }
-    Object.defineProperty(TargetInfo.prototype, "bufferFl", {
-        /*********************************************************************************************************************************/
-        // Public Properties
-        /*********************************************************************************************************************************/
-        // Flag to determine if the request returns an array buffer
-        get: function () { return this.targetInfo.bufferFl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TargetInfo.prototype, "callback", {
-        // The callback method to execute after the asynchronous request completes
-        get: function () { return this.targetInfo.callback; },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(TargetInfo.prototype, "isBatchRequest", {
         // Flag to determine if this is a batch request
-        get: function () { return this.targetInfo.endpoint == "$batch"; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(TargetInfo.prototype, "requestDigest", {
-        // The form digest
-        get: function () { return this.targetInfo.requestDigest; },
+        get: function () { return this.request.endpoint == "$batch"; },
         enumerable: true,
         configurable: true
     });
@@ -100,23 +79,23 @@ var TargetInfo = /** @class */ (function () {
     };
     // Method to set the request url
     TargetInfo.prototype.setRequestUrl = function () {
-        var endpoint = this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "";
+        var endpoint = this.request.endpoint ? "/" + this.request.endpoint : "";
         var hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
         var qs = (endpoint.indexOf("?") === -1 ? "?" : "&") + "@target='{{Target}}'";
         var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
         // See if we are defaulting the url for the app web
-        if (lib_1.ContextInfo.existsFl && lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && !this.targetInfo.overrideDefaultRequestToHostFl && this.targetInfo.url == null) {
+        if (lib_1.ContextInfo.existsFl && lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && !this.request.overrideDefaultRequestToHostFl && this.request.url == null) {
             // Default the url to the host web
-            this.targetInfo.url = hostUrl;
+            this.request.url = hostUrl;
         }
         // Ensure the url exists
-        if (this.targetInfo.url == null) {
+        if (this.request.url == null) {
             // Default the url to the current site/web url
-            this.targetInfo.url = this.targetInfo.defaultToWebFl == false ? lib_1.ContextInfo.siteAbsoluteUrl : lib_1.ContextInfo.webAbsoluteUrl;
+            this.request.url = this.request.defaultToWebFl == false ? lib_1.ContextInfo.siteAbsoluteUrl : lib_1.ContextInfo.webAbsoluteUrl;
         }
-        else if (/\/_api\//.test(this.targetInfo.url)) {
+        else if (/\/_api\//.test(this.request.url)) {
             // Get the url
-            var url = this.targetInfo.url.toLowerCase().split("/_api/");
+            var url = this.request.url.toLowerCase().split("/_api/");
             // See if this is the app web and we are executing against a different web
             if (lib_1.ContextInfo.isAppWeb && url[0] != lib_1.ContextInfo.webAbsoluteUrl.toLowerCase()) {
                 // Set the request url
@@ -125,28 +104,28 @@ var TargetInfo = /** @class */ (function () {
             }
             else {
                 // Set the request url
-                this.requestUrl = this.targetInfo.url + (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "");
+                this.requestUrl = this.request.url + (this.request.endpoint ? "/" + this.request.endpoint : "");
             }
             return;
         }
         // See if this is a relative url
-        if (this.targetInfo.url.indexOf("http") != 0) {
+        if (this.request.url.indexOf("http") != 0) {
             // Add the domain
-            this.targetInfo.url = this.getDomainUrl() + this.targetInfo.url;
+            this.request.url = this.getDomainUrl() + this.request.url;
         }
         // See if this is the app web, and we are executing against a different web
-        if (lib_1.ContextInfo.isAppWeb && this.targetInfo.url != lib_1.ContextInfo.webAbsoluteUrl) {
+        if (lib_1.ContextInfo.isAppWeb && this.request.url != lib_1.ContextInfo.webAbsoluteUrl) {
             // Set the request url
             this.requestUrl = template
                 .replace(/{{Url}}/g, lib_1.ContextInfo.webAbsoluteUrl)
                 .replace(/{{EndPoint}}/g, "SP.AppContextSite(@target)" + endpoint)
-                .replace(/{{TargetUrl}}/g, qs.replace(/{{Target}}/g, this.targetInfo.url));
+                .replace(/{{TargetUrl}}/g, qs.replace(/{{Target}}/g, this.request.url));
         }
         else {
             // Set the request url
             this.requestUrl = template
-                .replace(/{{Url}}/g, this.targetInfo.url)
-                .replace(/{{EndPoint}}/g, this.targetInfo.endpoint)
+                .replace(/{{Url}}/g, this.request.url)
+                .replace(/{{EndPoint}}/g, this.request.endpoint)
                 .replace(/{{TargetUrl}}/g, "");
         }
     };

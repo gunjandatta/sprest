@@ -61,10 +61,10 @@ export class TargetInfo {
     /*********************************************************************************************************************************/
     constructor(targetInfo: ITargetInfo) {
         // Default the properties
-        this.targetInfo = targetInfo || {};
-        this.requestData = this.targetInfo.data;
-        this.requestHeaders = this.targetInfo.requestHeader;
-        this.requestMethod = this.targetInfo.method ? this.targetInfo.method : "GET";
+        this.request = targetInfo || {};
+        this.requestData = this.request.data;
+        this.requestHeaders = this.request.requestHeader;
+        this.requestMethod = this.request.method ? this.request.method : "GET";
 
         // Set the request url
         this.setRequestUrl()
@@ -74,20 +74,14 @@ export class TargetInfo {
     // Public Properties
     /*********************************************************************************************************************************/
 
-    // Flag to determine if the request returns an array buffer
-    get bufferFl(): boolean { return this.targetInfo.bufferFl; }
-
-    // The callback method to execute after the asynchronous request completes
-    get callback(): (...args) => void { return this.targetInfo.callback; }
-
+    // The target information
+    request: ITargetInfo;
+    
     // Flag to determine if this is a batch request
-    get isBatchRequest(): boolean { return this.targetInfo.endpoint == "$batch"; }
+    get isBatchRequest(): boolean { return this.request.endpoint == "$batch"; }
 
     // The request data
     requestData: any;
-
-    // The form digest
-    get requestDigest(): string { return this.targetInfo.requestDigest; }
 
     // The request information
     get requestInfo(): IRequestInfo {
@@ -107,14 +101,7 @@ export class TargetInfo {
 
     // The request url
     requestUrl: string;
-
-    /*********************************************************************************************************************************/
-    // Private Variables
-    /*********************************************************************************************************************************/
-
-    // The target information
-    private targetInfo: ITargetInfo;
-
+    
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
@@ -166,26 +153,26 @@ export class TargetInfo {
 
     // Method to set the request url
     private setRequestUrl() {
-        let endpoint = this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "";
+        let endpoint = this.request.endpoint ? "/" + this.request.endpoint : "";
         let hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
         let qs = (endpoint.indexOf("?") === -1 ? "?" : "&") + "@target='{{Target}}'";
         let template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
 
         // See if we are defaulting the url for the app web
-        if (ContextInfo.existsFl && ContextInfo.window.$REST.DefaultRequestToHostFl && ContextInfo.isAppWeb && !this.targetInfo.overrideDefaultRequestToHostFl && this.targetInfo.url == null) {
+        if (ContextInfo.existsFl && ContextInfo.window.$REST.DefaultRequestToHostFl && ContextInfo.isAppWeb && !this.request.overrideDefaultRequestToHostFl && this.request.url == null) {
             // Default the url to the host web
-            this.targetInfo.url = hostUrl;
+            this.request.url = hostUrl;
         }
 
         // Ensure the url exists
-        if (this.targetInfo.url == null) {
+        if (this.request.url == null) {
             // Default the url to the current site/web url
-            this.targetInfo.url = this.targetInfo.defaultToWebFl == false ? ContextInfo.siteAbsoluteUrl : ContextInfo.webAbsoluteUrl;
+            this.request.url = this.request.defaultToWebFl == false ? ContextInfo.siteAbsoluteUrl : ContextInfo.webAbsoluteUrl;
         }
         // Else, see if the url already contains the full request
-        else if (/\/_api\//.test(this.targetInfo.url)) {
+        else if (/\/_api\//.test(this.request.url)) {
             // Get the url
-            var url = this.targetInfo.url.toLowerCase().split("/_api/");
+            var url = this.request.url.toLowerCase().split("/_api/");
 
             // See if this is the app web and we are executing against a different web
             if (ContextInfo.isAppWeb && url[0] != ContextInfo.webAbsoluteUrl.toLowerCase()) {
@@ -195,29 +182,29 @@ export class TargetInfo {
             }
             else {
                 // Set the request url
-                this.requestUrl = this.targetInfo.url + (this.targetInfo.endpoint ? "/" + this.targetInfo.endpoint : "");
+                this.requestUrl = this.request.url + (this.request.endpoint ? "/" + this.request.endpoint : "");
             }
             return;
         }
 
         // See if this is a relative url
-        if (this.targetInfo.url.indexOf("http") != 0) {
+        if (this.request.url.indexOf("http") != 0) {
             // Add the domain
-            this.targetInfo.url = this.getDomainUrl() + this.targetInfo.url;
+            this.request.url = this.getDomainUrl() + this.request.url;
         }
 
         // See if this is the app web, and we are executing against a different web
-        if (ContextInfo.isAppWeb && this.targetInfo.url != ContextInfo.webAbsoluteUrl) {
+        if (ContextInfo.isAppWeb && this.request.url != ContextInfo.webAbsoluteUrl) {
             // Set the request url
             this.requestUrl = template
                 .replace(/{{Url}}/g, ContextInfo.webAbsoluteUrl)
                 .replace(/{{EndPoint}}/g, "SP.AppContextSite(@target)" + endpoint)
-                .replace(/{{TargetUrl}}/g, qs.replace(/{{Target}}/g, this.targetInfo.url));
+                .replace(/{{TargetUrl}}/g, qs.replace(/{{Target}}/g, this.request.url));
         } else {
             // Set the request url
             this.requestUrl = template
-                .replace(/{{Url}}/g, this.targetInfo.url)
-                .replace(/{{EndPoint}}/g, this.targetInfo.endpoint)
+                .replace(/{{Url}}/g, this.request.url)
+                .replace(/{{EndPoint}}/g, this.request.endpoint)
                 .replace(/{{TargetUrl}}/g, "");
         }
     }

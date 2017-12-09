@@ -64,7 +64,7 @@ exports.site = {
         argNames: ["gWebId"],
         requestType: types_1.RequestType.PostWithArgsValueOnly
     },
-    // Queries the collection
+    // Queries the object
     query: {
         argNames: ["oData"],
         requestType: types_1.RequestType.OData
@@ -93,6 +93,86 @@ exports.site = {
     }
 };
 /**
+ * Tenant App
+ */
+exports.tenantapp = {
+    // Deploy solution package in tenant app catalog
+    Deploy: {
+        requestType: types_1.RequestType.Post
+    },
+    // Install solution package from tenant app catalog to SharePoint site
+    Install: {
+        requestType: types_1.RequestType.Post
+    },
+    // Queries the object
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    },
+    // Remove solution package from tenant app catalog
+    Remove: {
+        requestType: types_1.RequestType.Post
+    },
+    // Retract solution package in the tenant app catalog
+    Retract: {
+        requestType: types_1.RequestType.Post
+    },
+    // Upgrade solution package in SharePoint site
+    Upgrade: {
+        requestType: types_1.RequestType.Post
+    },
+    // Uninstall solution package from SharePoint site
+    Uninstall: {
+        requestType: types_1.RequestType.Post
+    }
+};
+/**
+ * Tenant Apps
+ */
+exports.tenantapps = {
+    // Get an app by id
+    GetById: {
+        argNames: ["guid"],
+        requestType: types_1.RequestType.GetWithArgsValueOnly,
+        returnType: "tenantapp"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: types_1.RequestType.OData
+    }
+};
+/**
+ * Tenant App Catalog
+ */
+exports.tenantappcatalog = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "AvailableApps|tenantapps|/getById('[Id]')|tenantapp"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Adds the folder that is located at the specified URL to the collection.
+    Add: {
+        argNames: ["overwrite", "url"],
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    // Get an app by id.
+    GetById: {
+        argNames: ["guid"],
+        name: "AvailableApps/getById('[[guid]]')",
+        requestType: types_1.RequestType.GetReplace,
+        returnType: "tenantapp"
+    },
+    // Gets the site collection app catalog sites
+    SiteCollectionAppCatalogsSites: {
+        requestType: types_1.RequestType.Post
+    }
+};
+/**
  * Web
  */
 exports.web = {
@@ -109,7 +189,8 @@ exports.web = {
         "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb",
         "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
         "RoleDefinitions|roledefinitions|/getByName('[Name]')|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
-        "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user", "ThemeInfo", "TitleResource",
+        "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user",
+        "TenantAppCatalog|tenantappcatalog", "ThemeInfo", "TitleResource",
         "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos|webinfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
     ],
     /*********************************************************************************************************************************/

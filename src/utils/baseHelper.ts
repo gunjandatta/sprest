@@ -74,6 +74,16 @@ export class BaseHelper implements IBaseHelper {
             // Update the type
             objType = "items";
         }
+        // Else, see if this is a tenant app
+        else if (/corporatecatalogappmetadata/.test(objType)) {
+            // Update the type
+            objType = "tenantapp";
+        }
+        // Else, see if this is a tenant app collection
+        else if (/corporatecatalogappmetadatas/.test(objType)) {
+            // Update the type
+            objType = "tenantapps";
+        }
 
         // Get the methods for the base object
         var methods = Mapper[objType];

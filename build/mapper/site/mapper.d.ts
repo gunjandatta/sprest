@@ -66,6 +66,66 @@ export declare const site: {
     };
 };
 /**
+ * Tenant App
+ */
+export declare const tenantapp: {
+    Deploy: {
+        requestType: number;
+    };
+    Install: {
+        requestType: number;
+    };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
+    Remove: {
+        requestType: number;
+    };
+    Retract: {
+        requestType: number;
+    };
+    Upgrade: {
+        requestType: number;
+    };
+    Uninstall: {
+        requestType: number;
+    };
+};
+/**
+ * Tenant Apps
+ */
+export declare const tenantapps: {
+    GetById: {
+        argNames: string[];
+        requestType: number;
+        returnType: string;
+    };
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
+};
+/**
+ * Tenant App Catalog
+ */
+export declare const tenantappcatalog: {
+    properties: string[];
+    Add: {
+        argNames: string[];
+        requestType: number;
+    };
+    GetById: {
+        argNames: string[];
+        name: string;
+        requestType: number;
+        returnType: string;
+    };
+    SiteCollectionAppCatalogsSites: {
+        requestType: number;
+    };
+};
+/**
  * Web
  */
 export declare const web: {

@@ -145,7 +145,7 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest {
             // Wait for the responses to execute
             this.waitForRequestsToComplete(() => {
                 // Execute this request
-                this.executeRequest(true, () => {
+                this.executeRequest(true, (response) => {
                     // See if there is a callback
                     if (callback) {
                         // Set the base to this object, and clear requests
@@ -154,7 +154,7 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest {
                         this.base.responses = [];
 
                         // Execute the callback and see if it returns a promise
-                        let returnVal = callback(this);
+                        let returnVal = callback(response);
                         if (returnVal && typeof (returnVal.done) === "function") {
                             // Wait for the promise to complete
                             returnVal.done(() => {
@@ -179,9 +179,9 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest {
             }, this.responseIndex);
         } else {
             // Execute this request
-            this.executeRequest(true, () => {
+            this.executeRequest(true, (response) => {
                 // Execute the callback and see if it returns a promise
-                let returnVal = callback ? callback(this) : null;
+                let returnVal = callback ? callback(response) : null;
                 if (returnVal && typeof (returnVal.done) === "function") {
                     // Wait for the promise to complete
                     returnVal.done(() => {

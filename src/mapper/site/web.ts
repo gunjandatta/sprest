@@ -1,6 +1,6 @@
 import { IBase, ITargetInfo } from "../../utils";
 import { Types } from "..";
-import { IWebInfo, IWebResult, IWebResults, IWebs } from ".";
+import { ITenantAppCatalog, IWebInfo, IWebResult, IWebResults, IWebs } from ".";
 
 /**
  * Web Creation Information
@@ -642,6 +642,9 @@ export interface IWebQueryProps {
      */
     SupportedUILanguageIds(): IBase<Number>;
 
+    /** Gets the tenant app catalog. */
+    TenantAppCatalog(): ITenantAppCatalog;
+    
     /**
      * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
      */
@@ -863,6 +866,9 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
      */
     SupportedUILanguageIds: Types.IResults<number>;
 
+    /** Gets the tenant app catalog. */
+    TenantAppCatalog: ITenantAppCatalog;
+    
     /**
      * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
      */
@@ -902,7 +908,7 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
 /**
  * Web Result
  */
-export interface IWebResult extends IWebMethods, IWebProps, IWebQueryProps, IWebQueryProps, IBase<IWeb, IWebResult, IWebQueryResult> { }
+export interface IWebResult extends IWebMethods, IWebProps, IWebQueryProps, IBase<IWeb, IWebResult, IWebQueryResult> { }
 
 /**
  * Web
