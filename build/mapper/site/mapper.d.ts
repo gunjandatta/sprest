@@ -69,26 +69,26 @@ export declare const site: {
  * Tenant App
  */
 export declare const tenantapp: {
-    Deploy: {
+    deploy: {
         requestType: number;
     };
-    Install: {
+    install: {
         requestType: number;
     };
     query: {
         argNames: string[];
         requestType: number;
     };
-    Remove: {
+    remove: {
         requestType: number;
     };
-    Retract: {
+    retract: {
         requestType: number;
     };
-    Upgrade: {
+    upgrade: {
         requestType: number;
     };
-    Uninstall: {
+    uninstall: {
         requestType: number;
     };
 };
@@ -96,7 +96,7 @@ export declare const tenantapp: {
  * Tenant Apps
  */
 export declare const tenantapps: {
-    GetById: {
+    getById: {
         argNames: string[];
         requestType: number;
         returnType: string;
@@ -111,11 +111,11 @@ export declare const tenantapps: {
  */
 export declare const tenantappcatalog: {
     properties: string[];
-    Add: {
+    add: {
         argNames: string[];
         requestType: number;
     };
-    GetById: {
+    getById: {
         argNames: string[];
         name: string;
         requestType: number;

@@ -837,36 +837,36 @@ export declare const Mapper: {
         };
     };
     tenantapp: {
-        Deploy: {
+        deploy: {
             requestType: number;
         };
-        Install: {
+        install: {
             requestType: number;
         };
         query: {
             argNames: string[];
             requestType: number;
         };
-        Remove: {
+        remove: {
             requestType: number;
         };
-        Retract: {
+        retract: {
             requestType: number;
         };
-        Upgrade: {
+        upgrade: {
             requestType: number;
         };
-        Uninstall: {
+        uninstall: {
             requestType: number;
         };
     };
     tenantappcatalog: {
         properties: string[];
-        Add: {
+        add: {
             argNames: string[];
             requestType: number;
         };
-        GetById: {
+        getById: {
             argNames: string[];
             name: string;
             requestType: number;
@@ -877,7 +877,7 @@ export declare const Mapper: {
         };
     };
     tenantapps: {
-        GetById: {
+        getById: {
             argNames: string[];
             requestType: number;
             returnType: string;

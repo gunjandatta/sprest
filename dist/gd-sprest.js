@@ -2050,11 +2050,11 @@ exports.site = {
  */
 exports.tenantapp = {
     // Deploy solution package in tenant app catalog
-    Deploy: {
+    deploy: {
         requestType: types_1.RequestType.Post
     },
     // Install solution package from tenant app catalog to SharePoint site
-    Install: {
+    install: {
         requestType: types_1.RequestType.Post
     },
     // Queries the object
@@ -2063,19 +2063,19 @@ exports.tenantapp = {
         requestType: types_1.RequestType.OData
     },
     // Remove solution package from tenant app catalog
-    Remove: {
+    remove: {
         requestType: types_1.RequestType.Post
     },
     // Retract solution package in the tenant app catalog
-    Retract: {
+    retract: {
         requestType: types_1.RequestType.Post
     },
     // Upgrade solution package in SharePoint site
-    Upgrade: {
+    upgrade: {
         requestType: types_1.RequestType.Post
     },
     // Uninstall solution package from SharePoint site
-    Uninstall: {
+    uninstall: {
         requestType: types_1.RequestType.Post
     }
 };
@@ -2084,7 +2084,7 @@ exports.tenantapp = {
  */
 exports.tenantapps = {
     // Get an app by id
-    GetById: {
+    getById: {
         argNames: ["guid"],
         requestType: types_1.RequestType.GetWithArgsValueOnly,
         returnType: "tenantapp"
@@ -2109,12 +2109,12 @@ exports.tenantappcatalog = {
     // Methods
     /*********************************************************************************************************************************/
     // Adds the folder that is located at the specified URL to the collection.
-    Add: {
+    add: {
         argNames: ["overwrite", "url"],
         requestType: types_1.RequestType.PostWithArgs
     },
     // Get an app by id.
-    GetById: {
+    getById: {
         argNames: ["guid"],
         name: "AvailableApps/getById('[[guid]]')",
         requestType: types_1.RequestType.GetReplace,

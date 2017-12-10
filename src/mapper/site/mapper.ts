@@ -113,12 +113,12 @@ export const site = {
  */
 export const tenantapp = {
     // Deploy solution package in tenant app catalog
-    Deploy: {
+    deploy: {
         requestType: RequestType.Post
     },
 
     // Install solution package from tenant app catalog to SharePoint site
-    Install: {
+    install: {
         requestType: RequestType.Post
     },
 
@@ -129,22 +129,22 @@ export const tenantapp = {
     },
 
     // Remove solution package from tenant app catalog
-    Remove: {
+    remove: {
         requestType: RequestType.Post
     },
 
     // Retract solution package in the tenant app catalog
-    Retract: {
+    retract: {
         requestType: RequestType.Post
     },
 
     // Upgrade solution package in SharePoint site
-    Upgrade: {
+    upgrade: {
         requestType: RequestType.Post
     },
 
     // Uninstall solution package from SharePoint site
-    Uninstall: {
+    uninstall: {
         requestType: RequestType.Post
     }
 }
@@ -154,7 +154,7 @@ export const tenantapp = {
  */
 export const tenantapps = {
     // Get an app by id
-    GetById: {
+    getById: {
         argNames: ["guid"],
         requestType: RequestType.GetWithArgsValueOnly,
         returnType: "tenantapp"
@@ -183,13 +183,13 @@ export const tenantappcatalog = {
     /*********************************************************************************************************************************/
 
     // Adds the folder that is located at the specified URL to the collection.
-    Add: {
+    add: {
         argNames: ["overwrite", "url"],
         requestType: RequestType.PostWithArgs
     },
 
     // Get an app by id.
-    GetById: {
+    getById: {
         argNames: ["guid"],
         name: "AvailableApps/getById('[[guid]]')",
         requestType: RequestType.GetReplace,
