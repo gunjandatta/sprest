@@ -268,6 +268,8 @@ export interface IFieldNumber extends IFieldResult {
     MaximumValue: number;
     /** A value that specifies the minimum allowed value for the field. */
     MinimumValue: number;
+    /** Flag to determine if the number is displayed as a percentage. */
+    ShowAsPercentage?: boolean;
 }
 /**
  * Rating Scale Field
