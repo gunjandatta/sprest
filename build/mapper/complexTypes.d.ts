@@ -327,6 +327,17 @@ export interface FieldLookupValue {
     LookupValue: string;
 }
 /**
+ * Field Managed Metadata Value
+ */
+export interface FieldManagedMetadataValue {
+    __metadata?: {
+        type: string;
+    };
+    Label: string;
+    TermGuid: string;
+    WssId: number;
+}
+/**
  * Field Multi-Choice
  */
 export interface FieldMultiChoiceValue {
