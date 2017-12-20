@@ -1931,7 +1931,7 @@ declare module 'gd-sprest/lib/email' {
             /** A string or collection of email addresses to carbon copy the email to. */
             CC?: string | Array<string>;
             /** A value that specifies the email address of the sender. */
-            From: string;
+            From?: string;
             /** A string or collection of email addresses to send the email to. */
             To: string | Array<string>;
             /** A value that specifies the email subject. */

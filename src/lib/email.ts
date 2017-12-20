@@ -19,7 +19,7 @@ export interface EmailProperties {
     CC?: string | Array<string>;
 
     /** A value that specifies the email address of the sender. */
-    From: string;
+    From?: string;
 
     /** A string or collection of email addresses to send the email to. */
     To: string | Array<string>;
