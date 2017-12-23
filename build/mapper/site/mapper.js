@@ -198,16 +198,16 @@ exports.utility = {
         requestType: types_1.RequestType.Get
     },
     getLocalizedString: {
-        argNames: ["value"],
+        argNames: ["sourceValue"],
         name: "SP.Utilities.Utility.GetLocalizedString",
         replaceEndpointFl: true,
         requestType: types_1.RequestType.GetWithArgsValueOnly
     },
     getLowerCaseString: {
-        argNames: ["value"],
+        argNames: ["sourceValue", "lcid"],
         name: "SP.Utilities.Utility.GetLowerCaseString",
         replaceEndpointFl: true,
-        requestType: types_1.RequestType.GetWithArgsValueOnly
+        requestType: types_1.RequestType.PostWithArgsInBody
     },
     importAppLicense: {
         argNames: ["url"],

@@ -117,11 +117,11 @@ export interface IUtilityMethods {
     /**
      * Converts the text to a localized string.
      */
-    getLocalizedString(value: string): IBase;
+    getLocalizedString(sourceValue: string): IBase;
     /**
      * Converts the text to be lower case.
      */
-    getLowerCaseString(value: string): IBase;
+    getLowerCaseString(sourceValue: string, lcid: number): IBase;
     /**
      * Need to research
      */

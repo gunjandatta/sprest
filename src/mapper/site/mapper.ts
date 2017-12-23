@@ -232,17 +232,17 @@ export const utility = {
     },
 
     getLocalizedString: {
-        argNames: ["value"],
+        argNames: ["sourceValue"],
         name: "SP.Utilities.Utility.GetLocalizedString",
         replaceEndpointFl: true,
         requestType: RequestType.GetWithArgsValueOnly
     },
 
     getLowerCaseString: {
-        argNames: ["value"],
+        argNames: ["sourceValue", "lcid"],
         name: "SP.Utilities.Utility.GetLowerCaseString",
         replaceEndpointFl: true,
-        requestType: RequestType.GetWithArgsValueOnly
+        requestType: RequestType.PostWithArgsInBody
     },
 
     importAppLicense: {
