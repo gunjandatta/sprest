@@ -31,6 +31,22 @@ class _Utility extends Base {
     // Methods
     /*********************************************************************************************************************************/
 
+    // Method to create a wiki page
+    createWikiPage(listUrl: string, content: string = "") {
+        let parameters = {
+            ServerRelativeUrl: listUrl,
+            WikiHtmlContent: content
+        };
+
+        // Execute the method
+        return this.executeMethod("createWikiPage", {
+            argNames: ["parameters"],
+            name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
+            replaceEndpointFl: true,
+            requestType: RequestType.PostWithArgsInBody
+        }, [parameters]);
+    }
+
     // Method to send an email
     sendEmail(properties) {
         // Parse the email properties
@@ -52,7 +68,7 @@ class _Utility extends Base {
             }
         }
 
-        // Execute the method, and return the email object
+        // Execute the method
         return this.executeMethod("sendEmail", {
             argNames: ["properties"],
             metadataType: "SP.Utilities.EmailProperties",

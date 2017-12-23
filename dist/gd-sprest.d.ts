@@ -1014,55 +1014,17 @@ declare module 'gd-sprest/mapper' {
                 replaceEndpointFl: boolean;
                 requestType: number;
             };
-            createNewDiscussion: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            createNewDiscussionReply: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            createWikiPageInContextWeb: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            formatDateTime: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
             getAppLicenseDeploymentId: {
-                argNames: string[];
                 name: string;
                 replaceEndpointFl: boolean;
                 requestType: number;
             };
             getAppLicenseInformation: {
-                argNames: string[];
                 name: string;
                 replaceEndpointFl: boolean;
                 requestType: number;
             };
             getCurrentUserEmailAddresses: {
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            getImageUrl: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            getLayoutsPageUrl: {
-                argNames: string[];
                 name: string;
                 replaceEndpointFl: boolean;
                 requestType: number;
@@ -1075,11 +1037,6 @@ declare module 'gd-sprest/mapper' {
             };
             getLowerCaseString: {
                 argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            getPeoplePickerURL: {
                 name: string;
                 replaceEndpointFl: boolean;
                 requestType: number;
@@ -1109,13 +1066,11 @@ declare module 'gd-sprest/mapper' {
                 requestType: number;
             };
             resolvePrincipal: {
-                argNames: string[];
                 name: string;
                 replaceEndpointFl: boolean;
                 requestType: number;
             };
             searchPrincipals: {
-                argNames: string[];
                 name: string;
                 replaceEndpointFl: boolean;
                 requestType: number;
@@ -8932,6 +8887,7 @@ declare module 'gd-sprest/mapper/site/tenantAppCatalog' {
 declare module 'gd-sprest/mapper/site/utility' {
     import { KeyValue } from "gd-sprest/mapper/complexTypes";
     import { IBase, ITargetInfo } from "gd-sprest/utils";
+    import { Types } from "gd-sprest/mapper";
     /**
         * Email
         */
@@ -8952,28 +8908,117 @@ declare module 'gd-sprest/mapper/site/utility' {
             Subject: string;
     }
     /**
+        * Resolve Principal
+        */
+    export interface IResolvePrincipal {
+            /** Specifies whether to add the user to the user information list. */
+            addToUserInfoList?: boolean;
+            /** The display name, email address, or login name of the principal scopes. */
+            input: string;
+            /** Specifies whether only the email address is used when searching for the principal. */
+            inputIsEmailOnly?: boolean;
+            /** Specifies whether the user information list is used. */
+            matchUserInfoList?: boolean;
+            /** The type of the principal. */
+            scopes: Types.SPTypes.PrincipalTypes;
+            /** The source of the principal. */
+            sources: Types.SPTypes.PrincipalSources;
+    }
+    /**
+        * Search Principal
+        */
+    export interface ISearchPrincipal {
+            /** The group name. */
+            groupName?: string;
+            /** The display name, email address, or login name of the principal scopes. */
+            input: string;
+            /** The maximum number of information entries about principals to return. */
+            maxCount: number;
+            /** The type of the principal. */
+            scopes?: Types.SPTypes.PrincipalTypes;
+            /** The source of the principal. */
+            sources?: Types.SPTypes.PrincipalSources;
+    }
+    /**
+        * Utility Results
+        */
+    export interface ICreateEmailBodyForInvitationResult extends IBase {
+            CreateEmailBodyForInvitation: string;
+    }
+    export interface IGetCurrentUserEmailAddressesResult extends IBase {
+            GetCurrentUserEmailAddresses: string;
+    }
+    export interface IGetAppLicenseDeploymentIdResult extends IBase {
+            GetAppLicenseDeploymentId: string;
+    }
+    export interface IGetAppLicenseInformationResult extends IBase {
+            GetAppLicenseInformation: string;
+    }
+    export interface IResolvePrincipalResult extends IBase {
+            ResolvePrincipalInCurrentContext: string;
+    }
+    export interface ISearchPrincipalsResult extends IBase {
+            SearchPrincipalsUsingContextWeb: string;
+    }
+    export interface ISendEmailResult extends IBase {
+            SendEmail: string;
+    }
+    /**
         * Utility Methods
         */
     export interface IUtilityMethods {
-            createEmailBodyForInvitation(url: string): IBase;
-            createNewDiscussion(url: string): IBase;
-            createNewDiscussionReply(url: string): IBase;
-            createWikiPageInContextWeb(url: string): IBase;
-            formatDateTime(dt: string): IBase;
-            getAppLicenseDeploymentId(id: string): IBase;
-            getAppLicenseInformation(url: string): IBase;
-            getCurrentUserEmailAddresses(): IBase;
-            getImageUrl(imageName: string): IBase;
-            getLayoutsPageUrl(fileName: string): IBase;
+            /**
+                * Gets the external (outside the firewall) URL to a document or resource in a site.
+                * pageAddress - The URL for the document or resource.
+                */
+            createEmailBodyForInvitation(pageAddress: string): IBase<IBase, ICreateEmailBodyForInvitationResult>;
+            /**
+                * Gets the app license deployment id.
+                */
+            getAppLicenseDeploymentId(): IBase<IBase, IGetAppLicenseDeploymentIdResult>;
+            /**
+                * Gets the app license information.
+                */
+            getAppLicenseInformation(): IBase<IBase, IGetAppLicenseInformationResult>;
+            /**
+                * Returns the current user's email address.
+                */
+            getCurrentUserEmailAddresses(): IBase<IBase, IGetCurrentUserEmailAddressesResult>;
+            /**
+                * Converts the text to a localized string.
+                */
             getLocalizedString(value: string): IBase;
+            /**
+                * Converts the text to be lower case.
+                */
             getLowerCaseString(value: string): IBase;
-            getPeoplePickerURL(): IBase;
+            /**
+                * Need to research
+                */
             importAppLicense(url: string): IBase;
+            /**
+                * Need to research
+                */
             isUserLicensedForEntityInContext(url: string): IBase;
+            /**
+                * Need to research
+                */
             localizeWebPartGallery(url: string): IBase;
+            /**
+                * Need to research
+                */
             markDiscussionAsFeatured(url: string): IBase;
-            resolvePrincipal(principal: string): IBase;
-            searchPrincipals(principals: Array<string>): IBase;
+            /**
+                * Gets information about a principal that matches the specified Search criteria.
+                */
+            resolvePrincipal(principal: IResolvePrincipal): IBase<IBase, IResolvePrincipalResult>;
+            /**
+                * Gets information about the principals that match the specified Search criteria.
+                */
+            searchPrincipals(principal: ISearchPrincipal): IBase;
+            /**
+                * Need to research
+                */
             unmarkDiscussionAsFeatured(url: string): IBase;
     }
     /**
@@ -8987,10 +9032,16 @@ declare module 'gd-sprest/mapper/site/utility' {
                 */
             new (url?: string, targetInfo?: ITargetInfo): IUtility;
             /**
+                * Creates a wiki page.
+                * @param listUrl - The relative url to the library.
+                * @param content - The html content.
+                */
+            createWikiPage(pageUrl: string, content?: string): IBase<Types.IFile, Types.IFileResult, Types.IFileQueryResult>;
+            /**
                 * Method to send an email.
                 * @param email - The email properties.
                 */
-            sendEmail(email: IEmail): IBase;
+            sendEmail(email: IEmail): IBase<IBase, ISendEmailResult>;
     }
 }
 

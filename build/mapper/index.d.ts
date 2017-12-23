@@ -977,55 +977,17 @@ export declare const Mapper: {
             replaceEndpointFl: boolean;
             requestType: number;
         };
-        createNewDiscussion: {
-            argNames: string[];
-            name: string;
-            replaceEndpointFl: boolean;
-            requestType: number;
-        };
-        createNewDiscussionReply: {
-            argNames: string[];
-            name: string;
-            replaceEndpointFl: boolean;
-            requestType: number;
-        };
-        createWikiPageInContextWeb: {
-            argNames: string[];
-            name: string;
-            replaceEndpointFl: boolean;
-            requestType: number;
-        };
-        formatDateTime: {
-            argNames: string[];
-            name: string;
-            replaceEndpointFl: boolean;
-            requestType: number;
-        };
         getAppLicenseDeploymentId: {
-            argNames: string[];
             name: string;
             replaceEndpointFl: boolean;
             requestType: number;
         };
         getAppLicenseInformation: {
-            argNames: string[];
             name: string;
             replaceEndpointFl: boolean;
             requestType: number;
         };
         getCurrentUserEmailAddresses: {
-            name: string;
-            replaceEndpointFl: boolean;
-            requestType: number;
-        };
-        getImageUrl: {
-            argNames: string[];
-            name: string;
-            replaceEndpointFl: boolean;
-            requestType: number;
-        };
-        getLayoutsPageUrl: {
-            argNames: string[];
             name: string;
             replaceEndpointFl: boolean;
             requestType: number;
@@ -1038,11 +1000,6 @@ export declare const Mapper: {
         };
         getLowerCaseString: {
             argNames: string[];
-            name: string;
-            replaceEndpointFl: boolean;
-            requestType: number;
-        };
-        getPeoplePickerURL: {
             name: string;
             replaceEndpointFl: boolean;
             requestType: number;
@@ -1072,13 +1029,11 @@ export declare const Mapper: {
             requestType: number;
         };
         resolvePrincipal: {
-            argNames: string[];
             name: string;
             replaceEndpointFl: boolean;
             requestType: number;
         };
         searchPrincipals: {
-            argNames: string[];
             name: string;
             replaceEndpointFl: boolean;
             requestType: number;

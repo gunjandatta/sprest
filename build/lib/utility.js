@@ -39,6 +39,21 @@ var _Utility = /** @class */ (function (_super) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
+    // Method to create a wiki page
+    _Utility.prototype.createWikiPage = function (listUrl, content) {
+        if (content === void 0) { content = ""; }
+        var parameters = {
+            ServerRelativeUrl: listUrl,
+            WikiHtmlContent: content
+        };
+        // Execute the method
+        return this.executeMethod("createWikiPage", {
+            argNames: ["parameters"],
+            name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
+            replaceEndpointFl: true,
+            requestType: types_1.RequestType.PostWithArgsInBody
+        }, [parameters]);
+    };
     // Method to send an email
     _Utility.prototype.sendEmail = function (properties) {
         // Parse the email properties
@@ -58,7 +73,7 @@ var _Utility = /** @class */ (function (_super) {
                 }
             }
         }
-        // Execute the method, and return the email object
+        // Execute the method
         return this.executeMethod("sendEmail", {
             argNames: ["properties"],
             metadataType: "SP.Utilities.EmailProperties",

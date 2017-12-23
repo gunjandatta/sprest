@@ -2125,122 +2125,77 @@ exports.tenantappcatalog = {
  */
 exports.utility = {
     createEmailBodyForInvitation: {
-        argNames: ["url"],
-        name: "SP.Utilities.Utility.createEmailBodyForInvitation",
+        argNames: ["pageAddress"],
+        name: "SP.Utilities.Utility.CreateEmailBodyForInvitation",
         replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    createNewDiscussion: {
-        argNames: ["url"],
-        name: "SP.Utilities.Utility.createNewDiscussion",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    createNewDiscussionReply: {
-        argNames: ["url"],
-        name: "SP.Utilities.Utility.createNewDiscussionReply",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    createWikiPageInContextWeb: {
-        argNames: ["url"],
-        name: "SP.Utilities.Utility.createWikiPageInContextWeb",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    formatDateTime: {
-        argNames: ["dt"],
-        name: "SP.Utilities.Utility.createWikiPageInContextWeb",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgs
+        requestType: types_1.RequestType.PostWithArgsInBody
     },
     getAppLicenseDeploymentId: {
-        argNames: ["id"],
-        name: "SP.Utilities.Utility.getAppLicenseDeploymentId",
+        name: "SP.Utilities.Utility.GetAppLicenseDeploymentId",
         replaceEndpointFl: true,
         requestType: types_1.RequestType.Get
     },
     getAppLicenseInformation: {
-        argNames: ["url"],
-        name: "SP.Utilities.Utility.getAppLicenseInformation",
+        name: "SP.Utilities.Utility.GetAppLicenseInformation",
         replaceEndpointFl: true,
         requestType: types_1.RequestType.Get
     },
     getCurrentUserEmailAddresses: {
-        name: "SP.Utilities.Utility.getCurrentUserEmailAddresses",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.Get
-    },
-    getImageUrl: {
-        argNames: ["imageName"],
-        name: "SP.Utilities.Utility.getImageUrl",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.Get
-    },
-    getLayoutsPageUrl: {
-        argNames: ["fileName"],
-        name: "SP.Utilities.Utility.getLayoutsPageUrl",
+        name: "SP.Utilities.Utility.GetCurrentUserEmailAddresses",
         replaceEndpointFl: true,
         requestType: types_1.RequestType.Get
     },
     getLocalizedString: {
         argNames: ["value"],
-        name: "SP.Utilities.Utility.getLocalizedString",
+        name: "SP.Utilities.Utility.GetLocalizedString",
         replaceEndpointFl: true,
-        requestType: types_1.RequestType.Get
+        requestType: types_1.RequestType.GetWithArgsValueOnly
     },
     getLowerCaseString: {
         argNames: ["value"],
-        name: "SP.Utilities.Utility.getLowerCaseString",
+        name: "SP.Utilities.Utility.GetLowerCaseString",
         replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    getPeoplePickerURL: {
-        name: "SP.Utilities.Utility.getPeoplePickerURL",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.Get
+        requestType: types_1.RequestType.GetWithArgsValueOnly
     },
     importAppLicense: {
         argNames: ["url"],
-        name: "SP.Utilities.Utility.importAppLicense",
+        name: "SP.Utilities.Utility.ImportAppLicense",
         replaceEndpointFl: true,
         requestType: types_1.RequestType.PostWithArgs
     },
     isUserLicensedForEntityInContext: {
         argNames: ["url"],
-        name: "SP.Utilities.Utility.isUserLicensedForEntityInContext",
+        name: "SP.Utilities.Utility.IsUserLicensedForEntityInContext",
         replaceEndpointFl: true,
         requestType: types_1.RequestType.PostWithArgs
     },
     localizeWebPartGallery: {
         argNames: ["url"],
-        name: "SP.Utilities.Utility.localizeWebPartGallery",
+        name: "SP.Utilities.Utility.LocalizeWebPartGallery",
         replaceEndpointFl: true,
         requestType: types_1.RequestType.PostWithArgs
     },
     markDiscussionAsFeatured: {
         argNames: ["url"],
-        name: "SP.Utilities.Utility.markDiscussionAsFeatured",
+        name: "SP.Utilities.Utility.MarkDiscussionAsFeatured",
         replaceEndpointFl: true,
         requestType: types_1.RequestType.PostWithArgs
     },
     resolvePrincipal: {
-        argNames: ["principal"],
-        name: "SP.Utilities.Utility.resolvePrincipal",
+        name: "SP.Utilities.Utility.ResolvePrincipalInCurrentContext",
         replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgs
+        requestType: types_1.RequestType.Post
     },
     searchPrincipals: {
-        argNames: ["principals"],
-        name: "SP.Utilities.Utility.searchPrincipals",
+        name: "SP.Utilities.Utility.SearchPrincipalsUsingContextWeb",
         replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgs
+        requestType: types_1.RequestType.Post
     },
     unmarkDiscussionAsFeatured: {
         argNames: ["url"],
-        name: "SP.Utilities.Utility.unmarkDiscussionAsFeatured",
+        name: "SP.Utilities.Utility.UnmarkDiscussionAsFeatured",
         replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgs
+        requestType: types_1.RequestType.PostWithArgsInBody
     }
 };
 /**
@@ -7485,6 +7440,21 @@ var _Utility = /** @class */ (function (_super) {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
+    // Method to create a wiki page
+    _Utility.prototype.createWikiPage = function (listUrl, content) {
+        if (content === void 0) { content = ""; }
+        var parameters = {
+            ServerRelativeUrl: listUrl,
+            WikiHtmlContent: content
+        };
+        // Execute the method
+        return this.executeMethod("createWikiPage", {
+            argNames: ["parameters"],
+            name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
+            replaceEndpointFl: true,
+            requestType: types_1.RequestType.PostWithArgsInBody
+        }, [parameters]);
+    };
     // Method to send an email
     _Utility.prototype.sendEmail = function (properties) {
         // Parse the email properties
@@ -7504,7 +7474,7 @@ var _Utility = /** @class */ (function (_super) {
                 }
             }
         }
-        // Execute the method, and return the email object
+        // Execute the method
         return this.executeMethod("sendEmail", {
             argNames: ["properties"],
             metadataType: "SP.Utilities.EmailProperties",
