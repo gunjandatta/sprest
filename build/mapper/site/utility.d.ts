@@ -81,6 +81,9 @@ export interface IGetAppLicenseDeploymentIdResult extends IBase {
 export interface IGetAppLicenseInformationResult extends IBase {
     GetAppLicenseInformation: string;
 }
+export interface IGetLowerCaseStringResult extends IBase {
+    GetLowerCaseString: string;
+}
 export interface IResolvePrincipalResult extends IBase {
     ResolvePrincipalInCurrentContext: IPrincipalResult;
 }
@@ -121,7 +124,7 @@ export interface IUtilityMethods {
     /**
      * Converts the text to be lower case.
      */
-    getLowerCaseString(sourceValue: string, lcid: number): IBase;
+    getLowerCaseString(sourceValue: string, lcid: number): IBase<IBase, IGetLowerCaseStringResult>;
     /**
      * Need to research
      */
@@ -145,7 +148,7 @@ export interface IUtilityMethods {
     /**
      * Gets information about the principals that match the specified Search criteria.
      */
-    searchPrincipals(principal: ISearchPrincipal): IBase;
+    searchPrincipals(principal: ISearchPrincipal): IBase<IBase, ISearchPrincipalsResult>;
     /**
      * Need to research
      */
