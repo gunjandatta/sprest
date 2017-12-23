@@ -112,7 +112,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(26));
 __export(__webpack_require__(37));
-__export(__webpack_require__(38));
+__export(__webpack_require__(43));
 __export(__webpack_require__(44));
 __export(__webpack_require__(45));
 __export(__webpack_require__(46));
@@ -173,6 +173,7 @@ exports.Mapper = {
     user: mapper_10.user, users: mapper_10.users,
     usercustomaction: mapper_11.usercustomaction, usercustomactions: mapper_11.usercustomactions,
     userprofile: mapper_9.userprofile,
+    utility: mapper_8.utility,
     version: mapper_4.version,
     view: mapper_4.view, views: mapper_4.views,
     viewfieldcollection: mapper_4.viewfieldcollection,
@@ -227,12 +228,6 @@ var _Web = /** @class */ (function (_super) {
         _this.addMethods(_this, { __metadata: { type: "web" } });
         return _this;
     }
-    // Method to determine if the current user has access, based on the permissions.
-    _Web.prototype.hasAccess = function (permissions) {
-        // TO DO
-        return true;
-    };
-    ;
     return _Web;
 }(utils_1.Base));
 exports.Web = _Web;
@@ -278,7 +273,6 @@ exports.RequestType = types_1.RequestType;
 exports.SPTypes = types_1.SPTypes;
 var lib_1 = __webpack_require__(2);
 exports.ContextInfo = lib_1.ContextInfo;
-exports.Email = lib_1.Email;
 exports.Helper = lib_1.Helper;
 exports.JSLink = lib_1.JSLink;
 exports.List = lib_1.List;
@@ -289,6 +283,7 @@ exports.Search = lib_1.Search;
 exports.Site = lib_1.Site;
 exports.SocialFeed = lib_1.SocialFeed;
 exports.UserProfile = lib_1.UserProfile;
+exports.Utility = lib_1.Utility;
 exports.Web = lib_1.Web;
 /**
  * SharePoint REST Library
@@ -297,7 +292,6 @@ exports.$REST = {
     __ver: 2.36,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
-    Email: lib_1.Email,
     Helper: lib_1.Helper,
     JSLink: lib_1.JSLink,
     List: function (listName, targetInfo) { return new lib_1.List(listName, targetInfo); },
@@ -308,6 +302,7 @@ exports.$REST = {
     Site: function (url, targetInfo) { return new lib_1.Site(url, targetInfo); },
     SocialFeed: lib_1.SocialFeed,
     UserProfile: function (targetInfo) { return new lib_1.UserProfile(targetInfo); },
+    Utility: function (url, targetInfo) { return new lib_1.Utility(url, targetInfo); },
     Web: function (url, targetInfo) { return new lib_1.Web(url, targetInfo); }
 };
 // See if the library doesn't exist, or is an older version
@@ -2123,6 +2118,129 @@ exports.tenantappcatalog = {
     // Gets the site collection app catalog sites
     SiteCollectionAppCatalogsSites: {
         requestType: types_1.RequestType.Post
+    }
+};
+/**
+ * Utility
+ */
+exports.utility = {
+    createEmailBodyForInvitation: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.createEmailBodyForInvitation",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    createNewDiscussion: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.createNewDiscussion",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    createNewDiscussionReply: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.createNewDiscussionReply",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    createWikiPageInContextWeb: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.createWikiPageInContextWeb",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    formatDateTime: {
+        argNames: ["dt"],
+        name: "SP.Utilities.Utility.createWikiPageInContextWeb",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    getAppLicenseDeploymentId: {
+        argNames: ["id"],
+        name: "SP.Utilities.Utility.getAppLicenseDeploymentId",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    getAppLicenseInformation: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.getAppLicenseInformation",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    getCurrentUserEmailAddresses: {
+        name: "SP.Utilities.Utility.getCurrentUserEmailAddresses",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    getImageUrl: {
+        argNames: ["imageName"],
+        name: "SP.Utilities.Utility.getImageUrl",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    getLayoutsPageUrl: {
+        argNames: ["fileName"],
+        name: "SP.Utilities.Utility.getLayoutsPageUrl",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    getLocalizedString: {
+        argNames: ["value"],
+        name: "SP.Utilities.Utility.getLocalizedString",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    getLowerCaseString: {
+        argNames: ["value"],
+        name: "SP.Utilities.Utility.getLowerCaseString",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    getPeoplePickerURL: {
+        name: "SP.Utilities.Utility.getPeoplePickerURL",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    importAppLicense: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.importAppLicense",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    isUserLicensedForEntityInContext: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.isUserLicensedForEntityInContext",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    localizeWebPartGallery: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.localizeWebPartGallery",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    markDiscussionAsFeatured: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.markDiscussionAsFeatured",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    resolvePrincipal: {
+        argNames: ["principal"],
+        name: "SP.Utilities.Utility.resolvePrincipal",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    searchPrincipals: {
+        argNames: ["principals"],
+        name: "SP.Utilities.Utility.searchPrincipals",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    unmarkDiscussionAsFeatured: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.unmarkDiscussionAsFeatured",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
     }
 };
 /**
@@ -4835,83 +4953,12 @@ exports.XHRRequest = XHRRequest;
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var utils_1 = __webpack_require__(1);
-/**
- * Email
- */
-var _Email = /** @class */ (function (_super) {
-    __extends(_Email, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _Email(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "SP.Utilities.Utility.SendEmail";
-        return _this;
-    }
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Method to send an email
-    _Email.prototype.send = function (properties) {
-        // Parse the email properties
-        for (var _i = 0, _a = ["To", "CC", "BCC"]; _i < _a.length; _i++) {
-            var propName = _a[_i];
-            var propValue = properties[propName];
-            // Ensure the value exists
-            if (propValue) {
-                // See if it's a string
-                if (typeof (propValue) === "string") {
-                    // Add the results property
-                    properties[propName] = { 'results': [propValue] };
-                }
-                else {
-                    // Add the results property
-                    properties[propName] = { 'results': propValue };
-                }
-            }
-        }
-        // Execute the method, and return the email object
-        return this.executeMethod("send", {
-            argNames: ["properties"],
-            name: "",
-            metadataType: "SP.Utilities.EmailProperties",
-            requestType: types_1.RequestType.PostWithArgsInBody
-        }, [properties]);
-    };
-    return _Email;
-}(utils_1.Base));
-exports.Email = new _Email();
-//# sourceMappingURL=email.js.map
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = __webpack_require__(39);
-var dependencies_1 = __webpack_require__(40);
-var jslink_1 = __webpack_require__(41);
-var loader_1 = __webpack_require__(42);
-var spCfg_1 = __webpack_require__(43);
+var app_1 = __webpack_require__(38);
+var dependencies_1 = __webpack_require__(39);
+var jslink_1 = __webpack_require__(40);
+var loader_1 = __webpack_require__(41);
+var spCfg_1 = __webpack_require__(42);
 ;
 /**
  * Helper Methods
@@ -4926,7 +4973,7 @@ exports.Helper = {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5227,7 +5274,7 @@ exports.AppHelper = {
 //# sourceMappingURL=app.js.map
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5305,7 +5352,7 @@ exports.Dependencies = Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5679,7 +5726,7 @@ exports.JSLinkHelper = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5739,7 +5786,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 43 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6829,7 +6876,7 @@ exports.SPConfig = SPConfig;
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 44 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6950,7 +6997,7 @@ exports.JSLink = _JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 45 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7015,7 +7062,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7057,7 +7104,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7100,7 +7147,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7143,7 +7190,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7223,7 +7270,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7280,7 +7327,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7350,7 +7397,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7391,6 +7438,85 @@ var _UserProfile = /** @class */ (function (_super) {
 }(utils_1.Base));
 exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var types_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
+/**
+ * Utility
+ */
+var _Utility = /** @class */ (function (_super) {
+    __extends(_Utility, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _Utility(url, targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "SP.Utilities.Utility";
+        // See if the web url exists
+        if (url) {
+            // Set the settings
+            _this.targetInfo.url = url;
+        }
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "utility" } });
+        return _this;
+    }
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Method to send an email
+    _Utility.prototype.sendEmail = function (properties) {
+        // Parse the email properties
+        for (var _i = 0, _a = ["To", "CC", "BCC"]; _i < _a.length; _i++) {
+            var propName = _a[_i];
+            var propValue = properties[propName];
+            // Ensure the value exists
+            if (propValue) {
+                // See if it's a string
+                if (typeof (propValue) === "string") {
+                    // Add the results property
+                    properties[propName] = { 'results': [propValue] };
+                }
+                else {
+                    // Add the results property
+                    properties[propName] = { 'results': propValue };
+                }
+            }
+        }
+        // Execute the method, and return the email object
+        return this.executeMethod("sendEmail", {
+            argNames: ["properties"],
+            metadataType: "SP.Utilities.EmailProperties",
+            name: "SP.Utilities.Utility.sendEmail",
+            replaceEndpointFl: true,
+            requestType: types_1.RequestType.PostWithArgsInBody
+        }, [properties]);
+    };
+    return _Utility;
+}(utils_1.Base));
+exports.Utility = _Utility;
+//# sourceMappingURL=utility.js.map
 
 /***/ })
 /******/ ]);

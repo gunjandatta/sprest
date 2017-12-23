@@ -33,7 +33,6 @@ exports.RequestType = types_1.RequestType;
 exports.SPTypes = types_1.SPTypes;
 var lib_1 = require("./lib");
 exports.ContextInfo = lib_1.ContextInfo;
-exports.Email = lib_1.Email;
 exports.Helper = lib_1.Helper;
 exports.JSLink = lib_1.JSLink;
 exports.List = lib_1.List;
@@ -44,6 +43,7 @@ exports.Search = lib_1.Search;
 exports.Site = lib_1.Site;
 exports.SocialFeed = lib_1.SocialFeed;
 exports.UserProfile = lib_1.UserProfile;
+exports.Utility = lib_1.Utility;
 exports.Web = lib_1.Web;
 /**
  * SharePoint REST Library
@@ -52,7 +52,6 @@ exports.$REST = {
     __ver: 2.36,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
-    Email: lib_1.Email,
     Helper: lib_1.Helper,
     JSLink: lib_1.JSLink,
     List: function (listName, targetInfo) { return new lib_1.List(listName, targetInfo); },
@@ -63,6 +62,7 @@ exports.$REST = {
     Site: function (url, targetInfo) { return new lib_1.Site(url, targetInfo); },
     SocialFeed: lib_1.SocialFeed,
     UserProfile: function (targetInfo) { return new lib_1.UserProfile(targetInfo); },
+    Utility: function (url, targetInfo) { return new lib_1.Utility(url, targetInfo); },
     Web: function (url, targetInfo) { return new lib_1.Web(url, targetInfo); }
 };
 // See if the library doesn't exist, or is an older version

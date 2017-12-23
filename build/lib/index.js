@@ -4,7 +4,6 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./contextInfo"));
-__export(require("./email"));
 __export(require("./helper"));
 __export(require("./jslink"));
 __export(require("./list"));
@@ -15,5 +14,6 @@ __export(require("./search"));
 __export(require("./site"));
 __export(require("./socialFeed"));
 __export(require("./userProfile"));
+__export(require("./utility"));
 __export(require("./web"));
 //# sourceMappingURL=index.js.map

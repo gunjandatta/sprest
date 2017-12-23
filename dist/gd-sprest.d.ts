@@ -26,8 +26,8 @@ declare module 'gd-sprest' {
      ***************************************************************************************************/
     import { Types } from "gd-sprest/mapper";
     import { RequestType, SPTypes } from "gd-sprest/types";
-    import { ContextInfo, Email, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Web } from "gd-sprest/lib";
-    export { ContextInfo, Email, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Web };
+    import { ContextInfo, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "gd-sprest/lib";
+    export { ContextInfo, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Utility, Web };
     /**
         * SharePoint REST Library
         */
@@ -1007,6 +1007,126 @@ declare module 'gd-sprest/mapper' {
                 requestType: number;
             };
         };
+        utility: {
+            createEmailBodyForInvitation: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            createNewDiscussion: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            createNewDiscussionReply: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            createWikiPageInContextWeb: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            formatDateTime: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            getAppLicenseDeploymentId: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            getAppLicenseInformation: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            getCurrentUserEmailAddresses: {
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            getImageUrl: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            getLayoutsPageUrl: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            getLocalizedString: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            getLowerCaseString: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            getPeoplePickerURL: {
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            importAppLicense: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            isUserLicensedForEntityInContext: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            localizeWebPartGallery: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            markDiscussionAsFeatured: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            resolvePrincipal: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            searchPrincipals: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            unmarkDiscussionAsFeatured: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+        };
         version: {
             getById: {
                 argNames: string[];
@@ -1290,7 +1410,6 @@ declare module 'gd-sprest/types' {
 
 declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/contextInfo";
-    export * from "gd-sprest/lib/email";
     export * from "gd-sprest/lib/helper";
     export * from "gd-sprest/lib/jslink";
     export * from "gd-sprest/lib/list";
@@ -1301,6 +1420,7 @@ declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/site";
     export * from "gd-sprest/lib/socialFeed";
     export * from "gd-sprest/lib/userProfile";
+    export * from "gd-sprest/lib/utility";
     export * from "gd-sprest/lib/web";
 }
 
@@ -1915,41 +2035,6 @@ declare module 'gd-sprest/lib/contextInfo' {
     export const ContextInfo: IContextInformation;
 }
 
-declare module 'gd-sprest/lib/email' {
-    import { Types } from "gd-sprest/mapper";
-    import { IBase } from "gd-sprest/utils";
-    /**
-        * Email Properties
-        */
-    export interface EmailProperties {
-            /** A collection of additional email headers. */
-            AdditionalHeaders?: Array<Types.ComplexTypes.KeyValue>;
-            /** A string or collection of email addresses to blind carbon copy the email to. */
-            BCC?: string | Array<string>;
-            /** A value that specifies the body of the email. */
-            Body: string;
-            /** A string or collection of email addresses to carbon copy the email to. */
-            CC?: string | Array<string>;
-            /** A value that specifies the email address of the sender. */
-            From?: string;
-            /** A string or collection of email addresses to send the email to. */
-            To: string | Array<string>;
-            /** A value that specifies the email subject. */
-            Subject: string;
-    }
-    /**
-        * Email
-        */
-    export interface IEmail {
-            /**
-                * Method to send an email.
-                * @param properties - The email information.
-                */
-            send(properties: EmailProperties): IBase;
-    }
-    export const Email: IEmail;
-}
-
 declare module 'gd-sprest/lib/helper' {
     import { IHelperApp } from "gd-sprest/lib/helper/app";
     import { IDependencies } from "gd-sprest/lib/helper/dependencies";
@@ -2078,6 +2163,11 @@ declare module 'gd-sprest/lib/socialFeed' {
 declare module 'gd-sprest/lib/userProfile' {
     import { Types } from "gd-sprest/mapper";
     export const UserProfile: Types.IUserProfile;
+}
+
+declare module 'gd-sprest/lib/utility' {
+    import { Types } from "gd-sprest/mapper";
+    export const Utility: Types.IUtility;
 }
 
 declare module 'gd-sprest/lib/web' {
@@ -4721,7 +4811,7 @@ declare module 'gd-sprest/mapper/propertyValues' {
 }
 
 declare module 'gd-sprest/mapper/rest' {
-    import { IContextInformation, IEmail, IHelper, IJSLink } from "gd-sprest/lib";
+    import { IContextInformation, IHelper, IJSLink } from "gd-sprest/lib";
     import { ITargetInfo } from "gd-sprest/utils";
     import { Types } from "gd-sprest/mapper";
     /**
@@ -4740,10 +4830,6 @@ declare module 'gd-sprest/mapper/rest' {
                 * False by default.
                 */
             DefaultRequestToHostFl: boolean;
-            /**
-                * Use this api to send emails.
-                */
-            Email: IEmail;
             /**
                 * Helper methods.
                 */
@@ -4795,6 +4881,12 @@ declare module 'gd-sprest/mapper/rest' {
                 */
             UserProfile: (targetInfo?: ITargetInfo) => Types.IUserProfile;
             /**
+                * The utility api
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            Utility: (url?: string, targetInfo?: ITargetInfo) => Types.IUtility;
+            /**
                 * Use this api to interact with a SharePoint web.
                 * @param url - (Optional) The web url.
                 * @param targetInfo - (Optional) The target information.
@@ -4819,6 +4911,7 @@ declare module 'gd-sprest/mapper/site' {
     export * from "gd-sprest/mapper/site/tenantApp";
     export * from "gd-sprest/mapper/site/tenantApps";
     export * from "gd-sprest/mapper/site/tenantAppCatalog";
+    export * from "gd-sprest/mapper/site/utility";
     export * from "gd-sprest/mapper/site/web";
     export * from "gd-sprest/mapper/site/webs";
 }
@@ -8833,6 +8926,71 @@ declare module 'gd-sprest/mapper/site/tenantAppCatalog' {
         * Tenant App Catalog
         */
     export interface ITenantAppCatalog extends ITenantAppCatalogMethods, ITenantAppCatalogQueryProps, IBase<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/site/utility' {
+    import { KeyValue } from "gd-sprest/mapper/complexTypes";
+    import { IBase, ITargetInfo } from "gd-sprest/utils";
+    /**
+        * Email
+        */
+    export interface IEmail {
+            /** A collection of additional email headers. */
+            AdditionalHeaders?: Array<KeyValue>;
+            /** A string or collection of email addresses to blind carbon copy the email to. */
+            BCC?: Array<string>;
+            /** A value that specifies the body of the email. */
+            Body: string;
+            /** A string or collection of email addresses to carbon copy the email to. */
+            CC?: Array<string>;
+            /** A value that specifies the email address of the sender. */
+            From?: string;
+            /** A string or collection of email addresses to send the email to. */
+            To: Array<string>;
+            /** A value that specifies the email subject. */
+            Subject: string;
+    }
+    /**
+        * Utility Methods
+        */
+    export interface IUtilityMethods {
+            createEmailBodyForInvitation(url: string): IBase;
+            createNewDiscussion(url: string): IBase;
+            createNewDiscussionReply(url: string): IBase;
+            createWikiPageInContextWeb(url: string): IBase;
+            formatDateTime(dt: string): IBase;
+            getAppLicenseDeploymentId(id: string): IBase;
+            getAppLicenseInformation(url: string): IBase;
+            getCurrentUserEmailAddresses(): IBase;
+            getImageUrl(imageName: string): IBase;
+            getLayoutsPageUrl(fileName: string): IBase;
+            getLocalizedString(value: string): IBase;
+            getLowerCaseString(value: string): IBase;
+            getPeoplePickerURL(): IBase;
+            importAppLicense(url: string): IBase;
+            isUserLicensedForEntityInContext(url: string): IBase;
+            localizeWebPartGallery(url: string): IBase;
+            markDiscussionAsFeatured(url: string): IBase;
+            resolvePrincipal(principal: string): IBase;
+            searchPrincipals(principals: Array<string>): IBase;
+            unmarkDiscussionAsFeatured(url: string): IBase;
+    }
+    /**
+        * Utility
+        */
+    export interface IUtility extends IUtilityMethods, IBase<IUtility> {
+            /**
+                * Constructor
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            new (url?: string, targetInfo?: ITargetInfo): IUtility;
+            /**
+                * Method to send an email.
+                * @param email - The email properties.
+                */
+            sendEmail(email: IEmail): IBase;
     }
 }
 

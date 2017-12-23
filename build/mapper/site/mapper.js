@@ -173,6 +173,129 @@ exports.tenantappcatalog = {
     }
 };
 /**
+ * Utility
+ */
+exports.utility = {
+    createEmailBodyForInvitation: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.createEmailBodyForInvitation",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    createNewDiscussion: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.createNewDiscussion",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    createNewDiscussionReply: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.createNewDiscussionReply",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    createWikiPageInContextWeb: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.createWikiPageInContextWeb",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    formatDateTime: {
+        argNames: ["dt"],
+        name: "SP.Utilities.Utility.createWikiPageInContextWeb",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    getAppLicenseDeploymentId: {
+        argNames: ["id"],
+        name: "SP.Utilities.Utility.getAppLicenseDeploymentId",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    getAppLicenseInformation: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.getAppLicenseInformation",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    getCurrentUserEmailAddresses: {
+        name: "SP.Utilities.Utility.getCurrentUserEmailAddresses",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    getImageUrl: {
+        argNames: ["imageName"],
+        name: "SP.Utilities.Utility.getImageUrl",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    getLayoutsPageUrl: {
+        argNames: ["fileName"],
+        name: "SP.Utilities.Utility.getLayoutsPageUrl",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    getLocalizedString: {
+        argNames: ["value"],
+        name: "SP.Utilities.Utility.getLocalizedString",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    getLowerCaseString: {
+        argNames: ["value"],
+        name: "SP.Utilities.Utility.getLowerCaseString",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    getPeoplePickerURL: {
+        name: "SP.Utilities.Utility.getPeoplePickerURL",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.Get
+    },
+    importAppLicense: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.importAppLicense",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    isUserLicensedForEntityInContext: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.isUserLicensedForEntityInContext",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    localizeWebPartGallery: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.localizeWebPartGallery",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    markDiscussionAsFeatured: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.markDiscussionAsFeatured",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    resolvePrincipal: {
+        argNames: ["principal"],
+        name: "SP.Utilities.Utility.resolvePrincipal",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    searchPrincipals: {
+        argNames: ["principals"],
+        name: "SP.Utilities.Utility.searchPrincipals",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    },
+    unmarkDiscussionAsFeatured: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.unmarkDiscussionAsFeatured",
+        replaceEndpointFl: true,
+        requestType: types_1.RequestType.PostWithArgs
+    }
+};
+/**
  * Web
  */
 exports.web = {

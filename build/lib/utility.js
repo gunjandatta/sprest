@@ -13,27 +13,34 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var types_1 = require("../types");
 var utils_1 = require("../utils");
 /**
- * Email
+ * Utility
  */
-var _Email = /** @class */ (function (_super) {
-    __extends(_Email, _super);
+var _Utility = /** @class */ (function (_super) {
+    __extends(_Utility, _super);
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
-    function _Email(targetInfo) {
+    function _Utility(url, targetInfo) {
         var _this = 
         // Call the base constructor
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "SP.Utilities.Utility.SendEmail";
+        _this.targetInfo.endpoint = "SP.Utilities.Utility";
+        // See if the web url exists
+        if (url) {
+            // Set the settings
+            _this.targetInfo.url = url;
+        }
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "utility" } });
         return _this;
     }
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
     // Method to send an email
-    _Email.prototype.send = function (properties) {
+    _Utility.prototype.sendEmail = function (properties) {
         // Parse the email properties
         for (var _i = 0, _a = ["To", "CC", "BCC"]; _i < _a.length; _i++) {
             var propName = _a[_i];
@@ -52,14 +59,15 @@ var _Email = /** @class */ (function (_super) {
             }
         }
         // Execute the method, and return the email object
-        return this.executeMethod("send", {
+        return this.executeMethod("sendEmail", {
             argNames: ["properties"],
-            name: "",
             metadataType: "SP.Utilities.EmailProperties",
+            name: "SP.Utilities.Utility.sendEmail",
+            replaceEndpointFl: true,
             requestType: types_1.RequestType.PostWithArgsInBody
         }, [properties]);
     };
-    return _Email;
+    return _Utility;
 }(utils_1.Base));
-exports.Email = new _Email();
-//# sourceMappingURL=email.js.map
+exports.Utility = _Utility;
+//# sourceMappingURL=utility.js.map

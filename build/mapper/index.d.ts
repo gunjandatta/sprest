@@ -970,6 +970,126 @@ export declare const Mapper: {
             requestType: number;
         };
     };
+    utility: {
+        createEmailBodyForInvitation: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        createNewDiscussion: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        createNewDiscussionReply: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        createWikiPageInContextWeb: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        formatDateTime: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        getAppLicenseDeploymentId: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        getAppLicenseInformation: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        getCurrentUserEmailAddresses: {
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        getImageUrl: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        getLayoutsPageUrl: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        getLocalizedString: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        getLowerCaseString: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        getPeoplePickerURL: {
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        importAppLicense: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        isUserLicensedForEntityInContext: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        localizeWebPartGallery: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        markDiscussionAsFeatured: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        resolvePrincipal: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        searchPrincipals: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+        unmarkDiscussionAsFeatured: {
+            argNames: string[];
+            name: string;
+            replaceEndpointFl: boolean;
+            requestType: number;
+        };
+    };
     version: {
         getById: {
             argNames: string[];

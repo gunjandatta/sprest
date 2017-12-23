@@ -23,8 +23,8 @@ SOFTWARE.
 ***************************************************************************************************/
 import { Types } from "./mapper";
 import { RequestType, SPTypes } from "./types";
-import { ContextInfo, Email, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Web } from "./lib";
-export { ContextInfo, Email, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Web };
+import { ContextInfo, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "./lib";
+export { ContextInfo, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Utility, Web };
 /**
  * SharePoint REST Library
  */
