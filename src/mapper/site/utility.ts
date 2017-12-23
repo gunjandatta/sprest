@@ -29,6 +29,21 @@ export interface IEmail {
 }
 
 /**
+ * Principal Result
+ */
+export interface IPrincipalResult {
+    Department?: string;
+    DisplayName?: string;
+    Email?: string;
+    JobTitle?: string;
+    LoginName?: string;
+    Mobile?: string;
+    PrincipalId?: number;
+    PrincipalType?: number;
+    SIPAddress?: string;
+}
+
+/**
  * Resolve Principal
  */
 export interface IResolvePrincipal {
@@ -78,8 +93,8 @@ export interface ICreateEmailBodyForInvitationResult extends IBase { CreateEmail
 export interface IGetCurrentUserEmailAddressesResult extends IBase { GetCurrentUserEmailAddresses: string; }
 export interface IGetAppLicenseDeploymentIdResult extends IBase { GetAppLicenseDeploymentId: string; }
 export interface IGetAppLicenseInformationResult extends IBase { GetAppLicenseInformation: string; }
-export interface IResolvePrincipalResult extends IBase { ResolvePrincipalInCurrentContext: string; }
-export interface ISearchPrincipalsResult extends IBase { SearchPrincipalsUsingContextWeb: string; }
+export interface IResolvePrincipalResult extends IBase { ResolvePrincipalInCurrentContext: IPrincipalResult; }
+export interface ISearchPrincipalsResult extends IBase { results: Array<IPrincipalResult>; SearchPrincipalsUsingContextWeb: { results: Array<IPrincipalResult>; }; }
 export interface ISendEmailResult extends IBase { SendEmail: string; }
 
 /**
