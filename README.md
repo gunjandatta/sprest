@@ -107,7 +107,6 @@ The add-in model uses the app web for SharePoint Hosted Apps/Add-Ins. The provid
 import {
     $REST,
     ContextInfo,
-    Email,
     Helper,
     JSLink,
     List,
@@ -121,6 +120,7 @@ import {
     SPTypes,
     Types,
     UserProfile,
+    Utility,
     Web
 } from "gd-sprest";
 ```

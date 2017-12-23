@@ -26,6 +26,7 @@ import {
 import {
     site,
     tenantapp, tenantappcatalog, tenantapps,
+    utility,
     web, webinfos, webs
 } from "./site/mapper";
 import {
@@ -67,6 +68,7 @@ export const Mapper = {
     user, users,
     usercustomaction, usercustomactions,
     userprofile,
+    utility,
     version,
     view, views,
     viewfieldcollection,

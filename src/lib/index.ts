@@ -1,5 +1,4 @@
 export * from "./contextInfo";
-export * from "./email";
 export * from "./helper";
 export * from "./jslink";
 export * from "./list";
@@ -10,4 +9,5 @@ export * from "./search";
 export * from "./site";
 export * from "./socialFeed";
 export * from "./userProfile";
+export * from "./utility";
 export * from "./web";

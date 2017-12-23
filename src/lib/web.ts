@@ -25,11 +25,5 @@ class _Web extends Base<Types.IWeb> {
         // Add the methods
         this.addMethods(this, { __metadata: { type: "web" } });
     }
-
-    // Method to determine if the current user has access, based on the permissions.
-    hasAccess(permissions) {
-        // TO DO
-        return true;
-    };
 }
 export const Web: Types.IWeb = _Web as any;

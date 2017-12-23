@@ -122,7 +122,7 @@ export interface IFieldProps {
     Required: boolean;
 
     /** Gets or sets a value that specifies the XML schema that defines the field. */
-    Schemaxml: string;
+    SchemaXml: string;
 
     /** Gets a value that specifies the server-relative URL of the list or the site to which the field belongs. */
     Scope: string;
@@ -348,6 +348,9 @@ export interface IFieldNumber extends IFieldResult {
 
     /** A value that specifies the minimum allowed value for the field. */
     MinimumValue: number;
+
+    /** Flag to determine if the number is displayed as a percentage. */
+    ShowAsPercentage?: boolean;
 }
 
 /**

@@ -10,7 +10,7 @@ export interface ITenantAppsMethods {
      * REST API for getting details on individual SharePoint Framework solution or add-in available in the tenant app catalog.
      * @param guid - The app id.
      */
-    GetById(guid: string): IBase<ITenantApp>;
+    getById(guid: string): IBase<ITenantApp>;
 }
 
 /**

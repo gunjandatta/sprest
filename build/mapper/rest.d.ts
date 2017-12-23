@@ -1,4 +1,4 @@
-import { IContextInformation, IEmail, IHelper, IJSLink } from "../lib";
+import { IContextInformation, IHelper, IJSLink } from "../lib";
 import { ITargetInfo } from "../utils";
 import { Types } from ".";
 /**
@@ -17,10 +17,6 @@ export interface IREST {
      * False by default.
      */
     DefaultRequestToHostFl: boolean;
-    /**
-     * Use this api to send emails.
-     */
-    Email: IEmail;
     /**
      * Helper methods.
      */
@@ -71,6 +67,12 @@ export interface IREST {
      * @param targetInfo - (Optional) The target information.
      */
     UserProfile: (targetInfo?: ITargetInfo) => Types.IUserProfile;
+    /**
+     * The utility api
+     * @param url - (Optional) The web url.
+     * @param targetInfo - (Optional) The target information.
+     */
+    Utility: (url?: string, targetInfo?: ITargetInfo) => Types.IUtility;
     /**
      * Use this api to interact with a SharePoint web.
      * @param url - (Optional) The web url.

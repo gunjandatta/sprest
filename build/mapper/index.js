@@ -41,6 +41,7 @@ exports.Mapper = {
     user: mapper_10.user, users: mapper_10.users,
     usercustomaction: mapper_11.usercustomaction, usercustomactions: mapper_11.usercustomactions,
     userprofile: mapper_9.userprofile,
+    utility: mapper_8.utility,
     version: mapper_4.version,
     view: mapper_4.view, views: mapper_4.views,
     viewfieldcollection: mapper_4.viewfieldcollection,

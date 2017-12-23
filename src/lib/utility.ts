@@ -3,72 +3,52 @@ import { RequestType } from "../types";
 import { Base, IBase } from "../utils";
 
 /**
- * Email Properties
+ * Utility
  */
-export interface EmailProperties {
-    /** A collection of additional email headers. */
-    AdditionalHeaders?: Array<Types.ComplexTypes.KeyValue>;
-
-    /** A string or collection of email addresses to blind carbon copy the email to. */
-    BCC?: string | Array<string>;
-
-    /** A value that specifies the body of the email. */
-    Body: string;
-
-    /** A string or collection of email addresses to carbon copy the email to. */
-    CC?: string | Array<string>;
-
-    /** A value that specifies the email address of the sender. */
-    From: string;
-
-    /** A string or collection of email addresses to send the email to. */
-    To: string | Array<string>;
-
-    /** A value that specifies the email subject. */
-    Subject: string;
-}
-
-/**
- * Email
- */
-export interface IEmail {
-    /**
-     * Properties
-     */
-
-    /**
-     * Methods
-     */
-
-    /**
-     * Method to send an email.
-     * @param properties - The email information.
-     */
-    send(properties: EmailProperties): IBase;
-}
-
-/**
- * Email
- */
-class _Email extends Base {
+class _Utility extends Base {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
-    constructor(targetInfo?) {
+    constructor(url?, targetInfo?) {
         // Call the base constructor
         super(targetInfo);
 
         // Default the properties
         this.defaultToWebFl = true;
-        this.targetInfo.endpoint = "SP.Utilities.Utility.SendEmail";
+        this.targetInfo.endpoint = "SP.Utilities.Utility";
+
+        // See if the web url exists
+        if (url) {
+            // Set the settings
+            this.targetInfo.url = url;
+        }
+
+        // Add the methods
+        this.addMethods(this, { __metadata: { type: "utility" } });
     }
 
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
 
+    // Method to create a wiki page
+    createWikiPage(listUrl: string, content: string = "") {
+        let parameters = {
+            ServerRelativeUrl: listUrl,
+            WikiHtmlContent: content
+        };
+
+        // Execute the method
+        return this.executeMethod("createWikiPage", {
+            argNames: ["parameters"],
+            name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
+            replaceEndpointFl: true,
+            requestType: RequestType.PostWithArgsInBody
+        }, [parameters]);
+    }
+
     // Method to send an email
-    send(properties) {
+    sendEmail(properties) {
         // Parse the email properties
         for (let propName of ["To", "CC", "BCC"]) {
             let propValue = properties[propName];
@@ -88,13 +68,14 @@ class _Email extends Base {
             }
         }
 
-        // Execute the method, and return the email object
-        return this.executeMethod("send", {
+        // Execute the method
+        return this.executeMethod("sendEmail", {
             argNames: ["properties"],
-            name: "",
             metadataType: "SP.Utilities.EmailProperties",
+            name: "SP.Utilities.Utility.sendEmail",
+            replaceEndpointFl: true,
             requestType: RequestType.PostWithArgsInBody
         }, [properties]);
     }
 }
-export const Email: IEmail = new _Email() as any;
+export const Utility: Types.IUtility = _Utility as any;

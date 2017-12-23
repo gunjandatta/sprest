@@ -69,26 +69,26 @@ export declare const site: {
  * Tenant App
  */
 export declare const tenantapp: {
-    Deploy: {
+    deploy: {
         requestType: number;
     };
-    Install: {
+    install: {
         requestType: number;
     };
     query: {
         argNames: string[];
         requestType: number;
     };
-    Remove: {
+    remove: {
         requestType: number;
     };
-    Retract: {
+    retract: {
         requestType: number;
     };
-    Upgrade: {
+    upgrade: {
         requestType: number;
     };
-    Uninstall: {
+    uninstall: {
         requestType: number;
     };
 };
@@ -96,7 +96,7 @@ export declare const tenantapp: {
  * Tenant Apps
  */
 export declare const tenantapps: {
-    GetById: {
+    getById: {
         argNames: string[];
         requestType: number;
         returnType: string;
@@ -111,17 +111,95 @@ export declare const tenantapps: {
  */
 export declare const tenantappcatalog: {
     properties: string[];
-    Add: {
+    add: {
         argNames: string[];
         requestType: number;
     };
-    GetById: {
+    getById: {
         argNames: string[];
         name: string;
         requestType: number;
         returnType: string;
     };
     SiteCollectionAppCatalogsSites: {
+        requestType: number;
+    };
+};
+/**
+ * Utility
+ */
+export declare const utility: {
+    createEmailBodyForInvitation: {
+        argNames: string[];
+        name: string;
+        replaceEndpointFl: boolean;
+        requestType: number;
+    };
+    getAppLicenseDeploymentId: {
+        name: string;
+        replaceEndpointFl: boolean;
+        requestType: number;
+    };
+    getAppLicenseInformation: {
+        name: string;
+        replaceEndpointFl: boolean;
+        requestType: number;
+    };
+    getCurrentUserEmailAddresses: {
+        name: string;
+        replaceEndpointFl: boolean;
+        requestType: number;
+    };
+    getLocalizedString: {
+        argNames: string[];
+        name: string;
+        replaceEndpointFl: boolean;
+        requestType: number;
+    };
+    getLowerCaseString: {
+        argNames: string[];
+        name: string;
+        replaceEndpointFl: boolean;
+        requestType: number;
+    };
+    importAppLicense: {
+        argNames: string[];
+        name: string;
+        replaceEndpointFl: boolean;
+        requestType: number;
+    };
+    isUserLicensedForEntityInContext: {
+        argNames: string[];
+        name: string;
+        replaceEndpointFl: boolean;
+        requestType: number;
+    };
+    localizeWebPartGallery: {
+        argNames: string[];
+        name: string;
+        replaceEndpointFl: boolean;
+        requestType: number;
+    };
+    markDiscussionAsFeatured: {
+        argNames: string[];
+        name: string;
+        replaceEndpointFl: boolean;
+        requestType: number;
+    };
+    resolvePrincipal: {
+        name: string;
+        replaceEndpointFl: boolean;
+        requestType: number;
+    };
+    searchPrincipals: {
+        name: string;
+        replaceEndpointFl: boolean;
+        requestType: number;
+    };
+    unmarkDiscussionAsFeatured: {
+        argNames: string[];
+        name: string;
+        replaceEndpointFl: boolean;
         requestType: number;
     };
 };

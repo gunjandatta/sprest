@@ -26,8 +26,8 @@ declare module 'gd-sprest' {
      ***************************************************************************************************/
     import { Types } from "gd-sprest/mapper";
     import { RequestType, SPTypes } from "gd-sprest/types";
-    import { ContextInfo, Email, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Web } from "gd-sprest/lib";
-    export { ContextInfo, Email, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Web };
+    import { ContextInfo, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "gd-sprest/lib";
+    export { ContextInfo, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Utility, Web };
     /**
         * SharePoint REST Library
         */
@@ -874,36 +874,36 @@ declare module 'gd-sprest/mapper' {
             };
         };
         tenantapp: {
-            Deploy: {
+            deploy: {
                 requestType: number;
             };
-            Install: {
+            install: {
                 requestType: number;
             };
             query: {
                 argNames: string[];
                 requestType: number;
             };
-            Remove: {
+            remove: {
                 requestType: number;
             };
-            Retract: {
+            retract: {
                 requestType: number;
             };
-            Upgrade: {
+            upgrade: {
                 requestType: number;
             };
-            Uninstall: {
+            uninstall: {
                 requestType: number;
             };
         };
         tenantappcatalog: {
             properties: string[];
-            Add: {
+            add: {
                 argNames: string[];
                 requestType: number;
             };
-            GetById: {
+            getById: {
                 argNames: string[];
                 name: string;
                 requestType: number;
@@ -914,7 +914,7 @@ declare module 'gd-sprest/mapper' {
             };
         };
         tenantapps: {
-            GetById: {
+            getById: {
                 argNames: string[];
                 requestType: number;
                 returnType: string;
@@ -1004,6 +1004,81 @@ declare module 'gd-sprest/mapper' {
                 requestType: number;
             };
             shareAllSocialData: {
+                requestType: number;
+            };
+        };
+        utility: {
+            createEmailBodyForInvitation: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            getAppLicenseDeploymentId: {
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            getAppLicenseInformation: {
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            getCurrentUserEmailAddresses: {
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            getLocalizedString: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            getLowerCaseString: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            importAppLicense: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            isUserLicensedForEntityInContext: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            localizeWebPartGallery: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            markDiscussionAsFeatured: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            resolvePrincipal: {
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            searchPrincipals: {
+                name: string;
+                replaceEndpointFl: boolean;
+                requestType: number;
+            };
+            unmarkDiscussionAsFeatured: {
+                argNames: string[];
+                name: string;
+                replaceEndpointFl: boolean;
                 requestType: number;
             };
         };
@@ -1290,7 +1365,6 @@ declare module 'gd-sprest/types' {
 
 declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/contextInfo";
-    export * from "gd-sprest/lib/email";
     export * from "gd-sprest/lib/helper";
     export * from "gd-sprest/lib/jslink";
     export * from "gd-sprest/lib/list";
@@ -1301,6 +1375,7 @@ declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/site";
     export * from "gd-sprest/lib/socialFeed";
     export * from "gd-sprest/lib/userProfile";
+    export * from "gd-sprest/lib/utility";
     export * from "gd-sprest/lib/web";
 }
 
@@ -1915,41 +1990,6 @@ declare module 'gd-sprest/lib/contextInfo' {
     export const ContextInfo: IContextInformation;
 }
 
-declare module 'gd-sprest/lib/email' {
-    import { Types } from "gd-sprest/mapper";
-    import { IBase } from "gd-sprest/utils";
-    /**
-        * Email Properties
-        */
-    export interface EmailProperties {
-            /** A collection of additional email headers. */
-            AdditionalHeaders?: Array<Types.ComplexTypes.KeyValue>;
-            /** A string or collection of email addresses to blind carbon copy the email to. */
-            BCC?: string | Array<string>;
-            /** A value that specifies the body of the email. */
-            Body: string;
-            /** A string or collection of email addresses to carbon copy the email to. */
-            CC?: string | Array<string>;
-            /** A value that specifies the email address of the sender. */
-            From: string;
-            /** A string or collection of email addresses to send the email to. */
-            To: string | Array<string>;
-            /** A value that specifies the email subject. */
-            Subject: string;
-    }
-    /**
-        * Email
-        */
-    export interface IEmail {
-            /**
-                * Method to send an email.
-                * @param properties - The email information.
-                */
-            send(properties: EmailProperties): IBase;
-    }
-    export const Email: IEmail;
-}
-
 declare module 'gd-sprest/lib/helper' {
     import { IHelperApp } from "gd-sprest/lib/helper/app";
     import { IDependencies } from "gd-sprest/lib/helper/dependencies";
@@ -2078,6 +2118,11 @@ declare module 'gd-sprest/lib/socialFeed' {
 declare module 'gd-sprest/lib/userProfile' {
     import { Types } from "gd-sprest/mapper";
     export const UserProfile: Types.IUserProfile;
+}
+
+declare module 'gd-sprest/lib/utility' {
+    import { Types } from "gd-sprest/mapper";
+    export const Utility: Types.IUtility;
 }
 
 declare module 'gd-sprest/lib/web' {
@@ -2413,6 +2458,17 @@ declare module 'gd-sprest/mapper/complexTypes' {
             };
             LookupId: number;
             LookupValue: string;
+    }
+    /**
+        * Field Managed Metadata Value
+        */
+    export interface FieldManagedMetadataValue {
+            __metadata?: {
+                    type: string;
+            };
+            Label: string;
+            TermGuid: string;
+            WssId: number;
     }
     /**
         * Field Multi-Choice
@@ -4710,7 +4766,7 @@ declare module 'gd-sprest/mapper/propertyValues' {
 }
 
 declare module 'gd-sprest/mapper/rest' {
-    import { IContextInformation, IEmail, IHelper, IJSLink } from "gd-sprest/lib";
+    import { IContextInformation, IHelper, IJSLink } from "gd-sprest/lib";
     import { ITargetInfo } from "gd-sprest/utils";
     import { Types } from "gd-sprest/mapper";
     /**
@@ -4729,10 +4785,6 @@ declare module 'gd-sprest/mapper/rest' {
                 * False by default.
                 */
             DefaultRequestToHostFl: boolean;
-            /**
-                * Use this api to send emails.
-                */
-            Email: IEmail;
             /**
                 * Helper methods.
                 */
@@ -4784,6 +4836,12 @@ declare module 'gd-sprest/mapper/rest' {
                 */
             UserProfile: (targetInfo?: ITargetInfo) => Types.IUserProfile;
             /**
+                * The utility api
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            Utility: (url?: string, targetInfo?: ITargetInfo) => Types.IUtility;
+            /**
                 * Use this api to interact with a SharePoint web.
                 * @param url - (Optional) The web url.
                 * @param targetInfo - (Optional) The target information.
@@ -4808,6 +4866,7 @@ declare module 'gd-sprest/mapper/site' {
     export * from "gd-sprest/mapper/site/tenantApp";
     export * from "gd-sprest/mapper/site/tenantApps";
     export * from "gd-sprest/mapper/site/tenantAppCatalog";
+    export * from "gd-sprest/mapper/site/utility";
     export * from "gd-sprest/mapper/site/web";
     export * from "gd-sprest/mapper/site/webs";
 }
@@ -6772,7 +6831,7 @@ declare module 'gd-sprest/mapper/list/field' {
             /** Gets or sets a value that specifies whether the field requires a value. */
             Required: boolean;
             /** Gets or sets a value that specifies the XML schema that defines the field. */
-            Schemaxml: string;
+            SchemaXml: string;
             /** Gets a value that specifies the server-relative URL of the list or the site to which the field belongs. */
             Scope: string;
             /** Gets a value that specifies whether properties on the field cannot be changed and whether the field cannot be deleted. */
@@ -6948,6 +7007,8 @@ declare module 'gd-sprest/mapper/list/field' {
             MaximumValue: number;
             /** A value that specifies the minimum allowed value for the field. */
             MinimumValue: number;
+            /** Flag to determine if the number is displayed as a percentage. */
+            ShowAsPercentage?: boolean;
     }
     /**
         * Rating Scale Field
@@ -8679,32 +8740,32 @@ declare module 'gd-sprest/mapper/site/tenantApp' {
                 * Deploy solution package in tenant app catalog
                 * Enable solution to be available to install to specific sites. This API is designed to be executed in the context of the tenant app catalog site.
                 */
-            Deploy(): IBase;
+            deploy(): IBase;
             /**
                 * Install solution package from tenant app catalog to SharePoint site
                 * Install a solution package with specific identifier from tenant app catalog to the site based on URL context. This REST call can be executed in the context of the site where the install operation should happen.
                 */
-            Install(): IBase;
+            install(): IBase;
             /**
                 * Remove solution package from tenant app catalog
                 * Remove the solution package from the tenant app catalog. This API is designed to be executed in the context of the tenant app catalog site.
                 */
-            Remove(): IBase;
+            remove(): IBase;
             /**
                 * Retract solution package in the tenant app catalog
                 * Retract solution to be available from the sites. This API is designed to be executed in the context of the tenant app catalog site.
                 */
-            Retract(): IBase;
+            retract(): IBase;
             /**
                 * Uninstall solution package from SharePoint site
                 * Uninstall a solution package from the site. This REST call can be executed in the context of the site where the uninstall operation should happen.
                 */
-            Uninstall(): IBase;
+            uninstall(): IBase;
             /**
                 * Upgrade solution package in SharePoint site
                 * Upgrade a solution package from the site to a newer version available in the tenant app catalog. This REST call can be executed in the context of the site where the upgrade operation should happen.
                 */
-            Upgrade(): IBase;
+            upgrade(): IBase;
     }
     /**
         * Properties
@@ -8751,7 +8812,7 @@ declare module 'gd-sprest/mapper/site/tenantApps' {
                 * REST API for getting details on individual SharePoint Framework solution or add-in available in the tenant app catalog.
                 * @param guid - The app id.
                 */
-            GetById(guid: string): IBase<ITenantApp>;
+            getById(guid: string): IBase<ITenantApp>;
     }
     /**
         * Tenant Apps
@@ -8774,13 +8835,13 @@ declare module 'gd-sprest/mapper/site/tenantAppCatalog' {
                 * @param overwrite - Flag to overwrite the solution.
                 * @param url - The file name of the solution.
                 */
-            Add(overwrite?: boolean, url?: string): IBase<Types.IFile, Types.IFileResult>;
+            add(overwrite?: boolean, url?: string): IBase<Types.IFile, Types.IFileResult>;
             /**
                 * Deploy solution package in tenant app catalog
                 * Enable solution to be available to install to specific sites. This API is designed to be executed in the context of the tenant app catalog site.
                 * @param guid - The app id.
                 */
-            GetById(guid: string): ITenantApp;
+            getById(guid: string): ITenantApp;
     }
     /**
         * Tenant App Catalog Properties
@@ -8820,6 +8881,167 @@ declare module 'gd-sprest/mapper/site/tenantAppCatalog' {
         * Tenant App Catalog
         */
     export interface ITenantAppCatalog extends ITenantAppCatalogMethods, ITenantAppCatalogQueryProps, IBase<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/site/utility' {
+    import { KeyValue } from "gd-sprest/mapper/complexTypes";
+    import { IBase, ITargetInfo } from "gd-sprest/utils";
+    import { Types } from "gd-sprest/mapper";
+    /**
+        * Email
+        */
+    export interface IEmail {
+            /** A collection of additional email headers. */
+            AdditionalHeaders?: Array<KeyValue>;
+            /** A string or collection of email addresses to blind carbon copy the email to. */
+            BCC?: Array<string>;
+            /** A value that specifies the body of the email. */
+            Body: string;
+            /** A string or collection of email addresses to carbon copy the email to. */
+            CC?: Array<string>;
+            /** A value that specifies the email address of the sender. */
+            From?: string;
+            /** A string or collection of email addresses to send the email to. */
+            To: Array<string>;
+            /** A value that specifies the email subject. */
+            Subject: string;
+    }
+    /**
+        * Resolve Principal
+        */
+    export interface IResolvePrincipal {
+            /** Specifies whether to add the user to the user information list. */
+            addToUserInfoList?: boolean;
+            /** The display name, email address, or login name of the principal scopes. */
+            input: string;
+            /** Specifies whether only the email address is used when searching for the principal. */
+            inputIsEmailOnly?: boolean;
+            /** Specifies whether the user information list is used. */
+            matchUserInfoList?: boolean;
+            /** The type of the principal. */
+            scopes: Types.SPTypes.PrincipalTypes;
+            /** The source of the principal. */
+            sources: Types.SPTypes.PrincipalSources;
+    }
+    /**
+        * Search Principal
+        */
+    export interface ISearchPrincipal {
+            /** The group name. */
+            groupName?: string;
+            /** The display name, email address, or login name of the principal scopes. */
+            input: string;
+            /** The maximum number of information entries about principals to return. */
+            maxCount: number;
+            /** The type of the principal. */
+            scopes?: Types.SPTypes.PrincipalTypes;
+            /** The source of the principal. */
+            sources?: Types.SPTypes.PrincipalSources;
+    }
+    /**
+        * Utility Results
+        */
+    export interface ICreateEmailBodyForInvitationResult extends IBase {
+            CreateEmailBodyForInvitation: string;
+    }
+    export interface IGetCurrentUserEmailAddressesResult extends IBase {
+            GetCurrentUserEmailAddresses: string;
+    }
+    export interface IGetAppLicenseDeploymentIdResult extends IBase {
+            GetAppLicenseDeploymentId: string;
+    }
+    export interface IGetAppLicenseInformationResult extends IBase {
+            GetAppLicenseInformation: string;
+    }
+    export interface IResolvePrincipalResult extends IBase {
+            ResolvePrincipalInCurrentContext: string;
+    }
+    export interface ISearchPrincipalsResult extends IBase {
+            SearchPrincipalsUsingContextWeb: string;
+    }
+    export interface ISendEmailResult extends IBase {
+            SendEmail: string;
+    }
+    /**
+        * Utility Methods
+        */
+    export interface IUtilityMethods {
+            /**
+                * Gets the external (outside the firewall) URL to a document or resource in a site.
+                * pageAddress - The URL for the document or resource.
+                */
+            createEmailBodyForInvitation(pageAddress: string): IBase<IBase, ICreateEmailBodyForInvitationResult>;
+            /**
+                * Gets the app license deployment id.
+                */
+            getAppLicenseDeploymentId(): IBase<IBase, IGetAppLicenseDeploymentIdResult>;
+            /**
+                * Gets the app license information.
+                */
+            getAppLicenseInformation(): IBase<IBase, IGetAppLicenseInformationResult>;
+            /**
+                * Returns the current user's email address.
+                */
+            getCurrentUserEmailAddresses(): IBase<IBase, IGetCurrentUserEmailAddressesResult>;
+            /**
+                * Converts the text to a localized string.
+                */
+            getLocalizedString(value: string): IBase;
+            /**
+                * Converts the text to be lower case.
+                */
+            getLowerCaseString(value: string): IBase;
+            /**
+                * Need to research
+                */
+            importAppLicense(url: string): IBase;
+            /**
+                * Need to research
+                */
+            isUserLicensedForEntityInContext(url: string): IBase;
+            /**
+                * Need to research
+                */
+            localizeWebPartGallery(url: string): IBase;
+            /**
+                * Need to research
+                */
+            markDiscussionAsFeatured(url: string): IBase;
+            /**
+                * Gets information about a principal that matches the specified Search criteria.
+                */
+            resolvePrincipal(principal: IResolvePrincipal): IBase<IBase, IResolvePrincipalResult>;
+            /**
+                * Gets information about the principals that match the specified Search criteria.
+                */
+            searchPrincipals(principal: ISearchPrincipal): IBase;
+            /**
+                * Need to research
+                */
+            unmarkDiscussionAsFeatured(url: string): IBase;
+    }
+    /**
+        * Utility
+        */
+    export interface IUtility extends IUtilityMethods, IBase<IUtility> {
+            /**
+                * Constructor
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            new (url?: string, targetInfo?: ITargetInfo): IUtility;
+            /**
+                * Creates a wiki page.
+                * @param listUrl - The relative url to the library.
+                * @param content - The html content.
+                */
+            createWikiPage(pageUrl: string, content?: string): IBase<Types.IFile, Types.IFileResult, Types.IFileQueryResult>;
+            /**
+                * Method to send an email.
+                * @param email - The email properties.
+                */
+            sendEmail(email: IEmail): IBase<IBase, ISendEmailResult>;
     }
 }
 

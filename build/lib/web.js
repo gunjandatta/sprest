@@ -35,12 +35,6 @@ var _Web = /** @class */ (function (_super) {
         _this.addMethods(_this, { __metadata: { type: "web" } });
         return _this;
     }
-    // Method to determine if the current user has access, based on the permissions.
-    _Web.prototype.hasAccess = function (permissions) {
-        // TO DO
-        return true;
-    };
-    ;
     return _Web;
 }(utils_1.Base));
 exports.Web = _Web;

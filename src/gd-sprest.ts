@@ -30,7 +30,6 @@ import { Types } from "./mapper";
 import { RequestType, SPTypes } from "./types";
 import {
     ContextInfo,
-    Email,
     Helper,
     JSLink,
     List,
@@ -41,11 +40,11 @@ import {
     Site,
     SocialFeed,
     UserProfile,
+    Utility,
     Web
 } from "./lib";
 export {
     ContextInfo,
-    Email,
     Helper,
     JSLink,
     List,
@@ -59,6 +58,7 @@ export {
     SPTypes,
     Types,
     UserProfile,
+    Utility,
     Web
 }
 
@@ -66,10 +66,9 @@ export {
  * SharePoint REST Library
  */
 export const $REST: Types.IREST = {
-    __ver: 2.30,
+    __ver: 2.37,
     ContextInfo,
     DefaultRequestToHostFl: false,
-    Email,
     Helper,
     JSLink,
     List: (listName, targetInfo) => { return new List(listName, targetInfo); },
@@ -80,6 +79,7 @@ export const $REST: Types.IREST = {
     Site: (url, targetInfo) => { return new Site(url, targetInfo); },
     SocialFeed,
     UserProfile: (targetInfo) => { return new UserProfile(targetInfo); },
+    Utility: (url, targetInfo) => { return new Utility(url, targetInfo); },
     Web: (url, targetInfo) => { return new Web(url, targetInfo); }
 };
 

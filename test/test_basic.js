@@ -87,7 +87,7 @@ function testALM() {
     // Read the content types of this file
     file.content().execute(function (content) {
         // Add the app file
-        var appFile = $REST.Web().TenantAppCatalog().Add(true, "hw-webpart.sppkg", content).executeAndWait();
+        var appFile = $REST.Web().TenantAppCatalog().add(true, "hw-webpart.sppkg", content).executeAndWait();
 
         // Get the app
         $REST.Web().TenantAppCatalog().AvailableApps().query({ Filter: "Title eq 'hello-world-web-part-client-side-solution'" }).execute(function (apps) {
@@ -102,31 +102,19 @@ function testALM() {
                 writeToLog("App is already deployed.", LogType.Info);
             } else {
                 // Deploy the app
-                app.Deploy().execute(function (response) {
+                app.deploy().execute(function (response) {
                     // Ensure it was deployed
                     assert(response, "deploy app", "Deploy", null);
                 }, true)
             }
 
-            // Ensure it's deployed
-            if (app.Deployed) {
-                // Log
-                writeToLog("App is already deployed.", LogType.Info);
-            } else {
-                // Deploy the app
-                app.Deploy().execute(function (response) {
-                    // Ensure it was deployed
-                    assert(response, "deploy app", "Deploy", null);
-                })
-            }
-
             // Retract the app
-            app.Retract().execute(function (response) {
+            app.retract().execute(function (response) {
                 // Ensure it was retracted
                 assert(response, "retract app", "Retract", null);
 
                 // Remove the app
-                app.Remove().execute(function (response) {
+                app.remove().execute(function (response) {
                     // Ensure it was removed
                     assert(response, "remove app", "Remove", null);
                 });

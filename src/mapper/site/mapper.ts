@@ -113,12 +113,12 @@ export const site = {
  */
 export const tenantapp = {
     // Deploy solution package in tenant app catalog
-    Deploy: {
+    deploy: {
         requestType: RequestType.Post
     },
 
     // Install solution package from tenant app catalog to SharePoint site
-    Install: {
+    install: {
         requestType: RequestType.Post
     },
 
@@ -129,22 +129,22 @@ export const tenantapp = {
     },
 
     // Remove solution package from tenant app catalog
-    Remove: {
+    remove: {
         requestType: RequestType.Post
     },
 
     // Retract solution package in the tenant app catalog
-    Retract: {
+    retract: {
         requestType: RequestType.Post
     },
 
     // Upgrade solution package in SharePoint site
-    Upgrade: {
+    upgrade: {
         requestType: RequestType.Post
     },
 
     // Uninstall solution package from SharePoint site
-    Uninstall: {
+    uninstall: {
         requestType: RequestType.Post
     }
 }
@@ -154,7 +154,7 @@ export const tenantapp = {
  */
 export const tenantapps = {
     // Get an app by id
-    GetById: {
+    getById: {
         argNames: ["guid"],
         requestType: RequestType.GetWithArgsValueOnly,
         returnType: "tenantapp"
@@ -183,13 +183,13 @@ export const tenantappcatalog = {
     /*********************************************************************************************************************************/
 
     // Adds the folder that is located at the specified URL to the collection.
-    Add: {
+    add: {
         argNames: ["overwrite", "url"],
         requestType: RequestType.PostWithArgs
     },
 
     // Get an app by id.
-    GetById: {
+    getById: {
         argNames: ["guid"],
         name: "AvailableApps/getById('[[guid]]')",
         requestType: RequestType.GetReplace,
@@ -199,6 +199,97 @@ export const tenantappcatalog = {
     // Gets the site collection app catalog sites
     SiteCollectionAppCatalogsSites: {
         requestType: RequestType.Post
+    }
+}
+
+/**
+ * Utility
+ */
+export const utility = {
+    createEmailBodyForInvitation: {
+        argNames: ["pageAddress"],
+        name: "SP.Utilities.Utility.CreateEmailBodyForInvitation",
+        replaceEndpointFl: true,
+        requestType: RequestType.PostWithArgsInBody
+    },
+
+    getAppLicenseDeploymentId: {
+        name: "SP.Utilities.Utility.GetAppLicenseDeploymentId",
+        replaceEndpointFl: true,
+        requestType: RequestType.Get
+    },
+
+    getAppLicenseInformation: {
+        name: "SP.Utilities.Utility.GetAppLicenseInformation",
+        replaceEndpointFl: true,
+        requestType: RequestType.Get
+    },
+
+    getCurrentUserEmailAddresses: {
+        name: "SP.Utilities.Utility.GetCurrentUserEmailAddresses",
+        replaceEndpointFl: true,
+        requestType: RequestType.Get
+    },
+
+    getLocalizedString: {
+        argNames: ["value"],
+        name: "SP.Utilities.Utility.GetLocalizedString",
+        replaceEndpointFl: true,
+        requestType: RequestType.GetWithArgsValueOnly
+    },
+
+    getLowerCaseString: {
+        argNames: ["value"],
+        name: "SP.Utilities.Utility.GetLowerCaseString",
+        replaceEndpointFl: true,
+        requestType: RequestType.GetWithArgsValueOnly
+    },
+
+    importAppLicense: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.ImportAppLicense",
+        replaceEndpointFl: true,
+        requestType: RequestType.PostWithArgs
+    },
+
+    isUserLicensedForEntityInContext: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.IsUserLicensedForEntityInContext",
+        replaceEndpointFl: true,
+        requestType: RequestType.PostWithArgs
+    },
+
+    localizeWebPartGallery: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.LocalizeWebPartGallery",
+        replaceEndpointFl: true,
+        requestType: RequestType.PostWithArgs
+    },
+
+    markDiscussionAsFeatured: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.MarkDiscussionAsFeatured",
+        replaceEndpointFl: true,
+        requestType: RequestType.PostWithArgs
+    },
+
+    resolvePrincipal: {
+        name: "SP.Utilities.Utility.ResolvePrincipalInCurrentContext",
+        replaceEndpointFl: true,
+        requestType: RequestType.Post
+    },
+
+    searchPrincipals: {
+        name: "SP.Utilities.Utility.SearchPrincipalsUsingContextWeb",
+        replaceEndpointFl: true,
+        requestType: RequestType.Post
+    },
+
+    unmarkDiscussionAsFeatured: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.UnmarkDiscussionAsFeatured",
+        replaceEndpointFl: true,
+        requestType: RequestType.PostWithArgsInBody
     }
 }
 
