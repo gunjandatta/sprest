@@ -289,7 +289,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.38,
+    __ver: 2.39,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -2146,16 +2146,16 @@ exports.utility = {
         requestType: types_1.RequestType.Get
     },
     getLocalizedString: {
-        argNames: ["value"],
+        argNames: ["sourceValue"],
         name: "SP.Utilities.Utility.GetLocalizedString",
         replaceEndpointFl: true,
         requestType: types_1.RequestType.GetWithArgsValueOnly
     },
     getLowerCaseString: {
-        argNames: ["value"],
+        argNames: ["sourceValue", "lcid"],
         name: "SP.Utilities.Utility.GetLowerCaseString",
         replaceEndpointFl: true,
-        requestType: types_1.RequestType.GetWithArgsValueOnly
+        requestType: types_1.RequestType.PostWithArgsInBody
     },
     importAppLicense: {
         argNames: ["url"],

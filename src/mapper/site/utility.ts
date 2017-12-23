@@ -93,6 +93,7 @@ export interface ICreateEmailBodyForInvitationResult extends IBase { CreateEmail
 export interface IGetCurrentUserEmailAddressesResult extends IBase { GetCurrentUserEmailAddresses: string; }
 export interface IGetAppLicenseDeploymentIdResult extends IBase { GetAppLicenseDeploymentId: string; }
 export interface IGetAppLicenseInformationResult extends IBase { GetAppLicenseInformation: string; }
+export interface IGetLowerCaseStringResult extends IBase { GetLowerCaseString: string; }
 export interface IResolvePrincipalResult extends IBase { ResolvePrincipalInCurrentContext: IPrincipalResult; }
 export interface ISearchPrincipalsResult extends IBase { results: Array<IPrincipalResult>; SearchPrincipalsUsingContextWeb: { results: Array<IPrincipalResult>; }; }
 export interface ISendEmailResult extends IBase { SendEmail: string; }
@@ -125,12 +126,12 @@ export interface IUtilityMethods {
     /**
      * Converts the text to a localized string.
      */
-    getLocalizedString(value: string): IBase;
+    getLocalizedString(sourceValue: string): IBase;
 
     /**
      * Converts the text to be lower case.
      */
-    getLowerCaseString(value: string): IBase;
+    getLowerCaseString(sourceValue: string, lcid: number): IBase<IBase, IGetLowerCaseStringResult>;
 
     /**
      * Need to research
@@ -160,7 +161,7 @@ export interface IUtilityMethods {
     /**
      * Gets information about the principals that match the specified Search criteria.
      */
-    searchPrincipals(principal: ISearchPrincipal): IBase;
+    searchPrincipals(principal: ISearchPrincipal): IBase<IBase, ISearchPrincipalsResult>;
 
     /**
      * Need to research
