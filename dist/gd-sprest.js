@@ -69,6 +69,21 @@
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+var requestType_1 = __webpack_require__(7);
+exports.RequestType = requestType_1.RequestType;
+var spConfigTypes_1 = __webpack_require__(8);
+exports.SPConfigTypes = spConfigTypes_1.SPConfigTypes;
+var SPTypes = __webpack_require__(9);
+exports.SPTypes = SPTypes;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
@@ -83,21 +98,6 @@ __export(__webpack_require__(34));
 __export(__webpack_require__(35));
 __export(__webpack_require__(36));
 __export(__webpack_require__(37));
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var requestType_1 = __webpack_require__(7);
-exports.RequestType = requestType_1.RequestType;
-var spConfigTypes_1 = __webpack_require__(8);
-exports.SPConfigTypes = spConfigTypes_1.SPConfigTypes;
-var SPTypes = __webpack_require__(9);
-exports.SPTypes = SPTypes;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -206,7 +206,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // Web
 /*********************************************************************************************************************************/
@@ -271,7 +271,7 @@ SOFTWARE.
 ***************************************************************************************************/
 var mapper_1 = __webpack_require__(3);
 exports.Types = mapper_1.Types;
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 exports.RequestType = types_1.RequestType;
 exports.SPTypes = types_1.SPTypes;
 var lib_1 = __webpack_require__(2);
@@ -325,7 +325,7 @@ if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Audit
  */
@@ -905,7 +905,7 @@ exports.ViewType = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Event Receiver
  */
@@ -953,7 +953,7 @@ exports.eventreceivers = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Attachment
  */
@@ -1266,7 +1266,7 @@ exports.limitedwebpartmanager = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Content Type
  */
@@ -1812,6 +1812,7 @@ exports.views = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var types_1 = __webpack_require__(0);
 /**
  * Navigation
  */
@@ -1821,10 +1822,16 @@ exports.navigationservicerest = {
      */
     properties: [
         "MenuState|menustate|([Name])|menunode"
-    ]
+    ],
     /**
      * Methods
      */
+    // Method to get the menu state.
+    getMenuState: {
+        argNames: ["menuNodeKey", "depth", "customProperties", "mapProviderName"],
+        name: "MenuState",
+        RequestType: types_1.RequestType.GetWithArgsInQS
+    }
 };
 //# sourceMappingURL=mapper.js.map
 
@@ -1835,7 +1842,7 @@ exports.navigationservicerest = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Property Values
  */
@@ -1855,7 +1862,7 @@ exports.propertyvalues = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Search
  */
@@ -1875,7 +1882,7 @@ exports.search = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Role Assignment
  */
@@ -1976,7 +1983,7 @@ exports.roledefinitions = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Site
  */
@@ -2483,7 +2490,7 @@ exports.webs = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * People Manager
  */
@@ -2658,7 +2665,7 @@ exports.userprofile = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Group
  */
@@ -2813,7 +2820,7 @@ exports.users = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * User Custom Action
  */
@@ -2922,7 +2929,7 @@ __export(__webpack_require__(26));
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * View
  */
@@ -2966,7 +2973,7 @@ exports.view = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 /**
  * Context Information
  */
@@ -3248,8 +3255,8 @@ exports.ContextInfo = _ContextInfo;
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
 var mapper_1 = __webpack_require__(3);
-var types_1 = __webpack_require__(1);
-var _1 = __webpack_require__(0);
+var types_1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
 /**
  * Request Helper
  */
@@ -3531,8 +3538,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var _1 = __webpack_require__(0);
+var types_1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
 /**
  * Base Request
  */
@@ -3826,7 +3833,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
 /**
  * Base Execution
  */
@@ -4001,7 +4008,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // Base
 // This is the base class for all objects.
@@ -4072,7 +4079,7 @@ exports.Base = Base;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
 /**
  * Batch Requests
  */
@@ -4176,8 +4183,8 @@ exports.Batch = Batch;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var _1 = __webpack_require__(0);
+var types_1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // Method Information
 // This class will create the method information for the request.
@@ -4767,7 +4774,7 @@ exports.TargetInfo = TargetInfo;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // Request
 // This class will execute the xml http request.
@@ -4963,7 +4970,7 @@ exports.Helper = {
 
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 var __1 = __webpack_require__(2);
 /*********************************************************************************************************************************/
 // App Helper Methods
@@ -5263,7 +5270,7 @@ exports.AppHelper = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 var __1 = __webpack_require__(2);
 /**
  * Dependencies
@@ -5341,7 +5348,7 @@ exports.Dependencies = Dependencies;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 var __1 = __webpack_require__(2);
 /**
  * JSLink Helper Methods
@@ -5775,8 +5782,8 @@ exports.Loader = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-var types_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 var __1 = __webpack_require__(2);
 /**
  * SharePoint Configuration
@@ -6996,7 +7003,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 var web_1 = __webpack_require__(4);
 /**
  * List
@@ -7060,7 +7067,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 /**
  * Navigation
  */
@@ -7107,7 +7114,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // People Manager
 /*********************************************************************************************************************************/
@@ -7149,7 +7156,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // People Picker
 /*********************************************************************************************************************************/
@@ -7192,7 +7199,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // Profile Loader
 /*********************************************************************************************************************************/
@@ -7235,8 +7242,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var utils_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // Search
 /*********************************************************************************************************************************/
@@ -7315,7 +7322,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 var _1 = __webpack_require__(2);
 /*********************************************************************************************************************************/
 // Site
@@ -7372,8 +7379,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var utils_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // Social Feed
 /*********************************************************************************************************************************/
@@ -7442,7 +7449,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // User Profile
 /*********************************************************************************************************************************/
@@ -7485,8 +7492,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var utils_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 /**
  * Utility
  */
