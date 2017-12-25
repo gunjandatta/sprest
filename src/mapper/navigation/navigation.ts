@@ -22,22 +22,9 @@ export interface INavigationServiceRESTQueryProps {
 }
 
 /**
- * Navigation Queryable Result
- */
-export interface INavigationServiceRESTQueryResult extends INavigationServiceRESTMethods, INavigationServiceRESTProps {
-    MenuState: Types.IResults<any>;
-}
-
-/**
- * Navigation Result
- */
-export interface INavigationServiceRESTResult extends INavigationServiceRESTMethods, INavigationServiceRESTProps, INavigationServiceRESTQueryProps, IBase<INavigationServiceREST, INavigationServiceRESTResult, INavigationServiceRESTQueryResult> {
-}
-
-/**
  * Navigation
  */
-export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBase<INavigationServiceREST, INavigationServiceRESTResult, INavigationServiceRESTQueryResult> {
+export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBase<INavigationServiceREST> {
     /**
      * Constructor
      * @param url - (Optional) The web url.
