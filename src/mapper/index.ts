@@ -17,6 +17,7 @@ import {
     version,
     view, viewfieldcollection, views
 } from "./list/mapper";
+import { navigationservicerest } from "./navigation/mapper";
 import { propertyvalues } from "./propertyValues/mapper";
 import { search } from "./search/mapper";
 import {
@@ -55,6 +56,7 @@ export const Mapper = {
     limitedwebpartmanager,
     list, lists,
     listitem, items,
+    navigationservicerest,
     peoplemanager,
     peoplepicker,
     profileloader,

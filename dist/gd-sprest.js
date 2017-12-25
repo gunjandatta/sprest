@@ -69,26 +69,10 @@
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var requestType_1 = __webpack_require__(7);
-exports.RequestType = requestType_1.RequestType;
-var spConfigTypes_1 = __webpack_require__(8);
-exports.SPConfigTypes = spConfigTypes_1.SPConfigTypes;
-var SPTypes = __webpack_require__(9);
-exports.SPTypes = SPTypes;
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(27));
 __export(__webpack_require__(28));
 __export(__webpack_require__(29));
 __export(__webpack_require__(30));
@@ -98,6 +82,22 @@ __export(__webpack_require__(33));
 __export(__webpack_require__(34));
 __export(__webpack_require__(35));
 __export(__webpack_require__(36));
+__export(__webpack_require__(37));
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var requestType_1 = __webpack_require__(7);
+exports.RequestType = requestType_1.RequestType;
+var spConfigTypes_1 = __webpack_require__(8);
+exports.SPConfigTypes = spConfigTypes_1.SPConfigTypes;
+var SPTypes = __webpack_require__(9);
+exports.SPTypes = SPTypes;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -110,9 +110,8 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(26));
-__export(__webpack_require__(37));
-__export(__webpack_require__(43));
+__export(__webpack_require__(27));
+__export(__webpack_require__(38));
 __export(__webpack_require__(44));
 __export(__webpack_require__(45));
 __export(__webpack_require__(46));
@@ -122,6 +121,8 @@ __export(__webpack_require__(49));
 __export(__webpack_require__(50));
 __export(__webpack_require__(51));
 __export(__webpack_require__(52));
+__export(__webpack_require__(53));
+__export(__webpack_require__(54));
 __export(__webpack_require__(4));
 //# sourceMappingURL=index.js.map
 
@@ -146,6 +147,7 @@ var mapper_8 = __webpack_require__(16);
 var mapper_9 = __webpack_require__(17);
 var mapper_10 = __webpack_require__(18);
 var mapper_11 = __webpack_require__(19);
+var mapper_12 = __webpack_require__(20);
 exports.Mapper = {
     attachment: mapper_3.attachment, attachmentfiles: mapper_3.attachmentfiles,
     audit: mapper_1.audit,
@@ -156,33 +158,34 @@ exports.Mapper = {
     file: mapper_3.file, files: mapper_3.files,
     fileversion: mapper_3.fileversion, fileversions: mapper_3.fileversions,
     folder: mapper_3.folder, folders: mapper_3.folders,
-    group: mapper_10.group, sitegroups: mapper_10.sitegroups,
+    group: mapper_11.group, sitegroups: mapper_11.sitegroups,
     limitedwebpartmanager: mapper_3.limitedwebpartmanager,
     list: mapper_4.list, lists: mapper_4.lists,
     listitem: mapper_4.listitem, items: mapper_4.items,
-    peoplemanager: mapper_9.peoplemanager,
-    peoplepicker: mapper_10.peoplepicker,
-    profileloader: mapper_9.profileloader,
-    propertyvalues: mapper_5.propertyvalues,
-    roleassignment: mapper_7.roleassignment, roleassignments: mapper_7.roleassignments,
-    roledefinition: mapper_7.roledefinition, roledefinitions: mapper_7.roledefinitions,
-    search: mapper_6.search,
-    site: mapper_8.site,
-    socialfeed: mapper_9.socialfeed,
-    tenantapp: mapper_8.tenantapp, tenantappcatalog: mapper_8.tenantappcatalog, tenantapps: mapper_8.tenantapps,
-    user: mapper_10.user, users: mapper_10.users,
-    usercustomaction: mapper_11.usercustomaction, usercustomactions: mapper_11.usercustomactions,
-    userprofile: mapper_9.userprofile,
-    utility: mapper_8.utility,
+    navigationservicerest: mapper_5.navigationservicerest,
+    peoplemanager: mapper_10.peoplemanager,
+    peoplepicker: mapper_11.peoplepicker,
+    profileloader: mapper_10.profileloader,
+    propertyvalues: mapper_6.propertyvalues,
+    roleassignment: mapper_8.roleassignment, roleassignments: mapper_8.roleassignments,
+    roledefinition: mapper_8.roledefinition, roledefinitions: mapper_8.roledefinitions,
+    search: mapper_7.search,
+    site: mapper_9.site,
+    socialfeed: mapper_10.socialfeed,
+    tenantapp: mapper_9.tenantapp, tenantappcatalog: mapper_9.tenantappcatalog, tenantapps: mapper_9.tenantapps,
+    user: mapper_11.user, users: mapper_11.users,
+    usercustomaction: mapper_12.usercustomaction, usercustomactions: mapper_12.usercustomactions,
+    userprofile: mapper_10.userprofile,
+    utility: mapper_9.utility,
     version: mapper_4.version,
     view: mapper_4.view, views: mapper_4.views,
     viewfieldcollection: mapper_4.viewfieldcollection,
-    web: mapper_8.web, webinfos: mapper_8.webinfos, webs: mapper_8.webs
+    web: mapper_9.web, webinfos: mapper_9.webinfos, webs: mapper_9.webs
 };
 /**
  * Types
  */
-var Types = __webpack_require__(20);
+var Types = __webpack_require__(21);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -203,7 +206,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Web
 /*********************************************************************************************************************************/
@@ -268,7 +271,7 @@ SOFTWARE.
 ***************************************************************************************************/
 var mapper_1 = __webpack_require__(3);
 exports.Types = mapper_1.Types;
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 exports.RequestType = types_1.RequestType;
 exports.SPTypes = types_1.SPTypes;
 var lib_1 = __webpack_require__(2);
@@ -276,6 +279,7 @@ exports.ContextInfo = lib_1.ContextInfo;
 exports.Helper = lib_1.Helper;
 exports.JSLink = lib_1.JSLink;
 exports.List = lib_1.List;
+exports.Navigation = lib_1.Navigation;
 exports.PeopleManager = lib_1.PeopleManager;
 exports.PeoplePicker = lib_1.PeoplePicker;
 exports.ProfileLoader = lib_1.ProfileLoader;
@@ -289,12 +293,13 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.39,
+    __ver: 2.41,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
     JSLink: lib_1.JSLink,
     List: function (listName, targetInfo) { return new lib_1.List(listName, targetInfo); },
+    Navigation: function (url, targetInfo) { return new lib_1.Navigation(url, targetInfo); },
     PeopleManager: function (targetInfo) { return new lib_1.PeopleManager(targetInfo); },
     PeoplePicker: function (targetInfo) { return new lib_1.PeoplePicker(targetInfo); },
     ProfileLoader: function (targetInfo) { return new lib_1.ProfileLoader(targetInfo); },
@@ -320,7 +325,7 @@ if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Audit
  */
@@ -900,7 +905,7 @@ exports.ViewType = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Event Receiver
  */
@@ -948,7 +953,7 @@ exports.eventreceivers = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Attachment
  */
@@ -1261,7 +1266,7 @@ exports.limitedwebpartmanager = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Content Type
  */
@@ -1807,7 +1812,30 @@ exports.views = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+/**
+ * Navigation
+ */
+exports.navigationservicerest = {
+    /**
+     * Properties
+     */
+    properties: [
+        "MenuState|menustate|([Name])|menunode"
+    ]
+    /**
+     * Methods
+     */
+};
+//# sourceMappingURL=mapper.js.map
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var types_1 = __webpack_require__(1);
 /**
  * Property Values
  */
@@ -1821,13 +1849,13 @@ exports.propertyvalues = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Search
  */
@@ -1841,13 +1869,13 @@ exports.search = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Role Assignment
  */
@@ -1942,13 +1970,13 @@ exports.roledefinitions = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Site
  */
@@ -2449,13 +2477,13 @@ exports.webs = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * People Manager
  */
@@ -2624,13 +2652,13 @@ exports.userprofile = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Group
  */
@@ -2779,13 +2807,13 @@ exports.users = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * User Custom Action
  */
@@ -2829,7 +2857,7 @@ exports.usercustomactions = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2838,23 +2866,14 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-var ComplexTypes = __webpack_require__(21);
+var ComplexTypes = __webpack_require__(22);
 exports.ComplexTypes = ComplexTypes;
-var Results = __webpack_require__(22);
+var Results = __webpack_require__(23);
 exports.Results = Results;
-var SPTypes = __webpack_require__(23);
+var SPTypes = __webpack_require__(24);
 exports.SPTypes = SPTypes;
-__export(__webpack_require__(24));
+__export(__webpack_require__(25));
 //# sourceMappingURL=types.js.map
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=complexTypes.js.map
 
 /***/ }),
 /* 22 */
@@ -2863,7 +2882,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=results.js.map
+//# sourceMappingURL=complexTypes.js.map
 
 /***/ }),
 /* 23 */
@@ -2872,10 +2891,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=sptypes.js.map
+//# sourceMappingURL=results.js.map
 
 /***/ }),
 /* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=sptypes.js.map
+
+/***/ }),
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2884,17 +2912,17 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(25));
+__export(__webpack_require__(26));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * View
  */
@@ -2932,13 +2960,13 @@ exports.view = {
 //# sourceMappingURL=view.js.map
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /**
  * Context Information
  */
@@ -3212,7 +3240,7 @@ exports.ContextInfo = _ContextInfo;
 //# sourceMappingURL=contextInfo.js.map
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3220,8 +3248,8 @@ exports.ContextInfo = _ContextInfo;
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
 var mapper_1 = __webpack_require__(3);
-var types_1 = __webpack_require__(0);
-var _1 = __webpack_require__(1);
+var types_1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /**
  * Request Helper
  */
@@ -3487,7 +3515,7 @@ exports.BaseHelper = BaseHelper;
 //# sourceMappingURL=baseHelper.js.map
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3503,8 +3531,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var _1 = __webpack_require__(1);
+var types_1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /**
  * Base Request
  */
@@ -3781,7 +3809,7 @@ exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3798,7 +3826,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /**
  * Base Execution
  */
@@ -3957,7 +3985,7 @@ exports.BaseExecution = BaseExecution;
 //# sourceMappingURL=baseExecution.js.map
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3973,7 +4001,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Base
 // This is the base class for all objects.
@@ -4038,13 +4066,13 @@ exports.Base = Base;
 //# sourceMappingURL=base.js.map
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /**
  * Batch Requests
  */
@@ -4142,14 +4170,14 @@ exports.Batch = Batch;
 //# sourceMappingURL=batch.js.map
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var _1 = __webpack_require__(1);
+var types_1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Method Information
 // This class will create the method information for the request.
@@ -4398,7 +4426,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4524,7 +4552,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4591,7 +4619,7 @@ exports.Promise = Promise;
 //# sourceMappingURL=promise.js.map
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4732,14 +4760,14 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Request
 // This class will execute the xml http request.
@@ -4903,17 +4931,17 @@ exports.XHRRequest = XHRRequest;
 //# sourceMappingURL=xhrRequest.js.map
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = __webpack_require__(38);
-var dependencies_1 = __webpack_require__(39);
-var jslink_1 = __webpack_require__(40);
-var loader_1 = __webpack_require__(41);
-var spCfg_1 = __webpack_require__(42);
+var app_1 = __webpack_require__(39);
+var dependencies_1 = __webpack_require__(40);
+var jslink_1 = __webpack_require__(41);
+var loader_1 = __webpack_require__(42);
+var spCfg_1 = __webpack_require__(43);
 ;
 /**
  * Helper Methods
@@ -4928,14 +4956,14 @@ exports.Helper = {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 var __1 = __webpack_require__(2);
 /*********************************************************************************************************************************/
 // App Helper Methods
@@ -5229,13 +5257,13 @@ exports.AppHelper = {
 //# sourceMappingURL=app.js.map
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 var __1 = __webpack_require__(2);
 /**
  * Dependencies
@@ -5307,13 +5335,13 @@ exports.Dependencies = Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 var __1 = __webpack_require__(2);
 /**
  * JSLink Helper Methods
@@ -5681,7 +5709,7 @@ exports.JSLinkHelper = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5741,14 +5769,14 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
-var types_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 var __1 = __webpack_require__(2);
 /**
  * SharePoint Configuration
@@ -6831,7 +6859,7 @@ exports.SPConfig = SPConfig;
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6952,7 +6980,7 @@ exports.JSLink = _JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6968,17 +6996,16 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 var web_1 = __webpack_require__(4);
-/*********************************************************************************************************************************/
-// List
-// The SPList object.
-/*********************************************************************************************************************************/
+/**
+ * List
+ */
 var _List = /** @class */ (function (_super) {
     __extends(_List, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
+    /**
+     * Constructor
+     */
     function _List(listName, targetInfo) {
         var _this = 
         // Call the base constructor
@@ -7017,7 +7044,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7033,7 +7060,54 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
+/**
+ * Navigation
+ */
+var _Navigation = /** @class */ (function (_super) {
+    __extends(_Navigation, _super);
+    /**
+     * Constructor
+     */
+    function _Navigation(url, targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "navigation";
+        // See if the web url exists
+        if (url) {
+            // Set the settings
+            _this.targetInfo.url = url;
+        }
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "navigationservicerest" } });
+        return _this;
+    }
+    return _Navigation;
+}(utils_1.Base));
+exports.Navigation = _Navigation;
+//# sourceMappingURL=navigation.js.map
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // People Manager
 /*********************************************************************************************************************************/
@@ -7059,7 +7133,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7075,7 +7149,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // People Picker
 /*********************************************************************************************************************************/
@@ -7102,7 +7176,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7118,7 +7192,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Profile Loader
 /*********************************************************************************************************************************/
@@ -7145,7 +7219,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7161,8 +7235,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var utils_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Search
 /*********************************************************************************************************************************/
@@ -7225,7 +7299,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7241,7 +7315,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 var _1 = __webpack_require__(2);
 /*********************************************************************************************************************************/
 // Site
@@ -7282,7 +7356,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7298,8 +7372,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var utils_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Social Feed
 /*********************************************************************************************************************************/
@@ -7352,7 +7426,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7368,7 +7442,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // User Profile
 /*********************************************************************************************************************************/
@@ -7395,7 +7469,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7411,8 +7485,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var utils_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /**
  * Utility
  */

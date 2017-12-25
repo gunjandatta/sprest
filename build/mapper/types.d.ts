@@ -6,6 +6,7 @@ export * from "./audit";
 export * from "./eventReceiver";
 export * from "./file";
 export * from "./list";
+export * from "./navigation";
 export * from "./propertyValues";
 export * from "./rest";
 export * from "./search";
@@ -124,6 +125,70 @@ export interface IInformationRightsManagementSettings {
     PolicyDescription: string;
     PolicyTitle: string;
     TemplateId: string;
+}
+/**
+ * Menu Node
+ */
+export interface IMenuNode {
+    /** Node properties. */
+    CustomProperties: IResults<any>;
+    /** The URL of the navigation node relative to the URL of the parent navigation node. */
+    FriendlyUrlSegment: string;
+    /** Not part of documentation. */
+    IsDeleted: boolean;
+    /** Indicates whether the node is hidden in the navigation menu. During editing, all nodes temporarily become visible. */
+    IsHidden: boolean;
+    /** The identifier for the navigation node in the menu tree. */
+    Key: string;
+    /** The child nodes. */
+    Nodes: IResults<IMenuNode>;
+    /** The type of the navigation node. */
+    NodeType: SPTypes.NodeType;
+    /**
+     * The relative or absolute URL of the navigation node.
+     * Site-relative URLs can start with the "~site" token and site collection-relative URLs can start with the "~sitecollection" token.
+     * Applies only to SimpleLink node types.
+     */
+    SimpleUrl: string;
+    /** The title of the navigation node. */
+    Title: string;
+}
+/**
+ * Menu State
+ */
+export interface IMenuState {
+    /** The URL of the navigation node relative to the URL of the parent navigation node. */
+    FriendlyUrlPrefix: string;
+    /** The child nodes. */
+    Nodes: IResults<IMenuNode>;
+    /**
+     * The relative or absolute URL of the navigation node.
+     * Site-relative URLs can begin with the "~site" URL token and site collection-relative URLs can begin with the "~sitecollection" URL token.
+     * Applies only to SimpleLink node types.
+     */
+    SimpleUrl: string;
+    /**
+     * The string that replaces the "~sitecollection" token in site collection-relative links.
+     * For example, to get the Try Link command to work with the relative link ~sitecollection/Pages/MyPage.aspx, this value might be http://contoso.com/sites/site1/.
+     */
+    SPSitePrefix: string;
+    /**
+     * The string that replaces the "~site" token in site-relative links.
+     * For example, to get the Try Link command to work with the relative link ~site/Pages/MyPage.aspx, this value might be http://contoso.com/sites/site1/web1.
+     */
+    SPWebPrefix: string;
+    /** The identifier of the root node in the menu tree. */
+    StartingNodeKey: string;
+    /**
+     * The title of the root node in the menu tree.
+     * (Example: "Document Center")
+     */
+    StartingNodeTitle: string;
+    /**
+     * An implementation-specific value that the server uses to detect external changes.
+     * For example, it could be a change timestamp for the database or a monotonically increasing version number such as "2009-06-15T20:45:30Z".
+     */
+    Version: string;
 }
 /**
  * Navigation

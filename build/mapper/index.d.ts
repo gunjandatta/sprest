@@ -548,6 +548,9 @@ export declare const Mapper: {
             requestType: number;
         };
     };
+    navigationservicerest: {
+        properties: string[];
+    };
     peoplemanager: {
         amIFollowedBy: {
             argNames: string[];

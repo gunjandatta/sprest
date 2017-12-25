@@ -2,6 +2,7 @@ export * from "./contextInfo";
 export * from "./helper";
 export * from "./jslink";
 export * from "./list";
+export * from "./navigation";
 export * from "./peopleManager";
 export * from "./peoplePicker";
 export * from "./profileLoader";

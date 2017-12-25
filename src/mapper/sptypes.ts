@@ -829,6 +829,56 @@ export type LocaleLCIDType = {
 }
 
 /**
+ * Node Types
+ */
+export type NodeType = {
+    /** Specifies no node types. */
+    None: number;
+
+    /** Specifies any type of SPWeb site. */
+    Area: number;
+
+    /** Specifies a List item in the Pages list. */
+    Page: number;
+
+    /** Specifies a Microsoft SharePoint Foundation list (SPList). */
+    List: number;
+
+    /** Specifies a Microsoft SharePoint Foundation list item (SPListItem). */
+    ListItem: number;
+
+    /** Specifies a CMS Page Layout. */
+    PageLayout: number;
+
+    /**  Specifies a navigation heading. */
+    Heading: number;
+
+    /** Specifies an authored link that references a page. */
+    AuthoredLinkToPage: number;
+
+    /** Specifies an authored link that references a Web site or area. */
+    AuthoredLinkToWeb: number;
+
+    /** Specifies a generic authored link. */
+    AuthoredLinkPlain: number;
+
+    /** Specifies a custom node type that may be useful for extensibility purposes. */
+    Custom: number;
+
+    /** Represents an error specific to node types. */
+    Error: number;
+
+    /** Specifies any type of authored link. */
+    AuthoredLink: number;
+
+    /** Specifies a combination of Area, Page, Heading and AuthoredLink. Navigation uses this value to determine which node types to return by default. */
+    Default: number;
+
+    /** Specifies all node types, including Area, Page, List, ListItem, PageLayout, Heading, AuthoredLink, and Custom. */
+    All: number;
+}
+
+/**
  * Page Types
  */
 export type PageType = {
