@@ -26,8 +26,8 @@ declare module 'gd-sprest' {
      ***************************************************************************************************/
     import { Types } from "gd-sprest/mapper";
     import { RequestType, SPTypes } from "gd-sprest/types";
-    import { ContextInfo, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "gd-sprest/lib";
-    export { ContextInfo, Helper, JSLink, List, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Utility, Web };
+    import { ContextInfo, Helper, JSLink, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "gd-sprest/lib";
+    export { ContextInfo, Helper, JSLink, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Utility, Web };
     /**
         * SharePoint REST Library
         */
@@ -583,6 +583,14 @@ declare module 'gd-sprest/mapper' {
             query: {
                 argNames: string[];
                 requestType: number;
+            };
+        };
+        navigationservicerest: {
+            properties: string[];
+            getMenuState: {
+                argNames: string[];
+                name: string;
+                RequestType: number;
             };
         };
         peoplemanager: {
@@ -1368,6 +1376,7 @@ declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/helper";
     export * from "gd-sprest/lib/jslink";
     export * from "gd-sprest/lib/list";
+    export * from "gd-sprest/lib/navigation";
     export * from "gd-sprest/lib/peopleManager";
     export * from "gd-sprest/lib/peoplePicker";
     export * from "gd-sprest/lib/profileLoader";
@@ -1388,6 +1397,7 @@ declare module 'gd-sprest/mapper/types' {
     export * from "gd-sprest/mapper/eventReceiver";
     export * from "gd-sprest/mapper/file";
     export * from "gd-sprest/mapper/list";
+    export * from "gd-sprest/mapper/navigation";
     export * from "gd-sprest/mapper/propertyValues";
     export * from "gd-sprest/mapper/rest";
     export * from "gd-sprest/mapper/search";
@@ -1506,6 +1516,70 @@ declare module 'gd-sprest/mapper/types' {
             PolicyDescription: string;
             PolicyTitle: string;
             TemplateId: string;
+    }
+    /**
+        * Menu Node
+        */
+    export interface IMenuNode {
+            /** Node properties. */
+            CustomProperties: IResults<any>;
+            /** The URL of the navigation node relative to the URL of the parent navigation node. */
+            FriendlyUrlSegment: string;
+            /** Not part of documentation. */
+            IsDeleted: boolean;
+            /** Indicates whether the node is hidden in the navigation menu. During editing, all nodes temporarily become visible. */
+            IsHidden: boolean;
+            /** The identifier for the navigation node in the menu tree. */
+            Key: string;
+            /** The child nodes. */
+            Nodes: IResults<IMenuNode>;
+            /** The type of the navigation node. */
+            NodeType: SPTypes.NodeType;
+            /**
+                * The relative or absolute URL of the navigation node.
+                * Site-relative URLs can start with the "~site" token and site collection-relative URLs can start with the "~sitecollection" token.
+                * Applies only to SimpleLink node types.
+                */
+            SimpleUrl: string;
+            /** The title of the navigation node. */
+            Title: string;
+    }
+    /**
+        * Menu State
+        */
+    export interface IMenuState {
+            /** The URL of the navigation node relative to the URL of the parent navigation node. */
+            FriendlyUrlPrefix: string;
+            /** The child nodes. */
+            Nodes: IResults<IMenuNode>;
+            /**
+                * The relative or absolute URL of the navigation node.
+                * Site-relative URLs can begin with the "~site" URL token and site collection-relative URLs can begin with the "~sitecollection" URL token.
+                * Applies only to SimpleLink node types.
+                */
+            SimpleUrl: string;
+            /**
+                * The string that replaces the "~sitecollection" token in site collection-relative links.
+                * For example, to get the Try Link command to work with the relative link ~sitecollection/Pages/MyPage.aspx, this value might be http://contoso.com/sites/site1/.
+                */
+            SPSitePrefix: string;
+            /**
+                * The string that replaces the "~site" token in site-relative links.
+                * For example, to get the Try Link command to work with the relative link ~site/Pages/MyPage.aspx, this value might be http://contoso.com/sites/site1/web1.
+                */
+            SPWebPrefix: string;
+            /** The identifier of the root node in the menu tree. */
+            StartingNodeKey: string;
+            /**
+                * The title of the root node in the menu tree.
+                * (Example: "Document Center")
+                */
+            StartingNodeTitle: string;
+            /**
+                * An implementation-specific value that the server uses to detect external changes.
+                * For example, it could be a change timestamp for the database or a monotonically increasing version number such as "2009-06-15T20:45:30Z".
+                */
+            Version: string;
     }
     /**
         * Navigation
@@ -1845,6 +1919,41 @@ declare module 'gd-sprest/types/sptypes' {
         */
     export const LocaleLCIDType: Types.SPTypes.LocaleLCIDType;
     /**
+        * Node Types - Need to get this info. Documentation not found online. Ref the MS Publishing DLL and decompile to find the type info.
+        */
+    export type NodeType = {
+            /** Specifies no node types. */
+            None: 0;
+            /** Specifies any type of SPWeb site. */
+            Area: 0;
+            /** Specifies a List item in the Pages list. */
+            Page: 0;
+            /** Specifies a Microsoft SharePoint Foundation list (SPList). */
+            List: 0;
+            /** Specifies a Microsoft SharePoint Foundation list item (SPListItem). */
+            ListItem: 0;
+            /** Specifies a CMS Page Layout. */
+            PageLayout: 0;
+            /**  Specifies a navigation heading. */
+            Heading: 0;
+            /** Specifies an authored link that references a page. */
+            AuthoredLinkToPage: 0;
+            /** Specifies an authored link that references a Web site or area. */
+            AuthoredLinkToWeb: 0;
+            /** Specifies a generic authored link. */
+            AuthoredLinkPlain: 0;
+            /** Specifies a custom node type that may be useful for extensibility purposes. */
+            Custom: 0;
+            /** Represents an error specific to node types. */
+            Error: 0;
+            /** Specifies any type of authored link. */
+            AuthoredLink: 0;
+            /** Specifies a combination of Area, Page, Heading and AuthoredLink. Navigation uses this value to determine which node types to return by default. */
+            Default: 0;
+            /** Specifies all node types, including Area, Page, List, ListItem, PageLayout, Heading, AuthoredLink, and Custom. */
+            All: 0;
+    };
+    /**
         * Page Types
         */
     export const PageType: Types.SPTypes.PageType;
@@ -2083,6 +2192,11 @@ declare module 'gd-sprest/lib/jslink' {
 declare module 'gd-sprest/lib/list' {
     import { Types } from "gd-sprest/mapper";
     export const List: Types.IList;
+}
+
+declare module 'gd-sprest/lib/navigation' {
+    import { INavigationServiceREST } from "gd-sprest/mapper/navigation";
+    export const Navigation: INavigationServiceREST;
 }
 
 declare module 'gd-sprest/lib/peopleManager' {
@@ -4525,6 +4639,41 @@ declare module 'gd-sprest/mapper/sptypes' {
             Vietnamese: number;
     };
     /**
+        * Node Types
+        */
+    export type NodeType = {
+            /** Specifies no node types. */
+            None: number;
+            /** Specifies any type of SPWeb site. */
+            Area: number;
+            /** Specifies a List item in the Pages list. */
+            Page: number;
+            /** Specifies a Microsoft SharePoint Foundation list (SPList). */
+            List: number;
+            /** Specifies a Microsoft SharePoint Foundation list item (SPListItem). */
+            ListItem: number;
+            /** Specifies a CMS Page Layout. */
+            PageLayout: number;
+            /**  Specifies a navigation heading. */
+            Heading: number;
+            /** Specifies an authored link that references a page. */
+            AuthoredLinkToPage: number;
+            /** Specifies an authored link that references a Web site or area. */
+            AuthoredLinkToWeb: number;
+            /** Specifies a generic authored link. */
+            AuthoredLinkPlain: number;
+            /** Specifies a custom node type that may be useful for extensibility purposes. */
+            Custom: number;
+            /** Represents an error specific to node types. */
+            Error: number;
+            /** Specifies any type of authored link. */
+            AuthoredLink: number;
+            /** Specifies a combination of Area, Page, Heading and AuthoredLink. Navigation uses this value to determine which node types to return by default. */
+            Default: number;
+            /** Specifies all node types, including Area, Page, List, ListItem, PageLayout, Heading, AuthoredLink, and Custom. */
+            All: number;
+    };
+    /**
         * Page Types
         */
     export type PageType = {
@@ -4750,6 +4899,10 @@ declare module 'gd-sprest/mapper/list' {
     export * from "gd-sprest/mapper/list/views";
 }
 
+declare module 'gd-sprest/mapper/navigation' {
+    export * from "gd-sprest/mapper/navigation/navigation";
+}
+
 declare module 'gd-sprest/mapper/propertyValues' {
     import { IBase } from "gd-sprest/utils";
     import { Types } from "gd-sprest/mapper";
@@ -4799,6 +4952,12 @@ declare module 'gd-sprest/mapper/rest' {
                 * @param targetInfo - (Optional) The target information.
                 */
             List: (listName: string, targetInfo?: ITargetInfo) => Types.IList;
+            /**
+                * Use this api to interact with SharePoint navigation.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            Navigation: (url?: string, targetInfo?: ITargetInfo) => Types.INavigationServiceREST;
             /**
                 * Use this api to interact with SharePoint user profiles.
                 * @param targetInfo - (Optional) The target information.
@@ -8267,6 +8426,47 @@ declare module 'gd-sprest/mapper/list/views' {
         * View Results
         */
     export interface IViewResults extends IViewsMethods, IBaseCollection<IViewResult, IViewResult, IViewQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/navigation/navigation' {
+    import { IBase, ITargetInfo } from "gd-sprest/utils";
+    import { Types } from "gd-sprest/mapper";
+    /**
+        * Navigation Methods
+        */
+    export interface INavigationServiceRESTMethods {
+            /**
+                * Method to get the menu state.
+                * @param menuNodeKey - The key of the start node. If no key is provided, the root node is used.
+                * @param depth - The depth of the dump. Default is 10.
+                * @param customProperties - (Optionally implemented by a site map data provider.) A comma-separated list of custom properties to return. Use the "\" character to escape a comma separator within a property.
+                * @param mapProviderName - Specifies which provider on the site is selected. If no SiteMapProvider used, "CurrentNavSiteMapProviderNoEncode" is used.
+                */
+            getMenuState(menuNodeKey?: number, depth?: number, customProperties?: string, mapProviderName?: string): IBase<Types.IMenuState>;
+    }
+    /**
+        * Navigation Properties
+        */
+    export interface INavigationServiceRESTProps {
+    }
+    /**
+        * Navigation Queryable Properties
+        */
+    export interface INavigationServiceRESTQueryProps {
+            MenuState(): IBase<Types.IMenuState>;
+            MenuState(key: number): IBase<Types.IMenuState>;
+    }
+    /**
+        * Navigation
+        */
+    export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBase<INavigationServiceREST> {
+            /**
+                * Constructor
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            new (url?: string, targetInfo?: ITargetInfo): INavigationServiceREST;
     }
 }
 

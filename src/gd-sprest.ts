@@ -33,6 +33,7 @@ import {
     Helper,
     JSLink,
     List,
+    Navigation,
     PeopleManager,
     PeoplePicker,
     ProfileLoader,
@@ -48,6 +49,7 @@ export {
     Helper,
     JSLink,
     List,
+    Navigation,
     PeopleManager,
     PeoplePicker,
     ProfileLoader,
@@ -66,12 +68,13 @@ export {
  * SharePoint REST Library
  */
 export const $REST: Types.IREST = {
-    __ver: 2.39,
+    __ver: 2.41,
     ContextInfo,
     DefaultRequestToHostFl: false,
     Helper,
     JSLink,
     List: (listName, targetInfo) => { return new List(listName, targetInfo); },
+    Navigation: (url, targetInfo) => { return new Navigation(url, targetInfo); },
     PeopleManager: (targetInfo) => { return new PeopleManager(targetInfo); },
     PeoplePicker: (targetInfo) => { return new PeoplePicker(targetInfo); },
     ProfileLoader: (targetInfo) => { return new ProfileLoader(targetInfo); },

@@ -110,6 +110,7 @@ import {
     Helper,
     JSLink,
     List,
+    Navigation,
     PeopleManager,
     PeoplePicker,
     ProfileLoader,

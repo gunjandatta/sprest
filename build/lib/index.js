@@ -7,6 +7,7 @@ __export(require("./contextInfo"));
 __export(require("./helper"));
 __export(require("./jslink"));
 __export(require("./list"));
+__export(require("./navigation"));
 __export(require("./peopleManager"));
 __export(require("./peoplePicker"));
 __export(require("./profileLoader"));

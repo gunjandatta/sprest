@@ -36,6 +36,7 @@ exports.ContextInfo = lib_1.ContextInfo;
 exports.Helper = lib_1.Helper;
 exports.JSLink = lib_1.JSLink;
 exports.List = lib_1.List;
+exports.Navigation = lib_1.Navigation;
 exports.PeopleManager = lib_1.PeopleManager;
 exports.PeoplePicker = lib_1.PeoplePicker;
 exports.ProfileLoader = lib_1.ProfileLoader;
@@ -49,12 +50,13 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.39,
+    __ver: 2.41,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
     JSLink: lib_1.JSLink,
     List: function (listName, targetInfo) { return new lib_1.List(listName, targetInfo); },
+    Navigation: function (url, targetInfo) { return new lib_1.Navigation(url, targetInfo); },
     PeopleManager: function (targetInfo) { return new lib_1.PeopleManager(targetInfo); },
     PeoplePicker: function (targetInfo) { return new lib_1.PeoplePicker(targetInfo); },
     ProfileLoader: function (targetInfo) { return new lib_1.ProfileLoader(targetInfo); },

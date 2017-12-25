@@ -32,6 +32,12 @@ export interface IREST {
      */
     List: (listName: string, targetInfo?: ITargetInfo) => Types.IList;
     /**
+     * Use this api to interact with SharePoint navigation.
+     * @param url - (Optional) The web url.
+     * @param targetInfo - (Optional) The target information.
+     */
+    Navigation: (url?: string, targetInfo?: ITargetInfo) => Types.INavigationServiceREST;
+    /**
      * Use this api to interact with SharePoint user profiles.
      * @param targetInfo - (Optional) The target information.
      */
