@@ -6161,11 +6161,11 @@ declare module 'gd-sprest/mapper/file/attachment' {
 
 declare module 'gd-sprest/mapper/file/attachments' {
     import { IBaseCollection } from "gd-sprest/utils";
-    import { IAttachment, IAttachmentFiles, IAttachmentFilesMethods } from "gd-sprest/mapper/file";
+    import { IAttachment, IAttachmentFilesMethods } from "gd-sprest/mapper/file";
     /**
       * Attachment Files
       */
-    export interface IAttachmentFiles extends IAttachmentFilesMethods, IBaseCollection<IAttachment, IAttachmentFiles, IAttachment> {
+    export interface IAttachmentFiles extends IAttachmentFilesMethods, IBaseCollection<IAttachment> {
     }
 }
 
