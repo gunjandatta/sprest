@@ -349,11 +349,6 @@ export interface IListQueryProps {
     */
     DefaultView(): IView;
 
-    /**
-     * Gets the URL of the default view for the list.
-     */
-    DefaultViewUrl(): IBase<string>;
-
     DescriptionResouce(): IBase<Types.IResourcePath>;
 
     /**

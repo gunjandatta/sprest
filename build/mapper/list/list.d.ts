@@ -259,10 +259,6 @@ export interface IListQueryProps {
      * Gets the default list view.
     */
     DefaultView(): IView;
-    /**
-     * Gets the URL of the default view for the list.
-     */
-    DefaultViewUrl(): IBase<string>;
     DescriptionResouce(): IBase<Types.IResourcePath>;
     /**
      * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
