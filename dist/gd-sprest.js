@@ -6746,6 +6746,8 @@ var SPConfig = /** @class */ (function () {
         // Method to uninstall the site components
         this.uninstallSite = function () {
             var promise = new utils_1.Promise();
+            // Log
+            console.log("[gd-sprest][uninstall] Loading the site information...");
             // Ensure site actions exist
             if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
                 // Resolve the promise
@@ -6770,6 +6772,8 @@ var SPConfig = /** @class */ (function () {
         // Method to uninstall the web components
         this.uninstallWeb = function () {
             var promise = new utils_1.Promise();
+            // Log
+            console.log("[gd-sprest][uninstall] Loading the web information...");
             // Get the web
             (new __1.Web(_this._webUrl))
                 .query({

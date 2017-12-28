@@ -1426,6 +1426,9 @@ export class SPConfig {
     private uninstallSite = () => {
         let promise = new Promise();
 
+        // Log
+        console.log("[gd-sprest][uninstall] Loading the site information...");
+        
         // Ensure site actions exist
         if (this._configuration.CustomActionCfg == null || this._configuration.CustomActionCfg.Site == null) {
             // Resolve the promise
@@ -1455,6 +1458,9 @@ export class SPConfig {
     // Method to uninstall the web components
     private uninstallWeb = () => {
         let promise = new Promise();
+
+        // Log
+        console.log("[gd-sprest][uninstall] Loading the web information...");
 
         // Get the web
         (new Web(this._webUrl))
