@@ -398,6 +398,11 @@ export interface FieldMultiLookupValue {
 }
 
 /**
+ * Field Multi-User
+ */
+export interface FieldMultiUserValue extends Types.IResults<FieldUserValue> { }
+
+/**
  * Field Rating Scale Question Answer
  */
 export interface FieldRatingScaleQuestionAnswer {
@@ -423,7 +428,7 @@ export interface FieldUserValue {
     ContentTypeDisp?: string;
     Created?: string;
     Department?: string;
-    Email?: string;
+    EMail?: string;
     FirstName?: string;
     ID?: number;
     ImnName?: string;

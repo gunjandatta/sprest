@@ -2603,6 +2603,11 @@ declare module 'gd-sprest/mapper/complexTypes' {
             results: Array<FieldLookupValue>;
     }
     /**
+        * Field Multi-User
+        */
+    export interface FieldMultiUserValue extends Types.IResults<FieldUserValue> {
+    }
+    /**
         * Field Rating Scale Question Answer
         */
     export interface FieldRatingScaleQuestionAnswer {
@@ -2632,7 +2637,7 @@ declare module 'gd-sprest/mapper/complexTypes' {
             ContentTypeDisp?: string;
             Created?: string;
             Department?: string;
-            Email?: string;
+            EMail?: string;
             FirstName?: string;
             ID?: number;
             ImnName?: string;
