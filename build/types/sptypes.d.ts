@@ -36,6 +36,18 @@ export declare const EventReceiverSynchronizationType: Types.SPTypes.EventReceiv
  */
 export declare const EventReceiverType: Types.SPTypes.EventReceiverType;
 /**
+ * Field Note Types
+ */
+export declare const FieldNoteType: Types.SPTypes.FieldNoteType;
+/**
+ * Field Number Type
+ */
+export declare const FieldNumberType: Types.SPTypes.FieldNumberType;
+/**
+ * Field Result Types
+ */
+export declare const FieldResultType: Types.SPTypes.FieldResultType;
+/**
  * Field Types
  */
 export declare const FieldType: Types.SPTypes.FieldType;

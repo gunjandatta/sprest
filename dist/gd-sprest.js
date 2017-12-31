@@ -112,7 +112,6 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(27));
 __export(__webpack_require__(38));
-__export(__webpack_require__(44));
 __export(__webpack_require__(45));
 __export(__webpack_require__(46));
 __export(__webpack_require__(47));
@@ -123,6 +122,7 @@ __export(__webpack_require__(51));
 __export(__webpack_require__(52));
 __export(__webpack_require__(53));
 __export(__webpack_require__(54));
+__export(__webpack_require__(55));
 __export(__webpack_require__(4));
 //# sourceMappingURL=index.js.map
 
@@ -535,6 +535,45 @@ exports.EventReceiverType = {
     AppUninstalling: 10703,
     EmailReceived: 20000,
     ContextEvent: 32766
+};
+/**
+ * Field Note Types
+ */
+exports.FieldNoteType = {
+    /** Enhance Rich Text */
+    EnhancedRichText: 0,
+    /** Rich Text */
+    RichText: 1,
+    /** Text Only */
+    TextOnly: 2
+};
+/**
+ * Field Number Type
+ */
+exports.FieldNumberType = {
+    /** Decimal */
+    Decimal: 0,
+    /** Integer */
+    Integer: 1,
+    /** Percentage */
+    Percentage: 2,
+};
+/**
+ * Field Result Types
+ */
+exports.FieldResultType = {
+    /** Boolean */
+    Boolean: "Boolean",
+    /** Currency */
+    Currency: "Currency",
+    /** Date Only */
+    DateOnly: "DateOnly",
+    /** Date & Time */
+    DateTime: "DateTime",
+    /** Number */
+    Number: "Number",
+    /** Text */
+    Text: "Text"
 };
 /**
  * Field Types
@@ -3232,6 +3271,14 @@ var _ContextInfo = /** @class */ (function () {
     /**
      * Methods
      */
+    // Method to generate a guid
+    _ContextInfo.generateGuid = function () {
+        // Set the batch id
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    };
     // Method to get the context information for a web
     _ContextInfo.getWeb = function (url) {
         // Create a new base object
@@ -4079,6 +4126,7 @@ exports.Base = Base;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
 var _1 = __webpack_require__(1);
 /**
  * Batch Requests
@@ -4091,7 +4139,7 @@ var Batch = /** @class */ (function () {
      */
     // Method to generate a batch request
     Batch.getTargetInfo = function (requests) {
-        var batchId = "batch_" + this.guid();
+        var batchId = "batch_" + lib_1.ContextInfo.generateGUID();
         var batchRequests = [];
         // Parse the requests
         for (var i = 0; i < requests.length; i++) {
@@ -4110,14 +4158,6 @@ var Batch = /** @class */ (function () {
             }
         });
     };
-    // Method to generate a guid
-    Batch.guid = function () {
-        // Set the batch id
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    };
     // Method to generate a batch request
     Batch.createBatch = function (batchId, requests) {
         // Create the batch request
@@ -4126,7 +4166,7 @@ var Batch = /** @class */ (function () {
         var requiresChangeset = requests[0] && requests[0].targetInfo.requestMethod != "GET";
         if (requiresChangeset) {
             var changesets = [];
-            var changesetId = "changeset_" + this.guid();
+            var changesetId = "changeset_" + lib_1.ContextInfo.generateGUID();
             // Parse the requests
             for (var i = 0; i < requests.length; i++) {
                 var request = [];
@@ -5785,6 +5825,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(1);
 var types_1 = __webpack_require__(0);
 var __1 = __webpack_require__(2);
+var Fields = __webpack_require__(44);
+exports.Fields = Fields;
 /**
  * SharePoint Configuration
  */
@@ -6876,6 +6918,339 @@ exports.SPConfig = SPConfig;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var __1 = __webpack_require__(2);
+var types_1 = __webpack_require__(0);
+/**
+ * SharePoint Configuration Fields
+ */
+var SPConfigFields = /** @class */ (function () {
+    function SPConfigFields() {
+    }
+    /** Returns the schema xml for a boolean field. */
+    SPConfigFields.createBoolean = function (fieldInfo) {
+        var schemaXml = null;
+        // Set the field type
+        fieldInfo.type = types_1.SPTypes.FieldType.Boolean;
+        // Get the base properties
+        var props = this.getFieldProps(fieldInfo);
+        // Generate the schema
+        schemaXml = "<Field " + this.toString(props) + ">";
+        if (fieldInfo.defaultValue) {
+            schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
+        }
+        schemaXml += "</Field>";
+        // Return the schema xml
+        return schemaXml;
+    };
+    /** Returns the schema xml for a calculated field. */
+    SPConfigFields.createCalculated = function (fieldInfo) {
+        var schemaXml = null;
+        // Set the field type
+        fieldInfo.type = types_1.SPTypes.FieldType.Calculated;
+        // Get the base properties
+        var props = this.getFieldProps(fieldInfo);
+        // Set the result type
+        switch (fieldInfo.resultType) {
+            case types_1.SPTypes.FieldResultType.Boolean:
+                props["ResultType"] = "Boolean";
+                break;
+            case types_1.SPTypes.FieldResultType.Currency:
+                props["ResultType"] = "Currency";
+                break;
+            case types_1.SPTypes.FieldResultType.DateOnly:
+                props["Format"] = "DateOnly";
+                props["ResultType"] = "DateTime";
+                break;
+            case types_1.SPTypes.FieldResultType.DateTime:
+                props["Format"] = "DateTime";
+                props["ResultType"] = "DateTime";
+                break;
+            case types_1.SPTypes.FieldResultType.Number:
+                props["ResultType"] = "Number";
+                break;
+            default:
+                props["ResultType"] = "Text";
+                break;
+        }
+        // Generate the schema
+        schemaXml = "<Field " + this.toString(props) + ">";
+        if (fieldInfo.formula) {
+            schemaXml += "<Formula>" + fieldInfo.formula + "</Formula>";
+        }
+        if (fieldInfo.fieldRefs) {
+            schemaXml += "<FieldRefs>";
+            for (var i = 0; i < fieldInfo.fieldRefs.length; i++) {
+                schemaXml += "<FieldRef Name=\"" + fieldInfo.fieldRefs[i] + "\" />";
+            }
+            schemaXml += "</FieldRefs>";
+        }
+        schemaXml += "</Field>";
+        // Return the schema xml
+        return schemaXml;
+    };
+    /** Returns the schema xml for a choice field. */
+    SPConfigFields.createChoice = function (fieldInfo) {
+        var schemaXml = null;
+        // Set the field type
+        fieldInfo.type = fieldInfo.multi ? types_1.SPTypes.FieldType.MultiChoice : types_1.SPTypes.FieldType.Choice;
+        // Get the base properties
+        var props = this.getFieldProps(fieldInfo);
+        // Generate the schema
+        schemaXml = "<Field " + this.toString(props) + ">";
+        if (fieldInfo.defaultValue) {
+            schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
+        }
+        if (fieldInfo.choices) {
+            schemaXml += "<CHOICES>";
+            for (var i = 0; i < fieldInfo.choices.length; i++) {
+                schemaXml += "<CHOICE>" + fieldInfo.choices[i] + "</CHOICE>";
+            }
+            schemaXml += "</CHOICES>";
+        }
+        schemaXml += "</Field>";
+        // Return the schema xml
+        return schemaXml;
+    };
+    /** Returns the schema xml for a date field. */
+    SPConfigFields.createDate = function (fieldInfo) {
+        var schemaXml = null;
+        // Set the field type
+        fieldInfo.type = types_1.SPTypes.FieldType.DateTime;
+        // Get the base properties
+        var props = this.getFieldProps(fieldInfo);
+        props["Format"] = fieldInfo.format == types_1.SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
+        // Generate the schema
+        schemaXml = "<Field " + this.toString(props) + " />";
+        // Return the schema xml
+        return schemaXml;
+    };
+    /** Returns the schema xml for a lookup field. */
+    SPConfigFields.createLookup = function (fieldInfo) {
+        var schemaXml = null;
+        // Set the field type
+        fieldInfo.type = types_1.SPTypes.FieldType.Lookup;
+        // Get the base properties
+        var props = this.getFieldProps(fieldInfo);
+        if (fieldInfo.fieldRef) {
+            props["FieldRef"] = fieldInfo.fieldRef;
+        }
+        if (fieldInfo.listName) {
+            props["List"] = fieldInfo.listName;
+        }
+        if (fieldInfo.multi) {
+            props["Multi"] = "TRUE";
+        }
+        if (fieldInfo.showField) {
+            props["ShowField"] = fieldInfo.showField;
+        }
+        // Generate the schema
+        schemaXml = "<Field " + this.toString(props) + " />";
+        // Return the schema xml
+        return schemaXml;
+    };
+    /** Returns the schema xml for a managed metadata field. */
+    SPConfigFields.createMMS = function (fieldInfo) {
+        var schemaXml = null;
+        // Create the value field
+        var valueProps = this.getFieldProps({
+            name: fieldInfo.name + "_0",
+            title: fieldInfo.title + " Value",
+            type: types_1.SPTypes.FieldType.Note
+        });
+        // Generate the value field schema xml
+        var schemaXmlValue = "<Field " + this.toString(valueProps) + " />";
+        // Set the type
+        var props = this.getFieldProps(fieldInfo);
+        props["Type"] = "TaxonomyFieldType";
+        props["ShowField"] = "Term" + (fieldInfo.locale ? fieldInfo.locale.toString() : "1033");
+        // Generate the mms field schema xml
+        schemaXml += [
+            "<Field " + this.toString(props) + ">",
+            "<Customization>",
+            "<ArrayOfProperties>",
+            "<Property>",
+            "<Name>TextField</Name>",
+            "<Value xmlns:q6=\"http://www.w3.org/2001/XMLSchema\" p4:type=\"q6:string\" xmlns:p4=\"http://www.w3.org/2001/XMLSchema-instance\">" + valueProps["ID"] + "</Value>",
+            "</Property>",
+            "</ArrayOfProperties>",
+            "</Customization>",
+            "</Field>"
+        ].join("");
+        // Return the schema xml
+        return [schemaXmlValue, schemaXml];
+    };
+    /** Returns the schema xml for a note field. */
+    SPConfigFields.createNote = function (fieldInfo) {
+        var schemaXml = null;
+        // Set the field type
+        fieldInfo.type = types_1.SPTypes.FieldType.Note;
+        // Get the base properties
+        var props = this.getFieldProps(fieldInfo);
+        if (fieldInfo.noteType == types_1.SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == types_1.SPTypes.FieldNoteType.RichText) {
+            props["RichText"] = "TRUE";
+        }
+        if (fieldInfo.noteType == types_1.SPTypes.FieldNoteType.EnhancedRichText) {
+            props["RichTextMode"] = "FullHtml";
+        }
+        if (fieldInfo.numberOfLines > 0) {
+            fieldInfo["NumLines"] = fieldInfo.numberOfLines;
+        }
+        // Generate the schema
+        schemaXml = "<Field " + this.toString(props) + " />";
+        // Return the schema xml
+        return schemaXml;
+    };
+    /** Returns the schema xml for a number field. */
+    SPConfigFields.createNumber = function (fieldInfo) {
+        var schemaXml = null;
+        // Set the field type
+        fieldInfo.type = types_1.SPTypes.FieldType.Number;
+        // Get the base properties
+        var props = this.getFieldProps(fieldInfo);
+        if (fieldInfo.decimals >= 0) {
+            props["Decimals"] = fieldInfo.decimals;
+        }
+        if (fieldInfo.max != null) {
+            props["Max"] = fieldInfo.max;
+        }
+        if (fieldInfo.min != null) {
+            props["Min"] = fieldInfo.min;
+        }
+        if (fieldInfo.numberType == types_1.SPTypes.FieldNumberType.Percentage) {
+            props["ShowPercentage"] = "TRUE";
+        }
+        // Generate the schema
+        schemaXml = "<Field " + this.toString(props) + " />";
+        // Return the schema xml
+        return schemaXml;
+    };
+    /** Returns the schema xml for a text field. */
+    SPConfigFields.createText = function (fieldInfo) {
+        var schemaXml = null;
+        // Set the field type
+        fieldInfo.type = types_1.SPTypes.FieldType.Text;
+        // Get the base properties
+        var props = this.getFieldProps(fieldInfo);
+        // Generate the schema
+        schemaXml = "<Field " + this.toString(props) + " />";
+        // Return the schema xml
+        return schemaXml;
+    };
+    /** Returns the schema xml for a url field. */
+    SPConfigFields.createUrl = function (fieldInfo) {
+        var schemaXml = null;
+        // Set the field type
+        fieldInfo.type = types_1.SPTypes.FieldType.URL;
+        // Get the base properties
+        var props = this.getFieldProps(fieldInfo);
+        // Generate the schema
+        schemaXml = "<Field " + this.toString(props) + " />";
+        // Return the schema xml
+        return schemaXml;
+    };
+    /** Returns the schema xml for a user field. */
+    SPConfigFields.createUser = function (fieldInfo) {
+        var schemaXml = null;
+        // Set the field type
+        fieldInfo.type = types_1.SPTypes.FieldType.URL;
+        // Get the base properties
+        var props = this.getFieldProps(fieldInfo);
+        if (fieldInfo.multi) {
+            props["Mult"] = "TRUE";
+        }
+        if (fieldInfo.selectionMode != null) {
+            props["UserSelectionMode"] = fieldInfo.selectionMode;
+        }
+        if (fieldInfo.selectionScope != null) {
+            props["UserSelectionScope"] = fieldInfo.selectionScope;
+        }
+        // Generate the schema
+        schemaXml = "<Field " + this.toString(props) + " />";
+        // Return the schema xml
+        return schemaXml;
+    };
+    /**
+     * Methods
+     */
+    // Method to get the field properties
+    SPConfigFields.getFieldProps = function (fieldInfo) {
+        var props = {};
+        // Set the base properties
+        props["ID"] = __1.ContextInfo.generateGUID();
+        props["Name"] = fieldInfo.name;
+        props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
+        props["StaticName"] = fieldInfo.name;
+        props["Title"] = fieldInfo.title;
+        // Set the type
+        switch (fieldInfo.type) {
+            // Boolean
+            case types_1.SPTypes.FieldType.Boolean:
+                props["Type"] = "Boolean";
+                break;
+            // Choice
+            case types_1.SPTypes.FieldType.Choice:
+                props["Type"] = "Choice";
+                break;
+            // Date/Time
+            case types_1.SPTypes.FieldType.DateTime:
+                props["Type"] = "DateTime";
+                break;
+            // Multi-Choice
+            case types_1.SPTypes.FieldType.MultiChoice:
+                props["Type"] = "MultiChoice";
+                break;
+            // Lookup
+            case types_1.SPTypes.FieldType.Lookup:
+                props["Type"] = "Lookup";
+                break;
+            // Note
+            case types_1.SPTypes.FieldType.Note:
+                props["Type"] = "Note";
+                break;
+            // Number
+            case types_1.SPTypes.FieldType.Number:
+                props["Type"] = "Number";
+                break;
+            // Text
+            case types_1.SPTypes.FieldType.Text:
+                props["Type"] = "Text";
+                break;
+            // URL
+            case types_1.SPTypes.FieldType.URL:
+                props["Type"] = "URL";
+                break;
+            // User
+            case types_1.SPTypes.FieldType.User:
+                props["Type"] = "User";
+                break;
+        }
+        // Return the properties
+        return props;
+    };
+    // Method to convert the properties to a string
+    SPConfigFields.toString = function (props) {
+        var properties = "";
+        // Parse the properties
+        for (var key in props) {
+            var value = props[key];
+            // Add the property
+            properties += (properties ? " " : "") + key + "=\"" + props[key] + "\"";
+        }
+        // Return the string value
+        return properties;
+    };
+    return SPConfigFields;
+}());
+exports.SPConfigFields = SPConfigFields;
+//# sourceMappingURL=spCfgField.js.map
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 var _1 = __webpack_require__(2);
 /**
  * JS Link
@@ -6991,7 +7366,7 @@ exports.JSLink = _JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7055,7 +7430,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7102,7 +7477,7 @@ exports.Navigation = _Navigation;
 //# sourceMappingURL=navigation.js.map
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7144,7 +7519,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7187,7 +7562,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7230,7 +7605,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7310,7 +7685,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7367,7 +7742,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7437,7 +7812,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7480,7 +7855,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

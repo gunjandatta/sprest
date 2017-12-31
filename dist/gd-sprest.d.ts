@@ -1895,6 +1895,18 @@ declare module 'gd-sprest/types/sptypes' {
         */
     export const EventReceiverType: Types.SPTypes.EventReceiverType;
     /**
+        * Field Note Types
+        */
+    export const FieldNoteType: Types.SPTypes.FieldNoteType;
+    /**
+        * Field Number Type
+        */
+    export const FieldNumberType: Types.SPTypes.FieldNumberType;
+    /**
+        * Field Result Types
+        */
+    export const FieldResultType: Types.SPTypes.FieldResultType;
+    /**
         * Field Types
         */
     export const FieldType: Types.SPTypes.FieldType;
@@ -2090,6 +2102,10 @@ declare module 'gd-sprest/lib/contextInfo' {
                     SP: any;
                     SPClientTemplates: any;
             };
+            /**
+                * Method to generate a guid.
+                */
+            generateGUID: () => string;
             /**
                 * Method to get the web context information.
                 * @param url - The relative url of the web.
@@ -4283,6 +4299,45 @@ declare module 'gd-sprest/mapper/sptypes' {
             Synchronization: number;
     };
     /**
+        * Field Note Types
+        */
+    export type FieldNoteType = {
+            /** Enhance Rich Text */
+            EnhancedRichText: number;
+            /** Rich Text */
+            RichText: number;
+            /** Text Only */
+            TextOnly: number;
+    };
+    /**
+        * Field Number Type
+        */
+    export type FieldNumberType = {
+            /** Decimal */
+            Decimal: number;
+            /** Integer */
+            Integer: number;
+            /** Percentage */
+            Percentage: number;
+    };
+    /**
+        * Field Result Types
+        */
+    export type FieldResultType = {
+            /** Boolean */
+            Boolean: string;
+            /** Currency */
+            Currency: string;
+            /** Date Only */
+            DateOnly: string;
+            /** Date & Time */
+            DateTime: string;
+            /** Number */
+            Number: string;
+            /** Text */
+            Text: string;
+    };
+    /**
         * Field Types
         */
     export type FieldType = {
@@ -5395,6 +5450,8 @@ declare module 'gd-sprest/lib/helper/loader' {
 
 declare module 'gd-sprest/lib/helper/spCfg' {
     import { Types } from "gd-sprest/mapper";
+    import * as Fields from "gd-sprest/lib/helper/spCfgField";
+    export { Fields };
     /**
         * SharePoint Configuration - Content Type Information
         */
@@ -5446,13 +5503,17 @@ declare module 'gd-sprest/lib/helper/spCfg' {
         */
     export interface ISPCfgFieldInfo {
             /**
+                * The field information.
+                */
+            FieldInfo?: Fields.ISPConfigFieldInfo;
+            /**
                 * The internal field name.
                 */
             Name: string;
             /**
                 * The schema definition of the field.
                 */
-            SchemaXml: string;
+            SchemaXml?: string;
             /**
                 * Event triggered after the field is created.
                 */
@@ -10971,6 +11032,160 @@ declare module 'gd-sprest/utils/xhrRequest' {
         readonly requestData: any;
         readonly requestUrl: string;
         readonly status: number;
+    }
+}
+
+declare module 'gd-sprest/lib/helper/spCfgField' {
+    /**
+        * Field Information
+        */
+    export interface ISPConfigFieldInfo {
+            /** The default value of the field */
+            defaultValue?: string;
+            /** The internal name of the field */
+            name: string;
+            /** Flag to determine if the field is required */
+            required?: boolean;
+            /** The field title */
+            title: string;
+            /** The field type */
+            type?: number;
+    }
+    /**
+        * Calculated Field Information
+        */
+    export interface ISPConfigFieldInfoCalculated extends ISPConfigFieldInfo {
+            /** The field references */
+            fieldRefs?: Array<string>;
+            /** The date/time format */
+            format?: number;
+            /** The formula */
+            formula: string;
+            /** The result type */
+            resultType?: string;
+    }
+    /**
+        * Choice Field Information
+        */
+    export interface ISPConfigFieldInfoChoice extends ISPConfigFieldInfo {
+            /** The choices */
+            choices?: string[];
+            /** Allow multiple choices */
+            multi?: boolean;
+    }
+    /**
+        * Date Field Information
+        */
+    export interface ISPConfigFieldInfoDate extends ISPConfigFieldInfo {
+            /** The date/time format */
+            format: number;
+    }
+    /**
+        * Lookup Field Information
+        */
+    export interface ISPConfigFieldInfoLookup extends ISPConfigFieldInfo {
+            /** The field reference (Required for associated lookup fields) */
+            fieldRef?: string;
+            /** Allow multiple lookup values */
+            multi?: boolean;
+            /** The list name */
+            listName: string;
+            /** The lookup field to show */
+            showField: string;
+            /** The relative web url containing the list */
+            webUrl?: string;
+    }
+    /**
+        * Managed Metadata
+        */
+    export interface ISPConfigFieldInfoMMS extends ISPConfigFieldInfo {
+            /** The locale value */
+            locale?: number;
+    }
+    /**
+        * Note
+        */
+    export interface ISPConfigFieldInfoNote extends ISPConfigFieldInfo {
+            /** The note field type */
+            noteType: number;
+            /** The number of lines */
+            numberOfLines?: number;
+    }
+    /**
+        * Number
+        */
+    export interface ISPConfigFieldInfoNumber extends ISPConfigFieldInfo {
+            /** The number of decimal places */
+            decimals?: number;
+            /** The maximum value */
+            max?: number;
+            /** The minimum value */
+            min?: number;
+            /** The number field type */
+            numberType: number;
+    }
+    /**
+        * User
+        */
+    export interface ISPConfigFieldInfoUser extends ISPConfigFieldInfo {
+            /** Allow multiple choices */
+            multi?: boolean;
+            /** The user selection mode */
+            selectionMode?: number;
+            /** The user selection scope */
+            selectionScope?: number;
+    }
+    /**
+        * SharePoint Configuration Fields
+        */
+    export interface ISPConfigFields {
+            /** Returns the schema xml for a boolean field. */
+            createBoolean: (fieldInfo: ISPConfigFieldInfo) => string;
+            /** Returns the schema xml for a calculated field. */
+            createCalculated: (fieldInfo: ISPConfigFieldInfoCalculated) => string;
+            /** Returns the schema xml for a choice field. */
+            createChoice: (fieldInfo: ISPConfigFieldInfoChoice) => string;
+            /** Returns the schema xml for a date field. */
+            createDate: (fieldInfo: ISPConfigFieldInfoDate) => string;
+            /** Returns the schema xml for a lookup field. */
+            createLookup: (fieldInfo: ISPConfigFieldInfoLookup) => string;
+            /** Returns the schema xml for a managed metadata field. */
+            createMMS: (fieldInfo: ISPConfigFieldInfoMMS) => string;
+            /** Returns the schema xml for a note field. */
+            createNote: (fieldInfo: ISPConfigFieldInfoNote) => string;
+            /** Returns the schema xml for a number field. */
+            createNumber: (fieldInfo: ISPConfigFieldInfoNumber) => string;
+            /** Returns the schema xml for a url field. */
+            createUrl: (fieldInfo: ISPConfigFieldInfo) => string;
+            /** Returns the schema xml for a user field. */
+            createUser: (fieldInfo: ISPConfigFieldInfo) => string;
+    }
+    /**
+        * SharePoint Configuration Fields
+        */
+    export class SPConfigFields {
+            /** Returns the schema xml for a boolean field. */
+            static createBoolean(fieldInfo: ISPConfigFieldInfo): string;
+            /** Returns the schema xml for a calculated field. */
+            static createCalculated(fieldInfo: ISPConfigFieldInfoCalculated): string;
+            /** Returns the schema xml for a choice field. */
+            static createChoice(fieldInfo: ISPConfigFieldInfoChoice): string;
+            /** Returns the schema xml for a date field. */
+            static createDate(fieldInfo: ISPConfigFieldInfoDate): string;
+            /** Returns the schema xml for a lookup field. */
+            static createLookup(fieldInfo: ISPConfigFieldInfoLookup): string;
+            /** Returns the schema xml for a managed metadata field. */
+            static createMMS(fieldInfo: ISPConfigFieldInfoMMS): Array<string>;
+            /** Returns the schema xml for a note field. */
+            static createNote(fieldInfo: ISPConfigFieldInfoNote): string;
+            /** Returns the schema xml for a number field. */
+            static createNumber(fieldInfo: ISPConfigFieldInfoNumber): string;
+            /** Returns the schema xml for a text field. */
+            static createText(fieldInfo: ISPConfigFieldInfo): string;
+            /** Returns the schema xml for a url field. */
+            static createUrl(fieldInfo: ISPConfigFieldInfo): string;
+            /** Returns the schema xml for a user field. */
+            static createUser(fieldInfo: ISPConfigFieldInfoUser): string;
     }
 }
 

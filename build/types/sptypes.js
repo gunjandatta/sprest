@@ -137,6 +137,45 @@ exports.EventReceiverType = {
     ContextEvent: 32766
 };
 /**
+ * Field Note Types
+ */
+exports.FieldNoteType = {
+    /** Enhance Rich Text */
+    EnhancedRichText: 0,
+    /** Rich Text */
+    RichText: 1,
+    /** Text Only */
+    TextOnly: 2
+};
+/**
+ * Field Number Type
+ */
+exports.FieldNumberType = {
+    /** Decimal */
+    Decimal: 0,
+    /** Integer */
+    Integer: 1,
+    /** Percentage */
+    Percentage: 2,
+};
+/**
+ * Field Result Types
+ */
+exports.FieldResultType = {
+    /** Boolean */
+    Boolean: "Boolean",
+    /** Currency */
+    Currency: "Currency",
+    /** Date Only */
+    DateOnly: "DateOnly",
+    /** Date & Time */
+    DateTime: "DateTime",
+    /** Number */
+    Number: "Number",
+    /** Text */
+    Text: "Text"
+};
+/**
  * Field Types
  */
 exports.FieldType = {

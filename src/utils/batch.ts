@@ -1,3 +1,4 @@
+import { ContextInfo } from "../lib";
 import { TargetInfo } from ".";
 
 /**
@@ -10,7 +11,7 @@ export class Batch {
 
     // Method to generate a batch request
     static getTargetInfo(requests: Array<Array<{ callback?: any, targetInfo: TargetInfo }>>): TargetInfo {
-        let batchId = "batch_" + this.guid();
+        let batchId = "batch_" + ContextInfo.generateGUID();
         let batchRequests = [];
 
         // Parse the requests
@@ -21,7 +22,7 @@ export class Batch {
 
         // End the batch request
         batchRequests.push("--" + batchId + "--");
-        
+
         // Return the target info
         return new TargetInfo({
             endpoint: "$batch",
@@ -30,15 +31,6 @@ export class Batch {
             requestHeader: {
                 "Content-Type": 'multipart/mixed; boundary="' + batchId + '"'
             }
-        });
-    }
-
-    // Method to generate a guid
-    private static guid() {
-        // Set the batch id
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
         });
     }
 
@@ -51,7 +43,7 @@ export class Batch {
         let requiresChangeset = requests[0] && requests[0].targetInfo.requestMethod != "GET";
         if (requiresChangeset) {
             let changesets = [];
-            let changesetId = "changeset_" + this.guid();
+            let changesetId = "changeset_" + ContextInfo.generateGUID();
 
             // Parse the requests
             for (let i = 0; i < requests.length; i++) {

@@ -23,12 +23,12 @@ export const CalendarTypes: Types.SPTypes.CalendarType = {
 /**
  * Check Out Types
  */
-export const CheckOutType:Types.SPTypes.CheckOutType = { Online: 0, Offline: 1, None: 2 };
+export const CheckOutType: Types.SPTypes.CheckOutType = { Online: 0, Offline: 1, None: 2 };
 
 /**
  * Choice Format Types
  */
-export const ChoiceFormatType:Types.SPTypes.ChoiceFormatType = { Dropdown: 0, RadioButtons: 1 };
+export const ChoiceFormatType: Types.SPTypes.ChoiceFormatType = { Dropdown: 0, RadioButtons: 1 };
 
 /**
  * Client Template Utility
@@ -41,7 +41,7 @@ export const ClientTemplatesUtility: Types.SPTypes.ClientTemplateUtility = {
 /**
  * Control Modes
  */
-export const ControlMode:Types.SPTypes.ControlMode = {
+export const ControlMode: Types.SPTypes.ControlMode = {
     Invalid: 0,
     Display: 1,
     Edit: 2,
@@ -52,22 +52,22 @@ export const ControlMode:Types.SPTypes.ControlMode = {
 /**
  * Date Format
  */
-export const DateFormat:Types.SPTypes.DateFormat = { DateOnly: 0, DateTime: 1 };
+export const DateFormat: Types.SPTypes.DateFormat = { DateOnly: 0, DateTime: 1 };
 
 /**
  * Draft Visibility Types
  */
-export const DraftVisibilityType:Types.SPTypes.DraftVisibilityType = { Reader: 0, Author: 1, Approver: 2 };
+export const DraftVisibilityType: Types.SPTypes.DraftVisibilityType = { Reader: 0, Author: 1, Approver: 2 };
 
 /**
  * Event Receiver Synchronization Types
  */
-export const EventReceiverSynchronizationType:Types.SPTypes.EventReceiverSynchronizationType = { Synchronization: 1, Asynchronous: 2 };
+export const EventReceiverSynchronizationType: Types.SPTypes.EventReceiverSynchronizationType = { Synchronization: 1, Asynchronous: 2 };
 
 /**
  * Event Receiver Types
  */
-export const EventReceiverType:Types.SPTypes.EventReceiverType = {
+export const EventReceiverType: Types.SPTypes.EventReceiverType = {
     ItemAdding: 1,
     ItemUpdating: 2,
     ItemDeleting: 3,
@@ -146,9 +146,60 @@ export const EventReceiverType:Types.SPTypes.EventReceiverType = {
 };
 
 /**
+ * Field Note Types
+ */
+export const FieldNoteType: Types.SPTypes.FieldNoteType = {
+    /** Enhance Rich Text */
+    EnhancedRichText: 0,
+
+    /** Rich Text */
+    RichText: 1,
+
+    /** Text Only */
+    TextOnly: 2
+};
+
+/**
+ * Field Number Type
+ */
+export const FieldNumberType: Types.SPTypes.FieldNumberType = {
+    /** Decimal */
+    Decimal: 0,
+
+    /** Integer */
+    Integer: 1,
+
+    /** Percentage */
+    Percentage: 2,
+}
+
+/**
+ * Field Result Types
+ */
+export const FieldResultType: Types.SPTypes.FieldResultType = {
+    /** Boolean */
+    Boolean: "Boolean",
+
+    /** Currency */
+    Currency: "Currency",
+
+    /** Date Only */
+    DateOnly: "DateOnly",
+
+    /** Date & Time */
+    DateTime: "DateTime",
+
+    /** Number */
+    Number: "Number",
+
+    /** Text */
+    Text: "Text"
+};
+
+/**
  * Field Types
  */
-export const FieldType:Types.SPTypes.FieldType = {
+export const FieldType: Types.SPTypes.FieldType = {
     AllDayEvent: 29,
     Attachments: 19,
     Boolean: 8,
@@ -187,17 +238,17 @@ export const FieldType:Types.SPTypes.FieldType = {
 /**
  * Field User Selection Types
  */
-export const FieldUserSelectionType:Types.SPTypes.FieldUserSelectionType = { PeopleOnly: 0, PeopleAndGroups: 1 }
+export const FieldUserSelectionType: Types.SPTypes.FieldUserSelectionType = { PeopleOnly: 0, PeopleAndGroups: 1 }
 
 /**
  * File Template Types
 */
-export const FileTemplateType:Types.SPTypes.FileTemplateType = { StandardPage: 0, WikiPage: 1, FormPage: 2 };
+export const FileTemplateType: Types.SPTypes.FileTemplateType = { StandardPage: 0, WikiPage: 1, FormPage: 2 };
 
 /**
  * Friendly Date Format
  */
-export const FriendlyDateFormat:Types.SPTypes.FriendlyDateFormat = {
+export const FriendlyDateFormat: Types.SPTypes.FriendlyDateFormat = {
     Unspecified: 0,
     Disabled: 1,
     Relative: 2
@@ -206,7 +257,7 @@ export const FriendlyDateFormat:Types.SPTypes.FriendlyDateFormat = {
 /**
  * List Template Types
 */
-export const ListTemplateType:Types.SPTypes.ListTemplateType = {
+export const ListTemplateType: Types.SPTypes.ListTemplateType = {
     AccessRequest: 160,
     AdminTasks: 1200,
     Agenda: 201,
@@ -270,7 +321,7 @@ export const ListTemplateType:Types.SPTypes.ListTemplateType = {
 /**
  * Locale LCID Types
  */
-export const LocaleLCIDType:Types.SPTypes.LocaleLCIDType = {
+export const LocaleLCIDType: Types.SPTypes.LocaleLCIDType = {
     Afrikaans: 1078,
     Albanian: 1052,
     ArabicAlgeria: 5121,
@@ -459,7 +510,7 @@ export type NodeType = {
 /**
  * Page Types
  */
-export const PageType:Types.SPTypes.PageType = {
+export const PageType: Types.SPTypes.PageType = {
     DefaultView: 0,
     DialogView: 2,
     DisplayForm: 4,
@@ -478,7 +529,7 @@ export const PageType:Types.SPTypes.PageType = {
 /**
  * Personal Site Capabilities
  */
-export const PersonalSiteCapabilities:Types.SPTypes.PersonalSiteCapabilities = {
+export const PersonalSiteCapabilities: Types.SPTypes.PersonalSiteCapabilities = {
     Education: 16,
     Guest: 32,
     MyTasksDashboard: 8,
@@ -491,7 +542,7 @@ export const PersonalSiteCapabilities:Types.SPTypes.PersonalSiteCapabilities = {
 /**
  * Principal Sources
  */
-export const PrincipalSources:Types.SPTypes.PrincipalSources = {
+export const PrincipalSources: Types.SPTypes.PrincipalSources = {
     All: 15,
     MembershipProvider: 4,
     None: 0,
@@ -503,7 +554,7 @@ export const PrincipalSources:Types.SPTypes.PrincipalSources = {
 /**
  * Principal Types
  */
-export const PrincipalTypes:Types.SPTypes.PrincipalTypes = {
+export const PrincipalTypes: Types.SPTypes.PrincipalTypes = {
     All: 15,
     DistributionList: 2,
     None: 0,
@@ -515,12 +566,12 @@ export const PrincipalTypes:Types.SPTypes.PrincipalTypes = {
 /**
  * Relationship Delete Behavior Types
  */
-export const RelationshipDeleteBehaviorType:Types.SPTypes.RelationshipDeleteBehaviorType = { None: 0, Cascade: 1, Restrict: 2 };
+export const RelationshipDeleteBehaviorType: Types.SPTypes.RelationshipDeleteBehaviorType = { None: 0, Cascade: 1, Restrict: 2 };
 
 /**
  * Reordering Rule Match Types
  */
-export const ReorderingRuleMatchType:Types.SPTypes.ReorderingRuleMatchType = {
+export const ReorderingRuleMatchType: Types.SPTypes.ReorderingRuleMatchType = {
     ContentTypeIs: 5,
     FileExtensionMatches: 6,
     ManualCondition: 8,
@@ -535,7 +586,7 @@ export const ReorderingRuleMatchType:Types.SPTypes.ReorderingRuleMatchType = {
 /**
  * Role Types
  */
-export const RoleType:Types.SPTypes.RoleType = {
+export const RoleType: Types.SPTypes.RoleType = {
     Administrator: 5,
     Contributor: 3,
     Editor: 6,
@@ -548,22 +599,22 @@ export const RoleType:Types.SPTypes.RoleType = {
 /**
  * URL Format Types
  */
-export const UrlFormatType:Types.SPTypes.UrlFormatType = { Hyperlink: 0, Image: 1 };
+export const UrlFormatType: Types.SPTypes.UrlFormatType = { Hyperlink: 0, Image: 1 };
 
 /**
  * URL Zones
  */
-export const URLZones:Types.SPTypes.URLZones = { Default: 0, Intranet: 1, Internet: 2, Custom: 3, Extranet: 4 }
+export const URLZones: Types.SPTypes.URLZones = { Default: 0, Intranet: 1, Internet: 2, Custom: 3, Extranet: 4 }
 
 /**
  * User Custom Action Registration Types
  */
-export const UserCustomActionRegistrationType:Types.SPTypes.UserCustomActionRegistrationType = { None: 0, List: 1, ContentType: 2, ProgId: 3, FileType: 4 };
+export const UserCustomActionRegistrationType: Types.SPTypes.UserCustomActionRegistrationType = { None: 0, List: 1, ContentType: 2, ProgId: 3, FileType: 4 };
 
 /**
  * View Types
  */
-export const ViewType:Types.SPTypes.ViewType = {
+export const ViewType: Types.SPTypes.ViewType = {
     Calendar: 524288,
     Chart: 131072,
     Gantt: 67108864,

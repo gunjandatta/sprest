@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = require("../lib");
 var _1 = require(".");
 /**
  * Batch Requests
@@ -12,7 +13,7 @@ var Batch = /** @class */ (function () {
      */
     // Method to generate a batch request
     Batch.getTargetInfo = function (requests) {
-        var batchId = "batch_" + this.guid();
+        var batchId = "batch_" + lib_1.ContextInfo.generateGUID();
         var batchRequests = [];
         // Parse the requests
         for (var i = 0; i < requests.length; i++) {
@@ -31,14 +32,6 @@ var Batch = /** @class */ (function () {
             }
         });
     };
-    // Method to generate a guid
-    Batch.guid = function () {
-        // Set the batch id
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    };
     // Method to generate a batch request
     Batch.createBatch = function (batchId, requests) {
         // Create the batch request
@@ -47,7 +40,7 @@ var Batch = /** @class */ (function () {
         var requiresChangeset = requests[0] && requests[0].targetInfo.requestMethod != "GET";
         if (requiresChangeset) {
             var changesets = [];
-            var changesetId = "changeset_" + this.guid();
+            var changesetId = "changeset_" + lib_1.ContextInfo.generateGUID();
             // Parse the requests
             for (var i = 0; i < requests.length; i++) {
                 var request = [];

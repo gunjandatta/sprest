@@ -3,6 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../../utils");
 var types_1 = require("../../types");
 var __1 = require("..");
+var Fields = require("./spCfgField");
+exports.Fields = Fields;
 /**
  * SharePoint Configuration
  */

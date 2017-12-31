@@ -10,6 +10,5 @@ export declare class Batch {
         callback?: any;
         targetInfo: TargetInfo;
     }>>): TargetInfo;
-    private static guid();
     private static createBatch(batchId, requests);
 }

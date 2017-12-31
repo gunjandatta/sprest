@@ -2,6 +2,8 @@ import { Types } from "../../mapper";
 import { Promise } from "../../utils";
 import { SPConfigTypes } from "../../types";
 import { ContextInfo, List, Site, Web } from "..";
+import * as Fields from "./spCfgField";
+export { Fields }
 
 /**
  * SharePoint Configuration - Content Type Information
@@ -63,6 +65,11 @@ export interface ISPCfgCustomActionInfo {
  */
 export interface ISPCfgFieldInfo {
     /**
+     * The field information.
+     */
+    FieldInfo?: Fields.ISPConfigFieldInfo;
+
+    /**
      * The internal field name.
      */
     Name: string;
@@ -70,7 +77,7 @@ export interface ISPCfgFieldInfo {
     /**
      * The schema definition of the field.
      */
-    SchemaXml: string;
+    SchemaXml?: string;
 
     /**
      * Event triggered after the field is created.
@@ -1428,7 +1435,7 @@ export class SPConfig {
 
         // Log
         console.log("[gd-sprest][uninstall] Loading the site information...");
-        
+
         // Ensure site actions exist
         if (this._configuration.CustomActionCfg == null || this._configuration.CustomActionCfg.Site == null) {
             // Resolve the promise
