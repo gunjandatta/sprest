@@ -111,7 +111,7 @@ export interface IListMethods {
      * Returns a collection of items from the list based on the specified query.
      * @query - The query that contains the change token.
      */
-    getListItemChangesSinceToken(query): IBase<IListItems, IListItemResults>;
+    getListItemChangesSinceToken(query: Types.ComplexTypes.ChangeLogItemQuery): IBase<IListItems, IListItemResults>;
 
     /**
      * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
