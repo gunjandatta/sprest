@@ -1,5 +1,5 @@
 import { Types } from "../../mapper";
-import * as Fields from "./spCfgField";
+import * as Fields from "./spCfgFields";
 export { Fields };
 /**
  * SharePoint Configuration - Content Type Information
@@ -247,7 +247,6 @@ export declare class SPConfig {
     private removeLists;
     private removeUserCustomActions;
     private removeWebParts;
-    private updateFieldSchemaXml;
     private updateLists;
     private updateViews;
     private uninstallSite;

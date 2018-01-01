@@ -70,10 +70,10 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var requestType_1 = __webpack_require__(7);
+var Helper = __webpack_require__(7);
+exports.Helper = Helper;
+var requestType_1 = __webpack_require__(8);
 exports.RequestType = requestType_1.RequestType;
-var spConfigTypes_1 = __webpack_require__(8);
-exports.SPConfigTypes = spConfigTypes_1.SPConfigTypes;
 var SPTypes = __webpack_require__(9);
 exports.SPTypes = SPTypes;
 //# sourceMappingURL=index.js.map
@@ -346,6 +346,43 @@ exports.audit = {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
+ * SharePoint Configuration Types
+ * The value determines the order to install the object type.
+ */
+exports.SPConfigTypes = {
+    Fields: 0,
+    ContentTypes: 1,
+    Lists: 2,
+    SiteUserCustomActions: 3,
+    WebParts: 5,
+    WebUserCustomActions: 4
+};
+/**
+ * SharePoint Field Configuration Types
+ */
+exports.SPConfigFieldTypes = {
+    Boolean: 0,
+    Calculated: 1,
+    Choice: 2,
+    Date: 3,
+    Lookup: 4,
+    MMS: 5,
+    Note: 6,
+    Number: 7,
+    Text: 8,
+    Url: 9,
+    User: 10
+};
+//# sourceMappingURL=helper.js.map
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
  * Request Type
  */
 exports.RequestType = {
@@ -371,27 +408,6 @@ exports.RequestType = {
     PostReplace: 25
 };
 //# sourceMappingURL=requestType.js.map
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * SharePoint Configuration Types
- * The value determines the order to install the object type.
- */
-exports.SPConfigTypes = {
-    Fields: 0,
-    ContentTypes: 1,
-    Lists: 2,
-    SiteUserCustomActions: 3,
-    WebParts: 5,
-    WebUserCustomActions: 4
-};
-//# sourceMappingURL=spConfigTypes.js.map
 
 /***/ }),
 /* 9 */
@@ -6030,24 +6046,33 @@ var SPConfig = /** @class */ (function () {
                 else {
                     // Log
                     console.log("[gd-sprest][Field] Creating the '" + cfgField.Name + "' field.");
-                    // Update the schema xml
-                    _this.updateFieldSchemaXml(cfgField.SchemaXml).done(function (schemaXml) {
+                    //
+                    var onFieldCreated_1 = function (field) {
+                        // See if it was successful
+                        if (field.existsFl) {
+                            // Log
+                            console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' was created successfully.");
+                            // Trigger the event
+                            cfgField.onCreated ? cfgField.onCreated(field) : null;
+                        }
+                        else {
+                            // Log
+                            console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' failed to be created.");
+                            console.error("[gd-sprest][Field] Error: " + field.response);
+                        }
+                    };
+                    // See if the field information is defined
+                    if (cfgField.FieldInfo) {
+                        // Compute the schema xml
+                        Fields.CreateFieldSchema(cfgField.FieldInfo).then(function (schemaXml) {
+                            // Add the field
+                            fields.createFieldAsXml(schemaXml).execute(onFieldCreated_1, true);
+                        });
+                    }
+                    else {
                         // Add the field
-                        fields.createFieldAsXml(schemaXml).execute(function (field) {
-                            // See if it was successful
-                            if (field.existsFl) {
-                                // Log
-                                console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' was created successfully.");
-                                // Trigger the event
-                                cfgField.onCreated ? cfgField.onCreated(field) : null;
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' failed to be created.");
-                                console.error("[gd-sprest][Field] Error: " + field.response);
-                            }
-                        }, true);
-                    });
+                        fields.createFieldAsXml(cfgField.SchemaXml).execute(onFieldCreated_1, true);
+                    }
                 }
             };
             // Parse the fields
@@ -6068,7 +6093,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.Lists) {
+                if (_this._cfgType != types_1.Helper.SPConfigTypes.Lists) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -6153,7 +6178,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.SiteUserCustomActions || _this._cfgType != types_1.SPConfigTypes.WebUserCustomActions) {
+                if (_this._cfgType != types_1.Helper.SPConfigTypes.SiteUserCustomActions || _this._cfgType != types_1.Helper.SPConfigTypes.WebUserCustomActions) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -6265,7 +6290,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.WebParts) {
+                if (_this._cfgType != types_1.Helper.SPConfigTypes.WebParts) {
                     return;
                 }
             }
@@ -6483,7 +6508,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.Lists) {
+                if (_this._cfgType != types_1.Helper.SPConfigTypes.Lists) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -6532,7 +6557,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.SiteUserCustomActions || _this._cfgType != types_1.SPConfigTypes.WebUserCustomActions) {
+                if (_this._cfgType != types_1.Helper.SPConfigTypes.SiteUserCustomActions || _this._cfgType != types_1.Helper.SPConfigTypes.WebUserCustomActions) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -6583,7 +6608,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.WebParts) {
+                if (_this._cfgType != types_1.Helper.SPConfigTypes.WebParts) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -6630,38 +6655,6 @@ var SPConfig = /** @class */ (function () {
                 promise.resolve();
             });
             // Return a promise
-            return promise;
-        };
-        // Method to update the schema xml
-        this.updateFieldSchemaXml = function (schemaXml) {
-            var promise = new utils_1.Promise();
-            // Create the schema
-            var fieldInfo = __1.ContextInfo.document.createElement("field");
-            fieldInfo.innerHTML = schemaXml;
-            fieldInfo = fieldInfo.querySelector("field");
-            // Get the field type
-            switch (fieldInfo.getAttribute("Type")) {
-                case "Lookup":
-                case "LookupMulti":
-                    // Get the target list
-                    (new __1.List(fieldInfo.getAttribute("List"))).execute(function (list) {
-                        // Ensure the list exists
-                        if (list.existsFl) {
-                            var startIdx = schemaXml.toLowerCase().indexOf("list=");
-                            var endIdx = schemaXml.indexOf(" ", startIdx + 5 + list.Title.length);
-                            // Replace the List property
-                            schemaXml = schemaXml.substr(0, startIdx) + "List=\"" + list.Id + "\"" + schemaXml.substr(endIdx);
-                        }
-                        // Resolve the promise
-                        promise.resolve(schemaXml);
-                    });
-                    break;
-                default:
-                    // Resolve the promise
-                    promise.resolve(schemaXml);
-                    break;
-            }
-            // Return the promise
             return promise;
         };
         // Method to update the lists
@@ -6871,11 +6864,11 @@ var SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    SPConfig.prototype.installList = function (listName, callback) { this.installByType(types_1.SPConfigTypes.Lists, callback, listName); };
+    SPConfig.prototype.installList = function (listName, callback) { this.installByType(types_1.Helper.SPConfigTypes.Lists, callback, listName); };
     // Method to install a specific site custom action
-    SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(types_1.SPConfigTypes.SiteUserCustomActions, callback, caName); };
+    SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(types_1.Helper.SPConfigTypes.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(types_1.SPConfigTypes.WebUserCustomActions, callback, caName); };
+    SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(types_1.Helper.SPConfigTypes.WebUserCustomActions, callback, caName); };
     // Method to uninstall the configuration
     SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
         var _this = this;
@@ -6900,11 +6893,11 @@ var SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(types_1.SPConfigTypes.Lists, callback, listName); };
+    SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(types_1.Helper.SPConfigTypes.Lists, callback, listName); };
     // Method to install a specific site custom action
-    SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(types_1.SPConfigTypes.SiteUserCustomActions, callback, caName); };
+    SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(types_1.Helper.SPConfigTypes.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(types_1.SPConfigTypes.WebUserCustomActions, callback, caName); };
+    SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(types_1.Helper.SPConfigTypes.WebUserCustomActions, callback, caName); };
     return SPConfig;
 }());
 exports.SPConfig = SPConfig;
@@ -6917,24 +6910,25 @@ exports.SPConfig = SPConfig;
 
 "use strict";
 
+var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var __1 = __webpack_require__(2);
 var types_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 /**
- * SharePoint Configuration Fields
+ * Create Field Schema
  */
-var SPConfigFields = /** @class */ (function () {
-    function SPConfigFields() {
-    }
+exports.CreateFieldSchema = function (fieldInfo) {
+    /**
+     * Methods
+     */
     /** Returns the schema xml for a boolean field. */
-    SPConfigFields.createBoolean = function (fieldInfo) {
+    var createBoolean = function (fieldInfo, props, promise) {
         var schemaXml = null;
         // Set the field type
-        fieldInfo.type = types_1.SPTypes.FieldType.Boolean;
-        // Get the base properties
-        var props = this.getFieldProps(fieldInfo);
+        props["Type"] = "Boolean";
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + ">";
+        schemaXml = "<Field " + _this.toString(props) + ">";
         if (fieldInfo.defaultValue) {
             schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
         }
@@ -6943,12 +6937,10 @@ var SPConfigFields = /** @class */ (function () {
         return schemaXml;
     };
     /** Returns the schema xml for a calculated field. */
-    SPConfigFields.createCalculated = function (fieldInfo) {
+    var createCalculated = function (fieldInfo, props, promise) {
         var schemaXml = null;
         // Set the field type
-        fieldInfo.type = types_1.SPTypes.FieldType.Calculated;
-        // Get the base properties
-        var props = this.getFieldProps(fieldInfo);
+        props["Type"] = "Calculated";
         // Set the result type
         switch (fieldInfo.resultType) {
             case types_1.SPTypes.FieldResultType.Boolean:
@@ -6973,7 +6965,7 @@ var SPConfigFields = /** @class */ (function () {
                 break;
         }
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + ">";
+        schemaXml = "<Field " + _this.toString(props) + ">";
         if (fieldInfo.formula) {
             schemaXml += "<Formula>" + fieldInfo.formula + "</Formula>";
         }
@@ -6985,18 +6977,16 @@ var SPConfigFields = /** @class */ (function () {
             schemaXml += "</FieldRefs>";
         }
         schemaXml += "</Field>";
-        // Return the schema xml
-        return schemaXml;
+        // Resolve the promise
+        promise.resolve(schemaXml);
     };
     /** Returns the schema xml for a choice field. */
-    SPConfigFields.createChoice = function (fieldInfo) {
+    var createChoice = function (fieldInfo, props, promise) {
         var schemaXml = null;
         // Set the field type
-        fieldInfo.type = fieldInfo.multi ? types_1.SPTypes.FieldType.MultiChoice : types_1.SPTypes.FieldType.Choice;
-        // Get the base properties
-        var props = this.getFieldProps(fieldInfo);
+        props["Type"] = fieldInfo.multi ? "MultiChoice" : "Choice";
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + ">";
+        schemaXml = "<Field " + _this.toString(props) + ">";
         if (fieldInfo.defaultValue) {
             schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
         }
@@ -7008,34 +6998,29 @@ var SPConfigFields = /** @class */ (function () {
             schemaXml += "</CHOICES>";
         }
         schemaXml += "</Field>";
-        // Return the schema xml
-        return schemaXml;
+        // Resolve the promise
+        promise.resolve(schemaXml);
     };
     /** Returns the schema xml for a date field. */
-    SPConfigFields.createDate = function (fieldInfo) {
+    var createDate = function (fieldInfo, props, promise) {
         var schemaXml = null;
         // Set the field type
-        fieldInfo.type = types_1.SPTypes.FieldType.DateTime;
-        // Get the base properties
-        var props = this.getFieldProps(fieldInfo);
+        props["Type"] = "DateTime";
+        // Set the date/time properties
         props["Format"] = fieldInfo.format == types_1.SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
-        // Return the schema xml
-        return schemaXml;
+        schemaXml = "<Field " + _this.toString(props) + " />";
+        // Resolve the promise
+        promise.resolve(schemaXml);
     };
     /** Returns the schema xml for a lookup field. */
-    SPConfigFields.createLookup = function (fieldInfo) {
+    var createLookup = function (fieldInfo, props, promise) {
         var schemaXml = null;
         // Set the field type
-        fieldInfo.type = types_1.SPTypes.FieldType.Lookup;
-        // Get the base properties
-        var props = this.getFieldProps(fieldInfo);
+        props["Type"] = "Lookup";
+        // Set the lookup properties
         if (fieldInfo.fieldRef) {
             props["FieldRef"] = fieldInfo.fieldRef;
-        }
-        if (fieldInfo.listName) {
-            props["List"] = fieldInfo.listName;
         }
         if (fieldInfo.multi) {
             props["Multi"] = "TRUE";
@@ -7043,49 +7028,73 @@ var SPConfigFields = /** @class */ (function () {
         if (fieldInfo.showField) {
             props["ShowField"] = fieldInfo.showField;
         }
-        // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
-        // Return the schema xml
-        return schemaXml;
+        // See if the lookup name exists
+        if (fieldInfo.listName) {
+            // Get the web containing the list
+            (new __1.Web(fieldInfo.webUrl))
+                .Lists(fieldInfo.listName)
+                .query({
+                Expand: ["ParentWeb"]
+            })
+                .execute(function (list) {
+                // Set the list and web ids
+                props["List"] = list.Id;
+                if (fieldInfo.webUrl) {
+                    props["WebId"] = list.ParentWeb.Id;
+                }
+                // Resolve the promise
+                promise.resolve("<Field " + _this.toString(props) + " />");
+            });
+        }
+        else {
+            // Set the list id
+            props["List"] = fieldInfo.listId;
+            // Resolve the promise
+            promise.resolve("<Field " + _this.toString(props) + " />");
+        }
+        // Resolve the promise
+        promise.resolve(schemaXml);
     };
     /** Returns the schema xml for a managed metadata field. */
-    SPConfigFields.createMMS = function (fieldInfo) {
+    var createMMS = function (fieldInfo, props, promise) {
         var schemaXml = null;
         // Create the value field
-        var valueProps = this.getFieldProps({
-            name: fieldInfo.name + "_0",
-            title: fieldInfo.title + " Value",
-            type: types_1.SPTypes.FieldType.Note
-        });
+        var valueProps = {
+            ID: __1.ContextInfo.generateGUID(),
+            Name: fieldInfo.name + "_0",
+            StaticName: fieldInfo.name + "_0",
+            Title: fieldInfo.title + " Value",
+            Type: "Note",
+            Required: fieldInfo.required ? "TRUE" : "FALSE",
+            Hidden: "TRUE"
+        };
         // Generate the value field schema xml
-        var schemaXmlValue = "<Field " + this.toString(valueProps) + " />";
-        // Set the type
-        var props = this.getFieldProps(fieldInfo);
+        var schemaXmlValue = "<Field " + _this.toString(valueProps) + " />";
+        // Set the mms properties
         props["Type"] = "TaxonomyFieldType";
         props["ShowField"] = "Term" + (fieldInfo.locale ? fieldInfo.locale.toString() : "1033");
         // Generate the mms field schema xml
         schemaXml += [
-            "<Field " + this.toString(props) + ">",
+            "<Field " + _this.toString(props) + ">",
             "<Customization>",
             "<ArrayOfProperties>",
             "<Property>",
             "<Name>TextField</Name>",
-            "<Value xmlns:q6=\"http://www.w3.org/2001/XMLSchema\" p4:type=\"q6:string\" xmlns:p4=\"http://www.w3.org/2001/XMLSchema-instance\">" + valueProps["ID"] + "</Value>",
+            "<Value xmlns:q6=\"http://www.w3.org/2001/XMLSchema\" p4:type=\"q6:string\" xmlns:p4=\"http://www.w3.org/2001/XMLSchema-instance\">" + valueProps.ID + "</Value>",
             "</Property>",
             "</ArrayOfProperties>",
             "</Customization>",
             "</Field>"
         ].join("");
-        // Return the schema xml
-        return [schemaXmlValue, schemaXml];
+        // Resolve the promise
+        promise.resolve(schemaXmlValue, schemaXml);
     };
     /** Returns the schema xml for a note field. */
-    SPConfigFields.createNote = function (fieldInfo) {
+    var createNote = function (fieldInfo, props, promise) {
         var schemaXml = null;
         // Set the field type
-        fieldInfo.type = types_1.SPTypes.FieldType.Note;
-        // Get the base properties
-        var props = this.getFieldProps(fieldInfo);
+        props["Type"] = "Note";
+        // Set the note properties
         if (fieldInfo.noteType == types_1.SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == types_1.SPTypes.FieldNoteType.RichText) {
             props["RichText"] = "TRUE";
         }
@@ -7096,17 +7105,16 @@ var SPConfigFields = /** @class */ (function () {
             fieldInfo["NumLines"] = fieldInfo.numberOfLines;
         }
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
-        // Return the schema xml
-        return schemaXml;
+        schemaXml = "<Field " + _this.toString(props) + " />";
+        // Resolve the promise
+        promise.resolve(schemaXml);
     };
     /** Returns the schema xml for a number field. */
-    SPConfigFields.createNumber = function (fieldInfo) {
+    var createNumber = function (fieldInfo, props, promise) {
         var schemaXml = null;
         // Set the field type
-        fieldInfo.type = types_1.SPTypes.FieldType.Number;
-        // Get the base properties
-        var props = this.getFieldProps(fieldInfo);
+        props["Type"] = "Number";
+        // Set the number properties
         if (fieldInfo.decimals >= 0) {
             props["Decimals"] = fieldInfo.decimals;
         }
@@ -7120,41 +7128,36 @@ var SPConfigFields = /** @class */ (function () {
             props["ShowPercentage"] = "TRUE";
         }
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
-        // Return the schema xml
-        return schemaXml;
+        schemaXml = "<Field " + _this.toString(props) + " />";
+        // Resolve the promise
+        promise.resolve(schemaXml);
     };
     /** Returns the schema xml for a text field. */
-    SPConfigFields.createText = function (fieldInfo) {
+    var createText = function (fieldInfo, props, promise) {
         var schemaXml = null;
         // Set the field type
-        fieldInfo.type = types_1.SPTypes.FieldType.Text;
-        // Get the base properties
-        var props = this.getFieldProps(fieldInfo);
+        props["Type"] = "Text";
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
-        // Return the schema xml
-        return schemaXml;
+        schemaXml = "<Field " + _this.toString(props) + " />";
+        // Resolve the promise
+        promise.resolve(schemaXml);
     };
     /** Returns the schema xml for a url field. */
-    SPConfigFields.createUrl = function (fieldInfo) {
+    var createUrl = function (fieldInfo, props, promise) {
         var schemaXml = null;
         // Set the field type
-        fieldInfo.type = types_1.SPTypes.FieldType.URL;
-        // Get the base properties
-        var props = this.getFieldProps(fieldInfo);
+        props["Type"] = "URL";
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
-        // Return the schema xml
-        return schemaXml;
+        schemaXml = "<Field " + _this.toString(props) + " />";
+        // Resolve the promise
+        promise.resolve(schemaXml);
     };
     /** Returns the schema xml for a user field. */
-    SPConfigFields.createUser = function (fieldInfo) {
+    var createUser = function (fieldInfo, props, promise) {
         var schemaXml = null;
         // Set the field type
-        fieldInfo.type = types_1.SPTypes.FieldType.URL;
-        // Get the base properties
-        var props = this.getFieldProps(fieldInfo);
+        props["Type"] = "User";
+        // Set the user properties
         if (fieldInfo.multi) {
             props["Mult"] = "TRUE";
         }
@@ -7165,70 +7168,12 @@ var SPConfigFields = /** @class */ (function () {
             props["UserSelectionScope"] = fieldInfo.selectionScope;
         }
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
-        // Return the schema xml
-        return schemaXml;
-    };
-    /**
-     * Methods
-     */
-    // Method to get the field properties
-    SPConfigFields.getFieldProps = function (fieldInfo) {
-        var props = {};
-        // Set the base properties
-        props["ID"] = __1.ContextInfo.generateGUID();
-        props["Name"] = fieldInfo.name;
-        props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
-        props["StaticName"] = fieldInfo.name;
-        props["Title"] = fieldInfo.title;
-        // Set the type
-        switch (fieldInfo.type) {
-            // Boolean
-            case types_1.SPTypes.FieldType.Boolean:
-                props["Type"] = "Boolean";
-                break;
-            // Choice
-            case types_1.SPTypes.FieldType.Choice:
-                props["Type"] = "Choice";
-                break;
-            // Date/Time
-            case types_1.SPTypes.FieldType.DateTime:
-                props["Type"] = "DateTime";
-                break;
-            // Multi-Choice
-            case types_1.SPTypes.FieldType.MultiChoice:
-                props["Type"] = "MultiChoice";
-                break;
-            // Lookup
-            case types_1.SPTypes.FieldType.Lookup:
-                props["Type"] = "Lookup";
-                break;
-            // Note
-            case types_1.SPTypes.FieldType.Note:
-                props["Type"] = "Note";
-                break;
-            // Number
-            case types_1.SPTypes.FieldType.Number:
-                props["Type"] = "Number";
-                break;
-            // Text
-            case types_1.SPTypes.FieldType.Text:
-                props["Type"] = "Text";
-                break;
-            // URL
-            case types_1.SPTypes.FieldType.URL:
-                props["Type"] = "URL";
-                break;
-            // User
-            case types_1.SPTypes.FieldType.User:
-                props["Type"] = "User";
-                break;
-        }
-        // Return the properties
-        return props;
+        schemaXml = "<Field " + _this.toString(props) + " />";
+        // Resolve the promise
+        promise.resolve(schemaXml);
     };
     // Method to convert the properties to a string
-    SPConfigFields.toString = function (props) {
+    var toString = function (props) {
         var properties = "";
         // Parse the properties
         for (var key in props) {
@@ -7239,10 +7184,70 @@ var SPConfigFields = /** @class */ (function () {
         // Return the string value
         return properties;
     };
-    return SPConfigFields;
-}());
-exports.SPConfigFields = SPConfigFields;
-//# sourceMappingURL=spCfgField.js.map
+    /**
+     * Main
+     */
+    var promise = new utils_1.Promise();
+    var schemaXml = null;
+    // Set the base properties
+    var props = {};
+    props["ID"] = __1.ContextInfo.generateGUID();
+    props["Name"] = fieldInfo.name;
+    props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
+    props["StaticName"] = fieldInfo.name;
+    props["Title"] = fieldInfo.title;
+    // Set the type
+    switch (fieldInfo.type) {
+        // Boolean
+        case types_1.Helper.SPConfigFieldTypes.Boolean:
+            _this.createBoolean(fieldInfo, props, promise);
+            break;
+        // Calculated
+        case types_1.Helper.SPConfigFieldTypes.Calculated:
+            _this.createCalculated(fieldInfo, props, promise);
+            break;
+        // Choice
+        case types_1.Helper.SPConfigFieldTypes.Choice:
+            _this.createChoice(fieldInfo, props, promise);
+            break;
+        // Date/Time
+        case types_1.Helper.SPConfigFieldTypes.Date:
+            _this.createDate(fieldInfo, props, promise);
+            break;
+        // Lookup
+        case types_1.Helper.SPConfigFieldTypes.Lookup:
+            _this.createLookup(fieldInfo, props, promise);
+            break;
+        // Note
+        case types_1.Helper.SPConfigFieldTypes.Note:
+            _this.createNote(fieldInfo, props, promise);
+            break;
+        // Number
+        case types_1.Helper.SPConfigFieldTypes.Number:
+            _this.createNumber(fieldInfo, props, promise);
+            break;
+        // Text
+        case types_1.Helper.SPConfigFieldTypes.Text:
+            _this.createText(fieldInfo, props, promise);
+            break;
+        // URL
+        case types_1.Helper.SPConfigFieldTypes.Url:
+            _this.createUrl(fieldInfo, props, promise);
+            break;
+        // User
+        case types_1.Helper.SPConfigFieldTypes.User:
+            _this.createUser(fieldInfo, props, promise);
+            break;
+        // Field type not supported
+        default:
+            // Resolve the promise and return
+            promise.resolve(null);
+            return;
+    }
+    // Return a promise
+    return promise;
+};
+//# sourceMappingURL=spCfgFields.js.map
 
 /***/ }),
 /* 45 */

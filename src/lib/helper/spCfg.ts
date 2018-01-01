@@ -1,8 +1,8 @@
 import { Types } from "../../mapper";
 import { Promise } from "../../utils";
-import { SPConfigTypes } from "../../types";
+import { Helper } from "../../types";
 import { ContextInfo, List, Site, Web } from "..";
-import * as Fields from "./spCfgField";
+import * as Fields from "./spCfgFields";
 export { Fields }
 
 /**
@@ -318,13 +318,13 @@ export class SPConfig {
     installByType = (cfgType: number, callback?: any, targetName?: string) => { return this.install(callback, cfgType, targetName); }
 
     // Method to install a specific list
-    installList(listName: string, callback?: any) { this.installByType(SPConfigTypes.Lists, callback, listName); }
+    installList(listName: string, callback?: any) { this.installByType(Helper.SPConfigTypes.Lists, callback, listName); }
 
     // Method to install a specific site custom action
-    installSiteCustomAction(caName: string, callback?: any) { this.installByType(SPConfigTypes.SiteUserCustomActions, callback, caName); }
+    installSiteCustomAction(caName: string, callback?: any) { this.installByType(Helper.SPConfigTypes.SiteUserCustomActions, callback, caName); }
 
     // Method to install a specific web custom action
-    installWebCustomAction(caName: string, callback?: any) { this.installByType(SPConfigTypes.WebUserCustomActions, callback, caName); }
+    installWebCustomAction(caName: string, callback?: any) { this.installByType(Helper.SPConfigTypes.WebUserCustomActions, callback, caName); }
 
     // Method to uninstall the configuration
     uninstall(callback?: any, cfgType?: number, targetName?: string) {
@@ -355,13 +355,13 @@ export class SPConfig {
     uninstallByType = (cfgType: number, callback?: any, targetName?: string) => { return this.uninstall(callback, cfgType, targetName); }
 
     // Method to install a specific list
-    uninstallList(listName: string, callback?: any) { this.uninstallByType(SPConfigTypes.Lists, callback, listName); }
+    uninstallList(listName: string, callback?: any) { this.uninstallByType(Helper.SPConfigTypes.Lists, callback, listName); }
 
     // Method to install a specific site custom action
-    uninstallSiteCustomAction(caName: string, callback?: any) { this.uninstallByType(SPConfigTypes.SiteUserCustomActions, callback, caName); }
+    uninstallSiteCustomAction(caName: string, callback?: any) { this.uninstallByType(Helper.SPConfigTypes.SiteUserCustomActions, callback, caName); }
 
     // Method to install a specific web custom action
-    uninstallWebCustomAction(caName: string, callback?: any) { this.uninstallByType(SPConfigTypes.WebUserCustomActions, callback, caName); }
+    uninstallWebCustomAction(caName: string, callback?: any) { this.uninstallByType(Helper.SPConfigTypes.WebUserCustomActions, callback, caName); }
 
     /**
      * Methods
@@ -577,24 +577,33 @@ export class SPConfig {
                 // Log
                 console.log("[gd-sprest][Field] Creating the '" + cfgField.Name + "' field.");
 
-                // Update the schema xml
-                this.updateFieldSchemaXml(cfgField.SchemaXml).done((schemaXml) => {
-                    // Add the field
-                    fields.createFieldAsXml(schemaXml).execute((field) => {
-                        // See if it was successful
-                        if (field.existsFl) {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' was created successfully.");
+                //
+                let onFieldCreated = (field: Types.IFieldResult) => {
+                    // See if it was successful
+                    if (field.existsFl) {
+                        // Log
+                        console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' was created successfully.");
 
-                            // Trigger the event
-                            cfgField.onCreated ? cfgField.onCreated(field) : null;
-                        } else {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' failed to be created.");
-                            console.error("[gd-sprest][Field] Error: " + field.response);
-                        }
-                    }, true);
-                });
+                        // Trigger the event
+                        cfgField.onCreated ? cfgField.onCreated(field) : null;
+                    } else {
+                        // Log
+                        console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' failed to be created.");
+                        console.error("[gd-sprest][Field] Error: " + field.response);
+                    }
+                }
+
+                // See if the field information is defined
+                if (cfgField.FieldInfo) {
+                    // Compute the schema xml
+                    Fields.CreateFieldSchema(cfgField.FieldInfo).then(schemaXml => {
+                        // Add the field
+                        fields.createFieldAsXml(schemaXml).execute(onFieldCreated, true);
+                    });
+                } else {
+                    // Add the field
+                    fields.createFieldAsXml(cfgField.SchemaXml).execute(onFieldCreated, true);
+                }
             }
         }
 
@@ -615,7 +624,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != SPConfigTypes.Lists) {
+            if (this._cfgType != Helper.SPConfigTypes.Lists) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
@@ -708,7 +717,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != SPConfigTypes.SiteUserCustomActions || this._cfgType != SPConfigTypes.WebUserCustomActions) {
+            if (this._cfgType != Helper.SPConfigTypes.SiteUserCustomActions || this._cfgType != Helper.SPConfigTypes.WebUserCustomActions) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
@@ -828,7 +837,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != SPConfigTypes.WebParts) { return; }
+            if (this._cfgType != Helper.SPConfigTypes.WebParts) { return; }
         }
 
         // Ensure the configuration exists
@@ -1082,7 +1091,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != SPConfigTypes.Lists) {
+            if (this._cfgType != Helper.SPConfigTypes.Lists) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
@@ -1136,7 +1145,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != SPConfigTypes.SiteUserCustomActions || this._cfgType != SPConfigTypes.WebUserCustomActions) {
+            if (this._cfgType != Helper.SPConfigTypes.SiteUserCustomActions || this._cfgType != Helper.SPConfigTypes.WebUserCustomActions) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
@@ -1193,7 +1202,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != SPConfigTypes.WebParts) {
+            if (this._cfgType != Helper.SPConfigTypes.WebParts) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
@@ -1249,44 +1258,6 @@ export class SPConfig {
             });
 
         // Return a promise
-        return promise;
-    }
-
-    // Method to update the schema xml
-    private updateFieldSchemaXml = (schemaXml: string) => {
-        let promise = new Promise();
-
-        // Create the schema
-        let fieldInfo: HTMLElement = ContextInfo.document.createElement("field");
-        fieldInfo.innerHTML = schemaXml;
-        fieldInfo = fieldInfo.querySelector("field") as HTMLElement;
-
-        // Get the field type
-        switch (fieldInfo.getAttribute("Type")) {
-            case "Lookup":
-            case "LookupMulti":
-                // Get the target list
-                (new List(fieldInfo.getAttribute("List"))).execute((list) => {
-                    // Ensure the list exists
-                    if (list.existsFl) {
-                        var startIdx = schemaXml.toLowerCase().indexOf("list=");
-                        var endIdx = schemaXml.indexOf(" ", startIdx + 5 + list.Title.length);
-
-                        // Replace the List property
-                        schemaXml = schemaXml.substr(0, startIdx) + "List=\"" + list.Id + "\"" + schemaXml.substr(endIdx);
-                    }
-
-                    // Resolve the promise
-                    promise.resolve(schemaXml);
-                });
-                break;
-            default:
-                // Resolve the promise
-                promise.resolve(schemaXml);
-                break;
-        }
-
-        // Return the promise
         return promise;
     }
 

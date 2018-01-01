@@ -1,6 +1,7 @@
-import { ContextInfo } from "..";
+import { ContextInfo, Web } from "..";
 import { Types } from "../../mapper";
-import { SPTypes } from "../../types";
+import { Helper, SPTypes } from "../../types";
+import { Promise } from "../../utils";
 
 /**
  * Field Information
@@ -33,7 +34,7 @@ export interface ISPConfigFieldInfoCalculated extends ISPConfigFieldInfo {
     format?: number;
 
     /** The formula */
-    formula: string;
+    formula?: string;
 
     /** The result type */
     resultType?: string;
@@ -55,7 +56,7 @@ export interface ISPConfigFieldInfoChoice extends ISPConfigFieldInfo {
  */
 export interface ISPConfigFieldInfoDate extends ISPConfigFieldInfo {
     /** The date/time format */
-    format: number;
+    format?: number;
 }
 
 /**
@@ -68,11 +69,14 @@ export interface ISPConfigFieldInfoLookup extends ISPConfigFieldInfo {
     /** Allow multiple lookup values */
     multi?: boolean;
 
+    /** The list id */
+    listId?: string;
+
     /** The list name */
-    listName: string;
+    listName?: string;
 
     /** The lookup field to show */
-    showField: string;
+    showField?: string;
 
     /** The relative web url containing the list */
     webUrl?: string;
@@ -91,7 +95,7 @@ export interface ISPConfigFieldInfoMMS extends ISPConfigFieldInfo {
  */
 export interface ISPConfigFieldInfoNote extends ISPConfigFieldInfo {
     /** The note field type */
-    noteType: number;
+    noteType?: number;
 
     /** The number of lines */
     numberOfLines?: number;
@@ -111,7 +115,7 @@ export interface ISPConfigFieldInfoNumber extends ISPConfigFieldInfo {
     min?: number;
 
     /** The number field type */
-    numberType: number;
+    numberType?: number;
 }
 
 /**
@@ -129,53 +133,19 @@ export interface ISPConfigFieldInfoUser extends ISPConfigFieldInfo {
 }
 
 /**
- * SharePoint Configuration Fields
+ * Create Field Schema
  */
-export interface ISPConfigFields {
+export const CreateFieldSchema = (fieldInfo: ISPConfigFieldInfo): Promise => {
+    /**
+     * Methods
+     */
+
     /** Returns the schema xml for a boolean field. */
-    createBoolean: (fieldInfo: ISPConfigFieldInfo) => string;
-
-    /** Returns the schema xml for a calculated field. */
-    createCalculated: (fieldInfo: ISPConfigFieldInfoCalculated) => string;
-
-    /** Returns the schema xml for a choice field. */
-    createChoice: (fieldInfo: ISPConfigFieldInfoChoice) => string;
-
-    /** Returns the schema xml for a date field. */
-    createDate: (fieldInfo: ISPConfigFieldInfoDate) => string;
-
-    /** Returns the schema xml for a lookup field. */
-    createLookup: (fieldInfo: ISPConfigFieldInfoLookup) => string;
-
-    /** Returns the schema xml for a managed metadata field. */
-    createMMS: (fieldInfo: ISPConfigFieldInfoMMS) => string;
-
-    /** Returns the schema xml for a note field. */
-    createNote: (fieldInfo: ISPConfigFieldInfoNote) => string;
-
-    /** Returns the schema xml for a number field. */
-    createNumber: (fieldInfo: ISPConfigFieldInfoNumber) => string;
-
-    /** Returns the schema xml for a url field. */
-    createUrl: (fieldInfo: ISPConfigFieldInfo) => string;
-
-    /** Returns the schema xml for a user field. */
-    createUser: (fieldInfo: ISPConfigFieldInfo) => string;
-}
-
-/**
- * SharePoint Configuration Fields
- */
-export class SPConfigFields {
-    /** Returns the schema xml for a boolean field. */
-    static createBoolean(fieldInfo: ISPConfigFieldInfo): string {
+    let createBoolean = (fieldInfo: ISPConfigFieldInfo, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
-        fieldInfo.type = SPTypes.FieldType.Boolean;
-
-        // Get the base properties
-        let props = this.getFieldProps(fieldInfo);
+        props["Type"] = "Boolean";
 
         // Generate the schema
         schemaXml = "<Field " + this.toString(props) + ">";
@@ -187,14 +157,11 @@ export class SPConfigFields {
     }
 
     /** Returns the schema xml for a calculated field. */
-    static createCalculated(fieldInfo: ISPConfigFieldInfoCalculated): string {
+    let createCalculated = (fieldInfo: ISPConfigFieldInfoCalculated, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
-        fieldInfo.type = SPTypes.FieldType.Calculated;
-
-        // Get the base properties
-        let props = this.getFieldProps(fieldInfo);
+        props["Type"] = "Calculated";
 
         // Set the result type
         switch (fieldInfo.resultType) {
@@ -230,19 +197,16 @@ export class SPConfigFields {
         }
         schemaXml += "</Field>";
 
-        // Return the schema xml
-        return schemaXml;
+        // Resolve the promise
+        promise.resolve(schemaXml);
     }
 
     /** Returns the schema xml for a choice field. */
-    static createChoice(fieldInfo: ISPConfigFieldInfoChoice): string {
+    let createChoice = (fieldInfo: ISPConfigFieldInfoChoice, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
-        fieldInfo.type = fieldInfo.multi ? SPTypes.FieldType.MultiChoice : SPTypes.FieldType.Choice;
-
-        // Get the base properties
-        let props = this.getFieldProps(fieldInfo);
+        props["Type"] = fieldInfo.multi ? "MultiChoice" : "Choice";
 
         // Generate the schema
         schemaXml = "<Field " + this.toString(props) + ">";
@@ -254,65 +218,89 @@ export class SPConfigFields {
         }
         schemaXml += "</Field>";
 
-        // Return the schema xml
-        return schemaXml;
+        // Resolve the promise
+        promise.resolve(schemaXml);
     }
 
     /** Returns the schema xml for a date field. */
-    static createDate(fieldInfo: ISPConfigFieldInfoDate): string {
+    let createDate = (fieldInfo: ISPConfigFieldInfoDate, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
-        fieldInfo.type = SPTypes.FieldType.DateTime;
+        props["Type"] = "DateTime";
 
-        // Get the base properties
-        let props = this.getFieldProps(fieldInfo);
+        // Set the date/time properties
         props["Format"] = fieldInfo.format == SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
 
         // Generate the schema
         schemaXml = "<Field " + this.toString(props) + " />";
 
-        // Return the schema xml
-        return schemaXml;
+        // Resolve the promise
+        promise.resolve(schemaXml);
     }
 
     /** Returns the schema xml for a lookup field. */
-    static createLookup(fieldInfo: ISPConfigFieldInfoLookup): string {
+    let createLookup = (fieldInfo: ISPConfigFieldInfoLookup, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
-        fieldInfo.type = SPTypes.FieldType.Lookup;
+        props["Type"] = "Lookup";
 
-        // Get the base properties
-        let props = this.getFieldProps(fieldInfo);
+        // Set the lookup properties
         if (fieldInfo.fieldRef) { props["FieldRef"] = fieldInfo.fieldRef; }
-        if (fieldInfo.listName) { props["List"] = fieldInfo.listName; }
         if (fieldInfo.multi) { props["Multi"] = "TRUE"; }
         if (fieldInfo.showField) { props["ShowField"] = fieldInfo.showField; }
 
-        // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
+        // See if the lookup name exists
+        if (fieldInfo.listName) {
+            // Get the web containing the list
+            (new Web(fieldInfo.webUrl))
+                // Get the list
+                .Lists(fieldInfo.listName)
+                // Set the query
+                .query({
+                    Expand: ["ParentWeb"]
+                })
+                // Execute the request
+                .execute(list => {
+                    // Set the list and web ids
+                    props["List"] = list.Id;
+                    if (fieldInfo.webUrl) { props["WebId"] = list.ParentWeb.Id }
 
-        // Return the schema xml
-        return schemaXml;
+                    // Resolve the promise
+                    promise.resolve("<Field " + this.toString(props) + " />");
+                });
+        } else {
+            // Set the list id
+            props["List"] = fieldInfo.listId;
+
+            // Resolve the promise
+            promise.resolve("<Field " + this.toString(props) + " />");
+        }
+
+        // Resolve the promise
+        promise.resolve(schemaXml);
     }
 
     /** Returns the schema xml for a managed metadata field. */
-    static createMMS(fieldInfo: ISPConfigFieldInfoMMS): Array<string> {
+    let createMMS = (fieldInfo: ISPConfigFieldInfoMMS, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Create the value field
-        let valueProps = this.getFieldProps({
-            name: fieldInfo.name + "_0",
-            title: fieldInfo.title + " Value",
-            type: SPTypes.FieldType.Note
-        });
+        let valueProps = {
+            ID: ContextInfo.generateGUID(),
+            Name: fieldInfo.name + "_0",
+            StaticName: fieldInfo.name + "_0",
+            Title: fieldInfo.title + " Value",
+            Type: "Note",
+            Required: fieldInfo.required ? "TRUE" : "FALSE",
+            Hidden: "TRUE"
+        };
 
         // Generate the value field schema xml
         let schemaXmlValue = "<Field " + this.toString(valueProps) + " />";
 
-        // Set the type
-        let props = this.getFieldProps(fieldInfo);
+        // Set the mms properties
         props["Type"] = "TaxonomyFieldType";
         props["ShowField"] = "Term" + (fieldInfo.locale ? fieldInfo.locale.toString() : "1033");
 
@@ -323,26 +311,25 @@ export class SPConfigFields {
             "<ArrayOfProperties>",
             "<Property>",
             "<Name>TextField</Name>",
-            "<Value xmlns:q6=\"http://www.w3.org/2001/XMLSchema\" p4:type=\"q6:string\" xmlns:p4=\"http://www.w3.org/2001/XMLSchema-instance\">" + valueProps["ID"] + "</Value>",
+            "<Value xmlns:q6=\"http://www.w3.org/2001/XMLSchema\" p4:type=\"q6:string\" xmlns:p4=\"http://www.w3.org/2001/XMLSchema-instance\">" + valueProps.ID + "</Value>",
             "</Property>",
             "</ArrayOfProperties>",
             "</Customization>",
             "</Field>"
         ].join("");
 
-        // Return the schema xml
-        return [schemaXmlValue, schemaXml];
+        // Resolve the promise
+        promise.resolve(schemaXmlValue, schemaXml);
     }
 
     /** Returns the schema xml for a note field. */
-    static createNote(fieldInfo: ISPConfigFieldInfoNote): string {
+    let createNote = (fieldInfo: ISPConfigFieldInfoNote, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
-        fieldInfo.type = SPTypes.FieldType.Note;
+        props["Type"] = "Note";
 
-        // Get the base properties
-        let props = this.getFieldProps(fieldInfo);
+        // Set the note properties
         if (fieldInfo.noteType == SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == SPTypes.FieldNoteType.RichText) { props["RichText"] = "TRUE"; }
         if (fieldInfo.noteType == SPTypes.FieldNoteType.EnhancedRichText) { props["RichTextMode"] = "FullHtml"; }
         if (fieldInfo.numberOfLines > 0) { fieldInfo["NumLines"] = fieldInfo.numberOfLines; }
@@ -350,19 +337,18 @@ export class SPConfigFields {
         // Generate the schema
         schemaXml = "<Field " + this.toString(props) + " />";
 
-        // Return the schema xml
-        return schemaXml;
+        // Resolve the promise
+        promise.resolve(schemaXml);
     }
 
     /** Returns the schema xml for a number field. */
-    static createNumber(fieldInfo: ISPConfigFieldInfoNumber): string {
+    let createNumber = (fieldInfo: ISPConfigFieldInfoNumber, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
-        fieldInfo.type = SPTypes.FieldType.Number;
+        props["Type"] = "Number";
 
-        // Get the base properties
-        let props = this.getFieldProps(fieldInfo);
+        // Set the number properties
         if (fieldInfo.decimals >= 0) { props["Decimals"] = fieldInfo.decimals; }
         if (fieldInfo.max != null) { props["Max"] = fieldInfo.max; }
         if (fieldInfo.min != null) { props["Min"] = fieldInfo.min; }
@@ -371,53 +357,46 @@ export class SPConfigFields {
         // Generate the schema
         schemaXml = "<Field " + this.toString(props) + " />";
 
-        // Return the schema xml
-        return schemaXml;
+        // Resolve the promise
+        promise.resolve(schemaXml);
     }
 
     /** Returns the schema xml for a text field. */
-    static createText(fieldInfo: ISPConfigFieldInfo): string {
+    let createText = (fieldInfo: ISPConfigFieldInfo, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
-        fieldInfo.type = SPTypes.FieldType.Text;
-
-        // Get the base properties
-        let props = this.getFieldProps(fieldInfo);
+        props["Type"] = "Text";
 
         // Generate the schema
         schemaXml = "<Field " + this.toString(props) + " />";
 
-        // Return the schema xml
-        return schemaXml;
+        // Resolve the promise
+        promise.resolve(schemaXml);
     }
 
     /** Returns the schema xml for a url field. */
-    static createUrl(fieldInfo: ISPConfigFieldInfo): string {
+    let createUrl = (fieldInfo: ISPConfigFieldInfo, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
-        fieldInfo.type = SPTypes.FieldType.URL;
-
-        // Get the base properties
-        let props = this.getFieldProps(fieldInfo);
+        props["Type"] = "URL";
 
         // Generate the schema
         schemaXml = "<Field " + this.toString(props) + " />";
 
-        // Return the schema xml
-        return schemaXml;
+        // Resolve the promise
+        promise.resolve(schemaXml);
     }
 
     /** Returns the schema xml for a user field. */
-    static createUser(fieldInfo: ISPConfigFieldInfoUser): string {
+    let createUser = (fieldInfo: ISPConfigFieldInfoUser, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
-        fieldInfo.type = SPTypes.FieldType.URL;
+        props["Type"] = "User";
 
-        // Get the base properties
-        let props = this.getFieldProps(fieldInfo);
+        // Set the user properties
         if (fieldInfo.multi) { props["Mult"] = "TRUE"; }
         if (fieldInfo.selectionMode != null) { props["UserSelectionMode"] = fieldInfo.selectionMode; }
         if (fieldInfo.selectionScope != null) { props["UserSelectionScope"] = fieldInfo.selectionScope; }
@@ -425,75 +404,12 @@ export class SPConfigFields {
         // Generate the schema
         schemaXml = "<Field " + this.toString(props) + " />";
 
-        // Return the schema xml
-        return schemaXml;
-    }
-
-    /**
-     * Methods
-     */
-
-    // Method to get the field properties
-    private static getFieldProps = (fieldInfo: ISPConfigFieldInfo) => {
-        let props = {};
-
-        // Set the base properties
-        props["ID"] = ContextInfo.generateGUID();
-        props["Name"] = fieldInfo.name;
-        props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
-        props["StaticName"] = fieldInfo.name;
-        props["Title"] = fieldInfo.title;
-
-        // Set the type
-        switch (fieldInfo.type) {
-            // Boolean
-            case SPTypes.FieldType.Boolean:
-                props["Type"] = "Boolean";
-                break;
-            // Choice
-            case SPTypes.FieldType.Choice:
-                props["Type"] = "Choice";
-                break;
-            // Date/Time
-            case SPTypes.FieldType.DateTime:
-                props["Type"] = "DateTime";
-                break;
-            // Multi-Choice
-            case SPTypes.FieldType.MultiChoice:
-                props["Type"] = "MultiChoice";
-                break;
-            // Lookup
-            case SPTypes.FieldType.Lookup:
-                props["Type"] = "Lookup";
-                break;
-            // Note
-            case SPTypes.FieldType.Note:
-                props["Type"] = "Note";
-                break;
-            // Number
-            case SPTypes.FieldType.Number:
-                props["Type"] = "Number";
-                break;
-            // Text
-            case SPTypes.FieldType.Text:
-                props["Type"] = "Text";
-                break;
-            // URL
-            case SPTypes.FieldType.URL:
-                props["Type"] = "URL";
-                break;
-            // User
-            case SPTypes.FieldType.User:
-                props["Type"] = "User";
-                break;
-        }
-
-        // Return the properties
-        return props;
+        // Resolve the promise
+        promise.resolve(schemaXml);
     }
 
     // Method to convert the properties to a string
-    private static toString = (props) => {
+    let toString = (props) => {
         let properties = "";
 
         // Parse the properties
@@ -507,4 +423,70 @@ export class SPConfigFields {
         // Return the string value
         return properties;
     }
+
+    /**
+     * Main
+     */
+    let promise = new Promise();
+    let schemaXml = null;
+
+    // Set the base properties
+    let props = {};
+    props["ID"] = ContextInfo.generateGUID();
+    props["Name"] = fieldInfo.name;
+    props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
+    props["StaticName"] = fieldInfo.name;
+    props["Title"] = fieldInfo.title;
+
+    // Set the type
+    switch (fieldInfo.type) {
+        // Boolean
+        case Helper.SPConfigFieldTypes.Boolean:
+            this.createBoolean(fieldInfo, props, promise);
+            break;
+        // Calculated
+        case Helper.SPConfigFieldTypes.Calculated:
+            this.createCalculated(fieldInfo, props, promise);
+            break;
+        // Choice
+        case Helper.SPConfigFieldTypes.Choice:
+            this.createChoice(fieldInfo, props, promise);
+            break;
+        // Date/Time
+        case Helper.SPConfigFieldTypes.Date:
+            this.createDate(fieldInfo, props, promise);
+            break;
+        // Lookup
+        case Helper.SPConfigFieldTypes.Lookup:
+            this.createLookup(fieldInfo, props, promise);
+            break;
+        // Note
+        case Helper.SPConfigFieldTypes.Note:
+            this.createNote(fieldInfo, props, promise);
+            break;
+        // Number
+        case Helper.SPConfigFieldTypes.Number:
+            this.createNumber(fieldInfo, props, promise);
+            break;
+        // Text
+        case Helper.SPConfigFieldTypes.Text:
+            this.createText(fieldInfo, props, promise);
+            break;
+        // URL
+        case Helper.SPConfigFieldTypes.Url:
+            this.createUrl(fieldInfo, props, promise);
+            break;
+        // User
+        case Helper.SPConfigFieldTypes.User:
+            this.createUser(fieldInfo, props, promise);
+            break;
+        // Field type not supported
+        default:
+            // Resolve the promise and return
+            promise.resolve(null);
+            return;
+    }
+
+    // Return a promise
+    return promise;
 }

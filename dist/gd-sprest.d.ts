@@ -1365,10 +1365,10 @@ declare module 'gd-sprest/mapper' {
 }
 
 declare module 'gd-sprest/types' {
+    import * as Helper from "gd-sprest/types/helper";
     import { RequestType, IRequestType } from "gd-sprest/types/requestType";
-    import { SPConfigTypes } from "gd-sprest/types/spConfigTypes";
     import * as SPTypes from "gd-sprest/types/sptypes";
-    export { RequestType, IRequestType, SPConfigTypes, SPTypes };
+    export { Helper, RequestType, IRequestType, SPTypes };
 }
 
 declare module 'gd-sprest/lib' {
@@ -1794,6 +1794,37 @@ declare module 'gd-sprest/mapper/types' {
     }
 }
 
+declare module 'gd-sprest/types/helper' {
+    /**
+        * SharePoint Configuration Types
+        * The value determines the order to install the object type.
+        */
+    export const SPConfigTypes: {
+            Fields: number;
+            ContentTypes: number;
+            Lists: number;
+            SiteUserCustomActions: number;
+            WebParts: number;
+            WebUserCustomActions: number;
+    };
+    /**
+        * SharePoint Field Configuration Types
+        */
+    export const SPConfigFieldTypes: {
+            Boolean: number;
+            Calculated: number;
+            Choice: number;
+            Date: number;
+            Lookup: number;
+            MMS: number;
+            Note: number;
+            Number: number;
+            Text: number;
+            Url: number;
+            User: number;
+    };
+}
+
 declare module 'gd-sprest/types/requestType' {
     /**
         * Request Type
@@ -1838,21 +1869,6 @@ declare module 'gd-sprest/types/requestType' {
             PostWithArgsInQS: number;
             PostWithArgsValueOnly: number;
             PostReplace: number;
-    };
-}
-
-declare module 'gd-sprest/types/spConfigTypes' {
-    /**
-      * SharePoint Configuration Types
-      * The value determines the order to install the object type.
-      */
-    export const SPConfigTypes: {
-        Fields: number;
-        ContentTypes: number;
-        Lists: number;
-        SiteUserCustomActions: number;
-        WebParts: number;
-        WebUserCustomActions: number;
     };
 }
 
@@ -5450,7 +5466,7 @@ declare module 'gd-sprest/lib/helper/loader' {
 
 declare module 'gd-sprest/lib/helper/spCfg' {
     import { Types } from "gd-sprest/mapper";
-    import * as Fields from "gd-sprest/lib/helper/spCfgField";
+    import * as Fields from "gd-sprest/lib/helper/spCfgFields";
     export { Fields };
     /**
         * SharePoint Configuration - Content Type Information
@@ -11035,7 +11051,8 @@ declare module 'gd-sprest/utils/xhrRequest' {
     }
 }
 
-declare module 'gd-sprest/lib/helper/spCfgField' {
+declare module 'gd-sprest/lib/helper/spCfgFields' {
+    import { Promise } from "gd-sprest/utils";
     /**
         * Field Information
         */
@@ -11060,7 +11077,7 @@ declare module 'gd-sprest/lib/helper/spCfgField' {
             /** The date/time format */
             format?: number;
             /** The formula */
-            formula: string;
+            formula?: string;
             /** The result type */
             resultType?: string;
     }
@@ -11078,7 +11095,7 @@ declare module 'gd-sprest/lib/helper/spCfgField' {
         */
     export interface ISPConfigFieldInfoDate extends ISPConfigFieldInfo {
             /** The date/time format */
-            format: number;
+            format?: number;
     }
     /**
         * Lookup Field Information
@@ -11088,10 +11105,12 @@ declare module 'gd-sprest/lib/helper/spCfgField' {
             fieldRef?: string;
             /** Allow multiple lookup values */
             multi?: boolean;
+            /** The list id */
+            listId?: string;
             /** The list name */
-            listName: string;
+            listName?: string;
             /** The lookup field to show */
-            showField: string;
+            showField?: string;
             /** The relative web url containing the list */
             webUrl?: string;
     }
@@ -11107,7 +11126,7 @@ declare module 'gd-sprest/lib/helper/spCfgField' {
         */
     export interface ISPConfigFieldInfoNote extends ISPConfigFieldInfo {
             /** The note field type */
-            noteType: number;
+            noteType?: number;
             /** The number of lines */
             numberOfLines?: number;
     }
@@ -11122,7 +11141,7 @@ declare module 'gd-sprest/lib/helper/spCfgField' {
             /** The minimum value */
             min?: number;
             /** The number field type */
-            numberType: number;
+            numberType?: number;
     }
     /**
         * User
@@ -11136,56 +11155,8 @@ declare module 'gd-sprest/lib/helper/spCfgField' {
             selectionScope?: number;
     }
     /**
-        * SharePoint Configuration Fields
+        * Create Field Schema
         */
-    export interface ISPConfigFields {
-            /** Returns the schema xml for a boolean field. */
-            createBoolean: (fieldInfo: ISPConfigFieldInfo) => string;
-            /** Returns the schema xml for a calculated field. */
-            createCalculated: (fieldInfo: ISPConfigFieldInfoCalculated) => string;
-            /** Returns the schema xml for a choice field. */
-            createChoice: (fieldInfo: ISPConfigFieldInfoChoice) => string;
-            /** Returns the schema xml for a date field. */
-            createDate: (fieldInfo: ISPConfigFieldInfoDate) => string;
-            /** Returns the schema xml for a lookup field. */
-            createLookup: (fieldInfo: ISPConfigFieldInfoLookup) => string;
-            /** Returns the schema xml for a managed metadata field. */
-            createMMS: (fieldInfo: ISPConfigFieldInfoMMS) => string;
-            /** Returns the schema xml for a note field. */
-            createNote: (fieldInfo: ISPConfigFieldInfoNote) => string;
-            /** Returns the schema xml for a number field. */
-            createNumber: (fieldInfo: ISPConfigFieldInfoNumber) => string;
-            /** Returns the schema xml for a url field. */
-            createUrl: (fieldInfo: ISPConfigFieldInfo) => string;
-            /** Returns the schema xml for a user field. */
-            createUser: (fieldInfo: ISPConfigFieldInfo) => string;
-    }
-    /**
-        * SharePoint Configuration Fields
-        */
-    export class SPConfigFields {
-            /** Returns the schema xml for a boolean field. */
-            static createBoolean(fieldInfo: ISPConfigFieldInfo): string;
-            /** Returns the schema xml for a calculated field. */
-            static createCalculated(fieldInfo: ISPConfigFieldInfoCalculated): string;
-            /** Returns the schema xml for a choice field. */
-            static createChoice(fieldInfo: ISPConfigFieldInfoChoice): string;
-            /** Returns the schema xml for a date field. */
-            static createDate(fieldInfo: ISPConfigFieldInfoDate): string;
-            /** Returns the schema xml for a lookup field. */
-            static createLookup(fieldInfo: ISPConfigFieldInfoLookup): string;
-            /** Returns the schema xml for a managed metadata field. */
-            static createMMS(fieldInfo: ISPConfigFieldInfoMMS): Array<string>;
-            /** Returns the schema xml for a note field. */
-            static createNote(fieldInfo: ISPConfigFieldInfoNote): string;
-            /** Returns the schema xml for a number field. */
-            static createNumber(fieldInfo: ISPConfigFieldInfoNumber): string;
-            /** Returns the schema xml for a text field. */
-            static createText(fieldInfo: ISPConfigFieldInfo): string;
-            /** Returns the schema xml for a url field. */
-            static createUrl(fieldInfo: ISPConfigFieldInfo): string;
-            /** Returns the schema xml for a user field. */
-            static createUser(fieldInfo: ISPConfigFieldInfoUser): string;
-    }
+    export const CreateFieldSchema: (fieldInfo: ISPConfigFieldInfo) => Promise;
 }
 

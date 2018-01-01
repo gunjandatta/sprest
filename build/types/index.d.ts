@@ -1,4 +1,4 @@
+import * as Helper from "./helper";
 import { RequestType, IRequestType } from "./requestType";
-import { SPConfigTypes } from "./spConfigTypes";
 import * as SPTypes from "./sptypes";
-export { RequestType, IRequestType, SPConfigTypes, SPTypes };
+export { Helper, RequestType, IRequestType, SPTypes };
