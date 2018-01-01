@@ -1,6 +1,4 @@
 import { Types } from "../../mapper";
-import * as Fields from "./spCfgFields";
-export { Fields };
 /**
  * SharePoint Configuration - Content Type Information
  */
@@ -54,7 +52,7 @@ export interface ISPCfgFieldInfo {
     /**
      * The field information.
      */
-    FieldInfo?: Fields.ISPConfigFieldInfo;
+    FieldInfo?: Types.SPConfig.ISPConfigFieldInfo;
     /**
      * The internal field name.
      */

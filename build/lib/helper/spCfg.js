@@ -3,8 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../../utils");
 var types_1 = require("../../types");
 var __1 = require("..");
-var Fields = require("./spCfgFields");
-exports.Fields = Fields;
+var field_1 = require("./field");
 /**
  * SharePoint Configuration
  */
@@ -226,7 +225,7 @@ var SPConfig = /** @class */ (function () {
                     // See if the field information is defined
                     if (cfgField.FieldInfo) {
                         // Compute the schema xml
-                        Fields.CreateFieldSchema(cfgField.FieldInfo).then(function (schemaXml) {
+                        field_1.FieldSchemaXML.generate(cfgField.FieldInfo).then(function (schemaXml) {
                             // Add the field
                             fields.createFieldAsXml(schemaXml).execute(onFieldCreated_1, true);
                         });

@@ -1,5 +1,6 @@
 import { IHelperApp } from "./app";
 import { IDependencies } from "./dependencies";
+import { IFieldSchemaXML } from "./field";
 import { IHelperJSLink } from "./jslink";
 import { ILoader } from "./loader";
 import { ISPConfig } from "./spCfg";
@@ -15,6 +16,10 @@ export interface IHelper {
      * Dependencies
      */
     Dependencies: IDependencies;
+    /**
+     * Field Schema XML
+     */
+    FieldSchemaXML: IFieldSchemaXML;
     /**
      * JSLink helper methods
      */

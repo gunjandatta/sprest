@@ -7,6 +7,8 @@ var ComplexTypes = require("./complexTypes");
 exports.ComplexTypes = ComplexTypes;
 var Results = require("./results");
 exports.Results = Results;
+var SPConfig = require("./spcfg");
+exports.SPConfig = SPConfig;
 var SPTypes = require("./sptypes");
 exports.SPTypes = SPTypes;
 __export(require("./list"));

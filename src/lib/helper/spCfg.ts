@@ -2,8 +2,7 @@ import { Types } from "../../mapper";
 import { Promise } from "../../utils";
 import { Helper } from "../../types";
 import { ContextInfo, List, Site, Web } from "..";
-import * as Fields from "./spCfgFields";
-export { Fields }
+import { FieldSchemaXML } from "./field";
 
 /**
  * SharePoint Configuration - Content Type Information
@@ -67,7 +66,7 @@ export interface ISPCfgFieldInfo {
     /**
      * The field information.
      */
-    FieldInfo?: Fields.ISPConfigFieldInfo;
+    FieldInfo?: Types.SPConfig.ISPConfigFieldInfo;
 
     /**
      * The internal field name.
@@ -596,7 +595,7 @@ export class SPConfig {
                 // See if the field information is defined
                 if (cfgField.FieldInfo) {
                     // Compute the schema xml
-                    Fields.CreateFieldSchema(cfgField.FieldInfo).then(schemaXml => {
+                    FieldSchemaXML.generate(cfgField.FieldInfo).then(schemaXml => {
                         // Add the field
                         fields.createFieldAsXml(schemaXml).execute(onFieldCreated, true);
                     });
