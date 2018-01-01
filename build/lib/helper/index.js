@@ -18,6 +18,6 @@ exports.Helper = {
     JSLink: jslink_1.JSLinkHelper,
     Loader: loader_1.Loader,
     SPConfig: spCfg_1.SPConfig,
-    Types: types_1.Types
+    Types: types_1.HelperTypes
 };
 //# sourceMappingURL=index.js.map

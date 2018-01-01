@@ -4,7 +4,7 @@ import { IFieldSchemaXML } from "./field";
 import { IHelperJSLink } from "./jslink";
 import { ILoader } from "./loader";
 import { ISPConfig } from "./spCfg";
-import { ITypes } from "./types";
+import { IHelperTypes } from "./types";
 /**
  * Helper
  */
@@ -36,7 +36,7 @@ export interface IHelper {
     /**
      * Helper Types
      */
-    Types: ITypes;
+    Types: IHelperTypes;
 }
 /**
  * Helper Methods

@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
- * SharePoint Field Configuration Types
+ * SharePoint Configuration Field Types
  */
-var FieldType = {
+var SPCfgFieldType = {
     Boolean: 0,
     Calculated: 1,
     Choice: 2,
@@ -20,7 +20,7 @@ var FieldType = {
  * SharePoint Configuration Types
  * The value determines the order to install the object type.
  */
-var ConfigType = {
+var SPCfgType = {
     Fields: 0,
     ContentTypes: 1,
     Lists: 2,
@@ -28,8 +28,11 @@ var ConfigType = {
     WebParts: 5,
     WebUserCustomActions: 4
 };
-exports.Types = {
-    ConfigType: ConfigType,
-    FieldType: FieldType
+/**
+ * Helper Types
+ */
+exports.HelperTypes = {
+    SPCfgFieldType: SPCfgFieldType,
+    SPCfgType: SPCfgType
 };
 //# sourceMappingURL=types.js.map

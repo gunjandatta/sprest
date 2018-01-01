@@ -149,7 +149,7 @@ exports.Helper = {
     JSLink: jslink_1.JSLinkHelper,
     Loader: loader_1.Loader,
     SPConfig: spCfg_1.SPConfig,
-    Types: types_1.Types
+    Types: types_1.HelperTypes
 };
 //# sourceMappingURL=index.js.map
 
@@ -320,7 +320,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.44,
+    __ver: 2.45,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -5343,43 +5343,43 @@ var _FieldSchemaXML = /** @class */ (function () {
             // Set the type
             switch (fieldInfo.type) {
                 // Boolean
-                case _1.Helper.Types.FieldType.Boolean:
+                case _1.Helper.Types.SPCfgFieldType.Boolean:
                     _this.createBoolean(fieldInfo, props, promise);
                     break;
                 // Calculated
-                case _1.Helper.Types.FieldType.Calculated:
+                case _1.Helper.Types.SPCfgFieldType.Calculated:
                     _this.createCalculated(fieldInfo, props, promise);
                     break;
                 // Choice
-                case _1.Helper.Types.FieldType.Choice:
+                case _1.Helper.Types.SPCfgFieldType.Choice:
                     _this.createChoice(fieldInfo, props, promise);
                     break;
                 // Date/Time
-                case _1.Helper.Types.FieldType.Date:
+                case _1.Helper.Types.SPCfgFieldType.Date:
                     _this.createDate(fieldInfo, props, promise);
                     break;
                 // Lookup
-                case _1.Helper.Types.FieldType.Lookup:
+                case _1.Helper.Types.SPCfgFieldType.Lookup:
                     _this.createLookup(fieldInfo, props, promise);
                     break;
                 // Note
-                case _1.Helper.Types.FieldType.Note:
+                case _1.Helper.Types.SPCfgFieldType.Note:
                     _this.createNote(fieldInfo, props, promise);
                     break;
                 // Number
-                case _1.Helper.Types.FieldType.Number:
+                case _1.Helper.Types.SPCfgFieldType.Number:
                     _this.createNumber(fieldInfo, props, promise);
                     break;
                 // Text
-                case _1.Helper.Types.FieldType.Text:
+                case _1.Helper.Types.SPCfgFieldType.Text:
                     _this.createText(fieldInfo, props, promise);
                     break;
                 // URL
-                case _1.Helper.Types.FieldType.Url:
+                case _1.Helper.Types.SPCfgFieldType.Url:
                     _this.createUrl(fieldInfo, props, promise);
                     break;
                 // User
-                case _1.Helper.Types.FieldType.User:
+                case _1.Helper.Types.SPCfgFieldType.User:
                     _this.createUser(fieldInfo, props, promise);
                     break;
                 // Field type not supported
@@ -5598,6 +5598,9 @@ var _FieldSchemaXML = /** @class */ (function () {
             }
             if (fieldInfo.min != null) {
                 props["Min"] = fieldInfo.min;
+            }
+            if (fieldInfo.numberType == types_1.SPTypes.FieldNumberType.Integer) {
+                props["Decimals"] = 0;
             }
             if (fieldInfo.numberType == types_1.SPTypes.FieldNumberType.Percentage) {
                 props["ShowPercentage"] = "TRUE";
@@ -6359,7 +6362,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != _1.Helper.Types.ConfigType.Lists) {
+                if (_this._cfgType != _1.Helper.Types.SPCfgType.Lists) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -6444,7 +6447,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != _1.Helper.Types.ConfigType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.ConfigType.WebUserCustomActions) {
+                if (_this._cfgType != _1.Helper.Types.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.SPCfgType.WebUserCustomActions) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -6556,7 +6559,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != _1.Helper.Types.ConfigType.WebParts) {
+                if (_this._cfgType != _1.Helper.Types.SPCfgType.WebParts) {
                     return;
                 }
             }
@@ -6774,7 +6777,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != _1.Helper.Types.ConfigType.Lists) {
+                if (_this._cfgType != _1.Helper.Types.SPCfgType.Lists) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -6823,7 +6826,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != _1.Helper.Types.ConfigType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.ConfigType.WebUserCustomActions) {
+                if (_this._cfgType != _1.Helper.Types.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.SPCfgType.WebUserCustomActions) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -6874,7 +6877,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != _1.Helper.Types.ConfigType.WebParts) {
+                if (_this._cfgType != _1.Helper.Types.SPCfgType.WebParts) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -7130,11 +7133,11 @@ var SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    SPConfig.prototype.installList = function (listName, callback) { this.installByType(_1.Helper.Types.ConfigType.Lists, callback, listName); };
+    SPConfig.prototype.installList = function (listName, callback) { this.installByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
     // Method to install a specific site custom action
-    SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.ConfigType.SiteUserCustomActions, callback, caName); };
+    SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.ConfigType.WebUserCustomActions, callback, caName); };
+    SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
     // Method to uninstall the configuration
     SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
         var _this = this;
@@ -7159,11 +7162,11 @@ var SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(_1.Helper.Types.ConfigType.Lists, callback, listName); };
+    SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
     // Method to install a specific site custom action
-    SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.ConfigType.SiteUserCustomActions, callback, caName); };
+    SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.ConfigType.WebUserCustomActions, callback, caName); };
+    SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
     return SPConfig;
 }());
 exports.SPConfig = SPConfig;
@@ -7178,9 +7181,9 @@ exports.SPConfig = SPConfig;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
- * SharePoint Field Configuration Types
+ * SharePoint Configuration Field Types
  */
-var FieldType = {
+var SPCfgFieldType = {
     Boolean: 0,
     Calculated: 1,
     Choice: 2,
@@ -7197,7 +7200,7 @@ var FieldType = {
  * SharePoint Configuration Types
  * The value determines the order to install the object type.
  */
-var ConfigType = {
+var SPCfgType = {
     Fields: 0,
     ContentTypes: 1,
     Lists: 2,
@@ -7205,9 +7208,12 @@ var ConfigType = {
     WebParts: 5,
     WebUserCustomActions: 4
 };
-exports.Types = {
-    ConfigType: ConfigType,
-    FieldType: FieldType
+/**
+ * Helper Types
+ */
+exports.HelperTypes = {
+    SPCfgFieldType: SPCfgFieldType,
+    SPCfgType: SPCfgType
 };
 //# sourceMappingURL=types.js.map
 

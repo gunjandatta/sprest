@@ -316,13 +316,13 @@ export class SPConfig {
     installByType = (cfgType: number, callback?: any, targetName?: string) => { return this.install(callback, cfgType, targetName); }
 
     // Method to install a specific list
-    installList(listName: string, callback?: any) { this.installByType(Helper.Types.ConfigType.Lists, callback, listName); }
+    installList(listName: string, callback?: any) { this.installByType(Helper.Types.SPCfgType.Lists, callback, listName); }
 
     // Method to install a specific site custom action
-    installSiteCustomAction(caName: string, callback?: any) { this.installByType(Helper.Types.ConfigType.SiteUserCustomActions, callback, caName); }
+    installSiteCustomAction(caName: string, callback?: any) { this.installByType(Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); }
 
     // Method to install a specific web custom action
-    installWebCustomAction(caName: string, callback?: any) { this.installByType(Helper.Types.ConfigType.WebUserCustomActions, callback, caName); }
+    installWebCustomAction(caName: string, callback?: any) { this.installByType(Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); }
 
     // Method to uninstall the configuration
     uninstall(callback?: any, cfgType?: number, targetName?: string) {
@@ -353,13 +353,13 @@ export class SPConfig {
     uninstallByType = (cfgType: number, callback?: any, targetName?: string) => { return this.uninstall(callback, cfgType, targetName); }
 
     // Method to install a specific list
-    uninstallList(listName: string, callback?: any) { this.uninstallByType(Helper.Types.ConfigType.Lists, callback, listName); }
+    uninstallList(listName: string, callback?: any) { this.uninstallByType(Helper.Types.SPCfgType.Lists, callback, listName); }
 
     // Method to install a specific site custom action
-    uninstallSiteCustomAction(caName: string, callback?: any) { this.uninstallByType(Helper.Types.ConfigType.SiteUserCustomActions, callback, caName); }
+    uninstallSiteCustomAction(caName: string, callback?: any) { this.uninstallByType(Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); }
 
     // Method to install a specific web custom action
-    uninstallWebCustomAction(caName: string, callback?: any) { this.uninstallByType(Helper.Types.ConfigType.WebUserCustomActions, callback, caName); }
+    uninstallWebCustomAction(caName: string, callback?: any) { this.uninstallByType(Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); }
 
     /**
      * Methods
@@ -622,7 +622,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != Helper.Types.ConfigType.Lists) {
+            if (this._cfgType != Helper.Types.SPCfgType.Lists) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
@@ -715,7 +715,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != Helper.Types.ConfigType.SiteUserCustomActions || this._cfgType != Helper.Types.ConfigType.WebUserCustomActions) {
+            if (this._cfgType != Helper.Types.SPCfgType.SiteUserCustomActions || this._cfgType != Helper.Types.SPCfgType.WebUserCustomActions) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
@@ -835,7 +835,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != Helper.Types.ConfigType.WebParts) { return; }
+            if (this._cfgType != Helper.Types.SPCfgType.WebParts) { return; }
         }
 
         // Ensure the configuration exists
@@ -1089,7 +1089,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != Helper.Types.ConfigType.Lists) {
+            if (this._cfgType != Helper.Types.SPCfgType.Lists) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
@@ -1143,7 +1143,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != Helper.Types.ConfigType.SiteUserCustomActions || this._cfgType != Helper.Types.ConfigType.WebUserCustomActions) {
+            if (this._cfgType != Helper.Types.SPCfgType.SiteUserCustomActions || this._cfgType != Helper.Types.SPCfgType.WebUserCustomActions) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
@@ -1200,7 +1200,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != Helper.Types.ConfigType.WebParts) {
+            if (this._cfgType != Helper.Types.SPCfgType.WebParts) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;

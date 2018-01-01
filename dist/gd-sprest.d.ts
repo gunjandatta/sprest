@@ -2107,7 +2107,7 @@ declare module 'gd-sprest/lib/helper' {
     import { IHelperJSLink } from "gd-sprest/lib/helper/jslink";
     import { ILoader } from "gd-sprest/lib/helper/loader";
     import { ISPConfig } from "gd-sprest/lib/helper/spCfg";
-    import { ITypes } from "gd-sprest/lib/helper/types";
+    import { IHelperTypes } from "gd-sprest/lib/helper/types";
     /**
         * Helper
         */
@@ -2139,7 +2139,7 @@ declare module 'gd-sprest/lib/helper' {
             /**
                 * Helper Types
                 */
-            Types: ITypes;
+            Types: IHelperTypes;
     }
     /**
         * Helper Methods
@@ -5790,32 +5790,38 @@ declare module 'gd-sprest/lib/helper/spCfg' {
 }
 
 declare module 'gd-sprest/lib/helper/types' {
-    export interface ITypes {
-        /** The configuration types */
-        ConfigType: {
-            Fields: number;
-            ContentTypes: number;
-            Lists: number;
-            SiteUserCustomActions: number;
-            WebParts: number;
-            WebUserCustomActions: number;
-        };
-        /** The field types */
-        FieldType: {
-            Boolean: number;
-            Calculated: number;
-            Choice: number;
-            Date: number;
-            Lookup: number;
-            MMS: number;
-            Note: number;
-            Number: number;
-            Text: number;
-            Url: number;
-            User: number;
-        };
+    /**
+        * Helper Types
+        */
+    export interface IHelperTypes {
+            /** The field types */
+            SPCfgFieldType: {
+                    Boolean: number;
+                    Calculated: number;
+                    Choice: number;
+                    Date: number;
+                    Lookup: number;
+                    MMS: number;
+                    Note: number;
+                    Number: number;
+                    Text: number;
+                    Url: number;
+                    User: number;
+            };
+            /** The configuration types */
+            SPCfgType: {
+                    Fields: number;
+                    ContentTypes: number;
+                    Lists: number;
+                    SiteUserCustomActions: number;
+                    WebParts: number;
+                    WebUserCustomActions: number;
+            };
     }
-    export const Types: ITypes;
+    /**
+        * Helper Types
+        */
+    export const HelperTypes: IHelperTypes;
 }
 
 declare module 'gd-sprest/mapper/user/group' {

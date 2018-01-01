@@ -1,15 +1,9 @@
-export interface ITypes {
-    /** The configuration types */
-    ConfigType: {
-        Fields: number;
-        ContentTypes: number;
-        Lists: number;
-        SiteUserCustomActions: number;
-        WebParts: number;
-        WebUserCustomActions: number;
-    };
+/**
+ * Helper Types
+ */
+export interface IHelperTypes {
     /** The field types */
-    FieldType: {
+    SPCfgFieldType: {
         Boolean: number;
         Calculated: number;
         Choice: number;
@@ -22,5 +16,17 @@ export interface ITypes {
         Url: number;
         User: number;
     };
+    /** The configuration types */
+    SPCfgType: {
+        Fields: number;
+        ContentTypes: number;
+        Lists: number;
+        SiteUserCustomActions: number;
+        WebParts: number;
+        WebUserCustomActions: number;
+    };
 }
-export declare const Types: ITypes;
+/**
+ * Helper Types
+ */
+export declare const HelperTypes: IHelperTypes;

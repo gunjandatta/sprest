@@ -4,7 +4,7 @@ import { FieldSchemaXML, IFieldSchemaXML } from "./field";
 import { JSLinkHelper, IHelperJSLink } from "./jslink";
 import { Loader, ILoader } from "./loader";
 import { SPConfig, ISPConfig } from "./spCfg";
-import { Types, ITypes } from "./types";
+import { HelperTypes, IHelperTypes } from "./types";
 
 /**
  * Helper
@@ -43,7 +43,7 @@ export interface IHelper {
     /**
      * Helper Types
      */
-    Types: ITypes
+    Types: IHelperTypes
 };
 
 /**
@@ -56,5 +56,5 @@ export const Helper: IHelper = {
     JSLink: JSLinkHelper,
     Loader: Loader,
     SPConfig: SPConfig as any,
-    Types
+    Types: HelperTypes
 };

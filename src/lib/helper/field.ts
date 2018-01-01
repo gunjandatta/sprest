@@ -32,43 +32,43 @@ class _FieldSchemaXML {
         // Set the type
         switch (fieldInfo.type) {
             // Boolean
-            case Helper.Types.FieldType.Boolean:
+            case Helper.Types.SPCfgFieldType.Boolean:
                 this.createBoolean(fieldInfo, props, promise);
                 break;
             // Calculated
-            case Helper.Types.FieldType.Calculated:
+            case Helper.Types.SPCfgFieldType.Calculated:
                 this.createCalculated(fieldInfo, props, promise);
                 break;
             // Choice
-            case Helper.Types.FieldType.Choice:
+            case Helper.Types.SPCfgFieldType.Choice:
                 this.createChoice(fieldInfo, props, promise);
                 break;
             // Date/Time
-            case Helper.Types.FieldType.Date:
+            case Helper.Types.SPCfgFieldType.Date:
                 this.createDate(fieldInfo, props, promise);
                 break;
             // Lookup
-            case Helper.Types.FieldType.Lookup:
+            case Helper.Types.SPCfgFieldType.Lookup:
                 this.createLookup(fieldInfo, props, promise);
                 break;
             // Note
-            case Helper.Types.FieldType.Note:
+            case Helper.Types.SPCfgFieldType.Note:
                 this.createNote(fieldInfo, props, promise);
                 break;
             // Number
-            case Helper.Types.FieldType.Number:
+            case Helper.Types.SPCfgFieldType.Number:
                 this.createNumber(fieldInfo, props, promise);
                 break;
             // Text
-            case Helper.Types.FieldType.Text:
+            case Helper.Types.SPCfgFieldType.Text:
                 this.createText(fieldInfo, props, promise);
                 break;
             // URL
-            case Helper.Types.FieldType.Url:
+            case Helper.Types.SPCfgFieldType.Url:
                 this.createUrl(fieldInfo, props, promise);
                 break;
             // User
-            case Helper.Types.FieldType.User:
+            case Helper.Types.SPCfgFieldType.User:
                 this.createUser(fieldInfo, props, promise);
                 break;
             // Field type not supported
@@ -299,6 +299,7 @@ class _FieldSchemaXML {
         if (fieldInfo.decimals >= 0) { props["Decimals"] = fieldInfo.decimals; }
         if (fieldInfo.max != null) { props["Max"] = fieldInfo.max; }
         if (fieldInfo.min != null) { props["Min"] = fieldInfo.min; }
+        if (fieldInfo.numberType == SPTypes.FieldNumberType.Integer) { props["Decimals"] = 0; }
         if (fieldInfo.numberType == SPTypes.FieldNumberType.Percentage) { props["ShowPercentage"] = "TRUE"; }
 
         // Generate the schema

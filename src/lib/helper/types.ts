@@ -1,7 +1,7 @@
 /**
- * SharePoint Field Configuration Types
+ * SharePoint Configuration Field Types
  */
-const FieldType = {
+const SPCfgFieldType = {
     Boolean: 0,
     Calculated: 1,
     Choice: 2,
@@ -19,7 +19,7 @@ const FieldType = {
  * SharePoint Configuration Types
  * The value determines the order to install the object type.
  */
-const ConfigType = {
+const SPCfgType = {
     Fields: 0,
     ContentTypes: 1,
     Lists: 2,
@@ -28,19 +28,12 @@ const ConfigType = {
     WebUserCustomActions: 4
 }
 
-export interface ITypes {
-    /** The configuration types */
-    ConfigType: {
-        Fields: number;
-        ContentTypes: number;
-        Lists: number;
-        SiteUserCustomActions: number;
-        WebParts: number;
-        WebUserCustomActions: number;
-    };
-
+/**
+ * Helper Types
+ */
+export interface IHelperTypes {
     /** The field types */
-    FieldType: {
+    SPCfgFieldType: {
         Boolean: number;
         Calculated: number;
         Choice: number;
@@ -53,9 +46,22 @@ export interface ITypes {
         Url: number;
         User: number;
     };
+
+    /** The configuration types */
+    SPCfgType: {
+        Fields: number;
+        ContentTypes: number;
+        Lists: number;
+        SiteUserCustomActions: number;
+        WebParts: number;
+        WebUserCustomActions: number;
+    };
 }
 
-export const Types: ITypes = {
-    ConfigType,
-    FieldType
+/**
+ * Helper Types
+ */
+export const HelperTypes: IHelperTypes = {
+    SPCfgFieldType,
+    SPCfgType
 }
