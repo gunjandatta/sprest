@@ -70,6 +70,8 @@ export interface ISPConfigFieldInfoMMS extends ISPConfigFieldInfo {
  * Note
  */
 export interface ISPConfigFieldInfoNote extends ISPConfigFieldInfo {
+    /** Flag to append the comments. (This requires versioning to be enabled) */
+    appendFl?: boolean;
     /** The note field type */
     noteType?: number;
     /** The number of lines */

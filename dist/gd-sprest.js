@@ -5567,6 +5567,9 @@ var _FieldSchemaXML = /** @class */ (function () {
             // Set the field type
             props["Type"] = "Note";
             // Set the note properties
+            if (fieldInfo.appendFl) {
+                props["AppendOnly"] = "TRUE";
+            }
             if (fieldInfo.noteType == types_1.SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == types_1.SPTypes.FieldNoteType.RichText) {
                 props["RichText"] = "TRUE";
             }
@@ -5574,7 +5577,7 @@ var _FieldSchemaXML = /** @class */ (function () {
                 props["RichTextMode"] = "FullHtml";
             }
             if (fieldInfo.numberOfLines > 0) {
-                fieldInfo["NumLines"] = fieldInfo.numberOfLines;
+                props["NumLines"] = fieldInfo.numberOfLines;
             }
             // Generate the schema
             schemaXml = "<Field " + _this.toString(props) + " />";

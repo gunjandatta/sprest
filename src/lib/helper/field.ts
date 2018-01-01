@@ -276,9 +276,10 @@ class _FieldSchemaXML {
         props["Type"] = "Note";
 
         // Set the note properties
+        if (fieldInfo.appendFl) { props["AppendOnly"] = "TRUE"; }
         if (fieldInfo.noteType == SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == SPTypes.FieldNoteType.RichText) { props["RichText"] = "TRUE"; }
         if (fieldInfo.noteType == SPTypes.FieldNoteType.EnhancedRichText) { props["RichTextMode"] = "FullHtml"; }
-        if (fieldInfo.numberOfLines > 0) { fieldInfo["NumLines"] = fieldInfo.numberOfLines; }
+        if (fieldInfo.numberOfLines > 0) { props["NumLines"] = fieldInfo.numberOfLines; }
 
         // Generate the schema
         schemaXml = "<Field " + this.toString(props) + " />";

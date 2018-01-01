@@ -4104,6 +4104,8 @@ declare module 'gd-sprest/mapper/spcfg' {
         * Note
         */
     export interface ISPConfigFieldInfoNote extends ISPConfigFieldInfo {
+            /** Flag to append the comments. (This requires versioning to be enabled) */
+            appendFl?: boolean;
             /** The note field type */
             noteType?: number;
             /** The number of lines */
