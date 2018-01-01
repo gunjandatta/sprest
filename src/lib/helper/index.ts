@@ -4,6 +4,7 @@ import { FieldSchemaXML, IFieldSchemaXML } from "./field";
 import { JSLinkHelper, IHelperJSLink } from "./jslink";
 import { Loader, ILoader } from "./loader";
 import { SPConfig, ISPConfig } from "./spCfg";
+import { Types, ITypes } from "./types";
 
 /**
  * Helper
@@ -37,7 +38,12 @@ export interface IHelper {
     /**
      * Web helper methods
      */
-    SPConfig: ISPConfig
+    SPConfig: ISPConfig,
+
+    /**
+     * Helper Types
+     */
+    Types: ITypes
 };
 
 /**
@@ -49,5 +55,6 @@ export const Helper: IHelper = {
     FieldSchemaXML,
     JSLink: JSLinkHelper,
     Loader: Loader,
-    SPConfig: SPConfig as any
+    SPConfig: SPConfig as any,
+    Types
 };

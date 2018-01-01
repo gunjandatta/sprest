@@ -1,7 +1,8 @@
 import { ContextInfo, Web } from "..";
 import { Types } from "../../mapper";
-import { Helper, SPTypes } from "../../types";
+import { SPTypes } from "../../types";
 import { Promise } from "../../utils";
+import { Helper } from ".";
 
 /**
  * Field Schema XML
@@ -31,43 +32,43 @@ class _FieldSchemaXML {
         // Set the type
         switch (fieldInfo.type) {
             // Boolean
-            case Helper.SPConfigFieldTypes.Boolean:
+            case Helper.Types.FieldType.Boolean:
                 this.createBoolean(fieldInfo, props, promise);
                 break;
             // Calculated
-            case Helper.SPConfigFieldTypes.Calculated:
+            case Helper.Types.FieldType.Calculated:
                 this.createCalculated(fieldInfo, props, promise);
                 break;
             // Choice
-            case Helper.SPConfigFieldTypes.Choice:
+            case Helper.Types.FieldType.Choice:
                 this.createChoice(fieldInfo, props, promise);
                 break;
             // Date/Time
-            case Helper.SPConfigFieldTypes.Date:
+            case Helper.Types.FieldType.Date:
                 this.createDate(fieldInfo, props, promise);
                 break;
             // Lookup
-            case Helper.SPConfigFieldTypes.Lookup:
+            case Helper.Types.FieldType.Lookup:
                 this.createLookup(fieldInfo, props, promise);
                 break;
             // Note
-            case Helper.SPConfigFieldTypes.Note:
+            case Helper.Types.FieldType.Note:
                 this.createNote(fieldInfo, props, promise);
                 break;
             // Number
-            case Helper.SPConfigFieldTypes.Number:
+            case Helper.Types.FieldType.Number:
                 this.createNumber(fieldInfo, props, promise);
                 break;
             // Text
-            case Helper.SPConfigFieldTypes.Text:
+            case Helper.Types.FieldType.Text:
                 this.createText(fieldInfo, props, promise);
                 break;
             // URL
-            case Helper.SPConfigFieldTypes.Url:
+            case Helper.Types.FieldType.Url:
                 this.createUrl(fieldInfo, props, promise);
                 break;
             // User
-            case Helper.SPConfigFieldTypes.User:
+            case Helper.Types.FieldType.User:
                 this.createUser(fieldInfo, props, promise);
                 break;
             // Field type not supported

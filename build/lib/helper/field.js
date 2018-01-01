@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var __1 = require("..");
 var types_1 = require("../../types");
 var utils_1 = require("../../utils");
+var _1 = require(".");
 /**
  * The field schema xml class
  */
@@ -23,43 +24,43 @@ var _FieldSchemaXML = /** @class */ (function () {
             // Set the type
             switch (fieldInfo.type) {
                 // Boolean
-                case types_1.Helper.SPConfigFieldTypes.Boolean:
+                case _1.Helper.Types.FieldType.Boolean:
                     _this.createBoolean(fieldInfo, props, promise);
                     break;
                 // Calculated
-                case types_1.Helper.SPConfigFieldTypes.Calculated:
+                case _1.Helper.Types.FieldType.Calculated:
                     _this.createCalculated(fieldInfo, props, promise);
                     break;
                 // Choice
-                case types_1.Helper.SPConfigFieldTypes.Choice:
+                case _1.Helper.Types.FieldType.Choice:
                     _this.createChoice(fieldInfo, props, promise);
                     break;
                 // Date/Time
-                case types_1.Helper.SPConfigFieldTypes.Date:
+                case _1.Helper.Types.FieldType.Date:
                     _this.createDate(fieldInfo, props, promise);
                     break;
                 // Lookup
-                case types_1.Helper.SPConfigFieldTypes.Lookup:
+                case _1.Helper.Types.FieldType.Lookup:
                     _this.createLookup(fieldInfo, props, promise);
                     break;
                 // Note
-                case types_1.Helper.SPConfigFieldTypes.Note:
+                case _1.Helper.Types.FieldType.Note:
                     _this.createNote(fieldInfo, props, promise);
                     break;
                 // Number
-                case types_1.Helper.SPConfigFieldTypes.Number:
+                case _1.Helper.Types.FieldType.Number:
                     _this.createNumber(fieldInfo, props, promise);
                     break;
                 // Text
-                case types_1.Helper.SPConfigFieldTypes.Text:
+                case _1.Helper.Types.FieldType.Text:
                     _this.createText(fieldInfo, props, promise);
                     break;
                 // URL
-                case types_1.Helper.SPConfigFieldTypes.Url:
+                case _1.Helper.Types.FieldType.Url:
                     _this.createUrl(fieldInfo, props, promise);
                     break;
                 // User
-                case types_1.Helper.SPConfigFieldTypes.User:
+                case _1.Helper.Types.FieldType.User:
                     _this.createUser(fieldInfo, props, promise);
                     break;
                 // Field type not supported

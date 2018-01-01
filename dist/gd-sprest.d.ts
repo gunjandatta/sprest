@@ -1365,10 +1365,9 @@ declare module 'gd-sprest/mapper' {
 }
 
 declare module 'gd-sprest/types' {
-    import * as Helper from "gd-sprest/types/helper";
     import { RequestType, IRequestType } from "gd-sprest/types/requestType";
     import * as SPTypes from "gd-sprest/types/sptypes";
-    export { Helper, RequestType, IRequestType, SPTypes };
+    export { RequestType, IRequestType, SPTypes };
 }
 
 declare module 'gd-sprest/lib' {
@@ -1795,37 +1794,6 @@ declare module 'gd-sprest/mapper/types' {
     }
 }
 
-declare module 'gd-sprest/types/helper' {
-    /**
-        * SharePoint Configuration Types
-        * The value determines the order to install the object type.
-        */
-    export const SPConfigTypes: {
-            Fields: number;
-            ContentTypes: number;
-            Lists: number;
-            SiteUserCustomActions: number;
-            WebParts: number;
-            WebUserCustomActions: number;
-    };
-    /**
-        * SharePoint Field Configuration Types
-        */
-    export const SPConfigFieldTypes: {
-            Boolean: number;
-            Calculated: number;
-            Choice: number;
-            Date: number;
-            Lookup: number;
-            MMS: number;
-            Note: number;
-            Number: number;
-            Text: number;
-            Url: number;
-            User: number;
-    };
-}
-
 declare module 'gd-sprest/types/requestType' {
     /**
         * Request Type
@@ -2139,6 +2107,7 @@ declare module 'gd-sprest/lib/helper' {
     import { IHelperJSLink } from "gd-sprest/lib/helper/jslink";
     import { ILoader } from "gd-sprest/lib/helper/loader";
     import { ISPConfig } from "gd-sprest/lib/helper/spCfg";
+    import { ITypes } from "gd-sprest/lib/helper/types";
     /**
         * Helper
         */
@@ -2167,6 +2136,10 @@ declare module 'gd-sprest/lib/helper' {
                 * Web helper methods
                 */
             SPConfig: ISPConfig;
+            /**
+                * Helper Types
+                */
+            Types: ITypes;
     }
     /**
         * Helper Methods
@@ -5814,6 +5787,35 @@ declare module 'gd-sprest/lib/helper/spCfg' {
     }
 }
 
+declare module 'gd-sprest/lib/helper/types' {
+    export interface ITypes {
+        /** The configuration types */
+        ConfigType: {
+            Fields: number;
+            ContentTypes: number;
+            Lists: number;
+            SiteUserCustomActions: number;
+            WebParts: number;
+            WebUserCustomActions: number;
+        };
+        /** The field types */
+        FieldType: {
+            Boolean: number;
+            Calculated: number;
+            Choice: number;
+            Date: number;
+            Lookup: number;
+            MMS: number;
+            Note: number;
+            Number: number;
+            Text: number;
+            Url: number;
+            User: number;
+        };
+    }
+    export const Types: ITypes;
+}
+
 declare module 'gd-sprest/mapper/user/group' {
     import { IBase } from "gd-sprest/utils";
     import { IUser, IUserResult, IUserResults, IUsers } from "gd-sprest/mapper/user";
@@ -8527,28 +8529,6 @@ declare module 'gd-sprest/mapper/list/view' {
         */
     export interface IView extends IViewMethods, IViewQueryProps, IBase<IView, IViewResult, IViewQueryResult> {
     }
-    /**
-        * View
-        */
-    export const view: {
-            properties: string[];
-            delete: {
-                    requestType: number;
-            };
-            query: {
-                    argNames: string[];
-                    requestType: number;
-            };
-            renderAsHtml: {
-                    requestType: number;
-            };
-            update: {
-                    metadataType: string;
-                    name: string;
-                    requestMethod: string;
-                    requestType: number;
-            };
-    };
 }
 
 declare module 'gd-sprest/mapper/list/viewFieldCollection' {
