@@ -88,7 +88,7 @@ export interface IListMethods {
      * Returns a collection of items from the list based on the specified query.
      * @query - The query that contains the change token.
      */
-    getListItemChangesSinceToken(query: any): IBase<IListItems, IListItemResults>;
+    getListItemChangesSinceToken(query: Types.ComplexTypes.ChangeLogItemQuery): IBase<IListItems, IListItemResults>;
     /**
      * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
      */
@@ -259,10 +259,6 @@ export interface IListQueryProps {
      * Gets the default list view.
     */
     DefaultView(): IView;
-    /**
-     * Gets the URL of the default view for the list.
-     */
-    DefaultViewUrl(): IBase<string>;
     DescriptionResouce(): IBase<Types.IResourcePath>;
     /**
      * Gets a value that specifies the effective permissions on the list that are assigned to the current user.

@@ -368,6 +368,57 @@ export type EventReceiverSynchronizationType = {
 };
 
 /**
+ * Field Note Types
+ */
+export type FieldNoteType = {
+    /** Enhance Rich Text */
+    EnhancedRichText: number,
+
+    /** Rich Text */
+    RichText: number,
+
+    /** Text Only */
+    TextOnly: number;
+}
+
+/**
+ * Field Number Type
+ */
+export type FieldNumberType = {
+    /** Decimal */
+    Decimal: number,
+
+    /** Integer */
+    Integer: number,
+
+    /** Percentage */
+    Percentage: number,
+}
+
+/**
+ * Field Result Types
+ */
+export type FieldResultType = {
+    /** Boolean */
+    Boolean: string,
+
+    /** Currency */
+    Currency: string,
+
+    /** Date Only */
+    DateOnly: string,
+
+    /** Date & Time */
+    DateTime: string,
+
+    /** Number */
+    Number: string,
+
+    /** Text */
+    Text: string
+}
+
+/**
  * Field Types
  */
 export type FieldType = {

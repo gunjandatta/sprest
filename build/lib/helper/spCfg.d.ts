@@ -50,13 +50,17 @@ export interface ISPCfgCustomActionInfo {
  */
 export interface ISPCfgFieldInfo {
     /**
+     * The field information.
+     */
+    FieldInfo?: Types.SPConfig.ISPConfigFieldInfo;
+    /**
      * The internal field name.
      */
     Name: string;
     /**
      * The schema definition of the field.
      */
-    SchemaXml: string;
+    SchemaXml?: string;
     /**
      * Event triggered after the field is created.
      */
@@ -241,7 +245,6 @@ export declare class SPConfig {
     private removeLists;
     private removeUserCustomActions;
     private removeWebParts;
-    private updateFieldSchemaXml;
     private updateLists;
     private updateViews;
     private uninstallSite;

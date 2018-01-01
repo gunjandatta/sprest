@@ -1,5 +1,6 @@
 import * as ComplexTypes from "./complexTypes";
 import * as Results from "./results";
+import * as SPConfig from "./spcfg";
 import * as SPTypes from "./sptypes";
 import { IUser } from "./user";
 export * from "./audit";
@@ -15,7 +16,7 @@ export * from "./site";
 export * from "./social";
 export * from "./user";
 export * from "./userCustomAction";
-export { ComplexTypes, Results, SPTypes };
+export { ComplexTypes, Results, SPConfig, SPTypes };
 /**
  * App Tiles
  */

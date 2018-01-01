@@ -260,6 +260,45 @@ export declare type EventReceiverSynchronizationType = {
     Synchronization: number;
 };
 /**
+ * Field Note Types
+ */
+export declare type FieldNoteType = {
+    /** Enhance Rich Text */
+    EnhancedRichText: number;
+    /** Rich Text */
+    RichText: number;
+    /** Text Only */
+    TextOnly: number;
+};
+/**
+ * Field Number Type
+ */
+export declare type FieldNumberType = {
+    /** Decimal */
+    Decimal: number;
+    /** Integer */
+    Integer: number;
+    /** Percentage */
+    Percentage: number;
+};
+/**
+ * Field Result Types
+ */
+export declare type FieldResultType = {
+    /** Boolean */
+    Boolean: string;
+    /** Currency */
+    Currency: string;
+    /** Date Only */
+    DateOnly: string;
+    /** Date & Time */
+    DateTime: string;
+    /** Number */
+    Number: string;
+    /** Text */
+    Text: string;
+};
+/**
  * Field Types
  */
 export declare type FieldType = {

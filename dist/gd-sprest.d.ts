@@ -1365,10 +1365,10 @@ declare module 'gd-sprest/mapper' {
 }
 
 declare module 'gd-sprest/types' {
+    import * as Helper from "gd-sprest/types/helper";
     import { RequestType, IRequestType } from "gd-sprest/types/requestType";
-    import { SPConfigTypes } from "gd-sprest/types/spConfigTypes";
     import * as SPTypes from "gd-sprest/types/sptypes";
-    export { RequestType, IRequestType, SPConfigTypes, SPTypes };
+    export { Helper, RequestType, IRequestType, SPTypes };
 }
 
 declare module 'gd-sprest/lib' {
@@ -1391,6 +1391,7 @@ declare module 'gd-sprest/lib' {
 declare module 'gd-sprest/mapper/types' {
     import * as ComplexTypes from "gd-sprest/mapper/complexTypes";
     import * as Results from "gd-sprest/mapper/results";
+    import * as SPConfig from "gd-sprest/mapper/spcfg";
     import * as SPTypes from "gd-sprest/mapper/sptypes";
     import { IUser } from "gd-sprest/mapper/user";
     export * from "gd-sprest/mapper/audit";
@@ -1406,7 +1407,7 @@ declare module 'gd-sprest/mapper/types' {
     export * from "gd-sprest/mapper/social";
     export * from "gd-sprest/mapper/user";
     export * from "gd-sprest/mapper/userCustomAction";
-    export { ComplexTypes, Results, SPTypes };
+    export { ComplexTypes, Results, SPConfig, SPTypes };
     /**
         * App Tiles
         */
@@ -1794,6 +1795,37 @@ declare module 'gd-sprest/mapper/types' {
     }
 }
 
+declare module 'gd-sprest/types/helper' {
+    /**
+        * SharePoint Configuration Types
+        * The value determines the order to install the object type.
+        */
+    export const SPConfigTypes: {
+            Fields: number;
+            ContentTypes: number;
+            Lists: number;
+            SiteUserCustomActions: number;
+            WebParts: number;
+            WebUserCustomActions: number;
+    };
+    /**
+        * SharePoint Field Configuration Types
+        */
+    export const SPConfigFieldTypes: {
+            Boolean: number;
+            Calculated: number;
+            Choice: number;
+            Date: number;
+            Lookup: number;
+            MMS: number;
+            Note: number;
+            Number: number;
+            Text: number;
+            Url: number;
+            User: number;
+    };
+}
+
 declare module 'gd-sprest/types/requestType' {
     /**
         * Request Type
@@ -1841,21 +1873,6 @@ declare module 'gd-sprest/types/requestType' {
     };
 }
 
-declare module 'gd-sprest/types/spConfigTypes' {
-    /**
-      * SharePoint Configuration Types
-      * The value determines the order to install the object type.
-      */
-    export const SPConfigTypes: {
-        Fields: number;
-        ContentTypes: number;
-        Lists: number;
-        SiteUserCustomActions: number;
-        WebParts: number;
-        WebUserCustomActions: number;
-    };
-}
-
 declare module 'gd-sprest/types/sptypes' {
     import { Types } from "gd-sprest/mapper";
     /**
@@ -1894,6 +1911,18 @@ declare module 'gd-sprest/types/sptypes' {
         * Event Receiver Types
         */
     export const EventReceiverType: Types.SPTypes.EventReceiverType;
+    /**
+        * Field Note Types
+        */
+    export const FieldNoteType: Types.SPTypes.FieldNoteType;
+    /**
+        * Field Number Type
+        */
+    export const FieldNumberType: Types.SPTypes.FieldNumberType;
+    /**
+        * Field Result Types
+        */
+    export const FieldResultType: Types.SPTypes.FieldResultType;
     /**
         * Field Types
         */
@@ -2091,6 +2120,10 @@ declare module 'gd-sprest/lib/contextInfo' {
                     SPClientTemplates: any;
             };
             /**
+                * Method to generate a guid.
+                */
+            generateGUID: () => string;
+            /**
                 * Method to get the web context information.
                 * @param url - The relative url of the web.
                 */
@@ -2102,6 +2135,7 @@ declare module 'gd-sprest/lib/contextInfo' {
 declare module 'gd-sprest/lib/helper' {
     import { IHelperApp } from "gd-sprest/lib/helper/app";
     import { IDependencies } from "gd-sprest/lib/helper/dependencies";
+    import { IFieldSchemaXML } from "gd-sprest/lib/helper/field";
     import { IHelperJSLink } from "gd-sprest/lib/helper/jslink";
     import { ILoader } from "gd-sprest/lib/helper/loader";
     import { ISPConfig } from "gd-sprest/lib/helper/spCfg";
@@ -2117,6 +2151,10 @@ declare module 'gd-sprest/lib/helper' {
                 * Dependencies
                 */
             Dependencies: IDependencies;
+            /**
+                * Field Schema XML
+                */
+            FieldSchemaXML: IFieldSchemaXML;
             /**
                 * JSLink helper methods
                 */
@@ -2603,6 +2641,11 @@ declare module 'gd-sprest/mapper/complexTypes' {
             results: Array<FieldLookupValue>;
     }
     /**
+        * Field Multi-User
+        */
+    export interface FieldMultiUserValue extends Types.IResults<FieldUserValue> {
+    }
+    /**
         * Field Rating Scale Question Answer
         */
     export interface FieldRatingScaleQuestionAnswer {
@@ -2632,7 +2675,7 @@ declare module 'gd-sprest/mapper/complexTypes' {
             ContentTypeDisp?: string;
             Created?: string;
             Department?: string;
-            Email?: string;
+            EMail?: string;
             FirstName?: string;
             ID?: number;
             ImnName?: string;
@@ -4015,6 +4058,110 @@ declare module 'gd-sprest/mapper/results' {
     }
 }
 
+declare module 'gd-sprest/mapper/spcfg' {
+    /**
+        * Field Information
+        */
+    export interface ISPConfigFieldInfo {
+            /** The default value of the field */
+            defaultValue?: string;
+            /** The internal name of the field */
+            name: string;
+            /** Flag to determine if the field is required */
+            required?: boolean;
+            /** The field title */
+            title: string;
+            /** The field type */
+            type?: number;
+    }
+    /**
+        * Calculated Field Information
+        */
+    export interface ISPConfigFieldInfoCalculated extends ISPConfigFieldInfo {
+            /** The field references */
+            fieldRefs?: Array<string>;
+            /** The date/time format */
+            format?: number;
+            /** The formula */
+            formula?: string;
+            /** The result type */
+            resultType?: string;
+    }
+    /**
+        * Choice Field Information
+        */
+    export interface ISPConfigFieldInfoChoice extends ISPConfigFieldInfo {
+            /** The choices */
+            choices?: string[];
+            /** Allow multiple choices */
+            multi?: boolean;
+    }
+    /**
+        * Date Field Information
+        */
+    export interface ISPConfigFieldInfoDate extends ISPConfigFieldInfo {
+            /** The date/time format */
+            format?: number;
+    }
+    /**
+        * Lookup Field Information
+        */
+    export interface ISPConfigFieldInfoLookup extends ISPConfigFieldInfo {
+            /** The field reference (Required for associated lookup fields) */
+            fieldRef?: string;
+            /** Allow multiple lookup values */
+            multi?: boolean;
+            /** The list id */
+            listId?: string;
+            /** The list name */
+            listName?: string;
+            /** The lookup field to show */
+            showField?: string;
+            /** The relative web url containing the list */
+            webUrl?: string;
+    }
+    /**
+        * Managed Metadata
+        */
+    export interface ISPConfigFieldInfoMMS extends ISPConfigFieldInfo {
+            /** The locale value */
+            locale?: number;
+    }
+    /**
+        * Note
+        */
+    export interface ISPConfigFieldInfoNote extends ISPConfigFieldInfo {
+            /** The note field type */
+            noteType?: number;
+            /** The number of lines */
+            numberOfLines?: number;
+    }
+    /**
+        * Number
+        */
+    export interface ISPConfigFieldInfoNumber extends ISPConfigFieldInfo {
+            /** The number of decimal places */
+            decimals?: number;
+            /** The maximum value */
+            max?: number;
+            /** The minimum value */
+            min?: number;
+            /** The number field type */
+            numberType?: number;
+    }
+    /**
+        * User
+        */
+    export interface ISPConfigFieldInfoUser extends ISPConfigFieldInfo {
+            /** Allow multiple choices */
+            multi?: boolean;
+            /** The user selection mode */
+            selectionMode?: number;
+            /** The user selection scope */
+            selectionScope?: number;
+    }
+}
+
 declare module 'gd-sprest/mapper/sptypes' {
     /**
         * Calendar Types
@@ -4276,6 +4423,45 @@ declare module 'gd-sprest/mapper/sptypes' {
             Asynchronous: number;
             /** Event to be triggered synchronously. */
             Synchronization: number;
+    };
+    /**
+        * Field Note Types
+        */
+    export type FieldNoteType = {
+            /** Enhance Rich Text */
+            EnhancedRichText: number;
+            /** Rich Text */
+            RichText: number;
+            /** Text Only */
+            TextOnly: number;
+    };
+    /**
+        * Field Number Type
+        */
+    export type FieldNumberType = {
+            /** Decimal */
+            Decimal: number;
+            /** Integer */
+            Integer: number;
+            /** Percentage */
+            Percentage: number;
+    };
+    /**
+        * Field Result Types
+        */
+    export type FieldResultType = {
+            /** Boolean */
+            Boolean: string;
+            /** Currency */
+            Currency: string;
+            /** Date Only */
+            DateOnly: string;
+            /** Date & Time */
+            DateTime: string;
+            /** Number */
+            Number: string;
+            /** Text */
+            Text: string;
     };
     /**
         * Field Types
@@ -5182,6 +5368,19 @@ declare module 'gd-sprest/lib/helper/dependencies' {
     }
 }
 
+declare module 'gd-sprest/lib/helper/field' {
+    import { Types } from "gd-sprest/mapper";
+    import { Promise } from "gd-sprest/utils";
+    /**
+      * Field Schema XML
+      */
+    export interface IFieldSchemaXML {
+        /** Method to generate the field schema xml. */
+        generate: (fieldInfo: Types.SPConfig.ISPConfigFieldInfo) => Promise;
+    }
+    export const FieldSchemaXML: IFieldSchemaXML;
+}
+
 declare module 'gd-sprest/lib/helper/jslink' {
     /**
         * JSLink Helper Methods
@@ -5441,13 +5640,17 @@ declare module 'gd-sprest/lib/helper/spCfg' {
         */
     export interface ISPCfgFieldInfo {
             /**
+                * The field information.
+                */
+            FieldInfo?: Types.SPConfig.ISPConfigFieldInfo;
+            /**
                 * The internal field name.
                 */
             Name: string;
             /**
                 * The schema definition of the field.
                 */
-            SchemaXml: string;
+            SchemaXml?: string;
             /**
                 * Event triggered after the field is created.
                 */
@@ -6161,11 +6364,11 @@ declare module 'gd-sprest/mapper/file/attachment' {
 
 declare module 'gd-sprest/mapper/file/attachments' {
     import { IBaseCollection } from "gd-sprest/utils";
-    import { IAttachment, IAttachmentFiles, IAttachmentFilesMethods } from "gd-sprest/mapper/file";
+    import { IAttachment, IAttachmentFilesMethods } from "gd-sprest/mapper/file";
     /**
       * Attachment Files
       */
-    export interface IAttachmentFiles extends IAttachmentFilesMethods, IBaseCollection<IAttachment, IAttachmentFiles, IAttachment> {
+    export interface IAttachmentFiles extends IAttachmentFilesMethods, IBaseCollection<IAttachment> {
     }
 }
 
@@ -7444,7 +7647,7 @@ declare module 'gd-sprest/mapper/list/list' {
                 * Returns a collection of items from the list based on the specified query.
                 * @query - The query that contains the change token.
                 */
-            getListItemChangesSinceToken(query: any): IBase<IListItems, IListItemResults>;
+            getListItemChangesSinceToken(query: Types.ComplexTypes.ChangeLogItemQuery): IBase<IListItems, IListItemResults>;
             /**
                 * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
                 */
@@ -7615,10 +7818,6 @@ declare module 'gd-sprest/mapper/list/list' {
                 * Gets the default list view.
              */
             DefaultView(): IView;
-            /**
-                * Gets the URL of the default view for the list.
-                */
-            DefaultViewUrl(): IBase<string>;
             DescriptionResouce(): IBase<Types.IResourcePath>;
             /**
                 * Gets a value that specifies the effective permissions on the list that are assigned to the current user.

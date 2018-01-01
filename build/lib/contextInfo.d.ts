@@ -95,6 +95,10 @@ export interface IContextInformation {
      * Methods
      */
     /**
+     * Method to generate a guid.
+     */
+    generateGUID: () => string;
+    /**
      * Method to get the web context information.
      * @param url - The relative url of the web.
      */

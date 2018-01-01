@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../../utils");
 var types_1 = require("../../types");
 var __1 = require("..");
+var field_1 = require("./field");
 /**
  * SharePoint Configuration
  */
@@ -206,24 +207,33 @@ var SPConfig = /** @class */ (function () {
                 else {
                     // Log
                     console.log("[gd-sprest][Field] Creating the '" + cfgField.Name + "' field.");
-                    // Update the schema xml
-                    _this.updateFieldSchemaXml(cfgField.SchemaXml).done(function (schemaXml) {
+                    //
+                    var onFieldCreated_1 = function (field) {
+                        // See if it was successful
+                        if (field.existsFl) {
+                            // Log
+                            console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' was created successfully.");
+                            // Trigger the event
+                            cfgField.onCreated ? cfgField.onCreated(field) : null;
+                        }
+                        else {
+                            // Log
+                            console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' failed to be created.");
+                            console.error("[gd-sprest][Field] Error: " + field.response);
+                        }
+                    };
+                    // See if the field information is defined
+                    if (cfgField.FieldInfo) {
+                        // Compute the schema xml
+                        field_1.FieldSchemaXML.generate(cfgField.FieldInfo).then(function (schemaXml) {
+                            // Add the field
+                            fields.createFieldAsXml(schemaXml).execute(onFieldCreated_1, true);
+                        });
+                    }
+                    else {
                         // Add the field
-                        fields.createFieldAsXml(schemaXml).execute(function (field) {
-                            // See if it was successful
-                            if (field.existsFl) {
-                                // Log
-                                console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' was created successfully.");
-                                // Trigger the event
-                                cfgField.onCreated ? cfgField.onCreated(field) : null;
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' failed to be created.");
-                                console.error("[gd-sprest][Field] Error: " + field.response);
-                            }
-                        }, true);
-                    });
+                        fields.createFieldAsXml(cfgField.SchemaXml).execute(onFieldCreated_1, true);
+                    }
                 }
             };
             // Parse the fields
@@ -244,7 +254,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.Lists) {
+                if (_this._cfgType != types_1.Helper.SPConfigTypes.Lists) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -329,7 +339,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.SiteUserCustomActions || _this._cfgType != types_1.SPConfigTypes.WebUserCustomActions) {
+                if (_this._cfgType != types_1.Helper.SPConfigTypes.SiteUserCustomActions || _this._cfgType != types_1.Helper.SPConfigTypes.WebUserCustomActions) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -441,7 +451,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.WebParts) {
+                if (_this._cfgType != types_1.Helper.SPConfigTypes.WebParts) {
                     return;
                 }
             }
@@ -659,7 +669,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.Lists) {
+                if (_this._cfgType != types_1.Helper.SPConfigTypes.Lists) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -708,7 +718,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.SiteUserCustomActions || _this._cfgType != types_1.SPConfigTypes.WebUserCustomActions) {
+                if (_this._cfgType != types_1.Helper.SPConfigTypes.SiteUserCustomActions || _this._cfgType != types_1.Helper.SPConfigTypes.WebUserCustomActions) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -759,7 +769,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.SPConfigTypes.WebParts) {
+                if (_this._cfgType != types_1.Helper.SPConfigTypes.WebParts) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -806,38 +816,6 @@ var SPConfig = /** @class */ (function () {
                 promise.resolve();
             });
             // Return a promise
-            return promise;
-        };
-        // Method to update the schema xml
-        this.updateFieldSchemaXml = function (schemaXml) {
-            var promise = new utils_1.Promise();
-            // Create the schema
-            var fieldInfo = __1.ContextInfo.document.createElement("field");
-            fieldInfo.innerHTML = schemaXml;
-            fieldInfo = fieldInfo.querySelector("field");
-            // Get the field type
-            switch (fieldInfo.getAttribute("Type")) {
-                case "Lookup":
-                case "LookupMulti":
-                    // Get the target list
-                    (new __1.List(fieldInfo.getAttribute("List"))).execute(function (list) {
-                        // Ensure the list exists
-                        if (list.existsFl) {
-                            var startIdx = schemaXml.toLowerCase().indexOf("list=");
-                            var endIdx = schemaXml.indexOf(" ", startIdx + 5 + list.Title.length);
-                            // Replace the List property
-                            schemaXml = schemaXml.substr(0, startIdx) + "List=\"" + list.Id + "\"" + schemaXml.substr(endIdx);
-                        }
-                        // Resolve the promise
-                        promise.resolve(schemaXml);
-                    });
-                    break;
-                default:
-                    // Resolve the promise
-                    promise.resolve(schemaXml);
-                    break;
-            }
-            // Return the promise
             return promise;
         };
         // Method to update the lists
@@ -964,6 +942,8 @@ var SPConfig = /** @class */ (function () {
         // Method to uninstall the site components
         this.uninstallSite = function () {
             var promise = new utils_1.Promise();
+            // Log
+            console.log("[gd-sprest][uninstall] Loading the site information...");
             // Ensure site actions exist
             if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
                 // Resolve the promise
@@ -988,6 +968,8 @@ var SPConfig = /** @class */ (function () {
         // Method to uninstall the web components
         this.uninstallWeb = function () {
             var promise = new utils_1.Promise();
+            // Log
+            console.log("[gd-sprest][uninstall] Loading the web information...");
             // Get the web
             (new __1.Web(_this._webUrl))
                 .query({
@@ -1043,11 +1025,11 @@ var SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    SPConfig.prototype.installList = function (listName, callback) { this.installByType(types_1.SPConfigTypes.Lists, callback, listName); };
+    SPConfig.prototype.installList = function (listName, callback) { this.installByType(types_1.Helper.SPConfigTypes.Lists, callback, listName); };
     // Method to install a specific site custom action
-    SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(types_1.SPConfigTypes.SiteUserCustomActions, callback, caName); };
+    SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(types_1.Helper.SPConfigTypes.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(types_1.SPConfigTypes.WebUserCustomActions, callback, caName); };
+    SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(types_1.Helper.SPConfigTypes.WebUserCustomActions, callback, caName); };
     // Method to uninstall the configuration
     SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
         var _this = this;
@@ -1072,11 +1054,11 @@ var SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(types_1.SPConfigTypes.Lists, callback, listName); };
+    SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(types_1.Helper.SPConfigTypes.Lists, callback, listName); };
     // Method to install a specific site custom action
-    SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(types_1.SPConfigTypes.SiteUserCustomActions, callback, caName); };
+    SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(types_1.Helper.SPConfigTypes.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(types_1.SPConfigTypes.WebUserCustomActions, callback, caName); };
+    SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(types_1.Helper.SPConfigTypes.WebUserCustomActions, callback, caName); };
     return SPConfig;
 }());
 exports.SPConfig = SPConfig;
