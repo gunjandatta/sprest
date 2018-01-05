@@ -320,7 +320,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.47,
+    __ver: 2.48,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -5339,7 +5339,7 @@ var _FieldSchemaXML = /** @class */ (function () {
             props["Name"] = fieldInfo.name;
             props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
             props["StaticName"] = fieldInfo.name;
-            props["Title"] = fieldInfo.title;
+            props["DisplayName"] = fieldInfo.title;
             // Set the type
             switch (fieldInfo.type) {
                 // Boolean

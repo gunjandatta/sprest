@@ -27,7 +27,7 @@ class _FieldSchemaXML {
         props["Name"] = fieldInfo.name;
         props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
         props["StaticName"] = fieldInfo.name;
-        props["Title"] = fieldInfo.title;
+        props["DisplayName"] = fieldInfo.title;
 
         // Set the type
         switch (fieldInfo.type) {
