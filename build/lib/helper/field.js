@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var __1 = require("..");
 var types_1 = require("../../types");
 var utils_1 = require("../../utils");
+var _1 = require(".");
 /**
  * The field schema xml class
  */
@@ -23,43 +24,43 @@ var _FieldSchemaXML = /** @class */ (function () {
             // Set the type
             switch (fieldInfo.type) {
                 // Boolean
-                case types_1.Helper.SPConfigFieldTypes.Boolean:
+                case _1.Helper.Types.SPCfgFieldType.Boolean:
                     _this.createBoolean(fieldInfo, props, promise);
                     break;
                 // Calculated
-                case types_1.Helper.SPConfigFieldTypes.Calculated:
+                case _1.Helper.Types.SPCfgFieldType.Calculated:
                     _this.createCalculated(fieldInfo, props, promise);
                     break;
                 // Choice
-                case types_1.Helper.SPConfigFieldTypes.Choice:
+                case _1.Helper.Types.SPCfgFieldType.Choice:
                     _this.createChoice(fieldInfo, props, promise);
                     break;
                 // Date/Time
-                case types_1.Helper.SPConfigFieldTypes.Date:
+                case _1.Helper.Types.SPCfgFieldType.Date:
                     _this.createDate(fieldInfo, props, promise);
                     break;
                 // Lookup
-                case types_1.Helper.SPConfigFieldTypes.Lookup:
+                case _1.Helper.Types.SPCfgFieldType.Lookup:
                     _this.createLookup(fieldInfo, props, promise);
                     break;
                 // Note
-                case types_1.Helper.SPConfigFieldTypes.Note:
+                case _1.Helper.Types.SPCfgFieldType.Note:
                     _this.createNote(fieldInfo, props, promise);
                     break;
                 // Number
-                case types_1.Helper.SPConfigFieldTypes.Number:
+                case _1.Helper.Types.SPCfgFieldType.Number:
                     _this.createNumber(fieldInfo, props, promise);
                     break;
                 // Text
-                case types_1.Helper.SPConfigFieldTypes.Text:
+                case _1.Helper.Types.SPCfgFieldType.Text:
                     _this.createText(fieldInfo, props, promise);
                     break;
                 // URL
-                case types_1.Helper.SPConfigFieldTypes.Url:
+                case _1.Helper.Types.SPCfgFieldType.Url:
                     _this.createUrl(fieldInfo, props, promise);
                     break;
                 // User
-                case types_1.Helper.SPConfigFieldTypes.User:
+                case _1.Helper.Types.SPCfgFieldType.User:
                     _this.createUser(fieldInfo, props, promise);
                     break;
                 // Field type not supported
@@ -247,6 +248,9 @@ var _FieldSchemaXML = /** @class */ (function () {
             // Set the field type
             props["Type"] = "Note";
             // Set the note properties
+            if (fieldInfo.appendFl) {
+                props["AppendOnly"] = "TRUE";
+            }
             if (fieldInfo.noteType == types_1.SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == types_1.SPTypes.FieldNoteType.RichText) {
                 props["RichText"] = "TRUE";
             }
@@ -254,7 +258,7 @@ var _FieldSchemaXML = /** @class */ (function () {
                 props["RichTextMode"] = "FullHtml";
             }
             if (fieldInfo.numberOfLines > 0) {
-                fieldInfo["NumLines"] = fieldInfo.numberOfLines;
+                props["NumLines"] = fieldInfo.numberOfLines;
             }
             // Generate the schema
             schemaXml = "<Field " + _this.toString(props) + " />";
@@ -275,6 +279,9 @@ var _FieldSchemaXML = /** @class */ (function () {
             }
             if (fieldInfo.min != null) {
                 props["Min"] = fieldInfo.min;
+            }
+            if (fieldInfo.numberType == types_1.SPTypes.FieldNumberType.Integer) {
+                props["Decimals"] = 0;
             }
             if (fieldInfo.numberType == types_1.SPTypes.FieldNumberType.Percentage) {
                 props["ShowPercentage"] = "TRUE";

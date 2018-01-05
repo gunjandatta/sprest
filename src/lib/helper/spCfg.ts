@@ -1,8 +1,7 @@
 import { Types } from "../../mapper";
 import { Promise } from "../../utils";
-import { Helper } from "../../types";
 import { ContextInfo, List, Site, Web } from "..";
-import { FieldSchemaXML } from "./field";
+import { Helper } from ".";
 
 /**
  * SharePoint Configuration - Content Type Information
@@ -317,13 +316,13 @@ export class SPConfig {
     installByType = (cfgType: number, callback?: any, targetName?: string) => { return this.install(callback, cfgType, targetName); }
 
     // Method to install a specific list
-    installList(listName: string, callback?: any) { this.installByType(Helper.SPConfigTypes.Lists, callback, listName); }
+    installList(listName: string, callback?: any) { this.installByType(Helper.Types.SPCfgType.Lists, callback, listName); }
 
     // Method to install a specific site custom action
-    installSiteCustomAction(caName: string, callback?: any) { this.installByType(Helper.SPConfigTypes.SiteUserCustomActions, callback, caName); }
+    installSiteCustomAction(caName: string, callback?: any) { this.installByType(Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); }
 
     // Method to install a specific web custom action
-    installWebCustomAction(caName: string, callback?: any) { this.installByType(Helper.SPConfigTypes.WebUserCustomActions, callback, caName); }
+    installWebCustomAction(caName: string, callback?: any) { this.installByType(Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); }
 
     // Method to uninstall the configuration
     uninstall(callback?: any, cfgType?: number, targetName?: string) {
@@ -354,13 +353,13 @@ export class SPConfig {
     uninstallByType = (cfgType: number, callback?: any, targetName?: string) => { return this.uninstall(callback, cfgType, targetName); }
 
     // Method to install a specific list
-    uninstallList(listName: string, callback?: any) { this.uninstallByType(Helper.SPConfigTypes.Lists, callback, listName); }
+    uninstallList(listName: string, callback?: any) { this.uninstallByType(Helper.Types.SPCfgType.Lists, callback, listName); }
 
     // Method to install a specific site custom action
-    uninstallSiteCustomAction(caName: string, callback?: any) { this.uninstallByType(Helper.SPConfigTypes.SiteUserCustomActions, callback, caName); }
+    uninstallSiteCustomAction(caName: string, callback?: any) { this.uninstallByType(Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); }
 
     // Method to install a specific web custom action
-    uninstallWebCustomAction(caName: string, callback?: any) { this.uninstallByType(Helper.SPConfigTypes.WebUserCustomActions, callback, caName); }
+    uninstallWebCustomAction(caName: string, callback?: any) { this.uninstallByType(Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); }
 
     /**
      * Methods
@@ -594,8 +593,11 @@ export class SPConfig {
 
                 // See if the field information is defined
                 if (cfgField.FieldInfo) {
+                    // Set the internal field name
+                    cfgField.FieldInfo.name = cfgField.Name;
+
                     // Compute the schema xml
-                    FieldSchemaXML.generate(cfgField.FieldInfo).then(schemaXml => {
+                    Helper.FieldSchemaXML.generate(cfgField.FieldInfo).then(schemaXml => {
                         // Add the field
                         fields.createFieldAsXml(schemaXml).execute(onFieldCreated, true);
                     });
@@ -623,7 +625,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != Helper.SPConfigTypes.Lists) {
+            if (this._cfgType != Helper.Types.SPCfgType.Lists) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
@@ -716,7 +718,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != Helper.SPConfigTypes.SiteUserCustomActions || this._cfgType != Helper.SPConfigTypes.WebUserCustomActions) {
+            if (this._cfgType != Helper.Types.SPCfgType.SiteUserCustomActions || this._cfgType != Helper.Types.SPCfgType.WebUserCustomActions) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
@@ -836,7 +838,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != Helper.SPConfigTypes.WebParts) { return; }
+            if (this._cfgType != Helper.Types.SPCfgType.WebParts) { return; }
         }
 
         // Ensure the configuration exists
@@ -1090,7 +1092,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != Helper.SPConfigTypes.Lists) {
+            if (this._cfgType != Helper.Types.SPCfgType.Lists) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
@@ -1144,7 +1146,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != Helper.SPConfigTypes.SiteUserCustomActions || this._cfgType != Helper.SPConfigTypes.WebUserCustomActions) {
+            if (this._cfgType != Helper.Types.SPCfgType.SiteUserCustomActions || this._cfgType != Helper.Types.SPCfgType.WebUserCustomActions) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;
@@ -1201,7 +1203,7 @@ export class SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != Helper.SPConfigTypes.WebParts) {
+            if (this._cfgType != Helper.Types.SPCfgType.WebParts) {
                 // Resolve the promise
                 promise.resolve();
                 return promise;

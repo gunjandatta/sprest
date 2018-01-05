@@ -69,13 +69,20 @@
 
 "use strict";
 
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-var Helper = __webpack_require__(8);
-exports.Helper = Helper;
-var requestType_1 = __webpack_require__(9);
-exports.RequestType = requestType_1.RequestType;
-var SPTypes = __webpack_require__(10);
-exports.SPTypes = SPTypes;
+__export(__webpack_require__(27));
+__export(__webpack_require__(28));
+__export(__webpack_require__(29));
+__export(__webpack_require__(30));
+__export(__webpack_require__(31));
+__export(__webpack_require__(32));
+__export(__webpack_require__(33));
+__export(__webpack_require__(34));
+__export(__webpack_require__(35));
+__export(__webpack_require__(36));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -84,20 +91,11 @@ exports.SPTypes = SPTypes;
 
 "use strict";
 
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(30));
-__export(__webpack_require__(31));
-__export(__webpack_require__(32));
-__export(__webpack_require__(33));
-__export(__webpack_require__(34));
-__export(__webpack_require__(35));
-__export(__webpack_require__(36));
-__export(__webpack_require__(37));
-__export(__webpack_require__(38));
-__export(__webpack_require__(39));
+var requestType_1 = __webpack_require__(8);
+exports.RequestType = requestType_1.RequestType;
+var SPTypes = __webpack_require__(9);
+exports.SPTypes = SPTypes;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -110,8 +108,10 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(29));
-__export(__webpack_require__(40));
+__export(__webpack_require__(26));
+__export(__webpack_require__(3));
+__export(__webpack_require__(44));
+__export(__webpack_require__(45));
 __export(__webpack_require__(46));
 __export(__webpack_require__(47));
 __export(__webpack_require__(48));
@@ -121,8 +121,6 @@ __export(__webpack_require__(51));
 __export(__webpack_require__(52));
 __export(__webpack_require__(53));
 __export(__webpack_require__(54));
-__export(__webpack_require__(55));
-__export(__webpack_require__(56));
 __export(__webpack_require__(5));
 //# sourceMappingURL=index.js.map
 
@@ -133,21 +131,50 @@ __export(__webpack_require__(5));
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var app_1 = __webpack_require__(37);
+var dependencies_1 = __webpack_require__(38);
+var field_1 = __webpack_require__(39);
+var jslink_1 = __webpack_require__(40);
+var loader_1 = __webpack_require__(41);
+var spCfg_1 = __webpack_require__(42);
+var types_1 = __webpack_require__(43);
+;
+/**
+ * Helper Methods
+ */
+exports.Helper = {
+    App: app_1.AppHelper,
+    Dependencies: dependencies_1.Dependencies,
+    FieldSchemaXML: field_1.FieldSchemaXML,
+    JSLink: jslink_1.JSLinkHelper,
+    Loader: loader_1.Loader,
+    SPConfig: spCfg_1.SPConfig,
+    Types: types_1.HelperTypes
+};
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Mapper
  */
 var mapper_1 = __webpack_require__(7);
-var mapper_2 = __webpack_require__(11);
-var mapper_3 = __webpack_require__(12);
-var mapper_4 = __webpack_require__(13);
-var mapper_5 = __webpack_require__(14);
-var mapper_6 = __webpack_require__(15);
-var mapper_7 = __webpack_require__(16);
-var mapper_8 = __webpack_require__(17);
-var mapper_9 = __webpack_require__(18);
-var mapper_10 = __webpack_require__(19);
-var mapper_11 = __webpack_require__(20);
-var mapper_12 = __webpack_require__(21);
+var mapper_2 = __webpack_require__(10);
+var mapper_3 = __webpack_require__(11);
+var mapper_4 = __webpack_require__(12);
+var mapper_5 = __webpack_require__(13);
+var mapper_6 = __webpack_require__(14);
+var mapper_7 = __webpack_require__(15);
+var mapper_8 = __webpack_require__(16);
+var mapper_9 = __webpack_require__(17);
+var mapper_10 = __webpack_require__(18);
+var mapper_11 = __webpack_require__(19);
+var mapper_12 = __webpack_require__(20);
 exports.Mapper = {
     attachment: mapper_3.attachment, attachmentfiles: mapper_3.attachmentfiles,
     audit: mapper_1.audit,
@@ -185,358 +212,9 @@ exports.Mapper = {
 /**
  * Types
  */
-var Types = __webpack_require__(22);
+var Types = __webpack_require__(21);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var __1 = __webpack_require__(2);
-var types_1 = __webpack_require__(0);
-var utils_1 = __webpack_require__(1);
-/**
- * The field schema xml class
- */
-var _FieldSchemaXML = /** @class */ (function () {
-    function _FieldSchemaXML() {
-        var _this = this;
-        // Generates the schema xml, based on the field information provided.
-        this.generate = function (fieldInfo) {
-            var promise = new utils_1.Promise();
-            var schemaXml = null;
-            // Set the base properties
-            var props = {};
-            props["ID"] = __1.ContextInfo.generateGUID();
-            props["Name"] = fieldInfo.name;
-            props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
-            props["StaticName"] = fieldInfo.name;
-            props["Title"] = fieldInfo.title;
-            // Set the type
-            switch (fieldInfo.type) {
-                // Boolean
-                case types_1.Helper.SPConfigFieldTypes.Boolean:
-                    _this.createBoolean(fieldInfo, props, promise);
-                    break;
-                // Calculated
-                case types_1.Helper.SPConfigFieldTypes.Calculated:
-                    _this.createCalculated(fieldInfo, props, promise);
-                    break;
-                // Choice
-                case types_1.Helper.SPConfigFieldTypes.Choice:
-                    _this.createChoice(fieldInfo, props, promise);
-                    break;
-                // Date/Time
-                case types_1.Helper.SPConfigFieldTypes.Date:
-                    _this.createDate(fieldInfo, props, promise);
-                    break;
-                // Lookup
-                case types_1.Helper.SPConfigFieldTypes.Lookup:
-                    _this.createLookup(fieldInfo, props, promise);
-                    break;
-                // Note
-                case types_1.Helper.SPConfigFieldTypes.Note:
-                    _this.createNote(fieldInfo, props, promise);
-                    break;
-                // Number
-                case types_1.Helper.SPConfigFieldTypes.Number:
-                    _this.createNumber(fieldInfo, props, promise);
-                    break;
-                // Text
-                case types_1.Helper.SPConfigFieldTypes.Text:
-                    _this.createText(fieldInfo, props, promise);
-                    break;
-                // URL
-                case types_1.Helper.SPConfigFieldTypes.Url:
-                    _this.createUrl(fieldInfo, props, promise);
-                    break;
-                // User
-                case types_1.Helper.SPConfigFieldTypes.User:
-                    _this.createUser(fieldInfo, props, promise);
-                    break;
-                // Field type not supported
-                default:
-                    // Resolve the promise and return
-                    promise.resolve(null);
-                    return;
-            }
-            // Return a promise
-            return promise;
-        };
-        /**
-         * Methods
-         */
-        /** Returns the schema xml for a boolean field. */
-        this.createBoolean = function (fieldInfo, props, promise) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "Boolean";
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + ">";
-            if (fieldInfo.defaultValue) {
-                schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
-            }
-            schemaXml += "</Field>";
-            // Return the schema xml
-            return schemaXml;
-        };
-        /** Returns the schema xml for a calculated field. */
-        this.createCalculated = function (fieldInfo, props, promise) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "Calculated";
-            // Set the result type
-            switch (fieldInfo.resultType) {
-                case types_1.SPTypes.FieldResultType.Boolean:
-                    props["ResultType"] = "Boolean";
-                    break;
-                case types_1.SPTypes.FieldResultType.Currency:
-                    props["ResultType"] = "Currency";
-                    break;
-                case types_1.SPTypes.FieldResultType.DateOnly:
-                    props["Format"] = "DateOnly";
-                    props["ResultType"] = "DateTime";
-                    break;
-                case types_1.SPTypes.FieldResultType.DateTime:
-                    props["Format"] = "DateTime";
-                    props["ResultType"] = "DateTime";
-                    break;
-                case types_1.SPTypes.FieldResultType.Number:
-                    props["ResultType"] = "Number";
-                    break;
-                default:
-                    props["ResultType"] = "Text";
-                    break;
-            }
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + ">";
-            if (fieldInfo.formula) {
-                schemaXml += "<Formula>" + fieldInfo.formula + "</Formula>";
-            }
-            if (fieldInfo.fieldRefs) {
-                schemaXml += "<FieldRefs>";
-                for (var i = 0; i < fieldInfo.fieldRefs.length; i++) {
-                    schemaXml += "<FieldRef Name=\"" + fieldInfo.fieldRefs[i] + "\" />";
-                }
-                schemaXml += "</FieldRefs>";
-            }
-            schemaXml += "</Field>";
-            // Resolve the promise
-            promise.resolve(schemaXml);
-        };
-        /** Returns the schema xml for a choice field. */
-        this.createChoice = function (fieldInfo, props, promise) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = fieldInfo.multi ? "MultiChoice" : "Choice";
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + ">";
-            if (fieldInfo.defaultValue) {
-                schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
-            }
-            if (fieldInfo.choices) {
-                schemaXml += "<CHOICES>";
-                for (var i = 0; i < fieldInfo.choices.length; i++) {
-                    schemaXml += "<CHOICE>" + fieldInfo.choices[i] + "</CHOICE>";
-                }
-                schemaXml += "</CHOICES>";
-            }
-            schemaXml += "</Field>";
-            // Resolve the promise
-            promise.resolve(schemaXml);
-        };
-        /** Returns the schema xml for a date field. */
-        this.createDate = function (fieldInfo, props, promise) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "DateTime";
-            // Set the date/time properties
-            props["Format"] = fieldInfo.format == types_1.SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the promise
-            promise.resolve(schemaXml);
-        };
-        /** Returns the schema xml for a lookup field. */
-        this.createLookup = function (fieldInfo, props, promise) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "Lookup";
-            // Set the lookup properties
-            if (fieldInfo.fieldRef) {
-                props["FieldRef"] = fieldInfo.fieldRef;
-            }
-            if (fieldInfo.multi) {
-                props["Multi"] = "TRUE";
-            }
-            if (fieldInfo.showField) {
-                props["ShowField"] = fieldInfo.showField;
-            }
-            // See if the lookup name exists
-            if (fieldInfo.listName) {
-                // Get the web containing the list
-                (new __1.Web(fieldInfo.webUrl))
-                    .Lists(fieldInfo.listName)
-                    .query({
-                    Expand: ["ParentWeb"]
-                })
-                    .execute(function (list) {
-                    // Set the list and web ids
-                    props["List"] = list.Id;
-                    if (fieldInfo.webUrl) {
-                        props["WebId"] = list.ParentWeb.Id;
-                    }
-                    // Resolve the promise
-                    promise.resolve("<Field " + _this.toString(props) + " />");
-                });
-            }
-            else {
-                // Set the list id
-                props["List"] = fieldInfo.listId;
-                // Resolve the promise
-                promise.resolve("<Field " + _this.toString(props) + " />");
-            }
-            // Resolve the promise
-            promise.resolve(schemaXml);
-        };
-        /** Returns the schema xml for a managed metadata field. */
-        this.createMMS = function (fieldInfo, props, promise) {
-            var schemaXml = null;
-            // Create the value field
-            var valueProps = {
-                ID: __1.ContextInfo.generateGUID(),
-                Name: fieldInfo.name + "_0",
-                StaticName: fieldInfo.name + "_0",
-                Title: fieldInfo.title + " Value",
-                Type: "Note",
-                Required: fieldInfo.required ? "TRUE" : "FALSE",
-                Hidden: "TRUE"
-            };
-            // Generate the value field schema xml
-            var schemaXmlValue = "<Field " + _this.toString(valueProps) + " />";
-            // Set the mms properties
-            props["Type"] = "TaxonomyFieldType";
-            props["ShowField"] = "Term" + (fieldInfo.locale ? fieldInfo.locale.toString() : "1033");
-            // Generate the mms field schema xml
-            schemaXml += [
-                "<Field " + _this.toString(props) + ">",
-                "<Customization>",
-                "<ArrayOfProperties>",
-                "<Property>",
-                "<Name>TextField</Name>",
-                "<Value xmlns:q6=\"http://www.w3.org/2001/XMLSchema\" p4:type=\"q6:string\" xmlns:p4=\"http://www.w3.org/2001/XMLSchema-instance\">" + valueProps.ID + "</Value>",
-                "</Property>",
-                "</ArrayOfProperties>",
-                "</Customization>",
-                "</Field>"
-            ].join("");
-            // Resolve the promise
-            promise.resolve(schemaXmlValue, schemaXml);
-        };
-        /** Returns the schema xml for a note field. */
-        this.createNote = function (fieldInfo, props, promise) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "Note";
-            // Set the note properties
-            if (fieldInfo.noteType == types_1.SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == types_1.SPTypes.FieldNoteType.RichText) {
-                props["RichText"] = "TRUE";
-            }
-            if (fieldInfo.noteType == types_1.SPTypes.FieldNoteType.EnhancedRichText) {
-                props["RichTextMode"] = "FullHtml";
-            }
-            if (fieldInfo.numberOfLines > 0) {
-                fieldInfo["NumLines"] = fieldInfo.numberOfLines;
-            }
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the promise
-            promise.resolve(schemaXml);
-        };
-        /** Returns the schema xml for a number field. */
-        this.createNumber = function (fieldInfo, props, promise) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "Number";
-            // Set the number properties
-            if (fieldInfo.decimals >= 0) {
-                props["Decimals"] = fieldInfo.decimals;
-            }
-            if (fieldInfo.max != null) {
-                props["Max"] = fieldInfo.max;
-            }
-            if (fieldInfo.min != null) {
-                props["Min"] = fieldInfo.min;
-            }
-            if (fieldInfo.numberType == types_1.SPTypes.FieldNumberType.Percentage) {
-                props["ShowPercentage"] = "TRUE";
-            }
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the promise
-            promise.resolve(schemaXml);
-        };
-        /** Returns the schema xml for a text field. */
-        this.createText = function (fieldInfo, props, promise) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "Text";
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the promise
-            promise.resolve(schemaXml);
-        };
-        /** Returns the schema xml for a url field. */
-        this.createUrl = function (fieldInfo, props, promise) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "URL";
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the promise
-            promise.resolve(schemaXml);
-        };
-        /** Returns the schema xml for a user field. */
-        this.createUser = function (fieldInfo, props, promise) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "User";
-            // Set the user properties
-            if (fieldInfo.multi) {
-                props["Mult"] = "TRUE";
-            }
-            if (fieldInfo.selectionMode != null) {
-                props["UserSelectionMode"] = fieldInfo.selectionMode;
-            }
-            if (fieldInfo.selectionScope != null) {
-                props["UserSelectionScope"] = fieldInfo.selectionScope;
-            }
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the promise
-            promise.resolve(schemaXml);
-        };
-        // Method to convert the properties to a string
-        this.toString = function (props) {
-            var properties = "";
-            // Parse the properties
-            for (var key in props) {
-                var value = props[key];
-                // Add the property
-                properties += (properties ? " " : "") + key + "=\"" + props[key] + "\"";
-            }
-            // Return the string value
-            return properties;
-        };
-    }
-    return _FieldSchemaXML;
-}());
-exports.FieldSchemaXML = new _FieldSchemaXML();
-//# sourceMappingURL=field.js.map
 
 /***/ }),
 /* 5 */
@@ -555,7 +233,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Web
 /*********************************************************************************************************************************/
@@ -618,9 +296,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-var mapper_1 = __webpack_require__(3);
+var mapper_1 = __webpack_require__(4);
 exports.Types = mapper_1.Types;
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 exports.RequestType = types_1.RequestType;
 exports.SPTypes = types_1.SPTypes;
 var lib_1 = __webpack_require__(2);
@@ -642,7 +320,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.43,
+    __ver: 2.46,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -674,7 +352,7 @@ if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Audit
  */
@@ -689,43 +367,6 @@ exports.audit = {
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * SharePoint Configuration Types
- * The value determines the order to install the object type.
- */
-exports.SPConfigTypes = {
-    Fields: 0,
-    ContentTypes: 1,
-    Lists: 2,
-    SiteUserCustomActions: 3,
-    WebParts: 5,
-    WebUserCustomActions: 4
-};
-/**
- * SharePoint Field Configuration Types
- */
-exports.SPConfigFieldTypes = {
-    Boolean: 0,
-    Calculated: 1,
-    Choice: 2,
-    Date: 3,
-    Lookup: 4,
-    MMS: 5,
-    Note: 6,
-    Number: 7,
-    Text: 8,
-    Url: 9,
-    User: 10
-};
-//# sourceMappingURL=helper.js.map
-
-/***/ }),
-/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -759,7 +400,7 @@ exports.RequestType = {
 //# sourceMappingURL=requestType.js.map
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1303,13 +944,13 @@ exports.ViewType = {
 //# sourceMappingURL=sptypes.js.map
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Event Receiver
  */
@@ -1351,13 +992,13 @@ exports.eventreceivers = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Attachment
  */
@@ -1664,13 +1305,13 @@ exports.limitedwebpartmanager = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Content Type
  */
@@ -2210,13 +1851,13 @@ exports.views = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Navigation
  */
@@ -2240,13 +1881,13 @@ exports.navigationservicerest = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Property Values
  */
@@ -2260,13 +1901,13 @@ exports.propertyvalues = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Search
  */
@@ -2280,13 +1921,13 @@ exports.search = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Role Assignment
  */
@@ -2381,13 +2022,13 @@ exports.roledefinitions = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Site
  */
@@ -2888,13 +2529,13 @@ exports.webs = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 19 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * People Manager
  */
@@ -3063,13 +2704,13 @@ exports.userprofile = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 20 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * Group
  */
@@ -3218,13 +2859,13 @@ exports.users = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 21 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var types_1 = __webpack_require__(1);
 /**
  * User Custom Action
  */
@@ -3268,28 +2909,24 @@ exports.usercustomactions = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 22 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
 Object.defineProperty(exports, "__esModule", { value: true });
-var ComplexTypes = __webpack_require__(23);
+var ComplexTypes = __webpack_require__(22);
 exports.ComplexTypes = ComplexTypes;
-var Results = __webpack_require__(24);
+var Results = __webpack_require__(23);
 exports.Results = Results;
-var SPConfig = __webpack_require__(25);
+var SPConfig = __webpack_require__(24);
 exports.SPConfig = SPConfig;
-var SPTypes = __webpack_require__(26);
+var SPTypes = __webpack_require__(25);
 exports.SPTypes = SPTypes;
-__export(__webpack_require__(27));
 //# sourceMappingURL=types.js.map
 
 /***/ }),
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3298,7 +2935,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=complexTypes.js.map
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3307,7 +2944,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=results.js.map
 
 /***/ }),
-/* 25 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3316,7 +2953,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=spcfg.js.map
 
 /***/ }),
-/* 26 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3325,70 +2962,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=sptypes.js.map
 
 /***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(28));
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 28 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-/**
- * View
- */
-exports.view = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "ViewFields|viewfieldcollection"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Returns the list view as HTML.
-    renderAsHtml: {
-        requestType: types_1.RequestType.Get
-    },
-    // Updates it's properties.
-    update: {
-        metadataType: "SP.View",
-        name: "",
-        requestMethod: "MERGE",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    }
-};
-//# sourceMappingURL=view.js.map
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /**
  * Context Information
  */
@@ -3648,7 +3228,7 @@ var _ContextInfo = /** @class */ (function () {
      * Methods
      */
     // Method to generate a guid
-    _ContextInfo.generateGuid = function () {
+    _ContextInfo.generateGUID = function () {
         // Set the batch id
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -3670,16 +3250,16 @@ exports.ContextInfo = _ContextInfo;
 //# sourceMappingURL=contextInfo.js.map
 
 /***/ }),
-/* 30 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
-var mapper_1 = __webpack_require__(3);
-var types_1 = __webpack_require__(0);
-var _1 = __webpack_require__(1);
+var mapper_1 = __webpack_require__(4);
+var types_1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /**
  * Request Helper
  */
@@ -3945,7 +3525,7 @@ exports.BaseHelper = BaseHelper;
 //# sourceMappingURL=baseHelper.js.map
 
 /***/ }),
-/* 31 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3961,8 +3541,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var _1 = __webpack_require__(1);
+var types_1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /**
  * Base Request
  */
@@ -4239,7 +3819,7 @@ exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map
 
 /***/ }),
-/* 32 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4256,7 +3836,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /**
  * Base Execution
  */
@@ -4415,7 +3995,7 @@ exports.BaseExecution = BaseExecution;
 //# sourceMappingURL=baseExecution.js.map
 
 /***/ }),
-/* 33 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4431,7 +4011,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Base
 // This is the base class for all objects.
@@ -4496,14 +4076,14 @@ exports.Base = Base;
 //# sourceMappingURL=base.js.map
 
 /***/ }),
-/* 34 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /**
  * Batch Requests
  */
@@ -4593,14 +4173,14 @@ exports.Batch = Batch;
 //# sourceMappingURL=batch.js.map
 
 /***/ }),
-/* 35 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var _1 = __webpack_require__(1);
+var types_1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Method Information
 // This class will create the method information for the request.
@@ -4849,7 +4429,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 36 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4975,7 +4555,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 37 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5042,7 +4622,7 @@ exports.Promise = Promise;
 //# sourceMappingURL=promise.js.map
 
 /***/ }),
-/* 38 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5183,14 +4763,14 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 39 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Request
 // This class will execute the xml http request.
@@ -5354,41 +4934,14 @@ exports.XHRRequest = XHRRequest;
 //# sourceMappingURL=xhrRequest.js.map
 
 /***/ }),
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = __webpack_require__(41);
-var dependencies_1 = __webpack_require__(42);
-var field_1 = __webpack_require__(4);
-var jslink_1 = __webpack_require__(43);
-var loader_1 = __webpack_require__(44);
-var spCfg_1 = __webpack_require__(45);
-;
-/**
- * Helper Methods
- */
-exports.Helper = {
-    App: app_1.AppHelper,
-    Dependencies: dependencies_1.Dependencies,
-    FieldSchemaXML: field_1.FieldSchemaXML,
-    JSLink: jslink_1.JSLinkHelper,
-    Loader: loader_1.Loader,
-    SPConfig: spCfg_1.SPConfig
-};
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 41 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 var __1 = __webpack_require__(2);
 /*********************************************************************************************************************************/
 // App Helper Methods
@@ -5682,13 +5235,13 @@ exports.AppHelper = {
 //# sourceMappingURL=app.js.map
 
 /***/ }),
-/* 42 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 var __1 = __webpack_require__(2);
 /**
  * Dependencies
@@ -5760,13 +5313,369 @@ exports.Dependencies = Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 43 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var __1 = __webpack_require__(2);
+var types_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
+var _1 = __webpack_require__(3);
+/**
+ * The field schema xml class
+ */
+var _FieldSchemaXML = /** @class */ (function () {
+    function _FieldSchemaXML() {
+        var _this = this;
+        // Generates the schema xml, based on the field information provided.
+        this.generate = function (fieldInfo) {
+            var promise = new utils_1.Promise();
+            var schemaXml = null;
+            // Set the base properties
+            var props = {};
+            props["ID"] = __1.ContextInfo.generateGUID();
+            props["Name"] = fieldInfo.name;
+            props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
+            props["StaticName"] = fieldInfo.name;
+            props["Title"] = fieldInfo.title;
+            // Set the type
+            switch (fieldInfo.type) {
+                // Boolean
+                case _1.Helper.Types.SPCfgFieldType.Boolean:
+                    _this.createBoolean(fieldInfo, props, promise);
+                    break;
+                // Calculated
+                case _1.Helper.Types.SPCfgFieldType.Calculated:
+                    _this.createCalculated(fieldInfo, props, promise);
+                    break;
+                // Choice
+                case _1.Helper.Types.SPCfgFieldType.Choice:
+                    _this.createChoice(fieldInfo, props, promise);
+                    break;
+                // Date/Time
+                case _1.Helper.Types.SPCfgFieldType.Date:
+                    _this.createDate(fieldInfo, props, promise);
+                    break;
+                // Lookup
+                case _1.Helper.Types.SPCfgFieldType.Lookup:
+                    _this.createLookup(fieldInfo, props, promise);
+                    break;
+                // Note
+                case _1.Helper.Types.SPCfgFieldType.Note:
+                    _this.createNote(fieldInfo, props, promise);
+                    break;
+                // Number
+                case _1.Helper.Types.SPCfgFieldType.Number:
+                    _this.createNumber(fieldInfo, props, promise);
+                    break;
+                // Text
+                case _1.Helper.Types.SPCfgFieldType.Text:
+                    _this.createText(fieldInfo, props, promise);
+                    break;
+                // URL
+                case _1.Helper.Types.SPCfgFieldType.Url:
+                    _this.createUrl(fieldInfo, props, promise);
+                    break;
+                // User
+                case _1.Helper.Types.SPCfgFieldType.User:
+                    _this.createUser(fieldInfo, props, promise);
+                    break;
+                // Field type not supported
+                default:
+                    // Resolve the promise and return
+                    promise.resolve(null);
+                    return;
+            }
+            // Return a promise
+            return promise;
+        };
+        /**
+         * Methods
+         */
+        /** Returns the schema xml for a boolean field. */
+        this.createBoolean = function (fieldInfo, props, promise) {
+            var schemaXml = null;
+            // Set the field type
+            props["Type"] = "Boolean";
+            // Generate the schema
+            schemaXml = "<Field " + _this.toString(props) + ">";
+            if (fieldInfo.defaultValue) {
+                schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
+            }
+            schemaXml += "</Field>";
+            // Return the schema xml
+            return schemaXml;
+        };
+        /** Returns the schema xml for a calculated field. */
+        this.createCalculated = function (fieldInfo, props, promise) {
+            var schemaXml = null;
+            // Set the field type
+            props["Type"] = "Calculated";
+            // Set the result type
+            switch (fieldInfo.resultType) {
+                case types_1.SPTypes.FieldResultType.Boolean:
+                    props["ResultType"] = "Boolean";
+                    break;
+                case types_1.SPTypes.FieldResultType.Currency:
+                    props["ResultType"] = "Currency";
+                    break;
+                case types_1.SPTypes.FieldResultType.DateOnly:
+                    props["Format"] = "DateOnly";
+                    props["ResultType"] = "DateTime";
+                    break;
+                case types_1.SPTypes.FieldResultType.DateTime:
+                    props["Format"] = "DateTime";
+                    props["ResultType"] = "DateTime";
+                    break;
+                case types_1.SPTypes.FieldResultType.Number:
+                    props["ResultType"] = "Number";
+                    break;
+                default:
+                    props["ResultType"] = "Text";
+                    break;
+            }
+            // Generate the schema
+            schemaXml = "<Field " + _this.toString(props) + ">";
+            if (fieldInfo.formula) {
+                schemaXml += "<Formula>" + fieldInfo.formula + "</Formula>";
+            }
+            if (fieldInfo.fieldRefs) {
+                schemaXml += "<FieldRefs>";
+                for (var i = 0; i < fieldInfo.fieldRefs.length; i++) {
+                    schemaXml += "<FieldRef Name=\"" + fieldInfo.fieldRefs[i] + "\" />";
+                }
+                schemaXml += "</FieldRefs>";
+            }
+            schemaXml += "</Field>";
+            // Resolve the promise
+            promise.resolve(schemaXml);
+        };
+        /** Returns the schema xml for a choice field. */
+        this.createChoice = function (fieldInfo, props, promise) {
+            var schemaXml = null;
+            // Set the field type
+            props["Type"] = fieldInfo.multi ? "MultiChoice" : "Choice";
+            // Generate the schema
+            schemaXml = "<Field " + _this.toString(props) + ">";
+            if (fieldInfo.defaultValue) {
+                schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
+            }
+            if (fieldInfo.choices) {
+                schemaXml += "<CHOICES>";
+                for (var i = 0; i < fieldInfo.choices.length; i++) {
+                    schemaXml += "<CHOICE>" + fieldInfo.choices[i] + "</CHOICE>";
+                }
+                schemaXml += "</CHOICES>";
+            }
+            schemaXml += "</Field>";
+            // Resolve the promise
+            promise.resolve(schemaXml);
+        };
+        /** Returns the schema xml for a date field. */
+        this.createDate = function (fieldInfo, props, promise) {
+            var schemaXml = null;
+            // Set the field type
+            props["Type"] = "DateTime";
+            // Set the date/time properties
+            props["Format"] = fieldInfo.format == types_1.SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
+            // Generate the schema
+            schemaXml = "<Field " + _this.toString(props) + " />";
+            // Resolve the promise
+            promise.resolve(schemaXml);
+        };
+        /** Returns the schema xml for a lookup field. */
+        this.createLookup = function (fieldInfo, props, promise) {
+            var schemaXml = null;
+            // Set the field type
+            props["Type"] = "Lookup";
+            // Set the lookup properties
+            if (fieldInfo.fieldRef) {
+                props["FieldRef"] = fieldInfo.fieldRef;
+            }
+            if (fieldInfo.multi) {
+                props["Multi"] = "TRUE";
+            }
+            if (fieldInfo.showField) {
+                props["ShowField"] = fieldInfo.showField;
+            }
+            // See if the lookup name exists
+            if (fieldInfo.listName) {
+                // Get the web containing the list
+                (new __1.Web(fieldInfo.webUrl))
+                    .Lists(fieldInfo.listName)
+                    .query({
+                    Expand: ["ParentWeb"]
+                })
+                    .execute(function (list) {
+                    // Set the list and web ids
+                    props["List"] = list.Id;
+                    if (fieldInfo.webUrl) {
+                        props["WebId"] = list.ParentWeb.Id;
+                    }
+                    // Resolve the promise
+                    promise.resolve("<Field " + _this.toString(props) + " />");
+                });
+            }
+            else {
+                // Set the list id
+                props["List"] = fieldInfo.listId;
+                // Resolve the promise
+                promise.resolve("<Field " + _this.toString(props) + " />");
+            }
+            // Resolve the promise
+            promise.resolve(schemaXml);
+        };
+        /** Returns the schema xml for a managed metadata field. */
+        this.createMMS = function (fieldInfo, props, promise) {
+            var schemaXml = null;
+            // Create the value field
+            var valueProps = {
+                ID: __1.ContextInfo.generateGUID(),
+                Name: fieldInfo.name + "_0",
+                StaticName: fieldInfo.name + "_0",
+                Title: fieldInfo.title + " Value",
+                Type: "Note",
+                Required: fieldInfo.required ? "TRUE" : "FALSE",
+                Hidden: "TRUE"
+            };
+            // Generate the value field schema xml
+            var schemaXmlValue = "<Field " + _this.toString(valueProps) + " />";
+            // Set the mms properties
+            props["Type"] = "TaxonomyFieldType";
+            props["ShowField"] = "Term" + (fieldInfo.locale ? fieldInfo.locale.toString() : "1033");
+            // Generate the mms field schema xml
+            schemaXml += [
+                "<Field " + _this.toString(props) + ">",
+                "<Customization>",
+                "<ArrayOfProperties>",
+                "<Property>",
+                "<Name>TextField</Name>",
+                "<Value xmlns:q6=\"http://www.w3.org/2001/XMLSchema\" p4:type=\"q6:string\" xmlns:p4=\"http://www.w3.org/2001/XMLSchema-instance\">" + valueProps.ID + "</Value>",
+                "</Property>",
+                "</ArrayOfProperties>",
+                "</Customization>",
+                "</Field>"
+            ].join("");
+            // Resolve the promise
+            promise.resolve(schemaXmlValue, schemaXml);
+        };
+        /** Returns the schema xml for a note field. */
+        this.createNote = function (fieldInfo, props, promise) {
+            var schemaXml = null;
+            // Set the field type
+            props["Type"] = "Note";
+            // Set the note properties
+            if (fieldInfo.appendFl) {
+                props["AppendOnly"] = "TRUE";
+            }
+            if (fieldInfo.noteType == types_1.SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == types_1.SPTypes.FieldNoteType.RichText) {
+                props["RichText"] = "TRUE";
+            }
+            if (fieldInfo.noteType == types_1.SPTypes.FieldNoteType.EnhancedRichText) {
+                props["RichTextMode"] = "FullHtml";
+            }
+            if (fieldInfo.numberOfLines > 0) {
+                props["NumLines"] = fieldInfo.numberOfLines;
+            }
+            // Generate the schema
+            schemaXml = "<Field " + _this.toString(props) + " />";
+            // Resolve the promise
+            promise.resolve(schemaXml);
+        };
+        /** Returns the schema xml for a number field. */
+        this.createNumber = function (fieldInfo, props, promise) {
+            var schemaXml = null;
+            // Set the field type
+            props["Type"] = "Number";
+            // Set the number properties
+            if (fieldInfo.decimals >= 0) {
+                props["Decimals"] = fieldInfo.decimals;
+            }
+            if (fieldInfo.max != null) {
+                props["Max"] = fieldInfo.max;
+            }
+            if (fieldInfo.min != null) {
+                props["Min"] = fieldInfo.min;
+            }
+            if (fieldInfo.numberType == types_1.SPTypes.FieldNumberType.Integer) {
+                props["Decimals"] = 0;
+            }
+            if (fieldInfo.numberType == types_1.SPTypes.FieldNumberType.Percentage) {
+                props["ShowPercentage"] = "TRUE";
+            }
+            // Generate the schema
+            schemaXml = "<Field " + _this.toString(props) + " />";
+            // Resolve the promise
+            promise.resolve(schemaXml);
+        };
+        /** Returns the schema xml for a text field. */
+        this.createText = function (fieldInfo, props, promise) {
+            var schemaXml = null;
+            // Set the field type
+            props["Type"] = "Text";
+            // Generate the schema
+            schemaXml = "<Field " + _this.toString(props) + " />";
+            // Resolve the promise
+            promise.resolve(schemaXml);
+        };
+        /** Returns the schema xml for a url field. */
+        this.createUrl = function (fieldInfo, props, promise) {
+            var schemaXml = null;
+            // Set the field type
+            props["Type"] = "URL";
+            // Generate the schema
+            schemaXml = "<Field " + _this.toString(props) + " />";
+            // Resolve the promise
+            promise.resolve(schemaXml);
+        };
+        /** Returns the schema xml for a user field. */
+        this.createUser = function (fieldInfo, props, promise) {
+            var schemaXml = null;
+            // Set the field type
+            props["Type"] = "User";
+            // Set the user properties
+            if (fieldInfo.multi) {
+                props["Mult"] = "TRUE";
+            }
+            if (fieldInfo.selectionMode != null) {
+                props["UserSelectionMode"] = fieldInfo.selectionMode;
+            }
+            if (fieldInfo.selectionScope != null) {
+                props["UserSelectionScope"] = fieldInfo.selectionScope;
+            }
+            // Generate the schema
+            schemaXml = "<Field " + _this.toString(props) + " />";
+            // Resolve the promise
+            promise.resolve(schemaXml);
+        };
+        // Method to convert the properties to a string
+        this.toString = function (props) {
+            var properties = "";
+            // Parse the properties
+            for (var key in props) {
+                var value = props[key];
+                // Add the property
+                properties += (properties ? " " : "") + key + "=\"" + props[key] + "\"";
+            }
+            // Return the string value
+            return properties;
+        };
+    }
+    return _FieldSchemaXML;
+}());
+exports.FieldSchemaXML = new _FieldSchemaXML();
+//# sourceMappingURL=field.js.map
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var types_1 = __webpack_require__(1);
 var __1 = __webpack_require__(2);
 /**
  * JSLink Helper Methods
@@ -6134,7 +6043,7 @@ exports.JSLinkHelper = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 44 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6194,16 +6103,15 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 45 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
-var types_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(0);
 var __1 = __webpack_require__(2);
-var field_1 = __webpack_require__(4);
+var _1 = __webpack_require__(3);
 /**
  * SharePoint Configuration
  */
@@ -6424,8 +6332,10 @@ var SPConfig = /** @class */ (function () {
                     };
                     // See if the field information is defined
                     if (cfgField.FieldInfo) {
+                        // Set the internal field name
+                        cfgField.FieldInfo.name = cfgField.Name;
                         // Compute the schema xml
-                        field_1.FieldSchemaXML.generate(cfgField.FieldInfo).then(function (schemaXml) {
+                        _1.Helper.FieldSchemaXML.generate(cfgField.FieldInfo).then(function (schemaXml) {
                             // Add the field
                             fields.createFieldAsXml(schemaXml).execute(onFieldCreated_1, true);
                         });
@@ -6454,7 +6364,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.Helper.SPConfigTypes.Lists) {
+                if (_this._cfgType != _1.Helper.Types.SPCfgType.Lists) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -6539,7 +6449,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.Helper.SPConfigTypes.SiteUserCustomActions || _this._cfgType != types_1.Helper.SPConfigTypes.WebUserCustomActions) {
+                if (_this._cfgType != _1.Helper.Types.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.SPCfgType.WebUserCustomActions) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -6651,7 +6561,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.Helper.SPConfigTypes.WebParts) {
+                if (_this._cfgType != _1.Helper.Types.SPCfgType.WebParts) {
                     return;
                 }
             }
@@ -6869,7 +6779,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.Helper.SPConfigTypes.Lists) {
+                if (_this._cfgType != _1.Helper.Types.SPCfgType.Lists) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -6918,7 +6828,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.Helper.SPConfigTypes.SiteUserCustomActions || _this._cfgType != types_1.Helper.SPConfigTypes.WebUserCustomActions) {
+                if (_this._cfgType != _1.Helper.Types.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.SPCfgType.WebUserCustomActions) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -6969,7 +6879,7 @@ var SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != types_1.Helper.SPConfigTypes.WebParts) {
+                if (_this._cfgType != _1.Helper.Types.SPCfgType.WebParts) {
                     // Resolve the promise
                     promise.resolve();
                     return promise;
@@ -7225,11 +7135,11 @@ var SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    SPConfig.prototype.installList = function (listName, callback) { this.installByType(types_1.Helper.SPConfigTypes.Lists, callback, listName); };
+    SPConfig.prototype.installList = function (listName, callback) { this.installByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
     // Method to install a specific site custom action
-    SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(types_1.Helper.SPConfigTypes.SiteUserCustomActions, callback, caName); };
+    SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(types_1.Helper.SPConfigTypes.WebUserCustomActions, callback, caName); };
+    SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
     // Method to uninstall the configuration
     SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
         var _this = this;
@@ -7254,11 +7164,11 @@ var SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(types_1.Helper.SPConfigTypes.Lists, callback, listName); };
+    SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
     // Method to install a specific site custom action
-    SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(types_1.Helper.SPConfigTypes.SiteUserCustomActions, callback, caName); };
+    SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(types_1.Helper.SPConfigTypes.WebUserCustomActions, callback, caName); };
+    SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
     return SPConfig;
 }());
 exports.SPConfig = SPConfig;
@@ -7266,7 +7176,51 @@ exports.SPConfig = SPConfig;
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 46 */
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * SharePoint Configuration Field Types
+ */
+var SPCfgFieldType = {
+    Boolean: 0,
+    Calculated: 1,
+    Choice: 2,
+    Date: 3,
+    Lookup: 4,
+    MMS: 5,
+    Note: 6,
+    Number: 7,
+    Text: 8,
+    Url: 9,
+    User: 10
+};
+/**
+ * SharePoint Configuration Types
+ * The value determines the order to install the object type.
+ */
+var SPCfgType = {
+    Fields: 0,
+    ContentTypes: 1,
+    Lists: 2,
+    SiteUserCustomActions: 3,
+    WebParts: 5,
+    WebUserCustomActions: 4
+};
+/**
+ * Helper Types
+ */
+exports.HelperTypes = {
+    SPCfgFieldType: SPCfgFieldType,
+    SPCfgType: SPCfgType
+};
+//# sourceMappingURL=types.js.map
+
+/***/ }),
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7387,7 +7341,7 @@ exports.JSLink = _JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 47 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7403,7 +7357,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 var web_1 = __webpack_require__(5);
 /**
  * List
@@ -7451,7 +7405,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 48 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7467,7 +7421,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /**
  * Navigation
  */
@@ -7498,7 +7452,7 @@ exports.Navigation = _Navigation;
 //# sourceMappingURL=navigation.js.map
 
 /***/ }),
-/* 49 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7514,7 +7468,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // People Manager
 /*********************************************************************************************************************************/
@@ -7540,7 +7494,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 50 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7556,7 +7510,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // People Picker
 /*********************************************************************************************************************************/
@@ -7583,7 +7537,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 51 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7599,7 +7553,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Profile Loader
 /*********************************************************************************************************************************/
@@ -7626,7 +7580,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 52 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7642,8 +7596,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var utils_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Search
 /*********************************************************************************************************************************/
@@ -7706,7 +7660,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 53 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7722,7 +7676,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 var _1 = __webpack_require__(2);
 /*********************************************************************************************************************************/
 // Site
@@ -7763,7 +7717,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 54 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7779,8 +7733,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var utils_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Social Feed
 /*********************************************************************************************************************************/
@@ -7833,7 +7787,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 55 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7849,7 +7803,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // User Profile
 /*********************************************************************************************************************************/
@@ -7876,7 +7830,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 56 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7892,8 +7846,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var utils_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /**
  * Utility
  */

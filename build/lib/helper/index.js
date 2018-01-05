@@ -6,6 +6,7 @@ var field_1 = require("./field");
 var jslink_1 = require("./jslink");
 var loader_1 = require("./loader");
 var spCfg_1 = require("./spCfg");
+var types_1 = require("./types");
 ;
 /**
  * Helper Methods
@@ -16,6 +17,7 @@ exports.Helper = {
     FieldSchemaXML: field_1.FieldSchemaXML,
     JSLink: jslink_1.JSLinkHelper,
     Loader: loader_1.Loader,
-    SPConfig: spCfg_1.SPConfig
+    SPConfig: spCfg_1.SPConfig,
+    Types: types_1.HelperTypes
 };
 //# sourceMappingURL=index.js.map

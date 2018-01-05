@@ -6,7 +6,7 @@ export interface ISPConfigFieldInfo {
     defaultValue?: string;
 
     /** The internal name of the field */
-    name: string;
+    name?: string;
 
     /** Flag to determine if the field is required */
     required?: boolean;
@@ -15,7 +15,7 @@ export interface ISPConfigFieldInfo {
     title: string;
 
     /** The field type */
-    type?: number;
+    type: number;
 }
 
 /**
@@ -89,6 +89,9 @@ export interface ISPConfigFieldInfoMMS extends ISPConfigFieldInfo {
  * Note
  */
 export interface ISPConfigFieldInfoNote extends ISPConfigFieldInfo {
+    /** Flag to append the comments. (This requires versioning to be enabled) */
+    appendFl?: boolean;
+    
     /** The note field type */
     noteType?: number;
 

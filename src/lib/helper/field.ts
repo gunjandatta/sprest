@@ -1,7 +1,8 @@
 import { ContextInfo, Web } from "..";
 import { Types } from "../../mapper";
-import { Helper, SPTypes } from "../../types";
+import { SPTypes } from "../../types";
 import { Promise } from "../../utils";
+import { Helper } from ".";
 
 /**
  * Field Schema XML
@@ -31,43 +32,43 @@ class _FieldSchemaXML {
         // Set the type
         switch (fieldInfo.type) {
             // Boolean
-            case Helper.SPConfigFieldTypes.Boolean:
+            case Helper.Types.SPCfgFieldType.Boolean:
                 this.createBoolean(fieldInfo, props, promise);
                 break;
             // Calculated
-            case Helper.SPConfigFieldTypes.Calculated:
+            case Helper.Types.SPCfgFieldType.Calculated:
                 this.createCalculated(fieldInfo, props, promise);
                 break;
             // Choice
-            case Helper.SPConfigFieldTypes.Choice:
+            case Helper.Types.SPCfgFieldType.Choice:
                 this.createChoice(fieldInfo, props, promise);
                 break;
             // Date/Time
-            case Helper.SPConfigFieldTypes.Date:
+            case Helper.Types.SPCfgFieldType.Date:
                 this.createDate(fieldInfo, props, promise);
                 break;
             // Lookup
-            case Helper.SPConfigFieldTypes.Lookup:
+            case Helper.Types.SPCfgFieldType.Lookup:
                 this.createLookup(fieldInfo, props, promise);
                 break;
             // Note
-            case Helper.SPConfigFieldTypes.Note:
+            case Helper.Types.SPCfgFieldType.Note:
                 this.createNote(fieldInfo, props, promise);
                 break;
             // Number
-            case Helper.SPConfigFieldTypes.Number:
+            case Helper.Types.SPCfgFieldType.Number:
                 this.createNumber(fieldInfo, props, promise);
                 break;
             // Text
-            case Helper.SPConfigFieldTypes.Text:
+            case Helper.Types.SPCfgFieldType.Text:
                 this.createText(fieldInfo, props, promise);
                 break;
             // URL
-            case Helper.SPConfigFieldTypes.Url:
+            case Helper.Types.SPCfgFieldType.Url:
                 this.createUrl(fieldInfo, props, promise);
                 break;
             // User
-            case Helper.SPConfigFieldTypes.User:
+            case Helper.Types.SPCfgFieldType.User:
                 this.createUser(fieldInfo, props, promise);
                 break;
             // Field type not supported
@@ -275,9 +276,10 @@ class _FieldSchemaXML {
         props["Type"] = "Note";
 
         // Set the note properties
+        if (fieldInfo.appendFl) { props["AppendOnly"] = "TRUE"; }
         if (fieldInfo.noteType == SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == SPTypes.FieldNoteType.RichText) { props["RichText"] = "TRUE"; }
         if (fieldInfo.noteType == SPTypes.FieldNoteType.EnhancedRichText) { props["RichTextMode"] = "FullHtml"; }
-        if (fieldInfo.numberOfLines > 0) { fieldInfo["NumLines"] = fieldInfo.numberOfLines; }
+        if (fieldInfo.numberOfLines > 0) { props["NumLines"] = fieldInfo.numberOfLines; }
 
         // Generate the schema
         schemaXml = "<Field " + this.toString(props) + " />";
@@ -297,6 +299,7 @@ class _FieldSchemaXML {
         if (fieldInfo.decimals >= 0) { props["Decimals"] = fieldInfo.decimals; }
         if (fieldInfo.max != null) { props["Max"] = fieldInfo.max; }
         if (fieldInfo.min != null) { props["Min"] = fieldInfo.min; }
+        if (fieldInfo.numberType == SPTypes.FieldNumberType.Integer) { props["Decimals"] = 0; }
         if (fieldInfo.numberType == SPTypes.FieldNumberType.Percentage) { props["ShowPercentage"] = "TRUE"; }
 
         // Generate the schema
