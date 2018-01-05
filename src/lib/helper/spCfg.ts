@@ -593,6 +593,9 @@ export class SPConfig {
 
                 // See if the field information is defined
                 if (cfgField.FieldInfo) {
+                    // Set the internal field name
+                    cfgField.FieldInfo.name = cfgField.Name;
+
                     // Compute the schema xml
                     Helper.FieldSchemaXML.generate(cfgField.FieldInfo).then(schemaXml => {
                         // Add the field

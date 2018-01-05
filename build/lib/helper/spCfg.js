@@ -223,6 +223,8 @@ var SPConfig = /** @class */ (function () {
                     };
                     // See if the field information is defined
                     if (cfgField.FieldInfo) {
+                        // Set the internal field name
+                        cfgField.FieldInfo.name = cfgField.Name;
                         // Compute the schema xml
                         _1.Helper.FieldSchemaXML.generate(cfgField.FieldInfo).then(function (schemaXml) {
                             // Add the field

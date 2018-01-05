@@ -4039,13 +4039,13 @@ declare module 'gd-sprest/mapper/spcfg' {
             /** The default value of the field */
             defaultValue?: string;
             /** The internal name of the field */
-            name: string;
+            name?: string;
             /** Flag to determine if the field is required */
             required?: boolean;
             /** The field title */
             title: string;
             /** The field type */
-            type?: number;
+            type: number;
     }
     /**
         * Calculated Field Information

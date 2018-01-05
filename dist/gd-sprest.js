@@ -320,7 +320,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.45,
+    __ver: 2.46,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -3228,7 +3228,7 @@ var _ContextInfo = /** @class */ (function () {
      * Methods
      */
     // Method to generate a guid
-    _ContextInfo.generateGuid = function () {
+    _ContextInfo.generateGUID = function () {
         // Set the batch id
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -6332,6 +6332,8 @@ var SPConfig = /** @class */ (function () {
                     };
                     // See if the field information is defined
                     if (cfgField.FieldInfo) {
+                        // Set the internal field name
+                        cfgField.FieldInfo.name = cfgField.Name;
                         // Compute the schema xml
                         _1.Helper.FieldSchemaXML.generate(cfgField.FieldInfo).then(function (schemaXml) {
                             // Add the field

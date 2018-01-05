@@ -6,7 +6,7 @@ export interface ISPConfigFieldInfo {
     defaultValue?: string;
 
     /** The internal name of the field */
-    name: string;
+    name?: string;
 
     /** Flag to determine if the field is required */
     required?: boolean;
@@ -15,7 +15,7 @@ export interface ISPConfigFieldInfo {
     title: string;
 
     /** The field type */
-    type?: number;
+    type: number;
 }
 
 /**
