@@ -597,9 +597,14 @@ export class SPConfig {
                     cfgField.FieldInfo.name = cfgField.Name;
 
                     // Compute the schema xml
-                    Helper.FieldSchemaXML.generate(cfgField.FieldInfo).then(schemaXml => {
-                        // Add the field
-                        fields.createFieldAsXml(schemaXml).execute(onFieldCreated, true);
+                    Helper.FieldSchemaXML.generate(cfgField.FieldInfo).then(response => {
+                        let schemas: Array<string> = typeof (response) === "string" ? [response] : response as any;
+
+                        // Parse the fields to add
+                        for (let i = 0; i < schemas.length; i++) {
+                            // Add the field
+                            fields.createFieldAsXml(schemas[i]).execute(onFieldCreated, true);
+                        }
                     });
                 } else {
                     // Add the field

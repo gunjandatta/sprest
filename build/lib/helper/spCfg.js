@@ -226,9 +226,13 @@ var SPConfig = /** @class */ (function () {
                         // Set the internal field name
                         cfgField.FieldInfo.name = cfgField.Name;
                         // Compute the schema xml
-                        _1.Helper.FieldSchemaXML.generate(cfgField.FieldInfo).then(function (schemaXml) {
-                            // Add the field
-                            fields.createFieldAsXml(schemaXml).execute(onFieldCreated_1, true);
+                        _1.Helper.FieldSchemaXML.generate(cfgField.FieldInfo).then(function (response) {
+                            var schemas = typeof (response) === "string" ? [response] : response;
+                            // Parse the fields to add
+                            for (var i_1 = 0; i_1 < schemas.length; i_1++) {
+                                // Add the field
+                                fields.createFieldAsXml(schemas[i_1]).execute(onFieldCreated_1, true);
+                            }
                         });
                     }
                     else {
@@ -902,9 +906,9 @@ var SPConfig = /** @class */ (function () {
                     // Clear the view fields
                     view.ViewFields().removeAllViewFields().execute(true);
                     // Parse the view fields
-                    for (var i_1 = 0; i_1 < cfgView.ViewFields.length; i_1++) {
+                    for (var i_2 = 0; i_2 < cfgView.ViewFields.length; i_2++) {
                         // Add the view field
-                        view.ViewFields().addViewField(cfgView.ViewFields[i_1]).execute(true);
+                        view.ViewFields().addViewField(cfgView.ViewFields[i_2]).execute(true);
                     }
                 }
                 // See if we are updating the view properties

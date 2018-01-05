@@ -27,7 +27,7 @@ class _FieldSchemaXML {
         props["Name"] = fieldInfo.name;
         props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
         props["StaticName"] = fieldInfo.name;
-        props["Title"] = fieldInfo.title;
+        props["DisplayName"] = fieldInfo.title;
 
         // Set the type
         switch (fieldInfo.type) {
@@ -50,6 +50,10 @@ class _FieldSchemaXML {
             // Lookup
             case Helper.Types.SPCfgFieldType.Lookup:
                 this.createLookup(fieldInfo, props, promise);
+                break;
+            // MMS
+            case Helper.Types.SPCfgFieldType.MMS:
+                this.createMMS(fieldInfo, props, promise);
                 break;
             // Note
             case Helper.Types.SPCfgFieldType.Note:
@@ -265,7 +269,7 @@ class _FieldSchemaXML {
         ].join("");
 
         // Resolve the promise
-        promise.resolve(schemaXmlValue, schemaXml);
+        promise.resolve([schemaXmlValue, schemaXml]);
     }
 
     /** Returns the schema xml for a note field. */
