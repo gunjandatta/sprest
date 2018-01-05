@@ -320,7 +320,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.51,
+    __ver: 2.52,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -5540,7 +5540,6 @@ var _FieldSchemaXML = /** @class */ (function () {
                 StaticName: fieldInfo.name + "_0",
                 DisplayName: fieldInfo.title + " Value",
                 Type: "Note",
-                Required: fieldInfo.required ? "TRUE" : "FALSE",
                 Hidden: "TRUE"
             };
             // Generate the value field schema xml

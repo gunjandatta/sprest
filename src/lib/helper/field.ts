@@ -241,7 +241,6 @@ class _FieldSchemaXML {
             StaticName: fieldInfo.name + "_0",
             DisplayName: fieldInfo.title + " Value",
             Type: "Note",
-            Required: fieldInfo.required ? "TRUE" : "FALSE",
             Hidden: "TRUE"
         };
 
