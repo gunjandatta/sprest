@@ -233,12 +233,12 @@ var _FieldSchemaXML = /** @class */ (function () {
             var schemaXml = [
                 "<Field " + _this.toString(props) + ">",
                 "<Customization>",
-                "<ArrayOfProperties>",
+                "<ArrayOfProperty>",
                 "<Property>",
                 "<Name>TextField</Name>",
                 "<Value xmlns:q6=\"http://www.w3.org/2001/XMLSchema\" p4:type=\"q6:string\" xmlns:p4=\"http://www.w3.org/2001/XMLSchema-instance\">" + valueProps.ID + "</Value>",
                 "</Property>",
-                "</ArrayOfProperties>",
+                "</ArrayOfProperty>",
                 "</Customization>",
                 "</Field>"
             ].join("");

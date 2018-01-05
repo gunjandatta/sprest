@@ -320,7 +320,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.50,
+    __ver: 2.51,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -5552,12 +5552,12 @@ var _FieldSchemaXML = /** @class */ (function () {
             var schemaXml = [
                 "<Field " + _this.toString(props) + ">",
                 "<Customization>",
-                "<ArrayOfProperties>",
+                "<ArrayOfProperty>",
                 "<Property>",
                 "<Name>TextField</Name>",
                 "<Value xmlns:q6=\"http://www.w3.org/2001/XMLSchema\" p4:type=\"q6:string\" xmlns:p4=\"http://www.w3.org/2001/XMLSchema-instance\">" + valueProps.ID + "</Value>",
                 "</Property>",
-                "</ArrayOfProperties>",
+                "</ArrayOfProperty>",
                 "</Customization>",
                 "</Field>"
             ].join("");
