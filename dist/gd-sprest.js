@@ -320,7 +320,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.48,
+    __ver: 2.49,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -5533,13 +5533,12 @@ var _FieldSchemaXML = /** @class */ (function () {
         };
         /** Returns the schema xml for a managed metadata field. */
         this.createMMS = function (fieldInfo, props, promise) {
-            var schemaXml = null;
             // Create the value field
             var valueProps = {
                 ID: __1.ContextInfo.generateGUID(),
                 Name: fieldInfo.name + "_0",
                 StaticName: fieldInfo.name + "_0",
-                Title: fieldInfo.title + " Value",
+                DisplayName: fieldInfo.title + " Value",
                 Type: "Note",
                 Required: fieldInfo.required ? "TRUE" : "FALSE",
                 Hidden: "TRUE"
@@ -5550,7 +5549,7 @@ var _FieldSchemaXML = /** @class */ (function () {
             props["Type"] = "TaxonomyFieldType";
             props["ShowField"] = "Term" + (fieldInfo.locale ? fieldInfo.locale.toString() : "1033");
             // Generate the mms field schema xml
-            schemaXml += [
+            var schemaXml = [
                 "<Field " + _this.toString(props) + ">",
                 "<Customization>",
                 "<ArrayOfProperties>",

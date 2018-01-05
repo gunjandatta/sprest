@@ -234,14 +234,12 @@ class _FieldSchemaXML {
 
     /** Returns the schema xml for a managed metadata field. */
     private createMMS = (fieldInfo: Types.SPConfig.ISPConfigFieldInfoMMS, props: object, promise: Promise) => {
-        let schemaXml: string = null;
-
         // Create the value field
         let valueProps = {
             ID: ContextInfo.generateGUID(),
             Name: fieldInfo.name + "_0",
             StaticName: fieldInfo.name + "_0",
-            Title: fieldInfo.title + " Value",
+            DisplayName: fieldInfo.title + " Value",
             Type: "Note",
             Required: fieldInfo.required ? "TRUE" : "FALSE",
             Hidden: "TRUE"
@@ -255,7 +253,7 @@ class _FieldSchemaXML {
         props["ShowField"] = "Term" + (fieldInfo.locale ? fieldInfo.locale.toString() : "1033");
 
         // Generate the mms field schema xml
-        schemaXml += [
+        let schemaXml = [
             "<Field " + this.toString(props) + ">",
             "<Customization>",
             "<ArrayOfProperties>",
