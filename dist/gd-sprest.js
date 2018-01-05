@@ -320,7 +320,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.49,
+    __ver: 2.50,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -5335,7 +5335,7 @@ var _FieldSchemaXML = /** @class */ (function () {
             var schemaXml = null;
             // Set the base properties
             var props = {};
-            props["ID"] = __1.ContextInfo.generateGUID();
+            props["ID"] = "{" + __1.ContextInfo.generateGUID() + "}";
             props["Name"] = fieldInfo.name;
             props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
             props["StaticName"] = fieldInfo.name;
@@ -5535,7 +5535,7 @@ var _FieldSchemaXML = /** @class */ (function () {
         this.createMMS = function (fieldInfo, props, promise) {
             // Create the value field
             var valueProps = {
-                ID: __1.ContextInfo.generateGUID(),
+                ID: "{" + __1.ContextInfo.generateGUID() + "}",
                 Name: fieldInfo.name + "_0",
                 StaticName: fieldInfo.name + "_0",
                 DisplayName: fieldInfo.title + " Value",

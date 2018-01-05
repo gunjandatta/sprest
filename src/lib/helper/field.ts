@@ -23,7 +23,7 @@ class _FieldSchemaXML {
 
         // Set the base properties
         let props = {};
-        props["ID"] = ContextInfo.generateGUID();
+        props["ID"] = "{" + ContextInfo.generateGUID() + "}";
         props["Name"] = fieldInfo.name;
         props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
         props["StaticName"] = fieldInfo.name;
@@ -236,7 +236,7 @@ class _FieldSchemaXML {
     private createMMS = (fieldInfo: Types.SPConfig.ISPConfigFieldInfoMMS, props: object, promise: Promise) => {
         // Create the value field
         let valueProps = {
-            ID: ContextInfo.generateGUID(),
+            ID: "{" + ContextInfo.generateGUID() + "}",
             Name: fieldInfo.name + "_0",
             StaticName: fieldInfo.name + "_0",
             DisplayName: fieldInfo.title + " Value",
