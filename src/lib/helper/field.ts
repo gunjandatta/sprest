@@ -51,6 +51,10 @@ class _FieldSchemaXML {
             case Helper.Types.SPCfgFieldType.Lookup:
                 this.createLookup(fieldInfo, props, promise);
                 break;
+            // MMS
+            case Helper.Types.SPCfgFieldType.MMS:
+                this.createMMS(fieldInfo, props, promise);
+                break;
             // Note
             case Helper.Types.SPCfgFieldType.Note:
                 this.createNote(fieldInfo, props, promise);
@@ -265,7 +269,7 @@ class _FieldSchemaXML {
         ].join("");
 
         // Resolve the promise
-        promise.resolve(schemaXmlValue, schemaXml);
+        promise.resolve([schemaXmlValue, schemaXml]);
     }
 
     /** Returns the schema xml for a note field. */
