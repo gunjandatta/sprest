@@ -194,7 +194,7 @@ class _FieldSchemaXML {
         let schemaXml: string = null;
 
         // Set the field type
-        props["Type"] = "Lookup";
+        props["Type"] = fieldInfo.multi ? "LookupMulti" : "Lookup";
 
         // Set the lookup properties
         if (fieldInfo.fieldRef) { props["FieldRef"] = fieldInfo.fieldRef; }

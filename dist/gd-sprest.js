@@ -320,7 +320,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.53,
+    __ver: 2.54,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -5493,7 +5493,7 @@ var _FieldSchemaXML = /** @class */ (function () {
         this.createLookup = function (fieldInfo, props, promise) {
             var schemaXml = null;
             // Set the field type
-            props["Type"] = "Lookup";
+            props["Type"] = fieldInfo.multi ? "LookupMulti" : "Lookup";
             // Set the lookup properties
             if (fieldInfo.fieldRef) {
                 props["FieldRef"] = fieldInfo.fieldRef;
