@@ -50,6 +50,15 @@ var Base = /** @class */ (function (_super) {
     };
     // Method to get the request information
     Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
+    // Method to stringify the object
+    Base.prototype.stringify = function () {
+        // Stringify the object
+        return JSON.stringify({
+            response: this.response,
+            status: this.status,
+            targetInfo: this.targetInfo
+        });
+    };
     // Method to execute the request asynchronously
     Base.prototype.then = function (resolve, reject) {
         var _this = this;

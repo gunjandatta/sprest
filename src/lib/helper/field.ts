@@ -198,7 +198,7 @@ class _FieldSchemaXML {
 
         // Set the lookup properties
         if (fieldInfo.fieldRef) { props["FieldRef"] = fieldInfo.fieldRef; }
-        if (fieldInfo.multi) { props["Multi"] = "TRUE"; }
+        if (fieldInfo.multi) { props["Mult"] = "TRUE"; }
         if (fieldInfo.showField) { props["ShowField"] = fieldInfo.showField; }
 
         // See if the lookup name exists

@@ -110,7 +110,6 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(26));
 __export(__webpack_require__(3));
-__export(__webpack_require__(44));
 __export(__webpack_require__(45));
 __export(__webpack_require__(46));
 __export(__webpack_require__(47));
@@ -121,6 +120,7 @@ __export(__webpack_require__(51));
 __export(__webpack_require__(52));
 __export(__webpack_require__(53));
 __export(__webpack_require__(54));
+__export(__webpack_require__(55));
 __export(__webpack_require__(5));
 //# sourceMappingURL=index.js.map
 
@@ -136,8 +136,9 @@ var dependencies_1 = __webpack_require__(38);
 var field_1 = __webpack_require__(39);
 var jslink_1 = __webpack_require__(40);
 var loader_1 = __webpack_require__(41);
-var spCfg_1 = __webpack_require__(42);
-var types_1 = __webpack_require__(43);
+var parse_1 = __webpack_require__(42);
+var spCfg_1 = __webpack_require__(43);
+var types_1 = __webpack_require__(44);
 ;
 /**
  * Helper Methods
@@ -148,6 +149,7 @@ exports.Helper = {
     FieldSchemaXML: field_1.FieldSchemaXML,
     JSLink: jslink_1.JSLinkHelper,
     Loader: loader_1.Loader,
+    parse: parse_1.parse,
     SPConfig: spCfg_1.SPConfig,
     Types: types_1.HelperTypes
 };
@@ -320,7 +322,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.54,
+    __ver: 2.56,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -4051,6 +4053,15 @@ var Base = /** @class */ (function (_super) {
     };
     // Method to get the request information
     Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
+    // Method to stringify the object
+    Base.prototype.stringify = function () {
+        // Stringify the object
+        return JSON.stringify({
+            response: this.response,
+            status: this.status,
+            targetInfo: this.targetInfo
+        });
+    };
     // Method to execute the request asynchronously
     Base.prototype.then = function (resolve, reject) {
         var _this = this;
@@ -5499,7 +5510,7 @@ var _FieldSchemaXML = /** @class */ (function () {
                 props["FieldRef"] = fieldInfo.fieldRef;
             }
             if (fieldInfo.multi) {
-                props["Multi"] = "TRUE";
+                props["Mult"] = "TRUE";
             }
             if (fieldInfo.showField) {
                 props["ShowField"] = fieldInfo.showField;
@@ -6104,6 +6115,36 @@ exports.Loader = {
 
 /***/ }),
 /* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/**
+ * Convert a JSON string to a base object
+ */
+exports.parse = function (jsonString) {
+    // Try to parse the string
+    try {
+        var obj = JSON.parse(jsonString);
+        // Create a base object
+        var base = new utils_1.Base(obj.props);
+        // Set the properties
+        base.response = obj.response;
+        base.status = obj.status;
+        // Update the object
+        base.updateDataObject(false);
+        // Return the base object
+        return base;
+    }
+    catch (_a) { }
+    return null;
+};
+//# sourceMappingURL=parse.js.map
+
+/***/ }),
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7180,7 +7221,7 @@ exports.SPConfig = SPConfig;
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7224,7 +7265,7 @@ exports.HelperTypes = {
 //# sourceMappingURL=types.js.map
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7345,7 +7386,7 @@ exports.JSLink = _JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7409,7 +7450,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7456,7 +7497,7 @@ exports.Navigation = _Navigation;
 //# sourceMappingURL=navigation.js.map
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7498,7 +7539,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7541,7 +7582,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7584,7 +7625,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7664,7 +7705,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7721,7 +7762,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7791,7 +7832,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7834,7 +7875,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
