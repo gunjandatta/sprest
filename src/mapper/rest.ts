@@ -1,6 +1,7 @@
 import { IContextInformation, IHelper, IJSLink } from "../lib";
 import { ITargetInfo } from "../utils";
 import { Types } from ".";
+import * as SPTypes from "./sptypes";
 
 /**
  * SharePoint REST Library
@@ -69,6 +70,11 @@ export interface IREST {
      * @param settings - The search settings.
      */
     Search: (url?: string, settings?: ITargetInfo) => Types.ISearch;
+
+    /**
+     * The SharePoint enumerator types.
+     */
+    SPTypes;
 
     /**
      * Use this api to interact with a SharePoint site collection.

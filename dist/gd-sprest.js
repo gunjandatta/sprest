@@ -322,7 +322,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.56,
+    __ver: 2.57,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -334,6 +334,7 @@ exports.$REST = {
     ProfileLoader: function (targetInfo) { return new lib_1.ProfileLoader(targetInfo); },
     Search: function (url, targetInfo) { return new lib_1.Search(url, targetInfo); },
     Site: function (url, targetInfo) { return new lib_1.Site(url, targetInfo); },
+    SPTypes: types_1.SPTypes,
     SocialFeed: lib_1.SocialFeed,
     UserProfile: function (targetInfo) { return new lib_1.UserProfile(targetInfo); },
     Utility: function (url, targetInfo) { return new lib_1.Utility(url, targetInfo); },
@@ -5343,65 +5344,71 @@ var _FieldSchemaXML = /** @class */ (function () {
         // Generates the schema xml, based on the field information provided.
         this.generate = function (fieldInfo) {
             var promise = new utils_1.Promise();
-            var schemaXml = null;
-            // Set the base properties
-            var props = {};
-            props["ID"] = "{" + __1.ContextInfo.generateGUID() + "}";
-            props["Name"] = fieldInfo.name;
-            props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
-            props["StaticName"] = fieldInfo.name;
-            props["DisplayName"] = fieldInfo.title;
-            // Set the type
-            switch (fieldInfo.type) {
-                // Boolean
-                case _1.Helper.Types.SPCfgFieldType.Boolean:
-                    _this.createBoolean(fieldInfo, props, promise);
-                    break;
-                // Calculated
-                case _1.Helper.Types.SPCfgFieldType.Calculated:
-                    _this.createCalculated(fieldInfo, props, promise);
-                    break;
-                // Choice
-                case _1.Helper.Types.SPCfgFieldType.Choice:
-                    _this.createChoice(fieldInfo, props, promise);
-                    break;
-                // Date/Time
-                case _1.Helper.Types.SPCfgFieldType.Date:
-                    _this.createDate(fieldInfo, props, promise);
-                    break;
-                // Lookup
-                case _1.Helper.Types.SPCfgFieldType.Lookup:
-                    _this.createLookup(fieldInfo, props, promise);
-                    break;
-                // MMS
-                case _1.Helper.Types.SPCfgFieldType.MMS:
-                    _this.createMMS(fieldInfo, props, promise);
-                    break;
-                // Note
-                case _1.Helper.Types.SPCfgFieldType.Note:
-                    _this.createNote(fieldInfo, props, promise);
-                    break;
-                // Number
-                case _1.Helper.Types.SPCfgFieldType.Number:
-                    _this.createNumber(fieldInfo, props, promise);
-                    break;
-                // Text
-                case _1.Helper.Types.SPCfgFieldType.Text:
-                    _this.createText(fieldInfo, props, promise);
-                    break;
-                // URL
-                case _1.Helper.Types.SPCfgFieldType.Url:
-                    _this.createUrl(fieldInfo, props, promise);
-                    break;
-                // User
-                case _1.Helper.Types.SPCfgFieldType.User:
-                    _this.createUser(fieldInfo, props, promise);
-                    break;
-                // Field type not supported
-                default:
-                    // Resolve the promise and return
-                    promise.resolve(null);
-                    return;
+            // See if the schema xml has been defined
+            if (fieldInfo.schemaXml) {
+                // Resolve the promise
+                promise.resolve(fieldInfo.schemaXml);
+            }
+            else {
+                // Set the base properties
+                var props = {};
+                props["ID"] = "{" + __1.ContextInfo.generateGUID() + "}";
+                props["Name"] = fieldInfo.name;
+                props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
+                props["StaticName"] = fieldInfo.name;
+                props["DisplayName"] = fieldInfo.title;
+                // Set the type
+                switch (fieldInfo.type) {
+                    // Boolean
+                    case _1.Helper.Types.SPCfgFieldType.Boolean:
+                        _this.createBoolean(fieldInfo, props, promise);
+                        break;
+                    // Calculated
+                    case _1.Helper.Types.SPCfgFieldType.Calculated:
+                        _this.createCalculated(fieldInfo, props, promise);
+                        break;
+                    // Choice
+                    case _1.Helper.Types.SPCfgFieldType.Choice:
+                        _this.createChoice(fieldInfo, props, promise);
+                        break;
+                    // Date/Time
+                    case _1.Helper.Types.SPCfgFieldType.Date:
+                        _this.createDate(fieldInfo, props, promise);
+                        break;
+                    // Lookup
+                    case _1.Helper.Types.SPCfgFieldType.Lookup:
+                        _this.createLookup(fieldInfo, props, promise);
+                        break;
+                    // MMS
+                    case _1.Helper.Types.SPCfgFieldType.MMS:
+                        _this.createMMS(fieldInfo, props, promise);
+                        break;
+                    // Note
+                    case _1.Helper.Types.SPCfgFieldType.Note:
+                        _this.createNote(fieldInfo, props, promise);
+                        break;
+                    // Number
+                    case _1.Helper.Types.SPCfgFieldType.Number:
+                        _this.createNumber(fieldInfo, props, promise);
+                        break;
+                    // Text
+                    case _1.Helper.Types.SPCfgFieldType.Text:
+                        _this.createText(fieldInfo, props, promise);
+                        break;
+                    // URL
+                    case _1.Helper.Types.SPCfgFieldType.Url:
+                        _this.createUrl(fieldInfo, props, promise);
+                        break;
+                    // User
+                    case _1.Helper.Types.SPCfgFieldType.User:
+                        _this.createUser(fieldInfo, props, promise);
+                        break;
+                    // Field type not supported
+                    default:
+                        // Resolve the promise
+                        promise.resolve(null);
+                        break;
+                }
             }
             // Return a promise
             return promise;
@@ -6346,49 +6353,40 @@ var SPConfig = /** @class */ (function () {
             var _loop_3 = function (i) {
                 var cfgField = cfgFields[i];
                 // See if this field already exists
-                var field = _this.isInCollection("InternalName", cfgField.Name, fields.results);
+                var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
                 if (field) {
                     // Log
-                    console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' already exists.");
+                    console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
                     // Trigger the event
                     cfgField.onUpdated ? cfgField.onUpdated(field) : null;
                 }
                 else {
                     // Log
-                    console.log("[gd-sprest][Field] Creating the '" + cfgField.Name + "' field.");
+                    console.log("[gd-sprest][Field] Creating the '" + cfgField.name + "' field.");
                     //
                     var onFieldCreated_1 = function (field) {
                         // See if it was successful
                         if (field.existsFl) {
                             // Log
-                            console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' was created successfully.");
+                            console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
                             // Trigger the event
                             cfgField.onCreated ? cfgField.onCreated(field) : null;
                         }
                         else {
                             // Log
-                            console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' failed to be created.");
+                            console.log("[gd-sprest][Field] The field '" + cfgField.name + "' failed to be created.");
                             console.error("[gd-sprest][Field] Error: " + field.response);
                         }
                     };
-                    // See if the field information is defined
-                    if (cfgField.FieldInfo) {
-                        // Set the internal field name
-                        cfgField.FieldInfo.name = cfgField.Name;
-                        // Compute the schema xml
-                        _1.Helper.FieldSchemaXML.generate(cfgField.FieldInfo).then(function (response) {
-                            var schemas = typeof (response) === "string" ? [response] : response;
-                            // Parse the fields to add
-                            for (var i_1 = 0; i_1 < schemas.length; i_1++) {
-                                // Add the field
-                                fields.createFieldAsXml(schemas[i_1]).execute(onFieldCreated_1, true);
-                            }
-                        });
-                    }
-                    else {
-                        // Add the field
-                        fields.createFieldAsXml(cfgField.SchemaXml).execute(onFieldCreated_1, true);
-                    }
+                    // Compute the schema xml
+                    _1.Helper.FieldSchemaXML.generate(cfgField).then(function (response) {
+                        var schemas = typeof (response) === "string" ? [response] : response;
+                        // Parse the fields to add
+                        for (var i_1 = 0; i_1 < schemas.length; i_1++) {
+                            // Add the field
+                            fields.createFieldAsXml(schemas[i_1]).execute(onFieldCreated_1, true);
+                        }
+                    });
                 }
             };
             // Parse the fields
@@ -6797,7 +6795,7 @@ var SPConfig = /** @class */ (function () {
             var _loop_8 = function (i) {
                 var cfgField = cfgFields[i];
                 // Get the field
-                var field = _this.isInCollection("InternalName", cfgField.Name, fields.results);
+                var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
                 if (field) {
                     // Remove the field
                     field.delete().execute(function () {

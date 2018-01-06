@@ -48,19 +48,7 @@ export interface ISPCfgCustomActionInfo {
 /**
  * SharePoint Configuration - Field Information
  */
-export interface ISPCfgFieldInfo {
-    /**
-     * The field information.
-     */
-    FieldInfo?: Types.SPConfig.ISPConfigFieldInfo;
-    /**
-     * The internal field name.
-     */
-    Name: string;
-    /**
-     * The schema definition of the field.
-     */
-    SchemaXml?: string;
+export interface ISPCfgFieldInfo extends Types.SPConfig.ISPConfigFieldInfo {
     /**
      * Event triggered after the field is created.
      */

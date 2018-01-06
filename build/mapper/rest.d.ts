@@ -59,6 +59,10 @@ export interface IREST {
      */
     Search: (url?: string, settings?: ITargetInfo) => Types.ISearch;
     /**
+     * The SharePoint enumerator types.
+     */
+    SPTypes: any;
+    /**
      * Use this api to interact with a SharePoint site collection.
      * @param url - (Optional) The site url.
      * @param targetInfo - (Optional) The target information.

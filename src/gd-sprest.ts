@@ -68,7 +68,7 @@ export {
  * SharePoint REST Library
  */
 export const $REST: Types.IREST = {
-    __ver: 2.56,
+    __ver: 2.57,
     ContextInfo,
     DefaultRequestToHostFl: false,
     Helper,
@@ -80,6 +80,7 @@ export const $REST: Types.IREST = {
     ProfileLoader: (targetInfo) => { return new ProfileLoader(targetInfo); },
     Search: (url, targetInfo) => { return new Search(url, targetInfo); },
     Site: (url, targetInfo) => { return new Site(url, targetInfo); },
+    SPTypes,
     SocialFeed,
     UserProfile: (targetInfo) => { return new UserProfile(targetInfo); },
     Utility: (url, targetInfo) => { return new Utility(url, targetInfo); },

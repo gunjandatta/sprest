@@ -5,9 +5,11 @@ export interface ISPConfigFieldInfo {
     /** The default value of the field */
     defaultValue?: string;
     /** The internal name of the field */
-    name?: string;
+    name: string;
     /** Flag to determine if the field is required */
     required?: boolean;
+    /** The schema definition of the field. */
+    schemaXml?: string;
     /** The field title */
     title: string;
     /** The field type */

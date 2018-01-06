@@ -4044,9 +4044,11 @@ declare module 'gd-sprest/mapper/spcfg' {
             /** The default value of the field */
             defaultValue?: string;
             /** The internal name of the field */
-            name?: string;
+            name: string;
             /** Flag to determine if the field is required */
             required?: boolean;
+            /** The schema definition of the field. */
+            schemaXml?: string;
             /** The field title */
             title: string;
             /** The field type */
@@ -5146,6 +5148,10 @@ declare module 'gd-sprest/mapper/rest' {
                 */
             Search: (url?: string, settings?: ITargetInfo) => Types.ISearch;
             /**
+                * The SharePoint enumerator types.
+                */
+            SPTypes: any;
+            /**
                 * Use this api to interact with a SharePoint site collection.
                 * @param url - (Optional) The site url.
                 * @param targetInfo - (Optional) The target information.
@@ -5618,19 +5624,7 @@ declare module 'gd-sprest/lib/helper/spCfg' {
     /**
         * SharePoint Configuration - Field Information
         */
-    export interface ISPCfgFieldInfo {
-            /**
-                * The field information.
-                */
-            FieldInfo?: Types.SPConfig.ISPConfigFieldInfo;
-            /**
-                * The internal field name.
-                */
-            Name: string;
-            /**
-                * The schema definition of the field.
-                */
-            SchemaXml?: string;
+    export interface ISPCfgFieldInfo extends Types.SPConfig.ISPConfigFieldInfo {
             /**
                 * Event triggered after the field is created.
                 */
