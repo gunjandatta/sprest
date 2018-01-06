@@ -180,7 +180,7 @@ var _FieldSchemaXML = /** @class */ (function () {
                 props["FieldRef"] = fieldInfo.fieldRef;
             }
             if (fieldInfo.multi) {
-                props["Multi"] = "TRUE";
+                props["Mult"] = "TRUE";
             }
             if (fieldInfo.showField) {
                 props["ShowField"] = fieldInfo.showField;

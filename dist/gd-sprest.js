@@ -320,7 +320,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.54,
+    __ver: 2.55,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -5499,7 +5499,7 @@ var _FieldSchemaXML = /** @class */ (function () {
                 props["FieldRef"] = fieldInfo.fieldRef;
             }
             if (fieldInfo.multi) {
-                props["Multi"] = "TRUE";
+                props["Mult"] = "TRUE";
             }
             if (fieldInfo.showField) {
                 props["ShowField"] = fieldInfo.showField;
