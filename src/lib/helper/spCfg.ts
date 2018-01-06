@@ -61,22 +61,7 @@ export interface ISPCfgCustomActionInfo {
 /**
  * SharePoint Configuration - Field Information
  */
-export interface ISPCfgFieldInfo {
-    /**
-     * The field information.
-     */
-    FieldInfo?: Types.SPConfig.ISPConfigFieldInfo;
-
-    /**
-     * The internal field name.
-     */
-    Name: string;
-
-    /**
-     * The schema definition of the field.
-     */
-    SchemaXml?: string;
-
+export interface ISPCfgFieldInfo extends Types.SPConfig.ISPConfigFieldInfo {
     /**
      * Event triggered after the field is created.
      */
@@ -564,52 +549,43 @@ export class SPConfig {
             let cfgField = cfgFields[i];
 
             // See if this field already exists
-            let field = this.isInCollection("InternalName", cfgField.Name, fields.results);
+            let field = this.isInCollection("InternalName", cfgField.name, fields.results);
             if (field) {
                 // Log
-                console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' already exists.");
+                console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
 
                 // Trigger the event
                 cfgField.onUpdated ? cfgField.onUpdated(field) : null;
             } else {
                 // Log
-                console.log("[gd-sprest][Field] Creating the '" + cfgField.Name + "' field.");
+                console.log("[gd-sprest][Field] Creating the '" + cfgField.name + "' field.");
 
                 //
                 let onFieldCreated = (field: Types.IFieldResult) => {
                     // See if it was successful
                     if (field.existsFl) {
                         // Log
-                        console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' was created successfully.");
+                        console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
 
                         // Trigger the event
                         cfgField.onCreated ? cfgField.onCreated(field) : null;
                     } else {
                         // Log
-                        console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' failed to be created.");
+                        console.log("[gd-sprest][Field] The field '" + cfgField.name + "' failed to be created.");
                         console.error("[gd-sprest][Field] Error: " + field.response);
                     }
                 }
 
-                // See if the field information is defined
-                if (cfgField.FieldInfo) {
-                    // Set the internal field name
-                    cfgField.FieldInfo.name = cfgField.Name;
+                // Compute the schema xml
+                Helper.FieldSchemaXML.generate(cfgField).then(response => {
+                    let schemas: Array<string> = typeof (response) === "string" ? [response] : response as any;
 
-                    // Compute the schema xml
-                    Helper.FieldSchemaXML.generate(cfgField.FieldInfo).then(response => {
-                        let schemas: Array<string> = typeof (response) === "string" ? [response] : response as any;
-
-                        // Parse the fields to add
-                        for (let i = 0; i < schemas.length; i++) {
-                            // Add the field
-                            fields.createFieldAsXml(schemas[i]).execute(onFieldCreated, true);
-                        }
-                    });
-                } else {
-                    // Add the field
-                    fields.createFieldAsXml(cfgField.SchemaXml).execute(onFieldCreated, true);
-                }
+                    // Parse the fields to add
+                    for (let i = 0; i < schemas.length; i++) {
+                        // Add the field
+                        fields.createFieldAsXml(schemas[i]).execute(onFieldCreated, true);
+                    }
+                });
             }
         }
 
@@ -1070,7 +1046,7 @@ export class SPConfig {
             let cfgField = cfgFields[i];
 
             // Get the field
-            let field: Types.IFieldResult = this.isInCollection("InternalName", cfgField.Name, fields.results);
+            let field: Types.IFieldResult = this.isInCollection("InternalName", cfgField.name, fields.results);
             if (field) {
                 // Remove the field
                 field.delete().execute(() => {

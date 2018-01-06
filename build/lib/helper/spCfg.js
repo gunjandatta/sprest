@@ -196,49 +196,40 @@ var SPConfig = /** @class */ (function () {
             var _loop_3 = function (i) {
                 var cfgField = cfgFields[i];
                 // See if this field already exists
-                var field = _this.isInCollection("InternalName", cfgField.Name, fields.results);
+                var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
                 if (field) {
                     // Log
-                    console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' already exists.");
+                    console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
                     // Trigger the event
                     cfgField.onUpdated ? cfgField.onUpdated(field) : null;
                 }
                 else {
                     // Log
-                    console.log("[gd-sprest][Field] Creating the '" + cfgField.Name + "' field.");
+                    console.log("[gd-sprest][Field] Creating the '" + cfgField.name + "' field.");
                     //
                     var onFieldCreated_1 = function (field) {
                         // See if it was successful
                         if (field.existsFl) {
                             // Log
-                            console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' was created successfully.");
+                            console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
                             // Trigger the event
                             cfgField.onCreated ? cfgField.onCreated(field) : null;
                         }
                         else {
                             // Log
-                            console.log("[gd-sprest][Field] The field '" + cfgField.Name + "' failed to be created.");
+                            console.log("[gd-sprest][Field] The field '" + cfgField.name + "' failed to be created.");
                             console.error("[gd-sprest][Field] Error: " + field.response);
                         }
                     };
-                    // See if the field information is defined
-                    if (cfgField.FieldInfo) {
-                        // Set the internal field name
-                        cfgField.FieldInfo.name = cfgField.Name;
-                        // Compute the schema xml
-                        _1.Helper.FieldSchemaXML.generate(cfgField.FieldInfo).then(function (response) {
-                            var schemas = typeof (response) === "string" ? [response] : response;
-                            // Parse the fields to add
-                            for (var i_1 = 0; i_1 < schemas.length; i_1++) {
-                                // Add the field
-                                fields.createFieldAsXml(schemas[i_1]).execute(onFieldCreated_1, true);
-                            }
-                        });
-                    }
-                    else {
-                        // Add the field
-                        fields.createFieldAsXml(cfgField.SchemaXml).execute(onFieldCreated_1, true);
-                    }
+                    // Compute the schema xml
+                    _1.Helper.FieldSchemaXML.generate(cfgField).then(function (response) {
+                        var schemas = typeof (response) === "string" ? [response] : response;
+                        // Parse the fields to add
+                        for (var i_1 = 0; i_1 < schemas.length; i_1++) {
+                            // Add the field
+                            fields.createFieldAsXml(schemas[i_1]).execute(onFieldCreated_1, true);
+                        }
+                    });
                 }
             };
             // Parse the fields
@@ -647,7 +638,7 @@ var SPConfig = /** @class */ (function () {
             var _loop_8 = function (i) {
                 var cfgField = cfgFields[i];
                 // Get the field
-                var field = _this.isInCollection("InternalName", cfgField.Name, fields.results);
+                var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
                 if (field) {
                     // Remove the field
                     field.delete().execute(function () {

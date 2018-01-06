@@ -13,65 +13,71 @@ var _FieldSchemaXML = /** @class */ (function () {
         // Generates the schema xml, based on the field information provided.
         this.generate = function (fieldInfo) {
             var promise = new utils_1.Promise();
-            var schemaXml = null;
-            // Set the base properties
-            var props = {};
-            props["ID"] = "{" + __1.ContextInfo.generateGUID() + "}";
-            props["Name"] = fieldInfo.name;
-            props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
-            props["StaticName"] = fieldInfo.name;
-            props["DisplayName"] = fieldInfo.title;
-            // Set the type
-            switch (fieldInfo.type) {
-                // Boolean
-                case _1.Helper.Types.SPCfgFieldType.Boolean:
-                    _this.createBoolean(fieldInfo, props, promise);
-                    break;
-                // Calculated
-                case _1.Helper.Types.SPCfgFieldType.Calculated:
-                    _this.createCalculated(fieldInfo, props, promise);
-                    break;
-                // Choice
-                case _1.Helper.Types.SPCfgFieldType.Choice:
-                    _this.createChoice(fieldInfo, props, promise);
-                    break;
-                // Date/Time
-                case _1.Helper.Types.SPCfgFieldType.Date:
-                    _this.createDate(fieldInfo, props, promise);
-                    break;
-                // Lookup
-                case _1.Helper.Types.SPCfgFieldType.Lookup:
-                    _this.createLookup(fieldInfo, props, promise);
-                    break;
-                // MMS
-                case _1.Helper.Types.SPCfgFieldType.MMS:
-                    _this.createMMS(fieldInfo, props, promise);
-                    break;
-                // Note
-                case _1.Helper.Types.SPCfgFieldType.Note:
-                    _this.createNote(fieldInfo, props, promise);
-                    break;
-                // Number
-                case _1.Helper.Types.SPCfgFieldType.Number:
-                    _this.createNumber(fieldInfo, props, promise);
-                    break;
-                // Text
-                case _1.Helper.Types.SPCfgFieldType.Text:
-                    _this.createText(fieldInfo, props, promise);
-                    break;
-                // URL
-                case _1.Helper.Types.SPCfgFieldType.Url:
-                    _this.createUrl(fieldInfo, props, promise);
-                    break;
-                // User
-                case _1.Helper.Types.SPCfgFieldType.User:
-                    _this.createUser(fieldInfo, props, promise);
-                    break;
-                // Field type not supported
-                default:
-                    // Resolve the promise and return
-                    promise.resolve(null);
-                    return;
+            // See if the schema xml has been defined
+            if (fieldInfo.schemaXml) {
+                // Resolve the promise
+                promise.resolve(fieldInfo.schemaXml);
+            }
+            else {
+                // Set the base properties
+                var props = {};
+                props["ID"] = "{" + __1.ContextInfo.generateGUID() + "}";
+                props["Name"] = fieldInfo.name;
+                props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
+                props["StaticName"] = fieldInfo.name;
+                props["DisplayName"] = fieldInfo.title;
+                // Set the type
+                switch (fieldInfo.type) {
+                    // Boolean
+                    case _1.Helper.Types.SPCfgFieldType.Boolean:
+                        _this.createBoolean(fieldInfo, props, promise);
+                        break;
+                    // Calculated
+                    case _1.Helper.Types.SPCfgFieldType.Calculated:
+                        _this.createCalculated(fieldInfo, props, promise);
+                        break;
+                    // Choice
+                    case _1.Helper.Types.SPCfgFieldType.Choice:
+                        _this.createChoice(fieldInfo, props, promise);
+                        break;
+                    // Date/Time
+                    case _1.Helper.Types.SPCfgFieldType.Date:
+                        _this.createDate(fieldInfo, props, promise);
+                        break;
+                    // Lookup
+                    case _1.Helper.Types.SPCfgFieldType.Lookup:
+                        _this.createLookup(fieldInfo, props, promise);
+                        break;
+                    // MMS
+                    case _1.Helper.Types.SPCfgFieldType.MMS:
+                        _this.createMMS(fieldInfo, props, promise);
+                        break;
+                    // Note
+                    case _1.Helper.Types.SPCfgFieldType.Note:
+                        _this.createNote(fieldInfo, props, promise);
+                        break;
+                    // Number
+                    case _1.Helper.Types.SPCfgFieldType.Number:
+                        _this.createNumber(fieldInfo, props, promise);
+                        break;
+                    // Text
+                    case _1.Helper.Types.SPCfgFieldType.Text:
+                        _this.createText(fieldInfo, props, promise);
+                        break;
+                    // URL
+                    case _1.Helper.Types.SPCfgFieldType.Url:
+                        _this.createUrl(fieldInfo, props, promise);
+                        break;
+                    // User
+                    case _1.Helper.Types.SPCfgFieldType.User:
+                        _this.createUser(fieldInfo, props, promise);
+                        break;
+                    // Field type not supported
+                    default:
+                        // Resolve the promise
+                        promise.resolve(null);
+                        break;
+                }
             }
             // Return a promise
             return promise;
