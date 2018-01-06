@@ -57,9 +57,23 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
 }
 
 /**
+ * Base Collection Results
+ */
+export interface IBaseCollectionResult<Result> extends Types.IResults<Result> {
+    /** True, if the object exists, false otherwise. */
+    existsFl: boolean;
+
+    /** The raw string response. */
+    response: string;
+
+    /** Method to stringify the object. */
+    stringify(): string;
+}
+
+/**
  * Base Collection
  */
-export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.IResults<Type>, IBase<Types.IResults<Result>, Types.IResults<Result>, Types.IResults<QueryResult>> { }
+export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.IResults<Type>, IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> { }
 
 /*********************************************************************************************************************************/
 // Base
