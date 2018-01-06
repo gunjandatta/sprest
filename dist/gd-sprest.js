@@ -320,7 +320,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.48,
+    __ver: 2.53,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -5335,7 +5335,7 @@ var _FieldSchemaXML = /** @class */ (function () {
             var schemaXml = null;
             // Set the base properties
             var props = {};
-            props["ID"] = __1.ContextInfo.generateGUID();
+            props["ID"] = "{" + __1.ContextInfo.generateGUID() + "}";
             props["Name"] = fieldInfo.name;
             props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
             props["StaticName"] = fieldInfo.name;
@@ -5528,20 +5528,16 @@ var _FieldSchemaXML = /** @class */ (function () {
                 // Resolve the promise
                 promise.resolve("<Field " + _this.toString(props) + " />");
             }
-            // Resolve the promise
-            promise.resolve(schemaXml);
         };
         /** Returns the schema xml for a managed metadata field. */
         this.createMMS = function (fieldInfo, props, promise) {
-            var schemaXml = null;
             // Create the value field
             var valueProps = {
-                ID: __1.ContextInfo.generateGUID(),
+                ID: "{" + __1.ContextInfo.generateGUID() + "}",
                 Name: fieldInfo.name + "_0",
                 StaticName: fieldInfo.name + "_0",
-                Title: fieldInfo.title + " Value",
+                DisplayName: fieldInfo.title + " Value",
                 Type: "Note",
-                Required: fieldInfo.required ? "TRUE" : "FALSE",
                 Hidden: "TRUE"
             };
             // Generate the value field schema xml
@@ -5550,15 +5546,15 @@ var _FieldSchemaXML = /** @class */ (function () {
             props["Type"] = "TaxonomyFieldType";
             props["ShowField"] = "Term" + (fieldInfo.locale ? fieldInfo.locale.toString() : "1033");
             // Generate the mms field schema xml
-            schemaXml += [
+            var schemaXml = [
                 "<Field " + _this.toString(props) + ">",
                 "<Customization>",
-                "<ArrayOfProperties>",
+                "<ArrayOfProperty>",
                 "<Property>",
                 "<Name>TextField</Name>",
                 "<Value xmlns:q6=\"http://www.w3.org/2001/XMLSchema\" p4:type=\"q6:string\" xmlns:p4=\"http://www.w3.org/2001/XMLSchema-instance\">" + valueProps.ID + "</Value>",
                 "</Property>",
-                "</ArrayOfProperties>",
+                "</ArrayOfProperty>",
                 "</Customization>",
                 "</Field>"
             ].join("");

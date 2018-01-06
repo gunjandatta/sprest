@@ -23,7 +23,7 @@ class _FieldSchemaXML {
 
         // Set the base properties
         let props = {};
-        props["ID"] = ContextInfo.generateGUID();
+        props["ID"] = "{" + ContextInfo.generateGUID() + "}";
         props["Name"] = fieldInfo.name;
         props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
         props["StaticName"] = fieldInfo.name;
@@ -227,23 +227,17 @@ class _FieldSchemaXML {
             // Resolve the promise
             promise.resolve("<Field " + this.toString(props) + " />");
         }
-
-        // Resolve the promise
-        promise.resolve(schemaXml);
     }
 
     /** Returns the schema xml for a managed metadata field. */
     private createMMS = (fieldInfo: Types.SPConfig.ISPConfigFieldInfoMMS, props: object, promise: Promise) => {
-        let schemaXml: string = null;
-
         // Create the value field
         let valueProps = {
-            ID: ContextInfo.generateGUID(),
+            ID: "{" + ContextInfo.generateGUID() + "}",
             Name: fieldInfo.name + "_0",
             StaticName: fieldInfo.name + "_0",
-            Title: fieldInfo.title + " Value",
+            DisplayName: fieldInfo.title + " Value",
             Type: "Note",
-            Required: fieldInfo.required ? "TRUE" : "FALSE",
             Hidden: "TRUE"
         };
 
@@ -255,15 +249,15 @@ class _FieldSchemaXML {
         props["ShowField"] = "Term" + (fieldInfo.locale ? fieldInfo.locale.toString() : "1033");
 
         // Generate the mms field schema xml
-        schemaXml += [
+        let schemaXml = [
             "<Field " + this.toString(props) + ">",
             "<Customization>",
-            "<ArrayOfProperties>",
+            "<ArrayOfProperty>",
             "<Property>",
             "<Name>TextField</Name>",
             "<Value xmlns:q6=\"http://www.w3.org/2001/XMLSchema\" p4:type=\"q6:string\" xmlns:p4=\"http://www.w3.org/2001/XMLSchema-instance\">" + valueProps.ID + "</Value>",
             "</Property>",
-            "</ArrayOfProperties>",
+            "</ArrayOfProperty>",
             "</Customization>",
             "</Field>"
         ].join("");
