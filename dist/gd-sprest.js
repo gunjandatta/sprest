@@ -322,7 +322,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.56,
+    __ver: 2.57,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -334,6 +334,7 @@ exports.$REST = {
     ProfileLoader: function (targetInfo) { return new lib_1.ProfileLoader(targetInfo); },
     Search: function (url, targetInfo) { return new lib_1.Search(url, targetInfo); },
     Site: function (url, targetInfo) { return new lib_1.Site(url, targetInfo); },
+    SPTypes: types_1.SPTypes,
     SocialFeed: lib_1.SocialFeed,
     UserProfile: function (targetInfo) { return new lib_1.UserProfile(targetInfo); },
     Utility: function (url, targetInfo) { return new lib_1.Utility(url, targetInfo); },
