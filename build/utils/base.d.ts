@@ -31,6 +31,10 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
      */
     query?(query: Types.ODataQuery): IBase<Result, QueryResult>;
     /**
+     * Method to stringify the object.
+     */
+    stringify(): string;
+    /**
      * Method to execute this request and previous ones to complete.
      * @param resolve - Method to execute for successful requests.
      * @param reject - Method to execute for unsuccessful requests.
@@ -54,5 +58,6 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> exten
     existsFl: any;
     done(callback: (...args) => any): void;
     getInfo(): IRequestInfo;
+    stringify(): string;
     then(resolve: any, reject: any): PromiseLike<IBase>;
 }

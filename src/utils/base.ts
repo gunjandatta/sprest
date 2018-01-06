@@ -44,6 +44,11 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
     query?(query: Types.ODataQuery): IBase<Result, QueryResult>;
 
     /**
+     * Method to stringify the object.
+     */
+    stringify(): string;
+
+    /**
      * Method to execute this request and previous ones to complete.
      * @param resolve - Method to execute for successful requests.
      * @param reject - Method to execute for unsuccessful requests.
@@ -106,6 +111,16 @@ export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseE
 
     // Method to get the request information
     getInfo(): IRequestInfo { return (new TargetInfo(this.targetInfo)).requestInfo; }
+
+    // Method to stringify the object
+    stringify(): string {
+        // Stringify the object
+        return JSON.stringify({
+            response: this.response,
+            status: this.status,
+            targetInfo: this.targetInfo
+        });
+    }
 
     // Method to execute the request asynchronously
     then(resolve, reject): PromiseLike<IBase> {

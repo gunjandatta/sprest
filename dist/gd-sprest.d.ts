@@ -2101,6 +2101,7 @@ declare module 'gd-sprest/lib/contextInfo' {
 }
 
 declare module 'gd-sprest/lib/helper' {
+    import { IBase } from "gd-sprest/utils";
     import { IHelperApp } from "gd-sprest/lib/helper/app";
     import { IDependencies } from "gd-sprest/lib/helper/dependencies";
     import { IFieldSchemaXML } from "gd-sprest/lib/helper/field";
@@ -2132,6 +2133,10 @@ declare module 'gd-sprest/lib/helper' {
                 * Loader
                 */
             Loader: ILoader;
+            /**
+                * Method to parse a json string and convert to a base object.
+                */
+            parse<T = IBase>(jsonString: string): T;
             /**
                 * Web helper methods
                 */
@@ -10960,6 +10965,10 @@ declare module 'gd-sprest/utils/base' {
                 */
             query?(query: Types.ODataQuery): IBase<Result, QueryResult>;
             /**
+                * Method to stringify the object.
+                */
+            stringify(): string;
+            /**
                 * Method to execute this request and previous ones to complete.
                 * @param resolve - Method to execute for successful requests.
                 * @param reject - Method to execute for unsuccessful requests.
@@ -10982,6 +10991,7 @@ declare module 'gd-sprest/utils/base' {
             existsFl: any;
             done(callback: (...args) => any): void;
             getInfo(): IRequestInfo;
+            stringify(): string;
             then(resolve: any, reject: any): PromiseLike<IBase>;
     }
 }

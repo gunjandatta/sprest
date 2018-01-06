@@ -1,3 +1,4 @@
+import { IBase } from "../../utils";
 import { IHelperApp } from "./app";
 import { IDependencies } from "./dependencies";
 import { IFieldSchemaXML } from "./field";
@@ -29,6 +30,10 @@ export interface IHelper {
      * Loader
      */
     Loader: ILoader;
+    /**
+     * Method to parse a json string and convert to a base object.
+     */
+    parse<T = IBase>(jsonString: string): T;
     /**
      * Web helper methods
      */
