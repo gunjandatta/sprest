@@ -227,9 +227,6 @@ class _FieldSchemaXML {
             // Resolve the promise
             promise.resolve("<Field " + this.toString(props) + " />");
         }
-
-        // Resolve the promise
-        promise.resolve(schemaXml);
     }
 
     /** Returns the schema xml for a managed metadata field. */

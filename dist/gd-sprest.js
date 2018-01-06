@@ -320,7 +320,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.52,
+    __ver: 2.53,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -5528,8 +5528,6 @@ var _FieldSchemaXML = /** @class */ (function () {
                 // Resolve the promise
                 promise.resolve("<Field " + _this.toString(props) + " />");
             }
-            // Resolve the promise
-            promise.resolve(schemaXml);
         };
         /** Returns the schema xml for a managed metadata field. */
         this.createMMS = function (fieldInfo, props, promise) {

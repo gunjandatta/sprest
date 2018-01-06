@@ -209,8 +209,6 @@ var _FieldSchemaXML = /** @class */ (function () {
                 // Resolve the promise
                 promise.resolve("<Field " + _this.toString(props) + " />");
             }
-            // Resolve the promise
-            promise.resolve(schemaXml);
         };
         /** Returns the schema xml for a managed metadata field. */
         this.createMMS = function (fieldInfo, props, promise) {
