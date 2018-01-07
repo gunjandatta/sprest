@@ -4050,9 +4050,9 @@ declare module 'gd-sprest/mapper/spcfg' {
             /** The schema definition of the field. */
             schemaXml?: string;
             /** The field title */
-            title: string;
+            title?: string;
             /** The field type */
-            type: number;
+            type?: number;
     }
     /**
         * Calculated Field Information
