@@ -1,16 +1,5 @@
 import { Types } from "../../mapper";
 /**
- * WebPart Instance
- */
-export interface IWebPartInstance {
-    /** The configuration */
-    cfg: Types.Helper.IWebPartCfg;
-    /** The element to render the webpart to */
-    el: HTMLElement;
-    /** The webpart id */
-    wpId: string;
-}
-/**
  * The webpart properties
  */
 export interface IWebPartProps {
@@ -24,11 +13,11 @@ export interface IWebPartProps {
         url: string;
     };
     /** The post render event */
-    onPostRender?: (wp: IWebPartInstance) => void;
+    onPostRender?: (wp: Types.Helper.WebPart.IWebPart) => void;
     /** The render event triggered when the page is in 'Display' mode */
-    onRenderDisplay?: (wp: IWebPartInstance) => any;
+    onRenderDisplay?: (wp: Types.Helper.WebPart.IWebPart) => any;
     /** The render event triggered when the page is in 'Edit' mode */
-    onRenderEdit?: (wp: IWebPartInstance) => any;
+    onRenderEdit?: (wp: Types.Helper.WebPart.IWebPart) => any;
     /** The target element id to render the webpart to */
     elementId: string;
 }

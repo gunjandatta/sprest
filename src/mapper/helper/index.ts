@@ -1,3 +1,6 @@
 import * as SPConfig from "./spCfg";
-export { SPConfig };
-export * from "./webpart";
+import * as WebPart from "./webpart";
+export {
+    SPConfig,
+    WebPart
+};

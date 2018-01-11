@@ -4043,8 +4043,8 @@ declare module 'gd-sprest/mapper/results' {
 
 declare module 'gd-sprest/mapper/helper' {
     import * as SPConfig from "gd-sprest/mapper/helper/spCfg";
-    export { SPConfig };
-    export * from "gd-sprest/mapper/helper/webpart";
+    import * as WebPart from "gd-sprest/mapper/helper/webpart";
+    export { SPConfig, WebPart };
 }
 
 declare module 'gd-sprest/mapper/sptypes' {
@@ -5729,17 +5729,6 @@ declare module 'gd-sprest/lib/helper/types' {
 declare module 'gd-sprest/lib/helper/webpart' {
     import { Types } from "gd-sprest/mapper";
     /**
-        * WebPart Instance
-        */
-    export interface IWebPartInstance {
-            /** The configuration */
-            cfg: Types.Helper.IWebPartCfg;
-            /** The element to render the webpart to */
-            el: HTMLElement;
-            /** The webpart id */
-            wpId: string;
-    }
-    /**
         * The webpart properties
         */
     export interface IWebPartProps {
@@ -5753,11 +5742,11 @@ declare module 'gd-sprest/lib/helper/webpart' {
                     url: string;
             };
             /** The post render event */
-            onPostRender?: (wp: IWebPartInstance) => void;
+            onPostRender?: (wp: Types.Helper.WebPart.IWebPart) => void;
             /** The render event triggered when the page is in 'Display' mode */
-            onRenderDisplay?: (wp: IWebPartInstance) => any;
+            onRenderDisplay?: (wp: Types.Helper.WebPart.IWebPart) => any;
             /** The render event triggered when the page is in 'Edit' mode */
-            onRenderEdit?: (wp: IWebPartInstance) => any;
+            onRenderEdit?: (wp: Types.Helper.WebPart.IWebPart) => any;
             /** The target element id to render the webpart to */
             elementId: string;
     }
@@ -5884,11 +5873,22 @@ declare module 'gd-sprest/mapper/helper/spCfg' {
 
 declare module 'gd-sprest/mapper/helper/webpart' {
     /**
-      * WebPart Configuration
-      */
+        * WebPart Configuration
+        */
     export interface IWebPartCfg {
-        /** The webpart id */
-        WebPartId: string;
+            /** The webpart id */
+            WebPartId: string;
+    }
+    /**
+        * WebPart Instance
+        */
+    export interface IWebPart {
+            /** The configuration */
+            cfg: IWebPartCfg;
+            /** The element to render the webpart to */
+            el: HTMLElement;
+            /** The webpart id */
+            wpId: string;
     }
 }
 

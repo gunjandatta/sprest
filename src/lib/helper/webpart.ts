@@ -5,20 +5,6 @@ declare var SP;
 declare var MSOWebPartPageFormName;
 
 /**
- * WebPart Instance
- */
-export interface IWebPartInstance {
-    /** The configuration */
-    cfg: Types.Helper.IWebPartCfg;
-
-    /** The element to render the webpart to */
-    el: HTMLElement;
-
-    /** The webpart id */
-    wpId: string;
-}
-
-/**
  * WebPart Object
  */
 interface IWebPartObject {
@@ -55,13 +41,13 @@ export interface IWebPartProps {
     };
 
     /** The post render event */
-    onPostRender?: (wp: IWebPartInstance) => void;
+    onPostRender?: (wp: Types.Helper.WebPart.IWebPart) => void;
 
     /** The render event triggered when the page is in 'Display' mode */
-    onRenderDisplay?: (wp: IWebPartInstance) => any;
+    onRenderDisplay?: (wp: Types.Helper.WebPart.IWebPart) => any;
 
     /** The render event triggered when the page is in 'Edit' mode */
-    onRenderEdit?: (wp: IWebPartInstance) => any;
+    onRenderEdit?: (wp: Types.Helper.WebPart.IWebPart) => any;
 
     /** The target element id to render the webpart to */
     elementId: string;
@@ -83,7 +69,7 @@ export interface IWebPart {
  */
 class _WebPart {
     private _props: IWebPartProps = null;
-    private _wp: IWebPartInstance = null;
+    private _wp: Types.Helper.WebPart.IWebPart = null;
 
     /**
      * Constructor
@@ -192,8 +178,8 @@ class _WebPart {
     /**
      * Method to get the webpart information
      */
-    private getWebPartInfo = (): IWebPartInstance => {
-        let targetInfo: IWebPartInstance = {
+    private getWebPartInfo = (): Types.Helper.WebPart.IWebPart => {
+        let targetInfo: Types.Helper.WebPart.IWebPart = {
             cfg: null,
             el: null,
             wpId: null
@@ -217,7 +203,7 @@ class _WebPart {
                     if (elCfg) {
                         try {
                             // Parse the configuration
-                            let cfg: Types.Helper.IWebPartCfg = JSON.parse(elCfg.innerText.trim());
+                            let cfg: Types.Helper.WebPart.IWebPartCfg = JSON.parse(elCfg.innerText.trim());
 
                             // See if the webaprt id exists
                             if (cfg.WebPartId) {
