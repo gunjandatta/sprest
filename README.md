@@ -10,7 +10,8 @@ The SharePoint REST Framework was designed for SharePoint 2013, but works in bot
 
 * [gd-sprest](https://github.com/gunjandatta/sprest) - An easy way to execute requests against the SharePoint 2013/Online REST api
 * [gd-sprest-react](https://github.com/gunjandatta/sprest-react) - Extends the [Office Fabric React Framework](https://dev.office.com/fabric) with components designed for SharePoint 2013/Online.
-* [gd-sprest-webparts](https://github.com/gunjandatta/sprest-webparts) - Example SharePoint 2013/Online modern webparts.
+* [gd-sprest-webpart](https://github.com/gunjandatta/sprest-webpart) - A basic example of creating a SharePoint 2013 modern webpart.
+* [gd-sprest-webparts](https://github.com/gunjandatta/sprest-webparts) - SharePoint 2013 modern react webpart examples.
 * [Wiki](https://github.com/gunjandatta/sprest/wiki) - Additional details of getting started with this framework.
 
 ### gd-sprest vs pnp-js-core
