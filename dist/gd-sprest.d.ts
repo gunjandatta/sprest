@@ -1390,7 +1390,7 @@ declare module 'gd-sprest/lib' {
 declare module 'gd-sprest/mapper/types' {
     import * as ComplexTypes from "gd-sprest/mapper/complexTypes";
     import * as Results from "gd-sprest/mapper/results";
-    import * as SPConfig from "gd-sprest/mapper/spcfg";
+    import * as Helper from "gd-sprest/mapper/helper";
     import * as SPTypes from "gd-sprest/mapper/sptypes";
     import { IUser } from "gd-sprest/mapper/user";
     export * from "gd-sprest/mapper/audit";
@@ -1406,7 +1406,7 @@ declare module 'gd-sprest/mapper/types' {
     export * from "gd-sprest/mapper/social";
     export * from "gd-sprest/mapper/user";
     export * from "gd-sprest/mapper/userCustomAction";
-    export { ComplexTypes, Results, SPConfig, SPTypes };
+    export { ComplexTypes, Helper, Results, SPTypes };
     /**
         * App Tiles
         */
@@ -2109,7 +2109,7 @@ declare module 'gd-sprest/lib/helper' {
     import { ILoader } from "gd-sprest/lib/helper/loader";
     import { ISPConfig } from "gd-sprest/lib/helper/spCfg";
     import { IHelperTypes } from "gd-sprest/lib/helper/types";
-    import { WebPart, IWebPartProps } from "gd-sprest/lib/helper/webpart";
+    import { IWebPart } from "gd-sprest/lib/helper/webpart";
     /**
         * Helper
         */
@@ -2149,7 +2149,7 @@ declare module 'gd-sprest/lib/helper' {
             /**
                 * WebPart
                 */
-            WebPart: (props: IWebPartProps) => WebPart;
+            WebPart: IWebPart;
     }
     /**
         * Helper Methods
@@ -4041,112 +4041,10 @@ declare module 'gd-sprest/mapper/results' {
     }
 }
 
-declare module 'gd-sprest/mapper/spcfg' {
-    /**
-        * Field Information
-        */
-    export interface ISPConfigFieldInfo {
-            /** The default value of the field */
-            defaultValue?: string;
-            /** The internal name of the field */
-            name: string;
-            /** Flag to determine if the field is required */
-            required?: boolean;
-            /** The schema definition of the field. */
-            schemaXml?: string;
-            /** The field title */
-            title?: string;
-            /** The field type */
-            type?: number;
-    }
-    /**
-        * Calculated Field Information
-        */
-    export interface ISPConfigFieldInfoCalculated extends ISPConfigFieldInfo {
-            /** The field references */
-            fieldRefs?: Array<string>;
-            /** The date/time format */
-            format?: number;
-            /** The formula */
-            formula?: string;
-            /** The result type */
-            resultType?: string;
-    }
-    /**
-        * Choice Field Information
-        */
-    export interface ISPConfigFieldInfoChoice extends ISPConfigFieldInfo {
-            /** The choices */
-            choices?: string[];
-            /** Allow multiple choices */
-            multi?: boolean;
-    }
-    /**
-        * Date Field Information
-        */
-    export interface ISPConfigFieldInfoDate extends ISPConfigFieldInfo {
-            /** The date/time format */
-            format?: number;
-    }
-    /**
-        * Lookup Field Information
-        */
-    export interface ISPConfigFieldInfoLookup extends ISPConfigFieldInfo {
-            /** The field reference (Required for associated lookup fields) */
-            fieldRef?: string;
-            /** Allow multiple lookup values */
-            multi?: boolean;
-            /** The list id */
-            listId?: string;
-            /** The list name */
-            listName?: string;
-            /** The lookup field to show */
-            showField?: string;
-            /** The relative web url containing the list */
-            webUrl?: string;
-    }
-    /**
-        * Managed Metadata
-        */
-    export interface ISPConfigFieldInfoMMS extends ISPConfigFieldInfo {
-            /** The locale value */
-            locale?: number;
-    }
-    /**
-        * Note
-        */
-    export interface ISPConfigFieldInfoNote extends ISPConfigFieldInfo {
-            /** Flag to append the comments. (This requires versioning to be enabled) */
-            appendFl?: boolean;
-            /** The note field type */
-            noteType?: number;
-            /** The number of lines */
-            numberOfLines?: number;
-    }
-    /**
-        * Number
-        */
-    export interface ISPConfigFieldInfoNumber extends ISPConfigFieldInfo {
-            /** The number of decimal places */
-            decimals?: number;
-            /** The maximum value */
-            max?: number;
-            /** The minimum value */
-            min?: number;
-            /** The number field type */
-            numberType?: number;
-    }
-    /**
-        * User
-        */
-    export interface ISPConfigFieldInfoUser extends ISPConfigFieldInfo {
-            /** Allow multiple choices */
-            multi?: boolean;
-            /** The user selection mode */
-            selectionMode?: number;
-            /** The user selection scope */
-            selectionScope?: number;
-    }
+declare module 'gd-sprest/mapper/helper' {
+    import * as SPConfig from "gd-sprest/mapper/helper/spCfg";
+    export { SPConfig };
+    export * from "gd-sprest/mapper/helper/webpart";
 }
 
 declare module 'gd-sprest/mapper/sptypes' {
@@ -5367,7 +5265,7 @@ declare module 'gd-sprest/lib/helper/field' {
       */
     export interface IFieldSchemaXML {
         /** Method to generate the field schema xml. */
-        generate: (fieldInfo: Types.SPConfig.ISPConfigFieldInfo) => Promise;
+        generate: (fieldInfo: Types.Helper.SPConfig.IFieldInfo) => Promise;
     }
     export const FieldSchemaXML: IFieldSchemaXML;
 }
@@ -5629,7 +5527,7 @@ declare module 'gd-sprest/lib/helper/spCfg' {
     /**
         * SharePoint Configuration - Field Information
         */
-    export interface ISPCfgFieldInfo extends Types.SPConfig.ISPConfigFieldInfo {
+    export interface ISPCfgFieldInfo extends Types.Helper.SPConfig.IFieldInfo {
             /**
                 * Event triggered after the field is created.
                 */
@@ -5829,23 +5727,17 @@ declare module 'gd-sprest/lib/helper/types' {
 }
 
 declare module 'gd-sprest/lib/helper/webpart' {
+    import { Types } from "gd-sprest/mapper";
     /**
-        * WebPart
+        * WebPart Instance
         */
-    export interface IWebPart {
+    export interface IWebPartInstance {
             /** The configuration */
-            cfg: IWebPartCfg;
+            cfg: Types.Helper.IWebPartCfg;
             /** The element to render the webpart to */
             el: HTMLElement;
             /** The webpart id */
             wpId: string;
-    }
-    /**
-        * WebPart Configuration
-        */
-    export interface IWebPartCfg {
-            /** The webpart id */
-            WebPartId: string;
     }
     /**
         * The webpart properties
@@ -5861,23 +5753,142 @@ declare module 'gd-sprest/lib/helper/webpart' {
                     url: string;
             };
             /** The post render event */
-            onPostRender?: (wp: IWebPart) => void;
+            onPostRender?: (wp: IWebPartInstance) => void;
             /** The render event triggered when the page is in 'Display' mode */
-            onRenderDisplay?: (wp: IWebPart) => any;
+            onRenderDisplay?: (wp: IWebPartInstance) => any;
             /** The render event triggered when the page is in 'Edit' mode */
-            onRenderEdit?: (wp: IWebPart) => any;
+            onRenderEdit?: (wp: IWebPartInstance) => any;
             /** The target element id to render the webpart to */
             elementId: string;
     }
     /**
         * Web Part
         */
-    export class WebPart {
+    export interface IWebPart {
             /**
-                * Constructor
+                * Creates an instance of a webpart.
                 * @param props - The webpart properties.
                 */
-            constructor(props: IWebPartProps);
+            new (props: IWebPartProps): any;
+    }
+    export const WebPart: IWebPart;
+}
+
+declare module 'gd-sprest/mapper/helper/spCfg' {
+    /**
+        * Field Information
+        */
+    export interface IFieldInfo {
+            /** The default value of the field */
+            defaultValue?: string;
+            /** The internal name of the field */
+            name: string;
+            /** Flag to determine if the field is required */
+            required?: boolean;
+            /** The schema definition of the field. */
+            schemaXml?: string;
+            /** The field title */
+            title?: string;
+            /** The field type */
+            type?: number;
+    }
+    /**
+        * Calculated Field Information
+        */
+    export interface IFieldInfoCalculated extends IFieldInfo {
+            /** The field references */
+            fieldRefs?: Array<string>;
+            /** The date/time format */
+            format?: number;
+            /** The formula */
+            formula?: string;
+            /** The result type */
+            resultType?: string;
+    }
+    /**
+        * Choice Field Information
+        */
+    export interface IFieldInfoChoice extends IFieldInfo {
+            /** The choices */
+            choices?: string[];
+            /** Allow multiple choices */
+            multi?: boolean;
+    }
+    /**
+        * Date Field Information
+        */
+    export interface IFieldInfoDate extends IFieldInfo {
+            /** The date/time format */
+            format?: number;
+    }
+    /**
+        * Lookup Field Information
+        */
+    export interface IFieldInfoLookup extends IFieldInfo {
+            /** The field reference (Required for associated lookup fields) */
+            fieldRef?: string;
+            /** Allow multiple lookup values */
+            multi?: boolean;
+            /** The list id */
+            listId?: string;
+            /** The list name */
+            listName?: string;
+            /** The lookup field to show */
+            showField?: string;
+            /** The relative web url containing the list */
+            webUrl?: string;
+    }
+    /**
+        * Managed Metadata
+        */
+    export interface IFieldInfoMMS extends IFieldInfo {
+            /** The locale value */
+            locale?: number;
+    }
+    /**
+        * Note
+        */
+    export interface IFieldInfoNote extends IFieldInfo {
+            /** Flag to append the comments. (This requires versioning to be enabled) */
+            appendFl?: boolean;
+            /** The note field type */
+            noteType?: number;
+            /** The number of lines */
+            numberOfLines?: number;
+    }
+    /**
+        * Number
+        */
+    export interface IFieldInfoNumber extends IFieldInfo {
+            /** The number of decimal places */
+            decimals?: number;
+            /** The maximum value */
+            max?: number;
+            /** The minimum value */
+            min?: number;
+            /** The number field type */
+            numberType?: number;
+    }
+    /**
+        * User
+        */
+    export interface IFieldInfoUser extends IFieldInfo {
+            /** Allow multiple choices */
+            multi?: boolean;
+            /** The user selection mode */
+            selectionMode?: number;
+            /** The user selection scope */
+            selectionScope?: number;
+    }
+}
+
+declare module 'gd-sprest/mapper/helper/webpart' {
+    /**
+      * WebPart Configuration
+      */
+    export interface IWebPartCfg {
+        /** The webpart id */
+        WebPartId: string;
     }
 }
 

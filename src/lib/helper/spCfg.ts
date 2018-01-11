@@ -61,7 +61,7 @@ export interface ISPCfgCustomActionInfo {
 /**
  * SharePoint Configuration - Field Information
  */
-export interface ISPCfgFieldInfo extends Types.SPConfig.ISPConfigFieldInfo {
+export interface ISPCfgFieldInfo extends Types.Helper.SPConfig.IFieldInfo {
     /**
      * Event triggered after the field is created.
      */

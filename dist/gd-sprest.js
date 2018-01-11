@@ -73,7 +73,6 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(27));
 __export(__webpack_require__(28));
 __export(__webpack_require__(29));
 __export(__webpack_require__(30));
@@ -83,6 +82,7 @@ __export(__webpack_require__(33));
 __export(__webpack_require__(34));
 __export(__webpack_require__(35));
 __export(__webpack_require__(36));
+__export(__webpack_require__(37));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -108,9 +108,8 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(26));
+__export(__webpack_require__(27));
 __export(__webpack_require__(3));
-__export(__webpack_require__(46));
 __export(__webpack_require__(47));
 __export(__webpack_require__(48));
 __export(__webpack_require__(49));
@@ -121,6 +120,7 @@ __export(__webpack_require__(53));
 __export(__webpack_require__(54));
 __export(__webpack_require__(55));
 __export(__webpack_require__(56));
+__export(__webpack_require__(57));
 __export(__webpack_require__(5));
 //# sourceMappingURL=index.js.map
 
@@ -131,15 +131,15 @@ __export(__webpack_require__(5));
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = __webpack_require__(37);
-var dependencies_1 = __webpack_require__(38);
-var field_1 = __webpack_require__(39);
-var jslink_1 = __webpack_require__(40);
-var loader_1 = __webpack_require__(41);
-var parse_1 = __webpack_require__(42);
-var spCfg_1 = __webpack_require__(43);
-var types_1 = __webpack_require__(44);
-var webpart_1 = __webpack_require__(45);
+var app_1 = __webpack_require__(38);
+var dependencies_1 = __webpack_require__(39);
+var field_1 = __webpack_require__(40);
+var jslink_1 = __webpack_require__(41);
+var loader_1 = __webpack_require__(42);
+var parse_1 = __webpack_require__(43);
+var spCfg_1 = __webpack_require__(44);
+var types_1 = __webpack_require__(45);
+var webpart_1 = __webpack_require__(46);
 ;
 /**
  * Helper Methods
@@ -153,7 +153,7 @@ exports.Helper = {
     parse: parse_1.parse,
     SPConfig: spCfg_1.SPConfig,
     Types: types_1.HelperTypes,
-    WebPart: function (props) { return new webpart_1.WebPart(props); }
+    WebPart: webpart_1.WebPart
 };
 //# sourceMappingURL=index.js.map
 
@@ -2924,9 +2924,9 @@ var ComplexTypes = __webpack_require__(22);
 exports.ComplexTypes = ComplexTypes;
 var Results = __webpack_require__(23);
 exports.Results = Results;
-var SPConfig = __webpack_require__(24);
-exports.SPConfig = SPConfig;
-var SPTypes = __webpack_require__(25);
+var Helper = __webpack_require__(24);
+exports.Helper = Helper;
+var SPTypes = __webpack_require__(26);
 exports.SPTypes = SPTypes;
 //# sourceMappingURL=types.js.map
 
@@ -2955,7 +2955,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=spcfg.js.map
+var SPConfig = __webpack_require__(25);
+exports.SPConfig = SPConfig;
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 /* 25 */
@@ -2964,10 +2966,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=sptypes.js.map
+//# sourceMappingURL=spCfg.js.map
 
 /***/ }),
 /* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=sptypes.js.map
+
+/***/ }),
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3255,7 +3266,7 @@ exports.ContextInfo = _ContextInfo;
 //# sourceMappingURL=contextInfo.js.map
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3530,7 +3541,7 @@ exports.BaseHelper = BaseHelper;
 //# sourceMappingURL=baseHelper.js.map
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3824,7 +3835,7 @@ exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4000,7 +4011,7 @@ exports.BaseExecution = BaseExecution;
 //# sourceMappingURL=baseExecution.js.map
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4090,7 +4101,7 @@ exports.Base = Base;
 //# sourceMappingURL=base.js.map
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4187,7 +4198,7 @@ exports.Batch = Batch;
 //# sourceMappingURL=batch.js.map
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4443,7 +4454,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4569,7 +4580,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4636,7 +4647,7 @@ exports.Promise = Promise;
 //# sourceMappingURL=promise.js.map
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4777,7 +4788,7 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4948,7 +4959,7 @@ exports.XHRRequest = XHRRequest;
 //# sourceMappingURL=xhrRequest.js.map
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5249,7 +5260,7 @@ exports.AppHelper = {
 //# sourceMappingURL=app.js.map
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5327,7 +5338,7 @@ exports.Dependencies = Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5689,7 +5700,7 @@ exports.FieldSchemaXML = new _FieldSchemaXML();
 //# sourceMappingURL=field.js.map
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6063,7 +6074,7 @@ exports.JSLinkHelper = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6123,7 +6134,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6153,7 +6164,7 @@ exports.parse = function (jsonString) {
 //# sourceMappingURL=parse.js.map
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7221,7 +7232,7 @@ exports.SPConfig = SPConfig;
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7265,23 +7276,23 @@ exports.HelperTypes = {
 //# sourceMappingURL=types.js.map
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var __1 = __webpack_require__(2);
 var utils_1 = __webpack_require__(0);
+var __1 = __webpack_require__(2);
 /**
  * Web Part
  */
-var WebPart = /** @class */ (function () {
+var _WebPart = /** @class */ (function () {
     /**
      * Constructor
      * @param props - The webpart properties.
      */
-    function WebPart(props) {
+    function _WebPart(props) {
         var _this = this;
         this._props = null;
         this._wp = null;
@@ -7469,7 +7480,7 @@ var WebPart = /** @class */ (function () {
     /**
      * Method to get the webpart
      */
-    WebPart.prototype.getWebPart = function (wpId) {
+    _WebPart.prototype.getWebPart = function (wpId) {
         var promise = new utils_1.Promise();
         // Get the current context
         var context = SP.ClientContext.get_current();
@@ -7510,7 +7521,7 @@ var WebPart = /** @class */ (function () {
      * Method to get the webpart id for a specified element
      * @param el - The target element.
      */
-    WebPart.prototype.getWebPartId = function (el) {
+    _WebPart.prototype.getWebPartId = function (el) {
         // Loop until we find the webpart id
         while (el) {
             // See if this element contains the webpart id
@@ -7528,7 +7539,7 @@ var WebPart = /** @class */ (function () {
     /**
      * Method to detect if a page is being edited
      */
-    WebPart.prototype.isEditMode = function () {
+    _WebPart.prototype.isEditMode = function () {
         var formName = MSOWebPartPageFormName ? MSOWebPartPageFormName : "";
         // Get the form
         var form = document.forms[MSOWebPartPageFormName];
@@ -7543,13 +7554,13 @@ var WebPart = /** @class */ (function () {
         // Unable to determine
         return false;
     };
-    return WebPart;
+    return _WebPart;
 }());
-exports.WebPart = WebPart;
+exports.WebPart = _WebPart;
 //# sourceMappingURL=webpart.js.map
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7670,7 +7681,7 @@ exports.JSLink = _JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7734,7 +7745,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7781,7 +7792,7 @@ exports.Navigation = _Navigation;
 //# sourceMappingURL=navigation.js.map
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7823,7 +7834,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7866,7 +7877,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7909,7 +7920,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7989,7 +8000,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8046,7 +8057,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8116,7 +8127,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8159,7 +8170,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

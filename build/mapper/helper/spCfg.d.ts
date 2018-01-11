@@ -1,7 +1,7 @@
 /**
  * Field Information
  */
-export interface ISPConfigFieldInfo {
+export interface IFieldInfo {
     /** The default value of the field */
     defaultValue?: string;
     /** The internal name of the field */
@@ -18,7 +18,7 @@ export interface ISPConfigFieldInfo {
 /**
  * Calculated Field Information
  */
-export interface ISPConfigFieldInfoCalculated extends ISPConfigFieldInfo {
+export interface IFieldInfoCalculated extends IFieldInfo {
     /** The field references */
     fieldRefs?: Array<string>;
     /** The date/time format */
@@ -31,7 +31,7 @@ export interface ISPConfigFieldInfoCalculated extends ISPConfigFieldInfo {
 /**
  * Choice Field Information
  */
-export interface ISPConfigFieldInfoChoice extends ISPConfigFieldInfo {
+export interface IFieldInfoChoice extends IFieldInfo {
     /** The choices */
     choices?: string[];
     /** Allow multiple choices */
@@ -40,14 +40,14 @@ export interface ISPConfigFieldInfoChoice extends ISPConfigFieldInfo {
 /**
  * Date Field Information
  */
-export interface ISPConfigFieldInfoDate extends ISPConfigFieldInfo {
+export interface IFieldInfoDate extends IFieldInfo {
     /** The date/time format */
     format?: number;
 }
 /**
  * Lookup Field Information
  */
-export interface ISPConfigFieldInfoLookup extends ISPConfigFieldInfo {
+export interface IFieldInfoLookup extends IFieldInfo {
     /** The field reference (Required for associated lookup fields) */
     fieldRef?: string;
     /** Allow multiple lookup values */
@@ -64,14 +64,14 @@ export interface ISPConfigFieldInfoLookup extends ISPConfigFieldInfo {
 /**
  * Managed Metadata
  */
-export interface ISPConfigFieldInfoMMS extends ISPConfigFieldInfo {
+export interface IFieldInfoMMS extends IFieldInfo {
     /** The locale value */
     locale?: number;
 }
 /**
  * Note
  */
-export interface ISPConfigFieldInfoNote extends ISPConfigFieldInfo {
+export interface IFieldInfoNote extends IFieldInfo {
     /** Flag to append the comments. (This requires versioning to be enabled) */
     appendFl?: boolean;
     /** The note field type */
@@ -82,7 +82,7 @@ export interface ISPConfigFieldInfoNote extends ISPConfigFieldInfo {
 /**
  * Number
  */
-export interface ISPConfigFieldInfoNumber extends ISPConfigFieldInfo {
+export interface IFieldInfoNumber extends IFieldInfo {
     /** The number of decimal places */
     decimals?: number;
     /** The maximum value */
@@ -95,7 +95,7 @@ export interface ISPConfigFieldInfoNumber extends ISPConfigFieldInfo {
 /**
  * User
  */
-export interface ISPConfigFieldInfoUser extends ISPConfigFieldInfo {
+export interface IFieldInfoUser extends IFieldInfo {
     /** Allow multiple choices */
     multi?: boolean;
     /** The user selection mode */

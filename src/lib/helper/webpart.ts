@@ -1,28 +1,21 @@
-import { ContextInfo } from "..";
+import { Types } from "../../mapper";
 import { Promise } from "../../utils";
+import { ContextInfo } from "..";
 declare var SP;
 declare var MSOWebPartPageFormName;
 
 /**
- * WebPart
+ * WebPart Instance
  */
-export interface IWebPart {
+export interface IWebPartInstance {
     /** The configuration */
-    cfg: IWebPartCfg;
+    cfg: Types.Helper.IWebPartCfg;
 
     /** The element to render the webpart to */
     el: HTMLElement;
 
     /** The webpart id */
     wpId: string;
-}
-
-/**
- * WebPart Configuration
- */
-export interface IWebPartCfg {
-    /** The webpart id */
-    WebPartId: string;
 }
 
 /**
@@ -62,13 +55,13 @@ export interface IWebPartProps {
     };
 
     /** The post render event */
-    onPostRender?: (wp: IWebPart) => void;
+    onPostRender?: (wp: IWebPartInstance) => void;
 
     /** The render event triggered when the page is in 'Display' mode */
-    onRenderDisplay?: (wp: IWebPart) => any;
+    onRenderDisplay?: (wp: IWebPartInstance) => any;
 
     /** The render event triggered when the page is in 'Edit' mode */
-    onRenderEdit?: (wp: IWebPart) => any;
+    onRenderEdit?: (wp: IWebPartInstance) => any;
 
     /** The target element id to render the webpart to */
     elementId: string;
@@ -77,9 +70,20 @@ export interface IWebPartProps {
 /**
  * Web Part
  */
-export class WebPart {
+export interface IWebPart {
+    /**
+     * Creates an instance of a webpart.
+     * @param props - The webpart properties.
+     */
+    new(props: IWebPartProps);
+}
+
+/**
+ * Web Part
+ */
+class _WebPart {
     private _props: IWebPartProps = null;
-    private _wp: IWebPart = null;
+    private _wp: IWebPartInstance = null;
 
     /**
      * Constructor
@@ -188,8 +192,8 @@ export class WebPart {
     /**
      * Method to get the webpart information
      */
-    private getWebPartInfo = (): IWebPart => {
-        let targetInfo: IWebPart = {
+    private getWebPartInfo = (): IWebPartInstance => {
+        let targetInfo: IWebPartInstance = {
             cfg: null,
             el: null,
             wpId: null
@@ -213,7 +217,7 @@ export class WebPart {
                     if (elCfg) {
                         try {
                             // Parse the configuration
-                            let cfg: IWebPartCfg = JSON.parse(elCfg.innerText.trim());
+                            let cfg: Types.Helper.IWebPartCfg = JSON.parse(elCfg.innerText.trim());
 
                             // See if the webaprt id exists
                             if (cfg.WebPartId) {
@@ -361,3 +365,4 @@ export class WebPart {
         }
     }
 }
+export const WebPart: IWebPart = _WebPart as any;

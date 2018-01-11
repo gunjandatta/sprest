@@ -22,6 +22,6 @@ exports.Helper = {
     parse: parse_1.parse,
     SPConfig: spCfg_1.SPConfig,
     Types: types_1.HelperTypes,
-    WebPart: function (props) { return new webpart_1.WebPart(props); }
+    WebPart: webpart_1.WebPart
 };
 //# sourceMappingURL=index.js.map

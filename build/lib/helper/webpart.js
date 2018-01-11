@@ -1,16 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var __1 = require("..");
 var utils_1 = require("../../utils");
+var __1 = require("..");
 /**
  * Web Part
  */
-var WebPart = /** @class */ (function () {
+var _WebPart = /** @class */ (function () {
     /**
      * Constructor
      * @param props - The webpart properties.
      */
-    function WebPart(props) {
+    function _WebPart(props) {
         var _this = this;
         this._props = null;
         this._wp = null;
@@ -198,7 +198,7 @@ var WebPart = /** @class */ (function () {
     /**
      * Method to get the webpart
      */
-    WebPart.prototype.getWebPart = function (wpId) {
+    _WebPart.prototype.getWebPart = function (wpId) {
         var promise = new utils_1.Promise();
         // Get the current context
         var context = SP.ClientContext.get_current();
@@ -239,7 +239,7 @@ var WebPart = /** @class */ (function () {
      * Method to get the webpart id for a specified element
      * @param el - The target element.
      */
-    WebPart.prototype.getWebPartId = function (el) {
+    _WebPart.prototype.getWebPartId = function (el) {
         // Loop until we find the webpart id
         while (el) {
             // See if this element contains the webpart id
@@ -257,7 +257,7 @@ var WebPart = /** @class */ (function () {
     /**
      * Method to detect if a page is being edited
      */
-    WebPart.prototype.isEditMode = function () {
+    _WebPart.prototype.isEditMode = function () {
         var formName = MSOWebPartPageFormName ? MSOWebPartPageFormName : "";
         // Get the form
         var form = document.forms[MSOWebPartPageFormName];
@@ -272,7 +272,7 @@ var WebPart = /** @class */ (function () {
         // Unable to determine
         return false;
     };
-    return WebPart;
+    return _WebPart;
 }());
-exports.WebPart = WebPart;
+exports.WebPart = _WebPart;
 //# sourceMappingURL=webpart.js.map

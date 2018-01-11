@@ -5,6 +5,6 @@ import { Promise } from "../../utils";
  */
 export interface IFieldSchemaXML {
     /** Method to generate the field schema xml. */
-    generate: (fieldInfo: Types.SPConfig.ISPConfigFieldInfo) => Promise;
+    generate: (fieldInfo: Types.Helper.SPConfig.IFieldInfo) => Promise;
 }
 export declare const FieldSchemaXML: IFieldSchemaXML;
