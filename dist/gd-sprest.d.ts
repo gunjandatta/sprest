@@ -2109,6 +2109,7 @@ declare module 'gd-sprest/lib/helper' {
     import { ILoader } from "gd-sprest/lib/helper/loader";
     import { ISPConfig } from "gd-sprest/lib/helper/spCfg";
     import { IHelperTypes } from "gd-sprest/lib/helper/types";
+    import { WebPart, IWebPartProps } from "gd-sprest/lib/helper/webpart";
     /**
         * Helper
         */
@@ -2145,6 +2146,10 @@ declare module 'gd-sprest/lib/helper' {
                 * Helper Types
                 */
             Types: IHelperTypes;
+            /**
+                * WebPart
+                */
+            WebPart: (props: IWebPartProps) => WebPart;
     }
     /**
         * Helper Methods
@@ -5821,6 +5826,59 @@ declare module 'gd-sprest/lib/helper/types' {
         * Helper Types
         */
     export const HelperTypes: IHelperTypes;
+}
+
+declare module 'gd-sprest/lib/helper/webpart' {
+    /**
+        * WebPart
+        */
+    export interface IWebPart {
+            /** The configuration */
+            cfg: IWebPartCfg;
+            /** The element to render the webpart to */
+            el: HTMLElement;
+            /** The webpart id */
+            wpId: string;
+    }
+    /**
+        * WebPart Configuration
+        */
+    export interface IWebPartCfg {
+            /** The webpart id */
+            WebPartId: string;
+    }
+    /**
+        * The webpart properties
+        */
+    export interface IWebPartProps {
+            /** The optional configuration element id */
+            cfgElementId?: string;
+            /** The optional help link properties */
+            helpProps?: {
+                    /** The link title */
+                    title?: string;
+                    /** The link url */
+                    url: string;
+            };
+            /** The post render event */
+            onPostRender?: (wp: IWebPart) => void;
+            /** The render event triggered when the page is in 'Display' mode */
+            onRenderDisplay?: (wp: IWebPart) => any;
+            /** The render event triggered when the page is in 'Edit' mode */
+            onRenderEdit?: (wp: IWebPart) => any;
+            /** The target element id to render the webpart to */
+            elementId: string;
+    }
+    /**
+        * Web Part
+        */
+    export class WebPart {
+            /**
+                * Constructor
+                * @param props - The webpart properties.
+                */
+            constructor(props: IWebPartProps);
+    }
 }
 
 declare module 'gd-sprest/mapper/user/group' {

@@ -7,6 +7,7 @@ import { Loader, ILoader } from "./loader";
 import { parse } from "./parse";
 import { SPConfig, ISPConfig } from "./spCfg";
 import { HelperTypes, IHelperTypes } from "./types";
+import { WebPart, IWebPartProps } from "./webpart";
 
 /**
  * Helper
@@ -51,6 +52,11 @@ export interface IHelper {
      * Helper Types
      */
     Types: IHelperTypes
+
+    /**
+     * WebPart
+     */
+    WebPart: (props: IWebPartProps) => WebPart;
 };
 
 /**
@@ -64,5 +70,6 @@ export const Helper: IHelper = {
     Loader: Loader,
     parse: parse as any,
     SPConfig: SPConfig as any,
-    Types: HelperTypes
+    Types: HelperTypes,
+    WebPart: (props: IWebPartProps) => { return new WebPart(props); }
 };
