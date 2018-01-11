@@ -9,7 +9,7 @@ import { Helper } from ".";
  */
 export interface IFieldSchemaXML {
     /** Method to generate the field schema xml. */
-    generate: (fieldInfo: Types.SPConfig.ISPConfigFieldInfo) => Promise;
+    generate: (fieldInfo: Types.Helper.SPConfig.IFieldInfo) => Promise;
 }
 
 /**
@@ -17,7 +17,7 @@ export interface IFieldSchemaXML {
  */
 class _FieldSchemaXML {
     // Generates the schema xml, based on the field information provided.
-    generate = (fieldInfo: Types.SPConfig.ISPConfigFieldInfo): Promise => {
+    generate = (fieldInfo: Types.Helper.SPConfig.IFieldInfo): Promise => {
         let promise = new Promise();
 
         // See if the schema xml has been defined
@@ -96,7 +96,7 @@ class _FieldSchemaXML {
      */
 
     /** Returns the schema xml for a boolean field. */
-    private createBoolean = (fieldInfo: Types.SPConfig.ISPConfigFieldInfo, props: object, promise: Promise) => {
+    private createBoolean = (fieldInfo: Types.Helper.SPConfig.IFieldInfo, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -112,7 +112,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a calculated field. */
-    private createCalculated = (fieldInfo: Types.SPConfig.ISPConfigFieldInfoCalculated, props: object, promise: Promise) => {
+    private createCalculated = (fieldInfo: Types.Helper.SPConfig.IFieldInfoCalculated, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -157,7 +157,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a choice field. */
-    private createChoice = (fieldInfo: Types.SPConfig.ISPConfigFieldInfoChoice, props: object, promise: Promise) => {
+    private createChoice = (fieldInfo: Types.Helper.SPConfig.IFieldInfoChoice, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -178,7 +178,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a date field. */
-    private createDate = (fieldInfo: Types.SPConfig.ISPConfigFieldInfoDate, props: object, promise: Promise) => {
+    private createDate = (fieldInfo: Types.Helper.SPConfig.IFieldInfoDate, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -195,7 +195,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a lookup field. */
-    private createLookup = (fieldInfo: Types.SPConfig.ISPConfigFieldInfoLookup, props: object, promise: Promise) => {
+    private createLookup = (fieldInfo: Types.Helper.SPConfig.IFieldInfoLookup, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -235,7 +235,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a managed metadata field. */
-    private createMMS = (fieldInfo: Types.SPConfig.ISPConfigFieldInfoMMS, props: object, promise: Promise) => {
+    private createMMS = (fieldInfo: Types.Helper.SPConfig.IFieldInfoMMS, props: object, promise: Promise) => {
         // Create the value field
         let valueProps = {
             ID: "{" + ContextInfo.generateGUID() + "}",
@@ -272,7 +272,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a note field. */
-    private createNote = (fieldInfo: Types.SPConfig.ISPConfigFieldInfoNote, props: object, promise: Promise) => {
+    private createNote = (fieldInfo: Types.Helper.SPConfig.IFieldInfoNote, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -292,7 +292,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a number field. */
-    private createNumber = (fieldInfo: Types.SPConfig.ISPConfigFieldInfoNumber, props: object, promise: Promise) => {
+    private createNumber = (fieldInfo: Types.Helper.SPConfig.IFieldInfoNumber, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -313,7 +313,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a text field. */
-    private createText = (fieldInfo: Types.SPConfig.ISPConfigFieldInfo, props: object, promise: Promise) => {
+    private createText = (fieldInfo: Types.Helper.SPConfig.IFieldInfo, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -327,7 +327,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a url field. */
-    private createUrl = (fieldInfo: Types.SPConfig.ISPConfigFieldInfo, props: object, promise: Promise) => {
+    private createUrl = (fieldInfo: Types.Helper.SPConfig.IFieldInfo, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -341,7 +341,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a user field. */
-    private createUser = (fieldInfo: Types.SPConfig.ISPConfigFieldInfoUser, props: object, promise: Promise) => {
+    private createUser = (fieldInfo: Types.Helper.SPConfig.IFieldInfoUser, props: object, promise: Promise) => {
         let schemaXml: string = null;
 
         // Set the field type

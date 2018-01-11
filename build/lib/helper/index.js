@@ -8,6 +8,7 @@ var loader_1 = require("./loader");
 var parse_1 = require("./parse");
 var spCfg_1 = require("./spCfg");
 var types_1 = require("./types");
+var webpart_1 = require("./webpart");
 ;
 /**
  * Helper Methods
@@ -20,6 +21,7 @@ exports.Helper = {
     Loader: loader_1.Loader,
     parse: parse_1.parse,
     SPConfig: spCfg_1.SPConfig,
-    Types: types_1.HelperTypes
+    Types: types_1.HelperTypes,
+    WebPart: webpart_1.WebPart
 };
 //# sourceMappingURL=index.js.map

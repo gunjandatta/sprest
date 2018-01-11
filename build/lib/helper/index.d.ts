@@ -6,6 +6,7 @@ import { IHelperJSLink } from "./jslink";
 import { ILoader } from "./loader";
 import { ISPConfig } from "./spCfg";
 import { IHelperTypes } from "./types";
+import { IWebPart } from "./webpart";
 /**
  * Helper
  */
@@ -42,6 +43,10 @@ export interface IHelper {
      * Helper Types
      */
     Types: IHelperTypes;
+    /**
+     * WebPart
+     */
+    WebPart: IWebPart;
 }
 /**
  * Helper Methods
