@@ -114,7 +114,7 @@ class _WebPart {
     /**
      * Method to get the webpart
      */
-    private getWebPart(wpId: string): PromiseLike<IWebPartObject> {
+    private getWebPart = (wpId: string): PromiseLike<IWebPartObject> => {
         let promise = new Promise();
 
         // Get the current context
@@ -157,7 +157,7 @@ class _WebPart {
      * Method to get the webpart id for a specified element
      * @param el - The target element.
      */
-    private getWebPartId(el: HTMLElement) {
+    private getWebPartId = (el: HTMLElement) => {
         // Loop until we find the webpart id
         while (el) {
             // See if this element contains the webpart id
@@ -282,7 +282,7 @@ class _WebPart {
     /**
      * Method to detect if a page is being edited
      */
-    private isEditMode() {
+    private isEditMode = () => {
         let formName = MSOWebPartPageFormName ? MSOWebPartPageFormName : "";
 
         // Get the form

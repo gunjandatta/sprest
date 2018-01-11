@@ -324,7 +324,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.61,
+    __ver: 2.62,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: lib_1.Helper,
@@ -7331,6 +7331,65 @@ var _WebPart = /** @class */ (function () {
             }
         };
         /**
+         * Method to get the webpart
+         */
+        this.getWebPart = function (wpId) {
+            var promise = new utils_1.Promise();
+            // Get the current context
+            var context = SP.ClientContext.get_current();
+            // Get the webpart from the current page
+            var page = context.get_web().getFileByServerRelativeUrl(__1.ContextInfo.serverRequestPath);
+            var wpMgr = page.getLimitedWebPartManager(SP.WebParts.PersonalizationScope.shared);
+            var wpDef = wpMgr.get_webParts().getById(wpId);
+            var wp = wpDef.get_webPart();
+            context.load(wp, "Properties");
+            // Execute the request
+            context.executeQueryAsync(
+            // Success
+            function () {
+                // Resolve the promise
+                promise.resolve({
+                    Context: context,
+                    Properties: wp.get_properties(),
+                    WebPart: wp,
+                    WebPartDefinition: wpDef,
+                    WebPartId: wp.get_id()
+                });
+            }, 
+            // Error
+            function () {
+                var args = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    args[_i] = arguments[_i];
+                }
+                // Reject the promise
+                //reject(args[1] ? args[1].get_message() : "");
+                console.log("[gd-sprest] " + (args[1] ? args[1].get_message() : ""));
+                promise.resolve();
+            });
+            // Return a promise
+            return promise;
+        };
+        /**
+         * Method to get the webpart id for a specified element
+         * @param el - The target element.
+         */
+        this.getWebPartId = function (el) {
+            // Loop until we find the webpart id
+            while (el) {
+                // See if this element contains the webpart id
+                var wpId = el.getAttribute("webpartid");
+                if (wpId) {
+                    // Return the webpart id
+                    return wpId;
+                }
+                // Check the parent
+                el = el.parentElement;
+            }
+            // Unable to detect
+            return "";
+        };
+        /**
          * Method to get the webpart information
          */
         this.getWebPartInfo = function () {
@@ -7430,6 +7489,24 @@ var _WebPart = /** @class */ (function () {
             return targetInfo;
         };
         /**
+         * Method to detect if a page is being edited
+         */
+        this.isEditMode = function () {
+            var formName = MSOWebPartPageFormName ? MSOWebPartPageFormName : "";
+            // Get the form
+            var form = document.forms[MSOWebPartPageFormName];
+            if (form) {
+                // Get the wiki page mode
+                var wikiPageMode = form._wikiPageMode ? form._wikiPageMode.value : null;
+                // Get the webpart page mode
+                var wpPageMode = form.MSOLayout_InDesignMode ? form.MSOLayout_InDesignMode.value : null;
+                // Determine if the page is being edited
+                return wikiPageMode == "Edit" || wpPageMode == "1";
+            }
+            // Unable to determine
+            return false;
+        };
+        /**
          * Method to render the webpart
          */
         this.render = function () {
@@ -7488,83 +7565,6 @@ var _WebPart = /** @class */ (function () {
             _this.render();
         });
     }
-    /**
-     * Method to get the webpart
-     */
-    _WebPart.prototype.getWebPart = function (wpId) {
-        var promise = new utils_1.Promise();
-        // Get the current context
-        var context = SP.ClientContext.get_current();
-        // Get the webpart from the current page
-        var page = context.get_web().getFileByServerRelativeUrl(__1.ContextInfo.serverRequestPath);
-        var wpMgr = page.getLimitedWebPartManager(SP.WebParts.PersonalizationScope.shared);
-        var wpDef = wpMgr.get_webParts().getById(wpId);
-        var wp = wpDef.get_webPart();
-        context.load(wp, "Properties");
-        // Execute the request
-        context.executeQueryAsync(
-        // Success
-        function () {
-            // Resolve the promise
-            promise.resolve({
-                Context: context,
-                Properties: wp.get_properties(),
-                WebPart: wp,
-                WebPartDefinition: wpDef,
-                WebPartId: wp.get_id()
-            });
-        }, 
-        // Error
-        function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            // Reject the promise
-            //reject(args[1] ? args[1].get_message() : "");
-            console.log("[gd-sprest] " + (args[1] ? args[1].get_message() : ""));
-            promise.resolve();
-        });
-        // Return a promise
-        return promise;
-    };
-    /**
-     * Method to get the webpart id for a specified element
-     * @param el - The target element.
-     */
-    _WebPart.prototype.getWebPartId = function (el) {
-        // Loop until we find the webpart id
-        while (el) {
-            // See if this element contains the webpart id
-            var wpId = el.getAttribute("webpartid");
-            if (wpId) {
-                // Return the webpart id
-                return wpId;
-            }
-            // Check the parent
-            el = el.parentElement;
-        }
-        // Unable to detect
-        return "";
-    };
-    /**
-     * Method to detect if a page is being edited
-     */
-    _WebPart.prototype.isEditMode = function () {
-        var formName = MSOWebPartPageFormName ? MSOWebPartPageFormName : "";
-        // Get the form
-        var form = document.forms[MSOWebPartPageFormName];
-        if (form) {
-            // Get the wiki page mode
-            var wikiPageMode = form._wikiPageMode ? form._wikiPageMode.value : null;
-            // Get the webpart page mode
-            var wpPageMode = form.MSOLayout_InDesignMode ? form.MSOLayout_InDesignMode.value : null;
-            // Determine if the page is being edited
-            return wikiPageMode == "Edit" || wpPageMode == "1";
-        }
-        // Unable to determine
-        return false;
-    };
     return _WebPart;
 }());
 exports.WebPart = _WebPart;
