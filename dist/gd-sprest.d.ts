@@ -5855,7 +5855,7 @@ declare module 'gd-sprest/mapper/helper/webpart' {
         */
     export interface IWebPartCfg {
             /** The webpart id */
-            WebPartId: string;
+            WebPartId?: string;
     }
     /**
         * The webpart instance

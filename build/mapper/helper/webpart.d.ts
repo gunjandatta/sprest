@@ -3,7 +3,7 @@
  */
 export interface IWebPartCfg {
     /** The webpart id */
-    WebPartId: string;
+    WebPartId?: string;
 }
 /**
  * The webpart instance
