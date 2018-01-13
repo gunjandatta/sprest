@@ -25,6 +25,8 @@
   "homepage": "https://gunjandatta.github.io/sprest",
   "dependencies": {},
   "devDependencies": {
+    "@types/core-js": "^0.9.44",
+    "core-js": "^2.5.3",
     "dts-bundle": "^0.7.3",
     "uglify-js": "^3.2.2",
     "webpack": "^3.10.0"

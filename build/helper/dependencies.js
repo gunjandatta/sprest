@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
-var utils_1 = require("../utils");
 /**
  * Dependencies
  * This class will ensure the core SP scripts are loaded on the page.
@@ -12,9 +11,10 @@ var Dependencies = /** @class */ (function () {
      * @param callback - The method to execute after the scripts have been loaded.
      */
     function Dependencies(callback) {
+        this._callback = null;
         // Default the properties
+        this._callback = callback;
         this.MAX_WAIT = 5;
-        this.promise = new utils_1.Promise(callback);
         this.SCRIPTS = [
             "MicrosoftAjax.js", "init.js", "sp.runtime.js", "sp.js", "sp.core.js", "core.js"
         ];
@@ -32,8 +32,8 @@ var Dependencies = /** @class */ (function () {
     Dependencies.prototype.loadDependencies = function () {
         // See if the page context exists
         if (this.pageContextExistsFl) {
-            // Resolve the promise
-            this.promise.resolve();
+            // Call the callback event
+            this._callback ? this._callback() : null;
         }
         else {
             // Load the required scripts
@@ -61,8 +61,8 @@ var Dependencies = /** @class */ (function () {
             if (this.pageContextExists || ++counter >= this.MAX_WAIT) {
                 // Clear the interval
                 lib_1.ContextInfo.window.clearInterval(intervalId);
-                // Resolve the promise
-                this.promise.resolve();
+                // Call the callback event
+                this._callback ? this._callback() : null;
             }
         }, 10);
     };

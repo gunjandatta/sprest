@@ -1,4 +1,3 @@
-import { Promise } from "../utils";
 /**
  * Dependencies
  */
@@ -12,8 +11,6 @@ export interface IDependencies {
     MAX_WAIT: number;
     /** Flag to determine if the page context information exists */
     pageContextExistsFl: boolean;
-    /** The promise. */
-    promise: Promise;
     /** The script file names to load. */
     SCRIPTS: Array<string>;
     /**
@@ -31,9 +28,9 @@ export interface IDependencies {
  */
 export declare class Dependencies {
     MAX_WAIT: number;
-    promise: Promise;
-    readonly pageContextExistsFl: boolean;
     SCRIPTS: Array<string>;
+    private _callback;
+    readonly pageContextExistsFl: boolean;
     /**
      * Constructor
      * @param callback - The method to execute after the scripts have been loaded.

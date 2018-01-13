@@ -1,6 +1,5 @@
 import { ContextInfo } from "../lib";
 import { Types } from "../mapper";
-import { Promise } from "../utils";
 declare var SP;
 declare var MSOWebPartPageFormName;
 
@@ -86,42 +85,38 @@ class _WebPart {
      * Method to get the webpart
      */
     private getWebPart = (wpId: string): PromiseLike<IWebPartObject> => {
-        let promise = new Promise();
-
-        // Get the current context
-        let context = SP.ClientContext.get_current();
-
-        // Get the webpart from the current page
-        let page = context.get_web().getFileByServerRelativeUrl(ContextInfo.serverRequestPath);
-        let wpMgr = page.getLimitedWebPartManager(SP.WebParts.PersonalizationScope.shared);
-        let wpDef = wpMgr.get_webParts().getById(wpId);
-        let wp = wpDef.get_webPart();
-        context.load(wp, "Properties");
-
-        // Execute the request
-        context.executeQueryAsync(
-            // Success
-            () => {
-                // Resolve the promise
-                promise.resolve({
-                    Context: context,
-                    Properties: wp.get_properties(),
-                    WebPart: wp,
-                    WebPartDefinition: wpDef,
-                    WebPartId: wp.get_id()
-                } as IWebPartObject);
-            },
-            // Error
-            (...args) => {
-                // Reject the promise
-                //reject(args[1] ? args[1].get_message() : "");
-                console.log("[gd-sprest] " + (args[1] ? args[1].get_message() : ""));
-                promise.resolve();
-            }
-        );
-
         // Return a promise
-        return promise as any;
+        return new Promise((resolve, reject) => {
+            // Get the current context
+            let context = SP.ClientContext.get_current();
+
+            // Get the webpart from the current page
+            let page = context.get_web().getFileByServerRelativeUrl(ContextInfo.serverRequestPath);
+            let wpMgr = page.getLimitedWebPartManager(SP.WebParts.PersonalizationScope.shared);
+            let wpDef = wpMgr.get_webParts().getById(wpId);
+            let wp = wpDef.get_webPart();
+            context.load(wp, "Properties");
+
+            // Execute the request
+            context.executeQueryAsync(
+                // Success
+                () => {
+                    // Resolve the promise
+                    resolve({
+                        Context: context,
+                        Properties: wp.get_properties(),
+                        WebPart: wp,
+                        WebPartDefinition: wpDef,
+                        WebPartId: wp.get_id()
+                    } as IWebPartObject);
+                },
+                // Error
+                (...args) => {
+                    // Reject the promise
+                    reject(args[1] ? args[1].get_message() : "");
+                }
+            );
+        });
     }
 
     /**

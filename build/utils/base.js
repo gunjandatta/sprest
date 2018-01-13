@@ -63,7 +63,7 @@ var Base = /** @class */ (function (_super) {
     Base.prototype.then = function (resolve, reject) {
         var _this = this;
         // Return a promise
-        return new _1.Promise(function () {
+        return new Promise(function () {
             // Execute this request
             _this.execute(function (request) {
                 // Ensure the request was successful

@@ -1,5 +1,4 @@
 import { ContextInfo } from "../lib";
-import { Promise } from "../utils";
 
 /**
  * Dependencies
@@ -16,9 +15,6 @@ export interface IDependencies {
 
     /** Flag to determine if the page context information exists */
     pageContextExistsFl: boolean;
-
-    /** The promise. */
-    promise: Promise;
 
     /** The script file names to load. */
     SCRIPTS: Array<string>;
@@ -40,9 +36,9 @@ export interface IDependencies {
  */
 export class Dependencies {
     MAX_WAIT: number;
-    promise: Promise;
-    get pageContextExistsFl(): boolean { return ContextInfo.webAbsoluteUrl != ""; }
     SCRIPTS: Array<string>;
+    private _callback = null;
+    get pageContextExistsFl(): boolean { return ContextInfo.webAbsoluteUrl != ""; }
 
     /**
      * Constructor
@@ -50,8 +46,8 @@ export class Dependencies {
      */
     constructor(callback: (...args) => void) {
         // Default the properties
+        this._callback = callback;
         this.MAX_WAIT = 5;
-        this.promise = new Promise(callback);
         this.SCRIPTS = [
             "MicrosoftAjax.js", "init.js", "sp.runtime.js", "sp.js", "sp.core.js", "core.js"
         ];
@@ -66,8 +62,8 @@ export class Dependencies {
     loadDependencies() {
         // See if the page context exists
         if (this.pageContextExistsFl) {
-            // Resolve the promise
-            this.promise.resolve();
+            // Call the callback event
+            this._callback ? this._callback() : null;
         }
         else {
             // Load the required scripts
@@ -101,8 +97,8 @@ export class Dependencies {
                 // Clear the interval
                 ContextInfo.window.clearInterval(intervalId);
 
-                // Resolve the promise
-                this.promise.resolve();
+                // Call the callback event
+                this._callback ? this._callback() : null;
             }
         }, 10);
     }

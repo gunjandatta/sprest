@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
-var utils_1 = require("../utils");
 /**
  * Web Part
  */
@@ -41,41 +40,39 @@ var _WebPart = /** @class */ (function () {
          * Method to get the webpart
          */
         this.getWebPart = function (wpId) {
-            var promise = new utils_1.Promise();
-            // Get the current context
-            var context = SP.ClientContext.get_current();
-            // Get the webpart from the current page
-            var page = context.get_web().getFileByServerRelativeUrl(lib_1.ContextInfo.serverRequestPath);
-            var wpMgr = page.getLimitedWebPartManager(SP.WebParts.PersonalizationScope.shared);
-            var wpDef = wpMgr.get_webParts().getById(wpId);
-            var wp = wpDef.get_webPart();
-            context.load(wp, "Properties");
-            // Execute the request
-            context.executeQueryAsync(
-            // Success
-            function () {
-                // Resolve the promise
-                promise.resolve({
-                    Context: context,
-                    Properties: wp.get_properties(),
-                    WebPart: wp,
-                    WebPartDefinition: wpDef,
-                    WebPartId: wp.get_id()
-                });
-            }, 
-            // Error
-            function () {
-                var args = [];
-                for (var _i = 0; _i < arguments.length; _i++) {
-                    args[_i] = arguments[_i];
-                }
-                // Reject the promise
-                //reject(args[1] ? args[1].get_message() : "");
-                console.log("[gd-sprest] " + (args[1] ? args[1].get_message() : ""));
-                promise.resolve();
-            });
             // Return a promise
-            return promise;
+            return new Promise(function (resolve, reject) {
+                // Get the current context
+                var context = SP.ClientContext.get_current();
+                // Get the webpart from the current page
+                var page = context.get_web().getFileByServerRelativeUrl(lib_1.ContextInfo.serverRequestPath);
+                var wpMgr = page.getLimitedWebPartManager(SP.WebParts.PersonalizationScope.shared);
+                var wpDef = wpMgr.get_webParts().getById(wpId);
+                var wp = wpDef.get_webPart();
+                context.load(wp, "Properties");
+                // Execute the request
+                context.executeQueryAsync(
+                // Success
+                function () {
+                    // Resolve the promise
+                    resolve({
+                        Context: context,
+                        Properties: wp.get_properties(),
+                        WebPart: wp,
+                        WebPartDefinition: wpDef,
+                        WebPartId: wp.get_id()
+                    });
+                }, 
+                // Error
+                function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Reject the promise
+                    reject(args[1] ? args[1].get_message() : "");
+                });
+            });
         };
         /**
          * Method to get the webpart id for a specified element
