@@ -1,8 +1,8 @@
 import { ContextInfo } from "../lib";
 import {
-    Promise,
     TargetInfo
 } from ".";
+declare var ActiveXObject;
 
 /*********************************************************************************************************************************/
 // Request
@@ -15,7 +15,7 @@ export class XHRRequest {
     constructor(asyncFl: boolean, targetInfo: TargetInfo, callback?: (...args) => void) {
         // Default the properties
         this.asyncFl = asyncFl;
-        this.promise = new Promise(callback || targetInfo.request.callback);
+        this.onRequestCompleted = callback || targetInfo.request.callback;
         this.targetInfo = targetInfo;
         this.xhr = this.createXHR();
 
@@ -55,8 +55,8 @@ export class XHRRequest {
     // The target information
     private targetInfo: TargetInfo;
 
-    // The promise
-    private promise: Promise;
+    // The method to execute after the request completes
+    private onRequestCompleted: (xhr: XHRRequest) => any;
 
     // The xml http request object
     private xhr: any;
@@ -106,7 +106,7 @@ export class XHRRequest {
 
         // Set the method
         this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
-        
+
         // See if the request digest has been defined
         if (this.targetInfo.request.requestDigest) {
             // Set the request digest
@@ -141,8 +141,8 @@ export class XHRRequest {
             this.xhr.onreadystatechange = () => {
                 // See if the request has finished
                 if (this.xhr.readyState == 4) {
-                    // Resolve the promise
-                    this.promise.resolve(this);
+                    // Execute the request completed event
+                    this.onRequestCompleted ? this.onRequestCompleted(this) : null;
                 }
             }
         }
