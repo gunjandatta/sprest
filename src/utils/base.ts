@@ -1,6 +1,6 @@
 import { Types } from "../mapper";
 import {
-    BaseExecution, Batch, Promise, TargetInfo,
+    BaseExecution, Batch, TargetInfo,
     IBaseExecution, IRequestInfo, ITargetInfo
 } from ".";
 
