@@ -1,4 +1,5 @@
-import { IContextInformation, IHelper, IJSLink } from "../lib";
+import { IHelper } from "../helper";
+import { IContextInformation, IJSLink } from "../lib";
 import { ITargetInfo } from "../utils";
 import { Types } from ".";
 /**

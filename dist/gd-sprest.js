@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,9 +73,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(29));
-__export(__webpack_require__(30));
-__export(__webpack_require__(31));
+__export(__webpack_require__(10));
 __export(__webpack_require__(32));
 __export(__webpack_require__(33));
 __export(__webpack_require__(34));
@@ -83,6 +81,8 @@ __export(__webpack_require__(35));
 __export(__webpack_require__(36));
 __export(__webpack_require__(37));
 __export(__webpack_require__(38));
+__export(__webpack_require__(39));
+__export(__webpack_require__(40));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -92,9 +92,9 @@ __export(__webpack_require__(38));
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var requestType_1 = __webpack_require__(8);
+var requestType_1 = __webpack_require__(12);
 exports.RequestType = requestType_1.RequestType;
-var SPTypes = __webpack_require__(9);
+var SPTypes = __webpack_require__(13);
 exports.SPTypes = SPTypes;
 //# sourceMappingURL=index.js.map
 
@@ -108,19 +108,18 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(28));
-__export(__webpack_require__(3));
+__export(__webpack_require__(9));
+__export(__webpack_require__(41));
+__export(__webpack_require__(42));
+__export(__webpack_require__(43));
+__export(__webpack_require__(44));
+__export(__webpack_require__(45));
+__export(__webpack_require__(46));
+__export(__webpack_require__(47));
 __export(__webpack_require__(48));
 __export(__webpack_require__(49));
 __export(__webpack_require__(50));
 __export(__webpack_require__(51));
-__export(__webpack_require__(52));
-__export(__webpack_require__(53));
-__export(__webpack_require__(54));
-__export(__webpack_require__(55));
-__export(__webpack_require__(56));
-__export(__webpack_require__(57));
-__export(__webpack_require__(58));
 __export(__webpack_require__(5));
 //# sourceMappingURL=index.js.map
 
@@ -131,15 +130,15 @@ __export(__webpack_require__(5));
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = __webpack_require__(39);
-var dependencies_1 = __webpack_require__(40);
-var field_1 = __webpack_require__(41);
-var jslink_1 = __webpack_require__(42);
-var loader_1 = __webpack_require__(43);
-var parse_1 = __webpack_require__(44);
-var spCfg_1 = __webpack_require__(45);
-var types_1 = __webpack_require__(46);
-var webpart_1 = __webpack_require__(47);
+var app_1 = __webpack_require__(8);
+var dependencies_1 = __webpack_require__(52);
+var field_1 = __webpack_require__(53);
+var jslink_1 = __webpack_require__(54);
+var loader_1 = __webpack_require__(55);
+var parse_1 = __webpack_require__(56);
+var spCfg_1 = __webpack_require__(57);
+var types_1 = __webpack_require__(6);
+var webpart_1 = __webpack_require__(58);
 ;
 /**
  * Helper Methods
@@ -167,18 +166,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Mapper
  */
-var mapper_1 = __webpack_require__(7);
-var mapper_2 = __webpack_require__(10);
-var mapper_3 = __webpack_require__(11);
-var mapper_4 = __webpack_require__(12);
-var mapper_5 = __webpack_require__(13);
-var mapper_6 = __webpack_require__(14);
-var mapper_7 = __webpack_require__(15);
-var mapper_8 = __webpack_require__(16);
-var mapper_9 = __webpack_require__(17);
-var mapper_10 = __webpack_require__(18);
-var mapper_11 = __webpack_require__(19);
-var mapper_12 = __webpack_require__(20);
+var mapper_1 = __webpack_require__(11);
+var mapper_2 = __webpack_require__(14);
+var mapper_3 = __webpack_require__(15);
+var mapper_4 = __webpack_require__(16);
+var mapper_5 = __webpack_require__(17);
+var mapper_6 = __webpack_require__(18);
+var mapper_7 = __webpack_require__(19);
+var mapper_8 = __webpack_require__(20);
+var mapper_9 = __webpack_require__(21);
+var mapper_10 = __webpack_require__(22);
+var mapper_11 = __webpack_require__(23);
+var mapper_12 = __webpack_require__(24);
 exports.Mapper = {
     attachment: mapper_3.attachment, attachmentfiles: mapper_3.attachmentfiles,
     audit: mapper_1.audit,
@@ -216,7 +215,7 @@ exports.Mapper = {
 /**
  * Types
  */
-var Types = __webpack_require__(21);
+var Types = __webpack_require__(25);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -274,6 +273,50 @@ exports.Web = _Web;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * SharePoint Configuration Field Types
+ */
+var SPCfgFieldType = {
+    Boolean: 0,
+    Calculated: 1,
+    Choice: 2,
+    Date: 3,
+    Lookup: 4,
+    MMS: 5,
+    Note: 6,
+    Number: 7,
+    Text: 8,
+    Url: 9,
+    User: 10
+};
+/**
+ * SharePoint Configuration Types
+ * The value determines the order to install the object type.
+ */
+var SPCfgType = {
+    Fields: 0,
+    ContentTypes: 1,
+    Lists: 2,
+    SiteUserCustomActions: 3,
+    WebParts: 5,
+    WebUserCustomActions: 4
+};
+/**
+ * Helper Types
+ */
+exports.HelperTypes = {
+    SPCfgFieldType: SPCfgFieldType,
+    SPCfgType: SPCfgType
+};
+//# sourceMappingURL=types.js.map
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 // Type definitions for gd-sprest
 // Project: https://gunjandatta.github.io/sprest
 // Definitions by: Gunjan Datta <https://github.com/gunjandatta>
@@ -300,6 +343,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
+var helper_1 = __webpack_require__(3);
+exports.Helper = helper_1.Helper;
 var mapper_1 = __webpack_require__(4);
 exports.Types = mapper_1.Types;
 var types_1 = __webpack_require__(1);
@@ -307,7 +352,6 @@ exports.RequestType = types_1.RequestType;
 exports.SPTypes = types_1.SPTypes;
 var lib_1 = __webpack_require__(2);
 exports.ContextInfo = lib_1.ContextInfo;
-exports.Helper = lib_1.Helper;
 exports.JSLink = lib_1.JSLink;
 exports.List = lib_1.List;
 exports.Navigation = lib_1.Navigation;
@@ -327,7 +371,7 @@ exports.$REST = {
     __ver: 2.64,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
-    Helper: lib_1.Helper,
+    Helper: helper_1.Helper,
     JSLink: lib_1.JSLink,
     List: function (listName, targetInfo) { return new lib_1.List(listName, targetInfo); },
     Navigation: function (url, targetInfo) { return new lib_1.Navigation(url, targetInfo); },
@@ -351,7 +395,871 @@ if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver
 //# sourceMappingURL=gd-sprest.js.map
 
 /***/ }),
-/* 7 */
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
+var utils_1 = __webpack_require__(0);
+/*********************************************************************************************************************************/
+// App Helper Methods
+/*********************************************************************************************************************************/
+exports.AppHelper = {
+    // Method to copy a file in this app web to the host web
+    copyFileToHostWeb: function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
+        var srcFile = null;
+        var promise = new utils_1.Promise();
+        var origVal = lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl;
+        // Ensure the current web is an app web
+        if (!lib_1.ContextInfo.isAppWeb) {
+            // Error
+            console.error("[gd-sprest] The current web is not an app web.");
+            return;
+        }
+        // Get the host web
+        lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
+        var web = (new lib_1.Web(rootWebFl ? lib_1.ContextInfo.siteServerRelativeUrl : null));
+        // See if the folder url was given
+        if (typeof (dstFolder) === "string") {
+            // Get the folder
+            _this.getFolder(web, dstFolder, true)
+                .done(function (folder) {
+                // Copy the file to the host web
+                _this.copyFileToHostWeb(fileUrl, folder, overwriteFl)
+                    .done(function (file, folder) { promise.resolve(file, folder); });
+            });
+        }
+        else {
+            // Get the file name
+            var fileName = fileUrl.split("/");
+            fileName = fileName[fileName.length - 1];
+            // Set the file urls
+            var dstFileUrl = lib_1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
+            var srcFileUrl_1 = lib_1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(lib_1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+            // Get the destination file
+            web.getFileByServerRelativeUrl(dstFileUrl)
+                .execute(function (file) {
+                var promise = new utils_1.Promise();
+                // See if the file exists
+                if (file.Exists) {
+                    // Check out the file, and resolve the promise
+                    file.checkout().execute(function () { promise.resolve(); });
+                }
+                else {
+                    // Resolve the promise
+                    promise.resolve();
+                }
+                // Return the promiser
+                return promise;
+            });
+            // Target the current web
+            lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl = false;
+            // Get the current web
+            (new lib_1.Web())
+                .getFileByServerRelativeUrl(srcFileUrl_1)
+                .content()
+                .execute(function (content) {
+                var promise = new utils_1.Promise();
+                // Get the file name
+                var fileName = srcFileUrl_1.split("/");
+                fileName = fileName[fileName.length - 1];
+                // Target the host web
+                lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
+                // Add the file to the folder
+                (dstFolder).Files().add(true, fileName, content)
+                    .execute(function (file) {
+                    // Save a reference to this file
+                    srcFile = file;
+                    // Check in the file
+                    file.checkin("", 1).execute();
+                    // Publish the file
+                    file.publish("").execute(true);
+                    // Wait for the requests to complete
+                    file.done(function () {
+                        // Resolve the promise
+                        promise.resolve();
+                    });
+                });
+                // Return the promise
+                return promise;
+            }, true);
+            // Wait for the requests to complete, and resolve the promise
+            web.done(function () { promise.resolve(srcFile, dstFolder); });
+        }
+        // Return the promise
+        return promise;
+    },
+    // Method to copy a file in this app web to the host web
+    copyFilesToHostWeb: function (fileUrls, folderUrls, overwriteFl, rootWebFl, idx, promise, files, folders) {
+        files = files ? files : [];
+        folders = folders ? folders : [];
+        idx = idx ? idx : 0;
+        promise = promise ? promise : new utils_1.Promise();
+        // Ensure the array is not empty
+        if (fileUrls.length == idx || folderUrls.length == idx) {
+            // Resolve the promise and return it
+            promise.resolve(files, folders);
+            return promise;
+        }
+        // Copy the file
+        _this.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
+            .done(function (file, folder) {
+            // Save a reference to the file and folder
+            files.push(file);
+            folders.push(folder);
+            // Copy the files
+            _this.copyFilesToHostWeb(fileUrls, folderUrls, overwriteFl, rootWebFl, ++idx, promise, files, folders);
+        });
+        // Return the promise
+        return promise;
+    },
+    // Method to create sub-folders
+    createSubFolders: function (folder, subFolderUrl, promise) {
+        // Ensure the promise exists
+        promise = promise ? promise : new utils_1.Promise();
+        // Get the sub-folder name
+        var subFolderName = subFolderUrl.split("/")[0];
+        // Update the sub folder url
+        subFolderUrl = subFolderUrl.substr(subFolderName.length + 1);
+        // Get the sub-folder
+        var subFolder = folder.Folders(subFolderName).execute(function (subFolder) {
+            // Method to add additional sub folders
+            var addSubFolders = function (subFolder) {
+                // See if we are done
+                if (subFolderUrl.length == 0) {
+                    // Resolve the promise
+                    promise.resolve(subFolder);
+                }
+                else {
+                    // Create the sub folder
+                    _this.createSubFolders(subFolder, subFolderUrl, promise);
+                }
+            };
+            // Ensure the sub-folder exists
+            if (subFolder.Exists) {
+                // Add the rest of the sub folders
+                addSubFolders(subFolder);
+            }
+            else {
+                // Create the sub folder
+                folder.Folders().add(subFolderName).execute(addSubFolders);
+            }
+        });
+        // Return a promise
+        return promise;
+    },
+    // Method to get a folder
+    getFolder: function (web, folderUrl, createFl) {
+        var dstFolder = null;
+        var promise = new utils_1.Promise();
+        // Ensure the web exists
+        if (!web.existsFl) {
+            // Get the web
+            web.execute();
+        }
+        // Wait for the requests to complete
+        web.done(function () {
+            // Set the destination folder url
+            var dstFolderUrl = lib_1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, folderUrl.substr(folderUrl[0] == "/" ? 1 : 0));
+            // Get the folder
+            web.getFolderByServerRelativeUrl(folderUrl)
+                .execute(function (folder) {
+                var promise = new utils_1.Promise();
+                // Ensure the folder exists
+                if (folder.Exists) {
+                    // Save a reference to the folder
+                    dstFolder = folder;
+                    // Resolve the promise
+                    promise.resolve();
+                }
+                else {
+                    // Create the folder
+                    _this.createSubFolders(web.RootFolder(), folderUrl).done(function (folder) {
+                        // Save a reference to the folder
+                        dstFolder = folder;
+                        // Resolve the promise
+                        promise.resolve();
+                    });
+                }
+                // Return the promise
+                return promise;
+            }, true);
+            // Wait for the request to complete
+            web.done(function () {
+                // Resolve the promise
+                promise.resolve(dstFolder);
+            });
+        });
+        // Return the promise
+        return promise;
+    },
+    // Method to remove empty folders
+    removeEmptyFolders: function (web, folderUrls) {
+        var promise = new utils_1.Promise();
+        // Ensure folder urls exist
+        if (folderUrls.length == 0) {
+            // Resolve the promise and return it
+            promise.resolve();
+        }
+        else {
+            var prevFolderUrl = null;
+            // Sort the urls alphabetically, then from longest to shortest
+            folderUrls.sort().sort(function (a, b) { return a.length > b.length ? -1 : 1; });
+            // Parse the folders
+            for (var _i = 0, folderUrls_1 = folderUrls; _i < folderUrls_1.length; _i++) {
+                var folderUrl = folderUrls_1[_i];
+                var folder = null;
+                // See if we already removed this folder
+                if (folderUrl == prevFolderUrl) {
+                    continue;
+                }
+                else {
+                    prevFolderUrl = folderUrl;
+                }
+                // Parse the folder names
+                var folderNames = folderUrl.split('/');
+                for (var _a = 0, folderNames_1 = folderNames; _a < folderNames_1.length; _a++) {
+                    var folderName = folderNames_1[_a];
+                    // Get the sub-folder
+                    folder = folder ? folder.Folders(folderName) : web.Folders(folderName);
+                }
+                // Execute the request
+                folder.execute(function (folder) {
+                    var promise = new utils_1.Promise();
+                    // See if the folder is empty
+                    if (folder.ItemCount == 0) {
+                        // Delete the folder, and resolve the promise
+                        folder.delete().execute(function () { promise.resolve(); });
+                    }
+                    else {
+                        // Resolve the proise
+                        promise.resolve();
+                    }
+                    // Return the promise
+                    return promise;
+                }, true);
+            }
+            // Wait for the requests to complete, and resolve the promise
+            web.done(function () { promise.resolve(); });
+        }
+        // Return the promise
+        return promise;
+    },
+    // Method to remove a file
+    removeFile: function (web, fileUrl) {
+        var promise = new utils_1.Promise();
+        var folder = null;
+        var folders = fileUrl.split('/');
+        // Parse the folders
+        for (var i = 0; i < folders.length - 1; i++) {
+            // Get the folder
+            folder = folder ? folder.Folders(folders[i]) : web.Folders(folders[i]);
+        }
+        // Get the file
+        folder.Files(folders[folders.length - 1]).execute(function (file) {
+            // See if it exists
+            if (file.Exists) {
+                // Delete it and resolve the promise
+                file.delete().execute(function () { promise.resolve(); });
+            }
+            else {
+                // Resolve the promises
+                promise.resolve();
+            }
+        }, true);
+        // Return the promise
+        return promise;
+    },
+    // Method to remove files
+    removeFiles: function (web, fileUrls, idx, promise) {
+        idx = idx ? idx : 0;
+        promise = promise ? promise : new utils_1.Promise();
+        // See if we have removed all files
+        if (fileUrls.length == idx) {
+            // Resolve the promise and return it
+            promise.resolve();
+        }
+        else {
+            // Remove the file
+            _this.removeFile(web, fileUrls[idx]).done(function () {
+                // Remove the files
+                _this.removeFiles(web, fileUrls, ++idx, promise);
+            });
+        }
+        // Return the promise
+        return promise;
+    }
+};
+//# sourceMappingURL=app.js.map
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/**
+ * Context Information
+ */
+var _ContextInfo = /** @class */ (function () {
+    function _ContextInfo() {
+    }
+    Object.defineProperty(_ContextInfo, "_contextInfo", {
+        // The current context information
+        get: function () {
+            return this.window["_spPageContextInfo"] ||
+                {
+                    existsFl: false,
+                    isAppWeb: false,
+                    siteAbsoluteUrl: "",
+                    siteServerRelativeUrl: "",
+                    userId: 0,
+                    webAbsoluteUrl: "",
+                    webServerRelativeUrl: ""
+                };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(_ContextInfo, "alertsEnabled", {
+        /**
+         * Properties
+         */
+        // Alerts Enabled
+        get: function () { return this._contextInfo.alertsEnabled; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "allowSilverlightPrompt", {
+        // Allow Silverlight Prompt
+        get: function () { return this._contextInfo.allowSilverlightPrompt == "True" ? true : false; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "clientServerTimeDelta", {
+        // Client Server Time Delta
+        get: function () { return this._contextInfo.clientServerTimeDelta; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "crossDomainPhotosEnabled", {
+        // Cross Domain Photos Enabled
+        get: function () { return this._contextInfo.crossDomainPhotosEnabled; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "currentCultureName", {
+        // Current Culture Name
+        get: function () { return this._contextInfo.currentCultureName; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "currentLanguage", {
+        // Current Language
+        get: function () { return this._contextInfo.currentLanguage; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "currentUICultureName", {
+        // Current UI Culture Name
+        get: function () { return this._contextInfo.currentUICultureName; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "document", {
+        // Document
+        get: function () { return this.window.document; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "env", {
+        // Environment
+        get: function () { return this._contextInfo.env; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "existsFl", {
+        // Exists Flag
+        get: function () { return this._contextInfo.existsFl == null; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "hasManageWebPermissions", {
+        // Has Manage Web Permissions
+        get: function () { return this._contextInfo.hasManageWebPermissions; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "isAnonymousGuestUser", {
+        // Is Anonymous Guest User
+        get: function () { return this._contextInfo.isAnonymousGuestUser; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "isAppWeb", {
+        // Is App Web
+        get: function () { return this._contextInfo.isAppWeb; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "isSiteAdmin", {
+        // Is Site Administrator
+        get: function () { return this._contextInfo.isSiteAdmin; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "layoutsUrl", {
+        // Layouts Url
+        get: function () { return this._contextInfo.layoutsUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "pageItemId", {
+        // Page Item Id
+        get: function () { return this._contextInfo.pageItemId; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "pageListId", {
+        // Page List Id
+        get: function () { return this._contextInfo.pageListId; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "pagePersonalizationScope", {
+        // Page Personalization Scope
+        get: function () { return this._contextInfo.pagePersonalizationScope; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "profileUrl", {
+        // Profile Url
+        get: function () { return this._contextInfo.profileUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "serverRequestPath", {
+        // Server Request Path
+        get: function () { return this._contextInfo.serverRequestPath; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "siteAbsoluteUrl", {
+        // Site Absolute Url
+        get: function () { return this._contextInfo.siteAbsoluteUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "siteClientTag", {
+        // Site Client Tag
+        get: function () { return this._contextInfo.siteClientTag; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "siteServerRelativeUrl", {
+        // Site Server Relative Url
+        get: function () { return this._contextInfo.siteServerRelativeUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "systemUserKey", {
+        // System User Key
+        get: function () { return this._contextInfo.systemUserKey; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "tenantAppVersion", {
+        // Tenant App Version
+        get: function () { return this._contextInfo.tenantAppVersion; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "themeCacheToken", {
+        // Theme Cache Token
+        get: function () { return this._contextInfo.themeCacheToken; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "updateFromDigestPageLoaded", {
+        // Update From Digest Page Loaded
+        get: function () { return this._contextInfo.updateFromDigestPageLoaded; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "userId", {
+        // User Id
+        get: function () { return this._contextInfo.userId; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "userLoginName", {
+        // User Login Name
+        get: function () { return this._contextInfo.userLoginName; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webAbsoluteUrl", {
+        // Web Absolute Url
+        get: function () { return this._contextInfo.webAbsoluteUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webLanguage", {
+        // Web Language
+        get: function () { return this._contextInfo.webLanguage; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webLogoUrl", {
+        // Web Logo Url
+        get: function () { return this._contextInfo.webLogoUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webPermMask", {
+        // Web Permissions Mask
+        get: function () { return this._contextInfo.webPermMask; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webServerRelativeUrl", {
+        // Web Server Relative Url
+        get: function () { return this._contextInfo.webServerRelativeUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webTemplate", {
+        // Web Template
+        get: function () { return this._contextInfo.webTemplate; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webTitle", {
+        // Web Title
+        get: function () { return this._contextInfo.webTitle; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webUIVersion", {
+        // Web UI Version
+        get: function () { return this._contextInfo.webUIVersion; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "window", {
+        // Window
+        get: function () { return typeof (window) == "undefined" ? {} : window; },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Methods
+     */
+    // Method to generate a guid
+    _ContextInfo.generateGUID = function () {
+        // Set the batch id
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    };
+    // Method to get the context information for a web
+    _ContextInfo.getWeb = function (url) {
+        // Create a new base object
+        return new utils_1.Base({
+            endpoint: "contextinfo",
+            method: "POST",
+            url: url
+        });
+    };
+    return _ContextInfo;
+}());
+exports.ContextInfo = _ContextInfo;
+//# sourceMappingURL=contextInfo.js.map
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
+var mapper_1 = __webpack_require__(4);
+var types_1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
+/**
+ * Request Helper
+ */
+var BaseHelper = /** @class */ (function () {
+    function BaseHelper() {
+    }
+    // Method to add the methods to base object
+    BaseHelper.prototype.addMethods = function (base, data) {
+        var isCollection = data.results && data.results.length > 0;
+        // Determine the metadata
+        var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
+        // Determine the object type
+        var objType = metadata && metadata.type ? metadata.type : base.targetInfo.endpoint;
+        objType = objType.split('/');
+        objType = (objType[objType.length - 1]);
+        objType = objType.split('.');
+        objType = (objType[objType.length - 1]).toLowerCase();
+        objType += isCollection ? "s" : "";
+        // See if the base is a field
+        if ((/^field/.test(objType) || /field$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
+            // Update the type
+            objType = "field" + (isCollection ? "s" : "");
+        }
+        else if (/item$/.test(objType)) {
+            // Update the type
+            objType = "listitem";
+        }
+        else if (/items$/.test(objType)) {
+            // Update the type
+            objType = "items";
+        }
+        else if (/corporatecatalogappmetadata/.test(objType)) {
+            // Update the type
+            objType = "tenantapp";
+        }
+        else if (/corporatecatalogappmetadatas/.test(objType)) {
+            // Update the type
+            objType = "tenantapps";
+        }
+        // Get the methods for the base object
+        var methods = mapper_1.Mapper[objType];
+        if (methods) {
+            // Parse the methods
+            for (var methodName in methods) {
+                // Get the method information
+                var methodInfo = methods[methodName] ? methods[methodName] : {};
+                // See if the base is the "Properties" definition for the object
+                if (methodName == "properties") {
+                    // Parse the properties
+                    for (var _i = 0, methodInfo_1 = methodInfo; _i < methodInfo_1.length; _i++) {
+                        var property = methodInfo_1[_i];
+                        var propInfo = property.split("|");
+                        // Get the metadata type
+                        var propName = propInfo[0];
+                        var propType = propInfo.length > 1 ? propInfo[1] : null;
+                        var subPropName = propInfo.length > 2 ? propInfo[2] : null;
+                        var subPropType = propInfo.length > 3 ? propInfo[3] : null;
+                        // See if the property is null or is a collection
+                        if (base[propName] == null || (base[propName].__deferred && base[propName].__deferred.uri)) {
+                            // See if the base property has a sub-property defined for it
+                            if (propInfo.length == 4) {
+                                // Update the ' char in the property name
+                                subPropName = subPropName.replace(/'/g, "\\'");
+                                // Add the property
+                                base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
+                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
+                            }
+                            else {
+                                // Add the property
+                                base[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
+                            }
+                        }
+                    }
+                    // Continue the loop
+                    continue;
+                }
+                // See if the base object has a dynamic metadata type
+                if (typeof (methodInfo.metadataType) === "function") {
+                    // Clone the object properties
+                    methodInfo = JSON.parse(JSON.stringify(methodInfo));
+                    // Set the metadata type
+                    methodInfo.metadataType = methods[methodName].metadataType(base);
+                }
+                // Add the method to the object
+                base[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+            }
+        }
+    };
+    // Method to add properties to the base object
+    BaseHelper.prototype.addProperties = function (base, data) {
+        // Parse the data properties
+        for (var key in data) {
+            var value = data[key];
+            // Skip properties
+            if (key == "__metadata" || key == "results") {
+                continue;
+            }
+            // See if the base is a collection property
+            if (value && value.__deferred && value.__deferred.uri) {
+                // Generate a method for the base property
+                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.getCollection('" + key + "', arguments);");
+            }
+            else {
+                // Set the property, based on the property name
+                switch (key) {
+                    case "ClientPeoplePickerResolveUser":
+                    case "ClientPeoplePickerSearchUser":
+                        base[key] = JSON.parse(value);
+                        break;
+                    default:
+                        // Append the property to the base object
+                        base[key] = value;
+                        break;
+                }
+                // See if the base is a collection
+                if (base[key] && base[key].results) {
+                    // Ensure the collection is an object
+                    if (base[key].results.length == 0 || typeof (base[key].results[0]) === "object") {
+                        // Create the base property as a new request
+                        var objCollection = new _1.Base(base.targetInfo);
+                        objCollection["results"] = base[key].results;
+                        // See no results exist
+                        if (objCollection["results"].length == 0) {
+                            // Set the metadata type to the key
+                            objCollection["__metadata"] = { type: key };
+                        }
+                        // Update the endpoint for the base request to point to the base property
+                        objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
+                        // Add the methods
+                        base.addMethods(objCollection, objCollection);
+                        // Update the data collection
+                        base.updateDataCollection(base, objCollection["results"]);
+                        // Update the property
+                        base[key] = objCollection;
+                    }
+                }
+            }
+        }
+    };
+    // Method to update a collection object
+    BaseHelper.prototype.updateDataCollection = function (obj, results) {
+        // Ensure the base is a collection
+        if (results) {
+            // Save the results
+            obj["results"] = obj["results"] ? obj["results"].concat(results) : results;
+            // See if only one object exists
+            if (obj["results"].length > 0) {
+                var results_1 = obj["results"];
+                // Parse the results
+                for (var _i = 0, results_2 = results_1; _i < results_2.length; _i++) {
+                    var result = results_2[_i];
+                    // Add the base references
+                    result["addMethods"] = obj.addMethods;
+                    result["base"] = obj.base;
+                    result["done"] = obj.done;
+                    result["execute"] = obj.execute;
+                    result["executeAndWait"] = obj.executeAndWait;
+                    result["executeMethod"] = obj.executeMethod;
+                    result["existsFl"] = true;
+                    result["getProperty"] = obj.getProperty;
+                    result["parent"] = obj;
+                    result["targetInfo"] = obj.targetInfo;
+                    result["updateMetadataUri"] = obj.updateMetadataUri;
+                    result["waitForRequestsToComplete"] = obj.waitForRequestsToComplete;
+                    // Update the metadata
+                    this.updateMetadata(obj, result);
+                    // Add the methods
+                    this.addMethods(result, result);
+                }
+            }
+        }
+    };
+    // Method to convert the input arguments into an object
+    BaseHelper.prototype.updateDataObject = function (isBatchRequest) {
+        // Ensure the request was successful
+        if (this.status >= 200 && this.status < 300) {
+            // Return if we are expecting a buffer
+            if (this.requestType == types_1.RequestType.GetBuffer) {
+                return;
+            }
+            // Parse the responses
+            var batchIdx = 0;
+            var batchRequestIdx = 0;
+            var responses = isBatchRequest ? this.response.split("\n") : [this.response];
+            for (var i = 0; i < responses.length; i++) {
+                var data = null;
+                // Try to convert the response
+                var response = responses[i];
+                response = response === "" && !isBatchRequest ? "{}" : response;
+                try {
+                    data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response);
+                }
+                catch (ex) {
+                    continue;
+                }
+                // Set the object based on the request type
+                var obj = isBatchRequest ? Object.create(this) : this;
+                // Set the exists flag
+                obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
+                // See if the data properties exists
+                if (data.d) {
+                    // Save a reference to it
+                    obj["d"] = data.d;
+                    // Update the metadata
+                    this.updateMetadata(obj, data.d);
+                    // Update the base object's properties
+                    this.addProperties(obj, data.d);
+                    // Add the methods
+                    this.addMethods(obj, data.d);
+                    // Update the data collection
+                    this.updateDataCollection(obj, data.d.results);
+                }
+                // See if the batch request exists
+                if (isBatchRequest) {
+                    // Get the batch request
+                    var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                    if (batchRequest == null) {
+                        // Update the batch indexes
+                        batchIdx++;
+                        batchRequestIdx = 0;
+                        // Update the batch request
+                        batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                    }
+                    // Ensure the batch request exists
+                    if (batchRequest) {
+                        // Set the response object
+                        batchRequest.response = typeof (data) === "string" ? data : obj;
+                        // Execute the callback if it exists
+                        batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
+                    }
+                }
+            }
+            // Clear the batch requests
+            if (isBatchRequest) {
+                this.base.batchRequests = null;
+            }
+        }
+    };
+    // Method to update the metadata
+    BaseHelper.prototype.updateMetadata = function (base, data) {
+        // Ensure the base is the app web
+        if (!lib_1.ContextInfo.isAppWeb) {
+            return;
+        }
+        // Get the url information
+        var hostUrl = lib_1.ContextInfo.webAbsoluteUrl.toLowerCase();
+        var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
+        var targetUrl = base.targetInfo && base.targetInfo.url ? base.targetInfo.url.toLowerCase() : null;
+        // Ensure the urls exist
+        if (hostUrl == null || requestUrl == null || targetUrl == null) {
+            return;
+        }
+        // See if we need to make an update
+        if (targetUrl.indexOf(hostUrl) == 0) {
+            return;
+        }
+        // Update the metadata uri
+        data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
+    };
+    return BaseHelper;
+}());
+exports.BaseHelper = BaseHelper;
+//# sourceMappingURL=baseHelper.js.map
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -371,7 +1279,7 @@ exports.audit = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 8 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -405,7 +1313,7 @@ exports.RequestType = {
 //# sourceMappingURL=requestType.js.map
 
 /***/ }),
-/* 9 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -949,7 +1857,7 @@ exports.ViewType = {
 //# sourceMappingURL=sptypes.js.map
 
 /***/ }),
-/* 10 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -997,7 +1905,7 @@ exports.eventreceivers = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 11 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1310,7 +2218,7 @@ exports.limitedwebpartmanager = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 12 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1856,7 +2764,7 @@ exports.views = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 13 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1886,7 +2794,7 @@ exports.navigationservicerest = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 14 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1906,7 +2814,7 @@ exports.propertyvalues = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 15 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1926,7 +2834,7 @@ exports.search = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 16 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2027,7 +2935,7 @@ exports.roledefinitions = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 17 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2534,7 +3442,7 @@ exports.webs = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 18 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2709,7 +3617,7 @@ exports.userprofile = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 19 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2864,7 +3772,7 @@ exports.users = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 20 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2914,61 +3822,21 @@ exports.usercustomactions = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ComplexTypes = __webpack_require__(22);
-exports.ComplexTypes = ComplexTypes;
-var Results = __webpack_require__(23);
-exports.Results = Results;
-var Helper = __webpack_require__(24);
-exports.Helper = Helper;
-var SPTypes = __webpack_require__(27);
-exports.SPTypes = SPTypes;
-//# sourceMappingURL=types.js.map
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=complexTypes.js.map
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=results.js.map
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var SPConfig = __webpack_require__(25);
-exports.SPConfig = SPConfig;
-var WebPart = __webpack_require__(26);
-exports.WebPart = WebPart;
-//# sourceMappingURL=index.js.map
-
-/***/ }),
 /* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=spCfg.js.map
+var ComplexTypes = __webpack_require__(26);
+exports.ComplexTypes = ComplexTypes;
+var Results = __webpack_require__(27);
+exports.Results = Results;
+var Helper = __webpack_require__(28);
+exports.Helper = Helper;
+var SPTypes = __webpack_require__(31);
+exports.SPTypes = SPTypes;
+//# sourceMappingURL=types.js.map
 
 /***/ }),
 /* 26 */
@@ -2977,7 +3845,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=webpart.js.map
+//# sourceMappingURL=complexTypes.js.map
 
 /***/ }),
 /* 27 */
@@ -2986,7 +3854,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=sptypes.js.map
+//# sourceMappingURL=results.js.map
 
 /***/ }),
 /* 28 */
@@ -2995,286 +3863,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-/**
- * Context Information
- */
-var _ContextInfo = /** @class */ (function () {
-    function _ContextInfo() {
-    }
-    Object.defineProperty(_ContextInfo, "_contextInfo", {
-        // The current context information
-        get: function () {
-            return this.window["_spPageContextInfo"] ||
-                {
-                    existsFl: false,
-                    isAppWeb: false,
-                    siteAbsoluteUrl: "",
-                    siteServerRelativeUrl: "",
-                    userId: 0,
-                    webAbsoluteUrl: "",
-                    webServerRelativeUrl: ""
-                };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(_ContextInfo, "alertsEnabled", {
-        /**
-         * Properties
-         */
-        // Alerts Enabled
-        get: function () { return this._contextInfo.alertsEnabled; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "allowSilverlightPrompt", {
-        // Allow Silverlight Prompt
-        get: function () { return this._contextInfo.allowSilverlightPrompt == "True" ? true : false; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "clientServerTimeDelta", {
-        // Client Server Time Delta
-        get: function () { return this._contextInfo.clientServerTimeDelta; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "crossDomainPhotosEnabled", {
-        // Cross Domain Photos Enabled
-        get: function () { return this._contextInfo.crossDomainPhotosEnabled; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "currentCultureName", {
-        // Current Culture Name
-        get: function () { return this._contextInfo.currentCultureName; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "currentLanguage", {
-        // Current Language
-        get: function () { return this._contextInfo.currentLanguage; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "currentUICultureName", {
-        // Current UI Culture Name
-        get: function () { return this._contextInfo.currentUICultureName; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "document", {
-        // Document
-        get: function () { return this.window.document; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "env", {
-        // Environment
-        get: function () { return this._contextInfo.env; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "existsFl", {
-        // Exists Flag
-        get: function () { return this._contextInfo.existsFl == null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "hasManageWebPermissions", {
-        // Has Manage Web Permissions
-        get: function () { return this._contextInfo.hasManageWebPermissions; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "isAnonymousGuestUser", {
-        // Is Anonymous Guest User
-        get: function () { return this._contextInfo.isAnonymousGuestUser; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "isAppWeb", {
-        // Is App Web
-        get: function () { return this._contextInfo.isAppWeb; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "isSiteAdmin", {
-        // Is Site Administrator
-        get: function () { return this._contextInfo.isSiteAdmin; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "layoutsUrl", {
-        // Layouts Url
-        get: function () { return this._contextInfo.layoutsUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "pageItemId", {
-        // Page Item Id
-        get: function () { return this._contextInfo.pageItemId; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "pageListId", {
-        // Page List Id
-        get: function () { return this._contextInfo.pageListId; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "pagePersonalizationScope", {
-        // Page Personalization Scope
-        get: function () { return this._contextInfo.pagePersonalizationScope; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "profileUrl", {
-        // Profile Url
-        get: function () { return this._contextInfo.profileUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "serverRequestPath", {
-        // Server Request Path
-        get: function () { return this._contextInfo.serverRequestPath; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "siteAbsoluteUrl", {
-        // Site Absolute Url
-        get: function () { return this._contextInfo.siteAbsoluteUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "siteClientTag", {
-        // Site Client Tag
-        get: function () { return this._contextInfo.siteClientTag; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "siteServerRelativeUrl", {
-        // Site Server Relative Url
-        get: function () { return this._contextInfo.siteServerRelativeUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "systemUserKey", {
-        // System User Key
-        get: function () { return this._contextInfo.systemUserKey; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "tenantAppVersion", {
-        // Tenant App Version
-        get: function () { return this._contextInfo.tenantAppVersion; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "themeCacheToken", {
-        // Theme Cache Token
-        get: function () { return this._contextInfo.themeCacheToken; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "updateFromDigestPageLoaded", {
-        // Update From Digest Page Loaded
-        get: function () { return this._contextInfo.updateFromDigestPageLoaded; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "userId", {
-        // User Id
-        get: function () { return this._contextInfo.userId; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "userLoginName", {
-        // User Login Name
-        get: function () { return this._contextInfo.userLoginName; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webAbsoluteUrl", {
-        // Web Absolute Url
-        get: function () { return this._contextInfo.webAbsoluteUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webLanguage", {
-        // Web Language
-        get: function () { return this._contextInfo.webLanguage; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webLogoUrl", {
-        // Web Logo Url
-        get: function () { return this._contextInfo.webLogoUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webPermMask", {
-        // Web Permissions Mask
-        get: function () { return this._contextInfo.webPermMask; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webServerRelativeUrl", {
-        // Web Server Relative Url
-        get: function () { return this._contextInfo.webServerRelativeUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webTemplate", {
-        // Web Template
-        get: function () { return this._contextInfo.webTemplate; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webTitle", {
-        // Web Title
-        get: function () { return this._contextInfo.webTitle; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webUIVersion", {
-        // Web UI Version
-        get: function () { return this._contextInfo.webUIVersion; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "window", {
-        // Window
-        get: function () { return typeof (window) == "undefined" ? {} : window; },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Methods
-     */
-    // Method to generate a guid
-    _ContextInfo.generateGUID = function () {
-        // Set the batch id
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    };
-    // Method to get the context information for a web
-    _ContextInfo.getWeb = function (url) {
-        // Create a new base object
-        return new utils_1.Base({
-            endpoint: "contextinfo",
-            method: "POST",
-            url: url
-        });
-    };
-    return _ContextInfo;
-}());
-exports.ContextInfo = _ContextInfo;
-//# sourceMappingURL=contextInfo.js.map
+var SPConfig = __webpack_require__(29);
+exports.SPConfig = SPConfig;
+var WebPart = __webpack_require__(30);
+exports.WebPart = WebPart;
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 /* 29 */
@@ -3283,276 +3876,28 @@ exports.ContextInfo = _ContextInfo;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
-var mapper_1 = __webpack_require__(4);
-var types_1 = __webpack_require__(1);
-var _1 = __webpack_require__(0);
-/**
- * Request Helper
- */
-var BaseHelper = /** @class */ (function () {
-    function BaseHelper() {
-    }
-    // Method to add the methods to base object
-    BaseHelper.prototype.addMethods = function (base, data) {
-        var isCollection = data.results && data.results.length > 0;
-        // Determine the metadata
-        var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
-        // Determine the object type
-        var objType = metadata && metadata.type ? metadata.type : base.targetInfo.endpoint;
-        objType = objType.split('/');
-        objType = (objType[objType.length - 1]);
-        objType = objType.split('.');
-        objType = (objType[objType.length - 1]).toLowerCase();
-        objType += isCollection ? "s" : "";
-        // See if the base is a field
-        if ((/^field/.test(objType) || /field$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
-            // Update the type
-            objType = "field" + (isCollection ? "s" : "");
-        }
-        else if (/item$/.test(objType)) {
-            // Update the type
-            objType = "listitem";
-        }
-        else if (/items$/.test(objType)) {
-            // Update the type
-            objType = "items";
-        }
-        else if (/corporatecatalogappmetadata/.test(objType)) {
-            // Update the type
-            objType = "tenantapp";
-        }
-        else if (/corporatecatalogappmetadatas/.test(objType)) {
-            // Update the type
-            objType = "tenantapps";
-        }
-        // Get the methods for the base object
-        var methods = mapper_1.Mapper[objType];
-        if (methods) {
-            // Parse the methods
-            for (var methodName in methods) {
-                // Get the method information
-                var methodInfo = methods[methodName] ? methods[methodName] : {};
-                // See if the base is the "Properties" definition for the object
-                if (methodName == "properties") {
-                    // Parse the properties
-                    for (var _i = 0, methodInfo_1 = methodInfo; _i < methodInfo_1.length; _i++) {
-                        var property = methodInfo_1[_i];
-                        var propInfo = property.split("|");
-                        // Get the metadata type
-                        var propName = propInfo[0];
-                        var propType = propInfo.length > 1 ? propInfo[1] : null;
-                        var subPropName = propInfo.length > 2 ? propInfo[2] : null;
-                        var subPropType = propInfo.length > 3 ? propInfo[3] : null;
-                        // See if the property is null or is a collection
-                        if (base[propName] == null || (base[propName].__deferred && base[propName].__deferred.uri)) {
-                            // See if the base property has a sub-property defined for it
-                            if (propInfo.length == 4) {
-                                // Update the ' char in the property name
-                                subPropName = subPropName.replace(/'/g, "\\'");
-                                // Add the property
-                                base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
-                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
-                            }
-                            else {
-                                // Add the property
-                                base[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
-                            }
-                        }
-                    }
-                    // Continue the loop
-                    continue;
-                }
-                // See if the base object has a dynamic metadata type
-                if (typeof (methodInfo.metadataType) === "function") {
-                    // Clone the object properties
-                    methodInfo = JSON.parse(JSON.stringify(methodInfo));
-                    // Set the metadata type
-                    methodInfo.metadataType = methods[methodName].metadataType(base);
-                }
-                // Add the method to the object
-                base[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
-            }
-        }
-    };
-    // Method to add properties to the base object
-    BaseHelper.prototype.addProperties = function (base, data) {
-        // Parse the data properties
-        for (var key in data) {
-            var value = data[key];
-            // Skip properties
-            if (key == "__metadata" || key == "results") {
-                continue;
-            }
-            // See if the base is a collection property
-            if (value && value.__deferred && value.__deferred.uri) {
-                // Generate a method for the base property
-                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.getCollection('" + key + "', arguments);");
-            }
-            else {
-                // Set the property, based on the property name
-                switch (key) {
-                    case "ClientPeoplePickerResolveUser":
-                    case "ClientPeoplePickerSearchUser":
-                        base[key] = JSON.parse(value);
-                        break;
-                    default:
-                        // Append the property to the base object
-                        base[key] = value;
-                        break;
-                }
-                // See if the base is a collection
-                if (base[key] && base[key].results) {
-                    // Ensure the collection is an object
-                    if (base[key].results.length == 0 || typeof (base[key].results[0]) === "object") {
-                        // Create the base property as a new request
-                        var objCollection = new _1.Base(base.targetInfo);
-                        objCollection["results"] = base[key].results;
-                        // See no results exist
-                        if (objCollection["results"].length == 0) {
-                            // Set the metadata type to the key
-                            objCollection["__metadata"] = { type: key };
-                        }
-                        // Update the endpoint for the base request to point to the base property
-                        objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
-                        // Add the methods
-                        base.addMethods(objCollection, objCollection);
-                        // Update the data collection
-                        base.updateDataCollection(base, objCollection["results"]);
-                        // Update the property
-                        base[key] = objCollection;
-                    }
-                }
-            }
-        }
-    };
-    // Method to update a collection object
-    BaseHelper.prototype.updateDataCollection = function (obj, results) {
-        // Ensure the base is a collection
-        if (results) {
-            // Save the results
-            obj["results"] = obj["results"] ? obj["results"].concat(results) : results;
-            // See if only one object exists
-            if (obj["results"].length > 0) {
-                var results_1 = obj["results"];
-                // Parse the results
-                for (var _i = 0, results_2 = results_1; _i < results_2.length; _i++) {
-                    var result = results_2[_i];
-                    // Add the base references
-                    result["addMethods"] = obj.addMethods;
-                    result["base"] = obj.base;
-                    result["done"] = obj.done;
-                    result["execute"] = obj.execute;
-                    result["executeAndWait"] = obj.executeAndWait;
-                    result["executeMethod"] = obj.executeMethod;
-                    result["existsFl"] = true;
-                    result["getProperty"] = obj.getProperty;
-                    result["parent"] = obj;
-                    result["targetInfo"] = obj.targetInfo;
-                    result["updateMetadataUri"] = obj.updateMetadataUri;
-                    result["waitForRequestsToComplete"] = obj.waitForRequestsToComplete;
-                    // Update the metadata
-                    this.updateMetadata(obj, result);
-                    // Add the methods
-                    this.addMethods(result, result);
-                }
-            }
-        }
-    };
-    // Method to convert the input arguments into an object
-    BaseHelper.prototype.updateDataObject = function (isBatchRequest) {
-        // Ensure the request was successful
-        if (this.status >= 200 && this.status < 300) {
-            // Return if we are expecting a buffer
-            if (this.requestType == types_1.RequestType.GetBuffer) {
-                return;
-            }
-            // Parse the responses
-            var batchIdx = 0;
-            var batchRequestIdx = 0;
-            var responses = isBatchRequest ? this.response.split("\n") : [this.response];
-            for (var i = 0; i < responses.length; i++) {
-                var data = null;
-                // Try to convert the response
-                var response = responses[i];
-                response = response === "" && !isBatchRequest ? "{}" : response;
-                try {
-                    data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response);
-                }
-                catch (ex) {
-                    continue;
-                }
-                // Set the object based on the request type
-                var obj = isBatchRequest ? Object.create(this) : this;
-                // Set the exists flag
-                obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
-                // See if the data properties exists
-                if (data.d) {
-                    // Save a reference to it
-                    obj["d"] = data.d;
-                    // Update the metadata
-                    this.updateMetadata(obj, data.d);
-                    // Update the base object's properties
-                    this.addProperties(obj, data.d);
-                    // Add the methods
-                    this.addMethods(obj, data.d);
-                    // Update the data collection
-                    this.updateDataCollection(obj, data.d.results);
-                }
-                // See if the batch request exists
-                if (isBatchRequest) {
-                    // Get the batch request
-                    var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
-                    if (batchRequest == null) {
-                        // Update the batch indexes
-                        batchIdx++;
-                        batchRequestIdx = 0;
-                        // Update the batch request
-                        batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
-                    }
-                    // Ensure the batch request exists
-                    if (batchRequest) {
-                        // Set the response object
-                        batchRequest.response = typeof (data) === "string" ? data : obj;
-                        // Execute the callback if it exists
-                        batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
-                    }
-                }
-            }
-            // Clear the batch requests
-            if (isBatchRequest) {
-                this.base.batchRequests = null;
-            }
-        }
-    };
-    // Method to update the metadata
-    BaseHelper.prototype.updateMetadata = function (base, data) {
-        // Ensure the base is the app web
-        if (!lib_1.ContextInfo.isAppWeb) {
-            return;
-        }
-        // Get the url information
-        var hostUrl = lib_1.ContextInfo.webAbsoluteUrl.toLowerCase();
-        var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
-        var targetUrl = base.targetInfo && base.targetInfo.url ? base.targetInfo.url.toLowerCase() : null;
-        // Ensure the urls exist
-        if (hostUrl == null || requestUrl == null || targetUrl == null) {
-            return;
-        }
-        // See if we need to make an update
-        if (targetUrl.indexOf(hostUrl) == 0) {
-            return;
-        }
-        // Update the metadata uri
-        data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
-    };
-    return BaseHelper;
-}());
-exports.BaseHelper = BaseHelper;
-//# sourceMappingURL=baseHelper.js.map
+//# sourceMappingURL=spCfg.js.map
 
 /***/ }),
 /* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=webpart.js.map
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=sptypes.js.map
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3846,7 +4191,7 @@ exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4022,7 +4367,7 @@ exports.BaseExecution = BaseExecution;
 //# sourceMappingURL=baseExecution.js.map
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4112,7 +4457,7 @@ exports.Base = Base;
 //# sourceMappingURL=base.js.map
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4209,7 +4554,7 @@ exports.Batch = Batch;
 //# sourceMappingURL=batch.js.map
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4465,7 +4810,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4591,7 +4936,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4658,7 +5003,7 @@ exports.Promise = Promise;
 //# sourceMappingURL=promise.js.map
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4799,7 +5144,7 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4970,315 +5315,718 @@ exports.XHRRequest = XHRRequest;
 //# sourceMappingURL=xhrRequest.js.map
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-var __1 = __webpack_require__(2);
-/*********************************************************************************************************************************/
-// App Helper Methods
-/*********************************************************************************************************************************/
-exports.AppHelper = {
-    // Method to copy a file in this app web to the host web
-    copyFileToHostWeb: function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
-        var srcFile = null;
-        var promise = new utils_1.Promise();
-        var origVal = __1.ContextInfo.window.$REST.DefaultRequestToHostFl;
-        // Ensure the current web is an app web
-        if (!__1.ContextInfo.isAppWeb) {
-            // Error
-            console.error("[gd-sprest] The current web is not an app web.");
-            return;
+var _1 = __webpack_require__(2);
+/**
+ * JS Link
+ */
+var _JSLink = /** @class */ (function () {
+    /**
+     * Constructor
+     */
+    function _JSLink(cfg) {
+        // See if the configuration exists
+        if (cfg) {
+            // Set the properties
+            this._baseViewID = cfg.BaseViewID;
+            this._listTemplateType = cfg.ListTemplateType;
+            this._onPostRender = cfg.OnPostRender;
+            this._onPreRender = cfg.OnPreRender;
+            this._templates = cfg.Templates;
         }
-        // Get the host web
-        __1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
-        var web = (new __1.Web(rootWebFl ? __1.ContextInfo.siteServerRelativeUrl : null));
-        // See if the folder url was given
-        if (typeof (dstFolder) === "string") {
-            // Get the folder
-            _this.getFolder(web, dstFolder, true)
-                .done(function (folder) {
-                // Copy the file to the host web
-                _this.copyFileToHostWeb(fileUrl, folder, overwriteFl)
-                    .done(function (file, folder) { promise.resolve(file, folder); });
-            });
-        }
-        else {
-            // Get the file name
-            var fileName = fileUrl.split("/");
-            fileName = fileName[fileName.length - 1];
-            // Set the file urls
-            var dstFileUrl = __1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-            var srcFileUrl_1 = __1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(__1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
-            // Get the destination file
-            web.getFileByServerRelativeUrl(dstFileUrl)
-                .execute(function (file) {
-                var promise = new utils_1.Promise();
-                // See if the file exists
-                if (file.Exists) {
-                    // Check out the file, and resolve the promise
-                    file.checkout().execute(function () { promise.resolve(); });
-                }
-                else {
-                    // Resolve the promise
-                    promise.resolve();
-                }
-                // Return the promiser
-                return promise;
-            });
-            // Target the current web
-            __1.ContextInfo.window.$REST.DefaultRequestToHostFl = false;
-            // Get the current web
-            (new __1.Web())
-                .getFileByServerRelativeUrl(srcFileUrl_1)
-                .content()
-                .execute(function (content) {
-                var promise = new utils_1.Promise();
-                // Get the file name
-                var fileName = srcFileUrl_1.split("/");
-                fileName = fileName[fileName.length - 1];
-                // Target the host web
-                __1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
-                // Add the file to the folder
-                (dstFolder).Files().add(true, fileName, content)
-                    .execute(function (file) {
-                    // Save a reference to this file
-                    srcFile = file;
-                    // Check in the file
-                    file.checkin("", 1).execute();
-                    // Publish the file
-                    file.publish("").execute(true);
-                    // Wait for the requests to complete
-                    file.done(function () {
-                        // Resolve the promise
-                        promise.resolve();
-                    });
-                });
-                // Return the promise
-                return promise;
-            }, true);
-            // Wait for the requests to complete, and resolve the promise
-            web.done(function () { promise.resolve(srcFile, dstFolder); });
-        }
-        // Return the promise
-        return promise;
-    },
-    // Method to copy a file in this app web to the host web
-    copyFilesToHostWeb: function (fileUrls, folderUrls, overwriteFl, rootWebFl, idx, promise, files, folders) {
-        files = files ? files : [];
-        folders = folders ? folders : [];
-        idx = idx ? idx : 0;
-        promise = promise ? promise : new utils_1.Promise();
-        // Ensure the array is not empty
-        if (fileUrls.length == idx || folderUrls.length == idx) {
-            // Resolve the promise and return it
-            promise.resolve(files, folders);
-            return promise;
-        }
-        // Copy the file
-        _this.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
-            .done(function (file, folder) {
-            // Save a reference to the file and folder
-            files.push(file);
-            folders.push(folder);
-            // Copy the files
-            _this.copyFilesToHostWeb(fileUrls, folderUrls, overwriteFl, rootWebFl, ++idx, promise, files, folders);
-        });
-        // Return the promise
-        return promise;
-    },
-    // Method to create sub-folders
-    createSubFolders: function (folder, subFolderUrl, promise) {
-        // Ensure the promise exists
-        promise = promise ? promise : new utils_1.Promise();
-        // Get the sub-folder name
-        var subFolderName = subFolderUrl.split("/")[0];
-        // Update the sub folder url
-        subFolderUrl = subFolderUrl.substr(subFolderName.length + 1);
-        // Get the sub-folder
-        var subFolder = folder.Folders(subFolderName).execute(function (subFolder) {
-            // Method to add additional sub folders
-            var addSubFolders = function (subFolder) {
-                // See if we are done
-                if (subFolderUrl.length == 0) {
-                    // Resolve the promise
-                    promise.resolve(subFolder);
-                }
-                else {
-                    // Create the sub folder
-                    _this.createSubFolders(subFolder, subFolderUrl, promise);
-                }
-            };
-            // Ensure the sub-folder exists
-            if (subFolder.Exists) {
-                // Add the rest of the sub folders
-                addSubFolders(subFolder);
-            }
-            else {
-                // Create the sub folder
-                folder.Folders().add(subFolderName).execute(addSubFolders);
-            }
-        });
-        // Return a promise
-        return promise;
-    },
-    // Method to get a folder
-    getFolder: function (web, folderUrl, createFl) {
-        var dstFolder = null;
-        var promise = new utils_1.Promise();
-        // Ensure the web exists
-        if (!web.existsFl) {
-            // Get the web
-            web.execute();
-        }
-        // Wait for the requests to complete
-        web.done(function () {
-            // Set the destination folder url
-            var dstFolderUrl = __1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, folderUrl.substr(folderUrl[0] == "/" ? 1 : 0));
-            // Get the folder
-            web.getFolderByServerRelativeUrl(folderUrl)
-                .execute(function (folder) {
-                var promise = new utils_1.Promise();
-                // Ensure the folder exists
-                if (folder.Exists) {
-                    // Save a reference to the folder
-                    dstFolder = folder;
-                    // Resolve the promise
-                    promise.resolve();
-                }
-                else {
-                    // Create the folder
-                    _this.createSubFolders(web.RootFolder(), folderUrl).done(function (folder) {
-                        // Save a reference to the folder
-                        dstFolder = folder;
-                        // Resolve the promise
-                        promise.resolve();
-                    });
-                }
-                // Return the promise
-                return promise;
-            }, true);
-            // Wait for the request to complete
-            web.done(function () {
-                // Resolve the promise
-                promise.resolve(dstFolder);
-            });
-        });
-        // Return the promise
-        return promise;
-    },
-    // Method to remove empty folders
-    removeEmptyFolders: function (web, folderUrls) {
-        var promise = new utils_1.Promise();
-        // Ensure folder urls exist
-        if (folderUrls.length == 0) {
-            // Resolve the promise and return it
-            promise.resolve();
-        }
-        else {
-            var prevFolderUrl = null;
-            // Sort the urls alphabetically, then from longest to shortest
-            folderUrls.sort().sort(function (a, b) { return a.length > b.length ? -1 : 1; });
-            // Parse the folders
-            for (var _i = 0, folderUrls_1 = folderUrls; _i < folderUrls_1.length; _i++) {
-                var folderUrl = folderUrls_1[_i];
-                var folder = null;
-                // See if we already removed this folder
-                if (folderUrl == prevFolderUrl) {
-                    continue;
-                }
-                else {
-                    prevFolderUrl = folderUrl;
-                }
-                // Parse the folder names
-                var folderNames = folderUrl.split('/');
-                for (var _a = 0, folderNames_1 = folderNames; _a < folderNames_1.length; _a++) {
-                    var folderName = folderNames_1[_a];
-                    // Get the sub-folder
-                    folder = folder ? folder.Folders(folderName) : web.Folders(folderName);
-                }
-                // Execute the request
-                folder.execute(function (folder) {
-                    var promise = new utils_1.Promise();
-                    // See if the folder is empty
-                    if (folder.ItemCount == 0) {
-                        // Delete the folder, and resolve the promise
-                        folder.delete().execute(function () { promise.resolve(); });
-                    }
-                    else {
-                        // Resolve the proise
-                        promise.resolve();
-                    }
-                    // Return the promise
-                    return promise;
-                }, true);
-            }
-            // Wait for the requests to complete, and resolve the promise
-            web.done(function () { promise.resolve(); });
-        }
-        // Return the promise
-        return promise;
-    },
-    // Method to remove a file
-    removeFile: function (web, fileUrl) {
-        var promise = new utils_1.Promise();
-        var folder = null;
-        var folders = fileUrl.split('/');
-        // Parse the folders
-        for (var i = 0; i < folders.length - 1; i++) {
-            // Get the folder
-            folder = folder ? folder.Folders(folders[i]) : web.Folders(folders[i]);
-        }
-        // Get the file
-        folder.Files(folders[folders.length - 1]).execute(function (file) {
-            // See if it exists
-            if (file.Exists) {
-                // Delete it and resolve the promise
-                file.delete().execute(function () { promise.resolve(); });
-            }
-            else {
-                // Resolve the promises
-                promise.resolve();
-            }
-        }, true);
-        // Return the promise
-        return promise;
-    },
-    // Method to remove files
-    removeFiles: function (web, fileUrls, idx, promise) {
-        idx = idx ? idx : 0;
-        promise = promise ? promise : new utils_1.Promise();
-        // See if we have removed all files
-        if (fileUrls.length == idx) {
-            // Resolve the promise and return it
-            promise.resolve();
-        }
-        else {
-            // Remove the file
-            _this.removeFile(web, fileUrls[idx]).done(function () {
-                // Remove the files
-                _this.removeFiles(web, fileUrls, ++idx, promise);
-            });
-        }
-        // Return the promise
-        return promise;
     }
-};
-//# sourceMappingURL=app.js.map
+    Object.defineProperty(_JSLink.prototype, "BaseViewID", {
+        set: function (value) { this._baseViewID = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_JSLink.prototype, "ListTemplateType", {
+        set: function (value) { this._listTemplateType = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_JSLink.prototype, "OnPostRender", {
+        set: function (value) { this._onPostRender = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_JSLink.prototype, "OnPreRender", {
+        set: function (value) { this._onPreRender = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_JSLink.prototype, "Templates", {
+        set: function (value) { this._templates = value; },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Methods
+     */
+    /**
+     * Returns the CSR template.
+     */
+    _JSLink.prototype.getTemplate = function () {
+        var template = {};
+        // Add the properties
+        if (this._baseViewID) {
+            template.BaseViewID = this._baseViewID;
+        }
+        if (this._listTemplateType) {
+            template.ListTemplateType = this._listTemplateType;
+        }
+        if (this._onPostRender) {
+            template.OnPostRender = this._onPostRender;
+        }
+        if (this._onPreRender) {
+            template.OnPreRender = this._onPreRender;
+        }
+        if (this._templates) {
+            template.Templates = this._templates;
+        }
+        // See if there are fields
+        if (template.Templates && template.Templates.Fields) {
+            var fields = {};
+            // Parse the fields
+            for (var _i = 0, _a = template.Templates.Fields; _i < _a.length; _i++) {
+                var field = _a[_i];
+                // Add the field
+                fields[field.Name] = {};
+                // Add the field properties
+                if (field.DisplayForm) {
+                    fields[field.Name].DisplayForm = field.DisplayForm;
+                }
+                if (field.EditForm) {
+                    fields[field.Name].EditForm = field.EditForm;
+                }
+                if (field.NewForm) {
+                    fields[field.Name].NewForm = field.NewForm;
+                }
+                if (field.View) {
+                    fields[field.Name].View = field.View;
+                }
+            }
+            // Update the fields
+            template.Templates.Fields = fields;
+        }
+        // Return the template
+        return template;
+    };
+    /**
+     * Method to register the CSR override.
+     */
+    _JSLink.prototype.register = function () {
+        // Get the template manager
+        var templateManager = _1.ContextInfo.window.SPClientTemplates;
+        templateManager = templateManager ? templateManager.TemplateManager : null;
+        // Ensure it exists
+        if (templateManager) {
+            // Apply the customization
+            templateManager.RegisterTemplateOverrides(this.getTemplate());
+        }
+    };
+    return _JSLink;
+}());
+exports.JSLink = _JSLink;
+//# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 40 */
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+var web_1 = __webpack_require__(5);
+/**
+ * List
+ */
+var _List = /** @class */ (function (_super) {
+    __extends(_List, _super);
+    /**
+     * Constructor
+     */
+    function _List(listName, targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "list" } });
+        return _this;
+    }
+    // Method to get the list by the entity name.
+    _List.getByEntityName = function (entityTypeName, callback, targetInfo) {
+        // Query for the list
+        var query = (new web_1.Web(targetInfo))
+            .Lists()
+            .query({
+            Filter: "EntityTypeName eq '" + entityTypeName + "'",
+            Top: 1
+        });
+        // See if the callback exists
+        if (typeof (callback) != "function") {
+            // Execute the request synchronously and return it
+            var list = query.executeAndWait();
+            return list.results ? list.results[0] : list;
+        }
+        // Execute the request asynchronously
+        query.execute(function (lists) {
+            // Execute the callback method
+            callback(lists.results ? lists.results[0] : lists);
+        });
+    };
+    return _List;
+}(utils_1.Base));
+exports.List = _List;
+//# sourceMappingURL=list.js.map
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/**
+ * Navigation
+ */
+var _Navigation = /** @class */ (function (_super) {
+    __extends(_Navigation, _super);
+    /**
+     * Constructor
+     */
+    function _Navigation(url, targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "navigation";
+        // See if the web url exists
+        if (url) {
+            // Set the settings
+            _this.targetInfo.url = url;
+        }
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "navigationservicerest" } });
+        return _this;
+    }
+    return _Navigation;
+}(utils_1.Base));
+exports.Navigation = _Navigation;
+//# sourceMappingURL=navigation.js.map
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/*********************************************************************************************************************************/
+// People Manager
+/*********************************************************************************************************************************/
+var _PeopleManager = /** @class */ (function (_super) {
+    __extends(_PeopleManager, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _PeopleManager(targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "peoplemanager" } });
+        return _this;
+    }
+    return _PeopleManager;
+}(utils_1.Base));
+exports.PeopleManager = _PeopleManager;
+//# sourceMappingURL=peopleManager.js.map
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/*********************************************************************************************************************************/
+// People Picker
+/*********************************************************************************************************************************/
+var _PeoplePicker = /** @class */ (function (_super) {
+    __extends(_PeoplePicker, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _PeoplePicker(targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
+        _this.targetInfo.overrideDefaultRequestToHostFl = true;
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "peoplepicker" } });
+        return _this;
+    }
+    return _PeoplePicker;
+}(utils_1.Base));
+exports.PeoplePicker = _PeoplePicker;
+//# sourceMappingURL=peoplePicker.js.map
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/*********************************************************************************************************************************/
+// Profile Loader
+/*********************************************************************************************************************************/
+var _ProfileLoader = /** @class */ (function (_super) {
+    __extends(_ProfileLoader, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _ProfileLoader(targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+        _this.targetInfo.method = "POST";
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "profileloader" } });
+        return _this;
+    }
+    return _ProfileLoader;
+}(utils_1.Base));
+exports.ProfileLoader = _ProfileLoader;
+//# sourceMappingURL=profileLoader.js.map
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var types_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
+/*********************************************************************************************************************************/
+// Search
+/*********************************************************************************************************************************/
+var _Search = /** @class */ (function (_super) {
+    __extends(_Search, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _Search(url, targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "search";
+        // See if the web url exists
+        if (url) {
+            // Set the settings
+            _this.targetInfo.url = url;
+        }
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "search" } });
+        return _this;
+    }
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Method to compute the query
+    _Search.prototype.getQuery = function (parameters) {
+        var query = "";
+        // Parse the parameters
+        for (var key in parameters) {
+            // Append the parameter to the query
+            query += (query == "" ? "" : "&") + key + "='" + parameters[key] + "'";
+        }
+        // Return the query
+        return [query];
+    };
+    /** The search query method */
+    _Search.prototype.searchquery = function (settings) {
+        // Execute the request
+        return this.executeMethod("query", {
+            argNames: ["query"],
+            name: "query?[[query]]",
+            requestType: types_1.RequestType.GetReplace
+        }, this.getQuery(settings));
+    };
+    /** The suggest method */
+    _Search.prototype.suggest = function (settings) {
+        // Execute the request
+        return this.executeMethod("query", {
+            argNames: ["query"],
+            name: "suggest?[[query]]",
+            requestType: types_1.RequestType.GetReplace
+        }, this.getQuery(settings));
+    };
+    return _Search;
+}(utils_1.Base));
+exports.Search = _Search;
+//# sourceMappingURL=search.js.map
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+var _1 = __webpack_require__(2);
+/*********************************************************************************************************************************/
+// Site
+// The SPSite object.
+/*********************************************************************************************************************************/
+var _Site = /** @class */ (function (_super) {
+    __extends(_Site, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _Site(url, targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "site";
+        // See if the web url exists
+        if (url) {
+            // Set the settings
+            _this.targetInfo.url = url;
+        }
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "site" } });
+        return _this;
+    }
+    // Method to get the root web
+    _Site.prototype.getRootWeb = function () { return new _1.Web(null, this.targetInfo); };
+    // Method to determine if the current user has access, based on the permissions.
+    _Site.prototype.hasAccess = function (permissions) {
+        // TO DO
+        return true;
+    };
+    ;
+    return _Site;
+}(utils_1.Base));
+exports.Site = _Site;
+//# sourceMappingURL=site.js.map
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var types_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
+/*********************************************************************************************************************************/
+// Social Feed
+/*********************************************************************************************************************************/
+var _SocialFeed = /** @class */ (function (_super) {
+    __extends(_SocialFeed, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _SocialFeed(targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "social.feed";
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "socialfeed" } });
+        return _this;
+    }
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Method to post to another user's feed
+    _SocialFeed.prototype.postToFeed = function (accountName, creationData) {
+        var postInfo = { ID: null, creationData: creationData };
+        // Set the post metadata
+        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
+        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
+        return this.executeMethod("postToMyFeed", {
+            argNames: ["restCreationData"],
+            name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
+            requestType: types_1.RequestType.PostWithArgsInBody
+        }, [postInfo]);
+    };
+    // Method to post to the current user's feed
+    _SocialFeed.prototype.postToMyFeed = function (creationData) {
+        var postInfo = { ID: null, creationData: creationData };
+        // Set the post metadata
+        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
+        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
+        return this.executeMethod("postToMyFeed", {
+            argNames: ["restCreationData"],
+            name: "my/feed/post",
+            requestType: types_1.RequestType.PostWithArgsInBody
+        }, [postInfo]);
+    };
+    return _SocialFeed;
+}(utils_1.Base));
+exports.SocialFeed = (new _SocialFeed());
+//# sourceMappingURL=socialFeed.js.map
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/*********************************************************************************************************************************/
+// User Profile
+/*********************************************************************************************************************************/
+var _UserProfile = /** @class */ (function (_super) {
+    __extends(_UserProfile, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _UserProfile(targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
+        _this.targetInfo.method = "POST";
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "userprofile" } });
+        return _this;
+    }
+    return _UserProfile;
+}(utils_1.Base));
+exports.UserProfile = _UserProfile;
+//# sourceMappingURL=userProfile.js.map
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var types_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
+/**
+ * Utility
+ */
+var _Utility = /** @class */ (function (_super) {
+    __extends(_Utility, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _Utility(url, targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "SP.Utilities.Utility";
+        // See if the web url exists
+        if (url) {
+            // Set the settings
+            _this.targetInfo.url = url;
+        }
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "utility" } });
+        return _this;
+    }
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Method to create a wiki page
+    _Utility.prototype.createWikiPage = function (listUrl, content) {
+        if (content === void 0) { content = ""; }
+        var parameters = {
+            ServerRelativeUrl: listUrl,
+            WikiHtmlContent: content
+        };
+        // Execute the method
+        return this.executeMethod("createWikiPage", {
+            argNames: ["parameters"],
+            name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
+            replaceEndpointFl: true,
+            requestType: types_1.RequestType.PostWithArgsInBody
+        }, [parameters]);
+    };
+    // Method to send an email
+    _Utility.prototype.sendEmail = function (properties) {
+        // Parse the email properties
+        for (var _i = 0, _a = ["To", "CC", "BCC"]; _i < _a.length; _i++) {
+            var propName = _a[_i];
+            var propValue = properties[propName];
+            // Ensure the value exists
+            if (propValue) {
+                // See if it's a string
+                if (typeof (propValue) === "string") {
+                    // Add the results property
+                    properties[propName] = { 'results': [propValue] };
+                }
+                else {
+                    // Add the results property
+                    properties[propName] = { 'results': propValue };
+                }
+            }
+        }
+        // Execute the method
+        return this.executeMethod("sendEmail", {
+            argNames: ["properties"],
+            metadataType: "SP.Utilities.EmailProperties",
+            name: "SP.Utilities.Utility.sendEmail",
+            replaceEndpointFl: true,
+            requestType: types_1.RequestType.PostWithArgsInBody
+        }, [properties]);
+    };
+    return _Utility;
+}(utils_1.Base));
+exports.Utility = _Utility;
+//# sourceMappingURL=utility.js.map
+
+/***/ }),
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
 var utils_1 = __webpack_require__(0);
-var __1 = __webpack_require__(2);
 /**
  * Dependencies
  * This class will ensure the core SP scripts are loaded on the page.
@@ -5299,7 +6047,7 @@ var Dependencies = /** @class */ (function () {
         this.loadDependencies();
     }
     Object.defineProperty(Dependencies.prototype, "pageContextExistsFl", {
-        get: function () { return __1.ContextInfo.webAbsoluteUrl != ""; },
+        get: function () { return lib_1.ContextInfo.webAbsoluteUrl != ""; },
         enumerable: true,
         configurable: true
     });
@@ -5316,12 +6064,12 @@ var Dependencies = /** @class */ (function () {
             // Load the required scripts
             for (var fileName in this.SCRIPTS) {
                 // Create the script element
-                var elScript = __1.ContextInfo.document.createElement("script");
+                var elScript = lib_1.ContextInfo.document.createElement("script");
                 // Set the properties
                 elScript.setAttribute("src", "/_layouts/15/" + fileName);
                 elScript.setAttribute("type", "text/javascript");
                 // Add the script element to the head
-                __1.ContextInfo.document.head.appendChild(elScript);
+                lib_1.ContextInfo.document.head.appendChild(elScript);
             }
             // Wait for the page context to exist
             this.waitForPageContext();
@@ -5333,11 +6081,11 @@ var Dependencies = /** @class */ (function () {
     Dependencies.prototype.waitForPageContext = function () {
         var counter = 0;
         // Check every 10ms
-        var intervalId = __1.ContextInfo.window.setInterval(function () {
+        var intervalId = lib_1.ContextInfo.window.setInterval(function () {
             // See if the page context exists, and ensure we haven't hit the max attempts
             if (this.pageContextExists || ++counter >= this.MAX_WAIT) {
                 // Clear the interval
-                __1.ContextInfo.window.clearInterval(intervalId);
+                lib_1.ContextInfo.window.clearInterval(intervalId);
                 // Resolve the promise
                 this.promise.resolve();
             }
@@ -5349,16 +6097,16 @@ exports.Dependencies = Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 41 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var __1 = __webpack_require__(2);
+var lib_1 = __webpack_require__(2);
 var types_1 = __webpack_require__(1);
 var utils_1 = __webpack_require__(0);
-var _1 = __webpack_require__(3);
+var types_2 = __webpack_require__(6);
 /**
  * The field schema xml class
  */
@@ -5376,7 +6124,7 @@ var _FieldSchemaXML = /** @class */ (function () {
             else {
                 // Set the base properties
                 var props = {};
-                props["ID"] = "{" + __1.ContextInfo.generateGUID() + "}";
+                props["ID"] = "{" + lib_1.ContextInfo.generateGUID() + "}";
                 props["Name"] = fieldInfo.name;
                 props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
                 props["StaticName"] = fieldInfo.name;
@@ -5384,47 +6132,47 @@ var _FieldSchemaXML = /** @class */ (function () {
                 // Set the type
                 switch (fieldInfo.type) {
                     // Boolean
-                    case _1.Helper.Types.SPCfgFieldType.Boolean:
+                    case types_2.HelperTypes.SPCfgFieldType.Boolean:
                         _this.createBoolean(fieldInfo, props, promise);
                         break;
                     // Calculated
-                    case _1.Helper.Types.SPCfgFieldType.Calculated:
+                    case types_2.HelperTypes.SPCfgFieldType.Calculated:
                         _this.createCalculated(fieldInfo, props, promise);
                         break;
                     // Choice
-                    case _1.Helper.Types.SPCfgFieldType.Choice:
+                    case types_2.HelperTypes.SPCfgFieldType.Choice:
                         _this.createChoice(fieldInfo, props, promise);
                         break;
                     // Date/Time
-                    case _1.Helper.Types.SPCfgFieldType.Date:
+                    case types_2.HelperTypes.SPCfgFieldType.Date:
                         _this.createDate(fieldInfo, props, promise);
                         break;
                     // Lookup
-                    case _1.Helper.Types.SPCfgFieldType.Lookup:
+                    case types_2.HelperTypes.SPCfgFieldType.Lookup:
                         _this.createLookup(fieldInfo, props, promise);
                         break;
                     // MMS
-                    case _1.Helper.Types.SPCfgFieldType.MMS:
+                    case types_2.HelperTypes.SPCfgFieldType.MMS:
                         _this.createMMS(fieldInfo, props, promise);
                         break;
                     // Note
-                    case _1.Helper.Types.SPCfgFieldType.Note:
+                    case types_2.HelperTypes.SPCfgFieldType.Note:
                         _this.createNote(fieldInfo, props, promise);
                         break;
                     // Number
-                    case _1.Helper.Types.SPCfgFieldType.Number:
+                    case types_2.HelperTypes.SPCfgFieldType.Number:
                         _this.createNumber(fieldInfo, props, promise);
                         break;
                     // Text
-                    case _1.Helper.Types.SPCfgFieldType.Text:
+                    case types_2.HelperTypes.SPCfgFieldType.Text:
                         _this.createText(fieldInfo, props, promise);
                         break;
                     // URL
-                    case _1.Helper.Types.SPCfgFieldType.Url:
+                    case types_2.HelperTypes.SPCfgFieldType.Url:
                         _this.createUrl(fieldInfo, props, promise);
                         break;
                     // User
-                    case _1.Helper.Types.SPCfgFieldType.User:
+                    case types_2.HelperTypes.SPCfgFieldType.User:
                         _this.createUser(fieldInfo, props, promise);
                         break;
                     // Field type not supported
@@ -5549,7 +6297,7 @@ var _FieldSchemaXML = /** @class */ (function () {
             // See if the lookup name exists
             if (fieldInfo.listName) {
                 // Get the web containing the list
-                (new __1.Web(fieldInfo.webUrl))
+                (new lib_1.Web(fieldInfo.webUrl))
                     .Lists(fieldInfo.listName)
                     .query({
                     Expand: ["ParentWeb"]
@@ -5575,7 +6323,7 @@ var _FieldSchemaXML = /** @class */ (function () {
         this.createMMS = function (fieldInfo, props, promise) {
             // Create the value field
             var valueProps = {
-                ID: "{" + __1.ContextInfo.generateGUID() + "}",
+                ID: "{" + lib_1.ContextInfo.generateGUID() + "}",
                 Name: fieldInfo.name + "_0",
                 StaticName: fieldInfo.name + "_0",
                 DisplayName: fieldInfo.title + " Value",
@@ -5711,14 +6459,14 @@ exports.FieldSchemaXML = new _FieldSchemaXML();
 //# sourceMappingURL=field.js.map
 
 /***/ }),
-/* 42 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
 var types_1 = __webpack_require__(1);
-var __1 = __webpack_require__(2);
 /**
  * JSLink Helper Methods
  */
@@ -5736,112 +6484,112 @@ exports.JSLinkHelper = {
      */
     _fieldToMethodMapper: {
         'Attachments': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldAttachments_Default"],
-            2: __1.ContextInfo.window["SPFieldAttachments_Default"],
-            3: __1.ContextInfo.window["SPFieldAttachments_Default"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldAttachments_Default"],
+            2: lib_1.ContextInfo.window["SPFieldAttachments_Default"],
+            3: lib_1.ContextInfo.window["SPFieldAttachments_Default"]
         },
         'Boolean': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_DefaultNoEncode"],
-            2: __1.ContextInfo.window["SPFieldBoolean_Edit"],
-            3: __1.ContextInfo.window["SPFieldBoolean_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_DefaultNoEncode"],
+            2: lib_1.ContextInfo.window["SPFieldBoolean_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldBoolean_Edit"]
         },
         'Currency': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPFieldNumber_Edit"],
-            3: __1.ContextInfo.window["SPFieldNumber_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPFieldNumber_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldNumber_Edit"]
         },
         'Calculated': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPField_FormDisplay_Empty"],
-            3: __1.ContextInfo.window["SPField_FormDisplay_Empty"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPField_FormDisplay_Empty"],
+            3: lib_1.ContextInfo.window["SPField_FormDisplay_Empty"]
         },
         'Choice': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPFieldChoice_Edit"],
-            3: __1.ContextInfo.window["SPFieldChoice_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPFieldChoice_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldChoice_Edit"]
         },
         'Computed': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            3: __1.ContextInfo.window["SPField_FormDisplay_Default"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            3: lib_1.ContextInfo.window["SPField_FormDisplay_Default"]
         },
         'DateTime': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldDateTime_Display"],
-            2: __1.ContextInfo.window["SPFieldDateTime_Edit"],
-            3: __1.ContextInfo.window["SPFieldDateTime_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldDateTime_Display"],
+            2: lib_1.ContextInfo.window["SPFieldDateTime_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldDateTime_Edit"]
         },
         'File': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldFile_Display"],
-            2: __1.ContextInfo.window["SPFieldFile_Edit"],
-            3: __1.ContextInfo.window["SPFieldFile_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldFile_Display"],
+            2: lib_1.ContextInfo.window["SPFieldFile_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldFile_Edit"]
         },
         'Integer': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPFieldNumber_Edit"],
-            3: __1.ContextInfo.window["SPFieldNumber_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPFieldNumber_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldNumber_Edit"]
         },
         'Lookup': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldLookup_Display"],
-            2: __1.ContextInfo.window["SPFieldLookup_Edit"],
-            3: __1.ContextInfo.window["SPFieldLookup_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldLookup_Display"],
+            2: lib_1.ContextInfo.window["SPFieldLookup_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldLookup_Edit"]
         },
         'LookupMulti': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldLookup_Display"],
-            2: __1.ContextInfo.window["SPFieldLookup_Edit"],
-            3: __1.ContextInfo.window["SPFieldLookup_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldLookup_Display"],
+            2: lib_1.ContextInfo.window["SPFieldLookup_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldLookup_Edit"]
         },
         'MultiChoice': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPFieldMultiChoice_Edit"],
-            3: __1.ContextInfo.window["SPFieldMultiChoice_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPFieldMultiChoice_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldMultiChoice_Edit"]
         },
         'Note': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldNote_Display"],
-            2: __1.ContextInfo.window["SPFieldNote_Edit"],
-            3: __1.ContextInfo.window["SPFieldNote_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldNote_Display"],
+            2: lib_1.ContextInfo.window["SPFieldNote_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldNote_Edit"]
         },
         'Number': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPFieldNumber_Edit"],
-            3: __1.ContextInfo.window["SPFieldNumber_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPFieldNumber_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldNumber_Edit"]
         },
         'Text': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPFieldText_Edit"],
-            3: __1.ContextInfo.window["SPFieldText_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPFieldText_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldText_Edit"]
         },
         'URL': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldUrl_Display"],
-            2: __1.ContextInfo.window["SPFieldUrl_Edit"],
-            3: __1.ContextInfo.window["SPFieldUrl_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldUrl_Display"],
+            2: lib_1.ContextInfo.window["SPFieldUrl_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldUrl_Edit"]
         },
         'User': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldUser_Display"],
-            2: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
-            3: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldUser_Display"],
+            2: lib_1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
+            3: lib_1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
         },
         'UserMulti': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldUserMulti_Display"],
-            2: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
-            3: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldUserMulti_Display"],
+            2: lib_1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
+            3: lib_1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
         }
     },
     /**
@@ -5943,7 +6691,7 @@ exports.JSLinkHelper = {
      */
     getListViewSelectedItems: function () {
         // Return the selected items
-        return __1.ContextInfo.window["SP"].ListOperation.Selection.getSelectedItems();
+        return lib_1.ContextInfo.window["SP"].ListOperation.Selection.getSelectedItems();
     },
     /**
      * Returns the webpart containing the JSLink field/form/view.
@@ -5951,7 +6699,7 @@ exports.JSLinkHelper = {
      */
     getWebPart: function (ctx) {
         // Return the webpart
-        return __1.ContextInfo.document.querySelector("#WebPart" + (ctx.FormUniqueId || ctx.wpq));
+        return lib_1.ContextInfo.document.querySelector("#WebPart" + (ctx.FormUniqueId || ctx.wpq));
     },
     /**
      * Hides the specified field.
@@ -5964,9 +6712,9 @@ exports.JSLinkHelper = {
             // Set the flag
             exports.JSLinkHelper.hideEventFl = true;
             // Create the event
-            __1.ContextInfo.window.addEventListener("load", function () {
+            lib_1.ContextInfo.window.addEventListener("load", function () {
                 // Query for the elements to hide
-                var fieldElements = __1.ContextInfo.document.querySelectorAll(".hide-field");
+                var fieldElements = lib_1.ContextInfo.document.querySelectorAll(".hide-field");
                 for (var _i = 0, fieldElements_1 = fieldElements; _i < fieldElements_1.length; _i++) {
                     var fieldElement = fieldElements_1[_i];
                     // Get the parent row
@@ -6024,55 +6772,55 @@ exports.JSLinkHelper = {
         var fieldRenderer = null;
         switch (field.Type) {
             case "AllDayEvent":
-                fieldRenderer = new __1.ContextInfo.window["AllDayEventFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["AllDayEventFieldRenderer"](field.Name);
                 break;
             case "Attachments":
-                fieldRenderer = new __1.ContextInfo.window["AttachmentFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["AttachmentFieldRenderer"](field.Name);
                 break;
             case "BusinessData":
-                fieldRenderer = new __1.ContextInfo.window["BusinessDataFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["BusinessDataFieldRenderer"](field.Name);
                 break;
             case "Computed":
-                fieldRenderer = new __1.ContextInfo.window["ComputedFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["ComputedFieldRenderer"](field.Name);
                 break;
             case "CrossProjectLink":
-                fieldRenderer = new __1.ContextInfo.window["ProjectLinkFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["ProjectLinkFieldRenderer"](field.Name);
                 break;
             case "Currency":
-                fieldRenderer = new __1.ContextInfo.window["NumberFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["NumberFieldRenderer"](field.Name);
                 break;
             case "DateTime":
-                fieldRenderer = new __1.ContextInfo.window["DateTimeFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["DateTimeFieldRenderer"](field.Name);
                 break;
             case "Lookup":
-                fieldRenderer = new __1.ContextInfo.window["LookupFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["LookupFieldRenderer"](field.Name);
                 break;
             case "LookupMulti":
-                fieldRenderer = new __1.ContextInfo.window["LookupFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["LookupFieldRenderer"](field.Name);
                 break;
             case "Note":
-                fieldRenderer = new __1.ContextInfo.window["NoteFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["NoteFieldRenderer"](field.Name);
                 break;
             case "Number":
-                fieldRenderer = new __1.ContextInfo.window["NumberFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["NumberFieldRenderer"](field.Name);
                 break;
             case "Recurrence":
-                fieldRenderer = new __1.ContextInfo.window["RecurrenceFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["RecurrenceFieldRenderer"](field.Name);
                 break;
             case "Text":
-                fieldRenderer = new __1.ContextInfo.window["TextFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["TextFieldRenderer"](field.Name);
                 break;
             case "URL":
-                fieldRenderer = new __1.ContextInfo.window["UrlFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["UrlFieldRenderer"](field.Name);
                 break;
             case "User":
-                fieldRenderer = new __1.ContextInfo.window["UserFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["UserFieldRenderer"](field.Name);
                 break;
             case "UserMulti":
-                fieldRenderer = new __1.ContextInfo.window["UserFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["UserFieldRenderer"](field.Name);
                 break;
             case "WorkflowStatus":
-                fieldRenderer = new __1.ContextInfo.window["RawFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["RawFieldRenderer"](field.Name);
                 break;
         }
         ;
@@ -6085,14 +6833,14 @@ exports.JSLinkHelper = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 43 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var __1 = __webpack_require__(2);
+var lib_1 = __webpack_require__(2);
 /**
  * Loader
  */
@@ -6119,12 +6867,12 @@ exports.Loader = {
             // Parse the files to load
             ["MicrosoftAjax.js", "init.js", "sp.runtime.js", "sp.js", "sp.core.js", "core.js"].every(function (fileName) {
                 // Create the script element
-                var el = __1.ContextInfo.document.createElement("script");
+                var el = lib_1.ContextInfo.document.createElement("script");
                 // Set the properties
                 el.setAttribute("src", "/_layouts/15/" + fileName);
                 el.setAttribute("type", "text/javascript");
                 // Add the element to the head
-                __1.ContextInfo.document.head.appendChild(el);
+                lib_1.ContextInfo.document.head.appendChild(el);
                 // Continue the loop
                 return true;
             });
@@ -6133,7 +6881,7 @@ exports.Loader = {
         var intervalId = setInterval(function () {
             var maxLoopFl = ++counter > maxLoops;
             // See if the page context exists or if we have hit the max attempts
-            if (__1.ContextInfo.existsFl || maxLoopFl) {
+            if (lib_1.ContextInfo.existsFl || maxLoopFl) {
                 // Stop the loop
                 clearInterval(intervalId);
                 // Execute the callback
@@ -6145,7 +6893,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 44 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6175,14 +6923,14 @@ exports.parse = function (jsonString) {
 //# sourceMappingURL=parse.js.map
 
 /***/ }),
-/* 45 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
 var utils_1 = __webpack_require__(0);
-var __1 = __webpack_require__(2);
 var _1 = __webpack_require__(3);
 /**
  * SharePoint Configuration
@@ -6225,7 +6973,7 @@ var SPConfig = /** @class */ (function () {
                     // See if the parent name exists
                     if (cfgContentType.ParentName) {
                         // Get the web containing the parent content type
-                        (new __1.Web(cfgContentType.ParentWebUrl || _this._webUrl))
+                        (new lib_1.Web(cfgContentType.ParentWebUrl || _this._webUrl))
                             .ContentTypes()
                             .query({
                             Filter: "Name eq '" + cfgContentType.ParentName + "'"
@@ -6639,7 +7387,7 @@ var SPConfig = /** @class */ (function () {
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
             // Get the root web
-            (new __1.Web(__1.ContextInfo.siteServerRelativeUrl))
+            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
                 .Lists("Web Part Gallery")
                 .RootFolder()
                 .query({
@@ -6677,7 +7425,7 @@ var SPConfig = /** @class */ (function () {
                             // See if group exists
                             if (cfgWebPart.Group) {
                                 // Set the target to the root web
-                                (new __1.Web(__1.ContextInfo.siteServerRelativeUrl))
+                                (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
                                     .Lists("Web Part Gallery")
                                     .Items()
                                     .query({
@@ -6715,7 +7463,7 @@ var SPConfig = /** @class */ (function () {
             // Log
             console.log("[gd-sprest] Loading the site information...");
             // Get the site
-            (new __1.Site(_this._webUrl))
+            (new lib_1.Site(_this._webUrl))
                 .query({
                 Expand: ["UserCustomActions"]
             })
@@ -6735,7 +7483,7 @@ var SPConfig = /** @class */ (function () {
             // Log
             console.log("[gd-sprest] Loading the web information...");
             // Get the web
-            (new __1.Web(_this._webUrl))
+            (new lib_1.Web(_this._webUrl))
                 .query({
                 Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
             })
@@ -6961,7 +7709,7 @@ var SPConfig = /** @class */ (function () {
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
             // Get the root web
-            (new __1.Web(__1.ContextInfo.siteServerRelativeUrl))
+            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
                 .Lists("Web Part Gallery")
                 .RootFolder()
                 .Files()
@@ -7015,7 +7763,7 @@ var SPConfig = /** @class */ (function () {
             // Ensure the configuration exists
             if (cfgList) {
                 // Get the web
-                (new __1.Web(_this._webUrl))
+                (new lib_1.Web(_this._webUrl))
                     .Lists(cfgList.ListInformation.Title)
                     .query({
                     Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
@@ -7128,7 +7876,7 @@ var SPConfig = /** @class */ (function () {
                 return promise;
             }
             // Get the site
-            (new __1.Site(_this._webUrl))
+            (new lib_1.Site(_this._webUrl))
                 .query({
                 Expand: ["UserCustomActions"]
             })
@@ -7148,7 +7896,7 @@ var SPConfig = /** @class */ (function () {
             // Log
             console.log("[gd-sprest][uninstall] Loading the web information...");
             // Get the web
-            (new __1.Web(_this._webUrl))
+            (new lib_1.Web(_this._webUrl))
                 .query({
                 Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
             })
@@ -7243,58 +7991,14 @@ exports.SPConfig = SPConfig;
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 46 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * SharePoint Configuration Field Types
- */
-var SPCfgFieldType = {
-    Boolean: 0,
-    Calculated: 1,
-    Choice: 2,
-    Date: 3,
-    Lookup: 4,
-    MMS: 5,
-    Note: 6,
-    Number: 7,
-    Text: 8,
-    Url: 9,
-    User: 10
-};
-/**
- * SharePoint Configuration Types
- * The value determines the order to install the object type.
- */
-var SPCfgType = {
-    Fields: 0,
-    ContentTypes: 1,
-    Lists: 2,
-    SiteUserCustomActions: 3,
-    WebParts: 5,
-    WebUserCustomActions: 4
-};
-/**
- * Helper Types
- */
-exports.HelperTypes = {
-    SPCfgFieldType: SPCfgFieldType,
-    SPCfgType: SPCfgType
-};
-//# sourceMappingURL=types.js.map
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
 var utils_1 = __webpack_require__(0);
-var __1 = __webpack_require__(2);
 /**
  * Web Part
  */
@@ -7338,7 +8042,7 @@ var _WebPart = /** @class */ (function () {
             // Get the current context
             var context = SP.ClientContext.get_current();
             // Get the webpart from the current page
-            var page = context.get_web().getFileByServerRelativeUrl(__1.ContextInfo.serverRequestPath);
+            var page = context.get_web().getFileByServerRelativeUrl(lib_1.ContextInfo.serverRequestPath);
             var wpMgr = page.getLimitedWebPartManager(SP.WebParts.PersonalizationScope.shared);
             var wpDef = wpMgr.get_webParts().getById(wpId);
             var wp = wpDef.get_webPart();
@@ -7569,710 +8273,6 @@ var _WebPart = /** @class */ (function () {
 }());
 exports.WebPart = _WebPart;
 //# sourceMappingURL=webpart.js.map
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = __webpack_require__(2);
-/**
- * JS Link
- */
-var _JSLink = /** @class */ (function () {
-    /**
-     * Constructor
-     */
-    function _JSLink(cfg) {
-        // See if the configuration exists
-        if (cfg) {
-            // Set the properties
-            this._baseViewID = cfg.BaseViewID;
-            this._listTemplateType = cfg.ListTemplateType;
-            this._onPostRender = cfg.OnPostRender;
-            this._onPreRender = cfg.OnPreRender;
-            this._templates = cfg.Templates;
-        }
-    }
-    Object.defineProperty(_JSLink.prototype, "BaseViewID", {
-        set: function (value) { this._baseViewID = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "ListTemplateType", {
-        set: function (value) { this._listTemplateType = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "OnPostRender", {
-        set: function (value) { this._onPostRender = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "OnPreRender", {
-        set: function (value) { this._onPreRender = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "Templates", {
-        set: function (value) { this._templates = value; },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Methods
-     */
-    /**
-     * Returns the CSR template.
-     */
-    _JSLink.prototype.getTemplate = function () {
-        var template = {};
-        // Add the properties
-        if (this._baseViewID) {
-            template.BaseViewID = this._baseViewID;
-        }
-        if (this._listTemplateType) {
-            template.ListTemplateType = this._listTemplateType;
-        }
-        if (this._onPostRender) {
-            template.OnPostRender = this._onPostRender;
-        }
-        if (this._onPreRender) {
-            template.OnPreRender = this._onPreRender;
-        }
-        if (this._templates) {
-            template.Templates = this._templates;
-        }
-        // See if there are fields
-        if (template.Templates && template.Templates.Fields) {
-            var fields = {};
-            // Parse the fields
-            for (var _i = 0, _a = template.Templates.Fields; _i < _a.length; _i++) {
-                var field = _a[_i];
-                // Add the field
-                fields[field.Name] = {};
-                // Add the field properties
-                if (field.DisplayForm) {
-                    fields[field.Name].DisplayForm = field.DisplayForm;
-                }
-                if (field.EditForm) {
-                    fields[field.Name].EditForm = field.EditForm;
-                }
-                if (field.NewForm) {
-                    fields[field.Name].NewForm = field.NewForm;
-                }
-                if (field.View) {
-                    fields[field.Name].View = field.View;
-                }
-            }
-            // Update the fields
-            template.Templates.Fields = fields;
-        }
-        // Return the template
-        return template;
-    };
-    /**
-     * Method to register the CSR override.
-     */
-    _JSLink.prototype.register = function () {
-        // Get the template manager
-        var templateManager = _1.ContextInfo.window.SPClientTemplates;
-        templateManager = templateManager ? templateManager.TemplateManager : null;
-        // Ensure it exists
-        if (templateManager) {
-            // Apply the customization
-            templateManager.RegisterTemplateOverrides(this.getTemplate());
-        }
-    };
-    return _JSLink;
-}());
-exports.JSLink = _JSLink;
-//# sourceMappingURL=jslink.js.map
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-var web_1 = __webpack_require__(5);
-/**
- * List
- */
-var _List = /** @class */ (function (_super) {
-    __extends(_List, _super);
-    /**
-     * Constructor
-     */
-    function _List(listName, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "list" } });
-        return _this;
-    }
-    // Method to get the list by the entity name.
-    _List.getByEntityName = function (entityTypeName, callback, targetInfo) {
-        // Query for the list
-        var query = (new web_1.Web(targetInfo))
-            .Lists()
-            .query({
-            Filter: "EntityTypeName eq '" + entityTypeName + "'",
-            Top: 1
-        });
-        // See if the callback exists
-        if (typeof (callback) != "function") {
-            // Execute the request synchronously and return it
-            var list = query.executeAndWait();
-            return list.results ? list.results[0] : list;
-        }
-        // Execute the request asynchronously
-        query.execute(function (lists) {
-            // Execute the callback method
-            callback(lists.results ? lists.results[0] : lists);
-        });
-    };
-    return _List;
-}(utils_1.Base));
-exports.List = _List;
-//# sourceMappingURL=list.js.map
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-/**
- * Navigation
- */
-var _Navigation = /** @class */ (function (_super) {
-    __extends(_Navigation, _super);
-    /**
-     * Constructor
-     */
-    function _Navigation(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "navigation";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "navigationservicerest" } });
-        return _this;
-    }
-    return _Navigation;
-}(utils_1.Base));
-exports.Navigation = _Navigation;
-//# sourceMappingURL=navigation.js.map
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// People Manager
-/*********************************************************************************************************************************/
-var _PeopleManager = /** @class */ (function (_super) {
-    __extends(_PeopleManager, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _PeopleManager(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "peoplemanager" } });
-        return _this;
-    }
-    return _PeopleManager;
-}(utils_1.Base));
-exports.PeopleManager = _PeopleManager;
-//# sourceMappingURL=peopleManager.js.map
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// People Picker
-/*********************************************************************************************************************************/
-var _PeoplePicker = /** @class */ (function (_super) {
-    __extends(_PeoplePicker, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _PeoplePicker(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
-        _this.targetInfo.overrideDefaultRequestToHostFl = true;
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "peoplepicker" } });
-        return _this;
-    }
-    return _PeoplePicker;
-}(utils_1.Base));
-exports.PeoplePicker = _PeoplePicker;
-//# sourceMappingURL=peoplePicker.js.map
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// Profile Loader
-/*********************************************************************************************************************************/
-var _ProfileLoader = /** @class */ (function (_super) {
-    __extends(_ProfileLoader, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _ProfileLoader(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
-        _this.targetInfo.method = "POST";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "profileloader" } });
-        return _this;
-    }
-    return _ProfileLoader;
-}(utils_1.Base));
-exports.ProfileLoader = _ProfileLoader;
-//# sourceMappingURL=profileLoader.js.map
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// Search
-/*********************************************************************************************************************************/
-var _Search = /** @class */ (function (_super) {
-    __extends(_Search, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _Search(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "search";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "search" } });
-        return _this;
-    }
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Method to compute the query
-    _Search.prototype.getQuery = function (parameters) {
-        var query = "";
-        // Parse the parameters
-        for (var key in parameters) {
-            // Append the parameter to the query
-            query += (query == "" ? "" : "&") + key + "='" + parameters[key] + "'";
-        }
-        // Return the query
-        return [query];
-    };
-    /** The search query method */
-    _Search.prototype.searchquery = function (settings) {
-        // Execute the request
-        return this.executeMethod("query", {
-            argNames: ["query"],
-            name: "query?[[query]]",
-            requestType: types_1.RequestType.GetReplace
-        }, this.getQuery(settings));
-    };
-    /** The suggest method */
-    _Search.prototype.suggest = function (settings) {
-        // Execute the request
-        return this.executeMethod("query", {
-            argNames: ["query"],
-            name: "suggest?[[query]]",
-            requestType: types_1.RequestType.GetReplace
-        }, this.getQuery(settings));
-    };
-    return _Search;
-}(utils_1.Base));
-exports.Search = _Search;
-//# sourceMappingURL=search.js.map
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-var _1 = __webpack_require__(2);
-/*********************************************************************************************************************************/
-// Site
-// The SPSite object.
-/*********************************************************************************************************************************/
-var _Site = /** @class */ (function (_super) {
-    __extends(_Site, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _Site(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "site";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "site" } });
-        return _this;
-    }
-    // Method to get the root web
-    _Site.prototype.getRootWeb = function () { return new _1.Web(null, this.targetInfo); };
-    // Method to determine if the current user has access, based on the permissions.
-    _Site.prototype.hasAccess = function (permissions) {
-        // TO DO
-        return true;
-    };
-    ;
-    return _Site;
-}(utils_1.Base));
-exports.Site = _Site;
-//# sourceMappingURL=site.js.map
-
-/***/ }),
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// Social Feed
-/*********************************************************************************************************************************/
-var _SocialFeed = /** @class */ (function (_super) {
-    __extends(_SocialFeed, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _SocialFeed(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "social.feed";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "socialfeed" } });
-        return _this;
-    }
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Method to post to another user's feed
-    _SocialFeed.prototype.postToFeed = function (accountName, creationData) {
-        var postInfo = { ID: null, creationData: creationData };
-        // Set the post metadata
-        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
-        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.executeMethod("postToMyFeed", {
-            argNames: ["restCreationData"],
-            name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
-            requestType: types_1.RequestType.PostWithArgsInBody
-        }, [postInfo]);
-    };
-    // Method to post to the current user's feed
-    _SocialFeed.prototype.postToMyFeed = function (creationData) {
-        var postInfo = { ID: null, creationData: creationData };
-        // Set the post metadata
-        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
-        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.executeMethod("postToMyFeed", {
-            argNames: ["restCreationData"],
-            name: "my/feed/post",
-            requestType: types_1.RequestType.PostWithArgsInBody
-        }, [postInfo]);
-    };
-    return _SocialFeed;
-}(utils_1.Base));
-exports.SocialFeed = (new _SocialFeed());
-//# sourceMappingURL=socialFeed.js.map
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// User Profile
-/*********************************************************************************************************************************/
-var _UserProfile = /** @class */ (function (_super) {
-    __extends(_UserProfile, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _UserProfile(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
-        _this.targetInfo.method = "POST";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "userprofile" } });
-        return _this;
-    }
-    return _UserProfile;
-}(utils_1.Base));
-exports.UserProfile = _UserProfile;
-//# sourceMappingURL=userProfile.js.map
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var utils_1 = __webpack_require__(0);
-/**
- * Utility
- */
-var _Utility = /** @class */ (function (_super) {
-    __extends(_Utility, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _Utility(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "SP.Utilities.Utility";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "utility" } });
-        return _this;
-    }
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Method to create a wiki page
-    _Utility.prototype.createWikiPage = function (listUrl, content) {
-        if (content === void 0) { content = ""; }
-        var parameters = {
-            ServerRelativeUrl: listUrl,
-            WikiHtmlContent: content
-        };
-        // Execute the method
-        return this.executeMethod("createWikiPage", {
-            argNames: ["parameters"],
-            name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
-            replaceEndpointFl: true,
-            requestType: types_1.RequestType.PostWithArgsInBody
-        }, [parameters]);
-    };
-    // Method to send an email
-    _Utility.prototype.sendEmail = function (properties) {
-        // Parse the email properties
-        for (var _i = 0, _a = ["To", "CC", "BCC"]; _i < _a.length; _i++) {
-            var propName = _a[_i];
-            var propValue = properties[propName];
-            // Ensure the value exists
-            if (propValue) {
-                // See if it's a string
-                if (typeof (propValue) === "string") {
-                    // Add the results property
-                    properties[propName] = { 'results': [propValue] };
-                }
-                else {
-                    // Add the results property
-                    properties[propName] = { 'results': propValue };
-                }
-            }
-        }
-        // Execute the method
-        return this.executeMethod("sendEmail", {
-            argNames: ["properties"],
-            metadataType: "SP.Utilities.EmailProperties",
-            name: "SP.Utilities.Utility.sendEmail",
-            replaceEndpointFl: true,
-            requestType: types_1.RequestType.PostWithArgsInBody
-        }, [properties]);
-    };
-    return _Utility;
-}(utils_1.Base));
-exports.Utility = _Utility;
-//# sourceMappingURL=utility.js.map
 
 /***/ })
 /******/ ]);

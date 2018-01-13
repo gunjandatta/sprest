@@ -26,6 +26,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
+var helper_1 = require("./helper");
+exports.Helper = helper_1.Helper;
 var mapper_1 = require("./mapper");
 exports.Types = mapper_1.Types;
 var types_1 = require("./types");
@@ -33,7 +35,6 @@ exports.RequestType = types_1.RequestType;
 exports.SPTypes = types_1.SPTypes;
 var lib_1 = require("./lib");
 exports.ContextInfo = lib_1.ContextInfo;
-exports.Helper = lib_1.Helper;
 exports.JSLink = lib_1.JSLink;
 exports.List = lib_1.List;
 exports.Navigation = lib_1.Navigation;
@@ -53,7 +54,7 @@ exports.$REST = {
     __ver: 2.64,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
-    Helper: lib_1.Helper,
+    Helper: helper_1.Helper,
     JSLink: lib_1.JSLink,
     List: function (listName, targetInfo) { return new lib_1.List(listName, targetInfo); },
     Navigation: function (url, targetInfo) { return new lib_1.Navigation(url, targetInfo); },

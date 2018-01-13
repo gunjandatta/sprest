@@ -24,14 +24,72 @@ declare module 'gd-sprest' {
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
      ***************************************************************************************************/
+    import { Helper } from "gd-sprest/helper";
     import { Types } from "gd-sprest/mapper";
     import { RequestType, SPTypes } from "gd-sprest/types";
-    import { ContextInfo, Helper, JSLink, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "gd-sprest/lib";
+    import { ContextInfo, JSLink, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "gd-sprest/lib";
     export { ContextInfo, Helper, JSLink, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Utility, Web };
     /**
         * SharePoint REST Library
         */
     export const $REST: Types.IREST;
+}
+
+declare module 'gd-sprest/helper' {
+    import { IBase } from "gd-sprest/utils";
+    import { IHelperApp } from "gd-sprest/helper/app";
+    import { IDependencies } from "gd-sprest/helper/dependencies";
+    import { IFieldSchemaXML } from "gd-sprest/helper/field";
+    import { IHelperJSLink } from "gd-sprest/helper/jslink";
+    import { ILoader } from "gd-sprest/helper/loader";
+    import { ISPConfig } from "gd-sprest/helper/spCfg";
+    import { IHelperTypes } from "gd-sprest/helper/types";
+    import { IWebPart } from "gd-sprest/helper/webpart";
+    /**
+        * Helper
+        */
+    export interface IHelper {
+            /**
+                * App-Model helper methods
+                */
+            App: IHelperApp;
+            /**
+                * Dependencies
+                */
+            Dependencies: IDependencies;
+            /**
+                * Field Schema XML
+                */
+            FieldSchemaXML: IFieldSchemaXML;
+            /**
+                * JSLink helper methods
+                */
+            JSLink: IHelperJSLink;
+            /**
+                * Loader
+                */
+            Loader: ILoader;
+            /**
+                * Method to parse a json string and convert to a base object.
+                */
+            parse<T = IBase>(jsonString: string): T;
+            /**
+                * Web helper methods
+                */
+            SPConfig: ISPConfig;
+            /**
+                * Helper Types
+                */
+            Types: IHelperTypes;
+            /**
+                * WebPart
+                */
+            WebPart: IWebPart;
+    }
+    /**
+        * Helper Methods
+        */
+    export const Helper: IHelper;
 }
 
 declare module 'gd-sprest/mapper' {
@@ -1372,7 +1430,6 @@ declare module 'gd-sprest/types' {
 
 declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/contextInfo";
-    export * from "gd-sprest/lib/helper";
     export * from "gd-sprest/lib/jslink";
     export * from "gd-sprest/lib/list";
     export * from "gd-sprest/lib/navigation";
@@ -1385,6 +1442,630 @@ declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/userProfile";
     export * from "gd-sprest/lib/utility";
     export * from "gd-sprest/lib/web";
+}
+
+declare module 'gd-sprest/utils' {
+    export * from "gd-sprest/utils/baseHelper";
+    export * from "gd-sprest/utils/baseRequest";
+    export * from "gd-sprest/utils/baseExecution";
+    export * from "gd-sprest/utils/base";
+    export * from "gd-sprest/utils/batch";
+    export * from "gd-sprest/utils/methodInfo";
+    export * from "gd-sprest/utils/oData";
+    export * from "gd-sprest/utils/promise";
+    export * from "gd-sprest/utils/targetInfo";
+    export * from "gd-sprest/utils/xhrRequest";
+}
+
+declare module 'gd-sprest/helper/app' {
+    import { Types } from "gd-sprest/mapper";
+    import { Promise, IPromise } from "gd-sprest/utils";
+    /**
+        * App Helper Methods
+        */
+    export interface IHelperApp {
+            /**
+                * Method to copy a file from the app web to the host web.
+                * @param srcFileUrl - The source file url, relative to the app web.
+                * @param dstFolder - The destination folder.
+                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
+                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
+                */
+            copyFileToHostWeb(srcFileUrl: string, dstFolder: Types.IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
+            /**
+                * Method to copy a file from the app web to the host web.
+                * @param srcFileUrl - The source file url, relative to the app web.
+                * @param dstFolderUrl - The destination folder url, relative to the host web.
+                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
+                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
+                */
+            copyFileToHostWeb(srcFileUrl: string, dstFolderUrl: string, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
+            /**
+                * Method to copy a file from the app web to the host web
+                * @param fileUrls - An array of source file urls, relative to the app web.
+                * @param folderUrls - An array of destination folder urls, relative to the host web.
+                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
+                */
+            copyFilesToHostWeb(fileUrls: Array<string>, folderUrls: Array<string>, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
+            /**
+                * Method to create sub-folders.
+                * @param folder - The app web relative url to the source file.
+                * @param subFolderUrl - The host web relative url of the destination folder.
+                */
+            createSubFolders(folder: Types.IFolderResult, subFolderUrl: string): IPromise;
+            /**
+                * Method to get the file content.
+                * @param web - The web containing the files.
+                * @param fileUrls - An array of file urls, relative to the web.
+                * @param createFl - Flag to create the folder, if it doesn't exist.
+                */
+            getFolder(web: Types.IWebResult, folderUrl: string, createFl?: boolean): IPromise;
+            /**
+                * Method to remove empty folders
+                * @param web - The web containing the files.
+                * @param folderUrls - An array of folder urls, relative to the web.
+                */
+            removeEmptyFolders(web: Types.IWebResult, folderUrls: Array<string>): IPromise;
+            /**
+                * Method to remove files from a web.
+                * @param web - The web containing the files.
+                * @param fileUrl - The file url, relative to the web.
+                */
+            removeFile(web: Types.IWebResult, fileUrl: string): IPromise;
+            /**
+                * Method to remove files from a web.
+                * @param web - The web containing the files.
+                * @param fileUrls - An array of file urls, relative to the web.
+                */
+            removeFiles(web: Types.IWebResult, fileUrls: Array<string>): IPromise;
+    }
+    /*********************************************************************************************************************************/
+    export const AppHelper: {
+            copyFileToHostWeb: (fileUrl: any, dstFolder: any, overwriteFl: any, rootWebFl: any) => Promise;
+            copyFilesToHostWeb: (fileUrls: any, folderUrls: any, overwriteFl: any, rootWebFl: any, idx: any, promise: any, files: any, folders: any) => any;
+            createSubFolders: (folder: any, subFolderUrl: any, promise: any) => any;
+            getFolder: (web: any, folderUrl: any, createFl: any) => Promise;
+            removeEmptyFolders: (web: any, folderUrls: any) => Promise;
+            removeFile: (web: any, fileUrl: any) => Promise;
+            removeFiles: (web: any, fileUrls: any, idx: any, promise: any) => any;
+    };
+}
+
+declare module 'gd-sprest/helper/dependencies' {
+    import { Promise } from "gd-sprest/utils";
+    /**
+        * Dependencies
+        */
+    export interface IDependencies {
+            /**
+                * Constructor
+                * @param callback - The method to execute after the dependencies are loaded.
+                */
+            constructor(callback: (...args) => void): any;
+            /** The maximum amount of time to wait for the scripts to be loaded. */
+            MAX_WAIT: number;
+            /** Flag to determine if the page context information exists */
+            pageContextExistsFl: boolean;
+            /** The promise. */
+            promise: Promise;
+            /** The script file names to load. */
+            SCRIPTS: Array<string>;
+            /**
+                * Method to ensure the SP classes are loaded
+                */
+            loadDependencies(): any;
+            /**
+                * Method to wait for the page context to be loaded
+                */
+            waitForPageContext(): any;
+    }
+    /**
+        * Dependencies
+        * This class will ensure the core SP scripts are loaded on the page.
+        */
+    export class Dependencies {
+            MAX_WAIT: number;
+            promise: Promise;
+            readonly pageContextExistsFl: boolean;
+            SCRIPTS: Array<string>;
+            /**
+                * Constructor
+                * @param callback - The method to execute after the scripts have been loaded.
+                */
+            constructor(callback: (...args) => void);
+            /**
+                * Method to ensure the SP classes are loaded
+                */
+            loadDependencies(): void;
+            /**
+                * Method to wait for the page context to be loaded
+                */
+            waitForPageContext(): void;
+    }
+}
+
+declare module 'gd-sprest/helper/field' {
+    import { Types } from "gd-sprest/mapper";
+    import { Promise } from "gd-sprest/utils";
+    /**
+      * Field Schema XML
+      */
+    export interface IFieldSchemaXML {
+        /** Method to generate the field schema xml. */
+        generate: (fieldInfo: Types.Helper.SPConfig.IFieldInfo) => Promise;
+    }
+    export const FieldSchemaXML: IFieldSchemaXML;
+}
+
+declare module 'gd-sprest/helper/jslink' {
+    /**
+        * JSLink Helper Methods
+        */
+    export interface IHelperJSLink {
+            /**
+                * Disables edit for the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to disable edit.
+                * @param requireValueFl - Flag to only disable the field, if a value exists.
+                */
+            disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
+            /**
+                * Disable quick edit for the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to disable edit.
+                */
+            disableQuickEdit(ctx: any, field: any): any;
+            /**
+                * Returns the list view.
+                * @param ctx - The client context.
+                */
+            getListView(ctx: any): any;
+            /**
+                * Returns the list view items.
+                * @param ctx - The client context.
+                */
+            getListViewItems(ctx: any): any;
+            /**
+                * Returns the selected list view items
+                */
+            getListViewSelectedItems(): any;
+            /**
+                * Returns the webpart containing the JSLink field/form/view.
+                * @param ctx - The client context.
+                */
+            getWebPart(ctx: any): any;
+            /**
+                * Hides the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to hide.
+                */
+            hideField(ctx: any, field: any): any;
+            /**
+                * Removes the field and html from the page.
+                * @param ctx - The client context.
+                * @param field - The field to remove.
+                */
+            removeField(ctx: any, field: any): any;
+            /**
+                * Method to render the default html for a field.
+                * @param ctx - The client context.
+                * @param field - The form field.
+                * @param formType - The form type. (Display, Edit, New or View)
+                */
+            renderField(ctx: any, field: any, formType?: number): any;
+    }
+    /**
+        * JSLink Helper Methods
+        */
+    export const JSLinkHelper: {
+            hideEventFl: boolean;
+            _fieldToMethodMapper: {
+                    'Attachments': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'Boolean': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'Currency': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'Calculated': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'Choice': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'Computed': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'DateTime': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'File': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'Integer': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'Lookup': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'LookupMulti': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'MultiChoice': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'Note': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'Number': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'Text': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'URL': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'User': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+                    'UserMulti': {
+                            4: any;
+                            1: any;
+                            2: any;
+                            3: any;
+                    };
+            };
+            disableEdit: (ctx: any, field: any, requireValueFl?: boolean) => string;
+            disableQuickEdit: (ctx: any, field: any) => any;
+            getListView: (ctx: any) => Element;
+            getListViewItems: (ctx: any) => any;
+            getListViewSelectedItems: () => any;
+            getWebPart: (ctx: any) => Element;
+            hideField: (ctx: any, field: any) => void;
+            removeField: (ctx: any, field: any) => string;
+            renderField: (ctx: any, field: any, formType?: number) => any;
+    };
+}
+
+declare module 'gd-sprest/helper/loader' {
+    /**
+        * Loader
+        */
+    export interface ILoader {
+            /**
+                * Waits for the SharePoint core libraries to be loaded.
+                * @param callback - The callback function.
+                * @param timeout - The max time (ms) to wait for the libraries to be loaded.
+                * @param loadLibraries - Flag to load the core libraries manually.
+                */
+            waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean): any;
+    }
+    /**
+        * Loader
+        */
+    export const Loader: {
+            loaded: boolean;
+            waitForSPLibs: (callback: any, timeout?: number, loadLibraries?: boolean) => void;
+    };
+}
+
+declare module 'gd-sprest/helper/spCfg' {
+    import { Types } from "gd-sprest/mapper";
+    /**
+        * SharePoint Configuration - Content Type Information
+        */
+    export interface ISPCfgContentTypeInfo extends Types.IContentTypeCreationInformation {
+            /**
+                * The content type. (This value is set internally.)
+                */
+            ContentType?: Types.IContentTypeResult;
+            /**
+                * The field references.
+                */
+            FieldRefs?: Array<string>;
+            /**
+                * The JSLink property.
+                */
+            JSLink?: string;
+            /**
+                * The parent content type name, required if different then the name.
+                */
+            ParentName?: string;
+            /**
+                * The url of the web containing the parent content type, required if the parent content type doesn't exist in the current web.
+                */
+            ParentWebUrl?: string;
+            /**
+                * Event triggered after the content type is created.
+                */
+            onCreated?: (ct: Types.IContentTypeResult) => void;
+            /**
+                * Event triggered after the content type is updated.
+                */
+            onUpdated?: (ct: Types.IContentTypeResult) => void;
+    }
+    /**
+        * SharePoint Configuration - Custom Action Information
+        */
+    export interface ISPCfgCustomActionInfo {
+            /**
+                * Custom actions to be created at the site collection level.
+                */
+            Site?: Array<Types.IUserCustomActionCreationInformation>;
+            /**
+                * Custom actions to be created at the web level.
+                */
+            Web?: Array<Types.IUserCustomActionCreationInformation>;
+    }
+    /**
+        * SharePoint Configuration - Field Information
+        */
+    export interface ISPCfgFieldInfo extends Types.Helper.SPConfig.IFieldInfo {
+            /**
+                * Event triggered after the field is created.
+                */
+            onCreated?: (field: Types.IFieldResult) => void;
+            /**
+                * Event triggered after the field is updated.
+                */
+            onUpdated?: (field: Types.IFieldResult) => void;
+    }
+    /**
+        * SharePoint Configuration - List Information
+        */
+    export interface ISPCfgListInfo {
+            /** The content types. */
+            ContentTypes?: Array<ISPCfgContentTypeInfo>;
+            /** The custom list fields. */
+            CustomFields?: Array<ISPCfgFieldInfo>;
+            /** The list creation information. */
+            ListInformation: Types.IListCreationInformation;
+            /** The title display name. */
+            TitleFieldDisplayName?: string;
+            /** The user custom actions. */
+            UserCustomActions?: Array<Types.IUserCustomActionCreationInformation>;
+            /** The view information. */
+            ViewInformation?: Array<ISPCfgViewInfo>;
+            /**
+                * Event triggered after the list is created or updated.
+                */
+            onCreated?: (list: Types.IListResult) => void;
+            /**
+                * Event triggered after the list is updated.
+                */
+            onUpdated?: (list: Types.IListQueryResult) => void;
+    }
+    /**
+        * SharePoint Configuration - View Information
+        */
+    export interface ISPCfgViewInfo {
+            /** The JSLink property. */
+            JSLink?: string;
+            /** The view fields. */
+            ViewFields?: Array<string>;
+            /** The view name. */
+            ViewName: string;
+            /** The view query. */
+            ViewQuery?: string;
+            /**
+                * Event triggered after the view is created or updated.
+                */
+            onCreated?: (view: Types.IViewResult) => void;
+            /**
+                * Event triggered after the view is updated.
+                */
+            onUpdated?: (view: Types.IView) => void;
+    }
+    /**
+        * SharePoint Configuration - WebPart Information
+        */
+    export interface ISPCfgWebPartInfo {
+            /** The file name of the webpart. */
+            FileName: string;
+            /** The webpart group. */
+            Group?: string;
+            /** The webpart xml */
+            XML: string;
+            /**
+                * Event triggered after the webpart file is created.
+                */
+            onCreated?: (file: Types.IFileResult) => void;
+            /**
+                * Event triggered after the webpart file is updated.
+                */
+            onUpdated?: (file: Types.IFileResult) => void;
+    }
+    /**
+        * SharePoint Configuration Methods
+        */
+    export interface ISPConfig {
+            /**
+                * Constructor
+                * @param cfg - The SharePoint configuration information.
+                * @param webUrl - An optional string representing the relative web url.
+                */
+            new (cfg: ISPConfigProps, webUrl?: string): any;
+            /**
+                * Method to install the configuration
+                * @param callback - An optional function called after the execution completes.
+                */
+            install(callback?: () => void): any;
+            /**
+                * Method to install by the configuration type.
+                * @param cfgType - The configuration type.
+                * @param callback - An optional function called after the execution completes.
+                * @param targetName - The target configuration type to install.
+                */
+            installByType(cfgType: number, callback?: any, targetName?: string): any;
+            /**
+                * Method to install the configuration
+                * @param callback - An optional function called after the execution completes.
+                */
+            uninstall(callback?: () => void): any;
+            /**
+                * Method to uninstall by the configuration type.
+                * @param cfgType - The configuration type.
+                * @param callback - An optional function called after the execution completes.
+                * @param targetName - The target configuration type to uninstall.
+                */
+            uninstallByType(cfgType: number, callback?: any, targetName?: string): any;
+    }
+    /**
+        * SharePoint Configuration - Properties
+        */
+    export interface ISPConfigProps {
+            /** The content types. */
+            ContentTypes?: Array<ISPCfgContentTypeInfo>;
+            /** The custom action configuration. */
+            CustomActionCfg?: ISPCfgCustomActionInfo;
+            /** The site column configuration. */
+            Fields?: Array<ISPCfgFieldInfo>;
+            /** The list configuration. */
+            ListCfg?: Array<ISPCfgListInfo>;
+            /** The web part configuration. */
+            WebPartCfg?: Array<ISPCfgWebPartInfo>;
+    }
+    /**
+        * SharePoint Configuration - Types
+        */
+    export interface ISPConfigTypes {
+            /** Fields */
+            Fields: number;
+            /** Content Types */
+            ContentTypes: number;
+            /** Lists */
+            Lists: number;
+            /** Site User Custom Actions */
+            SiteUserCustomActions: number;
+            /** Web User Custom Actions */
+            WebUserCustomActions: number;
+    }
+    /**
+        * SharePoint Configuration
+        */
+    export class SPConfig {
+            /**
+                * Constructor
+                */
+            constructor(cfg: ISPConfigProps, webUrl?: string);
+            /**
+                * Public Methods
+                */
+            install(callback?: any, cfgType?: number, targetName?: string): void;
+            installByType: (cfgType: number, callback?: any, targetName?: string) => void;
+            installList(listName: string, callback?: any): void;
+            installSiteCustomAction(caName: string, callback?: any): void;
+            installWebCustomAction(caName: string, callback?: any): void;
+            uninstall(callback?: any, cfgType?: number, targetName?: string): void;
+            uninstallByType: (cfgType: number, callback?: any, targetName?: string) => void;
+            uninstallList(listName: string, callback?: any): void;
+            uninstallSiteCustomAction(caName: string, callback?: any): void;
+            uninstallWebCustomAction(caName: string, callback?: any): void;
+    }
+}
+
+declare module 'gd-sprest/helper/types' {
+    /**
+        * Helper Types
+        */
+    export interface IHelperTypes {
+            /** The field types */
+            SPCfgFieldType: {
+                    Boolean: number;
+                    Calculated: number;
+                    Choice: number;
+                    Date: number;
+                    Lookup: number;
+                    MMS: number;
+                    Note: number;
+                    Number: number;
+                    Text: number;
+                    Url: number;
+                    User: number;
+            };
+            /** The configuration types */
+            SPCfgType: {
+                    Fields: number;
+                    ContentTypes: number;
+                    Lists: number;
+                    SiteUserCustomActions: number;
+                    WebParts: number;
+                    WebUserCustomActions: number;
+            };
+    }
+    /**
+        * Helper Types
+        */
+    export const HelperTypes: IHelperTypes;
+}
+
+declare module 'gd-sprest/helper/webpart' {
+    import { Types } from "gd-sprest/mapper";
+    /**
+        * Web Part
+        */
+    export interface IWebPart {
+            /**
+                * Creates an instance of a webpart.
+                * @param props - The webpart properties.
+                */
+            new (props: Types.Helper.WebPart.IWebPartProps): any;
+    }
+    export const WebPart: IWebPart;
 }
 
 declare module 'gd-sprest/mapper/types' {
@@ -2100,63 +2781,6 @@ declare module 'gd-sprest/lib/contextInfo' {
     export const ContextInfo: IContextInformation;
 }
 
-declare module 'gd-sprest/lib/helper' {
-    import { IBase } from "gd-sprest/utils";
-    import { IHelperApp } from "gd-sprest/lib/helper/app";
-    import { IDependencies } from "gd-sprest/lib/helper/dependencies";
-    import { IFieldSchemaXML } from "gd-sprest/lib/helper/field";
-    import { IHelperJSLink } from "gd-sprest/lib/helper/jslink";
-    import { ILoader } from "gd-sprest/lib/helper/loader";
-    import { ISPConfig } from "gd-sprest/lib/helper/spCfg";
-    import { IHelperTypes } from "gd-sprest/lib/helper/types";
-    import { IWebPart } from "gd-sprest/lib/helper/webpart";
-    /**
-        * Helper
-        */
-    export interface IHelper {
-            /**
-                * App-Model helper methods
-                */
-            App: IHelperApp;
-            /**
-                * Dependencies
-                */
-            Dependencies: IDependencies;
-            /**
-                * Field Schema XML
-                */
-            FieldSchemaXML: IFieldSchemaXML;
-            /**
-                * JSLink helper methods
-                */
-            JSLink: IHelperJSLink;
-            /**
-                * Loader
-                */
-            Loader: ILoader;
-            /**
-                * Method to parse a json string and convert to a base object.
-                */
-            parse<T = IBase>(jsonString: string): T;
-            /**
-                * Web helper methods
-                */
-            SPConfig: ISPConfig;
-            /**
-                * Helper Types
-                */
-            Types: IHelperTypes;
-            /**
-                * WebPart
-                */
-            WebPart: IWebPart;
-    }
-    /**
-        * Helper Methods
-        */
-    export const Helper: IHelper;
-}
-
 declare module 'gd-sprest/lib/jslink' {
     /**
         * Fields Template
@@ -2263,6 +2887,421 @@ declare module 'gd-sprest/lib/utility' {
 declare module 'gd-sprest/lib/web' {
     import { Types } from "gd-sprest/mapper";
     export const Web: Types.IWeb;
+}
+
+declare module 'gd-sprest/utils/baseHelper' {
+    import { Base } from "gd-sprest/utils";
+    /**
+        * Request Helper Methods
+        */
+    export interface IBaseHelper {
+            /** The base object. */
+            base: Base;
+            /** The request type */
+            requestType: number;
+            /** The request's raw response. */
+            response: string;
+            /** The request's status. */
+            status: number;
+            /** Adds methods based on the object type. */
+            addMethods(base: Base, data: any): any;
+            /** Adds properties based on the object type. */
+            addProperties(base: Base, data: any): any;
+            /** Updates the data collection objects. */
+            updateDataCollection(obj: Base, results: Array<Base>): any;
+            /** Updates the data object. */
+            updateDataObject(isBatchRequest: boolean): any;
+            /** Updates the metadata. */
+            updateMetadata(base: any, data: any): any;
+    }
+    /**
+        * Request Helper
+        */
+    export class BaseHelper implements IBaseHelper {
+            base: Base;
+            requestType: number;
+            response: string;
+            status: number;
+            addMethods(base: Base, data: any): void;
+            addProperties(base: any, data: any): void;
+            updateDataCollection(obj: any, results: any): void;
+            updateDataObject(isBatchRequest: boolean): void;
+            updateMetadata(base: any, data: any): void;
+    }
+}
+
+declare module 'gd-sprest/utils/baseRequest' {
+    import { Base, BaseHelper, IBaseHelper, Promise, XHRRequest, IMethodInfo, ITargetInfo } from "gd-sprest/utils";
+    /**
+        * Base Request
+        */
+    export interface IBaseRequest extends IBaseHelper {
+            /** Flag to get all items. */
+            getAllItemsFl: boolean;
+            /** The target information. */
+            targetInfo: ITargetInfo;
+            /** The request. */
+            xhr: XHRRequest;
+            /** Method to execute the request. */
+            executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): any;
+            /** Method to execute the request. */
+            executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
+            /** Gets the property as a collection. */
+            getCollection(method: string, args?: any): any;
+            /** Gets the next set of results. */
+            getNextSetOfResults(): any;
+            /** Gets the property. */
+            getProperty(propertyName: string, requestType?: string): any;
+            /** Updates the metdata uri. */
+            updateMetadataUri(metadata: any, targetInfo: ITargetInfo): any;
+            /** Validates the data collection results. */
+            validateDataCollectionResults(promise?: Promise): any;
+    }
+    /**
+        * Base Request
+        */
+    export class BaseRequest extends BaseHelper implements IBaseRequest {
+            getAllItemsFl: boolean;
+            requestType: number;
+            targetInfo: ITargetInfo;
+            xhr: XHRRequest;
+            executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
+            executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
+            getCollection(method: string, args?: any): Base<any, any, any>;
+            getNextSetOfResults(): Base<any, any, any>;
+            getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
+            updateMetadataUri(metadata: any, targetInfo: ITargetInfo): void;
+            validateDataCollectionResults(promise?: Promise): Promise;
+    }
+}
+
+declare module 'gd-sprest/utils/baseExecution' {
+    import { BaseRequest, TargetInfo, IBaseRequest } from "gd-sprest/utils";
+    /**
+        * Base Execution
+        */
+    export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest {
+            /** The batch requests. */
+            batchRequests: Array<Array<{
+                    callback?: any;
+                    response?: BaseExecution;
+                    targetInfo: TargetInfo;
+            }>>;
+            /** The parent. */
+            parent: BaseExecution;
+            /** The index of this object in the responses array. */
+            responseIndex: number;
+            /** The responses. */
+            responses: Array<BaseExecution>;
+            /** The wait flags. */
+            waitFlags: Array<boolean>;
+            /**
+                * Method to execute the request as a batch.
+                * Currently available in SharePoint Online only.
+                * @param callback - The method to be executed after the request completes.
+                */
+            batch(callback?: (value?: Result, ...args) => any): Type;
+            /**
+                * Method to execute the request as a batch.
+                * Currently available in SharePoint Online only.
+                * @param appendFl - Flag to execute the request as part of a change set.
+                */
+            batch(appendFl?: boolean): Type;
+            /**
+                * Method to execute the request.
+                * @param callback - The method to be executed after the request completes.
+                */
+            execute(callback?: (value?: Result, ...args) => any): Type;
+            /**
+                * Method to execute the request.
+                * @param waitFl - Flag to execute the request, after the previous requests have completed.
+                */
+            execute(waitFl: boolean): Type;
+            /**
+                * Method to execute the request.
+                * @param callback - The method to be executed after the request completes.
+                * @param waitFl - Flag to execute the request, after the previous requests have completed.
+                */
+            execute(callback: (value?: Result, ...args) => any, waitFl: boolean): Type;
+            /**
+                * Method to execute the request synchronously.
+                */
+            executeAndWait(): Result;
+            /**
+                * Method to wait for the parent requests to complete
+                * @param callback - The callback method.
+                * @param requestIdx - The request index.
+                */
+            waitForRequestsToComplete(callback: () => void, requestIdx?: number): any;
+    }
+    /**
+        * Base Execution
+        */
+    export class BaseExecution<Type = any, Result = Type> extends BaseRequest {
+            batchRequests: Array<Array<{
+                    callback?: any;
+                    response?: BaseExecution;
+                    targetInfo: TargetInfo;
+            }>>;
+            parent: BaseExecution;
+            responseIndex: number;
+            responses: Array<BaseExecution>;
+            waitFlags: Array<boolean>;
+            batch(arg?: any): this;
+            execute(...args: any[]): this;
+            executeAndWait(): any;
+            waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
+    }
+}
+
+declare module 'gd-sprest/utils/base' {
+    import { Types } from "gd-sprest/mapper";
+    import { BaseExecution, IBaseExecution, IRequestInfo, ITargetInfo } from "gd-sprest/utils";
+    /**
+        * Base
+        */
+    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result> {
+            defaultToWebFl: boolean;
+            /** True, if the object exists, false otherwise. */
+            existsFl: boolean;
+            /** The parent object, which created this object. */
+            parent: any;
+            /** The response */
+            response: string;
+            /**
+                * Method to wait for the requests to complete.
+                * @param callback - The method to be executed after the request completes.
+                */
+            done(callback?: (...args) => any): any;
+            /**
+                * Method to wait for the requests to complete.
+                * @param callback - The method to be executed after the request completes.
+                */
+            done(callback?: (value?: Result, ...args) => any): any;
+            /**
+                * Method to get the request information.
+                */
+            getInfo(): IRequestInfo;
+            /**
+                * Queries the collection.
+                * @param oData - The OData information.
+                */
+            query?(query: Types.ODataQuery): IBase<Result, QueryResult>;
+            /**
+                * Method to stringify the object.
+                */
+            stringify(): string;
+            /**
+                * Method to execute this request and previous ones to complete.
+                * @param resolve - Method to execute for successful requests.
+                * @param reject - Method to execute for unsuccessful requests.
+                */
+            then(resolve?: (value?: Result) => void, reject?: (value?: Result) => void): PromiseLike<Result>;
+    }
+    /**
+        * Base Collection Results
+        */
+    export interface IBaseCollectionResult<Result> extends Types.IResults<Result> {
+            /** True, if the object exists, false otherwise. */
+            existsFl: boolean;
+            /** The raw string response. */
+            response: string;
+            /** Method to stringify the object. */
+            stringify(): string;
+    }
+    /**
+        * Base Collection
+        */
+    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.IResults<Type>, IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
+    }
+    /*********************************************************************************************************************************/
+    export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements IBase {
+            /**
+                * Constructor
+                * @param targetInfo - The target information.
+                */
+            constructor(targetInfo: ITargetInfo);
+            defaultToWebFl: boolean;
+            existsFl: any;
+            done(callback: (...args) => any): void;
+            getInfo(): IRequestInfo;
+            stringify(): string;
+            then(resolve: any, reject: any): PromiseLike<IBase>;
+    }
+}
+
+declare module 'gd-sprest/utils/batch' {
+    import { TargetInfo } from "gd-sprest/utils";
+    /**
+        * Batch Requests
+        */
+    export class Batch {
+            /**
+                * Methods
+                */
+            static getTargetInfo(requests: Array<Array<{
+                    callback?: any;
+                    targetInfo: TargetInfo;
+            }>>): TargetInfo;
+    }
+}
+
+declare module 'gd-sprest/utils/methodInfo' {
+    /**
+      * Method Information Settings
+      */
+    export interface IMethodInfo {
+        argNames?: Array<string>;
+        argValues?: Array<any>;
+        data?: any;
+        getAllItemsFl?: boolean;
+        inheritMetadataType?: boolean;
+        metadataType?: string;
+        name?: string;
+        replaceEndpointFl?: boolean;
+        requestMethod?: string;
+        requestType?: number;
+        returnType?: string;
+    }
+    /*********************************************************************************************************************************/
+    export class MethodInfo implements IMethodInfo {
+        /*********************************************************************************************************************************/
+        constructor(methodName: string, methodInfo: IMethodInfo, args: any);
+        /*********************************************************************************************************************************/
+        readonly body: string;
+        readonly getAllItemsFl: boolean;
+        readonly replaceEndpointFl: boolean;
+        readonly requestMethod: string;
+        readonly url: string;
+    }
+}
+
+declare module 'gd-sprest/utils/oData' {
+    import { Types } from "gd-sprest/mapper";
+    /**
+      * OData
+      */
+    export class OData {
+        /*********************************************************************************************************************************/
+        constructor(oData: Types.ODataQuery);
+        /*********************************************************************************************************************************/
+        Custom: string;
+        Expand: Array<string>;
+        Filter: string;
+        GetAllItems: boolean;
+        OrderBy: Array<string>;
+        readonly QueryString: string;
+        Select: Array<string>;
+        Skip: number;
+        Top: number;
+    }
+}
+
+declare module 'gd-sprest/utils/promise' {
+    import { IBase } from "gd-sprest/utils";
+    /**
+        * Promise
+        */
+    export interface IPromise {
+            /**
+                * Constructor
+                * @param callback - The method to be executed after the promise completes.
+                */
+            new (callback?: (...args) => void): any;
+            /**
+                * Method to set the callback method of the promise.
+                * @param callback - The method to be executed after the promise completes.
+                */
+            done(callback?: (...args) => void): any;
+            /**
+                * Method to set this promise as completed.
+                * @param args - The arguments to pass to the callback.
+                */
+            resolve(...args: any[]): any;
+    }
+    /**
+        * Promise
+        */
+    export class Promise implements PromiseLike<any> {
+            /*********************************************************************************************************************************/
+            constructor(callback?: (...args) => void);
+            /******************************************************************************************************************************** */
+            done(callback?: (...args) => void): void;
+            resolve(...args: any[]): void;
+            then<TResult1 = IBase, TResult2 = never>(onfulfilled?: ((value: IBase) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): any;
+    }
+}
+
+declare module 'gd-sprest/utils/targetInfo' {
+    /**
+        * Request Information
+        */
+    export interface IRequestInfo {
+            /** The data being sent in the body of the request. */
+            data?: object;
+            /** The request method (GET/POST) */
+            method: string;
+            /** The url of the request. */
+            url: string;
+    }
+    /**
+        * Target Information
+        */
+    export interface ITargetInfo {
+            /** True if the expected request returns an array buffer. */
+            bufferFl?: boolean;
+            /** The method to execute after the asynchronous request executes. */
+            callback?: () => void;
+            /** The data to be passed in the body of the request. */
+            data?: any;
+            /** True to default the request to the web api, site api otherwise. */
+            defaultToWebFl?: boolean;
+            /** The endpoint of the request. */
+            endpoint?: string;
+            /** The method to execute. */
+            method?: string;
+            /** True to override the default request to host flag. */
+            overrideDefaultRequestToHostFl?: boolean;
+            /** The request digest to use for the request. */
+            requestDigest?: string;
+            /** The request header. */
+            requestHeader?: object;
+            /** The request information. */
+            requestInfo?: object;
+            /** The url of the site/web to execute the request against. */
+            url?: string;
+    }
+    /**
+        * Target Information
+        */
+    export class TargetInfo {
+            /*********************************************************************************************************************************/
+            constructor(targetInfo: ITargetInfo);
+            /*********************************************************************************************************************************/
+            request: ITargetInfo;
+            readonly isBatchRequest: boolean;
+            requestData: any;
+            readonly requestInfo: IRequestInfo;
+            requestHeaders: object;
+            requestMethod: string;
+            requestUrl: string;
+    }
+}
+
+declare module 'gd-sprest/utils/xhrRequest' {
+    import { TargetInfo } from "gd-sprest/utils";
+    /*********************************************************************************************************************************/
+    export class XHRRequest {
+        /*********************************************************************************************************************************/
+        constructor(asyncFl: boolean, targetInfo: TargetInfo, callback?: (...args) => void);
+        /*********************************************************************************************************************************/
+        readonly completedFl: boolean;
+        readonly response: any;
+        readonly request: any;
+        readonly requestData: any;
+        readonly requestUrl: string;
+        readonly status: number;
+    }
 }
 
 declare module 'gd-sprest/mapper/complexTypes' {
@@ -4990,7 +6029,8 @@ declare module 'gd-sprest/mapper/propertyValues' {
 }
 
 declare module 'gd-sprest/mapper/rest' {
-    import { IContextInformation, IHelper, IJSLink } from "gd-sprest/lib";
+    import { IHelper } from "gd-sprest/helper";
+    import { IContextInformation, IJSLink } from "gd-sprest/lib";
     import { ITargetInfo } from "gd-sprest/utils";
     import { Types } from "gd-sprest/mapper";
     /**
@@ -5115,630 +6155,6 @@ declare module 'gd-sprest/mapper/social' {
 declare module 'gd-sprest/mapper/userCustomAction' {
     export * from "gd-sprest/mapper/userCustomAction/userCustomAction";
     export * from "gd-sprest/mapper/userCustomAction/userCustomActions";
-}
-
-declare module 'gd-sprest/utils' {
-    export * from "gd-sprest/utils/baseHelper";
-    export * from "gd-sprest/utils/baseRequest";
-    export * from "gd-sprest/utils/baseExecution";
-    export * from "gd-sprest/utils/base";
-    export * from "gd-sprest/utils/batch";
-    export * from "gd-sprest/utils/methodInfo";
-    export * from "gd-sprest/utils/oData";
-    export * from "gd-sprest/utils/promise";
-    export * from "gd-sprest/utils/targetInfo";
-    export * from "gd-sprest/utils/xhrRequest";
-}
-
-declare module 'gd-sprest/lib/helper/app' {
-    import { Types } from "gd-sprest/mapper";
-    import { Promise, IPromise } from "gd-sprest/utils";
-    /**
-        * App Helper Methods
-        */
-    export interface IHelperApp {
-            /**
-                * Method to copy a file from the app web to the host web.
-                * @param srcFileUrl - The source file url, relative to the app web.
-                * @param dstFolder - The destination folder.
-                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
-                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-                */
-            copyFileToHostWeb(srcFileUrl: string, dstFolder: Types.IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
-            /**
-                * Method to copy a file from the app web to the host web.
-                * @param srcFileUrl - The source file url, relative to the app web.
-                * @param dstFolderUrl - The destination folder url, relative to the host web.
-                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
-                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-                */
-            copyFileToHostWeb(srcFileUrl: string, dstFolderUrl: string, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
-            /**
-                * Method to copy a file from the app web to the host web
-                * @param fileUrls - An array of source file urls, relative to the app web.
-                * @param folderUrls - An array of destination folder urls, relative to the host web.
-                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-                */
-            copyFilesToHostWeb(fileUrls: Array<string>, folderUrls: Array<string>, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
-            /**
-                * Method to create sub-folders.
-                * @param folder - The app web relative url to the source file.
-                * @param subFolderUrl - The host web relative url of the destination folder.
-                */
-            createSubFolders(folder: Types.IFolderResult, subFolderUrl: string): IPromise;
-            /**
-                * Method to get the file content.
-                * @param web - The web containing the files.
-                * @param fileUrls - An array of file urls, relative to the web.
-                * @param createFl - Flag to create the folder, if it doesn't exist.
-                */
-            getFolder(web: Types.IWebResult, folderUrl: string, createFl?: boolean): IPromise;
-            /**
-                * Method to remove empty folders
-                * @param web - The web containing the files.
-                * @param folderUrls - An array of folder urls, relative to the web.
-                */
-            removeEmptyFolders(web: Types.IWebResult, folderUrls: Array<string>): IPromise;
-            /**
-                * Method to remove files from a web.
-                * @param web - The web containing the files.
-                * @param fileUrl - The file url, relative to the web.
-                */
-            removeFile(web: Types.IWebResult, fileUrl: string): IPromise;
-            /**
-                * Method to remove files from a web.
-                * @param web - The web containing the files.
-                * @param fileUrls - An array of file urls, relative to the web.
-                */
-            removeFiles(web: Types.IWebResult, fileUrls: Array<string>): IPromise;
-    }
-    /*********************************************************************************************************************************/
-    export const AppHelper: {
-            copyFileToHostWeb: (fileUrl: any, dstFolder: any, overwriteFl: any, rootWebFl: any) => Promise;
-            copyFilesToHostWeb: (fileUrls: any, folderUrls: any, overwriteFl: any, rootWebFl: any, idx: any, promise: any, files: any, folders: any) => any;
-            createSubFolders: (folder: any, subFolderUrl: any, promise: any) => any;
-            getFolder: (web: any, folderUrl: any, createFl: any) => Promise;
-            removeEmptyFolders: (web: any, folderUrls: any) => Promise;
-            removeFile: (web: any, fileUrl: any) => Promise;
-            removeFiles: (web: any, fileUrls: any, idx: any, promise: any) => any;
-    };
-}
-
-declare module 'gd-sprest/lib/helper/dependencies' {
-    import { Promise } from "gd-sprest/utils";
-    /**
-        * Dependencies
-        */
-    export interface IDependencies {
-            /**
-                * Constructor
-                * @param callback - The method to execute after the dependencies are loaded.
-                */
-            constructor(callback: (...args) => void): any;
-            /** The maximum amount of time to wait for the scripts to be loaded. */
-            MAX_WAIT: number;
-            /** Flag to determine if the page context information exists */
-            pageContextExistsFl: boolean;
-            /** The promise. */
-            promise: Promise;
-            /** The script file names to load. */
-            SCRIPTS: Array<string>;
-            /**
-                * Method to ensure the SP classes are loaded
-                */
-            loadDependencies(): any;
-            /**
-                * Method to wait for the page context to be loaded
-                */
-            waitForPageContext(): any;
-    }
-    /**
-        * Dependencies
-        * This class will ensure the core SP scripts are loaded on the page.
-        */
-    export class Dependencies {
-            MAX_WAIT: number;
-            promise: Promise;
-            readonly pageContextExistsFl: boolean;
-            SCRIPTS: Array<string>;
-            /**
-                * Constructor
-                * @param callback - The method to execute after the scripts have been loaded.
-                */
-            constructor(callback: (...args) => void);
-            /**
-                * Method to ensure the SP classes are loaded
-                */
-            loadDependencies(): void;
-            /**
-                * Method to wait for the page context to be loaded
-                */
-            waitForPageContext(): void;
-    }
-}
-
-declare module 'gd-sprest/lib/helper/field' {
-    import { Types } from "gd-sprest/mapper";
-    import { Promise } from "gd-sprest/utils";
-    /**
-      * Field Schema XML
-      */
-    export interface IFieldSchemaXML {
-        /** Method to generate the field schema xml. */
-        generate: (fieldInfo: Types.Helper.SPConfig.IFieldInfo) => Promise;
-    }
-    export const FieldSchemaXML: IFieldSchemaXML;
-}
-
-declare module 'gd-sprest/lib/helper/jslink' {
-    /**
-        * JSLink Helper Methods
-        */
-    export interface IHelperJSLink {
-            /**
-                * Disables edit for the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to disable edit.
-                * @param requireValueFl - Flag to only disable the field, if a value exists.
-                */
-            disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
-            /**
-                * Disable quick edit for the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to disable edit.
-                */
-            disableQuickEdit(ctx: any, field: any): any;
-            /**
-                * Returns the list view.
-                * @param ctx - The client context.
-                */
-            getListView(ctx: any): any;
-            /**
-                * Returns the list view items.
-                * @param ctx - The client context.
-                */
-            getListViewItems(ctx: any): any;
-            /**
-                * Returns the selected list view items
-                */
-            getListViewSelectedItems(): any;
-            /**
-                * Returns the webpart containing the JSLink field/form/view.
-                * @param ctx - The client context.
-                */
-            getWebPart(ctx: any): any;
-            /**
-                * Hides the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to hide.
-                */
-            hideField(ctx: any, field: any): any;
-            /**
-                * Removes the field and html from the page.
-                * @param ctx - The client context.
-                * @param field - The field to remove.
-                */
-            removeField(ctx: any, field: any): any;
-            /**
-                * Method to render the default html for a field.
-                * @param ctx - The client context.
-                * @param field - The form field.
-                * @param formType - The form type. (Display, Edit, New or View)
-                */
-            renderField(ctx: any, field: any, formType?: number): any;
-    }
-    /**
-        * JSLink Helper Methods
-        */
-    export const JSLinkHelper: {
-            hideEventFl: boolean;
-            _fieldToMethodMapper: {
-                    'Attachments': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Boolean': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Currency': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Calculated': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Choice': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Computed': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'DateTime': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'File': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Integer': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Lookup': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'LookupMulti': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'MultiChoice': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Note': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Number': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Text': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'URL': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'User': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'UserMulti': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-            };
-            disableEdit: (ctx: any, field: any, requireValueFl?: boolean) => string;
-            disableQuickEdit: (ctx: any, field: any) => any;
-            getListView: (ctx: any) => Element;
-            getListViewItems: (ctx: any) => any;
-            getListViewSelectedItems: () => any;
-            getWebPart: (ctx: any) => Element;
-            hideField: (ctx: any, field: any) => void;
-            removeField: (ctx: any, field: any) => string;
-            renderField: (ctx: any, field: any, formType?: number) => any;
-    };
-}
-
-declare module 'gd-sprest/lib/helper/loader' {
-    /**
-        * Loader
-        */
-    export interface ILoader {
-            /**
-                * Waits for the SharePoint core libraries to be loaded.
-                * @param callback - The callback function.
-                * @param timeout - The max time (ms) to wait for the libraries to be loaded.
-                * @param loadLibraries - Flag to load the core libraries manually.
-                */
-            waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean): any;
-    }
-    /**
-        * Loader
-        */
-    export const Loader: {
-            loaded: boolean;
-            waitForSPLibs: (callback: any, timeout?: number, loadLibraries?: boolean) => void;
-    };
-}
-
-declare module 'gd-sprest/lib/helper/spCfg' {
-    import { Types } from "gd-sprest/mapper";
-    /**
-        * SharePoint Configuration - Content Type Information
-        */
-    export interface ISPCfgContentTypeInfo extends Types.IContentTypeCreationInformation {
-            /**
-                * The content type. (This value is set internally.)
-                */
-            ContentType?: Types.IContentTypeResult;
-            /**
-                * The field references.
-                */
-            FieldRefs?: Array<string>;
-            /**
-                * The JSLink property.
-                */
-            JSLink?: string;
-            /**
-                * The parent content type name, required if different then the name.
-                */
-            ParentName?: string;
-            /**
-                * The url of the web containing the parent content type, required if the parent content type doesn't exist in the current web.
-                */
-            ParentWebUrl?: string;
-            /**
-                * Event triggered after the content type is created.
-                */
-            onCreated?: (ct: Types.IContentTypeResult) => void;
-            /**
-                * Event triggered after the content type is updated.
-                */
-            onUpdated?: (ct: Types.IContentTypeResult) => void;
-    }
-    /**
-        * SharePoint Configuration - Custom Action Information
-        */
-    export interface ISPCfgCustomActionInfo {
-            /**
-                * Custom actions to be created at the site collection level.
-                */
-            Site?: Array<Types.IUserCustomActionCreationInformation>;
-            /**
-                * Custom actions to be created at the web level.
-                */
-            Web?: Array<Types.IUserCustomActionCreationInformation>;
-    }
-    /**
-        * SharePoint Configuration - Field Information
-        */
-    export interface ISPCfgFieldInfo extends Types.Helper.SPConfig.IFieldInfo {
-            /**
-                * Event triggered after the field is created.
-                */
-            onCreated?: (field: Types.IFieldResult) => void;
-            /**
-                * Event triggered after the field is updated.
-                */
-            onUpdated?: (field: Types.IFieldResult) => void;
-    }
-    /**
-        * SharePoint Configuration - List Information
-        */
-    export interface ISPCfgListInfo {
-            /** The content types. */
-            ContentTypes?: Array<ISPCfgContentTypeInfo>;
-            /** The custom list fields. */
-            CustomFields?: Array<ISPCfgFieldInfo>;
-            /** The list creation information. */
-            ListInformation: Types.IListCreationInformation;
-            /** The title display name. */
-            TitleFieldDisplayName?: string;
-            /** The user custom actions. */
-            UserCustomActions?: Array<Types.IUserCustomActionCreationInformation>;
-            /** The view information. */
-            ViewInformation?: Array<ISPCfgViewInfo>;
-            /**
-                * Event triggered after the list is created or updated.
-                */
-            onCreated?: (list: Types.IListResult) => void;
-            /**
-                * Event triggered after the list is updated.
-                */
-            onUpdated?: (list: Types.IListQueryResult) => void;
-    }
-    /**
-        * SharePoint Configuration - View Information
-        */
-    export interface ISPCfgViewInfo {
-            /** The JSLink property. */
-            JSLink?: string;
-            /** The view fields. */
-            ViewFields?: Array<string>;
-            /** The view name. */
-            ViewName: string;
-            /** The view query. */
-            ViewQuery?: string;
-            /**
-                * Event triggered after the view is created or updated.
-                */
-            onCreated?: (view: Types.IViewResult) => void;
-            /**
-                * Event triggered after the view is updated.
-                */
-            onUpdated?: (view: Types.IView) => void;
-    }
-    /**
-        * SharePoint Configuration - WebPart Information
-        */
-    export interface ISPCfgWebPartInfo {
-            /** The file name of the webpart. */
-            FileName: string;
-            /** The webpart group. */
-            Group?: string;
-            /** The webpart xml */
-            XML: string;
-            /**
-                * Event triggered after the webpart file is created.
-                */
-            onCreated?: (file: Types.IFileResult) => void;
-            /**
-                * Event triggered after the webpart file is updated.
-                */
-            onUpdated?: (file: Types.IFileResult) => void;
-    }
-    /**
-        * SharePoint Configuration Methods
-        */
-    export interface ISPConfig {
-            /**
-                * Constructor
-                * @param cfg - The SharePoint configuration information.
-                * @param webUrl - An optional string representing the relative web url.
-                */
-            new (cfg: ISPConfigProps, webUrl?: string): any;
-            /**
-                * Method to install the configuration
-                * @param callback - An optional function called after the execution completes.
-                */
-            install(callback?: () => void): any;
-            /**
-                * Method to install by the configuration type.
-                * @param cfgType - The configuration type.
-                * @param callback - An optional function called after the execution completes.
-                * @param targetName - The target configuration type to install.
-                */
-            installByType(cfgType: number, callback?: any, targetName?: string): any;
-            /**
-                * Method to install the configuration
-                * @param callback - An optional function called after the execution completes.
-                */
-            uninstall(callback?: () => void): any;
-            /**
-                * Method to uninstall by the configuration type.
-                * @param cfgType - The configuration type.
-                * @param callback - An optional function called after the execution completes.
-                * @param targetName - The target configuration type to uninstall.
-                */
-            uninstallByType(cfgType: number, callback?: any, targetName?: string): any;
-    }
-    /**
-        * SharePoint Configuration - Properties
-        */
-    export interface ISPConfigProps {
-            /** The content types. */
-            ContentTypes?: Array<ISPCfgContentTypeInfo>;
-            /** The custom action configuration. */
-            CustomActionCfg?: ISPCfgCustomActionInfo;
-            /** The site column configuration. */
-            Fields?: Array<ISPCfgFieldInfo>;
-            /** The list configuration. */
-            ListCfg?: Array<ISPCfgListInfo>;
-            /** The web part configuration. */
-            WebPartCfg?: Array<ISPCfgWebPartInfo>;
-    }
-    /**
-        * SharePoint Configuration - Types
-        */
-    export interface ISPConfigTypes {
-            /** Fields */
-            Fields: number;
-            /** Content Types */
-            ContentTypes: number;
-            /** Lists */
-            Lists: number;
-            /** Site User Custom Actions */
-            SiteUserCustomActions: number;
-            /** Web User Custom Actions */
-            WebUserCustomActions: number;
-    }
-    /**
-        * SharePoint Configuration
-        */
-    export class SPConfig {
-            /**
-                * Constructor
-                */
-            constructor(cfg: ISPConfigProps, webUrl?: string);
-            /**
-                * Public Methods
-                */
-            install(callback?: any, cfgType?: number, targetName?: string): void;
-            installByType: (cfgType: number, callback?: any, targetName?: string) => void;
-            installList(listName: string, callback?: any): void;
-            installSiteCustomAction(caName: string, callback?: any): void;
-            installWebCustomAction(caName: string, callback?: any): void;
-            uninstall(callback?: any, cfgType?: number, targetName?: string): void;
-            uninstallByType: (cfgType: number, callback?: any, targetName?: string) => void;
-            uninstallList(listName: string, callback?: any): void;
-            uninstallSiteCustomAction(caName: string, callback?: any): void;
-            uninstallWebCustomAction(caName: string, callback?: any): void;
-    }
-}
-
-declare module 'gd-sprest/lib/helper/types' {
-    /**
-        * Helper Types
-        */
-    export interface IHelperTypes {
-            /** The field types */
-            SPCfgFieldType: {
-                    Boolean: number;
-                    Calculated: number;
-                    Choice: number;
-                    Date: number;
-                    Lookup: number;
-                    MMS: number;
-                    Note: number;
-                    Number: number;
-                    Text: number;
-                    Url: number;
-                    User: number;
-            };
-            /** The configuration types */
-            SPCfgType: {
-                    Fields: number;
-                    ContentTypes: number;
-                    Lists: number;
-                    SiteUserCustomActions: number;
-                    WebParts: number;
-                    WebUserCustomActions: number;
-            };
-    }
-    /**
-        * Helper Types
-        */
-    export const HelperTypes: IHelperTypes;
-}
-
-declare module 'gd-sprest/lib/helper/webpart' {
-    import { Types } from "gd-sprest/mapper";
-    /**
-        * Web Part
-        */
-    export interface IWebPart {
-            /**
-                * Creates an instance of a webpart.
-                * @param props - The webpart properties.
-                */
-            new (props: Types.Helper.WebPart.IWebPartProps): any;
-    }
-    export const WebPart: IWebPart;
 }
 
 declare module 'gd-sprest/mapper/helper/spCfg' {
@@ -10826,421 +11242,6 @@ declare module 'gd-sprest/mapper/userCustomAction/userCustomActions' {
         * User Custom Action Results
         */
     export interface IUserCustomActionResults extends IUserCustomActionsMethods, IBaseCollection<IUserCustomActionResult, IUserCustomActionResult, IUserCustomActionQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/utils/baseHelper' {
-    import { Base } from "gd-sprest/utils";
-    /**
-        * Request Helper Methods
-        */
-    export interface IBaseHelper {
-            /** The base object. */
-            base: Base;
-            /** The request type */
-            requestType: number;
-            /** The request's raw response. */
-            response: string;
-            /** The request's status. */
-            status: number;
-            /** Adds methods based on the object type. */
-            addMethods(base: Base, data: any): any;
-            /** Adds properties based on the object type. */
-            addProperties(base: Base, data: any): any;
-            /** Updates the data collection objects. */
-            updateDataCollection(obj: Base, results: Array<Base>): any;
-            /** Updates the data object. */
-            updateDataObject(isBatchRequest: boolean): any;
-            /** Updates the metadata. */
-            updateMetadata(base: any, data: any): any;
-    }
-    /**
-        * Request Helper
-        */
-    export class BaseHelper implements IBaseHelper {
-            base: Base;
-            requestType: number;
-            response: string;
-            status: number;
-            addMethods(base: Base, data: any): void;
-            addProperties(base: any, data: any): void;
-            updateDataCollection(obj: any, results: any): void;
-            updateDataObject(isBatchRequest: boolean): void;
-            updateMetadata(base: any, data: any): void;
-    }
-}
-
-declare module 'gd-sprest/utils/baseRequest' {
-    import { Base, BaseHelper, IBaseHelper, Promise, XHRRequest, IMethodInfo, ITargetInfo } from "gd-sprest/utils";
-    /**
-        * Base Request
-        */
-    export interface IBaseRequest extends IBaseHelper {
-            /** Flag to get all items. */
-            getAllItemsFl: boolean;
-            /** The target information. */
-            targetInfo: ITargetInfo;
-            /** The request. */
-            xhr: XHRRequest;
-            /** Method to execute the request. */
-            executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): any;
-            /** Method to execute the request. */
-            executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
-            /** Gets the property as a collection. */
-            getCollection(method: string, args?: any): any;
-            /** Gets the next set of results. */
-            getNextSetOfResults(): any;
-            /** Gets the property. */
-            getProperty(propertyName: string, requestType?: string): any;
-            /** Updates the metdata uri. */
-            updateMetadataUri(metadata: any, targetInfo: ITargetInfo): any;
-            /** Validates the data collection results. */
-            validateDataCollectionResults(promise?: Promise): any;
-    }
-    /**
-        * Base Request
-        */
-    export class BaseRequest extends BaseHelper implements IBaseRequest {
-            getAllItemsFl: boolean;
-            requestType: number;
-            targetInfo: ITargetInfo;
-            xhr: XHRRequest;
-            executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
-            executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
-            getCollection(method: string, args?: any): Base<any, any, any>;
-            getNextSetOfResults(): Base<any, any, any>;
-            getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
-            updateMetadataUri(metadata: any, targetInfo: ITargetInfo): void;
-            validateDataCollectionResults(promise?: Promise): Promise;
-    }
-}
-
-declare module 'gd-sprest/utils/baseExecution' {
-    import { BaseRequest, TargetInfo, IBaseRequest } from "gd-sprest/utils";
-    /**
-        * Base Execution
-        */
-    export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest {
-            /** The batch requests. */
-            batchRequests: Array<Array<{
-                    callback?: any;
-                    response?: BaseExecution;
-                    targetInfo: TargetInfo;
-            }>>;
-            /** The parent. */
-            parent: BaseExecution;
-            /** The index of this object in the responses array. */
-            responseIndex: number;
-            /** The responses. */
-            responses: Array<BaseExecution>;
-            /** The wait flags. */
-            waitFlags: Array<boolean>;
-            /**
-                * Method to execute the request as a batch.
-                * Currently available in SharePoint Online only.
-                * @param callback - The method to be executed after the request completes.
-                */
-            batch(callback?: (value?: Result, ...args) => any): Type;
-            /**
-                * Method to execute the request as a batch.
-                * Currently available in SharePoint Online only.
-                * @param appendFl - Flag to execute the request as part of a change set.
-                */
-            batch(appendFl?: boolean): Type;
-            /**
-                * Method to execute the request.
-                * @param callback - The method to be executed after the request completes.
-                */
-            execute(callback?: (value?: Result, ...args) => any): Type;
-            /**
-                * Method to execute the request.
-                * @param waitFl - Flag to execute the request, after the previous requests have completed.
-                */
-            execute(waitFl: boolean): Type;
-            /**
-                * Method to execute the request.
-                * @param callback - The method to be executed after the request completes.
-                * @param waitFl - Flag to execute the request, after the previous requests have completed.
-                */
-            execute(callback: (value?: Result, ...args) => any, waitFl: boolean): Type;
-            /**
-                * Method to execute the request synchronously.
-                */
-            executeAndWait(): Result;
-            /**
-                * Method to wait for the parent requests to complete
-                * @param callback - The callback method.
-                * @param requestIdx - The request index.
-                */
-            waitForRequestsToComplete(callback: () => void, requestIdx?: number): any;
-    }
-    /**
-        * Base Execution
-        */
-    export class BaseExecution<Type = any, Result = Type> extends BaseRequest {
-            batchRequests: Array<Array<{
-                    callback?: any;
-                    response?: BaseExecution;
-                    targetInfo: TargetInfo;
-            }>>;
-            parent: BaseExecution;
-            responseIndex: number;
-            responses: Array<BaseExecution>;
-            waitFlags: Array<boolean>;
-            batch(arg?: any): this;
-            execute(...args: any[]): this;
-            executeAndWait(): any;
-            waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
-    }
-}
-
-declare module 'gd-sprest/utils/base' {
-    import { Types } from "gd-sprest/mapper";
-    import { BaseExecution, IBaseExecution, IRequestInfo, ITargetInfo } from "gd-sprest/utils";
-    /**
-        * Base
-        */
-    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result> {
-            defaultToWebFl: boolean;
-            /** True, if the object exists, false otherwise. */
-            existsFl: boolean;
-            /** The parent object, which created this object. */
-            parent: any;
-            /** The response */
-            response: string;
-            /**
-                * Method to wait for the requests to complete.
-                * @param callback - The method to be executed after the request completes.
-                */
-            done(callback?: (...args) => any): any;
-            /**
-                * Method to wait for the requests to complete.
-                * @param callback - The method to be executed after the request completes.
-                */
-            done(callback?: (value?: Result, ...args) => any): any;
-            /**
-                * Method to get the request information.
-                */
-            getInfo(): IRequestInfo;
-            /**
-                * Queries the collection.
-                * @param oData - The OData information.
-                */
-            query?(query: Types.ODataQuery): IBase<Result, QueryResult>;
-            /**
-                * Method to stringify the object.
-                */
-            stringify(): string;
-            /**
-                * Method to execute this request and previous ones to complete.
-                * @param resolve - Method to execute for successful requests.
-                * @param reject - Method to execute for unsuccessful requests.
-                */
-            then(resolve?: (value?: Result) => void, reject?: (value?: Result) => void): PromiseLike<Result>;
-    }
-    /**
-        * Base Collection Results
-        */
-    export interface IBaseCollectionResult<Result> extends Types.IResults<Result> {
-            /** True, if the object exists, false otherwise. */
-            existsFl: boolean;
-            /** The raw string response. */
-            response: string;
-            /** Method to stringify the object. */
-            stringify(): string;
-    }
-    /**
-        * Base Collection
-        */
-    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.IResults<Type>, IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
-    }
-    /*********************************************************************************************************************************/
-    export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements IBase {
-            /**
-                * Constructor
-                * @param targetInfo - The target information.
-                */
-            constructor(targetInfo: ITargetInfo);
-            defaultToWebFl: boolean;
-            existsFl: any;
-            done(callback: (...args) => any): void;
-            getInfo(): IRequestInfo;
-            stringify(): string;
-            then(resolve: any, reject: any): PromiseLike<IBase>;
-    }
-}
-
-declare module 'gd-sprest/utils/batch' {
-    import { TargetInfo } from "gd-sprest/utils";
-    /**
-        * Batch Requests
-        */
-    export class Batch {
-            /**
-                * Methods
-                */
-            static getTargetInfo(requests: Array<Array<{
-                    callback?: any;
-                    targetInfo: TargetInfo;
-            }>>): TargetInfo;
-    }
-}
-
-declare module 'gd-sprest/utils/methodInfo' {
-    /**
-      * Method Information Settings
-      */
-    export interface IMethodInfo {
-        argNames?: Array<string>;
-        argValues?: Array<any>;
-        data?: any;
-        getAllItemsFl?: boolean;
-        inheritMetadataType?: boolean;
-        metadataType?: string;
-        name?: string;
-        replaceEndpointFl?: boolean;
-        requestMethod?: string;
-        requestType?: number;
-        returnType?: string;
-    }
-    /*********************************************************************************************************************************/
-    export class MethodInfo implements IMethodInfo {
-        /*********************************************************************************************************************************/
-        constructor(methodName: string, methodInfo: IMethodInfo, args: any);
-        /*********************************************************************************************************************************/
-        readonly body: string;
-        readonly getAllItemsFl: boolean;
-        readonly replaceEndpointFl: boolean;
-        readonly requestMethod: string;
-        readonly url: string;
-    }
-}
-
-declare module 'gd-sprest/utils/oData' {
-    import { Types } from "gd-sprest/mapper";
-    /**
-      * OData
-      */
-    export class OData {
-        /*********************************************************************************************************************************/
-        constructor(oData: Types.ODataQuery);
-        /*********************************************************************************************************************************/
-        Custom: string;
-        Expand: Array<string>;
-        Filter: string;
-        GetAllItems: boolean;
-        OrderBy: Array<string>;
-        readonly QueryString: string;
-        Select: Array<string>;
-        Skip: number;
-        Top: number;
-    }
-}
-
-declare module 'gd-sprest/utils/promise' {
-    import { IBase } from "gd-sprest/utils";
-    /**
-        * Promise
-        */
-    export interface IPromise {
-            /**
-                * Constructor
-                * @param callback - The method to be executed after the promise completes.
-                */
-            new (callback?: (...args) => void): any;
-            /**
-                * Method to set the callback method of the promise.
-                * @param callback - The method to be executed after the promise completes.
-                */
-            done(callback?: (...args) => void): any;
-            /**
-                * Method to set this promise as completed.
-                * @param args - The arguments to pass to the callback.
-                */
-            resolve(...args: any[]): any;
-    }
-    /**
-        * Promise
-        */
-    export class Promise implements PromiseLike<any> {
-            /*********************************************************************************************************************************/
-            constructor(callback?: (...args) => void);
-            /******************************************************************************************************************************** */
-            done(callback?: (...args) => void): void;
-            resolve(...args: any[]): void;
-            then<TResult1 = IBase, TResult2 = never>(onfulfilled?: ((value: IBase) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): any;
-    }
-}
-
-declare module 'gd-sprest/utils/targetInfo' {
-    /**
-        * Request Information
-        */
-    export interface IRequestInfo {
-            /** The data being sent in the body of the request. */
-            data?: object;
-            /** The request method (GET/POST) */
-            method: string;
-            /** The url of the request. */
-            url: string;
-    }
-    /**
-        * Target Information
-        */
-    export interface ITargetInfo {
-            /** True if the expected request returns an array buffer. */
-            bufferFl?: boolean;
-            /** The method to execute after the asynchronous request executes. */
-            callback?: () => void;
-            /** The data to be passed in the body of the request. */
-            data?: any;
-            /** True to default the request to the web api, site api otherwise. */
-            defaultToWebFl?: boolean;
-            /** The endpoint of the request. */
-            endpoint?: string;
-            /** The method to execute. */
-            method?: string;
-            /** True to override the default request to host flag. */
-            overrideDefaultRequestToHostFl?: boolean;
-            /** The request digest to use for the request. */
-            requestDigest?: string;
-            /** The request header. */
-            requestHeader?: object;
-            /** The request information. */
-            requestInfo?: object;
-            /** The url of the site/web to execute the request against. */
-            url?: string;
-    }
-    /**
-        * Target Information
-        */
-    export class TargetInfo {
-            /*********************************************************************************************************************************/
-            constructor(targetInfo: ITargetInfo);
-            /*********************************************************************************************************************************/
-            request: ITargetInfo;
-            readonly isBatchRequest: boolean;
-            requestData: any;
-            readonly requestInfo: IRequestInfo;
-            requestHeaders: object;
-            requestMethod: string;
-            requestUrl: string;
-    }
-}
-
-declare module 'gd-sprest/utils/xhrRequest' {
-    import { TargetInfo } from "gd-sprest/utils";
-    /*********************************************************************************************************************************/
-    export class XHRRequest {
-        /*********************************************************************************************************************************/
-        constructor(asyncFl: boolean, targetInfo: TargetInfo, callback?: (...args) => void);
-        /*********************************************************************************************************************************/
-        readonly completedFl: boolean;
-        readonly response: any;
-        readonly request: any;
-        readonly requestData: any;
-        readonly requestUrl: string;
-        readonly status: number;
     }
 }
 
