@@ -5,12 +5,12 @@ var lib_1 = require("../lib");
  * Dependencies
  * This class will ensure the core SP scripts are loaded on the page.
  */
-var Dependencies = /** @class */ (function () {
+var _Dependencies = /** @class */ (function () {
     /**
      * Constructor
      * @param callback - The method to execute after the scripts have been loaded.
      */
-    function Dependencies(callback) {
+    function _Dependencies(callback) {
         this._callback = null;
         // Default the properties
         this._callback = callback;
@@ -21,7 +21,7 @@ var Dependencies = /** @class */ (function () {
         // Load the dependencies
         this.loadDependencies();
     }
-    Object.defineProperty(Dependencies.prototype, "pageContextExistsFl", {
+    Object.defineProperty(_Dependencies.prototype, "pageContextExistsFl", {
         get: function () { return lib_1.ContextInfo.webAbsoluteUrl != ""; },
         enumerable: true,
         configurable: true
@@ -29,7 +29,7 @@ var Dependencies = /** @class */ (function () {
     /**
      * Method to ensure the SP classes are loaded
      */
-    Dependencies.prototype.loadDependencies = function () {
+    _Dependencies.prototype.loadDependencies = function () {
         // See if the page context exists
         if (this.pageContextExistsFl) {
             // Call the callback event
@@ -53,7 +53,7 @@ var Dependencies = /** @class */ (function () {
     /**
      * Method to wait for the page context to be loaded
      */
-    Dependencies.prototype.waitForPageContext = function () {
+    _Dependencies.prototype.waitForPageContext = function () {
         var counter = 0;
         // Check every 10ms
         var intervalId = lib_1.ContextInfo.window.setInterval(function () {
@@ -66,7 +66,7 @@ var Dependencies = /** @class */ (function () {
             }
         }, 10);
     };
-    return Dependencies;
+    return _Dependencies;
 }());
-exports.Dependencies = Dependencies;
+exports.Dependencies = _Dependencies;
 //# sourceMappingURL=dependencies.js.map

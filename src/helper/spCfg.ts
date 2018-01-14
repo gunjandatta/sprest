@@ -3,243 +3,9 @@ import { Types } from "../mapper";
 import { Helper } from ".";
 
 /**
- * SharePoint Configuration - Content Type Information
- */
-export interface ISPCfgContentTypeInfo extends Types.IContentTypeCreationInformation {
-    /**
-     * The content type. (This value is set internally.)
-     */
-    ContentType?: Types.IContentTypeResult;
-
-    /**
-     * The field references.
-     */
-    FieldRefs?: Array<string>;
-
-    /**
-     * The JSLink property.
-     */
-    JSLink?: string;
-
-    /**
-     * The parent content type name, required if different then the name.
-     */
-    ParentName?: string;
-
-    /**
-     * The url of the web containing the parent content type, required if the parent content type doesn't exist in the current web.
-     */
-    ParentWebUrl?: string;
-
-    /**
-     * Event triggered after the content type is created.
-     */
-    onCreated?: (ct: Types.IContentTypeResult) => void;
-
-    /**
-     * Event triggered after the content type is updated.
-     */
-    onUpdated?: (ct: Types.IContentTypeResult) => void;
-}
-
-/**
- * SharePoint Configuration - Custom Action Information
- */
-export interface ISPCfgCustomActionInfo {
-    /**
-     * Custom actions to be created at the site collection level.
-     */
-    Site?: Array<Types.IUserCustomActionCreationInformation>,
-
-    /**
-     * Custom actions to be created at the web level.
-     */
-    Web?: Array<Types.IUserCustomActionCreationInformation>
-}
-
-/**
- * SharePoint Configuration - Field Information
- */
-export interface ISPCfgFieldInfo extends Types.Helper.SPConfig.IFieldInfo {
-    /**
-     * Event triggered after the field is created.
-     */
-    onCreated?: (field: Types.IFieldResult) => void;
-
-    /**
-     * Event triggered after the field is updated.
-     */
-    onUpdated?: (field: Types.IFieldResult) => void;
-}
-
-/**
- * SharePoint Configuration - List Information
- */
-export interface ISPCfgListInfo {
-    /** The content types. */
-    ContentTypes?: Array<ISPCfgContentTypeInfo>;
-
-    /** The custom list fields. */
-    CustomFields?: Array<ISPCfgFieldInfo>;
-
-    /** The list creation information. */
-    ListInformation: Types.IListCreationInformation;
-
-    /** The title display name. */
-    TitleFieldDisplayName?: string;
-
-    /** The user custom actions. */
-    UserCustomActions?: Array<Types.IUserCustomActionCreationInformation>;
-
-    /** The view information. */
-    ViewInformation?: Array<ISPCfgViewInfo>;
-
-    /**
-     * Event triggered after the list is created or updated.
-     */
-    onCreated?: (list: Types.IListResult) => void;
-
-    /**
-     * Event triggered after the list is updated.
-     */
-    onUpdated?: (list: Types.IListQueryResult) => void;
-}
-
-/**
- * SharePoint Configuration - View Information
- */
-export interface ISPCfgViewInfo {
-    /** The JSLink property. */
-    JSLink?: string;
-
-    /** The view fields. */
-    ViewFields?: Array<string>;
-
-    /** The view name. */
-    ViewName: string;
-
-    /** The view query. */
-    ViewQuery?: string;
-
-    /**
-     * Event triggered after the view is created or updated.
-     */
-    onCreated?: (view: Types.IViewResult) => void;
-
-    /**
-     * Event triggered after the view is updated.
-     */
-    onUpdated?: (view: Types.IView) => void;
-}
-
-/**
- * SharePoint Configuration - WebPart Information
- */
-export interface ISPCfgWebPartInfo {
-    /** The file name of the webpart. */
-    FileName: string;
-
-    /** The webpart group. */
-    Group?: string;
-
-    /** The webpart xml */
-    XML: string;
-
-    /**
-     * Event triggered after the webpart file is created.
-     */
-    onCreated?: (file: Types.IFileResult) => void;
-
-    /**
-     * Event triggered after the webpart file is updated.
-     */
-    onUpdated?: (file: Types.IFileResult) => void;
-}
-
-/**
- * SharePoint Configuration Methods
- */
-export interface ISPConfig {
-    /**
-     * Constructor
-     * @param cfg - The SharePoint configuration information.
-     * @param webUrl - An optional string representing the relative web url.
-     */
-    new(cfg: ISPConfigProps, webUrl?: string);
-
-    /**
-     * Method to install the configuration
-     * @param callback - An optional function called after the execution completes.
-     */
-    install(callback?: () => void);
-
-    /**
-     * Method to install by the configuration type.
-     * @param cfgType - The configuration type.
-     * @param callback - An optional function called after the execution completes.
-     * @param targetName - The target configuration type to install.
-     */
-    installByType(cfgType: number, callback?: any, targetName?: string);
-
-    /**
-     * Method to install the configuration
-     * @param callback - An optional function called after the execution completes.
-     */
-    uninstall(callback?: () => void);
-
-    /**
-     * Method to uninstall by the configuration type.
-     * @param cfgType - The configuration type.
-     * @param callback - An optional function called after the execution completes.
-     * @param targetName - The target configuration type to uninstall.
-     */
-    uninstallByType(cfgType: number, callback?: any, targetName?: string);
-}
-
-/**
- * SharePoint Configuration - Properties
- */
-export interface ISPConfigProps {
-    /** The content types. */
-    ContentTypes?: Array<ISPCfgContentTypeInfo>;
-
-    /** The custom action configuration. */
-    CustomActionCfg?: ISPCfgCustomActionInfo;
-
-    /** The site column configuration. */
-    Fields?: Array<ISPCfgFieldInfo>;
-
-    /** The list configuration. */
-    ListCfg?: Array<ISPCfgListInfo>;
-
-    /** The web part configuration. */
-    WebPartCfg?: Array<ISPCfgWebPartInfo>;
-}
-
-/**
- * SharePoint Configuration - Types
- */
-export interface ISPConfigTypes {
-    /** Fields */
-    Fields: number;
-
-    /** Content Types */
-    ContentTypes: number;
-
-    /** Lists */
-    Lists: number;
-
-    /** Site User Custom Actions */
-    SiteUserCustomActions: number;
-
-    /** Web User Custom Actions */
-    WebUserCustomActions: number;
-}
-
-/**
  * SharePoint Configuration
  */
-export class SPConfig {
+class _SPConfig {
     /**
      * Global Properties
      */
@@ -248,7 +14,7 @@ export class SPConfig {
     private _cfgType: number;
 
     // The SharePoint Configuration
-    private _configuration: ISPConfigProps
+    private _configuration: Types.Helper.SPConfig.ISPConfigProps
 
     // The target name to install/uninstall
     private _targetName: string;
@@ -259,7 +25,7 @@ export class SPConfig {
     /**
      * Constructor
      */
-    constructor(cfg: ISPConfigProps, webUrl?: string) {
+    constructor(cfg: Types.Helper.SPConfig.ISPConfigProps, webUrl?: string) {
         // Save the configuration
         this._configuration = cfg;
 
@@ -350,7 +116,7 @@ export class SPConfig {
      */
 
     // Method to create the content types
-    private createContentTypes = (contentTypes: Types.IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>): PromiseLike<void> => {
+    private createContentTypes = (contentTypes: Types.IContentTypeResults, cfgContentTypes: Array<Types.Helper.SPConfig.ISPCfgContentTypeInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the content types exist
@@ -444,7 +210,7 @@ export class SPConfig {
                 // Parse the configuration
                 for (let i = 0; i < cfgContentTypes.length; i++) {
                     let cfgContentType = cfgContentTypes[i];
-                    let cfgUpdate: ISPCfgContentTypeInfo = {} as any;
+                    let cfgUpdate: Types.Helper.SPConfig.ISPCfgContentTypeInfo = {} as any;
                     let updateFl = false;
 
                     // Ensure the content type exists
@@ -531,7 +297,7 @@ export class SPConfig {
     }
 
     // Method to create the fields
-    private createFields = (fields: Types.IFieldResults, cfgFields: Array<ISPCfgFieldInfo>): PromiseLike<void> => {
+    private createFields = (fields: Types.IFieldResults, cfgFields: Array<Types.Helper.SPConfig.ISPCfgFieldInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the fields exist
@@ -595,7 +361,7 @@ export class SPConfig {
     }
 
     // Method to create the lists
-    private createLists = (lists: Types.IListResults, cfgLists: Array<ISPCfgListInfo>): PromiseLike<void> => {
+    private createLists = (lists: Types.IListResults, cfgLists: Array<Types.Helper.SPConfig.ISPCfgListInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
@@ -749,7 +515,7 @@ export class SPConfig {
     }
 
     // Method to create the list views
-    private createViews = (views: Types.IViewResults, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
+    private createViews = (views: Types.IViewResults, cfgViews: Array<Types.Helper.SPConfig.ISPCfgViewInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the list views exist
@@ -980,7 +746,7 @@ export class SPConfig {
     }
 
     // Method to remove the content type
-    private removeContentTypes = (contentTypes: Types.IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>): PromiseLike<void> => {
+    private removeContentTypes = (contentTypes: Types.IContentTypeResults, cfgContentTypes: Array<Types.Helper.SPConfig.ISPCfgContentTypeInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the content types exist
@@ -1014,7 +780,7 @@ export class SPConfig {
     }
 
     // Method to remove the fields
-    private removeFields = (fields: Types.IFieldResults, cfgFields: Array<ISPCfgFieldInfo>): PromiseLike<void> => {
+    private removeFields = (fields: Types.IFieldResults, cfgFields: Array<Types.Helper.SPConfig.ISPCfgFieldInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the fields exist
@@ -1048,7 +814,7 @@ export class SPConfig {
     }
 
     // Method to remove the lists
-    private removeLists = (lists: Types.IListResults, cfgLists: Array<ISPCfgListInfo>): PromiseLike<void> => {
+    private removeLists = (lists: Types.IListResults, cfgLists: Array<Types.Helper.SPConfig.ISPCfgListInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
@@ -1220,7 +986,7 @@ export class SPConfig {
     }
 
     // Method to update the lists
-    private updateLists = (cfgLists: Array<ISPCfgListInfo>): PromiseLike<void> => {
+    private updateLists = (cfgLists: Array<Types.Helper.SPConfig.ISPCfgListInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (idx: number, resolve) => {
@@ -1299,7 +1065,7 @@ export class SPConfig {
     }
 
     // Method to update the views
-    private updateViews = (views: Types.IViewResults, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
+    private updateViews = (views: Types.IViewResults, cfgViews: Array<Types.Helper.SPConfig.ISPCfgViewInfo>): PromiseLike<void> => {
         let counter = 0;
 
         // Return a promise
@@ -1420,3 +1186,4 @@ export class SPConfig {
         });
     }
 };
+export const SPConfig: Types.Helper.SPConfig.ISPConfig = _SPConfig as any;

@@ -1,80 +1,14 @@
 import { ContextInfo } from "../lib";
+import { Types } from "../mapper";
 import { SPTypes } from "../types";
 
 /**
  * JSLink Helper Methods
  */
-export interface IHelperJSLink {
-    /**
-     * Disables edit for the specified field.
-     * @param ctx - The client context.
-     * @param field - The field to disable edit.
-     * @param requireValueFl - Flag to only disable the field, if a value exists.
-     */
-    disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
-
-    /**
-     * Disable quick edit for the specified field.
-     * @param ctx - The client context.
-     * @param field - The field to disable edit.
-     */
-    disableQuickEdit(ctx: any, field: any);
-
-    /**
-     * Returns the list view.
-     * @param ctx - The client context.
-     */
-    getListView(ctx: any);
-
-    /**
-     * Returns the list view items.
-     * @param ctx - The client context.
-     */
-    getListViewItems(ctx: any);
-
-    /**
-     * Returns the selected list view items
-     */
-    getListViewSelectedItems();
-
-    /**
-     * Returns the webpart containing the JSLink field/form/view.
-     * @param ctx - The client context.
-     */
-    getWebPart(ctx);
-
-    /**
-     * Hides the specified field.
-     * @param ctx - The client context.
-     * @param field - The field to hide.
-     */
-    hideField(ctx: any, field: any);
-
-    /**
-     * Removes the field and html from the page.
-     * @param ctx - The client context.
-     * @param field - The field to remove.
-     */
-    removeField(ctx: any, field: any);
-
-    /**
-     * Method to render the default html for a field.
-     * @param ctx - The client context.
-     * @param field - The form field.
-     * @param formType - The form type. (Display, Edit, New or View)
-     */
-    renderField(ctx, field, formType?: number);
-}
-
-/**
- * JSLink Helper Methods
- */
-export const JSLinkHelper = {
-    /**
-     * Global Variables
-     */
-    hideEventFl: false,
-
+export const JSLink: Types.Helper.JSLink.IJSLink = {
+    // Hide event flag
+    _hideEventFl: false,
+    
     /**
      * Field to Method Mapper
      * 1 - Display Form
@@ -257,7 +191,7 @@ export const JSLinkHelper = {
         }
 
         // Return the display value of the field
-        return JSLinkHelper.renderField(ctx, field, controlMode);
+        return JSLink.renderField(ctx, field, controlMode);
     },
 
     /**
@@ -274,7 +208,7 @@ export const JSLinkHelper = {
         }
 
         // Return the default field value html
-        return JSLinkHelper.renderField(ctx, field);
+        return JSLink.renderField(ctx, field);
     },
 
     /**
@@ -283,7 +217,7 @@ export const JSLinkHelper = {
      */
     getListView: (ctx: any) => {
         // Get the webpart
-        let wp = JSLinkHelper.getWebPart(ctx);
+        let wp = JSLink.getWebPart(ctx);
         if (wp) {
             // Find the list form table
             wp = wp.querySelector(".ms-formtable");
@@ -326,9 +260,9 @@ export const JSLinkHelper = {
      */
     hideField: (ctx: any, field: any) => {
         // Ensure the hide event has been created
-        if (!JSLinkHelper.hideEventFl) {
+        if (!JSLink._hideEventFl) {
             // Set the flag
-            JSLinkHelper.hideEventFl = true;
+            JSLink._hideEventFl = true;
 
             // Create the event
             ContextInfo.window.addEventListener("load", () => {
@@ -364,7 +298,7 @@ export const JSLinkHelper = {
      */
     removeField: (ctx: any, field: any) => {
         // Hide the field
-        JSLinkHelper.hideField(ctx, field);
+        JSLink.hideField(ctx, field);
 
         // Return an empty element
         return "<div class='hide-field'></div>";
@@ -384,9 +318,9 @@ export const JSLinkHelper = {
         formType = formType ? formType : ctx.ControlMode;
 
         // Ensure a field to method mapper exists
-        if (JSLinkHelper._fieldToMethodMapper[fieldType] && JSLinkHelper._fieldToMethodMapper[fieldType][formType]) {
+        if (JSLink._fieldToMethodMapper[fieldType] && JSLink._fieldToMethodMapper[fieldType][formType]) {
             // Return the default html for this field
-            var defaultHtml = JSLinkHelper._fieldToMethodMapper[fieldType][formType](ctx);
+            var defaultHtml = JSLink._fieldToMethodMapper[fieldType][formType](ctx);
             if (defaultHtml) { return defaultHtml; }
         }
 
@@ -419,4 +353,4 @@ export const JSLinkHelper = {
         // Return the item's field value html
         return fieldRenderer ? fieldRenderer.RenderField(ctx, field, currentItem, ctx.ListSchema) : currentItem[field.Name];
     }
-}
+} as any;

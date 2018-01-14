@@ -87,14 +87,14 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(77));
-__export(__webpack_require__(102));
-__export(__webpack_require__(103));
-__export(__webpack_require__(104));
 __export(__webpack_require__(105));
 __export(__webpack_require__(106));
 __export(__webpack_require__(107));
 __export(__webpack_require__(108));
 __export(__webpack_require__(109));
+__export(__webpack_require__(110));
+__export(__webpack_require__(111));
+__export(__webpack_require__(112));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -108,9 +108,6 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(76));
-__export(__webpack_require__(110));
-__export(__webpack_require__(111));
-__export(__webpack_require__(112));
 __export(__webpack_require__(113));
 __export(__webpack_require__(114));
 __export(__webpack_require__(115));
@@ -119,6 +116,9 @@ __export(__webpack_require__(117));
 __export(__webpack_require__(118));
 __export(__webpack_require__(119));
 __export(__webpack_require__(120));
+__export(__webpack_require__(121));
+__export(__webpack_require__(122));
+__export(__webpack_require__(123));
 __export(__webpack_require__(39));
 //# sourceMappingURL=index.js.map
 
@@ -776,16 +776,16 @@ module.exports.f = function (C) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = __webpack_require__(75);
-var dependencies_1 = __webpack_require__(121);
-var field_1 = __webpack_require__(122);
-var jslink_1 = __webpack_require__(123);
-var listForm_1 = __webpack_require__(124);
-var listFormField_1 = __webpack_require__(125);
-var loader_1 = __webpack_require__(126);
-var parse_1 = __webpack_require__(127);
-var spCfg_1 = __webpack_require__(128);
+var dependencies_1 = __webpack_require__(124);
+var field_1 = __webpack_require__(125);
+var jslink_1 = __webpack_require__(126);
+var listForm_1 = __webpack_require__(127);
+var listFormField_1 = __webpack_require__(128);
+var loader_1 = __webpack_require__(129);
+var parse_1 = __webpack_require__(130);
+var spCfg_1 = __webpack_require__(131);
 var types_1 = __webpack_require__(40);
-var webpart_1 = __webpack_require__(129);
+var webpart_1 = __webpack_require__(132);
 ;
 /**
  * Helper Methods
@@ -794,7 +794,7 @@ exports.Helper = {
     App: app_1.App,
     Dependencies: dependencies_1.Dependencies,
     FieldSchemaXML: field_1.FieldSchemaXML,
-    JSLink: jslink_1.JSLinkHelper,
+    JSLink: jslink_1.JSLink,
     ListForm: listForm_1.ListForm,
     ListFormField: listFormField_1.ListFormField,
     Loader: loader_1.Loader,
@@ -1018,7 +1018,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.66,
+    __ver: 2.67,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -5488,7 +5488,7 @@ var Results = __webpack_require__(94);
 exports.Results = Results;
 var Helper = __webpack_require__(95);
 exports.Helper = Helper;
-var SPTypes = __webpack_require__(101);
+var SPTypes = __webpack_require__(104);
 exports.SPTypes = SPTypes;
 //# sourceMappingURL=types.js.map
 
@@ -5519,13 +5519,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 Object.defineProperty(exports, "__esModule", { value: true });
 var App = __webpack_require__(96);
 exports.App = App;
-var Field = __webpack_require__(97);
+var Dependencies = __webpack_require__(97);
+exports.Dependencies = Dependencies;
+var Field = __webpack_require__(98);
 exports.Field = Field;
-var ListForm = __webpack_require__(98);
+var JSLink = __webpack_require__(99);
+exports.JSLink = JSLink;
+var ListForm = __webpack_require__(100);
 exports.ListForm = ListForm;
-var SPConfig = __webpack_require__(99);
+var Loader = __webpack_require__(101);
+exports.Loader = Loader;
+var SPConfig = __webpack_require__(102);
 exports.SPConfig = SPConfig;
-var WebPart = __webpack_require__(100);
+var WebPart = __webpack_require__(103);
 exports.WebPart = WebPart;
 //# sourceMappingURL=index.js.map
 
@@ -5545,7 +5551,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=field.js.map
+//# sourceMappingURL=dependencies.js.map
 
 /***/ }),
 /* 98 */
@@ -5554,7 +5560,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=listForm.js.map
+//# sourceMappingURL=field.js.map
 
 /***/ }),
 /* 99 */
@@ -5563,7 +5569,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=spCfg.js.map
+//# sourceMappingURL=jslink.js.map
 
 /***/ }),
 /* 100 */
@@ -5572,7 +5578,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=webpart.js.map
+//# sourceMappingURL=listForm.js.map
 
 /***/ }),
 /* 101 */
@@ -5581,10 +5587,37 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=sptypes.js.map
+//# sourceMappingURL=loader.js.map
 
 /***/ }),
 /* 102 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=spCfg.js.map
+
+/***/ }),
+/* 103 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=webpart.js.map
+
+/***/ }),
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=sptypes.js.map
+
+/***/ }),
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5882,7 +5915,7 @@ exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map
 
 /***/ }),
-/* 103 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6058,7 +6091,7 @@ exports.BaseExecution = BaseExecution;
 //# sourceMappingURL=baseExecution.js.map
 
 /***/ }),
-/* 104 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6148,7 +6181,7 @@ exports.Base = Base;
 //# sourceMappingURL=base.js.map
 
 /***/ }),
-/* 105 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6245,7 +6278,7 @@ exports.Batch = Batch;
 //# sourceMappingURL=batch.js.map
 
 /***/ }),
-/* 106 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6501,7 +6534,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 107 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6627,7 +6660,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 108 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6768,7 +6801,7 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 109 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6938,7 +6971,7 @@ exports.XHRRequest = XHRRequest;
 //# sourceMappingURL=xhrRequest.js.map
 
 /***/ }),
-/* 110 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7059,7 +7092,7 @@ exports.JSLink = _JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 111 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7123,7 +7156,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 112 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7170,7 +7203,7 @@ exports.Navigation = _Navigation;
 //# sourceMappingURL=navigation.js.map
 
 /***/ }),
-/* 113 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7212,7 +7245,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 114 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7255,7 +7288,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 115 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7298,7 +7331,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 116 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7378,7 +7411,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 117 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7435,7 +7468,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 118 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7505,7 +7538,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 119 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7548,7 +7581,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 120 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7642,7 +7675,7 @@ exports.Utility = _Utility;
 //# sourceMappingURL=utility.js.map
 
 /***/ }),
-/* 121 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7653,12 +7686,12 @@ var lib_1 = __webpack_require__(2);
  * Dependencies
  * This class will ensure the core SP scripts are loaded on the page.
  */
-var Dependencies = /** @class */ (function () {
+var _Dependencies = /** @class */ (function () {
     /**
      * Constructor
      * @param callback - The method to execute after the scripts have been loaded.
      */
-    function Dependencies(callback) {
+    function _Dependencies(callback) {
         this._callback = null;
         // Default the properties
         this._callback = callback;
@@ -7669,7 +7702,7 @@ var Dependencies = /** @class */ (function () {
         // Load the dependencies
         this.loadDependencies();
     }
-    Object.defineProperty(Dependencies.prototype, "pageContextExistsFl", {
+    Object.defineProperty(_Dependencies.prototype, "pageContextExistsFl", {
         get: function () { return lib_1.ContextInfo.webAbsoluteUrl != ""; },
         enumerable: true,
         configurable: true
@@ -7677,7 +7710,7 @@ var Dependencies = /** @class */ (function () {
     /**
      * Method to ensure the SP classes are loaded
      */
-    Dependencies.prototype.loadDependencies = function () {
+    _Dependencies.prototype.loadDependencies = function () {
         // See if the page context exists
         if (this.pageContextExistsFl) {
             // Call the callback event
@@ -7701,7 +7734,7 @@ var Dependencies = /** @class */ (function () {
     /**
      * Method to wait for the page context to be loaded
      */
-    Dependencies.prototype.waitForPageContext = function () {
+    _Dependencies.prototype.waitForPageContext = function () {
         var counter = 0;
         // Check every 10ms
         var intervalId = lib_1.ContextInfo.window.setInterval(function () {
@@ -7714,13 +7747,13 @@ var Dependencies = /** @class */ (function () {
             }
         }, 10);
     };
-    return Dependencies;
+    return _Dependencies;
 }());
-exports.Dependencies = Dependencies;
+exports.Dependencies = _Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 122 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8086,7 +8119,7 @@ exports.FieldSchemaXML = new _FieldSchemaXML();
 //# sourceMappingURL=field.js.map
 
 /***/ }),
-/* 123 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8097,11 +8130,9 @@ var types_1 = __webpack_require__(0);
 /**
  * JSLink Helper Methods
  */
-exports.JSLinkHelper = {
-    /**
-     * Global Variables
-     */
-    hideEventFl: false,
+exports.JSLink = {
+    // Hide event flag
+    _hideEventFl: false,
     /**
      * Field to Method Mapper
      * 1 - Display Form
@@ -8274,7 +8305,7 @@ exports.JSLinkHelper = {
             controlMode = ctx.ControlMode;
         }
         // Return the display value of the field
-        return exports.JSLinkHelper.renderField(ctx, field, controlMode);
+        return exports.JSLink.renderField(ctx, field, controlMode);
     },
     /**
      * Disable quick edit for the specified field.
@@ -8289,7 +8320,7 @@ exports.JSLinkHelper = {
             return "";
         }
         // Return the default field value html
-        return exports.JSLinkHelper.renderField(ctx, field);
+        return exports.JSLink.renderField(ctx, field);
     },
     /**
      * Returns the list view.
@@ -8297,7 +8328,7 @@ exports.JSLinkHelper = {
      */
     getListView: function (ctx) {
         // Get the webpart
-        var wp = exports.JSLinkHelper.getWebPart(ctx);
+        var wp = exports.JSLink.getWebPart(ctx);
         if (wp) {
             // Find the list form table
             wp = wp.querySelector(".ms-formtable");
@@ -8335,9 +8366,9 @@ exports.JSLinkHelper = {
      */
     hideField: function (ctx, field) {
         // Ensure the hide event has been created
-        if (!exports.JSLinkHelper.hideEventFl) {
+        if (!exports.JSLink._hideEventFl) {
             // Set the flag
-            exports.JSLinkHelper.hideEventFl = true;
+            exports.JSLink._hideEventFl = true;
             // Create the event
             lib_1.ContextInfo.window.addEventListener("load", function () {
                 // Query for the elements to hide
@@ -8371,7 +8402,7 @@ exports.JSLinkHelper = {
      */
     removeField: function (ctx, field) {
         // Hide the field
-        exports.JSLinkHelper.hideField(ctx, field);
+        exports.JSLink.hideField(ctx, field);
         // Return an empty element
         return "<div class='hide-field'></div>";
     },
@@ -8387,9 +8418,9 @@ exports.JSLinkHelper = {
         // Ensure the form type is set
         formType = formType ? formType : ctx.ControlMode;
         // Ensure a field to method mapper exists
-        if (exports.JSLinkHelper._fieldToMethodMapper[fieldType] && exports.JSLinkHelper._fieldToMethodMapper[fieldType][formType]) {
+        if (exports.JSLink._fieldToMethodMapper[fieldType] && exports.JSLink._fieldToMethodMapper[fieldType][formType]) {
             // Return the default html for this field
-            var defaultHtml = exports.JSLinkHelper._fieldToMethodMapper[fieldType][formType](ctx);
+            var defaultHtml = exports.JSLink._fieldToMethodMapper[fieldType][formType](ctx);
             if (defaultHtml) {
                 return defaultHtml;
             }
@@ -8460,7 +8491,7 @@ exports.JSLinkHelper = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 124 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8590,7 +8621,7 @@ exports.ListForm = _ListForm;
 //# sourceMappingURL=listForm.js.map
 
 /***/ }),
-/* 125 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8667,7 +8698,7 @@ exports.ListFormField = _ListFormField;
 //# sourceMappingURL=listFormField.js.map
 
 /***/ }),
-/* 126 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8727,7 +8758,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 127 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8757,7 +8788,7 @@ exports.parse = function (jsonString) {
 //# sourceMappingURL=parse.js.map
 
 /***/ }),
-/* 128 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8768,11 +8799,11 @@ var _1 = __webpack_require__(37);
 /**
  * SharePoint Configuration
  */
-var SPConfig = /** @class */ (function () {
+var _SPConfig = /** @class */ (function () {
     /**
      * Constructor
      */
-    function SPConfig(cfg, webUrl) {
+    function _SPConfig(cfg, webUrl) {
         var _this = this;
         // Method to install by configuration type
         this.installByType = function (cfgType, callback, targetName) { return _this.install(callback, cfgType, targetName); };
@@ -9762,7 +9793,7 @@ var SPConfig = /** @class */ (function () {
      * Public Methods
      */
     // Method to install the configuration
-    SPConfig.prototype.install = function (callback, cfgType, targetName) {
+    _SPConfig.prototype.install = function (callback, cfgType, targetName) {
         var _this = this;
         // Update the global variables
         this._cfgType = cfgType;
@@ -9784,13 +9815,13 @@ var SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    SPConfig.prototype.installList = function (listName, callback) { this.installByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
+    _SPConfig.prototype.installList = function (listName, callback) { this.installByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
     // Method to install a specific site custom action
-    SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
+    _SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
+    _SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
     // Method to uninstall the configuration
-    SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
+    _SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
         var _this = this;
         // Update the global variables
         this._cfgType = cfgType;
@@ -9813,19 +9844,19 @@ var SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
+    _SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
     // Method to install a specific site custom action
-    SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
+    _SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
-    return SPConfig;
+    _SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
+    return _SPConfig;
 }());
-exports.SPConfig = SPConfig;
 ;
+exports.SPConfig = _SPConfig;
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 129 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -26,20 +26,9 @@ interface IWebPartObject {
 /**
  * Web Part
  */
-export interface IWebPart {
-    /**
-     * Creates an instance of a webpart.
-     * @param props - The webpart properties.
-     */
-    new(props: Types.Helper.WebPart.IWebPartProps);
-}
-
-/**
- * Web Part
- */
 class _WebPart {
     private _props: Types.Helper.WebPart.IWebPartProps = null;
-    private _wp: Types.Helper.WebPart.IWebPart = null;
+    private _wp: Types.Helper.WebPart.IWebPartInfo = null;
 
     /**
      * Constructor
@@ -144,8 +133,8 @@ class _WebPart {
     /**
      * Method to get the webpart information
      */
-    private getWebPartInfo = (): Types.Helper.WebPart.IWebPart => {
-        let targetInfo: Types.Helper.WebPart.IWebPart = {
+    private getWebPartInfo = (): Types.Helper.WebPart.IWebPartInfo => {
+        let targetInfo: Types.Helper.WebPart.IWebPartInfo = {
             cfg: null,
             el: null,
             wpId: null
@@ -317,4 +306,4 @@ class _WebPart {
         }
     }
 }
-export const WebPart: IWebPart = _WebPart as any;
+export const WebPart: Types.Helper.WebPart.IWebPart = _WebPart as any;

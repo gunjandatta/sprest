@@ -1,4 +1,15 @@
 /**
+ * Web Part
+ */
+export interface IWebPart {
+    /**
+     * Creates an instance of a webpart.
+     * @param props - The webpart properties.
+     */
+    new(props: IWebPartProps);
+}
+
+/**
  * The webpart configuration
  */
 export interface IWebPartCfg {
@@ -7,9 +18,9 @@ export interface IWebPartCfg {
 }
 
 /**
- * The webpart instance
+ * The webpart information
  */
-export interface IWebPart {
+export interface IWebPartInfo {
     /** The configuration */
     cfg: IWebPartCfg;
 
@@ -37,13 +48,13 @@ export interface IWebPartProps {
     };
 
     /** The post render event */
-    onPostRender?: (wp: IWebPart) => void;
+    onPostRender?: (wp: IWebPartInfo) => void;
 
     /** The render event triggered when the page is in 'Display' mode */
-    onRenderDisplay?: (wp: IWebPart) => any;
+    onRenderDisplay?: (wp: IWebPartInfo) => any;
 
     /** The render event triggered when the page is in 'Edit' mode */
-    onRenderEdit?: (wp: IWebPart) => any;
+    onRenderEdit?: (wp: IWebPartInfo) => any;
 
     /** The target element id to render the webpart to */
     elementId: string;

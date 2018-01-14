@@ -5,11 +5,11 @@ var _1 = require(".");
 /**
  * SharePoint Configuration
  */
-var SPConfig = /** @class */ (function () {
+var _SPConfig = /** @class */ (function () {
     /**
      * Constructor
      */
-    function SPConfig(cfg, webUrl) {
+    function _SPConfig(cfg, webUrl) {
         var _this = this;
         // Method to install by configuration type
         this.installByType = function (cfgType, callback, targetName) { return _this.install(callback, cfgType, targetName); };
@@ -999,7 +999,7 @@ var SPConfig = /** @class */ (function () {
      * Public Methods
      */
     // Method to install the configuration
-    SPConfig.prototype.install = function (callback, cfgType, targetName) {
+    _SPConfig.prototype.install = function (callback, cfgType, targetName) {
         var _this = this;
         // Update the global variables
         this._cfgType = cfgType;
@@ -1021,13 +1021,13 @@ var SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    SPConfig.prototype.installList = function (listName, callback) { this.installByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
+    _SPConfig.prototype.installList = function (listName, callback) { this.installByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
     // Method to install a specific site custom action
-    SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
+    _SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
+    _SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
     // Method to uninstall the configuration
-    SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
+    _SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
         var _this = this;
         // Update the global variables
         this._cfgType = cfgType;
@@ -1050,13 +1050,13 @@ var SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
+    _SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
     // Method to install a specific site custom action
-    SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
+    _SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
-    return SPConfig;
+    _SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
+    return _SPConfig;
 }());
-exports.SPConfig = SPConfig;
 ;
+exports.SPConfig = _SPConfig;
 //# sourceMappingURL=spCfg.js.map
