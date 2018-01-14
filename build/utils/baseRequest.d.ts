@@ -1,4 +1,4 @@
-import { Base, BaseHelper, IBaseHelper, Promise, XHRRequest, IMethodInfo, ITargetInfo } from ".";
+import { Base, BaseHelper, IBaseHelper, XHRRequest, IMethodInfo, ITargetInfo } from ".";
 /**
  * Base Request
  */
@@ -22,7 +22,7 @@ export interface IBaseRequest extends IBaseHelper {
     /** Updates the metdata uri. */
     updateMetadataUri(metadata: any, targetInfo: ITargetInfo): any;
     /** Validates the data collection results. */
-    validateDataCollectionResults(promise?: Promise): any;
+    validateDataCollectionResults(): PromiseLike<void>;
 }
 /**
  * Base Request
@@ -38,5 +38,5 @@ export declare class BaseRequest extends BaseHelper implements IBaseRequest {
     getNextSetOfResults(): Base<any, any, any>;
     getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
     updateMetadataUri(metadata: any, targetInfo: ITargetInfo): void;
-    validateDataCollectionResults(promise?: Promise): Promise;
+    validateDataCollectionResults(): PromiseLike<void>;
 }

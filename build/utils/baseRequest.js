@@ -106,7 +106,7 @@ var BaseRequest = /** @class */ (function (_super) {
                         // Update the data object
                         _this.updateDataObject(isBatchRequest);
                         // Validate the data collection
-                        isBatchRequest ? null : _this.validateDataCollectionResults().done(function () {
+                        isBatchRequest ? null : _this.validateDataCollectionResults().then(function () {
                             // Execute the callback
                             callback ? callback(_this) : null;
                         });
@@ -232,55 +232,59 @@ var BaseRequest = /** @class */ (function (_super) {
         }
     };
     // Method to validate the data collection results
-    BaseRequest.prototype.validateDataCollectionResults = function (promise) {
+    BaseRequest.prototype.validateDataCollectionResults = function () {
         var _this = this;
-        promise = promise || new _1.Promise();
-        // Validate the response
-        if (this.xhr && this.status < 400 && typeof (this.response) === "string" && this.response.length > 0) {
-            // Convert the response and ensure the data property exists
-            var data = JSON.parse(this.response);
-            // See if there are more items to get
-            if (data.d && data.d.__next) {
-                // See if we are getting all items in the base request
-                if (this.getAllItemsFl) {
-                    // Create the target information to query the next set of results
-                    var targetInfo = Object.create(this.targetInfo);
-                    targetInfo.endpoint = "";
-                    targetInfo.url = data.d.__next;
-                    // Create a new object
-                    new _1.XHRRequest(true, new _1.TargetInfo(targetInfo), function (request) {
-                        // Convert the response and ensure the data property exists
-                        var data = JSON.parse(request.response);
-                        if (data.d) {
-                            // Update the data collection
-                            _this.updateDataCollection(_this, data.d.results);
-                            // Append the raw data results
-                            _this["d"].results = _this["d"].results.concat(data.d.results);
-                            // Validate the data collection
-                            return _this.validateDataCollectionResults(promise);
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var request = function (xhr, resolve) {
+                // Validate the response
+                if (xhr && xhr.status < 400 && typeof (xhr.response) === "string" && xhr.response.length > 0) {
+                    // Convert the response and ensure the data property exists
+                    var data = JSON.parse(xhr.response);
+                    // See if there are more items to get
+                    if (data.d && data.d.__next) {
+                        // See if we are getting all items in the base request
+                        if (_this.getAllItemsFl) {
+                            // Create the target information to query the next set of results
+                            var targetInfo = Object.create(_this.targetInfo);
+                            targetInfo.endpoint = "";
+                            targetInfo.url = data.d.__next;
+                            // Create a new object
+                            new _1.XHRRequest(true, new _1.TargetInfo(targetInfo), function (xhr) {
+                                // Convert the response and ensure the data property exists
+                                var data = JSON.parse(xhr.response);
+                                if (data.d) {
+                                    // Update the data collection
+                                    _this.updateDataCollection(_this, data.d.results);
+                                    // Append the raw data results
+                                    _this["d"].results = _this["d"].results.concat(data.d.results);
+                                    // Validate the data collection
+                                    request(xhr, resolve);
+                                }
+                                // Resolve the promise
+                                resolve();
+                            });
                         }
+                        else {
+                            // Add a method to get the next set of results
+                            _this["next"] = new Function("return this.getNextSetOfResults();");
+                            // Resolve the promise
+                            resolve();
+                        }
+                    }
+                    else {
                         // Resolve the promise
-                        promise.resolve();
-                    });
+                        resolve();
+                    }
                 }
                 else {
-                    // Add a method to get the next set of results
-                    this["next"] = new Function("return this.getNextSetOfResults();");
                     // Resolve the promise
-                    promise.resolve();
+                    resolve();
                 }
-            }
-            else {
-                // Resolve the promise
-                promise.resolve();
-            }
-        }
-        else {
-            // Resolve the promise
-            promise.resolve();
-        }
-        // Return the promise
-        return promise;
+            };
+            // Execute the request
+            request(_this.xhr, resolve);
+        });
     };
     return BaseRequest;
 }(_1.BaseHelper));
