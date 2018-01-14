@@ -1014,7 +1014,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.64,
+    __ver: 2.65,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -4200,8 +4200,6 @@ exports.listitem = {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    // Adds the attachment that is represented by the specified file name and byte array to the list item.
-    //{ name: "addAttachmentFile", "function": function (file) { var thisObj = this; var promise = new Promise(); getFileInfo(file).done(function (name, buffer) { if (name && buffer) { thisObj.addAttachment(name, buffer).done(function (file) { promise.resolve(file); }); } else { promise.resolve(); } }); return promise; } },
     // Creates unique role assignments for the securable object.
     breakRoleInheritance: {
         argNames: ["copyroleassignments", "clearsubscopes"],
