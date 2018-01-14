@@ -1018,7 +1018,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.73,
+    __ver: 2.74,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8516,7 +8516,9 @@ var _ListForm = /** @class */ (function () {
         // Method to load the list data
         this.load = function () {
             // Clear the information
-            _this._info = {};
+            _this._info = {
+                query: _this._props.query || {}
+            };
             // Get the web
             var list = (new lib_1.Web(_this._props.webUrl))
                 .Lists(_this._props.listName)
@@ -8625,8 +8627,6 @@ var _ListForm = /** @class */ (function () {
         // Save the properties
         this._props = props || {};
         this._props.fields = this._props.fields || [];
-        this._info = {};
-        this._info.query = this._props.query || {};
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Save the resolve method
