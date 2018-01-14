@@ -1018,7 +1018,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.75,
+    __ver: 2.77,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8590,17 +8590,20 @@ var _ListForm = /** @class */ (function () {
                     // Parse the field links
                     for (var i = 0; fields.length; i++) {
                         var fieldLink = fields[i];
-                        var field = _this._info.fields[fieldLink.FieldInternalName];
-                        // Skip the content type field
-                        if (fieldLink.FieldInternalName == "ContentType") {
-                            continue;
+                        // Get the field
+                        var field = _this._info.fields[fieldLink.Name];
+                        if (field) {
+                            // Skip the content type field
+                            if (field.InternalName == "ContentType") {
+                                continue;
+                            }
+                            // Skip hidden fields
+                            if (field.Hidden || fieldLink.Hidden) {
+                                continue;
+                            }
+                            // Save the form field
+                            formFields[field.InternalName] = field;
                         }
-                        // Skip hidden fields
-                        if (field.Hidden || fieldLink.Hidden) {
-                            continue;
-                        }
-                        // Save the form field
-                        formFields[field.InternalName] = field;
                     }
                     // Update the fields
                     _this._info.fields = formFields;

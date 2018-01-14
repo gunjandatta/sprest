@@ -128,16 +128,19 @@ class _ListForm {
                     // Parse the field links
                     for (let i = 0; fields.length; i++) {
                         let fieldLink = fields[i];
-                        let field = this._info.fields[fieldLink.FieldInternalName];
 
-                        // Skip the content type field
-                        if (fieldLink.FieldInternalName == "ContentType") { continue; }
+                        // Get the field
+                        let field = this._info.fields[fieldLink.Name];
+                        if (field) {
+                            // Skip the content type field
+                            if (field.InternalName == "ContentType") { continue; }
 
-                        // Skip hidden fields
-                        if (field.Hidden || fieldLink.Hidden) { continue; }
+                            // Skip hidden fields
+                            if (field.Hidden || fieldLink.Hidden) { continue; }
 
-                        // Save the form field
-                        formFields[field.InternalName] = field;
+                            // Save the form field
+                            formFields[field.InternalName] = field;
+                        }
                     }
 
                     // Update the fields
