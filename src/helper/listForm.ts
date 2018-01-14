@@ -39,17 +39,17 @@ class _ListForm {
         this._info = {} as any;
 
         // Get the web
-        (new Web(this._props.webUrl))
+        let list = (new Web(this._props.webUrl))
             // Get the list
             .Lists(this._props.listName)
             // Execute the request
             .execute(list => {
                 // Save the list
                 this._info.list = list;
-            })
+            });
 
-            // Load the fields
-            .Fields()
+        // Load the fields
+        list.Fields()
             // Execute the request
             .execute(fields => {
                 // Clear the fields
@@ -69,46 +69,64 @@ class _ListForm {
                     this.processFields();
                 } else {
                     // Load the default fields
-                    this.loadDefaultFields();
+                    return this.loadDefaultFields();
                 }
             });
+
+        // See if we are loading the list item
+        if (this._props.itemId > 0) {
+            // Get the list item
+            list.Items(this._props.itemId).execute(item => {
+                // Save the item
+                this._info.item = item;
+            });
+        }
+
+        // Wait for the requests to complete
+        list.done(() => {
+            // Resolve the promise
+            this._resolve(this._info);
+        });
     }
 
     // Method to load the default fields
     private loadDefaultFields = () => {
-        // Load the content types
-        this._info.list.ContentTypes()
-            // Query for the default content type and expand the field links
-            .query({
-                Expand: ["FieldLinks"],
-                Top: 1
-            })
-            // Execute the request, but wait for the previous one to be completed
-            .execute(ct => {
-                let fields = ct.results ? ct.results[0].FieldLinks.results : [];
-                let formFields = {};
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Load the content types
+            this._info.list.ContentTypes()
+                // Query for the default content type and expand the field links
+                .query({
+                    Expand: ["FieldLinks"],
+                    Top: 1
+                })
+                // Execute the request, but wait for the previous one to be completed
+                .execute(ct => {
+                    let fields = ct.results ? ct.results[0].FieldLinks.results : [];
+                    let formFields = {};
 
-                // Parse the field links
-                for (let i = 0; fields.length; i++) {
-                    let fieldLink = fields[i];
-                    let field = this._info.fields[fieldLink.FieldInternalName];
+                    // Parse the field links
+                    for (let i = 0; fields.length; i++) {
+                        let fieldLink = fields[i];
+                        let field = this._info.fields[fieldLink.FieldInternalName];
 
-                    // Skip the content type field
-                    if (fieldLink.FieldInternalName == "ContentType") { continue; }
+                        // Skip the content type field
+                        if (fieldLink.FieldInternalName == "ContentType") { continue; }
 
-                    // Skip hidden fields
-                    if (field.Hidden || fieldLink.Hidden) { continue; }
+                        // Skip hidden fields
+                        if (field.Hidden || fieldLink.Hidden) { continue; }
 
-                    // Save the form field
-                    formFields[field.InternalName] = field;
-                }
+                        // Save the form field
+                        formFields[field.InternalName] = field;
+                    }
 
-                // Update the fields
-                this._info.fields = formFields;
+                    // Update the fields
+                    this._info.fields = formFields;
 
-                // Resolve the promise
-                this._resolve(this._info);
-            }, true);
+                    // Resolve the promise
+                    resolve();
+                }, true);
+        });
     }
 
     // Method to process the fields
@@ -128,9 +146,6 @@ class _ListForm {
 
         // Update the fields
         this._info.fields = formFields;
-
-        // Resolve the promise
-        this._resolve(this._info);
     }
 }
 export const ListForm: Types.Helper.ListForm.IListForm = _ListForm as any;

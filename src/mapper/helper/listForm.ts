@@ -18,6 +18,9 @@ export interface IListFormProps {
     /** The form fields */
     fields?: Array<string>;
 
+    /** The item id */
+    itemId?: number;
+
     /** The list name */
     listName: string;
 
@@ -30,10 +33,13 @@ export interface IListFormProps {
  */
 export interface IListFormResult {
     /** The form fields */
-    fields: { [key: string]: Types.IFieldResult },
+    fields: { [key: string]: Types.IFieldResult };
+
+    /** The list item */
+    item?: Types.IListItemResult;
 
     /** The list */
-    list: Types.IListResult
+    list: Types.IListResult;
 }
 
 /**

@@ -15,6 +15,8 @@ export interface IListForm {
 export interface IListFormProps {
     /** The form fields */
     fields?: Array<string>;
+    /** The item id */
+    itemId?: number;
     /** The list name */
     listName: string;
     /** The relative web url containing the list */
@@ -28,6 +30,8 @@ export interface IListFormResult {
     fields: {
         [key: string]: Types.IFieldResult;
     };
+    /** The list item */
+    item?: Types.IListItemResult;
     /** The list */
     list: Types.IListResult;
 }

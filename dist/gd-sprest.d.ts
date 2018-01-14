@@ -5714,6 +5714,8 @@ declare module 'gd-sprest/mapper/helper/listForm' {
     export interface IListFormProps {
             /** The form fields */
             fields?: Array<string>;
+            /** The item id */
+            itemId?: number;
             /** The list name */
             listName: string;
             /** The relative web url containing the list */
@@ -5727,6 +5729,8 @@ declare module 'gd-sprest/mapper/helper/listForm' {
             fields: {
                     [key: string]: Types.IFieldResult;
             };
+            /** The list item */
+            item?: Types.IListItemResult;
             /** The list */
             list: Types.IListResult;
     }

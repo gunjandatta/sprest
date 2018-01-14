@@ -1018,7 +1018,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.68,
+    __ver: 2.69,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8518,13 +8518,14 @@ var _ListForm = /** @class */ (function () {
             // Clear the information
             _this._info = {};
             // Get the web
-            (new lib_1.Web(_this._props.webUrl))
+            var list = (new lib_1.Web(_this._props.webUrl))
                 .Lists(_this._props.listName)
                 .execute(function (list) {
                 // Save the list
                 _this._info.list = list;
-            })
-                .Fields()
+            });
+            // Load the fields
+            list.Fields()
                 .execute(function (fields) {
                 // Clear the fields
                 _this._info.fields = {};
@@ -8541,41 +8542,57 @@ var _ListForm = /** @class */ (function () {
                 }
                 else {
                     // Load the default fields
-                    _this.loadDefaultFields();
+                    return _this.loadDefaultFields();
                 }
+            });
+            // See if we are loading the list item
+            if (_this._props.itemId > 0) {
+                // Get the list item
+                list.Items(_this._props.itemId).execute(function (item) {
+                    // Save the item
+                    _this._info.item = item;
+                });
+            }
+            // Wait for the requests to complete
+            list.done(function () {
+                // Resolve the promise
+                _this._resolve(_this._info);
             });
         };
         // Method to load the default fields
         this.loadDefaultFields = function () {
-            // Load the content types
-            _this._info.list.ContentTypes()
-                .query({
-                Expand: ["FieldLinks"],
-                Top: 1
-            })
-                .execute(function (ct) {
-                var fields = ct.results ? ct.results[0].FieldLinks.results : [];
-                var formFields = {};
-                // Parse the field links
-                for (var i = 0; fields.length; i++) {
-                    var fieldLink = fields[i];
-                    var field = _this._info.fields[fieldLink.FieldInternalName];
-                    // Skip the content type field
-                    if (fieldLink.FieldInternalName == "ContentType") {
-                        continue;
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Load the content types
+                _this._info.list.ContentTypes()
+                    .query({
+                    Expand: ["FieldLinks"],
+                    Top: 1
+                })
+                    .execute(function (ct) {
+                    var fields = ct.results ? ct.results[0].FieldLinks.results : [];
+                    var formFields = {};
+                    // Parse the field links
+                    for (var i = 0; fields.length; i++) {
+                        var fieldLink = fields[i];
+                        var field = _this._info.fields[fieldLink.FieldInternalName];
+                        // Skip the content type field
+                        if (fieldLink.FieldInternalName == "ContentType") {
+                            continue;
+                        }
+                        // Skip hidden fields
+                        if (field.Hidden || fieldLink.Hidden) {
+                            continue;
+                        }
+                        // Save the form field
+                        formFields[field.InternalName] = field;
                     }
-                    // Skip hidden fields
-                    if (field.Hidden || fieldLink.Hidden) {
-                        continue;
-                    }
-                    // Save the form field
-                    formFields[field.InternalName] = field;
-                }
-                // Update the fields
-                _this._info.fields = formFields;
-                // Resolve the promise
-                _this._resolve(_this._info);
-            }, true);
+                    // Update the fields
+                    _this._info.fields = formFields;
+                    // Resolve the promise
+                    resolve();
+                }, true);
+            });
         };
         // Method to process the fields
         this.processFields = function () {
@@ -8591,8 +8608,6 @@ var _ListForm = /** @class */ (function () {
             }
             // Update the fields
             _this._info.fields = formFields;
-            // Resolve the promise
-            _this._resolve(_this._info);
         };
         // Save the properties
         this._props = props || {};
