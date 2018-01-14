@@ -24,6 +24,7 @@ declare module 'gd-sprest' {
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
      ***************************************************************************************************/
+    import "core-js/es6/promise";
     import { Helper } from "gd-sprest/helper";
     import { Types } from "gd-sprest/mapper";
     import { RequestType, SPTypes } from "gd-sprest/types";
@@ -1452,14 +1453,12 @@ declare module 'gd-sprest/utils' {
     export * from "gd-sprest/utils/batch";
     export * from "gd-sprest/utils/methodInfo";
     export * from "gd-sprest/utils/oData";
-    export * from "gd-sprest/utils/promise";
     export * from "gd-sprest/utils/targetInfo";
     export * from "gd-sprest/utils/xhrRequest";
 }
 
 declare module 'gd-sprest/helper/app' {
     import { Types } from "gd-sprest/mapper";
-    import { Promise, IPromise } from "gd-sprest/utils";
     /**
         * App Helper Methods
         */
@@ -1471,7 +1470,10 @@ declare module 'gd-sprest/helper/app' {
                 * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
                 * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
                 */
-            copyFileToHostWeb(srcFileUrl: string, dstFolder: Types.IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
+            copyFileToHostWeb(srcFileUrl: string, dstFolder: Types.IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{
+                    file: Types.IFileResult;
+                    folder: Types.IFolderResult;
+            }>;
             /**
                 * Method to copy a file from the app web to the host web.
                 * @param srcFileUrl - The source file url, relative to the app web.
@@ -1479,60 +1481,65 @@ declare module 'gd-sprest/helper/app' {
                 * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
                 * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
                 */
-            copyFileToHostWeb(srcFileUrl: string, dstFolderUrl: string, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
+            copyFileToHostWeb(srcFileUrl: string, dstFolderUrl: string, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{
+                    file: Types.IFileResult;
+                    folder: Types.IFolderResult;
+            }>;
             /**
                 * Method to copy a file from the app web to the host web
                 * @param fileUrls - An array of source file urls, relative to the app web.
                 * @param folderUrls - An array of destination folder urls, relative to the host web.
                 * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
                 */
-            copyFilesToHostWeb(fileUrls: Array<string>, folderUrls: Array<string>, overwriteFl?: boolean, rootWebFl?: boolean): IPromise;
+            copyFilesToHostWeb(fileUrls: Array<string>, folderUrls: Array<string>, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{
+                    files: Array<Types.IFileResult>;
+                    folders: Array<Types.IFolderResult>;
+            }>;
             /**
                 * Method to create sub-folders.
                 * @param folder - The app web relative url to the source file.
                 * @param subFolderUrl - The host web relative url of the destination folder.
                 */
-            createSubFolders(folder: Types.IFolderResult, subFolderUrl: string): IPromise;
+            createSubFolders(folder: Types.IFolderResult, subFolderUrl: string): any;
             /**
                 * Method to get the file content.
                 * @param web - The web containing the files.
                 * @param fileUrls - An array of file urls, relative to the web.
                 * @param createFl - Flag to create the folder, if it doesn't exist.
                 */
-            getFolder(web: Types.IWebResult, folderUrl: string, createFl?: boolean): IPromise;
+            getFolder(web: Types.IWebResult, folderUrl: string, createFl?: boolean): any;
             /**
                 * Method to remove empty folders
                 * @param web - The web containing the files.
                 * @param folderUrls - An array of folder urls, relative to the web.
                 */
-            removeEmptyFolders(web: Types.IWebResult, folderUrls: Array<string>): IPromise;
+            removeEmptyFolders(web: Types.IWebResult, folderUrls: Array<string>): any;
             /**
                 * Method to remove files from a web.
                 * @param web - The web containing the files.
                 * @param fileUrl - The file url, relative to the web.
                 */
-            removeFile(web: Types.IWebResult, fileUrl: string): IPromise;
+            removeFile(web: Types.IWebResult, fileUrl: string): any;
             /**
                 * Method to remove files from a web.
                 * @param web - The web containing the files.
                 * @param fileUrls - An array of file urls, relative to the web.
                 */
-            removeFiles(web: Types.IWebResult, fileUrls: Array<string>): IPromise;
+            removeFiles(web: Types.IWebResult, fileUrls: Array<string>): any;
     }
     /*********************************************************************************************************************************/
     export const AppHelper: {
-            copyFileToHostWeb: (fileUrl: any, dstFolder: any, overwriteFl: any, rootWebFl: any) => Promise;
-            copyFilesToHostWeb: (fileUrls: any, folderUrls: any, overwriteFl: any, rootWebFl: any, idx: any, promise: any, files: any, folders: any) => any;
-            createSubFolders: (folder: any, subFolderUrl: any, promise: any) => any;
-            getFolder: (web: any, folderUrl: any, createFl: any) => Promise;
-            removeEmptyFolders: (web: any, folderUrls: any) => Promise;
-            removeFile: (web: any, fileUrl: any) => Promise;
-            removeFiles: (web: any, fileUrls: any, idx: any, promise: any) => any;
+            copyFileToHostWeb: (fileUrl: any, dstFolder: any, overwriteFl: any, rootWebFl: any) => Promise<{}>;
+            copyFilesToHostWeb: (fileUrls: any, folderUrls: any, overwriteFl: any, rootWebFl: any) => Promise<{}>;
+            createSubFolders: (folder: any, subFolderUrl: any) => Promise<{}>;
+            getFolder: (web: any, folderUrl: any, createFl: any) => Promise<{}>;
+            removeEmptyFolders: (web: any, folderUrls: any) => Promise<{}>;
+            removeFile: (web: any, fileUrl: any) => Promise<{}>;
+            removeFiles: (web: any, fileUrls: any, idx: any) => Promise<{}>;
     };
 }
 
 declare module 'gd-sprest/helper/dependencies' {
-    import { Promise } from "gd-sprest/utils";
     /**
         * Dependencies
         */
@@ -1546,8 +1553,6 @@ declare module 'gd-sprest/helper/dependencies' {
             MAX_WAIT: number;
             /** Flag to determine if the page context information exists */
             pageContextExistsFl: boolean;
-            /** The promise. */
-            promise: Promise;
             /** The script file names to load. */
             SCRIPTS: Array<string>;
             /**
@@ -1565,9 +1570,8 @@ declare module 'gd-sprest/helper/dependencies' {
         */
     export class Dependencies {
             MAX_WAIT: number;
-            promise: Promise;
-            readonly pageContextExistsFl: boolean;
             SCRIPTS: Array<string>;
+            readonly pageContextExistsFl: boolean;
             /**
                 * Constructor
                 * @param callback - The method to execute after the scripts have been loaded.
@@ -1586,13 +1590,12 @@ declare module 'gd-sprest/helper/dependencies' {
 
 declare module 'gd-sprest/helper/field' {
     import { Types } from "gd-sprest/mapper";
-    import { Promise } from "gd-sprest/utils";
     /**
       * Field Schema XML
       */
     export interface IFieldSchemaXML {
         /** Method to generate the field schema xml. */
-        generate: (fieldInfo: Types.Helper.SPConfig.IFieldInfo) => Promise;
+        generate: (fieldInfo: Types.Helper.SPConfig.IFieldInfo) => PromiseLike<string>;
     }
     export const FieldSchemaXML: IFieldSchemaXML;
 }
@@ -2931,7 +2934,7 @@ declare module 'gd-sprest/utils/baseHelper' {
 }
 
 declare module 'gd-sprest/utils/baseRequest' {
-    import { Base, BaseHelper, IBaseHelper, Promise, XHRRequest, IMethodInfo, ITargetInfo } from "gd-sprest/utils";
+    import { Base, BaseHelper, IBaseHelper, XHRRequest, IMethodInfo, ITargetInfo } from "gd-sprest/utils";
     /**
         * Base Request
         */
@@ -2955,7 +2958,7 @@ declare module 'gd-sprest/utils/baseRequest' {
             /** Updates the metdata uri. */
             updateMetadataUri(metadata: any, targetInfo: ITargetInfo): any;
             /** Validates the data collection results. */
-            validateDataCollectionResults(promise?: Promise): any;
+            validateDataCollectionResults(): PromiseLike<void>;
     }
     /**
         * Base Request
@@ -2971,7 +2974,7 @@ declare module 'gd-sprest/utils/baseRequest' {
             getNextSetOfResults(): Base<any, any, any>;
             getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
             updateMetadataUri(metadata: any, targetInfo: ITargetInfo): void;
-            validateDataCollectionResults(promise?: Promise): Promise;
+            validateDataCollectionResults(): PromiseLike<void>;
     }
 }
 
@@ -3194,41 +3197,6 @@ declare module 'gd-sprest/utils/oData' {
         Select: Array<string>;
         Skip: number;
         Top: number;
-    }
-}
-
-declare module 'gd-sprest/utils/promise' {
-    import { IBase } from "gd-sprest/utils";
-    /**
-        * Promise
-        */
-    export interface IPromise {
-            /**
-                * Constructor
-                * @param callback - The method to be executed after the promise completes.
-                */
-            new (callback?: (...args) => void): any;
-            /**
-                * Method to set the callback method of the promise.
-                * @param callback - The method to be executed after the promise completes.
-                */
-            done(callback?: (...args) => void): any;
-            /**
-                * Method to set this promise as completed.
-                * @param args - The arguments to pass to the callback.
-                */
-            resolve(...args: any[]): any;
-    }
-    /**
-        * Promise
-        */
-    export class Promise implements PromiseLike<any> {
-            /*********************************************************************************************************************************/
-            constructor(callback?: (...args) => void);
-            /******************************************************************************************************************************** */
-            done(callback?: (...args) => void): void;
-            resolve(...args: any[]): void;
-            then<TResult1 = IBase, TResult2 = never>(onfulfilled?: ((value: IBase) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): any;
     }
 }
 

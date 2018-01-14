@@ -10,7 +10,6 @@ __export(require("./base"));
 __export(require("./batch"));
 __export(require("./methodInfo"));
 __export(require("./oData"));
-__export(require("./promise"));
 __export(require("./targetInfo"));
 __export(require("./xhrRequest"));
 //# sourceMappingURL=index.js.map
