@@ -1018,7 +1018,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.72,
+    __ver: 2.73,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8625,7 +8625,8 @@ var _ListForm = /** @class */ (function () {
         // Save the properties
         this._props = props || {};
         this._props.fields = this._props.fields || [];
-        this._info.query = this._info.query || {};
+        this._info = {};
+        this._info.query = this._props.query || {};
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Save the resolve method

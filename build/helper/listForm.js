@@ -128,7 +128,8 @@ var _ListForm = /** @class */ (function () {
         // Save the properties
         this._props = props || {};
         this._props.fields = this._props.fields || [];
-        this._info.query = this._info.query || {};
+        this._info = {};
+        this._info.query = this._props.query || {};
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Save the resolve method

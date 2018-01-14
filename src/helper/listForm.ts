@@ -18,7 +18,8 @@ class _ListForm {
         // Save the properties
         this._props = props || {} as any;
         this._props.fields = this._props.fields || [];
-        this._info.query = this._info.query || {};
+        this._info = {} as any;
+        this._info.query = this._props.query || {};
 
         // Return a promise
         return new Promise((resolve, reject) => {
