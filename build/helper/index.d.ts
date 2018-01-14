@@ -1,10 +1,9 @@
+import { Types } from "../mapper";
 import { IBase } from "../utils";
 import { IHelperApp } from "./app";
 import { IDependencies } from "./dependencies";
 import { IFieldSchemaXML } from "./field";
 import { IHelperJSLink } from "./jslink";
-import { IListForm } from "./listForm";
-import { IListFormField } from "./listFormField";
 import { ILoader } from "./loader";
 import { ISPConfig } from "./spCfg";
 import { IHelperTypes } from "./types";
@@ -32,11 +31,11 @@ export interface IHelper {
     /**
      * List Form
      */
-    ListForm: IListForm;
+    ListForm: Types.Helper.ListForm.IListForm;
     /**
      * List Form Field
      */
-    ListFormField: IListFormField;
+    ListFormField: Types.Helper.ListForm.IListFormField;
     /**
      * Loader
      */

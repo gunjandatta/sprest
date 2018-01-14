@@ -1,48 +1,21 @@
 import { Web } from "../lib";
 import { Types } from "../mapper";
 import { IBaseCollection } from "../utils";
-import { IListFormFieldInfo, ListFormField } from "./listFormField";
-
-/**
- * List Form Properties
- */
-export interface IListFormProps {
-    /** The form fields */
-    fields?: Array<string>;
-
-    /** The list name */
-    listName: string;
-
-    /** The relative web url containing the list */
-    webUrl?: string;
-}
+import { ListFormField } from "./listFormField";
 
 /**
  * List Form
  */
-export interface IListForm {
-    /**
-     * Creates an instance of the list form
-     * @param props - The list form properties.
-     */
-    new(props: IListFormProps): PromiseLike<{ [key: string]: Types.IFieldResult }>;
-
-    /** The list fields */
-    Fields: { [key: string]: Types.IFieldResult };
-
-    /** The list */
-    List: Types.IListResult;
-}
 class _ListForm {
     private _fields: { [key: string]: Types.IFieldResult } = null;
     private _list: Types.IListResult = null;
-    private _props: IListFormProps = null;
+    private _props: Types.Helper.ListForm.IListFormProps = null;
     private _resolve = null;
 
     /**
      * Constructor
     */
-    constructor(props: IListFormProps) {
+    constructor(props: Types.Helper.ListForm.IListFormProps) {
         // Save the properties
         this._props = props || {} as any;
         this._props.fields = this._props.fields || [];
@@ -162,4 +135,4 @@ class _ListForm {
         this._resolve(formFields);
     }
 }
-export const ListForm: IListForm = _ListForm as any;
+export const ListForm: Types.Helper.ListForm.IListForm = _ListForm as any;

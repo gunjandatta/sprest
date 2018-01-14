@@ -1,3 +1,4 @@
+import * as ListForm from "./listForm";
 import * as SPConfig from "./spCfg";
 import * as WebPart from "./webpart";
-export { SPConfig, WebPart };
+export { ListForm, SPConfig, WebPart };
