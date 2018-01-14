@@ -10,6 +10,7 @@ var _ListForm = /** @class */ (function () {
         this._fields = null;
         this._list = null;
         this._props = null;
+        this._resolve = null;
         /**
          * Methods
          */
@@ -69,10 +70,8 @@ var _ListForm = /** @class */ (function () {
                     // Save the form field
                     formFields[field.InternalName] = field;
                 }
-                // Update the fields
-                _this._fields = formFields;
-                // Call the initialization event
-                _this._props.onInit ? _this._props.onInit(_this._fields) : null;
+                // Resolve the promise
+                _this._resolve(formFields);
             }, true);
         };
         // Method to process the fields
@@ -87,17 +86,35 @@ var _ListForm = /** @class */ (function () {
                     formFields[field.InternalName] = field;
                 }
             }
-            // Update the fields
-            _this._fields = formFields;
-            // Call the initialization event
-            _this._props.onInit ? _this._props.onInit(_this._fields) : null;
+            // Resolve the promise
+            _this._resolve(formFields);
         };
         // Save the properties
         this._props = props || {};
         this._props.fields = this._props.fields || [];
-        // Load the list data
-        this.load();
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Save the resolve method
+            _this._resolve = resolve;
+            // Load the list data
+            _this.load();
+        });
     }
+    Object.defineProperty(_ListForm.prototype, "Fields", {
+        /**
+         * Properties
+         */
+        // The list fields
+        get: function () { return this._fields; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ListForm.prototype, "Lists", {
+        // The list
+        get: function () { return this._list; },
+        enumerable: true,
+        configurable: true
+    });
     return _ListForm;
 }());
 exports.ListForm = _ListForm;

@@ -3,6 +3,8 @@ import { AppHelper, IHelperApp } from "./app";
 import { Dependencies, IDependencies } from "./dependencies";
 import { FieldSchemaXML, IFieldSchemaXML } from "./field";
 import { JSLinkHelper, IHelperJSLink } from "./jslink";
+import { ListForm, IListForm } from "./listForm";
+import { ListFormField, IListFormField } from "./listFormField";
 import { Loader, ILoader } from "./loader";
 import { parse } from "./parse";
 import { SPConfig, ISPConfig } from "./spCfg";
@@ -32,6 +34,16 @@ export interface IHelper {
      * JSLink helper methods
      */
     JSLink: IHelperJSLink,
+
+    /**
+     * List Form
+     */
+    ListForm: IListForm,
+
+    /**
+     * List Form Field
+     */
+    ListFormField: IListFormField,
 
     /**
      * Loader
@@ -67,6 +79,8 @@ export const Helper: IHelper = {
     Dependencies: Dependencies as any,
     FieldSchemaXML,
     JSLink: JSLinkHelper,
+    ListForm,
+    ListFormField,
     Loader: Loader,
     parse: parse as any,
     SPConfig: SPConfig as any,

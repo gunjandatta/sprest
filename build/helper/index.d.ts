@@ -3,6 +3,8 @@ import { IHelperApp } from "./app";
 import { IDependencies } from "./dependencies";
 import { IFieldSchemaXML } from "./field";
 import { IHelperJSLink } from "./jslink";
+import { IListForm } from "./listForm";
+import { IListFormField } from "./listFormField";
 import { ILoader } from "./loader";
 import { ISPConfig } from "./spCfg";
 import { IHelperTypes } from "./types";
@@ -27,6 +29,14 @@ export interface IHelper {
      * JSLink helper methods
      */
     JSLink: IHelperJSLink;
+    /**
+     * List Form
+     */
+    ListForm: IListForm;
+    /**
+     * List Form Field
+     */
+    ListFormField: IListFormField;
     /**
      * Loader
      */

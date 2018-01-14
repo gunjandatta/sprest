@@ -779,11 +779,13 @@ var app_1 = __webpack_require__(75);
 var dependencies_1 = __webpack_require__(118);
 var field_1 = __webpack_require__(119);
 var jslink_1 = __webpack_require__(120);
-var loader_1 = __webpack_require__(121);
-var parse_1 = __webpack_require__(122);
-var spCfg_1 = __webpack_require__(123);
+var listForm_1 = __webpack_require__(121);
+var listFormField_1 = __webpack_require__(122);
+var loader_1 = __webpack_require__(123);
+var parse_1 = __webpack_require__(124);
+var spCfg_1 = __webpack_require__(125);
 var types_1 = __webpack_require__(40);
-var webpart_1 = __webpack_require__(124);
+var webpart_1 = __webpack_require__(126);
 ;
 /**
  * Helper Methods
@@ -793,6 +795,8 @@ exports.Helper = {
     Dependencies: dependencies_1.Dependencies,
     FieldSchemaXML: field_1.FieldSchemaXML,
     JSLink: jslink_1.JSLinkHelper,
+    ListForm: listForm_1.ListForm,
+    ListFormField: listFormField_1.ListFormField,
     Loader: loader_1.Loader,
     parse: parse_1.parse,
     SPConfig: spCfg_1.SPConfig,
@@ -1014,7 +1018,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.65,
+    __ver: 2.66,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8419,6 +8423,207 @@ exports.JSLinkHelper = {
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
+var _ListForm = /** @class */ (function () {
+    /**
+     * Constructor
+    */
+    function _ListForm(props) {
+        var _this = this;
+        this._fields = null;
+        this._list = null;
+        this._props = null;
+        this._resolve = null;
+        /**
+         * Methods
+         */
+        // Method to load the list data
+        this.load = function () {
+            // Get the web
+            (new lib_1.Web(_this._props.webUrl))
+                .Lists(_this._props.listName)
+                .execute(function (list) {
+                // Save the list
+                _this._list = list;
+            })
+                .Fields()
+                .execute(function (fields) {
+                // Clear the fields
+                _this._fields = {};
+                // Save the fields
+                for (var i = 0; i < fields.results.length; i++) {
+                    var field = fields.results[i];
+                    // Save the field
+                    _this._fields[field.InternalName] = field;
+                }
+                // See if the fields have been defined
+                if (_this._props.fields) {
+                    // Process the fields
+                    _this.processFields();
+                }
+                else {
+                    // Load the default fields
+                    _this.loadDefaultFields();
+                }
+            });
+        };
+        // Method to load the default fields
+        this.loadDefaultFields = function () {
+            // Load the content types
+            _this._list.ContentTypes()
+                .query({
+                Expand: ["FieldLinks"],
+                Top: 1
+            })
+                .execute(function (ct) {
+                var fields = ct.results ? ct.results[0].FieldLinks.results : [];
+                var formFields = {};
+                // Parse the field links
+                for (var i = 0; fields.length; i++) {
+                    var fieldLink = fields[i];
+                    var field = _this._fields[fieldLink.FieldInternalName];
+                    // Skip the content type field
+                    if (fieldLink.FieldInternalName == "ContentType") {
+                        continue;
+                    }
+                    // Skip hidden fields
+                    if (field.Hidden || fieldLink.Hidden) {
+                        continue;
+                    }
+                    // Save the form field
+                    formFields[field.InternalName] = field;
+                }
+                // Resolve the promise
+                _this._resolve(formFields);
+            }, true);
+        };
+        // Method to process the fields
+        this.processFields = function () {
+            var formFields = {};
+            // Parse the fields provided
+            for (var i = 0; i < _this._props.fields.length; i++) {
+                var field = _this._fields[_this._props.fields[i]];
+                // Ensure the field exists
+                if (field) {
+                    // Save the field
+                    formFields[field.InternalName] = field;
+                }
+            }
+            // Resolve the promise
+            _this._resolve(formFields);
+        };
+        // Save the properties
+        this._props = props || {};
+        this._props.fields = this._props.fields || [];
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Save the resolve method
+            _this._resolve = resolve;
+            // Load the list data
+            _this.load();
+        });
+    }
+    Object.defineProperty(_ListForm.prototype, "Fields", {
+        /**
+         * Properties
+         */
+        // The list fields
+        get: function () { return this._fields; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ListForm.prototype, "Lists", {
+        // The list
+        get: function () { return this._list; },
+        enumerable: true,
+        configurable: true
+    });
+    return _ListForm;
+}());
+exports.ListForm = _ListForm;
+//# sourceMappingURL=listForm.js.map
+
+/***/ }),
+/* 122 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
+var _ListFormField = /** @class */ (function () {
+    /**
+     * Constructor
+     */
+    function _ListFormField(props) {
+        var _this = this;
+        this._fieldInfo = null;
+        this._resolve = null;
+        /**
+         * Methods
+         */
+        // Load the field
+        this.load = function () {
+            // See if the field exists
+            if (_this._fieldInfo.field) {
+                // Process the field
+                _this.processField();
+            }
+            else {
+                // Get the web
+                (new lib_1.Web(_this._fieldInfo.webUrl))
+                    .Lists(_this._fieldInfo.listName)
+                    .Fields()
+                    .getByInternalNameOrTitle(_this._fieldInfo.name)
+                    .execute(function (field) {
+                    // Save the field
+                    _this._fieldInfo.field = field;
+                    // Process the field
+                    _this.processField();
+                });
+            }
+        };
+        // Method to proces the field and save its information
+        this.processField = function () {
+            // Update the field information
+            _this._fieldInfo.defaultValue = _this._fieldInfo.field.DefaultValue;
+            _this._fieldInfo.readOnly = _this._fieldInfo.field.ReadOnlyField;
+            _this._fieldInfo.required = _this._fieldInfo.field.Required ? true : false;
+            _this._fieldInfo.title = _this._fieldInfo.field.Title;
+            _this._fieldInfo.type = _this._fieldInfo.field.FieldTypeKind;
+            _this._fieldInfo.typeAsString = _this._fieldInfo.field.TypeAsString;
+            // Resolve the promise
+            _this._resolve(_this._fieldInfo);
+        };
+        // Save the properties and field information
+        this._fieldInfo = props || {};
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Save the resolve method
+            _this._resolve = resolve;
+            // See if the field exists
+            if (_this._fieldInfo.field) {
+                // Process the field
+                _this.processField();
+            }
+            else {
+                // Load the field
+                _this.load();
+            }
+        });
+    }
+    return _ListFormField;
+}());
+exports.ListFormField = _ListFormField;
+//# sourceMappingURL=listFormField.js.map
+
+/***/ }),
+/* 123 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
@@ -8474,7 +8679,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 122 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8504,7 +8709,7 @@ exports.parse = function (jsonString) {
 //# sourceMappingURL=parse.js.map
 
 /***/ }),
-/* 123 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9572,7 +9777,7 @@ exports.SPConfig = SPConfig;
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 124 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

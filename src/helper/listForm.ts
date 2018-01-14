@@ -13,9 +13,6 @@ export interface IListFormProps {
     /** The list name */
     listName: string;
 
-    /** Event triggered when the list form information is initialized */
-    onInit?: (formFields: { [key: string]: Types.IFieldResult }) => void;
-
     /** The relative web url containing the list */
     webUrl?: string;
 }
@@ -28,12 +25,19 @@ export interface IListForm {
      * Creates an instance of the list form
      * @param props - The list form properties.
      */
-    new(props: IListFormProps);
+    new(props: IListFormProps): PromiseLike<{ [key: string]: Types.IFieldResult }>;
+
+    /** The list fields */
+    Fields: { [key: string]: Types.IFieldResult };
+
+    /** The list */
+    List: Types.IListResult;
 }
 class _ListForm {
     private _fields: { [key: string]: Types.IFieldResult } = null;
     private _list: Types.IListResult = null;
     private _props: IListFormProps = null;
+    private _resolve = null;
 
     /**
      * Constructor
@@ -43,9 +47,25 @@ class _ListForm {
         this._props = props || {} as any;
         this._props.fields = this._props.fields || [];
 
-        // Load the list data
-        this.load();
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Save the resolve method
+            this._resolve = resolve;
+
+            // Load the list data
+            this.load();
+        }) as any;
     }
+
+    /**
+     * Properties
+     */
+
+    // The list fields
+    get Fields(): { [key: string]: Types.IFieldResult } { return this._fields; }
+
+    // The list
+    get Lists(): Types.IListResult { return this._list; }
 
     /**
      * Methods
@@ -118,11 +138,8 @@ class _ListForm {
                     formFields[field.InternalName] = field;
                 }
 
-                // Update the fields
-                this._fields = formFields;
-
-                // Call the initialization event
-                this._props.onInit ? this._props.onInit(this._fields) : null;
+                // Resolve the promise
+                this._resolve(formFields);
             }, true);
     }
 
@@ -141,11 +158,8 @@ class _ListForm {
             }
         }
 
-        // Update the fields
-        this._fields = formFields;
-
-        // Call the initialization event
-        this._props.onInit ? this._props.onInit(this._fields) : null;
+        // Resolve the promise
+        this._resolve(formFields);
     }
 }
-export const ListForm: IListForm = _ListForm;
+export const ListForm: IListForm = _ListForm as any;

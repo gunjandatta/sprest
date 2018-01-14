@@ -7,10 +7,6 @@ export interface IListFormProps {
     fields?: Array<string>;
     /** The list name */
     listName: string;
-    /** Event triggered when the list form information is initialized */
-    onInit?: (formFields: {
-        [key: string]: Types.IFieldResult;
-    }) => void;
     /** The relative web url containing the list */
     webUrl?: string;
 }
@@ -22,6 +18,14 @@ export interface IListForm {
      * Creates an instance of the list form
      * @param props - The list form properties.
      */
-    new (props: IListFormProps): any;
+    new (props: IListFormProps): PromiseLike<{
+        [key: string]: Types.IFieldResult;
+    }>;
+    /** The list fields */
+    Fields: {
+        [key: string]: Types.IFieldResult;
+    };
+    /** The list */
+    List: Types.IListResult;
 }
 export declare const ListForm: IListForm;

@@ -1,10 +1,12 @@
 import { Types } from "../mapper";
 /**
- * List Form Field Information
+ * List Form Field
  */
 export interface IListFormFieldInfo {
     /** The default value. */
     defaultValue?: any;
+    /** The list field. */
+    field?: Types.IFieldResult | Types.IFieldQueryResult;
     /** The list name. */
     listName: string;
     /** The internal name of the field. */
@@ -23,20 +25,13 @@ export interface IListFormFieldInfo {
     webUrl?: string;
 }
 /**
- * List Form Field Properties
- */
-export interface IListFormFieldProps {
-    /** The list field. */
-    field?: Types.IFieldResult | Types.IFieldQueryResult;
-    /** The list field information. */
-    fieldInfo?: IListFormFieldInfo;
-    /** The initialized event */
-    onInit?: (fieldInfo: IListFormFieldInfo) => void;
-}
-/**
  * List Form Field
  */
 export interface IListFormField {
-    new (props: IListFormFieldProps): any;
+    /**
+     * Creates an instance of the list form field
+     * @param props - The list form field properties
+     */
+    new (props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
 }
 export declare const ListFormField: IListFormField;

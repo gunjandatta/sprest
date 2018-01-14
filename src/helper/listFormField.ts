@@ -2,11 +2,14 @@ import { Web } from "../lib";
 import { Types } from "../mapper";
 
 /**
- * List Form Field Information
+ * List Form Field
  */
 export interface IListFormFieldInfo {
     /** The default value. */
     defaultValue?: any;
+
+    /** The list field. */
+    field?: Types.IFieldResult | Types.IFieldQueryResult;
 
     /** The list name. */
     listName: string;
@@ -34,59 +37,41 @@ export interface IListFormFieldInfo {
 }
 
 /**
- * List Form Field Properties
- */
-export interface IListFormFieldProps {
-    /** The list field. */
-    field?: Types.IFieldResult | Types.IFieldQueryResult;
-
-    /** The list field information. */
-    fieldInfo?: IListFormFieldInfo;
-
-    /** The initialized event */
-    onInit?: (fieldInfo: IListFormFieldInfo) => void;
-}
-
-/**
  * List Form Field
  */
 export interface IListFormField {
-    new(props: IListFormFieldProps);
+    /**
+     * Creates an instance of the list form field
+     * @param props - The list form field properties
+     */
+    new(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
 }
 class _ListFormField {
-    private _field: Types.IFieldResult | Types.IFieldQueryResult = null;
     private _fieldInfo: IListFormFieldInfo = null;
-    private _props: IListFormFieldProps = null;
+    private _resolve = null;
 
     /**
      * Constructor
-     * @param props
      */
-    constructor(props: IListFormFieldProps) {
+    constructor(props: IListFormFieldInfo) {
         // Save the properties and field information
-        this._props = props || {};
-        this._field = props.field;
-        this._fieldInfo = props.fieldInfo || {} as any;
+        this._fieldInfo = props || {} as any;
 
-        // See if the field exists
-        if (this._field) {
-            // Process the field
-            this.processField();
-        } else {
-            // Load the field
-            this.load();
-        }
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Save the resolve method
+            this._resolve = resolve;
+
+            // See if the field exists
+            if (this._fieldInfo.field) {
+                // Process the field
+                this.processField();
+            } else {
+                // Load the field
+                this.load();
+            }
+        }) as any;
     }
-
-    /**
-     * Properties
-     */
-
-    // Field
-    get Field(): Types.IFieldResult | Types.IFieldQueryResult { return this._field; }
-
-    // Field Information
-    get FieldInfo(): IListFormFieldInfo { return this._fieldInfo; }
 
     /**
      * Methods
@@ -95,7 +80,7 @@ class _ListFormField {
     // Load the field
     private load = () => {
         // See if the field exists
-        if (this._field) {
+        if (this._fieldInfo.field) {
             // Process the field
             this.processField();
         }
@@ -112,7 +97,7 @@ class _ListFormField {
                 // Execute the request
                 .execute((field) => {
                     // Save the field
-                    this._field = field;
+                    this._fieldInfo.field = field;
 
                     // Process the field
                     this.processField();
@@ -123,15 +108,15 @@ class _ListFormField {
     // Method to proces the field and save its information
     private processField = () => {
         // Update the field information
-        this._fieldInfo.defaultValue = this._field.DefaultValue;
-        this._fieldInfo.readOnly = this._field.ReadOnlyField;
-        this._fieldInfo.required = this._field.Required ? true : false;
-        this._fieldInfo.title = this._field.Title;
-        this._fieldInfo.type = this._field.FieldTypeKind as number;
-        this._fieldInfo.typeAsString = this._field.TypeAsString;
+        this._fieldInfo.defaultValue = this._fieldInfo.field.DefaultValue;
+        this._fieldInfo.readOnly = this._fieldInfo.field.ReadOnlyField;
+        this._fieldInfo.required = this._fieldInfo.field.Required ? true : false;
+        this._fieldInfo.title = this._fieldInfo.field.Title;
+        this._fieldInfo.type = this._fieldInfo.field.FieldTypeKind as number;
+        this._fieldInfo.typeAsString = this._fieldInfo.field.TypeAsString;
 
-        // Call the initialize event
-        this._props.onInit ? this._props.onInit(this._fieldInfo) : null;
+        // Resolve the promise
+        this._resolve(this._fieldInfo);
     }
 }
-export const ListFormField: IListFormField = _ListFormField;
+export const ListFormField: IListFormField = _ListFormField as any;
