@@ -20,7 +20,7 @@ export interface IListForm {
      * @param item - The list item.
      * @param list - The list.
      */
-    saveItem(item: any, list: Types.IListQueryResult): PromiseLike<Types.IListItemQueryResult>;
+    saveItem(item: any, list: Types.IListResult): PromiseLike<Types.IListItemQueryResult>;
 }
 
 /**
