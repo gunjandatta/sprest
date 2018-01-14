@@ -26,11 +26,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
+import "core-js/es6/promise"
+import { Helper } from "./helper";
 import { Types } from "./mapper";
 import { RequestType, SPTypes } from "./types";
 import {
     ContextInfo,
-    Helper,
     JSLink,
     List,
     Navigation,
@@ -68,7 +69,7 @@ export {
  * SharePoint REST Library
  */
 export const $REST: Types.IREST = {
-    __ver: 2.64,
+    __ver: 2.66,
     ContextInfo,
     DefaultRequestToHostFl: false,
     Helper,

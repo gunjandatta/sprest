@@ -1,7 +1,7 @@
 import { RequestType, IRequestType } from "../types";
 import {
     Base, BaseHelper, IBaseHelper,
-    Batch, MethodInfo, Promise, TargetInfo, XHRRequest,
+    Batch, MethodInfo, TargetInfo, XHRRequest,
     IMethodInfo, ITargetInfo
 } from ".";
 
@@ -37,7 +37,7 @@ export interface IBaseRequest extends IBaseHelper {
     updateMetadataUri(metadata, targetInfo: ITargetInfo);
 
     /** Validates the data collection results. */
-    validateDataCollectionResults(promise?: Promise);
+    validateDataCollectionResults(): PromiseLike<void>;
 }
 
 /**
@@ -149,7 +149,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
                         this.updateDataObject(isBatchRequest);
 
                         // Validate the data collection
-                        isBatchRequest ? null : this.validateDataCollectionResults().done(() => {
+                        isBatchRequest ? null : this.validateDataCollectionResults().then(() => {
                             // Execute the callback
                             callback ? callback(this) : null;
                         });
@@ -306,58 +306,61 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
     }
 
     // Method to validate the data collection results
-    validateDataCollectionResults(promise?: Promise) {
-        promise = promise || new Promise();
+    validateDataCollectionResults(): PromiseLike<void> {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            let request = (xhr, resolve) => {
+                // Validate the response
+                if (xhr && xhr.status < 400 && typeof (xhr.response) === "string" && xhr.response.length > 0) {
+                    // Convert the response and ensure the data property exists
+                    let data = JSON.parse(xhr.response);
 
-        // Validate the response
-        if (this.xhr && this.status < 400 && typeof (this.response) === "string" && this.response.length > 0) {
-            // Convert the response and ensure the data property exists
-            let data = JSON.parse(this.response);
+                    // See if there are more items to get
+                    if (data.d && data.d.__next) {
+                        // See if we are getting all items in the base request
+                        if (this.getAllItemsFl) {
+                            // Create the target information to query the next set of results
+                            let targetInfo = Object.create(this.targetInfo);
+                            targetInfo.endpoint = "";
+                            targetInfo.url = data.d.__next;
 
-            // See if there are more items to get
-            if (data.d && data.d.__next) {
-                // See if we are getting all items in the base request
-                if (this.getAllItemsFl) {
-                    // Create the target information to query the next set of results
-                    let targetInfo = Object.create(this.targetInfo);
-                    targetInfo.endpoint = "";
-                    targetInfo.url = data.d.__next;
+                            // Create a new object
+                            new XHRRequest(true, new TargetInfo(targetInfo), (xhr) => {
+                                // Convert the response and ensure the data property exists
+                                let data = JSON.parse(xhr.response);
+                                if (data.d) {
+                                    // Update the data collection
+                                    this.updateDataCollection(this, data.d.results);
 
-                    // Create a new object
-                    new XHRRequest(true, new TargetInfo(targetInfo), (request) => {
-                        // Convert the response and ensure the data property exists
-                        let data = JSON.parse(request.response);
-                        if (data.d) {
-                            // Update the data collection
-                            this.updateDataCollection(this, data.d.results);
+                                    // Append the raw data results
+                                    this["d"].results = this["d"].results.concat(data.d.results);
 
-                            // Append the raw data results
-                            this["d"].results = this["d"].results.concat(data.d.results);
+                                    // Validate the data collection
+                                    request(xhr, resolve);
+                                }
 
-                            // Validate the data collection
-                            return this.validateDataCollectionResults(promise);
+                                // Resolve the promise
+                                resolve();
+                            });
+                        } else {
+                            // Add a method to get the next set of results
+                            this["next"] = new Function("return this.getNextSetOfResults();");
+
+                            // Resolve the promise
+                            resolve();
                         }
-
+                    } else {
                         // Resolve the promise
-                        promise.resolve();
-                    });
+                        resolve();
+                    }
                 } else {
-                    // Add a method to get the next set of results
-                    this["next"] = new Function("return this.getNextSetOfResults();");
-
                     // Resolve the promise
-                    promise.resolve();
+                    resolve();
                 }
-            } else {
-                // Resolve the promise
-                promise.resolve();
             }
-        } else {
-            // Resolve the promise
-            promise.resolve();
-        }
 
-        // Return the promise
-        return promise;
+            // Execute the request
+            request(this.xhr, resolve);
+        });
     }
 }

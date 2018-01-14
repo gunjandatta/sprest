@@ -21,9 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
+import "core-js/es6/promise";
+import { Helper } from "./helper";
 import { Types } from "./mapper";
 import { RequestType, SPTypes } from "./types";
-import { ContextInfo, Helper, JSLink, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "./lib";
+import { ContextInfo, JSLink, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "./lib";
 export { ContextInfo, Helper, JSLink, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Utility, Web };
 /**
  * SharePoint REST Library

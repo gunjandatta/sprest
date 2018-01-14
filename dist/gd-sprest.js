@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 41);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69,20 +69,11 @@
 
 "use strict";
 
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(29));
-__export(__webpack_require__(30));
-__export(__webpack_require__(31));
-__export(__webpack_require__(32));
-__export(__webpack_require__(33));
-__export(__webpack_require__(34));
-__export(__webpack_require__(35));
-__export(__webpack_require__(36));
-__export(__webpack_require__(37));
-__export(__webpack_require__(38));
+var requestType_1 = __webpack_require__(79);
+exports.RequestType = requestType_1.RequestType;
+var SPTypes = __webpack_require__(80);
+exports.SPTypes = SPTypes;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -91,11 +82,19 @@ __export(__webpack_require__(38));
 
 "use strict";
 
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-var requestType_1 = __webpack_require__(8);
-exports.RequestType = requestType_1.RequestType;
-var SPTypes = __webpack_require__(9);
-exports.SPTypes = SPTypes;
+__export(__webpack_require__(77));
+__export(__webpack_require__(99));
+__export(__webpack_require__(100));
+__export(__webpack_require__(101));
+__export(__webpack_require__(102));
+__export(__webpack_require__(103));
+__export(__webpack_require__(104));
+__export(__webpack_require__(105));
+__export(__webpack_require__(106));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -108,38 +107,685 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(28));
-__export(__webpack_require__(3));
-__export(__webpack_require__(48));
-__export(__webpack_require__(49));
-__export(__webpack_require__(50));
-__export(__webpack_require__(51));
-__export(__webpack_require__(52));
-__export(__webpack_require__(53));
-__export(__webpack_require__(54));
-__export(__webpack_require__(55));
-__export(__webpack_require__(56));
-__export(__webpack_require__(57));
-__export(__webpack_require__(58));
-__export(__webpack_require__(5));
+__export(__webpack_require__(76));
+__export(__webpack_require__(107));
+__export(__webpack_require__(108));
+__export(__webpack_require__(109));
+__export(__webpack_require__(110));
+__export(__webpack_require__(111));
+__export(__webpack_require__(112));
+__export(__webpack_require__(113));
+__export(__webpack_require__(114));
+__export(__webpack_require__(115));
+__export(__webpack_require__(116));
+__export(__webpack_require__(117));
+__export(__webpack_require__(39));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var store = __webpack_require__(25)('wks');
+var uid = __webpack_require__(18);
+var Symbol = __webpack_require__(4).Symbol;
+var USE_SYMBOL = typeof Symbol == 'function';
+
+var $exports = module.exports = function (name) {
+  return store[name] || (store[name] =
+    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
+};
+
+$exports.store = store;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self
+  // eslint-disable-next-line no-new-func
+  : Function('return this')();
+if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(8);
+module.exports = function (it) {
+  if (!isObject(it)) throw TypeError(it + ' is not an object!');
+  return it;
+};
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP = __webpack_require__(14);
+var createDesc = __webpack_require__(27);
+module.exports = __webpack_require__(9) ? function (object, key, value) {
+  return dP.f(object, key, createDesc(1, value));
+} : function (object, key, value) {
+  object[key] = value;
+  return object;
+};
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(4);
+var hide = __webpack_require__(6);
+var has = __webpack_require__(10);
+var SRC = __webpack_require__(18)('src');
+var TO_STRING = 'toString';
+var $toString = Function[TO_STRING];
+var TPL = ('' + $toString).split(TO_STRING);
+
+__webpack_require__(11).inspectSource = function (it) {
+  return $toString.call(it);
+};
+
+(module.exports = function (O, key, val, safe) {
+  var isFunction = typeof val == 'function';
+  if (isFunction) has(val, 'name') || hide(val, 'name', key);
+  if (O[key] === val) return;
+  if (isFunction) has(val, SRC) || hide(val, SRC, O[key] ? '' + O[key] : TPL.join(String(key)));
+  if (O === global) {
+    O[key] = val;
+  } else if (!safe) {
+    delete O[key];
+    hide(O, key, val);
+  } else if (O[key]) {
+    O[key] = val;
+  } else {
+    hide(O, key, val);
+  }
+// add fake Function#toString for correct work wrapped methods / constructors with methods like LoDash isNative
+})(Function.prototype, TO_STRING, function toString() {
+  return typeof this == 'function' && this[SRC] || $toString.call(this);
+});
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// Thank's IE8 for his funny defineProperty
+module.exports = !__webpack_require__(26)(function () {
+  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
+};
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports) {
+
+var core = module.exports = { version: '2.5.3' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports) {
+
+module.exports = {};
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+var toString = {}.toString;
+
+module.exports = function (it) {
+  return toString.call(it).slice(8, -1);
+};
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(5);
+var IE8_DOM_DEFINE = __webpack_require__(44);
+var toPrimitive = __webpack_require__(45);
+var dP = Object.defineProperty;
+
+exports.f = __webpack_require__(9) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if (IE8_DOM_DEFINE) try {
+    return dP(O, P, Attributes);
+  } catch (e) { /* empty */ }
+  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
+  if ('value' in Attributes) O[P] = Attributes.value;
+  return O;
+};
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// optional / simple context binding
+var aFunction = __webpack_require__(16);
+module.exports = function (fn, that, length) {
+  aFunction(fn);
+  if (that === undefined) return fn;
+  switch (length) {
+    case 1: return function (a) {
+      return fn.call(that, a);
+    };
+    case 2: return function (a, b) {
+      return fn.call(that, a, b);
+    };
+    case 3: return function (a, b, c) {
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function (/* ...args */) {
+    return fn.apply(that, arguments);
+  };
+};
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports) {
+
+module.exports = function (it) {
+  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
+  return it;
+};
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = __webpack_require__(13);
+var TAG = __webpack_require__(3)('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports) {
+
+var id = 0;
+var px = Math.random();
+module.exports = function (key) {
+  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+};
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(8);
+var document = __webpack_require__(4).document;
+// typeof document.createElement is 'object' in old IE
+var is = isObject(document) && isObject(document.createElement);
+module.exports = function (it) {
+  return is ? document.createElement(it) : {};
+};
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports) {
+
+// 7.1.4 ToInteger
+var ceil = Math.ceil;
+var floor = Math.floor;
+module.exports = function (it) {
+  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+};
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+// 7.2.1 RequireObjectCoercible(argument)
+module.exports = function (it) {
+  if (it == undefined) throw TypeError("Can't call method on  " + it);
+  return it;
+};
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+var IObject = __webpack_require__(52);
+var defined = __webpack_require__(21);
+module.exports = function (it) {
+  return IObject(defined(it));
+};
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var shared = __webpack_require__(25)('keys');
+var uid = __webpack_require__(18);
+module.exports = function (key) {
+  return shared[key] || (shared[key] = uid(key));
+};
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var def = __webpack_require__(14).f;
+var has = __webpack_require__(10);
+var TAG = __webpack_require__(3)('toStringTag');
+
+module.exports = function (it, tag, stat) {
+  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
+};
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(4);
+var SHARED = '__core-js_shared__';
+var store = global[SHARED] || (global[SHARED] = {});
+module.exports = function (key) {
+  return store[key] || (store[key] = {});
+};
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports) {
+
+module.exports = function (exec) {
+  try {
+    return !!exec();
+  } catch (e) {
+    return true;
+  }
+};
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports) {
+
+module.exports = function (bitmap, value) {
+  return {
+    enumerable: !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable: !(bitmap & 4),
+    value: value
+  };
+};
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var LIBRARY = __webpack_require__(29);
+var $export = __webpack_require__(30);
+var redefine = __webpack_require__(7);
+var hide = __webpack_require__(6);
+var has = __webpack_require__(10);
+var Iterators = __webpack_require__(12);
+var $iterCreate = __webpack_require__(48);
+var setToStringTag = __webpack_require__(24);
+var getPrototypeOf = __webpack_require__(55);
+var ITERATOR = __webpack_require__(3)('iterator');
+var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
+var FF_ITERATOR = '@@iterator';
+var KEYS = 'keys';
+var VALUES = 'values';
+
+var returnThis = function () { return this; };
+
+module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
+  $iterCreate(Constructor, NAME, next);
+  var getMethod = function (kind) {
+    if (!BUGGY && kind in proto) return proto[kind];
+    switch (kind) {
+      case KEYS: return function keys() { return new Constructor(this, kind); };
+      case VALUES: return function values() { return new Constructor(this, kind); };
+    } return function entries() { return new Constructor(this, kind); };
+  };
+  var TAG = NAME + ' Iterator';
+  var DEF_VALUES = DEFAULT == VALUES;
+  var VALUES_BUG = false;
+  var proto = Base.prototype;
+  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
+  var $default = (!BUGGY && $native) || getMethod(DEFAULT);
+  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
+  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
+  var methods, key, IteratorPrototype;
+  // Fix native
+  if ($anyNative) {
+    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
+    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
+      // Set @@toStringTag to native iterators
+      setToStringTag(IteratorPrototype, TAG, true);
+      // fix for some old engines
+      if (!LIBRARY && !has(IteratorPrototype, ITERATOR)) hide(IteratorPrototype, ITERATOR, returnThis);
+    }
+  }
+  // fix Array#{values, @@iterator}.name in V8 / FF
+  if (DEF_VALUES && $native && $native.name !== VALUES) {
+    VALUES_BUG = true;
+    $default = function values() { return $native.call(this); };
+  }
+  // Define iterator
+  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
+    hide(proto, ITERATOR, $default);
+  }
+  // Plug for library
+  Iterators[NAME] = $default;
+  Iterators[TAG] = returnThis;
+  if (DEFAULT) {
+    methods = {
+      values: DEF_VALUES ? $default : getMethod(VALUES),
+      keys: IS_SET ? $default : getMethod(KEYS),
+      entries: $entries
+    };
+    if (FORCED) for (key in methods) {
+      if (!(key in proto)) redefine(proto, key, methods[key]);
+    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
+  }
+  return methods;
+};
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
+
+module.exports = false;
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(4);
+var core = __webpack_require__(11);
+var hide = __webpack_require__(6);
+var redefine = __webpack_require__(7);
+var ctx = __webpack_require__(15);
+var PROTOTYPE = 'prototype';
+
+var $export = function (type, name, source) {
+  var IS_FORCED = type & $export.F;
+  var IS_GLOBAL = type & $export.G;
+  var IS_STATIC = type & $export.S;
+  var IS_PROTO = type & $export.P;
+  var IS_BIND = type & $export.B;
+  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] || (global[name] = {}) : (global[name] || {})[PROTOTYPE];
+  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
+  var expProto = exports[PROTOTYPE] || (exports[PROTOTYPE] = {});
+  var key, own, out, exp;
+  if (IS_GLOBAL) source = name;
+  for (key in source) {
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    // export native or passed
+    out = (own ? target : source)[key];
+    // bind timers to global for call from export context
+    exp = IS_BIND && own ? ctx(out, global) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // extend global
+    if (target) redefine(target, key, out, type & $export.U);
+    // export
+    if (exports[key] != out) hide(exports, key, exp);
+    if (IS_PROTO && expProto[key] != out) expProto[key] = out;
+  }
+};
+global.core = core;
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library`
+module.exports = $export;
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+var $keys = __webpack_require__(51);
+var enumBugKeys = __webpack_require__(33);
+
+module.exports = Object.keys || function keys(O) {
+  return $keys(O, enumBugKeys);
+};
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.15 ToLength
+var toInteger = __webpack_require__(20);
+var min = Math.min;
+module.exports = function (it) {
+  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+};
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports) {
+
+// IE 8- don't enum bug keys
+module.exports = (
+  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+).split(',');
+
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var document = __webpack_require__(4).document;
+module.exports = document && document.documentElement;
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ctx = __webpack_require__(15);
+var invoke = __webpack_require__(68);
+var html = __webpack_require__(34);
+var cel = __webpack_require__(19);
+var global = __webpack_require__(4);
+var process = global.process;
+var setTask = global.setImmediate;
+var clearTask = global.clearImmediate;
+var MessageChannel = global.MessageChannel;
+var Dispatch = global.Dispatch;
+var counter = 0;
+var queue = {};
+var ONREADYSTATECHANGE = 'onreadystatechange';
+var defer, channel, port;
+var run = function () {
+  var id = +this;
+  // eslint-disable-next-line no-prototype-builtins
+  if (queue.hasOwnProperty(id)) {
+    var fn = queue[id];
+    delete queue[id];
+    fn();
+  }
+};
+var listener = function (event) {
+  run.call(event.data);
+};
+// Node.js 0.9+ & IE10+ has setImmediate, otherwise:
+if (!setTask || !clearTask) {
+  setTask = function setImmediate(fn) {
+    var args = [];
+    var i = 1;
+    while (arguments.length > i) args.push(arguments[i++]);
+    queue[++counter] = function () {
+      // eslint-disable-next-line no-new-func
+      invoke(typeof fn == 'function' ? fn : Function(fn), args);
+    };
+    defer(counter);
+    return counter;
+  };
+  clearTask = function clearImmediate(id) {
+    delete queue[id];
+  };
+  // Node.js 0.8-
+  if (__webpack_require__(13)(process) == 'process') {
+    defer = function (id) {
+      process.nextTick(ctx(run, id, 1));
+    };
+  // Sphere (JS game engine) Dispatch API
+  } else if (Dispatch && Dispatch.now) {
+    defer = function (id) {
+      Dispatch.now(ctx(run, id, 1));
+    };
+  // Browsers with MessageChannel, includes WebWorkers
+  } else if (MessageChannel) {
+    channel = new MessageChannel();
+    port = channel.port2;
+    channel.port1.onmessage = listener;
+    defer = ctx(port.postMessage, port, 1);
+  // Browsers with postMessage, skip WebWorkers
+  // IE8 has postMessage, but it's sync & typeof its postMessage is 'object'
+  } else if (global.addEventListener && typeof postMessage == 'function' && !global.importScripts) {
+    defer = function (id) {
+      global.postMessage(id + '', '*');
+    };
+    global.addEventListener('message', listener, false);
+  // IE8-
+  } else if (ONREADYSTATECHANGE in cel('script')) {
+    defer = function (id) {
+      html.appendChild(cel('script'))[ONREADYSTATECHANGE] = function () {
+        html.removeChild(this);
+        run.call(id);
+      };
+    };
+  // Rest old browsers
+  } else {
+    defer = function (id) {
+      setTimeout(ctx(run, id, 1), 0);
+    };
+  }
+}
+module.exports = {
+  set: setTask,
+  clear: clearTask
+};
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 25.4.1.5 NewPromiseCapability(C)
+var aFunction = __webpack_require__(16);
+
+function PromiseCapability(C) {
+  var resolve, reject;
+  this.promise = new C(function ($$resolve, $$reject) {
+    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
+    resolve = $$resolve;
+    reject = $$reject;
+  });
+  this.resolve = aFunction(resolve);
+  this.reject = aFunction(reject);
+}
+
+module.exports.f = function (C) {
+  return new PromiseCapability(C);
+};
+
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = __webpack_require__(39);
-var dependencies_1 = __webpack_require__(40);
-var field_1 = __webpack_require__(41);
-var jslink_1 = __webpack_require__(42);
-var loader_1 = __webpack_require__(43);
-var parse_1 = __webpack_require__(44);
-var spCfg_1 = __webpack_require__(45);
-var types_1 = __webpack_require__(46);
-var webpart_1 = __webpack_require__(47);
+var app_1 = __webpack_require__(75);
+var dependencies_1 = __webpack_require__(118);
+var field_1 = __webpack_require__(119);
+var jslink_1 = __webpack_require__(120);
+var listForm_1 = __webpack_require__(121);
+var listFormField_1 = __webpack_require__(122);
+var loader_1 = __webpack_require__(123);
+var parse_1 = __webpack_require__(124);
+var spCfg_1 = __webpack_require__(125);
+var types_1 = __webpack_require__(40);
+var webpart_1 = __webpack_require__(126);
 ;
 /**
  * Helper Methods
@@ -149,6 +795,8 @@ exports.Helper = {
     Dependencies: dependencies_1.Dependencies,
     FieldSchemaXML: field_1.FieldSchemaXML,
     JSLink: jslink_1.JSLinkHelper,
+    ListForm: listForm_1.ListForm,
+    ListFormField: listFormField_1.ListFormField,
     Loader: loader_1.Loader,
     parse: parse_1.parse,
     SPConfig: spCfg_1.SPConfig,
@@ -158,7 +806,7 @@ exports.Helper = {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 4 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -167,18 +815,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Mapper
  */
-var mapper_1 = __webpack_require__(7);
-var mapper_2 = __webpack_require__(10);
-var mapper_3 = __webpack_require__(11);
-var mapper_4 = __webpack_require__(12);
-var mapper_5 = __webpack_require__(13);
-var mapper_6 = __webpack_require__(14);
-var mapper_7 = __webpack_require__(15);
-var mapper_8 = __webpack_require__(16);
-var mapper_9 = __webpack_require__(17);
-var mapper_10 = __webpack_require__(18);
-var mapper_11 = __webpack_require__(19);
-var mapper_12 = __webpack_require__(20);
+var mapper_1 = __webpack_require__(78);
+var mapper_2 = __webpack_require__(81);
+var mapper_3 = __webpack_require__(82);
+var mapper_4 = __webpack_require__(83);
+var mapper_5 = __webpack_require__(84);
+var mapper_6 = __webpack_require__(85);
+var mapper_7 = __webpack_require__(86);
+var mapper_8 = __webpack_require__(87);
+var mapper_9 = __webpack_require__(88);
+var mapper_10 = __webpack_require__(89);
+var mapper_11 = __webpack_require__(90);
+var mapper_12 = __webpack_require__(91);
 exports.Mapper = {
     attachment: mapper_3.attachment, attachmentfiles: mapper_3.attachmentfiles,
     audit: mapper_1.audit,
@@ -216,12 +864,12 @@ exports.Mapper = {
 /**
  * Types
  */
-var Types = __webpack_require__(21);
+var Types = __webpack_require__(92);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 5 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -237,7 +885,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // Web
 /*********************************************************************************************************************************/
@@ -268,7 +916,51 @@ exports.Web = _Web;
 //# sourceMappingURL=web.js.map
 
 /***/ }),
-/* 6 */
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * SharePoint Configuration Field Types
+ */
+var SPCfgFieldType = {
+    Boolean: 0,
+    Calculated: 1,
+    Choice: 2,
+    Date: 3,
+    Lookup: 4,
+    MMS: 5,
+    Note: 6,
+    Number: 7,
+    Text: 8,
+    Url: 9,
+    User: 10
+};
+/**
+ * SharePoint Configuration Types
+ * The value determines the order to install the object type.
+ */
+var SPCfgType = {
+    Fields: 0,
+    ContentTypes: 1,
+    Lists: 2,
+    SiteUserCustomActions: 3,
+    WebParts: 5,
+    WebUserCustomActions: 4
+};
+/**
+ * Helper Types
+ */
+exports.HelperTypes = {
+    SPCfgFieldType: SPCfgFieldType,
+    SPCfgType: SPCfgType
+};
+//# sourceMappingURL=types.js.map
+
+/***/ }),
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -300,14 +992,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-var mapper_1 = __webpack_require__(4);
+__webpack_require__(42);
+var helper_1 = __webpack_require__(37);
+exports.Helper = helper_1.Helper;
+var mapper_1 = __webpack_require__(38);
 exports.Types = mapper_1.Types;
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 exports.RequestType = types_1.RequestType;
 exports.SPTypes = types_1.SPTypes;
 var lib_1 = __webpack_require__(2);
 exports.ContextInfo = lib_1.ContextInfo;
-exports.Helper = lib_1.Helper;
 exports.JSLink = lib_1.JSLink;
 exports.List = lib_1.List;
 exports.Navigation = lib_1.Navigation;
@@ -324,10 +1018,10 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.64,
+    __ver: 2.66,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
-    Helper: lib_1.Helper,
+    Helper: helper_1.Helper,
     JSLink: lib_1.JSLink,
     List: function (listName, targetInfo) { return new lib_1.List(listName, targetInfo); },
     Navigation: function (url, targetInfo) { return new lib_1.Navigation(url, targetInfo); },
@@ -351,13 +1045,1875 @@ if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver
 //# sourceMappingURL=gd-sprest.js.map
 
 /***/ }),
-/* 7 */
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(43);
+__webpack_require__(46);
+__webpack_require__(57);
+__webpack_require__(61);
+module.exports = __webpack_require__(11).Promise;
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 19.1.3.6 Object.prototype.toString()
+var classof = __webpack_require__(17);
+var test = {};
+test[__webpack_require__(3)('toStringTag')] = 'z';
+if (test + '' != '[object z]') {
+  __webpack_require__(7)(Object.prototype, 'toString', function toString() {
+    return '[object ' + classof(this) + ']';
+  }, true);
+}
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = !__webpack_require__(9) && !__webpack_require__(26)(function () {
+  return Object.defineProperty(__webpack_require__(19)('div'), 'a', { get: function () { return 7; } }).a != 7;
+});
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.1 ToPrimitive(input [, PreferredType])
+var isObject = __webpack_require__(8);
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+// and the second argument - flag - preferred type is a string
+module.exports = function (it, S) {
+  if (!isObject(it)) return it;
+  var fn, val;
+  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
+  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
+  throw TypeError("Can't convert object to primitive value");
+};
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var $at = __webpack_require__(47)(true);
+
+// 21.1.3.27 String.prototype[@@iterator]()
+__webpack_require__(28)(String, 'String', function (iterated) {
+  this._t = String(iterated); // target
+  this._i = 0;                // next index
+// 21.1.5.2.1 %StringIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var index = this._i;
+  var point;
+  if (index >= O.length) return { value: undefined, done: true };
+  point = $at(O, index);
+  this._i += point.length;
+  return { value: point, done: false };
+});
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(20);
+var defined = __webpack_require__(21);
+// true  -> String#at
+// false -> String#codePointAt
+module.exports = function (TO_STRING) {
+  return function (that, pos) {
+    var s = String(defined(that));
+    var i = toInteger(pos);
+    var l = s.length;
+    var a, b;
+    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
+    a = s.charCodeAt(i);
+    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
+      ? TO_STRING ? s.charAt(i) : a
+      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
+  };
+};
+
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var create = __webpack_require__(49);
+var descriptor = __webpack_require__(27);
+var setToStringTag = __webpack_require__(24);
+var IteratorPrototype = {};
+
+// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
+__webpack_require__(6)(IteratorPrototype, __webpack_require__(3)('iterator'), function () { return this; });
+
+module.exports = function (Constructor, NAME, next) {
+  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
+  setToStringTag(Constructor, NAME + ' Iterator');
+};
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
+var anObject = __webpack_require__(5);
+var dPs = __webpack_require__(50);
+var enumBugKeys = __webpack_require__(33);
+var IE_PROTO = __webpack_require__(23)('IE_PROTO');
+var Empty = function () { /* empty */ };
+var PROTOTYPE = 'prototype';
+
+// Create object with fake `null` prototype: use iframe Object with cleared prototype
+var createDict = function () {
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = __webpack_require__(19)('iframe');
+  var i = enumBugKeys.length;
+  var lt = '<';
+  var gt = '>';
+  var iframeDocument;
+  iframe.style.display = 'none';
+  __webpack_require__(34).appendChild(iframe);
+  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+  // createDict = iframe.contentWindow.Object;
+  // html.removeChild(iframe);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
+  iframeDocument.close();
+  createDict = iframeDocument.F;
+  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
+  return createDict();
+};
+
+module.exports = Object.create || function create(O, Properties) {
+  var result;
+  if (O !== null) {
+    Empty[PROTOTYPE] = anObject(O);
+    result = new Empty();
+    Empty[PROTOTYPE] = null;
+    // add "__proto__" for Object.getPrototypeOf polyfill
+    result[IE_PROTO] = O;
+  } else result = createDict();
+  return Properties === undefined ? result : dPs(result, Properties);
+};
+
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var dP = __webpack_require__(14);
+var anObject = __webpack_require__(5);
+var getKeys = __webpack_require__(31);
+
+module.exports = __webpack_require__(9) ? Object.defineProperties : function defineProperties(O, Properties) {
+  anObject(O);
+  var keys = getKeys(Properties);
+  var length = keys.length;
+  var i = 0;
+  var P;
+  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
+  return O;
+};
+
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var has = __webpack_require__(10);
+var toIObject = __webpack_require__(22);
+var arrayIndexOf = __webpack_require__(53)(false);
+var IE_PROTO = __webpack_require__(23)('IE_PROTO');
+
+module.exports = function (object, names) {
+  var O = toIObject(object);
+  var i = 0;
+  var result = [];
+  var key;
+  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
+  // Don't enum bug & hidden keys
+  while (names.length > i) if (has(O, key = names[i++])) {
+    ~arrayIndexOf(result, key) || result.push(key);
+  }
+  return result;
+};
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = __webpack_require__(13);
+// eslint-disable-next-line no-prototype-builtins
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// false -> Array#indexOf
+// true  -> Array#includes
+var toIObject = __webpack_require__(22);
+var toLength = __webpack_require__(32);
+var toAbsoluteIndex = __webpack_require__(54);
+module.exports = function (IS_INCLUDES) {
+  return function ($this, el, fromIndex) {
+    var O = toIObject($this);
+    var length = toLength(O.length);
+    var index = toAbsoluteIndex(fromIndex, length);
+    var value;
+    // Array#includes uses SameValueZero equality algorithm
+    // eslint-disable-next-line no-self-compare
+    if (IS_INCLUDES && el != el) while (length > index) {
+      value = O[index++];
+      // eslint-disable-next-line no-self-compare
+      if (value != value) return true;
+    // Array#indexOf ignores holes, Array#includes - not
+    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
+      if (O[index] === el) return IS_INCLUDES || index || 0;
+    } return !IS_INCLUDES && -1;
+  };
+};
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toInteger = __webpack_require__(20);
+var max = Math.max;
+var min = Math.min;
+module.exports = function (index, length) {
+  index = toInteger(index);
+  return index < 0 ? max(index + length, 0) : min(index, length);
+};
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
+var has = __webpack_require__(10);
+var toObject = __webpack_require__(56);
+var IE_PROTO = __webpack_require__(23)('IE_PROTO');
+var ObjectProto = Object.prototype;
+
+module.exports = Object.getPrototypeOf || function (O) {
+  O = toObject(O);
+  if (has(O, IE_PROTO)) return O[IE_PROTO];
+  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
+    return O.constructor.prototype;
+  } return O instanceof Object ? ObjectProto : null;
+};
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.1.13 ToObject(argument)
+var defined = __webpack_require__(21);
+module.exports = function (it) {
+  return Object(defined(it));
+};
+
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $iterators = __webpack_require__(58);
+var getKeys = __webpack_require__(31);
+var redefine = __webpack_require__(7);
+var global = __webpack_require__(4);
+var hide = __webpack_require__(6);
+var Iterators = __webpack_require__(12);
+var wks = __webpack_require__(3);
+var ITERATOR = wks('iterator');
+var TO_STRING_TAG = wks('toStringTag');
+var ArrayValues = Iterators.Array;
+
+var DOMIterables = {
+  CSSRuleList: true, // TODO: Not spec compliant, should be false.
+  CSSStyleDeclaration: false,
+  CSSValueList: false,
+  ClientRectList: false,
+  DOMRectList: false,
+  DOMStringList: false,
+  DOMTokenList: true,
+  DataTransferItemList: false,
+  FileList: false,
+  HTMLAllCollection: false,
+  HTMLCollection: false,
+  HTMLFormElement: false,
+  HTMLSelectElement: false,
+  MediaList: true, // TODO: Not spec compliant, should be false.
+  MimeTypeArray: false,
+  NamedNodeMap: false,
+  NodeList: true,
+  PaintRequestList: false,
+  Plugin: false,
+  PluginArray: false,
+  SVGLengthList: false,
+  SVGNumberList: false,
+  SVGPathSegList: false,
+  SVGPointList: false,
+  SVGStringList: false,
+  SVGTransformList: false,
+  SourceBufferList: false,
+  StyleSheetList: true, // TODO: Not spec compliant, should be false.
+  TextTrackCueList: false,
+  TextTrackList: false,
+  TouchList: false
+};
+
+for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++) {
+  var NAME = collections[i];
+  var explicit = DOMIterables[NAME];
+  var Collection = global[NAME];
+  var proto = Collection && Collection.prototype;
+  var key;
+  if (proto) {
+    if (!proto[ITERATOR]) hide(proto, ITERATOR, ArrayValues);
+    if (!proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
+    Iterators[NAME] = ArrayValues;
+    if (explicit) for (key in $iterators) if (!proto[key]) redefine(proto, key, $iterators[key], true);
+  }
+}
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var addToUnscopables = __webpack_require__(59);
+var step = __webpack_require__(60);
+var Iterators = __webpack_require__(12);
+var toIObject = __webpack_require__(22);
+
+// 22.1.3.4 Array.prototype.entries()
+// 22.1.3.13 Array.prototype.keys()
+// 22.1.3.29 Array.prototype.values()
+// 22.1.3.30 Array.prototype[@@iterator]()
+module.exports = __webpack_require__(28)(Array, 'Array', function (iterated, kind) {
+  this._t = toIObject(iterated); // target
+  this._i = 0;                   // next index
+  this._k = kind;                // kind
+// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
+}, function () {
+  var O = this._t;
+  var kind = this._k;
+  var index = this._i++;
+  if (!O || index >= O.length) {
+    this._t = undefined;
+    return step(1);
+  }
+  if (kind == 'keys') return step(0, index);
+  if (kind == 'values') return step(0, O[index]);
+  return step(0, [index, O[index]]);
+}, 'values');
+
+// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
+Iterators.Arguments = Iterators.Array;
+
+addToUnscopables('keys');
+addToUnscopables('values');
+addToUnscopables('entries');
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 22.1.3.31 Array.prototype[@@unscopables]
+var UNSCOPABLES = __webpack_require__(3)('unscopables');
+var ArrayProto = Array.prototype;
+if (ArrayProto[UNSCOPABLES] == undefined) __webpack_require__(6)(ArrayProto, UNSCOPABLES, {});
+module.exports = function (key) {
+  ArrayProto[UNSCOPABLES][key] = true;
+};
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports) {
+
+module.exports = function (done, value) {
+  return { value: value, done: !!done };
+};
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var LIBRARY = __webpack_require__(29);
+var global = __webpack_require__(4);
+var ctx = __webpack_require__(15);
+var classof = __webpack_require__(17);
+var $export = __webpack_require__(30);
+var isObject = __webpack_require__(8);
+var aFunction = __webpack_require__(16);
+var anInstance = __webpack_require__(62);
+var forOf = __webpack_require__(63);
+var speciesConstructor = __webpack_require__(67);
+var task = __webpack_require__(35).set;
+var microtask = __webpack_require__(69)();
+var newPromiseCapabilityModule = __webpack_require__(36);
+var perform = __webpack_require__(70);
+var promiseResolve = __webpack_require__(71);
+var PROMISE = 'Promise';
+var TypeError = global.TypeError;
+var process = global.process;
+var $Promise = global[PROMISE];
+var isNode = classof(process) == 'process';
+var empty = function () { /* empty */ };
+var Internal, newGenericPromiseCapability, OwnPromiseCapability, Wrapper;
+var newPromiseCapability = newGenericPromiseCapability = newPromiseCapabilityModule.f;
+
+var USE_NATIVE = !!function () {
+  try {
+    // correct subclassing with @@species support
+    var promise = $Promise.resolve(1);
+    var FakePromise = (promise.constructor = {})[__webpack_require__(3)('species')] = function (exec) {
+      exec(empty, empty);
+    };
+    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
+    return (isNode || typeof PromiseRejectionEvent == 'function') && promise.then(empty) instanceof FakePromise;
+  } catch (e) { /* empty */ }
+}();
+
+// helpers
+var isThenable = function (it) {
+  var then;
+  return isObject(it) && typeof (then = it.then) == 'function' ? then : false;
+};
+var notify = function (promise, isReject) {
+  if (promise._n) return;
+  promise._n = true;
+  var chain = promise._c;
+  microtask(function () {
+    var value = promise._v;
+    var ok = promise._s == 1;
+    var i = 0;
+    var run = function (reaction) {
+      var handler = ok ? reaction.ok : reaction.fail;
+      var resolve = reaction.resolve;
+      var reject = reaction.reject;
+      var domain = reaction.domain;
+      var result, then;
+      try {
+        if (handler) {
+          if (!ok) {
+            if (promise._h == 2) onHandleUnhandled(promise);
+            promise._h = 1;
+          }
+          if (handler === true) result = value;
+          else {
+            if (domain) domain.enter();
+            result = handler(value);
+            if (domain) domain.exit();
+          }
+          if (result === reaction.promise) {
+            reject(TypeError('Promise-chain cycle'));
+          } else if (then = isThenable(result)) {
+            then.call(result, resolve, reject);
+          } else resolve(result);
+        } else reject(value);
+      } catch (e) {
+        reject(e);
+      }
+    };
+    while (chain.length > i) run(chain[i++]); // variable length - can't use forEach
+    promise._c = [];
+    promise._n = false;
+    if (isReject && !promise._h) onUnhandled(promise);
+  });
+};
+var onUnhandled = function (promise) {
+  task.call(global, function () {
+    var value = promise._v;
+    var unhandled = isUnhandled(promise);
+    var result, handler, console;
+    if (unhandled) {
+      result = perform(function () {
+        if (isNode) {
+          process.emit('unhandledRejection', value, promise);
+        } else if (handler = global.onunhandledrejection) {
+          handler({ promise: promise, reason: value });
+        } else if ((console = global.console) && console.error) {
+          console.error('Unhandled promise rejection', value);
+        }
+      });
+      // Browsers should not trigger `rejectionHandled` event if it was handled here, NodeJS - should
+      promise._h = isNode || isUnhandled(promise) ? 2 : 1;
+    } promise._a = undefined;
+    if (unhandled && result.e) throw result.v;
+  });
+};
+var isUnhandled = function (promise) {
+  return promise._h !== 1 && (promise._a || promise._c).length === 0;
+};
+var onHandleUnhandled = function (promise) {
+  task.call(global, function () {
+    var handler;
+    if (isNode) {
+      process.emit('rejectionHandled', promise);
+    } else if (handler = global.onrejectionhandled) {
+      handler({ promise: promise, reason: promise._v });
+    }
+  });
+};
+var $reject = function (value) {
+  var promise = this;
+  if (promise._d) return;
+  promise._d = true;
+  promise = promise._w || promise; // unwrap
+  promise._v = value;
+  promise._s = 2;
+  if (!promise._a) promise._a = promise._c.slice();
+  notify(promise, true);
+};
+var $resolve = function (value) {
+  var promise = this;
+  var then;
+  if (promise._d) return;
+  promise._d = true;
+  promise = promise._w || promise; // unwrap
+  try {
+    if (promise === value) throw TypeError("Promise can't be resolved itself");
+    if (then = isThenable(value)) {
+      microtask(function () {
+        var wrapper = { _w: promise, _d: false }; // wrap
+        try {
+          then.call(value, ctx($resolve, wrapper, 1), ctx($reject, wrapper, 1));
+        } catch (e) {
+          $reject.call(wrapper, e);
+        }
+      });
+    } else {
+      promise._v = value;
+      promise._s = 1;
+      notify(promise, false);
+    }
+  } catch (e) {
+    $reject.call({ _w: promise, _d: false }, e); // wrap
+  }
+};
+
+// constructor polyfill
+if (!USE_NATIVE) {
+  // 25.4.3.1 Promise(executor)
+  $Promise = function Promise(executor) {
+    anInstance(this, $Promise, PROMISE, '_h');
+    aFunction(executor);
+    Internal.call(this);
+    try {
+      executor(ctx($resolve, this, 1), ctx($reject, this, 1));
+    } catch (err) {
+      $reject.call(this, err);
+    }
+  };
+  // eslint-disable-next-line no-unused-vars
+  Internal = function Promise(executor) {
+    this._c = [];             // <- awaiting reactions
+    this._a = undefined;      // <- checked in isUnhandled reactions
+    this._s = 0;              // <- state
+    this._d = false;          // <- done
+    this._v = undefined;      // <- value
+    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
+    this._n = false;          // <- notify
+  };
+  Internal.prototype = __webpack_require__(72)($Promise.prototype, {
+    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
+    then: function then(onFulfilled, onRejected) {
+      var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
+      reaction.ok = typeof onFulfilled == 'function' ? onFulfilled : true;
+      reaction.fail = typeof onRejected == 'function' && onRejected;
+      reaction.domain = isNode ? process.domain : undefined;
+      this._c.push(reaction);
+      if (this._a) this._a.push(reaction);
+      if (this._s) notify(this, false);
+      return reaction.promise;
+    },
+    // 25.4.5.1 Promise.prototype.catch(onRejected)
+    'catch': function (onRejected) {
+      return this.then(undefined, onRejected);
+    }
+  });
+  OwnPromiseCapability = function () {
+    var promise = new Internal();
+    this.promise = promise;
+    this.resolve = ctx($resolve, promise, 1);
+    this.reject = ctx($reject, promise, 1);
+  };
+  newPromiseCapabilityModule.f = newPromiseCapability = function (C) {
+    return C === $Promise || C === Wrapper
+      ? new OwnPromiseCapability(C)
+      : newGenericPromiseCapability(C);
+  };
+}
+
+$export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
+__webpack_require__(24)($Promise, PROMISE);
+__webpack_require__(73)(PROMISE);
+Wrapper = __webpack_require__(11)[PROMISE];
+
+// statics
+$export($export.S + $export.F * !USE_NATIVE, PROMISE, {
+  // 25.4.4.5 Promise.reject(r)
+  reject: function reject(r) {
+    var capability = newPromiseCapability(this);
+    var $$reject = capability.reject;
+    $$reject(r);
+    return capability.promise;
+  }
+});
+$export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
+  // 25.4.4.6 Promise.resolve(x)
+  resolve: function resolve(x) {
+    return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
+  }
+});
+$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(74)(function (iter) {
+  $Promise.all(iter)['catch'](empty);
+})), PROMISE, {
+  // 25.4.4.1 Promise.all(iterable)
+  all: function all(iterable) {
+    var C = this;
+    var capability = newPromiseCapability(C);
+    var resolve = capability.resolve;
+    var reject = capability.reject;
+    var result = perform(function () {
+      var values = [];
+      var index = 0;
+      var remaining = 1;
+      forOf(iterable, false, function (promise) {
+        var $index = index++;
+        var alreadyCalled = false;
+        values.push(undefined);
+        remaining++;
+        C.resolve(promise).then(function (value) {
+          if (alreadyCalled) return;
+          alreadyCalled = true;
+          values[$index] = value;
+          --remaining || resolve(values);
+        }, reject);
+      });
+      --remaining || resolve(values);
+    });
+    if (result.e) reject(result.v);
+    return capability.promise;
+  },
+  // 25.4.4.4 Promise.race(iterable)
+  race: function race(iterable) {
+    var C = this;
+    var capability = newPromiseCapability(C);
+    var reject = capability.reject;
+    var result = perform(function () {
+      forOf(iterable, false, function (promise) {
+        C.resolve(promise).then(capability.resolve, reject);
+      });
+    });
+    if (result.e) reject(result.v);
+    return capability.promise;
+  }
+});
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports) {
+
+module.exports = function (it, Constructor, name, forbiddenField) {
+  if (!(it instanceof Constructor) || (forbiddenField !== undefined && forbiddenField in it)) {
+    throw TypeError(name + ': incorrect invocation!');
+  } return it;
+};
+
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ctx = __webpack_require__(15);
+var call = __webpack_require__(64);
+var isArrayIter = __webpack_require__(65);
+var anObject = __webpack_require__(5);
+var toLength = __webpack_require__(32);
+var getIterFn = __webpack_require__(66);
+var BREAK = {};
+var RETURN = {};
+var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
+  var iterFn = ITERATOR ? function () { return iterable; } : getIterFn(iterable);
+  var f = ctx(fn, that, entries ? 2 : 1);
+  var index = 0;
+  var length, step, iterator, result;
+  if (typeof iterFn != 'function') throw TypeError(iterable + ' is not iterable!');
+  // fast case for arrays with default iterator
+  if (isArrayIter(iterFn)) for (length = toLength(iterable.length); length > index; index++) {
+    result = entries ? f(anObject(step = iterable[index])[0], step[1]) : f(iterable[index]);
+    if (result === BREAK || result === RETURN) return result;
+  } else for (iterator = iterFn.call(iterable); !(step = iterator.next()).done;) {
+    result = call(iterator, f, step.value, entries);
+    if (result === BREAK || result === RETURN) return result;
+  }
+};
+exports.BREAK = BREAK;
+exports.RETURN = RETURN;
+
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// call something on iterator step with safe closing on error
+var anObject = __webpack_require__(5);
+module.exports = function (iterator, fn, value, entries) {
+  try {
+    return entries ? fn(anObject(value)[0], value[1]) : fn(value);
+  // 7.4.6 IteratorClose(iterator, completion)
+  } catch (e) {
+    var ret = iterator['return'];
+    if (ret !== undefined) anObject(ret.call(iterator));
+    throw e;
+  }
+};
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// check on default Array iterator
+var Iterators = __webpack_require__(12);
+var ITERATOR = __webpack_require__(3)('iterator');
+var ArrayProto = Array.prototype;
+
+module.exports = function (it) {
+  return it !== undefined && (Iterators.Array === it || ArrayProto[ITERATOR] === it);
+};
+
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var classof = __webpack_require__(17);
+var ITERATOR = __webpack_require__(3)('iterator');
+var Iterators = __webpack_require__(12);
+module.exports = __webpack_require__(11).getIteratorMethod = function (it) {
+  if (it != undefined) return it[ITERATOR]
+    || it['@@iterator']
+    || Iterators[classof(it)];
+};
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 7.3.20 SpeciesConstructor(O, defaultConstructor)
+var anObject = __webpack_require__(5);
+var aFunction = __webpack_require__(16);
+var SPECIES = __webpack_require__(3)('species');
+module.exports = function (O, D) {
+  var C = anObject(O).constructor;
+  var S;
+  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
+};
+
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports) {
+
+// fast apply, http://jsperf.lnkit.com/fast-apply/5
+module.exports = function (fn, args, that) {
+  var un = that === undefined;
+  switch (args.length) {
+    case 0: return un ? fn()
+                      : fn.call(that);
+    case 1: return un ? fn(args[0])
+                      : fn.call(that, args[0]);
+    case 2: return un ? fn(args[0], args[1])
+                      : fn.call(that, args[0], args[1]);
+    case 3: return un ? fn(args[0], args[1], args[2])
+                      : fn.call(that, args[0], args[1], args[2]);
+    case 4: return un ? fn(args[0], args[1], args[2], args[3])
+                      : fn.call(that, args[0], args[1], args[2], args[3]);
+  } return fn.apply(that, args);
+};
+
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(4);
+var macrotask = __webpack_require__(35).set;
+var Observer = global.MutationObserver || global.WebKitMutationObserver;
+var process = global.process;
+var Promise = global.Promise;
+var isNode = __webpack_require__(13)(process) == 'process';
+
+module.exports = function () {
+  var head, last, notify;
+
+  var flush = function () {
+    var parent, fn;
+    if (isNode && (parent = process.domain)) parent.exit();
+    while (head) {
+      fn = head.fn;
+      head = head.next;
+      try {
+        fn();
+      } catch (e) {
+        if (head) notify();
+        else last = undefined;
+        throw e;
+      }
+    } last = undefined;
+    if (parent) parent.enter();
+  };
+
+  // Node.js
+  if (isNode) {
+    notify = function () {
+      process.nextTick(flush);
+    };
+  // browsers with MutationObserver, except iOS Safari - https://github.com/zloirock/core-js/issues/339
+  } else if (Observer && !(global.navigator && global.navigator.standalone)) {
+    var toggle = true;
+    var node = document.createTextNode('');
+    new Observer(flush).observe(node, { characterData: true }); // eslint-disable-line no-new
+    notify = function () {
+      node.data = toggle = !toggle;
+    };
+  // environments with maybe non-completely correct, but existent Promise
+  } else if (Promise && Promise.resolve) {
+    var promise = Promise.resolve();
+    notify = function () {
+      promise.then(flush);
+    };
+  // for other environments - macrotask based on:
+  // - setImmediate
+  // - MessageChannel
+  // - window.postMessag
+  // - onreadystatechange
+  // - setTimeout
+  } else {
+    notify = function () {
+      // strange IE + webpack dev server bug - use .call(global)
+      macrotask.call(global, flush);
+    };
+  }
+
+  return function (fn) {
+    var task = { fn: fn, next: undefined };
+    if (last) last.next = task;
+    if (!head) {
+      head = task;
+      notify();
+    } last = task;
+  };
+};
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports) {
+
+module.exports = function (exec) {
+  try {
+    return { e: false, v: exec() };
+  } catch (e) {
+    return { e: true, v: e };
+  }
+};
+
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var anObject = __webpack_require__(5);
+var isObject = __webpack_require__(8);
+var newPromiseCapability = __webpack_require__(36);
+
+module.exports = function (C, x) {
+  anObject(C);
+  if (isObject(x) && x.constructor === C) return x;
+  var promiseCapability = newPromiseCapability.f(C);
+  var resolve = promiseCapability.resolve;
+  resolve(x);
+  return promiseCapability.promise;
+};
+
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var redefine = __webpack_require__(7);
+module.exports = function (target, src, safe) {
+  for (var key in src) redefine(target, key, src[key], safe);
+  return target;
+};
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var global = __webpack_require__(4);
+var dP = __webpack_require__(14);
+var DESCRIPTORS = __webpack_require__(9);
+var SPECIES = __webpack_require__(3)('species');
+
+module.exports = function (KEY) {
+  var C = global[KEY];
+  if (DESCRIPTORS && C && !C[SPECIES]) dP.f(C, SPECIES, {
+    configurable: true,
+    get: function () { return this; }
+  });
+};
+
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var ITERATOR = __webpack_require__(3)('iterator');
+var SAFE_CLOSING = false;
+
+try {
+  var riter = [7][ITERATOR]();
+  riter['return'] = function () { SAFE_CLOSING = true; };
+  // eslint-disable-next-line no-throw-literal
+  Array.from(riter, function () { throw 2; });
+} catch (e) { /* empty */ }
+
+module.exports = function (exec, skipClosing) {
+  if (!skipClosing && !SAFE_CLOSING) return false;
+  var safe = false;
+  try {
+    var arr = [7];
+    var iter = arr[ITERATOR]();
+    iter.next = function () { return { done: safe = true }; };
+    arr[ITERATOR] = function () { return iter; };
+    exec(arr);
+  } catch (e) { /* empty */ }
+  return safe;
+};
+
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
+/*********************************************************************************************************************************/
+// App Helper Methods
+/*********************************************************************************************************************************/
+exports.AppHelper = {
+    // Method to copy a file in this app web to the host web
+    copyFileToHostWeb: function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
+        var srcFile = null;
+        var origVal = lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl;
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Ensure the current web is an app web
+            if (!lib_1.ContextInfo.isAppWeb) {
+                // Error
+                console.error("[gd-sprest] The current web is not an app web.");
+                reject();
+                return;
+            }
+            // Get the host web
+            lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
+            var web = (new lib_1.Web(rootWebFl ? lib_1.ContextInfo.siteServerRelativeUrl : null));
+            // See if the folder url was given
+            if (typeof (dstFolder) === "string") {
+                // Get the folder
+                _this.getFolder(web, dstFolder, true)
+                    .done(function (folder) {
+                    // Copy the file to the host web
+                    _this.copyFileToHostWeb(fileUrl, folder, overwriteFl)
+                        .done(function (file, folder) { resolve({ file: file, folder: folder }); });
+                });
+            }
+            else {
+                // Get the file name
+                var fileName = fileUrl.split("/");
+                fileName = fileName[fileName.length - 1];
+                // Set the file urls
+                var dstFileUrl = lib_1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
+                var srcFileUrl_1 = lib_1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(lib_1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
+                // Get the destination file
+                web.getFileByServerRelativeUrl(dstFileUrl)
+                    .execute(function (file) {
+                    // Return a promise
+                    return new Promise(function (resolve, reject) {
+                        // See if the file exists
+                        if (file.Exists) {
+                            // Check out the file, and resolve the promise
+                            file.checkout().execute(resolve);
+                        }
+                        else {
+                            // Resolve the promise
+                            resolve();
+                        }
+                    });
+                });
+                // Target the current web
+                lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl = false;
+                // Get the current web
+                (new lib_1.Web())
+                    .getFileByServerRelativeUrl(srcFileUrl_1)
+                    .content()
+                    .execute(function (content) {
+                    // Return a promise
+                    return new Promise(function (resolve, reject) {
+                        // Get the file name
+                        var fileName = srcFileUrl_1.split("/");
+                        fileName = fileName[fileName.length - 1];
+                        // Target the host web
+                        lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
+                        // Add the file to the folder
+                        (dstFolder).Files().add(true, fileName, content)
+                            .execute(function (file) {
+                            // Save a reference to this file
+                            srcFile = file;
+                            // Check in the file
+                            file.checkin("", 1).execute();
+                            // Publish the file
+                            file.publish("").execute(true);
+                            // Wait for the requests to complete
+                            file.done(function () {
+                                // Resolve the promise
+                                resolve();
+                            });
+                        });
+                    });
+                }, true);
+                // Wait for the requests to complete, and resolve the promise
+                web.done(function () { resolve({ file: srcFile, folder: dstFolder }); });
+            }
+        });
+    },
+    // Method to copy a file in this app web to the host web
+    copyFilesToHostWeb: function (fileUrls, folderUrls, overwriteFl, rootWebFl) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var request = function (files, folders, idx) {
+                // Ensure the array is not empty
+                if (fileUrls.length == idx || folderUrls.length == idx) {
+                    // Resolve the promise and return it
+                    resolve({ files: files, folders: folders });
+                    return;
+                }
+                // Copy the file
+                _this.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
+                    .done(function (file, folder) {
+                    // Save a reference to the file and folder
+                    files.push(file);
+                    folders.push(folder);
+                    // Copy the files
+                    request(files, folders, ++idx);
+                });
+            };
+            // Execute the request
+            request([], [], 0);
+        });
+    },
+    // Method to create sub-folders
+    createSubFolders: function (folder, subFolderUrl) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var request = function (resolve) {
+                // Get the sub-folder name
+                var subFolderName = subFolderUrl.split("/")[0];
+                // Update the sub folder url
+                subFolderUrl = subFolderUrl.substr(subFolderName.length + 1);
+                // Get the sub-folder
+                var subFolder = folder.Folders(subFolderName).execute(function (subFolder) {
+                    // Method to add additional sub folders
+                    var addSubFolders = function (subFolder) {
+                        // See if we are done
+                        if (subFolderUrl.length == 0) {
+                            // Resolve the promise
+                            resolve(subFolder);
+                        }
+                        else {
+                            // Create the sub folder
+                            request(resolve);
+                        }
+                    };
+                    // Ensure the sub-folder exists
+                    if (subFolder.Exists) {
+                        // Add the rest of the sub folders
+                        addSubFolders(subFolder);
+                    }
+                    else {
+                        // Create the sub folder
+                        folder.Folders().add(subFolderName).execute(addSubFolders);
+                    }
+                });
+            };
+            // Execute the request
+            request(resolve);
+        });
+    },
+    // Method to get a folder
+    getFolder: function (web, folderUrl, createFl) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var dstFolder = null;
+            // Ensure the web exists
+            if (!web.existsFl) {
+                // Get the web
+                web.execute();
+            }
+            // Wait for the requests to complete
+            web.done(function () {
+                // Set the destination folder url
+                var dstFolderUrl = lib_1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, folderUrl.substr(folderUrl[0] == "/" ? 1 : 0));
+                // Get the folder
+                web.getFolderByServerRelativeUrl(folderUrl)
+                    .execute(function (folder) {
+                    // Return a promise
+                    return new Promise(function (resolve, reject) {
+                        // Ensure the folder exists
+                        if (folder.Exists) {
+                            // Save a reference to the folder
+                            dstFolder = folder;
+                            // Resolve the promise
+                            resolve();
+                        }
+                        else {
+                            // Create the folder
+                            _this.createSubFolders(web.RootFolder(), folderUrl).done(function (folder) {
+                                // Save a reference to the folder
+                                dstFolder = folder;
+                                // Resolve the promise
+                                resolve();
+                            });
+                        }
+                    });
+                }, true);
+                // Wait for the request to complete
+                web.done(function () {
+                    // Resolve the promise
+                    resolve(dstFolder);
+                });
+            });
+        });
+    },
+    // Method to remove empty folders
+    removeEmptyFolders: function (web, folderUrls) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Ensure folder urls exist
+            if (folderUrls.length == 0) {
+                // Resolve the promise and return it
+                resolve();
+            }
+            else {
+                var prevFolderUrl = null;
+                // Sort the urls alphabetically, then from longest to shortest
+                folderUrls.sort().sort(function (a, b) { return a.length > b.length ? -1 : 1; });
+                // Parse the folders
+                for (var _i = 0, folderUrls_1 = folderUrls; _i < folderUrls_1.length; _i++) {
+                    var folderUrl = folderUrls_1[_i];
+                    var folder = null;
+                    // See if we already removed this folder
+                    if (folderUrl == prevFolderUrl) {
+                        continue;
+                    }
+                    else {
+                        prevFolderUrl = folderUrl;
+                    }
+                    // Parse the folder names
+                    var folderNames = folderUrl.split('/');
+                    for (var _a = 0, folderNames_1 = folderNames; _a < folderNames_1.length; _a++) {
+                        var folderName = folderNames_1[_a];
+                        // Get the sub-folder
+                        folder = folder ? folder.Folders(folderName) : web.Folders(folderName);
+                    }
+                    // Execute the request
+                    folder.execute(function (folder) {
+                        // Return a promise
+                        return new Promise(function (resolve, reject) {
+                            // See if the folder is empty
+                            if (folder.ItemCount == 0) {
+                                // Delete the folder, and resolve the promise
+                                folder.delete().execute(resolve);
+                            }
+                            else {
+                                // Resolve the promise
+                                resolve();
+                            }
+                        });
+                    }, true);
+                }
+                // Wait for the requests to complete, and resolve the promise
+                web.done(function () { resolve(); });
+            }
+        });
+    },
+    // Method to remove a file
+    removeFile: function (web, fileUrl) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var folder = null;
+            var folders = fileUrl.split('/');
+            // Parse the folders
+            for (var i = 0; i < folders.length - 1; i++) {
+                // Get the folder
+                folder = folder ? folder.Folders(folders[i]) : web.Folders(folders[i]);
+            }
+            // Get the file
+            folder.Files(folders[folders.length - 1]).execute(function (file) {
+                // See if it exists
+                if (file.Exists) {
+                    // Delete it and resolve the promise
+                    file.delete().execute(resolve);
+                }
+                else {
+                    // Resolve the promise
+                    resolve();
+                }
+            }, true);
+        });
+    },
+    // Method to remove files
+    removeFiles: function (web, fileUrls, idx) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var request = function (idx, resolve) {
+                // See if we have removed all files
+                if (fileUrls.length == idx) {
+                    // Resolve the promise and return it
+                    resolve();
+                }
+                else {
+                    // Remove the file
+                    _this.removeFile(web, fileUrls[idx]).done(function () {
+                        // Remove the files
+                        request(++idx, resolve);
+                    });
+                }
+            };
+            // Execute the request
+            request(0, resolve);
+        });
+    }
+};
+//# sourceMappingURL=app.js.map
+
+/***/ }),
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(1);
+/**
+ * Context Information
+ */
+var _ContextInfo = /** @class */ (function () {
+    function _ContextInfo() {
+    }
+    Object.defineProperty(_ContextInfo, "_contextInfo", {
+        // The current context information
+        get: function () {
+            return this.window["_spPageContextInfo"] ||
+                {
+                    existsFl: false,
+                    isAppWeb: false,
+                    siteAbsoluteUrl: "",
+                    siteServerRelativeUrl: "",
+                    userId: 0,
+                    webAbsoluteUrl: "",
+                    webServerRelativeUrl: ""
+                };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    ;
+    Object.defineProperty(_ContextInfo, "alertsEnabled", {
+        /**
+         * Properties
+         */
+        // Alerts Enabled
+        get: function () { return this._contextInfo.alertsEnabled; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "allowSilverlightPrompt", {
+        // Allow Silverlight Prompt
+        get: function () { return this._contextInfo.allowSilverlightPrompt == "True" ? true : false; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "clientServerTimeDelta", {
+        // Client Server Time Delta
+        get: function () { return this._contextInfo.clientServerTimeDelta; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "crossDomainPhotosEnabled", {
+        // Cross Domain Photos Enabled
+        get: function () { return this._contextInfo.crossDomainPhotosEnabled; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "currentCultureName", {
+        // Current Culture Name
+        get: function () { return this._contextInfo.currentCultureName; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "currentLanguage", {
+        // Current Language
+        get: function () { return this._contextInfo.currentLanguage; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "currentUICultureName", {
+        // Current UI Culture Name
+        get: function () { return this._contextInfo.currentUICultureName; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "document", {
+        // Document
+        get: function () { return this.window.document; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "env", {
+        // Environment
+        get: function () { return this._contextInfo.env; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "existsFl", {
+        // Exists Flag
+        get: function () { return this._contextInfo.existsFl == null; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "hasManageWebPermissions", {
+        // Has Manage Web Permissions
+        get: function () { return this._contextInfo.hasManageWebPermissions; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "isAnonymousGuestUser", {
+        // Is Anonymous Guest User
+        get: function () { return this._contextInfo.isAnonymousGuestUser; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "isAppWeb", {
+        // Is App Web
+        get: function () { return this._contextInfo.isAppWeb; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "isSiteAdmin", {
+        // Is Site Administrator
+        get: function () { return this._contextInfo.isSiteAdmin; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "layoutsUrl", {
+        // Layouts Url
+        get: function () { return this._contextInfo.layoutsUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "pageItemId", {
+        // Page Item Id
+        get: function () { return this._contextInfo.pageItemId; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "pageListId", {
+        // Page List Id
+        get: function () { return this._contextInfo.pageListId; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "pagePersonalizationScope", {
+        // Page Personalization Scope
+        get: function () { return this._contextInfo.pagePersonalizationScope; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "profileUrl", {
+        // Profile Url
+        get: function () { return this._contextInfo.profileUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "serverRequestPath", {
+        // Server Request Path
+        get: function () { return this._contextInfo.serverRequestPath; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "siteAbsoluteUrl", {
+        // Site Absolute Url
+        get: function () { return this._contextInfo.siteAbsoluteUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "siteClientTag", {
+        // Site Client Tag
+        get: function () { return this._contextInfo.siteClientTag; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "siteServerRelativeUrl", {
+        // Site Server Relative Url
+        get: function () { return this._contextInfo.siteServerRelativeUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "systemUserKey", {
+        // System User Key
+        get: function () { return this._contextInfo.systemUserKey; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "tenantAppVersion", {
+        // Tenant App Version
+        get: function () { return this._contextInfo.tenantAppVersion; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "themeCacheToken", {
+        // Theme Cache Token
+        get: function () { return this._contextInfo.themeCacheToken; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "updateFromDigestPageLoaded", {
+        // Update From Digest Page Loaded
+        get: function () { return this._contextInfo.updateFromDigestPageLoaded; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "userId", {
+        // User Id
+        get: function () { return this._contextInfo.userId; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "userLoginName", {
+        // User Login Name
+        get: function () { return this._contextInfo.userLoginName; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webAbsoluteUrl", {
+        // Web Absolute Url
+        get: function () { return this._contextInfo.webAbsoluteUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webLanguage", {
+        // Web Language
+        get: function () { return this._contextInfo.webLanguage; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webLogoUrl", {
+        // Web Logo Url
+        get: function () { return this._contextInfo.webLogoUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webPermMask", {
+        // Web Permissions Mask
+        get: function () { return this._contextInfo.webPermMask; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webServerRelativeUrl", {
+        // Web Server Relative Url
+        get: function () { return this._contextInfo.webServerRelativeUrl; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webTemplate", {
+        // Web Template
+        get: function () { return this._contextInfo.webTemplate; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webTitle", {
+        // Web Title
+        get: function () { return this._contextInfo.webTitle; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "webUIVersion", {
+        // Web UI Version
+        get: function () { return this._contextInfo.webUIVersion; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ContextInfo, "window", {
+        // Window
+        get: function () { return typeof (window) == "undefined" ? {} : window; },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Methods
+     */
+    // Method to generate a guid
+    _ContextInfo.generateGUID = function () {
+        // Set the batch id
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    };
+    // Method to get the context information for a web
+    _ContextInfo.getWeb = function (url) {
+        // Create a new base object
+        return new utils_1.Base({
+            endpoint: "contextinfo",
+            method: "POST",
+            url: url
+        });
+    };
+    return _ContextInfo;
+}());
+exports.ContextInfo = _ContextInfo;
+//# sourceMappingURL=contextInfo.js.map
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
+var mapper_1 = __webpack_require__(38);
+var types_1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
+/**
+ * Request Helper
+ */
+var BaseHelper = /** @class */ (function () {
+    function BaseHelper() {
+    }
+    // Method to add the methods to base object
+    BaseHelper.prototype.addMethods = function (base, data) {
+        var isCollection = data.results && data.results.length > 0;
+        // Determine the metadata
+        var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
+        // Determine the object type
+        var objType = metadata && metadata.type ? metadata.type : base.targetInfo.endpoint;
+        objType = objType.split('/');
+        objType = (objType[objType.length - 1]);
+        objType = objType.split('.');
+        objType = (objType[objType.length - 1]).toLowerCase();
+        objType += isCollection ? "s" : "";
+        // See if the base is a field
+        if ((/^field/.test(objType) || /field$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
+            // Update the type
+            objType = "field" + (isCollection ? "s" : "");
+        }
+        else if (/item$/.test(objType)) {
+            // Update the type
+            objType = "listitem";
+        }
+        else if (/items$/.test(objType)) {
+            // Update the type
+            objType = "items";
+        }
+        else if (/corporatecatalogappmetadata/.test(objType)) {
+            // Update the type
+            objType = "tenantapp";
+        }
+        else if (/corporatecatalogappmetadatas/.test(objType)) {
+            // Update the type
+            objType = "tenantapps";
+        }
+        // Get the methods for the base object
+        var methods = mapper_1.Mapper[objType];
+        if (methods) {
+            // Parse the methods
+            for (var methodName in methods) {
+                // Get the method information
+                var methodInfo = methods[methodName] ? methods[methodName] : {};
+                // See if the base is the "Properties" definition for the object
+                if (methodName == "properties") {
+                    // Parse the properties
+                    for (var _i = 0, methodInfo_1 = methodInfo; _i < methodInfo_1.length; _i++) {
+                        var property = methodInfo_1[_i];
+                        var propInfo = property.split("|");
+                        // Get the metadata type
+                        var propName = propInfo[0];
+                        var propType = propInfo.length > 1 ? propInfo[1] : null;
+                        var subPropName = propInfo.length > 2 ? propInfo[2] : null;
+                        var subPropType = propInfo.length > 3 ? propInfo[3] : null;
+                        // See if the property is null or is a collection
+                        if (base[propName] == null || (base[propName].__deferred && base[propName].__deferred.uri)) {
+                            // See if the base property has a sub-property defined for it
+                            if (propInfo.length == 4) {
+                                // Update the ' char in the property name
+                                subPropName = subPropName.replace(/'/g, "\\'");
+                                // Add the property
+                                base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
+                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
+                            }
+                            else {
+                                // Add the property
+                                base[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
+                            }
+                        }
+                    }
+                    // Continue the loop
+                    continue;
+                }
+                // See if the base object has a dynamic metadata type
+                if (typeof (methodInfo.metadataType) === "function") {
+                    // Clone the object properties
+                    methodInfo = JSON.parse(JSON.stringify(methodInfo));
+                    // Set the metadata type
+                    methodInfo.metadataType = methods[methodName].metadataType(base);
+                }
+                // Add the method to the object
+                base[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+            }
+        }
+    };
+    // Method to add properties to the base object
+    BaseHelper.prototype.addProperties = function (base, data) {
+        // Parse the data properties
+        for (var key in data) {
+            var value = data[key];
+            // Skip properties
+            if (key == "__metadata" || key == "results") {
+                continue;
+            }
+            // See if the base is a collection property
+            if (value && value.__deferred && value.__deferred.uri) {
+                // Generate a method for the base property
+                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.getCollection('" + key + "', arguments);");
+            }
+            else {
+                // Set the property, based on the property name
+                switch (key) {
+                    case "ClientPeoplePickerResolveUser":
+                    case "ClientPeoplePickerSearchUser":
+                        base[key] = JSON.parse(value);
+                        break;
+                    default:
+                        // Append the property to the base object
+                        base[key] = value;
+                        break;
+                }
+                // See if the base is a collection
+                if (base[key] && base[key].results) {
+                    // Ensure the collection is an object
+                    if (base[key].results.length == 0 || typeof (base[key].results[0]) === "object") {
+                        // Create the base property as a new request
+                        var objCollection = new _1.Base(base.targetInfo);
+                        objCollection["results"] = base[key].results;
+                        // See no results exist
+                        if (objCollection["results"].length == 0) {
+                            // Set the metadata type to the key
+                            objCollection["__metadata"] = { type: key };
+                        }
+                        // Update the endpoint for the base request to point to the base property
+                        objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
+                        // Add the methods
+                        base.addMethods(objCollection, objCollection);
+                        // Update the data collection
+                        base.updateDataCollection(base, objCollection["results"]);
+                        // Update the property
+                        base[key] = objCollection;
+                    }
+                }
+            }
+        }
+    };
+    // Method to update a collection object
+    BaseHelper.prototype.updateDataCollection = function (obj, results) {
+        // Ensure the base is a collection
+        if (results) {
+            // Save the results
+            obj["results"] = obj["results"] ? obj["results"].concat(results) : results;
+            // See if only one object exists
+            if (obj["results"].length > 0) {
+                var results_1 = obj["results"];
+                // Parse the results
+                for (var _i = 0, results_2 = results_1; _i < results_2.length; _i++) {
+                    var result = results_2[_i];
+                    // Add the base references
+                    result["addMethods"] = obj.addMethods;
+                    result["base"] = obj.base;
+                    result["done"] = obj.done;
+                    result["execute"] = obj.execute;
+                    result["executeAndWait"] = obj.executeAndWait;
+                    result["executeMethod"] = obj.executeMethod;
+                    result["existsFl"] = true;
+                    result["getProperty"] = obj.getProperty;
+                    result["parent"] = obj;
+                    result["targetInfo"] = obj.targetInfo;
+                    result["updateMetadataUri"] = obj.updateMetadataUri;
+                    result["waitForRequestsToComplete"] = obj.waitForRequestsToComplete;
+                    // Update the metadata
+                    this.updateMetadata(obj, result);
+                    // Add the methods
+                    this.addMethods(result, result);
+                }
+            }
+        }
+    };
+    // Method to convert the input arguments into an object
+    BaseHelper.prototype.updateDataObject = function (isBatchRequest) {
+        // Ensure the request was successful
+        if (this.status >= 200 && this.status < 300) {
+            // Return if we are expecting a buffer
+            if (this.requestType == types_1.RequestType.GetBuffer) {
+                return;
+            }
+            // Parse the responses
+            var batchIdx = 0;
+            var batchRequestIdx = 0;
+            var responses = isBatchRequest ? this.response.split("\n") : [this.response];
+            for (var i = 0; i < responses.length; i++) {
+                var data = null;
+                // Try to convert the response
+                var response = responses[i];
+                response = response === "" && !isBatchRequest ? "{}" : response;
+                try {
+                    data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response);
+                }
+                catch (ex) {
+                    continue;
+                }
+                // Set the object based on the request type
+                var obj = isBatchRequest ? Object.create(this) : this;
+                // Set the exists flag
+                obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
+                // See if the data properties exists
+                if (data.d) {
+                    // Save a reference to it
+                    obj["d"] = data.d;
+                    // Update the metadata
+                    this.updateMetadata(obj, data.d);
+                    // Update the base object's properties
+                    this.addProperties(obj, data.d);
+                    // Add the methods
+                    this.addMethods(obj, data.d);
+                    // Update the data collection
+                    this.updateDataCollection(obj, data.d.results);
+                }
+                // See if the batch request exists
+                if (isBatchRequest) {
+                    // Get the batch request
+                    var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                    if (batchRequest == null) {
+                        // Update the batch indexes
+                        batchIdx++;
+                        batchRequestIdx = 0;
+                        // Update the batch request
+                        batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
+                    }
+                    // Ensure the batch request exists
+                    if (batchRequest) {
+                        // Set the response object
+                        batchRequest.response = typeof (data) === "string" ? data : obj;
+                        // Execute the callback if it exists
+                        batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
+                    }
+                }
+            }
+            // Clear the batch requests
+            if (isBatchRequest) {
+                this.base.batchRequests = null;
+            }
+        }
+    };
+    // Method to update the metadata
+    BaseHelper.prototype.updateMetadata = function (base, data) {
+        // Ensure the base is the app web
+        if (!lib_1.ContextInfo.isAppWeb) {
+            return;
+        }
+        // Get the url information
+        var hostUrl = lib_1.ContextInfo.webAbsoluteUrl.toLowerCase();
+        var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
+        var targetUrl = base.targetInfo && base.targetInfo.url ? base.targetInfo.url.toLowerCase() : null;
+        // Ensure the urls exist
+        if (hostUrl == null || requestUrl == null || targetUrl == null) {
+            return;
+        }
+        // See if we need to make an update
+        if (targetUrl.indexOf(hostUrl) == 0) {
+            return;
+        }
+        // Update the metadata uri
+        data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
+    };
+    return BaseHelper;
+}());
+exports.BaseHelper = BaseHelper;
+//# sourceMappingURL=baseHelper.js.map
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var types_1 = __webpack_require__(0);
 /**
  * Audit
  */
@@ -371,7 +2927,7 @@ exports.audit = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 8 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -405,7 +2961,7 @@ exports.RequestType = {
 //# sourceMappingURL=requestType.js.map
 
 /***/ }),
-/* 9 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -949,13 +3505,13 @@ exports.ViewType = {
 //# sourceMappingURL=sptypes.js.map
 
 /***/ }),
-/* 10 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Event Receiver
  */
@@ -997,13 +3553,13 @@ exports.eventreceivers = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 11 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Attachment
  */
@@ -1310,13 +3866,13 @@ exports.limitedwebpartmanager = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 12 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Content Type
  */
@@ -1648,8 +4204,6 @@ exports.listitem = {
     /*********************************************************************************************************************************/
     // Methods
     /*********************************************************************************************************************************/
-    // Adds the attachment that is represented by the specified file name and byte array to the list item.
-    //{ name: "addAttachmentFile", "function": function (file) { var thisObj = this; var promise = new Promise(); getFileInfo(file).done(function (name, buffer) { if (name && buffer) { thisObj.addAttachment(name, buffer).done(function (file) { promise.resolve(file); }); } else { promise.resolve(); } }); return promise; } },
     // Creates unique role assignments for the securable object.
     breakRoleInheritance: {
         argNames: ["copyroleassignments", "clearsubscopes"],
@@ -1856,13 +4410,13 @@ exports.views = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 13 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Navigation
  */
@@ -1886,13 +4440,13 @@ exports.navigationservicerest = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 14 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Property Values
  */
@@ -1906,13 +4460,13 @@ exports.propertyvalues = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 15 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Search
  */
@@ -1926,13 +4480,13 @@ exports.search = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 16 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Role Assignment
  */
@@ -2027,13 +4581,13 @@ exports.roledefinitions = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 17 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Site
  */
@@ -2534,13 +5088,13 @@ exports.webs = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 18 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * People Manager
  */
@@ -2709,13 +5263,13 @@ exports.userprofile = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 19 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * Group
  */
@@ -2864,13 +5418,13 @@ exports.users = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 20 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
+var types_1 = __webpack_require__(0);
 /**
  * User Custom Action
  */
@@ -2914,24 +5468,24 @@ exports.usercustomactions = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 21 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var ComplexTypes = __webpack_require__(22);
+var ComplexTypes = __webpack_require__(93);
 exports.ComplexTypes = ComplexTypes;
-var Results = __webpack_require__(23);
+var Results = __webpack_require__(94);
 exports.Results = Results;
-var Helper = __webpack_require__(24);
+var Helper = __webpack_require__(95);
 exports.Helper = Helper;
-var SPTypes = __webpack_require__(27);
+var SPTypes = __webpack_require__(98);
 exports.SPTypes = SPTypes;
 //# sourceMappingURL=types.js.map
 
 /***/ }),
-/* 22 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2940,7 +5494,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=complexTypes.js.map
 
 /***/ }),
-/* 23 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2949,20 +5503,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=results.js.map
 
 /***/ }),
-/* 24 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var SPConfig = __webpack_require__(25);
+var SPConfig = __webpack_require__(96);
 exports.SPConfig = SPConfig;
-var WebPart = __webpack_require__(26);
+var WebPart = __webpack_require__(97);
 exports.WebPart = WebPart;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 25 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2971,7 +5525,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 26 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2980,7 +5534,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=webpart.js.map
 
 /***/ }),
-/* 27 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2989,570 +5543,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=sptypes.js.map
 
 /***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-/**
- * Context Information
- */
-var _ContextInfo = /** @class */ (function () {
-    function _ContextInfo() {
-    }
-    Object.defineProperty(_ContextInfo, "_contextInfo", {
-        // The current context information
-        get: function () {
-            return this.window["_spPageContextInfo"] ||
-                {
-                    existsFl: false,
-                    isAppWeb: false,
-                    siteAbsoluteUrl: "",
-                    siteServerRelativeUrl: "",
-                    userId: 0,
-                    webAbsoluteUrl: "",
-                    webServerRelativeUrl: ""
-                };
-        },
-        enumerable: true,
-        configurable: true
-    });
-    ;
-    Object.defineProperty(_ContextInfo, "alertsEnabled", {
-        /**
-         * Properties
-         */
-        // Alerts Enabled
-        get: function () { return this._contextInfo.alertsEnabled; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "allowSilverlightPrompt", {
-        // Allow Silverlight Prompt
-        get: function () { return this._contextInfo.allowSilverlightPrompt == "True" ? true : false; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "clientServerTimeDelta", {
-        // Client Server Time Delta
-        get: function () { return this._contextInfo.clientServerTimeDelta; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "crossDomainPhotosEnabled", {
-        // Cross Domain Photos Enabled
-        get: function () { return this._contextInfo.crossDomainPhotosEnabled; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "currentCultureName", {
-        // Current Culture Name
-        get: function () { return this._contextInfo.currentCultureName; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "currentLanguage", {
-        // Current Language
-        get: function () { return this._contextInfo.currentLanguage; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "currentUICultureName", {
-        // Current UI Culture Name
-        get: function () { return this._contextInfo.currentUICultureName; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "document", {
-        // Document
-        get: function () { return this.window.document; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "env", {
-        // Environment
-        get: function () { return this._contextInfo.env; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "existsFl", {
-        // Exists Flag
-        get: function () { return this._contextInfo.existsFl == null; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "hasManageWebPermissions", {
-        // Has Manage Web Permissions
-        get: function () { return this._contextInfo.hasManageWebPermissions; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "isAnonymousGuestUser", {
-        // Is Anonymous Guest User
-        get: function () { return this._contextInfo.isAnonymousGuestUser; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "isAppWeb", {
-        // Is App Web
-        get: function () { return this._contextInfo.isAppWeb; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "isSiteAdmin", {
-        // Is Site Administrator
-        get: function () { return this._contextInfo.isSiteAdmin; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "layoutsUrl", {
-        // Layouts Url
-        get: function () { return this._contextInfo.layoutsUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "pageItemId", {
-        // Page Item Id
-        get: function () { return this._contextInfo.pageItemId; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "pageListId", {
-        // Page List Id
-        get: function () { return this._contextInfo.pageListId; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "pagePersonalizationScope", {
-        // Page Personalization Scope
-        get: function () { return this._contextInfo.pagePersonalizationScope; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "profileUrl", {
-        // Profile Url
-        get: function () { return this._contextInfo.profileUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "serverRequestPath", {
-        // Server Request Path
-        get: function () { return this._contextInfo.serverRequestPath; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "siteAbsoluteUrl", {
-        // Site Absolute Url
-        get: function () { return this._contextInfo.siteAbsoluteUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "siteClientTag", {
-        // Site Client Tag
-        get: function () { return this._contextInfo.siteClientTag; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "siteServerRelativeUrl", {
-        // Site Server Relative Url
-        get: function () { return this._contextInfo.siteServerRelativeUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "systemUserKey", {
-        // System User Key
-        get: function () { return this._contextInfo.systemUserKey; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "tenantAppVersion", {
-        // Tenant App Version
-        get: function () { return this._contextInfo.tenantAppVersion; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "themeCacheToken", {
-        // Theme Cache Token
-        get: function () { return this._contextInfo.themeCacheToken; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "updateFromDigestPageLoaded", {
-        // Update From Digest Page Loaded
-        get: function () { return this._contextInfo.updateFromDigestPageLoaded; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "userId", {
-        // User Id
-        get: function () { return this._contextInfo.userId; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "userLoginName", {
-        // User Login Name
-        get: function () { return this._contextInfo.userLoginName; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webAbsoluteUrl", {
-        // Web Absolute Url
-        get: function () { return this._contextInfo.webAbsoluteUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webLanguage", {
-        // Web Language
-        get: function () { return this._contextInfo.webLanguage; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webLogoUrl", {
-        // Web Logo Url
-        get: function () { return this._contextInfo.webLogoUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webPermMask", {
-        // Web Permissions Mask
-        get: function () { return this._contextInfo.webPermMask; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webServerRelativeUrl", {
-        // Web Server Relative Url
-        get: function () { return this._contextInfo.webServerRelativeUrl; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webTemplate", {
-        // Web Template
-        get: function () { return this._contextInfo.webTemplate; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webTitle", {
-        // Web Title
-        get: function () { return this._contextInfo.webTitle; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "webUIVersion", {
-        // Web UI Version
-        get: function () { return this._contextInfo.webUIVersion; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_ContextInfo, "window", {
-        // Window
-        get: function () { return typeof (window) == "undefined" ? {} : window; },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Methods
-     */
-    // Method to generate a guid
-    _ContextInfo.generateGUID = function () {
-        // Set the batch id
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    };
-    // Method to get the context information for a web
-    _ContextInfo.getWeb = function (url) {
-        // Create a new base object
-        return new utils_1.Base({
-            endpoint: "contextinfo",
-            method: "POST",
-            url: url
-        });
-    };
-    return _ContextInfo;
-}());
-exports.ContextInfo = _ContextInfo;
-//# sourceMappingURL=contextInfo.js.map
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
-var mapper_1 = __webpack_require__(4);
-var types_1 = __webpack_require__(1);
-var _1 = __webpack_require__(0);
-/**
- * Request Helper
- */
-var BaseHelper = /** @class */ (function () {
-    function BaseHelper() {
-    }
-    // Method to add the methods to base object
-    BaseHelper.prototype.addMethods = function (base, data) {
-        var isCollection = data.results && data.results.length > 0;
-        // Determine the metadata
-        var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
-        // Determine the object type
-        var objType = metadata && metadata.type ? metadata.type : base.targetInfo.endpoint;
-        objType = objType.split('/');
-        objType = (objType[objType.length - 1]);
-        objType = objType.split('.');
-        objType = (objType[objType.length - 1]).toLowerCase();
-        objType += isCollection ? "s" : "";
-        // See if the base is a field
-        if ((/^field/.test(objType) || /field$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
-            // Update the type
-            objType = "field" + (isCollection ? "s" : "");
-        }
-        else if (/item$/.test(objType)) {
-            // Update the type
-            objType = "listitem";
-        }
-        else if (/items$/.test(objType)) {
-            // Update the type
-            objType = "items";
-        }
-        else if (/corporatecatalogappmetadata/.test(objType)) {
-            // Update the type
-            objType = "tenantapp";
-        }
-        else if (/corporatecatalogappmetadatas/.test(objType)) {
-            // Update the type
-            objType = "tenantapps";
-        }
-        // Get the methods for the base object
-        var methods = mapper_1.Mapper[objType];
-        if (methods) {
-            // Parse the methods
-            for (var methodName in methods) {
-                // Get the method information
-                var methodInfo = methods[methodName] ? methods[methodName] : {};
-                // See if the base is the "Properties" definition for the object
-                if (methodName == "properties") {
-                    // Parse the properties
-                    for (var _i = 0, methodInfo_1 = methodInfo; _i < methodInfo_1.length; _i++) {
-                        var property = methodInfo_1[_i];
-                        var propInfo = property.split("|");
-                        // Get the metadata type
-                        var propName = propInfo[0];
-                        var propType = propInfo.length > 1 ? propInfo[1] : null;
-                        var subPropName = propInfo.length > 2 ? propInfo[2] : null;
-                        var subPropType = propInfo.length > 3 ? propInfo[3] : null;
-                        // See if the property is null or is a collection
-                        if (base[propName] == null || (base[propName].__deferred && base[propName].__deferred.uri)) {
-                            // See if the base property has a sub-property defined for it
-                            if (propInfo.length == 4) {
-                                // Update the ' char in the property name
-                                subPropName = subPropName.replace(/'/g, "\\'");
-                                // Add the property
-                                base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
-                                    "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
-                            }
-                            else {
-                                // Add the property
-                                base[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
-                            }
-                        }
-                    }
-                    // Continue the loop
-                    continue;
-                }
-                // See if the base object has a dynamic metadata type
-                if (typeof (methodInfo.metadataType) === "function") {
-                    // Clone the object properties
-                    methodInfo = JSON.parse(JSON.stringify(methodInfo));
-                    // Set the metadata type
-                    methodInfo.metadataType = methods[methodName].metadataType(base);
-                }
-                // Add the method to the object
-                base[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
-            }
-        }
-    };
-    // Method to add properties to the base object
-    BaseHelper.prototype.addProperties = function (base, data) {
-        // Parse the data properties
-        for (var key in data) {
-            var value = data[key];
-            // Skip properties
-            if (key == "__metadata" || key == "results") {
-                continue;
-            }
-            // See if the base is a collection property
-            if (value && value.__deferred && value.__deferred.uri) {
-                // Generate a method for the base property
-                base["get_" + key] = base["get_" + key] ? base["get_" + key] : new Function("return this.getCollection('" + key + "', arguments);");
-            }
-            else {
-                // Set the property, based on the property name
-                switch (key) {
-                    case "ClientPeoplePickerResolveUser":
-                    case "ClientPeoplePickerSearchUser":
-                        base[key] = JSON.parse(value);
-                        break;
-                    default:
-                        // Append the property to the base object
-                        base[key] = value;
-                        break;
-                }
-                // See if the base is a collection
-                if (base[key] && base[key].results) {
-                    // Ensure the collection is an object
-                    if (base[key].results.length == 0 || typeof (base[key].results[0]) === "object") {
-                        // Create the base property as a new request
-                        var objCollection = new _1.Base(base.targetInfo);
-                        objCollection["results"] = base[key].results;
-                        // See no results exist
-                        if (objCollection["results"].length == 0) {
-                            // Set the metadata type to the key
-                            objCollection["__metadata"] = { type: key };
-                        }
-                        // Update the endpoint for the base request to point to the base property
-                        objCollection.targetInfo.endpoint = (objCollection.targetInfo.endpoint.split("?")[0] + "/" + key).replace(/\//g, "/");
-                        // Add the methods
-                        base.addMethods(objCollection, objCollection);
-                        // Update the data collection
-                        base.updateDataCollection(base, objCollection["results"]);
-                        // Update the property
-                        base[key] = objCollection;
-                    }
-                }
-            }
-        }
-    };
-    // Method to update a collection object
-    BaseHelper.prototype.updateDataCollection = function (obj, results) {
-        // Ensure the base is a collection
-        if (results) {
-            // Save the results
-            obj["results"] = obj["results"] ? obj["results"].concat(results) : results;
-            // See if only one object exists
-            if (obj["results"].length > 0) {
-                var results_1 = obj["results"];
-                // Parse the results
-                for (var _i = 0, results_2 = results_1; _i < results_2.length; _i++) {
-                    var result = results_2[_i];
-                    // Add the base references
-                    result["addMethods"] = obj.addMethods;
-                    result["base"] = obj.base;
-                    result["done"] = obj.done;
-                    result["execute"] = obj.execute;
-                    result["executeAndWait"] = obj.executeAndWait;
-                    result["executeMethod"] = obj.executeMethod;
-                    result["existsFl"] = true;
-                    result["getProperty"] = obj.getProperty;
-                    result["parent"] = obj;
-                    result["targetInfo"] = obj.targetInfo;
-                    result["updateMetadataUri"] = obj.updateMetadataUri;
-                    result["waitForRequestsToComplete"] = obj.waitForRequestsToComplete;
-                    // Update the metadata
-                    this.updateMetadata(obj, result);
-                    // Add the methods
-                    this.addMethods(result, result);
-                }
-            }
-        }
-    };
-    // Method to convert the input arguments into an object
-    BaseHelper.prototype.updateDataObject = function (isBatchRequest) {
-        // Ensure the request was successful
-        if (this.status >= 200 && this.status < 300) {
-            // Return if we are expecting a buffer
-            if (this.requestType == types_1.RequestType.GetBuffer) {
-                return;
-            }
-            // Parse the responses
-            var batchIdx = 0;
-            var batchRequestIdx = 0;
-            var responses = isBatchRequest ? this.response.split("\n") : [this.response];
-            for (var i = 0; i < responses.length; i++) {
-                var data = null;
-                // Try to convert the response
-                var response = responses[i];
-                response = response === "" && !isBatchRequest ? "{}" : response;
-                try {
-                    data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response);
-                }
-                catch (ex) {
-                    continue;
-                }
-                // Set the object based on the request type
-                var obj = isBatchRequest ? Object.create(this) : this;
-                // Set the exists flag
-                obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
-                // See if the data properties exists
-                if (data.d) {
-                    // Save a reference to it
-                    obj["d"] = data.d;
-                    // Update the metadata
-                    this.updateMetadata(obj, data.d);
-                    // Update the base object's properties
-                    this.addProperties(obj, data.d);
-                    // Add the methods
-                    this.addMethods(obj, data.d);
-                    // Update the data collection
-                    this.updateDataCollection(obj, data.d.results);
-                }
-                // See if the batch request exists
-                if (isBatchRequest) {
-                    // Get the batch request
-                    var batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
-                    if (batchRequest == null) {
-                        // Update the batch indexes
-                        batchIdx++;
-                        batchRequestIdx = 0;
-                        // Update the batch request
-                        batchRequest = this.base.batchRequests[batchIdx][batchRequestIdx++];
-                    }
-                    // Ensure the batch request exists
-                    if (batchRequest) {
-                        // Set the response object
-                        batchRequest.response = typeof (data) === "string" ? data : obj;
-                        // Execute the callback if it exists
-                        batchRequest.callback ? batchRequest.callback(batchRequest.response) : null;
-                    }
-                }
-            }
-            // Clear the batch requests
-            if (isBatchRequest) {
-                this.base.batchRequests = null;
-            }
-        }
-    };
-    // Method to update the metadata
-    BaseHelper.prototype.updateMetadata = function (base, data) {
-        // Ensure the base is the app web
-        if (!lib_1.ContextInfo.isAppWeb) {
-            return;
-        }
-        // Get the url information
-        var hostUrl = lib_1.ContextInfo.webAbsoluteUrl.toLowerCase();
-        var requestUrl = data && data.__metadata && data.__metadata.uri ? data.__metadata.uri.toLowerCase() : null;
-        var targetUrl = base.targetInfo && base.targetInfo.url ? base.targetInfo.url.toLowerCase() : null;
-        // Ensure the urls exist
-        if (hostUrl == null || requestUrl == null || targetUrl == null) {
-            return;
-        }
-        // See if we need to make an update
-        if (targetUrl.indexOf(hostUrl) == 0) {
-            return;
-        }
-        // Update the metadata uri
-        data.__metadata.uri = requestUrl.replace(hostUrl, targetUrl);
-    };
-    return BaseHelper;
-}());
-exports.BaseHelper = BaseHelper;
-//# sourceMappingURL=baseHelper.js.map
-
-/***/ }),
-/* 30 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3568,8 +5559,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var _1 = __webpack_require__(0);
+var types_1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
 /**
  * Base Request
  */
@@ -3664,7 +5655,7 @@ var BaseRequest = /** @class */ (function (_super) {
                         // Update the data object
                         _this.updateDataObject(isBatchRequest);
                         // Validate the data collection
-                        isBatchRequest ? null : _this.validateDataCollectionResults().done(function () {
+                        isBatchRequest ? null : _this.validateDataCollectionResults().then(function () {
                             // Execute the callback
                             callback ? callback(_this) : null;
                         });
@@ -3790,55 +5781,59 @@ var BaseRequest = /** @class */ (function (_super) {
         }
     };
     // Method to validate the data collection results
-    BaseRequest.prototype.validateDataCollectionResults = function (promise) {
+    BaseRequest.prototype.validateDataCollectionResults = function () {
         var _this = this;
-        promise = promise || new _1.Promise();
-        // Validate the response
-        if (this.xhr && this.status < 400 && typeof (this.response) === "string" && this.response.length > 0) {
-            // Convert the response and ensure the data property exists
-            var data = JSON.parse(this.response);
-            // See if there are more items to get
-            if (data.d && data.d.__next) {
-                // See if we are getting all items in the base request
-                if (this.getAllItemsFl) {
-                    // Create the target information to query the next set of results
-                    var targetInfo = Object.create(this.targetInfo);
-                    targetInfo.endpoint = "";
-                    targetInfo.url = data.d.__next;
-                    // Create a new object
-                    new _1.XHRRequest(true, new _1.TargetInfo(targetInfo), function (request) {
-                        // Convert the response and ensure the data property exists
-                        var data = JSON.parse(request.response);
-                        if (data.d) {
-                            // Update the data collection
-                            _this.updateDataCollection(_this, data.d.results);
-                            // Append the raw data results
-                            _this["d"].results = _this["d"].results.concat(data.d.results);
-                            // Validate the data collection
-                            return _this.validateDataCollectionResults(promise);
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var request = function (xhr, resolve) {
+                // Validate the response
+                if (xhr && xhr.status < 400 && typeof (xhr.response) === "string" && xhr.response.length > 0) {
+                    // Convert the response and ensure the data property exists
+                    var data = JSON.parse(xhr.response);
+                    // See if there are more items to get
+                    if (data.d && data.d.__next) {
+                        // See if we are getting all items in the base request
+                        if (_this.getAllItemsFl) {
+                            // Create the target information to query the next set of results
+                            var targetInfo = Object.create(_this.targetInfo);
+                            targetInfo.endpoint = "";
+                            targetInfo.url = data.d.__next;
+                            // Create a new object
+                            new _1.XHRRequest(true, new _1.TargetInfo(targetInfo), function (xhr) {
+                                // Convert the response and ensure the data property exists
+                                var data = JSON.parse(xhr.response);
+                                if (data.d) {
+                                    // Update the data collection
+                                    _this.updateDataCollection(_this, data.d.results);
+                                    // Append the raw data results
+                                    _this["d"].results = _this["d"].results.concat(data.d.results);
+                                    // Validate the data collection
+                                    request(xhr, resolve);
+                                }
+                                // Resolve the promise
+                                resolve();
+                            });
                         }
+                        else {
+                            // Add a method to get the next set of results
+                            _this["next"] = new Function("return this.getNextSetOfResults();");
+                            // Resolve the promise
+                            resolve();
+                        }
+                    }
+                    else {
                         // Resolve the promise
-                        promise.resolve();
-                    });
+                        resolve();
+                    }
                 }
                 else {
-                    // Add a method to get the next set of results
-                    this["next"] = new Function("return this.getNextSetOfResults();");
                     // Resolve the promise
-                    promise.resolve();
+                    resolve();
                 }
-            }
-            else {
-                // Resolve the promise
-                promise.resolve();
-            }
-        }
-        else {
-            // Resolve the promise
-            promise.resolve();
-        }
-        // Return the promise
-        return promise;
+            };
+            // Execute the request
+            request(_this.xhr, resolve);
+        });
     };
     return BaseRequest;
 }(_1.BaseHelper));
@@ -3846,7 +5841,7 @@ exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map
 
 /***/ }),
-/* 31 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3863,7 +5858,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
 /**
  * Base Execution
  */
@@ -4022,7 +6017,7 @@ exports.BaseExecution = BaseExecution;
 //# sourceMappingURL=baseExecution.js.map
 
 /***/ }),
-/* 32 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4038,7 +6033,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // Base
 // This is the base class for all objects.
@@ -4091,7 +6086,7 @@ var Base = /** @class */ (function (_super) {
     Base.prototype.then = function (resolve, reject) {
         var _this = this;
         // Return a promise
-        return new _1.Promise(function () {
+        return new Promise(function () {
             // Execute this request
             _this.execute(function (request) {
                 // Ensure the request was successful
@@ -4112,14 +6107,14 @@ exports.Base = Base;
 //# sourceMappingURL=base.js.map
 
 /***/ }),
-/* 33 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
 /**
  * Batch Requests
  */
@@ -4209,14 +6204,14 @@ exports.Batch = Batch;
 //# sourceMappingURL=batch.js.map
 
 /***/ }),
-/* 34 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var _1 = __webpack_require__(0);
+var types_1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // Method Information
 // This class will create the method information for the request.
@@ -4465,7 +6460,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 35 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4591,74 +6586,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Promise
- */
-var Promise = /** @class */ (function () {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function Promise(callback) {
-        // Default the properties
-        this.callback = callback;
-        this.resolvedFl = false;
-    }
-    /******************************************************************************************************************************** */
-    // Public Methods
-    /******************************************************************************************************************************** */
-    // Method to execute after the promise is resolved
-    Promise.prototype.done = function (callback) {
-        // Set the callback
-        this.callback = callback || this.callback;
-        // See if the promise is resolved
-        if (this.resolvedFl) {
-            // Execute the callback
-            this.executeMethod();
-        }
-    };
-    // Method to resolve the promise
-    Promise.prototype.resolve = function () {
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        // Set the properties
-        this.args = args;
-        this.resolvedFl = true;
-        // Execute the callback
-        this.executeMethod();
-    };
-    // Method to execute after the promise completes
-    Promise.prototype.then = function (onfulfilled, onrejected) {
-        // Execute the done method
-        this.done(onfulfilled);
-        // Return this promise
-        return this;
-    };
-    /*********************************************************************************************************************************/
-    // Private Methods
-    /*********************************************************************************************************************************/
-    // Method to execute the callback method
-    Promise.prototype.executeMethod = function () {
-        // See if callback function exists
-        if (this.callback && typeof (this.callback) == "function") {
-            // Execute the callback method
-            this.callback.apply(this, this.args);
-        }
-    };
-    return Promise;
-}());
-exports.Promise = Promise;
-//# sourceMappingURL=promise.js.map
-
-/***/ }),
-/* 37 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4799,14 +6727,13 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 38 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Request
 // This class will execute the xml http request.
@@ -4818,7 +6745,7 @@ var XHRRequest = /** @class */ (function () {
     function XHRRequest(asyncFl, targetInfo, callback) {
         // Default the properties
         this.asyncFl = asyncFl;
-        this.promise = new _1.Promise(callback || targetInfo.request.callback);
+        this.onRequestCompleted = callback || targetInfo.request.callback;
         this.targetInfo = targetInfo;
         this.xhr = this.createXHR();
         // Execute the request
@@ -4941,8 +6868,8 @@ var XHRRequest = /** @class */ (function () {
             this.xhr.onreadystatechange = function () {
                 // See if the request has finished
                 if (_this.xhr.readyState == 4) {
-                    // Resolve the promise
-                    _this.promise.resolve(_this);
+                    // Execute the request completed event
+                    _this.onRequestCompleted ? _this.onRequestCompleted(_this) : null;
                 }
             };
         }
@@ -4970,315 +6897,717 @@ exports.XHRRequest = XHRRequest;
 //# sourceMappingURL=xhrRequest.js.map
 
 /***/ }),
-/* 39 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-var __1 = __webpack_require__(2);
-/*********************************************************************************************************************************/
-// App Helper Methods
-/*********************************************************************************************************************************/
-exports.AppHelper = {
-    // Method to copy a file in this app web to the host web
-    copyFileToHostWeb: function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
-        var srcFile = null;
-        var promise = new utils_1.Promise();
-        var origVal = __1.ContextInfo.window.$REST.DefaultRequestToHostFl;
-        // Ensure the current web is an app web
-        if (!__1.ContextInfo.isAppWeb) {
-            // Error
-            console.error("[gd-sprest] The current web is not an app web.");
-            return;
+var _1 = __webpack_require__(2);
+/**
+ * JS Link
+ */
+var _JSLink = /** @class */ (function () {
+    /**
+     * Constructor
+     */
+    function _JSLink(cfg) {
+        // See if the configuration exists
+        if (cfg) {
+            // Set the properties
+            this._baseViewID = cfg.BaseViewID;
+            this._listTemplateType = cfg.ListTemplateType;
+            this._onPostRender = cfg.OnPostRender;
+            this._onPreRender = cfg.OnPreRender;
+            this._templates = cfg.Templates;
         }
-        // Get the host web
-        __1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
-        var web = (new __1.Web(rootWebFl ? __1.ContextInfo.siteServerRelativeUrl : null));
-        // See if the folder url was given
-        if (typeof (dstFolder) === "string") {
-            // Get the folder
-            _this.getFolder(web, dstFolder, true)
-                .done(function (folder) {
-                // Copy the file to the host web
-                _this.copyFileToHostWeb(fileUrl, folder, overwriteFl)
-                    .done(function (file, folder) { promise.resolve(file, folder); });
-            });
-        }
-        else {
-            // Get the file name
-            var fileName = fileUrl.split("/");
-            fileName = fileName[fileName.length - 1];
-            // Set the file urls
-            var dstFileUrl = __1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(dstFolder.ServerRelativeUrl, fileName);
-            var srcFileUrl_1 = __1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(__1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
-            // Get the destination file
-            web.getFileByServerRelativeUrl(dstFileUrl)
-                .execute(function (file) {
-                var promise = new utils_1.Promise();
-                // See if the file exists
-                if (file.Exists) {
-                    // Check out the file, and resolve the promise
-                    file.checkout().execute(function () { promise.resolve(); });
-                }
-                else {
-                    // Resolve the promise
-                    promise.resolve();
-                }
-                // Return the promiser
-                return promise;
-            });
-            // Target the current web
-            __1.ContextInfo.window.$REST.DefaultRequestToHostFl = false;
-            // Get the current web
-            (new __1.Web())
-                .getFileByServerRelativeUrl(srcFileUrl_1)
-                .content()
-                .execute(function (content) {
-                var promise = new utils_1.Promise();
-                // Get the file name
-                var fileName = srcFileUrl_1.split("/");
-                fileName = fileName[fileName.length - 1];
-                // Target the host web
-                __1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
-                // Add the file to the folder
-                (dstFolder).Files().add(true, fileName, content)
-                    .execute(function (file) {
-                    // Save a reference to this file
-                    srcFile = file;
-                    // Check in the file
-                    file.checkin("", 1).execute();
-                    // Publish the file
-                    file.publish("").execute(true);
-                    // Wait for the requests to complete
-                    file.done(function () {
-                        // Resolve the promise
-                        promise.resolve();
-                    });
-                });
-                // Return the promise
-                return promise;
-            }, true);
-            // Wait for the requests to complete, and resolve the promise
-            web.done(function () { promise.resolve(srcFile, dstFolder); });
-        }
-        // Return the promise
-        return promise;
-    },
-    // Method to copy a file in this app web to the host web
-    copyFilesToHostWeb: function (fileUrls, folderUrls, overwriteFl, rootWebFl, idx, promise, files, folders) {
-        files = files ? files : [];
-        folders = folders ? folders : [];
-        idx = idx ? idx : 0;
-        promise = promise ? promise : new utils_1.Promise();
-        // Ensure the array is not empty
-        if (fileUrls.length == idx || folderUrls.length == idx) {
-            // Resolve the promise and return it
-            promise.resolve(files, folders);
-            return promise;
-        }
-        // Copy the file
-        _this.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
-            .done(function (file, folder) {
-            // Save a reference to the file and folder
-            files.push(file);
-            folders.push(folder);
-            // Copy the files
-            _this.copyFilesToHostWeb(fileUrls, folderUrls, overwriteFl, rootWebFl, ++idx, promise, files, folders);
-        });
-        // Return the promise
-        return promise;
-    },
-    // Method to create sub-folders
-    createSubFolders: function (folder, subFolderUrl, promise) {
-        // Ensure the promise exists
-        promise = promise ? promise : new utils_1.Promise();
-        // Get the sub-folder name
-        var subFolderName = subFolderUrl.split("/")[0];
-        // Update the sub folder url
-        subFolderUrl = subFolderUrl.substr(subFolderName.length + 1);
-        // Get the sub-folder
-        var subFolder = folder.Folders(subFolderName).execute(function (subFolder) {
-            // Method to add additional sub folders
-            var addSubFolders = function (subFolder) {
-                // See if we are done
-                if (subFolderUrl.length == 0) {
-                    // Resolve the promise
-                    promise.resolve(subFolder);
-                }
-                else {
-                    // Create the sub folder
-                    _this.createSubFolders(subFolder, subFolderUrl, promise);
-                }
-            };
-            // Ensure the sub-folder exists
-            if (subFolder.Exists) {
-                // Add the rest of the sub folders
-                addSubFolders(subFolder);
-            }
-            else {
-                // Create the sub folder
-                folder.Folders().add(subFolderName).execute(addSubFolders);
-            }
-        });
-        // Return a promise
-        return promise;
-    },
-    // Method to get a folder
-    getFolder: function (web, folderUrl, createFl) {
-        var dstFolder = null;
-        var promise = new utils_1.Promise();
-        // Ensure the web exists
-        if (!web.existsFl) {
-            // Get the web
-            web.execute();
-        }
-        // Wait for the requests to complete
-        web.done(function () {
-            // Set the destination folder url
-            var dstFolderUrl = __1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, folderUrl.substr(folderUrl[0] == "/" ? 1 : 0));
-            // Get the folder
-            web.getFolderByServerRelativeUrl(folderUrl)
-                .execute(function (folder) {
-                var promise = new utils_1.Promise();
-                // Ensure the folder exists
-                if (folder.Exists) {
-                    // Save a reference to the folder
-                    dstFolder = folder;
-                    // Resolve the promise
-                    promise.resolve();
-                }
-                else {
-                    // Create the folder
-                    _this.createSubFolders(web.RootFolder(), folderUrl).done(function (folder) {
-                        // Save a reference to the folder
-                        dstFolder = folder;
-                        // Resolve the promise
-                        promise.resolve();
-                    });
-                }
-                // Return the promise
-                return promise;
-            }, true);
-            // Wait for the request to complete
-            web.done(function () {
-                // Resolve the promise
-                promise.resolve(dstFolder);
-            });
-        });
-        // Return the promise
-        return promise;
-    },
-    // Method to remove empty folders
-    removeEmptyFolders: function (web, folderUrls) {
-        var promise = new utils_1.Promise();
-        // Ensure folder urls exist
-        if (folderUrls.length == 0) {
-            // Resolve the promise and return it
-            promise.resolve();
-        }
-        else {
-            var prevFolderUrl = null;
-            // Sort the urls alphabetically, then from longest to shortest
-            folderUrls.sort().sort(function (a, b) { return a.length > b.length ? -1 : 1; });
-            // Parse the folders
-            for (var _i = 0, folderUrls_1 = folderUrls; _i < folderUrls_1.length; _i++) {
-                var folderUrl = folderUrls_1[_i];
-                var folder = null;
-                // See if we already removed this folder
-                if (folderUrl == prevFolderUrl) {
-                    continue;
-                }
-                else {
-                    prevFolderUrl = folderUrl;
-                }
-                // Parse the folder names
-                var folderNames = folderUrl.split('/');
-                for (var _a = 0, folderNames_1 = folderNames; _a < folderNames_1.length; _a++) {
-                    var folderName = folderNames_1[_a];
-                    // Get the sub-folder
-                    folder = folder ? folder.Folders(folderName) : web.Folders(folderName);
-                }
-                // Execute the request
-                folder.execute(function (folder) {
-                    var promise = new utils_1.Promise();
-                    // See if the folder is empty
-                    if (folder.ItemCount == 0) {
-                        // Delete the folder, and resolve the promise
-                        folder.delete().execute(function () { promise.resolve(); });
-                    }
-                    else {
-                        // Resolve the proise
-                        promise.resolve();
-                    }
-                    // Return the promise
-                    return promise;
-                }, true);
-            }
-            // Wait for the requests to complete, and resolve the promise
-            web.done(function () { promise.resolve(); });
-        }
-        // Return the promise
-        return promise;
-    },
-    // Method to remove a file
-    removeFile: function (web, fileUrl) {
-        var promise = new utils_1.Promise();
-        var folder = null;
-        var folders = fileUrl.split('/');
-        // Parse the folders
-        for (var i = 0; i < folders.length - 1; i++) {
-            // Get the folder
-            folder = folder ? folder.Folders(folders[i]) : web.Folders(folders[i]);
-        }
-        // Get the file
-        folder.Files(folders[folders.length - 1]).execute(function (file) {
-            // See if it exists
-            if (file.Exists) {
-                // Delete it and resolve the promise
-                file.delete().execute(function () { promise.resolve(); });
-            }
-            else {
-                // Resolve the promises
-                promise.resolve();
-            }
-        }, true);
-        // Return the promise
-        return promise;
-    },
-    // Method to remove files
-    removeFiles: function (web, fileUrls, idx, promise) {
-        idx = idx ? idx : 0;
-        promise = promise ? promise : new utils_1.Promise();
-        // See if we have removed all files
-        if (fileUrls.length == idx) {
-            // Resolve the promise and return it
-            promise.resolve();
-        }
-        else {
-            // Remove the file
-            _this.removeFile(web, fileUrls[idx]).done(function () {
-                // Remove the files
-                _this.removeFiles(web, fileUrls, ++idx, promise);
-            });
-        }
-        // Return the promise
-        return promise;
     }
-};
-//# sourceMappingURL=app.js.map
+    Object.defineProperty(_JSLink.prototype, "BaseViewID", {
+        set: function (value) { this._baseViewID = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_JSLink.prototype, "ListTemplateType", {
+        set: function (value) { this._listTemplateType = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_JSLink.prototype, "OnPostRender", {
+        set: function (value) { this._onPostRender = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_JSLink.prototype, "OnPreRender", {
+        set: function (value) { this._onPreRender = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_JSLink.prototype, "Templates", {
+        set: function (value) { this._templates = value; },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Methods
+     */
+    /**
+     * Returns the CSR template.
+     */
+    _JSLink.prototype.getTemplate = function () {
+        var template = {};
+        // Add the properties
+        if (this._baseViewID) {
+            template.BaseViewID = this._baseViewID;
+        }
+        if (this._listTemplateType) {
+            template.ListTemplateType = this._listTemplateType;
+        }
+        if (this._onPostRender) {
+            template.OnPostRender = this._onPostRender;
+        }
+        if (this._onPreRender) {
+            template.OnPreRender = this._onPreRender;
+        }
+        if (this._templates) {
+            template.Templates = this._templates;
+        }
+        // See if there are fields
+        if (template.Templates && template.Templates.Fields) {
+            var fields = {};
+            // Parse the fields
+            for (var _i = 0, _a = template.Templates.Fields; _i < _a.length; _i++) {
+                var field = _a[_i];
+                // Add the field
+                fields[field.Name] = {};
+                // Add the field properties
+                if (field.DisplayForm) {
+                    fields[field.Name].DisplayForm = field.DisplayForm;
+                }
+                if (field.EditForm) {
+                    fields[field.Name].EditForm = field.EditForm;
+                }
+                if (field.NewForm) {
+                    fields[field.Name].NewForm = field.NewForm;
+                }
+                if (field.View) {
+                    fields[field.Name].View = field.View;
+                }
+            }
+            // Update the fields
+            template.Templates.Fields = fields;
+        }
+        // Return the template
+        return template;
+    };
+    /**
+     * Method to register the CSR override.
+     */
+    _JSLink.prototype.register = function () {
+        // Get the template manager
+        var templateManager = _1.ContextInfo.window.SPClientTemplates;
+        templateManager = templateManager ? templateManager.TemplateManager : null;
+        // Ensure it exists
+        if (templateManager) {
+            // Apply the customization
+            templateManager.RegisterTemplateOverrides(this.getTemplate());
+        }
+    };
+    return _JSLink;
+}());
+exports.JSLink = _JSLink;
+//# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 40 */
+/* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(1);
+var web_1 = __webpack_require__(39);
+/**
+ * List
+ */
+var _List = /** @class */ (function (_super) {
+    __extends(_List, _super);
+    /**
+     * Constructor
+     */
+    function _List(listName, targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "list" } });
+        return _this;
+    }
+    // Method to get the list by the entity name.
+    _List.getByEntityName = function (entityTypeName, callback, targetInfo) {
+        // Query for the list
+        var query = (new web_1.Web(targetInfo))
+            .Lists()
+            .query({
+            Filter: "EntityTypeName eq '" + entityTypeName + "'",
+            Top: 1
+        });
+        // See if the callback exists
+        if (typeof (callback) != "function") {
+            // Execute the request synchronously and return it
+            var list = query.executeAndWait();
+            return list.results ? list.results[0] : list;
+        }
+        // Execute the request asynchronously
+        query.execute(function (lists) {
+            // Execute the callback method
+            callback(lists.results ? lists.results[0] : lists);
+        });
+    };
+    return _List;
+}(utils_1.Base));
+exports.List = _List;
+//# sourceMappingURL=list.js.map
+
+/***/ }),
+/* 109 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(1);
+/**
+ * Navigation
+ */
+var _Navigation = /** @class */ (function (_super) {
+    __extends(_Navigation, _super);
+    /**
+     * Constructor
+     */
+    function _Navigation(url, targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "navigation";
+        // See if the web url exists
+        if (url) {
+            // Set the settings
+            _this.targetInfo.url = url;
+        }
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "navigationservicerest" } });
+        return _this;
+    }
+    return _Navigation;
+}(utils_1.Base));
+exports.Navigation = _Navigation;
+//# sourceMappingURL=navigation.js.map
+
+/***/ }),
+/* 110 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(1);
+/*********************************************************************************************************************************/
+// People Manager
+/*********************************************************************************************************************************/
+var _PeopleManager = /** @class */ (function (_super) {
+    __extends(_PeopleManager, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _PeopleManager(targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "peoplemanager" } });
+        return _this;
+    }
+    return _PeopleManager;
+}(utils_1.Base));
+exports.PeopleManager = _PeopleManager;
+//# sourceMappingURL=peopleManager.js.map
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(1);
+/*********************************************************************************************************************************/
+// People Picker
+/*********************************************************************************************************************************/
+var _PeoplePicker = /** @class */ (function (_super) {
+    __extends(_PeoplePicker, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _PeoplePicker(targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
+        _this.targetInfo.overrideDefaultRequestToHostFl = true;
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "peoplepicker" } });
+        return _this;
+    }
+    return _PeoplePicker;
+}(utils_1.Base));
+exports.PeoplePicker = _PeoplePicker;
+//# sourceMappingURL=peoplePicker.js.map
+
+/***/ }),
+/* 112 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(1);
+/*********************************************************************************************************************************/
+// Profile Loader
+/*********************************************************************************************************************************/
+var _ProfileLoader = /** @class */ (function (_super) {
+    __extends(_ProfileLoader, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _ProfileLoader(targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+        _this.targetInfo.method = "POST";
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "profileloader" } });
+        return _this;
+    }
+    return _ProfileLoader;
+}(utils_1.Base));
+exports.ProfileLoader = _ProfileLoader;
+//# sourceMappingURL=profileLoader.js.map
+
+/***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var types_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
+/*********************************************************************************************************************************/
+// Search
+/*********************************************************************************************************************************/
+var _Search = /** @class */ (function (_super) {
+    __extends(_Search, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _Search(url, targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "search";
+        // See if the web url exists
+        if (url) {
+            // Set the settings
+            _this.targetInfo.url = url;
+        }
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "search" } });
+        return _this;
+    }
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Method to compute the query
+    _Search.prototype.getQuery = function (parameters) {
+        var query = "";
+        // Parse the parameters
+        for (var key in parameters) {
+            // Append the parameter to the query
+            query += (query == "" ? "" : "&") + key + "='" + parameters[key] + "'";
+        }
+        // Return the query
+        return [query];
+    };
+    /** The search query method */
+    _Search.prototype.searchquery = function (settings) {
+        // Execute the request
+        return this.executeMethod("query", {
+            argNames: ["query"],
+            name: "query?[[query]]",
+            requestType: types_1.RequestType.GetReplace
+        }, this.getQuery(settings));
+    };
+    /** The suggest method */
+    _Search.prototype.suggest = function (settings) {
+        // Execute the request
+        return this.executeMethod("query", {
+            argNames: ["query"],
+            name: "suggest?[[query]]",
+            requestType: types_1.RequestType.GetReplace
+        }, this.getQuery(settings));
+    };
+    return _Search;
+}(utils_1.Base));
+exports.Search = _Search;
+//# sourceMappingURL=search.js.map
+
+/***/ }),
+/* 114 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(1);
+var _1 = __webpack_require__(2);
+/*********************************************************************************************************************************/
+// Site
+// The SPSite object.
+/*********************************************************************************************************************************/
+var _Site = /** @class */ (function (_super) {
+    __extends(_Site, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _Site(url, targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "site";
+        // See if the web url exists
+        if (url) {
+            // Set the settings
+            _this.targetInfo.url = url;
+        }
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "site" } });
+        return _this;
+    }
+    // Method to get the root web
+    _Site.prototype.getRootWeb = function () { return new _1.Web(null, this.targetInfo); };
+    // Method to determine if the current user has access, based on the permissions.
+    _Site.prototype.hasAccess = function (permissions) {
+        // TO DO
+        return true;
+    };
+    ;
+    return _Site;
+}(utils_1.Base));
+exports.Site = _Site;
+//# sourceMappingURL=site.js.map
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var types_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
+/*********************************************************************************************************************************/
+// Social Feed
+/*********************************************************************************************************************************/
+var _SocialFeed = /** @class */ (function (_super) {
+    __extends(_SocialFeed, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _SocialFeed(targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "social.feed";
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "socialfeed" } });
+        return _this;
+    }
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Method to post to another user's feed
+    _SocialFeed.prototype.postToFeed = function (accountName, creationData) {
+        var postInfo = { ID: null, creationData: creationData };
+        // Set the post metadata
+        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
+        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
+        return this.executeMethod("postToMyFeed", {
+            argNames: ["restCreationData"],
+            name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
+            requestType: types_1.RequestType.PostWithArgsInBody
+        }, [postInfo]);
+    };
+    // Method to post to the current user's feed
+    _SocialFeed.prototype.postToMyFeed = function (creationData) {
+        var postInfo = { ID: null, creationData: creationData };
+        // Set the post metadata
+        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
+        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
+        return this.executeMethod("postToMyFeed", {
+            argNames: ["restCreationData"],
+            name: "my/feed/post",
+            requestType: types_1.RequestType.PostWithArgsInBody
+        }, [postInfo]);
+    };
+    return _SocialFeed;
+}(utils_1.Base));
+exports.SocialFeed = (new _SocialFeed());
+//# sourceMappingURL=socialFeed.js.map
+
+/***/ }),
+/* 116 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(1);
+/*********************************************************************************************************************************/
+// User Profile
+/*********************************************************************************************************************************/
+var _UserProfile = /** @class */ (function (_super) {
+    __extends(_UserProfile, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _UserProfile(targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
+        _this.targetInfo.method = "POST";
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "userprofile" } });
+        return _this;
+    }
+    return _UserProfile;
+}(utils_1.Base));
+exports.UserProfile = _UserProfile;
+//# sourceMappingURL=userProfile.js.map
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var types_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
+/**
+ * Utility
+ */
+var _Utility = /** @class */ (function (_super) {
+    __extends(_Utility, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
+    function _Utility(url, targetInfo) {
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
+        _this.defaultToWebFl = true;
+        _this.targetInfo.endpoint = "SP.Utilities.Utility";
+        // See if the web url exists
+        if (url) {
+            // Set the settings
+            _this.targetInfo.url = url;
+        }
+        // Add the methods
+        _this.addMethods(_this, { __metadata: { type: "utility" } });
+        return _this;
+    }
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Method to create a wiki page
+    _Utility.prototype.createWikiPage = function (listUrl, content) {
+        if (content === void 0) { content = ""; }
+        var parameters = {
+            ServerRelativeUrl: listUrl,
+            WikiHtmlContent: content
+        };
+        // Execute the method
+        return this.executeMethod("createWikiPage", {
+            argNames: ["parameters"],
+            name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
+            replaceEndpointFl: true,
+            requestType: types_1.RequestType.PostWithArgsInBody
+        }, [parameters]);
+    };
+    // Method to send an email
+    _Utility.prototype.sendEmail = function (properties) {
+        // Parse the email properties
+        for (var _i = 0, _a = ["To", "CC", "BCC"]; _i < _a.length; _i++) {
+            var propName = _a[_i];
+            var propValue = properties[propName];
+            // Ensure the value exists
+            if (propValue) {
+                // See if it's a string
+                if (typeof (propValue) === "string") {
+                    // Add the results property
+                    properties[propName] = { 'results': [propValue] };
+                }
+                else {
+                    // Add the results property
+                    properties[propName] = { 'results': propValue };
+                }
+            }
+        }
+        // Execute the method
+        return this.executeMethod("sendEmail", {
+            argNames: ["properties"],
+            metadataType: "SP.Utilities.EmailProperties",
+            name: "SP.Utilities.Utility.sendEmail",
+            replaceEndpointFl: true,
+            requestType: types_1.RequestType.PostWithArgsInBody
+        }, [properties]);
+    };
+    return _Utility;
+}(utils_1.Base));
+exports.Utility = _Utility;
+//# sourceMappingURL=utility.js.map
+
+/***/ }),
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-var __1 = __webpack_require__(2);
+var lib_1 = __webpack_require__(2);
 /**
  * Dependencies
  * This class will ensure the core SP scripts are loaded on the page.
@@ -5289,9 +7618,10 @@ var Dependencies = /** @class */ (function () {
      * @param callback - The method to execute after the scripts have been loaded.
      */
     function Dependencies(callback) {
+        this._callback = null;
         // Default the properties
+        this._callback = callback;
         this.MAX_WAIT = 5;
-        this.promise = new utils_1.Promise(callback);
         this.SCRIPTS = [
             "MicrosoftAjax.js", "init.js", "sp.runtime.js", "sp.js", "sp.core.js", "core.js"
         ];
@@ -5299,7 +7629,7 @@ var Dependencies = /** @class */ (function () {
         this.loadDependencies();
     }
     Object.defineProperty(Dependencies.prototype, "pageContextExistsFl", {
-        get: function () { return __1.ContextInfo.webAbsoluteUrl != ""; },
+        get: function () { return lib_1.ContextInfo.webAbsoluteUrl != ""; },
         enumerable: true,
         configurable: true
     });
@@ -5309,19 +7639,19 @@ var Dependencies = /** @class */ (function () {
     Dependencies.prototype.loadDependencies = function () {
         // See if the page context exists
         if (this.pageContextExistsFl) {
-            // Resolve the promise
-            this.promise.resolve();
+            // Call the callback event
+            this._callback ? this._callback() : null;
         }
         else {
             // Load the required scripts
             for (var fileName in this.SCRIPTS) {
                 // Create the script element
-                var elScript = __1.ContextInfo.document.createElement("script");
+                var elScript = lib_1.ContextInfo.document.createElement("script");
                 // Set the properties
                 elScript.setAttribute("src", "/_layouts/15/" + fileName);
                 elScript.setAttribute("type", "text/javascript");
                 // Add the script element to the head
-                __1.ContextInfo.document.head.appendChild(elScript);
+                lib_1.ContextInfo.document.head.appendChild(elScript);
             }
             // Wait for the page context to exist
             this.waitForPageContext();
@@ -5333,13 +7663,13 @@ var Dependencies = /** @class */ (function () {
     Dependencies.prototype.waitForPageContext = function () {
         var counter = 0;
         // Check every 10ms
-        var intervalId = __1.ContextInfo.window.setInterval(function () {
+        var intervalId = lib_1.ContextInfo.window.setInterval(function () {
             // See if the page context exists, and ensure we haven't hit the max attempts
             if (this.pageContextExists || ++counter >= this.MAX_WAIT) {
                 // Clear the interval
-                __1.ContextInfo.window.clearInterval(intervalId);
-                // Resolve the promise
-                this.promise.resolve();
+                lib_1.ContextInfo.window.clearInterval(intervalId);
+                // Call the callback event
+                this._callback ? this._callback() : null;
             }
         }, 10);
     };
@@ -5349,99 +7679,102 @@ exports.Dependencies = Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 41 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var __1 = __webpack_require__(2);
-var types_1 = __webpack_require__(1);
-var utils_1 = __webpack_require__(0);
-var _1 = __webpack_require__(3);
+var lib_1 = __webpack_require__(2);
+var types_1 = __webpack_require__(0);
+var types_2 = __webpack_require__(40);
 /**
  * The field schema xml class
  */
 var _FieldSchemaXML = /** @class */ (function () {
     function _FieldSchemaXML() {
         var _this = this;
+        // Method to resolve this request
+        this._resolve = null;
         // Generates the schema xml, based on the field information provided.
         this.generate = function (fieldInfo) {
-            var promise = new utils_1.Promise();
-            // See if the schema xml has been defined
-            if (fieldInfo.schemaXml) {
-                // Resolve the promise
-                promise.resolve(fieldInfo.schemaXml);
-            }
-            else {
-                // Set the base properties
-                var props = {};
-                props["ID"] = "{" + __1.ContextInfo.generateGUID() + "}";
-                props["Name"] = fieldInfo.name;
-                props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
-                props["StaticName"] = fieldInfo.name;
-                props["DisplayName"] = fieldInfo.title;
-                // Set the type
-                switch (fieldInfo.type) {
-                    // Boolean
-                    case _1.Helper.Types.SPCfgFieldType.Boolean:
-                        _this.createBoolean(fieldInfo, props, promise);
-                        break;
-                    // Calculated
-                    case _1.Helper.Types.SPCfgFieldType.Calculated:
-                        _this.createCalculated(fieldInfo, props, promise);
-                        break;
-                    // Choice
-                    case _1.Helper.Types.SPCfgFieldType.Choice:
-                        _this.createChoice(fieldInfo, props, promise);
-                        break;
-                    // Date/Time
-                    case _1.Helper.Types.SPCfgFieldType.Date:
-                        _this.createDate(fieldInfo, props, promise);
-                        break;
-                    // Lookup
-                    case _1.Helper.Types.SPCfgFieldType.Lookup:
-                        _this.createLookup(fieldInfo, props, promise);
-                        break;
-                    // MMS
-                    case _1.Helper.Types.SPCfgFieldType.MMS:
-                        _this.createMMS(fieldInfo, props, promise);
-                        break;
-                    // Note
-                    case _1.Helper.Types.SPCfgFieldType.Note:
-                        _this.createNote(fieldInfo, props, promise);
-                        break;
-                    // Number
-                    case _1.Helper.Types.SPCfgFieldType.Number:
-                        _this.createNumber(fieldInfo, props, promise);
-                        break;
-                    // Text
-                    case _1.Helper.Types.SPCfgFieldType.Text:
-                        _this.createText(fieldInfo, props, promise);
-                        break;
-                    // URL
-                    case _1.Helper.Types.SPCfgFieldType.Url:
-                        _this.createUrl(fieldInfo, props, promise);
-                        break;
-                    // User
-                    case _1.Helper.Types.SPCfgFieldType.User:
-                        _this.createUser(fieldInfo, props, promise);
-                        break;
-                    // Field type not supported
-                    default:
-                        // Resolve the promise
-                        promise.resolve(null);
-                        break;
-                }
-            }
             // Return a promise
-            return promise;
+            return new Promise(function (resolve, reject) {
+                // Set the resolve method
+                _this._resolve = resolve;
+                // See if the schema xml has been defined
+                if (fieldInfo.schemaXml) {
+                    // Resolve the promise
+                    resolve(fieldInfo.schemaXml);
+                }
+                else {
+                    // Set the base properties
+                    var props = {};
+                    props["ID"] = "{" + lib_1.ContextInfo.generateGUID() + "}";
+                    props["Name"] = fieldInfo.name;
+                    props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
+                    props["StaticName"] = fieldInfo.name;
+                    props["DisplayName"] = fieldInfo.title;
+                    // Set the type
+                    switch (fieldInfo.type) {
+                        // Boolean
+                        case types_2.HelperTypes.SPCfgFieldType.Boolean:
+                            _this.createBoolean(fieldInfo, props);
+                            break;
+                        // Calculated
+                        case types_2.HelperTypes.SPCfgFieldType.Calculated:
+                            _this.createCalculated(fieldInfo, props);
+                            break;
+                        // Choice
+                        case types_2.HelperTypes.SPCfgFieldType.Choice:
+                            _this.createChoice(fieldInfo, props);
+                            break;
+                        // Date/Time
+                        case types_2.HelperTypes.SPCfgFieldType.Date:
+                            _this.createDate(fieldInfo, props);
+                            break;
+                        // Lookup
+                        case types_2.HelperTypes.SPCfgFieldType.Lookup:
+                            _this.createLookup(fieldInfo, props);
+                            break;
+                        // MMS
+                        case types_2.HelperTypes.SPCfgFieldType.MMS:
+                            _this.createMMS(fieldInfo, props);
+                            break;
+                        // Note
+                        case types_2.HelperTypes.SPCfgFieldType.Note:
+                            _this.createNote(fieldInfo, props);
+                            break;
+                        // Number
+                        case types_2.HelperTypes.SPCfgFieldType.Number:
+                            _this.createNumber(fieldInfo, props);
+                            break;
+                        // Text
+                        case types_2.HelperTypes.SPCfgFieldType.Text:
+                            _this.createText(fieldInfo, props);
+                            break;
+                        // URL
+                        case types_2.HelperTypes.SPCfgFieldType.Url:
+                            _this.createUrl(fieldInfo, props);
+                            break;
+                        // User
+                        case types_2.HelperTypes.SPCfgFieldType.User:
+                            _this.createUser(fieldInfo, props);
+                            break;
+                        // Field type not supported
+                        default:
+                            // Resolve the promise
+                            resolve();
+                            break;
+                    }
+                }
+            });
         };
         /**
          * Methods
          */
         /** Returns the schema xml for a boolean field. */
-        this.createBoolean = function (fieldInfo, props, promise) {
+        this.createBoolean = function (fieldInfo, props) {
             var schemaXml = null;
             // Set the field type
             props["Type"] = "Boolean";
@@ -5451,11 +7784,11 @@ var _FieldSchemaXML = /** @class */ (function () {
                 schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
             }
             schemaXml += "</Field>";
-            // Return the schema xml
-            return schemaXml;
+            // Resolve the request
+            _this._resolve(schemaXml);
         };
         /** Returns the schema xml for a calculated field. */
-        this.createCalculated = function (fieldInfo, props, promise) {
+        this.createCalculated = function (fieldInfo, props) {
             var schemaXml = null;
             // Set the field type
             props["Type"] = "Calculated";
@@ -5495,11 +7828,11 @@ var _FieldSchemaXML = /** @class */ (function () {
                 schemaXml += "</FieldRefs>";
             }
             schemaXml += "</Field>";
-            // Resolve the promise
-            promise.resolve(schemaXml);
+            // Resolve the request
+            _this._resolve(schemaXml);
         };
         /** Returns the schema xml for a choice field. */
-        this.createChoice = function (fieldInfo, props, promise) {
+        this.createChoice = function (fieldInfo, props) {
             var schemaXml = null;
             // Set the field type
             props["Type"] = fieldInfo.multi ? "MultiChoice" : "Choice";
@@ -5516,11 +7849,11 @@ var _FieldSchemaXML = /** @class */ (function () {
                 schemaXml += "</CHOICES>";
             }
             schemaXml += "</Field>";
-            // Resolve the promise
-            promise.resolve(schemaXml);
+            // Resolve the request
+            _this._resolve(schemaXml);
         };
         /** Returns the schema xml for a date field. */
-        this.createDate = function (fieldInfo, props, promise) {
+        this.createDate = function (fieldInfo, props) {
             var schemaXml = null;
             // Set the field type
             props["Type"] = "DateTime";
@@ -5528,11 +7861,11 @@ var _FieldSchemaXML = /** @class */ (function () {
             props["Format"] = fieldInfo.format == types_1.SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
             // Generate the schema
             schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the promise
-            promise.resolve(schemaXml);
+            // Resolve the request
+            _this._resolve(schemaXml);
         };
         /** Returns the schema xml for a lookup field. */
-        this.createLookup = function (fieldInfo, props, promise) {
+        this.createLookup = function (fieldInfo, props) {
             var schemaXml = null;
             // Set the field type
             props["Type"] = fieldInfo.multi ? "LookupMulti" : "Lookup";
@@ -5549,7 +7882,7 @@ var _FieldSchemaXML = /** @class */ (function () {
             // See if the lookup name exists
             if (fieldInfo.listName) {
                 // Get the web containing the list
-                (new __1.Web(fieldInfo.webUrl))
+                (new lib_1.Web(fieldInfo.webUrl))
                     .Lists(fieldInfo.listName)
                     .query({
                     Expand: ["ParentWeb"]
@@ -5560,22 +7893,22 @@ var _FieldSchemaXML = /** @class */ (function () {
                     if (fieldInfo.webUrl) {
                         props["WebId"] = list.ParentWeb.Id;
                     }
-                    // Resolve the promise
-                    promise.resolve("<Field " + _this.toString(props) + " />");
+                    // Resolve the request
+                    _this._resolve("<Field " + _this.toString(props) + " />");
                 });
             }
             else {
                 // Set the list id
                 props["List"] = fieldInfo.listId;
-                // Resolve the promise
-                promise.resolve("<Field " + _this.toString(props) + " />");
+                // Resolve the request
+                _this._resolve("<Field " + _this.toString(props) + " />");
             }
         };
         /** Returns the schema xml for a managed metadata field. */
-        this.createMMS = function (fieldInfo, props, promise) {
+        this.createMMS = function (fieldInfo, props) {
             // Create the value field
             var valueProps = {
-                ID: "{" + __1.ContextInfo.generateGUID() + "}",
+                ID: "{" + lib_1.ContextInfo.generateGUID() + "}",
                 Name: fieldInfo.name + "_0",
                 StaticName: fieldInfo.name + "_0",
                 DisplayName: fieldInfo.title + " Value",
@@ -5600,11 +7933,11 @@ var _FieldSchemaXML = /** @class */ (function () {
                 "</Customization>",
                 "</Field>"
             ].join("");
-            // Resolve the promise
-            promise.resolve([schemaXmlValue, schemaXml]);
+            // Resolve the request
+            _this._resolve([schemaXmlValue, schemaXml]);
         };
         /** Returns the schema xml for a note field. */
-        this.createNote = function (fieldInfo, props, promise) {
+        this.createNote = function (fieldInfo, props) {
             var schemaXml = null;
             // Set the field type
             props["Type"] = "Note";
@@ -5623,11 +7956,11 @@ var _FieldSchemaXML = /** @class */ (function () {
             }
             // Generate the schema
             schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the promise
-            promise.resolve(schemaXml);
+            // Resolve the request
+            _this._resolve(schemaXml);
         };
         /** Returns the schema xml for a number field. */
-        this.createNumber = function (fieldInfo, props, promise) {
+        this.createNumber = function (fieldInfo, props) {
             var schemaXml = null;
             // Set the field type
             props["Type"] = "Number";
@@ -5649,31 +7982,31 @@ var _FieldSchemaXML = /** @class */ (function () {
             }
             // Generate the schema
             schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the promise
-            promise.resolve(schemaXml);
+            // Resolve the request
+            _this._resolve(schemaXml);
         };
         /** Returns the schema xml for a text field. */
-        this.createText = function (fieldInfo, props, promise) {
+        this.createText = function (fieldInfo, props) {
             var schemaXml = null;
             // Set the field type
             props["Type"] = "Text";
             // Generate the schema
             schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the promise
-            promise.resolve(schemaXml);
+            // Resolve the request
+            _this._resolve(schemaXml);
         };
         /** Returns the schema xml for a url field. */
-        this.createUrl = function (fieldInfo, props, promise) {
+        this.createUrl = function (fieldInfo, props) {
             var schemaXml = null;
             // Set the field type
             props["Type"] = "URL";
             // Generate the schema
             schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the promise
-            promise.resolve(schemaXml);
+            // Resolve the request
+            _this._resolve(schemaXml);
         };
         /** Returns the schema xml for a user field. */
-        this.createUser = function (fieldInfo, props, promise) {
+        this.createUser = function (fieldInfo, props) {
             var schemaXml = null;
             // Set the field type
             props["Type"] = "User";
@@ -5689,8 +8022,8 @@ var _FieldSchemaXML = /** @class */ (function () {
             }
             // Generate the schema
             schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the promise
-            promise.resolve(schemaXml);
+            // Resolve the request
+            _this._resolve(schemaXml);
         };
         // Method to convert the properties to a string
         this.toString = function (props) {
@@ -5711,14 +8044,14 @@ exports.FieldSchemaXML = new _FieldSchemaXML();
 //# sourceMappingURL=field.js.map
 
 /***/ }),
-/* 42 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var __1 = __webpack_require__(2);
+var lib_1 = __webpack_require__(2);
+var types_1 = __webpack_require__(0);
 /**
  * JSLink Helper Methods
  */
@@ -5736,112 +8069,112 @@ exports.JSLinkHelper = {
      */
     _fieldToMethodMapper: {
         'Attachments': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldAttachments_Default"],
-            2: __1.ContextInfo.window["SPFieldAttachments_Default"],
-            3: __1.ContextInfo.window["SPFieldAttachments_Default"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldAttachments_Default"],
+            2: lib_1.ContextInfo.window["SPFieldAttachments_Default"],
+            3: lib_1.ContextInfo.window["SPFieldAttachments_Default"]
         },
         'Boolean': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_DefaultNoEncode"],
-            2: __1.ContextInfo.window["SPFieldBoolean_Edit"],
-            3: __1.ContextInfo.window["SPFieldBoolean_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_DefaultNoEncode"],
+            2: lib_1.ContextInfo.window["SPFieldBoolean_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldBoolean_Edit"]
         },
         'Currency': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPFieldNumber_Edit"],
-            3: __1.ContextInfo.window["SPFieldNumber_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPFieldNumber_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldNumber_Edit"]
         },
         'Calculated': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPField_FormDisplay_Empty"],
-            3: __1.ContextInfo.window["SPField_FormDisplay_Empty"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPField_FormDisplay_Empty"],
+            3: lib_1.ContextInfo.window["SPField_FormDisplay_Empty"]
         },
         'Choice': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPFieldChoice_Edit"],
-            3: __1.ContextInfo.window["SPFieldChoice_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPFieldChoice_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldChoice_Edit"]
         },
         'Computed': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            3: __1.ContextInfo.window["SPField_FormDisplay_Default"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            3: lib_1.ContextInfo.window["SPField_FormDisplay_Default"]
         },
         'DateTime': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldDateTime_Display"],
-            2: __1.ContextInfo.window["SPFieldDateTime_Edit"],
-            3: __1.ContextInfo.window["SPFieldDateTime_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldDateTime_Display"],
+            2: lib_1.ContextInfo.window["SPFieldDateTime_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldDateTime_Edit"]
         },
         'File': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldFile_Display"],
-            2: __1.ContextInfo.window["SPFieldFile_Edit"],
-            3: __1.ContextInfo.window["SPFieldFile_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldFile_Display"],
+            2: lib_1.ContextInfo.window["SPFieldFile_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldFile_Edit"]
         },
         'Integer': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPFieldNumber_Edit"],
-            3: __1.ContextInfo.window["SPFieldNumber_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPFieldNumber_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldNumber_Edit"]
         },
         'Lookup': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldLookup_Display"],
-            2: __1.ContextInfo.window["SPFieldLookup_Edit"],
-            3: __1.ContextInfo.window["SPFieldLookup_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldLookup_Display"],
+            2: lib_1.ContextInfo.window["SPFieldLookup_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldLookup_Edit"]
         },
         'LookupMulti': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldLookup_Display"],
-            2: __1.ContextInfo.window["SPFieldLookup_Edit"],
-            3: __1.ContextInfo.window["SPFieldLookup_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldLookup_Display"],
+            2: lib_1.ContextInfo.window["SPFieldLookup_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldLookup_Edit"]
         },
         'MultiChoice': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPFieldMultiChoice_Edit"],
-            3: __1.ContextInfo.window["SPFieldMultiChoice_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPFieldMultiChoice_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldMultiChoice_Edit"]
         },
         'Note': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldNote_Display"],
-            2: __1.ContextInfo.window["SPFieldNote_Edit"],
-            3: __1.ContextInfo.window["SPFieldNote_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldNote_Display"],
+            2: lib_1.ContextInfo.window["SPFieldNote_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldNote_Edit"]
         },
         'Number': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPFieldNumber_Edit"],
-            3: __1.ContextInfo.window["SPFieldNumber_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPFieldNumber_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldNumber_Edit"]
         },
         'Text': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPField_FormDisplay_Default"],
-            2: __1.ContextInfo.window["SPFieldText_Edit"],
-            3: __1.ContextInfo.window["SPFieldText_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPField_FormDisplay_Default"],
+            2: lib_1.ContextInfo.window["SPFieldText_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldText_Edit"]
         },
         'URL': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldUrl_Display"],
-            2: __1.ContextInfo.window["SPFieldUrl_Edit"],
-            3: __1.ContextInfo.window["SPFieldUrl_Edit"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldUrl_Display"],
+            2: lib_1.ContextInfo.window["SPFieldUrl_Edit"],
+            3: lib_1.ContextInfo.window["SPFieldUrl_Edit"]
         },
         'User': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldUser_Display"],
-            2: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
-            3: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldUser_Display"],
+            2: lib_1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
+            3: lib_1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
         },
         'UserMulti': {
-            4: __1.ContextInfo.window["RenderFieldValueDefault"],
-            1: __1.ContextInfo.window["SPFieldUserMulti_Display"],
-            2: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
-            3: __1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
+            4: lib_1.ContextInfo.window["RenderFieldValueDefault"],
+            1: lib_1.ContextInfo.window["SPFieldUserMulti_Display"],
+            2: lib_1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
+            3: lib_1.ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
         }
     },
     /**
@@ -5943,7 +8276,7 @@ exports.JSLinkHelper = {
      */
     getListViewSelectedItems: function () {
         // Return the selected items
-        return __1.ContextInfo.window["SP"].ListOperation.Selection.getSelectedItems();
+        return lib_1.ContextInfo.window["SP"].ListOperation.Selection.getSelectedItems();
     },
     /**
      * Returns the webpart containing the JSLink field/form/view.
@@ -5951,7 +8284,7 @@ exports.JSLinkHelper = {
      */
     getWebPart: function (ctx) {
         // Return the webpart
-        return __1.ContextInfo.document.querySelector("#WebPart" + (ctx.FormUniqueId || ctx.wpq));
+        return lib_1.ContextInfo.document.querySelector("#WebPart" + (ctx.FormUniqueId || ctx.wpq));
     },
     /**
      * Hides the specified field.
@@ -5964,9 +8297,9 @@ exports.JSLinkHelper = {
             // Set the flag
             exports.JSLinkHelper.hideEventFl = true;
             // Create the event
-            __1.ContextInfo.window.addEventListener("load", function () {
+            lib_1.ContextInfo.window.addEventListener("load", function () {
                 // Query for the elements to hide
-                var fieldElements = __1.ContextInfo.document.querySelectorAll(".hide-field");
+                var fieldElements = lib_1.ContextInfo.document.querySelectorAll(".hide-field");
                 for (var _i = 0, fieldElements_1 = fieldElements; _i < fieldElements_1.length; _i++) {
                     var fieldElement = fieldElements_1[_i];
                     // Get the parent row
@@ -6024,55 +8357,55 @@ exports.JSLinkHelper = {
         var fieldRenderer = null;
         switch (field.Type) {
             case "AllDayEvent":
-                fieldRenderer = new __1.ContextInfo.window["AllDayEventFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["AllDayEventFieldRenderer"](field.Name);
                 break;
             case "Attachments":
-                fieldRenderer = new __1.ContextInfo.window["AttachmentFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["AttachmentFieldRenderer"](field.Name);
                 break;
             case "BusinessData":
-                fieldRenderer = new __1.ContextInfo.window["BusinessDataFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["BusinessDataFieldRenderer"](field.Name);
                 break;
             case "Computed":
-                fieldRenderer = new __1.ContextInfo.window["ComputedFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["ComputedFieldRenderer"](field.Name);
                 break;
             case "CrossProjectLink":
-                fieldRenderer = new __1.ContextInfo.window["ProjectLinkFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["ProjectLinkFieldRenderer"](field.Name);
                 break;
             case "Currency":
-                fieldRenderer = new __1.ContextInfo.window["NumberFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["NumberFieldRenderer"](field.Name);
                 break;
             case "DateTime":
-                fieldRenderer = new __1.ContextInfo.window["DateTimeFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["DateTimeFieldRenderer"](field.Name);
                 break;
             case "Lookup":
-                fieldRenderer = new __1.ContextInfo.window["LookupFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["LookupFieldRenderer"](field.Name);
                 break;
             case "LookupMulti":
-                fieldRenderer = new __1.ContextInfo.window["LookupFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["LookupFieldRenderer"](field.Name);
                 break;
             case "Note":
-                fieldRenderer = new __1.ContextInfo.window["NoteFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["NoteFieldRenderer"](field.Name);
                 break;
             case "Number":
-                fieldRenderer = new __1.ContextInfo.window["NumberFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["NumberFieldRenderer"](field.Name);
                 break;
             case "Recurrence":
-                fieldRenderer = new __1.ContextInfo.window["RecurrenceFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["RecurrenceFieldRenderer"](field.Name);
                 break;
             case "Text":
-                fieldRenderer = new __1.ContextInfo.window["TextFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["TextFieldRenderer"](field.Name);
                 break;
             case "URL":
-                fieldRenderer = new __1.ContextInfo.window["UrlFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["UrlFieldRenderer"](field.Name);
                 break;
             case "User":
-                fieldRenderer = new __1.ContextInfo.window["UserFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["UserFieldRenderer"](field.Name);
                 break;
             case "UserMulti":
-                fieldRenderer = new __1.ContextInfo.window["UserFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["UserFieldRenderer"](field.Name);
                 break;
             case "WorkflowStatus":
-                fieldRenderer = new __1.ContextInfo.window["RawFieldRenderer"](field.Name);
+                fieldRenderer = new lib_1.ContextInfo.window["RawFieldRenderer"](field.Name);
                 break;
         }
         ;
@@ -6085,14 +8418,215 @@ exports.JSLinkHelper = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 43 */
+/* 121 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
+var _ListForm = /** @class */ (function () {
+    /**
+     * Constructor
+    */
+    function _ListForm(props) {
+        var _this = this;
+        this._fields = null;
+        this._list = null;
+        this._props = null;
+        this._resolve = null;
+        /**
+         * Methods
+         */
+        // Method to load the list data
+        this.load = function () {
+            // Get the web
+            (new lib_1.Web(_this._props.webUrl))
+                .Lists(_this._props.listName)
+                .execute(function (list) {
+                // Save the list
+                _this._list = list;
+            })
+                .Fields()
+                .execute(function (fields) {
+                // Clear the fields
+                _this._fields = {};
+                // Save the fields
+                for (var i = 0; i < fields.results.length; i++) {
+                    var field = fields.results[i];
+                    // Save the field
+                    _this._fields[field.InternalName] = field;
+                }
+                // See if the fields have been defined
+                if (_this._props.fields) {
+                    // Process the fields
+                    _this.processFields();
+                }
+                else {
+                    // Load the default fields
+                    _this.loadDefaultFields();
+                }
+            });
+        };
+        // Method to load the default fields
+        this.loadDefaultFields = function () {
+            // Load the content types
+            _this._list.ContentTypes()
+                .query({
+                Expand: ["FieldLinks"],
+                Top: 1
+            })
+                .execute(function (ct) {
+                var fields = ct.results ? ct.results[0].FieldLinks.results : [];
+                var formFields = {};
+                // Parse the field links
+                for (var i = 0; fields.length; i++) {
+                    var fieldLink = fields[i];
+                    var field = _this._fields[fieldLink.FieldInternalName];
+                    // Skip the content type field
+                    if (fieldLink.FieldInternalName == "ContentType") {
+                        continue;
+                    }
+                    // Skip hidden fields
+                    if (field.Hidden || fieldLink.Hidden) {
+                        continue;
+                    }
+                    // Save the form field
+                    formFields[field.InternalName] = field;
+                }
+                // Resolve the promise
+                _this._resolve(formFields);
+            }, true);
+        };
+        // Method to process the fields
+        this.processFields = function () {
+            var formFields = {};
+            // Parse the fields provided
+            for (var i = 0; i < _this._props.fields.length; i++) {
+                var field = _this._fields[_this._props.fields[i]];
+                // Ensure the field exists
+                if (field) {
+                    // Save the field
+                    formFields[field.InternalName] = field;
+                }
+            }
+            // Resolve the promise
+            _this._resolve(formFields);
+        };
+        // Save the properties
+        this._props = props || {};
+        this._props.fields = this._props.fields || [];
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Save the resolve method
+            _this._resolve = resolve;
+            // Load the list data
+            _this.load();
+        });
+    }
+    Object.defineProperty(_ListForm.prototype, "Fields", {
+        /**
+         * Properties
+         */
+        // The list fields
+        get: function () { return this._fields; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(_ListForm.prototype, "Lists", {
+        // The list
+        get: function () { return this._list; },
+        enumerable: true,
+        configurable: true
+    });
+    return _ListForm;
+}());
+exports.ListForm = _ListForm;
+//# sourceMappingURL=listForm.js.map
+
+/***/ }),
+/* 122 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(2);
+var _ListFormField = /** @class */ (function () {
+    /**
+     * Constructor
+     */
+    function _ListFormField(props) {
+        var _this = this;
+        this._fieldInfo = null;
+        this._resolve = null;
+        /**
+         * Methods
+         */
+        // Load the field
+        this.load = function () {
+            // See if the field exists
+            if (_this._fieldInfo.field) {
+                // Process the field
+                _this.processField();
+            }
+            else {
+                // Get the web
+                (new lib_1.Web(_this._fieldInfo.webUrl))
+                    .Lists(_this._fieldInfo.listName)
+                    .Fields()
+                    .getByInternalNameOrTitle(_this._fieldInfo.name)
+                    .execute(function (field) {
+                    // Save the field
+                    _this._fieldInfo.field = field;
+                    // Process the field
+                    _this.processField();
+                });
+            }
+        };
+        // Method to proces the field and save its information
+        this.processField = function () {
+            // Update the field information
+            _this._fieldInfo.defaultValue = _this._fieldInfo.field.DefaultValue;
+            _this._fieldInfo.readOnly = _this._fieldInfo.field.ReadOnlyField;
+            _this._fieldInfo.required = _this._fieldInfo.field.Required ? true : false;
+            _this._fieldInfo.title = _this._fieldInfo.field.Title;
+            _this._fieldInfo.type = _this._fieldInfo.field.FieldTypeKind;
+            _this._fieldInfo.typeAsString = _this._fieldInfo.field.TypeAsString;
+            // Resolve the promise
+            _this._resolve(_this._fieldInfo);
+        };
+        // Save the properties and field information
+        this._fieldInfo = props || {};
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Save the resolve method
+            _this._resolve = resolve;
+            // See if the field exists
+            if (_this._fieldInfo.field) {
+                // Process the field
+                _this.processField();
+            }
+            else {
+                // Load the field
+                _this.load();
+            }
+        });
+    }
+    return _ListFormField;
+}());
+exports.ListFormField = _ListFormField;
+//# sourceMappingURL=listFormField.js.map
+
+/***/ }),
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var __1 = __webpack_require__(2);
+var lib_1 = __webpack_require__(2);
 /**
  * Loader
  */
@@ -6119,12 +8653,12 @@ exports.Loader = {
             // Parse the files to load
             ["MicrosoftAjax.js", "init.js", "sp.runtime.js", "sp.js", "sp.core.js", "core.js"].every(function (fileName) {
                 // Create the script element
-                var el = __1.ContextInfo.document.createElement("script");
+                var el = lib_1.ContextInfo.document.createElement("script");
                 // Set the properties
                 el.setAttribute("src", "/_layouts/15/" + fileName);
                 el.setAttribute("type", "text/javascript");
                 // Add the element to the head
-                __1.ContextInfo.document.head.appendChild(el);
+                lib_1.ContextInfo.document.head.appendChild(el);
                 // Continue the loop
                 return true;
             });
@@ -6133,7 +8667,7 @@ exports.Loader = {
         var intervalId = setInterval(function () {
             var maxLoopFl = ++counter > maxLoops;
             // See if the page context exists or if we have hit the max attempts
-            if (__1.ContextInfo.existsFl || maxLoopFl) {
+            if (lib_1.ContextInfo.existsFl || maxLoopFl) {
                 // Stop the loop
                 clearInterval(intervalId);
                 // Execute the callback
@@ -6145,13 +8679,13 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 44 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(1);
 /**
  * Convert a JSON string to a base object
  */
@@ -6175,15 +8709,14 @@ exports.parse = function (jsonString) {
 //# sourceMappingURL=parse.js.map
 
 /***/ }),
-/* 45 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-var __1 = __webpack_require__(2);
-var _1 = __webpack_require__(3);
+var lib_1 = __webpack_require__(2);
+var _1 = __webpack_require__(37);
 /**
  * SharePoint Configuration
  */
@@ -6202,425 +8735,425 @@ var SPConfig = /** @class */ (function () {
          */
         // Method to create the content types
         this.createContentTypes = function (contentTypes, cfgContentTypes) {
-            var promise = new utils_1.Promise();
-            // Ensure the content types exist
-            if (cfgContentTypes == null || cfgContentTypes.length == 0) {
-                // Resolve the promise and return it
-                promise.resolve();
-                return promise;
-            }
-            var _loop_1 = function (i) {
-                var cfgContentType = cfgContentTypes[i];
-                // See if this content type already exists
-                var ct = _this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
-                if (ct) {
-                    // Log
-                    console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' already exists.");
-                    // Update the configuration
-                    cfgContentType.ContentType = ct;
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Ensure the content types exist
+                if (cfgContentTypes == null || cfgContentTypes.length == 0) {
+                    // Resolve the promise
+                    resolve();
+                    return;
                 }
-                else {
-                    // Log
-                    console.log("[gd-sprest][Content Type] Creating the '" + cfgContentType.Name + "' content type.");
-                    // See if the parent name exists
-                    if (cfgContentType.ParentName) {
-                        // Get the web containing the parent content type
-                        (new __1.Web(cfgContentType.ParentWebUrl || _this._webUrl))
-                            .ContentTypes()
-                            .query({
-                            Filter: "Name eq '" + cfgContentType.ParentName + "'"
-                        })
-                            .execute(function (parent) {
-                            // See if the parent exists
-                            if (parent.results[0]) {
-                                // Add the available content type
-                                contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
-                                    // See if it was successful
-                                    if (ct.existsFl) {
-                                        // Log
-                                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
-                                        // Update the configuration
-                                        cfgContentType.ContentType = ct;
-                                        // Trigger the event
-                                        cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
-                                    }
-                                    else {
-                                        // Log
-                                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
-                                        console.error("[gd-sprest][Field] Error: " + ct.response);
-                                    }
-                                }, true);
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][Content Type] The parent content type '" + cfgContentType.Name + "' was not found.");
-                            }
-                        });
-                    }
-                    else {
-                        // Create the content type
-                        contentTypes.add({
-                            Description: cfgContentType.Description,
-                            Group: cfgContentType.Group,
-                            Name: cfgContentType.Name
-                        }).execute(function (ct) {
-                            // See if it was successful
-                            if (ct.existsFl) {
-                                // Log
-                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
-                                // Update the configuration
-                                cfgContentType.ContentType = ct;
-                                // Trigger the event
-                                cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
-                                console.error("[gd-sprest][Field] Error: " + ct.response);
-                            }
-                        });
-                    }
-                }
-            };
-            // Parse the configuration
-            for (var i = 0; i < cfgContentTypes.length; i++) {
-                _loop_1(i);
-            }
-            // Wait for the requests to complete
-            contentTypes.done(function () {
-                var _loop_2 = function (i) {
+                var _loop_1 = function (i) {
                     var cfgContentType = cfgContentTypes[i];
-                    var cfgUpdate = {};
-                    var updateFl = false;
-                    // Ensure the content type exists
-                    if (cfgContentType.ContentType == null) {
-                        return "continue";
-                    }
-                    /**
-                     * See if we need to update the properties
-                     */
-                    // Description
-                    if (cfgContentType.ContentType.Description != cfgContentType.Description) {
+                    // See if this content type already exists
+                    var ct = _this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                    if (ct) {
+                        // Log
+                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' already exists.");
                         // Update the configuration
-                        cfgUpdate.Description = cfgContentType.Description;
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Description requires update.");
-                        // Set the flag
-                        updateFl = true;
-                    }
-                    // Group
-                    if (cfgContentType.ContentType.Group != cfgContentType.Group) {
-                        // Update the configuration
-                        cfgUpdate.Group = cfgContentType.Group;
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Group requires update.");
-                        // Set the flag
-                        updateFl = true;
-                    }
-                    // JSLink
-                    if (cfgContentType.ContentType.JSlink != cfgContentType.JSLink) {
-                        // Update the configuration
-                        cfgUpdate.JSLink = cfgContentType.JSLink;
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] JSLink requires update.");
-                        // Set the flag
-                        updateFl = true;
-                    }
-                    // Name
-                    if (cfgContentType.ContentType.Name != cfgContentType.Name) {
-                        // Update the configuration
-                        cfgUpdate.Name = cfgContentType.Name;
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Name requires update.");
-                        // Set the flag
-                        updateFl = true;
-                    }
-                    // See if an update is needed
-                    if (updateFl) {
-                        // Log
-                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the webpart.");
-                        // Update the content type
-                        cfgContentType.ContentType.update({ JSLink: cfgContentType.JSLink }).execute(function () {
-                            // Log
-                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
-                            // Trigger the event
-                            cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
-                        });
+                        cfgContentType.ContentType = ct;
                     }
                     else {
-                        // Trigger the event
-                        cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
+                        // Log
+                        console.log("[gd-sprest][Content Type] Creating the '" + cfgContentType.Name + "' content type.");
+                        // See if the parent name exists
+                        if (cfgContentType.ParentName) {
+                            // Get the web containing the parent content type
+                            (new lib_1.Web(cfgContentType.ParentWebUrl || _this._webUrl))
+                                .ContentTypes()
+                                .query({
+                                Filter: "Name eq '" + cfgContentType.ParentName + "'"
+                            })
+                                .execute(function (parent) {
+                                // See if the parent exists
+                                if (parent.results[0]) {
+                                    // Add the available content type
+                                    contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
+                                        // See if it was successful
+                                        if (ct.existsFl) {
+                                            // Log
+                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                            // Update the configuration
+                                            cfgContentType.ContentType = ct;
+                                            // Trigger the event
+                                            cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                        }
+                                        else {
+                                            // Log
+                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
+                                            console.error("[gd-sprest][Field] Error: " + ct.response);
+                                        }
+                                    }, true);
+                                }
+                                else {
+                                    // Log
+                                    console.log("[gd-sprest][Content Type] The parent content type '" + cfgContentType.Name + "' was not found.");
+                                }
+                            });
+                        }
+                        else {
+                            // Create the content type
+                            contentTypes.add({
+                                Description: cfgContentType.Description,
+                                Group: cfgContentType.Group,
+                                Name: cfgContentType.Name
+                            }).execute(function (ct) {
+                                // See if it was successful
+                                if (ct.existsFl) {
+                                    // Log
+                                    console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                    // Update the configuration
+                                    cfgContentType.ContentType = ct;
+                                    // Trigger the event
+                                    cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                }
+                                else {
+                                    // Log
+                                    console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
+                                    console.error("[gd-sprest][Field] Error: " + ct.response);
+                                }
+                            });
+                        }
                     }
                 };
                 // Parse the configuration
                 for (var i = 0; i < cfgContentTypes.length; i++) {
-                    _loop_2(i);
+                    _loop_1(i);
                 }
                 // Wait for the requests to complete
                 contentTypes.done(function () {
-                    // Resolve the promise
-                    promise.resolve();
+                    var _loop_2 = function (i) {
+                        var cfgContentType = cfgContentTypes[i];
+                        var cfgUpdate = {};
+                        var updateFl = false;
+                        // Ensure the content type exists
+                        if (cfgContentType.ContentType == null) {
+                            return "continue";
+                        }
+                        /**
+                         * See if we need to update the properties
+                         */
+                        // Description
+                        if (cfgContentType.ContentType.Description != cfgContentType.Description) {
+                            // Update the configuration
+                            cfgUpdate.Description = cfgContentType.Description;
+                            // Log
+                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Description requires update.");
+                            // Set the flag
+                            updateFl = true;
+                        }
+                        // Group
+                        if (cfgContentType.ContentType.Group != cfgContentType.Group) {
+                            // Update the configuration
+                            cfgUpdate.Group = cfgContentType.Group;
+                            // Log
+                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Group requires update.");
+                            // Set the flag
+                            updateFl = true;
+                        }
+                        // JSLink
+                        if (cfgContentType.ContentType.JSlink != cfgContentType.JSLink) {
+                            // Update the configuration
+                            cfgUpdate.JSLink = cfgContentType.JSLink;
+                            // Log
+                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] JSLink requires update.");
+                            // Set the flag
+                            updateFl = true;
+                        }
+                        // Name
+                        if (cfgContentType.ContentType.Name != cfgContentType.Name) {
+                            // Update the configuration
+                            cfgUpdate.Name = cfgContentType.Name;
+                            // Log
+                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Name requires update.");
+                            // Set the flag
+                            updateFl = true;
+                        }
+                        // See if an update is needed
+                        if (updateFl) {
+                            // Log
+                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the webpart.");
+                            // Update the content type
+                            cfgContentType.ContentType.update({ JSLink: cfgContentType.JSLink }).execute(function () {
+                                // Log
+                                console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
+                                // Trigger the event
+                                cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
+                            });
+                        }
+                        else {
+                            // Trigger the event
+                            cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
+                        }
+                    };
+                    // Parse the configuration
+                    for (var i = 0; i < cfgContentTypes.length; i++) {
+                        _loop_2(i);
+                    }
+                    // Wait for the requests to complete
+                    contentTypes.done(function () {
+                        // Resolve the promise
+                        resolve();
+                    });
                 });
             });
-            // Return a promise
-            return promise;
         };
         // Method to create the fields
         this.createFields = function (fields, cfgFields) {
-            var promise = new utils_1.Promise();
-            // Ensure the fields exist
-            if (cfgFields == null || cfgFields.length == 0) {
-                // Resolve the promise and return it
-                promise.resolve();
-                return promise;
-            }
-            var _loop_3 = function (i) {
-                var cfgField = cfgFields[i];
-                // See if this field already exists
-                var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
-                if (field) {
-                    // Log
-                    console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
-                    // Trigger the event
-                    cfgField.onUpdated ? cfgField.onUpdated(field) : null;
-                }
-                else {
-                    // Log
-                    console.log("[gd-sprest][Field] Creating the '" + cfgField.name + "' field.");
-                    //
-                    var onFieldCreated_1 = function (field) {
-                        // See if it was successful
-                        if (field.existsFl) {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
-                            // Trigger the event
-                            cfgField.onCreated ? cfgField.onCreated(field) : null;
-                        }
-                        else {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + cfgField.name + "' failed to be created.");
-                            console.error("[gd-sprest][Field] Error: " + field.response);
-                        }
-                    };
-                    // Compute the schema xml
-                    _1.Helper.FieldSchemaXML.generate(cfgField).then(function (response) {
-                        var schemas = typeof (response) === "string" ? [response] : response;
-                        // Parse the fields to add
-                        for (var i_1 = 0; i_1 < schemas.length; i_1++) {
-                            // Add the field
-                            fields.createFieldAsXml(schemas[i_1]).execute(onFieldCreated_1, true);
-                        }
-                    });
-                }
-            };
-            // Parse the fields
-            for (var i = 0; i < cfgFields.length; i++) {
-                _loop_3(i);
-            }
-            // Wait for the requests to complete
-            fields.done(function () {
-                // Resolve the promise
-                promise.resolve();
-            });
             // Return a promise
-            return promise;
-        };
-        // Method to create the lists
-        this.createLists = function (lists, cfgLists) {
-            var promise = new utils_1.Promise();
-            // See if the configuration type exists
-            if (_this._cfgType) {
-                // Ensure it's for this type
-                if (_this._cfgType != _1.Helper.Types.SPCfgType.Lists) {
-                    // Resolve the promise
-                    promise.resolve();
-                    return promise;
+            return new Promise(function (resolve, reject) {
+                // Ensure the fields exist
+                if (cfgFields == null || cfgFields.length == 0) {
+                    // Resolve the promise and return
+                    resolve();
+                    return;
                 }
-            }
-            // Ensure the lists exist
-            if (cfgLists == null || cfgLists.length == 0) {
-                // Resolve the promise and return it
-                promise.resolve();
-                return promise;
-            }
-            var _loop_4 = function (i) {
-                var cfgList = cfgLists[i];
-                // See if the target name exists
-                if (_this._cfgType && _this._targetName) {
-                    // Ensure it's for this list
-                    if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
-                        return "continue";
+                var _loop_3 = function (i) {
+                    var cfgField = cfgFields[i];
+                    // See if this field already exists
+                    var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
+                    if (field) {
+                        // Log
+                        console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
+                        // Trigger the event
+                        cfgField.onUpdated ? cfgField.onUpdated(field) : null;
                     }
-                }
-                // See if this content type already exists
-                var list = _this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
-                if (list) {
-                    // Log
-                    console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
-                }
-                else {
-                    // Log
-                    console.log("[gd-sprest][List] Creating the '" + cfgList.ListInformation.Title + "' list.");
-                    // Update the list name and remove spaces
-                    var listInfo_1 = cfgList.ListInformation;
-                    var listName_1 = listInfo_1.Title;
-                    listInfo_1.Title = listName_1.replace(/ /g, "");
-                    // Add the list
-                    lists.add(listInfo_1)
-                        .execute(function (list) {
-                        // Restore the list name in the configuration
-                        listInfo_1.Title = listName_1;
-                        // See if the request was successful
-                        if (list.existsFl) {
-                            // See if we need to update the list
-                            if (list.existsFl && list.Title != listName_1) {
-                                // Update the list
-                                list.update({ Title: listName_1 }).execute(function () {
-                                    // Log
-                                    console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
-                                });
+                    else {
+                        // Log
+                        console.log("[gd-sprest][Field] Creating the '" + cfgField.name + "' field.");
+                        //
+                        var onFieldCreated_1 = function (field) {
+                            // See if it was successful
+                            if (field.existsFl) {
+                                // Log
+                                console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
+                                // Trigger the event
+                                cfgField.onCreated ? cfgField.onCreated(field) : null;
                             }
                             else {
                                 // Log
-                                console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+                                console.log("[gd-sprest][Field] The field '" + cfgField.name + "' failed to be created.");
+                                console.error("[gd-sprest][Field] Error: " + field.response);
                             }
-                            // Trigger the event
-                            cfgList.onCreated ? cfgList.onCreated(list) : null;
-                        }
-                        else {
-                            // Log
-                            console.log("[gd-sprest][List] The list '" + listInfo_1.Title + "' failed to be created.");
-                            console.log("[gd-sprest][List] Error: '" + list.response);
-                        }
-                    });
+                        };
+                        // Compute the schema xml
+                        _1.Helper.FieldSchemaXML.generate(cfgField).then(function (response) {
+                            var schemas = typeof (response) === "string" ? [response] : response;
+                            // Parse the fields to add
+                            for (var i_1 = 0; i_1 < schemas.length; i_1++) {
+                                // Add the field
+                                fields.createFieldAsXml(schemas[i_1]).execute(onFieldCreated_1, true);
+                            }
+                        });
+                    }
+                };
+                // Parse the fields
+                for (var i = 0; i < cfgFields.length; i++) {
+                    _loop_3(i);
                 }
-            };
-            // Parse the content types
-            for (var i = 0; i < cfgLists.length; i++) {
-                _loop_4(i);
-            }
-            // Wait for the requests to complete
-            lists.done(function () {
-                // Update the lists
-                _this.updateLists(cfgLists).done(function () {
+                // Wait for the requests to complete
+                fields.done(function () {
                     // Resolve the promise
-                    promise.resolve();
+                    resolve();
                 });
             });
+        };
+        // Method to create the lists
+        this.createLists = function (lists, cfgLists) {
             // Return a promise
-            return promise;
+            return new Promise(function (resolve, reject) {
+                // See if the configuration type exists
+                if (_this._cfgType) {
+                    // Ensure it's for this type
+                    if (_this._cfgType != _1.Helper.Types.SPCfgType.Lists) {
+                        // Resolve the promise and return
+                        resolve();
+                        return;
+                    }
+                }
+                // Ensure the lists exist
+                if (cfgLists == null || cfgLists.length == 0) {
+                    // Resolve the promise and return
+                    resolve();
+                    return;
+                }
+                var _loop_4 = function (i) {
+                    var cfgList = cfgLists[i];
+                    // See if the target name exists
+                    if (_this._cfgType && _this._targetName) {
+                        // Ensure it's for this list
+                        if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
+                            return "continue";
+                        }
+                    }
+                    // See if this content type already exists
+                    var list = _this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                    if (list) {
+                        // Log
+                        console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
+                    }
+                    else {
+                        // Log
+                        console.log("[gd-sprest][List] Creating the '" + cfgList.ListInformation.Title + "' list.");
+                        // Update the list name and remove spaces
+                        var listInfo_1 = cfgList.ListInformation;
+                        var listName_1 = listInfo_1.Title;
+                        listInfo_1.Title = listName_1.replace(/ /g, "");
+                        // Add the list
+                        lists.add(listInfo_1)
+                            .execute(function (list) {
+                            // Restore the list name in the configuration
+                            listInfo_1.Title = listName_1;
+                            // See if the request was successful
+                            if (list.existsFl) {
+                                // See if we need to update the list
+                                if (list.existsFl && list.Title != listName_1) {
+                                    // Update the list
+                                    list.update({ Title: listName_1 }).execute(function () {
+                                        // Log
+                                        console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+                                    });
+                                }
+                                else {
+                                    // Log
+                                    console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+                                }
+                                // Trigger the event
+                                cfgList.onCreated ? cfgList.onCreated(list) : null;
+                            }
+                            else {
+                                // Log
+                                console.log("[gd-sprest][List] The list '" + listInfo_1.Title + "' failed to be created.");
+                                console.log("[gd-sprest][List] Error: '" + list.response);
+                            }
+                        });
+                    }
+                };
+                // Parse the content types
+                for (var i = 0; i < cfgLists.length; i++) {
+                    _loop_4(i);
+                }
+                // Wait for the requests to complete
+                lists.done(function () {
+                    // Update the lists
+                    _this.updateLists(cfgLists).then(function () {
+                        // Resolve the promise
+                        resolve();
+                    });
+                });
+            });
         };
         // Method to create the user custom actions
         this.createUserCustomActions = function (customActions, cfgCustomActions) {
-            var promise = new utils_1.Promise();
-            // See if the configuration type exists
-            if (_this._cfgType) {
-                // Ensure it's for this type
-                if (_this._cfgType != _1.Helper.Types.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.SPCfgType.WebUserCustomActions) {
-                    // Resolve the promise
-                    promise.resolve();
-                    return promise;
-                }
-            }
-            // Ensure the lists exist
-            if (cfgCustomActions == null || cfgCustomActions.length == 0) {
-                // Resolve the promise and return it
-                promise.resolve();
-                return promise;
-            }
-            // Parse the custom actions
-            for (var i = 0; i < cfgCustomActions.length; i++) {
-                var cfgCustomAction = cfgCustomActions[i];
-                // See if the target name exists
-                if (_this._cfgType && _this._targetName) {
-                    // Ensure it's for this custom action
-                    if (cfgCustomAction.Name.toLowerCase() != _this._targetName ||
-                        cfgCustomAction.Title.toLowerCase() != _this._targetName) {
-                        // Skip this custom action
-                        continue;
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // See if the configuration type exists
+                if (_this._cfgType) {
+                    // Ensure it's for this type
+                    if (_this._cfgType != _1.Helper.Types.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.SPCfgType.WebUserCustomActions) {
+                        // Resolve the promise
+                        resolve();
+                        return;
                     }
                 }
-                // See if this custom action already exists
-                if (_this.isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
-                    // Log
-                    console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
+                // Ensure the lists exist
+                if (cfgCustomActions == null || cfgCustomActions.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
                 }
-                else {
-                    // Add the custom action
-                    customActions.add(cfgCustomAction).execute(function (ca) {
-                        // Ensure it exists
-                        if (ca.existsFl) {
-                            // Log
-                            console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was created successfully.");
+                // Parse the custom actions
+                for (var i = 0; i < cfgCustomActions.length; i++) {
+                    var cfgCustomAction = cfgCustomActions[i];
+                    // See if the target name exists
+                    if (_this._cfgType && _this._targetName) {
+                        // Ensure it's for this custom action
+                        if (cfgCustomAction.Name.toLowerCase() != _this._targetName ||
+                            cfgCustomAction.Title.toLowerCase() != _this._targetName) {
+                            // Skip this custom action
+                            continue;
                         }
-                        else {
-                            // Log
-                            console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' failed to be created.");
-                            console.log("[gd-sprest][Custom Action] Error: " + ca.response);
-                        }
-                    }, true);
+                    }
+                    // See if this custom action already exists
+                    if (_this.isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
+                        // Log
+                        console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
+                    }
+                    else {
+                        // Add the custom action
+                        customActions.add(cfgCustomAction).execute(function (ca) {
+                            // Ensure it exists
+                            if (ca.existsFl) {
+                                // Log
+                                console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was created successfully.");
+                            }
+                            else {
+                                // Log
+                                console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' failed to be created.");
+                                console.log("[gd-sprest][Custom Action] Error: " + ca.response);
+                            }
+                        }, true);
+                    }
                 }
-            }
-            // Wait for the requests to complete
-            customActions.done(function () {
-                // Resolve the promise
-                promise.resolve();
+                // Wait for the requests to complete
+                customActions.done(function () {
+                    // Resolve the promise
+                    resolve();
+                });
             });
-            // Return the promise
-            return promise;
         };
         // Method to create the list views
         this.createViews = function (views, cfgViews) {
-            var promise = new utils_1.Promise();
-            // Ensure the list views exist
-            if (cfgViews == null || cfgViews.length == 0) {
-                // Resolve the promise and return it
-                promise.resolve();
-                return promise;
-            }
-            var _loop_5 = function (i) {
-                var cfgView = cfgViews[i];
-                // See if this view exists
-                var view = _this.isInCollection("Title", cfgView.ViewName, views.results);
-                if (view) {
-                    // Log
-                    console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' already exists.");
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Ensure the list views exist
+                if (cfgViews == null || cfgViews.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
                 }
-                else {
-                    // Add the view
-                    views.add({
-                        Title: cfgView.ViewName,
-                        ViewQuery: cfgView.ViewQuery
-                    }).execute(function (view) {
-                        // Ensure it exists
-                        if (view.existsFl) {
-                            // Log
-                            console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' was created successfully.");
-                            // Trigger the event
-                            cfgView.onCreated ? cfgView.onCreated(view) : null;
-                        }
-                        else {
-                            // Log
-                            console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' failed to be created.");
-                            console.log("[gd-sprest][View] Error: " + view.response);
-                        }
-                    }, true);
+                var _loop_5 = function (i) {
+                    var cfgView = cfgViews[i];
+                    // See if this view exists
+                    var view = _this.isInCollection("Title", cfgView.ViewName, views.results);
+                    if (view) {
+                        // Log
+                        console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' already exists.");
+                    }
+                    else {
+                        // Add the view
+                        views.add({
+                            Title: cfgView.ViewName,
+                            ViewQuery: cfgView.ViewQuery
+                        }).execute(function (view) {
+                            // Ensure it exists
+                            if (view.existsFl) {
+                                // Log
+                                console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' was created successfully.");
+                                // Trigger the event
+                                cfgView.onCreated ? cfgView.onCreated(view) : null;
+                            }
+                            else {
+                                // Log
+                                console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' failed to be created.");
+                                console.log("[gd-sprest][View] Error: " + view.response);
+                            }
+                        }, true);
+                    }
+                };
+                // Parse the views
+                for (var i = 0; i < cfgViews.length; i++) {
+                    _loop_5(i);
                 }
-            };
-            // Parse the views
-            for (var i = 0; i < cfgViews.length; i++) {
-                _loop_5(i);
-            }
-            // Wait for the requests to complete
-            views.done(function () {
-                // Update the views
-                _this.updateViews(views, cfgViews).done(function () {
-                    // Resolve the promise
-                    promise.resolve();
+                // Wait for the requests to complete
+                views.done(function () {
+                    // Update the views
+                    _this.updateViews(views, cfgViews).then(function () {
+                        // Resolve the promise
+                        resolve();
+                    });
                 });
             });
-            // Return the promise
-            return promise;
         };
         // Method to create the web parts
         this.createWebParts = function () {
@@ -6639,7 +9172,7 @@ var SPConfig = /** @class */ (function () {
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
             // Get the root web
-            (new __1.Web(__1.ContextInfo.siteServerRelativeUrl))
+            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
                 .Lists("Web Part Gallery")
                 .RootFolder()
                 .query({
@@ -6677,7 +9210,7 @@ var SPConfig = /** @class */ (function () {
                             // See if group exists
                             if (cfgWebPart.Group) {
                                 // Set the target to the root web
-                                (new __1.Web(__1.ContextInfo.siteServerRelativeUrl))
+                                (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
                                     .Lists("Web Part Gallery")
                                     .Items()
                                     .query({
@@ -6705,58 +9238,58 @@ var SPConfig = /** @class */ (function () {
         };
         // Method to install the site components
         this.installSite = function () {
-            var promise = new utils_1.Promise();
-            // Ensure site actions exist
-            if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
-                // Resolve the promise
-                promise.resolve();
-                return promise;
-            }
-            // Log
-            console.log("[gd-sprest] Loading the site information...");
-            // Get the site
-            (new __1.Site(_this._webUrl))
-                .query({
-                Expand: ["UserCustomActions"]
-            })
-                .execute(function (site) {
-                // Install the user custom actions
-                _this.createUserCustomActions(site.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : []).done(function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Ensure site actions exist
+                if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
                     // Resolve the promise
-                    promise.resolve(site);
+                    resolve();
+                    return;
+                }
+                // Log
+                console.log("[gd-sprest] Loading the site information...");
+                // Get the site
+                (new lib_1.Site(_this._webUrl))
+                    .query({
+                    Expand: ["UserCustomActions"]
+                })
+                    .execute(function (site) {
+                    // Install the user custom actions
+                    _this.createUserCustomActions(site.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : []).then(function () {
+                        // Resolve the promise
+                        resolve(site);
+                    });
                 });
             });
-            // Return the promise
-            return promise;
         };
         // Method to install the web components
         this.installWeb = function () {
-            var promise = new utils_1.Promise();
-            // Log
-            console.log("[gd-sprest] Loading the web information...");
-            // Get the web
-            (new __1.Web(_this._webUrl))
-                .query({
-                Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
-            })
-                .execute(function (web) {
-                // Create the fields
-                _this.createFields(web.Fields, _this._configuration.Fields).done(function () {
-                    // Create the content types
-                    _this.createContentTypes(web.ContentTypes, _this._configuration.ContentTypes).done(function () {
-                        // Create the lists
-                        _this.createLists(web.Lists, _this._configuration.ListCfg).done(function () {
-                            // Create the web custom actions
-                            _this.createUserCustomActions(web.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null).done(function () {
-                                // Resolve the promise
-                                promise.resolve();
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Log
+                console.log("[gd-sprest] Loading the web information...");
+                // Get the web
+                (new lib_1.Web(_this._webUrl))
+                    .query({
+                    Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
+                })
+                    .execute(function (web) {
+                    // Create the fields
+                    _this.createFields(web.Fields, _this._configuration.Fields).then(function () {
+                        // Create the content types
+                        _this.createContentTypes(web.ContentTypes, _this._configuration.ContentTypes).then(function () {
+                            // Create the lists
+                            _this.createLists(web.Lists, _this._configuration.ListCfg).then(function () {
+                                // Create the web custom actions
+                                _this.createUserCustomActions(web.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null).then(function () {
+                                    // Resolve the promise
+                                    resolve();
+                                });
                             });
                         });
                     });
                 });
             });
-            // Return the promise
-            return promise;
         };
         // Method to see if an object exists in a collection
         this.isInCollection = function (key, value, collection) {
@@ -6776,400 +9309,401 @@ var SPConfig = /** @class */ (function () {
         };
         // Method to remove the content type
         this.removeContentTypes = function (contentTypes, cfgContentTypes) {
-            var promise = new utils_1.Promise();
-            // Ensure the content types exist
-            if (cfgContentTypes == null || cfgContentTypes.length == 0) {
-                // Resolve the promise and return it
-                promise.resolve();
-                return promise;
-            }
-            var _loop_7 = function (i) {
-                var cfgContentType = cfgContentTypes[i];
-                // Get the field
-                var ct = _this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
-                if (ct) {
-                    // Remove the field
-                    ct.delete().execute(function () {
-                        // Log
-                        console.log("[gd-sprest][Field] The content type '" + ct.Name + "' was removed.");
-                    }, true);
-                }
-            };
-            // Parse the configuration
-            for (var i = 0; i < cfgContentTypes.length; i++) {
-                _loop_7(i);
-            }
-            // Wait for the requests to complete
-            contentTypes.done(function () {
-                // Resolve the promise
-                promise.resolve();
-            });
             // Return a promise
-            return promise;
-        };
-        // Method to remove the fields
-        this.removeFields = function (fields, cfgFields) {
-            var promise = new utils_1.Promise();
-            // Ensure the fields exist
-            if (cfgFields == null || cfgFields.length == 0) {
-                // Resolve the promise and return it
-                promise.resolve();
-                return promise;
-            }
-            var _loop_8 = function (i) {
-                var cfgField = cfgFields[i];
-                // Get the field
-                var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
-                if (field) {
-                    // Remove the field
-                    field.delete().execute(function () {
-                        // Log
-                        console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was removed.");
-                    }, true);
+            return new Promise(function (resolve, reject) {
+                // Ensure the content types exist
+                if (cfgContentTypes == null || cfgContentTypes.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
                 }
-            };
-            // Parse the configuration
-            for (var i = 0; i < cfgFields.length; i++) {
-                _loop_8(i);
-            }
-            // Wait for the requests to complete
-            fields.done(function () {
-                // Resolve the promise
-                promise.resolve();
-            });
-            // Return a promise
-            return promise;
-        };
-        // Method to remove the lists
-        this.removeLists = function (lists, cfgLists) {
-            var promise = new utils_1.Promise();
-            // See if the configuration type exists
-            if (_this._cfgType) {
-                // Ensure it's for this type
-                if (_this._cfgType != _1.Helper.Types.SPCfgType.Lists) {
-                    // Resolve the promise
-                    promise.resolve();
-                    return promise;
-                }
-            }
-            // Ensure the lists exist
-            if (cfgLists == null || cfgLists.length == 0) {
-                // Resolve the promise and return it
-                promise.resolve();
-                return promise;
-            }
-            var _loop_9 = function (i) {
-                var cfgList = cfgLists[i];
-                // See if the target name exists
-                if (_this._cfgType && _this._targetName) {
-                    // Ensure it's for this list
-                    if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
-                        return "continue";
-                    }
-                }
-                // Get the list
-                var list = _this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
-                if (list) {
-                    // Remove the list
-                    list.delete().execute(function () {
-                        // Log
-                        console.log("[gd-sprest][List] The list '" + list.Title + "' was removed.");
-                    }, true);
-                }
-            };
-            // Parse the configuration
-            for (var i = 0; i < cfgLists.length; i++) {
-                _loop_9(i);
-            }
-            // Wait for the requests to complete
-            lists.done(function () {
-                // Resolve the promise
-                promise.resolve();
-            });
-            // Return a promise
-            return promise;
-        };
-        // Method to remove the user custom actions
-        this.removeUserCustomActions = function (customActions, cfgCustomActions) {
-            var promise = new utils_1.Promise();
-            // See if the configuration type exists
-            if (_this._cfgType) {
-                // Ensure it's for this type
-                if (_this._cfgType != _1.Helper.Types.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.SPCfgType.WebUserCustomActions) {
-                    // Resolve the promise
-                    promise.resolve();
-                    return promise;
-                }
-            }
-            // Ensure the custom actions exist
-            if (cfgCustomActions == null || cfgCustomActions.length == 0) {
-                // Resolve the promise and return it
-                promise.resolve();
-                return promise;
-            }
-            var _loop_10 = function (i) {
-                var cfgCustomAction = cfgCustomActions[i];
-                // See if the target name exists
-                if (_this._cfgType && _this._targetName) {
-                    // Ensure it's for this custom action
-                    if (cfgCustomAction.Name.toLowerCase() != _this._targetName ||
-                        cfgCustomAction.Title.toLowerCase() != _this._targetName) {
-                        return "continue";
-                    }
-                }
-                // Get the custom action
-                var ca = _this.isInCollection("Name", cfgCustomAction.Name, customActions.results);
-                if (ca) {
-                    // Remove the custom action
-                    ca.delete().execute(function () {
-                        // Log
-                        console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was removed.");
-                    }, true);
-                }
-            };
-            // Parse the configuration
-            for (var i = 0; i < cfgCustomActions.length; i++) {
-                _loop_10(i);
-            }
-            // Wait for the requests to complete
-            customActions.done(function () {
-                // Resolve the promise
-                promise.resolve();
-            });
-            // Return a promise
-            return promise;
-        };
-        // Method to remove the web parts
-        this.removeWebParts = function () {
-            var cfgWebParts = _this._configuration.WebPartCfg;
-            var promise = new utils_1.Promise();
-            // See if the configuration type exists
-            if (_this._cfgType) {
-                // Ensure it's for this type
-                if (_this._cfgType != _1.Helper.Types.SPCfgType.WebParts) {
-                    // Resolve the promise
-                    promise.resolve();
-                    return promise;
-                }
-            }
-            // Ensure the configuration exists
-            if (cfgWebParts == null || cfgWebParts.length == 0) {
-                // Resolve the promise and return it
-                promise.resolve();
-                return promise;
-            }
-            // Log
-            console.log("[gd-sprest][WebPart] Creating the web parts.");
-            // Get the root web
-            (new __1.Web(__1.ContextInfo.siteServerRelativeUrl))
-                .Lists("Web Part Gallery")
-                .RootFolder()
-                .Files()
-                .execute(function (files) {
-                var _loop_11 = function (i) {
-                    var cfgWebPart = cfgWebParts[i];
-                    // See if the target name exists
-                    if (_this._cfgType && _this._targetName) {
-                        // Ensure it's for this list
-                        if (cfgWebPart.FileName.toLowerCase() != _this._targetName) {
-                            return "continue";
-                        }
-                    }
-                    // Get the file
-                    var file = _this.isInCollection("Name", cfgWebPart.FileName, files.results);
-                    if (file) {
-                        // Remove the file
-                        file.delete().execute(function () {
+                var _loop_7 = function (i) {
+                    var cfgContentType = cfgContentTypes[i];
+                    // Get the field
+                    var ct = _this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                    if (ct) {
+                        // Remove the field
+                        ct.delete().execute(function () {
                             // Log
-                            console.log("[gd-sprest][WebPart] The webpart '" + file.Name + "' file was removed.");
+                            console.log("[gd-sprest][Field] The content type '" + ct.Name + "' was removed.");
                         }, true);
                     }
                 };
                 // Parse the configuration
-                for (var i = 0; i < cfgWebParts.length; i++) {
-                    _loop_11(i);
+                for (var i = 0; i < cfgContentTypes.length; i++) {
+                    _loop_7(i);
                 }
-                // Resolve the promise
-                promise.resolve();
+                // Wait for the requests to complete
+                contentTypes.done(function () {
+                    // Resolve the promise
+                    resolve();
+                });
             });
-            // Return a promise
-            return promise;
         };
-        // Method to update the lists
-        this.updateLists = function (cfgLists, idx, promise) {
-            // Default the index and promise
-            idx = idx ? idx : 0;
-            promise = promise ? promise : new utils_1.Promise();
-            // Get the list configuration
-            var cfgList = cfgLists[idx];
-            // See if the target name exists
-            if (_this._targetName) {
-                // Ensure it's for this list
-                if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
-                    // Update the next list
-                    _this.updateLists(cfgLists, idx + 1, promise);
-                    // Return the promise
-                    return promise;
+        // Method to remove the fields
+        this.removeFields = function (fields, cfgFields) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Ensure the fields exist
+                if (cfgFields == null || cfgFields.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
                 }
-            }
-            // Ensure the configuration exists
-            if (cfgList) {
-                // Get the web
-                (new __1.Web(_this._webUrl))
-                    .Lists(cfgList.ListInformation.Title)
-                    .query({
-                    Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
-                })
-                    .execute(function (list) {
-                    // See if the title field is being updated
-                    if (cfgList.TitleFieldDisplayName) {
-                        // Parse the fields
-                        for (var i = 0; i < list.Fields.results.length; i++) {
-                            var field = list.Fields.results[i];
-                            // See if this is the title field
-                            if (field.InternalName == "Title") {
-                                // See if an update is required
-                                if (field.Title != cfgList.TitleFieldDisplayName) {
-                                    // Update the field name
-                                    field.update({ Title: cfgList.TitleFieldDisplayName }).execute(function () {
-                                        // Log
-                                        console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
-                                    });
-                                }
-                            }
+                var _loop_8 = function (i) {
+                    var cfgField = cfgFields[i];
+                    // Get the field
+                    var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
+                    if (field) {
+                        // Remove the field
+                        field.delete().execute(function () {
+                            // Log
+                            console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was removed.");
+                        }, true);
+                    }
+                };
+                // Parse the configuration
+                for (var i = 0; i < cfgFields.length; i++) {
+                    _loop_8(i);
+                }
+                // Wait for the requests to complete
+                fields.done(function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            });
+        };
+        // Method to remove the lists
+        this.removeLists = function (lists, cfgLists) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // See if the configuration type exists
+                if (_this._cfgType) {
+                    // Ensure it's for this type
+                    if (_this._cfgType != _1.Helper.Types.SPCfgType.Lists) {
+                        // Resolve the promise
+                        resolve();
+                        return;
+                    }
+                }
+                // Ensure the lists exist
+                if (cfgLists == null || cfgLists.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
+                }
+                var _loop_9 = function (i) {
+                    var cfgList = cfgLists[i];
+                    // See if the target name exists
+                    if (_this._cfgType && _this._targetName) {
+                        // Ensure it's for this list
+                        if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
+                            return "continue";
                         }
                     }
-                    // Update the list fields
-                    _this.createFields(list.Fields, cfgList.CustomFields).done(function () {
-                        // Update the content types
-                        _this.createContentTypes(list.ContentTypes, cfgList.ContentTypes).done(function () {
-                            // Update the views
-                            _this.createViews(list.Views, cfgList.ViewInformation).done(function () {
-                                // Trigger the event
-                                cfgList.onUpdated ? cfgList.onUpdated(list) : null;
-                                // Update the next list
-                                _this.updateLists(cfgLists, idx + 1, promise);
-                            });
-                        });
-                    });
-                    // Update the user custom actions
-                    _this.createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
+                    // Get the list
+                    var list = _this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                    if (list) {
+                        // Remove the list
+                        list.delete().execute(function () {
+                            // Log
+                            console.log("[gd-sprest][List] The list '" + list.Title + "' was removed.");
+                        }, true);
+                    }
+                };
+                // Parse the configuration
+                for (var i = 0; i < cfgLists.length; i++) {
+                    _loop_9(i);
+                }
+                // Wait for the requests to complete
+                lists.done(function () {
+                    // Resolve the promise
+                    resolve();
                 });
-            }
-            else {
-                // Resolve the promise
-                promise.resolve();
-            }
+            });
+        };
+        // Method to remove the user custom actions
+        this.removeUserCustomActions = function (customActions, cfgCustomActions) {
             // Return a promise
-            return promise;
+            return new Promise(function (resolve, reject) {
+                // See if the configuration type exists
+                if (_this._cfgType) {
+                    // Ensure it's for this type
+                    if (_this._cfgType != _1.Helper.Types.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.SPCfgType.WebUserCustomActions) {
+                        // Resolve the promise
+                        resolve();
+                        return;
+                    }
+                }
+                // Ensure the custom actions exist
+                if (cfgCustomActions == null || cfgCustomActions.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
+                }
+                var _loop_10 = function (i) {
+                    var cfgCustomAction = cfgCustomActions[i];
+                    // See if the target name exists
+                    if (_this._cfgType && _this._targetName) {
+                        // Ensure it's for this custom action
+                        if (cfgCustomAction.Name.toLowerCase() != _this._targetName ||
+                            cfgCustomAction.Title.toLowerCase() != _this._targetName) {
+                            return "continue";
+                        }
+                    }
+                    // Get the custom action
+                    var ca = _this.isInCollection("Name", cfgCustomAction.Name, customActions.results);
+                    if (ca) {
+                        // Remove the custom action
+                        ca.delete().execute(function () {
+                            // Log
+                            console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was removed.");
+                        }, true);
+                    }
+                };
+                // Parse the configuration
+                for (var i = 0; i < cfgCustomActions.length; i++) {
+                    _loop_10(i);
+                }
+                // Wait for the requests to complete
+                customActions.done(function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            });
+        };
+        // Method to remove the web parts
+        this.removeWebParts = function () {
+            var cfgWebParts = _this._configuration.WebPartCfg;
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // See if the configuration type exists
+                if (_this._cfgType) {
+                    // Ensure it's for this type
+                    if (_this._cfgType != _1.Helper.Types.SPCfgType.WebParts) {
+                        // Resolve the promise
+                        resolve();
+                        return;
+                    }
+                }
+                // Ensure the configuration exists
+                if (cfgWebParts == null || cfgWebParts.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
+                }
+                // Log
+                console.log("[gd-sprest][WebPart] Creating the web parts.");
+                // Get the root web
+                (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+                    .Lists("Web Part Gallery")
+                    .RootFolder()
+                    .Files()
+                    .execute(function (files) {
+                    var _loop_11 = function (i) {
+                        var cfgWebPart = cfgWebParts[i];
+                        // See if the target name exists
+                        if (_this._cfgType && _this._targetName) {
+                            // Ensure it's for this list
+                            if (cfgWebPart.FileName.toLowerCase() != _this._targetName) {
+                                return "continue";
+                            }
+                        }
+                        // Get the file
+                        var file = _this.isInCollection("Name", cfgWebPart.FileName, files.results);
+                        if (file) {
+                            // Remove the file
+                            file.delete().execute(function () {
+                                // Log
+                                console.log("[gd-sprest][WebPart] The webpart '" + file.Name + "' file was removed.");
+                            }, true);
+                        }
+                    };
+                    // Parse the configuration
+                    for (var i = 0; i < cfgWebParts.length; i++) {
+                        _loop_11(i);
+                    }
+                    // Resolve the promise
+                    resolve();
+                });
+            });
+        };
+        // Method to update the lists
+        this.updateLists = function (cfgLists) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                var request = function (idx, resolve) {
+                    // Get the list configuration
+                    var cfgList = cfgLists[idx];
+                    // See if the target name exists
+                    if (_this._targetName) {
+                        // Ensure it's for this list
+                        if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
+                            // Update the next list
+                            request(idx + 1, resolve);
+                            return;
+                        }
+                    }
+                    // Ensure the configuration exists
+                    if (cfgList) {
+                        // Get the web
+                        (new lib_1.Web(_this._webUrl))
+                            .Lists(cfgList.ListInformation.Title)
+                            .query({
+                            Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
+                        })
+                            .execute(function (list) {
+                            // See if the title field is being updated
+                            if (cfgList.TitleFieldDisplayName) {
+                                // Parse the fields
+                                for (var i = 0; i < list.Fields.results.length; i++) {
+                                    var field = list.Fields.results[i];
+                                    // See if this is the title field
+                                    if (field.InternalName == "Title") {
+                                        // See if an update is required
+                                        if (field.Title != cfgList.TitleFieldDisplayName) {
+                                            // Update the field name
+                                            field.update({ Title: cfgList.TitleFieldDisplayName }).execute(function () {
+                                                // Log
+                                                console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                            // Update the list fields
+                            _this.createFields(list.Fields, cfgList.CustomFields).then(function () {
+                                // Update the content types
+                                _this.createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(function () {
+                                    // Update the views
+                                    _this.createViews(list.Views, cfgList.ViewInformation).then(function () {
+                                        // Trigger the event
+                                        cfgList.onUpdated ? cfgList.onUpdated(list) : null;
+                                        // Update the next list
+                                        request(idx + 1, resolve);
+                                    });
+                                });
+                            });
+                            // Update the user custom actions
+                            _this.createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
+                        });
+                    }
+                    else {
+                        // Resolve the promise
+                        resolve();
+                    }
+                };
+                // Execute the request
+                request(0, resolve);
+            });
         };
         // Method to update the views
         this.updateViews = function (views, cfgViews) {
             var counter = 0;
-            var promise = new utils_1.Promise();
-            var _loop_12 = function (i) {
-                var cfgView = cfgViews[i];
-                // Get the view
-                var view = views.getByTitle(cfgView.ViewName);
-                // See if the view fields are defined
-                if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
-                    // Log
-                    console.log("[gd-sprest][View] Updating the view fields for the '" + cfgView.ViewName + "' view.");
-                    // Clear the view fields
-                    view.ViewFields().removeAllViewFields().execute(true);
-                    // Parse the view fields
-                    for (var i_2 = 0; i_2 < cfgView.ViewFields.length; i_2++) {
-                        // Add the view field
-                        view.ViewFields().addViewField(cfgView.ViewFields[i_2]).execute(true);
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                var _loop_12 = function (i) {
+                    var cfgView = cfgViews[i];
+                    // Get the view
+                    var view = views.getByTitle(cfgView.ViewName);
+                    // See if the view fields are defined
+                    if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
+                        // Log
+                        console.log("[gd-sprest][View] Updating the view fields for the '" + cfgView.ViewName + "' view.");
+                        // Clear the view fields
+                        view.ViewFields().removeAllViewFields().execute(true);
+                        // Parse the view fields
+                        for (var i_2 = 0; i_2 < cfgView.ViewFields.length; i_2++) {
+                            // Add the view field
+                            view.ViewFields().addViewField(cfgView.ViewFields[i_2]).execute(true);
+                        }
                     }
+                    // See if we are updating the view properties
+                    if (cfgView.JSLink || cfgView.ViewQuery) {
+                        var props = {};
+                        // Log
+                        console.log("[gd-sprest][View] Updating the view properties for the '" + cfgView.ViewName + "' view.");
+                        // Set the properties
+                        cfgView.JSLink ? props["JSLink"] = cfgView.JSLink : null;
+                        cfgView.ViewQuery ? props["ViewQuery"] = cfgView.ViewQuery : null;
+                        // Update the view
+                        view.update(props).execute(true);
+                    }
+                    // Wait for the requests to complete
+                    view.done(function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        // Trigger the event
+                        cfgView.onUpdated ? cfgView.onUpdated(view) : null;
+                        // See if we are done
+                        if (++counter >= cfgViews.length) {
+                            // Resolve the promise
+                            resolve();
+                        }
+                    });
+                };
+                // Parse the views
+                for (var i = 0; i < cfgViews.length; i++) {
+                    _loop_12(i);
                 }
-                // See if we are updating the view properties
-                if (cfgView.JSLink || cfgView.ViewQuery) {
-                    var props = {};
-                    // Log
-                    console.log("[gd-sprest][View] Updating the view properties for the '" + cfgView.ViewName + "' view.");
-                    // Set the properties
-                    cfgView.JSLink ? props["JSLink"] = cfgView.JSLink : null;
-                    cfgView.ViewQuery ? props["ViewQuery"] = cfgView.ViewQuery : null;
-                    // Update the view
-                    view.update(props).execute(true);
-                }
-                // Wait for the requests to complete
-                view.done(function () {
-                    var args = [];
-                    for (var _i = 0; _i < arguments.length; _i++) {
-                        args[_i] = arguments[_i];
-                    }
-                    // Trigger the event
-                    cfgView.onUpdated ? cfgView.onUpdated(view) : null;
-                    // See if we are done
-                    if (++counter >= cfgViews.length) {
-                        // Resolve the promise
-                        promise.resolve();
-                    }
-                });
-            };
-            // Parse the views
-            for (var i = 0; i < cfgViews.length; i++) {
-                _loop_12(i);
-            }
-            // Return the promise
-            return promise;
+            });
         };
         // Method to uninstall the site components
         this.uninstallSite = function () {
-            var promise = new utils_1.Promise();
-            // Log
-            console.log("[gd-sprest][uninstall] Loading the site information...");
-            // Ensure site actions exist
-            if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
-                // Resolve the promise
-                promise.resolve();
-                return promise;
-            }
-            // Get the site
-            (new __1.Site(_this._webUrl))
-                .query({
-                Expand: ["UserCustomActions"]
-            })
-                .execute(function (site) {
-                // Remove the user custom actions
-                _this.removeUserCustomActions(site.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : []).done(function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Log
+                console.log("[gd-sprest][uninstall] Loading the site information...");
+                // Ensure site actions exist
+                if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
                     // Resolve the promise
-                    promise.resolve(site);
+                    resolve();
+                    return;
+                }
+                // Get the site
+                (new lib_1.Site(_this._webUrl))
+                    .query({
+                    Expand: ["UserCustomActions"]
+                })
+                    .execute(function (site) {
+                    // Remove the user custom actions
+                    _this.removeUserCustomActions(site.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : []).then(function () {
+                        // Resolve the promise
+                        resolve(site);
+                    });
                 });
             });
-            // Return the promise
-            return promise;
         };
         // Method to uninstall the web components
         this.uninstallWeb = function () {
-            var promise = new utils_1.Promise();
-            // Log
-            console.log("[gd-sprest][uninstall] Loading the web information...");
-            // Get the web
-            (new __1.Web(_this._webUrl))
-                .query({
-                Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
-            })
-                .execute(function (web) {
-                // Remove the fields
-                _this.removeFields(web.Fields, _this._configuration.Fields).done(function () {
-                    // Remove the content types
-                    _this.removeContentTypes(web.ContentTypes, _this._configuration.ContentTypes).done(function () {
-                        // Remove the lists
-                        _this.removeLists(web.Lists, _this._configuration.ListCfg).done(function () {
-                            // Remove the web custom actions
-                            _this.removeUserCustomActions(web.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null).done(function () {
-                                // Resolve the promise
-                                promise.resolve();
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Log
+                console.log("[gd-sprest][uninstall] Loading the web information...");
+                // Get the web
+                (new lib_1.Web(_this._webUrl))
+                    .query({
+                    Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
+                })
+                    .execute(function (web) {
+                    // Remove the fields
+                    _this.removeFields(web.Fields, _this._configuration.Fields).then(function () {
+                        // Remove the content types
+                        _this.removeContentTypes(web.ContentTypes, _this._configuration.ContentTypes).then(function () {
+                            // Remove the lists
+                            _this.removeLists(web.Lists, _this._configuration.ListCfg).then(function () {
+                                // Remove the web custom actions
+                                _this.removeUserCustomActions(web.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null).then(function () {
+                                    // Resolve the promise
+                                    resolve();
+                                });
                             });
                         });
                     });
                 });
             });
-            // Return the promise
-            return promise;
         };
         // Save the configuration
         this._configuration = cfg;
@@ -7186,9 +9720,9 @@ var SPConfig = /** @class */ (function () {
         this._cfgType = cfgType;
         this._targetName = targetName ? targetName.toLowerCase() : null;
         // Install the web components
-        this.installWeb().done(function () {
+        this.installWeb().then(function () {
             // Install the site components
-            _this.installSite().done(function () {
+            _this.installSite().then(function () {
                 // Create the webparts
                 _this.createWebParts();
                 // Log
@@ -7214,11 +9748,11 @@ var SPConfig = /** @class */ (function () {
         this._cfgType = cfgType;
         this._targetName = targetName;
         // Uninstall the web components
-        this.uninstallWeb().done(function () {
+        this.uninstallWeb().then(function () {
             // Uninstall the site components
-            _this.uninstallSite().done(function () {
+            _this.uninstallSite().then(function () {
                 // Remove the webparts
-                _this.removeWebParts().done(function () {
+                _this.removeWebParts().then(function () {
                     // Log
                     console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
                     // See if the callback exists
@@ -7243,58 +9777,13 @@ exports.SPConfig = SPConfig;
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 46 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * SharePoint Configuration Field Types
- */
-var SPCfgFieldType = {
-    Boolean: 0,
-    Calculated: 1,
-    Choice: 2,
-    Date: 3,
-    Lookup: 4,
-    MMS: 5,
-    Note: 6,
-    Number: 7,
-    Text: 8,
-    Url: 9,
-    User: 10
-};
-/**
- * SharePoint Configuration Types
- * The value determines the order to install the object type.
- */
-var SPCfgType = {
-    Fields: 0,
-    ContentTypes: 1,
-    Lists: 2,
-    SiteUserCustomActions: 3,
-    WebParts: 5,
-    WebUserCustomActions: 4
-};
-/**
- * Helper Types
- */
-exports.HelperTypes = {
-    SPCfgFieldType: SPCfgFieldType,
-    SPCfgType: SPCfgType
-};
-//# sourceMappingURL=types.js.map
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-var __1 = __webpack_require__(2);
+var lib_1 = __webpack_require__(2);
 /**
  * Web Part
  */
@@ -7334,41 +9823,39 @@ var _WebPart = /** @class */ (function () {
          * Method to get the webpart
          */
         this.getWebPart = function (wpId) {
-            var promise = new utils_1.Promise();
-            // Get the current context
-            var context = SP.ClientContext.get_current();
-            // Get the webpart from the current page
-            var page = context.get_web().getFileByServerRelativeUrl(__1.ContextInfo.serverRequestPath);
-            var wpMgr = page.getLimitedWebPartManager(SP.WebParts.PersonalizationScope.shared);
-            var wpDef = wpMgr.get_webParts().getById(wpId);
-            var wp = wpDef.get_webPart();
-            context.load(wp, "Properties");
-            // Execute the request
-            context.executeQueryAsync(
-            // Success
-            function () {
-                // Resolve the promise
-                promise.resolve({
-                    Context: context,
-                    Properties: wp.get_properties(),
-                    WebPart: wp,
-                    WebPartDefinition: wpDef,
-                    WebPartId: wp.get_id()
-                });
-            }, 
-            // Error
-            function () {
-                var args = [];
-                for (var _i = 0; _i < arguments.length; _i++) {
-                    args[_i] = arguments[_i];
-                }
-                // Reject the promise
-                //reject(args[1] ? args[1].get_message() : "");
-                console.log("[gd-sprest] " + (args[1] ? args[1].get_message() : ""));
-                promise.resolve();
-            });
             // Return a promise
-            return promise;
+            return new Promise(function (resolve, reject) {
+                // Get the current context
+                var context = SP.ClientContext.get_current();
+                // Get the webpart from the current page
+                var page = context.get_web().getFileByServerRelativeUrl(lib_1.ContextInfo.serverRequestPath);
+                var wpMgr = page.getLimitedWebPartManager(SP.WebParts.PersonalizationScope.shared);
+                var wpDef = wpMgr.get_webParts().getById(wpId);
+                var wp = wpDef.get_webPart();
+                context.load(wp, "Properties");
+                // Execute the request
+                context.executeQueryAsync(
+                // Success
+                function () {
+                    // Resolve the promise
+                    resolve({
+                        Context: context,
+                        Properties: wp.get_properties(),
+                        WebPart: wp,
+                        WebPartDefinition: wpDef,
+                        WebPartId: wp.get_id()
+                    });
+                }, 
+                // Error
+                function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Reject the promise
+                    reject(args[1] ? args[1].get_message() : "");
+                });
+            });
         };
         /**
          * Method to get the webpart id for a specified element
@@ -7569,710 +10056,6 @@ var _WebPart = /** @class */ (function () {
 }());
 exports.WebPart = _WebPart;
 //# sourceMappingURL=webpart.js.map
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = __webpack_require__(2);
-/**
- * JS Link
- */
-var _JSLink = /** @class */ (function () {
-    /**
-     * Constructor
-     */
-    function _JSLink(cfg) {
-        // See if the configuration exists
-        if (cfg) {
-            // Set the properties
-            this._baseViewID = cfg.BaseViewID;
-            this._listTemplateType = cfg.ListTemplateType;
-            this._onPostRender = cfg.OnPostRender;
-            this._onPreRender = cfg.OnPreRender;
-            this._templates = cfg.Templates;
-        }
-    }
-    Object.defineProperty(_JSLink.prototype, "BaseViewID", {
-        set: function (value) { this._baseViewID = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "ListTemplateType", {
-        set: function (value) { this._listTemplateType = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "OnPostRender", {
-        set: function (value) { this._onPostRender = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "OnPreRender", {
-        set: function (value) { this._onPreRender = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "Templates", {
-        set: function (value) { this._templates = value; },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Methods
-     */
-    /**
-     * Returns the CSR template.
-     */
-    _JSLink.prototype.getTemplate = function () {
-        var template = {};
-        // Add the properties
-        if (this._baseViewID) {
-            template.BaseViewID = this._baseViewID;
-        }
-        if (this._listTemplateType) {
-            template.ListTemplateType = this._listTemplateType;
-        }
-        if (this._onPostRender) {
-            template.OnPostRender = this._onPostRender;
-        }
-        if (this._onPreRender) {
-            template.OnPreRender = this._onPreRender;
-        }
-        if (this._templates) {
-            template.Templates = this._templates;
-        }
-        // See if there are fields
-        if (template.Templates && template.Templates.Fields) {
-            var fields = {};
-            // Parse the fields
-            for (var _i = 0, _a = template.Templates.Fields; _i < _a.length; _i++) {
-                var field = _a[_i];
-                // Add the field
-                fields[field.Name] = {};
-                // Add the field properties
-                if (field.DisplayForm) {
-                    fields[field.Name].DisplayForm = field.DisplayForm;
-                }
-                if (field.EditForm) {
-                    fields[field.Name].EditForm = field.EditForm;
-                }
-                if (field.NewForm) {
-                    fields[field.Name].NewForm = field.NewForm;
-                }
-                if (field.View) {
-                    fields[field.Name].View = field.View;
-                }
-            }
-            // Update the fields
-            template.Templates.Fields = fields;
-        }
-        // Return the template
-        return template;
-    };
-    /**
-     * Method to register the CSR override.
-     */
-    _JSLink.prototype.register = function () {
-        // Get the template manager
-        var templateManager = _1.ContextInfo.window.SPClientTemplates;
-        templateManager = templateManager ? templateManager.TemplateManager : null;
-        // Ensure it exists
-        if (templateManager) {
-            // Apply the customization
-            templateManager.RegisterTemplateOverrides(this.getTemplate());
-        }
-    };
-    return _JSLink;
-}());
-exports.JSLink = _JSLink;
-//# sourceMappingURL=jslink.js.map
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-var web_1 = __webpack_require__(5);
-/**
- * List
- */
-var _List = /** @class */ (function (_super) {
-    __extends(_List, _super);
-    /**
-     * Constructor
-     */
-    function _List(listName, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "list" } });
-        return _this;
-    }
-    // Method to get the list by the entity name.
-    _List.getByEntityName = function (entityTypeName, callback, targetInfo) {
-        // Query for the list
-        var query = (new web_1.Web(targetInfo))
-            .Lists()
-            .query({
-            Filter: "EntityTypeName eq '" + entityTypeName + "'",
-            Top: 1
-        });
-        // See if the callback exists
-        if (typeof (callback) != "function") {
-            // Execute the request synchronously and return it
-            var list = query.executeAndWait();
-            return list.results ? list.results[0] : list;
-        }
-        // Execute the request asynchronously
-        query.execute(function (lists) {
-            // Execute the callback method
-            callback(lists.results ? lists.results[0] : lists);
-        });
-    };
-    return _List;
-}(utils_1.Base));
-exports.List = _List;
-//# sourceMappingURL=list.js.map
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-/**
- * Navigation
- */
-var _Navigation = /** @class */ (function (_super) {
-    __extends(_Navigation, _super);
-    /**
-     * Constructor
-     */
-    function _Navigation(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "navigation";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "navigationservicerest" } });
-        return _this;
-    }
-    return _Navigation;
-}(utils_1.Base));
-exports.Navigation = _Navigation;
-//# sourceMappingURL=navigation.js.map
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// People Manager
-/*********************************************************************************************************************************/
-var _PeopleManager = /** @class */ (function (_super) {
-    __extends(_PeopleManager, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _PeopleManager(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "peoplemanager" } });
-        return _this;
-    }
-    return _PeopleManager;
-}(utils_1.Base));
-exports.PeopleManager = _PeopleManager;
-//# sourceMappingURL=peopleManager.js.map
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// People Picker
-/*********************************************************************************************************************************/
-var _PeoplePicker = /** @class */ (function (_super) {
-    __extends(_PeoplePicker, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _PeoplePicker(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
-        _this.targetInfo.overrideDefaultRequestToHostFl = true;
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "peoplepicker" } });
-        return _this;
-    }
-    return _PeoplePicker;
-}(utils_1.Base));
-exports.PeoplePicker = _PeoplePicker;
-//# sourceMappingURL=peoplePicker.js.map
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// Profile Loader
-/*********************************************************************************************************************************/
-var _ProfileLoader = /** @class */ (function (_super) {
-    __extends(_ProfileLoader, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _ProfileLoader(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
-        _this.targetInfo.method = "POST";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "profileloader" } });
-        return _this;
-    }
-    return _ProfileLoader;
-}(utils_1.Base));
-exports.ProfileLoader = _ProfileLoader;
-//# sourceMappingURL=profileLoader.js.map
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// Search
-/*********************************************************************************************************************************/
-var _Search = /** @class */ (function (_super) {
-    __extends(_Search, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _Search(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "search";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "search" } });
-        return _this;
-    }
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Method to compute the query
-    _Search.prototype.getQuery = function (parameters) {
-        var query = "";
-        // Parse the parameters
-        for (var key in parameters) {
-            // Append the parameter to the query
-            query += (query == "" ? "" : "&") + key + "='" + parameters[key] + "'";
-        }
-        // Return the query
-        return [query];
-    };
-    /** The search query method */
-    _Search.prototype.searchquery = function (settings) {
-        // Execute the request
-        return this.executeMethod("query", {
-            argNames: ["query"],
-            name: "query?[[query]]",
-            requestType: types_1.RequestType.GetReplace
-        }, this.getQuery(settings));
-    };
-    /** The suggest method */
-    _Search.prototype.suggest = function (settings) {
-        // Execute the request
-        return this.executeMethod("query", {
-            argNames: ["query"],
-            name: "suggest?[[query]]",
-            requestType: types_1.RequestType.GetReplace
-        }, this.getQuery(settings));
-    };
-    return _Search;
-}(utils_1.Base));
-exports.Search = _Search;
-//# sourceMappingURL=search.js.map
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-var _1 = __webpack_require__(2);
-/*********************************************************************************************************************************/
-// Site
-// The SPSite object.
-/*********************************************************************************************************************************/
-var _Site = /** @class */ (function (_super) {
-    __extends(_Site, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _Site(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "site";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "site" } });
-        return _this;
-    }
-    // Method to get the root web
-    _Site.prototype.getRootWeb = function () { return new _1.Web(null, this.targetInfo); };
-    // Method to determine if the current user has access, based on the permissions.
-    _Site.prototype.hasAccess = function (permissions) {
-        // TO DO
-        return true;
-    };
-    ;
-    return _Site;
-}(utils_1.Base));
-exports.Site = _Site;
-//# sourceMappingURL=site.js.map
-
-/***/ }),
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// Social Feed
-/*********************************************************************************************************************************/
-var _SocialFeed = /** @class */ (function (_super) {
-    __extends(_SocialFeed, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _SocialFeed(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "social.feed";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "socialfeed" } });
-        return _this;
-    }
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Method to post to another user's feed
-    _SocialFeed.prototype.postToFeed = function (accountName, creationData) {
-        var postInfo = { ID: null, creationData: creationData };
-        // Set the post metadata
-        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
-        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.executeMethod("postToMyFeed", {
-            argNames: ["restCreationData"],
-            name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
-            requestType: types_1.RequestType.PostWithArgsInBody
-        }, [postInfo]);
-    };
-    // Method to post to the current user's feed
-    _SocialFeed.prototype.postToMyFeed = function (creationData) {
-        var postInfo = { ID: null, creationData: creationData };
-        // Set the post metadata
-        postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
-        postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.executeMethod("postToMyFeed", {
-            argNames: ["restCreationData"],
-            name: "my/feed/post",
-            requestType: types_1.RequestType.PostWithArgsInBody
-        }, [postInfo]);
-    };
-    return _SocialFeed;
-}(utils_1.Base));
-exports.SocialFeed = (new _SocialFeed());
-//# sourceMappingURL=socialFeed.js.map
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// User Profile
-/*********************************************************************************************************************************/
-var _UserProfile = /** @class */ (function (_super) {
-    __extends(_UserProfile, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _UserProfile(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
-        _this.targetInfo.method = "POST";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "userprofile" } });
-        return _this;
-    }
-    return _UserProfile;
-}(utils_1.Base));
-exports.UserProfile = _UserProfile;
-//# sourceMappingURL=userProfile.js.map
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(1);
-var utils_1 = __webpack_require__(0);
-/**
- * Utility
- */
-var _Utility = /** @class */ (function (_super) {
-    __extends(_Utility, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _Utility(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "SP.Utilities.Utility";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "utility" } });
-        return _this;
-    }
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Method to create a wiki page
-    _Utility.prototype.createWikiPage = function (listUrl, content) {
-        if (content === void 0) { content = ""; }
-        var parameters = {
-            ServerRelativeUrl: listUrl,
-            WikiHtmlContent: content
-        };
-        // Execute the method
-        return this.executeMethod("createWikiPage", {
-            argNames: ["parameters"],
-            name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
-            replaceEndpointFl: true,
-            requestType: types_1.RequestType.PostWithArgsInBody
-        }, [parameters]);
-    };
-    // Method to send an email
-    _Utility.prototype.sendEmail = function (properties) {
-        // Parse the email properties
-        for (var _i = 0, _a = ["To", "CC", "BCC"]; _i < _a.length; _i++) {
-            var propName = _a[_i];
-            var propValue = properties[propName];
-            // Ensure the value exists
-            if (propValue) {
-                // See if it's a string
-                if (typeof (propValue) === "string") {
-                    // Add the results property
-                    properties[propName] = { 'results': [propValue] };
-                }
-                else {
-                    // Add the results property
-                    properties[propName] = { 'results': propValue };
-                }
-            }
-        }
-        // Execute the method
-        return this.executeMethod("sendEmail", {
-            argNames: ["properties"],
-            metadataType: "SP.Utilities.EmailProperties",
-            name: "SP.Utilities.Utility.sendEmail",
-            replaceEndpointFl: true,
-            requestType: types_1.RequestType.PostWithArgsInBody
-        }, [properties]);
-    };
-    return _Utility;
-}(utils_1.Base));
-exports.Utility = _Utility;
-//# sourceMappingURL=utility.js.map
 
 /***/ })
 /******/ ]);

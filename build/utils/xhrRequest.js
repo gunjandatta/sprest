@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
-var _1 = require(".");
 /*********************************************************************************************************************************/
 // Request
 // This class will execute the xml http request.
@@ -13,7 +12,7 @@ var XHRRequest = /** @class */ (function () {
     function XHRRequest(asyncFl, targetInfo, callback) {
         // Default the properties
         this.asyncFl = asyncFl;
-        this.promise = new _1.Promise(callback || targetInfo.request.callback);
+        this.onRequestCompleted = callback || targetInfo.request.callback;
         this.targetInfo = targetInfo;
         this.xhr = this.createXHR();
         // Execute the request
@@ -136,8 +135,8 @@ var XHRRequest = /** @class */ (function () {
             this.xhr.onreadystatechange = function () {
                 // See if the request has finished
                 if (_this.xhr.readyState == 4) {
-                    // Resolve the promise
-                    _this.promise.resolve(_this);
+                    // Execute the request completed event
+                    _this.onRequestCompleted ? _this.onRequestCompleted(_this) : null;
                 }
             };
         }
