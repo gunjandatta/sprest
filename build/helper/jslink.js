@@ -5,11 +5,9 @@ var types_1 = require("../types");
 /**
  * JSLink Helper Methods
  */
-exports.JSLinkHelper = {
-    /**
-     * Global Variables
-     */
-    hideEventFl: false,
+exports.JSLink = {
+    // Hide event flag
+    _hideEventFl: false,
     /**
      * Field to Method Mapper
      * 1 - Display Form
@@ -182,7 +180,7 @@ exports.JSLinkHelper = {
             controlMode = ctx.ControlMode;
         }
         // Return the display value of the field
-        return exports.JSLinkHelper.renderField(ctx, field, controlMode);
+        return exports.JSLink.renderField(ctx, field, controlMode);
     },
     /**
      * Disable quick edit for the specified field.
@@ -197,7 +195,7 @@ exports.JSLinkHelper = {
             return "";
         }
         // Return the default field value html
-        return exports.JSLinkHelper.renderField(ctx, field);
+        return exports.JSLink.renderField(ctx, field);
     },
     /**
      * Returns the list view.
@@ -205,7 +203,7 @@ exports.JSLinkHelper = {
      */
     getListView: function (ctx) {
         // Get the webpart
-        var wp = exports.JSLinkHelper.getWebPart(ctx);
+        var wp = exports.JSLink.getWebPart(ctx);
         if (wp) {
             // Find the list form table
             wp = wp.querySelector(".ms-formtable");
@@ -243,9 +241,9 @@ exports.JSLinkHelper = {
      */
     hideField: function (ctx, field) {
         // Ensure the hide event has been created
-        if (!exports.JSLinkHelper.hideEventFl) {
+        if (!exports.JSLink._hideEventFl) {
             // Set the flag
-            exports.JSLinkHelper.hideEventFl = true;
+            exports.JSLink._hideEventFl = true;
             // Create the event
             lib_1.ContextInfo.window.addEventListener("load", function () {
                 // Query for the elements to hide
@@ -279,7 +277,7 @@ exports.JSLinkHelper = {
      */
     removeField: function (ctx, field) {
         // Hide the field
-        exports.JSLinkHelper.hideField(ctx, field);
+        exports.JSLink.hideField(ctx, field);
         // Return an empty element
         return "<div class='hide-field'></div>";
     },
@@ -295,9 +293,9 @@ exports.JSLinkHelper = {
         // Ensure the form type is set
         formType = formType ? formType : ctx.ControlMode;
         // Ensure a field to method mapper exists
-        if (exports.JSLinkHelper._fieldToMethodMapper[fieldType] && exports.JSLinkHelper._fieldToMethodMapper[fieldType][formType]) {
+        if (exports.JSLink._fieldToMethodMapper[fieldType] && exports.JSLink._fieldToMethodMapper[fieldType][formType]) {
             // Return the default html for this field
-            var defaultHtml = exports.JSLinkHelper._fieldToMethodMapper[fieldType][formType](ctx);
+            var defaultHtml = exports.JSLink._fieldToMethodMapper[fieldType][formType](ctx);
             if (defaultHtml) {
                 return defaultHtml;
             }

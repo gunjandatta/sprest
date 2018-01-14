@@ -1,15 +1,16 @@
+import { Types } from "../mapper";
 import { IBase } from "../utils";
-import { AppHelper, IHelperApp } from "./app";
-import { Dependencies, IDependencies } from "./dependencies";
-import { FieldSchemaXML, IFieldSchemaXML } from "./field";
-import { JSLinkHelper, IHelperJSLink } from "./jslink";
-import { ListForm, IListForm } from "./listForm";
-import { ListFormField, IListFormField } from "./listFormField";
-import { Loader, ILoader } from "./loader";
+import { App } from "./app";
+import { Dependencies } from "./dependencies";
+import { FieldSchemaXML } from "./field";
+import { JSLink } from "./jslink";
+import { ListForm } from "./listForm";
+import { ListFormField } from "./listFormField";
+import { Loader } from "./loader";
 import { parse } from "./parse";
-import { SPConfig, ISPConfig } from "./spCfg";
-import { HelperTypes, IHelperTypes } from "./types";
-import { WebPart, IWebPart } from "./webpart";
+import { SPConfig } from "./spCfg";
+import { HelperTypes } from "./types";
+import { WebPart } from "./webpart";
 
 /**
  * Helper
@@ -18,37 +19,37 @@ export interface IHelper {
     /**
      * App-Model helper methods
      */
-    App: IHelperApp,
+    App: Types.Helper.App.IApp,
 
     /**
      * Dependencies
      */
-    Dependencies: IDependencies,
+    Dependencies: Types.Helper.Dependencies.IDependencies,
 
     /**
      * Field Schema XML
      */
-    FieldSchemaXML: IFieldSchemaXML,
+    FieldSchemaXML: Types.Helper.Field.IFieldSchemaXML,
 
     /**
      * JSLink helper methods
      */
-    JSLink: IHelperJSLink,
+    JSLink: Types.Helper.JSLink.IJSLink,
 
     /**
      * List Form
      */
-    ListForm: IListForm,
+    ListForm: Types.Helper.ListForm.IListForm,
 
     /**
      * List Form Field
      */
-    ListFormField: IListFormField,
+    ListFormField: Types.Helper.ListForm.IListFormField,
 
     /**
      * Loader
      */
-    Loader: ILoader,
+    Loader: Types.Helper.Loader.ILoader,
 
     /**
      * Method to parse a json string and convert to a base object.
@@ -58,32 +59,32 @@ export interface IHelper {
     /**
      * Web helper methods
      */
-    SPConfig: ISPConfig,
+    SPConfig: Types.Helper.SPConfig.ISPConfig,
 
     /**
      * Helper Types
      */
-    Types: IHelperTypes
+    Types: Types.Helper.IHelperTypes;
 
     /**
      * WebPart
      */
-    WebPart: IWebPart;
+    WebPart: Types.Helper.WebPart.IWebPart;
 };
 
 /**
  * Helper Methods
  */
 export const Helper: IHelper = {
-    App: AppHelper as any,
-    Dependencies: Dependencies as any,
+    App,
+    Dependencies,
     FieldSchemaXML,
-    JSLink: JSLinkHelper,
+    JSLink,
     ListForm,
     ListFormField,
-    Loader: Loader,
+    Loader,
     parse: parse as any,
-    SPConfig: SPConfig as any,
+    SPConfig,
     Types: HelperTypes,
     WebPart
 };

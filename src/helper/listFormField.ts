@@ -4,56 +4,14 @@ import { Types } from "../mapper";
 /**
  * List Form Field
  */
-export interface IListFormFieldInfo {
-    /** The default value. */
-    defaultValue?: any;
-
-    /** The list field. */
-    field?: Types.IFieldResult | Types.IFieldQueryResult;
-
-    /** The list name. */
-    listName: string;
-
-    /** The internal name of the field. */
-    name: string;
-
-    /** Flag indicating if the field is read-only. */
-    readOnly?: boolean;
-
-    /** True indicates a required field type. */
-    required?: boolean;
-
-    /** The display name of the field. */
-    title?: string;
-
-    /** The field type. */
-    type?: number;
-
-    /** The field type as a string. */
-    typeAsString?: string;
-
-    /** The relative web url containing the list. */
-    webUrl?: string;
-}
-
-/**
- * List Form Field
- */
-export interface IListFormField {
-    /**
-     * Creates an instance of the list form field
-     * @param props - The list form field properties
-     */
-    new(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
-}
 class _ListFormField {
-    private _fieldInfo: IListFormFieldInfo = null;
+    private _fieldInfo: Types.Helper.ListForm.IListFormFieldInfo = null;
     private _resolve = null;
 
     /**
      * Constructor
      */
-    constructor(props: IListFormFieldInfo) {
+    constructor(props: Types.Helper.ListForm.IListFormFieldInfo) {
         // Save the properties and field information
         this._fieldInfo = props || {} as any;
 
@@ -119,4 +77,4 @@ class _ListFormField {
         this._resolve(this._fieldInfo);
     }
 }
-export const ListFormField: IListFormField = _ListFormField as any;
+export const ListFormField: Types.Helper.ListForm.IListFormField = _ListFormField as any;

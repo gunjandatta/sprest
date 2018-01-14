@@ -37,17 +37,8 @@ declare module 'gd-sprest' {
 }
 
 declare module 'gd-sprest/helper' {
+    import { Types } from "gd-sprest/mapper";
     import { IBase } from "gd-sprest/utils";
-    import { IHelperApp } from "gd-sprest/helper/app";
-    import { IDependencies } from "gd-sprest/helper/dependencies";
-    import { IFieldSchemaXML } from "gd-sprest/helper/field";
-    import { IHelperJSLink } from "gd-sprest/helper/jslink";
-    import { IListForm } from "gd-sprest/helper/listForm";
-    import { IListFormField } from "gd-sprest/helper/listFormField";
-    import { ILoader } from "gd-sprest/helper/loader";
-    import { ISPConfig } from "gd-sprest/helper/spCfg";
-    import { IHelperTypes } from "gd-sprest/helper/types";
-    import { IWebPart } from "gd-sprest/helper/webpart";
     /**
         * Helper
         */
@@ -55,31 +46,31 @@ declare module 'gd-sprest/helper' {
             /**
                 * App-Model helper methods
                 */
-            App: IHelperApp;
+            App: Types.Helper.App.IApp;
             /**
                 * Dependencies
                 */
-            Dependencies: IDependencies;
+            Dependencies: Types.Helper.Dependencies.IDependencies;
             /**
                 * Field Schema XML
                 */
-            FieldSchemaXML: IFieldSchemaXML;
+            FieldSchemaXML: Types.Helper.Field.IFieldSchemaXML;
             /**
                 * JSLink helper methods
                 */
-            JSLink: IHelperJSLink;
+            JSLink: Types.Helper.JSLink.IJSLink;
             /**
                 * List Form
                 */
-            ListForm: IListForm;
+            ListForm: Types.Helper.ListForm.IListForm;
             /**
                 * List Form Field
                 */
-            ListFormField: IListFormField;
+            ListFormField: Types.Helper.ListForm.IListFormField;
             /**
                 * Loader
                 */
-            Loader: ILoader;
+            Loader: Types.Helper.Loader.ILoader;
             /**
                 * Method to parse a json string and convert to a base object.
                 */
@@ -87,15 +78,15 @@ declare module 'gd-sprest/helper' {
             /**
                 * Web helper methods
                 */
-            SPConfig: ISPConfig;
+            SPConfig: Types.Helper.SPConfig.ISPConfig;
             /**
                 * Helper Types
                 */
-            Types: IHelperTypes;
+            Types: Types.Helper.IHelperTypes;
             /**
                 * WebPart
                 */
-            WebPart: IWebPart;
+            WebPart: Types.Helper.WebPart.IWebPart;
     }
     /**
         * Helper Methods
@@ -1465,694 +1456,6 @@ declare module 'gd-sprest/utils' {
     export * from "gd-sprest/utils/oData";
     export * from "gd-sprest/utils/targetInfo";
     export * from "gd-sprest/utils/xhrRequest";
-}
-
-declare module 'gd-sprest/helper/app' {
-    import { Types } from "gd-sprest/mapper";
-    /**
-        * App Helper Methods
-        */
-    export interface IHelperApp {
-            /**
-                * Method to copy a file from the app web to the host web.
-                * @param srcFileUrl - The source file url, relative to the app web.
-                * @param dstFolder - The destination folder.
-                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
-                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-                */
-            copyFileToHostWeb(srcFileUrl: string, dstFolder: Types.IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{
-                    file: Types.IFileResult;
-                    folder: Types.IFolderResult;
-            }>;
-            /**
-                * Method to copy a file from the app web to the host web.
-                * @param srcFileUrl - The source file url, relative to the app web.
-                * @param dstFolderUrl - The destination folder url, relative to the host web.
-                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
-                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-                */
-            copyFileToHostWeb(srcFileUrl: string, dstFolderUrl: string, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{
-                    file: Types.IFileResult;
-                    folder: Types.IFolderResult;
-            }>;
-            /**
-                * Method to copy a file from the app web to the host web
-                * @param fileUrls - An array of source file urls, relative to the app web.
-                * @param folderUrls - An array of destination folder urls, relative to the host web.
-                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-                */
-            copyFilesToHostWeb(fileUrls: Array<string>, folderUrls: Array<string>, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{
-                    files: Array<Types.IFileResult>;
-                    folders: Array<Types.IFolderResult>;
-            }>;
-            /**
-                * Method to create sub-folders.
-                * @param folder - The app web relative url to the source file.
-                * @param subFolderUrl - The host web relative url of the destination folder.
-                */
-            createSubFolders(folder: Types.IFolderResult, subFolderUrl: string): any;
-            /**
-                * Method to get the file content.
-                * @param web - The web containing the files.
-                * @param fileUrls - An array of file urls, relative to the web.
-                * @param createFl - Flag to create the folder, if it doesn't exist.
-                */
-            getFolder(web: Types.IWebResult, folderUrl: string, createFl?: boolean): any;
-            /**
-                * Method to remove empty folders
-                * @param web - The web containing the files.
-                * @param folderUrls - An array of folder urls, relative to the web.
-                */
-            removeEmptyFolders(web: Types.IWebResult, folderUrls: Array<string>): any;
-            /**
-                * Method to remove files from a web.
-                * @param web - The web containing the files.
-                * @param fileUrl - The file url, relative to the web.
-                */
-            removeFile(web: Types.IWebResult, fileUrl: string): any;
-            /**
-                * Method to remove files from a web.
-                * @param web - The web containing the files.
-                * @param fileUrls - An array of file urls, relative to the web.
-                */
-            removeFiles(web: Types.IWebResult, fileUrls: Array<string>): any;
-    }
-    /*********************************************************************************************************************************/
-    export const AppHelper: {
-            copyFileToHostWeb: (fileUrl: any, dstFolder: any, overwriteFl: any, rootWebFl: any) => Promise<{}>;
-            copyFilesToHostWeb: (fileUrls: any, folderUrls: any, overwriteFl: any, rootWebFl: any) => Promise<{}>;
-            createSubFolders: (folder: any, subFolderUrl: any) => Promise<{}>;
-            getFolder: (web: any, folderUrl: any, createFl: any) => Promise<{}>;
-            removeEmptyFolders: (web: any, folderUrls: any) => Promise<{}>;
-            removeFile: (web: any, fileUrl: any) => Promise<{}>;
-            removeFiles: (web: any, fileUrls: any, idx: any) => Promise<{}>;
-    };
-}
-
-declare module 'gd-sprest/helper/dependencies' {
-    /**
-        * Dependencies
-        */
-    export interface IDependencies {
-            /**
-                * Constructor
-                * @param callback - The method to execute after the dependencies are loaded.
-                */
-            constructor(callback: (...args) => void): any;
-            /** The maximum amount of time to wait for the scripts to be loaded. */
-            MAX_WAIT: number;
-            /** Flag to determine if the page context information exists */
-            pageContextExistsFl: boolean;
-            /** The script file names to load. */
-            SCRIPTS: Array<string>;
-            /**
-                * Method to ensure the SP classes are loaded
-                */
-            loadDependencies(): any;
-            /**
-                * Method to wait for the page context to be loaded
-                */
-            waitForPageContext(): any;
-    }
-    /**
-        * Dependencies
-        * This class will ensure the core SP scripts are loaded on the page.
-        */
-    export class Dependencies {
-            MAX_WAIT: number;
-            SCRIPTS: Array<string>;
-            readonly pageContextExistsFl: boolean;
-            /**
-                * Constructor
-                * @param callback - The method to execute after the scripts have been loaded.
-                */
-            constructor(callback: (...args) => void);
-            /**
-                * Method to ensure the SP classes are loaded
-                */
-            loadDependencies(): void;
-            /**
-                * Method to wait for the page context to be loaded
-                */
-            waitForPageContext(): void;
-    }
-}
-
-declare module 'gd-sprest/helper/field' {
-    import { Types } from "gd-sprest/mapper";
-    /**
-      * Field Schema XML
-      */
-    export interface IFieldSchemaXML {
-        /** Method to generate the field schema xml. */
-        generate: (fieldInfo: Types.Helper.SPConfig.IFieldInfo) => PromiseLike<string>;
-    }
-    export const FieldSchemaXML: IFieldSchemaXML;
-}
-
-declare module 'gd-sprest/helper/jslink' {
-    /**
-        * JSLink Helper Methods
-        */
-    export interface IHelperJSLink {
-            /**
-                * Disables edit for the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to disable edit.
-                * @param requireValueFl - Flag to only disable the field, if a value exists.
-                */
-            disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
-            /**
-                * Disable quick edit for the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to disable edit.
-                */
-            disableQuickEdit(ctx: any, field: any): any;
-            /**
-                * Returns the list view.
-                * @param ctx - The client context.
-                */
-            getListView(ctx: any): any;
-            /**
-                * Returns the list view items.
-                * @param ctx - The client context.
-                */
-            getListViewItems(ctx: any): any;
-            /**
-                * Returns the selected list view items
-                */
-            getListViewSelectedItems(): any;
-            /**
-                * Returns the webpart containing the JSLink field/form/view.
-                * @param ctx - The client context.
-                */
-            getWebPart(ctx: any): any;
-            /**
-                * Hides the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to hide.
-                */
-            hideField(ctx: any, field: any): any;
-            /**
-                * Removes the field and html from the page.
-                * @param ctx - The client context.
-                * @param field - The field to remove.
-                */
-            removeField(ctx: any, field: any): any;
-            /**
-                * Method to render the default html for a field.
-                * @param ctx - The client context.
-                * @param field - The form field.
-                * @param formType - The form type. (Display, Edit, New or View)
-                */
-            renderField(ctx: any, field: any, formType?: number): any;
-    }
-    /**
-        * JSLink Helper Methods
-        */
-    export const JSLinkHelper: {
-            hideEventFl: boolean;
-            _fieldToMethodMapper: {
-                    'Attachments': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Boolean': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Currency': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Calculated': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Choice': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Computed': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'DateTime': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'File': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Integer': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Lookup': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'LookupMulti': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'MultiChoice': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Note': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Number': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'Text': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'URL': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'User': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-                    'UserMulti': {
-                            4: any;
-                            1: any;
-                            2: any;
-                            3: any;
-                    };
-            };
-            disableEdit: (ctx: any, field: any, requireValueFl?: boolean) => string;
-            disableQuickEdit: (ctx: any, field: any) => any;
-            getListView: (ctx: any) => Element;
-            getListViewItems: (ctx: any) => any;
-            getListViewSelectedItems: () => any;
-            getWebPart: (ctx: any) => Element;
-            hideField: (ctx: any, field: any) => void;
-            removeField: (ctx: any, field: any) => string;
-            renderField: (ctx: any, field: any, formType?: number) => any;
-    };
-}
-
-declare module 'gd-sprest/helper/listForm' {
-    import { Types } from "gd-sprest/mapper";
-    /**
-        * List Form Properties
-        */
-    export interface IListFormProps {
-            /** The form fields */
-            fields?: Array<string>;
-            /** The list name */
-            listName: string;
-            /** The relative web url containing the list */
-            webUrl?: string;
-    }
-    /**
-        * List Form
-        */
-    export interface IListForm {
-            /**
-                * Creates an instance of the list form
-                * @param props - The list form properties.
-                */
-            new (props: IListFormProps): PromiseLike<{
-                    [key: string]: Types.IFieldResult;
-            }>;
-            /** The list fields */
-            Fields: {
-                    [key: string]: Types.IFieldResult;
-            };
-            /** The list */
-            List: Types.IListResult;
-    }
-    export const ListForm: IListForm;
-}
-
-declare module 'gd-sprest/helper/listFormField' {
-    import { Types } from "gd-sprest/mapper";
-    /**
-        * List Form Field
-        */
-    export interface IListFormFieldInfo {
-            /** The default value. */
-            defaultValue?: any;
-            /** The list field. */
-            field?: Types.IFieldResult | Types.IFieldQueryResult;
-            /** The list name. */
-            listName: string;
-            /** The internal name of the field. */
-            name: string;
-            /** Flag indicating if the field is read-only. */
-            readOnly?: boolean;
-            /** True indicates a required field type. */
-            required?: boolean;
-            /** The display name of the field. */
-            title?: string;
-            /** The field type. */
-            type?: number;
-            /** The field type as a string. */
-            typeAsString?: string;
-            /** The relative web url containing the list. */
-            webUrl?: string;
-    }
-    /**
-        * List Form Field
-        */
-    export interface IListFormField {
-            /**
-                * Creates an instance of the list form field
-                * @param props - The list form field properties
-                */
-            new (props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
-    }
-    export const ListFormField: IListFormField;
-}
-
-declare module 'gd-sprest/helper/loader' {
-    /**
-        * Loader
-        */
-    export interface ILoader {
-            /**
-                * Waits for the SharePoint core libraries to be loaded.
-                * @param callback - The callback function.
-                * @param timeout - The max time (ms) to wait for the libraries to be loaded.
-                * @param loadLibraries - Flag to load the core libraries manually.
-                */
-            waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean): any;
-    }
-    /**
-        * Loader
-        */
-    export const Loader: {
-            loaded: boolean;
-            waitForSPLibs: (callback: any, timeout?: number, loadLibraries?: boolean) => void;
-    };
-}
-
-declare module 'gd-sprest/helper/spCfg' {
-    import { Types } from "gd-sprest/mapper";
-    /**
-        * SharePoint Configuration - Content Type Information
-        */
-    export interface ISPCfgContentTypeInfo extends Types.IContentTypeCreationInformation {
-            /**
-                * The content type. (This value is set internally.)
-                */
-            ContentType?: Types.IContentTypeResult;
-            /**
-                * The field references.
-                */
-            FieldRefs?: Array<string>;
-            /**
-                * The JSLink property.
-                */
-            JSLink?: string;
-            /**
-                * The parent content type name, required if different then the name.
-                */
-            ParentName?: string;
-            /**
-                * The url of the web containing the parent content type, required if the parent content type doesn't exist in the current web.
-                */
-            ParentWebUrl?: string;
-            /**
-                * Event triggered after the content type is created.
-                */
-            onCreated?: (ct: Types.IContentTypeResult) => void;
-            /**
-                * Event triggered after the content type is updated.
-                */
-            onUpdated?: (ct: Types.IContentTypeResult) => void;
-    }
-    /**
-        * SharePoint Configuration - Custom Action Information
-        */
-    export interface ISPCfgCustomActionInfo {
-            /**
-                * Custom actions to be created at the site collection level.
-                */
-            Site?: Array<Types.IUserCustomActionCreationInformation>;
-            /**
-                * Custom actions to be created at the web level.
-                */
-            Web?: Array<Types.IUserCustomActionCreationInformation>;
-    }
-    /**
-        * SharePoint Configuration - Field Information
-        */
-    export interface ISPCfgFieldInfo extends Types.Helper.SPConfig.IFieldInfo {
-            /**
-                * Event triggered after the field is created.
-                */
-            onCreated?: (field: Types.IFieldResult) => void;
-            /**
-                * Event triggered after the field is updated.
-                */
-            onUpdated?: (field: Types.IFieldResult) => void;
-    }
-    /**
-        * SharePoint Configuration - List Information
-        */
-    export interface ISPCfgListInfo {
-            /** The content types. */
-            ContentTypes?: Array<ISPCfgContentTypeInfo>;
-            /** The custom list fields. */
-            CustomFields?: Array<ISPCfgFieldInfo>;
-            /** The list creation information. */
-            ListInformation: Types.IListCreationInformation;
-            /** The title display name. */
-            TitleFieldDisplayName?: string;
-            /** The user custom actions. */
-            UserCustomActions?: Array<Types.IUserCustomActionCreationInformation>;
-            /** The view information. */
-            ViewInformation?: Array<ISPCfgViewInfo>;
-            /**
-                * Event triggered after the list is created or updated.
-                */
-            onCreated?: (list: Types.IListResult) => void;
-            /**
-                * Event triggered after the list is updated.
-                */
-            onUpdated?: (list: Types.IListQueryResult) => void;
-    }
-    /**
-        * SharePoint Configuration - View Information
-        */
-    export interface ISPCfgViewInfo {
-            /** The JSLink property. */
-            JSLink?: string;
-            /** The view fields. */
-            ViewFields?: Array<string>;
-            /** The view name. */
-            ViewName: string;
-            /** The view query. */
-            ViewQuery?: string;
-            /**
-                * Event triggered after the view is created or updated.
-                */
-            onCreated?: (view: Types.IViewResult) => void;
-            /**
-                * Event triggered after the view is updated.
-                */
-            onUpdated?: (view: Types.IView) => void;
-    }
-    /**
-        * SharePoint Configuration - WebPart Information
-        */
-    export interface ISPCfgWebPartInfo {
-            /** The file name of the webpart. */
-            FileName: string;
-            /** The webpart group. */
-            Group?: string;
-            /** The webpart xml */
-            XML: string;
-            /**
-                * Event triggered after the webpart file is created.
-                */
-            onCreated?: (file: Types.IFileResult) => void;
-            /**
-                * Event triggered after the webpart file is updated.
-                */
-            onUpdated?: (file: Types.IFileResult) => void;
-    }
-    /**
-        * SharePoint Configuration Methods
-        */
-    export interface ISPConfig {
-            /**
-                * Constructor
-                * @param cfg - The SharePoint configuration information.
-                * @param webUrl - An optional string representing the relative web url.
-                */
-            new (cfg: ISPConfigProps, webUrl?: string): any;
-            /**
-                * Method to install the configuration
-                * @param callback - An optional function called after the execution completes.
-                */
-            install(callback?: () => void): any;
-            /**
-                * Method to install by the configuration type.
-                * @param cfgType - The configuration type.
-                * @param callback - An optional function called after the execution completes.
-                * @param targetName - The target configuration type to install.
-                */
-            installByType(cfgType: number, callback?: any, targetName?: string): any;
-            /**
-                * Method to install the configuration
-                * @param callback - An optional function called after the execution completes.
-                */
-            uninstall(callback?: () => void): any;
-            /**
-                * Method to uninstall by the configuration type.
-                * @param cfgType - The configuration type.
-                * @param callback - An optional function called after the execution completes.
-                * @param targetName - The target configuration type to uninstall.
-                */
-            uninstallByType(cfgType: number, callback?: any, targetName?: string): any;
-    }
-    /**
-        * SharePoint Configuration - Properties
-        */
-    export interface ISPConfigProps {
-            /** The content types. */
-            ContentTypes?: Array<ISPCfgContentTypeInfo>;
-            /** The custom action configuration. */
-            CustomActionCfg?: ISPCfgCustomActionInfo;
-            /** The site column configuration. */
-            Fields?: Array<ISPCfgFieldInfo>;
-            /** The list configuration. */
-            ListCfg?: Array<ISPCfgListInfo>;
-            /** The web part configuration. */
-            WebPartCfg?: Array<ISPCfgWebPartInfo>;
-    }
-    /**
-        * SharePoint Configuration - Types
-        */
-    export interface ISPConfigTypes {
-            /** Fields */
-            Fields: number;
-            /** Content Types */
-            ContentTypes: number;
-            /** Lists */
-            Lists: number;
-            /** Site User Custom Actions */
-            SiteUserCustomActions: number;
-            /** Web User Custom Actions */
-            WebUserCustomActions: number;
-    }
-    /**
-        * SharePoint Configuration
-        */
-    export class SPConfig {
-            /**
-                * Constructor
-                */
-            constructor(cfg: ISPConfigProps, webUrl?: string);
-            /**
-                * Public Methods
-                */
-            install(callback?: any, cfgType?: number, targetName?: string): void;
-            installByType: (cfgType: number, callback?: any, targetName?: string) => void;
-            installList(listName: string, callback?: any): void;
-            installSiteCustomAction(caName: string, callback?: any): void;
-            installWebCustomAction(caName: string, callback?: any): void;
-            uninstall(callback?: any, cfgType?: number, targetName?: string): void;
-            uninstallByType: (cfgType: number, callback?: any, targetName?: string) => void;
-            uninstallList(listName: string, callback?: any): void;
-            uninstallSiteCustomAction(caName: string, callback?: any): void;
-            uninstallWebCustomAction(caName: string, callback?: any): void;
-    }
-}
-
-declare module 'gd-sprest/helper/types' {
-    /**
-        * Helper Types
-        */
-    export interface IHelperTypes {
-            /** The field types */
-            SPCfgFieldType: {
-                    Boolean: number;
-                    Calculated: number;
-                    Choice: number;
-                    Date: number;
-                    Lookup: number;
-                    MMS: number;
-                    Note: number;
-                    Number: number;
-                    Text: number;
-                    Url: number;
-                    User: number;
-            };
-            /** The configuration types */
-            SPCfgType: {
-                    Fields: number;
-                    ContentTypes: number;
-                    Lists: number;
-                    SiteUserCustomActions: number;
-                    WebParts: number;
-                    WebUserCustomActions: number;
-            };
-    }
-    /**
-        * Helper Types
-        */
-    export const HelperTypes: IHelperTypes;
-}
-
-declare module 'gd-sprest/helper/webpart' {
-    import { Types } from "gd-sprest/mapper";
-    /**
-        * Web Part
-        */
-    export interface IWebPart {
-            /**
-                * Creates an instance of a webpart.
-                * @param props - The webpart properties.
-                */
-            new (props: Types.Helper.WebPart.IWebPartProps): any;
-    }
-    export const WebPart: IWebPart;
 }
 
 declare module 'gd-sprest/mapper/types' {
@@ -5133,9 +4436,16 @@ declare module 'gd-sprest/mapper/results' {
 }
 
 declare module 'gd-sprest/mapper/helper' {
+    import * as App from "gd-sprest/mapper/helper/app";
+    import * as Dependencies from "gd-sprest/mapper/helper/dependencies";
+    import * as Field from "gd-sprest/mapper/helper/field";
+    import * as JSLink from "gd-sprest/mapper/helper/jslink";
+    import * as ListForm from "gd-sprest/mapper/helper/listForm";
+    import * as Loader from "gd-sprest/mapper/helper/loader";
     import * as SPConfig from "gd-sprest/mapper/helper/spCfg";
     import * as WebPart from "gd-sprest/mapper/helper/webpart";
-    export { SPConfig, WebPart };
+    export * from "gd-sprest/mapper/helper/types";
+    export { App, Dependencies, Field, JSLink, ListForm, Loader, SPConfig, WebPart };
 }
 
 declare module 'gd-sprest/mapper/sptypes' {
@@ -6209,7 +5519,269 @@ declare module 'gd-sprest/mapper/userCustomAction' {
     export * from "gd-sprest/mapper/userCustomAction/userCustomActions";
 }
 
+declare module 'gd-sprest/mapper/helper/app' {
+    import { Types } from "gd-sprest/mapper";
+    /**
+        * App Helper Methods
+        */
+    export interface IApp {
+            /**
+                * Method to copy a file from the app web to the host web.
+                * @param srcFileUrl - The source file url, relative to the app web.
+                * @param dstFolder - The destination folder.
+                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
+                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
+                */
+            copyFileToHostWeb(srcFileUrl: string, dstFolder: Types.IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{
+                    file: Types.IFileResult;
+                    folder: Types.IFolderResult;
+            }>;
+            /**
+                * Method to copy a file from the app web to the host web.
+                * @param srcFileUrl - The source file url, relative to the app web.
+                * @param dstFolderUrl - The destination folder url, relative to the host web.
+                * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
+                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
+                */
+            copyFileToHostWeb(srcFileUrl: string, dstFolderUrl: string, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{
+                    file: Types.IFileResult;
+                    folder: Types.IFolderResult;
+            }>;
+            /**
+                * Method to copy a file from the app web to the host web
+                * @param fileUrls - An array of source file urls, relative to the app web.
+                * @param folderUrls - An array of destination folder urls, relative to the host web.
+                * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
+                */
+            copyFilesToHostWeb(fileUrls: Array<string>, folderUrls: Array<string>, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{
+                    files: Array<Types.IFileResult>;
+                    folders: Array<Types.IFolderResult>;
+            }>;
+            /**
+                * Method to create sub-folders.
+                * @param folder - The app web relative url to the source file.
+                * @param subFolderUrl - The host web relative url of the destination folder.
+                */
+            createSubFolders(folder: Types.IFolderResult, subFolderUrl: string): PromiseLike<Types.IFolderResult>;
+            /**
+                * Method to get the file content.
+                * @param web - The web containing the files.
+                * @param fileUrls - An array of file urls, relative to the web.
+                * @param createFl - Flag to create the folder, if it doesn't exist.
+                */
+            getFolder(web: Types.IWeb | Types.IWebResult, folderUrl: string, createFl?: boolean): PromiseLike<Types.IFolderResult>;
+            /**
+                * Method to remove empty folders
+                * @param web - The web containing the files.
+                * @param folderUrls - An array of folder urls, relative to the web.
+                */
+            removeEmptyFolders(web: Types.IWebResult, folderUrls: Array<string>): PromiseLike<void>;
+            /**
+                * Method to remove files from a web.
+                * @param web - The web containing the files.
+                * @param fileUrl - The file url, relative to the web.
+                */
+            removeFile(web: Types.IWebResult, fileUrl: string): PromiseLike<void>;
+            /**
+                * Method to remove files from a web.
+                * @param web - The web containing the files.
+                * @param fileUrls - An array of file urls, relative to the web.
+                */
+            removeFiles(web: Types.IWebResult, fileUrls: Array<string>): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/mapper/helper/dependencies' {
+    /**
+        * Dependencies
+        */
+    export interface IDependencies {
+            /**
+                * Constructor
+                * @param callback - The method to execute after the dependencies are loaded.
+                */
+            constructor(callback: (...args) => void): any;
+            /** The maximum amount of time to wait for the scripts to be loaded. */
+            MAX_WAIT: number;
+            /** Flag to determine if the page context information exists */
+            pageContextExistsFl: boolean;
+            /** The script file names to load. */
+            SCRIPTS: Array<string>;
+            /**
+                * Method to ensure the SP classes are loaded
+                */
+            loadDependencies(): any;
+            /**
+                * Method to wait for the page context to be loaded
+                */
+            waitForPageContext(): any;
+    }
+}
+
+declare module 'gd-sprest/mapper/helper/field' {
+    import { SPConfig } from "gd-sprest/mapper/helper";
+    /**
+      * Field Schema XML
+      */
+    export interface IFieldSchemaXML {
+        /** Method to generate the field schema xml. */
+        generate: (fieldInfo: SPConfig.IFieldInfo) => PromiseLike<string>;
+    }
+}
+
+declare module 'gd-sprest/mapper/helper/jslink' {
+    /**
+        * JSLink Helper Methods
+        */
+    export interface IJSLink {
+            /**
+                * Internal field to method mapper
+                */
+            _fieldToMethodMapper: any;
+            /**
+                * Internal field used by the hideField method.
+                */
+            _hideEventFl: boolean;
+            /**
+                * Disables edit for the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to disable edit.
+                * @param requireValueFl - Flag to only disable the field, if a value exists.
+                */
+            disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
+            /**
+                * Disable quick edit for the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to disable edit.
+                */
+            disableQuickEdit(ctx: any, field: any): any;
+            /**
+                * Returns the list view.
+                * @param ctx - The client context.
+                */
+            getListView(ctx: any): any;
+            /**
+                * Returns the list view items.
+                * @param ctx - The client context.
+                */
+            getListViewItems(ctx: any): any;
+            /**
+                * Returns the selected list view items
+                */
+            getListViewSelectedItems(): any;
+            /**
+                * Returns the webpart containing the JSLink field/form/view.
+                * @param ctx - The client context.
+                */
+            getWebPart(ctx: any): any;
+            /**
+                * Hides the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to hide.
+                */
+            hideField(ctx: any, field: any): any;
+            /**
+                * Removes the field and html from the page.
+                * @param ctx - The client context.
+                * @param field - The field to remove.
+                */
+            removeField(ctx: any, field: any): any;
+            /**
+                * Method to render the default html for a field.
+                * @param ctx - The client context.
+                * @param field - The form field.
+                * @param formType - The form type. (Display, Edit, New or View)
+                */
+            renderField(ctx: any, field: any, formType?: number): any;
+    }
+}
+
+declare module 'gd-sprest/mapper/helper/listForm' {
+    import { Types } from "gd-sprest/mapper";
+    /**
+        * List Form
+        */
+    export interface IListForm {
+            /**
+                * Creates an instance of the list form
+                * @param props - The list form properties.
+                */
+            new (props: IListFormProps): PromiseLike<{
+                    [key: string]: Types.IFieldResult;
+            }>;
+            /** The list fields */
+            Fields: {
+                    [key: string]: Types.IFieldResult;
+            };
+            /** The list */
+            List: Types.IListResult;
+    }
+    /**
+        * List Form Properties
+        */
+    export interface IListFormProps {
+            /** The form fields */
+            fields?: Array<string>;
+            /** The list name */
+            listName: string;
+            /** The relative web url containing the list */
+            webUrl?: string;
+    }
+    /**
+        * List Form Field
+        */
+    export interface IListFormFieldInfo {
+            /** The default value. */
+            defaultValue?: any;
+            /** The list field. */
+            field?: Types.IFieldResult | Types.IFieldQueryResult;
+            /** The list name. */
+            listName: string;
+            /** The internal name of the field. */
+            name: string;
+            /** Flag indicating if the field is read-only. */
+            readOnly?: boolean;
+            /** True indicates a required field type. */
+            required?: boolean;
+            /** The display name of the field. */
+            title?: string;
+            /** The field type. */
+            type?: number;
+            /** The field type as a string. */
+            typeAsString?: string;
+            /** The relative web url containing the list. */
+            webUrl?: string;
+    }
+    /**
+        * List Form Field
+        */
+    export interface IListFormField {
+            /**
+                * Creates an instance of the list form field
+                * @param props - The list form field properties
+                */
+            new (props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
+    }
+}
+
+declare module 'gd-sprest/mapper/helper/loader' {
+    /**
+        * Loader
+        */
+    export interface ILoader {
+            loaded: boolean;
+            /**
+                * Waits for the SharePoint core libraries to be loaded.
+                * @param callback - The callback function.
+                * @param timeout - The max time (ms) to wait for the libraries to be loaded.
+                * @param loadLibraries - Flag to load the core libraries manually.
+                */
+            waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean): any;
+    }
+}
+
 declare module 'gd-sprest/mapper/helper/spCfg' {
+    import { Types } from "gd-sprest/mapper";
     /**
         * Field Information
         */
@@ -6315,9 +5887,208 @@ declare module 'gd-sprest/mapper/helper/spCfg' {
             /** The user selection scope */
             selectionScope?: number;
     }
+    /**
+        * SharePoint Configuration - Content Type Information
+        */
+    export interface ISPCfgContentTypeInfo extends Types.IContentTypeCreationInformation {
+            /**
+                * The content type. (This value is set internally.)
+                */
+            ContentType?: Types.IContentTypeResult;
+            /**
+                * The field references.
+                */
+            FieldRefs?: Array<string>;
+            /**
+                * The JSLink property.
+                */
+            JSLink?: string;
+            /**
+                * The parent content type name, required if different then the name.
+                */
+            ParentName?: string;
+            /**
+                * The url of the web containing the parent content type, required if the parent content type doesn't exist in the current web.
+                */
+            ParentWebUrl?: string;
+            /**
+                * Event triggered after the content type is created.
+                */
+            onCreated?: (ct: Types.IContentTypeResult) => void;
+            /**
+                * Event triggered after the content type is updated.
+                */
+            onUpdated?: (ct: Types.IContentTypeResult) => void;
+    }
+    /**
+        * SharePoint Configuration - Custom Action Information
+        */
+    export interface ISPCfgCustomActionInfo {
+            /**
+                * Custom actions to be created at the site collection level.
+                */
+            Site?: Array<Types.IUserCustomActionCreationInformation>;
+            /**
+                * Custom actions to be created at the web level.
+                */
+            Web?: Array<Types.IUserCustomActionCreationInformation>;
+    }
+    /**
+        * SharePoint Configuration - Field Information
+        */
+    export interface ISPCfgFieldInfo extends IFieldInfo {
+            /**
+                * Event triggered after the field is created.
+                */
+            onCreated?: (field: Types.IFieldResult) => void;
+            /**
+                * Event triggered after the field is updated.
+                */
+            onUpdated?: (field: Types.IFieldResult) => void;
+    }
+    /**
+        * SharePoint Configuration - List Information
+        */
+    export interface ISPCfgListInfo {
+            /** The content types. */
+            ContentTypes?: Array<ISPCfgContentTypeInfo>;
+            /** The custom list fields. */
+            CustomFields?: Array<ISPCfgFieldInfo>;
+            /** The list creation information. */
+            ListInformation: Types.IListCreationInformation;
+            /** The title display name. */
+            TitleFieldDisplayName?: string;
+            /** The user custom actions. */
+            UserCustomActions?: Array<Types.IUserCustomActionCreationInformation>;
+            /** The view information. */
+            ViewInformation?: Array<ISPCfgViewInfo>;
+            /**
+                * Event triggered after the list is created or updated.
+                */
+            onCreated?: (list: Types.IListResult) => void;
+            /**
+                * Event triggered after the list is updated.
+                */
+            onUpdated?: (list: Types.IListQueryResult) => void;
+    }
+    /**
+        * SharePoint Configuration - View Information
+        */
+    export interface ISPCfgViewInfo {
+            /** The JSLink property. */
+            JSLink?: string;
+            /** The view fields. */
+            ViewFields?: Array<string>;
+            /** The view name. */
+            ViewName: string;
+            /** The view query. */
+            ViewQuery?: string;
+            /**
+                * Event triggered after the view is created or updated.
+                */
+            onCreated?: (view: Types.IViewResult) => void;
+            /**
+                * Event triggered after the view is updated.
+                */
+            onUpdated?: (view: Types.IView) => void;
+    }
+    /**
+        * SharePoint Configuration - WebPart Information
+        */
+    export interface ISPCfgWebPartInfo {
+            /** The file name of the webpart. */
+            FileName: string;
+            /** The webpart group. */
+            Group?: string;
+            /** The webpart xml */
+            XML: string;
+            /**
+                * Event triggered after the webpart file is created.
+                */
+            onCreated?: (file: Types.IFileResult) => void;
+            /**
+                * Event triggered after the webpart file is updated.
+                */
+            onUpdated?: (file: Types.IFileResult) => void;
+    }
+    /**
+        * SharePoint Configuration Methods
+        */
+    export interface ISPConfig {
+            /**
+                * Constructor
+                * @param cfg - The SharePoint configuration information.
+                * @param webUrl - An optional string representing the relative web url.
+                */
+            new (cfg: ISPConfigProps, webUrl?: string): any;
+            /**
+                * Method to install the configuration
+                * @param callback - An optional function called after the execution completes.
+                */
+            install(callback?: () => void): any;
+            /**
+                * Method to install by the configuration type.
+                * @param cfgType - The configuration type.
+                * @param callback - An optional function called after the execution completes.
+                * @param targetName - The target configuration type to install.
+                */
+            installByType(cfgType: number, callback?: any, targetName?: string): any;
+            /**
+                * Method to install the configuration
+                * @param callback - An optional function called after the execution completes.
+                */
+            uninstall(callback?: () => void): any;
+            /**
+                * Method to uninstall by the configuration type.
+                * @param cfgType - The configuration type.
+                * @param callback - An optional function called after the execution completes.
+                * @param targetName - The target configuration type to uninstall.
+                */
+            uninstallByType(cfgType: number, callback?: any, targetName?: string): any;
+    }
+    /**
+        * SharePoint Configuration - Properties
+        */
+    export interface ISPConfigProps {
+            /** The content types. */
+            ContentTypes?: Array<ISPCfgContentTypeInfo>;
+            /** The custom action configuration. */
+            CustomActionCfg?: ISPCfgCustomActionInfo;
+            /** The site column configuration. */
+            Fields?: Array<ISPCfgFieldInfo>;
+            /** The list configuration. */
+            ListCfg?: Array<ISPCfgListInfo>;
+            /** The web part configuration. */
+            WebPartCfg?: Array<ISPCfgWebPartInfo>;
+    }
+    /**
+        * SharePoint Configuration - Types
+        */
+    export interface ISPConfigTypes {
+            /** Fields */
+            Fields: number;
+            /** Content Types */
+            ContentTypes: number;
+            /** Lists */
+            Lists: number;
+            /** Site User Custom Actions */
+            SiteUserCustomActions: number;
+            /** Web User Custom Actions */
+            WebUserCustomActions: number;
+    }
 }
 
 declare module 'gd-sprest/mapper/helper/webpart' {
+    /**
+        * Web Part
+        */
+    export interface IWebPart {
+            /**
+                * Creates an instance of a webpart.
+                * @param props - The webpart properties.
+                */
+            new (props: IWebPartProps): any;
+    }
     /**
         * The webpart configuration
         */
@@ -6326,9 +6097,9 @@ declare module 'gd-sprest/mapper/helper/webpart' {
             WebPartId?: string;
     }
     /**
-        * The webpart instance
+        * The webpart information
         */
-    export interface IWebPart {
+    export interface IWebPartInfo {
             /** The configuration */
             cfg: IWebPartCfg;
             /** The element to render the webpart to */
@@ -6350,13 +6121,44 @@ declare module 'gd-sprest/mapper/helper/webpart' {
                     url: string;
             };
             /** The post render event */
-            onPostRender?: (wp: IWebPart) => void;
+            onPostRender?: (wp: IWebPartInfo) => void;
             /** The render event triggered when the page is in 'Display' mode */
-            onRenderDisplay?: (wp: IWebPart) => any;
+            onRenderDisplay?: (wp: IWebPartInfo) => any;
             /** The render event triggered when the page is in 'Edit' mode */
-            onRenderEdit?: (wp: IWebPart) => any;
+            onRenderEdit?: (wp: IWebPartInfo) => any;
             /** The target element id to render the webpart to */
             elementId: string;
+    }
+}
+
+declare module 'gd-sprest/mapper/helper/types' {
+    /**
+      * Helper Types
+      */
+    export interface IHelperTypes {
+        /** The field types */
+        SPCfgFieldType: {
+            Boolean: number;
+            Calculated: number;
+            Choice: number;
+            Date: number;
+            Lookup: number;
+            MMS: number;
+            Note: number;
+            Number: number;
+            Text: number;
+            Url: number;
+            User: number;
+        };
+        /** The configuration types */
+        SPCfgType: {
+            Fields: number;
+            ContentTypes: number;
+            Lists: number;
+            SiteUserCustomActions: number;
+            WebParts: number;
+            WebUserCustomActions: number;
+        };
     }
 }
 

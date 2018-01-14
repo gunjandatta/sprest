@@ -1,14 +1,5 @@
+import { Types } from "../mapper";
 import { IBase } from "../utils";
-import { IHelperApp } from "./app";
-import { IDependencies } from "./dependencies";
-import { IFieldSchemaXML } from "./field";
-import { IHelperJSLink } from "./jslink";
-import { IListForm } from "./listForm";
-import { IListFormField } from "./listFormField";
-import { ILoader } from "./loader";
-import { ISPConfig } from "./spCfg";
-import { IHelperTypes } from "./types";
-import { IWebPart } from "./webpart";
 /**
  * Helper
  */
@@ -16,31 +7,31 @@ export interface IHelper {
     /**
      * App-Model helper methods
      */
-    App: IHelperApp;
+    App: Types.Helper.App.IApp;
     /**
      * Dependencies
      */
-    Dependencies: IDependencies;
+    Dependencies: Types.Helper.Dependencies.IDependencies;
     /**
      * Field Schema XML
      */
-    FieldSchemaXML: IFieldSchemaXML;
+    FieldSchemaXML: Types.Helper.Field.IFieldSchemaXML;
     /**
      * JSLink helper methods
      */
-    JSLink: IHelperJSLink;
+    JSLink: Types.Helper.JSLink.IJSLink;
     /**
      * List Form
      */
-    ListForm: IListForm;
+    ListForm: Types.Helper.ListForm.IListForm;
     /**
      * List Form Field
      */
-    ListFormField: IListFormField;
+    ListFormField: Types.Helper.ListForm.IListFormField;
     /**
      * Loader
      */
-    Loader: ILoader;
+    Loader: Types.Helper.Loader.ILoader;
     /**
      * Method to parse a json string and convert to a base object.
      */
@@ -48,15 +39,15 @@ export interface IHelper {
     /**
      * Web helper methods
      */
-    SPConfig: ISPConfig;
+    SPConfig: Types.Helper.SPConfig.ISPConfig;
     /**
      * Helper Types
      */
-    Types: IHelperTypes;
+    Types: Types.Helper.IHelperTypes;
     /**
      * WebPart
      */
-    WebPart: IWebPart;
+    WebPart: Types.Helper.WebPart.IWebPart;
 }
 /**
  * Helper Methods

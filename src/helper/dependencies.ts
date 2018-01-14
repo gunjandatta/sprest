@@ -1,40 +1,11 @@
 import { ContextInfo } from "../lib";
-
-/**
- * Dependencies
- */
-export interface IDependencies {
-    /**
-     * Constructor
-     * @param callback - The method to execute after the dependencies are loaded.
-     */
-    constructor(callback: (...args) => void);
-
-    /** The maximum amount of time to wait for the scripts to be loaded. */
-    MAX_WAIT: number;
-
-    /** Flag to determine if the page context information exists */
-    pageContextExistsFl: boolean;
-
-    /** The script file names to load. */
-    SCRIPTS: Array<string>;
-
-    /**
-     * Method to ensure the SP classes are loaded
-     */
-    loadDependencies();
-
-    /**
-     * Method to wait for the page context to be loaded
-     */
-    waitForPageContext();
-}
+import { Types } from "../mapper";
 
 /**
  * Dependencies
  * This class will ensure the core SP scripts are loaded on the page.
  */
-export class Dependencies {
+class _Dependencies {
     MAX_WAIT: number;
     SCRIPTS: Array<string>;
     private _callback = null;
@@ -103,3 +74,4 @@ export class Dependencies {
         }, 10);
     }
 }
+export const Dependencies: Types.Helper.Dependencies.IDependencies = _Dependencies as any;
