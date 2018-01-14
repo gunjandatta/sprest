@@ -4,7 +4,8 @@ var lib_1 = require("../lib");
 var types_1 = require("../types");
 var types_2 = require("./types");
 /**
- * The field schema xml class
+ * Field Schema XML
+ * Helper class for generating the field schema xml
  */
 var _FieldSchemaXML = /** @class */ (function () {
     function _FieldSchemaXML() {

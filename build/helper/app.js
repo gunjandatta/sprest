@@ -1,13 +1,15 @@
 "use strict";
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
-/*********************************************************************************************************************************/
-// App Helper Methods
-/*********************************************************************************************************************************/
-exports.AppHelper = {
+/**
+ * App Helper Methods
+ * Helper methods designed to be run from the app web.
+ */
+var _App = /** @class */ (function () {
+    function _App() {
+    }
     // Method to copy a file in this app web to the host web
-    copyFileToHostWeb: function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
+    _App.copyFileToHostWeb = function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
         var srcFile = null;
         var origVal = lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl;
         // Return a promise
@@ -25,11 +27,14 @@ exports.AppHelper = {
             // See if the folder url was given
             if (typeof (dstFolder) === "string") {
                 // Get the folder
-                _this.getFolder(web, dstFolder, true)
-                    .done(function (folder) {
+                exports.App.getFolder(web, dstFolder, true)
+                    .then(function (folder) {
                     // Copy the file to the host web
-                    _this.copyFileToHostWeb(fileUrl, folder, overwriteFl)
-                        .done(function (file, folder) { resolve({ file: file, folder: folder }); });
+                    exports.App.copyFileToHostWeb(fileUrl, folder, overwriteFl)
+                        .then(function (_a) {
+                        var file = _a.file, folder = _a.folder;
+                        resolve({ file: file, folder: folder });
+                    });
                 });
             }
             else {
@@ -90,9 +95,9 @@ exports.AppHelper = {
                 web.done(function () { resolve({ file: srcFile, folder: dstFolder }); });
             }
         });
-    },
+    };
     // Method to copy a file in this app web to the host web
-    copyFilesToHostWeb: function (fileUrls, folderUrls, overwriteFl, rootWebFl) {
+    _App.copyFilesToHostWeb = function (fileUrls, folderUrls, overwriteFl, rootWebFl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var request = function (files, folders, idx) {
@@ -103,8 +108,9 @@ exports.AppHelper = {
                     return;
                 }
                 // Copy the file
-                _this.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
-                    .done(function (file, folder) {
+                exports.App.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
+                    .then(function (_a) {
+                    var file = _a.file, folder = _a.folder;
                     // Save a reference to the file and folder
                     files.push(file);
                     folders.push(folder);
@@ -115,9 +121,9 @@ exports.AppHelper = {
             // Execute the request
             request([], [], 0);
         });
-    },
+    };
     // Method to create sub-folders
-    createSubFolders: function (folder, subFolderUrl) {
+    _App.createSubFolders = function (folder, subFolderUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var request = function (resolve) {
@@ -153,9 +159,9 @@ exports.AppHelper = {
             // Execute the request
             request(resolve);
         });
-    },
+    };
     // Method to get a folder
-    getFolder: function (web, folderUrl, createFl) {
+    _App.getFolder = function (web, folderUrl, createFl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var dstFolder = null;
@@ -182,7 +188,7 @@ exports.AppHelper = {
                         }
                         else {
                             // Create the folder
-                            _this.createSubFolders(web.RootFolder(), folderUrl).done(function (folder) {
+                            exports.App.createSubFolders(web.RootFolder(), folderUrl).then(function (folder) {
                                 // Save a reference to the folder
                                 dstFolder = folder;
                                 // Resolve the promise
@@ -198,9 +204,9 @@ exports.AppHelper = {
                 });
             });
         });
-    },
+    };
     // Method to remove empty folders
-    removeEmptyFolders: function (web, folderUrls) {
+    _App.removeEmptyFolders = function (web, folderUrls) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure folder urls exist
@@ -250,9 +256,9 @@ exports.AppHelper = {
                 web.done(function () { resolve(); });
             }
         });
-    },
+    };
     // Method to remove a file
-    removeFile: function (web, fileUrl) {
+    _App.removeFile = function (web, fileUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var folder = null;
@@ -275,9 +281,9 @@ exports.AppHelper = {
                 }
             }, true);
         });
-    },
+    };
     // Method to remove files
-    removeFiles: function (web, fileUrls, idx) {
+    _App.removeFiles = function (web, fileUrls, idx) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var request = function (idx, resolve) {
@@ -288,7 +294,7 @@ exports.AppHelper = {
                 }
                 else {
                     // Remove the file
-                    _this.removeFile(web, fileUrls[idx]).done(function () {
+                    exports.App.removeFile(web, fileUrls[idx]).then(function () {
                         // Remove the files
                         request(++idx, resolve);
                     });
@@ -297,6 +303,8 @@ exports.AppHelper = {
             // Execute the request
             request(0, resolve);
         });
-    }
-};
+    };
+    return _App;
+}());
+exports.App = new _App();
 //# sourceMappingURL=app.js.map

@@ -87,14 +87,14 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(77));
-__export(__webpack_require__(100));
-__export(__webpack_require__(101));
 __export(__webpack_require__(102));
 __export(__webpack_require__(103));
 __export(__webpack_require__(104));
 __export(__webpack_require__(105));
 __export(__webpack_require__(106));
 __export(__webpack_require__(107));
+__export(__webpack_require__(108));
+__export(__webpack_require__(109));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -108,8 +108,6 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(76));
-__export(__webpack_require__(108));
-__export(__webpack_require__(109));
 __export(__webpack_require__(110));
 __export(__webpack_require__(111));
 __export(__webpack_require__(112));
@@ -119,6 +117,8 @@ __export(__webpack_require__(115));
 __export(__webpack_require__(116));
 __export(__webpack_require__(117));
 __export(__webpack_require__(118));
+__export(__webpack_require__(119));
+__export(__webpack_require__(120));
 __export(__webpack_require__(39));
 //# sourceMappingURL=index.js.map
 
@@ -776,22 +776,22 @@ module.exports.f = function (C) {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var app_1 = __webpack_require__(75);
-var dependencies_1 = __webpack_require__(119);
-var field_1 = __webpack_require__(120);
-var jslink_1 = __webpack_require__(121);
-var listForm_1 = __webpack_require__(122);
-var listFormField_1 = __webpack_require__(123);
-var loader_1 = __webpack_require__(124);
-var parse_1 = __webpack_require__(125);
-var spCfg_1 = __webpack_require__(126);
+var dependencies_1 = __webpack_require__(121);
+var field_1 = __webpack_require__(122);
+var jslink_1 = __webpack_require__(123);
+var listForm_1 = __webpack_require__(124);
+var listFormField_1 = __webpack_require__(125);
+var loader_1 = __webpack_require__(126);
+var parse_1 = __webpack_require__(127);
+var spCfg_1 = __webpack_require__(128);
 var types_1 = __webpack_require__(40);
-var webpart_1 = __webpack_require__(127);
+var webpart_1 = __webpack_require__(129);
 ;
 /**
  * Helper Methods
  */
 exports.Helper = {
-    App: app_1.AppHelper,
+    App: app_1.App,
     Dependencies: dependencies_1.Dependencies,
     FieldSchemaXML: field_1.FieldSchemaXML,
     JSLink: jslink_1.JSLinkHelper,
@@ -2041,15 +2041,17 @@ module.exports = function (exec, skipClosing) {
 
 "use strict";
 
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
-/*********************************************************************************************************************************/
-// App Helper Methods
-/*********************************************************************************************************************************/
-exports.AppHelper = {
+/**
+ * App Helper Methods
+ * Helper methods designed to be run from the app web.
+ */
+var _App = /** @class */ (function () {
+    function _App() {
+    }
     // Method to copy a file in this app web to the host web
-    copyFileToHostWeb: function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
+    _App.copyFileToHostWeb = function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
         var srcFile = null;
         var origVal = lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl;
         // Return a promise
@@ -2067,11 +2069,14 @@ exports.AppHelper = {
             // See if the folder url was given
             if (typeof (dstFolder) === "string") {
                 // Get the folder
-                _this.getFolder(web, dstFolder, true)
-                    .done(function (folder) {
+                exports.App.getFolder(web, dstFolder, true)
+                    .then(function (folder) {
                     // Copy the file to the host web
-                    _this.copyFileToHostWeb(fileUrl, folder, overwriteFl)
-                        .done(function (file, folder) { resolve({ file: file, folder: folder }); });
+                    exports.App.copyFileToHostWeb(fileUrl, folder, overwriteFl)
+                        .then(function (_a) {
+                        var file = _a.file, folder = _a.folder;
+                        resolve({ file: file, folder: folder });
+                    });
                 });
             }
             else {
@@ -2132,9 +2137,9 @@ exports.AppHelper = {
                 web.done(function () { resolve({ file: srcFile, folder: dstFolder }); });
             }
         });
-    },
+    };
     // Method to copy a file in this app web to the host web
-    copyFilesToHostWeb: function (fileUrls, folderUrls, overwriteFl, rootWebFl) {
+    _App.copyFilesToHostWeb = function (fileUrls, folderUrls, overwriteFl, rootWebFl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var request = function (files, folders, idx) {
@@ -2145,8 +2150,9 @@ exports.AppHelper = {
                     return;
                 }
                 // Copy the file
-                _this.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
-                    .done(function (file, folder) {
+                exports.App.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
+                    .then(function (_a) {
+                    var file = _a.file, folder = _a.folder;
                     // Save a reference to the file and folder
                     files.push(file);
                     folders.push(folder);
@@ -2157,9 +2163,9 @@ exports.AppHelper = {
             // Execute the request
             request([], [], 0);
         });
-    },
+    };
     // Method to create sub-folders
-    createSubFolders: function (folder, subFolderUrl) {
+    _App.createSubFolders = function (folder, subFolderUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var request = function (resolve) {
@@ -2195,9 +2201,9 @@ exports.AppHelper = {
             // Execute the request
             request(resolve);
         });
-    },
+    };
     // Method to get a folder
-    getFolder: function (web, folderUrl, createFl) {
+    _App.getFolder = function (web, folderUrl, createFl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var dstFolder = null;
@@ -2224,7 +2230,7 @@ exports.AppHelper = {
                         }
                         else {
                             // Create the folder
-                            _this.createSubFolders(web.RootFolder(), folderUrl).done(function (folder) {
+                            exports.App.createSubFolders(web.RootFolder(), folderUrl).then(function (folder) {
                                 // Save a reference to the folder
                                 dstFolder = folder;
                                 // Resolve the promise
@@ -2240,9 +2246,9 @@ exports.AppHelper = {
                 });
             });
         });
-    },
+    };
     // Method to remove empty folders
-    removeEmptyFolders: function (web, folderUrls) {
+    _App.removeEmptyFolders = function (web, folderUrls) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure folder urls exist
@@ -2292,9 +2298,9 @@ exports.AppHelper = {
                 web.done(function () { resolve(); });
             }
         });
-    },
+    };
     // Method to remove a file
-    removeFile: function (web, fileUrl) {
+    _App.removeFile = function (web, fileUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var folder = null;
@@ -2317,9 +2323,9 @@ exports.AppHelper = {
                 }
             }, true);
         });
-    },
+    };
     // Method to remove files
-    removeFiles: function (web, fileUrls, idx) {
+    _App.removeFiles = function (web, fileUrls, idx) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var request = function (idx, resolve) {
@@ -2330,7 +2336,7 @@ exports.AppHelper = {
                 }
                 else {
                     // Remove the file
-                    _this.removeFile(web, fileUrls[idx]).done(function () {
+                    exports.App.removeFile(web, fileUrls[idx]).then(function () {
                         // Remove the files
                         request(++idx, resolve);
                     });
@@ -2339,8 +2345,10 @@ exports.AppHelper = {
             // Execute the request
             request(0, resolve);
         });
-    }
-};
+    };
+    return _App;
+}());
+exports.App = new _App();
 //# sourceMappingURL=app.js.map
 
 /***/ }),
@@ -5480,7 +5488,7 @@ var Results = __webpack_require__(94);
 exports.Results = Results;
 var Helper = __webpack_require__(95);
 exports.Helper = Helper;
-var SPTypes = __webpack_require__(99);
+var SPTypes = __webpack_require__(101);
 exports.SPTypes = SPTypes;
 //# sourceMappingURL=types.js.map
 
@@ -5509,11 +5517,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var ListForm = __webpack_require__(96);
+var App = __webpack_require__(96);
+exports.App = App;
+var Field = __webpack_require__(97);
+exports.Field = Field;
+var ListForm = __webpack_require__(98);
 exports.ListForm = ListForm;
-var SPConfig = __webpack_require__(97);
+var SPConfig = __webpack_require__(99);
 exports.SPConfig = SPConfig;
-var WebPart = __webpack_require__(98);
+var WebPart = __webpack_require__(100);
 exports.WebPart = WebPart;
 //# sourceMappingURL=index.js.map
 
@@ -5524,7 +5536,7 @@ exports.WebPart = WebPart;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=listForm.js.map
+//# sourceMappingURL=app.js.map
 
 /***/ }),
 /* 97 */
@@ -5533,7 +5545,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=spCfg.js.map
+//# sourceMappingURL=field.js.map
 
 /***/ }),
 /* 98 */
@@ -5542,7 +5554,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=webpart.js.map
+//# sourceMappingURL=listForm.js.map
 
 /***/ }),
 /* 99 */
@@ -5551,10 +5563,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=sptypes.js.map
+//# sourceMappingURL=spCfg.js.map
 
 /***/ }),
 /* 100 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=webpart.js.map
+
+/***/ }),
+/* 101 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=sptypes.js.map
+
+/***/ }),
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5852,7 +5882,7 @@ exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map
 
 /***/ }),
-/* 101 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6028,7 +6058,7 @@ exports.BaseExecution = BaseExecution;
 //# sourceMappingURL=baseExecution.js.map
 
 /***/ }),
-/* 102 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6118,7 +6148,7 @@ exports.Base = Base;
 //# sourceMappingURL=base.js.map
 
 /***/ }),
-/* 103 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6215,7 +6245,7 @@ exports.Batch = Batch;
 //# sourceMappingURL=batch.js.map
 
 /***/ }),
-/* 104 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6471,7 +6501,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 105 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6597,7 +6627,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6738,7 +6768,7 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6908,7 +6938,7 @@ exports.XHRRequest = XHRRequest;
 //# sourceMappingURL=xhrRequest.js.map
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7029,7 +7059,7 @@ exports.JSLink = _JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7093,7 +7123,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7140,7 +7170,7 @@ exports.Navigation = _Navigation;
 //# sourceMappingURL=navigation.js.map
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7182,7 +7212,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7225,7 +7255,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 113 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7268,7 +7298,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 114 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7348,7 +7378,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 115 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7405,7 +7435,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 116 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7475,7 +7505,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 117 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7518,7 +7548,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 118 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7612,7 +7642,7 @@ exports.Utility = _Utility;
 //# sourceMappingURL=utility.js.map
 
 /***/ }),
-/* 119 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7690,7 +7720,7 @@ exports.Dependencies = Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 120 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7700,7 +7730,8 @@ var lib_1 = __webpack_require__(2);
 var types_1 = __webpack_require__(0);
 var types_2 = __webpack_require__(40);
 /**
- * The field schema xml class
+ * Field Schema XML
+ * Helper class for generating the field schema xml
  */
 var _FieldSchemaXML = /** @class */ (function () {
     function _FieldSchemaXML() {
@@ -8055,7 +8086,7 @@ exports.FieldSchemaXML = new _FieldSchemaXML();
 //# sourceMappingURL=field.js.map
 
 /***/ }),
-/* 121 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8429,7 +8460,7 @@ exports.JSLinkHelper = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 122 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8559,7 +8590,7 @@ exports.ListForm = _ListForm;
 //# sourceMappingURL=listForm.js.map
 
 /***/ }),
-/* 123 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8636,7 +8667,7 @@ exports.ListFormField = _ListFormField;
 //# sourceMappingURL=listFormField.js.map
 
 /***/ }),
-/* 124 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8696,7 +8727,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 125 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8726,7 +8757,7 @@ exports.parse = function (jsonString) {
 //# sourceMappingURL=parse.js.map
 
 /***/ }),
-/* 126 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9794,7 +9825,7 @@ exports.SPConfig = SPConfig;
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
-/* 127 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -5,14 +5,7 @@ import { HelperTypes } from "./types";
 
 /**
  * Field Schema XML
- */
-export interface IFieldSchemaXML {
-    /** Method to generate the field schema xml. */
-    generate: (fieldInfo: Types.Helper.SPConfig.IFieldInfo) => PromiseLike<string>;
-}
-
-/**
- * The field schema xml class
+ * Helper class for generating the field schema xml
  */
 class _FieldSchemaXML {
     // Method to resolve this request
@@ -378,4 +371,4 @@ class _FieldSchemaXML {
         return properties;
     }
 }
-export const FieldSchemaXML: IFieldSchemaXML = new _FieldSchemaXML();
+export const FieldSchemaXML: Types.Helper.Field.IFieldSchemaXML = new _FieldSchemaXML();

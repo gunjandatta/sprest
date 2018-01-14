@@ -1,8 +1,6 @@
 import { Types } from "../mapper";
 import { IBase } from "../utils";
-import { IHelperApp } from "./app";
 import { IDependencies } from "./dependencies";
-import { IFieldSchemaXML } from "./field";
 import { IHelperJSLink } from "./jslink";
 import { ILoader } from "./loader";
 import { ISPConfig } from "./spCfg";
@@ -15,7 +13,7 @@ export interface IHelper {
     /**
      * App-Model helper methods
      */
-    App: IHelperApp;
+    App: Types.Helper.App.IApp;
     /**
      * Dependencies
      */
@@ -23,7 +21,7 @@ export interface IHelper {
     /**
      * Field Schema XML
      */
-    FieldSchemaXML: IFieldSchemaXML;
+    FieldSchemaXML: Types.Helper.Field.IFieldSchemaXML;
     /**
      * JSLink helper methods
      */

@@ -3,77 +3,11 @@ import { Types } from "../mapper";
 
 /**
  * App Helper Methods
+ * Helper methods designed to be run from the app web.
  */
-export interface IHelperApp {
-    /**
-     * Method to copy a file from the app web to the host web.
-     * @param srcFileUrl - The source file url, relative to the app web.
-     * @param dstFolder - The destination folder.
-     * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
-     * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-     */
-    copyFileToHostWeb(srcFileUrl: string, dstFolder: Types.IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ file: Types.IFileResult, folder: Types.IFolderResult }>;
-
-    /**
-     * Method to copy a file from the app web to the host web.
-     * @param srcFileUrl - The source file url, relative to the app web.
-     * @param dstFolderUrl - The destination folder url, relative to the host web.
-     * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
-     * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-     */
-    copyFileToHostWeb(srcFileUrl: string, dstFolderUrl: string, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ file: Types.IFileResult, folder: Types.IFolderResult }>;
-
-    /**
-     * Method to copy a file from the app web to the host web
-     * @param fileUrls - An array of source file urls, relative to the app web.
-     * @param folderUrls - An array of destination folder urls, relative to the host web.
-     * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
-     */
-    copyFilesToHostWeb(fileUrls: Array<string>, folderUrls: Array<string>, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{ files: Array<Types.IFileResult>, folders: Array<Types.IFolderResult> }>;
-
-    /**
-     * Method to create sub-folders.
-     * @param folder - The app web relative url to the source file.
-     * @param subFolderUrl - The host web relative url of the destination folder.
-     */
-    createSubFolders(folder: Types.IFolderResult, subFolderUrl: string);
-
-    /**
-     * Method to get the file content.
-     * @param web - The web containing the files.
-     * @param fileUrls - An array of file urls, relative to the web.
-     * @param createFl - Flag to create the folder, if it doesn't exist.
-     */
-    getFolder(web: Types.IWebResult, folderUrl: string, createFl?: boolean);
-
-    /**
-     * Method to remove empty folders
-     * @param web - The web containing the files.
-     * @param folderUrls - An array of folder urls, relative to the web.
-     */
-    removeEmptyFolders(web: Types.IWebResult, folderUrls: Array<string>);
-
-    /**
-     * Method to remove files from a web.
-     * @param web - The web containing the files.
-     * @param fileUrl - The file url, relative to the web.
-     */
-    removeFile(web: Types.IWebResult, fileUrl: string);
-
-    /**
-     * Method to remove files from a web.
-     * @param web - The web containing the files.
-     * @param fileUrls - An array of file urls, relative to the web.
-     */
-    removeFiles(web: Types.IWebResult, fileUrls: Array<string>);
-}
-
-/*********************************************************************************************************************************/
-// App Helper Methods
-/*********************************************************************************************************************************/
-export const AppHelper = {
+class _App {
     // Method to copy a file in this app web to the host web
-    copyFileToHostWeb: (fileUrl, dstFolder, overwriteFl, rootWebFl) => {
+    static copyFileToHostWeb = (fileUrl, dstFolder, overwriteFl, rootWebFl) => {
         let srcFile = null;
         let origVal = ContextInfo.window.$REST.DefaultRequestToHostFl;
 
@@ -94,12 +28,12 @@ export const AppHelper = {
             // See if the folder url was given
             if (typeof (dstFolder) === "string") {
                 // Get the folder
-                this.getFolder(web, dstFolder, true)
-                    .done((folder) => {
+                App.getFolder(web, dstFolder, true)
+                    .then((folder) => {
                         // Copy the file to the host web
-                        this.copyFileToHostWeb(fileUrl, folder, overwriteFl)
+                        App.copyFileToHostWeb(fileUrl, folder, overwriteFl)
                             // Wait for the request to complete, and resolve the promise
-                            .done((file, folder) => { resolve({ file, folder }); });
+                            .then(({ file, folder }) => { resolve({ file, folder }); });
                     });
             } else {
                 // Get the file name
@@ -172,10 +106,10 @@ export const AppHelper = {
                 web.done(() => { resolve({ file: srcFile, folder: dstFolder }); });
             }
         });
-    },
+    }
 
     // Method to copy a file in this app web to the host web
-    copyFilesToHostWeb: (fileUrls, folderUrls, overwriteFl, rootWebFl) => {
+    static copyFilesToHostWeb = (fileUrls, folderUrls, overwriteFl, rootWebFl) => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (files, folders, idx) => {
@@ -187,9 +121,9 @@ export const AppHelper = {
                 }
 
                 // Copy the file
-                this.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
+                App.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
                     // Wait for it to complete
-                    .done((file, folder) => {
+                    .then(({ file, folder }) => {
                         // Save a reference to the file and folder
                         files.push(file);
                         folders.push(folder);
@@ -202,10 +136,10 @@ export const AppHelper = {
             // Execute the request
             request([], [], 0);
         });
-    },
+    }
 
     // Method to create sub-folders
-    createSubFolders: (folder, subFolderUrl) => {
+    static createSubFolders = (folder, subFolderUrl): PromiseLike<Types.IFolderResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (resolve) => {
@@ -243,10 +177,10 @@ export const AppHelper = {
             // Execute the request
             request(resolve);
         });
-    },
+    }
 
     // Method to get a folder
-    getFolder: (web, folderUrl, createFl) => {
+    static getFolder = (web, folderUrl, createFl): PromiseLike<Types.IFolderResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let dstFolder = null;
@@ -277,7 +211,7 @@ export const AppHelper = {
                                 resolve();
                             } else {
                                 // Create the folder
-                                this.createSubFolders(web.RootFolder(), folderUrl).done((folder) => {
+                                App.createSubFolders(web.RootFolder(), folderUrl).then((folder) => {
                                     // Save a reference to the folder
                                     dstFolder = folder;
 
@@ -295,10 +229,10 @@ export const AppHelper = {
                 });
             });
         });
-    },
+    }
 
     // Method to remove empty folders
-    removeEmptyFolders: (web, folderUrls) => {
+    static removeEmptyFolders = (web, folderUrls): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure folder urls exist
@@ -346,10 +280,10 @@ export const AppHelper = {
                 web.done(() => { resolve(); });
             }
         });
-    },
+    }
 
     // Method to remove a file
-    removeFile: (web, fileUrl) => {
+    static removeFile = (web, fileUrl): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let folder = null;
@@ -373,10 +307,10 @@ export const AppHelper = {
                 }
             }, true);
         });
-    },
+    }
 
     // Method to remove files
-    removeFiles: (web, fileUrls, idx) => {
+    static removeFiles = (web, fileUrls, idx): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (idx: number, resolve) => {
@@ -386,7 +320,7 @@ export const AppHelper = {
                     resolve();
                 } else {
                     // Remove the file
-                    this.removeFile(web, fileUrls[idx]).done(() => {
+                    App.removeFile(web, fileUrls[idx]).then(() => {
                         // Remove the files
                         request(++idx, resolve);
                     });
@@ -397,4 +331,5 @@ export const AppHelper = {
             request(0, resolve);
         });
     }
-};
+}
+export const App: Types.Helper.App.IApp = new _App() as any;

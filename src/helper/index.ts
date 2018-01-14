@@ -1,8 +1,8 @@
 import { Types } from "../mapper";
 import { IBase } from "../utils";
-import { AppHelper, IHelperApp } from "./app";
+import { App } from "./app";
 import { Dependencies, IDependencies } from "./dependencies";
-import { FieldSchemaXML, IFieldSchemaXML } from "./field";
+import { FieldSchemaXML } from "./field";
 import { JSLinkHelper, IHelperJSLink } from "./jslink";
 import { ListForm } from "./listForm";
 import { ListFormField } from "./listFormField";
@@ -19,7 +19,7 @@ export interface IHelper {
     /**
      * App-Model helper methods
      */
-    App: IHelperApp,
+    App: Types.Helper.App.IApp,
 
     /**
      * Dependencies
@@ -29,7 +29,7 @@ export interface IHelper {
     /**
      * Field Schema XML
      */
-    FieldSchemaXML: IFieldSchemaXML,
+    FieldSchemaXML: Types.Helper.Field.IFieldSchemaXML,
 
     /**
      * JSLink helper methods
@@ -76,7 +76,7 @@ export interface IHelper {
  * Helper Methods
  */
 export const Helper: IHelper = {
-    App: AppHelper as any,
+    App,
     Dependencies: Dependencies as any,
     FieldSchemaXML,
     JSLink: JSLinkHelper,

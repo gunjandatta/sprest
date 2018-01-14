@@ -16,7 +16,7 @@ var webpart_1 = require("./webpart");
  * Helper Methods
  */
 exports.Helper = {
-    App: app_1.AppHelper,
+    App: app_1.App,
     Dependencies: dependencies_1.Dependencies,
     FieldSchemaXML: field_1.FieldSchemaXML,
     JSLink: jslink_1.JSLinkHelper,
