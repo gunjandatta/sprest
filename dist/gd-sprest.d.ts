@@ -5708,6 +5708,10 @@ declare module 'gd-sprest/mapper/helper/listForm' {
                 */
             new (props: IListFormProps): PromiseLike<IListFormResult>;
             /**
+                * Method to refresh the item.
+                */
+            refreshItem(listInfo: IListFormResult): any;
+            /**
                 * Method to save the item.
                 * @param item - The list item.
                 * @param list - The list.
@@ -5740,7 +5744,7 @@ declare module 'gd-sprest/mapper/helper/listForm' {
                     [key: string]: Types.IFieldResult;
             };
             /** The list item */
-            item?: Types.IListItemQueryResult;
+            item?: Types.IListItemQueryResult | Types.IListItemResult;
             /** The item query */
             query?: Types.ODataQuery;
             /** The list */

@@ -1018,7 +1018,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.71,
+    __ver: 2.72,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8642,7 +8642,7 @@ var _ListForm = /** @class */ (function () {
             info.list.Items(info.item.Id).query(info.query).execute(resolve);
         });
     };
-    // Method to save an item
+    // Method to save a new or existing item
     _ListForm.saveItem = function (info, formValues) {
         var _this = this;
         // Return a promise

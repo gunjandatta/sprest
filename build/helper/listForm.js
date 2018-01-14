@@ -145,7 +145,7 @@ var _ListForm = /** @class */ (function () {
             info.list.Items(info.item.Id).query(info.query).execute(resolve);
         });
     };
-    // Method to save an item
+    // Method to save a new or existing item
     _ListForm.saveItem = function (info, formValues) {
         var _this = this;
         // Return a promise
