@@ -8,13 +8,7 @@ export interface IListForm {
      * Creates an instance of the list form
      * @param props - The list form properties.
      */
-    new(props: IListFormProps): PromiseLike<{ [key: string]: Types.IFieldResult }>;
-
-    /** The list fields */
-    Fields: { [key: string]: Types.IFieldResult };
-
-    /** The list */
-    List: Types.IListResult;
+    new(props: IListFormProps): PromiseLike<IListFormResult>;
 }
 
 /**
@@ -32,7 +26,18 @@ export interface IListFormProps {
 }
 
 /**
- * List Form Field
+ * List Form Result
+ */
+export interface IListFormResult {
+    /** The form fields */
+    fields: { [key: string]: Types.IFieldResult },
+
+    /** The list */
+    list: Types.IListResult
+}
+
+/**
+ * List Form Field Information
  */
 export interface IListFormFieldInfo {
     /** The default value. */

@@ -69,7 +69,7 @@ export {
  * SharePoint REST Library
  */
 export const $REST: Types.IREST = {
-    __ver: 2.67,
+    __ver: 2.68,
     ContextInfo,
     DefaultRequestToHostFl: false,
     Helper,

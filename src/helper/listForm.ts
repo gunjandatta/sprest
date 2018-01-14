@@ -7,8 +7,7 @@ import { ListFormField } from "./listFormField";
  * List Form
  */
 class _ListForm {
-    private _fields: { [key: string]: Types.IFieldResult } = null;
-    private _list: Types.IListResult = null;
+    private _info: Types.Helper.ListForm.IListFormResult = null;
     private _props: Types.Helper.ListForm.IListFormProps = null;
     private _resolve = null;
 
@@ -31,21 +30,14 @@ class _ListForm {
     }
 
     /**
-     * Properties
-     */
-
-    // The list fields
-    get Fields(): { [key: string]: Types.IFieldResult } { return this._fields; }
-
-    // The list
-    get Lists(): Types.IListResult { return this._list; }
-
-    /**
      * Methods
      */
 
     // Method to load the list data
     private load = () => {
+        // Clear the information
+        this._info = {} as any;
+
         // Get the web
         (new Web(this._props.webUrl))
             // Get the list
@@ -53,7 +45,7 @@ class _ListForm {
             // Execute the request
             .execute(list => {
                 // Save the list
-                this._list = list;
+                this._info.list = list;
             })
 
             // Load the fields
@@ -61,14 +53,14 @@ class _ListForm {
             // Execute the request
             .execute(fields => {
                 // Clear the fields
-                this._fields = {};
+                this._info.fields = {};
 
                 // Save the fields
                 for (let i = 0; i < fields.results.length; i++) {
                     let field = fields.results[i];
 
                     // Save the field
-                    this._fields[field.InternalName] = field;
+                    this._info.fields[field.InternalName] = field;
                 }
 
                 // See if the fields have been defined
@@ -85,7 +77,7 @@ class _ListForm {
     // Method to load the default fields
     private loadDefaultFields = () => {
         // Load the content types
-        this._list.ContentTypes()
+        this._info.list.ContentTypes()
             // Query for the default content type and expand the field links
             .query({
                 Expand: ["FieldLinks"],
@@ -99,7 +91,7 @@ class _ListForm {
                 // Parse the field links
                 for (let i = 0; fields.length; i++) {
                     let fieldLink = fields[i];
-                    let field = this._fields[fieldLink.FieldInternalName];
+                    let field = this._info.fields[fieldLink.FieldInternalName];
 
                     // Skip the content type field
                     if (fieldLink.FieldInternalName == "ContentType") { continue; }
@@ -111,8 +103,11 @@ class _ListForm {
                     formFields[field.InternalName] = field;
                 }
 
+                // Update the fields
+                this._info.fields = formFields;
+
                 // Resolve the promise
-                this._resolve(formFields);
+                this._resolve(this._info);
             }, true);
     }
 
@@ -122,7 +117,7 @@ class _ListForm {
 
         // Parse the fields provided
         for (let i = 0; i < this._props.fields.length; i++) {
-            let field = this._fields[this._props.fields[i]];
+            let field = this._info.fields[this._props.fields[i]];
 
             // Ensure the field exists
             if (field) {
@@ -131,8 +126,11 @@ class _ListForm {
             }
         }
 
+        // Update the fields
+        this._info.fields = formFields;
+
         // Resolve the promise
-        this._resolve(formFields);
+        this._resolve(this._info);
     }
 }
 export const ListForm: Types.Helper.ListForm.IListForm = _ListForm as any;
