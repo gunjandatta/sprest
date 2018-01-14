@@ -13,14 +13,14 @@ export interface IListForm {
     /**
      * Method to refresh the item.
      */
-    refreshItem(listInfo: IListFormResult);
+    refreshItem(listInfo: IListFormResult): PromiseLike<Types.IListItemQueryResult>;
 
     /**
      * Method to save the item.
      * @param item - The list item.
      * @param list - The list.
      */
-    saveItem(item: any, list: Types.IListResult | Types.IListQueryResult): PromiseLike<Types.IListItemResult>;
+    saveItem(item: any, list: Types.IListQueryResult): PromiseLike<Types.IListItemQueryResult>;
 }
 
 /**
