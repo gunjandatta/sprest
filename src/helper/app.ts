@@ -7,7 +7,7 @@ import { Types } from "../mapper";
  */
 class _App {
     // Method to copy a file in this app web to the host web
-    static copyFileToHostWeb = (fileUrl, dstFolder, overwriteFl, rootWebFl) => {
+    static copyFileToHostWeb = (fileUrl, dstFolder, overwriteFl, rootWebFl): PromiseLike<{ file: Types.IFileResult, folder: Types.IFolderResult }> => {
         let srcFile = null;
         let origVal = ContextInfo.window.$REST.DefaultRequestToHostFl;
 
@@ -109,7 +109,7 @@ class _App {
     }
 
     // Method to copy a file in this app web to the host web
-    static copyFilesToHostWeb = (fileUrls, folderUrls, overwriteFl, rootWebFl) => {
+    static copyFilesToHostWeb = (fileUrls, folderUrls, overwriteFl, rootWebFl): PromiseLike<{ files: Array<Types.IFileResult>, folders: Array<Types.IFolderResult> }> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (files, folders, idx) => {
