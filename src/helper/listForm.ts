@@ -176,7 +176,7 @@ class _ListForm {
         });
     }
 
-    // Method to save an item
+    // Method to save a new or existing item
     static saveItem(info: Types.Helper.ListForm.IListFormResult, formValues: any) {
         // Return a promise
         return new Promise((resolve, reject) => {
