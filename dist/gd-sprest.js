@@ -1018,7 +1018,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.69,
+    __ver: 2.70,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8547,8 +8547,20 @@ var _ListForm = /** @class */ (function () {
             });
             // See if we are loading the list item
             if (_this._props.itemId > 0) {
+                // See if we are loading the attachments
+                if (_this._props.loadAttachments) {
+                    // Expand the attachment files collection
+                    _this._info.query.Expand = _this._info.query.Expand || [];
+                    _this._info.query.Expand.push("AttachmentFiles");
+                    // Select the attachment files
+                    _this._info.query.Select = _this._info.query.Select || ["*"];
+                    _this._info.query.Select.push("Attachments");
+                    _this._info.query.Select.push("AttachmentFiles");
+                }
                 // Get the list item
-                list.Items(_this._props.itemId).execute(function (item) {
+                list.Items(_this._props.itemId)
+                    .query(_this._info.query)
+                    .execute(function (item) {
                     // Save the item
                     _this._info.item = item;
                 });
@@ -8612,6 +8624,7 @@ var _ListForm = /** @class */ (function () {
         // Save the properties
         this._props = props || {};
         this._props.fields = this._props.fields || [];
+        this._info.query = this._info.query || {};
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Save the resolve method
@@ -8620,6 +8633,49 @@ var _ListForm = /** @class */ (function () {
             _this.load();
         });
     }
+    // Method to refresh an item
+    _ListForm.refreshItem = function (info) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Get the item
+            info.list.Items(info.item.Id).query(info.query).execute(resolve);
+        });
+    };
+    // Method to save an item
+    _ListForm.saveItem = function (info, formValues) {
+        var _this = this;
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // See if this is an existing item
+            if (info.item && info.item.update) {
+                // Update the item
+                info.item.update(formValues).execute(function (response) {
+                    // Refresh the item
+                    _this.refreshItem(info).then(function (item) {
+                        // Update the item
+                        info.item = item;
+                        // Resolve the promise
+                        resolve(info);
+                    });
+                });
+            }
+            else {
+                // Set the metadata type
+                formValues["__metadata"] = { type: info.list.ListItemEntityTypeFullName };
+                // Add the item
+                info.list.Items().add(formValues)
+                    .execute(function (item) {
+                    // Refresh the item
+                    _this.refreshItem(info).then(function (item) {
+                        // Update the item
+                        info.item = item;
+                        // Resolve the promise
+                        resolve(info);
+                    });
+                });
+            }
+        });
+    };
     return _ListForm;
 }());
 exports.ListForm = _ListForm;

@@ -5707,6 +5707,12 @@ declare module 'gd-sprest/mapper/helper/listForm' {
                 * @param props - The list form properties.
                 */
             new (props: IListFormProps): PromiseLike<IListFormResult>;
+            /**
+                * Method to save the item.
+                * @param item - The list item.
+                * @param list - The list.
+                */
+            saveItem(item: any, list: Types.IListResult | Types.IListQueryResult): PromiseLike<Types.IListItemResult>;
     }
     /**
         * List Form Properties
@@ -5718,6 +5724,10 @@ declare module 'gd-sprest/mapper/helper/listForm' {
             itemId?: number;
             /** The list name */
             listName: string;
+            /** Flag to deteremine if we are loading attachments */
+            loadAttachments?: boolean;
+            /** OData query used when loading an item */
+            query?: Types.ODataQuery;
             /** The relative web url containing the list */
             webUrl?: string;
     }
@@ -5730,7 +5740,9 @@ declare module 'gd-sprest/mapper/helper/listForm' {
                     [key: string]: Types.IFieldResult;
             };
             /** The list item */
-            item?: Types.IListItemResult;
+            item?: Types.IListItemQueryResult;
+            /** The item query */
+            query?: Types.ODataQuery;
             /** The list */
             list: Types.IListResult;
     }

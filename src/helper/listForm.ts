@@ -18,6 +18,7 @@ class _ListForm {
         // Save the properties
         this._props = props || {} as any;
         this._props.fields = this._props.fields || [];
+        this._info.query = this._info.query || {};
 
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -75,11 +76,27 @@ class _ListForm {
 
         // See if we are loading the list item
         if (this._props.itemId > 0) {
+            // See if we are loading the attachments
+            if (this._props.loadAttachments) {
+                // Expand the attachment files collection
+                this._info.query.Expand = this._info.query.Expand || [];
+                this._info.query.Expand.push("AttachmentFiles")
+
+                // Select the attachment files
+                this._info.query.Select = this._info.query.Select || ["*"];
+                this._info.query.Select.push("Attachments");
+                this._info.query.Select.push("AttachmentFiles");
+            }
+
             // Get the list item
-            list.Items(this._props.itemId).execute(item => {
-                // Save the item
-                this._info.item = item;
-            });
+            list.Items(this._props.itemId)
+                // Set the query
+                .query(this._info.query)
+                // Execute the request
+                .execute(item => {
+                    // Save the item
+                    this._info.item = item;
+                });
         }
 
         // Wait for the requests to complete
@@ -146,6 +163,53 @@ class _ListForm {
 
         // Update the fields
         this._info.fields = formFields;
+    }
+
+    // Method to refresh an item
+    static refreshItem(info: Types.Helper.ListForm.IListFormResult): PromiseLike<Types.IListItemQueryResult> {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Get the item
+            info.list.Items(info.item.Id).query(info.query).execute(resolve);
+        });
+    }
+
+    // Method to save an item
+    static saveItem(info: Types.Helper.ListForm.IListFormResult, formValues: any) {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // See if this is an existing item
+            if (info.item && info.item.update) {
+                // Update the item
+                info.item.update(formValues).execute(response => {
+                    // Refresh the item
+                    this.refreshItem(info).then(item => {
+                        // Update the item
+                        info.item = item;
+
+                        // Resolve the promise
+                        resolve(info);
+                    });
+                });
+            } else {
+                // Set the metadata type
+                formValues["__metadata"] = { type: info.list.ListItemEntityTypeFullName };
+
+                // Add the item
+                info.list.Items().add(formValues)
+                    // Execute the request
+                    .execute(item => {
+                        // Refresh the item
+                        this.refreshItem(info).then(item => {
+                            // Update the item
+                            info.item = item;
+
+                            // Resolve the promise
+                            resolve(info);
+                        });
+                    });
+            }
+        });
     }
 }
 export const ListForm: Types.Helper.ListForm.IListForm = _ListForm as any;
