@@ -17,7 +17,7 @@ class _ListForm {
     constructor(props: Types.Helper.ListForm.IListFormProps) {
         // Save the properties
         this._props = props || {} as any;
-        this._props.fields = this._props.fields || [];
+        this._props.fields = this._props.fields;
 
         // Return a promise
         return new Promise((resolve, reject) => {
