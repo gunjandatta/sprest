@@ -91,7 +91,7 @@ var _ListForm = /** @class */ (function () {
                     var fields = ct.results ? ct.results[0].FieldLinks.results : [];
                     var formFields = {};
                     // Parse the field links
-                    for (var i = 0; fields.length; i++) {
+                    for (var i = 0; i < fields.length; i++) {
                         var fieldLink = fields[i];
                         // Get the field
                         var field = _this._info.fields[fieldLink.Name];

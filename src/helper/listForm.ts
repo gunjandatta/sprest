@@ -126,7 +126,7 @@ class _ListForm {
                     let formFields = {};
 
                     // Parse the field links
-                    for (let i = 0; fields.length; i++) {
+                    for (let i = 0; i < fields.length; i++) {
                         let fieldLink = fields[i];
 
                         // Get the field
