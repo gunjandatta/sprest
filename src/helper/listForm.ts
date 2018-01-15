@@ -154,7 +154,7 @@ class _ListForm {
                 // Try to parse the data
                 try {
                     // Parse the content type
-                    ct = JSON.parse(this._cacheData.ct);
+                    ct = parse(this._cacheData.ct);
 
                     // Resolve the promise
                     resolve(ct);

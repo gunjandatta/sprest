@@ -114,7 +114,7 @@ var _ListForm = /** @class */ (function () {
                     // Try to parse the data
                     try {
                         // Parse the content type
-                        ct = JSON.parse(_this._cacheData.ct);
+                        ct = parse_1.parse(_this._cacheData.ct);
                         // Resolve the promise
                         resolve(ct);
                         return;

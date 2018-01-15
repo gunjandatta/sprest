@@ -1048,7 +1048,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.84,
+    __ver: 2.85,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8641,7 +8641,7 @@ var _ListForm = /** @class */ (function () {
                     // Try to parse the data
                     try {
                         // Parse the content type
-                        ct = JSON.parse(_this._cacheData.ct);
+                        ct = parse_1.parse(_this._cacheData.ct);
                         // Resolve the promise
                         resolve(ct);
                         return;
