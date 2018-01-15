@@ -1048,7 +1048,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.90,
+    __ver: 2.91,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8563,8 +8563,9 @@ var _ListForm = /** @class */ (function () {
                     _this.loadItem();
                 }
                 else {
-                    // Load the default fields
-                    _this.loadDefaultFields();
+                    // Load the content type
+                    _this.loadDefaultContentType()
+                        .then(_this.loadDefaultFields);
                 }
             });
         };
@@ -8608,34 +8609,31 @@ var _ListForm = /** @class */ (function () {
             });
         };
         // Method to load the default fields
-        this.loadDefaultFields = function () {
-            // Load the content type
-            _this.loadDefaultContentType().then(function (ct) {
-                var fields = ct.results ? ct.results[0].FieldLinks.results : [];
-                var formFields = {};
-                // Parse the field links
-                for (var i = 0; i < fields.length; i++) {
-                    var fieldLink = fields[i];
-                    // Get the field
-                    var field = _this._info.fields[fieldLink.Name];
-                    if (field) {
-                        // Skip the content type field
-                        if (field.InternalName == "ContentType") {
-                            continue;
-                        }
-                        // Skip hidden fields
-                        if (field.Hidden || fieldLink.Hidden) {
-                            continue;
-                        }
-                        // Save the form field
-                        formFields[field.InternalName] = field;
+        this.loadDefaultFields = function (ct) {
+            var fields = ct.results ? ct.results[0].FieldLinks.results : [];
+            var formFields = {};
+            // Parse the field links
+            for (var i = 0; i < fields.length; i++) {
+                var fieldLink = fields[i];
+                // Get the field
+                var field = _this._info.fields[fieldLink.Name];
+                if (field) {
+                    // Skip the content type field
+                    if (field.InternalName == "ContentType") {
+                        continue;
                     }
+                    // Skip hidden fields
+                    if (field.Hidden || fieldLink.Hidden) {
+                        continue;
+                    }
+                    // Save the form field
+                    formFields[field.InternalName] = field;
                 }
-                // Update the fields
-                _this._info.fields = formFields;
-                // Load the item data
-                _this.loadItem();
-            });
+            }
+            // Update the fields
+            _this._info.fields = formFields;
+            // Load the item data
+            _this.loadItem();
         };
         // Method to load the data from cache
         this.loadFromCache = function () {

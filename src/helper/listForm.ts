@@ -61,8 +61,10 @@ class _ListForm {
                 // Load the item data
                 this.loadItem();
             } else {
-                // Load the default fields
-                this.loadDefaultFields();
+                // Load the content type
+                this.loadDefaultContentType()
+                    // Then load then default fields
+                    .then(this.loadDefaultFields);
             }
         });
     }
@@ -113,36 +115,33 @@ class _ListForm {
     }
 
     // Method to load the default fields
-    private loadDefaultFields = () => {
-        // Load the content type
-        this.loadDefaultContentType().then(ct => {
-            let fields = ct.results ? ct.results[0].FieldLinks.results : [];
-            let formFields = {};
+    private loadDefaultFields = (ct: IBaseCollection<Types.IContentTypeQueryResult>) => {
+        let fields = ct.results ? ct.results[0].FieldLinks.results : [];
+        let formFields = {};
 
-            // Parse the field links
-            for (let i = 0; i < fields.length; i++) {
-                let fieldLink = fields[i];
+        // Parse the field links
+        for (let i = 0; i < fields.length; i++) {
+            let fieldLink = fields[i];
 
-                // Get the field
-                let field = this._info.fields[fieldLink.Name];
-                if (field) {
-                    // Skip the content type field
-                    if (field.InternalName == "ContentType") { continue; }
+            // Get the field
+            let field = this._info.fields[fieldLink.Name];
+            if (field) {
+                // Skip the content type field
+                if (field.InternalName == "ContentType") { continue; }
 
-                    // Skip hidden fields
-                    if (field.Hidden || fieldLink.Hidden) { continue; }
+                // Skip hidden fields
+                if (field.Hidden || fieldLink.Hidden) { continue; }
 
-                    // Save the form field
-                    formFields[field.InternalName] = field;
-                }
+                // Save the form field
+                formFields[field.InternalName] = field;
             }
+        }
 
-            // Update the fields
-            this._info.fields = formFields;
+        // Update the fields
+        this._info.fields = formFields;
 
-            // Load the item data
-            this.loadItem();
-        });
+        // Load the item data
+        this.loadItem();
     }
 
     // Method to load the data from cache
