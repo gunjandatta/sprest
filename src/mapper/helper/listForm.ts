@@ -8,31 +8,75 @@ export interface IListForm {
      * Creates an instance of the list form
      * @param props - The list form properties.
      */
-    new(props: IListFormProps): PromiseLike<{ [key: string]: Types.IFieldResult }>;
+    new(props: IListFormProps): PromiseLike<IListFormResult>;
 
-    /** The list fields */
-    Fields: { [key: string]: Types.IFieldResult };
+    /**
+     * Method to refresh the item.
+     * @param listInfo - The list form information.
+     */
+    refreshItem(listInfo: IListFormResult): PromiseLike<IListFormResult>;
 
-    /** The list */
-    List: Types.IListResult;
+    /**
+     * Method to save the item.
+     * @param itemValues - The list item values.
+     * @param list - The list.
+     */
+    saveItem(itemValues: any, list: Types.IListResult): PromiseLike<IListFormResult>;
+}
+
+/**
+ * List Form Cache
+ */
+export interface IListFormCache {
+    fields: string;
+    list: string;
 }
 
 /**
  * List Form Properties
  */
 export interface IListFormProps {
+    /** If defined, the data will be cached to the session storage. */
+    cacheKey?: string;
+
     /** The form fields */
     fields?: Array<string>;
 
+    /** The item id */
+    itemId?: number;
+
     /** The list name */
     listName: string;
+
+    /** Flag to deteremine if we are loading attachments */
+    loadAttachments?: boolean;
+
+    /** OData query used when loading an item */
+    query?: Types.ODataQuery;
 
     /** The relative web url containing the list */
     webUrl?: string;
 }
 
 /**
- * List Form Field
+ * List Form Result
+ */
+export interface IListFormResult {
+    /** The form fields */
+    fields: { [key: string]: Types.IFieldResult };
+
+    /** The list item */
+    item?: Types.IListItemQueryResult | Types.IListItemResult;
+
+    /** The item query */
+    query?: Types.ODataQuery;
+
+    /** The list */
+    list: Types.IListResult;
+}
+
+/**
+ * List Form Field Information
  */
 export interface IListFormFieldInfo {
     /** The default value. */
