@@ -37,53 +37,49 @@ var _ListForm = /** @class */ (function () {
                 }
                 else {
                     // Load the content type
-                    _this.loadDefaultContentType()
-                        .then(_this.loadDefaultFields);
+                    _this.loadDefaultContentType();
                 }
             });
         };
         // Method to load the default content type
         this.loadDefaultContentType = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // See if the content type info exists
-                if (_this._cacheData && _this._cacheData.ct) {
-                    // Try to parse the data
-                    try {
-                        // Parse the content type
-                        var ct = parse_1.parse(_this._cacheData.ct);
-                        // Resolve the promise
-                        resolve(ct);
-                        return;
-                    }
-                    catch (_a) {
-                        // Clear the cache data
-                        sessionStorage.removeItem(_this._props.cacheKey);
-                    }
+            // See if the content type info exists
+            if (_this._cacheData && _this._cacheData.ct) {
+                // Try to parse the data
+                try {
+                    // Parse the content type
+                    var ct = parse_1.parse(_this._cacheData.ct);
+                    // Load the default fields
+                    _this.loadDefaultFields(ct.results[0]);
+                    return;
                 }
-                // Load the content types
-                _this._info.list.ContentTypes()
-                    .query({
-                    Expand: ["FieldLinks"],
-                    Top: 1
-                })
-                    .execute(function (ct) {
-                    // See if we are storing data in cache
-                    if (_this._props.cacheKey) {
-                        // Update the cache data
-                        _this._cacheData = _this._cacheData || {};
-                        _this._cacheData.ct = ct.stringify();
-                        // Update the cache
-                        sessionStorage.setItem(_this._props.cacheKey, JSON.stringify(_this._cacheData));
-                    }
-                    // Resolve the promise
-                    resolve(ct);
-                });
+                catch (_a) {
+                    // Clear the cache data
+                    sessionStorage.removeItem(_this._props.cacheKey);
+                }
+            }
+            // Load the content types
+            _this._info.list.ContentTypes()
+                .query({
+                Expand: ["FieldLinks"],
+                Top: 1
+            })
+                .execute(function (ct) {
+                // See if we are storing data in cache
+                if (_this._props.cacheKey) {
+                    // Update the cache data
+                    _this._cacheData = _this._cacheData || {};
+                    _this._cacheData.ct = ct.stringify();
+                    // Update the cache
+                    sessionStorage.setItem(_this._props.cacheKey, JSON.stringify(_this._cacheData));
+                }
+                // Resolve the promise
+                _this.loadDefaultFields(ct.results[0]);
             });
         };
         // Method to load the default fields
         this.loadDefaultFields = function (ct) {
-            var fields = ct.results ? ct.results[0].FieldLinks.results : [];
+            var fields = ct ? ct.FieldLinks.results : [];
             var formFields = {};
             // Parse the field links
             for (var i = 0; i < fields.length; i++) {

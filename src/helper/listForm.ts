@@ -62,61 +62,56 @@ class _ListForm {
                 this.loadItem();
             } else {
                 // Load the content type
-                this.loadDefaultContentType()
-                    // Then load then default fields
-                    .then(this.loadDefaultFields);
+                this.loadDefaultContentType();
             }
         });
     }
 
     // Method to load the default content type
-    private loadDefaultContentType = (): PromiseLike<IBaseCollection<Types.IContentTypeQueryResult>> => {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // See if the content type info exists
-            if (this._cacheData && this._cacheData.ct) {
-                // Try to parse the data
-                try {
-                    // Parse the content type
-                    let ct = parse(this._cacheData.ct);
+    private loadDefaultContentType = () => {
+        // See if the content type info exists
+        if (this._cacheData && this._cacheData.ct) {
+            // Try to parse the data
+            try {
+                // Parse the content type
+                let ct = parse(this._cacheData.ct) as IBaseCollection<Types.IContentTypeQueryResult>;
 
-                    // Resolve the promise
-                    resolve(ct);
-                    return;
-                } catch{
-                    // Clear the cache data
-                    sessionStorage.removeItem(this._props.cacheKey);
-                }
+                // Load the default fields
+                this.loadDefaultFields(ct.results[0]);
+                return;
+            } catch{
+                // Clear the cache data
+                sessionStorage.removeItem(this._props.cacheKey);
             }
+        }
 
-            // Load the content types
-            this._info.list.ContentTypes()
-                // Query for the default content type and expand the field links
-                .query({
-                    Expand: ["FieldLinks"],
-                    Top: 1
-                })
-                // Execute the request, but wait for the previous one to be completed
-                .execute(ct => {
-                    // See if we are storing data in cache
-                    if (this._props.cacheKey) {
-                        // Update the cache data
-                        this._cacheData = this._cacheData || {} as any;
-                        this._cacheData.ct = ct.stringify();
+        // Load the content types
+        this._info.list.ContentTypes()
+            // Query for the default content type and expand the field links
+            .query({
+                Expand: ["FieldLinks"],
+                Top: 1
+            })
+            // Execute the request, but wait for the previous one to be completed
+            .execute(ct => {
+                // See if we are storing data in cache
+                if (this._props.cacheKey) {
+                    // Update the cache data
+                    this._cacheData = this._cacheData || {} as any;
+                    this._cacheData.ct = ct.stringify();
 
-                        // Update the cache
-                        sessionStorage.setItem(this._props.cacheKey, JSON.stringify(this._cacheData));
-                    }
+                    // Update the cache
+                    sessionStorage.setItem(this._props.cacheKey, JSON.stringify(this._cacheData));
+                }
 
-                    // Resolve the promise
-                    resolve(ct as any);
-                });
-        });
+                // Resolve the promise
+                this.loadDefaultFields(ct.results[0]);
+            });
     }
 
     // Method to load the default fields
-    private loadDefaultFields = (ct: IBaseCollection<Types.IContentTypeQueryResult>) => {
-        let fields = ct.results ? ct.results[0].FieldLinks.results : [];
+    private loadDefaultFields = (ct: Types.IContentTypeQueryResult) => {
+        let fields = ct ? ct.FieldLinks.results : [];
         let formFields = {};
 
         // Parse the field links
