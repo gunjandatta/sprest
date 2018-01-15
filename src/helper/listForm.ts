@@ -68,8 +68,8 @@ class _ListForm {
                     if (this._cacheKey) {
                         // Cache the data
                         sessionStorage.setItem(this._cacheKey, JSON.stringify({
-                            fields: fields.response,
-                            list: this._info.list.response
+                            fields: fields.stringify(),
+                            list: this._info.list.stringify()
                         } as Types.Helper.ListForm.IListFormCache));
                     }
 
