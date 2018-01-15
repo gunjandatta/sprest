@@ -1,12 +1,14 @@
 import { Web } from "../lib";
 import { Types } from "../mapper";
 import { IBaseCollection } from "../utils";
+import { parse } from "./parse";
 import { ListFormField } from "./listFormField";
 
 /**
  * List Form
  */
 class _ListForm {
+    private _cacheKey: string = null;
     private _info: Types.Helper.ListForm.IListFormResult = null;
     private _props: Types.Helper.ListForm.IListFormProps = null;
     private _resolve = null;
@@ -18,6 +20,9 @@ class _ListForm {
         // Save the properties
         this._props = props || {} as any;
         this._props.fields = this._props.fields;
+
+        // Set the cache key
+        this._cacheKey = this._props.cacheKey;
 
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -40,8 +45,11 @@ class _ListForm {
             query: this._props.query || {}
         } as any;
 
+        // Load the data from cache
+        this.loadFromCache();
+
         // Get the web
-        let list = (new Web(this._props.webUrl))
+        let list = this._info.list || (new Web(this._props.webUrl))
             // Get the list
             .Lists(this._props.listName)
             // Execute the request
@@ -50,30 +58,42 @@ class _ListForm {
                 this._info.list = list;
             });
 
-        // Load the fields
-        list.Fields()
-            // Execute the request
-            .execute(fields => {
-                // Clear the fields
-                this._info.fields = {};
+        // See if we need to load the fields
+        if (this._info.fields == null) {
+            // Load the fields
+            list.Fields()
+                // Execute the request
+                .execute(fields => {
+                    // See if we are caching the data
+                    if (this._cacheKey) {
+                        // Cache the data
+                        let data = JSON.stringify({
+                            fields: fields.response,
+                            list: this._info.list.response
+                        } as Types.Helper.ListForm.IListFormCache);
+                    }
 
-                // Save the fields
-                for (let i = 0; i < fields.results.length; i++) {
-                    let field = fields.results[i];
+                    // Clear the fields
+                    this._info.fields = {};
 
-                    // Save the field
-                    this._info.fields[field.InternalName] = field;
-                }
+                    // Save the fields
+                    for (let i = 0; i < fields.results.length; i++) {
+                        let field = fields.results[i];
 
-                // See if the fields have been defined
-                if (this._props.fields) {
-                    // Process the fields
-                    this.processFields();
-                } else {
-                    // Load the default fields
-                    return this.loadDefaultFields();
-                }
-            });
+                        // Save the field
+                        this._info.fields[field.InternalName] = field;
+                    }
+
+                    // See if the fields have been defined
+                    if (this._props.fields) {
+                        // Process the fields
+                        this.processFields();
+                    } else {
+                        // Load the default fields
+                        return this.loadDefaultFields();
+                    }
+                });
+        }
 
         // See if we are loading the list item
         if (this._props.itemId > 0) {
@@ -150,6 +170,29 @@ class _ListForm {
                     resolve();
                 }, true);
         });
+    }
+
+    // Method to load the data from cache
+    private loadFromCache = () => {
+        // See if we are loading from cache
+        if (this._cacheKey) {
+            // Get the data
+            let data = sessionStorage.getItem(this._cacheKey);
+            if (data) {
+                // Try to parse the data
+                try {
+                    // Set the cache data
+                    let cacheData: Types.Helper.ListForm.IListFormCache = JSON.parse(data);
+
+                    // Update the list information
+                    this._info.fields = parse(cacheData.fields);
+                    this._info.list = parse(cacheData.list);
+                } catch {
+                    // Clear the cache data
+                    sessionStorage.removeItem(this._cacheKey);
+                }
+            }
+        }
     }
 
     // Method to process the fields

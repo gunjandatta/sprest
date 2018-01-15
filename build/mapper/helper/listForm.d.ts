@@ -21,9 +21,18 @@ export interface IListForm {
     saveItem(itemValues: any, list: Types.IListResult): PromiseLike<IListFormResult>;
 }
 /**
+ * List Form Cache
+ */
+export interface IListFormCache {
+    fields: string;
+    list: string;
+}
+/**
  * List Form Properties
  */
 export interface IListFormProps {
+    /** If defined, the data will be cached to the session storage. */
+    cacheKey?: string;
     /** The form fields */
     fields?: Array<string>;
     /** The item id */
