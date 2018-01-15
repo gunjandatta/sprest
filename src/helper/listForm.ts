@@ -67,10 +67,10 @@ class _ListForm {
                     // See if we are caching the data
                     if (this._cacheKey) {
                         // Cache the data
-                        let data = JSON.stringify({
+                        sessionStorage.setItem(this._cacheKey, JSON.stringify({
                             fields: fields.response,
                             list: this._info.list.response
-                        } as Types.Helper.ListForm.IListFormCache);
+                        } as Types.Helper.ListForm.IListFormCache));
                     }
 
                     // Clear the fields

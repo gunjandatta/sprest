@@ -1048,7 +1048,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.80,
+    __ver: 2.81,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8568,10 +8568,10 @@ var _ListForm = /** @class */ (function () {
                     // See if we are caching the data
                     if (_this._cacheKey) {
                         // Cache the data
-                        var data = JSON.stringify({
+                        sessionStorage.setItem(_this._cacheKey, JSON.stringify({
                             fields: fields.response,
                             list: _this._info.list.response
-                        });
+                        }));
                     }
                     // Clear the fields
                     _this._info.fields = {};
