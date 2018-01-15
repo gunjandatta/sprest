@@ -139,6 +139,20 @@ class _ListForm {
         this.loadItem();
     }
 
+    // Method to load the field data
+    private loadFieldData = (fields: Types.IFieldResults) => {
+        // Clear the fields
+        this._info.fields = {};
+
+        // Parse the fields
+        for (let i = 0; i < fields.results.length; i++) {
+            let field = fields.results[i];
+
+            // Save the field
+            this._info.fields[field.InternalName] = field;
+        }
+    }
+
     // Method to load the data from cache
     private loadFromCache = () => {
         // See if we are loading from cache
@@ -153,8 +167,10 @@ class _ListForm {
 
                     // Update the list information
                     this._info = this._info || {} as any;
-                    this._info.fields = parse(this._cacheData.fields);
                     this._info.list = parse(this._cacheData.list);
+
+                    // Load the field data
+                    this.loadFieldData(parse(this._cacheData.fields));
                 } catch {
                     // Clear the cache data
                     sessionStorage.removeItem(this._props.cacheKey);
@@ -236,16 +252,8 @@ class _ListForm {
                         sessionStorage.setItem(this._props.cacheKey, JSON.stringify(this._cacheData));
                     }
 
-                    // Clear the fields
-                    this._info.fields = {};
-
-                    // Save the fields
-                    for (let i = 0; i < fields.results.length; i++) {
-                        let field = fields.results[i];
-
-                        // Save the field
-                        this._info.fields[field.InternalName] = field;
-                    }
+                    // Load the field data
+                    this.loadFieldData(fields as any);
 
                     // Resolve the promise
                     resolve();

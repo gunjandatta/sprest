@@ -1048,7 +1048,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.95,
+    __ver: 2.96,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8631,6 +8631,17 @@ var _ListForm = /** @class */ (function () {
             // Load the item data
             _this.loadItem();
         };
+        // Method to load the field data
+        this.loadFieldData = function (fields) {
+            // Clear the fields
+            _this._info.fields = {};
+            // Parse the fields
+            for (var i = 0; i < fields.results.length; i++) {
+                var field = fields.results[i];
+                // Save the field
+                _this._info.fields[field.InternalName] = field;
+            }
+        };
         // Method to load the data from cache
         this.loadFromCache = function () {
             // See if we are loading from cache
@@ -8644,8 +8655,9 @@ var _ListForm = /** @class */ (function () {
                         _this._cacheData = JSON.parse(data);
                         // Update the list information
                         _this._info = _this._info || {};
-                        _this._info.fields = parse_1.parse(_this._cacheData.fields);
                         _this._info.list = parse_1.parse(_this._cacheData.list);
+                        // Load the field data
+                        _this.loadFieldData(parse_1.parse(_this._cacheData.fields));
                     }
                     catch (_a) {
                         // Clear the cache data
@@ -8714,14 +8726,8 @@ var _ListForm = /** @class */ (function () {
                         // Cache the data
                         sessionStorage.setItem(_this._props.cacheKey, JSON.stringify(_this._cacheData));
                     }
-                    // Clear the fields
-                    _this._info.fields = {};
-                    // Save the fields
-                    for (var i = 0; i < fields.results.length; i++) {
-                        var field = fields.results[i];
-                        // Save the field
-                        _this._info.fields[field.InternalName] = field;
-                    }
+                    // Load the field data
+                    _this.loadFieldData(fields);
                     // Resolve the promise
                     resolve();
                 });
