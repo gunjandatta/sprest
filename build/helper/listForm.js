@@ -148,12 +148,12 @@ var _ListForm = /** @class */ (function () {
                     // Save the item
                     _this._info.item = item;
                     // Resolve the promise
-                    _this._resolve();
+                    _this._resolve(_this._info);
                 });
             }
             else {
                 // Resolve the promise
-                _this._resolve();
+                _this._resolve(_this._info);
             }
         };
         // Method to load the list data

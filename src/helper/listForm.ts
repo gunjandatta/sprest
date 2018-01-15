@@ -11,7 +11,7 @@ class _ListForm {
     private _cacheData: Types.Helper.ListForm.IListFormCache = null;
     private _info: Types.Helper.ListForm.IListFormResult = null;
     private _props: Types.Helper.ListForm.IListFormProps = null;
-    private _resolve = null;
+    private _resolve: (info: Types.Helper.ListForm.IListFormResult) => void = null;
 
     /**
      * Constructor
@@ -190,11 +190,11 @@ class _ListForm {
                     this._info.item = item;
 
                     // Resolve the promise
-                    this._resolve();
+                    this._resolve(this._info);
                 });
         } else {
             // Resolve the promise
-            this._resolve();
+            this._resolve(this._info);
         }
     }
 

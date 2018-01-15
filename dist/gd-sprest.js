@@ -1048,7 +1048,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.92,
+    __ver: 2.93,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8675,12 +8675,12 @@ var _ListForm = /** @class */ (function () {
                     // Save the item
                     _this._info.item = item;
                     // Resolve the promise
-                    _this._resolve();
+                    _this._resolve(_this._info);
                 });
             }
             else {
                 // Resolve the promise
-                _this._resolve();
+                _this._resolve(_this._info);
             }
         };
         // Method to load the list data
