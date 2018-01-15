@@ -69,11 +69,13 @@ class _ListForm {
                 .execute(fields => {
                     // See if we are caching the data
                     if (this._props.cacheKey) {
+                        // Update the cache
+                        this._cacheData = this._cacheData || {} as any;
+                        this._cacheData.fields = fields.stringify();
+                        this._cacheData.list = this._info.list.stringify();
+
                         // Cache the data
-                        sessionStorage.setItem(this._props.cacheKey, JSON.stringify({
-                            fields: fields.stringify(),
-                            list: this._info.list.stringify()
-                        } as Types.Helper.ListForm.IListFormCache));
+                        sessionStorage.setItem(this._props.cacheKey, JSON.stringify(this._cacheData));
                     }
 
                     // Clear the fields
@@ -175,6 +177,7 @@ class _ListForm {
                     // See if we are storing data in cache
                     if (this._props.cacheKey) {
                         // Update the cache data
+                        this._cacheData = this._cacheData || {} as any;
                         this._cacheData.ct = ct.stringify();
 
                         // Update the cache
