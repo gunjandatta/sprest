@@ -66,7 +66,7 @@ class _ListFormField {
     }
 
     // Method to load the lookup data
-    static loadLookupData = (info: Types.Helper.ListForm.IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.IListItemQueryResult>> => {
+    static loadLookupData(info: Types.Helper.ListForm.IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.IListItemQueryResult>> {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the current site collection
@@ -97,7 +97,7 @@ class _ListFormField {
     }
 
     // Method to load the mms data
-    static loadMMSData = (info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Array<any>> => {
+    static loadMMSData(info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Array<any>> {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the utility class is loaded
@@ -157,7 +157,7 @@ class _ListFormField {
     }
 
     // Method to load the mms value field
-    static loadMMSValueField = (info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Types.IFieldResult> => {
+    static loadMMSValueField(info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Types.IFieldResult> {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if we are allowing multiple values

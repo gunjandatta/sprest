@@ -5866,6 +5866,12 @@ declare module 'gd-sprest/mapper/helper/listForm' {
                 * @param props - The list form field properties
                 */
             new (props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
+            /** Method to load the lookup data */
+            loadLookupData(info: Types.Helper.ListForm.IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.IListItemQueryResult>>;
+            /** Method to load the mms data */
+            loadMMSData(info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Array<any>>;
+            /** Method to load the mms value field */
+            loadMMSValueField(info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Types.IFieldResult>;
     }
 }
 
