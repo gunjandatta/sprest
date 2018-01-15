@@ -90,8 +90,6 @@ class _ListForm {
 
     // Method to load the default content type
     private loadDefaultContentType = (): PromiseLike<IBaseCollection<Types.IContentTypeQueryResult>> => {
-        let ct: IBaseCollection<Types.IContentTypeQueryResult> = null;
-
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the content type info exists
@@ -99,7 +97,7 @@ class _ListForm {
                 // Try to parse the data
                 try {
                     // Parse the content type
-                    ct = parse(this._cacheData.ct);
+                    let ct = parse(this._cacheData.ct);
 
                     // Resolve the promise
                     resolve(ct);

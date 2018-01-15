@@ -58,7 +58,6 @@ var _ListForm = /** @class */ (function () {
         };
         // Method to load the default content type
         this.loadDefaultContentType = function () {
-            var ct = null;
             // Return a promise
             return new Promise(function (resolve, reject) {
                 // See if the content type info exists
@@ -66,7 +65,7 @@ var _ListForm = /** @class */ (function () {
                     // Try to parse the data
                     try {
                         // Parse the content type
-                        ct = parse_1.parse(_this._cacheData.ct);
+                        var ct = parse_1.parse(_this._cacheData.ct);
                         // Resolve the promise
                         resolve(ct);
                         return;
