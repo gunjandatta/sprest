@@ -1048,7 +1048,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.85,
+    __ver: 2.86,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8553,82 +8553,34 @@ var _ListForm = /** @class */ (function () {
             };
             // Load the data from cache
             _this.loadFromCache();
-            // Get the web
-            var list = _this._info.list || (new lib_1.Web(_this._props.webUrl))
-                .Lists(_this._props.listName)
-                .execute(function (list) {
-                // Save the list
-                _this._info.list = list;
-            });
-            // See if we need to load the fields
-            if (_this._info.fields == null) {
-                // Load the fields
-                list.Fields()
-                    .execute(function (fields) {
-                    // See if we are caching the data
-                    if (_this._props.cacheKey) {
-                        // Update the cache
-                        _this._cacheData = _this._cacheData || {};
-                        _this._cacheData.fields = fields.stringify();
-                        _this._cacheData.list = _this._info.list.stringify();
-                        // Cache the data
-                        sessionStorage.setItem(_this._props.cacheKey, JSON.stringify(_this._cacheData));
+            // Load the list data
+            _this.loadListData().then(function () {
+                // See if we are loading the list item
+                if (_this._props.itemId > 0) {
+                    // Default the select query to get all the fields by default
+                    _this._info.query.Select = _this._info.query.Select || ["*"];
+                    // See if we are loading the attachments
+                    if (_this._props.loadAttachments) {
+                        // Expand the attachment files collection
+                        _this._info.query.Expand = _this._info.query.Expand || [];
+                        _this._info.query.Expand.push("AttachmentFiles");
+                        // Select the attachment files
+                        _this._info.query.Select.push("Attachments");
+                        _this._info.query.Select.push("AttachmentFiles");
                     }
-                    // Clear the fields
-                    _this._info.fields = {};
-                    // Save the fields
-                    for (var i = 0; i < fields.results.length; i++) {
-                        var field = fields.results[i];
-                        // Save the field
-                        _this._info.fields[field.InternalName] = field;
-                    }
-                    // See if the fields have been defined
-                    if (_this._props.fields) {
-                        // Process the fields
-                        _this.processFields();
-                    }
-                    else {
-                        // Load the default fields
-                        return _this.loadDefaultFields();
-                    }
+                    // Get the list item
+                    _this._info.list.Items(_this._props.itemId)
+                        .query(_this._info.query)
+                        .execute(function (item) {
+                        // Save the item
+                        _this._info.item = item;
+                    });
+                }
+                // Wait for the requests to complete
+                _this._info.list.done(function () {
+                    // Resolve the promise
+                    _this._resolve();
                 });
-            }
-            else {
-                // See if the fields have been defined
-                if (_this._props.fields) {
-                    // Process the fields
-                    _this.processFields();
-                }
-                else {
-                    // Load the default fields
-                    return _this.loadDefaultFields();
-                }
-            }
-            // See if we are loading the list item
-            if (_this._props.itemId > 0) {
-                // Default the select query to get all the fields by default
-                _this._info.query.Select = _this._info.query.Select || ["*"];
-                // See if we are loading the attachments
-                if (_this._props.loadAttachments) {
-                    // Expand the attachment files collection
-                    _this._info.query.Expand = _this._info.query.Expand || [];
-                    _this._info.query.Expand.push("AttachmentFiles");
-                    // Select the attachment files
-                    _this._info.query.Select.push("Attachments");
-                    _this._info.query.Select.push("AttachmentFiles");
-                }
-                // Get the list item
-                list.Items(_this._props.itemId)
-                    .query(_this._info.query)
-                    .execute(function (item) {
-                    // Save the item
-                    _this._info.item = item;
-                });
-            }
-            // Wait for the requests to complete
-            list.done(function () {
-                // Resolve the promise
-                _this._resolve(_this._info);
             });
         };
         // Method to load the default content type
@@ -8668,7 +8620,7 @@ var _ListForm = /** @class */ (function () {
                     }
                     // Resolve the promise
                     resolve(ct);
-                }, true);
+                });
             });
         };
         // Method to load the default fields
@@ -8723,6 +8675,60 @@ var _ListForm = /** @class */ (function () {
                     }
                 }
             }
+        };
+        // Method to load the list data
+        this.loadListData = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Get the web
+                var list = _this._info.list || (new lib_1.Web(_this._props.webUrl))
+                    .Lists(_this._props.listName)
+                    .execute(function (list) {
+                    // Save the list
+                    _this._info.list = list;
+                });
+                // See if we need to load the fields
+                if (_this._info.fields == null) {
+                    // Load the fields
+                    list.Fields()
+                        .execute(function (fields) {
+                        // See if we are caching the data
+                        if (_this._props.cacheKey) {
+                            // Update the cache
+                            _this._cacheData = _this._cacheData || {};
+                            _this._cacheData.fields = fields.stringify();
+                            _this._cacheData.list = _this._info.list.stringify();
+                            // Cache the data
+                            sessionStorage.setItem(_this._props.cacheKey, JSON.stringify(_this._cacheData));
+                        }
+                        // Clear the fields
+                        _this._info.fields = {};
+                        // Save the fields
+                        for (var i = 0; i < fields.results.length; i++) {
+                            var field = fields.results[i];
+                            // Save the field
+                            _this._info.fields[field.InternalName] = field;
+                        }
+                    });
+                }
+                // Wait for the requests to complete
+                list.then(function () {
+                    // See if the fields have been defined
+                    if (_this._props.fields) {
+                        // Process the fields
+                        _this.processFields();
+                        // Resolve the promise
+                        resolve();
+                    }
+                    else {
+                        // Load the default fields
+                        _this.loadDefaultFields().then(function () {
+                            // Resolve the promise
+                            resolve();
+                        });
+                    }
+                });
+            });
         };
         // Method to process the fields
         this.processFields = function () {

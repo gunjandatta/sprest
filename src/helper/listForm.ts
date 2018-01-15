@@ -51,95 +51,40 @@ class _ListForm {
         // Load the data from cache
         this.loadFromCache();
 
-        // Get the web
-        let list = this._info.list || (new Web(this._props.webUrl))
-            // Get the list
-            .Lists(this._props.listName)
-            // Execute the request
-            .execute(list => {
-                // Save the list
-                this._info.list = list;
+        // Load the list data
+        this.loadListData().then(() => {
+            // See if we are loading the list item
+            if (this._props.itemId > 0) {
+                // Default the select query to get all the fields by default
+                this._info.query.Select = this._info.query.Select || ["*"];
+
+                // See if we are loading the attachments
+                if (this._props.loadAttachments) {
+                    // Expand the attachment files collection
+                    this._info.query.Expand = this._info.query.Expand || [];
+                    this._info.query.Expand.push("AttachmentFiles")
+
+                    // Select the attachment files
+                    this._info.query.Select.push("Attachments");
+                    this._info.query.Select.push("AttachmentFiles");
+                }
+
+                // Get the list item
+                this._info.list.Items(this._props.itemId)
+                    // Set the query
+                    .query(this._info.query)
+                    // Execute the request
+                    .execute(item => {
+                        // Save the item
+                        this._info.item = item;
+                    });
+            }
+
+            // Wait for the requests to complete
+            this._info.list.done(() => {
+                // Resolve the promise
+                this._resolve();
             });
-
-        // See if we need to load the fields
-        if (this._info.fields == null) {
-            // Load the fields
-            list.Fields()
-                // Execute the request
-                .execute(fields => {
-                    // See if we are caching the data
-                    if (this._props.cacheKey) {
-                        // Update the cache
-                        this._cacheData = this._cacheData || {} as any;
-                        this._cacheData.fields = fields.stringify();
-                        this._cacheData.list = this._info.list.stringify();
-
-                        // Cache the data
-                        sessionStorage.setItem(this._props.cacheKey, JSON.stringify(this._cacheData));
-                    }
-
-                    // Clear the fields
-                    this._info.fields = {};
-
-                    // Save the fields
-                    for (let i = 0; i < fields.results.length; i++) {
-                        let field = fields.results[i];
-
-                        // Save the field
-                        this._info.fields[field.InternalName] = field;
-                    }
-
-                    // See if the fields have been defined
-                    if (this._props.fields) {
-                        // Process the fields
-                        this.processFields();
-                    } else {
-                        // Load the default fields
-                        return this.loadDefaultFields();
-                    }
-                });
-        } else {
-            // See if the fields have been defined
-            if (this._props.fields) {
-                // Process the fields
-                this.processFields();
-            } else {
-                // Load the default fields
-                return this.loadDefaultFields();
-            }
-        }
-
-        // See if we are loading the list item
-        if (this._props.itemId > 0) {
-            // Default the select query to get all the fields by default
-            this._info.query.Select = this._info.query.Select || ["*"];
-
-            // See if we are loading the attachments
-            if (this._props.loadAttachments) {
-                // Expand the attachment files collection
-                this._info.query.Expand = this._info.query.Expand || [];
-                this._info.query.Expand.push("AttachmentFiles")
-
-                // Select the attachment files
-                this._info.query.Select.push("Attachments");
-                this._info.query.Select.push("AttachmentFiles");
-            }
-
-            // Get the list item
-            list.Items(this._props.itemId)
-                // Set the query
-                .query(this._info.query)
-                // Execute the request
-                .execute(item => {
-                    // Save the item
-                    this._info.item = item;
-                });
-        }
-
-        // Wait for the requests to complete
-        list.done(() => {
-            // Resolve the promise
-            this._resolve(this._info);
         });
     }
 
@@ -186,7 +131,7 @@ class _ListForm {
 
                     // Resolve the promise
                     resolve(ct as any);
-                }, true);
+                });
         });
     }
 
@@ -244,6 +189,70 @@ class _ListForm {
                 }
             }
         }
+    }
+
+    // Method to load the list data
+    private loadListData = (): PromiseLike<void> => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Get the web
+            let list = this._info.list || (new Web(this._props.webUrl))
+                // Get the list
+                .Lists(this._props.listName)
+                // Execute the request
+                .execute(list => {
+                    // Save the list
+                    this._info.list = list;
+                });
+
+            // See if we need to load the fields
+            if (this._info.fields == null) {
+                // Load the fields
+                list.Fields()
+                    // Execute the request
+                    .execute(fields => {
+                        // See if we are caching the data
+                        if (this._props.cacheKey) {
+                            // Update the cache
+                            this._cacheData = this._cacheData || {} as any;
+                            this._cacheData.fields = fields.stringify();
+                            this._cacheData.list = this._info.list.stringify();
+
+                            // Cache the data
+                            sessionStorage.setItem(this._props.cacheKey, JSON.stringify(this._cacheData));
+                        }
+
+                        // Clear the fields
+                        this._info.fields = {};
+
+                        // Save the fields
+                        for (let i = 0; i < fields.results.length; i++) {
+                            let field = fields.results[i];
+
+                            // Save the field
+                            this._info.fields[field.InternalName] = field;
+                        }
+                    });
+            }
+
+            // Wait for the requests to complete
+            list.then(() => {
+                // See if the fields have been defined
+                if (this._props.fields) {
+                    // Process the fields
+                    this.processFields();
+
+                    // Resolve the promise
+                    resolve();
+                } else {
+                    // Load the default fields
+                    this.loadDefaultFields().then(() => {
+                        // Resolve the promise
+                        resolve();
+                    });
+                }
+            });
+        });
     }
 
     // Method to process the fields
