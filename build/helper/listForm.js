@@ -185,7 +185,7 @@ var _ListForm = /** @class */ (function () {
                     });
                 }
                 // Wait for the requests to complete
-                list.then(function () {
+                list.done(function () {
                     // See if the fields have been defined
                     if (_this._props.fields) {
                         // Process the fields

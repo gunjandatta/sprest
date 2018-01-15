@@ -1048,7 +1048,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.86,
+    __ver: 2.87,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8712,7 +8712,7 @@ var _ListForm = /** @class */ (function () {
                     });
                 }
                 // Wait for the requests to complete
-                list.then(function () {
+                list.done(function () {
                     // See if the fields have been defined
                     if (_this._props.fields) {
                         // Process the fields

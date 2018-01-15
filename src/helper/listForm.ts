@@ -236,7 +236,7 @@ class _ListForm {
             }
 
             // Wait for the requests to complete
-            list.then(() => {
+            list.done(() => {
                 // See if the fields have been defined
                 if (this._props.fields) {
                     // Process the fields
