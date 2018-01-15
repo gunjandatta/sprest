@@ -11,7 +11,7 @@ var _ListForm = /** @class */ (function () {
     */
     function _ListForm(props) {
         var _this = this;
-        this._cacheKey = null;
+        this._cacheData = null;
         this._info = null;
         this._props = null;
         this._resolve = null;
@@ -39,9 +39,9 @@ var _ListForm = /** @class */ (function () {
                 list.Fields()
                     .execute(function (fields) {
                     // See if we are caching the data
-                    if (_this._cacheKey) {
+                    if (_this._props.cacheKey) {
                         // Cache the data
-                        sessionStorage.setItem(_this._cacheKey, JSON.stringify({
+                        sessionStorage.setItem(_this._props.cacheKey, JSON.stringify({
                             fields: fields.stringify(),
                             list: _this._info.list.stringify()
                         }));
@@ -64,6 +64,17 @@ var _ListForm = /** @class */ (function () {
                         return _this.loadDefaultFields();
                     }
                 });
+            }
+            else {
+                // See if the fields have been defined
+                if (_this._props.fields) {
+                    // Process the fields
+                    _this.processFields();
+                }
+                else {
+                    // Load the default fields
+                    return _this.loadDefaultFields();
+                }
             }
             // See if we are loading the list item
             if (_this._props.itemId > 0) {
@@ -92,10 +103,26 @@ var _ListForm = /** @class */ (function () {
                 _this._resolve(_this._info);
             });
         };
-        // Method to load the default fields
-        this.loadDefaultFields = function () {
+        // Method to load the default content type
+        this.loadDefaultContentType = function () {
+            var ct = null;
             // Return a promise
             return new Promise(function (resolve, reject) {
+                // See if the content type info exists
+                if (_this._cacheData && _this._cacheData.ct) {
+                    // Try to parse the data
+                    try {
+                        // Parse the content type
+                        ct = JSON.parse(_this._cacheData.ct);
+                        // Resolve the promise
+                        resolve(ct);
+                        return;
+                    }
+                    catch (_a) {
+                        // Clear the cache data
+                        sessionStorage.removeItem(_this._props.cacheKey);
+                    }
+                }
                 // Load the content types
                 _this._info.list.ContentTypes()
                     .query({
@@ -103,6 +130,24 @@ var _ListForm = /** @class */ (function () {
                     Top: 1
                 })
                     .execute(function (ct) {
+                    // See if we are storing data in cache
+                    if (_this._props.cacheKey) {
+                        // Update the cache data
+                        _this._cacheData.ct = ct.stringify();
+                        // Update the cache
+                        sessionStorage.setItem(_this._props.cacheKey, JSON.stringify(_this._cacheData));
+                    }
+                    // Resolve the promise
+                    resolve(ct);
+                }, true);
+            });
+        };
+        // Method to load the default fields
+        this.loadDefaultFields = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Load the content type
+                _this.loadDefaultContentType().then(function (ct) {
                     var fields = ct.results ? ct.results[0].FieldLinks.results : [];
                     var formFields = {};
                     // Parse the field links
@@ -125,29 +170,27 @@ var _ListForm = /** @class */ (function () {
                     }
                     // Update the fields
                     _this._info.fields = formFields;
-                    // Resolve the promise
-                    resolve();
-                }, true);
+                });
             });
         };
         // Method to load the data from cache
         this.loadFromCache = function () {
             // See if we are loading from cache
-            if (_this._cacheKey) {
+            if (_this._props.cacheKey) {
                 // Get the data
-                var data = sessionStorage.getItem(_this._cacheKey);
+                var data = sessionStorage.getItem(_this._props.cacheKey);
                 if (data) {
                     // Try to parse the data
                     try {
                         // Set the cache data
-                        var cacheData = JSON.parse(data);
+                        _this._cacheData = JSON.parse(data);
                         // Update the list information
-                        _this._info.fields = parse_1.parse(cacheData.fields);
-                        _this._info.list = parse_1.parse(cacheData.list);
+                        _this._info.fields = parse_1.parse(_this._cacheData.fields);
+                        _this._info.list = parse_1.parse(_this._cacheData.list);
                     }
                     catch (_a) {
                         // Clear the cache data
-                        sessionStorage.removeItem(_this._cacheKey);
+                        sessionStorage.removeItem(_this._props.cacheKey);
                     }
                 }
             }
@@ -170,8 +213,11 @@ var _ListForm = /** @class */ (function () {
         // Save the properties
         this._props = props || {};
         this._props.fields = this._props.fields;
-        // Set the cache key
-        this._cacheKey = this._props.cacheKey;
+        // See if we are loading data from cache
+        if (this._props.cacheKey) {
+            // Load the data from cache
+            this.loadFromCache();
+        }
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Save the resolve method

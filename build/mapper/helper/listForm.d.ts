@@ -24,6 +24,7 @@ export interface IListForm {
  * List Form Cache
  */
 export interface IListFormCache {
+    ct: string;
     fields: string;
     list: string;
 }

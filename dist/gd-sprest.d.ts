@@ -5723,6 +5723,7 @@ declare module 'gd-sprest/mapper/helper/listForm' {
         * List Form Cache
         */
     export interface IListFormCache {
+            ct: string;
             fields: string;
             list: string;
     }

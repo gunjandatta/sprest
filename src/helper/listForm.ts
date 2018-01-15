@@ -8,7 +8,7 @@ import { ListFormField } from "./listFormField";
  * List Form
  */
 class _ListForm {
-    private _cacheKey: string = null;
+    private _cacheData: Types.Helper.ListForm.IListFormCache = null;
     private _info: Types.Helper.ListForm.IListFormResult = null;
     private _props: Types.Helper.ListForm.IListFormProps = null;
     private _resolve = null;
@@ -21,8 +21,11 @@ class _ListForm {
         this._props = props || {} as any;
         this._props.fields = this._props.fields;
 
-        // Set the cache key
-        this._cacheKey = this._props.cacheKey;
+        // See if we are loading data from cache
+        if (this._props.cacheKey) {
+            // Load the data from cache
+            this.loadFromCache();
+        }
 
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -65,9 +68,9 @@ class _ListForm {
                 // Execute the request
                 .execute(fields => {
                     // See if we are caching the data
-                    if (this._cacheKey) {
+                    if (this._props.cacheKey) {
                         // Cache the data
-                        sessionStorage.setItem(this._cacheKey, JSON.stringify({
+                        sessionStorage.setItem(this._props.cacheKey, JSON.stringify({
                             fields: fields.stringify(),
                             list: this._info.list.stringify()
                         } as Types.Helper.ListForm.IListFormCache));
@@ -93,6 +96,15 @@ class _ListForm {
                         return this.loadDefaultFields();
                     }
                 });
+        } else {
+            // See if the fields have been defined
+            if (this._props.fields) {
+                // Process the fields
+                this.processFields();
+            } else {
+                // Load the default fields
+                return this.loadDefaultFields();
+            }
         }
 
         // See if we are loading the list item
@@ -129,10 +141,28 @@ class _ListForm {
         });
     }
 
-    // Method to load the default fields
-    private loadDefaultFields = () => {
+    // Method to load the default content type
+    private loadDefaultContentType = (): PromiseLike<IBaseCollection<Types.IContentTypeQueryResult>> => {
+        let ct: IBaseCollection<Types.IContentTypeQueryResult> = null;
+
         // Return a promise
         return new Promise((resolve, reject) => {
+            // See if the content type info exists
+            if (this._cacheData && this._cacheData.ct) {
+                // Try to parse the data
+                try {
+                    // Parse the content type
+                    ct = JSON.parse(this._cacheData.ct);
+
+                    // Resolve the promise
+                    resolve(ct);
+                    return;
+                } catch{
+                    // Clear the cache data
+                    sessionStorage.removeItem(this._props.cacheKey);
+                }
+            }
+
             // Load the content types
             this._info.list.ContentTypes()
                 // Query for the default content type and expand the field links
@@ -142,54 +172,72 @@ class _ListForm {
                 })
                 // Execute the request, but wait for the previous one to be completed
                 .execute(ct => {
-                    let fields = ct.results ? ct.results[0].FieldLinks.results : [];
-                    let formFields = {};
+                    // See if we are storing data in cache
+                    if (this._props.cacheKey) {
+                        // Update the cache data
+                        this._cacheData.ct = ct.stringify();
 
-                    // Parse the field links
-                    for (let i = 0; i < fields.length; i++) {
-                        let fieldLink = fields[i];
-
-                        // Get the field
-                        let field = this._info.fields[fieldLink.Name];
-                        if (field) {
-                            // Skip the content type field
-                            if (field.InternalName == "ContentType") { continue; }
-
-                            // Skip hidden fields
-                            if (field.Hidden || fieldLink.Hidden) { continue; }
-
-                            // Save the form field
-                            formFields[field.InternalName] = field;
-                        }
+                        // Update the cache
+                        sessionStorage.setItem(this._props.cacheKey, JSON.stringify(this._cacheData));
                     }
 
-                    // Update the fields
-                    this._info.fields = formFields;
-
                     // Resolve the promise
-                    resolve();
+                    resolve(ct as any);
                 }, true);
+        });
+    }
+
+    // Method to load the default fields
+    private loadDefaultFields = () => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Load the content type
+            this.loadDefaultContentType().then(ct => {
+                let fields = ct.results ? ct.results[0].FieldLinks.results : [];
+                let formFields = {};
+
+                // Parse the field links
+                for (let i = 0; i < fields.length; i++) {
+                    let fieldLink = fields[i];
+
+                    // Get the field
+                    let field = this._info.fields[fieldLink.Name];
+                    if (field) {
+                        // Skip the content type field
+                        if (field.InternalName == "ContentType") { continue; }
+
+                        // Skip hidden fields
+                        if (field.Hidden || fieldLink.Hidden) { continue; }
+
+                        // Save the form field
+                        formFields[field.InternalName] = field;
+                    }
+                }
+
+                // Update the fields
+                this._info.fields = formFields;
+            });
         });
     }
 
     // Method to load the data from cache
     private loadFromCache = () => {
         // See if we are loading from cache
-        if (this._cacheKey) {
+        if (this._props.cacheKey) {
             // Get the data
-            let data = sessionStorage.getItem(this._cacheKey);
+            let data = sessionStorage.getItem(this._props.cacheKey);
             if (data) {
                 // Try to parse the data
                 try {
                     // Set the cache data
-                    let cacheData: Types.Helper.ListForm.IListFormCache = JSON.parse(data);
+                    this._cacheData = JSON.parse(data);
 
                     // Update the list information
-                    this._info.fields = parse(cacheData.fields);
-                    this._info.list = parse(cacheData.list);
+                    this._info.fields = parse(this._cacheData.fields);
+                    this._info.list = parse(this._cacheData.list);
                 } catch {
                     // Clear the cache data
-                    sessionStorage.removeItem(this._cacheKey);
+                    sessionStorage.removeItem(this._props.cacheKey);
                 }
             }
         }
