@@ -5711,7 +5711,7 @@ declare module 'gd-sprest/mapper/helper/listForm' {
                 * Method to refresh the item.
                 * @param listInfo - The list form information.
                 */
-            refreshItem(listInfo: IListFormResult): PromiseLike<Types.IListItemQueryResult>;
+            refreshItem(listInfo: IListFormResult): PromiseLike<IListFormResult>;
             /**
                 * Method to save the item.
                 * @param itemValues - The list item values.

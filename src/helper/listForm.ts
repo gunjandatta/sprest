@@ -172,11 +172,17 @@ class _ListForm {
     }
 
     // Method to refresh an item
-    static refreshItem(info: Types.Helper.ListForm.IListFormResult): PromiseLike<Types.IListItemQueryResult> {
+    static refreshItem(info: Types.Helper.ListForm.IListFormResult): PromiseLike<Types.Helper.ListForm.IListFormResult> {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the item
-            info.list.Items(info.item.Id).query(info.query).execute(resolve);
+            info.list.Items(info.item.Id).query(info.query).execute(item => {
+                // Update the item
+                info.item = item;
+
+                // Resolve the promise
+                resolve(info);
+            });
         });
     }
 
@@ -189,10 +195,7 @@ class _ListForm {
                 // Update the item
                 info.item.update(formValues).execute(response => {
                     // Refresh the item
-                    this.refreshItem(info).then(item => {
-                        // Update the item
-                        info.item = item;
-
+                    this.refreshItem(info).then(info => {
                         // Resolve the promise
                         resolve(info);
                     });
@@ -206,10 +209,7 @@ class _ListForm {
                     // Execute the request
                     .execute(item => {
                         // Refresh the item
-                        this.refreshItem(info).then(item => {
-                            // Update the item
-                            info.item = item;
-
+                        this.refreshItem(info).then(info => {
                             // Resolve the promise
                             resolve(info);
                         });

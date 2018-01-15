@@ -1018,7 +1018,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.78,
+    __ver: 2.79,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8643,7 +8643,12 @@ var _ListForm = /** @class */ (function () {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Get the item
-            info.list.Items(info.item.Id).query(info.query).execute(resolve);
+            info.list.Items(info.item.Id).query(info.query).execute(function (item) {
+                // Update the item
+                info.item = item;
+                // Resolve the promise
+                resolve(info);
+            });
         });
     };
     // Method to save a new or existing item
@@ -8656,9 +8661,7 @@ var _ListForm = /** @class */ (function () {
                 // Update the item
                 info.item.update(formValues).execute(function (response) {
                     // Refresh the item
-                    _this.refreshItem(info).then(function (item) {
-                        // Update the item
-                        info.item = item;
+                    _this.refreshItem(info).then(function (info) {
                         // Resolve the promise
                         resolve(info);
                     });
@@ -8671,9 +8674,7 @@ var _ListForm = /** @class */ (function () {
                 info.list.Items().add(formValues)
                     .execute(function (item) {
                     // Refresh the item
-                    _this.refreshItem(info).then(function (item) {
-                        // Update the item
-                        info.item = item;
+                    _this.refreshItem(info).then(function (info) {
                         // Resolve the promise
                         resolve(info);
                     });

@@ -14,7 +14,7 @@ export interface IListForm {
      * Method to refresh the item.
      * @param listInfo - The list form information.
      */
-    refreshItem(listInfo: IListFormResult): PromiseLike<Types.IListItemQueryResult>;
+    refreshItem(listInfo: IListFormResult): PromiseLike<IListFormResult>;
 
     /**
      * Method to save the item.
