@@ -1048,7 +1048,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.94,
+    __ver: 2.95,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8659,6 +8659,7 @@ var _ListForm = /** @class */ (function () {
             // See if we are loading the list item
             if (_this._props.itemId > 0) {
                 // Default the select query to get all the fields by default
+                _this._info.query = _this._props.query || {};
                 _this._info.query.Select = _this._info.query.Select || ["*"];
                 // See if we are loading the attachments
                 if (_this._props.loadAttachments) {

@@ -168,6 +168,7 @@ class _ListForm {
         // See if we are loading the list item
         if (this._props.itemId > 0) {
             // Default the select query to get all the fields by default
+            this._info.query = this._props.query || {};
             this._info.query.Select = this._info.query.Select || ["*"];
 
             // See if we are loading the attachments
