@@ -152,6 +152,7 @@ class _ListForm {
                     this._cacheData = JSON.parse(data);
 
                     // Update the list information
+                    this._info = this._info || {} as any;
                     this._info.fields = parse(this._cacheData.fields);
                     this._info.list = parse(this._cacheData.list);
                 } catch {

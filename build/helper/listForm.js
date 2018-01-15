@@ -116,6 +116,7 @@ var _ListForm = /** @class */ (function () {
                         // Set the cache data
                         _this._cacheData = JSON.parse(data);
                         // Update the list information
+                        _this._info = _this._info || {};
                         _this._info.fields = parse_1.parse(_this._cacheData.fields);
                         _this._info.list = parse_1.parse(_this._cacheData.list);
                     }
