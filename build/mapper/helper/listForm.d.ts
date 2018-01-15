@@ -10,14 +10,15 @@ export interface IListForm {
     new (props: IListFormProps): PromiseLike<IListFormResult>;
     /**
      * Method to refresh the item.
+     * @param listInfo - The list form information.
      */
     refreshItem(listInfo: IListFormResult): PromiseLike<Types.IListItemQueryResult>;
     /**
      * Method to save the item.
-     * @param item - The list item.
+     * @param itemValues - The list item values.
      * @param list - The list.
      */
-    saveItem(item: any, list: Types.IListResult): PromiseLike<Types.IListItemQueryResult>;
+    saveItem(itemValues: any, list: Types.IListResult): PromiseLike<IListFormResult>;
 }
 /**
  * List Form Properties

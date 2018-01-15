@@ -181,7 +181,7 @@ class _ListForm {
     }
 
     // Method to save a new or existing item
-    static saveItem(info: Types.Helper.ListForm.IListFormResult, formValues: any) {
+    static saveItem(info: Types.Helper.ListForm.IListFormResult, formValues: any): PromiseLike<Types.Helper.ListForm.IListFormResult> {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if this is an existing item
