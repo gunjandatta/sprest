@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
+var types_1 = require("../types");
 /**
  * List Form Field
  */
@@ -45,6 +46,70 @@ var _ListFormField = /** @class */ (function () {
             _this._fieldInfo.title = _this._fieldInfo.field.Title;
             _this._fieldInfo.type = _this._fieldInfo.field.FieldTypeKind;
             _this._fieldInfo.typeAsString = _this._fieldInfo.field.TypeAsString;
+            // Update the field info, based on the type
+            switch (_this._fieldInfo.type) {
+                // Choice
+                case types_1.SPTypes.FieldType.Choice:
+                case types_1.SPTypes.FieldType.MultiChoice:
+                    var choices = _this._fieldInfo.field.Choices;
+                    _this._fieldInfo.choices = (choices ? choices.results : null) || [];
+                    _this._fieldInfo.multi = _this._fieldInfo.type == types_1.SPTypes.FieldType.MultiChoice;
+                    break;
+                // Date/Time
+                case types_1.SPTypes.FieldType.DateTime:
+                    var fldDate = _this._fieldInfo.field;
+                    _this._fieldInfo.showTime = fldDate.DisplayFormat == types_1.SPTypes.DateFormat.DateTime;
+                    break;
+                // Lookup
+                case types_1.SPTypes.FieldType.Lookup:
+                    var fldLookup = _this._fieldInfo.field;
+                    _this._fieldInfo.lookupField = fldLookup.LookupField;
+                    _this._fieldInfo.lookupListId = fldLookup.LookupList;
+                    _this._fieldInfo.lookupWebId = fldLookup.LookupWebId;
+                    _this._fieldInfo.multi = fldLookup.AllowMultipleValues;
+                    break;
+                // Number
+                case types_1.SPTypes.FieldType.Number:
+                    var fldNumber = _this._fieldInfo.field;
+                    _this._fieldInfo.maxValue = fldNumber.MaximumValue;
+                    _this._fieldInfo.minValue = fldNumber.MinimumValue;
+                    if (fldNumber.ShowAsPercentage != undefined) {
+                        _this._fieldInfo.showAsPercentage = fldNumber.ShowAsPercentage;
+                    }
+                    else {
+                        _this._fieldInfo.showAsPercentage = fldNumber.SchemaXml.indexOf('Percentage="TRUE"') > 0;
+                    }
+                    break;
+                // Note
+                case types_1.SPTypes.FieldType.Note:
+                    var fldNote = _this._fieldInfo.field;
+                    _this._fieldInfo.multiline = true;
+                    _this._fieldInfo.richText = fldNote.RichText;
+                    _this._fieldInfo.rows = fldNote.NumberOfLines;
+                    break;
+                // Text
+                case types_1.SPTypes.FieldType.Text:
+                    _this._fieldInfo.multiline = false;
+                    _this._fieldInfo.richText = false;
+                    _this._fieldInfo.rows = 1;
+                    break;
+                // User
+                case types_1.SPTypes.FieldType.User:
+                    var fldUser = _this._fieldInfo.field;
+                    _this._fieldInfo.allowGroups = fldUser.SelectionMode == types_1.SPTypes.FieldUserSelectionType.PeopleAndGroups;
+                    _this._fieldInfo.multi = fldUser.AllowMultipleValues;
+                    break;
+                // Default
+                default:
+                    // See if this is an MMS field
+                    if (_this._fieldInfo.typeAsString.startsWith("TaxonomyFieldType")) {
+                        var fldMMS = _this._fieldInfo.field;
+                        _this._fieldInfo.multi = fldMMS.AllowMultipleValues;
+                        _this._fieldInfo.termSetId = fldMMS.TermSetId;
+                        _this._fieldInfo.termStoreId = fldMMS.SspId;
+                    }
+                    break;
+            }
             // Resolve the promise
             _this._resolve(_this._fieldInfo);
         };
@@ -65,6 +130,115 @@ var _ListFormField = /** @class */ (function () {
             }
         });
     }
+    // Method to load the lookup data
+    _ListFormField.loadLookupData = function (info, queryTop) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Get the current site collection
+            (new lib_1.Site())
+                .openWebById(info.lookupWebId)
+                .execute(function (web) {
+                // Get the list
+                web.Lists()
+                    .getById(info.lookupListId)
+                    .Items()
+                    .query({
+                    GetAllItems: true,
+                    Select: ["ID", info.lookupField],
+                    Top: queryTop > 0 && queryTop <= 5000 ? queryTop : 500
+                })
+                    .execute(function (items) {
+                    // Resolve the promise
+                    resolve(items.results);
+                });
+            });
+        });
+    };
+    // Method to load the mms data
+    _ListFormField.loadMMSData = function (info) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Ensure the utility class is loaded
+            SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", function () {
+                // Ensure the taxonomy script is loaded
+                SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
+                SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
+                    // Load the terms
+                    var context = SP.ClientContext.get_current();
+                    var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+                    var termStore = session.get_termStores().getById(info.termStoreId);
+                    var termSet = termStore.getTermSet(info.termSetId);
+                    var terms = termSet.getAllTerms();
+                    context.load(terms);
+                    // Execute the request
+                    context.executeQueryAsync(
+                    // Success
+                    function () {
+                        var termSet = [];
+                        // Parse the terms
+                        var enumerator = terms.getEnumerator();
+                        while (enumerator.moveNext()) {
+                            var term = enumerator.get_current();
+                            // Add the term information
+                            termSet.push({
+                                id: term.get_id().toString(),
+                                name: term.get_name(),
+                                path: term.get_pathOfTerm().replace(/;/g, "/")
+                            });
+                        }
+                        // Sort the terms
+                        termSet.sort(function (a, b) {
+                            if (a.path < b.path) {
+                                return -1;
+                            }
+                            if (a.path > b.path) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        // Resolve the request
+                        resolve(termSet);
+                    }, 
+                    // Error
+                    function () {
+                        // Log
+                        console.log("[gd-sprest] Error getting the term set terms.");
+                        // Resolve the request
+                        resolve(termSet);
+                    });
+                });
+            });
+        });
+    };
+    // Method to load the mms value field
+    _ListFormField.loadMMSValueField = function (info) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // See if we are allowing multiple values
+            if (info.multi) {
+                // Get the web
+                (new lib_1.Web(info.webUrl))
+                    .Lists(info.listName)
+                    .Fields()
+                    .getByInternalNameOrTitle(info.name + "_0")
+                    .execute(function (field) {
+                    // See if the field exists
+                    if (field.existsFl) {
+                        // Resolve the promise
+                        resolve(field);
+                    }
+                    else {
+                        // Log
+                        console.log("[gd-sprest] Unable to find the hidden value field for '" + info.name + "'.");
+                    }
+                });
+            }
+            else {
+                // Resolve the promise
+                resolve();
+            }
+        });
+    };
     return _ListFormField;
 }());
 exports.ListFormField = _ListFormField;
