@@ -217,5 +217,5 @@ export interface IListFormField {
     loadMMSData(info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Array<any>>;
 
     /** Method to load the mms value field */
-    loadMMSValueField(info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Types.IFieldResult>;
+    loadMMSValueField(info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Types.IFieldManagedMetadata>;
 }
