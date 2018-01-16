@@ -28,6 +28,7 @@ export interface IListForm {
  * List Form Cache
  */
 export interface IListFormCache {
+    ct: string;
     fields: string;
     list: string;
 }
@@ -111,6 +112,95 @@ export interface IListFormFieldInfo {
 }
 
 /**
+ * List Form Choice Field Information
+ */
+export interface IListFormChoiceFieldInfo extends IListFormFieldInfo {
+    /** The choices. */
+    choices?: Array<string>;
+
+    /** Flag to determine if multiple values exist */
+    multi?: boolean;
+}
+
+/**
+ * List Form Date Field Information
+ */
+export interface IListFormDateFieldInfo extends IListFormFieldInfo {
+    /** Flag determining if we are displaying time */
+    showTime?: boolean;
+}
+
+/**
+ * List Form Lookup Field Information
+ */
+export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
+    /** The lookup field */
+    lookupField?: string;
+
+    /** The lookup list id */
+    lookupListId?: string;
+
+    /** The lookup web id */
+    lookupWebId?: string;
+
+    /** Flag to determine if multiple values exist */
+    multi?: boolean;
+}
+
+/**
+ * List Form MMS Field Information
+ */
+export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
+    /** Flag to determine if multiple values exist */
+    multi?: boolean;
+
+    /** The term set id */
+    termSetId?: string;
+
+    /** The term store id */
+    termStoreId?: string;
+}
+
+/**
+ * List Form Number Field Information
+ */
+export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
+    /** The maximum value */
+    maxValue?: number;
+
+    /** The minimum value */
+    minValue?: number;
+
+    /** Flag determining if we are displaying the value as a percentage */
+    showAsPercentage?: boolean;
+}
+
+/**
+ * List Form Text Field Information
+ */
+export interface IListFormTextFieldInfo extends IListFormFieldInfo {
+    /** Flag determining if this is a note field */
+    multiline?: boolean;
+
+    /** Flag determining if this field value is html encoded */
+    richText?: boolean;
+
+    /** The number of rows to display */
+    rows?: number;
+}
+
+/**
+ * List Form User Field Information
+ */
+export interface IListFormUserFieldInfo extends IListFormFieldInfo {
+    /** Flag to determine if groups are allowed */
+    allowGroups?: boolean;
+
+    /** Flag to determine if multiple values exist */
+    multi?: boolean;
+}
+
+/**
  * List Form Field
  */
 export interface IListFormField {
@@ -119,4 +209,13 @@ export interface IListFormField {
      * @param props - The list form field properties
      */
     new(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
+
+    /** Method to load the lookup data */
+    loadLookupData(info: Types.Helper.ListForm.IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.IListItemQueryResult>>;
+
+    /** Method to load the mms data */
+    loadMMSData(info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Array<any>>;
+
+    /** Method to load the mms value field */
+    loadMMSValueField(info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Types.IFieldManagedMetadata>;
 }

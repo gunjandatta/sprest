@@ -8,10 +8,10 @@ import { ListFormField } from "./listFormField";
  * List Form
  */
 class _ListForm {
-    private _cacheKey: string = null;
+    private _cacheData: Types.Helper.ListForm.IListFormCache = null;
     private _info: Types.Helper.ListForm.IListFormResult = null;
     private _props: Types.Helper.ListForm.IListFormProps = null;
-    private _resolve = null;
+    private _resolve: (info: Types.Helper.ListForm.IListFormResult) => void = null;
 
     /**
      * Constructor
@@ -21,8 +21,11 @@ class _ListForm {
         this._props = props || {} as any;
         this._props.fields = this._props.fields;
 
-        // Set the cache key
-        this._cacheKey = this._props.cacheKey;
+        // See if we are loading data from cache
+        if (this._props.cacheKey) {
+            // Load the data from cache
+            this.loadFromCache();
+        }
 
         // Return a promise
         return new Promise((resolve, reject) => {
@@ -48,56 +51,140 @@ class _ListForm {
         // Load the data from cache
         this.loadFromCache();
 
-        // Get the web
-        let list = this._info.list || (new Web(this._props.webUrl))
-            // Get the list
-            .Lists(this._props.listName)
-            // Execute the request
-            .execute(list => {
-                // Save the list
-                this._info.list = list;
-            });
+        // Load the list data
+        this.loadListData().then(() => {
+            // See if the fields have been defined
+            if (this._props.fields) {
+                // Process the fields
+                this.processFields();
 
-        // See if we need to load the fields
-        if (this._info.fields == null) {
-            // Load the fields
-            list.Fields()
-                // Execute the request
-                .execute(fields => {
-                    // See if we are caching the data
-                    if (this._cacheKey) {
-                        // Cache the data
-                        let data = JSON.stringify({
-                            fields: fields.response,
-                            list: this._info.list.response
-                        } as Types.Helper.ListForm.IListFormCache);
-                    }
+                // Load the item data
+                this.loadItem();
+            } else {
+                // Load the content type
+                this.loadDefaultContentType();
+            }
+        });
+    }
 
-                    // Clear the fields
-                    this._info.fields = {};
+    // Method to load the default content type
+    private loadDefaultContentType = () => {
+        // See if the content type info exists
+        if (this._cacheData && this._cacheData.ct) {
+            // Try to parse the data
+            try {
+                // Parse the content type
+                let ct = parse(this._cacheData.ct) as IBaseCollection<Types.IContentTypeQueryResult>;
 
-                    // Save the fields
-                    for (let i = 0; i < fields.results.length; i++) {
-                        let field = fields.results[i];
-
-                        // Save the field
-                        this._info.fields[field.InternalName] = field;
-                    }
-
-                    // See if the fields have been defined
-                    if (this._props.fields) {
-                        // Process the fields
-                        this.processFields();
-                    } else {
-                        // Load the default fields
-                        return this.loadDefaultFields();
-                    }
-                });
+                // Load the default fields
+                this.loadDefaultFields(ct.results[0]);
+                return;
+            } catch{
+                // Clear the cache data
+                sessionStorage.removeItem(this._props.cacheKey);
+            }
         }
 
+        // Load the content types
+        this._info.list.ContentTypes()
+            // Query for the default content type and expand the field links
+            .query({
+                Expand: ["FieldLinks"],
+                Top: 1
+            })
+            // Execute the request, but wait for the previous one to be completed
+            .execute(ct => {
+                // See if we are storing data in cache
+                if (this._props.cacheKey) {
+                    // Update the cache data
+                    this._cacheData = this._cacheData || {} as any;
+                    this._cacheData.ct = ct.stringify();
+
+                    // Update the cache
+                    sessionStorage.setItem(this._props.cacheKey, JSON.stringify(this._cacheData));
+                }
+
+                // Resolve the promise
+                this.loadDefaultFields(ct.results[0]);
+            });
+    }
+
+    // Method to load the default fields
+    private loadDefaultFields = (ct: Types.IContentTypeQueryResult) => {
+        let fields = ct ? ct.FieldLinks.results : [];
+        let formFields = {};
+
+        // Parse the field links
+        for (let i = 0; i < fields.length; i++) {
+            let fieldLink = fields[i];
+
+            // Get the field
+            let field = this._info.fields[fieldLink.Name];
+            if (field) {
+                // Skip the content type field
+                if (field.InternalName == "ContentType") { continue; }
+
+                // Skip hidden fields
+                if (field.Hidden || fieldLink.Hidden) { continue; }
+
+                // Save the form field
+                formFields[field.InternalName] = field;
+            }
+        }
+
+        // Update the fields
+        this._info.fields = formFields;
+
+        // Load the item data
+        this.loadItem();
+    }
+
+    // Method to load the field data
+    private loadFieldData = (fields: Types.IFieldResults) => {
+        // Clear the fields
+        this._info.fields = {};
+
+        // Parse the fields
+        for (let i = 0; i < fields.results.length; i++) {
+            let field = fields.results[i];
+
+            // Save the field
+            this._info.fields[field.InternalName] = field;
+        }
+    }
+
+    // Method to load the data from cache
+    private loadFromCache = () => {
+        // See if we are loading from cache
+        if (this._props.cacheKey) {
+            // Get the data
+            let data = sessionStorage.getItem(this._props.cacheKey);
+            if (data) {
+                // Try to parse the data
+                try {
+                    // Set the cache data
+                    this._cacheData = JSON.parse(data);
+
+                    // Update the list information
+                    this._info = this._info || {} as any;
+                    this._info.list = parse(this._cacheData.list);
+
+                    // Load the field data
+                    this.loadFieldData(parse(this._cacheData.fields));
+                } catch {
+                    // Clear the cache data
+                    sessionStorage.removeItem(this._props.cacheKey);
+                }
+            }
+        }
+    }
+
+    // Method to load the item
+    private loadItem = () => {
         // See if we are loading the list item
         if (this._props.itemId > 0) {
             // Default the select query to get all the fields by default
+            this._info.query = this._props.query || {};
             this._info.query.Select = this._info.query.Select || ["*"];
 
             // See if we are loading the attachments
@@ -112,87 +199,66 @@ class _ListForm {
             }
 
             // Get the list item
-            list.Items(this._props.itemId)
+            this._info.list.Items(this._props.itemId)
                 // Set the query
                 .query(this._info.query)
                 // Execute the request
                 .execute(item => {
                     // Save the item
                     this._info.item = item;
-                });
-        }
 
-        // Wait for the requests to complete
-        list.done(() => {
+                    // Resolve the promise
+                    this._resolve(this._info);
+                });
+        } else {
             // Resolve the promise
             this._resolve(this._info);
-        });
+        }
     }
 
-    // Method to load the default fields
-    private loadDefaultFields = () => {
+    // Method to load the list data
+    private loadListData = (): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Load the content types
-            this._info.list.ContentTypes()
-                // Query for the default content type and expand the field links
-                .query({
-                    Expand: ["FieldLinks"],
-                    Top: 1
-                })
-                // Execute the request, but wait for the previous one to be completed
-                .execute(ct => {
-                    let fields = ct.results ? ct.results[0].FieldLinks.results : [];
-                    let formFields = {};
+            // See if the list & fields already exist
+            if (this._info.list && this._info.fields) {
+                // Resolve the promise
+                resolve();
+                return;
+            }
 
-                    // Parse the field links
-                    for (let i = 0; i < fields.length; i++) {
-                        let fieldLink = fields[i];
+            // Get the web
+            let list = (new Web(this._props.webUrl))
+                // Get the list
+                .Lists(this._props.listName)
+                // Execute the request
+                .execute(list => {
+                    // Save the list
+                    this._info.list = list;
+                });
 
-                        // Get the field
-                        let field = this._info.fields[fieldLink.Name];
-                        if (field) {
-                            // Skip the content type field
-                            if (field.InternalName == "ContentType") { continue; }
+            // Load the fields
+            list.Fields()
+                // Execute the request
+                .execute(fields => {
+                    // See if we are caching the data
+                    if (this._props.cacheKey) {
+                        // Update the cache
+                        this._cacheData = this._cacheData || {} as any;
+                        this._cacheData.fields = fields.stringify();
+                        this._cacheData.list = this._info.list.stringify();
 
-                            // Skip hidden fields
-                            if (field.Hidden || fieldLink.Hidden) { continue; }
-
-                            // Save the form field
-                            formFields[field.InternalName] = field;
-                        }
+                        // Cache the data
+                        sessionStorage.setItem(this._props.cacheKey, JSON.stringify(this._cacheData));
                     }
 
-                    // Update the fields
-                    this._info.fields = formFields;
+                    // Load the field data
+                    this.loadFieldData(fields as any);
 
                     // Resolve the promise
                     resolve();
-                }, true);
+                });
         });
-    }
-
-    // Method to load the data from cache
-    private loadFromCache = () => {
-        // See if we are loading from cache
-        if (this._cacheKey) {
-            // Get the data
-            let data = sessionStorage.getItem(this._cacheKey);
-            if (data) {
-                // Try to parse the data
-                try {
-                    // Set the cache data
-                    let cacheData: Types.Helper.ListForm.IListFormCache = JSON.parse(data);
-
-                    // Update the list information
-                    this._info.fields = parse(cacheData.fields);
-                    this._info.list = parse(cacheData.list);
-                } catch {
-                    // Clear the cache data
-                    sessionStorage.removeItem(this._cacheKey);
-                }
-            }
-        }
     }
 
     // Method to process the fields

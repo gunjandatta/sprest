@@ -11,7 +11,7 @@ var _ListForm = /** @class */ (function () {
     */
     function _ListForm(props) {
         var _this = this;
-        this._cacheKey = null;
+        this._cacheData = null;
         this._info = null;
         this._props = null;
         this._resolve = null;
@@ -26,48 +26,125 @@ var _ListForm = /** @class */ (function () {
             };
             // Load the data from cache
             _this.loadFromCache();
-            // Get the web
-            var list = _this._info.list || (new lib_1.Web(_this._props.webUrl))
-                .Lists(_this._props.listName)
-                .execute(function (list) {
-                // Save the list
-                _this._info.list = list;
+            // Load the list data
+            _this.loadListData().then(function () {
+                // See if the fields have been defined
+                if (_this._props.fields) {
+                    // Process the fields
+                    _this.processFields();
+                    // Load the item data
+                    _this.loadItem();
+                }
+                else {
+                    // Load the content type
+                    _this.loadDefaultContentType();
+                }
             });
-            // See if we need to load the fields
-            if (_this._info.fields == null) {
-                // Load the fields
-                list.Fields()
-                    .execute(function (fields) {
-                    // See if we are caching the data
-                    if (_this._cacheKey) {
-                        // Cache the data
-                        var data = JSON.stringify({
-                            fields: fields.response,
-                            list: _this._info.list.response
-                        });
-                    }
-                    // Clear the fields
-                    _this._info.fields = {};
-                    // Save the fields
-                    for (var i = 0; i < fields.results.length; i++) {
-                        var field = fields.results[i];
-                        // Save the field
-                        _this._info.fields[field.InternalName] = field;
-                    }
-                    // See if the fields have been defined
-                    if (_this._props.fields) {
-                        // Process the fields
-                        _this.processFields();
-                    }
-                    else {
-                        // Load the default fields
-                        return _this.loadDefaultFields();
-                    }
-                });
+        };
+        // Method to load the default content type
+        this.loadDefaultContentType = function () {
+            // See if the content type info exists
+            if (_this._cacheData && _this._cacheData.ct) {
+                // Try to parse the data
+                try {
+                    // Parse the content type
+                    var ct = parse_1.parse(_this._cacheData.ct);
+                    // Load the default fields
+                    _this.loadDefaultFields(ct.results[0]);
+                    return;
+                }
+                catch (_a) {
+                    // Clear the cache data
+                    sessionStorage.removeItem(_this._props.cacheKey);
+                }
             }
+            // Load the content types
+            _this._info.list.ContentTypes()
+                .query({
+                Expand: ["FieldLinks"],
+                Top: 1
+            })
+                .execute(function (ct) {
+                // See if we are storing data in cache
+                if (_this._props.cacheKey) {
+                    // Update the cache data
+                    _this._cacheData = _this._cacheData || {};
+                    _this._cacheData.ct = ct.stringify();
+                    // Update the cache
+                    sessionStorage.setItem(_this._props.cacheKey, JSON.stringify(_this._cacheData));
+                }
+                // Resolve the promise
+                _this.loadDefaultFields(ct.results[0]);
+            });
+        };
+        // Method to load the default fields
+        this.loadDefaultFields = function (ct) {
+            var fields = ct ? ct.FieldLinks.results : [];
+            var formFields = {};
+            // Parse the field links
+            for (var i = 0; i < fields.length; i++) {
+                var fieldLink = fields[i];
+                // Get the field
+                var field = _this._info.fields[fieldLink.Name];
+                if (field) {
+                    // Skip the content type field
+                    if (field.InternalName == "ContentType") {
+                        continue;
+                    }
+                    // Skip hidden fields
+                    if (field.Hidden || fieldLink.Hidden) {
+                        continue;
+                    }
+                    // Save the form field
+                    formFields[field.InternalName] = field;
+                }
+            }
+            // Update the fields
+            _this._info.fields = formFields;
+            // Load the item data
+            _this.loadItem();
+        };
+        // Method to load the field data
+        this.loadFieldData = function (fields) {
+            // Clear the fields
+            _this._info.fields = {};
+            // Parse the fields
+            for (var i = 0; i < fields.results.length; i++) {
+                var field = fields.results[i];
+                // Save the field
+                _this._info.fields[field.InternalName] = field;
+            }
+        };
+        // Method to load the data from cache
+        this.loadFromCache = function () {
+            // See if we are loading from cache
+            if (_this._props.cacheKey) {
+                // Get the data
+                var data = sessionStorage.getItem(_this._props.cacheKey);
+                if (data) {
+                    // Try to parse the data
+                    try {
+                        // Set the cache data
+                        _this._cacheData = JSON.parse(data);
+                        // Update the list information
+                        _this._info = _this._info || {};
+                        _this._info.list = parse_1.parse(_this._cacheData.list);
+                        // Load the field data
+                        _this.loadFieldData(parse_1.parse(_this._cacheData.fields));
+                    }
+                    catch (_a) {
+                        // Clear the cache data
+                        sessionStorage.removeItem(_this._props.cacheKey);
+                    }
+                }
+            }
+        };
+        // Method to load the item
+        this.loadItem = function () {
             // See if we are loading the list item
             if (_this._props.itemId > 0) {
                 // Default the select query to get all the fields by default
+                _this._info.query = _this._props.query || {};
                 _this._info.query.Select = _this._info.query.Select || ["*"];
                 // See if we are loading the attachments
                 if (_this._props.loadAttachments) {
@@ -79,78 +156,55 @@ var _ListForm = /** @class */ (function () {
                     _this._info.query.Select.push("AttachmentFiles");
                 }
                 // Get the list item
-                list.Items(_this._props.itemId)
+                _this._info.list.Items(_this._props.itemId)
                     .query(_this._info.query)
                     .execute(function (item) {
                     // Save the item
                     _this._info.item = item;
+                    // Resolve the promise
+                    _this._resolve(_this._info);
                 });
             }
-            // Wait for the requests to complete
-            list.done(function () {
+            else {
                 // Resolve the promise
                 _this._resolve(_this._info);
-            });
+            }
         };
-        // Method to load the default fields
-        this.loadDefaultFields = function () {
+        // Method to load the list data
+        this.loadListData = function () {
             // Return a promise
             return new Promise(function (resolve, reject) {
-                // Load the content types
-                _this._info.list.ContentTypes()
-                    .query({
-                    Expand: ["FieldLinks"],
-                    Top: 1
-                })
-                    .execute(function (ct) {
-                    var fields = ct.results ? ct.results[0].FieldLinks.results : [];
-                    var formFields = {};
-                    // Parse the field links
-                    for (var i = 0; i < fields.length; i++) {
-                        var fieldLink = fields[i];
-                        // Get the field
-                        var field = _this._info.fields[fieldLink.Name];
-                        if (field) {
-                            // Skip the content type field
-                            if (field.InternalName == "ContentType") {
-                                continue;
-                            }
-                            // Skip hidden fields
-                            if (field.Hidden || fieldLink.Hidden) {
-                                continue;
-                            }
-                            // Save the form field
-                            formFields[field.InternalName] = field;
-                        }
-                    }
-                    // Update the fields
-                    _this._info.fields = formFields;
+                // See if the list & fields already exist
+                if (_this._info.list && _this._info.fields) {
                     // Resolve the promise
                     resolve();
-                }, true);
-            });
-        };
-        // Method to load the data from cache
-        this.loadFromCache = function () {
-            // See if we are loading from cache
-            if (_this._cacheKey) {
-                // Get the data
-                var data = sessionStorage.getItem(_this._cacheKey);
-                if (data) {
-                    // Try to parse the data
-                    try {
-                        // Set the cache data
-                        var cacheData = JSON.parse(data);
-                        // Update the list information
-                        _this._info.fields = parse_1.parse(cacheData.fields);
-                        _this._info.list = parse_1.parse(cacheData.list);
-                    }
-                    catch (_a) {
-                        // Clear the cache data
-                        sessionStorage.removeItem(_this._cacheKey);
-                    }
+                    return;
                 }
-            }
+                // Get the web
+                var list = (new lib_1.Web(_this._props.webUrl))
+                    .Lists(_this._props.listName)
+                    .execute(function (list) {
+                    // Save the list
+                    _this._info.list = list;
+                });
+                // Load the fields
+                list.Fields()
+                    .execute(function (fields) {
+                    // See if we are caching the data
+                    if (_this._props.cacheKey) {
+                        // Update the cache
+                        _this._cacheData = _this._cacheData || {};
+                        _this._cacheData.fields = fields.stringify();
+                        _this._cacheData.list = _this._info.list.stringify();
+                        // Cache the data
+                        sessionStorage.setItem(_this._props.cacheKey, JSON.stringify(_this._cacheData));
+                    }
+                    // Load the field data
+                    _this.loadFieldData(fields);
+                    // Resolve the promise
+                    resolve();
+                });
+            });
         };
         // Method to process the fields
         this.processFields = function () {
@@ -170,8 +224,11 @@ var _ListForm = /** @class */ (function () {
         // Save the properties
         this._props = props || {};
         this._props.fields = this._props.fields;
-        // Set the cache key
-        this._cacheKey = this._props.cacheKey;
+        // See if we are loading data from cache
+        if (this._props.cacheKey) {
+            // Load the data from cache
+            this.loadFromCache();
+        }
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Save the resolve method

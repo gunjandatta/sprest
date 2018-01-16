@@ -1048,7 +1048,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 2.80,
+    __ver: 2.98,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -8538,7 +8538,7 @@ var _ListForm = /** @class */ (function () {
     */
     function _ListForm(props) {
         var _this = this;
-        this._cacheKey = null;
+        this._cacheData = null;
         this._info = null;
         this._props = null;
         this._resolve = null;
@@ -8553,48 +8553,125 @@ var _ListForm = /** @class */ (function () {
             };
             // Load the data from cache
             _this.loadFromCache();
-            // Get the web
-            var list = _this._info.list || (new lib_1.Web(_this._props.webUrl))
-                .Lists(_this._props.listName)
-                .execute(function (list) {
-                // Save the list
-                _this._info.list = list;
+            // Load the list data
+            _this.loadListData().then(function () {
+                // See if the fields have been defined
+                if (_this._props.fields) {
+                    // Process the fields
+                    _this.processFields();
+                    // Load the item data
+                    _this.loadItem();
+                }
+                else {
+                    // Load the content type
+                    _this.loadDefaultContentType();
+                }
             });
-            // See if we need to load the fields
-            if (_this._info.fields == null) {
-                // Load the fields
-                list.Fields()
-                    .execute(function (fields) {
-                    // See if we are caching the data
-                    if (_this._cacheKey) {
-                        // Cache the data
-                        var data = JSON.stringify({
-                            fields: fields.response,
-                            list: _this._info.list.response
-                        });
-                    }
-                    // Clear the fields
-                    _this._info.fields = {};
-                    // Save the fields
-                    for (var i = 0; i < fields.results.length; i++) {
-                        var field = fields.results[i];
-                        // Save the field
-                        _this._info.fields[field.InternalName] = field;
-                    }
-                    // See if the fields have been defined
-                    if (_this._props.fields) {
-                        // Process the fields
-                        _this.processFields();
-                    }
-                    else {
-                        // Load the default fields
-                        return _this.loadDefaultFields();
-                    }
-                });
+        };
+        // Method to load the default content type
+        this.loadDefaultContentType = function () {
+            // See if the content type info exists
+            if (_this._cacheData && _this._cacheData.ct) {
+                // Try to parse the data
+                try {
+                    // Parse the content type
+                    var ct = parse_1.parse(_this._cacheData.ct);
+                    // Load the default fields
+                    _this.loadDefaultFields(ct.results[0]);
+                    return;
+                }
+                catch (_a) {
+                    // Clear the cache data
+                    sessionStorage.removeItem(_this._props.cacheKey);
+                }
             }
+            // Load the content types
+            _this._info.list.ContentTypes()
+                .query({
+                Expand: ["FieldLinks"],
+                Top: 1
+            })
+                .execute(function (ct) {
+                // See if we are storing data in cache
+                if (_this._props.cacheKey) {
+                    // Update the cache data
+                    _this._cacheData = _this._cacheData || {};
+                    _this._cacheData.ct = ct.stringify();
+                    // Update the cache
+                    sessionStorage.setItem(_this._props.cacheKey, JSON.stringify(_this._cacheData));
+                }
+                // Resolve the promise
+                _this.loadDefaultFields(ct.results[0]);
+            });
+        };
+        // Method to load the default fields
+        this.loadDefaultFields = function (ct) {
+            var fields = ct ? ct.FieldLinks.results : [];
+            var formFields = {};
+            // Parse the field links
+            for (var i = 0; i < fields.length; i++) {
+                var fieldLink = fields[i];
+                // Get the field
+                var field = _this._info.fields[fieldLink.Name];
+                if (field) {
+                    // Skip the content type field
+                    if (field.InternalName == "ContentType") {
+                        continue;
+                    }
+                    // Skip hidden fields
+                    if (field.Hidden || fieldLink.Hidden) {
+                        continue;
+                    }
+                    // Save the form field
+                    formFields[field.InternalName] = field;
+                }
+            }
+            // Update the fields
+            _this._info.fields = formFields;
+            // Load the item data
+            _this.loadItem();
+        };
+        // Method to load the field data
+        this.loadFieldData = function (fields) {
+            // Clear the fields
+            _this._info.fields = {};
+            // Parse the fields
+            for (var i = 0; i < fields.results.length; i++) {
+                var field = fields.results[i];
+                // Save the field
+                _this._info.fields[field.InternalName] = field;
+            }
+        };
+        // Method to load the data from cache
+        this.loadFromCache = function () {
+            // See if we are loading from cache
+            if (_this._props.cacheKey) {
+                // Get the data
+                var data = sessionStorage.getItem(_this._props.cacheKey);
+                if (data) {
+                    // Try to parse the data
+                    try {
+                        // Set the cache data
+                        _this._cacheData = JSON.parse(data);
+                        // Update the list information
+                        _this._info = _this._info || {};
+                        _this._info.list = parse_1.parse(_this._cacheData.list);
+                        // Load the field data
+                        _this.loadFieldData(parse_1.parse(_this._cacheData.fields));
+                    }
+                    catch (_a) {
+                        // Clear the cache data
+                        sessionStorage.removeItem(_this._props.cacheKey);
+                    }
+                }
+            }
+        };
+        // Method to load the item
+        this.loadItem = function () {
             // See if we are loading the list item
             if (_this._props.itemId > 0) {
                 // Default the select query to get all the fields by default
+                _this._info.query = _this._props.query || {};
                 _this._info.query.Select = _this._info.query.Select || ["*"];
                 // See if we are loading the attachments
                 if (_this._props.loadAttachments) {
@@ -8606,78 +8683,55 @@ var _ListForm = /** @class */ (function () {
                     _this._info.query.Select.push("AttachmentFiles");
                 }
                 // Get the list item
-                list.Items(_this._props.itemId)
+                _this._info.list.Items(_this._props.itemId)
                     .query(_this._info.query)
                     .execute(function (item) {
                     // Save the item
                     _this._info.item = item;
+                    // Resolve the promise
+                    _this._resolve(_this._info);
                 });
             }
-            // Wait for the requests to complete
-            list.done(function () {
+            else {
                 // Resolve the promise
                 _this._resolve(_this._info);
-            });
+            }
         };
-        // Method to load the default fields
-        this.loadDefaultFields = function () {
+        // Method to load the list data
+        this.loadListData = function () {
             // Return a promise
             return new Promise(function (resolve, reject) {
-                // Load the content types
-                _this._info.list.ContentTypes()
-                    .query({
-                    Expand: ["FieldLinks"],
-                    Top: 1
-                })
-                    .execute(function (ct) {
-                    var fields = ct.results ? ct.results[0].FieldLinks.results : [];
-                    var formFields = {};
-                    // Parse the field links
-                    for (var i = 0; i < fields.length; i++) {
-                        var fieldLink = fields[i];
-                        // Get the field
-                        var field = _this._info.fields[fieldLink.Name];
-                        if (field) {
-                            // Skip the content type field
-                            if (field.InternalName == "ContentType") {
-                                continue;
-                            }
-                            // Skip hidden fields
-                            if (field.Hidden || fieldLink.Hidden) {
-                                continue;
-                            }
-                            // Save the form field
-                            formFields[field.InternalName] = field;
-                        }
-                    }
-                    // Update the fields
-                    _this._info.fields = formFields;
+                // See if the list & fields already exist
+                if (_this._info.list && _this._info.fields) {
                     // Resolve the promise
                     resolve();
-                }, true);
-            });
-        };
-        // Method to load the data from cache
-        this.loadFromCache = function () {
-            // See if we are loading from cache
-            if (_this._cacheKey) {
-                // Get the data
-                var data = sessionStorage.getItem(_this._cacheKey);
-                if (data) {
-                    // Try to parse the data
-                    try {
-                        // Set the cache data
-                        var cacheData = JSON.parse(data);
-                        // Update the list information
-                        _this._info.fields = parse_1.parse(cacheData.fields);
-                        _this._info.list = parse_1.parse(cacheData.list);
-                    }
-                    catch (_a) {
-                        // Clear the cache data
-                        sessionStorage.removeItem(_this._cacheKey);
-                    }
+                    return;
                 }
-            }
+                // Get the web
+                var list = (new lib_1.Web(_this._props.webUrl))
+                    .Lists(_this._props.listName)
+                    .execute(function (list) {
+                    // Save the list
+                    _this._info.list = list;
+                });
+                // Load the fields
+                list.Fields()
+                    .execute(function (fields) {
+                    // See if we are caching the data
+                    if (_this._props.cacheKey) {
+                        // Update the cache
+                        _this._cacheData = _this._cacheData || {};
+                        _this._cacheData.fields = fields.stringify();
+                        _this._cacheData.list = _this._info.list.stringify();
+                        // Cache the data
+                        sessionStorage.setItem(_this._props.cacheKey, JSON.stringify(_this._cacheData));
+                    }
+                    // Load the field data
+                    _this.loadFieldData(fields);
+                    // Resolve the promise
+                    resolve();
+                });
+            });
         };
         // Method to process the fields
         this.processFields = function () {
@@ -8697,8 +8751,11 @@ var _ListForm = /** @class */ (function () {
         // Save the properties
         this._props = props || {};
         this._props.fields = this._props.fields;
-        // Set the cache key
-        this._cacheKey = this._props.cacheKey;
+        // See if we are loading data from cache
+        if (this._props.cacheKey) {
+            // Load the data from cache
+            this.loadFromCache();
+        }
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Save the resolve method
@@ -8764,6 +8821,7 @@ exports.ListForm = _ListForm;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
+var types_1 = __webpack_require__(0);
 /**
  * List Form Field
  */
@@ -8808,6 +8866,70 @@ var _ListFormField = /** @class */ (function () {
             _this._fieldInfo.title = _this._fieldInfo.field.Title;
             _this._fieldInfo.type = _this._fieldInfo.field.FieldTypeKind;
             _this._fieldInfo.typeAsString = _this._fieldInfo.field.TypeAsString;
+            // Update the field info, based on the type
+            switch (_this._fieldInfo.type) {
+                // Choice
+                case types_1.SPTypes.FieldType.Choice:
+                case types_1.SPTypes.FieldType.MultiChoice:
+                    var choices = _this._fieldInfo.field.Choices;
+                    _this._fieldInfo.choices = (choices ? choices.results : null) || [];
+                    _this._fieldInfo.multi = _this._fieldInfo.type == types_1.SPTypes.FieldType.MultiChoice;
+                    break;
+                // Date/Time
+                case types_1.SPTypes.FieldType.DateTime:
+                    var fldDate = _this._fieldInfo.field;
+                    _this._fieldInfo.showTime = fldDate.DisplayFormat == types_1.SPTypes.DateFormat.DateTime;
+                    break;
+                // Lookup
+                case types_1.SPTypes.FieldType.Lookup:
+                    var fldLookup = _this._fieldInfo.field;
+                    _this._fieldInfo.lookupField = fldLookup.LookupField;
+                    _this._fieldInfo.lookupListId = fldLookup.LookupList;
+                    _this._fieldInfo.lookupWebId = fldLookup.LookupWebId;
+                    _this._fieldInfo.multi = fldLookup.AllowMultipleValues;
+                    break;
+                // Number
+                case types_1.SPTypes.FieldType.Number:
+                    var fldNumber = _this._fieldInfo.field;
+                    _this._fieldInfo.maxValue = fldNumber.MaximumValue;
+                    _this._fieldInfo.minValue = fldNumber.MinimumValue;
+                    if (fldNumber.ShowAsPercentage != undefined) {
+                        _this._fieldInfo.showAsPercentage = fldNumber.ShowAsPercentage;
+                    }
+                    else {
+                        _this._fieldInfo.showAsPercentage = fldNumber.SchemaXml.indexOf('Percentage="TRUE"') > 0;
+                    }
+                    break;
+                // Note
+                case types_1.SPTypes.FieldType.Note:
+                    var fldNote = _this._fieldInfo.field;
+                    _this._fieldInfo.multiline = true;
+                    _this._fieldInfo.richText = fldNote.RichText;
+                    _this._fieldInfo.rows = fldNote.NumberOfLines;
+                    break;
+                // Text
+                case types_1.SPTypes.FieldType.Text:
+                    _this._fieldInfo.multiline = false;
+                    _this._fieldInfo.richText = false;
+                    _this._fieldInfo.rows = 1;
+                    break;
+                // User
+                case types_1.SPTypes.FieldType.User:
+                    var fldUser = _this._fieldInfo.field;
+                    _this._fieldInfo.allowGroups = fldUser.SelectionMode == types_1.SPTypes.FieldUserSelectionType.PeopleAndGroups;
+                    _this._fieldInfo.multi = fldUser.AllowMultipleValues;
+                    break;
+                // Default
+                default:
+                    // See if this is an MMS field
+                    if (_this._fieldInfo.typeAsString.startsWith("TaxonomyFieldType")) {
+                        var fldMMS = _this._fieldInfo.field;
+                        _this._fieldInfo.multi = fldMMS.AllowMultipleValues;
+                        _this._fieldInfo.termSetId = fldMMS.TermSetId;
+                        _this._fieldInfo.termStoreId = fldMMS.SspId;
+                    }
+                    break;
+            }
             // Resolve the promise
             _this._resolve(_this._fieldInfo);
         };
@@ -8828,6 +8950,115 @@ var _ListFormField = /** @class */ (function () {
             }
         });
     }
+    // Method to load the lookup data
+    _ListFormField.loadLookupData = function (info, queryTop) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Get the current site collection
+            (new lib_1.Site())
+                .openWebById(info.lookupWebId)
+                .execute(function (web) {
+                // Get the list
+                web.Lists()
+                    .getById(info.lookupListId)
+                    .Items()
+                    .query({
+                    GetAllItems: true,
+                    Select: ["ID", info.lookupField],
+                    Top: queryTop > 0 && queryTop <= 5000 ? queryTop : 500
+                })
+                    .execute(function (items) {
+                    // Resolve the promise
+                    resolve(items.results);
+                });
+            });
+        });
+    };
+    // Method to load the mms data
+    _ListFormField.loadMMSData = function (info) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Ensure the utility class is loaded
+            SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", function () {
+                // Ensure the taxonomy script is loaded
+                SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
+                SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
+                    // Load the terms
+                    var context = SP.ClientContext.get_current();
+                    var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+                    var termStore = session.get_termStores().getById(info.termStoreId);
+                    var termSet = termStore.getTermSet(info.termSetId);
+                    var terms = termSet.getAllTerms();
+                    context.load(terms);
+                    // Execute the request
+                    context.executeQueryAsync(
+                    // Success
+                    function () {
+                        var termSet = [];
+                        // Parse the terms
+                        var enumerator = terms.getEnumerator();
+                        while (enumerator.moveNext()) {
+                            var term = enumerator.get_current();
+                            // Add the term information
+                            termSet.push({
+                                id: term.get_id().toString(),
+                                name: term.get_name(),
+                                path: term.get_pathOfTerm().replace(/;/g, "/")
+                            });
+                        }
+                        // Sort the terms
+                        termSet.sort(function (a, b) {
+                            if (a.path < b.path) {
+                                return -1;
+                            }
+                            if (a.path > b.path) {
+                                return 1;
+                            }
+                            return 0;
+                        });
+                        // Resolve the request
+                        resolve(termSet);
+                    }, 
+                    // Error
+                    function () {
+                        // Log
+                        console.log("[gd-sprest] Error getting the term set terms.");
+                        // Resolve the request
+                        resolve(termSet);
+                    });
+                });
+            });
+        });
+    };
+    // Method to load the mms value field
+    _ListFormField.loadMMSValueField = function (info) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // See if we are allowing multiple values
+            if (info.multi) {
+                // Get the web
+                (new lib_1.Web(info.webUrl))
+                    .Lists(info.listName)
+                    .Fields()
+                    .getByInternalNameOrTitle(info.name + "_0")
+                    .execute(function (field) {
+                    // See if the field exists
+                    if (field.existsFl) {
+                        // Resolve the promise
+                        resolve(field);
+                    }
+                    else {
+                        // Log
+                        console.log("[gd-sprest] Unable to find the hidden value field for '" + info.name + "'.");
+                    }
+                });
+            }
+            else {
+                // Resolve the promise
+                resolve();
+            }
+        });
+    };
     return _ListFormField;
 }());
 exports.ListFormField = _ListFormField;
