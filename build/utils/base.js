@@ -59,25 +59,6 @@ var Base = /** @class */ (function (_super) {
             targetInfo: this.targetInfo
         });
     };
-    // Method to execute the request asynchronously
-    Base.prototype.then = function (resolve, reject) {
-        var _this = this;
-        // Return a promise
-        return new Promise(function () {
-            // Execute this request
-            _this.execute(function (request) {
-                // Ensure the request was successful
-                if (request && request.existsFl) {
-                    // Resolve the request
-                    resolve ? resolve.apply(_this, request) : null;
-                }
-                else {
-                    // Reject the request
-                    reject ? reject.apply(_this, request) : null;
-                }
-            });
-        });
-    };
     return Base;
 }(_1.BaseExecution));
 exports.Base = Base;
