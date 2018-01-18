@@ -47,13 +47,6 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
      * Method to stringify the object.
      */
     stringify(): string;
-
-    /**
-     * Method to execute this request and previous ones to complete.
-     * @param resolve - Method to execute for successful requests.
-     * @param reject - Method to execute for unsuccessful requests.
-     */
-    then(resolve?: (value?: Result) => void, reject?: (value?: Result) => void): PromiseLike<Result>;
 }
 
 /**
@@ -133,24 +126,6 @@ export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseE
             response: this.response,
             status: this.status,
             targetInfo: this.targetInfo
-        });
-    }
-
-    // Method to execute the request asynchronously
-    then(resolve, reject): PromiseLike<IBase> {
-        // Return a promise
-        return new Promise(() => {
-            // Execute this request
-            this.execute((request: Base) => {
-                // Ensure the request was successful
-                if (request && request.existsFl) {
-                    // Resolve the request
-                    resolve ? resolve.apply(this, request) : null;
-                } else {
-                    // Reject the request
-                    reject ? reject.apply(this, request) : null;
-                }
-            });
         });
     }
 }
