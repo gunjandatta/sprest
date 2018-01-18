@@ -2621,12 +2621,6 @@ declare module 'gd-sprest/utils/base' {
                 * Method to stringify the object.
                 */
             stringify(): string;
-            /**
-                * Method to execute this request and previous ones to complete.
-                * @param resolve - Method to execute for successful requests.
-                * @param reject - Method to execute for unsuccessful requests.
-                */
-            then(resolve?: (value?: Result) => void, reject?: (value?: Result) => void): PromiseLike<Result>;
     }
     /**
         * Base Collection Results
@@ -2656,7 +2650,6 @@ declare module 'gd-sprest/utils/base' {
             done(callback: (...args) => any): void;
             getInfo(): IRequestInfo;
             stringify(): string;
-            then(resolve: any, reject: any): PromiseLike<IBase>;
     }
 }
 
