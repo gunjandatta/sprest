@@ -272,6 +272,8 @@ var _ListForm = /** @class */ (function () {
                 // Add the item
                 info.list.Items().add(formValues)
                     .execute(function (item) {
+                    // Update the info
+                    info.item = item;
                     // Refresh the item
                     _this.refreshItem(info).then(function (info) {
                         // Resolve the promise

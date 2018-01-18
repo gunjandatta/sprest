@@ -317,6 +317,9 @@ class _ListForm {
                 info.list.Items().add(formValues)
                     // Execute the request
                     .execute(item => {
+                        // Update the info
+                        info.item = item;
+
                         // Refresh the item
                         this.refreshItem(info).then(info => {
                             // Resolve the promise
