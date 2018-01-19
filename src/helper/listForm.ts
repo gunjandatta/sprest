@@ -21,12 +21,6 @@ class _ListForm {
         this._props = props || {} as any;
         this._props.fields = this._props.fields;
 
-        // See if we are loading data from cache
-        if (this._props.cacheKey) {
-            // Load the data from cache
-            this.loadFromCache();
-        }
-
         // Return a promise
         return new Promise((resolve, reject) => {
             // Save the resolve method
@@ -45,6 +39,7 @@ class _ListForm {
     private load = () => {
         // Clear the information
         this._info = {
+            item: this._props.item,
             query: this._props.query || {}
         } as any;
 
@@ -181,8 +176,13 @@ class _ListForm {
 
     // Method to load the item
     private loadItem = () => {
-        // See if we are loading the list item
-        if (this._props.itemId > 0) {
+        // See if the item already exist
+        if (this._info.item) {
+            // Resolve the promise
+            this._resolve(this._info);
+        }
+        // Else, see if we are loading the list item
+        else if (this._props.itemId > 0) {
             // Default the select query to get all the fields by default
             this._info.query = this._props.query || {};
             this._info.query.Select = this._info.query.Select || ["*"];

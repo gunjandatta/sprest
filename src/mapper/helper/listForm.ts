@@ -43,6 +43,9 @@ export interface IListFormProps {
     /** The form fields */
     fields?: Array<string>;
 
+    /** The list item */
+    item?: Types.IListItemQueryResult | Types.IListItemResult;
+
     /** The item id */
     itemId?: number;
 
