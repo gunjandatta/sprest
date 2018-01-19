@@ -237,6 +237,21 @@ var _ListForm = /** @class */ (function () {
             _this.load();
         });
     }
+    // Method to load the item attachments
+    _ListForm.loadAttachments = function (info) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var query = {
+                Expand: ["AttachmentFiles"],
+                Select: ["Attachments", "AttachmentFiles"]
+            };
+            // Get the item
+            info.list.Items(info.item.Id).query(query).execute(function (item) {
+                // Resolve the promise
+                resolve(item.AttachmentFiles.results);
+            });
+        });
+    };
     // Method to refresh an item
     _ListForm.refreshItem = function (info) {
         // Return a promise

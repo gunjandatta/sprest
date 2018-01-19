@@ -62,6 +62,23 @@ class _ListForm {
         });
     }
 
+    // Method to load the item attachments
+    static loadAttachments(info: Types.Helper.ListForm.IListFormResult): PromiseLike<Array<Types.IAttachment>> {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            let query: Types.ODataQuery = {
+                Expand: ["AttachmentFiles"],
+                Select: ["Attachments", "AttachmentFiles"]
+            };
+
+            // Get the item
+            info.list.Items(info.item.Id).query(query).execute(item => {
+                // Resolve the promise
+                resolve(item.AttachmentFiles.results);
+            });
+        });
+    }
+
     // Method to load the default content type
     private loadDefaultContentType = () => {
         // See if the content type info exists
