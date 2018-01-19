@@ -5841,6 +5841,11 @@ declare module 'gd-sprest/mapper/helper/listForm' {
                 */
             new (props: IListFormProps): PromiseLike<IListFormResult>;
             /**
+                * Method to load the item attachments
+                * @param listInfo - The list form information.
+             */
+            loadAttachments(listInfo: IListFormResult): PromiseLike<Array<Types.IAttachment>>;
+            /**
                 * Method to refresh the item.
                 * @param listInfo - The list form information.
                 */
@@ -6001,8 +6006,6 @@ declare module 'gd-sprest/mapper/helper/listForm' {
                 * @param props - The list form field properties
                 */
             new (props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
-            /** Method to load the item attachments */
-            loadAttachments(info: IListFormResult): PromiseLike<Array<Types.IAttachment>>;
             /** Method to load the lookup data */
             loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.IListItemQueryResult>>;
             /** Method to load the mms data */
