@@ -22,6 +22,7 @@ var _ListForm = /** @class */ (function () {
         this.load = function () {
             // Clear the information
             _this._info = {
+                item: _this._props.item,
                 query: _this._props.query || {}
             };
             // Load the data from cache
@@ -141,8 +142,12 @@ var _ListForm = /** @class */ (function () {
         };
         // Method to load the item
         this.loadItem = function () {
-            // See if we are loading the list item
-            if (_this._props.itemId > 0) {
+            // See if the item already exist
+            if (_this._info.item) {
+                // Resolve the promise
+                _this._resolve(_this._info);
+            }
+            else if (_this._props.itemId > 0) {
                 // Default the select query to get all the fields by default
                 _this._info.query = _this._props.query || {};
                 _this._info.query.Select = _this._info.query.Select || ["*"];
@@ -224,11 +229,6 @@ var _ListForm = /** @class */ (function () {
         // Save the properties
         this._props = props || {};
         this._props.fields = this._props.fields;
-        // See if we are loading data from cache
-        if (this._props.cacheKey) {
-            // Load the data from cache
-            this.loadFromCache();
-        }
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Save the resolve method
@@ -237,6 +237,21 @@ var _ListForm = /** @class */ (function () {
             _this.load();
         });
     }
+    // Method to load the item attachments
+    _ListForm.loadAttachments = function (info) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var query = {
+                Expand: ["AttachmentFiles"],
+                Select: ["Attachments", "AttachmentFiles"]
+            };
+            // Get the item
+            info.list.Items(info.item.Id).query(query).execute(function (item) {
+                // Resolve the promise
+                resolve(item.AttachmentFiles.results);
+            });
+        });
+    };
     // Method to refresh an item
     _ListForm.refreshItem = function (info) {
         // Return a promise

@@ -130,6 +130,19 @@ import {
 ### Automation
 The "SharePoint Configuration" class allows the developer to define configuration files for the SharePoint solution. This class contains built-in methods for execution (install, uninstall, etc), so there is no need to write additional code.
 
+### Helper
+The Helper class contains the following classes
+* App - Helper methods when developing within an app web
+* Dependencies - Loads the required SharePoint scripts
+* Field - Generates field schema xml
+* JSLink - Helper class for creating JSLink solutions
+* ListForm - Helper class for creating custom list forms
+* ListFormField - Helper class for custom list forms
+* parse - Parse method to convert the stringified value to a base object
+* SPCfg - Helper class for creating SharePoint assets and configuration scripts
+* Taxonomy - Helper class for getting terms from the managed metadata taxonomy term store
+* WebParts - Helper class for creating webpart solutions
+
 ### Intellisense
 One of the more important features of this framework is the intellisense. The classes have been setup to ensure the developer does not need to define the output type of the request. The "Types" and "SPTypes" classes can both be imported into the project. The "Types" class includes allows of the interfaces available in the library. The "SPTypes" class contains all of the enumerators in SharePoint. These interfaces can be used to provide intellisense for the custom variables.
 

@@ -9,6 +9,11 @@ export interface IListForm {
      */
     new (props: IListFormProps): PromiseLike<IListFormResult>;
     /**
+     * Method to load the item attachments
+     * @param listInfo - The list form information.
+    */
+    loadAttachments(listInfo: IListFormResult): PromiseLike<Array<Types.IAttachment>>;
+    /**
      * Method to refresh the item.
      * @param listInfo - The list form information.
      */
@@ -36,6 +41,8 @@ export interface IListFormProps {
     cacheKey?: string;
     /** The form fields */
     fields?: Array<string>;
+    /** The list item */
+    item?: Types.IListItemQueryResult | Types.IListItemResult;
     /** The item id */
     itemId?: number;
     /** The list name */
@@ -168,9 +175,9 @@ export interface IListFormField {
      */
     new (props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
     /** Method to load the lookup data */
-    loadLookupData(info: Types.Helper.ListForm.IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.IListItemQueryResult>>;
+    loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.IListItemQueryResult>>;
     /** Method to load the mms data */
-    loadMMSData(info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Array<any>>;
+    loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<any>>;
     /** Method to load the mms value field */
-    loadMMSValueField(info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Types.IFieldManagedMetadata>;
+    loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<Types.IFieldManagedMetadata>;
 }
