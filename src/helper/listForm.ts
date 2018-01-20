@@ -312,6 +312,62 @@ class _ListForm {
         });
     }
 
+    // Method to remove attachments from an item
+    removeAttachments(info: Types.Helper.ListForm.IListFormResult, attachments: Array<Types.IAttachment>): PromiseLike<void> {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            let web = new Web(info.list.ParentWebUrl);
+
+            // Parse the attachments
+            for (let i = 0; i < attachments.length; i++) {
+                let attachment = attachments[i];
+
+                // Get the file
+                web.getFileByServerRelativeUrl(attachment.ServerRelativeUrl)
+                    // Delete the file
+                    .delete()
+                    // Execute the request
+                    .execute(true);
+            }
+
+            // Wait for the requests to complete
+            web.done(() => {
+                // Resolve the request
+                resolve();
+            });
+        });
+    }
+
+    // Method to save attachments to an existing item
+    static saveAttachments(info: Types.Helper.ListForm.IListFormResult, attachmentInfo: Array<Types.Helper.ListForm.IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>> {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Ensure the item exists
+            if (info.item) {
+                // Get the list item attachments
+                let attachments = info.list.Items(info.item.Id).AttachmentFiles();
+
+                // Parse the attachment information
+                for (let i = 0; attachmentInfo.length; i++) {
+                    let attachment = attachmentInfo[i];
+
+                    // Add the attachment
+                    attachments.add(attachment.name, attachment.data).execute(true);
+                }
+
+                // Wait for the requests to complete
+                attachments.done((...args) => {
+                    // Resolve the promise
+                    resolve(args);
+                });
+            } else {
+                // Reject the promise
+                console.error("[gd-sprest] The item does not exist.")
+                reject();
+            }
+        });
+    }
+
     // Method to save a new or existing item
     static saveItem(info: Types.Helper.ListForm.IListFormResult, formValues: any): PromiseLike<Types.Helper.ListForm.IListFormResult> {
         // Return a promise

@@ -23,11 +23,34 @@ export interface IListForm {
     refreshItem(listInfo: IListFormResult): PromiseLike<IListFormResult>;
 
     /**
+     * Method to remove attachments from an item.
+     */
+    removeAttachments(listInfo: Types.Helper.ListForm.IListFormResult, attachmentInfo: Array<Types.IAttachment>): PromiseLike<void>;
+
+    /**
+     * Method to save attachments to the item.
+     * @param listInfo - The list form information.
+     * @param attachmentInfo - The attachment files to add.
+     */
+    saveAttachments(listInfo: Types.Helper.ListForm.IListFormResult, attachmentInfo: Array<Types.Helper.ListForm.IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>>;
+
+    /**
      * Method to save the item.
      * @param itemValues - The list item values.
      * @param list - The list.
      */
     saveItem(itemValues: any, list: Types.IListResult): PromiseLike<IListFormResult>;
+}
+
+/**
+ * List Form Attachment Information
+ */
+export interface IListFormAttachmentInfo {
+    /** The file content */
+    data: any;
+
+    /** The name of the file */
+    name: string;
 }
 
 /**

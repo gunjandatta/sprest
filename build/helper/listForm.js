@@ -265,6 +265,57 @@ var _ListForm = /** @class */ (function () {
             });
         });
     };
+    // Method to remove attachments from an item
+    _ListForm.prototype.removeAttachments = function (info, attachments) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var web = new lib_1.Web(info.list.ParentWebUrl);
+            // Parse the attachments
+            for (var i = 0; i < attachments.length; i++) {
+                var attachment = attachments[i];
+                // Get the file
+                web.getFileByServerRelativeUrl(attachment.ServerRelativeUrl)
+                    .delete()
+                    .execute(true);
+            }
+            // Wait for the requests to complete
+            web.done(function () {
+                // Resolve the request
+                resolve();
+            });
+        });
+    };
+    // Method to save attachments to an existing item
+    _ListForm.saveAttachments = function (info, attachmentInfo) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Ensure the item exists
+            if (info.item) {
+                // Get the list item attachments
+                var attachments = info.list.Items(info.item.Id).AttachmentFiles();
+                // Parse the attachment information
+                for (var i = 0; attachmentInfo.length; i++) {
+                    var attachment = attachmentInfo[i];
+                    // Add the attachment
+                    attachments.add(attachment.name, attachment.data).execute(true);
+                }
+                // Wait for the requests to complete
+                attachments.done(function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Resolve the promise
+                    resolve(args);
+                });
+            }
+            else {
+                // Reject the promise
+                console.error("[gd-sprest] The item does not exist.");
+                reject();
+            }
+        });
+    };
     // Method to save a new or existing item
     _ListForm.saveItem = function (info, formValues) {
         var _this = this;
