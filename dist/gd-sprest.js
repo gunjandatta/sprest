@@ -1050,7 +1050,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.06,
+    __ver: 3.07,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -9094,7 +9094,7 @@ var _ListForm = /** @class */ (function () {
     _ListForm.prototype.removeAttachments = function (info, attachments) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            var web = new lib_1.Web(info.list.ParentWebUrl);
+            var web = new lib_1.Web(info.webUrl);
             // Parse the attachments
             for (var i = 0; i < attachments.length; i++) {
                 var attachment = attachments[i];
@@ -9114,10 +9114,13 @@ var _ListForm = /** @class */ (function () {
     _ListForm.saveAttachments = function (info, attachmentInfo) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            // Ensure the item exists
-            if (info.item) {
-                // Get the list item attachments
-                var attachments = info.list.Items(info.item.Id).AttachmentFiles();
+            var itemId = info.item ? info.item.Id : info.itemId;
+            if (itemId > 0) {
+                // Get the web
+                var attachments = (new lib_1.Web(info.webUrl))
+                    .Lists(info.listName)
+                    .Items(info.itemId)
+                    .AttachmentFiles();
                 // Parse the attachment information
                 for (var i = 0; attachmentInfo.length; i++) {
                     var attachment = attachmentInfo[i];

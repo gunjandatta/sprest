@@ -313,10 +313,10 @@ class _ListForm {
     }
 
     // Method to remove attachments from an item
-    removeAttachments(info: Types.Helper.ListForm.IListFormResult, attachments: Array<Types.IAttachment>): PromiseLike<void> {
+    removeAttachments(info: Types.Helper.ListForm.IListFormProps, attachments: Array<Types.IAttachment>): PromiseLike<void> {
         // Return a promise
         return new Promise((resolve, reject) => {
-            let web = new Web(info.list.ParentWebUrl);
+            let web = new Web(info.webUrl);
 
             // Parse the attachments
             for (let i = 0; i < attachments.length; i++) {
@@ -339,13 +339,19 @@ class _ListForm {
     }
 
     // Method to save attachments to an existing item
-    static saveAttachments(info: Types.Helper.ListForm.IListFormResult, attachmentInfo: Array<Types.Helper.ListForm.IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>> {
+    static saveAttachments(info: Types.Helper.ListForm.IListFormProps, attachmentInfo: Array<Types.Helper.ListForm.IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>> {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Ensure the item exists
-            if (info.item) {
-                // Get the list item attachments
-                let attachments = info.list.Items(info.item.Id).AttachmentFiles();
+            let itemId = info.item ? info.item.Id : info.itemId;
+            if (itemId > 0) {
+                // Get the web
+                let attachments = (new Web(info.webUrl))
+                    // Get the lists
+                    .Lists(info.listName)
+                    // Get the item
+                    .Items(info.itemId)
+                    // Get the attachment files
+                    .AttachmentFiles();
 
                 // Parse the attachment information
                 for (let i = 0; attachmentInfo.length; i++) {
