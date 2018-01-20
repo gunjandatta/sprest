@@ -82,8 +82,8 @@ class _Taxonomy {
     /**
      * Method to get the terms
      */
-    private getTerms = (termSetTerms): Array<Types.Helper.Taxonomy.ITerm> => {
-        let terms: Array<Types.Helper.Taxonomy.ITerm> = [];
+    private getTerms = (termSetTerms): Array<Types.Helper.Taxonomy.ITermInfo> => {
+        let terms: Array<Types.Helper.Taxonomy.ITermInfo> = [];
 
         // Parse the term sets terms
         let enumerator = termSetTerms.getEnumerator();
@@ -167,12 +167,12 @@ class _Taxonomy {
     /**
      * Method to convert the terms to an object
      */
-    private toObject = (terms: Array<Types.Helper.Taxonomy.ITerm>): Types.Helper.Taxonomy.IRootTerm => {
-        let root: Types.Helper.Taxonomy.IRootTerm = {} as any;
+    private toObject = (terms: Array<Types.Helper.Taxonomy.ITermInfo>): Types.Helper.Taxonomy.ITerm => {
+        let root: Types.Helper.Taxonomy.ITerm = {} as any;
 
         // Recursive method to add terms
-        let addTerm = (node: Types.Helper.Taxonomy.IRootTerm, info: Types.Helper.Taxonomy.ITerm, path: Array<string>) => {
-            let term: any = node;
+        let addTerm = (node: Types.Helper.Taxonomy.ITerm, info: Types.Helper.Taxonomy.ITermInfo, path: Array<string>) => {
+            let term = node;
             let termName = "";
 
             // Loop for each term
