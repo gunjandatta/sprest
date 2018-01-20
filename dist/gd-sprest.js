@@ -10595,7 +10595,17 @@ var _Taxonomy = /** @class */ (function () {
                     context.executeQueryAsync(function () {
                         // Resolve the promise
                         resolve(_this.getTerms(terms));
-                    }, reject);
+                    }, function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        // Log
+                        console.error("[gd-sprest] Error getting the terms from the default site collection.");
+                        console.error("[gd-sprest] Error: " + args[1].get_message());
+                        // Reject the promise
+                        reject(args);
+                    });
                 });
             });
         };
@@ -10628,7 +10638,17 @@ var _Taxonomy = /** @class */ (function () {
                     context.executeQueryAsync(function () {
                         // Resolve the promise
                         resolve(_this.getTerms(terms));
-                    }, reject);
+                    }, function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        // Log
+                        console.error("[gd-sprest] Error getting the terms.");
+                        console.error("[gd-sprest] Error: " + args[1].get_message());
+                        // Reject the promise
+                        reject(args);
+                    });
                 });
             });
         };
@@ -10726,7 +10746,17 @@ var _Taxonomy = /** @class */ (function () {
                             // Resolve the promise
                             resolve({ context: context, termGroup: termGroup });
                         }
-                    }, reject);
+                    }, function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        // Log
+                        console.error("[gd-sprest] Error getting the term group.");
+                        console.error("[gd-sprest] Error: " + args[1].get_message());
+                        // Reject the promise
+                        reject(args);
+                    });
                 }, "sp.js");
             });
         };

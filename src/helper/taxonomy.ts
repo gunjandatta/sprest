@@ -21,7 +21,14 @@ class _Taxonomy {
                 context.executeQueryAsync(() => {
                     // Resolve the promise
                     resolve(this.getTerms(terms));
-                }, reject);
+                }, (...args) => {
+                    // Log
+                    console.error("[gd-sprest] Error getting the terms from the default site collection.");
+                    console.error("[gd-sprest] Error: " + args[1].get_message());
+
+                    // Reject the promise
+                    reject(args);
+                });
             });
         });
     }
@@ -56,7 +63,14 @@ class _Taxonomy {
                 context.executeQueryAsync(() => {
                     // Resolve the promise
                     resolve(this.getTerms(terms));
-                }, reject);
+                }, (...args) => {
+                    // Log
+                    console.error("[gd-sprest] Error getting the terms.");
+                    console.error("[gd-sprest] Error: " + args[1].get_message());
+
+                    // Reject the promise
+                    reject(args);
+                });
             });
         });
     }
@@ -159,7 +173,14 @@ class _Taxonomy {
                         // Resolve the promise
                         resolve({ context, termGroup });
                     }
-                }, reject);
+                }, (...args) => {
+                    // Log
+                    console.error("[gd-sprest] Error getting the term group.");
+                    console.error("[gd-sprest] Error: " + args[1].get_message());
+
+                    // Reject the promise
+                    reject(args);
+                });
             }, "sp.js");
         });
     }
