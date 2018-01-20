@@ -63,7 +63,7 @@ class _ListForm {
     }
 
     // Method to load the item attachments
-    static loadAttachments(info: Types.Helper.ListForm.IListFormResult): PromiseLike<Array<Types.IAttachment>> {
+    static loadAttachments(info: Types.Helper.ListForm.IListFormProps): PromiseLike<Array<Types.IAttachment>> {
         // Return a promise
         return new Promise((resolve, reject) => {
             let query: Types.ODataQuery = {
@@ -71,11 +71,19 @@ class _ListForm {
                 Select: ["Attachments", "AttachmentFiles"]
             };
 
-            // Get the item
-            info.list.Items(info.item.Id).query(query).execute(item => {
-                // Resolve the promise
-                resolve(item.AttachmentFiles.results);
-            });
+            // Get the web
+            (new Web(info.webUrl))
+                // Get the list
+                .Lists(info.listName)
+                // Get the item
+                .Items(info.item.Id)
+                // Set the query
+                .query(query)
+                // Execute the request
+                .execute(item => {
+                    // Resolve the promise
+                    resolve(item.AttachmentFiles.results);
+                });
         });
     }
 

@@ -14,7 +14,7 @@ export interface IListForm {
      * Method to load the item attachments
      * @param listInfo - The list form information.
     */
-    loadAttachments(listInfo: IListFormResult): PromiseLike<Array<Types.IAttachment>>;
+    loadAttachments(listInfo: IListFormProps): PromiseLike<Array<Types.IAttachment>>;
 
     /**
      * Method to refresh the item.
@@ -25,14 +25,14 @@ export interface IListForm {
     /**
      * Method to remove attachments from an item.
      */
-    removeAttachments(listInfo: Types.Helper.ListForm.IListFormResult, attachmentInfo: Array<Types.IAttachment>): PromiseLike<void>;
+    removeAttachments(listInfo: Types.Helper.ListForm.IListFormProps, attachmentInfo: Array<Types.IAttachment>): PromiseLike<void>;
 
     /**
      * Method to save attachments to the item.
      * @param listInfo - The list form information.
      * @param attachmentInfo - The attachment files to add.
      */
-    saveAttachments(listInfo: Types.Helper.ListForm.IListFormResult, attachmentInfo: Array<Types.Helper.ListForm.IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>>;
+    saveAttachments(listInfo: Types.Helper.ListForm.IListFormProps, attachmentInfo: Array<Types.Helper.ListForm.IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>>;
 
     /**
      * Method to save the item.

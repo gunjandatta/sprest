@@ -245,8 +245,12 @@ var _ListForm = /** @class */ (function () {
                 Expand: ["AttachmentFiles"],
                 Select: ["Attachments", "AttachmentFiles"]
             };
-            // Get the item
-            info.list.Items(info.item.Id).query(query).execute(function (item) {
+            // Get the web
+            (new lib_1.Web(info.webUrl))
+                .Lists(info.listName)
+                .Items(info.item.Id)
+                .query(query)
+                .execute(function (item) {
                 // Resolve the promise
                 resolve(item.AttachmentFiles.results);
             });

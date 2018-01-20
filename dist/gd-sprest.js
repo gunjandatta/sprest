@@ -1050,7 +1050,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.07,
+    __ver: 3.09,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -9070,8 +9070,12 @@ var _ListForm = /** @class */ (function () {
                 Expand: ["AttachmentFiles"],
                 Select: ["Attachments", "AttachmentFiles"]
             };
-            // Get the item
-            info.list.Items(info.item.Id).query(query).execute(function (item) {
+            // Get the web
+            (new lib_1.Web(info.webUrl))
+                .Lists(info.listName)
+                .Items(info.item.Id)
+                .query(query)
+                .execute(function (item) {
                 // Resolve the promise
                 resolve(item.AttachmentFiles.results);
             });
