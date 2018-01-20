@@ -41,6 +41,10 @@ export interface IHelper {
      */
     SPConfig: Types.Helper.SPConfig.ISPConfig;
     /**
+     * Taxonomy
+     */
+    Taxonomy: Types.Helper.Taxonomy.ITaxonomy;
+    /**
      * Helper Types
      */
     Types: Types.Helper.IHelperTypes;

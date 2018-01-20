@@ -5,6 +5,7 @@ import * as JSLink from "./jslink";
 import * as ListForm from "./listForm";
 import * as Loader from "./loader";
 import * as SPConfig from "./spCfg";
+import * as Taxonomy from "./taxonomy";
 import * as WebPart from "./webpart";
 export * from "./types";
 export {
@@ -15,5 +16,6 @@ export {
     ListForm,
     Loader,
     SPConfig,
+    Taxonomy,
     WebPart
 };

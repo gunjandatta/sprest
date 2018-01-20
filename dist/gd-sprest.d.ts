@@ -80,6 +80,10 @@ declare module 'gd-sprest/helper' {
                 */
             SPConfig: Types.Helper.SPConfig.ISPConfig;
             /**
+                * Taxonomy
+                */
+            Taxonomy: Types.Helper.Taxonomy.ITaxonomy;
+            /**
                 * Helper Types
                 */
             Types: Types.Helper.IHelperTypes;
@@ -4576,9 +4580,10 @@ declare module 'gd-sprest/mapper/helper' {
     import * as ListForm from "gd-sprest/mapper/helper/listForm";
     import * as Loader from "gd-sprest/mapper/helper/loader";
     import * as SPConfig from "gd-sprest/mapper/helper/spCfg";
+    import * as Taxonomy from "gd-sprest/mapper/helper/taxonomy";
     import * as WebPart from "gd-sprest/mapper/helper/webpart";
     export * from "gd-sprest/mapper/helper/types";
-    export { App, Dependencies, Field, JSLink, ListForm, Loader, SPConfig, WebPart };
+    export { App, Dependencies, Field, JSLink, ListForm, Loader, SPConfig, Taxonomy, WebPart };
 }
 
 declare module 'gd-sprest/mapper/sptypes' {
@@ -6326,6 +6331,59 @@ declare module 'gd-sprest/mapper/helper/spCfg' {
             SiteUserCustomActions: number;
             /** Web User Custom Actions */
             WebUserCustomActions: number;
+    }
+}
+
+declare module 'gd-sprest/mapper/helper/taxonomy' {
+    /**
+        * Taxonomy Helper Class
+        */
+    export interface ITaxonomy {
+            /**
+                * Method to get the terms from the default site collection
+                * @param termSetName - The term set name
+                */
+            getTermsFromDefaultSC(termSetName: string): PromiseLike<Array<ITerm>>;
+            /**
+                * Method to get the term set from the default site collection
+                */
+            getTermSetFromDefaultSC(termSetName: string): PromiseLike<IRootTerm>;
+            /**
+                * Method to get a terms from a specified group
+                */
+            getTermsByGroupName(termSetName: string, groupName: string): PromiseLike<Array<ITerm>>;
+            /**
+                * Method to get the term set from the default site collection
+                */
+            getTermSetByGroupName(termSetName: string, groupName: string): PromiseLike<IRootTerm>;
+    }
+    /**
+        * Taxonomy Root Term
+        */
+    export interface IRootTerm {
+            /** The root term information */
+            info: ITerm;
+    }
+    /**
+        * Taxonomy Term
+        */
+    export interface ITerm {
+            /** The term description */
+            description: string;
+            /** The term id */
+            id: string;
+            /** The term name */
+            name: string;
+            /** The parent term */
+            parent?: ITerm;
+            /** The term path */
+            path: Array<string>;
+            /** The term path as a string */
+            pathAsString: string;
+            /** The term custom properties */
+            props: {
+                    [key: string]: string;
+            };
     }
 }
 

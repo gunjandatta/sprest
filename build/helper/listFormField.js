@@ -196,6 +196,7 @@ var _ListFormField = /** @class */ (function () {
                             }
                             return 0;
                         });
+                        // Get the term
                         // Resolve the request
                         resolve(termSet);
                     }, 

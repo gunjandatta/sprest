@@ -9,6 +9,7 @@ import { ListFormField } from "./listFormField";
 import { Loader } from "./loader";
 import { parse } from "./parse";
 import { SPConfig } from "./spCfg";
+import { Taxonomy } from "./taxonomy";
 import { HelperTypes } from "./types";
 import { WebPart } from "./webpart";
 
@@ -62,6 +63,11 @@ export interface IHelper {
     SPConfig: Types.Helper.SPConfig.ISPConfig,
 
     /**
+     * Taxonomy
+     */
+    Taxonomy: Types.Helper.Taxonomy.ITaxonomy,
+
+    /**
      * Helper Types
      */
     Types: Types.Helper.IHelperTypes;
@@ -85,6 +91,7 @@ export const Helper: IHelper = {
     Loader,
     parse: parse as any,
     SPConfig,
+    Taxonomy,
     Types: HelperTypes,
     WebPart
 };

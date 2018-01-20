@@ -139,6 +139,8 @@ class _ListFormField {
                                 return 0;
                             });
 
+                            // Get the term
+
                             // Resolve the request
                             resolve(termSet);
                         },
