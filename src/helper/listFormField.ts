@@ -102,9 +102,12 @@ class _ListFormField {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the term set
-            Taxonomy.getTermsById(info.termStoreId, info.termSetId).then(terms => {
+            Taxonomy.getTermSetById(info.termStoreId, info.termSetId).then(root => {
+                // Get the target root term
+                let term = Taxonomy.findById(root, info.termId);
+
                 // Resolve the request
-                resolve(terms);
+                resolve(Taxonomy.toArray(term));
             });
         });
     }
@@ -216,6 +219,7 @@ class _ListFormField {
                 if (this._fieldInfo.typeAsString.startsWith("TaxonomyFieldType")) {
                     let fldMMS = this._fieldInfo.field as Types.IFieldManagedMetadata;
                     (this._fieldInfo as Types.Helper.ListForm.IListFormMMSFieldInfo).multi = fldMMS.AllowMultipleValues;
+                    (this._fieldInfo as Types.Helper.ListForm.IListFormMMSFieldInfo).termSetId = fldMMS.IsAnchorValid ? fldMMS.AnchorId : fldMMS.TermSetId;
                     (this._fieldInfo as Types.Helper.ListForm.IListFormMMSFieldInfo).termSetId = fldMMS.TermSetId;
                     (this._fieldInfo as Types.Helper.ListForm.IListFormMMSFieldInfo).termStoreId = fldMMS.SspId;
                 }

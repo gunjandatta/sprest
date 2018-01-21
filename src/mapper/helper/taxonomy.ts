@@ -50,6 +50,18 @@ export interface ITaxonomy {
      * Method to get the term set from the default site collection
      */
     getTermSetByGroupName(termSetName: string, groupName: string): PromiseLike<ITerm>;
+
+    /**
+     * Method to convert a term set into an array of terms
+     * @param term - The term
+     */
+    toArray(term: ITerm | ITermInfo): Array<ITermInfo>;
+
+    /**
+     * Method to convert an array of terms into a term set
+     * @param terms - The terms
+     */
+    toObject(terms: Array<ITermInfo>): ITerm;
 }
 
 

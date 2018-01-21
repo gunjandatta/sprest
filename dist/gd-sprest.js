@@ -1181,6 +1181,90 @@ var _Taxonomy = /** @class */ (function () {
             });
         };
         /**
+         * Method to ensure the taxonomy script references are loaded.
+         */
+        this.loadScripts = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Ensure the core script is loaded
+                SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", function () {
+                    // Ensure the taxonomy script is loaded
+                    SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
+                    SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
+                        // Resolve the promise
+                        resolve();
+                    });
+                }, "sp.js");
+            });
+        };
+        /**
+         * Method to convert a term to an array of term information
+         */
+        this.toArray = function (term) {
+            var terms = [];
+            // Recursive method to extract the child terms
+            var getChildTerms = function (term, terms) {
+                // Parse the properties
+                for (var prop in term) {
+                    // Skip the info and parent properties
+                    if (prop == "info" || prop == "parent") {
+                        continue;
+                    }
+                    // Add the child term
+                    var childTerm = term[prop];
+                    terms.push(childTerm.info);
+                    // Add the child terms
+                    getChildTerms(childTerm, terms);
+                }
+            };
+            // See if the root node contains term information
+            if (term.info) {
+                // Add the root term
+                terms.push(term.info);
+            }
+            // Get the child terms
+            getChildTerms(term, terms);
+            // Return the child terms
+            return terms;
+        };
+        /**
+         * Method to convert the terms to an object
+         */
+        this.toObject = function (terms) {
+            var root = {};
+            // Recursive method to add terms
+            var addTerm = function (node, info, path) {
+                var term = node;
+                var termName = "";
+                // Loop for each term
+                while (path.length > 0) {
+                    // Ensure the term exists
+                    termName = path[0];
+                    if (term[termName] == null) {
+                        // Create the term
+                        term[termName] = {};
+                    }
+                    // Set the term
+                    var parent_1 = term;
+                    term = term[termName];
+                    // Set the parent
+                    term.parent = parent_1;
+                    // Remove the term from the path
+                    path.splice(0, 1);
+                }
+                // Set the info
+                term.info = info;
+            };
+            // Parse the terms
+            for (var i = 0; i < terms.length; i++) {
+                var term = terms[i];
+                // Add the term
+                addTerm(root, term, term.pathAsString.split(";"));
+            }
+            // Return the root term
+            return root;
+        };
+        /**
          * Private Methods
          */
         /**
@@ -1271,60 +1355,6 @@ var _Taxonomy = /** @class */ (function () {
                 });
             });
         };
-        /**
-         * Method to ensure the taxonomy script references are loaded.
-         */
-        this.loadScripts = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the core script is loaded
-                SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", function () {
-                    // Ensure the taxonomy script is loaded
-                    SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
-                    SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
-                        // Resolve the promise
-                        resolve();
-                    });
-                }, "sp.js");
-            });
-        };
-        /**
-         * Method to convert the terms to an object
-         */
-        this.toObject = function (terms) {
-            var root = {};
-            // Recursive method to add terms
-            var addTerm = function (node, info, path) {
-                var term = node;
-                var termName = "";
-                // Loop for each term
-                while (path.length > 0) {
-                    // Ensure the term exists
-                    termName = path[0];
-                    if (term[termName] == null) {
-                        // Create the term
-                        term[termName] = {};
-                    }
-                    // Set the term
-                    var parent_1 = term;
-                    term = term[termName];
-                    // Set the parent
-                    term.parent = parent_1;
-                    // Remove the term from the path
-                    path.splice(0, 1);
-                }
-                // Set the info
-                term.info = info;
-            };
-            // Parse the terms
-            for (var i = 0; i < terms.length; i++) {
-                var term = terms[i];
-                // Add the term
-                addTerm(root, term, term.pathAsString.split(";"));
-            }
-            // Return the root term
-            return root;
-        };
     }
     return _Taxonomy;
 }());
@@ -1390,7 +1420,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.14,
+    __ver: 3.15,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -9644,6 +9674,7 @@ var _ListFormField = /** @class */ (function () {
                     if (_this._fieldInfo.typeAsString.startsWith("TaxonomyFieldType")) {
                         var fldMMS = _this._fieldInfo.field;
                         _this._fieldInfo.multi = fldMMS.AllowMultipleValues;
+                        _this._fieldInfo.termSetId = fldMMS.IsAnchorValid ? fldMMS.AnchorId : fldMMS.TermSetId;
                         _this._fieldInfo.termSetId = fldMMS.TermSetId;
                         _this._fieldInfo.termStoreId = fldMMS.SspId;
                     }
@@ -9698,9 +9729,11 @@ var _ListFormField = /** @class */ (function () {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Load the term set
-            taxonomy_1.Taxonomy.getTermsById(info.termStoreId, info.termSetId).then(function (terms) {
+            taxonomy_1.Taxonomy.getTermSetById(info.termStoreId, info.termSetId).then(function (root) {
+                // Get the target root term
+                var term = taxonomy_1.Taxonomy.findById(root, info.termId);
                 // Resolve the request
-                resolve(terms);
+                resolve(taxonomy_1.Taxonomy.toArray(term));
             });
         });
     };

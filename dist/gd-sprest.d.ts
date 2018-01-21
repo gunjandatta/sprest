@@ -5987,6 +5987,8 @@ declare module 'gd-sprest/mapper/helper/listForm' {
     export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
             /** Flag to determine if multiple values exist */
             multi?: boolean;
+            /** The term id */
+            termId?: string;
             /** The term set id */
             termSetId?: string;
             /** The term store id */
@@ -6401,6 +6403,16 @@ declare module 'gd-sprest/mapper/helper/taxonomy' {
                 * Method to get the term set from the default site collection
                 */
             getTermSetByGroupName(termSetName: string, groupName: string): PromiseLike<ITerm>;
+            /**
+                * Method to convert a term set into an array of terms
+                * @param term - The term
+                */
+            toArray(term: ITerm | ITermInfo): Array<ITermInfo>;
+            /**
+                * Method to convert an array of terms into a term set
+                * @param terms - The terms
+                */
+            toObject(terms: Array<ITermInfo>): ITerm;
     }
     /**
         * Taxonomy Term
@@ -8024,6 +8036,8 @@ declare module 'gd-sprest/mapper/list/field' {
         * Managed Metadata Field
         */
     export interface IFieldManagedMetadata extends IFieldLookup {
+            /** The root term */
+            AnchorId: string;
             /** Flag to determine if the anchor is valid. */
             IsAnchorValid: boolean;
             /** Flag to determine if this is a keyword. */
