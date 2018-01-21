@@ -63,7 +63,7 @@ var _Taxonomy = /** @class */ (function () {
                     var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
                     // Get the terms
                     var termStore = session.get_termStores().getById(termStoreId);
-                    var terms = termStore.get_termSets().getById(termSetId).getAllTerms();
+                    var terms = termStore.getTermSet(termSetId).getAllTerms();
                     context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
                     // Execute the request
                     context.executeQueryAsync(function () {

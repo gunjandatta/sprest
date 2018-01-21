@@ -61,7 +61,7 @@ class _Taxonomy {
 
                 // Get the terms
                 let termStore = session.get_termStores().getById(termStoreId);
-                let terms = termStore.get_termSets().getById(termSetId).getAllTerms();
+                let terms = termStore.getTermSet(termSetId).getAllTerms();
                 context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
 
                 // Execute the request
