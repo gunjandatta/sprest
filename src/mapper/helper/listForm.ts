@@ -14,7 +14,7 @@ export interface IListForm {
      * Method to load the item attachments
      * @param listInfo - The list form information.
     */
-    loadAttachments(listInfo: IListFormResult): PromiseLike<Array<Types.IAttachment>>;
+    loadAttachments(listInfo: IListFormProps): PromiseLike<Array<Types.IAttachment>>;
 
     /**
      * Method to refresh the item.
@@ -23,11 +23,34 @@ export interface IListForm {
     refreshItem(listInfo: IListFormResult): PromiseLike<IListFormResult>;
 
     /**
+     * Method to remove attachments from an item.
+     */
+    removeAttachments(listInfo: Types.Helper.ListForm.IListFormProps, attachmentInfo: Array<Types.IAttachment>): PromiseLike<void>;
+
+    /**
+     * Method to save attachments to the item.
+     * @param listInfo - The list form information.
+     * @param attachmentInfo - The attachment files to add.
+     */
+    saveAttachments(listInfo: Types.Helper.ListForm.IListFormProps, attachmentInfo: Array<Types.Helper.ListForm.IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>>;
+
+    /**
      * Method to save the item.
      * @param itemValues - The list item values.
      * @param list - The list.
      */
     saveItem(itemValues: any, list: Types.IListResult): PromiseLike<IListFormResult>;
+}
+
+/**
+ * List Form Attachment Information
+ */
+export interface IListFormAttachmentInfo {
+    /** The file content */
+    data: any;
+
+    /** The name of the file */
+    name: string;
 }
 
 /**
@@ -72,6 +95,9 @@ export interface IListFormProps {
  * List Form Result
  */
 export interface IListFormResult {
+    /** The item attachments */
+    attachments?: Array<Types.IAttachment>;
+
     /** The form fields */
     fields: { [key: string]: Types.IFieldResult };
 
@@ -223,7 +249,7 @@ export interface IListFormField {
     loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.IListItemQueryResult>>;
 
     /** Method to load the mms data */
-    loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<any>>;
+    loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<Types.Helper.Taxonomy.ITermInfo>>;
 
     /** Method to load the mms value field */
     loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<Types.IFieldManagedMetadata>;

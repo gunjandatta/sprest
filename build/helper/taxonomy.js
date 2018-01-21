@@ -7,6 +7,96 @@ var _Taxonomy = /** @class */ (function () {
     function _Taxonomy() {
         var _this = this;
         /**
+         * Method to find a term by id
+         */
+        this.findById = function (term, termId) {
+            // See if this is the root node
+            if (term.info && term.info.id == termId) {
+                // Return the root node
+                return term;
+            }
+            // Parse the child nodes
+            for (var prop in term) {
+                // Skip the info and parent
+                if (prop == "info" || prop == "parent") {
+                    continue;
+                }
+                // Find the term by id
+                var childTerm = _this.findById(term[prop], termId);
+                if (childTerm) {
+                    return childTerm;
+                }
+            }
+        };
+        /**
+         * Method to find a term by name
+         */
+        this.findByName = function (term, termName) {
+            // See if this is the root node
+            if (term.info && term.info.id == termName) {
+                // Return the root node
+                return term;
+            }
+            // Parse the child nodes
+            for (var prop in term) {
+                // Skip the info and parent
+                if (prop == "info" || prop == "parent") {
+                    continue;
+                }
+                // Find the term by id
+                var childTerm = _this.findById(term[prop], termName);
+                if (childTerm) {
+                    return childTerm;
+                }
+            }
+        };
+        /**
+         * Method to get the terms by id
+         */
+        this.getTermsById = function (termStoreId, termSetId) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Load the scripts
+                _this.loadScripts().then(function () {
+                    // Get the taxonomy session
+                    var context = SP.ClientContext.get_current();
+                    var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+                    // Get the terms
+                    var termStore = session.get_termStores().getById(termStoreId);
+                    var terms = termStore.get_termSets().getById(termSetId).getAllTerms();
+                    context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
+                    // Execute the request
+                    context.executeQueryAsync(function () {
+                        // Resolve the promise
+                        resolve(_this.getTerms(terms));
+                    }, function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        // Log
+                        console.error("[gd-sprest] Error getting the term group.");
+                        console.error("[gd-sprest] Error: " + args[1].get_message());
+                        // Reject the promise
+                        reject(args);
+                    });
+                });
+            });
+        };
+        /**
+         * Method to get the term set by id
+         */
+        this.getTermSetById = function (termStoreId, termSetId) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Get the terms
+                _this.getTermsById(termStoreId, termSetId).then(function (terms) {
+                    // Resolve the promise
+                    resolve(_this.toObject(terms));
+                });
+            });
+        };
+        /**
          * Method to get the terms from the default site collection
          */
         this.getTermsFromDefaultSC = function (termSetName) {
@@ -22,7 +112,17 @@ var _Taxonomy = /** @class */ (function () {
                     context.executeQueryAsync(function () {
                         // Resolve the promise
                         resolve(_this.getTerms(terms));
-                    }, reject);
+                    }, function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        // Log
+                        console.error("[gd-sprest] Error getting the terms from the default site collection.");
+                        console.error("[gd-sprest] Error: " + args[1].get_message());
+                        // Reject the promise
+                        reject(args);
+                    });
                 });
             });
         };
@@ -55,7 +155,17 @@ var _Taxonomy = /** @class */ (function () {
                     context.executeQueryAsync(function () {
                         // Resolve the promise
                         resolve(_this.getTerms(terms));
-                    }, reject);
+                    }, function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        // Log
+                        console.error("[gd-sprest] Error getting the terms.");
+                        console.error("[gd-sprest] Error: " + args[1].get_message());
+                        // Reject the promise
+                        reject(args);
+                    });
                 });
             });
         };
@@ -113,47 +223,70 @@ var _Taxonomy = /** @class */ (function () {
         this.getTermGroup = function (groupName) {
             // Return a promise
             return new Promise(function (resolve, reject) {
+                // Load the scripts
+                _this.loadScripts().then(function () {
+                    // Get the taxonomy session
+                    var context = SP.ClientContext.get_current();
+                    var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+                    // See if we are getting a specific group name
+                    if (groupName) {
+                        // Resolve the promise
+                        var termStores_1 = session.get_termStores();
+                        context.load(termStores_1, "Include(Groups)");
+                        context.executeQueryAsync(function () {
+                            // Get the default store
+                            var enumerator = termStores_1.getEnumerator();
+                            var termStore = enumerator.moveNext() ? enumerator.get_current() : null;
+                            if (termStore) {
+                                // Get the term group
+                                var termGroup = termStore.get_groups().getByName(groupName);
+                                context.load(termGroup);
+                                // Resolve the promise
+                                resolve({ context: context, termGroup: termGroup });
+                            }
+                            else {
+                                // Log
+                                console.error("[gd-sprest] Unable to get the taxonomy store.");
+                                // Reject the promise
+                                reject();
+                            }
+                        }, function () {
+                            var args = [];
+                            for (var _i = 0; _i < arguments.length; _i++) {
+                                args[_i] = arguments[_i];
+                            }
+                            // Log
+                            console.error("[gd-sprest] Error getting the term group.");
+                            console.error("[gd-sprest] Error: " + args[1].get_message());
+                            // Reject the promise
+                            reject(args);
+                        });
+                    }
+                    else {
+                        // Get the default site collection group
+                        var termStore = session.getDefaultSiteCollectionTermStore(context.get_site());
+                        var termGroup = termStore.getSiteCollectionGroup;
+                        context.load(termGroup);
+                        // Resolve the promise
+                        resolve({ context: context, termGroup: termGroup });
+                    }
+                });
+            });
+        };
+        /**
+         * Method to ensure the taxonomy script references are loaded.
+         */
+        this.loadScripts = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
                 // Ensure the core script is loaded
                 SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", function () {
                     // Ensure the taxonomy script is loaded
                     SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
                     SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
-                        // Get the taxonomy session
-                        var context = SP.ClientContext.get_current();
-                        var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
-                        // See if we are getting a specific group name
-                        if (groupName) {
-                            // Resolve the promise
-                            var termStores_1 = session.get_termStores();
-                            context.load(termStores_1, "Include(Groups)");
-                            context.executeQueryAsync(function () {
-                                // Get the default store
-                                var enumerator = termStores_1.getEnumerator();
-                                var termStore = enumerator.moveNext() ? enumerator.get_current() : null;
-                                if (termStore) {
-                                    // Get the term group
-                                    var termGroup = termStore.get_groups().getByName(groupName);
-                                    context.load(termGroup);
-                                    // Resolve the promise
-                                    resolve({ context: context, termGroup: termGroup });
-                                }
-                                else {
-                                    // Log
-                                    console.error("[gd-sprest] Unable to get the taxonomy store.");
-                                    // Reject the promise
-                                    reject();
-                                }
-                            });
-                        }
-                        else {
-                            // Get the default site collection group
-                            var termStore = session.getDefaultSiteCollectionTermStore(context.get_site());
-                            var termGroup = termStore.getSiteCollectionGroup;
-                            context.load(termGroup);
-                            // Resolve the promise
-                            resolve({ context: context, termGroup: termGroup });
-                        }
-                    }, reject);
+                        // Resolve the promise
+                        resolve();
+                    });
                 }, "sp.js");
             });
         };

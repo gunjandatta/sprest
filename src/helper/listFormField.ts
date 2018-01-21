@@ -1,6 +1,7 @@
 import { Site, Web } from "../lib";
 import { Types } from "../mapper";
 import { SPTypes } from "../types";
+import { Taxonomy } from "./taxonomy";
 declare var SP;
 
 /**
@@ -100,60 +101,10 @@ class _ListFormField {
     static loadMMSData(info: Types.Helper.ListForm.IListFormMMSFieldInfo): PromiseLike<Array<any>> {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Ensure the utility class is loaded
-            SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", () => {
-                // Ensure the taxonomy script is loaded
-                SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
-                SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", () => {
-                    // Load the terms
-                    let context = SP.ClientContext.get_current();
-                    let session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
-                    let termStore = session.get_termStores().getById(info.termStoreId);
-                    let termSet = termStore.getTermSet(info.termSetId);
-                    let terms = termSet.getAllTerms();
-                    context.load(terms);
-
-                    // Execute the request
-                    context.executeQueryAsync(
-                        // Success
-                        () => {
-                            let termSet = [];
-
-                            // Parse the terms
-                            let enumerator = terms.getEnumerator();
-                            while (enumerator.moveNext()) {
-                                let term = enumerator.get_current();
-
-                                // Add the term information
-                                termSet.push({
-                                    id: term.get_id().toString(),
-                                    name: term.get_name(),
-                                    path: term.get_pathOfTerm().replace(/;/g, "/")
-                                });
-                            }
-
-                            // Sort the terms
-                            termSet.sort((a, b) => {
-                                if (a.path < b.path) { return -1; }
-                                if (a.path > b.path) { return 1; }
-                                return 0;
-                            });
-
-                            // Get the term
-
-                            // Resolve the request
-                            resolve(termSet);
-                        },
-                        // Error
-                        () => {
-                            // Log
-                            console.log("[gd-sprest] Error getting the term set terms.");
-
-                            // Resolve the request
-                            resolve(termSet);
-                        }
-                    );
-                });
+            // Load the term set
+            Taxonomy.getTermsById(info.termStoreId, info.termSetId).then(terms => {
+                // Resolve the request
+                resolve(terms);
             });
         });
     }

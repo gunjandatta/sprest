@@ -63,19 +63,29 @@ class _ListForm {
     }
 
     // Method to load the item attachments
-    static loadAttachments(info: Types.Helper.ListForm.IListFormResult): PromiseLike<Array<Types.IAttachment>> {
+    static loadAttachments(info: Types.Helper.ListForm.IListFormProps): PromiseLike<Array<Types.IAttachment>> {
         // Return a promise
         return new Promise((resolve, reject) => {
-            let query: Types.ODataQuery = {
-                Expand: ["AttachmentFiles"],
-                Select: ["Attachments", "AttachmentFiles"]
-            };
-
-            // Get the item
-            info.list.Items(info.item.Id).query(query).execute(item => {
+            // Ensure the item id exists
+            let itemId = info.item ? info.item.Id : info.itemId;
+            if (itemId > 0) {
+                // Get the web
+                (new Web(info.webUrl))
+                    // Get the list
+                    .Lists(info.listName)
+                    // Get the item
+                    .Items(itemId)
+                    // Get the attachment files
+                    .AttachmentFiles()
+                    // Execute the request
+                    .execute(attachments => {
+                        // Resolve the promise
+                        resolve(attachments.results || []);
+                    });
+            } else {
                 // Resolve the promise
-                resolve(item.AttachmentFiles.results);
-            });
+                resolve([]);
+            }
         });
     }
 
@@ -221,6 +231,9 @@ class _ListForm {
                 .query(this._info.query)
                 // Execute the request
                 .execute(item => {
+                    // Save the attachments
+                    this._info.attachments = item.AttachmentFiles.results;
+
                     // Save the item
                     this._info.item = item;
 
@@ -309,6 +322,67 @@ class _ListForm {
                 // Resolve the promise
                 resolve(info);
             });
+        });
+    }
+
+    // Method to remove attachments from an item
+    removeAttachments(info: Types.Helper.ListForm.IListFormProps, attachments: Array<Types.IAttachment>): PromiseLike<void> {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            let web = new Web(info.webUrl);
+
+            // Parse the attachments
+            for (let i = 0; i < attachments.length; i++) {
+                let attachment = attachments[i];
+
+                // Get the file
+                web.getFileByServerRelativeUrl(attachment.ServerRelativeUrl)
+                    // Delete the file
+                    .delete()
+                    // Execute the request
+                    .execute(true);
+            }
+
+            // Wait for the requests to complete
+            web.done(() => {
+                // Resolve the request
+                resolve();
+            });
+        });
+    }
+
+    // Method to save attachments to an existing item
+    static saveAttachments(info: Types.Helper.ListForm.IListFormProps, attachmentInfo: Array<Types.Helper.ListForm.IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>> {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            let itemId = info.item ? info.item.Id : info.itemId;
+            if (itemId > 0) {
+                // Get the web
+                let attachments = (new Web(info.webUrl))
+                    // Get the lists
+                    .Lists(info.listName)
+                    // Get the item
+                    .Items(itemId)
+                    // Get the attachment files
+                    .AttachmentFiles();
+
+                // Parse the attachment information
+                for (let i = 0; i < attachmentInfo.length; i++) {
+                    let attachment = attachmentInfo[i];
+
+                    // Add the attachment
+                    attachments.add(attachment.name, attachment.data).execute(true);
+                }
+
+                // Wait for the requests to complete
+                attachments.done((...args) => {
+                    // Resolve the promise
+                    resolve(args);
+                });
+            } else {
+                // Resolve the promise
+                resolve();
+            }
         });
     }
 

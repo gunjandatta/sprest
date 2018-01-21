@@ -5849,18 +5849,37 @@ declare module 'gd-sprest/mapper/helper/listForm' {
                 * Method to load the item attachments
                 * @param listInfo - The list form information.
              */
-            loadAttachments(listInfo: IListFormResult): PromiseLike<Array<Types.IAttachment>>;
+            loadAttachments(listInfo: IListFormProps): PromiseLike<Array<Types.IAttachment>>;
             /**
                 * Method to refresh the item.
                 * @param listInfo - The list form information.
                 */
             refreshItem(listInfo: IListFormResult): PromiseLike<IListFormResult>;
             /**
+                * Method to remove attachments from an item.
+                */
+            removeAttachments(listInfo: Types.Helper.ListForm.IListFormProps, attachmentInfo: Array<Types.IAttachment>): PromiseLike<void>;
+            /**
+                * Method to save attachments to the item.
+                * @param listInfo - The list form information.
+                * @param attachmentInfo - The attachment files to add.
+                */
+            saveAttachments(listInfo: Types.Helper.ListForm.IListFormProps, attachmentInfo: Array<Types.Helper.ListForm.IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>>;
+            /**
                 * Method to save the item.
                 * @param itemValues - The list item values.
                 * @param list - The list.
                 */
             saveItem(itemValues: any, list: Types.IListResult): PromiseLike<IListFormResult>;
+    }
+    /**
+        * List Form Attachment Information
+        */
+    export interface IListFormAttachmentInfo {
+            /** The file content */
+            data: any;
+            /** The name of the file */
+            name: string;
     }
     /**
         * List Form Cache
@@ -5895,6 +5914,8 @@ declare module 'gd-sprest/mapper/helper/listForm' {
         * List Form Result
         */
     export interface IListFormResult {
+            /** The item attachments */
+            attachments?: Array<Types.IAttachment>;
             /** The form fields */
             fields: {
                     [key: string]: Types.IFieldResult;
@@ -6014,7 +6035,7 @@ declare module 'gd-sprest/mapper/helper/listForm' {
             /** Method to load the lookup data */
             loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.IListItemQueryResult>>;
             /** Method to load the mms data */
-            loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<any>>;
+            loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<Types.Helper.Taxonomy.ITermInfo>>;
             /** Method to load the mms value field */
             loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<Types.IFieldManagedMetadata>;
     }
@@ -6339,6 +6360,30 @@ declare module 'gd-sprest/mapper/helper/taxonomy' {
         * Taxonomy Helper Class
         */
     export interface ITaxonomy {
+            /**
+                * Method to find a term by id
+                * @param term - The term
+                * @param termId - The term id to search for
+                */
+            findById(term: ITerm, termId: string): ITermInfo;
+            /**
+                * Method to find a term by name
+                * @param term - The term
+                * @param termName - The term name to search for
+                */
+            findByName(term: ITerm, termName: string): ITermInfo;
+            /**
+                * Method to get the terms by id
+                * @param termStoreId - The term store guid
+                * @param termSetId - The term set guid
+                */
+            getTermsById(termStoreId: string, termSetId: string): PromiseLike<Array<ITermInfo>>;
+            /**
+                * Method to get the term set by id
+                * @param termStoreId - The term store guid
+                * @param termSetId - The term set guid
+                */
+            getTermSetById(termStoreId: string, termSetId: string): PromiseLike<ITerm>;
             /**
                 * Method to get the terms from the default site collection
                 * @param termSetName - The term set name

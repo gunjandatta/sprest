@@ -164,6 +164,8 @@ var _ListForm = /** @class */ (function () {
                 _this._info.list.Items(_this._props.itemId)
                     .query(_this._info.query)
                     .execute(function (item) {
+                    // Save the attachments
+                    _this._info.attachments = item.AttachmentFiles.results;
                     // Save the item
                     _this._info.item = item;
                     // Resolve the promise
@@ -241,15 +243,23 @@ var _ListForm = /** @class */ (function () {
     _ListForm.loadAttachments = function (info) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            var query = {
-                Expand: ["AttachmentFiles"],
-                Select: ["Attachments", "AttachmentFiles"]
-            };
-            // Get the item
-            info.list.Items(info.item.Id).query(query).execute(function (item) {
+            // Ensure the item id exists
+            var itemId = info.item ? info.item.Id : info.itemId;
+            if (itemId > 0) {
+                // Get the web
+                (new lib_1.Web(info.webUrl))
+                    .Lists(info.listName)
+                    .Items(itemId)
+                    .AttachmentFiles()
+                    .execute(function (attachments) {
+                    // Resolve the promise
+                    resolve(attachments.results || []);
+                });
+            }
+            else {
                 // Resolve the promise
-                resolve(item.AttachmentFiles.results);
-            });
+                resolve([]);
+            }
         });
     };
     // Method to refresh an item
@@ -263,6 +273,59 @@ var _ListForm = /** @class */ (function () {
                 // Resolve the promise
                 resolve(info);
             });
+        });
+    };
+    // Method to remove attachments from an item
+    _ListForm.prototype.removeAttachments = function (info, attachments) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var web = new lib_1.Web(info.webUrl);
+            // Parse the attachments
+            for (var i = 0; i < attachments.length; i++) {
+                var attachment = attachments[i];
+                // Get the file
+                web.getFileByServerRelativeUrl(attachment.ServerRelativeUrl)
+                    .delete()
+                    .execute(true);
+            }
+            // Wait for the requests to complete
+            web.done(function () {
+                // Resolve the request
+                resolve();
+            });
+        });
+    };
+    // Method to save attachments to an existing item
+    _ListForm.saveAttachments = function (info, attachmentInfo) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var itemId = info.item ? info.item.Id : info.itemId;
+            if (itemId > 0) {
+                // Get the web
+                var attachments = (new lib_1.Web(info.webUrl))
+                    .Lists(info.listName)
+                    .Items(itemId)
+                    .AttachmentFiles();
+                // Parse the attachment information
+                for (var i = 0; i < attachmentInfo.length; i++) {
+                    var attachment = attachmentInfo[i];
+                    // Add the attachment
+                    attachments.add(attachment.name, attachment.data).execute(true);
+                }
+                // Wait for the requests to complete
+                attachments.done(function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Resolve the promise
+                    resolve(args);
+                });
+            }
+            else {
+                // Resolve the promise
+                resolve();
+            }
         });
     };
     // Method to save a new or existing item
