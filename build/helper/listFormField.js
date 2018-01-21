@@ -106,6 +106,7 @@ var _ListFormField = /** @class */ (function () {
                     if (_this._fieldInfo.typeAsString.startsWith("TaxonomyFieldType")) {
                         var fldMMS = _this._fieldInfo.field;
                         _this._fieldInfo.multi = fldMMS.AllowMultipleValues;
+                        _this._fieldInfo.termId = fldMMS.IsAnchorValid ? fldMMS.AnchorId : fldMMS.TermSetId;
                         _this._fieldInfo.termSetId = fldMMS.TermSetId;
                         _this._fieldInfo.termStoreId = fldMMS.SspId;
                     }
@@ -160,9 +161,11 @@ var _ListFormField = /** @class */ (function () {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Load the term set
-            taxonomy_1.Taxonomy.getTermsById(info.termStoreId, info.termSetId).then(function (terms) {
+            taxonomy_1.Taxonomy.getTermSetById(info.termStoreId, info.termSetId).then(function (termSet) {
+                // Get the target root term
+                var root = taxonomy_1.Taxonomy.findById(termSet, info.termId);
                 // Resolve the request
-                resolve(terms);
+                resolve(taxonomy_1.Taxonomy.toArray(root));
             });
         });
     };

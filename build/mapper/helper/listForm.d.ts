@@ -150,6 +150,8 @@ export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
 export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
     /** Flag to determine if multiple values exist */
     multi?: boolean;
+    /** The term id */
+    termId?: string;
     /** The term set id */
     termSetId?: string;
     /** The term store id */

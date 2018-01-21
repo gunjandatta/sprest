@@ -61,7 +61,7 @@ class _Taxonomy {
 
                 // Get the terms
                 let termStore = session.get_termStores().getById(termStoreId);
-                let terms = termStore.get_termSets().getById(termSetId).getAllTerms();
+                let terms = termStore.getTermSet(termSetId).getAllTerms();
                 context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
 
                 // Execute the request
@@ -179,6 +179,112 @@ class _Taxonomy {
     }
 
     /**
+     * Method to ensure the taxonomy script references are loaded.
+     */
+    loadScripts = (): PromiseLike<void> => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Ensure the core script is loaded
+            SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", () => {
+                // Ensure the taxonomy script is loaded
+                SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
+                SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", () => {
+                    // Resolve the promise
+                    resolve();
+                });
+            }, "sp.js");
+        });
+    }
+
+    /**
+     * Method to convert a term to an array of term information
+     */
+    toArray = (term: Types.Helper.Taxonomy.ITerm): Array<Types.Helper.Taxonomy.ITermInfo> => {
+        let terms: Array<Types.Helper.Taxonomy.ITermInfo> = [];
+
+        // Recursive method to extract the child terms
+        let getChildTerms = (term: Types.Helper.Taxonomy.ITermInfo, terms: Array<Types.Helper.Taxonomy.ITermInfo>) => {
+            // Parse the properties
+            for (let prop in term) {
+                // Skip the info and parent properties
+                if (prop == "info" || prop == "parent") { continue; }
+
+                // Add the child term
+                let childTerm = term[prop];
+                terms.push(childTerm.info);
+
+                // Add the child terms
+                getChildTerms(childTerm, terms);
+            }
+        };
+
+        // Ensure the term exists
+        if (term) {
+            // See if the root node contains term information
+            if (term.info) {
+                // Add the root term
+                terms.push(term.info);
+            }
+
+            // Get the child terms
+            getChildTerms(term as any, terms);
+        }
+
+        // Return the child terms
+        return terms;
+    }
+
+    /**
+     * Method to convert the terms to an object
+     */
+    toObject = (terms: Array<Types.Helper.Taxonomy.ITermInfo>): Types.Helper.Taxonomy.ITerm => {
+        let root: Types.Helper.Taxonomy.ITerm = {} as any;
+
+        // Recursive method to add terms
+        let addTerm = (node: Types.Helper.Taxonomy.ITerm, info: Types.Helper.Taxonomy.ITermInfo, path: Array<string>) => {
+            let term = node;
+            let termName = "";
+
+            // Loop for each term
+            while (path.length > 0) {
+                // Ensure the term exists
+                termName = path[0];
+                if (term[termName] == null) {
+                    // Create the term
+                    term[termName] = {};
+                }
+
+                // Set the term
+                let parent = term;
+                term = term[termName];
+
+                // Set the parent
+                term.parent = parent;
+
+                // Remove the term from the path
+                path.splice(0, 1);
+            }
+
+            // Set the info
+            term.info = info;
+        }
+
+        // Ensure the terms exist
+        if (terms) {
+            // Parse the terms
+            for (let i = 0; i < terms.length; i++) {
+                let term = terms[i];
+
+                // Add the term
+                addTerm(root, term, term.pathAsString.split(";"))
+            }
+        }
+
+        // Return the root term
+        return root;
+    }
+
+    /**
      * Private Methods
      */
 
@@ -269,71 +375,6 @@ class _Taxonomy {
                 }
             });
         });
-    }
-
-    /**
-     * Method to ensure the taxonomy script references are loaded.
-     */
-    loadScripts = (): PromiseLike<void> => {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // Ensure the core script is loaded
-            SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", () => {
-                // Ensure the taxonomy script is loaded
-                SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
-                SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", () => {
-                    // Resolve the promise
-                    resolve();
-                });
-            }, "sp.js");
-        });
-    }
-
-    /**
-     * Method to convert the terms to an object
-     */
-    private toObject = (terms: Array<Types.Helper.Taxonomy.ITermInfo>): Types.Helper.Taxonomy.ITerm => {
-        let root: Types.Helper.Taxonomy.ITerm = {} as any;
-
-        // Recursive method to add terms
-        let addTerm = (node: Types.Helper.Taxonomy.ITerm, info: Types.Helper.Taxonomy.ITermInfo, path: Array<string>) => {
-            let term = node;
-            let termName = "";
-
-            // Loop for each term
-            while (path.length > 0) {
-                // Ensure the term exists
-                termName = path[0];
-                if (term[termName] == null) {
-                    // Create the term
-                    term[termName] = {};
-                }
-
-                // Set the term
-                let parent = term;
-                term = term[termName];
-
-                // Set the parent
-                term.parent = parent;
-
-                // Remove the term from the path
-                path.splice(0, 1);
-            }
-
-            // Set the info
-            term.info = info;
-        }
-
-        // Parse the terms
-        for (let i = 0; i < terms.length; i++) {
-            let term = terms[i];
-
-            // Add the term
-            addTerm(root, term, term.pathAsString.split(";"))
-        }
-
-        // Return the root term
-        return root;
     }
 }
 export const Taxonomy: Types.Helper.Taxonomy.ITaxonomy = new _Taxonomy();

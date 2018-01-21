@@ -219,6 +219,8 @@ export interface IFieldLookup extends IFieldResult {
  * Managed Metadata Field
  */
 export interface IFieldManagedMetadata extends IFieldLookup {
+    /** The root term */
+    AnchorId: string;
     /** Flag to determine if the anchor is valid. */
     IsAnchorValid: boolean;
     /** Flag to determine if this is a keyword. */
