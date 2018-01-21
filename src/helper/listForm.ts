@@ -66,24 +66,26 @@ class _ListForm {
     static loadAttachments(info: Types.Helper.ListForm.IListFormProps): PromiseLike<Array<Types.IAttachment>> {
         // Return a promise
         return new Promise((resolve, reject) => {
-            let query: Types.ODataQuery = {
-                Expand: ["AttachmentFiles"],
-                Select: ["Attachments", "AttachmentFiles"]
-            };
-
-            // Get the web
-            (new Web(info.webUrl))
-                // Get the list
-                .Lists(info.listName)
-                // Get the item
-                .Items(info.item.Id)
-                // Set the query
-                .query(query)
-                // Execute the request
-                .execute(item => {
-                    // Resolve the promise
-                    resolve(item.AttachmentFiles.results);
-                });
+            // Ensure the item id exists
+            let itemId = info.item ? info.item.Id : info.itemId;
+            if (itemId > 0) {
+                // Get the web
+                (new Web(info.webUrl))
+                    // Get the list
+                    .Lists(info.listName)
+                    // Get the item
+                    .Items(itemId)
+                    // Get the attachment files
+                    .AttachmentFiles()
+                    // Execute the request
+                    .execute(attachments => {
+                        // Resolve the promise
+                        resolve(attachments.results || []);
+                    });
+            } else {
+                // Resolve the promise
+                resolve([]);
+            }
         });
     }
 
@@ -357,7 +359,7 @@ class _ListForm {
                     // Get the lists
                     .Lists(info.listName)
                     // Get the item
-                    .Items(info.itemId)
+                    .Items(itemId)
                     // Get the attachment files
                     .AttachmentFiles();
 
@@ -375,9 +377,8 @@ class _ListForm {
                     resolve(args);
                 });
             } else {
-                // Reject the promise
-                console.error("[gd-sprest] The item does not exist.")
-                reject();
+                // Resolve the promise
+                resolve();
             }
         });
     }

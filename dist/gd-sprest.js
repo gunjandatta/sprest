@@ -1050,7 +1050,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.09,
+    __ver: 3.10,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -9066,19 +9066,23 @@ var _ListForm = /** @class */ (function () {
     _ListForm.loadAttachments = function (info) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            var query = {
-                Expand: ["AttachmentFiles"],
-                Select: ["Attachments", "AttachmentFiles"]
-            };
-            // Get the web
-            (new lib_1.Web(info.webUrl))
-                .Lists(info.listName)
-                .Items(info.item.Id)
-                .query(query)
-                .execute(function (item) {
+            // Ensure the item id exists
+            var itemId = info.item ? info.item.Id : info.itemId;
+            if (itemId > 0) {
+                // Get the web
+                (new lib_1.Web(info.webUrl))
+                    .Lists(info.listName)
+                    .Items(itemId)
+                    .AttachmentFiles()
+                    .execute(function (attachments) {
+                    // Resolve the promise
+                    resolve(attachments.results || []);
+                });
+            }
+            else {
                 // Resolve the promise
-                resolve(item.AttachmentFiles.results);
-            });
+                resolve([]);
+            }
         });
     };
     // Method to refresh an item
@@ -9123,7 +9127,7 @@ var _ListForm = /** @class */ (function () {
                 // Get the web
                 var attachments = (new lib_1.Web(info.webUrl))
                     .Lists(info.listName)
-                    .Items(info.itemId)
+                    .Items(itemId)
                     .AttachmentFiles();
                 // Parse the attachment information
                 for (var i = 0; attachmentInfo.length; i++) {
@@ -9142,9 +9146,8 @@ var _ListForm = /** @class */ (function () {
                 });
             }
             else {
-                // Reject the promise
-                console.error("[gd-sprest] The item does not exist.");
-                reject();
+                // Resolve the promise
+                resolve();
             }
         });
     };
