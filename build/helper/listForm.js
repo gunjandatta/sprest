@@ -307,7 +307,7 @@ var _ListForm = /** @class */ (function () {
                     .Items(itemId)
                     .AttachmentFiles();
                 // Parse the attachment information
-                for (var i = 0; attachmentInfo.length; i++) {
+                for (var i = 0; i < attachmentInfo.length; i++) {
                     var attachment = attachmentInfo[i];
                     // Add the attachment
                     attachments.add(attachment.name, attachment.data).execute(true);

@@ -1050,7 +1050,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.11,
+    __ver: 3.12,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -9132,7 +9132,7 @@ var _ListForm = /** @class */ (function () {
                     .Items(itemId)
                     .AttachmentFiles();
                 // Parse the attachment information
-                for (var i = 0; attachmentInfo.length; i++) {
+                for (var i = 0; i < attachmentInfo.length; i++) {
                     var attachment = attachmentInfo[i];
                     // Add the attachment
                     attachments.add(attachment.name, attachment.data).execute(true);

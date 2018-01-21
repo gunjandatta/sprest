@@ -367,7 +367,7 @@ class _ListForm {
                     .AttachmentFiles();
 
                 // Parse the attachment information
-                for (let i = 0; attachmentInfo.length; i++) {
+                for (let i = 0; i < attachmentInfo.length; i++) {
                     let attachment = attachmentInfo[i];
 
                     // Add the attachment
