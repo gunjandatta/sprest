@@ -5914,6 +5914,8 @@ declare module 'gd-sprest/mapper/helper/listForm' {
         * List Form Result
         */
     export interface IListFormResult {
+            /** The item attachments */
+            attachments?: Array<Types.IAttachment>;
             /** The form fields */
             fields: {
                     [key: string]: Types.IFieldResult;

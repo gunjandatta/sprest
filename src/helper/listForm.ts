@@ -231,6 +231,9 @@ class _ListForm {
                 .query(this._info.query)
                 // Execute the request
                 .execute(item => {
+                    // Save the attachments
+                    this._info.attachments = item.AttachmentFiles.results;
+
                     // Save the item
                     this._info.item = item;
 

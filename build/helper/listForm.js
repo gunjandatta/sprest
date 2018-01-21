@@ -164,6 +164,8 @@ var _ListForm = /** @class */ (function () {
                 _this._info.list.Items(_this._props.itemId)
                     .query(_this._info.query)
                     .execute(function (item) {
+                    // Save the attachments
+                    _this._info.attachments = item.AttachmentFiles.results;
                     // Save the item
                     _this._info.item = item;
                     // Resolve the promise
