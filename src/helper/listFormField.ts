@@ -102,12 +102,12 @@ class _ListFormField {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the term set
-            Taxonomy.getTermSetById(info.termStoreId, info.termSetId).then(root => {
+            Taxonomy.getTermSetById(info.termStoreId, info.termSetId).then(termSet => {
                 // Get the target root term
-                let term = Taxonomy.findById(root, info.termId);
+                let root = Taxonomy.findById(termSet, info.termId);
 
                 // Resolve the request
-                resolve(Taxonomy.toArray(term));
+                resolve(Taxonomy.toArray(root));
             });
         });
     }

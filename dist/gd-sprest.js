@@ -9729,11 +9729,11 @@ var _ListFormField = /** @class */ (function () {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Load the term set
-            taxonomy_1.Taxonomy.getTermSetById(info.termStoreId, info.termSetId).then(function (root) {
+            taxonomy_1.Taxonomy.getTermSetById(info.termStoreId, info.termSetId).then(function (termSet) {
                 // Get the target root term
-                var term = taxonomy_1.Taxonomy.findById(root, info.termId);
+                var root = taxonomy_1.Taxonomy.findById(termSet, info.termId);
                 // Resolve the request
-                resolve(taxonomy_1.Taxonomy.toArray(term));
+                resolve(taxonomy_1.Taxonomy.toArray(root));
             });
         });
     };
