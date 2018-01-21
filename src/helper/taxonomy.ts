@@ -218,14 +218,17 @@ class _Taxonomy {
             }
         };
 
-        // See if the root node contains term information
-        if (term.info) {
-            // Add the root term
-            terms.push(term.info);
-        }
+        // Ensure the term exists
+        if (term) {
+            // See if the root node contains term information
+            if (term.info) {
+                // Add the root term
+                terms.push(term.info);
+            }
 
-        // Get the child terms
-        getChildTerms(term as any, terms);
+            // Get the child terms
+            getChildTerms(term as any, terms);
+        }
 
         // Return the child terms
         return terms;
@@ -266,12 +269,15 @@ class _Taxonomy {
             term.info = info;
         }
 
-        // Parse the terms
-        for (let i = 0; i < terms.length; i++) {
-            let term = terms[i];
+        // Ensure the terms exist
+        if (terms) {
+            // Parse the terms
+            for (let i = 0; i < terms.length; i++) {
+                let term = terms[i];
 
-            // Add the term
-            addTerm(root, term, term.pathAsString.split(";"))
+                // Add the term
+                addTerm(root, term, term.pathAsString.split(";"))
+            }
         }
 
         // Return the root term

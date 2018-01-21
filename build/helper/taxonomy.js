@@ -219,13 +219,16 @@ var _Taxonomy = /** @class */ (function () {
                     getChildTerms(childTerm, terms);
                 }
             };
-            // See if the root node contains term information
-            if (term.info) {
-                // Add the root term
-                terms.push(term.info);
+            // Ensure the term exists
+            if (term) {
+                // See if the root node contains term information
+                if (term.info) {
+                    // Add the root term
+                    terms.push(term.info);
+                }
+                // Get the child terms
+                getChildTerms(term, terms);
             }
-            // Get the child terms
-            getChildTerms(term, terms);
             // Return the child terms
             return terms;
         };
@@ -257,11 +260,14 @@ var _Taxonomy = /** @class */ (function () {
                 // Set the info
                 term.info = info;
             };
-            // Parse the terms
-            for (var i = 0; i < terms.length; i++) {
-                var term = terms[i];
-                // Add the term
-                addTerm(root, term, term.pathAsString.split(";"));
+            // Ensure the terms exist
+            if (terms) {
+                // Parse the terms
+                for (var i = 0; i < terms.length; i++) {
+                    var term = terms[i];
+                    // Add the term
+                    addTerm(root, term, term.pathAsString.split(";"));
+                }
             }
             // Return the root term
             return root;
