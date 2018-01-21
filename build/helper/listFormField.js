@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 var types_1 = require("../types");
+var taxonomy_1 = require("./taxonomy");
 /**
  * List Form Field
  */
@@ -158,56 +159,10 @@ var _ListFormField = /** @class */ (function () {
     _ListFormField.loadMMSData = function (info) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            // Ensure the utility class is loaded
-            SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", function () {
-                // Ensure the taxonomy script is loaded
-                SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
-                SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
-                    // Load the terms
-                    var context = SP.ClientContext.get_current();
-                    var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
-                    var termStore = session.get_termStores().getById(info.termStoreId);
-                    var termSet = termStore.getTermSet(info.termSetId);
-                    var terms = termSet.getAllTerms();
-                    context.load(terms);
-                    // Execute the request
-                    context.executeQueryAsync(
-                    // Success
-                    function () {
-                        var termSet = [];
-                        // Parse the terms
-                        var enumerator = terms.getEnumerator();
-                        while (enumerator.moveNext()) {
-                            var term = enumerator.get_current();
-                            // Add the term information
-                            termSet.push({
-                                id: term.get_id().toString(),
-                                name: term.get_name(),
-                                path: term.get_pathOfTerm().replace(/;/g, "/")
-                            });
-                        }
-                        // Sort the terms
-                        termSet.sort(function (a, b) {
-                            if (a.path < b.path) {
-                                return -1;
-                            }
-                            if (a.path > b.path) {
-                                return 1;
-                            }
-                            return 0;
-                        });
-                        // Get the term
-                        // Resolve the request
-                        resolve(termSet);
-                    }, 
-                    // Error
-                    function () {
-                        // Log
-                        console.log("[gd-sprest] Error getting the term set terms.");
-                        // Resolve the request
-                        resolve(termSet);
-                    });
-                });
+            // Load the term set
+            taxonomy_1.Taxonomy.getTermsById(info.termStoreId, info.termSetId).then(function (terms) {
+                // Resolve the request
+                resolve(terms);
             });
         });
     };

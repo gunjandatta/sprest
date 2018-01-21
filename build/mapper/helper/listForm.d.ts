@@ -198,7 +198,7 @@ export interface IListFormField {
     /** Method to load the lookup data */
     loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.IListItemQueryResult>>;
     /** Method to load the mms data */
-    loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<any>>;
+    loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<Types.Helper.Taxonomy.ITermInfo>>;
     /** Method to load the mms value field */
     loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<Types.IFieldManagedMetadata>;
 }

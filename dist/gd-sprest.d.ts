@@ -6035,7 +6035,7 @@ declare module 'gd-sprest/mapper/helper/listForm' {
             /** Method to load the lookup data */
             loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.IListItemQueryResult>>;
             /** Method to load the mms data */
-            loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<any>>;
+            loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<Types.Helper.Taxonomy.ITermInfo>>;
             /** Method to load the mms value field */
             loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<Types.IFieldManagedMetadata>;
     }
@@ -6360,6 +6360,30 @@ declare module 'gd-sprest/mapper/helper/taxonomy' {
         * Taxonomy Helper Class
         */
     export interface ITaxonomy {
+            /**
+                * Method to find a term by id
+                * @param term - The term
+                * @param termId - The term id to search for
+                */
+            findById(term: ITerm, termId: string): ITermInfo;
+            /**
+                * Method to find a term by name
+                * @param term - The term
+                * @param termName - The term name to search for
+                */
+            findByName(term: ITerm, termName: string): ITermInfo;
+            /**
+                * Method to get the terms by id
+                * @param termStoreId - The term store guid
+                * @param termSetId - The term set guid
+                */
+            getTermsById(termStoreId: string, termSetId: string): PromiseLike<Array<ITermInfo>>;
+            /**
+                * Method to get the term set by id
+                * @param termStoreId - The term store guid
+                * @param termSetId - The term set guid
+                */
+            getTermSetById(termStoreId: string, termSetId: string): PromiseLike<ITerm>;
             /**
                 * Method to get the terms from the default site collection
                 * @param termSetName - The term set name

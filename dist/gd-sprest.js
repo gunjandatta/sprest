@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 42);
+/******/ 	return __webpack_require__(__webpack_require__.s = 43);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -70,9 +70,9 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var requestType_1 = __webpack_require__(80);
+var requestType_1 = __webpack_require__(81);
 exports.RequestType = requestType_1.RequestType;
-var SPTypes = __webpack_require__(81);
+var SPTypes = __webpack_require__(82);
 exports.SPTypes = SPTypes;
 //# sourceMappingURL=index.js.map
 
@@ -86,8 +86,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(78));
-__export(__webpack_require__(107));
+__export(__webpack_require__(79));
 __export(__webpack_require__(108));
 __export(__webpack_require__(109));
 __export(__webpack_require__(110));
@@ -95,6 +94,7 @@ __export(__webpack_require__(111));
 __export(__webpack_require__(112));
 __export(__webpack_require__(113));
 __export(__webpack_require__(114));
+__export(__webpack_require__(115));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -107,8 +107,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(77));
-__export(__webpack_require__(115));
+__export(__webpack_require__(78));
 __export(__webpack_require__(116));
 __export(__webpack_require__(117));
 __export(__webpack_require__(118));
@@ -119,6 +118,7 @@ __export(__webpack_require__(122));
 __export(__webpack_require__(123));
 __export(__webpack_require__(124));
 __export(__webpack_require__(125));
+__export(__webpack_require__(126));
 __export(__webpack_require__(39));
 //# sourceMappingURL=index.js.map
 
@@ -273,8 +273,8 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(5);
-var IE8_DOM_DEFINE = __webpack_require__(45);
-var toPrimitive = __webpack_require__(46);
+var IE8_DOM_DEFINE = __webpack_require__(46);
+var toPrimitive = __webpack_require__(47);
 var dP = Object.defineProperty;
 
 exports.f = __webpack_require__(9) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
@@ -407,7 +407,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(53);
+var IObject = __webpack_require__(54);
 var defined = __webpack_require__(21);
 module.exports = function (it) {
   return IObject(defined(it));
@@ -489,9 +489,9 @@ var redefine = __webpack_require__(7);
 var hide = __webpack_require__(6);
 var has = __webpack_require__(10);
 var Iterators = __webpack_require__(12);
-var $iterCreate = __webpack_require__(49);
+var $iterCreate = __webpack_require__(50);
 var setToStringTag = __webpack_require__(24);
-var getPrototypeOf = __webpack_require__(56);
+var getPrototypeOf = __webpack_require__(57);
 var ITERATOR = __webpack_require__(3)('iterator');
 var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
 var FF_ITERATOR = '@@iterator';
@@ -615,7 +615,7 @@ module.exports = $export;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__(52);
+var $keys = __webpack_require__(53);
 var enumBugKeys = __webpack_require__(33);
 
 module.exports = Object.keys || function keys(O) {
@@ -658,7 +658,7 @@ module.exports = document && document.documentElement;
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(15);
-var invoke = __webpack_require__(69);
+var invoke = __webpack_require__(70);
 var html = __webpack_require__(34);
 var cel = __webpack_require__(19);
 var global = __webpack_require__(4);
@@ -775,16 +775,16 @@ module.exports.f = function (C) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = __webpack_require__(76);
-var dependencies_1 = __webpack_require__(126);
-var field_1 = __webpack_require__(127);
-var jslink_1 = __webpack_require__(128);
-var listForm_1 = __webpack_require__(129);
-var listFormField_1 = __webpack_require__(130);
-var loader_1 = __webpack_require__(131);
+var app_1 = __webpack_require__(77);
+var dependencies_1 = __webpack_require__(127);
+var field_1 = __webpack_require__(128);
+var jslink_1 = __webpack_require__(129);
+var listForm_1 = __webpack_require__(130);
+var listFormField_1 = __webpack_require__(131);
+var loader_1 = __webpack_require__(132);
 var parse_1 = __webpack_require__(41);
-var spCfg_1 = __webpack_require__(132);
-var taxonomy_1 = __webpack_require__(133);
+var spCfg_1 = __webpack_require__(133);
+var taxonomy_1 = __webpack_require__(42);
 var types_1 = __webpack_require__(40);
 var webpart_1 = __webpack_require__(134);
 ;
@@ -817,18 +817,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Mapper
  */
-var mapper_1 = __webpack_require__(79);
-var mapper_2 = __webpack_require__(82);
-var mapper_3 = __webpack_require__(83);
-var mapper_4 = __webpack_require__(84);
-var mapper_5 = __webpack_require__(85);
-var mapper_6 = __webpack_require__(86);
-var mapper_7 = __webpack_require__(87);
-var mapper_8 = __webpack_require__(88);
-var mapper_9 = __webpack_require__(89);
-var mapper_10 = __webpack_require__(90);
-var mapper_11 = __webpack_require__(91);
-var mapper_12 = __webpack_require__(92);
+var mapper_1 = __webpack_require__(80);
+var mapper_2 = __webpack_require__(83);
+var mapper_3 = __webpack_require__(84);
+var mapper_4 = __webpack_require__(85);
+var mapper_5 = __webpack_require__(86);
+var mapper_6 = __webpack_require__(87);
+var mapper_7 = __webpack_require__(88);
+var mapper_8 = __webpack_require__(89);
+var mapper_9 = __webpack_require__(90);
+var mapper_10 = __webpack_require__(91);
+var mapper_11 = __webpack_require__(92);
+var mapper_12 = __webpack_require__(93);
 exports.Mapper = {
     attachment: mapper_3.attachment, attachmentfiles: mapper_3.attachmentfiles,
     audit: mapper_1.audit,
@@ -866,7 +866,7 @@ exports.Mapper = {
 /**
  * Types
  */
-var Types = __webpack_require__(93);
+var Types = __webpack_require__(94);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -998,6 +998,346 @@ exports.parse = function (jsonString) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Taxonomy Helper Class
+ */
+var _Taxonomy = /** @class */ (function () {
+    function _Taxonomy() {
+        var _this = this;
+        /**
+         * Method to find a term by id
+         */
+        this.findById = function (term, termId) {
+            // See if this is the root node
+            if (term.info && term.info.id == termId) {
+                // Return the root node
+                return term;
+            }
+            // Parse the child nodes
+            for (var prop in term) {
+                // Skip the info and parent
+                if (prop == "info" || prop == "parent") {
+                    continue;
+                }
+                // Find the term by id
+                var childTerm = _this.findById(term[prop], termId);
+                if (childTerm) {
+                    return childTerm;
+                }
+            }
+        };
+        /**
+         * Method to find a term by name
+         */
+        this.findByName = function (term, termName) {
+            // See if this is the root node
+            if (term.info && term.info.id == termName) {
+                // Return the root node
+                return term;
+            }
+            // Parse the child nodes
+            for (var prop in term) {
+                // Skip the info and parent
+                if (prop == "info" || prop == "parent") {
+                    continue;
+                }
+                // Find the term by id
+                var childTerm = _this.findById(term[prop], termName);
+                if (childTerm) {
+                    return childTerm;
+                }
+            }
+        };
+        /**
+         * Method to get the terms by id
+         */
+        this.getTermsById = function (termStoreId, termSetId) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Load the scripts
+                _this.loadScripts().then(function () {
+                    // Get the taxonomy session
+                    var context = SP.ClientContext.get_current();
+                    var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+                    // Get the terms
+                    var termStore = session.get_termStores().getById(termStoreId);
+                    var terms = termStore.get_termSets().getById(termSetId).getAllTerms();
+                    context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
+                    // Execute the request
+                    context.executeQueryAsync(function () {
+                        // Resolve the promise
+                        resolve(_this.getTerms(terms));
+                    }, function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        // Log
+                        console.error("[gd-sprest] Error getting the term group.");
+                        console.error("[gd-sprest] Error: " + args[1].get_message());
+                        // Reject the promise
+                        reject(args);
+                    });
+                });
+            });
+        };
+        /**
+         * Method to get the term set by id
+         */
+        this.getTermSetById = function (termStoreId, termSetId) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Get the terms
+                _this.getTermsById(termStoreId, termSetId).then(function (terms) {
+                    // Resolve the promise
+                    resolve(_this.toObject(terms));
+                });
+            });
+        };
+        /**
+         * Method to get the terms from the default site collection
+         */
+        this.getTermsFromDefaultSC = function (termSetName) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Get the term group
+                _this.getTermGroup().then(function (_a) {
+                    var context = _a.context, termGroup = _a.termGroup;
+                    // Get the terms
+                    var terms = termGroup.get_termSets().getByName(termSetName).getAllTerms();
+                    context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
+                    // Execute the request
+                    context.executeQueryAsync(function () {
+                        // Resolve the promise
+                        resolve(_this.getTerms(terms));
+                    }, function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        // Log
+                        console.error("[gd-sprest] Error getting the terms from the default site collection.");
+                        console.error("[gd-sprest] Error: " + args[1].get_message());
+                        // Reject the promise
+                        reject(args);
+                    });
+                });
+            });
+        };
+        /**
+         * Method to get the term set from the default site collection
+         */
+        this.getTermSetFromDefaultSC = function (termSetName) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Get the terms
+                _this.getTermsFromDefaultSC(termSetName).then(function (terms) {
+                    // Resolve the object
+                    resolve(_this.toObject(terms));
+                });
+            });
+        };
+        /**
+         * Method to get a terms from a specified group
+         */
+        this.getTermsByGroupName = function (termSetName, groupName) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Get the term group
+                _this.getTermGroup(groupName).then(function (_a) {
+                    var context = _a.context, termGroup = _a.termGroup;
+                    // Get the "DoD" terms under the "Entities" term group
+                    var terms = termGroup.get_termSets().getByName(termSetName).getAllTerms();
+                    context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
+                    // Execute the request
+                    context.executeQueryAsync(function () {
+                        // Resolve the promise
+                        resolve(_this.getTerms(terms));
+                    }, function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        // Log
+                        console.error("[gd-sprest] Error getting the terms.");
+                        console.error("[gd-sprest] Error: " + args[1].get_message());
+                        // Reject the promise
+                        reject(args);
+                    });
+                });
+            });
+        };
+        /**
+         * Method to get the term set from the default site collection
+         */
+        this.getTermSetByGroupName = function (termSetName, groupName) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Get the terms
+                _this.getTermsByGroupName(termSetName, groupName).then(function (terms) {
+                    // Resolve the object
+                    resolve(_this.toObject(terms));
+                });
+            });
+        };
+        /**
+         * Private Methods
+         */
+        /**
+         * Method to get the terms
+         */
+        this.getTerms = function (termSetTerms) {
+            var terms = [];
+            // Parse the term sets terms
+            var enumerator = termSetTerms.getEnumerator();
+            while (enumerator.moveNext()) {
+                var term = enumerator.get_current();
+                // Create the terms
+                terms.push({
+                    description: term.get_description(),
+                    id: term.get_id().toString(),
+                    name: term.get_name(),
+                    path: term.get_pathOfTerm().split(";"),
+                    pathAsString: term.get_pathOfTerm(),
+                    props: term.get_customProperties()
+                });
+            }
+            // Sort the terms
+            terms.sort(function (a, b) {
+                if (a < b) {
+                    return -1;
+                }
+                if (a > b) {
+                    return 1;
+                }
+                return 0;
+            });
+            // Return the terms
+            return terms;
+        };
+        /**
+         * Method to get the term group
+         */
+        this.getTermGroup = function (groupName) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Load the scripts
+                _this.loadScripts().then(function () {
+                    // Get the taxonomy session
+                    var context = SP.ClientContext.get_current();
+                    var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+                    // See if we are getting a specific group name
+                    if (groupName) {
+                        // Resolve the promise
+                        var termStores_1 = session.get_termStores();
+                        context.load(termStores_1, "Include(Groups)");
+                        context.executeQueryAsync(function () {
+                            // Get the default store
+                            var enumerator = termStores_1.getEnumerator();
+                            var termStore = enumerator.moveNext() ? enumerator.get_current() : null;
+                            if (termStore) {
+                                // Get the term group
+                                var termGroup = termStore.get_groups().getByName(groupName);
+                                context.load(termGroup);
+                                // Resolve the promise
+                                resolve({ context: context, termGroup: termGroup });
+                            }
+                            else {
+                                // Log
+                                console.error("[gd-sprest] Unable to get the taxonomy store.");
+                                // Reject the promise
+                                reject();
+                            }
+                        }, function () {
+                            var args = [];
+                            for (var _i = 0; _i < arguments.length; _i++) {
+                                args[_i] = arguments[_i];
+                            }
+                            // Log
+                            console.error("[gd-sprest] Error getting the term group.");
+                            console.error("[gd-sprest] Error: " + args[1].get_message());
+                            // Reject the promise
+                            reject(args);
+                        });
+                    }
+                    else {
+                        // Get the default site collection group
+                        var termStore = session.getDefaultSiteCollectionTermStore(context.get_site());
+                        var termGroup = termStore.getSiteCollectionGroup;
+                        context.load(termGroup);
+                        // Resolve the promise
+                        resolve({ context: context, termGroup: termGroup });
+                    }
+                });
+            });
+        };
+        /**
+         * Method to ensure the taxonomy script references are loaded.
+         */
+        this.loadScripts = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Ensure the core script is loaded
+                SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", function () {
+                    // Ensure the taxonomy script is loaded
+                    SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
+                    SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
+                        // Resolve the promise
+                        resolve();
+                    });
+                }, "sp.js");
+            });
+        };
+        /**
+         * Method to convert the terms to an object
+         */
+        this.toObject = function (terms) {
+            var root = {};
+            // Recursive method to add terms
+            var addTerm = function (node, info, path) {
+                var term = node;
+                var termName = "";
+                // Loop for each term
+                while (path.length > 0) {
+                    // Ensure the term exists
+                    termName = path[0];
+                    if (term[termName] == null) {
+                        // Create the term
+                        term[termName] = {};
+                    }
+                    // Set the term
+                    var parent_1 = term;
+                    term = term[termName];
+                    // Set the parent
+                    term.parent = parent_1;
+                    // Remove the term from the path
+                    path.splice(0, 1);
+                }
+                // Set the info
+                term.info = info;
+            };
+            // Parse the terms
+            for (var i = 0; i < terms.length; i++) {
+                var term = terms[i];
+                // Add the term
+                addTerm(root, term, term.pathAsString.split(";"));
+            }
+            // Return the root term
+            return root;
+        };
+    }
+    return _Taxonomy;
+}());
+exports.Taxonomy = new _Taxonomy();
+//# sourceMappingURL=taxonomy.js.map
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 // Type definitions for gd-sprest
 // Project: https://gunjandatta.github.io/sprest
 // Definitions by: Gunjan Datta <https://github.com/gunjandatta>
@@ -1024,7 +1364,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-__webpack_require__(43);
+__webpack_require__(44);
 var helper_1 = __webpack_require__(37);
 exports.Helper = helper_1.Helper;
 var mapper_1 = __webpack_require__(38);
@@ -1050,7 +1390,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.12,
+    __ver: 3.13,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -1077,18 +1417,18 @@ if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver
 //# sourceMappingURL=gd-sprest.js.map
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(44);
-__webpack_require__(47);
-__webpack_require__(58);
-__webpack_require__(62);
+__webpack_require__(45);
+__webpack_require__(48);
+__webpack_require__(59);
+__webpack_require__(63);
 module.exports = __webpack_require__(11).Promise;
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1105,7 +1445,7 @@ if (test + '' != '[object z]') {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = !__webpack_require__(9) && !__webpack_require__(26)(function () {
@@ -1114,7 +1454,7 @@ module.exports = !__webpack_require__(9) && !__webpack_require__(26)(function ()
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
@@ -1132,12 +1472,12 @@ module.exports = function (it, S) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var $at = __webpack_require__(48)(true);
+var $at = __webpack_require__(49)(true);
 
 // 21.1.3.27 String.prototype[@@iterator]()
 __webpack_require__(28)(String, 'String', function (iterated) {
@@ -1156,7 +1496,7 @@ __webpack_require__(28)(String, 'String', function (iterated) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var toInteger = __webpack_require__(20);
@@ -1179,12 +1519,12 @@ module.exports = function (TO_STRING) {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var create = __webpack_require__(50);
+var create = __webpack_require__(51);
 var descriptor = __webpack_require__(27);
 var setToStringTag = __webpack_require__(24);
 var IteratorPrototype = {};
@@ -1199,12 +1539,12 @@ module.exports = function (Constructor, NAME, next) {
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(5);
-var dPs = __webpack_require__(51);
+var dPs = __webpack_require__(52);
 var enumBugKeys = __webpack_require__(33);
 var IE_PROTO = __webpack_require__(23)('IE_PROTO');
 var Empty = function () { /* empty */ };
@@ -1246,7 +1586,7 @@ module.exports = Object.create || function create(O, Properties) {
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(14);
@@ -1265,12 +1605,12 @@ module.exports = __webpack_require__(9) ? Object.defineProperties : function def
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(10);
 var toIObject = __webpack_require__(22);
-var arrayIndexOf = __webpack_require__(54)(false);
+var arrayIndexOf = __webpack_require__(55)(false);
 var IE_PROTO = __webpack_require__(23)('IE_PROTO');
 
 module.exports = function (object, names) {
@@ -1288,7 +1628,7 @@ module.exports = function (object, names) {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
@@ -1300,14 +1640,14 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // false -> Array#indexOf
 // true  -> Array#includes
 var toIObject = __webpack_require__(22);
 var toLength = __webpack_require__(32);
-var toAbsoluteIndex = __webpack_require__(55);
+var toAbsoluteIndex = __webpack_require__(56);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
     var O = toIObject($this);
@@ -1329,7 +1669,7 @@ module.exports = function (IS_INCLUDES) {
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var toInteger = __webpack_require__(20);
@@ -1342,12 +1682,12 @@ module.exports = function (index, length) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(10);
-var toObject = __webpack_require__(57);
+var toObject = __webpack_require__(58);
 var IE_PROTO = __webpack_require__(23)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
@@ -1361,7 +1701,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
@@ -1372,10 +1712,10 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $iterators = __webpack_require__(59);
+var $iterators = __webpack_require__(60);
 var getKeys = __webpack_require__(31);
 var redefine = __webpack_require__(7);
 var global = __webpack_require__(4);
@@ -1436,13 +1776,13 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var addToUnscopables = __webpack_require__(60);
-var step = __webpack_require__(61);
+var addToUnscopables = __webpack_require__(61);
+var step = __webpack_require__(62);
 var Iterators = __webpack_require__(12);
 var toIObject = __webpack_require__(22);
 
@@ -1477,7 +1817,7 @@ addToUnscopables('entries');
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 22.1.3.31 Array.prototype[@@unscopables]
@@ -1490,7 +1830,7 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports) {
 
 module.exports = function (done, value) {
@@ -1499,7 +1839,7 @@ module.exports = function (done, value) {
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1511,14 +1851,14 @@ var classof = __webpack_require__(17);
 var $export = __webpack_require__(30);
 var isObject = __webpack_require__(8);
 var aFunction = __webpack_require__(16);
-var anInstance = __webpack_require__(63);
-var forOf = __webpack_require__(64);
-var speciesConstructor = __webpack_require__(68);
+var anInstance = __webpack_require__(64);
+var forOf = __webpack_require__(65);
+var speciesConstructor = __webpack_require__(69);
 var task = __webpack_require__(35).set;
-var microtask = __webpack_require__(70)();
+var microtask = __webpack_require__(71)();
 var newPromiseCapabilityModule = __webpack_require__(36);
-var perform = __webpack_require__(71);
-var promiseResolve = __webpack_require__(72);
+var perform = __webpack_require__(72);
+var promiseResolve = __webpack_require__(73);
 var PROMISE = 'Promise';
 var TypeError = global.TypeError;
 var process = global.process;
@@ -1681,7 +2021,7 @@ if (!USE_NATIVE) {
     this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
     this._n = false;          // <- notify
   };
-  Internal.prototype = __webpack_require__(73)($Promise.prototype, {
+  Internal.prototype = __webpack_require__(74)($Promise.prototype, {
     // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
     then: function then(onFulfilled, onRejected) {
       var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
@@ -1713,7 +2053,7 @@ if (!USE_NATIVE) {
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
 __webpack_require__(24)($Promise, PROMISE);
-__webpack_require__(74)(PROMISE);
+__webpack_require__(75)(PROMISE);
 Wrapper = __webpack_require__(11)[PROMISE];
 
 // statics
@@ -1732,7 +2072,7 @@ $export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
     return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
   }
 });
-$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(75)(function (iter) {
+$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(76)(function (iter) {
   $Promise.all(iter)['catch'](empty);
 })), PROMISE, {
   // 25.4.4.1 Promise.all(iterable)
@@ -1779,7 +2119,7 @@ $export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(75)(function
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports) {
 
 module.exports = function (it, Constructor, name, forbiddenField) {
@@ -1790,15 +2130,15 @@ module.exports = function (it, Constructor, name, forbiddenField) {
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(15);
-var call = __webpack_require__(65);
-var isArrayIter = __webpack_require__(66);
+var call = __webpack_require__(66);
+var isArrayIter = __webpack_require__(67);
 var anObject = __webpack_require__(5);
 var toLength = __webpack_require__(32);
-var getIterFn = __webpack_require__(67);
+var getIterFn = __webpack_require__(68);
 var BREAK = {};
 var RETURN = {};
 var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
@@ -1821,7 +2161,7 @@ exports.RETURN = RETURN;
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
@@ -1839,7 +2179,7 @@ module.exports = function (iterator, fn, value, entries) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
@@ -1853,7 +2193,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var classof = __webpack_require__(17);
@@ -1867,7 +2207,7 @@ module.exports = __webpack_require__(11).getIteratorMethod = function (it) {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
@@ -1882,7 +2222,7 @@ module.exports = function (O, D) {
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports) {
 
 // fast apply, http://jsperf.lnkit.com/fast-apply/5
@@ -1904,7 +2244,7 @@ module.exports = function (fn, args, that) {
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(4);
@@ -1978,7 +2318,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -1991,7 +2331,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(5);
@@ -2009,7 +2349,7 @@ module.exports = function (C, x) {
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var redefine = __webpack_require__(7);
@@ -2020,7 +2360,7 @@ module.exports = function (target, src, safe) {
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2040,7 +2380,7 @@ module.exports = function (KEY) {
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ITERATOR = __webpack_require__(3)('iterator');
@@ -2068,7 +2408,7 @@ module.exports = function (exec, skipClosing) {
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2384,7 +2724,7 @@ exports.App = new _App();
 //# sourceMappingURL=app.js.map
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2976,7 +3316,7 @@ exports.ContextInfo = _ContextInfo;
 //# sourceMappingURL=contextInfo.js.map
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3251,7 +3591,7 @@ exports.BaseHelper = BaseHelper;
 //# sourceMappingURL=baseHelper.js.map
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3271,7 +3611,7 @@ exports.audit = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3305,7 +3645,7 @@ exports.RequestType = {
 //# sourceMappingURL=requestType.js.map
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3849,7 +4189,7 @@ exports.ViewType = {
 //# sourceMappingURL=sptypes.js.map
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3897,7 +4237,7 @@ exports.eventreceivers = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4210,7 +4550,7 @@ exports.limitedwebpartmanager = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4754,7 +5094,7 @@ exports.views = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4784,7 +5124,7 @@ exports.navigationservicerest = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4804,7 +5144,7 @@ exports.propertyvalues = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4824,7 +5164,7 @@ exports.search = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4925,7 +5265,7 @@ exports.roledefinitions = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5432,7 +5772,7 @@ exports.webs = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5607,7 +5947,7 @@ exports.userprofile = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5762,7 +6102,7 @@ exports.users = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5812,30 +6152,21 @@ exports.usercustomactions = {
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 93 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ComplexTypes = __webpack_require__(94);
-exports.ComplexTypes = ComplexTypes;
-var Results = __webpack_require__(95);
-exports.Results = Results;
-var Helper = __webpack_require__(96);
-exports.Helper = Helper;
-var SPTypes = __webpack_require__(106);
-exports.SPTypes = SPTypes;
-//# sourceMappingURL=types.js.map
-
-/***/ }),
 /* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=complexTypes.js.map
+var ComplexTypes = __webpack_require__(95);
+exports.ComplexTypes = ComplexTypes;
+var Results = __webpack_require__(96);
+exports.Results = Results;
+var Helper = __webpack_require__(97);
+exports.Helper = Helper;
+var SPTypes = __webpack_require__(107);
+exports.SPTypes = SPTypes;
+//# sourceMappingURL=types.js.map
 
 /***/ }),
 /* 95 */
@@ -5844,7 +6175,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=results.js.map
+//# sourceMappingURL=complexTypes.js.map
 
 /***/ }),
 /* 96 */
@@ -5853,25 +6184,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var App = __webpack_require__(97);
-exports.App = App;
-var Dependencies = __webpack_require__(98);
-exports.Dependencies = Dependencies;
-var Field = __webpack_require__(99);
-exports.Field = Field;
-var JSLink = __webpack_require__(100);
-exports.JSLink = JSLink;
-var ListForm = __webpack_require__(101);
-exports.ListForm = ListForm;
-var Loader = __webpack_require__(102);
-exports.Loader = Loader;
-var SPConfig = __webpack_require__(103);
-exports.SPConfig = SPConfig;
-var Taxonomy = __webpack_require__(104);
-exports.Taxonomy = Taxonomy;
-var WebPart = __webpack_require__(105);
-exports.WebPart = WebPart;
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=results.js.map
 
 /***/ }),
 /* 97 */
@@ -5880,7 +6193,25 @@ exports.WebPart = WebPart;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=app.js.map
+var App = __webpack_require__(98);
+exports.App = App;
+var Dependencies = __webpack_require__(99);
+exports.Dependencies = Dependencies;
+var Field = __webpack_require__(100);
+exports.Field = Field;
+var JSLink = __webpack_require__(101);
+exports.JSLink = JSLink;
+var ListForm = __webpack_require__(102);
+exports.ListForm = ListForm;
+var Loader = __webpack_require__(103);
+exports.Loader = Loader;
+var SPConfig = __webpack_require__(104);
+exports.SPConfig = SPConfig;
+var Taxonomy = __webpack_require__(105);
+exports.Taxonomy = Taxonomy;
+var WebPart = __webpack_require__(106);
+exports.WebPart = WebPart;
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 /* 98 */
@@ -5889,7 +6220,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=dependencies.js.map
+//# sourceMappingURL=app.js.map
 
 /***/ }),
 /* 99 */
@@ -5898,7 +6229,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=field.js.map
+//# sourceMappingURL=dependencies.js.map
 
 /***/ }),
 /* 100 */
@@ -5907,7 +6238,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=jslink.js.map
+//# sourceMappingURL=field.js.map
 
 /***/ }),
 /* 101 */
@@ -5916,7 +6247,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=listForm.js.map
+//# sourceMappingURL=jslink.js.map
 
 /***/ }),
 /* 102 */
@@ -5925,7 +6256,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=loader.js.map
+//# sourceMappingURL=listForm.js.map
 
 /***/ }),
 /* 103 */
@@ -5934,7 +6265,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=spCfg.js.map
+//# sourceMappingURL=loader.js.map
 
 /***/ }),
 /* 104 */
@@ -5943,7 +6274,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=taxonomy.js.map
+//# sourceMappingURL=spCfg.js.map
 
 /***/ }),
 /* 105 */
@@ -5952,7 +6283,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=webpart.js.map
+//# sourceMappingURL=taxonomy.js.map
 
 /***/ }),
 /* 106 */
@@ -5961,10 +6292,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=sptypes.js.map
+//# sourceMappingURL=webpart.js.map
 
 /***/ }),
 /* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=sptypes.js.map
+
+/***/ }),
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6262,7 +6602,7 @@ exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6438,7 +6778,7 @@ exports.BaseExecution = BaseExecution;
 //# sourceMappingURL=baseExecution.js.map
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6509,7 +6849,7 @@ exports.Base = Base;
 //# sourceMappingURL=base.js.map
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6606,7 +6946,7 @@ exports.Batch = Batch;
 //# sourceMappingURL=batch.js.map
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6862,7 +7202,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6988,7 +7328,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7129,7 +7469,7 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7299,7 +7639,7 @@ exports.XHRRequest = XHRRequest;
 //# sourceMappingURL=xhrRequest.js.map
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7420,7 +7760,7 @@ exports.JSLink = _JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7484,7 +7824,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7531,7 +7871,7 @@ exports.Navigation = _Navigation;
 //# sourceMappingURL=navigation.js.map
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7573,7 +7913,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7616,7 +7956,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7659,7 +7999,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7739,7 +8079,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7796,7 +8136,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7866,7 +8206,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7909,7 +8249,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8003,7 +8343,7 @@ exports.Utility = _Utility;
 //# sourceMappingURL=utility.js.map
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8081,7 +8421,7 @@ exports.Dependencies = _Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8447,7 +8787,7 @@ exports.FieldSchemaXML = new _FieldSchemaXML();
 //# sourceMappingURL=field.js.map
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8819,7 +9159,7 @@ exports.JSLink = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9192,7 +9532,7 @@ exports.ListForm = _ListForm;
 //# sourceMappingURL=listForm.js.map
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9200,6 +9540,7 @@ exports.ListForm = _ListForm;
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(2);
 var types_1 = __webpack_require__(0);
+var taxonomy_1 = __webpack_require__(42);
 /**
  * List Form Field
  */
@@ -9356,56 +9697,10 @@ var _ListFormField = /** @class */ (function () {
     _ListFormField.loadMMSData = function (info) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            // Ensure the utility class is loaded
-            SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", function () {
-                // Ensure the taxonomy script is loaded
-                SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
-                SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
-                    // Load the terms
-                    var context = SP.ClientContext.get_current();
-                    var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
-                    var termStore = session.get_termStores().getById(info.termStoreId);
-                    var termSet = termStore.getTermSet(info.termSetId);
-                    var terms = termSet.getAllTerms();
-                    context.load(terms);
-                    // Execute the request
-                    context.executeQueryAsync(
-                    // Success
-                    function () {
-                        var termSet = [];
-                        // Parse the terms
-                        var enumerator = terms.getEnumerator();
-                        while (enumerator.moveNext()) {
-                            var term = enumerator.get_current();
-                            // Add the term information
-                            termSet.push({
-                                id: term.get_id().toString(),
-                                name: term.get_name(),
-                                path: term.get_pathOfTerm().replace(/;/g, "/")
-                            });
-                        }
-                        // Sort the terms
-                        termSet.sort(function (a, b) {
-                            if (a.path < b.path) {
-                                return -1;
-                            }
-                            if (a.path > b.path) {
-                                return 1;
-                            }
-                            return 0;
-                        });
-                        // Get the term
-                        // Resolve the request
-                        resolve(termSet);
-                    }, 
-                    // Error
-                    function () {
-                        // Log
-                        console.log("[gd-sprest] Error getting the term set terms.");
-                        // Resolve the request
-                        resolve(termSet);
-                    });
-                });
+            // Load the term set
+            taxonomy_1.Taxonomy.getTermsById(info.termStoreId, info.termSetId).then(function (terms) {
+                // Resolve the request
+                resolve(terms);
             });
         });
     };
@@ -9444,7 +9739,7 @@ exports.ListFormField = _ListFormField;
 //# sourceMappingURL=listFormField.js.map
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9504,7 +9799,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10570,243 +10865,6 @@ var _SPConfig = /** @class */ (function () {
 ;
 exports.SPConfig = _SPConfig;
 //# sourceMappingURL=spCfg.js.map
-
-/***/ }),
-/* 133 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Taxonomy Helper Class
- */
-var _Taxonomy = /** @class */ (function () {
-    function _Taxonomy() {
-        var _this = this;
-        /**
-         * Method to get the terms from the default site collection
-         */
-        this.getTermsFromDefaultSC = function (termSetName) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Get the term group
-                _this.getTermGroup().then(function (_a) {
-                    var context = _a.context, termGroup = _a.termGroup;
-                    // Get the terms
-                    var terms = termGroup.get_termSets().getByName(termSetName).getAllTerms();
-                    context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
-                    // Execute the request
-                    context.executeQueryAsync(function () {
-                        // Resolve the promise
-                        resolve(_this.getTerms(terms));
-                    }, function () {
-                        var args = [];
-                        for (var _i = 0; _i < arguments.length; _i++) {
-                            args[_i] = arguments[_i];
-                        }
-                        // Log
-                        console.error("[gd-sprest] Error getting the terms from the default site collection.");
-                        console.error("[gd-sprest] Error: " + args[1].get_message());
-                        // Reject the promise
-                        reject(args);
-                    });
-                });
-            });
-        };
-        /**
-         * Method to get the term set from the default site collection
-         */
-        this.getTermSetFromDefaultSC = function (termSetName) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Get the terms
-                _this.getTermsFromDefaultSC(termSetName).then(function (terms) {
-                    // Resolve the object
-                    resolve(_this.toObject(terms));
-                });
-            });
-        };
-        /**
-         * Method to get a terms from a specified group
-         */
-        this.getTermsByGroupName = function (termSetName, groupName) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Get the term group
-                _this.getTermGroup(groupName).then(function (_a) {
-                    var context = _a.context, termGroup = _a.termGroup;
-                    // Get the "DoD" terms under the "Entities" term group
-                    var terms = termGroup.get_termSets().getByName(termSetName).getAllTerms();
-                    context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
-                    // Execute the request
-                    context.executeQueryAsync(function () {
-                        // Resolve the promise
-                        resolve(_this.getTerms(terms));
-                    }, function () {
-                        var args = [];
-                        for (var _i = 0; _i < arguments.length; _i++) {
-                            args[_i] = arguments[_i];
-                        }
-                        // Log
-                        console.error("[gd-sprest] Error getting the terms.");
-                        console.error("[gd-sprest] Error: " + args[1].get_message());
-                        // Reject the promise
-                        reject(args);
-                    });
-                });
-            });
-        };
-        /**
-         * Method to get the term set from the default site collection
-         */
-        this.getTermSetByGroupName = function (termSetName, groupName) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Get the terms
-                _this.getTermsByGroupName(termSetName, groupName).then(function (terms) {
-                    // Resolve the object
-                    resolve(_this.toObject(terms));
-                });
-            });
-        };
-        /**
-         * Private Methods
-         */
-        /**
-         * Method to get the terms
-         */
-        this.getTerms = function (termSetTerms) {
-            var terms = [];
-            // Parse the term sets terms
-            var enumerator = termSetTerms.getEnumerator();
-            while (enumerator.moveNext()) {
-                var term = enumerator.get_current();
-                // Create the terms
-                terms.push({
-                    description: term.get_description(),
-                    id: term.get_id().toString(),
-                    name: term.get_name(),
-                    path: term.get_pathOfTerm().split(";"),
-                    pathAsString: term.get_pathOfTerm(),
-                    props: term.get_customProperties()
-                });
-            }
-            // Sort the terms
-            terms.sort(function (a, b) {
-                if (a < b) {
-                    return -1;
-                }
-                if (a > b) {
-                    return 1;
-                }
-                return 0;
-            });
-            // Return the terms
-            return terms;
-        };
-        /**
-         * Method to get the term group
-         */
-        this.getTermGroup = function (groupName) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the core script is loaded
-                SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", function () {
-                    // Ensure the taxonomy script is loaded
-                    SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
-                    SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
-                        // Get the taxonomy session
-                        var context = SP.ClientContext.get_current();
-                        var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
-                        // See if we are getting a specific group name
-                        if (groupName) {
-                            // Resolve the promise
-                            var termStores_1 = session.get_termStores();
-                            context.load(termStores_1, "Include(Groups)");
-                            context.executeQueryAsync(function () {
-                                // Get the default store
-                                var enumerator = termStores_1.getEnumerator();
-                                var termStore = enumerator.moveNext() ? enumerator.get_current() : null;
-                                if (termStore) {
-                                    // Get the term group
-                                    var termGroup = termStore.get_groups().getByName(groupName);
-                                    context.load(termGroup);
-                                    // Resolve the promise
-                                    resolve({ context: context, termGroup: termGroup });
-                                }
-                                else {
-                                    // Log
-                                    console.error("[gd-sprest] Unable to get the taxonomy store.");
-                                    // Reject the promise
-                                    reject();
-                                }
-                            });
-                        }
-                        else {
-                            // Get the default site collection group
-                            var termStore = session.getDefaultSiteCollectionTermStore(context.get_site());
-                            var termGroup = termStore.getSiteCollectionGroup;
-                            context.load(termGroup);
-                            // Resolve the promise
-                            resolve({ context: context, termGroup: termGroup });
-                        }
-                    }, function () {
-                        var args = [];
-                        for (var _i = 0; _i < arguments.length; _i++) {
-                            args[_i] = arguments[_i];
-                        }
-                        // Log
-                        console.error("[gd-sprest] Error getting the term group.");
-                        console.error("[gd-sprest] Error: " + args[1].get_message());
-                        // Reject the promise
-                        reject(args);
-                    });
-                }, "sp.js");
-            });
-        };
-        /**
-         * Method to convert the terms to an object
-         */
-        this.toObject = function (terms) {
-            var root = {};
-            // Recursive method to add terms
-            var addTerm = function (node, info, path) {
-                var term = node;
-                var termName = "";
-                // Loop for each term
-                while (path.length > 0) {
-                    // Ensure the term exists
-                    termName = path[0];
-                    if (term[termName] == null) {
-                        // Create the term
-                        term[termName] = {};
-                    }
-                    // Set the term
-                    var parent_1 = term;
-                    term = term[termName];
-                    // Set the parent
-                    term.parent = parent_1;
-                    // Remove the term from the path
-                    path.splice(0, 1);
-                }
-                // Set the info
-                term.info = info;
-            };
-            // Parse the terms
-            for (var i = 0; i < terms.length; i++) {
-                var term = terms[i];
-                // Add the term
-                addTerm(root, term, term.pathAsString.split(";"));
-            }
-            // Return the root term
-            return root;
-        };
-    }
-    return _Taxonomy;
-}());
-exports.Taxonomy = new _Taxonomy();
-//# sourceMappingURL=taxonomy.js.map
 
 /***/ }),
 /* 134 */
