@@ -106,7 +106,7 @@ var _ListFormField = /** @class */ (function () {
                     if (_this._fieldInfo.typeAsString.startsWith("TaxonomyFieldType")) {
                         var fldMMS = _this._fieldInfo.field;
                         _this._fieldInfo.multi = fldMMS.AllowMultipleValues;
-                        _this._fieldInfo.termSetId = fldMMS.IsAnchorValid ? fldMMS.AnchorId : fldMMS.TermSetId;
+                        _this._fieldInfo.termId = fldMMS.IsAnchorValid ? fldMMS.AnchorId : fldMMS.TermSetId;
                         _this._fieldInfo.termSetId = fldMMS.TermSetId;
                         _this._fieldInfo.termStoreId = fldMMS.SspId;
                     }

@@ -219,7 +219,7 @@ class _ListFormField {
                 if (this._fieldInfo.typeAsString.startsWith("TaxonomyFieldType")) {
                     let fldMMS = this._fieldInfo.field as Types.IFieldManagedMetadata;
                     (this._fieldInfo as Types.Helper.ListForm.IListFormMMSFieldInfo).multi = fldMMS.AllowMultipleValues;
-                    (this._fieldInfo as Types.Helper.ListForm.IListFormMMSFieldInfo).termSetId = fldMMS.IsAnchorValid ? fldMMS.AnchorId : fldMMS.TermSetId;
+                    (this._fieldInfo as Types.Helper.ListForm.IListFormMMSFieldInfo).termId = fldMMS.IsAnchorValid ? fldMMS.AnchorId : fldMMS.TermSetId;
                     (this._fieldInfo as Types.Helper.ListForm.IListFormMMSFieldInfo).termSetId = fldMMS.TermSetId;
                     (this._fieldInfo as Types.Helper.ListForm.IListFormMMSFieldInfo).termStoreId = fldMMS.SspId;
                 }

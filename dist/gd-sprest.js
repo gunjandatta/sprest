@@ -1426,7 +1426,7 @@ exports.Web = lib_1.Web;
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.16,
+    __ver: 3.17,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: helper_1.Helper,
@@ -9680,7 +9680,7 @@ var _ListFormField = /** @class */ (function () {
                     if (_this._fieldInfo.typeAsString.startsWith("TaxonomyFieldType")) {
                         var fldMMS = _this._fieldInfo.field;
                         _this._fieldInfo.multi = fldMMS.AllowMultipleValues;
-                        _this._fieldInfo.termSetId = fldMMS.IsAnchorValid ? fldMMS.AnchorId : fldMMS.TermSetId;
+                        _this._fieldInfo.termId = fldMMS.IsAnchorValid ? fldMMS.AnchorId : fldMMS.TermSetId;
                         _this._fieldInfo.termSetId = fldMMS.TermSetId;
                         _this._fieldInfo.termStoreId = fldMMS.SspId;
                     }
