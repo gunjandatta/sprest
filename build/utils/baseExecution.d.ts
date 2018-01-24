@@ -1,4 +1,4 @@
-export * from "./baseExecution.d";
+export * from "./baseExecution.def";
 import { BaseRequest, TargetInfo, IBaseExecution } from ".";
 /**
  * Base Execution

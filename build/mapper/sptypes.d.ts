@@ -1,4 +1,4 @@
-export * from "./spTypes.d";
+export * from "./spTypes.def";
 import { SPTypes } from ".";
 /**
  * Calendar Types

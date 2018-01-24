@@ -1,4 +1,4 @@
-export * from "./app.d";
+export * from "./app.def";
 import { ContextInfo, Web } from "../lib";
 import { Types } from "../mapper";
 import { IApp } from ".";

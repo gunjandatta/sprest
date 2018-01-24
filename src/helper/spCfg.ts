@@ -1,9 +1,9 @@
-export * from "./spCfg.d";
+export * from "./spCfg.def";
 export * from "./spCfgTypes";
 import { ContextInfo, List, Site, Web } from "../lib";
 import { Types } from "../mapper";
 import { FieldSchemaXML } from "./fieldSchemaXML";
-import * as SPCfgTypes from "./spCfg.d";
+import * as SPCfgTypes from "./spCfg.def";
 import { SPCfgFieldType, SPCfgType } from "./spCfgTypes";
 
 /**

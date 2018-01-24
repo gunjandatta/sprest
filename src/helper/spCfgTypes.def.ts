@@ -1,5 +1,5 @@
 /** The field types */
-export interface ISPCfgFieldType {
+export type ISPCfgFieldType = {
     Boolean: number;
     Calculated: number;
     Choice: number;
@@ -14,7 +14,7 @@ export interface ISPCfgFieldType {
 }
 
 /** The configuration types */
-export interface ISPCfgType {
+export type ISPCfgType = {
     Fields: number;
     ContentTypes: number;
     Lists: number;

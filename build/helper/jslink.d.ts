@@ -1,4 +1,4 @@
-export * from "./jsLink.d";
+export * from "./jsLink.def";
 import { IJSLink } from ".";
 /**
  * JSLink Helper Methods

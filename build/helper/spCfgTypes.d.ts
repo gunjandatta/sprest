@@ -1,11 +1,11 @@
-export * from "./spCfgTypes.d";
-import { ISPCfgFieldType, ISPCfgType } from "./spCfgTypes.d";
+export * from "./spCfgTypes.def";
+import { SPConfig } from ".";
 /**
  * SharePoint Configuration Field Types
  */
-export declare const SPCfgFieldType: ISPCfgFieldType;
+export declare const SPCfgFieldType: SPConfig.ISPCfgFieldType;
 /**
  * SharePoint Configuration Types
  * The value determines the order to install the object type.
  */
-export declare const SPCfgType: ISPCfgType;
+export declare const SPCfgType: SPConfig.ISPCfgType;

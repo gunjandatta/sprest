@@ -1,4 +1,4 @@
-export * from "./dependencies.d";
+export * from "./dependencies.def";
 import { ContextInfo } from "../lib";
 import { IDependencies } from ".";
 

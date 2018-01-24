@@ -1,8 +1,8 @@
+export * from "./listFormField.def";
 import { Site, Web } from "../lib";
 import { Types } from "../mapper";
 import { Taxonomy } from "./taxonomy";
 import * as ListFormFieldTypes from "./listFormField.def";
-export * from "./listFormField.def";
 declare var SP;
 
 /**

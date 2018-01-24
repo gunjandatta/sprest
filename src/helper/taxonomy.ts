@@ -1,6 +1,6 @@
+export * from "./taxonomy.def";
 import { Types } from "../mapper";
 import * as TaxonomyTypes from "./taxonomy.def";
-export * from "./taxonomy.def";
 declare var SP;
 
 /**

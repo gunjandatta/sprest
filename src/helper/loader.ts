@@ -1,6 +1,7 @@
+export * from "./loader.def";
 import { ContextInfo } from "../lib";
 import { Types } from "../mapper";
-import { ILoader } from "./loader.d";
+import { ILoader } from ".";
 
 /**
  * Loader

@@ -1,4 +1,5 @@
-import { ILoader } from "./loader.d";
+export * from "./loader.def";
+import { ILoader } from ".";
 /**
  * Loader
  */

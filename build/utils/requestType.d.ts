@@ -1,4 +1,4 @@
-export * from "./requestType.d";
+export * from "./requestType.def";
 import { IRequestType } from ".";
 /**
  * Request Type

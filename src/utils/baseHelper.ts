@@ -1,4 +1,4 @@
-export * from "./baseHelper.d";
+export * from "./baseHelper.def";
 import { ContextInfo } from "../lib";
 import { Mapper } from "../mapper";
 import { Base, RequestType, IBaseHelper } from ".";

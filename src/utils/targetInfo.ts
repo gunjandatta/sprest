@@ -1,4 +1,4 @@
-export * from "./targetInfo.d";
+export * from "./targetInfo.def";
 import { ContextInfo } from "../lib";
 import { IRequestInfo, ITargetInfo } from ".";
 

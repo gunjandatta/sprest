@@ -1,4 +1,4 @@
-export * from "./jsLink.d";
+export * from "./jsLink.def";
 import { ContextInfo } from "../lib";
 import { Types } from "../mapper";
 import { IJSLink } from ".";

@@ -1,4 +1,4 @@
-export * from "./fieldSchemaXML.d";
+export * from "./fieldSchemaXML.def";
 import { ContextInfo, Web } from "../lib";
 import { SPTypes, Types } from "../mapper";
 import { IFieldSchemaXML, SPConfig } from ".";
