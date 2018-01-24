@@ -27,13 +27,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
 require("core-js/es6/promise");
-var helper_1 = require("./helper");
-exports.Helper = helper_1.Helper;
+var Helper = require("./helper");
+exports.Helper = Helper;
 var mapper_1 = require("./mapper");
+exports.SPTypes = mapper_1.SPTypes;
 exports.Types = mapper_1.Types;
-var types_1 = require("./types");
-exports.RequestType = types_1.RequestType;
-exports.SPTypes = types_1.SPTypes;
+var utils_1 = require("./utils");
+exports.RequestType = utils_1.RequestType;
 var lib_1 = require("./lib");
 exports.ContextInfo = lib_1.ContextInfo;
 exports.JSLink = lib_1.JSLink;
@@ -55,7 +55,7 @@ exports.$REST = {
     __ver: 3.17,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
-    Helper: helper_1.Helper,
+    Helper: Helper,
     JSLink: lib_1.JSLink,
     List: function (listName, targetInfo) { return new lib_1.List(listName, targetInfo); },
     Navigation: function (url, targetInfo) { return new lib_1.Navigation(url, targetInfo); },
@@ -64,7 +64,7 @@ exports.$REST = {
     ProfileLoader: function (targetInfo) { return new lib_1.ProfileLoader(targetInfo); },
     Search: function (url, targetInfo) { return new lib_1.Search(url, targetInfo); },
     Site: function (url, targetInfo) { return new lib_1.Site(url, targetInfo); },
-    SPTypes: types_1.SPTypes,
+    SPTypes: mapper_1.SPTypes,
     SocialFeed: lib_1.SocialFeed,
     UserProfile: function (targetInfo) { return new lib_1.UserProfile(targetInfo); },
     Utility: function (url, targetInfo) { return new lib_1.Utility(url, targetInfo); },

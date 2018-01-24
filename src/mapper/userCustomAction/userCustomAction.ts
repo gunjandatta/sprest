@@ -1,5 +1,5 @@
 import { IBase } from "../../utils";
-import { Types } from "..";
+import { SPTypes, Types } from "..";
 import { IUserCustomActionMethods, } from ".";
 
 /**
@@ -28,7 +28,7 @@ export interface IUserCustomActionCreationInformation {
     RegistrationId?: string;
 
     /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
-    RegistrationType?: Types.SPTypes.UserCustomActionRegistrationType | number;
+    RegistrationType?: SPTypes.IUserCustomActionRegistrationType | number;
 
     /** The value that specifies the permissions needed for the custom action. */
     Rights?: any;
@@ -88,7 +88,7 @@ export interface IUserCustomActionProps {
     RegistrationId: string;
 
     /** Gets or sets the value that specifies the type of object associated with the custom action. */
-    RegistrationType: Types.SPTypes.UserCustomActionRegistrationType | number;
+    RegistrationType: SPTypes.IUserCustomActionRegistrationType | number;
 
     /** Gets or sets the value that specifies the permissions needed for the custom action. */
     Rights: Types.IBasePermissions;

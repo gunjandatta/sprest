@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
-var types_1 = require("../types");
+var mapper_1 = require("../mapper");
 /**
  * JSLink Helper Methods
  */
@@ -141,7 +141,7 @@ exports.JSLink = {
             // Update the context, based on the field type
             switch (ctx.CurrentFieldSchema.Type) {
                 case "MultiChoice":
-                    var regExp = new RegExp(types_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString, "g");
+                    var regExp = new RegExp(mapper_1.Types.SPTypes.ClientTemplatesUtility.UserLookupDelimitString, "g");
                     // Update the field value
                     fieldValue = ctx.CurrentFieldValue
                         .replace(regExp, "; ")
@@ -161,11 +161,11 @@ exports.JSLink = {
                             // User Lookup ID
                             userValue.EntityData.SPUserID +
                                 // Delimiter
-                                types_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString +
+                                mapper_1.Types.SPTypes.ClientTemplatesUtility.UserLookupDelimitString +
                                 // User Lookup Value
                                 userValue.DisplayText +
                                 // Optional Delimiter
-                                ((i == ctx.CurrentFieldValue.length - 1 ? "" : types_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString));
+                                ((i == ctx.CurrentFieldValue.length - 1 ? "" : mapper_1.Types.SPTypes.ClientTemplatesUtility.UserLookupDelimitString));
                     }
                     break;
             }
@@ -174,7 +174,7 @@ exports.JSLink = {
             ctx.CurrentFieldValue = fieldValue;
         }
         // Determine the control mode
-        var controlMode = types_1.SPTypes.ControlMode.Display;
+        var controlMode = mapper_1.Types.SPTypes.ControlMode.Display;
         if (requireValueFl && (fieldValue == null || fieldValue == "")) {
             // Inherit the control mode
             controlMode = ctx.ControlMode;

@@ -1,8 +1,12 @@
-import { RequestType, IRequestType } from "../types";
+export * from "./baseRequest.d";
 import {
-    Base, BaseHelper, IBaseHelper,
-    Batch, MethodInfo, TargetInfo, XHRRequest,
-    IBaseRequest, IMethodInfo, ITargetInfo
+    Base, IBaseRequest,
+    BaseHelper, IBaseHelper,
+    Batch,
+    MethodInfo, IMethodInfo,
+    RequestType, IRequestType,
+    TargetInfo, ITargetInfo,
+    XHRRequest
 } from ".";
 
 /**

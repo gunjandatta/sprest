@@ -1,4 +1,6 @@
 import { Types } from "../mapper";
+import * as TaxonomyTypes from "./taxonomy.def";
+export * from "./taxonomy.def";
 declare var SP;
 
 /**
@@ -8,7 +10,7 @@ class _Taxonomy {
     /**
      * Method to find a term by id
      */
-    findById = (term: Types.Helper.Taxonomy.ITerm, termId: string): Types.Helper.Taxonomy.ITermInfo => {
+    findById = (term: TaxonomyTypes.ITerm, termId: string): TaxonomyTypes.ITermInfo => {
         // See if this is the root node
         if (term.info && term.info.id == termId) {
             // Return the root node
@@ -29,7 +31,7 @@ class _Taxonomy {
     /**
      * Method to find a term by name
      */
-    findByName = (term: Types.Helper.Taxonomy.ITerm, termName: string): Types.Helper.Taxonomy.ITermInfo => {
+    findByName = (term: TaxonomyTypes.ITerm, termName: string): TaxonomyTypes.ITermInfo => {
         // See if this is the root node
         if (term.info && term.info.id == termName) {
             // Return the root node
@@ -83,7 +85,7 @@ class _Taxonomy {
     /**
      * Method to get the term set by id
      */
-    getTermSetById = (termStoreId: string, termSetId: string): PromiseLike<Types.Helper.Taxonomy.ITerm> => {
+    getTermSetById = (termStoreId: string, termSetId: string): PromiseLike<TaxonomyTypes.ITerm> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the terms
@@ -199,11 +201,11 @@ class _Taxonomy {
     /**
      * Method to convert a term to an array of term information
      */
-    toArray = (term: Types.Helper.Taxonomy.ITerm): Array<Types.Helper.Taxonomy.ITermInfo> => {
-        let terms: Array<Types.Helper.Taxonomy.ITermInfo> = [];
+    toArray = (term: TaxonomyTypes.ITerm): Array<TaxonomyTypes.ITermInfo> => {
+        let terms: Array<TaxonomyTypes.ITermInfo> = [];
 
         // Recursive method to extract the child terms
-        let getChildTerms = (term: Types.Helper.Taxonomy.ITermInfo, terms: Array<Types.Helper.Taxonomy.ITermInfo>) => {
+        let getChildTerms = (term: TaxonomyTypes.ITermInfo, terms: Array<TaxonomyTypes.ITermInfo>) => {
             // Parse the properties
             for (let prop in term) {
                 // Skip the info and parent properties
@@ -237,11 +239,11 @@ class _Taxonomy {
     /**
      * Method to convert the terms to an object
      */
-    toObject = (terms: Array<Types.Helper.Taxonomy.ITermInfo>): Types.Helper.Taxonomy.ITerm => {
-        let root: Types.Helper.Taxonomy.ITerm = {} as any;
+    toObject = (terms: Array<TaxonomyTypes.ITermInfo>): TaxonomyTypes.ITerm => {
+        let root: TaxonomyTypes.ITerm = {} as any;
 
         // Recursive method to add terms
-        let addTerm = (node: Types.Helper.Taxonomy.ITerm, info: Types.Helper.Taxonomy.ITermInfo, path: Array<string>) => {
+        let addTerm = (node: TaxonomyTypes.ITerm, info: TaxonomyTypes.ITermInfo, path: Array<string>) => {
             let term = node;
             let termName = "";
 
@@ -291,8 +293,8 @@ class _Taxonomy {
     /**
      * Method to get the terms
      */
-    private getTerms = (termSetTerms): Array<Types.Helper.Taxonomy.ITermInfo> => {
-        let terms: Array<Types.Helper.Taxonomy.ITermInfo> = [];
+    private getTerms = (termSetTerms): Array<TaxonomyTypes.ITermInfo> => {
+        let terms: Array<TaxonomyTypes.ITermInfo> = [];
 
         // Parse the term sets terms
         let enumerator = termSetTerms.getEnumerator();
@@ -377,4 +379,4 @@ class _Taxonomy {
         });
     }
 }
-export const Taxonomy: Types.Helper.Taxonomy.ITaxonomy = new _Taxonomy();
+export const Taxonomy: TaxonomyTypes.ITaxonomy = new _Taxonomy();

@@ -1,9 +1,10 @@
-import { Types } from "../mapper";
+export * from "./spCfgTypes.d";
+import { ISPCfgFieldType, ISPCfgType } from "./spCfgTypes.d";
 
 /**
  * SharePoint Configuration Field Types
  */
-const SPCfgFieldType = {
+export const SPCfgFieldType: ISPCfgFieldType = {
     Boolean: 0,
     Calculated: 1,
     Choice: 2,
@@ -21,19 +22,11 @@ const SPCfgFieldType = {
  * SharePoint Configuration Types
  * The value determines the order to install the object type.
  */
-const SPCfgType = {
+export const SPCfgType: ISPCfgType = {
     Fields: 0,
     ContentTypes: 1,
     Lists: 2,
     SiteUserCustomActions: 3,
     WebParts: 5,
     WebUserCustomActions: 4
-}
-
-/**
- * Helper Types
- */
-export const HelperTypes: Types.Helper.IHelperTypes = {
-    SPCfgFieldType,
-    SPCfgType
 }

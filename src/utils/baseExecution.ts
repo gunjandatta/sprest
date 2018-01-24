@@ -1,3 +1,4 @@
+export * from "./baseExecution.d";
 import { ContextInfo } from "../lib";
 import { BaseRequest, TargetInfo, IBaseRequest, IBaseExecution } from ".";
 

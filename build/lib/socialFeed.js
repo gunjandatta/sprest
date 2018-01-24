@@ -10,7 +10,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = require("../types");
 var utils_1 = require("../utils");
 /*********************************************************************************************************************************/
 // Social Feed
@@ -43,7 +42,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         return this.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
-            requestType: types_1.RequestType.PostWithArgsInBody
+            requestType: utils_1.RequestType.PostWithArgsInBody
         }, [postInfo]);
     };
     // Method to post to the current user's feed
@@ -55,7 +54,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         return this.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "my/feed/post",
-            requestType: types_1.RequestType.PostWithArgsInBody
+            requestType: utils_1.RequestType.PostWithArgsInBody
         }, [postInfo]);
     };
     return _SocialFeed;

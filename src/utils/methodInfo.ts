@@ -1,5 +1,5 @@
-import { RequestType } from "../types";
-import { OData, IMethodInfo } from ".";
+export * from "./methodInfo.d";
+import { OData, RequestType, IMethodInfo } from ".";
 
 /*********************************************************************************************************************************/
 // Method Information

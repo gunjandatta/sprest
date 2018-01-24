@@ -1,4 +1,4 @@
-import { SPTypes } from "../types";
+import { SPTypes } from "../mapper";
 import { ContextInfo } from ".";
 
 /**

@@ -1,3 +1,4 @@
+export * from "./base.d";
 import { Types } from "../mapper";
 import {
     BaseExecution, Batch, TargetInfo,

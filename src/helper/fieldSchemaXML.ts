@@ -1,7 +1,7 @@
+export * from "./fieldSchemaXML.d";
 import { ContextInfo, Web } from "../lib";
-import { Types } from "../mapper";
-import { SPTypes } from "../types";
-import { HelperTypes } from "./types";
+import { SPTypes, Types } from "../mapper";
+import { IFieldSchemaXML, SPConfig } from ".";
 
 /**
  * Field Schema XML
@@ -12,7 +12,7 @@ class _FieldSchemaXML {
     _resolve = null;
 
     // Generates the schema xml, based on the field information provided.
-    generate = (fieldInfo: Types.Helper.SPConfig.IFieldInfo): PromiseLike<string> => {
+    generate = (fieldInfo: SPConfig.IFieldInfo): PromiseLike<string> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Set the resolve method
@@ -34,47 +34,47 @@ class _FieldSchemaXML {
                 // Set the type
                 switch (fieldInfo.type) {
                     // Boolean
-                    case HelperTypes.SPCfgFieldType.Boolean:
+                    case SPConfig.SPCfgFieldType.Boolean:
                         this.createBoolean(fieldInfo, props);
                         break;
                     // Calculated
-                    case HelperTypes.SPCfgFieldType.Calculated:
+                    case SPConfig.SPCfgFieldType.Calculated:
                         this.createCalculated(fieldInfo, props);
                         break;
                     // Choice
-                    case HelperTypes.SPCfgFieldType.Choice:
+                    case SPConfig.SPCfgFieldType.Choice:
                         this.createChoice(fieldInfo, props);
                         break;
                     // Date/Time
-                    case HelperTypes.SPCfgFieldType.Date:
+                    case SPConfig.SPCfgFieldType.Date:
                         this.createDate(fieldInfo, props);
                         break;
                     // Lookup
-                    case HelperTypes.SPCfgFieldType.Lookup:
+                    case SPConfig.SPCfgFieldType.Lookup:
                         this.createLookup(fieldInfo, props);
                         break;
                     // MMS
-                    case HelperTypes.SPCfgFieldType.MMS:
+                    case SPConfig.SPCfgFieldType.MMS:
                         this.createMMS(fieldInfo, props);
                         break;
                     // Note
-                    case HelperTypes.SPCfgFieldType.Note:
+                    case SPConfig.SPCfgFieldType.Note:
                         this.createNote(fieldInfo, props);
                         break;
                     // Number
-                    case HelperTypes.SPCfgFieldType.Number:
+                    case SPConfig.SPCfgFieldType.Number:
                         this.createNumber(fieldInfo, props);
                         break;
                     // Text
-                    case HelperTypes.SPCfgFieldType.Text:
+                    case SPConfig.SPCfgFieldType.Text:
                         this.createText(fieldInfo, props);
                         break;
                     // URL
-                    case HelperTypes.SPCfgFieldType.Url:
+                    case SPConfig.SPCfgFieldType.Url:
                         this.createUrl(fieldInfo, props);
                         break;
                     // User
-                    case HelperTypes.SPCfgFieldType.User:
+                    case SPConfig.SPCfgFieldType.User:
                         this.createUser(fieldInfo, props);
                         break;
                     // Field type not supported
@@ -92,7 +92,7 @@ class _FieldSchemaXML {
      */
 
     /** Returns the schema xml for a boolean field. */
-    private createBoolean = (fieldInfo: Types.Helper.SPConfig.IFieldInfo, props: object) => {
+    private createBoolean = (fieldInfo: SPConfig.IFieldInfo, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -108,7 +108,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a calculated field. */
-    private createCalculated = (fieldInfo: Types.Helper.SPConfig.IFieldInfoCalculated, props: object) => {
+    private createCalculated = (fieldInfo: SPConfig.IFieldInfoCalculated, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -153,7 +153,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a choice field. */
-    private createChoice = (fieldInfo: Types.Helper.SPConfig.IFieldInfoChoice, props: object) => {
+    private createChoice = (fieldInfo: SPConfig.IFieldInfoChoice, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -174,7 +174,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a date field. */
-    private createDate = (fieldInfo: Types.Helper.SPConfig.IFieldInfoDate, props: object) => {
+    private createDate = (fieldInfo: SPConfig.IFieldInfoDate, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -191,7 +191,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a lookup field. */
-    private createLookup = (fieldInfo: Types.Helper.SPConfig.IFieldInfoLookup, props: object) => {
+    private createLookup = (fieldInfo: SPConfig.IFieldInfoLookup, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -231,7 +231,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a managed metadata field. */
-    private createMMS = (fieldInfo: Types.Helper.SPConfig.IFieldInfoMMS, props: object) => {
+    private createMMS = (fieldInfo: SPConfig.IFieldInfoMMS, props: object) => {
         // Create the value field
         let valueProps = {
             ID: "{" + ContextInfo.generateGUID() + "}",
@@ -268,7 +268,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a note field. */
-    private createNote = (fieldInfo: Types.Helper.SPConfig.IFieldInfoNote, props: object) => {
+    private createNote = (fieldInfo: SPConfig.IFieldInfoNote, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -288,7 +288,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a number field. */
-    private createNumber = (fieldInfo: Types.Helper.SPConfig.IFieldInfoNumber, props: object) => {
+    private createNumber = (fieldInfo: SPConfig.IFieldInfoNumber, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -309,7 +309,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a text field. */
-    private createText = (fieldInfo: Types.Helper.SPConfig.IFieldInfo, props: object) => {
+    private createText = (fieldInfo: SPConfig.IFieldInfo, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -323,7 +323,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a url field. */
-    private createUrl = (fieldInfo: Types.Helper.SPConfig.IFieldInfo, props: object) => {
+    private createUrl = (fieldInfo: SPConfig.IFieldInfo, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -337,7 +337,7 @@ class _FieldSchemaXML {
     }
 
     /** Returns the schema xml for a user field. */
-    private createUser = (fieldInfo: Types.Helper.SPConfig.IFieldInfoUser, props: object) => {
+    private createUser = (fieldInfo: SPConfig.IFieldInfoUser, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -371,4 +371,4 @@ class _FieldSchemaXML {
         return properties;
     }
 }
-export const FieldSchemaXML: Types.Helper.Field.IFieldSchemaXML = new _FieldSchemaXML();
+export const FieldSchemaXML: IFieldSchemaXML = new _FieldSchemaXML();

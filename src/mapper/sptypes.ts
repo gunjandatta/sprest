@@ -1,1183 +1,625 @@
+export * from "./spTypes.d";
+import { SPTypes } from ".";
+
 /**
  * Calendar Types
  */
-export type CalendarType = {
-    /** Gregorian (localized) */
-    Gregorian: number,
-
-    /** Japanese Emperor Era */
-    JapaneseEmperorEra: number,
-
-    /** Taiwan Calendar */
-    TaiwanCalendar: number,
-
-    /** Korean Tangun Era */
-    KoreanTangunEra: number,
-
-    /** Hijri (Arabic Lunar) */
-    Hijri: number,
-
-    /** Thai */
-    Thai: number,
-
-    /** Hebrew Lunar */
-    HebrewLunar: number,
-
-    /** Gregorian (Middle East French) */
-    GregorianMiddleEastFrench: number,
-
-    /** Gregorian (Arabic) */
-    GregorianArabic: number,
-
-    /** Gregorian (Transliterated English) */
-    GregorianTransliteratedEnglish: number,
-
-    /** Gregorian (Transliterated French) */
-    GregorianTransliteratedFrench: number,
-
-    /** Korean and Japanese Lunar */
-    KoreanandJapaneseLunar: number,
-
-    /** Chinese Lunar */
-    ChineseLunar: number,
-
-    /** Saka Era */
-    SakaEra: number
-}
+export const CalendarTypes: SPTypes.ICalendarType = {
+    Gregorian: 1,
+    JapaneseEmperorEra: 3,
+    TaiwanCalendar: 4,
+    KoreanTangunEra: 5,
+    Hijri: 6,
+    Thai: 7,
+    HebrewLunar: 8,
+    GregorianMiddleEastFrench: 9,
+    GregorianArabic: 10,
+    GregorianTransliteratedEnglish: 11,
+    GregorianTransliteratedFrench: 12,
+    KoreanandJapaneseLunar: 14,
+    ChineseLunar: 15,
+    SakaEra: 16
+};
 
 /**
  * Check Out Types
  */
-export type CheckOutType = {
-    /** Online */
-    Online: number,
-
-    /** Offline */
-    Offline: number,
-
-    /** None */
-    None: number
-};
+export const CheckOutType: SPTypes.ICheckOutType = { Online: 0, Offline: 1, None: 2 };
 
 /**
  * Choice Format Types
  */
-export type ChoiceFormatType = {
-    /** Dropdown */
-    Dropdown: number,
-
-    /** Radio buttons */
-    RadioButtons: number
-};
+export const ChoiceFormatType: SPTypes.IChoiceFormatType = { Dropdown: 0, RadioButtons: 1 };
 
 /**
  * Client Template Utility
  */
-export type ClientTemplateUtility = {
-    /** User Lookup Delimiter */
-    UserLookupDelimitString: string,
-
-    /** Multi-User Value Delimiter */
-    UserMultiValueDelimitString: string
+export const ClientTemplatesUtility: SPTypes.IClientTemplateUtility = {
+    UserLookupDelimitString: ";#",
+    UserMultiValueDelimitString: ",#"
 }
 
 /**
  * Control Modes
  */
-export type ControlMode = {
-    /** A placeholder value in the export typeeration indicating that it has no valid display mode from one of the other export typeeration values. */
-    Invalid: number,
-
-    /** Specifies that the control is in display mode. */
-    Display: number,
-
-    /** Specifies that the control is in edit mode. */
-    Edit: number,
-
-    /** Specifies that the control is in new mode. */
-    New: number,
-
-    /** Specifies that the control is in view mode. */
-    View: number
+export const ControlMode: SPTypes.IControlMode = {
+    Invalid: 0,
+    Display: 1,
+    Edit: 2,
+    New: 3,
+    View: 4
 };
 
 /**
  * Date Format
  */
-export type DateFormat = {
-    /** Displays only the date. */
-    DateOnly: number,
-
-    /** Displays the date and time. */
-    DateTime: number
-}
+export const DateFormat: SPTypes.IDateFormat = { DateOnly: 0, DateTime: 1 };
 
 /**
  * Draft Visibility Types
  */
-export type DraftVisibilityType = {
-    /** export typeeration whose values specify that the minimum permission is approver. */
-    Approver: number,
-
-    /** export typeeration whose values specify that the minimum permission is author. */
-    Author: number,
-
-    /** export typeeration whose values specify that the minimum permission is reader. */
-    Reader: number
-};
-
-/**
- * Event Receiver Types
- */
-export type EventReceiverType = {
-    /** Event that occurs before an item has been added. */
-    ItemAdding: number,
-
-    /** Event that occurs before an item is updated. */
-    ItemUpdating: number,
-
-    /** Event that occurs before an item is deleted. */
-    ItemDeleting: number,
-
-    /** Event that occurs before an item has been checked in. */
-    ItemCheckingIn: number,
-
-    /** Event that occurs before an item is checked out. */
-    ItemCheckingOut: number,
-
-    /** Event that occurs before an item is unchecked out. */
-    ItemUncheckingOut: number,
-
-    /** Event that occurs before an attachment has been added to an item. */
-    ItemAttachmentAdding: number,
-
-    /** Event that occurs before an attachment has been removed from the item. */
-    ItemAttachmentDeleting: number,
-
-    /** Event that occurs before a file is moved. */
-    ItemFileMoving: number,
-
-    /** Event that occurs before a document version is deleted. */
-    ItemVersionDeleting: number,
-
-    /** Event that occurs before a field is added to a list. */
-    FieldAdding: number,
-
-    /** Event that occurs before a field is updated. */
-    FieldUpdating: number,
-
-    /** Event that occurs before a field is removed from a list. */
-    FieldDeleting: number,
-
-    /** Event that occurs before a list is created. */
-    ListAdding: number,
-
-    /** Event that occurs before a list is deleted. */
-    ListDeleting: number,
-
-    /** Event that occurs before a site collection is deleted. */
-    SiteDeleting: number,
-
-    /** Event that occurs before a site is deleted. */
-    WebDeleting: number,
-
-    /** Event that occurs before a site URL has been changed. */
-    WebMoving: number,
-
-    /** Event that occurs before a new site is created. */
-    WebAdding: number,
-
-    /** Event that occurs before a security group is added. */
-    GroupAdding: number,
-
-    /** Event that occurs before a security group is updated. */
-    GroupUpdating: number,
-
-    /** Event that occurs before a security group is deleted. */
-    GroupDeleting: number,
-
-    /** Event that occurs before a user is added to a security group. */
-    GroupUserAdding: number,
-
-    /** Event that occurs before a user is deleted from a security group. */
-    GroupUserDeleting: number,
-
-    /** Event that occurs before a role definition is added. */
-    RoleDefinitionAdding: number,
-
-    /** Event that occurs before a role definition is updated. */
-    RoleDefinitionUpdating: number,
-
-    /** Event that occurs before a role definition is deleted. */
-    RoleDefinitionDeleting: number,
-
-    /** Event that occurs before a role assignment is added. */
-    RoleAssignmentAdding: number,
-
-    /** Event that occurs before a role assignment is deleted. */
-    RoleAssignmentDeleting: number,
-
-    /** Event that occurs before an inheritance is broken. */
-    InheritanceBreaking: number,
-
-    /** Event that occurs before an inheritance is restored. */
-    InheritanceResetting: number,
-
-    /** Event that occurs before a workflow starts running. */
-    WorkflowStarting: number,
-
-    /** Event that occurs after an item has been added. */
-    ItemAdded: number,
-
-    /** Event that occurs after an item has been updated. */
-    ItemUpdated: number,
-
-    /** Event that occurs after an item has been deleted. */
-    ItemDeleted: number,
-
-    /** Event that occurs after an item has been checked in. */
-    ItemCheckedIn: number,
-
-    /** Event that occurs after an item has been checked out. */
-    ItemCheckedOut: number,
-
-    /** Event that occurs after an item has been unchecked out. */
-    ItemUncheckedOut: number,
-
-    /** Event that occurs after an attachment has been added to the item. */
-    ItemAttachmentAdded: number,
-
-    /** Event that occurs after an attachment has been removed from the item. */
-    ItemAttachmentDeleted: number,
-
-    /** Event that occurs after a file has been moved. */
-    ItemFileMoved: number,
-
-    /** Event that occurs after a file is transformed from one type to another. */
-    ItemFileConverted: number,
-
-    /** Event that occurs after a document version is deleted. */
-    ItemVersionDeleted: number,
-
-    /** Event that occurs after a field has been added. */
-    FieldAdded: number,
-
-    /** Event that occurs after a field has been updated. */
-    FieldUpdated: number,
-
-    /** Event that occurs after a field has been removed. */
-    FieldDeleted: number,
-
-    /** Event that occurs after a list has been created. */
-    ListAdded: number,
-
-    /** Event that occurs after a list has been deleted. */
-    ListDeleted: number,
-
-    /** Event that occurs after a site collection has been deleted. */
-    SiteDeleted: number,
-
-    /** Event that occurs after a site has been deleted. */
-    WebDeleted: number,
-
-    /** Event that occurs after a site URL has been changed. */
-    WebMoved: number,
-
-    /** Event that occurs after a new site has been created, but before that new site is provisioned. */
-    WebProvisioned: number,
-
-    /** Event that occurs happens after a security group is added. */
-    GroupAdded: number,
-
-    /** Event that occurs after a security group is updated. */
-    GroupUpdated: number,
-
-    /** Event that occurs after a security group is deleted. */
-    GroupDeleted: number,
-
-    /** Event that occurs after a user is added to a security group. */
-    GroupUserAdded: number,
-
-    /** Event that occurs after a user is deleted from a security group. */
-    GroupUserDeleted: number,
-
-    /** Event that occurs after a role definition is added. */
-    RoleDefinitionAdded: number,
-
-    /** Event that occurs after a role definition is updated. */
-    RoleDefinitionUpdated: number,
-
-    /** Event that occurs after a role definition is deleted. */
-    RoleDefinitionDeleted: number,
-
-    /** Event that occurs after a role assignment is added. */
-    RoleAssignmentAdded: number,
-
-    /** Event that occurs after a role definition is deleted. */
-    RoleAssignmentDeleted: number,
-
-    /** Event that occurs after an inheritance is broken. */
-    InheritanceBroken: number,
-
-    /** Event that occurs after an inheritance is restored. */
-    InheritanceReset: number,
-
-    /** Event that occurs after a workflow has started running. */
-    WorkflowStarted: number,
-
-    /** Event that occurs after a workflow has been postponed. */
-    WorkflowPostponed: number,
-
-    /** Event that occurs after a workflow has completed running. */
-    WorkflowCompleted: number,
-
-    /** Event that occurs when an instance of an external content type has been added. */
-    EntityInstanceAdded: number,
-
-    /** Event that occurs when an instance of an external content type has been updated. */
-    EntityInstanceUpdated: number,
-
-    /** Event that occurs when an instance of an external content type has been deleted. */
-    EntityInstanceDeleted: number,
-
-    /** Event that occurs after an app is installed. */
-    AppInstalled: number,
-
-    /** Event that occurs after an app is upgraded. */
-    AppUpgraded: number,
-
-    /** Event that occurs before an app is uninstalled. */
-    AppUninstalling: number,
-
-    /** Event that occurs after a list receives an e-mail message. */
-    EmailReceived: number,
-
-    /** Identifies workflow event receivers, and is therefore not a true event type. */
-    ContextEvent: number,
-};
+export const DraftVisibilityType: SPTypes.IDraftVisibilityType = { Reader: 0, Author: 1, Approver: 2 };
 
 /**
  * Event Receiver Synchronization Types
  */
-export type EventReceiverSynchronizationType = {
-    /** Event to be triggered asynchronously. */
-    Asynchronous: number,
+export const EventReceiverSynchronizationType: SPTypes.IEventReceiverSynchronizationType = { Synchronization: 1, Asynchronous: 2 };
 
-    /** Event to be triggered synchronously. */
-    Synchronization: number
+/**
+ * Event Receiver Types
+ */
+export const EventReceiverType: SPTypes.IEventReceiverType = {
+    ItemAdding: 1,
+    ItemUpdating: 2,
+    ItemDeleting: 3,
+    ItemCheckingIn: 4,
+    ItemCheckingOut: 5,
+    ItemUncheckingOut: 6,
+    ItemAttachmentAdding: 7,
+    ItemAttachmentDeleting: 8,
+    ItemFileMoving: 9,
+    ItemVersionDeleting: 11,
+    FieldAdding: 101,
+    FieldUpdating: 102,
+    FieldDeleting: 103,
+    ListAdding: 104,
+    ListDeleting: 105,
+    SiteDeleting: 201,
+    WebDeleting: 202,
+    WebMoving: 203,
+    WebAdding: 204,
+    GroupAdding: 301,
+    GroupUpdating: 302,
+    GroupDeleting: 303,
+    GroupUserAdding: 304,
+    GroupUserDeleting: 305,
+    RoleDefinitionAdding: 306,
+    RoleDefinitionUpdating: 307,
+    RoleDefinitionDeleting: 308,
+    RoleAssignmentAdding: 309,
+    RoleAssignmentDeleting: 310,
+    InheritanceBreaking: 311,
+    InheritanceResetting: 312,
+    WorkflowStarting: 501,
+    ItemAdded: 10001,
+    ItemUpdated: 10002,
+    ItemDeleted: 10003,
+    ItemCheckedIn: 10004,
+    ItemCheckedOut: 10005,
+    ItemUncheckedOut: 10006,
+    ItemAttachmentAdded: 10007,
+    ItemAttachmentDeleted: 10008,
+    ItemFileMoved: 10009,
+    ItemFileConverted: 10010,
+    ItemVersionDeleted: 10011,
+    FieldAdded: 10101,
+    FieldUpdated: 10102,
+    FieldDeleted: 10103,
+    ListAdded: 10104,
+    ListDeleted: 10105,
+    SiteDeleted: 10201,
+    WebDeleted: 10202,
+    WebMoved: 10203,
+    WebProvisioned: 10204,
+    GroupAdded: 10301,
+    GroupUpdated: 10302,
+    GroupDeleted: 10303,
+    GroupUserAdded: 10304,
+    GroupUserDeleted: 10305,
+    RoleDefinitionAdded: 10306,
+    RoleDefinitionUpdated: 10307,
+    RoleDefinitionDeleted: 10308,
+    RoleAssignmentAdded: 10309,
+    RoleAssignmentDeleted: 10310,
+    InheritanceBroken: 10311,
+    InheritanceReset: 10312,
+    WorkflowStarted: 10501,
+    WorkflowPostponed: 10502,
+    WorkflowCompleted: 10503,
+    EntityInstanceAdded: 10601,
+    EntityInstanceUpdated: 10602,
+    EntityInstanceDeleted: 10603,
+    AppInstalled: 10701,
+    AppUpgraded: 10702,
+    AppUninstalling: 10703,
+    EmailReceived: 20000,
+    ContextEvent: 32766
 };
 
 /**
  * Field Note Types
  */
-export type FieldNoteType = {
+export const FieldNoteType: SPTypes.IFieldNoteType = {
     /** Enhance Rich Text */
-    EnhancedRichText: number,
+    EnhancedRichText: 0,
 
     /** Rich Text */
-    RichText: number,
+    RichText: 1,
 
     /** Text Only */
-    TextOnly: number;
-}
+    TextOnly: 2
+};
 
 /**
  * Field Number Type
  */
-export type FieldNumberType = {
+export const FieldNumberType: SPTypes.IFieldNumberType = {
     /** Decimal */
-    Decimal: number,
+    Decimal: 0,
 
     /** Integer */
-    Integer: number,
+    Integer: 1,
 
     /** Percentage */
-    Percentage: number,
+    Percentage: 2,
 }
 
 /**
  * Field Result Types
  */
-export type FieldResultType = {
+export const FieldResultType: SPTypes.IFieldResultType = {
     /** Boolean */
-    Boolean: string,
+    Boolean: "Boolean",
 
     /** Currency */
-    Currency: string,
+    Currency: "Currency",
 
     /** Date Only */
-    DateOnly: string,
+    DateOnly: "DateOnly",
 
     /** Date & Time */
-    DateTime: string,
+    DateTime: "DateTime",
 
     /** Number */
-    Number: string,
+    Number: "Number",
 
     /** Text */
-    Text: string
-}
+    Text: "Text"
+};
 
 /**
  * Field Types
  */
-export type FieldType = {
-    /** Specifies that the field indicates whether a meeting in a calendar list is an all-day event. */
-    AllDayEvent: number,
-
-    /** Specifies that the field indicates whether the list item has attachments. */
-    Attachments: number,
-
-    /** Specifies that the field contains a Boolean value. */
-    Boolean: number,
-
-    /** Specifies that the field is a calculated field. */
-    Calculated: number,
-
-    /** Specifies that the field contains a single value from a set of specified values. */
-    Choice: number,
-
-    /** Specifies that the field is a computed field. */
-    Computed: number,
-
-    /** Specifies that the field contains a content type identifier as a value. */
-    ContentTypeId: number,
-
-    /** Specifies that the field contains a monotonically increasing integer. */
-    Counter: number,
-
-    /** Specifies that the field contains a link between projects in a Meeting Workspace site. */
-    CrossProjectLink: number,
-
-    /** Specifies that the field contains a currency value. */
-    Currency: number,
-
-    /** Specifies that the field contains a date and time value or a date-only value. */
-    DateTime: number,
-
-    /** Specifies that the type of the field was set to an invalid value. */
-    Error: number,
-
-    /** Specifies that the field contains the leaf name of a document as a value. */
-    File: number,
-
-    /** Specifies that the field contains geographical location values. */
-    Geolocation: number,
-
-    /** Specifies that the field contains rating scale values for a survey list. */
-    GridChoice: number,
-
-    /** Specifies that the field contains a GUID value. */
-    Guid: number,
-
-    /** Specifies that the field contains an integer value. */
-    Integer: number,
-
-    /** Must not be used. */
-    Invalid: number,
-
-    /** Specifies that the field is a lookup field. */
-    Lookup: number,
-
-    /** Must not be used. */
-    MaxItems: number,
-
-    /** Specifies that the field indicates moderation status. */
-    ModStat: number,
-
-    /** Specifies that the field contains one or more values from a set of specified values. */
-    MultiChoice: number,
-
-    /** Specifies that the field contains multiple lines of text. */
-    Note: number,
-
-    /** Specifies that the field contains a floating-point number value. */
-    Number: number,
-
-    /** Specifies that the field separates questions in a survey list onto multiple pages. */
-    PageSeparator: number,
-
-    /** Specifies that the field indicates whether a meeting in a calendar list recurs. */
-    Recurrence: number,
-
-    /** Specifies that the field contains a single line of text. */
-    Text: number,
-
-    /** Specifies that the field indicates the position of a discussion item in a threaded view of a discussion board. */
-    ThreadIndex: number,
-
-    /** Specifies that the field indicates the thread for a discussion item in a threaded view of a discussion board. */
-    Threading: number,
-
-    /** Specifies that the field contains a URI and an optional description of the URI. */
-    URL: number,
-
-    /** Specifies that the field contains one or more users and groups as values. */
-    User: number,
-
-    /** Specifies that the field contains the most recent event in a workflow instance. */
-    WorkflowEventType: number,
-
-    /** Specifies that the field indicates the status of a workflow instance on a list item. */
-    WorkflowStatus: number
+export const FieldType: SPTypes.IFieldType = {
+    AllDayEvent: 29,
+    Attachments: 19,
+    Boolean: 8,
+    Calculated: 17,
+    Choice: 6,
+    Computed: 12,
+    ContentTypeId: 25,
+    Counter: 5,
+    CrossProjectLink: 22,
+    Currency: 10,
+    DateTime: 4,
+    Error: 24,
+    File: 18,
+    Geolocation: 31,
+    GridChoice: 16,
+    Guid: 14,
+    Integer: 1,
+    Invalid: 0,
+    Lookup: 7,
+    MaxItems: 31,
+    ModStat: 23,
+    MultiChoice: 15,
+    Note: 3,
+    Number: 9,
+    PageSeparator: 26,
+    Recurrence: 21,
+    Text: 2,
+    ThreadIndex: 27,
+    Threading: 13,
+    URL: 11,
+    User: 20,
+    WorkflowEventType: 30,
+    WorkflowStatus: 28
 };
 
 /**
  * Field User Selection Types
  */
-export type FieldUserSelectionType = {
-    /** People only. */
-    PeopleOnly: number,
-
-    /** People and groups. */
-    PeopleAndGroups: number
-}
+export const FieldUserSelectionType: SPTypes.IFieldUserSelectionType = { PeopleOnly: 0, PeopleAndGroups: 1 }
 
 /**
  * File Template Types
 */
-export type FileTemplateType = {
-    /** export typeeration whose value specifies default form template. */
-    FormPage: number,
-
-    /** export typeeration whose value specifies default view template. */
-    StandardPage: number,
-
-    /** export typeeration whose value specifies default wiki template. */
-    WikiPage: number
-};
+export const FileTemplateType: SPTypes.IFileTemplateType = { StandardPage: 0, WikiPage: 1, FormPage: 2 };
 
 /**
  * Friendly Date Format
  */
-export type FriendlyDateFormat = {
-    /** Unspecified */
-    Unspecified: number,
-
-    /** Disabled (standard absolute) */
-    Disabled: number,
-
-    /** Relative (standard friendly relative) */
-    Relative: number
+export const FriendlyDateFormat: SPTypes.IFriendlyDateFormat = {
+    Unspecified: 0,
+    Disabled: 1,
+    Relative: 2
 }
 
 /**
  * List Template Types
 */
-export type ListTemplateType = {
-    /** Access Request List */
-    AccessRequest: number,
-
-    /** Administrator Tasks */
-    AdminTasks: number,
-
-    /** Agenda (Meeting) */
-    Agenda: number,
-
-    /** App Data Catalog */
-    AppDataCatalog: number,
-
-    /** Announcements */
-    Announcements: number,
-
-    /** Call Track */
-    CallTrack: number,
-
-    /** Categories (Blog) */
-    Categories: number,
-
-    /** Circulation */
-    Circulation: number,
-
-    /** Comments (Blog) */
-    Comments: number,
-
-    /** Contacts */
-    Contacts: number,
-
-    /** Custom grid for a list */
-    CustomGrid: number,
-
-    /** Data connection library for sharing information about external data connections */
-    DataConnectionLibrary: number,
-
-    /** Data sources for a site */
-    DataSources: number,
-
-    /** Decisions (Meeting) */
-    Decision: number,
-
-    /** Design Catalog */
-    DesignCatalog: number,
-
-    /** Draft Apps library in Developer Site */
-    DeveloperSiteDraftApps: number,
-
-    /** Discussion board */
-    DiscussionBoard: number,
-
-    /** Document library */
-    DocumentLibrary: number,
-
-    /** Calendar */
-    Events: number,
-
-    /** External */
-    ExternalList: number,
-
-    /** Facility */
-    Facility: number,
-
-    /** Project Tasks */
-    GanttTasks: number,
-
-    /** Custom list */
-    GenericList: number,
-
-    /** Health Reports */
-    HealthReports: number,
-
-    /** Health Rules */
-    HealthRules: number,
-
-    /** Help Library */
-    HelpLibrary: number,
-
-    /** Holidays */
-    Holidays: number,
-
-    /** Workspace Pages (Meeting) */
-    HomePageLibrary: number,
-
-    /** IME (Input Method Editor) Dictionary */
-    IMEDic: number,
-
-    /** Issue tracking */
-    IssueTracking: number,
-
-    /** Links */
-    Links: number,
-
-    /** List Template gallery */
-    ListTemplateCatalog: number,
-
-    /** Master Page gallery */
-    MasterPageCatalog: number,
-
-    /** Maintenance Logs Library */
-    MaintenanceLogs: number,
-
-    /** Objectives (Meeting) */
-    MeetingObjective: number,
-
-    /** Meeting Series (Meeting) */
-    Meetings: number,
-
-    /** Attendees (Meeting) */
-    MeetingUser: number,
-
-    /** My Site Document Library */
-    MySiteDocumentLibrary: number,
-
-    /** Posts (Blog) */
-    Posts: number,
-
-    /** No Code Public Workflow */
-    NoCodePublic: number,
-
-    /** No Code Workflows */
-    NoCodeWorkflows: number,
-
-    /** Picture library */
-    PictureLibrary: number,
-
-    /** Solutions */
-    SolutionCatalog: number,
-
-    /** Survey */
-    Survey: number,
-
-    /** Tasks */
-    Tasks: number,
-
-    /** Tasks with Timeline and Hierarchy */
-    TasksWithTimelineAndHierarchy: number,
-
-    /** Text Box (Meeting) */
-    TextBox: number,
-
-    /** Themes */
-    ThemeCatalog: number,
-
-    /** Things To Bring (Meeting) */
-    ThingsToBring: number,
-
-    /** Timecard */
-    Timecard: number,
-
-    /** User Information */
-    UserInformation: number,
-
-    /** Wiki Page Library */
-    WebPageLibrary: number,
-
-    /** Web Part gallery */
-    WebPartCatalog: number,
-
-    /** Site template gallery */
-    WebTemplateCatalog: number,
-
-    /** Whereabouts */
-    Whereabouts: number,
-
-    /** Workflow History */
-    WorkflowHistory: number,
-
-    /** Custom Workflow Process */
-    WorkflowProcess: number,
-
-    /** XML Form library */
-    XMLForm: number
+export const ListTemplateType: SPTypes.IListTemplateType = {
+    AccessRequest: 160,
+    AdminTasks: 1200,
+    Agenda: 201,
+    AppDataCatalog: 125,
+    Announcements: 104,
+    CallTrack: 404,
+    Categories: 303,
+    Circulation: 405,
+    Comments: 302,
+    Contacts: 105,
+    CustomGrid: 120,
+    DataConnectionLibrary: 130,
+    DataSources: 110,
+    Decision: 204,
+    DesignCatalog: 124,
+    DeveloperSiteDraftApps: 1230,
+    DiscussionBoard: 108,
+    DocumentLibrary: 101,
+    Events: 106,
+    ExternalList: 600,
+    Facility: 402,
+    GanttTasks: 150,
+    GenericList: 100,
+    HealthReports: 1221,
+    HealthRules: 1220,
+    HelpLibrary: 151,
+    Holidays: 421,
+    HomePageLibrary: 212,
+    IMEDic: 499,
+    IssueTracking: 1100,
+    Links: 103,
+    ListTemplateCatalog: 114,
+    MasterPageCatalog: 116,
+    MaintenanceLogs: 175,
+    MeetingObjective: 207,
+    Meetings: 200,
+    MeetingUser: 202,
+    MySiteDocumentLibrary: 700,
+    Posts: 301,
+    NoCodePublic: 122,
+    NoCodeWorkflows: 117,
+    PictureLibrary: 109,
+    SolutionCatalog: 121,
+    Survey: 102,
+    Tasks: 107,
+    TasksWithTimelineAndHierarchy: 171,
+    TextBox: 210,
+    ThemeCatalog: 123,
+    ThingsToBring: 211,
+    Timecard: 420,
+    UserInformation: 112,
+    WebPageLibrary: 119,
+    WebPartCatalog: 113,
+    WebTemplateCatalog: 111,
+    Whereabouts: 403,
+    WorkflowHistory: 140,
+    WorkflowProcess: 118,
+    XMLForm: 115
 };
 
 /**
  * Locale LCID Types
  */
-export type LocaleLCIDType = {
-    Afrikaans: number,
-    Albanian: number,
-    ArabicAlgeria: number,
-    ArabicBahrain: number,
-    ArabicEgypt: number,
-    ArabicIraq: number,
-    ArabicJordan: number,
-    ArabicLebanon: number,
-    ArabicLibya: number,
-    ArabicMorocco: number,
-    ArabicOman: number,
-    ArabicQatar: number,
-    ArabicSaudiArabia: number,
-    ArabicSyria: number,
-    ArabicTunisia: number,
-    ArabicUAE: number,
-    ArabicYemen: number,
-    Armenian: number,
-    AzeriCyrillic: number,
-    AzeriLatin: number,
-    Basque: number,
-    Belarusian: number,
-    Bulgarian: number,
-    Catalan: number,
-    ChineseHongKongSAR: number,
-    ChineseMacaoSAR: number,
-    ChinesePRC: number,
-    ChineseSingapore: number,
-    ChineseTaiwan: number,
-    CroatianCroatia: number,
-    Czech: number,
-    Danish: number,
-    Divehi: number,
-    DutchBelgium: number,
-    DutchNetherlands: number,
-    EnglishAustralia: number,
-    EnglishBelize: number,
-    EnglishCanada: number,
-    EnglishCaribbean: number,
-    EnglishIreland: number,
-    EnglishJamaica: number,
-    EnglishNewZealand: number,
-    EnglishPhilippines: number,
-    EnglishSouthAfrica: number,
-    EnglishTrinidad: number,
-    EnglishUnitedKingdom: number,
-    EnglishUnitedStates: number,
-    EnglishZimbabwe: number,
-    Estonian: number,
-    Faeroese: number,
-    Finnish: number,
-    FrenchBelgium: number,
-    FrenchCanada: number,
-    FrenchFrance: number,
-    FrenchLuxembourg: number,
-    FrenchMonaco: number,
-    FrenchSwitzerland: number,
-    Galician: number,
-    Georgian: number,
-    GermanAustria: number,
-    GermanGermany: number,
-    GermanLiechtenstein: number,
-    GermanLuxembourg: number,
-    GermanSwitzerland: number,
-    Greek: number,
-    Gujarati: number,
-    HebrewIsrael: number,
-    HindiIndia: number,
-    Hungarian: number,
-    Icelandic: number,
-    Indonesian: number,
-    ItalianItaly: number,
-    ItalianSwitzerland: number,
-    Japanese: number,
-    Kannada: number,
-    Kazakh: number,
-    Konkani: number,
-    Korean: number,
-    KyrgyzCyrillic: number,
-    Latvian: number,
-    Lithuanian: number,
-    MacedonianFYROM: number,
-    Malay: number,
-    MalayBruneiDarussalam: number,
-    Marathi: number,
-    MongolianCyrillic: number,
-    NorwegianBokmal: number,
-    NorwegianNynorsk: number,
-    PersianIran: number,
-    Polish: number,
-    PortugueseBrazil: number,
-    PortuguesePortugal: number,
-    Punjabi: number,
-    Romanian: number,
-    Russian: number,
-    Sanskrit: number,
-    SerbianCyrillic: number,
-    SerbianLatin: number,
-    Slovak: number,
-    Slovenian: number,
-    SpanishArgentina: number,
-    SpanishBolivia: number,
-    SpanishChile: number,
-    SpanishColombia: number,
-    SpanishCostaRica: number,
-    SpanishDominicanRepublic: number,
-    SpanishEcuador: number,
-    SpanishElSalvador: number,
-    SpanishGuatemala: number,
-    SpanishHonduras: number,
-    SpanishMexico: number,
-    SpanishNicaragua: number,
-    SpanishPanama: number,
-    SpanishParaguay: number,
-    SpanishPeru: number,
-    SpanishPuertoRico: number,
-    SpanishSpain: number,
-    SpanishUruguay: number,
-    SpanishVenezuela: number,
-    Swahili: number,
-    Swedish: number,
-    SwedishFinland: number,
-    Syriac: number,
-    Tamil: number,
-    Tatar: number,
-    Telugu: number,
-    ThaiThailand: number,
-    Turkish: number,
-    Ukrainian: number,
-    UrduPakistan: number,
-    UzbekCyrillic: number,
-    UzbekLatin: number,
-    Vietnamese: number
+export const LocaleLCIDType: SPTypes.ILocaleLCIDType = {
+    Afrikaans: 1078,
+    Albanian: 1052,
+    ArabicAlgeria: 5121,
+    ArabicBahrain: 15361,
+    ArabicEgypt: 3073,
+    ArabicIraq: 2049,
+    ArabicJordan: 11265,
+    ArabicLebanon: 12289,
+    ArabicLibya: 4097,
+    ArabicMorocco: 6145,
+    ArabicOman: 8193,
+    ArabicQatar: 16385,
+    ArabicSaudiArabia: 1025,
+    ArabicSyria: 10241,
+    ArabicTunisia: 7169,
+    ArabicUAE: 14337,
+    ArabicYemen: 9217,
+    Armenian: 1067,
+    AzeriCyrillic: 2092,
+    AzeriLatin: 1068,
+    Basque: 1069,
+    Belarusian: 1059,
+    Bulgarian: 1026,
+    Catalan: 1027,
+    ChineseHongKongSAR: 3076,
+    ChineseMacaoSAR: 5124,
+    ChinesePRC: 2052,
+    ChineseSingapore: 4100,
+    ChineseTaiwan: 1028,
+    CroatianCroatia: 1050,
+    Czech: 1029,
+    Danish: 1030,
+    Divehi: 1125,
+    DutchBelgium: 2067,
+    DutchNetherlands: 1043,
+    EnglishAustralia: 3081,
+    EnglishBelize: 10249,
+    EnglishCanada: 4105,
+    EnglishCaribbean: 9225,
+    EnglishIreland: 6153,
+    EnglishJamaica: 8201,
+    EnglishNewZealand: 5129,
+    EnglishPhilippines: 13321,
+    EnglishSouthAfrica: 7177,
+    EnglishTrinidad: 11273,
+    EnglishUnitedKingdom: 2057,
+    EnglishUnitedStates: 1033,
+    EnglishZimbabwe: 12297,
+    Estonian: 1061,
+    Faeroese: 1080,
+    Finnish: 1035,
+    FrenchBelgium: 2060,
+    FrenchCanada: 3084,
+    FrenchFrance: 1036,
+    FrenchLuxembourg: 5132,
+    FrenchMonaco: 6156,
+    FrenchSwitzerland: 4108,
+    Galician: 1110,
+    Georgian: 1079,
+    GermanAustria: 3079,
+    GermanGermany: 1031,
+    GermanLiechtenstein: 5127,
+    GermanLuxembourg: 4103,
+    GermanSwitzerland: 2055,
+    Greek: 1032,
+    Gujarati: 1095,
+    HebrewIsrael: 1037,
+    HindiIndia: 1081,
+    Hungarian: 1038,
+    Icelandic: 1039,
+    Indonesian: 1057,
+    ItalianItaly: 1040,
+    ItalianSwitzerland: 2064,
+    Japanese: 1041,
+    Kannada: 1099,
+    Kazakh: 1087,
+    Konkani: 1111,
+    Korean: 1042,
+    KyrgyzCyrillic: 1088,
+    Latvian: 1062,
+    Lithuanian: 1063,
+    MacedonianFYROM: 1071,
+    Malay: 1086,
+    MalayBruneiDarussalam: 2110,
+    Marathi: 1102,
+    MongolianCyrillic: 1104,
+    NorwegianBokmal: 1044,
+    NorwegianNynorsk: 2068,
+    PersianIran: 1065,
+    Polish: 1045,
+    PortugueseBrazil: 1046,
+    PortuguesePortugal: 2070,
+    Punjabi: 1094,
+    Romanian: 1048,
+    Russian: 1049,
+    Sanskrit: 1103,
+    SerbianCyrillic: 3098,
+    SerbianLatin: 2074,
+    Slovak: 1051,
+    Slovenian: 1060,
+    SpanishArgentina: 11274,
+    SpanishBolivia: 16394,
+    SpanishChile: 13322,
+    SpanishColombia: 9226,
+    SpanishCostaRica: 5130,
+    SpanishDominicanRepublic: 7178,
+    SpanishEcuador: 12298,
+    SpanishElSalvador: 17418,
+    SpanishGuatemala: 4106,
+    SpanishHonduras: 18442,
+    SpanishMexico: 2058,
+    SpanishNicaragua: 19466,
+    SpanishPanama: 6154,
+    SpanishParaguay: 15370,
+    SpanishPeru: 10250,
+    SpanishPuertoRico: 20490,
+    SpanishSpain: 3082,
+    SpanishUruguay: 14346,
+    SpanishVenezuela: 8202,
+    Swahili: 1089,
+    Swedish: 1053,
+    SwedishFinland: 2077,
+    Syriac: 1114,
+    Tamil: 1097,
+    Tatar: 1092,
+    Telugu: 1098,
+    ThaiThailand: 1054,
+    Turkish: 1055,
+    Ukrainian: 1058,
+    UrduPakistan: 1056,
+    UzbekCyrillic: 2115,
+    UzbekLatin: 1091,
+    Vietnamese: 1066,
 }
 
 /**
- * Node Types
+ * Node Types - Need to get this info. Documentation not found online. Ref the MS Publishing DLL and decompile to find the type info.
  */
 export type NodeType = {
-    /** Specifies no node types. */
-    None: number;
+    /** Specifies no node SPTypes.I */
+    None: 0,
 
     /** Specifies any type of SPWeb site. */
-    Area: number;
+    Area: 0,
 
     /** Specifies a List item in the Pages list. */
-    Page: number;
+    Page: 0,
 
     /** Specifies a Microsoft SharePoint Foundation list (SPList). */
-    List: number;
+    List: 0,
 
     /** Specifies a Microsoft SharePoint Foundation list item (SPListItem). */
-    ListItem: number;
+    ListItem: 0;
 
     /** Specifies a CMS Page Layout. */
-    PageLayout: number;
+    PageLayout: 0;
 
     /**  Specifies a navigation heading. */
-    Heading: number;
+    Heading: 0;
 
     /** Specifies an authored link that references a page. */
-    AuthoredLinkToPage: number;
+    AuthoredLinkToPage: 0;
 
     /** Specifies an authored link that references a Web site or area. */
-    AuthoredLinkToWeb: number;
+    AuthoredLinkToWeb: 0;
 
     /** Specifies a generic authored link. */
-    AuthoredLinkPlain: number;
+    AuthoredLinkPlain: 0;
 
     /** Specifies a custom node type that may be useful for extensibility purposes. */
-    Custom: number;
+    Custom: 0;
 
-    /** Represents an error specific to node types. */
-    Error: number;
+    /** Represents an error specific to node SPTypes.I */
+    Error: 0;
 
     /** Specifies any type of authored link. */
-    AuthoredLink: number;
+    AuthoredLink: 0;
 
     /** Specifies a combination of Area, Page, Heading and AuthoredLink. Navigation uses this value to determine which node types to return by default. */
-    Default: number;
+    Default: 0;
 
     /** Specifies all node types, including Area, Page, List, ListItem, PageLayout, Heading, AuthoredLink, and Custom. */
-    All: number;
+    All: 0;
 }
 
 /**
  * Page Types
  */
-export type PageType = {
-    /** export typeeration whose values specify a page that is the default view for a list. */
-    DefaultView: number,
-
-    /** export typeeration whose values specify a page suitable for display within a dialog box on a client computer. */
-    DialogView: number,
-
-    /** export typeeration whose values specify a list form for displaying a list item. */
-    DisplayForm: number,
-
-    /** export typeeration whose values specify a list form for displaying a list item, suitable for display within a dialog box on a client computer. */
-    DisplayFormDialog: number,
-
-    /** export typeeration whose values specify a list form for editing a list item. */
-    EditForm: number,
-
-    /** export typeeration whose values specify a list form for editing a list item, suitable for display within a dialog box on a client computer. */
-    EditFormDialog: number,
-
-    /** export typeeration whose values specify a page that does not correspond to a list view or a list form. */
-    Invalid: number,
-
-    /** export typeeration whose values specify a list form for creating a new list item. */
-    NewForm: number,
-
-    /** export typeeration whose values specify a list form for creating a new list item, suitable for display within a dialog box on a client computer. */
-    NewFormDialog: number,
-
-    /** export typeeration whose values specify a page that is a list view and is not the default view for a list. */
-    NormalView: number,
-
-    /** export typeeration whose values specify the total number of valid page types. */
-    Page_MAXITEMS: number,
-
-    /** export typeeration whose values specify a list form for displaying or editing a list item and represented by a form template (.xsn) file. */
-    SolutionForm: number,
-
-    /** export typeeration whose values specify a page that is a list view. */
-    View: number
+export const PageType: SPTypes.IPageType = {
+    DefaultView: 0,
+    DialogView: 2,
+    DisplayForm: 4,
+    DisplayFormDialog: 5,
+    EditForm: 6,
+    EditFormDialog: 7,
+    Invalid: -1,
+    NewForm: 8,
+    NewFormDialog: 9,
+    NormalView: 1,
+    Page_MAXITEMS: 11,
+    SolutionForm: 10,
+    View: 3
 };
-
-/**
- * Master Page Gallery Types
- */
-/*
-MasterPageGalleryType = {
-    DisplayTemplateControl = <any>"0x0101002039C03B61C64EC4A04F5361F385106601",
-    DisplayTemplateItem = <any>"0x0101002039C03B61C64EC4A04F5361F385106603",
-    MasterPage = <any>"0x01010500A8B69F8A072C384090BB2F363986E5EA",
-    PageLayout = <any>"0x01010007FF3E057FA8AB4AA42FCB67B453FFC100E214EEE741181F4E9F7ACC43278EE811",
-};
-*/
-
-/**
- * Page Layout Types
- */
-/*
-PageLayoutType = {
-    Article = <any>";#Article Page;#0x010100C568DB52D9D0A14D9B2FDCC96666E9F2007948130EC3DB064584E219954237AF3900242457EFB8B24247815D688C526CD44D;#"
-};
-*/
 
 /**
  * Personal Site Capabilities
  */
-export type PersonalSiteCapabilities = {
-    Education: number,
-    Guest: number,
-    MyTasksDashboard: number,
-    None: number,
-    Profile: number,
-    Social: number,
-    Storage: number
+export const PersonalSiteCapabilities: SPTypes.IPersonalSiteCapabilities = {
+    Education: 16,
+    Guest: 32,
+    MyTasksDashboard: 8,
+    None: 0,
+    Profile: 1,
+    Social: 2,
+    Storage: 4
 };
 
 /**
  * Principal Sources
  */
-export type PrincipalSources = {
-    /** Search all principal sources. */
-    All: number,
-
-    /** Search the current membership provider. */
-    MembershipProvider: number,
-
-    /** Search no principal sources. */
-    None: number,
-
-    /** Search the current role provider. */
-    RoleProvider: number,
-
-    /** Search the user information list. */
-    UserInfoList: number,
-
-    /** Search active directory. */
-    Windows: number
+export const PrincipalSources: SPTypes.IPrincipalSources = {
+    All: 15,
+    MembershipProvider: 4,
+    None: 0,
+    RoleProvider: 8,
+    UserInfoList: 1,
+    Windows: 2
 }
 
 /**
  * Principal Types
  */
-export type PrincipalTypes = {
-    /** Return all entity types. */
-    All: number,
-
-    /** Return distribution list entity types. */
-    DistributionList: number,
-
-    /** Return no principal types. */
-    None: number,
-
-    /** Return security group entity types. */
-    SecurityGroup: number,
-
-    /** Return sharepoint group entity types. */
-    SharePointGroup: number,
-
-    /** Return user entity types. */
-    User: number
+export const PrincipalTypes: SPTypes.IPrincipalTypes = {
+    All: 15,
+    DistributionList: 2,
+    None: 0,
+    SecurityGroup: 4,
+    SharePointGroup: 8,
+    User: 1
 }
 
 /**
  * Relationship Delete Behavior Types
  */
-export type RelationshipDeleteBehaviorType = {
-    /** No relationship behavior is applied. */
-    None: number,
-
-    /** Cascade behavior. */
-    Cascade: number,
-
-    /** Restrict behavior. */
-    Restrict: number
-};
+export const RelationshipDeleteBehaviorType: SPTypes.IRelationshipDeleteBehaviorType = { None: 0, Cascade: 1, Restrict: 2 };
 
 /**
  * Reordering Rule Match Types
  */
-export type ReorderingRuleMatchType = {
-    ResultContainsKeyword: number,
-    TitleContainsKeyword: number,
-    TitleMatchesKeyword: number,
-    UrlStartsWith: number,
-    UrlExactlyMatches: number,
-    ContentTypeIs: number,
-    FileExtensionMatches: number,
-    ResultHasTag: number,
-    ManualCondition: number
+export const ReorderingRuleMatchType: SPTypes.IReorderingRuleMatchType = {
+    ContentTypeIs: 5,
+    FileExtensionMatches: 6,
+    ManualCondition: 8,
+    ResultContainsKeyword: 0,
+    ResultHasTag: 7,
+    TitleContainsKeyword: 1,
+    TitleMatchesKeyword: 2,
+    UrlExactlyMatches: 4,
+    UrlStartsWith: 3
 };
 
 /**
  * Role Types
  */
-export type RoleType = {
-    /** Has all rights from other roles, plus rights to manage roles and view usage analysis data. Includes all rights in the WebDesigner role, plus the following: ManageListPermissions, ManageRoles, ManageSubwebs, ViewUsageData. The Administrator role cannot be customized or deleted, and must always contain at least one member. Members of the Administrator role always have access to, or can grant themselves access to, any item in the Web site. */
-    Administrator: number,
-
-    /** Has Reader rights, plus rights to add items, edit items, delete items, manage list permissions, manage personal views, personalize Web Part Pages, and browse directories. Includes all rights in the Reader role, plus the following: AddDelPrivateWebParts, AddListItems, BrowseDirectories, CreatePersonalGroups, DeleteListItems, EditListItems, ManagePersonalViews, UpdatePersonalWebParts. Contributors cannot create new lists or document libraries, but they can add content to existing lists and document libraries. */
-    Contributor: number,
-
-    /** Has Contributor rights, plus rights to manage lists. Includes all rights in the Contributor role. Editors can create new lists or document libraries. */
-    Editor: number,
-
-    /** Has limited rights to view pages and specific page elements. This role is used to give users access to a particular page, list, or item in a list, without granting rights to view the entire site. Users cannot be added explicitly to the Guest role; users who are given access to lists or document libraries by way of per-list permissions are added automatically to the Guest role. The Guest role cannot be customized or deleted. */
-    Guest: number,
-
-    /** export typeeration whose values specify that there are no rights on the Web site. */
-    None: number,
-
-    /** Has rights to view items, personalize Web parts, use alerts, and create a top-level Web site using Self-Service Site Creation. A reader can only read a site; the reader cannot add content. When a reader creates a site using Self-Service Site Creation, the reader becomes the site owner and a member of the Administrator role for the new site. This does not affect the user's role membership for any other site. Rights included: CreateSSCSite, ViewListItems, ViewPages. */
-    Reader: number,
-
-    /** Has Contributor rights, plus rights to cancel check out, delete items, manage lists, add and customize pages, define and apply themes and borders, and link style sheets. Includes all rights in the Contributor role, plus the following: AddAndCustomizePages, ApplyStyleSheets, ApplyThemeAndBorder, CancelCheckout, ManageLists.WebDesigners can modify the structure of the site and create new lists or document libraries. */
-    WebDesigner: number
+export const RoleType: SPTypes.IRoleType = {
+    Administrator: 5,
+    Contributor: 3,
+    Editor: 6,
+    Guest: 1,
+    None: 0,
+    Reader: 2,
+    WebDesigner: 4
 };
 
 /**
  * URL Format Types
  */
-export type UrlFormatType = {
-    /** Hyperlink */
-    Hyperlink: number,
-
-    /** Image */
-    Image: number
-};
+export const UrlFormatType: SPTypes.IUrlFormatType = { Hyperlink: 0, Image: 1 };
 
 /**
  * URL Zones
  */
-export type URLZones = {
-    /** Search the custom zone. */
-    Custom: number,
-
-    /** Search the default zone. */
-    Default: number,
-
-    /** Search the extranet zone. */
-    Extranet: number,
-
-    /** Search the internet zone. */
-    Internet: number,
-
-    /** Search the intranet zone. */
-    Intranet: number
-}
+export const URLZones: SPTypes.IURLZones = { Default: 0, Intranet: 1, Internet: 2, Custom: 3, Extranet: 4 }
 
 /**
  * User Custom Action Registration Types
  */
-export type UserCustomActionRegistrationType = {
-    /** export typeeration whose values specify that the object association is not specified. */
-    None: number,
-
-    /** export typeeration whose values specify that the custom action is associated with a list. */
-    List: number,
-
-    /** export typeeration whose values specify that the custom action is associated with a content type. */
-    ContentType: number,
-
-    /** export typeeration whose values specify that the custom action is associated with a ProgID. */
-    ProgId: number,
-
-    /** export typeeration whose values specify that the custom action is associated with a file extension. */
-    FileType: number
-};
+export const UserCustomActionRegistrationType: SPTypes.IUserCustomActionRegistrationType = { None: 0, List: 1, ContentType: 2, ProgId: 3, FileType: 4 };
 
 /**
  * View Types
  */
-export type ViewType = {
-    /** export typeeration whose values specify a calendar list view type. */
-    Calendar: number,
-
-    /** export typeeration whose values specify a chart list view type. */
-    Chart: number,
-
-    /** export typeeration whose values specify a Gantt chart list view type. */
-    Gantt: number,
-
-    /** export typeeration whose values specify a datasheet list view type. */
-    Grid: number,
-
-    /** export typeeration whose values specify an HTML list view type. */
-    Html: number,
-
-    /** export typeeration whose values specify a list view type that displays recurring events. */
-    Recurrence: number
-}
+export const ViewType: SPTypes.IViewType = {
+    Calendar: 524288,
+    Chart: 131072,
+    Gantt: 67108864,
+    Grid: 2048,
+    Html: 1,
+    Recurrence: 8193
+};

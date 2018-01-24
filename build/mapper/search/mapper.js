@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = require("../../types");
+var utils_1 = require("../../utils");
 /**
  * Search
  */
@@ -8,7 +8,7 @@ exports.search = {
     postquery: {
         argNames: ["request"],
         metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
-        requestType: types_1.RequestType.PostWithArgsInBody
+        requestType: utils_1.RequestType.PostWithArgsInBody
     }
 };
 //# sourceMappingURL=mapper.js.map

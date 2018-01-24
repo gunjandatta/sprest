@@ -1,9 +1,10 @@
 import { ContextInfo } from "../lib";
 import { TargetInfo } from ".";
 declare var ActiveXObject;
-// Request
-// This class will execute the xml http request.
-/*********************************************************************************************************************************/
+
+/**
+ * XML HTTP Request Class
+ */
 export class XHRRequest {
     /*********************************************************************************************************************************/
     // Constructor

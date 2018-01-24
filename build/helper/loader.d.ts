@@ -1,5 +1,5 @@
-import { Types } from "../mapper";
+import { ILoader } from "./loader.d";
 /**
  * Loader
  */
-export declare const Loader: Types.Helper.Loader.ILoader;
+export declare const Loader: ILoader;

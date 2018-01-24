@@ -1,6 +1,5 @@
-import { RequestType } from "../../types";
-import { IBase } from "../../utils";
-import { Types } from "..";
+import { RequestType, IBase } from "../../utils";
+import { SPTypes, Types } from "..";
 import { IViewFields } from ".";
 
 /**
@@ -29,7 +28,7 @@ export interface IViewCreationInformation {
     ViewQuery?: string;
 
     /** The view type. */
-    ViewTypeKind?: Types.SPTypes.ViewType | number;
+    ViewTypeKind?: SPTypes.IViewType;
 }
 
 /**

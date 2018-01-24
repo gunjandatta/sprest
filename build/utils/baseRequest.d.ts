@@ -1,4 +1,5 @@
-import { Base, BaseHelper, XHRRequest, IBaseRequest, IMethodInfo, ITargetInfo } from ".";
+export * from "./baseRequest.d";
+import { Base, IBaseRequest, BaseHelper, IMethodInfo, ITargetInfo, XHRRequest } from ".";
 /**
  * Base Request
  */

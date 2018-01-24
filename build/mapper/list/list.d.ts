@@ -1,12 +1,12 @@
 import { IBase, ITargetInfo } from "../../utils";
-import { Types } from "..";
+import { SPTypes, Types } from "..";
 import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from ".";
 /**
  * List Creation Information
  */
 export interface IListCreationInformation {
     /** The list template type. */
-    BaseTemplate: Types.SPTypes.ListTemplateType | number;
+    BaseTemplate: SPTypes.IListTemplateType;
     /** The list schema xml. */
     CustomSchemaXml?: string;
     /** The list of data source properties. */
@@ -118,7 +118,7 @@ export interface IListMethods {
      * @param formId - The identifier of the form.
      * @param mode - The SP.ControlMode of the control used to display the item.
      */
-    renderListFormData(itemId: any, formId: any, mode: Types.SPTypes.ControlMode): IBase;
+    renderListFormData(itemId: any, formId: any, mode: SPTypes.IControlMode): IBase;
     /**
      * Reserves a list item ID for idempotent list item creation.
      */
@@ -141,7 +141,7 @@ export interface IListProps {
     AllowContentTypes: boolean;
     AllowDeletion: boolean;
     /** Gets the list definition type on which the list is based. Represents a ListTemplateType value. See ListTemplateType in the .NET client object model reference for template type values. */
-    BaseTemplate: Types.SPTypes.ListTemplateType | number;
+    BaseTemplate: SPTypes.IListTemplateType;
     /** Gets the base type for the list. Represents an SP.BaseType value: Generic List = 0; Document Library = 1; Discussion Board = 3; Survey = 4; Issue = 5. */
     BaseType: number;
     /**

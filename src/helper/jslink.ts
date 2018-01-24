@@ -1,14 +1,15 @@
+export * from "./jsLink.d";
 import { ContextInfo } from "../lib";
 import { Types } from "../mapper";
-import { SPTypes } from "../types";
+import { IJSLink } from ".";
 
 /**
  * JSLink Helper Methods
  */
-export const JSLink: Types.Helper.JSLink.IJSLink = {
+export const JSLink: IJSLink = {
     // Hide event flag
     _hideEventFl: false,
-    
+
     /**
      * Field to Method Mapper
      * 1 - Display Form
@@ -145,7 +146,7 @@ export const JSLink: Types.Helper.JSLink.IJSLink = {
             // Update the context, based on the field type
             switch (ctx.CurrentFieldSchema.Type) {
                 case "MultiChoice":
-                    let regExp = new RegExp(SPTypes.ClientTemplatesUtility.UserLookupDelimitString, "g");
+                    let regExp = new RegExp(Types.SPTypes.ClientTemplatesUtility.UserLookupDelimitString, "g");
 
                     // Update the field value
                     fieldValue = ctx.CurrentFieldValue
@@ -170,11 +171,11 @@ export const JSLink: Types.Helper.JSLink.IJSLink = {
                             // User Lookup ID
                             userValue.EntityData.SPUserID +
                             // Delimiter
-                            SPTypes.ClientTemplatesUtility.UserLookupDelimitString +
+                            Types.SPTypes.ClientTemplatesUtility.UserLookupDelimitString +
                             // User Lookup Value
                             userValue.DisplayText +
                             // Optional Delimiter
-                            ((i == ctx.CurrentFieldValue.length - 1 ? "" : SPTypes.ClientTemplatesUtility.UserLookupDelimitString));
+                            ((i == ctx.CurrentFieldValue.length - 1 ? "" : Types.SPTypes.ClientTemplatesUtility.UserLookupDelimitString));
                     }
                     break;
             };
@@ -184,7 +185,7 @@ export const JSLink: Types.Helper.JSLink.IJSLink = {
         }
 
         // Determine the control mode
-        let controlMode = SPTypes.ControlMode.Display;
+        let controlMode = Types.SPTypes.ControlMode.Display;
         if (requireValueFl && (fieldValue == null || fieldValue == "")) {
             // Inherit the control mode
             controlMode = ctx.ControlMode;

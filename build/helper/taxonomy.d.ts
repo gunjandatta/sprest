@@ -1,2 +1,3 @@
-import { Types } from "../mapper";
-export declare const Taxonomy: Types.Helper.Taxonomy.ITaxonomy;
+import * as TaxonomyTypes from "./taxonomy.def";
+export * from "./taxonomy.def";
+export declare const Taxonomy: TaxonomyTypes.ITaxonomy;

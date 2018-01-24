@@ -1,3 +1,4 @@
+export * from "./baseHelper.d";
 import { Base, IBaseHelper } from ".";
 /**
  * Request Helper

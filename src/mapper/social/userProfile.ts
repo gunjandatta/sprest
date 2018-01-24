@@ -1,5 +1,5 @@
 import { IBase, ITargetInfo } from "../../utils";
-import { Types } from "..";
+import { SPTypes, Types } from "..";
 
 /**
  * User Profile
@@ -57,7 +57,7 @@ export interface IUserProfile extends IBase<IUserProfile> {
     /**
      * The capabilities of the user's personal site.
      */
-    PersonalSiteCapabilities: Types.SPTypes.PersonalSiteCapabilities | number;
+    PersonalSiteCapabilities: SPTypes.IPersonalSiteCapabilities | number;
 
     /**
      * The error thrown when the user's personal site was first created, if any. (SharePoint Online only)

@@ -1,4 +1,5 @@
-import { Types } from ".";
+import { Types } from "../mapper";
+import { SPTypes } from ".";
 
 /**
  * App License
@@ -277,7 +278,7 @@ export interface EncryptionOption {
  */
 export interface EventReceiverDefinitionCreationInformation {
     /** The event receiver type. */
-    EventType: Types.SPTypes.EventReceiverType | number;
+    EventType: SPTypes.IEventReceiverType | number;
 
     /** The strong name of the assembly that is used for receiving events. */
     ReceiverAssembly?: string;
@@ -330,7 +331,7 @@ export interface FieldCreationInformation {
     Choices?: { results: Array<string> };
 
     /** The field type. */
-    FieldTypeKind: Types.SPTypes.FieldType | number;
+    FieldTypeKind: SPTypes.IFieldType | number;
 
     /** Indicates whether only the first eight characters are used for the field name. */
     IsCompactName?: boolean;
@@ -523,7 +524,7 @@ export interface Language {
  */
 export interface ListCreationInformation {
     /** The list template type. */
-    BaseTemplate: Types.SPTypes.ListTemplateType | number;
+    BaseTemplate: SPTypes.IListTemplateType | number;
 
     /** The list schema xml. */
     CustomSchemaXml?: string;
@@ -811,7 +812,7 @@ export interface RelevantResults {
  */
 export interface ReorderingRule {
     Boost?: number;
-    MatchType?: Types.SPTypes.ReorderingRuleMatchType | number;
+    MatchType?: SPTypes.IReorderingRuleMatchType | number;
     MatchValue: string;
 }
 
@@ -820,7 +821,7 @@ export interface ReorderingRule {
  */
 export interface ReorderingRulesCreationInformation {
     Boost?: number;
-    MatchType?: Types.SPTypes.ReorderingRuleMatchType | number;
+    MatchType?: SPTypes.IReorderingRuleMatchType | number;
     MatchValue: string;
 }
 
@@ -1647,7 +1648,7 @@ export interface UserCustomActionCreationInformation {
     RegistrationId?: string;
 
     /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
-    RegistrationType?: Types.SPTypes.UserCustomActionRegistrationType | number;
+    RegistrationType?: SPTypes.IUserCustomActionRegistrationType | number;
 
     /** The value that specifies the permissions needed for the custom action. */
     Rights?: any;
@@ -1702,7 +1703,7 @@ export interface ViewCreationInformation {
     ViewQuery?: string;
 
     /** The view type. */
-    ViewTypeKind?: Types.SPTypes.ViewType | number;
+    ViewTypeKind?: SPTypes.IViewType | number;
 }
 
 /**

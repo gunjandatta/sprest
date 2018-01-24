@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 var mapper_1 = require("../mapper");
-var types_1 = require("../types");
 var _1 = require(".");
 /**
  * Request Helper
@@ -181,7 +180,7 @@ var BaseHelper = /** @class */ (function () {
         // Ensure the request was successful
         if (this.status >= 200 && this.status < 300) {
             // Return if we are expecting a buffer
-            if (this.requestType == types_1.RequestType.GetBuffer) {
+            if (this.requestType == _1.RequestType.GetBuffer) {
                 return;
             }
             // Parse the responses

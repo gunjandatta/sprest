@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
-var types_1 = require("../types");
+var mapper_1 = require("../mapper");
 var taxonomy_1 = require("./taxonomy");
 /**
  * List Form Field
@@ -50,19 +50,19 @@ var _ListFormField = /** @class */ (function () {
             // Update the field info, based on the type
             switch (_this._fieldInfo.type) {
                 // Choice
-                case types_1.SPTypes.FieldType.Choice:
-                case types_1.SPTypes.FieldType.MultiChoice:
+                case mapper_1.Types.SPTypes.FieldType.Choice:
+                case mapper_1.Types.SPTypes.FieldType.MultiChoice:
                     var choices = _this._fieldInfo.field.Choices;
                     _this._fieldInfo.choices = (choices ? choices.results : null) || [];
-                    _this._fieldInfo.multi = _this._fieldInfo.type == types_1.SPTypes.FieldType.MultiChoice;
+                    _this._fieldInfo.multi = _this._fieldInfo.type == mapper_1.Types.SPTypes.FieldType.MultiChoice;
                     break;
                 // Date/Time
-                case types_1.SPTypes.FieldType.DateTime:
+                case mapper_1.Types.SPTypes.FieldType.DateTime:
                     var fldDate = _this._fieldInfo.field;
-                    _this._fieldInfo.showTime = fldDate.DisplayFormat == types_1.SPTypes.DateFormat.DateTime;
+                    _this._fieldInfo.showTime = fldDate.DisplayFormat == mapper_1.Types.SPTypes.DateFormat.DateTime;
                     break;
                 // Lookup
-                case types_1.SPTypes.FieldType.Lookup:
+                case mapper_1.Types.SPTypes.FieldType.Lookup:
                     var fldLookup = _this._fieldInfo.field;
                     _this._fieldInfo.lookupField = fldLookup.LookupField;
                     _this._fieldInfo.lookupListId = fldLookup.LookupList;
@@ -70,7 +70,7 @@ var _ListFormField = /** @class */ (function () {
                     _this._fieldInfo.multi = fldLookup.AllowMultipleValues;
                     break;
                 // Number
-                case types_1.SPTypes.FieldType.Number:
+                case mapper_1.Types.SPTypes.FieldType.Number:
                     var fldNumber = _this._fieldInfo.field;
                     _this._fieldInfo.maxValue = fldNumber.MaximumValue;
                     _this._fieldInfo.minValue = fldNumber.MinimumValue;
@@ -82,22 +82,22 @@ var _ListFormField = /** @class */ (function () {
                     }
                     break;
                 // Note
-                case types_1.SPTypes.FieldType.Note:
+                case mapper_1.Types.SPTypes.FieldType.Note:
                     var fldNote = _this._fieldInfo.field;
                     _this._fieldInfo.multiline = true;
                     _this._fieldInfo.richText = fldNote.RichText;
                     _this._fieldInfo.rows = fldNote.NumberOfLines;
                     break;
                 // Text
-                case types_1.SPTypes.FieldType.Text:
+                case mapper_1.Types.SPTypes.FieldType.Text:
                     _this._fieldInfo.multiline = false;
                     _this._fieldInfo.richText = false;
                     _this._fieldInfo.rows = 1;
                     break;
                 // User
-                case types_1.SPTypes.FieldType.User:
+                case mapper_1.Types.SPTypes.FieldType.User:
                     var fldUser = _this._fieldInfo.field;
-                    _this._fieldInfo.allowGroups = fldUser.SelectionMode == types_1.SPTypes.FieldUserSelectionType.PeopleAndGroups;
+                    _this._fieldInfo.allowGroups = fldUser.SelectionMode == mapper_1.Types.SPTypes.FieldUserSelectionType.PeopleAndGroups;
                     _this._fieldInfo.multi = fldUser.AllowMultipleValues;
                     break;
                 // Default

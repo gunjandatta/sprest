@@ -1,7 +1,10 @@
+export * from "./requestType.d";
+import { IRequestType } from ".";
+
 /**
  * Request Type
  */
-export const RequestType = {
+export const RequestType: IRequestType = {
     // Requests
     Custom: 0,
     Delete: 1,

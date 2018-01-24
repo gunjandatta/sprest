@@ -10,7 +10,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = require("../types");
 var utils_1 = require("../utils");
 /*********************************************************************************************************************************/
 // Search
@@ -56,7 +55,7 @@ var _Search = /** @class */ (function (_super) {
         return this.executeMethod("query", {
             argNames: ["query"],
             name: "query?[[query]]",
-            requestType: types_1.RequestType.GetReplace
+            requestType: utils_1.RequestType.GetReplace
         }, this.getQuery(settings));
     };
     /** The suggest method */
@@ -65,7 +64,7 @@ var _Search = /** @class */ (function (_super) {
         return this.executeMethod("query", {
             argNames: ["query"],
             name: "suggest?[[query]]",
-            requestType: types_1.RequestType.GetReplace
+            requestType: utils_1.RequestType.GetReplace
         }, this.getQuery(settings));
     };
     return _Search;

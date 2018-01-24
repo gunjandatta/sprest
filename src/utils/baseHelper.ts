@@ -1,7 +1,7 @@
+export * from "./baseHelper.d";
 import { ContextInfo } from "../lib";
 import { Mapper } from "../mapper";
-import { RequestType } from "../types";
-import { Base, IBaseHelper } from ".";
+import { Base, RequestType, IBaseHelper } from ".";
 
 /**
  * Request Helper

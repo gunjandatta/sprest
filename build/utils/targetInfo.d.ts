@@ -1,3 +1,4 @@
+export * from "./targetInfo.d";
 import { IRequestInfo, ITargetInfo } from ".";
 /**
  * Target Information

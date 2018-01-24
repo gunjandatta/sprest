@@ -1,5 +1,5 @@
 import { IBase } from "../../utils";
-import { Types } from "..";
+import { SPTypes, Types } from "..";
 
 /**
  * Field Creation Information 
@@ -9,7 +9,7 @@ export interface IFieldCreationInformation {
     Choices?: { results: Array<string> };
 
     /** The field type. */
-    FieldTypeKind: Types.SPTypes.FieldType | number;
+    FieldTypeKind: SPTypes.IFieldType | number;
 
     /** Indicates whether only the first eight characters are used for the field name. */
     IsCompactName?: boolean;
@@ -89,7 +89,7 @@ export interface IFieldProps {
     EntityPropertyName: string;
 
     /** Gets or sets a value that specifies the type of the field. Represents a FieldType value. See FieldType in the .NET client object model reference for a list of field type values. */
-    FieldTypeKind: Types.SPTypes.FieldType | number;
+    FieldTypeKind: SPTypes.IFieldType | number;
 
     /** Gets a value that specifies whether list items in the list can be filtered by the field value. */
     Filterable: boolean;
@@ -202,13 +202,13 @@ export interface IFieldBaseChoice extends IFieldResult {
  */
 export interface IFieldCalculated extends IFieldResult {
     /** The date and time format that is displayed in the field. */
-    DateFormat: Types.SPTypes.DateFormat | number;
+    DateFormat: SPTypes.IDateFormat | number;
 
     /** A value that specifies the formula for the field. */
     Formula: string;
 
     /** A value that specifies the output format for the field. */
-    OutputType: Types.SPTypes.FieldType | number;
+    OutputType: SPTypes.IFieldType | number;
 }
 
 /**
@@ -216,7 +216,7 @@ export interface IFieldCalculated extends IFieldResult {
  */
 export interface IFieldChoice extends IFieldBaseChoice {
     /** Determines whether to display the choice field as option buttons (also known as "radio buttons") or as a drop-down list. */
-    EditFormat: Types.SPTypes.ChoiceFormatType | number;
+    EditFormat: SPTypes.IChoiceFormatType | number;
 }
 
 /**
@@ -232,7 +232,7 @@ export interface IFieldComputed extends IFieldResult {
  */
 export interface IFieldCurrency extends IFieldNumber {
     /** A value that specifies the language code identifier (LCID) used to format the value of the field. */
-    CurrencyLocaleId: Types.SPTypes.LocaleLCIDType | number;
+    CurrencyLocaleId: SPTypes.ILocaleLCIDType | number;
 }
 
 /**
@@ -240,13 +240,13 @@ export interface IFieldCurrency extends IFieldNumber {
  */
 export interface IFieldDateTime extends IFieldResult {
     /** A value that specifies the calendar type of the field. */
-    DateTimeCalendarType: Types.SPTypes.CalendarType | number;
+    DateTimeCalendarType: SPTypes.ICalendarType | number;
 
     /** The format of the date and time that is displayed in the field. */
-    DisplayFormat: Types.SPTypes.DateFormat | number;
+    DisplayFormat: SPTypes.IDateFormat | number;
 
     /** Represents a date and time friendly format. */
-    FriendlyDisplayFormat: Types.SPTypes.FriendlyDateFormat | number;
+    FriendlyDisplayFormat: SPTypes.IFriendlyDateFormat | number;
 }
 
 /**
@@ -275,7 +275,7 @@ export interface IFieldLookup extends IFieldResult {
     PrimaryFieldId: string;
 
     /** A value that specifies the delete behavior of the lookup field. */
-    RelationshipDeleteBehavior: Types.SPTypes.RelationshipDeleteBehaviorType | number;
+    RelationshipDeleteBehavior: SPTypes.IRelationshipDeleteBehaviorType | number;
 }
 
 /**
@@ -395,7 +395,7 @@ export interface IFieldText extends IFieldResult {
  */
 export interface IFieldUrl extends IFieldResult {
     /** A value that specifies the display format for the value in the field. */
-    DisplayFormat: Types.SPTypes.UrlFormatType | number;
+    DisplayFormat: SPTypes.IUrlFormatType | number;
 }
 
 /**
@@ -412,5 +412,5 @@ export interface IFieldUser extends IFieldLookup {
     SelectionGroup: number;
 
     /** A value that specifies whether users and groups or only users can be selected. */
-    SelectionMode: Types.SPTypes.FieldUserSelectionType | number;
+    SelectionMode: SPTypes.IFieldUserSelectionType | number;
 }

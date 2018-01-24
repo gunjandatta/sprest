@@ -1,5 +1,5 @@
 import { IBase } from "../../utils";
-import { Types } from "..";
+import { SPTypes, Types } from "..";
 /**
  * Role Definition Methods
  */
@@ -26,7 +26,7 @@ export interface IRoleDefinitionProps {
     /** Gets or sets a value that specifies the order position of the object in the site collection Permission Levels page. */
     Order: number;
     /** Gets a value that specifies the type of the role definition. Represents an SP.RoleType value. See RoleType in the .NET client object model reference for a list of role type values. */
-    RoleTypeKind: Types.SPTypes.RoleType | number;
+    RoleTypeKind: SPTypes.IRoleType | number;
 }
 /**
  * Role Definition Query Properties

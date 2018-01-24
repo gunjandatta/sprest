@@ -1,6 +1,5 @@
 import { Types } from "../mapper";
-import { RequestType } from "../types";
-import { Base } from "../utils";
+import { Base, RequestType } from "../utils";
 
 /*********************************************************************************************************************************/
 // Search

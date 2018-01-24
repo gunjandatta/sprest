@@ -1,5 +1,6 @@
-import { Types } from "../mapper";
+export * from "./jsLink.d";
+import { IJSLink } from ".";
 /**
  * JSLink Helper Methods
  */
-export declare const JSLink: Types.Helper.JSLink.IJSLink;
+export declare const JSLink: IJSLink;

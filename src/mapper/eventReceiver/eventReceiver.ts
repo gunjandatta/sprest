@@ -1,12 +1,12 @@
 import { IBase } from "../../utils";
-import { Types } from "..";
+import { SPTypes } from "..";
 
 /**
  * Event Receiver Definition Creation Information
  */
 export interface IEventReceiverDefinitionCreationInformation {
     /** The event receiver type. */
-    EventType: Types.SPTypes.EventReceiverType | number;
+    EventType: SPTypes.IEventReceiverType | number;
 
     /** The strong name of the assembly that is used for receiving events. */
     ReceiverAssembly?: string;
@@ -48,7 +48,7 @@ export interface IEventReceiverMethods {
  */
 export interface IEventReceiverProps {
     /** Specifies the type of event. */
-    EventType: Types.SPTypes.EventReceiverType | number;
+    EventType: SPTypes.IEventReceiverType | number;
 
     /** The strong name of the assembly that is used for receiving events. */
     ReceiverAssembly?: string;
@@ -69,7 +69,7 @@ export interface IEventReceiverProps {
     SequenceNumber?: number;
 
     /** The execution synchronization of the event receiver. */
-    Synchronization?: Types.SPTypes.EventReceiverSynchronizationType | number;
+    Synchronization?: SPTypes.IEventReceiverSynchronizationType | number;
 }
 
 /**

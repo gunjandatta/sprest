@@ -1,5 +1,6 @@
+export * from "./dependencies.d";
 import { ContextInfo } from "../lib";
-import { Types } from "../mapper";
+import { IDependencies } from ".";
 
 /**
  * Dependencies
@@ -74,4 +75,4 @@ class _Dependencies {
         }, 10);
     }
 }
-export const Dependencies: Types.Helper.Dependencies.IDependencies = _Dependencies as any;
+export const Dependencies: IDependencies = _Dependencies as any;

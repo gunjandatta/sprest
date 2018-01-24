@@ -1,5 +1,7 @@
+export * from "./app.d";
 import { ContextInfo, Web } from "../lib";
 import { Types } from "../mapper";
+import { IApp } from ".";
 
 /**
  * App Helper Methods
@@ -332,4 +334,4 @@ class _App {
         });
     }
 }
-export const App: Types.Helper.App.IApp = new _App() as any;
+export const App: IApp = new _App() as any;

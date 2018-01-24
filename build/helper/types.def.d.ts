@@ -16,7 +16,6 @@ export interface IHelperTypes {
         Url: number;
         User: number;
     };
-
     /** The configuration types */
     SPCfgType: {
         Fields: number;

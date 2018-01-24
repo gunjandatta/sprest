@@ -1,4 +1,3 @@
-import { IHelper } from "../helper";
 import { IContextInformation, IJSLink } from "../lib";
 import { ITargetInfo } from "../utils";
 import { Types } from ".";
@@ -26,7 +25,7 @@ export interface IREST {
     /**
      * Helper methods.
      */
-    Helper: IHelper;
+    Helper;
 
     /**
      * Use this helper library for implementing JSLink solutions.
