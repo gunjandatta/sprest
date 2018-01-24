@@ -1,3 +1,4 @@
-import { RequestType, IRequestType } from "./requestType";
+export * from "./requestType";
+export * from "./requestType.d";
 import * as SPTypes from "./sptypes";
-export { RequestType, IRequestType, SPTypes };
+export { SPTypes };
