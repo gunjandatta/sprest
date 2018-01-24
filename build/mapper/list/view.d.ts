@@ -1,5 +1,5 @@
 import { IBase } from "../../utils";
-import { SPTypes, Types } from "..";
+import { Types } from "..";
 import { IViewFields } from ".";
 /**
  * View Creation Information
@@ -20,7 +20,7 @@ export interface IViewCreationInformation {
     /** The query for the new list view. */
     ViewQuery?: string;
     /** The view type. */
-    ViewTypeKind?: SPTypes.IViewType;
+    ViewTypeKind?: number;
 }
 /**
  * View Methods

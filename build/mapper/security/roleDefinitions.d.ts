@@ -1,5 +1,4 @@
 import { IBase, IBaseCollection } from "../../utils";
-import { SPTypes } from "..";
 import { IRoleDefinition, IRoleDefinitionQueryResult, IRoleDefinitionResult } from ".";
 /**
  * Methods
@@ -19,7 +18,7 @@ export interface IRoleDefinitionsMethods {
      * Gets the role definition with the specified role type.
      * @param roleType - The RoleTypeKind of the role definition.
      */
-    getByType(roleType: SPTypes.IRoleType): IRoleDefinition & IBase<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
+    getByType(roleType: number): IRoleDefinition & IBase<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
     /**
      * Method to get the next set of results.
      */

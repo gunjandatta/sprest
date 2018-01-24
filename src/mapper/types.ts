@@ -172,7 +172,7 @@ export interface IMenuNode {
     Nodes: IResults<IMenuNode>;
 
     /** The type of the navigation node. */
-    NodeType: SPTypes.NodeType;
+    NodeType: number;
 
     /**
      * The relative or absolute URL of the navigation node.

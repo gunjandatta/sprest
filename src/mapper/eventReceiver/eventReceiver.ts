@@ -6,7 +6,7 @@ import { SPTypes } from "..";
  */
 export interface IEventReceiverDefinitionCreationInformation {
     /** The event receiver type. */
-    EventType: SPTypes.IEventReceiverType | number;
+    EventType: number;
 
     /** The strong name of the assembly that is used for receiving events. */
     ReceiverAssembly?: string;
@@ -48,7 +48,7 @@ export interface IEventReceiverMethods {
  */
 export interface IEventReceiverProps {
     /** Specifies the type of event. */
-    EventType: SPTypes.IEventReceiverType | number;
+    EventType: number;
 
     /** The strong name of the assembly that is used for receiving events. */
     ReceiverAssembly?: string;
@@ -69,7 +69,7 @@ export interface IEventReceiverProps {
     SequenceNumber?: number;
 
     /** The execution synchronization of the event receiver. */
-    Synchronization?: SPTypes.IEventReceiverSynchronizationType | number;
+    Synchronization?: number;
 }
 
 /**

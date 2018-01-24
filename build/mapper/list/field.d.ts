@@ -1,5 +1,5 @@
 import { IBase } from "../../utils";
-import { SPTypes, Types } from "..";
+import { Types } from "..";
 /**
  * Field Creation Information
  */
@@ -9,7 +9,7 @@ export interface IFieldCreationInformation {
         results: Array<string>;
     };
     /** The field type. */
-    FieldTypeKind: SPTypes.IFieldType | number;
+    FieldTypeKind: number;
     /** Indicates whether only the first eight characters are used for the field name. */
     IsCompactName?: boolean;
     /** The name of the source lookup field. */
@@ -70,7 +70,7 @@ export interface IFieldProps {
     /** Gets the name of the entity property for the list item entity that uses this field. */
     EntityPropertyName: string;
     /** Gets or sets a value that specifies the type of the field. Represents a FieldType value. See FieldType in the .NET client object model reference for a list of field type values. */
-    FieldTypeKind: SPTypes.IFieldType | number;
+    FieldTypeKind: number;
     /** Gets a value that specifies whether list items in the list can be filtered by the field value. */
     Filterable: boolean;
     /** Gets a Boolean value that indicates whether the field derives from a base field type. */
@@ -156,18 +156,18 @@ export interface IFieldBaseChoice extends IFieldResult {
  */
 export interface IFieldCalculated extends IFieldResult {
     /** The date and time format that is displayed in the field. */
-    DateFormat: SPTypes.IDateFormat | number;
+    DateFormat: number;
     /** A value that specifies the formula for the field. */
     Formula: string;
     /** A value that specifies the output format for the field. */
-    OutputType: SPTypes.IFieldType | number;
+    OutputType: number;
 }
 /**
  * Choice Field
  */
 export interface IFieldChoice extends IFieldBaseChoice {
     /** Determines whether to display the choice field as option buttons (also known as "radio buttons") or as a drop-down list. */
-    EditFormat: SPTypes.IChoiceFormatType | number;
+    EditFormat: number;
 }
 /**
  * Computed Field
@@ -181,18 +181,18 @@ export interface IFieldComputed extends IFieldResult {
  */
 export interface IFieldCurrency extends IFieldNumber {
     /** A value that specifies the language code identifier (LCID) used to format the value of the field. */
-    CurrencyLocaleId: SPTypes.ILocaleLCIDType | number;
+    CurrencyLocaleId: number;
 }
 /**
  * Date/Time Field
  */
 export interface IFieldDateTime extends IFieldResult {
     /** A value that specifies the calendar type of the field. */
-    DateTimeCalendarType: SPTypes.ICalendarType | number;
+    DateTimeCalendarType: number;
     /** The format of the date and time that is displayed in the field. */
-    DisplayFormat: SPTypes.IDateFormat | number;
+    DisplayFormat: number;
     /** Represents a date and time friendly format. */
-    FriendlyDisplayFormat: SPTypes.IFriendlyDateFormat | number;
+    FriendlyDisplayFormat: number;
 }
 /**
  * Lookup Field
@@ -213,7 +213,7 @@ export interface IFieldLookup extends IFieldResult {
     /** A value that specifies the primary lookup field identifier if this is a dependent lookup field. Otherwise, it is an empty string. */
     PrimaryFieldId: string;
     /** A value that specifies the delete behavior of the lookup field. */
-    RelationshipDeleteBehavior: SPTypes.IRelationshipDeleteBehaviorType | number;
+    RelationshipDeleteBehavior: number;
 }
 /**
  * Managed Metadata Field
@@ -304,7 +304,7 @@ export interface IFieldText extends IFieldResult {
  */
 export interface IFieldUrl extends IFieldResult {
     /** A value that specifies the display format for the value in the field. */
-    DisplayFormat: SPTypes.IUrlFormatType | number;
+    DisplayFormat: number;
 }
 /**
  * User Field
@@ -317,5 +317,5 @@ export interface IFieldUser extends IFieldLookup {
     /** A value that specifies the identifier of the SharePoint group whose members can be selected as values of the field. */
     SelectionGroup: number;
     /** A value that specifies whether users and groups or only users can be selected. */
-    SelectionMode: SPTypes.IFieldUserSelectionType | number;
+    SelectionMode: number;
 }

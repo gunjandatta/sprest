@@ -25,7 +25,7 @@ export interface IFilesMethods {
      * @param urlOfFile - The server-relative URL where you want to save the file.
      * @param templateFileType - The SP.TemplateFileType to use to create the file.
      */
-    addTemplateFile(urlOfFile, templateFileType: SPTypes.IFileTemplateType): IBase<IFile, IFileResult>;
+    addTemplateFile(urlOfFile, templateFileType: number): IBase<IFile, IFileResult>;
 
     /**
      * Get the file at the specified URL.

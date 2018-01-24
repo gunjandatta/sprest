@@ -28,7 +28,7 @@ export interface IViewCreationInformation {
     ViewQuery?: string;
 
     /** The view type. */
-    ViewTypeKind?: SPTypes.IViewType;
+    ViewTypeKind?: number;
 }
 
 /**

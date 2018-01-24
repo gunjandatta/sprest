@@ -28,7 +28,7 @@ export interface IUserCustomActionCreationInformation {
     RegistrationId?: string;
 
     /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
-    RegistrationType?: SPTypes.IUserCustomActionRegistrationType | number;
+    RegistrationType?: number;
 
     /** The value that specifies the permissions needed for the custom action. */
     Rights?: any;
@@ -88,7 +88,7 @@ export interface IUserCustomActionProps {
     RegistrationId: string;
 
     /** Gets or sets the value that specifies the type of object associated with the custom action. */
-    RegistrationType: SPTypes.IUserCustomActionRegistrationType | number;
+    RegistrationType: number;
 
     /** Gets or sets the value that specifies the permissions needed for the custom action. */
     Rights: Types.IBasePermissions;

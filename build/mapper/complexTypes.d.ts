@@ -1,5 +1,4 @@
 import { Types } from "../mapper";
-import { SPTypes } from ".";
 /**
  * App License
  */
@@ -247,7 +246,7 @@ export interface EncryptionOption {
  */
 export interface EventReceiverDefinitionCreationInformation {
     /** The event receiver type. */
-    EventType: SPTypes.IEventReceiverType | number;
+    EventType: number;
     /** The strong name of the assembly that is used for receiving events. */
     ReceiverAssembly?: string;
     /** A string that represents the class that is used for receiving events. */
@@ -291,7 +290,7 @@ export interface FieldCreationInformation {
         results: Array<string>;
     };
     /** The field type. */
-    FieldTypeKind: SPTypes.IFieldType | number;
+    FieldTypeKind: number;
     /** Indicates whether only the first eight characters are used for the field name. */
     IsCompactName?: boolean;
     /** The name of the source lookup field. */
@@ -476,7 +475,7 @@ export interface Language {
  */
 export interface ListCreationInformation {
     /** The list template type. */
-    BaseTemplate: SPTypes.IListTemplateType | number;
+    BaseTemplate: number;
     /** The list schema xml. */
     CustomSchemaXml?: string;
     /** The list of data source properties. */
@@ -731,7 +730,7 @@ export interface RelevantResults {
  */
 export interface ReorderingRule {
     Boost?: number;
-    MatchType?: SPTypes.IReorderingRuleMatchType | number;
+    MatchType?: number;
     MatchValue: string;
 }
 /**
@@ -739,7 +738,7 @@ export interface ReorderingRule {
  */
 export interface ReorderingRulesCreationInformation {
     Boost?: number;
-    MatchType?: SPTypes.IReorderingRuleMatchType | number;
+    MatchType?: number;
     MatchValue: string;
 }
 /**
@@ -1452,7 +1451,7 @@ export interface UserCustomActionCreationInformation {
     /** The value that specifies the identifier of the object associated with the custom action. */
     RegistrationId?: string;
     /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
-    RegistrationType?: SPTypes.IUserCustomActionRegistrationType | number;
+    RegistrationType?: number;
     /** The value that specifies the permissions needed for the custom action. */
     Rights?: any;
     /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
@@ -1492,7 +1491,7 @@ export interface ViewCreationInformation {
     /** The query for the new list view. */
     ViewQuery?: string;
     /** The view type. */
-    ViewTypeKind?: SPTypes.IViewType | number;
+    ViewTypeKind?: number;
 }
 /**
  * Visualization

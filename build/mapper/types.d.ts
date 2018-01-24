@@ -143,7 +143,7 @@ export interface IMenuNode {
     /** The child nodes. */
     Nodes: IResults<IMenuNode>;
     /** The type of the navigation node. */
-    NodeType: SPTypes.NodeType;
+    NodeType: number;
     /**
      * The relative or absolute URL of the navigation node.
      * Site-relative URLs can start with the "~site" token and site collection-relative URLs can start with the "~sitecollection" token.

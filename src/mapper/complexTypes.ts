@@ -278,7 +278,7 @@ export interface EncryptionOption {
  */
 export interface EventReceiverDefinitionCreationInformation {
     /** The event receiver type. */
-    EventType: SPTypes.IEventReceiverType | number;
+    EventType: number;
 
     /** The strong name of the assembly that is used for receiving events. */
     ReceiverAssembly?: string;
@@ -331,7 +331,7 @@ export interface FieldCreationInformation {
     Choices?: { results: Array<string> };
 
     /** The field type. */
-    FieldTypeKind: SPTypes.IFieldType | number;
+    FieldTypeKind: number;
 
     /** Indicates whether only the first eight characters are used for the field name. */
     IsCompactName?: boolean;
@@ -524,7 +524,7 @@ export interface Language {
  */
 export interface ListCreationInformation {
     /** The list template type. */
-    BaseTemplate: SPTypes.IListTemplateType | number;
+    BaseTemplate: number;
 
     /** The list schema xml. */
     CustomSchemaXml?: string;
@@ -812,7 +812,7 @@ export interface RelevantResults {
  */
 export interface ReorderingRule {
     Boost?: number;
-    MatchType?: SPTypes.IReorderingRuleMatchType | number;
+    MatchType?: number;
     MatchValue: string;
 }
 
@@ -821,7 +821,7 @@ export interface ReorderingRule {
  */
 export interface ReorderingRulesCreationInformation {
     Boost?: number;
-    MatchType?: SPTypes.IReorderingRuleMatchType | number;
+    MatchType?: number;
     MatchValue: string;
 }
 
@@ -1648,7 +1648,7 @@ export interface UserCustomActionCreationInformation {
     RegistrationId?: string;
 
     /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
-    RegistrationType?: SPTypes.IUserCustomActionRegistrationType | number;
+    RegistrationType?: number;
 
     /** The value that specifies the permissions needed for the custom action. */
     Rights?: any;
@@ -1703,7 +1703,7 @@ export interface ViewCreationInformation {
     ViewQuery?: string;
 
     /** The view type. */
-    ViewTypeKind?: SPTypes.IViewType | number;
+    ViewTypeKind?: number;
 }
 
 /**

@@ -1,5 +1,4 @@
 import { IBase, IBaseCollection } from "../../utils";
-import { SPTypes } from "..";
 import { IFile, IFileQueryResult, IFileResult } from ".";
 /**
  * Methods
@@ -20,7 +19,7 @@ export interface IFilesMethods {
      * @param urlOfFile - The server-relative URL where you want to save the file.
      * @param templateFileType - The SP.TemplateFileType to use to create the file.
      */
-    addTemplateFile(urlOfFile: any, templateFileType: SPTypes.IFileTemplateType): IBase<IFile, IFileResult>;
+    addTemplateFile(urlOfFile: any, templateFileType: number): IBase<IFile, IFileResult>;
     /**
      * Get the file at the specified URL.
      * @param serverRelativeUrl - The name or server relative url of the file.

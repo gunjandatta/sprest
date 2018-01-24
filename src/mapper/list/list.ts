@@ -12,7 +12,7 @@ import {
  */
 export interface IListCreationInformation {
     /** The list template type. */
-    BaseTemplate: SPTypes.IListTemplateType;
+    BaseTemplate: number;
 
     /** The list schema xml. */
     CustomSchemaXml?: string;
@@ -149,7 +149,7 @@ export interface IListMethods {
      * @param formId - The identifier of the form.
      * @param mode - The SP.ControlMode of the control used to display the item.
      */
-    renderListFormData(itemId, formId, mode: SPTypes.IControlMode): IBase;
+    renderListFormData(itemId, formId, mode: number): IBase;
 
     /**
      * Reserves a list item ID for idempotent list item creation.
@@ -178,7 +178,7 @@ export interface IListProps {
     AllowDeletion: boolean;
 
     /** Gets the list definition type on which the list is based. Represents a ListTemplateType value. See ListTemplateType in the .NET client object model reference for template type values. */
-    BaseTemplate: SPTypes.IListTemplateType;
+    BaseTemplate: number;
 
     /** Gets the base type for the list. Represents an SP.BaseType value: Generic List = 0; Document Library = 1; Discussion Board = 3; Survey = 4; Issue = 5. */
     BaseType: number;

@@ -60,10 +60,10 @@ export interface IResolvePrincipal {
     matchUserInfoList?: boolean;
 
     /** The type of the principal. */
-    scopes: SPTypes.IPrincipalTypes;
+    scopes: number;
 
     /** The source of the principal. */
-    sources: SPTypes.IPrincipalSources;
+    sources: number;
 }
 
 /**
@@ -80,10 +80,10 @@ export interface ISearchPrincipal {
     maxCount: number;
 
     /** The type of the principal. */
-    scopes?: SPTypes.IPrincipalTypes;
+    scopes?: number;
 
     /** The source of the principal. */
-    sources?: SPTypes.IPrincipalSources;
+    sources?: number;
 }
 
 /**

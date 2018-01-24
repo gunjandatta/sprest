@@ -1,6 +1,6 @@
 import { KeyValue } from "../complexTypes";
 import { IBase, ITargetInfo } from "../../utils";
-import { SPTypes, Types } from "..";
+import { Types } from "..";
 /**
  * Email
  */
@@ -47,9 +47,9 @@ export interface IResolvePrincipal {
     /** Specifies whether the user information list is used. */
     matchUserInfoList?: boolean;
     /** The type of the principal. */
-    scopes: SPTypes.IPrincipalTypes;
+    scopes: number;
     /** The source of the principal. */
-    sources: SPTypes.IPrincipalSources;
+    sources: number;
 }
 /**
  * Search Principal
@@ -62,9 +62,9 @@ export interface ISearchPrincipal {
     /** The maximum number of information entries about principals to return. */
     maxCount: number;
     /** The type of the principal. */
-    scopes?: SPTypes.IPrincipalTypes;
+    scopes?: number;
     /** The source of the principal. */
-    sources?: SPTypes.IPrincipalSources;
+    sources?: number;
 }
 /**
  * Utility Results
