@@ -111,6 +111,8 @@ __export(__webpack_require__(116));
 __export(__webpack_require__(117));
 __export(__webpack_require__(118));
 __export(__webpack_require__(39));
+var Types = __webpack_require__(119);
+exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -343,17 +345,17 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(76));
-__export(__webpack_require__(119));
 __export(__webpack_require__(120));
-__export(__webpack_require__(122));
+__export(__webpack_require__(121));
 __export(__webpack_require__(123));
 __export(__webpack_require__(124));
 __export(__webpack_require__(125));
+__export(__webpack_require__(126));
 __export(__webpack_require__(41));
 __export(__webpack_require__(40));
 __export(__webpack_require__(42));
-__export(__webpack_require__(126));
-var Types = __webpack_require__(127);
+__export(__webpack_require__(127));
+var Types = __webpack_require__(128);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -399,7 +401,7 @@ exports.Helper = Helper;
 __export(__webpack_require__(1));
 var mapper_1 = __webpack_require__(12);
 exports.SPTypes = mapper_1.SPTypes;
-var Types = __webpack_require__(128);
+var Types = __webpack_require__(129);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -902,7 +904,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(121));
+__export(__webpack_require__(122));
 var lib_1 = __webpack_require__(1);
 var _1 = __webpack_require__(17);
 /**
@@ -8885,7 +8887,7 @@ var mapper_1 = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.17,
+    __ver: 3.18,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -9270,6 +9272,15 @@ exports.Utility = _Utility;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
 /**
  * Dependencies
@@ -9342,7 +9353,7 @@ exports.Dependencies = _Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9708,7 +9719,7 @@ exports.FieldSchemaXML = new _FieldSchemaXML();
 //# sourceMappingURL=fieldSchemaXML.js.map
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9745,7 +9756,7 @@ exports.SPCfgType = {
 //# sourceMappingURL=spCfgTypes.js.map
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10117,7 +10128,7 @@ exports.JSLink = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10490,7 +10501,7 @@ exports.ListForm = _ListForm;
 //# sourceMappingURL=listForm.js.map
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10700,7 +10711,7 @@ exports.ListFormField = _ListFormField;
 //# sourceMappingURL=listFormField.js.map
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10760,7 +10771,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11041,7 +11052,7 @@ exports.WebPart = _WebPart;
 //# sourceMappingURL=webpart.js.map
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11050,7 +11061,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

@@ -1,4 +1,4 @@
-import { IREST } from "./rest.def";
+import { IREST } from "./types";
 /**
  * SharePoint REST Library
  */

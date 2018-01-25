@@ -1,6 +1,6 @@
 import { ContextInfo } from "../lib";
 import { SPTypes } from "../mapper";
-import { IJSLink, IJSLinkCfg, ITemplates } from "./jslink.def";
+import { IJSLink, IJSLinkCfg, ITemplates } from "./types";
 
 /**
  * JS Link

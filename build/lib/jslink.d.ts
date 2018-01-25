@@ -1,2 +1,2 @@
-import { IJSLink } from "./jslink.def";
+import { IJSLink } from "./types";
 export declare const JSLink: IJSLink;

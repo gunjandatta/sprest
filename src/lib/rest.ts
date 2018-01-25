@@ -6,14 +6,14 @@ import {
     ContextInfo, List, Navigation, PeopleManager, PeoplePicker,
     ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web
 } from "../lib";
-import { IREST } from "./rest.def";
 import { SPTypes } from "../mapper";
+import { IREST } from "./types";
 
 /**
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 3.17,
+    __ver: 3.18,
     ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

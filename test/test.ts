@@ -1,9 +1,6 @@
 import {
-    $REST, Types, Helper
-} from "../src";
-
-let i:Helper.Types.JSLink;
-
+    $REST, Types
+} from "../build";
 
 // Get the navigation menu
 $REST.Navigation().MenuState().execute(menu => {

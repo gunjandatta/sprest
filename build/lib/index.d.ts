@@ -12,3 +12,5 @@ export * from "./socialFeed";
 export * from "./userProfile";
 export * from "./utility";
 export * from "./web";
+import * as Types from "./types";
+export { Types };

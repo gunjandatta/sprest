@@ -17,4 +17,6 @@ __export(require("./socialFeed"));
 __export(require("./userProfile"));
 __export(require("./utility"));
 __export(require("./web"));
+var Types = require("./types");
+exports.Types = Types;
 //# sourceMappingURL=index.js.map
