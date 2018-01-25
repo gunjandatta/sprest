@@ -3,7 +3,7 @@ import { Web } from "../lib";
 import { Types } from "../mapper";
 import { IBaseCollection } from "../utils";
 import * as ListFormTypes from "./listForm.def";
-import { parse } from ".";
+import { parse } from "./parse";
 
 /**
  * List Form

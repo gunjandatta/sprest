@@ -1,3 +1,11 @@
+"use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+// Type definitions for gd-sprest
+// Project: https://gunjandatta.github.io/sprest
+// Definitions by: Gunjan Datta <https://github.com/gunjandatta>
 /***************************************************************************************************
 MIT License
 
@@ -21,13 +29,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-import "core-js/es6/promise";
-import * as Helper from "./helper";
-import { SPTypes, Types } from "./mapper";
-import { RequestType } from "./utils";
-import { ContextInfo, JSLink, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web } from "./lib";
-export { ContextInfo, Helper, JSLink, List, Navigation, PeopleManager, PeoplePicker, ProfileLoader, RequestType, Search, Site, SocialFeed, SPTypes, Types, UserProfile, Utility, Web };
-/**
- * SharePoint REST Library
- */
-export declare const $REST: Types.IREST;
+__export(require("./helper"));
+__export(require("./mapper"));
+__export(require("./rest"));
+require("core-js/es6/promise");
+//# sourceMappingURL=index.js.map

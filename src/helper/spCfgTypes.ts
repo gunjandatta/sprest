@@ -1,10 +1,10 @@
 export * from "./spCfgTypes.def";
-import { SPConfig } from ".";
+import { ISPCfgFieldType, ISPCfgType } from ".";
 
 /**
  * SharePoint Configuration Field Types
  */
-export const SPCfgFieldType: SPConfig.ISPCfgFieldType = {
+export const SPCfgFieldType: ISPCfgFieldType = {
     Boolean: 0,
     Calculated: 1,
     Choice: 2,
@@ -22,7 +22,7 @@ export const SPCfgFieldType: SPConfig.ISPCfgFieldType = {
  * SharePoint Configuration Types
  * The value determines the order to install the object type.
  */
-export const SPCfgType: SPConfig.ISPCfgType = {
+export const SPCfgType: ISPCfgType = {
     Fields: 0,
     ContentTypes: 1,
     Lists: 2,

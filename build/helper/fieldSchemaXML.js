@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 var mapper_1 = require("../mapper");
-var _1 = require(".");
+var SPConfig = require("./spCfg");
 /**
  * Field Schema XML
  * Helper class for generating the field schema xml
@@ -34,47 +34,47 @@ var _FieldSchemaXML = /** @class */ (function () {
                     // Set the type
                     switch (fieldInfo.type) {
                         // Boolean
-                        case _1.SPConfig.SPCfgFieldType.Boolean:
+                        case SPConfig.SPCfgFieldType.Boolean:
                             _this.createBoolean(fieldInfo, props);
                             break;
                         // Calculated
-                        case _1.SPConfig.SPCfgFieldType.Calculated:
+                        case SPConfig.SPCfgFieldType.Calculated:
                             _this.createCalculated(fieldInfo, props);
                             break;
                         // Choice
-                        case _1.SPConfig.SPCfgFieldType.Choice:
+                        case SPConfig.SPCfgFieldType.Choice:
                             _this.createChoice(fieldInfo, props);
                             break;
                         // Date/Time
-                        case _1.SPConfig.SPCfgFieldType.Date:
+                        case SPConfig.SPCfgFieldType.Date:
                             _this.createDate(fieldInfo, props);
                             break;
                         // Lookup
-                        case _1.SPConfig.SPCfgFieldType.Lookup:
+                        case SPConfig.SPCfgFieldType.Lookup:
                             _this.createLookup(fieldInfo, props);
                             break;
                         // MMS
-                        case _1.SPConfig.SPCfgFieldType.MMS:
+                        case SPConfig.SPCfgFieldType.MMS:
                             _this.createMMS(fieldInfo, props);
                             break;
                         // Note
-                        case _1.SPConfig.SPCfgFieldType.Note:
+                        case SPConfig.SPCfgFieldType.Note:
                             _this.createNote(fieldInfo, props);
                             break;
                         // Number
-                        case _1.SPConfig.SPCfgFieldType.Number:
+                        case SPConfig.SPCfgFieldType.Number:
                             _this.createNumber(fieldInfo, props);
                             break;
                         // Text
-                        case _1.SPConfig.SPCfgFieldType.Text:
+                        case SPConfig.SPCfgFieldType.Text:
                             _this.createText(fieldInfo, props);
                             break;
                         // URL
-                        case _1.SPConfig.SPCfgFieldType.Url:
+                        case SPConfig.SPCfgFieldType.Url:
                             _this.createUrl(fieldInfo, props);
                             break;
                         // User
-                        case _1.SPConfig.SPCfgFieldType.User:
+                        case SPConfig.SPCfgFieldType.User:
                             _this.createUser(fieldInfo, props);
                             break;
                         // Field type not supported

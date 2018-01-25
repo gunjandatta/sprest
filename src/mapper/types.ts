@@ -9,7 +9,6 @@ export * from "./file";
 export * from "./list";
 export * from "./navigation";
 export * from "./propertyValues";
-export * from "./rest";
 export * from "./search";
 export * from "./security";
 export * from "./site";

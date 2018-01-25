@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
-var _1 = require(".");
+var parse_1 = require("./parse");
 /**
  * List Form
  */
@@ -49,7 +49,7 @@ var _ListForm = /** @class */ (function () {
                 // Try to parse the data
                 try {
                     // Parse the content type
-                    var ct = _1.parse(_this._cacheData.ct);
+                    var ct = parse_1.parse(_this._cacheData.ct);
                     // Load the default fields
                     _this.loadDefaultFields(ct.results[0]);
                     return;
@@ -129,9 +129,9 @@ var _ListForm = /** @class */ (function () {
                         _this._cacheData = JSON.parse(data);
                         // Update the list information
                         _this._info = _this._info || {};
-                        _this._info.list = _1.parse(_this._cacheData.list);
+                        _this._info.list = parse_1.parse(_this._cacheData.list);
                         // Load the field data
-                        _this.loadFieldData(_1.parse(_this._cacheData.fields));
+                        _this.loadFieldData(parse_1.parse(_this._cacheData.fields));
                     }
                     catch (_a) {
                         // Clear the cache data

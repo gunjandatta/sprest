@@ -1,9 +1,9 @@
-import { SPConfig } from ".";
+import { IFieldInfo } from ".";
 
 /**
  * Field Schema XML
  */
 export interface IFieldSchemaXML {
     /** Method to generate the field schema xml. */
-    generate: (fieldInfo: SPConfig.IFieldInfo) => PromiseLike<string>;
+    generate: (fieldInfo: IFieldInfo) => PromiseLike<string>;
 }
