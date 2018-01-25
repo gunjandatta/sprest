@@ -4322,7 +4322,7 @@ var BaseHelper = /** @class */ (function () {
         objType = (objType[objType.length - 1]).toLowerCase();
         objType += isCollection ? "s" : "";
         // See if the base is a field
-        if ((/^field/.test(objType) || /field$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
+        if ((/^field/.test(objType) || /fields?$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
             // Update the type
             objType = "field" + (isCollection ? "s" : "");
         }
@@ -11026,7 +11026,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.20,
+    __ver: 3.21,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
