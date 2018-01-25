@@ -109,7 +109,6 @@ import {
     $REST,
     ContextInfo,
     Helper,
-    JSLink,
     List,
     Navigation,
     PeopleManager,

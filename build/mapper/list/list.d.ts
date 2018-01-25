@@ -1,5 +1,5 @@
-import { IBase, ITargetInfo } from "../../utils";
-import { Types } from "..";
+import { IBase, ITargetInfo } from "../../utils/index.def";
+import { Types } from "../..";
 import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from ".";
 /**
  * List Creation Information

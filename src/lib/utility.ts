@@ -1,5 +1,5 @@
-import { Types } from "../mapper";
-import { Base, IBase, RequestType } from "../utils";
+import { Types } from "..";
+import { Base, RequestType } from "../utils";
 
 /**
  * Utility

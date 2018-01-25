@@ -1,3 +1,2 @@
-export * from "./app.def";
-import { IApp } from ".";
+import { IApp } from "./app.def";
 export declare const App: IApp;

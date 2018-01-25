@@ -1,15 +1,15 @@
-export * from "./methodInfo.def";
-import { OData, RequestType, IMethodInfo } from ".";
+import * as Types from "./index.def";
+import { OData, RequestType } from ".";
 
 /*********************************************************************************************************************************/
 // Method Information
 // This class will create the method information for the request.
 /*********************************************************************************************************************************/
-export class MethodInfo implements IMethodInfo {
+export class MethodInfo implements Types.IMethodInfo {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
-    constructor(methodName: string, methodInfo: IMethodInfo, args: any) {
+    constructor(methodName: string, methodInfo: Types.IMethodInfo, args: any) {
         // Default the properties
         this.methodInfo = methodInfo;
         this.methodInfo.argValues = args;
@@ -67,7 +67,7 @@ export class MethodInfo implements IMethodInfo {
     private get isTemplate(): boolean { return this.methodInfo.data ? true : false; }
     private get replace(): boolean { return this.methodInfo.requestType == RequestType.GetReplace || this.methodInfo.requestType == RequestType.PostReplace; }
     private methodData: any;
-    private methodInfo: IMethodInfo;
+    private methodInfo: Types.IMethodInfo;
     private methodParams: any;
     private methodUrl: string;
 

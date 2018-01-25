@@ -1,4 +1,4 @@
-import { IBase } from "../../utils";
+import { IBase } from "../../utils/index.def";
 /**
  * Event Receiver Definition Creation Information
  */

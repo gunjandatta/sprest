@@ -1,20 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = require("../../utils");
+var index_1 = require("../../utils/index");
 /**
  * Event Receiver
  */
 exports.eventreceiver = {
     // Deletes the object
     delete: {
-        requestType: utils_1.RequestType.Delete
+        requestType: index_1.RequestType.Delete
     },
     // Updates it's properties.
     update: {
         metadataType: "SP.EventReceiverDefinition",
         name: "",
         requestMethod: "MERGE",
-        requestType: utils_1.RequestType.PostWithArgsInBody
+        requestType: index_1.RequestType.PostWithArgsInBody
     }
 };
 /**
@@ -25,18 +25,18 @@ exports.eventreceivers = {
     add: {
         metadataType: "SP.EventReceiverDefinition",
         name: "",
-        requestType: utils_1.RequestType.PostWithArgsInBody
+        requestType: index_1.RequestType.PostWithArgsInBody
     },
     // Gets an event receiver by it's id.
     getById: {
         argNames: ["id"],
-        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        requestType: index_1.RequestType.GetWithArgsValueOnly,
         returnType: "eventreceiver"
     },
     // Queries the collection
     query: {
         argNames: ["oData"],
-        requestType: utils_1.RequestType.OData
+        requestType: index_1.RequestType.OData
     }
 };
 //# sourceMappingURL=mapper.js.map

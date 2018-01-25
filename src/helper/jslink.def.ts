@@ -1,74 +1,60 @@
+export * from "./jsLinkHelper.def"
+
 /**
- * JSLink Helper Methods
+ * Fields Template
  */
-export interface IJSLink {
-    /**
-     * Internal field to method mapper
-     */
-    _fieldToMethodMapper: any;
+export interface IFieldTemplate {
+    DisplayForm?: any;
+    EditForm?: any;
+    Name: string;
+    NewForm?: any;
+    View?: any;
+}
 
-    /**
-     * Internal field used by the hideField method.
-     */
-    _hideEventFl: boolean;
+/**
+ * Templates
+ */
+export interface ITemplates {
+    Body?: any;
+    Footer?: any;
+    Fields?: Array<IFieldTemplate>;
+    Group?: any;
+    Header?: any;
+    Item?: any;
+    OnPostRender?: any;
+    OnPreRender?: any;
+}
 
-    /**
-     * Disables edit for the specified field.
-     * @param ctx - The client context.
-     * @param field - The field to disable edit.
-     * @param requireValueFl - Flag to only disable the field, if a value exists.
-     */
-    disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
+/**
+ * JS Link Configuration
+ */
+export interface IJSLinkCfg {
+    /** The base view id. */
+    BaseViewID?: number | string;
 
-    /**
-     * Disable quick edit for the specified field.
-     * @param ctx - The client context.
-     * @param field - The field to disable edit.
-     */
-    disableQuickEdit(ctx: any, field: any);
+    /** The list template type. */
+    ListTemplateType?: number;
 
-    /**
-     * Returns the list view.
-     * @param ctx - The client context.
-     */
-    getListView(ctx: any);
+    /** The post render event. */
+    OnPostRender?: any;
 
-    /**
-     * Returns the list view items.
-     * @param ctx - The client context.
-     */
-    getListViewItems(ctx: any);
+    /** The pre render event. */
+    OnPreRender?: any;
 
-    /**
-     * Returns the selected list view items
-     */
-    getListViewSelectedItems();
+    /** The JSLink template overrides. */
+    Templates?: ITemplates;
+}
 
-    /**
-     * Returns the webpart containing the JSLink field/form/view.
-     * @param ctx - The client context.
-     */
-    getWebPart(ctx);
+/**
+ * JS Link
+ */
+export interface IJSLink extends IJSLinkCfg {
+    /** Constructor */
+    new(cfg?: IJSLinkCfg): IJSLink;
 
-    /**
-     * Hides the specified field.
-     * @param ctx - The client context.
-     * @param field - The field to hide.
-     */
-    hideField(ctx: any, field: any);
+    /** Method to get the template configuration. */
+    getTemplate(): IJSLinkCfg;
 
-    /**
-     * Removes the field and html from the page.
-     * @param ctx - The client context.
-     * @param field - The field to remove.
-     */
-    removeField(ctx: any, field: any);
-
-    /**
-     * Method to render the default html for a field.
-     * @param ctx - The client context.
-     * @param field - The form field.
-     * @param formType - The form type. (Display, Edit, New or View)
-     */
-    renderField(ctx, field, formType?: number);
+    /** Method to register the JSLink template override. */
+    register(): void;
 }

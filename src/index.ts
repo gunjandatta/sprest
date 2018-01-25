@@ -27,6 +27,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
 import "core-js/es6/promise"
-export * from "./helper";
+import * as Helper from "./helper";
+export * from "./lib";
 export * from "./mapper";
-export * from "./rest";
+import * as Types from "./types";
+export { Helper, Types }

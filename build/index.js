@@ -30,7 +30,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
 require("core-js/es6/promise");
-__export(require("./helper"));
+var Helper = require("./helper");
+exports.Helper = Helper;
+__export(require("./lib"));
 __export(require("./mapper"));
-__export(require("./rest"));
+var Types = require("./types");
+exports.Types = Types;
 //# sourceMappingURL=index.js.map

@@ -1,16 +1,16 @@
-export * from "./base.def";
-import { BaseExecution, IBase, IRequestInfo, ITargetInfo } from ".";
+import * as Types from "./index.def";
+import { BaseExecution } from ".";
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
-export declare class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements IBase {
+export declare class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements Types.IBase {
     /**
      * Constructor
      * @param targetInfo - The target information.
      */
-    constructor(targetInfo: ITargetInfo);
+    constructor(targetInfo: Types.ITargetInfo);
     defaultToWebFl: boolean;
     existsFl: any;
     done(callback: (...args) => any): void;
-    getInfo(): IRequestInfo;
+    getInfo(): Types.IRequestInfo;
     stringify(): string;
 }

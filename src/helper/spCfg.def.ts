@@ -1,4 +1,5 @@
-import { Types } from "../mapper";
+import { Types } from "..";
+export * from "./spCfgTypes.def";
 
 /**
  * Field Information

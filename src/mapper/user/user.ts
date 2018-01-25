@@ -1,4 +1,4 @@
-import { IBase } from "../../utils";
+import { IBase } from "../../utils/index.def";
 import { IGroup, ISiteGroupResults, ISiteGroups, IUser } from ".";
 
 /**

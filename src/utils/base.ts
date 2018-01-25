@@ -1,20 +1,18 @@
-export * from "./base.def";
-import { Types } from "../mapper";
+import * as Types from "./index.def";
 import {
-    BaseExecution, Batch, TargetInfo,
-    IBase, IBaseExecution, IRequestInfo, ITargetInfo
+    BaseExecution, Batch, TargetInfo
 } from ".";
 
 /*********************************************************************************************************************************/
 // Base
 // This is the base class for all objects.
 /*********************************************************************************************************************************/
-export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements IBase {
+export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements Types.IBase {
     /**
      * Constructor
      * @param targetInfo - The target information.
      */
-    constructor(targetInfo: ITargetInfo) {
+    constructor(targetInfo: Types.ITargetInfo) {
         super();
 
         // Default the properties
@@ -54,7 +52,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseE
     }
 
     // Method to get the request information
-    getInfo(): IRequestInfo { return (new TargetInfo(this.targetInfo)).requestInfo; }
+    getInfo(): Types.IRequestInfo { return (new TargetInfo(this.targetInfo)).requestInfo; }
 
     // Method to stringify the object
     stringify(): string {

@@ -1,4 +1,4 @@
-import { IBaseCollection } from "../../utils";
+import { IBaseCollection } from "../../utils/index.def";
 import { IAttachment, IAttachmentFilesMethods } from ".";
 /**
  * Attachment Files

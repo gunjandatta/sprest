@@ -1,4 +1,4 @@
-import { IBase, IBaseCollection } from "../../utils";
+import { IBase, IBaseCollection } from "../../utils/index.def";
 import { SPTypes } from "..";
 import {
     IFile, IFileMethods, IFileQueryResult, IFileResult,

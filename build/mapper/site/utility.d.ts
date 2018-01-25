@@ -1,6 +1,6 @@
-import { KeyValue } from "../complexTypes";
-import { IBase, ITargetInfo } from "../../utils";
-import { Types } from "..";
+import { KeyValue } from "../complexTypes.def";
+import { IBase, ITargetInfo } from "../../utils/index.def";
+import { Types } from "../..";
 /**
  * Email
  */

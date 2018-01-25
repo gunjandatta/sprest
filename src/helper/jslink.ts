@@ -1,357 +1,105 @@
-export * from "./jsLink.def";
 import { ContextInfo } from "../lib";
-import { Types } from "../mapper";
-import { IJSLink } from ".";
+import { SPTypes } from "../mapper";
+import { IJSLink, IJSLinkCfg, ITemplates } from "./jsLink.def";
+export * from "./jsLinkHelper"
 
 /**
- * JSLink Helper Methods
+ * JS Link
  */
-export const JSLink: IJSLink = {
-    // Hide event flag
-    _hideEventFl: false,
+class _JSLink {
+    /**
+     * Constructor
+     */
+    constructor(cfg?: IJSLinkCfg) {
+        // See if the configuration exists
+        if (cfg) {
+            // Set the properties
+            this._baseViewID = cfg.BaseViewID;
+            this._listTemplateType = cfg.ListTemplateType;
+            this._onPostRender = cfg.OnPostRender;
+            this._onPreRender = cfg.OnPreRender;
+            this._templates = cfg.Templates;
+        }
+    }
 
     /**
-     * Field to Method Mapper
-     * 1 - Display Form
-     * 2 - Edit Form
-     * 3 - New Form
-     * 4 - View
+     * Properties
      */
-    _fieldToMethodMapper: {
-        'Attachments': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPFieldAttachments_Default"],
-            2: ContextInfo.window["SPFieldAttachments_Default"],
-            3: ContextInfo.window["SPFieldAttachments_Default"]
-        },
-        'Boolean': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPField_FormDisplay_DefaultNoEncode"],
-            2: ContextInfo.window["SPFieldBoolean_Edit"],
-            3: ContextInfo.window["SPFieldBoolean_Edit"]
-        },
-        'Currency': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPField_FormDisplay_Default"],
-            2: ContextInfo.window["SPFieldNumber_Edit"],
-            3: ContextInfo.window["SPFieldNumber_Edit"]
-        },
-        'Calculated': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPField_FormDisplay_Default"],
-            2: ContextInfo.window["SPField_FormDisplay_Empty"],
-            3: ContextInfo.window["SPField_FormDisplay_Empty"]
-        },
-        'Choice': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPField_FormDisplay_Default"],
-            2: ContextInfo.window["SPFieldChoice_Edit"],
-            3: ContextInfo.window["SPFieldChoice_Edit"]
-        },
-        'Computed': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPField_FormDisplay_Default"],
-            2: ContextInfo.window["SPField_FormDisplay_Default"],
-            3: ContextInfo.window["SPField_FormDisplay_Default"]
-        },
-        'DateTime': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPFieldDateTime_Display"],
-            2: ContextInfo.window["SPFieldDateTime_Edit"],
-            3: ContextInfo.window["SPFieldDateTime_Edit"]
-        },
-        'File': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPFieldFile_Display"],
-            2: ContextInfo.window["SPFieldFile_Edit"],
-            3: ContextInfo.window["SPFieldFile_Edit"]
-        },
-        'Integer': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPField_FormDisplay_Default"],
-            2: ContextInfo.window["SPFieldNumber_Edit"],
-            3: ContextInfo.window["SPFieldNumber_Edit"]
-        },
-        'Lookup': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPFieldLookup_Display"],
-            2: ContextInfo.window["SPFieldLookup_Edit"],
-            3: ContextInfo.window["SPFieldLookup_Edit"]
-        },
-        'LookupMulti': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPFieldLookup_Display"],
-            2: ContextInfo.window["SPFieldLookup_Edit"],
-            3: ContextInfo.window["SPFieldLookup_Edit"]
-        },
-        'MultiChoice': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPField_FormDisplay_Default"],
-            2: ContextInfo.window["SPFieldMultiChoice_Edit"],
-            3: ContextInfo.window["SPFieldMultiChoice_Edit"]
-        },
-        'Note': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPFieldNote_Display"],
-            2: ContextInfo.window["SPFieldNote_Edit"],
-            3: ContextInfo.window["SPFieldNote_Edit"]
-        },
-        'Number': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPField_FormDisplay_Default"],
-            2: ContextInfo.window["SPFieldNumber_Edit"],
-            3: ContextInfo.window["SPFieldNumber_Edit"]
-        },
-        'Text': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPField_FormDisplay_Default"],
-            2: ContextInfo.window["SPFieldText_Edit"],
-            3: ContextInfo.window["SPFieldText_Edit"]
-        },
-        'URL': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPFieldUrl_Display"],
-            2: ContextInfo.window["SPFieldUrl_Edit"],
-            3: ContextInfo.window["SPFieldUrl_Edit"]
-        },
-        'User': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPFieldUser_Display"],
-            2: ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
-            3: ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
-        },
-        'UserMulti': {
-            4: ContextInfo.window["RenderFieldValueDefault"],
-            1: ContextInfo.window["SPFieldUserMulti_Display"],
-            2: ContextInfo.window["SPClientPeoplePickerCSRTemplate"],
-            3: ContextInfo.window["SPClientPeoplePickerCSRTemplate"]
-        }
-    },
+
+    // Base View ID
+    private _baseViewID: number | string;
+    set BaseViewID(value: number | string) { this._baseViewID = value; }
+
+    // List Template Type
+    private _listTemplateType: number;
+    set ListTemplateType(value: number) { this._listTemplateType = value; }
+
+    // On Post-Render
+    private _onPostRender: any;
+    set OnPostRender(value: any) { this._onPostRender = value; }
+
+    // On Pre-Render
+    private _onPreRender: any;
+    set OnPreRender(value: any) { this._onPreRender = value; }
+
+    // Templates
+    private _templates: ITemplates;
+    set Templates(value: ITemplates) { this._templates = value; }
 
     /**
      * Methods
      */
 
     /**
-     * Disables edit for the specified field.
-     * @param ctx - The client context.
-     * @param field - The field to disable edit.
-     * @param requireValueFl - Flag to only disable the field, if a value exists.
+     * Returns the CSR template.
      */
-    disableEdit: (ctx: any, field: any, requireValueFl?: boolean): string => {
-        let fieldValue = ctx.CurrentFieldValue;
+    getTemplate(): IJSLinkCfg {
+        let template: IJSLinkCfg = {};
 
-        // Ensure a value exists
-        if (fieldValue) {
-            // Update the context, based on the field type
-            switch (ctx.CurrentFieldSchema.Type) {
-                case "MultiChoice":
-                    let regExp = new RegExp(Types.SPTypes.ClientTemplatesUtility.UserLookupDelimitString, "g");
+        // Add the properties
+        if (this._baseViewID) { template.BaseViewID = this._baseViewID; }
+        if (this._listTemplateType) { template.ListTemplateType = this._listTemplateType; }
+        if (this._onPostRender) { template.OnPostRender = this._onPostRender; }
+        if (this._onPreRender) { template.OnPreRender = this._onPreRender; }
+        if (this._templates) { template.Templates = this._templates; }
 
-                    // Update the field value
-                    fieldValue = ctx.CurrentFieldValue
-                        // Replace the delimiter
-                        .replace(regExp, "; ")
-                        // Trim the delimiter from the beginning
-                        .replace(/^; /g, "")
-                        // Trim the delimiter from the end
-                        .replace(/; $/g, "");
-                    break;
-                case "Note":
-                    // Replace the return characters
-                    fieldValue = "<div>" + ctx.CurrentFieldValue.replace(/\n/g, "<br />") + "</div>";
-                    break;
-                case "User":
-                case "UserMulti":
-                    for (let i = 0; i < ctx.CurrentFieldValue.length; i++) {
-                        let userValue = ctx.CurrentFieldValue[i];
+        // See if there are fields
+        if (template.Templates && template.Templates.Fields) {
+            let fields = {};
 
-                        // Add the user value
-                        fieldValue +=
-                            // User Lookup ID
-                            userValue.EntityData.SPUserID +
-                            // Delimiter
-                            Types.SPTypes.ClientTemplatesUtility.UserLookupDelimitString +
-                            // User Lookup Value
-                            userValue.DisplayText +
-                            // Optional Delimiter
-                            ((i == ctx.CurrentFieldValue.length - 1 ? "" : Types.SPTypes.ClientTemplatesUtility.UserLookupDelimitString));
-                    }
-                    break;
-            };
+            // Parse the fields
+            for (let field of template.Templates.Fields) {
+                // Add the field
+                fields[field.Name] = {};
 
-            // Update the current field value
-            ctx.CurrentFieldValue = fieldValue;
+                // Add the field properties
+                if (field.DisplayForm) { fields[field.Name].DisplayForm = field.DisplayForm; }
+                if (field.EditForm) { fields[field.Name].EditForm = field.EditForm; }
+                if (field.NewForm) { fields[field.Name].NewForm = field.NewForm; }
+                if (field.View) { fields[field.Name].View = field.View; }
+            }
+
+            // Update the fields
+            template.Templates.Fields = <any>fields;
         }
 
-        // Determine the control mode
-        let controlMode = Types.SPTypes.ControlMode.Display;
-        if (requireValueFl && (fieldValue == null || fieldValue == "")) {
-            // Inherit the control mode
-            controlMode = ctx.ControlMode;
-        }
-
-        // Return the display value of the field
-        return JSLink.renderField(ctx, field, controlMode);
-    },
-
-    /**
-     * Disable quick edit for the specified field.
-     * @param ctx - The client context.
-     * @param field - The field to disable edit.
-     */
-    disableQuickEdit: (ctx: any, field: any) => {
-        // Ensure we are in grid edit mode
-        if (ctx.inGridMode) {
-            // Disable editing for this field
-            field.AllowGridEditing = false;
-            return "";
-        }
-
-        // Return the default field value html
-        return JSLink.renderField(ctx, field);
-    },
-
-    /**
-     * Returns the list view.
-     * @param ctx - The client context.
-     */
-    getListView: (ctx: any) => {
-        // Get the webpart
-        let wp = JSLink.getWebPart(ctx);
-        if (wp) {
-            // Find the list form table
-            wp = wp.querySelector(".ms-formtable");
-        }
-
-        // Return the list view
-        return wp;
-    },
-
-    /**
-     * Returns the list view items.
-     * @param ctx - The client context.
-     */
-    getListViewItems: (ctx: any) => {
-        // Return the list view items
-        return ctx.ListData ? ctx.ListData.Row : [];
-    },
-
-    /**
-     * Returns the selected list view items
-     */
-    getListViewSelectedItems: () => {
-        // Return the selected items
-        return ContextInfo.window["SP"].ListOperation.Selection.getSelectedItems();
-    },
-
-    /**
-     * Returns the webpart containing the JSLink field/form/view.
-     * @param ctx - The client context.
-     */
-    getWebPart: (ctx) => {
-        // Return the webpart
-        return ContextInfo.document.querySelector("#WebPart" + (ctx.FormUniqueId || ctx.wpq));
-    },
-
-    /**
-     * Hides the specified field.
-     * @param ctx - The client context.
-     * @param field - The field to hide.
-     */
-    hideField: (ctx: any, field: any) => {
-        // Ensure the hide event has been created
-        if (!JSLink._hideEventFl) {
-            // Set the flag
-            JSLink._hideEventFl = true;
-
-            // Create the event
-            ContextInfo.window.addEventListener("load", () => {
-                // Query for the elements to hide
-                let fieldElements: any = ContextInfo.document.querySelectorAll(".hide-field");
-                for (let fieldElement of fieldElements) {
-                    // Get the parent row
-                    let parentRow = fieldElement.parentNode && fieldElement.parentNode.parentNode ? fieldElement.parentNode.parentNode : null;
-                    if (parentRow) {
-                        // Ensure the parent row exists
-                        if (fieldElement.parentNode.getAttribute("data-field-name") != parentRow.getAttribute("data-field-name")) {
-                            // Find the parent row
-                            while (parentRow && parentRow.nodeName.toLowerCase() != "tr") {
-                                // Update the parent node
-                                parentRow = parentRow.parentNode;
-                            }
-                        }
-
-                        // Hide the parent row
-                        if (parentRow) {
-                            parentRow.style.display = "none";
-                        }
-                    }
-                }
-            });
-        }
-    },
-
-    /**
-     * Removes the field and html from the page.
-     * @param ctx - The client context.
-     * @param field - The field to remove.
-     */
-    removeField: (ctx: any, field: any) => {
-        // Hide the field
-        JSLink.hideField(ctx, field);
-
-        // Return an empty element
-        return "<div class='hide-field'></div>";
-    },
-
-    /**
-     * Method to render the default html for a field.
-     * @param ctx - The client context.
-     * @param field - The form field.
-     * @param formType - The form type. (Display, Edit, New or View)
-     */
-    renderField: (ctx, field, formType?: number) => {
-        // Determine the field type
-        var fieldType = field ? field.Type : (ctx.CurrentFieldSchema ? ctx.CurrentFieldSchema.Type : null);
-
-        // Ensure the form type is set
-        formType = formType ? formType : ctx.ControlMode;
-
-        // Ensure a field to method mapper exists
-        if (JSLink._fieldToMethodMapper[fieldType] && JSLink._fieldToMethodMapper[fieldType][formType]) {
-            // Return the default html for this field
-            var defaultHtml = JSLink._fieldToMethodMapper[fieldType][formType](ctx);
-            if (defaultHtml) { return defaultHtml; }
-        }
-
-        // Set the field renderer based on the field type
-        var field = ctx.CurrentFieldSchema;
-        var fieldRenderer = null;
-        switch (field.Type) {
-            case "AllDayEvent": fieldRenderer = new ContextInfo.window["AllDayEventFieldRenderer"](field.Name); break;
-            case "Attachments": fieldRenderer = new ContextInfo.window["AttachmentFieldRenderer"](field.Name); break;
-            case "BusinessData": fieldRenderer = new ContextInfo.window["BusinessDataFieldRenderer"](field.Name); break;
-            case "Computed": fieldRenderer = new ContextInfo.window["ComputedFieldRenderer"](field.Name); break;
-            case "CrossProjectLink": fieldRenderer = new ContextInfo.window["ProjectLinkFieldRenderer"](field.Name); break;
-            case "Currency": fieldRenderer = new ContextInfo.window["NumberFieldRenderer"](field.Name); break;
-            case "DateTime": fieldRenderer = new ContextInfo.window["DateTimeFieldRenderer"](field.Name); break;
-            case "Lookup": fieldRenderer = new ContextInfo.window["LookupFieldRenderer"](field.Name); break;
-            case "LookupMulti": fieldRenderer = new ContextInfo.window["LookupFieldRenderer"](field.Name); break;
-            case "Note": fieldRenderer = new ContextInfo.window["NoteFieldRenderer"](field.Name); break;
-            case "Number": fieldRenderer = new ContextInfo.window["NumberFieldRenderer"](field.Name); break;
-            case "Recurrence": fieldRenderer = new ContextInfo.window["RecurrenceFieldRenderer"](field.Name); break;
-            case "Text": fieldRenderer = new ContextInfo.window["TextFieldRenderer"](field.Name); break;
-            case "URL": fieldRenderer = new ContextInfo.window["UrlFieldRenderer"](field.Name); break;
-            case "User": fieldRenderer = new ContextInfo.window["UserFieldRenderer"](field.Name); break;
-            case "UserMulti": fieldRenderer = new ContextInfo.window["UserFieldRenderer"](field.Name); break;
-            case "WorkflowStatus": fieldRenderer = new ContextInfo.window["RawFieldRenderer"](field.Name); break;
-        };
-
-        // Get the current item
-        var currentItem = ctx.CurrentItem || ctx.ListData.Items[0];
-
-        // Return the item's field value html
-        return fieldRenderer ? fieldRenderer.RenderField(ctx, field, currentItem, ctx.ListSchema) : currentItem[field.Name];
+        // Return the template
+        return template;
     }
-} as any;
+
+    /**
+     * Method to register the CSR override.
+     */
+    register() {
+        // Get the template manager
+        let templateManager = ContextInfo.window.SPClientTemplates;
+        templateManager = templateManager ? templateManager.TemplateManager : null;
+
+        // Ensure it exists
+        if (templateManager) {
+            // Apply the customization
+            templateManager.RegisterTemplateOverrides(this.getTemplate());
+        }
+    }
+}
+export const JSLink: IJSLink = _JSLink as any;

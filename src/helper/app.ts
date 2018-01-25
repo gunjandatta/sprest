@@ -1,7 +1,6 @@
-export * from "./app.def";
 import { ContextInfo, Web } from "../lib";
-import { Types } from "../mapper";
-import { IApp } from ".";
+import { Types } from "..";
+import { IApp } from "./app.def";
 
 /**
  * App Helper Methods

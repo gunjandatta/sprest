@@ -1,5 +1,5 @@
 import { IWeb, IWebCreationInformation, IWebQueryResult, IWebResult } from ".";
-import { IBase, IBaseCollection } from "../../utils";
+import { IBase, IBaseCollection } from "../../utils/index.def";
 /**
  * Methods
  */

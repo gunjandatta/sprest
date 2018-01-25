@@ -1,9 +1,9 @@
-export * from "./baseHelper.def";
-import { Base, IBaseHelper } from ".";
+import * as Types from "./index.def";
+import { Base } from ".";
 /**
  * Request Helper
  */
-export declare class BaseHelper implements IBaseHelper {
+export declare class BaseHelper implements Types.IBaseHelper {
     base: Base;
     requestType: number;
     response: string;

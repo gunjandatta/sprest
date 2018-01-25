@@ -1,5 +1,5 @@
-import { RequestType, IBase } from "../../utils";
-import { SPTypes, Types } from "..";
+import { IBase } from "../../utils/index.def";
+import { SPTypes, Types } from "../..";
 import { IViewFields } from ".";
 
 /**

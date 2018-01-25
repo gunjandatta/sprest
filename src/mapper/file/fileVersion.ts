@@ -1,5 +1,5 @@
-import { IBase, IBaseCollection } from "../../utils";
-import { Types } from "..";
+import { IBase, IBaseCollection } from "../../utils/index.def";
+import { Types } from "../..";
 import {
     IFileVersion, IFileVersionQueryResult, IFileVersionResult
 } from ".";

@@ -1,4 +1,5 @@
-import { XHRRequest, IBaseHelper, IMethodInfo, ITargetInfo } from ".";
+import { XHRRequest } from ".";
+import { IBaseHelper, IMethodInfo, ITargetInfo } from "./index.def";
 /**
  * Base Request
  */

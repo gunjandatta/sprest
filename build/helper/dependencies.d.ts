@@ -1,3 +1,2 @@
-export * from "./dependencies.def";
-import { IDependencies } from ".";
+import { IDependencies } from "./dependencies.def";
 export declare const Dependencies: IDependencies;

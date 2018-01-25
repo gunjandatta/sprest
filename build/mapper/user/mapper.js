@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = require("../../utils");
+var index_1 = require("../../utils/index");
 /**
  * Group
  */
@@ -17,7 +17,7 @@ exports.group = {
     // Queries the collection
     query: {
         argNames: ["oData"],
-        requestType: utils_1.RequestType.OData
+        requestType: index_1.RequestType.OData
     }
 };
 /**
@@ -28,34 +28,34 @@ exports.sitegroups = {
     add: {
         metadataType: "SP.Group",
         name: "",
-        requestType: utils_1.RequestType.PostWithArgsInBody
+        requestType: index_1.RequestType.PostWithArgsInBody
     },
     // Returns a group from the collection based on the member ID of the group.
     getById: {
         argNames: ["id"],
-        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        requestType: index_1.RequestType.GetWithArgsValueOnly,
         returnType: "group"
     },
     // Returns a cross-site group from the collection based on the name of the group.
     getByName: {
         argNames: ["name"],
-        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        requestType: index_1.RequestType.GetWithArgsValueOnly,
         returnType: "group"
     },
     // Queries the collection
     query: {
         argNames: ["oData"],
-        requestType: utils_1.RequestType.OData
+        requestType: index_1.RequestType.OData
     },
     // Removes the group with the specified member ID from the collection.
     removeById: {
         argNames: ["id"],
-        requestType: utils_1.RequestType.PostWithArgsValueOnly
+        requestType: index_1.RequestType.PostWithArgsValueOnly
     },
     // Removes the cross-site group with the specified name from the collection.
     removeByLoginName: {
         argNames: ["name"],
-        requestType: utils_1.RequestType.PostWithArgsValueOnly
+        requestType: index_1.RequestType.PostWithArgsValueOnly
     },
 };
 /**
@@ -67,14 +67,14 @@ exports.peoplepicker = {
         metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
         name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerResolveUser",
         replaceEndpointFl: true,
-        requestType: utils_1.RequestType.PostWithArgsInBody
+        requestType: index_1.RequestType.PostWithArgsInBody
     },
     clientPeoplePickerSearchUser: {
         argNames: ["queryParams"],
         metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
         name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerSearchUser",
         replaceEndpointFl: true,
-        requestType: utils_1.RequestType.PostWithArgsInBody
+        requestType: index_1.RequestType.PostWithArgsInBody
     }
 };
 /**
@@ -92,12 +92,12 @@ exports.user = {
     /*********************************************************************************************************************************/
     // Deletes the object
     delete: {
-        requestType: utils_1.RequestType.Delete
+        requestType: index_1.RequestType.Delete
     },
     // Queries the collection
     query: {
         argNames: ["oData"],
-        requestType: utils_1.RequestType.OData
+        requestType: index_1.RequestType.OData
     }
 };
 /**
@@ -108,42 +108,42 @@ exports.users = {
     add: {
         metadataType: "SP.User",
         name: "",
-        requestType: utils_1.RequestType.PostWithArgsInBody
+        requestType: index_1.RequestType.PostWithArgsInBody
     },
     // Gets the user with the specified email address.
     getByEmail: {
         argNames: ["email"],
-        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        requestType: index_1.RequestType.GetWithArgsValueOnly,
         returnType: "user"
     },
     // Gets the user with the specified member identifier (ID).
     getById: {
         argNames: ["id"],
-        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        requestType: index_1.RequestType.GetWithArgsValueOnly,
         returnType: "user"
     },
     // Gets the user with the specified login name.
     getByLoginName: {
         argNames: ["loginName"],
         name: "getByLoginName(@v)?@v='[[loginName]]'",
-        requestType: utils_1.RequestType.GetReplace,
+        requestType: index_1.RequestType.GetReplace,
         returnType: "user"
     },
     // Queries the collection
     query: {
         argNames: ["oData"],
-        requestType: utils_1.RequestType.OData
+        requestType: index_1.RequestType.OData
     },
     // Removes the user with the specified ID.
     removeById: {
         argNames: ["id"],
-        requestType: utils_1.RequestType.PostWithArgsValueOnly
+        requestType: index_1.RequestType.PostWithArgsValueOnly
     },
     // Removes the user with the specified login name.
     removeByLoginName: {
         argNames: ["loginName"],
         name: "removeByLoginName(@v)?@v='[[loginName]]'",
-        requestType: utils_1.RequestType.PostReplace
+        requestType: index_1.RequestType.PostReplace
     }
 };
 //# sourceMappingURL=mapper.js.map

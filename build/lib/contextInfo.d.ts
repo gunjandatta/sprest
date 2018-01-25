@@ -1,5 +1,5 @@
-import { Types } from "../mapper";
-import { IBase } from "../utils";
+import { Types } from "..";
+import { IBase } from "../utils/index.def";
 /**
  * Context Information
  */

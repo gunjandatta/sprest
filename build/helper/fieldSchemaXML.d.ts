@@ -1,3 +1,2 @@
-export * from "./fieldSchemaXML.def";
-import { IFieldSchemaXML } from ".";
+import { IFieldSchemaXML } from "./fieldSchemaXML.def";
 export declare const FieldSchemaXML: IFieldSchemaXML;

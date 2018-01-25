@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = require("../../utils");
+var index_1 = require("../../utils/index");
 /**
  * Navigation
  */
@@ -18,7 +18,7 @@ exports.navigationservicerest = {
     getMenuState: {
         argNames: ["menuNodeKey", "depth", "customProperties", "mapProviderName"],
         name: "MenuState",
-        RequestType: utils_1.RequestType.GetWithArgsInQS
+        RequestType: index_1.RequestType.GetWithArgsInQS
     }
 };
 //# sourceMappingURL=mapper.js.map

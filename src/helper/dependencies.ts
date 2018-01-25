@@ -1,6 +1,5 @@
-export * from "./dependencies.def";
 import { ContextInfo } from "../lib";
-import { IDependencies } from ".";
+import { IDependencies } from "./dependencies.def";
 
 /**
  * Dependencies

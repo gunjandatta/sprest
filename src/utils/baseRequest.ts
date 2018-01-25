@@ -1,26 +1,26 @@
-export * from "./baseRequest.def";
+import * as Types from "./index.def";
 import {
-    Base, IBaseRequest,
-    BaseHelper, IBaseHelper,
+    Base,
+    BaseHelper,
     Batch,
-    MethodInfo, IMethodInfo,
-    RequestType, IRequestType,
-    TargetInfo, ITargetInfo,
+    MethodInfo,
+    RequestType,
+    TargetInfo,
     XHRRequest
 } from ".";
 
 /**
  * Base Request
  */
-export class BaseRequest extends BaseHelper implements IBaseRequest {
+export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
     getAllItemsFl: boolean;
     requestType: number;
-    targetInfo: ITargetInfo;
+    targetInfo: Types.ITargetInfo;
     xhr: XHRRequest;
 
     // Method to execute a method
-    executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any) {
-        let targetInfo: ITargetInfo = null;
+    executeMethod(methodName: string, methodConfig: Types.IMethodInfo, args?: any) {
+        let targetInfo: Types.ITargetInfo = null;
 
         // See if the metadata is defined for the base object
         let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
@@ -256,7 +256,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
     }
 
     // Method to update the metadata uri
-    updateMetadataUri(metadata, targetInfo: ITargetInfo) {
+    updateMetadataUri(metadata, targetInfo: Types.ITargetInfo) {
         // See if this is a field
         if (/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
             // Fix the url reference

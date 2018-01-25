@@ -1,5 +1,5 @@
-import { IBase, ITargetInfo } from "../../utils";
-import { Types } from "..";
+import { IBase, ITargetInfo } from "../../utils/index.def";
+import { IMenuState } from "../index.def";
 
 /**
  * Navigation Methods
@@ -12,7 +12,7 @@ export interface INavigationServiceRESTMethods {
      * @param customProperties - (Optionally implemented by a site map data provider.) A comma-separated list of custom properties to return. Use the "\" character to escape a comma separator within a property.
      * @param mapProviderName - Specifies which provider on the site is selected. If no SiteMapProvider used, "CurrentNavSiteMapProviderNoEncode" is used.
      */
-    getMenuState(menuNodeKey?: number, depth?: number, customProperties?: string, mapProviderName?: string): IBase<Types.IMenuState>;
+    getMenuState(menuNodeKey?: number, depth?: number, customProperties?: string, mapProviderName?: string): IBase<IMenuState>;
 }
 
 /**
@@ -25,8 +25,8 @@ export interface INavigationServiceRESTProps {
  * Navigation Queryable Properties
  */
 export interface INavigationServiceRESTQueryProps {
-    MenuState(): IBase<Types.IMenuState>;
-    MenuState(key: number): IBase<Types.IMenuState>;
+    MenuState(): IBase<IMenuState>;
+    MenuState(key: number): IBase<IMenuState>;
 }
 
 /**

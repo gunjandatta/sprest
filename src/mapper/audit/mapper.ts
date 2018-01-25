@@ -1,4 +1,4 @@
-import { RequestType } from "../../utils";
+import { RequestType } from "../../utils/index";
 
 /**
  * Audit

@@ -1,12 +1,12 @@
-export * from "./baseHelper.def";
+import * as Types from "./index.def";
 import { ContextInfo } from "../lib";
 import { Mapper } from "../mapper";
-import { Base, RequestType, IBaseHelper } from ".";
+import { Base, RequestType } from ".";
 
 /**
  * Request Helper
  */
-export class BaseHelper implements IBaseHelper {
+export class BaseHelper implements Types.IBaseHelper {
     base: Base;
     requestType: number;
     response: string;

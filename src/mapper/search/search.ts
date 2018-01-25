@@ -1,5 +1,5 @@
-import { IBase, ITargetInfo } from "../../utils";
-import { Types } from "..";
+import { IBase, ITargetInfo } from "../../utils/index.def";
+import { Types } from "../..";
 
 /**
  * Search

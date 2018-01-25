@@ -1,2 +1,2 @@
-import { Types } from "../mapper";
+import { Types } from "..";
 export declare const Search: Types.ISearch;

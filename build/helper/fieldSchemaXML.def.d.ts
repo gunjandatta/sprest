@@ -1,4 +1,4 @@
-import { IFieldInfo } from ".";
+import { IFieldInfo } from "./index.def";
 /**
  * Field Schema XML
  */

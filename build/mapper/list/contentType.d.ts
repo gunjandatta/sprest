@@ -1,5 +1,5 @@
-import { IBase } from "../../utils";
-import { Types } from "..";
+import { IBase } from "../../utils/index.def";
+import { Types } from "../..";
 import { IFieldResult, IFields, IFieldLink, IFieldLinks, IListResult } from ".";
 /**
  * Content Type Creation Information

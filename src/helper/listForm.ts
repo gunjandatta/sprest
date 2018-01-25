@@ -1,7 +1,6 @@
-export * from "./listForm.def";
 import { Web } from "../lib";
-import { Types } from "../mapper";
-import { IBaseCollection } from "../utils";
+import { Types } from "..";
+import { IBaseCollection } from "../utils/index.def";
 import * as ListFormTypes from "./listForm.def";
 import { parse } from "./parse";
 

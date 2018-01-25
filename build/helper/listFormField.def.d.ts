@@ -1,5 +1,5 @@
-import { Types } from "../mapper";
-import { ITermInfo } from "./taxonomy";
+import { Types } from "..";
+import { ITermInfo } from "./taxonomy.def";
 /**
  * List Form Field Information
  */

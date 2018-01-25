@@ -9,3 +9,5 @@ export * from "./parse";
 export * from "./spCfg";
 export * from "./taxonomy";
 export * from "./webpart";
+import * as Types from "./index.def";
+export { Types };

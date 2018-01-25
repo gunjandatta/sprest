@@ -1,4 +1,5 @@
-import { BaseExecution, TargetInfo, IBaseExecution, IBaseRequest, IRequestInfo } from ".";
+import { BaseExecution, TargetInfo } from ".";
+import { IBaseExecution, IBaseRequest, IRequestInfo } from "./index.def";
 
 /**
  * Base Execution

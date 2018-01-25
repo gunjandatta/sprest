@@ -1,5 +1,5 @@
-import { Types } from "../mapper";
-import { IBaseExecution, IRequestInfo } from ".";
+import { Types } from "..";
+import { IBaseExecution, IRequestInfo } from "./index.def";
 
 /**
  * Base

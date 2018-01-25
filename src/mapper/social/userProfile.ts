@@ -1,5 +1,5 @@
-import { IBase, ITargetInfo } from "../../utils";
-import { SPTypes, Types } from "..";
+import { IBase, ITargetInfo } from "../../utils/index.def";
+import { SPTypes, Types } from "../..";
 
 /**
  * User Profile

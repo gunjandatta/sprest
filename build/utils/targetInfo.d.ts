@@ -1,18 +1,17 @@
-export * from "./targetInfo.def";
-import { IRequestInfo, ITargetInfo } from ".";
+import * as Types from "./index.def";
 /**
  * Target Information
  */
 export declare class TargetInfo {
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
-    constructor(targetInfo: ITargetInfo);
+    constructor(targetInfo: Types.ITargetInfo);
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
-    request: ITargetInfo;
+    request: Types.ITargetInfo;
     readonly isBatchRequest: boolean;
     requestData: any;
-    readonly requestInfo: IRequestInfo;
+    readonly requestInfo: Types.IRequestInfo;
     requestHeaders: object;
     requestMethod: string;
     requestUrl: string;

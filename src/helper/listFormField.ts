@@ -1,6 +1,5 @@
-export * from "./listFormField.def";
 import { Site, Web } from "../lib";
-import { Types } from "../mapper";
+import { SPTypes, Types } from "..";
 import { Taxonomy } from "./taxonomy";
 import * as ListFormFieldTypes from "./listFormField.def";
 declare var SP;
@@ -158,21 +157,21 @@ class _ListFormField {
         // Update the field info, based on the type
         switch (this._fieldInfo.type) {
             // Choice
-            case Types.SPTypes.FieldType.Choice:
-            case Types.SPTypes.FieldType.MultiChoice:
+            case SPTypes.FieldType.Choice:
+            case SPTypes.FieldType.MultiChoice:
                 let choices = (this._fieldInfo.field as Types.IFieldChoice).Choices;
                 (this._fieldInfo as ListFormFieldTypes.IListFormChoiceFieldInfo).choices = (choices ? choices.results : null) || [];
-                (this._fieldInfo as ListFormFieldTypes.IListFormChoiceFieldInfo).multi = this._fieldInfo.type == Types.SPTypes.FieldType.MultiChoice;
+                (this._fieldInfo as ListFormFieldTypes.IListFormChoiceFieldInfo).multi = this._fieldInfo.type == SPTypes.FieldType.MultiChoice;
                 break;
 
             // Date/Time
-            case Types.SPTypes.FieldType.DateTime:
+            case SPTypes.FieldType.DateTime:
                 let fldDate = this._fieldInfo.field as Types.IFieldDateTime;
-                (this._fieldInfo as ListFormFieldTypes.IListFormDateFieldInfo).showTime = fldDate.DisplayFormat == Types.SPTypes.DateFormat.DateTime;
+                (this._fieldInfo as ListFormFieldTypes.IListFormDateFieldInfo).showTime = fldDate.DisplayFormat == SPTypes.DateFormat.DateTime;
                 break;
 
             // Lookup
-            case Types.SPTypes.FieldType.Lookup:
+            case SPTypes.FieldType.Lookup:
                 let fldLookup = this._fieldInfo.field as Types.IFieldLookup;
                 (this._fieldInfo as ListFormFieldTypes.IListFormLookupFieldInfo).lookupField = fldLookup.LookupField;
                 (this._fieldInfo as ListFormFieldTypes.IListFormLookupFieldInfo).lookupListId = fldLookup.LookupList;
@@ -181,7 +180,7 @@ class _ListFormField {
                 break;
 
             // Number
-            case Types.SPTypes.FieldType.Number:
+            case SPTypes.FieldType.Number:
                 let fldNumber = this._fieldInfo.field as Types.IFieldNumber;
                 (this._fieldInfo as ListFormFieldTypes.IListFormNumberFieldInfo).maxValue = fldNumber.MaximumValue;
                 (this._fieldInfo as ListFormFieldTypes.IListFormNumberFieldInfo).minValue = fldNumber.MinimumValue;
@@ -193,7 +192,7 @@ class _ListFormField {
                 break;
 
             // Note
-            case Types.SPTypes.FieldType.Note:
+            case SPTypes.FieldType.Note:
                 let fldNote = this._fieldInfo.field as Types.IFieldNote;
                 (this._fieldInfo as ListFormFieldTypes.IListFormTextFieldInfo).multiline = true;
                 (this._fieldInfo as ListFormFieldTypes.IListFormTextFieldInfo).richText = fldNote.RichText;
@@ -201,16 +200,16 @@ class _ListFormField {
                 break;
 
             // Text
-            case Types.SPTypes.FieldType.Text:
+            case SPTypes.FieldType.Text:
                 (this._fieldInfo as ListFormFieldTypes.IListFormTextFieldInfo).multiline = false;
                 (this._fieldInfo as ListFormFieldTypes.IListFormTextFieldInfo).richText = false;
                 (this._fieldInfo as ListFormFieldTypes.IListFormTextFieldInfo).rows = 1;
                 break;
 
             // User
-            case Types.SPTypes.FieldType.User:
+            case SPTypes.FieldType.User:
                 let fldUser = this._fieldInfo.field as Types.IFieldUser;
-                (this._fieldInfo as ListFormFieldTypes.IListFormUserFieldInfo).allowGroups = fldUser.SelectionMode == Types.SPTypes.FieldUserSelectionType.PeopleAndGroups;
+                (this._fieldInfo as ListFormFieldTypes.IListFormUserFieldInfo).allowGroups = fldUser.SelectionMode == SPTypes.FieldUserSelectionType.PeopleAndGroups;
                 (this._fieldInfo as ListFormFieldTypes.IListFormUserFieldInfo).multi = fldUser.AllowMultipleValues;
                 break;
 

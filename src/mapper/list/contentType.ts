@@ -1,5 +1,5 @@
-import { IBase } from "../../utils";
-import { Types } from "..";
+import { IBase } from "../../utils/index.def";
+import { Types } from "../..";
 import {
     IField, IFieldResult, IFields,
     IFieldLink, IFieldLinks,

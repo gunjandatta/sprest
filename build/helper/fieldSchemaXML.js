@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
-var mapper_1 = require("../mapper");
-var SPConfig = require("./spCfg");
+var __1 = require("..");
+var spCfg_1 = require("./spCfg");
 /**
  * Field Schema XML
  * Helper class for generating the field schema xml
@@ -34,47 +34,47 @@ var _FieldSchemaXML = /** @class */ (function () {
                     // Set the type
                     switch (fieldInfo.type) {
                         // Boolean
-                        case SPConfig.SPCfgFieldType.Boolean:
+                        case spCfg_1.SPCfgFieldType.Boolean:
                             _this.createBoolean(fieldInfo, props);
                             break;
                         // Calculated
-                        case SPConfig.SPCfgFieldType.Calculated:
+                        case spCfg_1.SPCfgFieldType.Calculated:
                             _this.createCalculated(fieldInfo, props);
                             break;
                         // Choice
-                        case SPConfig.SPCfgFieldType.Choice:
+                        case spCfg_1.SPCfgFieldType.Choice:
                             _this.createChoice(fieldInfo, props);
                             break;
                         // Date/Time
-                        case SPConfig.SPCfgFieldType.Date:
+                        case spCfg_1.SPCfgFieldType.Date:
                             _this.createDate(fieldInfo, props);
                             break;
                         // Lookup
-                        case SPConfig.SPCfgFieldType.Lookup:
+                        case spCfg_1.SPCfgFieldType.Lookup:
                             _this.createLookup(fieldInfo, props);
                             break;
                         // MMS
-                        case SPConfig.SPCfgFieldType.MMS:
+                        case spCfg_1.SPCfgFieldType.MMS:
                             _this.createMMS(fieldInfo, props);
                             break;
                         // Note
-                        case SPConfig.SPCfgFieldType.Note:
+                        case spCfg_1.SPCfgFieldType.Note:
                             _this.createNote(fieldInfo, props);
                             break;
                         // Number
-                        case SPConfig.SPCfgFieldType.Number:
+                        case spCfg_1.SPCfgFieldType.Number:
                             _this.createNumber(fieldInfo, props);
                             break;
                         // Text
-                        case SPConfig.SPCfgFieldType.Text:
+                        case spCfg_1.SPCfgFieldType.Text:
                             _this.createText(fieldInfo, props);
                             break;
                         // URL
-                        case SPConfig.SPCfgFieldType.Url:
+                        case spCfg_1.SPCfgFieldType.Url:
                             _this.createUrl(fieldInfo, props);
                             break;
                         // User
-                        case SPConfig.SPCfgFieldType.User:
+                        case spCfg_1.SPCfgFieldType.User:
                             _this.createUser(fieldInfo, props);
                             break;
                         // Field type not supported
@@ -110,21 +110,21 @@ var _FieldSchemaXML = /** @class */ (function () {
             props["Type"] = "Calculated";
             // Set the result type
             switch (fieldInfo.resultType) {
-                case mapper_1.SPTypes.FieldResultType.Boolean:
+                case __1.SPTypes.FieldResultType.Boolean:
                     props["ResultType"] = "Boolean";
                     break;
-                case mapper_1.SPTypes.FieldResultType.Currency:
+                case __1.SPTypes.FieldResultType.Currency:
                     props["ResultType"] = "Currency";
                     break;
-                case mapper_1.SPTypes.FieldResultType.DateOnly:
+                case __1.SPTypes.FieldResultType.DateOnly:
                     props["Format"] = "DateOnly";
                     props["ResultType"] = "DateTime";
                     break;
-                case mapper_1.SPTypes.FieldResultType.DateTime:
+                case __1.SPTypes.FieldResultType.DateTime:
                     props["Format"] = "DateTime";
                     props["ResultType"] = "DateTime";
                     break;
-                case mapper_1.SPTypes.FieldResultType.Number:
+                case __1.SPTypes.FieldResultType.Number:
                     props["ResultType"] = "Number";
                     break;
                 default:
@@ -174,7 +174,7 @@ var _FieldSchemaXML = /** @class */ (function () {
             // Set the field type
             props["Type"] = "DateTime";
             // Set the date/time properties
-            props["Format"] = fieldInfo.format == mapper_1.SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
+            props["Format"] = fieldInfo.format == __1.SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
             // Generate the schema
             schemaXml = "<Field " + _this.toString(props) + " />";
             // Resolve the request
@@ -261,10 +261,10 @@ var _FieldSchemaXML = /** @class */ (function () {
             if (fieldInfo.appendFl) {
                 props["AppendOnly"] = "TRUE";
             }
-            if (fieldInfo.noteType == mapper_1.SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == mapper_1.SPTypes.FieldNoteType.RichText) {
+            if (fieldInfo.noteType == __1.SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == __1.SPTypes.FieldNoteType.RichText) {
                 props["RichText"] = "TRUE";
             }
-            if (fieldInfo.noteType == mapper_1.SPTypes.FieldNoteType.EnhancedRichText) {
+            if (fieldInfo.noteType == __1.SPTypes.FieldNoteType.EnhancedRichText) {
                 props["RichTextMode"] = "FullHtml";
             }
             if (fieldInfo.numberOfLines > 0) {
@@ -290,10 +290,10 @@ var _FieldSchemaXML = /** @class */ (function () {
             if (fieldInfo.min != null) {
                 props["Min"] = fieldInfo.min;
             }
-            if (fieldInfo.numberType == mapper_1.SPTypes.FieldNumberType.Integer) {
+            if (fieldInfo.numberType == __1.SPTypes.FieldNumberType.Integer) {
                 props["Decimals"] = 0;
             }
-            if (fieldInfo.numberType == mapper_1.SPTypes.FieldNumberType.Percentage) {
+            if (fieldInfo.numberType == __1.SPTypes.FieldNumberType.Percentage) {
                 props["ShowPercentage"] = "TRUE";
             }
             // Generate the schema

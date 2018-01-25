@@ -1,6 +1,5 @@
-export * from "./webpart.def";
 import { ContextInfo } from "../lib";
-import { Types } from "../mapper";
+import { Types } from "..";
 import * as WebPartTypes from "./webpart.def";
 declare var SP;
 declare var MSOWebPartPageFormName;
