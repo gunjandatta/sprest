@@ -1,2 +1,3 @@
-import { Types } from "../mapper";
-export declare const SPConfig: Types.Helper.SPConfig.ISPConfig;
+export * from "./spCfgTypes";
+import { Types as SPCfgTypes } from ".";
+export declare const SPConfig: SPCfgTypes.ISPConfig;

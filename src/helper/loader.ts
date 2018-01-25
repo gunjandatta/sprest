@@ -1,10 +1,10 @@
 import { ContextInfo } from "../lib";
-import { Types } from "../mapper";
+import { ILoader } from "./types";
 
 /**
  * Loader
  */
-export const Loader: Types.Helper.Loader.ILoader = {
+export const Loader: ILoader = {
     // Flag to determine if the SharePoint core libraries have been loaded
     loaded: false,
 

@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = require("../types");
 var _1 = require(".");
 /*********************************************************************************************************************************/
 // Method Information
@@ -50,13 +49,13 @@ var MethodInfo = /** @class */ (function () {
             }
             // Determine the request method, based on the request type
             switch (this.methodInfo.requestType) {
-                case types_1.RequestType.Delete:
-                case types_1.RequestType.Post:
-                case types_1.RequestType.PostWithArgs:
-                case types_1.RequestType.PostWithArgsInBody:
-                case types_1.RequestType.PostWithArgsInQS:
-                case types_1.RequestType.PostWithArgsValueOnly:
-                case types_1.RequestType.PostReplace:
+                case _1.RequestType.Delete:
+                case _1.RequestType.Post:
+                case _1.RequestType.PostWithArgs:
+                case _1.RequestType.PostWithArgsInBody:
+                case _1.RequestType.PostWithArgsInQS:
+                case _1.RequestType.PostWithArgsValueOnly:
+                case _1.RequestType.PostReplace:
                     return "POST";
                 default:
                     return "GET";
@@ -75,12 +74,12 @@ var MethodInfo = /** @class */ (function () {
         /*********************************************************************************************************************************/
         // Private Variables
         /*********************************************************************************************************************************/
-        get: function () { return this.methodInfo.requestType == types_1.RequestType.GetWithArgsInBody || this.methodInfo.requestType == types_1.RequestType.PostWithArgsInBody; },
+        get: function () { return this.methodInfo.requestType == _1.RequestType.GetWithArgsInBody || this.methodInfo.requestType == _1.RequestType.PostWithArgsInBody; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MethodInfo.prototype, "passDataInQS", {
-        get: function () { return this.methodInfo.requestType == types_1.RequestType.GetWithArgsInQS || this.methodInfo.requestType == types_1.RequestType.PostWithArgsInQS; },
+        get: function () { return this.methodInfo.requestType == _1.RequestType.GetWithArgsInQS || this.methodInfo.requestType == _1.RequestType.PostWithArgsInQS; },
         enumerable: true,
         configurable: true
     });
@@ -90,7 +89,7 @@ var MethodInfo = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MethodInfo.prototype, "replace", {
-        get: function () { return this.methodInfo.requestType == types_1.RequestType.GetReplace || this.methodInfo.requestType == types_1.RequestType.PostReplace; },
+        get: function () { return this.methodInfo.requestType == _1.RequestType.GetReplace || this.methodInfo.requestType == _1.RequestType.PostReplace; },
         enumerable: true,
         configurable: true
     });
@@ -183,7 +182,7 @@ var MethodInfo = /** @class */ (function () {
     MethodInfo.prototype.generateUrl = function () {
         var url = this.methodInfo.name;
         // See if we are deleting the object
-        if (this.methodInfo.requestType == types_1.RequestType.Delete) {
+        if (this.methodInfo.requestType == _1.RequestType.Delete) {
             // Update the url
             url = "deleteObject";
         }
@@ -207,7 +206,7 @@ var MethodInfo = /** @class */ (function () {
                 url = url.replace("[[" + key + "]]", encodeURIComponent(this.methodParams[key]));
             }
         }
-        else if (this.methodInfo.requestType == types_1.RequestType.OData) {
+        else if (this.methodInfo.requestType == _1.RequestType.OData) {
             var oData = new _1.OData(this.methodParams["oData"]);
             // Update the url
             url = "?" + oData.QueryString;
@@ -227,8 +226,8 @@ var MethodInfo = /** @class */ (function () {
                     value = typeof (value) === "string" ? "'" + value + "'" : value;
                     switch (this.methodInfo.requestType) {
                         // Append the value only
-                        case types_1.RequestType.GetWithArgsValueOnly:
-                        case types_1.RequestType.PostWithArgsValueOnly:
+                        case _1.RequestType.GetWithArgsValueOnly:
+                        case _1.RequestType.PostWithArgsValueOnly:
                             params += value + ", ";
                             break;
                         // Append the parameter and value

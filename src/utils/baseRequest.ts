@@ -1,57 +1,26 @@
-import { RequestType, IRequestType } from "../types";
 import {
-    Base, BaseHelper, IBaseHelper,
-    Batch, MethodInfo, TargetInfo, XHRRequest,
-    IMethodInfo, ITargetInfo
+    Base,
+    BaseHelper,
+    Batch,
+    MethodInfo,
+    RequestType,
+    TargetInfo,
+    Types,
+    XHRRequest
 } from ".";
 
 /**
  * Base Request
  */
-export interface IBaseRequest extends IBaseHelper {
-    /** Flag to get all items. */
-    getAllItemsFl: boolean;
-
-    /** The target information. */
-    targetInfo: ITargetInfo;
-
-    /** The request. */
-    xhr: XHRRequest;
-
-    /** Method to execute the request. */
-    executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
-
-    /** Method to execute the request. */
-    executeRequest(asyncFl: boolean, callback?: (...args) => void);
-
-    /** Gets the property as a collection. */
-    getCollection(method: string, args?: any);
-
-    /** Gets the next set of results. */
-    getNextSetOfResults();
-
-    /** Gets the property. */
-    getProperty(propertyName: string, requestType?: string);
-
-    /** Updates the metdata uri. */
-    updateMetadataUri(metadata, targetInfo: ITargetInfo);
-
-    /** Validates the data collection results. */
-    validateDataCollectionResults(): PromiseLike<void>;
-}
-
-/**
- * Base Request
- */
-export class BaseRequest extends BaseHelper implements IBaseRequest {
+export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
     getAllItemsFl: boolean;
     requestType: number;
-    targetInfo: ITargetInfo;
+    targetInfo: Types.ITargetInfo;
     xhr: XHRRequest;
 
     // Method to execute a method
-    executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any) {
-        let targetInfo: ITargetInfo = null;
+    executeMethod(methodName: string, methodConfig: Types.IMethodInfo, args?: any) {
+        let targetInfo: Types.ITargetInfo = null;
 
         // See if the metadata is defined for the base object
         let metadata = this["d"] ? this["d"].__metadata : this["__metadata"];
@@ -287,7 +256,7 @@ export class BaseRequest extends BaseHelper implements IBaseRequest {
     }
 
     // Method to update the metadata uri
-    updateMetadataUri(metadata, targetInfo: ITargetInfo) {
+    updateMetadataUri(metadata, targetInfo: Types.ITargetInfo) {
         // See if this is a field
         if (/^SP.Field/.test(metadata.type) || /^SP\..*Field$/.test(metadata.type)) {
             // Fix the url reference

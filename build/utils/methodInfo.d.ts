@@ -1,25 +1,10 @@
-/**
- * Method Information Settings
- */
-export interface IMethodInfo {
-    argNames?: Array<string>;
-    argValues?: Array<any>;
-    data?: any;
-    getAllItemsFl?: boolean;
-    inheritMetadataType?: boolean;
-    metadataType?: string;
-    name?: string;
-    replaceEndpointFl?: boolean;
-    requestMethod?: string;
-    requestType?: number;
-    returnType?: string;
-}
+import { Types } from ".";
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
-export declare class MethodInfo implements IMethodInfo {
+export declare class MethodInfo implements Types.IMethodInfo {
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
-    constructor(methodName: string, methodInfo: IMethodInfo, args: any);
+    constructor(methodName: string, methodInfo: Types.IMethodInfo, args: any);
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
     readonly body: string;

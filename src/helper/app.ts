@@ -1,5 +1,6 @@
 import { ContextInfo, Web } from "../lib";
-import { Types } from "../mapper";
+import { Types } from "..";
+import { IApp } from "./types";
 
 /**
  * App Helper Methods
@@ -7,7 +8,7 @@ import { Types } from "../mapper";
  */
 class _App {
     // Method to copy a file in this app web to the host web
-    static copyFileToHostWeb = (fileUrl, dstFolder, overwriteFl, rootWebFl): PromiseLike<{ file: Types.IFileResult, folder: Types.IFolderResult }> => {
+    static copyFileToHostWeb = (fileUrl, dstFolder, overwriteFl, rootWebFl): PromiseLike<{ file: Types.SP.IFileResult, folder: Types.SP.IFolderResult }> => {
         let srcFile = null;
         let origVal = ContextInfo.window.$REST.DefaultRequestToHostFl;
 
@@ -109,7 +110,7 @@ class _App {
     }
 
     // Method to copy a file in this app web to the host web
-    static copyFilesToHostWeb = (fileUrls, folderUrls, overwriteFl, rootWebFl): PromiseLike<{ files: Array<Types.IFileResult>, folders: Array<Types.IFolderResult> }> => {
+    static copyFilesToHostWeb = (fileUrls, folderUrls, overwriteFl, rootWebFl): PromiseLike<{ files: Array<Types.SP.IFileResult>, folders: Array<Types.SP.IFolderResult> }> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (files, folders, idx) => {
@@ -139,7 +140,7 @@ class _App {
     }
 
     // Method to create sub-folders
-    static createSubFolders = (folder, subFolderUrl): PromiseLike<Types.IFolderResult> => {
+    static createSubFolders = (folder, subFolderUrl): PromiseLike<Types.SP.IFolderResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (resolve) => {
@@ -180,7 +181,7 @@ class _App {
     }
 
     // Method to get a folder
-    static getFolder = (web, folderUrl, createFl): PromiseLike<Types.IFolderResult> => {
+    static getFolder = (web, folderUrl, createFl): PromiseLike<Types.SP.IFolderResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let dstFolder = null;
@@ -332,4 +333,4 @@ class _App {
         });
     }
 }
-export const App: Types.Helper.App.IApp = new _App() as any;
+export const App: IApp = new _App() as any;

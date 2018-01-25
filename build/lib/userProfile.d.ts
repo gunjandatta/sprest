@@ -1,2 +1,2 @@
-import { Types } from "../mapper";
-export declare const UserProfile: Types.IUserProfile;
+import { Types } from "..";
+export declare const UserProfile: Types.SP.IUserProfile;

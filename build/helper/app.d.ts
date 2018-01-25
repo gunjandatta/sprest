@@ -1,2 +1,2 @@
-import { Types } from "../mapper";
-export declare const App: Types.Helper.App.IApp;
+import { IApp } from "./types";
+export declare const App: IApp;

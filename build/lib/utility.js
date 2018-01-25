@@ -10,7 +10,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = require("../types");
 var utils_1 = require("../utils");
 /**
  * Utility
@@ -51,7 +50,7 @@ var _Utility = /** @class */ (function (_super) {
             argNames: ["parameters"],
             name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
             replaceEndpointFl: true,
-            requestType: types_1.RequestType.PostWithArgsInBody
+            requestType: utils_1.RequestType.PostWithArgsInBody
         }, [parameters]);
     };
     // Method to send an email
@@ -79,7 +78,7 @@ var _Utility = /** @class */ (function (_super) {
             metadataType: "SP.Utilities.EmailProperties",
             name: "SP.Utilities.Utility.sendEmail",
             replaceEndpointFl: true,
-            requestType: types_1.RequestType.PostWithArgsInBody
+            requestType: utils_1.RequestType.PostWithArgsInBody
         }, [properties]);
     };
     return _Utility;

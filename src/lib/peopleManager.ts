@@ -1,4 +1,4 @@
-import { Types } from "../mapper";
+import { Types } from "..";
 import { Base } from "../utils";
 
 /*********************************************************************************************************************************/
@@ -20,4 +20,4 @@ class _PeopleManager extends Base {
         this.addMethods(this, { __metadata: { type: "peoplemanager" } });
     }
 }
-export const PeopleManager: Types.IPeopleManager = <any>_PeopleManager;
+export const PeopleManager: Types.SP.IPeopleManager = <any>_PeopleManager;

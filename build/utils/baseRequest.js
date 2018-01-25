@@ -10,7 +10,6 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = require("../types");
 var _1 = require(".");
 /**
  * Base Request
@@ -45,7 +44,7 @@ var BaseRequest = /** @class */ (function (_super) {
         // Get the method information
         var methodInfo = new _1.MethodInfo(methodName, methodConfig, args);
         // Update the target information
-        targetInfo.bufferFl = methodConfig.requestType == types_1.RequestType.GetBuffer;
+        targetInfo.bufferFl = methodConfig.requestType == _1.RequestType.GetBuffer;
         targetInfo.data = methodInfo.body;
         targetInfo.method = methodInfo.requestMethod;
         // See if we are replacing the endpoint
@@ -98,7 +97,7 @@ var BaseRequest = /** @class */ (function (_super) {
                     _this.response = _this.xhr.response;
                     _this.status = _this.xhr.status;
                     // See if we are returning a file buffer
-                    if (_this.requestType == types_1.RequestType.GetBuffer) {
+                    if (_this.requestType == _1.RequestType.GetBuffer) {
                         // Execute the callback
                         callback ? callback(_this.xhr.response) : null;
                     }
@@ -124,7 +123,7 @@ var BaseRequest = /** @class */ (function (_super) {
             this.response = this.xhr.response;
             this.status = this.xhr.status;
             // See if we are returning a file buffer
-            if (this.requestType == types_1.RequestType.GetBuffer) {
+            if (this.requestType == _1.RequestType.GetBuffer) {
                 // Return the response
                 return this.xhr.response;
             }

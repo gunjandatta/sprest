@@ -1,5 +1,5 @@
 import { ContextInfo } from "../lib";
-import { Types } from "../mapper";
+import * as WebPartTypes from "./types";
 declare var SP;
 declare var MSOWebPartPageFormName;
 
@@ -27,14 +27,14 @@ interface IWebPartObject {
  * Web Part
  */
 class _WebPart {
-    private _props: Types.Helper.WebPart.IWebPartProps = null;
-    private _wp: Types.Helper.WebPart.IWebPartInfo = null;
+    private _props: WebPartTypes.IWebPartProps = null;
+    private _wp: WebPartTypes.IWebPartInfo = null;
 
     /**
      * Constructor
      * @param props - The webpart properties.
      */
-    constructor(props: Types.Helper.WebPart.IWebPartProps) {
+    constructor(props: WebPartTypes.IWebPartProps) {
         // Set the properties
         this._props = props || {} as any;
 
@@ -133,8 +133,8 @@ class _WebPart {
     /**
      * Method to get the webpart information
      */
-    private getWebPartInfo = (): Types.Helper.WebPart.IWebPartInfo => {
-        let targetInfo: Types.Helper.WebPart.IWebPartInfo = {
+    private getWebPartInfo = (): WebPartTypes.IWebPartInfo => {
+        let targetInfo: WebPartTypes.IWebPartInfo = {
             cfg: null,
             el: null,
             wpId: null
@@ -158,7 +158,7 @@ class _WebPart {
                     if (elCfg) {
                         try {
                             // Parse the configuration
-                            let cfg: Types.Helper.WebPart.IWebPartCfg = JSON.parse(elCfg.innerText.trim());
+                            let cfg: WebPartTypes.IWebPartCfg = JSON.parse(elCfg.innerText.trim());
 
                             // See if the webaprt id exists
                             if (cfg.WebPartId) {
@@ -306,4 +306,4 @@ class _WebPart {
         }
     }
 }
-export const WebPart: Types.Helper.WebPart.IWebPart = _WebPart as any;
+export const WebPart: WebPartTypes.IWebPart = _WebPart as any;

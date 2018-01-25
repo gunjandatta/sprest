@@ -1,2 +1,2 @@
-import { Types } from "../mapper";
-export declare const PeopleManager: Types.IPeopleManager;
+import { Types } from "..";
+export declare const PeopleManager: Types.SP.IPeopleManager;

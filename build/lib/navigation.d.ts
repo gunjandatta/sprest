@@ -1,2 +1,2 @@
-import { INavigationServiceREST } from "../mapper/navigation";
+import { INavigationServiceREST } from "../mapper/types";
 export declare const Navigation: INavigationServiceREST;

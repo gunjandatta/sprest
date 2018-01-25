@@ -1,2 +1,2 @@
-import { Types } from "../mapper";
-export declare const ProfileLoader: Types.IProfileLoader;
+import { Types } from "..";
+export declare const ProfileLoader: Types.SP.IProfileLoader;

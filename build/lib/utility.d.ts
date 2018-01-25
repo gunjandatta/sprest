@@ -1,2 +1,2 @@
-import { Types } from "../mapper";
-export declare const Utility: Types.IUtility;
+import { Types } from "..";
+export declare const Utility: Types.SP.IUtility;

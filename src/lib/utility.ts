@@ -1,6 +1,5 @@
-import { Types } from "../mapper";
-import { RequestType } from "../types";
-import { Base, IBase } from "../utils";
+import { Types } from "..";
+import { Base, RequestType } from "../utils";
 
 /**
  * Utility
@@ -78,4 +77,4 @@ class _Utility extends Base {
         }, [properties]);
     }
 }
-export const Utility: Types.IUtility = _Utility as any;
+export const Utility: Types.SP.IUtility = _Utility as any;

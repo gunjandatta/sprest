@@ -1,2 +1,2 @@
-import { Types } from "../mapper";
-export declare const ListForm: Types.Helper.ListForm.IListForm;
+import * as ListFormTypes from "./types";
+export declare const ListForm: ListFormTypes.IListForm;

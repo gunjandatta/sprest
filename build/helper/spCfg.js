@@ -1,5 +1,9 @@
 "use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
+__export(require("./spCfgTypes"));
 var lib_1 = require("../lib");
 var _1 = require(".");
 /**
@@ -222,7 +226,7 @@ var _SPConfig = /** @class */ (function () {
                             }
                         };
                         // Compute the schema xml
-                        _1.Helper.FieldSchemaXML.generate(cfgField).then(function (response) {
+                        _1.FieldSchemaXML.generate(cfgField).then(function (response) {
                             var schemas = typeof (response) === "string" ? [response] : response;
                             // Parse the fields to add
                             for (var i_1 = 0; i_1 < schemas.length; i_1++) {
@@ -250,7 +254,7 @@ var _SPConfig = /** @class */ (function () {
                 // See if the configuration type exists
                 if (_this._cfgType) {
                     // Ensure it's for this type
-                    if (_this._cfgType != _1.Helper.Types.SPCfgType.Lists) {
+                    if (_this._cfgType != _1.SPCfgType.Lists) {
                         // Resolve the promise and return
                         resolve();
                         return;
@@ -335,7 +339,7 @@ var _SPConfig = /** @class */ (function () {
                 // See if the configuration type exists
                 if (_this._cfgType) {
                     // Ensure it's for this type
-                    if (_this._cfgType != _1.Helper.Types.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.SPCfgType.WebUserCustomActions) {
+                    if (_this._cfgType != _1.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.SPCfgType.WebUserCustomActions) {
                         // Resolve the promise
                         resolve();
                         return;
@@ -446,7 +450,7 @@ var _SPConfig = /** @class */ (function () {
             // See if the configuration type exists
             if (_this._cfgType) {
                 // Ensure it's for this type
-                if (_this._cfgType != _1.Helper.Types.SPCfgType.WebParts) {
+                if (_this._cfgType != _1.SPCfgType.WebParts) {
                     return;
                 }
             }
@@ -665,7 +669,7 @@ var _SPConfig = /** @class */ (function () {
                 // See if the configuration type exists
                 if (_this._cfgType) {
                     // Ensure it's for this type
-                    if (_this._cfgType != _1.Helper.Types.SPCfgType.Lists) {
+                    if (_this._cfgType != _1.SPCfgType.Lists) {
                         // Resolve the promise
                         resolve();
                         return;
@@ -714,7 +718,7 @@ var _SPConfig = /** @class */ (function () {
                 // See if the configuration type exists
                 if (_this._cfgType) {
                     // Ensure it's for this type
-                    if (_this._cfgType != _1.Helper.Types.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.SPCfgType.WebUserCustomActions) {
+                    if (_this._cfgType != _1.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.SPCfgType.WebUserCustomActions) {
                         // Resolve the promise
                         resolve();
                         return;
@@ -765,7 +769,7 @@ var _SPConfig = /** @class */ (function () {
                 // See if the configuration type exists
                 if (_this._cfgType) {
                     // Ensure it's for this type
-                    if (_this._cfgType != _1.Helper.Types.SPCfgType.WebParts) {
+                    if (_this._cfgType != _1.SPCfgType.WebParts) {
                         // Resolve the promise
                         resolve();
                         return;
@@ -1021,11 +1025,11 @@ var _SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    _SPConfig.prototype.installList = function (listName, callback) { this.installByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
+    _SPConfig.prototype.installList = function (listName, callback) { this.installByType(_1.SPCfgType.Lists, callback, listName); };
     // Method to install a specific site custom action
-    _SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
+    _SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(_1.SPCfgType.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    _SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
+    _SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(_1.SPCfgType.WebUserCustomActions, callback, caName); };
     // Method to uninstall the configuration
     _SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
         var _this = this;
@@ -1050,11 +1054,11 @@ var _SPConfig = /** @class */ (function () {
         });
     };
     // Method to install a specific list
-    _SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
+    _SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(_1.SPCfgType.Lists, callback, listName); };
     // Method to install a specific site custom action
-    _SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
+    _SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(_1.SPCfgType.SiteUserCustomActions, callback, caName); };
     // Method to install a specific web custom action
-    _SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
+    _SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(_1.SPCfgType.WebUserCustomActions, callback, caName); };
     return _SPConfig;
 }());
 ;

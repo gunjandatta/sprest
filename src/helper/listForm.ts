@@ -1,22 +1,21 @@
 import { Web } from "../lib";
-import { Types } from "../mapper";
-import { IBaseCollection } from "../utils";
+import { Types } from "..";
+import * as ListFormTypes from "./types";
 import { parse } from "./parse";
-import { ListFormField } from "./listFormField";
 
 /**
  * List Form
  */
 class _ListForm {
-    private _cacheData: Types.Helper.ListForm.IListFormCache = null;
-    private _info: Types.Helper.ListForm.IListFormResult = null;
-    private _props: Types.Helper.ListForm.IListFormProps = null;
-    private _resolve: (info: Types.Helper.ListForm.IListFormResult) => void = null;
+    private _cacheData: ListFormTypes.IListFormCache = null;
+    private _info: ListFormTypes.IListFormResult = null;
+    private _props: ListFormTypes.IListFormProps = null;
+    private _resolve: (info: ListFormTypes.IListFormResult) => void = null;
 
     /**
      * Constructor
     */
-    constructor(props: Types.Helper.ListForm.IListFormProps) {
+    constructor(props: ListFormTypes.IListFormProps) {
         // Save the properties
         this._props = props || {} as any;
         this._props.fields = this._props.fields;
@@ -63,7 +62,7 @@ class _ListForm {
     }
 
     // Method to load the item attachments
-    static loadAttachments(info: Types.Helper.ListForm.IListFormProps): PromiseLike<Array<Types.IAttachment>> {
+    static loadAttachments(info: ListFormTypes.IListFormProps): PromiseLike<Array<Types.SP.IAttachment>> {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the item id exists
@@ -96,7 +95,7 @@ class _ListForm {
             // Try to parse the data
             try {
                 // Parse the content type
-                let ct = parse(this._cacheData.ct) as IBaseCollection<Types.IContentTypeQueryResult>;
+                let ct = parse(this._cacheData.ct) as Types.Util.IBaseCollection<Types.SP.IContentTypeQueryResult>;
 
                 // Load the default fields
                 this.loadDefaultFields(ct.results[0]);
@@ -132,7 +131,7 @@ class _ListForm {
     }
 
     // Method to load the default fields
-    private loadDefaultFields = (ct: Types.IContentTypeQueryResult) => {
+    private loadDefaultFields = (ct: Types.SP.IContentTypeQueryResult) => {
         let fields = ct ? ct.FieldLinks.results : [];
         let formFields = {};
 
@@ -162,7 +161,7 @@ class _ListForm {
     }
 
     // Method to load the field data
-    private loadFieldData = (fields: Types.IFieldResults) => {
+    private loadFieldData = (fields: Types.SP.IFieldResults) => {
         // Clear the fields
         this._info.fields = {};
 
@@ -311,7 +310,7 @@ class _ListForm {
     }
 
     // Method to refresh an item
-    static refreshItem(info: Types.Helper.ListForm.IListFormResult): PromiseLike<Types.Helper.ListForm.IListFormResult> {
+    static refreshItem(info: ListFormTypes.IListFormResult): PromiseLike<ListFormTypes.IListFormResult> {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the item
@@ -326,7 +325,7 @@ class _ListForm {
     }
 
     // Method to remove attachments from an item
-    removeAttachments(info: Types.Helper.ListForm.IListFormProps, attachments: Array<Types.IAttachment>): PromiseLike<void> {
+    removeAttachments(info: ListFormTypes.IListFormProps, attachments: Array<Types.SP.IAttachment>): PromiseLike<void> {
         // Return a promise
         return new Promise((resolve, reject) => {
             let web = new Web(info.webUrl);
@@ -352,7 +351,7 @@ class _ListForm {
     }
 
     // Method to save attachments to an existing item
-    static saveAttachments(info: Types.Helper.ListForm.IListFormProps, attachmentInfo: Array<Types.Helper.ListForm.IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>> {
+    static saveAttachments(info: ListFormTypes.IListFormProps, attachmentInfo: Array<ListFormTypes.IListFormAttachmentInfo>): PromiseLike<Array<Types.SP.IAttachment>> {
         // Return a promise
         return new Promise((resolve, reject) => {
             let itemId = info.item ? info.item.Id : info.itemId;
@@ -387,7 +386,7 @@ class _ListForm {
     }
 
     // Method to save a new or existing item
-    static saveItem(info: Types.Helper.ListForm.IListFormResult, formValues: any): PromiseLike<Types.Helper.ListForm.IListFormResult> {
+    static saveItem(info: ListFormTypes.IListFormResult, formValues: any): PromiseLike<ListFormTypes.IListFormResult> {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if this is an existing item
@@ -421,4 +420,4 @@ class _ListForm {
         });
     }
 }
-export const ListForm: Types.Helper.ListForm.IListForm = _ListForm as any;
+export const ListForm: ListFormTypes.IListForm = _ListForm as any;

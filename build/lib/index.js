@@ -10,10 +10,13 @@ __export(require("./navigation"));
 __export(require("./peopleManager"));
 __export(require("./peoplePicker"));
 __export(require("./profileLoader"));
+__export(require("./rest"));
 __export(require("./search"));
 __export(require("./site"));
 __export(require("./socialFeed"));
 __export(require("./userProfile"));
 __export(require("./utility"));
 __export(require("./web"));
+var Types = require("./types");
+exports.Types = Types;
 //# sourceMappingURL=index.js.map

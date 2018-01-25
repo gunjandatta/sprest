@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 43);
+/******/ 	return __webpack_require__(__webpack_require__.s = 18);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69,11 +69,22 @@
 
 "use strict";
 
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
-var requestType_1 = __webpack_require__(81);
-exports.RequestType = requestType_1.RequestType;
-var SPTypes = __webpack_require__(82);
-exports.SPTypes = SPTypes;
+__export(__webpack_require__(78));
+__export(__webpack_require__(79));
+__export(__webpack_require__(80));
+__export(__webpack_require__(99));
+__export(__webpack_require__(100));
+__export(__webpack_require__(101));
+__export(__webpack_require__(102));
+__export(__webpack_require__(103));
+__export(__webpack_require__(104));
+__export(__webpack_require__(105));
+var Types = __webpack_require__(106);
+exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -86,7 +97,8 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(79));
+__export(__webpack_require__(77));
+__export(__webpack_require__(107));
 __export(__webpack_require__(108));
 __export(__webpack_require__(109));
 __export(__webpack_require__(110));
@@ -95,40 +107,21 @@ __export(__webpack_require__(112));
 __export(__webpack_require__(113));
 __export(__webpack_require__(114));
 __export(__webpack_require__(115));
+__export(__webpack_require__(116));
+__export(__webpack_require__(117));
+__export(__webpack_require__(118));
+__export(__webpack_require__(39));
+var Types = __webpack_require__(119);
+exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(78));
-__export(__webpack_require__(116));
-__export(__webpack_require__(117));
-__export(__webpack_require__(118));
-__export(__webpack_require__(119));
-__export(__webpack_require__(120));
-__export(__webpack_require__(121));
-__export(__webpack_require__(122));
-__export(__webpack_require__(123));
-__export(__webpack_require__(124));
-__export(__webpack_require__(125));
-__export(__webpack_require__(126));
-__export(__webpack_require__(39));
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var store = __webpack_require__(25)('wks');
-var uid = __webpack_require__(18);
-var Symbol = __webpack_require__(4).Symbol;
+var store = __webpack_require__(27)('wks');
+var uid = __webpack_require__(20);
+var Symbol = __webpack_require__(3).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
 var $exports = module.exports = function (name) {
@@ -140,7 +133,7 @@ $exports.store = store;
 
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports) {
 
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -152,10 +145,10 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(8);
+var isObject = __webpack_require__(7);
 module.exports = function (it) {
   if (!isObject(it)) throw TypeError(it + ' is not an object!');
   return it;
@@ -163,12 +156,12 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(14);
-var createDesc = __webpack_require__(27);
-module.exports = __webpack_require__(9) ? function (object, key, value) {
+var createDesc = __webpack_require__(29);
+module.exports = __webpack_require__(8) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
   object[key] = value;
@@ -177,18 +170,18 @@ module.exports = __webpack_require__(9) ? function (object, key, value) {
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(4);
-var hide = __webpack_require__(6);
-var has = __webpack_require__(10);
-var SRC = __webpack_require__(18)('src');
+var global = __webpack_require__(3);
+var hide = __webpack_require__(5);
+var has = __webpack_require__(9);
+var SRC = __webpack_require__(20)('src');
 var TO_STRING = 'toString';
 var $toString = Function[TO_STRING];
 var TPL = ('' + $toString).split(TO_STRING);
 
-__webpack_require__(11).inspectSource = function (it) {
+__webpack_require__(10).inspectSource = function (it) {
   return $toString.call(it);
 };
 
@@ -214,7 +207,7 @@ __webpack_require__(11).inspectSource = function (it) {
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -223,17 +216,17 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 9 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(26)(function () {
+module.exports = !__webpack_require__(28)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
 /***/ }),
-/* 10 */
+/* 9 */
 /***/ (function(module, exports) {
 
 var hasOwnProperty = {}.hasOwnProperty;
@@ -243,7 +236,7 @@ module.exports = function (it, key) {
 
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports) {
 
 var core = module.exports = { version: '2.5.3' };
@@ -251,11 +244,26 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = {};
 
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Mapper = __webpack_require__(81);
+exports.Mapper = Mapper;
+var SPTypes = __webpack_require__(94);
+exports.SPTypes = SPTypes;
+var Types = __webpack_require__(95);
+exports.Types = Types;
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 /* 13 */
@@ -272,12 +280,12 @@ module.exports = function (it) {
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(5);
-var IE8_DOM_DEFINE = __webpack_require__(46);
-var toPrimitive = __webpack_require__(47);
+var anObject = __webpack_require__(4);
+var IE8_DOM_DEFINE = __webpack_require__(45);
+var toPrimitive = __webpack_require__(46);
 var dP = Object.defineProperty;
 
-exports.f = __webpack_require__(9) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
+exports.f = __webpack_require__(8) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
   anObject(O);
   P = toPrimitive(P, true);
   anObject(Attributes);
@@ -330,9 +338,80 @@ module.exports = function (it) {
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+__export(__webpack_require__(76));
+__export(__webpack_require__(120));
+__export(__webpack_require__(121));
+__export(__webpack_require__(123));
+__export(__webpack_require__(124));
+__export(__webpack_require__(125));
+__export(__webpack_require__(126));
+__export(__webpack_require__(41));
+__export(__webpack_require__(40));
+__export(__webpack_require__(42));
+__export(__webpack_require__(127));
+var Types = __webpack_require__(128);
+exports.Types = Types;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+// Type definitions for gd-sprest
+// Project: https://gunjandatta.github.io/sprest
+// Definitions by: Gunjan Datta <https://github.com/gunjandatta>
+/***************************************************************************************************
+MIT License
+
+Copyright (c) 2016 Dattabase, LLC.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+***************************************************************************************************/
+__webpack_require__(43);
+var Helper = __webpack_require__(17);
+exports.Helper = Helper;
+__export(__webpack_require__(1));
+var mapper_1 = __webpack_require__(12);
+exports.SPTypes = mapper_1.SPTypes;
+var Types = __webpack_require__(129);
+exports.Types = Types;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // getting tag from 19.1.3.6 Object.prototype.toString()
 var cof = __webpack_require__(13);
-var TAG = __webpack_require__(3)('toStringTag');
+var TAG = __webpack_require__(2)('toStringTag');
 // ES3 wrong here
 var ARG = cof(function () { return arguments; }()) == 'Arguments';
 
@@ -356,7 +435,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 var id = 0;
@@ -367,11 +446,11 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(8);
-var document = __webpack_require__(4).document;
+var isObject = __webpack_require__(7);
+var document = __webpack_require__(3).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
 module.exports = function (it) {
@@ -380,7 +459,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports) {
 
 // 7.1.4 ToInteger
@@ -392,7 +471,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports) {
 
 // 7.2.1 RequireObjectCoercible(argument)
@@ -403,38 +482,14 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(54);
-var defined = __webpack_require__(21);
-module.exports = function (it) {
-  return IObject(defined(it));
-};
-
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var shared = __webpack_require__(25)('keys');
-var uid = __webpack_require__(18);
-module.exports = function (key) {
-  return shared[key] || (shared[key] = uid(key));
-};
-
-
-/***/ }),
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var def = __webpack_require__(14).f;
-var has = __webpack_require__(10);
-var TAG = __webpack_require__(3)('toStringTag');
-
-module.exports = function (it, tag, stat) {
-  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+var IObject = __webpack_require__(53);
+var defined = __webpack_require__(23);
+module.exports = function (it) {
+  return IObject(defined(it));
 };
 
 
@@ -442,7 +497,31 @@ module.exports = function (it, tag, stat) {
 /* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(4);
+var shared = __webpack_require__(27)('keys');
+var uid = __webpack_require__(20);
+module.exports = function (key) {
+  return shared[key] || (shared[key] = uid(key));
+};
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var def = __webpack_require__(14).f;
+var has = __webpack_require__(9);
+var TAG = __webpack_require__(2)('toStringTag');
+
+module.exports = function (it, tag, stat) {
+  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
+};
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var global = __webpack_require__(3);
 var SHARED = '__core-js_shared__';
 var store = global[SHARED] || (global[SHARED] = {});
 module.exports = function (key) {
@@ -451,7 +530,7 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -464,7 +543,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports) {
 
 module.exports = function (bitmap, value) {
@@ -478,21 +557,21 @@ module.exports = function (bitmap, value) {
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(29);
-var $export = __webpack_require__(30);
-var redefine = __webpack_require__(7);
-var hide = __webpack_require__(6);
-var has = __webpack_require__(10);
-var Iterators = __webpack_require__(12);
-var $iterCreate = __webpack_require__(50);
-var setToStringTag = __webpack_require__(24);
-var getPrototypeOf = __webpack_require__(57);
-var ITERATOR = __webpack_require__(3)('iterator');
+var LIBRARY = __webpack_require__(31);
+var $export = __webpack_require__(32);
+var redefine = __webpack_require__(6);
+var hide = __webpack_require__(5);
+var has = __webpack_require__(9);
+var Iterators = __webpack_require__(11);
+var $iterCreate = __webpack_require__(49);
+var setToStringTag = __webpack_require__(26);
+var getPrototypeOf = __webpack_require__(56);
+var ITERATOR = __webpack_require__(2)('iterator');
 var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
 var FF_ITERATOR = '@@iterator';
 var KEYS = 'keys';
@@ -555,20 +634,20 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = false;
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(4);
-var core = __webpack_require__(11);
-var hide = __webpack_require__(6);
-var redefine = __webpack_require__(7);
+var global = __webpack_require__(3);
+var core = __webpack_require__(10);
+var hide = __webpack_require__(5);
+var redefine = __webpack_require__(6);
 var ctx = __webpack_require__(15);
 var PROTOTYPE = 'prototype';
 
@@ -611,12 +690,12 @@ module.exports = $export;
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__(53);
-var enumBugKeys = __webpack_require__(33);
+var $keys = __webpack_require__(52);
+var enumBugKeys = __webpack_require__(35);
 
 module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
@@ -624,11 +703,11 @@ module.exports = Object.keys || function keys(O) {
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
-var toInteger = __webpack_require__(20);
+var toInteger = __webpack_require__(22);
 var min = Math.min;
 module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
@@ -636,7 +715,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports) {
 
 // IE 8- don't enum bug keys
@@ -646,22 +725,22 @@ module.exports = (
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var document = __webpack_require__(4).document;
+var document = __webpack_require__(3).document;
 module.exports = document && document.documentElement;
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(15);
-var invoke = __webpack_require__(70);
-var html = __webpack_require__(34);
-var cel = __webpack_require__(19);
-var global = __webpack_require__(4);
+var invoke = __webpack_require__(69);
+var html = __webpack_require__(36);
+var cel = __webpack_require__(21);
+var global = __webpack_require__(3);
 var process = global.process;
 var setTask = global.setImmediate;
 var clearTask = global.clearImmediate;
@@ -744,7 +823,7 @@ module.exports = {
 
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -769,108 +848,6 @@ module.exports.f = function (C) {
 
 
 /***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var app_1 = __webpack_require__(77);
-var dependencies_1 = __webpack_require__(127);
-var field_1 = __webpack_require__(128);
-var jslink_1 = __webpack_require__(129);
-var listForm_1 = __webpack_require__(130);
-var listFormField_1 = __webpack_require__(131);
-var loader_1 = __webpack_require__(132);
-var parse_1 = __webpack_require__(41);
-var spCfg_1 = __webpack_require__(133);
-var taxonomy_1 = __webpack_require__(42);
-var types_1 = __webpack_require__(40);
-var webpart_1 = __webpack_require__(134);
-;
-/**
- * Helper Methods
- */
-exports.Helper = {
-    App: app_1.App,
-    Dependencies: dependencies_1.Dependencies,
-    FieldSchemaXML: field_1.FieldSchemaXML,
-    JSLink: jslink_1.JSLink,
-    ListForm: listForm_1.ListForm,
-    ListFormField: listFormField_1.ListFormField,
-    Loader: loader_1.Loader,
-    parse: parse_1.parse,
-    SPConfig: spCfg_1.SPConfig,
-    Taxonomy: taxonomy_1.Taxonomy,
-    Types: types_1.HelperTypes,
-    WebPart: webpart_1.WebPart
-};
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Mapper
- */
-var mapper_1 = __webpack_require__(80);
-var mapper_2 = __webpack_require__(83);
-var mapper_3 = __webpack_require__(84);
-var mapper_4 = __webpack_require__(85);
-var mapper_5 = __webpack_require__(86);
-var mapper_6 = __webpack_require__(87);
-var mapper_7 = __webpack_require__(88);
-var mapper_8 = __webpack_require__(89);
-var mapper_9 = __webpack_require__(90);
-var mapper_10 = __webpack_require__(91);
-var mapper_11 = __webpack_require__(92);
-var mapper_12 = __webpack_require__(93);
-exports.Mapper = {
-    attachment: mapper_3.attachment, attachmentfiles: mapper_3.attachmentfiles,
-    audit: mapper_1.audit,
-    contenttype: mapper_4.contenttype, contenttypes: mapper_4.contenttypes,
-    eventreceiver: mapper_2.eventreceiver, eventreceivers: mapper_2.eventreceivers,
-    field: mapper_4.field, fields: mapper_4.fields,
-    fieldlinks: mapper_4.fieldlinks,
-    file: mapper_3.file, files: mapper_3.files,
-    fileversion: mapper_3.fileversion, fileversions: mapper_3.fileversions,
-    folder: mapper_3.folder, folders: mapper_3.folders,
-    group: mapper_11.group, sitegroups: mapper_11.sitegroups,
-    limitedwebpartmanager: mapper_3.limitedwebpartmanager,
-    list: mapper_4.list, lists: mapper_4.lists,
-    listitem: mapper_4.listitem, items: mapper_4.items,
-    navigationservicerest: mapper_5.navigationservicerest,
-    peoplemanager: mapper_10.peoplemanager,
-    peoplepicker: mapper_11.peoplepicker,
-    profileloader: mapper_10.profileloader,
-    propertyvalues: mapper_6.propertyvalues,
-    roleassignment: mapper_8.roleassignment, roleassignments: mapper_8.roleassignments,
-    roledefinition: mapper_8.roledefinition, roledefinitions: mapper_8.roledefinitions,
-    search: mapper_7.search,
-    site: mapper_9.site,
-    socialfeed: mapper_10.socialfeed,
-    tenantapp: mapper_9.tenantapp, tenantappcatalog: mapper_9.tenantappcatalog, tenantapps: mapper_9.tenantapps,
-    user: mapper_11.user, users: mapper_11.users,
-    usercustomaction: mapper_12.usercustomaction, usercustomactions: mapper_12.usercustomactions,
-    userprofile: mapper_10.userprofile,
-    utility: mapper_9.utility,
-    version: mapper_4.version,
-    view: mapper_4.view, views: mapper_4.views,
-    viewfieldcollection: mapper_4.viewfieldcollection,
-    web: mapper_9.web, webinfos: mapper_9.webinfos, webs: mapper_9.webs
-};
-/**
- * Types
- */
-var Types = __webpack_require__(94);
-exports.Types = Types;
-//# sourceMappingURL=index.js.map
-
-/***/ }),
 /* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -887,7 +864,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Web
 /*********************************************************************************************************************************/
@@ -923,43 +900,1071 @@ exports.Web = _Web;
 
 "use strict";
 
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
 Object.defineProperty(exports, "__esModule", { value: true });
+__export(__webpack_require__(122));
+var lib_1 = __webpack_require__(1);
+var _1 = __webpack_require__(17);
 /**
- * SharePoint Configuration Field Types
+ * SharePoint Configuration
  */
-var SPCfgFieldType = {
-    Boolean: 0,
-    Calculated: 1,
-    Choice: 2,
-    Date: 3,
-    Lookup: 4,
-    MMS: 5,
-    Note: 6,
-    Number: 7,
-    Text: 8,
-    Url: 9,
-    User: 10
-};
-/**
- * SharePoint Configuration Types
- * The value determines the order to install the object type.
- */
-var SPCfgType = {
-    Fields: 0,
-    ContentTypes: 1,
-    Lists: 2,
-    SiteUserCustomActions: 3,
-    WebParts: 5,
-    WebUserCustomActions: 4
-};
-/**
- * Helper Types
- */
-exports.HelperTypes = {
-    SPCfgFieldType: SPCfgFieldType,
-    SPCfgType: SPCfgType
-};
-//# sourceMappingURL=types.js.map
+var _SPConfig = /** @class */ (function () {
+    /**
+     * Constructor
+     */
+    function _SPConfig(cfg, webUrl) {
+        var _this = this;
+        // Method to install by configuration type
+        this.installByType = function (cfgType, callback, targetName) { return _this.install(callback, cfgType, targetName); };
+        // Method to uninstall by the configuration type
+        this.uninstallByType = function (cfgType, callback, targetName) { return _this.uninstall(callback, cfgType, targetName); };
+        /**
+         * Methods
+         */
+        // Method to create the content types
+        this.createContentTypes = function (contentTypes, cfgContentTypes) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Ensure the content types exist
+                if (cfgContentTypes == null || cfgContentTypes.length == 0) {
+                    // Resolve the promise
+                    resolve();
+                    return;
+                }
+                var _loop_1 = function (i) {
+                    var cfgContentType = cfgContentTypes[i];
+                    // See if this content type already exists
+                    var ct = _this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                    if (ct) {
+                        // Log
+                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' already exists.");
+                        // Update the configuration
+                        cfgContentType.ContentType = ct;
+                    }
+                    else {
+                        // Log
+                        console.log("[gd-sprest][Content Type] Creating the '" + cfgContentType.Name + "' content type.");
+                        // See if the parent name exists
+                        if (cfgContentType.ParentName) {
+                            // Get the web containing the parent content type
+                            (new lib_1.Web(cfgContentType.ParentWebUrl || _this._webUrl))
+                                .ContentTypes()
+                                .query({
+                                Filter: "Name eq '" + cfgContentType.ParentName + "'"
+                            })
+                                .execute(function (parent) {
+                                // See if the parent exists
+                                if (parent.results[0]) {
+                                    // Add the available content type
+                                    contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
+                                        // See if it was successful
+                                        if (ct.existsFl) {
+                                            // Log
+                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                            // Update the configuration
+                                            cfgContentType.ContentType = ct;
+                                            // Trigger the event
+                                            cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                        }
+                                        else {
+                                            // Log
+                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
+                                            console.error("[gd-sprest][Field] Error: " + ct.response);
+                                        }
+                                    }, true);
+                                }
+                                else {
+                                    // Log
+                                    console.log("[gd-sprest][Content Type] The parent content type '" + cfgContentType.Name + "' was not found.");
+                                }
+                            });
+                        }
+                        else {
+                            // Create the content type
+                            contentTypes.add({
+                                Description: cfgContentType.Description,
+                                Group: cfgContentType.Group,
+                                Name: cfgContentType.Name
+                            }).execute(function (ct) {
+                                // See if it was successful
+                                if (ct.existsFl) {
+                                    // Log
+                                    console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                    // Update the configuration
+                                    cfgContentType.ContentType = ct;
+                                    // Trigger the event
+                                    cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                }
+                                else {
+                                    // Log
+                                    console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
+                                    console.error("[gd-sprest][Field] Error: " + ct.response);
+                                }
+                            });
+                        }
+                    }
+                };
+                // Parse the configuration
+                for (var i = 0; i < cfgContentTypes.length; i++) {
+                    _loop_1(i);
+                }
+                // Wait for the requests to complete
+                contentTypes.done(function () {
+                    var _loop_2 = function (i) {
+                        var cfgContentType = cfgContentTypes[i];
+                        var cfgUpdate = {};
+                        var updateFl = false;
+                        // Ensure the content type exists
+                        if (cfgContentType.ContentType == null) {
+                            return "continue";
+                        }
+                        /**
+                         * See if we need to update the properties
+                         */
+                        // Description
+                        if (cfgContentType.ContentType.Description != cfgContentType.Description) {
+                            // Update the configuration
+                            cfgUpdate.Description = cfgContentType.Description;
+                            // Log
+                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Description requires update.");
+                            // Set the flag
+                            updateFl = true;
+                        }
+                        // Group
+                        if (cfgContentType.ContentType.Group != cfgContentType.Group) {
+                            // Update the configuration
+                            cfgUpdate.Group = cfgContentType.Group;
+                            // Log
+                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Group requires update.");
+                            // Set the flag
+                            updateFl = true;
+                        }
+                        // JSLink
+                        if (cfgContentType.ContentType.JSlink != cfgContentType.JSLink) {
+                            // Update the configuration
+                            cfgUpdate.JSLink = cfgContentType.JSLink;
+                            // Log
+                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] JSLink requires update.");
+                            // Set the flag
+                            updateFl = true;
+                        }
+                        // Name
+                        if (cfgContentType.ContentType.Name != cfgContentType.Name) {
+                            // Update the configuration
+                            cfgUpdate.Name = cfgContentType.Name;
+                            // Log
+                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Name requires update.");
+                            // Set the flag
+                            updateFl = true;
+                        }
+                        // See if an update is needed
+                        if (updateFl) {
+                            // Log
+                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the webpart.");
+                            // Update the content type
+                            cfgContentType.ContentType.update({ JSLink: cfgContentType.JSLink }).execute(function () {
+                                // Log
+                                console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
+                                // Trigger the event
+                                cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
+                            });
+                        }
+                        else {
+                            // Trigger the event
+                            cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
+                        }
+                    };
+                    // Parse the configuration
+                    for (var i = 0; i < cfgContentTypes.length; i++) {
+                        _loop_2(i);
+                    }
+                    // Wait for the requests to complete
+                    contentTypes.done(function () {
+                        // Resolve the promise
+                        resolve();
+                    });
+                });
+            });
+        };
+        // Method to create the fields
+        this.createFields = function (fields, cfgFields) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Ensure the fields exist
+                if (cfgFields == null || cfgFields.length == 0) {
+                    // Resolve the promise and return
+                    resolve();
+                    return;
+                }
+                var _loop_3 = function (i) {
+                    var cfgField = cfgFields[i];
+                    // See if this field already exists
+                    var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
+                    if (field) {
+                        // Log
+                        console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
+                        // Trigger the event
+                        cfgField.onUpdated ? cfgField.onUpdated(field) : null;
+                    }
+                    else {
+                        // Log
+                        console.log("[gd-sprest][Field] Creating the '" + cfgField.name + "' field.");
+                        //
+                        var onFieldCreated_1 = function (field) {
+                            // See if it was successful
+                            if (field.existsFl) {
+                                // Log
+                                console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
+                                // Trigger the event
+                                cfgField.onCreated ? cfgField.onCreated(field) : null;
+                            }
+                            else {
+                                // Log
+                                console.log("[gd-sprest][Field] The field '" + cfgField.name + "' failed to be created.");
+                                console.error("[gd-sprest][Field] Error: " + field.response);
+                            }
+                        };
+                        // Compute the schema xml
+                        _1.FieldSchemaXML.generate(cfgField).then(function (response) {
+                            var schemas = typeof (response) === "string" ? [response] : response;
+                            // Parse the fields to add
+                            for (var i_1 = 0; i_1 < schemas.length; i_1++) {
+                                // Add the field
+                                fields.createFieldAsXml(schemas[i_1]).execute(onFieldCreated_1, true);
+                            }
+                        });
+                    }
+                };
+                // Parse the fields
+                for (var i = 0; i < cfgFields.length; i++) {
+                    _loop_3(i);
+                }
+                // Wait for the requests to complete
+                fields.done(function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            });
+        };
+        // Method to create the lists
+        this.createLists = function (lists, cfgLists) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // See if the configuration type exists
+                if (_this._cfgType) {
+                    // Ensure it's for this type
+                    if (_this._cfgType != _1.SPCfgType.Lists) {
+                        // Resolve the promise and return
+                        resolve();
+                        return;
+                    }
+                }
+                // Ensure the lists exist
+                if (cfgLists == null || cfgLists.length == 0) {
+                    // Resolve the promise and return
+                    resolve();
+                    return;
+                }
+                var _loop_4 = function (i) {
+                    var cfgList = cfgLists[i];
+                    // See if the target name exists
+                    if (_this._cfgType && _this._targetName) {
+                        // Ensure it's for this list
+                        if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
+                            return "continue";
+                        }
+                    }
+                    // See if this content type already exists
+                    var list = _this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                    if (list) {
+                        // Log
+                        console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
+                    }
+                    else {
+                        // Log
+                        console.log("[gd-sprest][List] Creating the '" + cfgList.ListInformation.Title + "' list.");
+                        // Update the list name and remove spaces
+                        var listInfo_1 = cfgList.ListInformation;
+                        var listName_1 = listInfo_1.Title;
+                        listInfo_1.Title = listName_1.replace(/ /g, "");
+                        // Add the list
+                        lists.add(listInfo_1)
+                            .execute(function (list) {
+                            // Restore the list name in the configuration
+                            listInfo_1.Title = listName_1;
+                            // See if the request was successful
+                            if (list.existsFl) {
+                                // See if we need to update the list
+                                if (list.existsFl && list.Title != listName_1) {
+                                    // Update the list
+                                    list.update({ Title: listName_1 }).execute(function () {
+                                        // Log
+                                        console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+                                    });
+                                }
+                                else {
+                                    // Log
+                                    console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+                                }
+                                // Trigger the event
+                                cfgList.onCreated ? cfgList.onCreated(list) : null;
+                            }
+                            else {
+                                // Log
+                                console.log("[gd-sprest][List] The list '" + listInfo_1.Title + "' failed to be created.");
+                                console.log("[gd-sprest][List] Error: '" + list.response);
+                            }
+                        });
+                    }
+                };
+                // Parse the content types
+                for (var i = 0; i < cfgLists.length; i++) {
+                    _loop_4(i);
+                }
+                // Wait for the requests to complete
+                lists.done(function () {
+                    // Update the lists
+                    _this.updateLists(cfgLists).then(function () {
+                        // Resolve the promise
+                        resolve();
+                    });
+                });
+            });
+        };
+        // Method to create the user custom actions
+        this.createUserCustomActions = function (customActions, cfgCustomActions) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // See if the configuration type exists
+                if (_this._cfgType) {
+                    // Ensure it's for this type
+                    if (_this._cfgType != _1.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.SPCfgType.WebUserCustomActions) {
+                        // Resolve the promise
+                        resolve();
+                        return;
+                    }
+                }
+                // Ensure the lists exist
+                if (cfgCustomActions == null || cfgCustomActions.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
+                }
+                // Parse the custom actions
+                for (var i = 0; i < cfgCustomActions.length; i++) {
+                    var cfgCustomAction = cfgCustomActions[i];
+                    // See if the target name exists
+                    if (_this._cfgType && _this._targetName) {
+                        // Ensure it's for this custom action
+                        if (cfgCustomAction.Name.toLowerCase() != _this._targetName ||
+                            cfgCustomAction.Title.toLowerCase() != _this._targetName) {
+                            // Skip this custom action
+                            continue;
+                        }
+                    }
+                    // See if this custom action already exists
+                    if (_this.isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
+                        // Log
+                        console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
+                    }
+                    else {
+                        // Add the custom action
+                        customActions.add(cfgCustomAction).execute(function (ca) {
+                            // Ensure it exists
+                            if (ca.existsFl) {
+                                // Log
+                                console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was created successfully.");
+                            }
+                            else {
+                                // Log
+                                console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' failed to be created.");
+                                console.log("[gd-sprest][Custom Action] Error: " + ca.response);
+                            }
+                        }, true);
+                    }
+                }
+                // Wait for the requests to complete
+                customActions.done(function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            });
+        };
+        // Method to create the list views
+        this.createViews = function (views, cfgViews) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Ensure the list views exist
+                if (cfgViews == null || cfgViews.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
+                }
+                var _loop_5 = function (i) {
+                    var cfgView = cfgViews[i];
+                    // See if this view exists
+                    var view = _this.isInCollection("Title", cfgView.ViewName, views.results);
+                    if (view) {
+                        // Log
+                        console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' already exists.");
+                    }
+                    else {
+                        // Add the view
+                        views.add({
+                            Title: cfgView.ViewName,
+                            ViewQuery: cfgView.ViewQuery
+                        }).execute(function (view) {
+                            // Ensure it exists
+                            if (view.existsFl) {
+                                // Log
+                                console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' was created successfully.");
+                                // Trigger the event
+                                cfgView.onCreated ? cfgView.onCreated(view) : null;
+                            }
+                            else {
+                                // Log
+                                console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' failed to be created.");
+                                console.log("[gd-sprest][View] Error: " + view.response);
+                            }
+                        }, true);
+                    }
+                };
+                // Parse the views
+                for (var i = 0; i < cfgViews.length; i++) {
+                    _loop_5(i);
+                }
+                // Wait for the requests to complete
+                views.done(function () {
+                    // Update the views
+                    _this.updateViews(views, cfgViews).then(function () {
+                        // Resolve the promise
+                        resolve();
+                    });
+                });
+            });
+        };
+        // Method to create the web parts
+        this.createWebParts = function () {
+            var cfgWebParts = _this._configuration.WebPartCfg;
+            // See if the configuration type exists
+            if (_this._cfgType) {
+                // Ensure it's for this type
+                if (_this._cfgType != _1.SPCfgType.WebParts) {
+                    return;
+                }
+            }
+            // Ensure the configuration exists
+            if (cfgWebParts == null || cfgWebParts.length == 0) {
+                return;
+            }
+            // Log
+            console.log("[gd-sprest][WebPart] Creating the web parts.");
+            // Get the root web
+            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+                .Lists("Web Part Gallery")
+                .RootFolder()
+                .query({
+                Expand: ["Files"]
+            })
+                .execute(function (folder) {
+                var _loop_6 = function (i) {
+                    var cfgWebPart = cfgWebParts[i];
+                    // See if the target name exists
+                    if (_this._cfgType && _this._targetName) {
+                        // Ensure it's for this list
+                        if (cfgWebPart.FileName.toLowerCase() != _this._targetName) {
+                            return "continue";
+                        }
+                    }
+                    // See if this webpart exists
+                    var file = _this.isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
+                    if (file.existsFl) {
+                        // Log
+                        console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
+                        // Trigger the event
+                        cfgWebPart.onUpdated ? cfgWebPart.onUpdated(file) : null;
+                    }
+                    else {
+                        // Trim the xml
+                        var xml = cfgWebPart.XML.trim();
+                        // Convert the string to an array buffer
+                        var buffer = new ArrayBuffer(xml.length * 2);
+                        var bufferView = new Uint16Array(buffer);
+                        for (var j = 0; j < xml.length; j++) {
+                            bufferView[j] = xml.charCodeAt(j);
+                        }
+                        // Create the webpart, but execute the requests one at a time
+                        folder.Files.add(true, cfgWebPart.FileName, buffer).execute(function (file) {
+                            // See if group exists
+                            if (cfgWebPart.Group) {
+                                // Set the target to the root web
+                                (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+                                    .Lists("Web Part Gallery")
+                                    .Items()
+                                    .query({
+                                    Filter: "FileLeafRef eq '" + cfgWebPart.FileName + "'"
+                                })
+                                    .execute(function (items) {
+                                    // Update the item
+                                    items.results[0].update({
+                                        Group: cfgWebPart.Group
+                                    }).execute();
+                                });
+                            }
+                            // Log
+                            console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+                            // Trigger the event
+                            cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
+                        });
+                    }
+                };
+                // Parse the configuration
+                for (var i = 0; i < cfgWebParts.length; i++) {
+                    _loop_6(i);
+                }
+            });
+        };
+        // Method to install the site components
+        this.installSite = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Ensure site actions exist
+                if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
+                    // Resolve the promise
+                    resolve();
+                    return;
+                }
+                // Log
+                console.log("[gd-sprest] Loading the site information...");
+                // Get the site
+                (new lib_1.Site(_this._webUrl))
+                    .query({
+                    Expand: ["UserCustomActions"]
+                })
+                    .execute(function (site) {
+                    // Install the user custom actions
+                    _this.createUserCustomActions(site.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : []).then(function () {
+                        // Resolve the promise
+                        resolve(site);
+                    });
+                });
+            });
+        };
+        // Method to install the web components
+        this.installWeb = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Log
+                console.log("[gd-sprest] Loading the web information...");
+                // Get the web
+                (new lib_1.Web(_this._webUrl))
+                    .query({
+                    Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
+                })
+                    .execute(function (web) {
+                    // Create the fields
+                    _this.createFields(web.Fields, _this._configuration.Fields).then(function () {
+                        // Create the content types
+                        _this.createContentTypes(web.ContentTypes, _this._configuration.ContentTypes).then(function () {
+                            // Create the lists
+                            _this.createLists(web.Lists, _this._configuration.ListCfg).then(function () {
+                                // Create the web custom actions
+                                _this.createUserCustomActions(web.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null).then(function () {
+                                    // Resolve the promise
+                                    resolve();
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        };
+        // Method to see if an object exists in a collection
+        this.isInCollection = function (key, value, collection) {
+            var valueLower = value.toLowerCase();
+            // Parse the collection
+            for (var i = 0; i < collection.length; i++) {
+                var keyValue = collection[i][key];
+                keyValue = keyValue ? keyValue.toLowerCase() : "";
+                // See if the item exists
+                if (valueLower == keyValue) {
+                    // Return true
+                    return collection[i];
+                }
+            }
+            // Not in the collection
+            return false;
+        };
+        // Method to remove the content type
+        this.removeContentTypes = function (contentTypes, cfgContentTypes) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Ensure the content types exist
+                if (cfgContentTypes == null || cfgContentTypes.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
+                }
+                var _loop_7 = function (i) {
+                    var cfgContentType = cfgContentTypes[i];
+                    // Get the field
+                    var ct = _this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                    if (ct) {
+                        // Remove the field
+                        ct.delete().execute(function () {
+                            // Log
+                            console.log("[gd-sprest][Field] The content type '" + ct.Name + "' was removed.");
+                        }, true);
+                    }
+                };
+                // Parse the configuration
+                for (var i = 0; i < cfgContentTypes.length; i++) {
+                    _loop_7(i);
+                }
+                // Wait for the requests to complete
+                contentTypes.done(function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            });
+        };
+        // Method to remove the fields
+        this.removeFields = function (fields, cfgFields) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Ensure the fields exist
+                if (cfgFields == null || cfgFields.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
+                }
+                var _loop_8 = function (i) {
+                    var cfgField = cfgFields[i];
+                    // Get the field
+                    var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
+                    if (field) {
+                        // Remove the field
+                        field.delete().execute(function () {
+                            // Log
+                            console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was removed.");
+                        }, true);
+                    }
+                };
+                // Parse the configuration
+                for (var i = 0; i < cfgFields.length; i++) {
+                    _loop_8(i);
+                }
+                // Wait for the requests to complete
+                fields.done(function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            });
+        };
+        // Method to remove the lists
+        this.removeLists = function (lists, cfgLists) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // See if the configuration type exists
+                if (_this._cfgType) {
+                    // Ensure it's for this type
+                    if (_this._cfgType != _1.SPCfgType.Lists) {
+                        // Resolve the promise
+                        resolve();
+                        return;
+                    }
+                }
+                // Ensure the lists exist
+                if (cfgLists == null || cfgLists.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
+                }
+                var _loop_9 = function (i) {
+                    var cfgList = cfgLists[i];
+                    // See if the target name exists
+                    if (_this._cfgType && _this._targetName) {
+                        // Ensure it's for this list
+                        if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
+                            return "continue";
+                        }
+                    }
+                    // Get the list
+                    var list = _this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                    if (list) {
+                        // Remove the list
+                        list.delete().execute(function () {
+                            // Log
+                            console.log("[gd-sprest][List] The list '" + list.Title + "' was removed.");
+                        }, true);
+                    }
+                };
+                // Parse the configuration
+                for (var i = 0; i < cfgLists.length; i++) {
+                    _loop_9(i);
+                }
+                // Wait for the requests to complete
+                lists.done(function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            });
+        };
+        // Method to remove the user custom actions
+        this.removeUserCustomActions = function (customActions, cfgCustomActions) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // See if the configuration type exists
+                if (_this._cfgType) {
+                    // Ensure it's for this type
+                    if (_this._cfgType != _1.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.SPCfgType.WebUserCustomActions) {
+                        // Resolve the promise
+                        resolve();
+                        return;
+                    }
+                }
+                // Ensure the custom actions exist
+                if (cfgCustomActions == null || cfgCustomActions.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
+                }
+                var _loop_10 = function (i) {
+                    var cfgCustomAction = cfgCustomActions[i];
+                    // See if the target name exists
+                    if (_this._cfgType && _this._targetName) {
+                        // Ensure it's for this custom action
+                        if (cfgCustomAction.Name.toLowerCase() != _this._targetName ||
+                            cfgCustomAction.Title.toLowerCase() != _this._targetName) {
+                            return "continue";
+                        }
+                    }
+                    // Get the custom action
+                    var ca = _this.isInCollection("Name", cfgCustomAction.Name, customActions.results);
+                    if (ca) {
+                        // Remove the custom action
+                        ca.delete().execute(function () {
+                            // Log
+                            console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was removed.");
+                        }, true);
+                    }
+                };
+                // Parse the configuration
+                for (var i = 0; i < cfgCustomActions.length; i++) {
+                    _loop_10(i);
+                }
+                // Wait for the requests to complete
+                customActions.done(function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            });
+        };
+        // Method to remove the web parts
+        this.removeWebParts = function () {
+            var cfgWebParts = _this._configuration.WebPartCfg;
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // See if the configuration type exists
+                if (_this._cfgType) {
+                    // Ensure it's for this type
+                    if (_this._cfgType != _1.SPCfgType.WebParts) {
+                        // Resolve the promise
+                        resolve();
+                        return;
+                    }
+                }
+                // Ensure the configuration exists
+                if (cfgWebParts == null || cfgWebParts.length == 0) {
+                    // Resolve the promise and return it
+                    resolve();
+                    return;
+                }
+                // Log
+                console.log("[gd-sprest][WebPart] Creating the web parts.");
+                // Get the root web
+                (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+                    .Lists("Web Part Gallery")
+                    .RootFolder()
+                    .Files()
+                    .execute(function (files) {
+                    var _loop_11 = function (i) {
+                        var cfgWebPart = cfgWebParts[i];
+                        // See if the target name exists
+                        if (_this._cfgType && _this._targetName) {
+                            // Ensure it's for this list
+                            if (cfgWebPart.FileName.toLowerCase() != _this._targetName) {
+                                return "continue";
+                            }
+                        }
+                        // Get the file
+                        var file = _this.isInCollection("Name", cfgWebPart.FileName, files.results);
+                        if (file) {
+                            // Remove the file
+                            file.delete().execute(function () {
+                                // Log
+                                console.log("[gd-sprest][WebPart] The webpart '" + file.Name + "' file was removed.");
+                            }, true);
+                        }
+                    };
+                    // Parse the configuration
+                    for (var i = 0; i < cfgWebParts.length; i++) {
+                        _loop_11(i);
+                    }
+                    // Resolve the promise
+                    resolve();
+                });
+            });
+        };
+        // Method to update the lists
+        this.updateLists = function (cfgLists) {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                var request = function (idx, resolve) {
+                    // Get the list configuration
+                    var cfgList = cfgLists[idx];
+                    // See if the target name exists
+                    if (_this._targetName) {
+                        // Ensure it's for this list
+                        if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
+                            // Update the next list
+                            request(idx + 1, resolve);
+                            return;
+                        }
+                    }
+                    // Ensure the configuration exists
+                    if (cfgList) {
+                        // Get the web
+                        (new lib_1.Web(_this._webUrl))
+                            .Lists(cfgList.ListInformation.Title)
+                            .query({
+                            Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
+                        })
+                            .execute(function (list) {
+                            // See if the title field is being updated
+                            if (cfgList.TitleFieldDisplayName) {
+                                // Parse the fields
+                                for (var i = 0; i < list.Fields.results.length; i++) {
+                                    var field = list.Fields.results[i];
+                                    // See if this is the title field
+                                    if (field.InternalName == "Title") {
+                                        // See if an update is required
+                                        if (field.Title != cfgList.TitleFieldDisplayName) {
+                                            // Update the field name
+                                            field.update({ Title: cfgList.TitleFieldDisplayName }).execute(function () {
+                                                // Log
+                                                console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                            // Update the list fields
+                            _this.createFields(list.Fields, cfgList.CustomFields).then(function () {
+                                // Update the content types
+                                _this.createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(function () {
+                                    // Update the views
+                                    _this.createViews(list.Views, cfgList.ViewInformation).then(function () {
+                                        // Trigger the event
+                                        cfgList.onUpdated ? cfgList.onUpdated(list) : null;
+                                        // Update the next list
+                                        request(idx + 1, resolve);
+                                    });
+                                });
+                            });
+                            // Update the user custom actions
+                            _this.createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
+                        });
+                    }
+                    else {
+                        // Resolve the promise
+                        resolve();
+                    }
+                };
+                // Execute the request
+                request(0, resolve);
+            });
+        };
+        // Method to update the views
+        this.updateViews = function (views, cfgViews) {
+            var counter = 0;
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                var _loop_12 = function (i) {
+                    var cfgView = cfgViews[i];
+                    // Get the view
+                    var view = views.getByTitle(cfgView.ViewName);
+                    // See if the view fields are defined
+                    if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
+                        // Log
+                        console.log("[gd-sprest][View] Updating the view fields for the '" + cfgView.ViewName + "' view.");
+                        // Clear the view fields
+                        view.ViewFields().removeAllViewFields().execute(true);
+                        // Parse the view fields
+                        for (var i_2 = 0; i_2 < cfgView.ViewFields.length; i_2++) {
+                            // Add the view field
+                            view.ViewFields().addViewField(cfgView.ViewFields[i_2]).execute(true);
+                        }
+                    }
+                    // See if we are updating the view properties
+                    if (cfgView.JSLink || cfgView.ViewQuery) {
+                        var props = {};
+                        // Log
+                        console.log("[gd-sprest][View] Updating the view properties for the '" + cfgView.ViewName + "' view.");
+                        // Set the properties
+                        cfgView.JSLink ? props["JSLink"] = cfgView.JSLink : null;
+                        cfgView.ViewQuery ? props["ViewQuery"] = cfgView.ViewQuery : null;
+                        // Update the view
+                        view.update(props).execute(true);
+                    }
+                    // Wait for the requests to complete
+                    view.done(function () {
+                        var args = [];
+                        for (var _i = 0; _i < arguments.length; _i++) {
+                            args[_i] = arguments[_i];
+                        }
+                        // Trigger the event
+                        cfgView.onUpdated ? cfgView.onUpdated(view) : null;
+                        // See if we are done
+                        if (++counter >= cfgViews.length) {
+                            // Resolve the promise
+                            resolve();
+                        }
+                    });
+                };
+                // Parse the views
+                for (var i = 0; i < cfgViews.length; i++) {
+                    _loop_12(i);
+                }
+            });
+        };
+        // Method to uninstall the site components
+        this.uninstallSite = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Log
+                console.log("[gd-sprest][uninstall] Loading the site information...");
+                // Ensure site actions exist
+                if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
+                    // Resolve the promise
+                    resolve();
+                    return;
+                }
+                // Get the site
+                (new lib_1.Site(_this._webUrl))
+                    .query({
+                    Expand: ["UserCustomActions"]
+                })
+                    .execute(function (site) {
+                    // Remove the user custom actions
+                    _this.removeUserCustomActions(site.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : []).then(function () {
+                        // Resolve the promise
+                        resolve(site);
+                    });
+                });
+            });
+        };
+        // Method to uninstall the web components
+        this.uninstallWeb = function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Log
+                console.log("[gd-sprest][uninstall] Loading the web information...");
+                // Get the web
+                (new lib_1.Web(_this._webUrl))
+                    .query({
+                    Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
+                })
+                    .execute(function (web) {
+                    // Remove the fields
+                    _this.removeFields(web.Fields, _this._configuration.Fields).then(function () {
+                        // Remove the content types
+                        _this.removeContentTypes(web.ContentTypes, _this._configuration.ContentTypes).then(function () {
+                            // Remove the lists
+                            _this.removeLists(web.Lists, _this._configuration.ListCfg).then(function () {
+                                // Remove the web custom actions
+                                _this.removeUserCustomActions(web.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null).then(function () {
+                                    // Resolve the promise
+                                    resolve();
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        };
+        // Save the configuration
+        this._configuration = cfg;
+        // Save the target web url
+        this._webUrl = webUrl;
+    }
+    /**
+     * Public Methods
+     */
+    // Method to install the configuration
+    _SPConfig.prototype.install = function (callback, cfgType, targetName) {
+        var _this = this;
+        // Update the global variables
+        this._cfgType = cfgType;
+        this._targetName = targetName ? targetName.toLowerCase() : null;
+        // Install the web components
+        this.installWeb().then(function () {
+            // Install the site components
+            _this.installSite().then(function () {
+                // Create the webparts
+                _this.createWebParts();
+                // Log
+                console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                // See if the callback exists
+                if (callback && typeof (callback) === "function") {
+                    // Execute the callback
+                    callback();
+                }
+            });
+        });
+    };
+    // Method to install a specific list
+    _SPConfig.prototype.installList = function (listName, callback) { this.installByType(_1.SPCfgType.Lists, callback, listName); };
+    // Method to install a specific site custom action
+    _SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(_1.SPCfgType.SiteUserCustomActions, callback, caName); };
+    // Method to install a specific web custom action
+    _SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(_1.SPCfgType.WebUserCustomActions, callback, caName); };
+    // Method to uninstall the configuration
+    _SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
+        var _this = this;
+        // Update the global variables
+        this._cfgType = cfgType;
+        this._targetName = targetName;
+        // Uninstall the web components
+        this.uninstallWeb().then(function () {
+            // Uninstall the site components
+            _this.uninstallSite().then(function () {
+                // Remove the webparts
+                _this.removeWebParts().then(function () {
+                    // Log
+                    console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                    // See if the callback exists
+                    if (callback && typeof (callback) === "function") {
+                        // Execute the callback
+                        callback();
+                    }
+                });
+            });
+        });
+    };
+    // Method to install a specific list
+    _SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(_1.SPCfgType.Lists, callback, listName); };
+    // Method to install a specific site custom action
+    _SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(_1.SPCfgType.SiteUserCustomActions, callback, caName); };
+    // Method to install a specific web custom action
+    _SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(_1.SPCfgType.WebUserCustomActions, callback, caName); };
+    return _SPConfig;
+}());
+;
+exports.SPConfig = _SPConfig;
+//# sourceMappingURL=spCfg.js.map
 
 /***/ }),
 /* 41 */
@@ -968,7 +1973,7 @@ exports.HelperTypes = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /**
  * Convert a JSON string to a base object
  */
@@ -1371,130 +2376,45 @@ exports.Taxonomy = new _Taxonomy();
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-// Type definitions for gd-sprest
-// Project: https://gunjandatta.github.io/sprest
-// Definitions by: Gunjan Datta <https://github.com/gunjandatta>
-/***************************************************************************************************
-MIT License
-
-Copyright (c) 2016 Dattabase, LLC.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-***************************************************************************************************/
 __webpack_require__(44);
-var helper_1 = __webpack_require__(37);
-exports.Helper = helper_1.Helper;
-var mapper_1 = __webpack_require__(38);
-exports.Types = mapper_1.Types;
-var types_1 = __webpack_require__(0);
-exports.RequestType = types_1.RequestType;
-exports.SPTypes = types_1.SPTypes;
-var lib_1 = __webpack_require__(2);
-exports.ContextInfo = lib_1.ContextInfo;
-exports.JSLink = lib_1.JSLink;
-exports.List = lib_1.List;
-exports.Navigation = lib_1.Navigation;
-exports.PeopleManager = lib_1.PeopleManager;
-exports.PeoplePicker = lib_1.PeoplePicker;
-exports.ProfileLoader = lib_1.ProfileLoader;
-exports.Search = lib_1.Search;
-exports.Site = lib_1.Site;
-exports.SocialFeed = lib_1.SocialFeed;
-exports.UserProfile = lib_1.UserProfile;
-exports.Utility = lib_1.Utility;
-exports.Web = lib_1.Web;
-/**
- * SharePoint REST Library
- */
-exports.$REST = {
-    __ver: 3.17,
-    ContextInfo: lib_1.ContextInfo,
-    DefaultRequestToHostFl: false,
-    Helper: helper_1.Helper,
-    JSLink: lib_1.JSLink,
-    List: function (listName, targetInfo) { return new lib_1.List(listName, targetInfo); },
-    Navigation: function (url, targetInfo) { return new lib_1.Navigation(url, targetInfo); },
-    PeopleManager: function (targetInfo) { return new lib_1.PeopleManager(targetInfo); },
-    PeoplePicker: function (targetInfo) { return new lib_1.PeoplePicker(targetInfo); },
-    ProfileLoader: function (targetInfo) { return new lib_1.ProfileLoader(targetInfo); },
-    Search: function (url, targetInfo) { return new lib_1.Search(url, targetInfo); },
-    Site: function (url, targetInfo) { return new lib_1.Site(url, targetInfo); },
-    SPTypes: types_1.SPTypes,
-    SocialFeed: lib_1.SocialFeed,
-    UserProfile: function (targetInfo) { return new lib_1.UserProfile(targetInfo); },
-    Utility: function (url, targetInfo) { return new lib_1.Utility(url, targetInfo); },
-    Web: function (url, targetInfo) { return new lib_1.Web(url, targetInfo); }
-};
-// See if the library doesn't exist, or is an older version
-var global = lib_1.ContextInfo.window.$REST;
-if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {
-    // Set the global variable
-    lib_1.ContextInfo.window.$REST = exports.$REST;
-}
-//# sourceMappingURL=gd-sprest.js.map
+__webpack_require__(47);
+__webpack_require__(58);
+__webpack_require__(62);
+module.exports = __webpack_require__(10).Promise;
+
 
 /***/ }),
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(45);
-__webpack_require__(48);
-__webpack_require__(59);
-__webpack_require__(63);
-module.exports = __webpack_require__(11).Promise;
-
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
 "use strict";
 
 // 19.1.3.6 Object.prototype.toString()
-var classof = __webpack_require__(17);
+var classof = __webpack_require__(19);
 var test = {};
-test[__webpack_require__(3)('toStringTag')] = 'z';
+test[__webpack_require__(2)('toStringTag')] = 'z';
 if (test + '' != '[object z]') {
-  __webpack_require__(7)(Object.prototype, 'toString', function toString() {
+  __webpack_require__(6)(Object.prototype, 'toString', function toString() {
     return '[object ' + classof(this) + ']';
   }, true);
 }
 
 
 /***/ }),
-/* 46 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(9) && !__webpack_require__(26)(function () {
-  return Object.defineProperty(__webpack_require__(19)('div'), 'a', { get: function () { return 7; } }).a != 7;
+module.exports = !__webpack_require__(8) && !__webpack_require__(28)(function () {
+  return Object.defineProperty(__webpack_require__(21)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
 /***/ }),
-/* 47 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__(8);
+var isObject = __webpack_require__(7);
 // instead of the ES6 spec version, we didn't implement @@toPrimitive case
 // and the second argument - flag - preferred type is a string
 module.exports = function (it, S) {
@@ -1508,15 +2428,15 @@ module.exports = function (it, S) {
 
 
 /***/ }),
-/* 48 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var $at = __webpack_require__(49)(true);
+var $at = __webpack_require__(48)(true);
 
 // 21.1.3.27 String.prototype[@@iterator]()
-__webpack_require__(28)(String, 'String', function (iterated) {
+__webpack_require__(30)(String, 'String', function (iterated) {
   this._t = String(iterated); // target
   this._i = 0;                // next index
 // 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -1532,11 +2452,11 @@ __webpack_require__(28)(String, 'String', function (iterated) {
 
 
 /***/ }),
-/* 49 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(20);
-var defined = __webpack_require__(21);
+var toInteger = __webpack_require__(22);
+var defined = __webpack_require__(23);
 // true  -> String#at
 // false -> String#codePointAt
 module.exports = function (TO_STRING) {
@@ -1555,18 +2475,18 @@ module.exports = function (TO_STRING) {
 
 
 /***/ }),
-/* 50 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var create = __webpack_require__(51);
-var descriptor = __webpack_require__(27);
-var setToStringTag = __webpack_require__(24);
+var create = __webpack_require__(50);
+var descriptor = __webpack_require__(29);
+var setToStringTag = __webpack_require__(26);
 var IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-__webpack_require__(6)(IteratorPrototype, __webpack_require__(3)('iterator'), function () { return this; });
+__webpack_require__(5)(IteratorPrototype, __webpack_require__(2)('iterator'), function () { return this; });
 
 module.exports = function (Constructor, NAME, next) {
   Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
@@ -1575,27 +2495,27 @@ module.exports = function (Constructor, NAME, next) {
 
 
 /***/ }),
-/* 51 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __webpack_require__(5);
-var dPs = __webpack_require__(52);
-var enumBugKeys = __webpack_require__(33);
-var IE_PROTO = __webpack_require__(23)('IE_PROTO');
+var anObject = __webpack_require__(4);
+var dPs = __webpack_require__(51);
+var enumBugKeys = __webpack_require__(35);
+var IE_PROTO = __webpack_require__(25)('IE_PROTO');
 var Empty = function () { /* empty */ };
 var PROTOTYPE = 'prototype';
 
 // Create object with fake `null` prototype: use iframe Object with cleared prototype
 var createDict = function () {
   // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__(19)('iframe');
+  var iframe = __webpack_require__(21)('iframe');
   var i = enumBugKeys.length;
   var lt = '<';
   var gt = '>';
   var iframeDocument;
   iframe.style.display = 'none';
-  __webpack_require__(34).appendChild(iframe);
+  __webpack_require__(36).appendChild(iframe);
   iframe.src = 'javascript:'; // eslint-disable-line no-script-url
   // createDict = iframe.contentWindow.Object;
   // html.removeChild(iframe);
@@ -1622,14 +2542,14 @@ module.exports = Object.create || function create(O, Properties) {
 
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(14);
-var anObject = __webpack_require__(5);
-var getKeys = __webpack_require__(31);
+var anObject = __webpack_require__(4);
+var getKeys = __webpack_require__(33);
 
-module.exports = __webpack_require__(9) ? Object.defineProperties : function defineProperties(O, Properties) {
+module.exports = __webpack_require__(8) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
   var keys = getKeys(Properties);
   var length = keys.length;
@@ -1641,13 +2561,13 @@ module.exports = __webpack_require__(9) ? Object.defineProperties : function def
 
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var has = __webpack_require__(10);
-var toIObject = __webpack_require__(22);
-var arrayIndexOf = __webpack_require__(55)(false);
-var IE_PROTO = __webpack_require__(23)('IE_PROTO');
+var has = __webpack_require__(9);
+var toIObject = __webpack_require__(24);
+var arrayIndexOf = __webpack_require__(54)(false);
+var IE_PROTO = __webpack_require__(25)('IE_PROTO');
 
 module.exports = function (object, names) {
   var O = toIObject(object);
@@ -1664,7 +2584,7 @@ module.exports = function (object, names) {
 
 
 /***/ }),
-/* 54 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
@@ -1676,14 +2596,14 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 
 
 /***/ }),
-/* 55 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // false -> Array#indexOf
 // true  -> Array#includes
-var toIObject = __webpack_require__(22);
-var toLength = __webpack_require__(32);
-var toAbsoluteIndex = __webpack_require__(56);
+var toIObject = __webpack_require__(24);
+var toLength = __webpack_require__(34);
+var toAbsoluteIndex = __webpack_require__(55);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
     var O = toIObject($this);
@@ -1705,10 +2625,10 @@ module.exports = function (IS_INCLUDES) {
 
 
 /***/ }),
-/* 56 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(20);
+var toInteger = __webpack_require__(22);
 var max = Math.max;
 var min = Math.min;
 module.exports = function (index, length) {
@@ -1718,13 +2638,13 @@ module.exports = function (index, length) {
 
 
 /***/ }),
-/* 57 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = __webpack_require__(10);
-var toObject = __webpack_require__(58);
-var IE_PROTO = __webpack_require__(23)('IE_PROTO');
+var has = __webpack_require__(9);
+var toObject = __webpack_require__(57);
+var IE_PROTO = __webpack_require__(25)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
 module.exports = Object.getPrototypeOf || function (O) {
@@ -1737,27 +2657,27 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 
 /***/ }),
-/* 58 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
-var defined = __webpack_require__(21);
+var defined = __webpack_require__(23);
 module.exports = function (it) {
   return Object(defined(it));
 };
 
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $iterators = __webpack_require__(60);
-var getKeys = __webpack_require__(31);
-var redefine = __webpack_require__(7);
-var global = __webpack_require__(4);
-var hide = __webpack_require__(6);
-var Iterators = __webpack_require__(12);
-var wks = __webpack_require__(3);
+var $iterators = __webpack_require__(59);
+var getKeys = __webpack_require__(33);
+var redefine = __webpack_require__(6);
+var global = __webpack_require__(3);
+var hide = __webpack_require__(5);
+var Iterators = __webpack_require__(11);
+var wks = __webpack_require__(2);
 var ITERATOR = wks('iterator');
 var TO_STRING_TAG = wks('toStringTag');
 var ArrayValues = Iterators.Array;
@@ -1812,21 +2732,21 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
 
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var addToUnscopables = __webpack_require__(61);
-var step = __webpack_require__(62);
-var Iterators = __webpack_require__(12);
-var toIObject = __webpack_require__(22);
+var addToUnscopables = __webpack_require__(60);
+var step = __webpack_require__(61);
+var Iterators = __webpack_require__(11);
+var toIObject = __webpack_require__(24);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
 // 22.1.3.29 Array.prototype.values()
 // 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = __webpack_require__(28)(Array, 'Array', function (iterated, kind) {
+module.exports = __webpack_require__(30)(Array, 'Array', function (iterated, kind) {
   this._t = toIObject(iterated); // target
   this._i = 0;                   // next index
   this._k = kind;                // kind
@@ -1853,20 +2773,20 @@ addToUnscopables('entries');
 
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 22.1.3.31 Array.prototype[@@unscopables]
-var UNSCOPABLES = __webpack_require__(3)('unscopables');
+var UNSCOPABLES = __webpack_require__(2)('unscopables');
 var ArrayProto = Array.prototype;
-if (ArrayProto[UNSCOPABLES] == undefined) __webpack_require__(6)(ArrayProto, UNSCOPABLES, {});
+if (ArrayProto[UNSCOPABLES] == undefined) __webpack_require__(5)(ArrayProto, UNSCOPABLES, {});
 module.exports = function (key) {
   ArrayProto[UNSCOPABLES][key] = true;
 };
 
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports) {
 
 module.exports = function (done, value) {
@@ -1875,26 +2795,26 @@ module.exports = function (done, value) {
 
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(29);
-var global = __webpack_require__(4);
+var LIBRARY = __webpack_require__(31);
+var global = __webpack_require__(3);
 var ctx = __webpack_require__(15);
-var classof = __webpack_require__(17);
-var $export = __webpack_require__(30);
-var isObject = __webpack_require__(8);
+var classof = __webpack_require__(19);
+var $export = __webpack_require__(32);
+var isObject = __webpack_require__(7);
 var aFunction = __webpack_require__(16);
-var anInstance = __webpack_require__(64);
-var forOf = __webpack_require__(65);
-var speciesConstructor = __webpack_require__(69);
-var task = __webpack_require__(35).set;
-var microtask = __webpack_require__(71)();
-var newPromiseCapabilityModule = __webpack_require__(36);
-var perform = __webpack_require__(72);
-var promiseResolve = __webpack_require__(73);
+var anInstance = __webpack_require__(63);
+var forOf = __webpack_require__(64);
+var speciesConstructor = __webpack_require__(68);
+var task = __webpack_require__(37).set;
+var microtask = __webpack_require__(70)();
+var newPromiseCapabilityModule = __webpack_require__(38);
+var perform = __webpack_require__(71);
+var promiseResolve = __webpack_require__(72);
 var PROMISE = 'Promise';
 var TypeError = global.TypeError;
 var process = global.process;
@@ -1908,7 +2828,7 @@ var USE_NATIVE = !!function () {
   try {
     // correct subclassing with @@species support
     var promise = $Promise.resolve(1);
-    var FakePromise = (promise.constructor = {})[__webpack_require__(3)('species')] = function (exec) {
+    var FakePromise = (promise.constructor = {})[__webpack_require__(2)('species')] = function (exec) {
       exec(empty, empty);
     };
     // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
@@ -2057,7 +2977,7 @@ if (!USE_NATIVE) {
     this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
     this._n = false;          // <- notify
   };
-  Internal.prototype = __webpack_require__(74)($Promise.prototype, {
+  Internal.prototype = __webpack_require__(73)($Promise.prototype, {
     // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
     then: function then(onFulfilled, onRejected) {
       var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
@@ -2088,9 +3008,9 @@ if (!USE_NATIVE) {
 }
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
-__webpack_require__(24)($Promise, PROMISE);
-__webpack_require__(75)(PROMISE);
-Wrapper = __webpack_require__(11)[PROMISE];
+__webpack_require__(26)($Promise, PROMISE);
+__webpack_require__(74)(PROMISE);
+Wrapper = __webpack_require__(10)[PROMISE];
 
 // statics
 $export($export.S + $export.F * !USE_NATIVE, PROMISE, {
@@ -2108,7 +3028,7 @@ $export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
     return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
   }
 });
-$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(76)(function (iter) {
+$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(75)(function (iter) {
   $Promise.all(iter)['catch'](empty);
 })), PROMISE, {
   // 25.4.4.1 Promise.all(iterable)
@@ -2155,7 +3075,7 @@ $export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(76)(function
 
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports) {
 
 module.exports = function (it, Constructor, name, forbiddenField) {
@@ -2166,15 +3086,15 @@ module.exports = function (it, Constructor, name, forbiddenField) {
 
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(15);
-var call = __webpack_require__(66);
-var isArrayIter = __webpack_require__(67);
-var anObject = __webpack_require__(5);
-var toLength = __webpack_require__(32);
-var getIterFn = __webpack_require__(68);
+var call = __webpack_require__(65);
+var isArrayIter = __webpack_require__(66);
+var anObject = __webpack_require__(4);
+var toLength = __webpack_require__(34);
+var getIterFn = __webpack_require__(67);
 var BREAK = {};
 var RETURN = {};
 var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
@@ -2197,11 +3117,11 @@ exports.RETURN = RETURN;
 
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
-var anObject = __webpack_require__(5);
+var anObject = __webpack_require__(4);
 module.exports = function (iterator, fn, value, entries) {
   try {
     return entries ? fn(anObject(value)[0], value[1]) : fn(value);
@@ -2215,12 +3135,12 @@ module.exports = function (iterator, fn, value, entries) {
 
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
-var Iterators = __webpack_require__(12);
-var ITERATOR = __webpack_require__(3)('iterator');
+var Iterators = __webpack_require__(11);
+var ITERATOR = __webpack_require__(2)('iterator');
 var ArrayProto = Array.prototype;
 
 module.exports = function (it) {
@@ -2229,13 +3149,13 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 68 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof = __webpack_require__(17);
-var ITERATOR = __webpack_require__(3)('iterator');
-var Iterators = __webpack_require__(12);
-module.exports = __webpack_require__(11).getIteratorMethod = function (it) {
+var classof = __webpack_require__(19);
+var ITERATOR = __webpack_require__(2)('iterator');
+var Iterators = __webpack_require__(11);
+module.exports = __webpack_require__(10).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
     || it['@@iterator']
     || Iterators[classof(it)];
@@ -2243,13 +3163,13 @@ module.exports = __webpack_require__(11).getIteratorMethod = function (it) {
 
 
 /***/ }),
-/* 69 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
-var anObject = __webpack_require__(5);
+var anObject = __webpack_require__(4);
 var aFunction = __webpack_require__(16);
-var SPECIES = __webpack_require__(3)('species');
+var SPECIES = __webpack_require__(2)('species');
 module.exports = function (O, D) {
   var C = anObject(O).constructor;
   var S;
@@ -2258,7 +3178,7 @@ module.exports = function (O, D) {
 
 
 /***/ }),
-/* 70 */
+/* 69 */
 /***/ (function(module, exports) {
 
 // fast apply, http://jsperf.lnkit.com/fast-apply/5
@@ -2280,11 +3200,11 @@ module.exports = function (fn, args, that) {
 
 
 /***/ }),
-/* 71 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(4);
-var macrotask = __webpack_require__(35).set;
+var global = __webpack_require__(3);
+var macrotask = __webpack_require__(37).set;
 var Observer = global.MutationObserver || global.WebKitMutationObserver;
 var process = global.process;
 var Promise = global.Promise;
@@ -2354,7 +3274,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -2367,12 +3287,12 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(5);
-var isObject = __webpack_require__(8);
-var newPromiseCapability = __webpack_require__(36);
+var anObject = __webpack_require__(4);
+var isObject = __webpack_require__(7);
+var newPromiseCapability = __webpack_require__(38);
 
 module.exports = function (C, x) {
   anObject(C);
@@ -2385,10 +3305,10 @@ module.exports = function (C, x) {
 
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var redefine = __webpack_require__(7);
+var redefine = __webpack_require__(6);
 module.exports = function (target, src, safe) {
   for (var key in src) redefine(target, key, src[key], safe);
   return target;
@@ -2396,15 +3316,15 @@ module.exports = function (target, src, safe) {
 
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var global = __webpack_require__(4);
+var global = __webpack_require__(3);
 var dP = __webpack_require__(14);
-var DESCRIPTORS = __webpack_require__(9);
-var SPECIES = __webpack_require__(3)('species');
+var DESCRIPTORS = __webpack_require__(8);
+var SPECIES = __webpack_require__(2)('species');
 
 module.exports = function (KEY) {
   var C = global[KEY];
@@ -2416,10 +3336,10 @@ module.exports = function (KEY) {
 
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ITERATOR = __webpack_require__(3)('iterator');
+var ITERATOR = __webpack_require__(2)('iterator');
 var SAFE_CLOSING = false;
 
 try {
@@ -2444,13 +3364,13 @@ module.exports = function (exec, skipClosing) {
 
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
+var lib_1 = __webpack_require__(1);
 /**
  * App Helper Methods
  * Helper methods designed to be run from the app web.
@@ -2760,13 +3680,13 @@ exports.App = new _App();
 //# sourceMappingURL=app.js.map
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /**
  * Context Information
  */
@@ -3352,16 +4272,262 @@ exports.ContextInfo = _ContextInfo;
 //# sourceMappingURL=contextInfo.js.map
 
 /***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var _1 = __webpack_require__(0);
+/*********************************************************************************************************************************/
+// Base
+// This is the base class for all objects.
+/*********************************************************************************************************************************/
+var Base = /** @class */ (function (_super) {
+    __extends(Base, _super);
+    /**
+     * Constructor
+     * @param targetInfo - The target information.
+     */
+    function Base(targetInfo) {
+        var _this = _super.call(this) || this;
+        // Default the properties
+        _this.targetInfo = Object.create(targetInfo || {});
+        _this.responses = [];
+        _this.requestType = 0;
+        _this.waitFlags = [];
+        return _this;
+    }
+    // Method to wait for the requests to complete
+    Base.prototype.done = function (callback) {
+        var _this = this;
+        // Ensure the base is set
+        this.base = this.base ? this.base : this;
+        // Ensure the response index is set
+        this.responseIndex = this.responseIndex >= 0 ? this.responseIndex : 0;
+        // Wait for the responses to execute
+        this.waitForRequestsToComplete(function () {
+            var responses = _this.base.responses;
+            // Clear the responses
+            _this.base.responses = [];
+            // Clear the wait flags
+            _this.base.waitFlags = [];
+            // Execute the callback back
+            callback ? callback.apply(_this, responses) : null;
+        });
+    };
+    // Method to get the request information
+    Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
+    // Method to stringify the object
+    Base.prototype.stringify = function () {
+        // Stringify the object
+        return JSON.stringify({
+            response: this.response,
+            status: this.status,
+            targetInfo: this.targetInfo
+        });
+    };
+    return Base;
+}(_1.BaseExecution));
+exports.Base = Base;
+//# sourceMappingURL=base.js.map
+
+/***/ }),
 /* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
-var mapper_1 = __webpack_require__(38);
-var types_1 = __webpack_require__(0);
-var _1 = __webpack_require__(1);
+var lib_1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
+/**
+ * Base Execution
+ */
+var BaseExecution = /** @class */ (function (_super) {
+    __extends(BaseExecution, _super);
+    function BaseExecution() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    // Method to execute this request as a batch request
+    BaseExecution.prototype.batch = function (arg) {
+        var callback = null;
+        var appendFl = false;
+        // See if the input is a boolean
+        if (typeof (arg) === "boolean") {
+            // Set the flag
+            appendFl = arg;
+        }
+        else {
+            // Set the callback
+            callback = arg;
+        }
+        // Set the base
+        this.base = this.base ? this.base : this;
+        // See if we are appending this request
+        if (appendFl && this.base.batchRequests) {
+            // Append the request
+            this.base.batchRequests[this.base.batchRequests.length - 1].push({
+                targetInfo: new _1.TargetInfo(this.targetInfo)
+            });
+        }
+        else {
+            // Ensure the batch requests exist
+            this.base.batchRequests = this.base.batchRequests || [];
+            // Create the request
+            this.base.batchRequests.push([{
+                    callback: callback,
+                    targetInfo: new _1.TargetInfo(this.targetInfo)
+                }]);
+        }
+        // Return this object
+        return this;
+    };
+    // Method to execute the request
+    BaseExecution.prototype.execute = function () {
+        var _this = this;
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        var callback = null;
+        var waitFl = false;
+        // Set the callback and wait flag
+        switch (args.length) {
+            case 1:
+                callback = typeof (args[0]) === "boolean" ? callback : args[0];
+                waitFl = typeof (args[0]) === "boolean" ? args[0] : waitFl;
+                break;
+            case 2:
+                callback = args[0];
+                waitFl = args[1];
+                break;
+        }
+        // Set the base
+        this.base = this.base ? this.base : this;
+        // Set the response index
+        this.responseIndex = this.base.responses.length;
+        // Add this object to the responses
+        this.base.responses.push(this);
+        // See if we are waiting for the responses to complete
+        if (waitFl) {
+            // Wait for the responses to execute
+            this.waitForRequestsToComplete(function () {
+                // Execute this request
+                _this.executeRequest(true, function (response) {
+                    // See if there is a callback
+                    if (callback) {
+                        // Set the base to this object, and clear requests
+                        // This will ensure requests from this object do not conflict w/ this request
+                        _this.base = _this;
+                        _this.base.responses = [];
+                        // Execute the callback and see if it returns a promise
+                        var returnVal = callback(response);
+                        if (returnVal && typeof (returnVal.done) === "function") {
+                            // Wait for the promise to complete
+                            returnVal.done(function () {
+                                // Reset the base
+                                _this.base = _this.parent.base;
+                                // Set the wait flag
+                                _this.base.waitFlags[_this.responseIndex] = true;
+                            });
+                            // Wait for the promise to complete
+                            return;
+                        }
+                        // Reset the base
+                        _this.base = _this.parent.base;
+                    }
+                    // Set the wait flag
+                    _this.base.waitFlags[_this.responseIndex] = true;
+                });
+            }, this.responseIndex);
+        }
+        else {
+            // Execute this request
+            this.executeRequest(true, function (response) {
+                // Execute the callback and see if it returns a promise
+                var returnVal = callback ? callback(response) : null;
+                if (returnVal && typeof (returnVal.done) === "function") {
+                    // Wait for the promise to complete
+                    returnVal.done(function () {
+                        // Set the wait flag
+                        _this.base.waitFlags[_this.responseIndex] = true;
+                    });
+                }
+                else {
+                    // Set the wait flag
+                    _this.base.waitFlags[_this.responseIndex] = true;
+                }
+            });
+        }
+        // Return this object
+        return this;
+    };
+    // Method to execute the request synchronously
+    BaseExecution.prototype.executeAndWait = function () { return this.executeRequest(false); };
+    // Method to wait for the parent requests to complete
+    BaseExecution.prototype.waitForRequestsToComplete = function (callback, requestIdx) {
+        var _this = this;
+        // Loop until the requests have completed
+        var intervalId = lib_1.ContextInfo.window.setInterval(function () {
+            var counter = 0;
+            // Parse the responses to the requests
+            for (var i = 0; i < _this.base.responses.length; i++) {
+                var response = _this.base.responses[i];
+                // See if we are waiting until a specified index
+                if (requestIdx == counter++) {
+                    break;
+                }
+                // Return if the request hasn't completed
+                if (response.xhr == null || !response.xhr.completedFl) {
+                    return;
+                }
+                // Ensure the wait flag is set for the previous request
+                if (counter > 0 && _this.base.waitFlags[counter - 1] != true) {
+                    return;
+                }
+            }
+            // Clear the interval
+            lib_1.ContextInfo.window.clearInterval(intervalId);
+            // Execute the callback
+            callback();
+        }, 10);
+    };
+    return BaseExecution;
+}(_1.BaseRequest));
+exports.BaseExecution = BaseExecution;
+//# sourceMappingURL=baseExecution.js.map
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(1);
+var mapper_1 = __webpack_require__(12);
+var _1 = __webpack_require__(0);
 /**
  * Request Helper
  */
@@ -3539,7 +4705,7 @@ var BaseHelper = /** @class */ (function () {
         // Ensure the request was successful
         if (this.status >= 200 && this.status < 300) {
             // Return if we are expecting a buffer
-            if (this.requestType == types_1.RequestType.GetBuffer) {
+            if (this.requestType == _1.RequestType.GetBuffer) {
                 return;
             }
             // Parse the responses
@@ -3627,13 +4793,37 @@ exports.BaseHelper = BaseHelper;
 //# sourceMappingURL=baseHelper.js.map
 
 /***/ }),
-/* 80 */
+/* 81 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+__export(__webpack_require__(82));
+__export(__webpack_require__(83));
+__export(__webpack_require__(84));
+__export(__webpack_require__(85));
+__export(__webpack_require__(86));
+__export(__webpack_require__(87));
+__export(__webpack_require__(88));
+__export(__webpack_require__(89));
+__export(__webpack_require__(90));
+__export(__webpack_require__(91));
+__export(__webpack_require__(92));
+__export(__webpack_require__(93));
+//# sourceMappingURL=mapper.js.map
+
+/***/ }),
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
+var utils_1 = __webpack_require__(0);
 /**
  * Audit
  */
@@ -3641,47 +4831,1976 @@ exports.audit = {
     // Queries the collection
     query: {
         argNames: ["oData"],
-        requestType: types_1.RequestType.OData
+        requestType: utils_1.RequestType.OData
     }
 };
-//# sourceMappingURL=mapper.js.map
+//# sourceMappingURL=audit.js.map
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
 /**
- * Request Type
+ * Event Receiver
  */
-exports.RequestType = {
-    // Requests
-    Custom: 0,
-    Delete: 1,
-    Merge: 2,
-    OData: 3,
-    // Get Requests
-    Get: 10,
-    GetBuffer: 11,
-    GetWithArgs: 12,
-    GetWithArgsInBody: 13,
-    GetWithArgsInQS: 14,
-    GetWithArgsValueOnly: 15,
-    GetReplace: 16,
-    // Post Requests
-    Post: 20,
-    PostWithArgs: 21,
-    PostWithArgsInBody: 22,
-    PostWithArgsInQS: 23,
-    PostWithArgsValueOnly: 24,
-    PostReplace: 25
+exports.eventreceiver = {
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.EventReceiverDefinition",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    }
 };
-//# sourceMappingURL=requestType.js.map
+/**
+ * Event Receivers
+ */
+exports.eventreceivers = {
+    // Adds an event receiver to the collection.
+    add: {
+        metadataType: "SP.EventReceiverDefinition",
+        name: "",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Gets an event receiver by it's id.
+    getById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "eventreceiver"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+//# sourceMappingURL=eventReceiver.js.map
 
 /***/ }),
-/* 82 */
+/* 84 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/**
+ * Attachment
+ */
+exports.attachment = {};
+/**
+ * Attachment Files
+ */
+exports.attachmentfiles = {
+    /**
+     * Adds the attachment that is represented by the specified file name and byte array to the list item.
+     * @param name - The name of the file to add.
+     * @param contents - The file contents as an array buffer.
+    **/
+    add: {
+        argNames: ["fileName"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * File
+ */
+exports.file = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "Author|user", "CheckedOutByUser|user", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
+        "ListItemAllFields", "LockedByUser|user", "ModifiedBy|user", "Properties|propertyvalues", "VersionEvents", "Versions|fileversions"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Approves the file submitted for content approval with the specified comment.
+    approve: {
+        argNames: ["comment"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Stops the chunk upload session without saving the uploaded data. If the file doesn’t already exist in the library, the partially uploaded file will be deleted. Use this in response to user action (as in a request to cancel an upload) or an error or exception.
+    // Use the uploadId value that was passed to the StartUpload method that started the upload session.
+    // This method is currently available only on Office 365.
+    cancelupload: {
+        argNames: ["uploadId"],
+        name: "cancelupload(guid'[[uploadId]]')",
+        requestType: utils_1.RequestType.PostReplace
+    },
+    // Checks the file in to a document library based on the check-in type.
+    // Check-In Types: MinorCheckIn = 0; MajorCheckIn = 1; OverwriteCheckIn = 2
+    checkin: {
+        argNames: ["comment", "checkInType"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Checks out the file from a document library based on the check-out type.
+    checkout: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Returns the file content.
+    content: {
+        name: "$value",
+        requestType: utils_1.RequestType.GetBuffer
+    },
+    // Continues the chunk upload session with an additional fragment. The current file content is not changed.
+    // Use the uploadId value that was passed to the StartUpload method that started the upload session.
+    // This method is currently available only on Office 365.
+    continueUpload: {
+        argNames: ["uploadId", "fileOffset"],
+        name: "continueUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
+        requestType: utils_1.RequestType.PostReplace
+    },
+    // Copies the file to the destination URL.
+    copyTo: {
+        argNames: ["strNewUrl", "bOverWrite"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Denies approval for a file that was submitted for content approval.
+    // Only documents in lists that are enabled for content approval can be denied.
+    deny: {
+        argNames: ["comment"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Uploads the last file fragment and commits the file. The current file content is changed when this method completes.
+    // Use the uploadId value that was passed to the StartUpload method that started the upload session.
+    // This method is currently available only on Office 365.
+    finishUpload: {
+        argNames: ["uploadId", "fileOffset"],
+        name: "finishUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
+        requestType: utils_1.RequestType.PostReplace
+    },
+    // Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
+    // An exception is thrown if the file is not an ASPX page.
+    // Type of scopes: 
+    getlimitedwebpartmanager: {
+        argNames: ["scope"],
+        name: "getLimitedWebPartManager(scope=[[scope]])",
+        requestType: utils_1.RequestType.GetReplace
+    },
+    // Moves the file to the specified destination URL.
+    // Types of move operations: Overwrite = 1; AllowBrokenThickets (move even if supporting files are separated from the file) = 8.
+    moveTo: {
+        argNames: ["newUrl", "flags"],
+        name: "moveTo(newUrl='[[newUrl]]', flags=[[flags]])",
+        requestType: utils_1.RequestType.PostReplace
+    },
+    // Opens the file as a stream.
+    openBinaryStream: {
+        requestType: utils_1.RequestType.GetBuffer
+    },
+    // Submits the file for content approval with the specified comment.
+    publish: {
+        argNames: ["comment"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+    recycle: {
+        requestType: utils_1.RequestType.Get
+    },
+    // Saves the file as a stream.
+    saveBinaryStream: {
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Starts a new chunk upload session and uploads the first fragment. The current file content is not changed when this method completes.
+    // The method is idempotent (and therefore does not change the result) as long as you use the same values for uploadId and stream.
+    // The upload session ends either when you use the CancelUpload method or when you successfully complete the upload session by passing the rest of the file contents through the ContinueUpload and FinishUpload methods.
+    startUpload: {
+        argNames: ["uploadId"],
+        name: "startupload(uploadId=guid'[[uploadId]]')",
+        requestType: utils_1.RequestType.PostReplace
+    },
+    // Reverts an existing checkout for the file.
+    undoCheckOut: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Removes the file from content approval or unpublish a major version.
+    unpublish: {
+        argNames: ["comment"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.File",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    }
+};
+/**
+ * Files
+ */
+exports.files = {
+    // Adds a file to this collection.
+    add: {
+        argNames: ["overwrite", "url"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Adds a ghosted file to an existing list or document library.
+    // Template File Types: StandardPage = 0; WikiPage = 1; FormPage = 2
+    addTemplateFile: {
+        argNames: ["urlOfFile", "templateFileType"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Get the file at the specified URL.
+    getByUrl: {
+        argNames: ["serverRelativeUrl"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "file"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * File Version
+ */
+exports.fileversion = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * File Versions
+ */
+exports.fileversions = {
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * Folder
+ */
+exports.folder = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
+        "ParentFolder|folder", "Properties|propertyvalues", "StorageMetrics"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Get the file at the specified URL.
+    getByUrl: {
+        argNames: ["serverRelativeUrl"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "folder"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+    recycle: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.Folder",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    }
+};
+/**
+ * Folders
+ */
+exports.folders = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
+        "ParentFolder", "StorageMetrics"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Adds the folder that is located at the specified URL to the collection.
+    add: {
+        argNames: ["url"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Get the file at the specified URL.
+    getbyurl: {
+        argNames: ["serverRelativeUrl"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "folder"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * Limited Web Part Manager
+ */
+exports.limitedwebpartmanager = {
+    // Gets a webpart by its id.
+    get_WebParts: {
+        argNames: ["id"],
+        name: "webparts?expand=WebPart",
+        requestType: utils_1.RequestType.GetReplace
+    }
+};
+//# sourceMappingURL=file.js.map
+
+/***/ }),
+/* 85 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/**
+ * Content Type
+ */
+exports.contenttype = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "FieldLinks|fieldlinks|('[Name]')|fieldlink", "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "WorkflowAssociations"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Deletes the content type.
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.ContentType",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    }
+};
+/**
+ * Content Types
+ */
+exports.contenttypes = {
+    // Adds a content type to the collection.
+    add: {
+        metadataType: "SP.ContentType",
+        name: "",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Adds an existing content type to this collection.
+    addAvailableContentType: {
+        argNames: ["contentTypeId"],
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Gets a content type by id.
+    getById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "contenttype"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * Field
+ */
+exports.field = {
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Sets the value of the ShowInDisplayForm property for this field.
+    setShowInDisplayForm: {
+        argNames: ["showInForm"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    // Sets the value of the ShowInEditForm property for this field.
+    setShowInEditForm: {
+        argNames: ["showInForm"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    // Sets the value of the ShowInNewForm property for this field.
+    setShowInNewForm: {
+        argNames: ["showInForm"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    // Updates it's properties.
+    update: {
+        inheritMetadataType: true,
+        name: "",
+        requestMethod: "MERGE",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    }
+};
+/**
+ * Field Links
+ */
+exports.fieldlinks = {
+    // Adds a field link to the collection.
+    add: {
+        argNames: ["data"],
+        metadataType: "SP.FieldLink",
+        name: "",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Gets a field link by it's id.
+    getById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "fieldlink"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * Fields
+ */
+exports.fields = {
+    // Adds a field to the field collection.
+    add: {
+        metadataType: "SP.Field",
+        name: "",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Adds a field to the field collection.
+    addField: {
+        argNames: ["parameters"],
+        metadataType: "SP.FieldCreationInformation",
+        name: "addField",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
+    addDependentLookupField: {
+        argNames: ["displayname", "primarylookupfieldid", "showfield"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Creates a field based on the specified schema, Boolean value, and field options.
+    // Set the option to addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
+    createFieldAsXml: {
+        argNames: ["schemaXml"],
+        requestType: utils_1.RequestType.PostWithArgsInBody,
+        data: {
+            parameters: {
+                __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
+                Options: 8,
+                SchemaXml: "[[schemaXml]]"
+            }
+        }
+    },
+    // Gets the field with the specified ID.
+    getById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly,
+        returnType: "field"
+    },
+    // Returns the first Field object with the specified internal name or title from the collection.
+    getByInternalNameOrTitle: {
+        argNames: ["internalNameOrTitle"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly,
+        returnType: "field"
+    },
+    // Returns the first field object in the collection based on the title of the specified field.
+    getByTitle: {
+        argNames: ["title"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly,
+        returnType: "field"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * Items
+ */
+exports.items = {
+    // Adds an item to the list item collection.
+    add: {
+        metadataType: function (obj) {
+            return (obj.parent && obj.parent["ListItemEntityTypeFullName"]) || "SP.ListItem";
+        },
+        name: "",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Gets an item by its id.
+    getById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "listitem"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * List
+ */
+exports.list = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "BrowserFileHandling", "ContentTypes|contenttypes|('[Name]')|contenttype", "CreatablesInfo", "DefaultView|view",
+        "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Fields|fields|/getByInternalNameOrTitle('[Name]')|field",
+        "FirstUniqueAncestorSecurableObject", "Forms|forms|('[Name]')|form", "InformationRightsManagementSettings",
+        "Items|items|([Name])|item", "ParentWeb", "RoleAssignments|roleassignments|([Name])|roleassignment",
+        "RootFolder|folder|/getByUrl('[Name]')|file", "Subscriptions", "TitleResource",
+        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "Views|views|('[Name]')|view", "WorkflowAssociations"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Creates unique role assignments for the securable object.
+    breakRoleInheritance: {
+        argNames: ["copyroleassignments", "clearsubscopes"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
+    getChanges: {
+        argNames: ["query"],
+        metadataType: "SP.ChangeQuery",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Returns an item based on the id.
+    getItemById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "item"
+    },
+    // Returns a collection of items from the list based on the view xml.
+    getItems: {
+        argNames: ["viewXml"],
+        requestType: utils_1.RequestType.PostWithArgsInBody,
+        data: {
+            query: {
+                __metadata: { type: "SP.CamlQuery" },
+                ViewXml: "[[viewXml]]"
+            }
+        }
+    },
+    // Returns a collection of items from the list based on the specified query.
+    getItemsByQuery: {
+        argNames: ["camlQuery"],
+        name: "getItems",
+        requestType: utils_1.RequestType.PostWithArgsInBody,
+        data: {
+            query: {
+                __metadata: { type: "SP.CamlQuery" },
+                ViewXml: "<View>[[camlQuery]]</View>"
+            }
+        }
+    },
+    // Returns a collection of items from the list based on the specified query.
+    getListItemChangesSinceToken: {
+        argNames: ["query"],
+        metadataType: "SP.ChangeLogItemQuery",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
+    getRelatedFields: {
+        requestType: utils_1.RequestType.Get
+    },
+    // Gets the effective user permissions for the current user.
+    getUserEffectivePermissions: {
+        argNames: ["loginName"],
+        name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
+        requestType: utils_1.RequestType.GetReplace
+    },
+    // Returns the list view with the specified view identifier.
+    getViewById: {
+        argNames: ["viewId"],
+        name: "getView",
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "view"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+    recycle: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Renders the list data.
+    renderListData: {
+        argNames: ["viewXml"],
+        name: "renderListData(@v)?@v='<View>[[viewXml]]</View>'",
+        requestType: utils_1.RequestType.PostReplace
+    },
+    // Renders the list form data.
+    // Types of modes: 1 - Display, 2 - Edit, 3 - New
+    renderListFormData: {
+        argNames: ["itemid", "formid", "mode"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Reserves a list item ID for idempotent list item creation.
+    reserveListItemId: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+    resetRoleInheritance: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.List",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    }
+};
+/**
+ * List Item
+ */
+exports.listitem = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "AttachmentFiles|attachmentfiles|('[Name]')|attachment", "ContentType|contenttype", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
+        "File|file", "FirstUniqueAncestorSecurableObject", "Folder|folder", "GetDlpPolicyTip", "ParentList|list",
+        "Properties|propertyvalues", "RoleAssignments|roleassignments|roleassignments|([Name])|roleassignment"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Creates unique role assignments for the securable object.
+    breakRoleInheritance: {
+        argNames: ["copyroleassignments", "clearsubscopes"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Gets the effective permissions that a specified user has on the list item.
+    getUserEffectivePermissions: {
+        argNames: ["loginName"],
+        name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
+        requestType: utils_1.RequestType.GetReplace
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+    recycle: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+    resetRoleInheritance: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Updates it's properties.
+    update: {
+        inheritMetadataType: true,
+        name: "",
+        requestMethod: "MERGE",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Validates and sets the values of the specified collection of fields for the list item.
+    validateUpdateListItem: {
+        argNames: ["formValues", "bNewDocumentUpdate"],
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    }
+};
+/**
+ * Lists
+ */
+exports.lists = {
+    // Adds a list to the list collection.
+    add: {
+        metadataType: "SP.List",
+        name: "",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
+    ensureSiteAssetsLibrary: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Gets a list that is the default location for wiki pages.
+    ensureSitePagesLibrary: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Returns the list with the specified list identifier.
+    getById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "list"
+    },
+    // Returns the list with the specified title from the collection.
+    getByTitle: {
+        argNames: ["title"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "list"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * Version
+ */
+exports.version = {
+    // Gets the version with the specified ID.
+    getById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "version"
+    },
+    // Deletes all versions in the collection.
+    deleteAll: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Deletes a version, by the specified id.
+    deleteById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    // Deletes a version, by the specified label.
+    deleteByLabel: {
+        argNames: ["label"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Restores a version, by the specified label.
+    restoreByLabel: {
+        argNames: ["label"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    }
+};
+/**
+ * View
+ */
+exports.view = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "ViewFields|viewfieldcollection"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Returns the list view as HTML.
+    renderAsHtml: {
+        requestType: utils_1.RequestType.Get
+    },
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.View",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    }
+};
+/**
+ * View Field Collection
+ */
+exports.viewfieldcollection = {
+    // Adds the field with the specified field internal name or display name to the collection.
+    addViewField: {
+        argNames: ["fieldName"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    // Moves the field with the specified field internal name to the specified position in the collection.
+    moveViewFieldTo: {
+        argNames: ["field", "index"],
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Removes all the fields from the collection.
+    removeAllViewFields: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Removes the field with the specified field internal name from the collection.
+    removeViewField: {
+        argNames: ["fieldName"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly
+    }
+};
+/**
+ * Views
+ */
+exports.views = {
+    // Adds a view to the view collection.
+    add: {
+        metadataType: "SP.View",
+        name: "",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Gets the list view with the specified ID.
+    getById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "view"
+    },
+    // Gets the list view with the specified title.
+    getByTitle: {
+        argNames: ["title"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "view"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+//# sourceMappingURL=list.js.map
+
+/***/ }),
+/* 86 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/**
+ * Navigation
+ */
+exports.navigationservicerest = {
+    /**
+     * Properties
+     */
+    properties: [
+        "MenuState|menustate|([Name])|menunode"
+    ],
+    /**
+     * Methods
+     */
+    // Method to get the menu state.
+    getMenuState: {
+        argNames: ["menuNodeKey", "depth", "customProperties", "mapProviderName"],
+        name: "MenuState",
+        RequestType: utils_1.RequestType.GetWithArgsInQS
+    }
+};
+//# sourceMappingURL=navigation.js.map
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/**
+ * Property Values
+ */
+exports.propertyvalues = {
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+//# sourceMappingURL=propertyValues.js.map
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/**
+ * Search
+ */
+exports.search = {
+    postquery: {
+        argNames: ["request"],
+        metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    }
+};
+//# sourceMappingURL=search.js.map
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/**
+ * Role Assignment
+ */
+exports.roleassignment = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "Member", "RoleDefinitionBindings|roledefinitions"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * Role Assignments
+ */
+exports.roleassignments = {
+    // Adds a new role assignment with the specified principal and role definitions to the collection.
+    addRoleAssignment: {
+        argNames: ["principalId", "roleDefId"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Gets the role assignment associated with the specified principal ID from the collection.
+    getByPrincipalId: {
+        argNames: ["principalId"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "roleassignment"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Gets the role definition with the specified role type.
+    removeRoleAssignment: {
+        argNames: ["principalId", "roleDefId"],
+        requestType: utils_1.RequestType.PostWithArgs
+    }
+};
+/**
+ * Role Definition
+ */
+exports.roledefinition = {
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * Role Definitions
+ */
+exports.roledefinitions = {
+    // Gets the role definition with the specified ID from the collection.
+    getById: {
+        argNames: ["roleDefId"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "roledefinition"
+    },
+    // Gets the role definition with the specified name.
+    getByName: {
+        argNames: ["name"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "roledefinition"
+    },
+    // Gets the role definitions with the specified role type.
+    getByType: {
+        argNames: ["roleType"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "roledefinitions"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+//# sourceMappingURL=security.js.map
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/**
+ * Site
+ */
+exports.site = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features", "Owner|user", "RootWeb|web",
+        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
+    createPreviewSPSite: {
+        argNames: ["upgrade", "sendemail"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Extend the upgrade reminder date for this SPSite by the days specified at WebApplication.UpgradeReminderDelay.
+    extendUpgradeReminderDate: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
+    getCatalog: {
+        argNames: ["typeCatalog"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    // Specifies the collection of the site collection changes from the change log that have occurred within the scope of the site collection, based on the specified query.
+    getChanges: {
+        argNames: ["query"],
+        metadataType: "SP.ChangeQuery",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Specifies the collection of custom list templates for a given site.
+    getCustomListTemplates: {
+        argNames: ["web"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Returns the collection of site definitions that are available for creating Web sites within the site collection.
+    getWebTemplates: {
+        argNames: ["LCID", "overrideCompatLevel"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Invalidates cached upgrade information about the site collection so that this information will be recomputed the next time it is needed.
+    invalidate: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Returns true if the object needs to be upgraded; otherwise, false.
+    needsUpgradeByType: {
+        argNames: ["versionUpgrade", "recursive"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Returns the site at the specified URL.
+    openWeb: {
+        argNames: ["strUrl"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    // Returns the site with the specified GUID.
+    openWebById: {
+        argNames: ["gWebId"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    // Queries the object
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
+    runHealthCheck: {
+        argNames: ["ruleId", "bRepair", "bRunAlways"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Either runs a site collection upgrade, or schedules it to be run in the future, depending on available system resources and the value of the queueOnly parameter. The user executing this method MUST be a farm administrator or a site collection administrator.
+    runUpgradeSiteSession: {
+        argNames: ["versionUpgrade", "queueOnly", "sendEmail"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.Site",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Sets whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
+    updateClientObjectModelUseRemoteAPIsPermissionSetting: {
+        argNames: ["requireUseRemoteAPIs"],
+        requestType: utils_1.RequestType.PostWithArgs
+    }
+};
+/**
+ * Tenant App
+ */
+exports.tenantapp = {
+    // Deploy solution package in tenant app catalog
+    deploy: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Install solution package from tenant app catalog to SharePoint site
+    install: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Queries the object
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Remove solution package from tenant app catalog
+    remove: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Retract solution package in the tenant app catalog
+    retract: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Upgrade solution package in SharePoint site
+    upgrade: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Uninstall solution package from SharePoint site
+    uninstall: {
+        requestType: utils_1.RequestType.Post
+    }
+};
+/**
+ * Tenant Apps
+ */
+exports.tenantapps = {
+    // Get an app by id
+    getById: {
+        argNames: ["guid"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "tenantapp"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * Tenant App Catalog
+ */
+exports.tenantappcatalog = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "AvailableApps|tenantapps|/getById('[Id]')|tenantapp"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Adds the folder that is located at the specified URL to the collection.
+    add: {
+        argNames: ["overwrite", "url"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Get an app by id.
+    getById: {
+        argNames: ["guid"],
+        name: "AvailableApps/getById('[[guid]]')",
+        requestType: utils_1.RequestType.GetReplace,
+        returnType: "tenantapp"
+    },
+    // Gets the site collection app catalog sites
+    SiteCollectionAppCatalogsSites: {
+        requestType: utils_1.RequestType.Post
+    }
+};
+/**
+ * Utility
+ */
+exports.utility = {
+    createEmailBodyForInvitation: {
+        argNames: ["pageAddress"],
+        name: "SP.Utilities.Utility.CreateEmailBodyForInvitation",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    getAppLicenseDeploymentId: {
+        name: "SP.Utilities.Utility.GetAppLicenseDeploymentId",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.Get
+    },
+    getAppLicenseInformation: {
+        name: "SP.Utilities.Utility.GetAppLicenseInformation",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.Get
+    },
+    getCurrentUserEmailAddresses: {
+        name: "SP.Utilities.Utility.GetCurrentUserEmailAddresses",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.Get
+    },
+    getLocalizedString: {
+        argNames: ["sourceValue"],
+        name: "SP.Utilities.Utility.GetLocalizedString",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.GetWithArgsValueOnly
+    },
+    getLowerCaseString: {
+        argNames: ["sourceValue", "lcid"],
+        name: "SP.Utilities.Utility.GetLowerCaseString",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    importAppLicense: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.ImportAppLicense",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    isUserLicensedForEntityInContext: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.IsUserLicensedForEntityInContext",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    localizeWebPartGallery: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.LocalizeWebPartGallery",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    markDiscussionAsFeatured: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.MarkDiscussionAsFeatured",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    resolvePrincipal: {
+        name: "SP.Utilities.Utility.ResolvePrincipalInCurrentContext",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.Post
+    },
+    searchPrincipals: {
+        name: "SP.Utilities.Utility.SearchPrincipalsUsingContextWeb",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.Post
+    },
+    unmarkDiscussionAsFeatured: {
+        argNames: ["url"],
+        name: "SP.Utilities.Utility.UnmarkDiscussionAsFeatured",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    }
+};
+/**
+ * Web
+ */
+exports.web = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "AllProperties|propertyvalues", "AppTiles", "AssociatedMemberGroup|group", "AssociatedOwnerGroup|group",
+        "AssociatedVisitorGroup|group", "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields",
+        "ClientWebParts", "ContentTypes|contenttypes|('[Name]')|contenttype", "CurrentUser|user", "DataLeakagePreventionStatusInfo",
+        "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features",
+        "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "FirstUniqueAncestorSecurableObject",
+        "Folders|folders|/getByUrl('[Name]')|folder", "Lists|lists|/getByTitle('[Name]')|list",
+        "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb",
+        "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
+        "RoleDefinitions|roledefinitions|/getByName('[Name]')|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
+        "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user",
+        "TenantAppCatalog|tenantappcatalog", "ThemeInfo", "TitleResource",
+        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos|webinfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Applies the theme specified by the contents of each of the files specified in the arguments to the site.
+    applyTheme: {
+        argNames: ["colorpaletteurl", "fontschemeurl", "backgroundimageurl", "sharegenerated"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Applies the specified site definition or site template to the Web site that has no template applied to it.
+    applyWebTemplate: {
+        argName: ["name"],
+        requestType: utils_1.RequestType.PostWithArgsInQS
+    },
+    // Creates unique role assignments for the securable object.
+    breakRoleInheritance: {
+        argNames: ["copyroleassignments", "clearsubscopes"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Checks whether the push notification subscriber exist for the current user with the given device application instance ID.
+    doesPushNotificationSubscriberExist: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly
+    },
+    // Returns whether the current user has the given set of permissions.
+    doesUserHavePermissions: {
+        argNames: ["High", "Low"],
+        requestType: utils_1.RequestType.GetWithArgsInQS
+    },
+    // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
+    ensureUser: {
+        argNames: ["logonName"],
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Sends data to an OData service.
+    executeRemoteLOB: {
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Gets the app BDC catalog.
+    getAppBdcCatalog: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Gets the app BDC catalog for the specified app instance.
+    getAppBdcCatalogForAppInstance: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    // Retrieves an AppInstance installed on this Site.
+    getAppInstanceById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly
+    },
+    // Retrieves all AppInstances installed on this site that are instances of the specified App.
+    getAppInstancesByProductId: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly
+    },
+    // Returns a collection of site templates available for the site.
+    getAvailableWebTemplates: {
+        argNames: ["lcid", "doincludecrosslanguage"],
+        requestType: utils_1.RequestType.GetWithArgs
+    },
+    // Returns the list gallery on the site.
+    getCatalog: {
+        argNames: ["galleryType"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly
+    },
+    // Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
+    getChanges: {
+        argNames: ["query"],
+        metadataType: "SP.ChangeQuery",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Gets the context information for the site. Static method.
+    getContextWebInformation: {
+        name: "contextInfo",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.Post
+    },
+    // Gets the custom list templates for the site.
+    getCustomListTemplates: {
+        requestType: utils_1.RequestType.Get
+    },
+    // Gets the document libraries on a site. Static method. (SharePoint Online only)
+    getDocumentLibraries: {
+        argNames: ["url"],
+        name: "sp.web.getDocumentLibraries",
+        requestType: utils_1.RequestType.GetWithArgsInQS
+    },
+    // Gets the specified external content type in a line-of-business (LOB) system application.
+    getEntity: {
+        argNames: ["namespace", "name"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Returns the file object located at the specified server-relative URL.
+    getFileByServerRelativeUrl: {
+        argNames: ["url"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "file"
+    },
+    // Returns the folder object located at the specified server-relative URL.
+    getFolderByServerRelativeUrl: {
+        argNames: ["url"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "folder"
+    },
+    // Gets the list at the specified site-relative URL. (SharePoint Online only)
+    getList: {
+        argNames: ["url"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "list"
+    },
+    // Gets the push notification subscriber over the site for the specified device application instance ID.
+    getPushNotificationSubscriber: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly
+    },
+    // Queries for the push notification subscribers over the site for the specified value of custom arguments. Null or empty custom arguments will return subscribers without any filtering.
+    getPushNotificationSubscribersByArgs: {
+        argNames: ["args"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly
+    },
+    // Queries for the push notification subscribers over the site for the specified user.
+    getPushNotificationSubscribersByUser: {
+        argNames: ["loginName"],
+        requestType: utils_1.RequestType.GetWithArgsInQS
+    },
+    // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
+    getSubwebsFilteredForCurrentUser: {
+        argNames: ["nwebtemplatefilter", "nconfigurationfilter"],
+        requestType: utils_1.RequestType.GetWithArgs,
+        returnType: "webinfos"
+    },
+    // Returns the user corresponding to the specified member identifier for the current site.
+    getUserById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "user"
+    },
+    // Gets the effective permissions that the specified user has within the current application scope.
+    getUserEffectivePermissions: {
+        argNames: ["loginName"],
+        name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
+        requestType: utils_1.RequestType.GetReplace
+    },
+    // Gets the site URL from a page URL. Static method.
+    getWebUrlFromPageUrl: {
+        name: "sp.web.getWebUrlFromPageUrl",
+        requestType: utils_1.RequestType.GetWithArgsInQS
+    },
+    // Uploads and installs an app package to this site.
+    loadAndInstallApp: {
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Uploads and installs an App package on the site in a specified locale.
+    loadAndInstallAppInSpecifiedLocale: {
+        argNames: ["appPackageStream", "installationLocaleLCID"],
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Uploads an App package and creates an instance from it.
+    loadApp: {
+        argNames: ["appPackageStream", "installationLocaleLCID"],
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Returns the name of the image file for the icon that is used to represent the specified file.
+    mapToIcon: {
+        argNames: ["filename", "progid", "size"],
+        requestType: utils_1.RequestType.GetWithArgs
+    },
+    // Processes a notification from an external system.
+    processExternalNotification: {
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Queries the object
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
+    registerPushNotificationSubscriber: {
+        argNames: ["deviceappinstanceid", "servicetoken"],
+        requestType: utils_1.RequestType.PostWithArgs
+    },
+    // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+    resetRoleInheritance: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Unregisters the subscriber for push notifications from the site.
+    unregisterPushNotificationSubscriber: {
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.Web",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    }
+};
+/**
+ * Web Information Collection
+ */
+exports.webinfos = {
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * Webs
+ */
+exports.webs = {
+    add: {
+        argNames: ["parameters"],
+        metadataType: "SP.WebCreationInformation",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+//# sourceMappingURL=site.js.map
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/**
+ * People Manager
+ */
+exports.peoplemanager = {
+    amIFollowedBy: {
+        argNames: ["accountName"],
+        requestType: utils_1.RequestType.GetWithArgsInQS
+    },
+    amIFollowing: {
+        argNames: ["accountName"],
+        requestType: utils_1.RequestType.GetWithArgsInQS
+    },
+    follow: {
+        argNames: ["accountName"],
+        requestType: utils_1.RequestType.PostWithArgsInQS
+    },
+    followTag: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    getFollowedTags: {
+        argNames: ["maxCount"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly
+    },
+    getFollowersFor: {
+        argNames: ["accountName"],
+        requestType: utils_1.RequestType.GetWithArgsInQS
+    },
+    getMyFollowers: {
+        requestType: utils_1.RequestType.Get
+    },
+    getMyProperties: {
+        requestType: utils_1.RequestType.Get
+    },
+    getMySuggestions: {
+        requestType: utils_1.RequestType.Get
+    },
+    getPeopleFollowedBy: {
+        argNames: ["accountName"],
+        requestType: utils_1.RequestType.GetWithArgsInQS
+    },
+    getPeopleFollowedByMe: {
+        requestType: utils_1.RequestType.Get
+    },
+    getPropertiesFor: {
+        argNames: ["accountName"],
+        requestType: utils_1.RequestType.GetWithArgsInQS
+    },
+    getTrendingTags: {
+        name: "sp.userprofiles.peoplemanager.gettrendingtags",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.Get
+    },
+    getUserProfilePropertyFor: {
+        argNames: ["accountName", "propertyName"],
+        requestType: utils_1.RequestType.GetWithArgsInQS
+    },
+    hideSuggestion: {
+        argNames: ["accountName"],
+        requestType: utils_1.RequestType.PostWithArgsInQS
+    },
+    isFollowing: {
+        argNames: ["possibleFollowerAccountName", "possibleFolloweeAccountName"],
+        name: "sp.userprofiles.peoplemanager.isfollowing",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.GetWithArgsInQS
+    },
+    setMyProfilePicture: {
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    stopFollowing: {
+        argNames: ["accountName"],
+        requestType: utils_1.RequestType.PostWithArgsInQS
+    },
+    stopFollowingTag: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+};
+/**
+ * Profile Loader
+ */
+exports.profileloader = {
+    createPersonalSiteEnqueueBulk: {
+        argNames: ["emailIDs"],
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    getOwnerUserProfile: {
+        name: "sp.userprofiles.profileloader.getowneruserprofile",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.Post,
+        returnType: "userprofile"
+    },
+    getUserProfile: {
+        requestType: utils_1.RequestType.Post,
+        returnType: "userprofile"
+    },
+};
+/**
+ * Social Feed
+ */
+exports.socialfeed = {
+    actor: {
+        argNames: ["accountName"],
+        name: "actor(item=@v)?@v='[[accountName]]'",
+        requestType: utils_1.RequestType.GetReplace
+    },
+    actorFeed: {
+        argNames: ["accountName"],
+        name: "actor(item=@v)/feed?@v='[[accountName]]'",
+        requestType: utils_1.RequestType.GetReplace
+    },
+    clearMyUnreadMentionCount: {
+        name: "my/mentionfeed/clearMyUnreadMentionCount",
+        requestType: utils_1.RequestType.Post
+    },
+    my: {
+        name: "my",
+        requestType: utils_1.RequestType.Get
+    },
+    myFeed: {
+        name: "my/feed",
+        requestType: utils_1.RequestType.Get
+    },
+    myLikes: {
+        name: "my/likes",
+        requestType: utils_1.RequestType.Get
+    },
+    myMentionFeed: {
+        name: "my/mentionfeed",
+        requestType: utils_1.RequestType.Get
+    },
+    myNews: {
+        name: "my/news",
+        requestType: utils_1.RequestType.Get
+    },
+    myTimelineFeed: {
+        name: "my/timelinefeed",
+        requestType: utils_1.RequestType.Get
+    },
+    myUnreadMentionCount: {
+        name: "my/unreadmentioncount",
+        requestType: utils_1.RequestType.Get
+    }
+};
+/**
+ * User Profile
+ */
+exports.userprofile = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "PersonalSite|site"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    createPersonalSiteEnque: {
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    shareAllSocialData: {
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    }
+};
+//# sourceMappingURL=social.js.map
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/**
+ * Group
+ */
+exports.group = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "Users|users|/getById([Name])|user"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * Site Groups
+ */
+exports.sitegroups = {
+    // Adds a group to the group collection.
+    add: {
+        metadataType: "SP.Group",
+        name: "",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Returns a group from the collection based on the member ID of the group.
+    getById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "group"
+    },
+    // Returns a cross-site group from the collection based on the name of the group.
+    getByName: {
+        argNames: ["name"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "group"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Removes the group with the specified member ID from the collection.
+    removeById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    // Removes the cross-site group with the specified name from the collection.
+    removeByLoginName: {
+        argNames: ["name"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+};
+/**
+ * People Picker
+ */
+exports.peoplepicker = {
+    clientPeoplePickerResolveUser: {
+        argNames: ["queryParams"],
+        metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
+        name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerResolveUser",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    clientPeoplePickerSearchUser: {
+        argNames: ["queryParams"],
+        metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
+        name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerSearchUser",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    }
+};
+/**
+ * User
+ */
+exports.user = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "Groups|sitegroups|([Name])|group"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * Users
+ */
+exports.users = {
+    // Adds a user to the user collection.
+    add: {
+        metadataType: "SP.User",
+        name: "",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Gets the user with the specified email address.
+    getByEmail: {
+        argNames: ["email"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "user"
+    },
+    // Gets the user with the specified member identifier (ID).
+    getById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "user"
+    },
+    // Gets the user with the specified login name.
+    getByLoginName: {
+        argNames: ["loginName"],
+        name: "getByLoginName(@v)?@v='[[loginName]]'",
+        requestType: utils_1.RequestType.GetReplace,
+        returnType: "user"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    // Removes the user with the specified ID.
+    removeById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    // Removes the user with the specified login name.
+    removeByLoginName: {
+        argNames: ["loginName"],
+        name: "removeByLoginName(@v)?@v='[[loginName]]'",
+        requestType: utils_1.RequestType.PostReplace
+    }
+};
+//# sourceMappingURL=user.js.map
+
+/***/ }),
+/* 93 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = __webpack_require__(0);
+/**
+ * User Custom Action
+ */
+exports.usercustomaction = {
+    // Deletes the object
+    delete: {
+        requestType: utils_1.RequestType.Delete
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+/**
+ * User Custom Actions
+ */
+exports.usercustomactions = {
+    // Adds a user custom action to the collection.
+    add: {
+        metadataType: "SP.UserCustomAction",
+        name: "",
+        requestType: utils_1.RequestType.PostWithArgsInBody
+    },
+    // Deletes all custom actions in the collection.
+    clear: {
+        requestType: utils_1.RequestType.Post
+    },
+    // Returns the custom action with the specified identifier.
+    getById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "usercustomaction"
+    },
+    // Queries the collection
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    }
+};
+//# sourceMappingURL=userCustomAction.js.map
+
+/***/ }),
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4225,1993 +7344,19 @@ exports.ViewType = {
 //# sourceMappingURL=sptypes.js.map
 
 /***/ }),
-/* 83 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-/**
- * Event Receiver
- */
-exports.eventreceiver = {
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Updates it's properties.
-    update: {
-        metadataType: "SP.EventReceiverDefinition",
-        name: "",
-        requestMethod: "MERGE",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    }
-};
-/**
- * Event Receivers
- */
-exports.eventreceivers = {
-    // Adds an event receiver to the collection.
-    add: {
-        metadataType: "SP.EventReceiverDefinition",
-        name: "",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Gets an event receiver by it's id.
-    getById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "eventreceiver"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-//# sourceMappingURL=mapper.js.map
-
-/***/ }),
-/* 84 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-/**
- * Attachment
- */
-exports.attachment = {};
-/**
- * Attachment Files
- */
-exports.attachmentfiles = {
-    /**
-     * Adds the attachment that is represented by the specified file name and byte array to the list item.
-     * @param name - The name of the file to add.
-     * @param contents - The file contents as an array buffer.
-    **/
-    add: {
-        argNames: ["fileName"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * File
- */
-exports.file = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "Author|user", "CheckedOutByUser|user", "EffectiveInformationRightsManagementSettings", "InformationRightsManagementSettings",
-        "ListItemAllFields", "LockedByUser|user", "ModifiedBy|user", "Properties|propertyvalues", "VersionEvents", "Versions|fileversions"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Approves the file submitted for content approval with the specified comment.
-    approve: {
-        argNames: ["comment"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Stops the chunk upload session without saving the uploaded data. If the file doesn’t already exist in the library, the partially uploaded file will be deleted. Use this in response to user action (as in a request to cancel an upload) or an error or exception.
-    // Use the uploadId value that was passed to the StartUpload method that started the upload session.
-    // This method is currently available only on Office 365.
-    cancelupload: {
-        argNames: ["uploadId"],
-        name: "cancelupload(guid'[[uploadId]]')",
-        requestType: types_1.RequestType.PostReplace
-    },
-    // Checks the file in to a document library based on the check-in type.
-    // Check-In Types: MinorCheckIn = 0; MajorCheckIn = 1; OverwriteCheckIn = 2
-    checkin: {
-        argNames: ["comment", "checkInType"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Checks out the file from a document library based on the check-out type.
-    checkout: {
-        requestType: types_1.RequestType.Post
-    },
-    // Returns the file content.
-    content: {
-        name: "$value",
-        requestType: types_1.RequestType.GetBuffer
-    },
-    // Continues the chunk upload session with an additional fragment. The current file content is not changed.
-    // Use the uploadId value that was passed to the StartUpload method that started the upload session.
-    // This method is currently available only on Office 365.
-    continueUpload: {
-        argNames: ["uploadId", "fileOffset"],
-        name: "continueUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
-        requestType: types_1.RequestType.PostReplace
-    },
-    // Copies the file to the destination URL.
-    copyTo: {
-        argNames: ["strNewUrl", "bOverWrite"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Denies approval for a file that was submitted for content approval.
-    // Only documents in lists that are enabled for content approval can be denied.
-    deny: {
-        argNames: ["comment"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Uploads the last file fragment and commits the file. The current file content is changed when this method completes.
-    // Use the uploadId value that was passed to the StartUpload method that started the upload session.
-    // This method is currently available only on Office 365.
-    finishUpload: {
-        argNames: ["uploadId", "fileOffset"],
-        name: "finishUpload(uploadId=guid'[[uploadId]]', fileOffset=[[fileOffset]])",
-        requestType: types_1.RequestType.PostReplace
-    },
-    // Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
-    // An exception is thrown if the file is not an ASPX page.
-    // Type of scopes: 
-    getlimitedwebpartmanager: {
-        argNames: ["scope"],
-        name: "getLimitedWebPartManager(scope=[[scope]])",
-        requestType: types_1.RequestType.GetReplace
-    },
-    // Moves the file to the specified destination URL.
-    // Types of move operations: Overwrite = 1; AllowBrokenThickets (move even if supporting files are separated from the file) = 8.
-    moveTo: {
-        argNames: ["newUrl", "flags"],
-        name: "moveTo(newUrl='[[newUrl]]', flags=[[flags]])",
-        requestType: types_1.RequestType.PostReplace
-    },
-    // Opens the file as a stream.
-    openBinaryStream: {
-        requestType: types_1.RequestType.GetBuffer
-    },
-    // Submits the file for content approval with the specified comment.
-    publish: {
-        argNames: ["comment"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-    recycle: {
-        requestType: types_1.RequestType.Get
-    },
-    // Saves the file as a stream.
-    saveBinaryStream: {
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Starts a new chunk upload session and uploads the first fragment. The current file content is not changed when this method completes.
-    // The method is idempotent (and therefore does not change the result) as long as you use the same values for uploadId and stream.
-    // The upload session ends either when you use the CancelUpload method or when you successfully complete the upload session by passing the rest of the file contents through the ContinueUpload and FinishUpload methods.
-    startUpload: {
-        argNames: ["uploadId"],
-        name: "startupload(uploadId=guid'[[uploadId]]')",
-        requestType: types_1.RequestType.PostReplace
-    },
-    // Reverts an existing checkout for the file.
-    undoCheckOut: {
-        requestType: types_1.RequestType.Post
-    },
-    // Removes the file from content approval or unpublish a major version.
-    unpublish: {
-        argNames: ["comment"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Updates it's properties.
-    update: {
-        metadataType: "SP.File",
-        name: "",
-        requestMethod: "MERGE",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    }
-};
-/**
- * Files
- */
-exports.files = {
-    // Adds a file to this collection.
-    add: {
-        argNames: ["overwrite", "url"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Adds a ghosted file to an existing list or document library.
-    // Template File Types: StandardPage = 0; WikiPage = 1; FormPage = 2
-    addTemplateFile: {
-        argNames: ["urlOfFile", "templateFileType"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Get the file at the specified URL.
-    getByUrl: {
-        argNames: ["serverRelativeUrl"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "file"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * File Version
- */
-exports.fileversion = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * File Versions
- */
-exports.fileversions = {
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * Folder
- */
-exports.folder = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
-        "ParentFolder|folder", "Properties|propertyvalues", "StorageMetrics"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Get the file at the specified URL.
-    getByUrl: {
-        argNames: ["serverRelativeUrl"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "folder"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-    recycle: {
-        requestType: types_1.RequestType.Post
-    },
-    // Updates it's properties.
-    update: {
-        metadataType: "SP.Folder",
-        name: "",
-        requestMethod: "MERGE",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    }
-};
-/**
- * Folders
- */
-exports.folders = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "Files|files|/getByUrl('[Name]')|file", "Folders|folders|/getByUrl('[Name]')|folder", "ListItemAllFields",
-        "ParentFolder", "StorageMetrics"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Adds the folder that is located at the specified URL to the collection.
-    add: {
-        argNames: ["url"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Get the file at the specified URL.
-    getbyurl: {
-        argNames: ["serverRelativeUrl"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "folder"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * Limited Web Part Manager
- */
-exports.limitedwebpartmanager = {
-    // Gets a webpart by its id.
-    get_WebParts: {
-        argNames: ["id"],
-        name: "webparts?expand=WebPart",
-        requestType: types_1.RequestType.GetReplace
-    }
-};
-//# sourceMappingURL=mapper.js.map
-
-/***/ }),
-/* 85 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-/**
- * Content Type
- */
-exports.contenttype = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "FieldLinks|fieldlinks|('[Name]')|fieldlink", "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "WorkflowAssociations"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Deletes the content type.
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Updates it's properties.
-    update: {
-        metadataType: "SP.ContentType",
-        name: "",
-        requestMethod: "MERGE",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    }
-};
-/**
- * Content Types
- */
-exports.contenttypes = {
-    // Adds a content type to the collection.
-    add: {
-        metadataType: "SP.ContentType",
-        name: "",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Adds an existing content type to this collection.
-    addAvailableContentType: {
-        argNames: ["contentTypeId"],
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Gets a content type by id.
-    getById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "contenttype"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * Field
- */
-exports.field = {
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Sets the value of the ShowInDisplayForm property for this field.
-    setShowInDisplayForm: {
-        argNames: ["showInForm"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    // Sets the value of the ShowInEditForm property for this field.
-    setShowInEditForm: {
-        argNames: ["showInForm"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    // Sets the value of the ShowInNewForm property for this field.
-    setShowInNewForm: {
-        argNames: ["showInForm"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    // Updates it's properties.
-    update: {
-        inheritMetadataType: true,
-        name: "",
-        requestMethod: "MERGE",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    }
-};
-/**
- * Field Links
- */
-exports.fieldlinks = {
-    // Adds a field link to the collection.
-    add: {
-        argNames: ["data"],
-        metadataType: "SP.FieldLink",
-        name: "",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Gets a field link by it's id.
-    getById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "fieldlink"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * Fields
- */
-exports.fields = {
-    // Adds a field to the field collection.
-    add: {
-        metadataType: "SP.Field",
-        name: "",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Adds a field to the field collection.
-    addField: {
-        argNames: ["parameters"],
-        metadataType: "SP.FieldCreationInformation",
-        name: "addField",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
-    addDependentLookupField: {
-        argNames: ["displayname", "primarylookupfieldid", "showfield"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Creates a field based on the specified schema, Boolean value, and field options.
-    // Set the option to addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
-    createFieldAsXml: {
-        argNames: ["schemaXml"],
-        requestType: types_1.RequestType.PostWithArgsInBody,
-        data: {
-            parameters: {
-                __metadata: { type: "SP.XmlSchemaFieldCreationInformation" },
-                Options: 8,
-                SchemaXml: "[[schemaXml]]"
-            }
-        }
-    },
-    // Gets the field with the specified ID.
-    getById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly,
-        returnType: "field"
-    },
-    // Returns the first Field object with the specified internal name or title from the collection.
-    getByInternalNameOrTitle: {
-        argNames: ["internalNameOrTitle"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly,
-        returnType: "field"
-    },
-    // Returns the first field object in the collection based on the title of the specified field.
-    getByTitle: {
-        argNames: ["title"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly,
-        returnType: "field"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * Items
- */
-exports.items = {
-    // Adds an item to the list item collection.
-    add: {
-        metadataType: function (obj) {
-            return (obj.parent && obj.parent["ListItemEntityTypeFullName"]) || "SP.ListItem";
-        },
-        name: "",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Gets an item by its id.
-    getById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "listitem"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * List
- */
-exports.list = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "BrowserFileHandling", "ContentTypes|contenttypes|('[Name]')|contenttype", "CreatablesInfo", "DefaultView|view",
-        "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Fields|fields|/getByInternalNameOrTitle('[Name]')|field",
-        "FirstUniqueAncestorSecurableObject", "Forms|forms|('[Name]')|form", "InformationRightsManagementSettings",
-        "Items|items|([Name])|item", "ParentWeb", "RoleAssignments|roleassignments|([Name])|roleassignment",
-        "RootFolder|folder|/getByUrl('[Name]')|file", "Subscriptions", "TitleResource",
-        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "Views|views|('[Name]')|view", "WorkflowAssociations"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Creates unique role assignments for the securable object.
-    breakRoleInheritance: {
-        argNames: ["copyroleassignments", "clearsubscopes"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
-    getChanges: {
-        argNames: ["query"],
-        metadataType: "SP.ChangeQuery",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Returns an item based on the id.
-    getItemById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "item"
-    },
-    // Returns a collection of items from the list based on the view xml.
-    getItems: {
-        argNames: ["viewXml"],
-        requestType: types_1.RequestType.PostWithArgsInBody,
-        data: {
-            query: {
-                __metadata: { type: "SP.CamlQuery" },
-                ViewXml: "[[viewXml]]"
-            }
-        }
-    },
-    // Returns a collection of items from the list based on the specified query.
-    getItemsByQuery: {
-        argNames: ["camlQuery"],
-        name: "getItems",
-        requestType: types_1.RequestType.PostWithArgsInBody,
-        data: {
-            query: {
-                __metadata: { type: "SP.CamlQuery" },
-                ViewXml: "<View>[[camlQuery]]</View>"
-            }
-        }
-    },
-    // Returns a collection of items from the list based on the specified query.
-    getListItemChangesSinceToken: {
-        argNames: ["query"],
-        metadataType: "SP.ChangeLogItemQuery",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
-    getRelatedFields: {
-        requestType: types_1.RequestType.Get
-    },
-    // Gets the effective user permissions for the current user.
-    getUserEffectivePermissions: {
-        argNames: ["loginName"],
-        name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
-        requestType: types_1.RequestType.GetReplace
-    },
-    // Returns the list view with the specified view identifier.
-    getViewById: {
-        argNames: ["viewId"],
-        name: "getView",
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "view"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-    recycle: {
-        requestType: types_1.RequestType.Post
-    },
-    // Renders the list data.
-    renderListData: {
-        argNames: ["viewXml"],
-        name: "renderListData(@v)?@v='<View>[[viewXml]]</View>'",
-        requestType: types_1.RequestType.PostReplace
-    },
-    // Renders the list form data.
-    // Types of modes: 1 - Display, 2 - Edit, 3 - New
-    renderListFormData: {
-        argNames: ["itemid", "formid", "mode"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Reserves a list item ID for idempotent list item creation.
-    reserveListItemId: {
-        requestType: types_1.RequestType.Post
-    },
-    // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
-    resetRoleInheritance: {
-        requestType: types_1.RequestType.Post
-    },
-    // Updates it's properties.
-    update: {
-        metadataType: "SP.List",
-        name: "",
-        requestMethod: "MERGE",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    }
-};
-/**
- * List Item
- */
-exports.listitem = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "AttachmentFiles|attachmentfiles|('[Name]')|attachment", "ContentType|contenttype", "FieldValuesAsHtml", "FieldValuesAsText", "FieldValuesForEdit",
-        "File|file", "FirstUniqueAncestorSecurableObject", "Folder|folder", "GetDlpPolicyTip", "ParentList|list",
-        "Properties|propertyvalues", "RoleAssignments|roleassignments|roleassignments|([Name])|roleassignment"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Creates unique role assignments for the securable object.
-    breakRoleInheritance: {
-        argNames: ["copyroleassignments", "clearsubscopes"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Gets the effective permissions that a specified user has on the list item.
-    getUserEffectivePermissions: {
-        argNames: ["loginName"],
-        name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
-        requestType: types_1.RequestType.GetReplace
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-    recycle: {
-        requestType: types_1.RequestType.Post
-    },
-    // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
-    resetRoleInheritance: {
-        requestType: types_1.RequestType.Post
-    },
-    // Updates it's properties.
-    update: {
-        inheritMetadataType: true,
-        name: "",
-        requestMethod: "MERGE",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Validates and sets the values of the specified collection of fields for the list item.
-    validateUpdateListItem: {
-        argNames: ["formValues", "bNewDocumentUpdate"],
-        requestType: types_1.RequestType.PostWithArgsInBody
-    }
-};
-/**
- * Lists
- */
-exports.lists = {
-    // Adds a list to the list collection.
-    add: {
-        metadataType: "SP.List",
-        name: "",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
-    ensureSiteAssetsLibrary: {
-        requestType: types_1.RequestType.Post
-    },
-    // Gets a list that is the default location for wiki pages.
-    ensureSitePagesLibrary: {
-        requestType: types_1.RequestType.Post
-    },
-    // Returns the list with the specified list identifier.
-    getById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "list"
-    },
-    // Returns the list with the specified title from the collection.
-    getByTitle: {
-        argNames: ["title"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "list"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * Version
- */
-exports.version = {
-    // Gets the version with the specified ID.
-    getById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "version"
-    },
-    // Deletes all versions in the collection.
-    deleteAll: {
-        requestType: types_1.RequestType.Post
-    },
-    // Deletes a version, by the specified id.
-    deleteById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    // Deletes a version, by the specified label.
-    deleteByLabel: {
-        argNames: ["label"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Restores a version, by the specified label.
-    restoreByLabel: {
-        argNames: ["label"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    }
-};
-/**
- * View
- */
-exports.view = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "ViewFields|viewfieldcollection"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Returns the list view as HTML.
-    renderAsHtml: {
-        requestType: types_1.RequestType.Get
-    },
-    // Updates it's properties.
-    update: {
-        metadataType: "SP.View",
-        name: "",
-        requestMethod: "MERGE",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    }
-};
-/**
- * View Field Collection
- */
-exports.viewfieldcollection = {
-    // Adds the field with the specified field internal name or display name to the collection.
-    addViewField: {
-        argNames: ["fieldName"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    // Moves the field with the specified field internal name to the specified position in the collection.
-    moveViewFieldTo: {
-        argNames: ["field", "index"],
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Removes all the fields from the collection.
-    removeAllViewFields: {
-        requestType: types_1.RequestType.Post
-    },
-    // Removes the field with the specified field internal name from the collection.
-    removeViewField: {
-        argNames: ["fieldName"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly
-    }
-};
-/**
- * Views
- */
-exports.views = {
-    // Adds a view to the view collection.
-    add: {
-        metadataType: "SP.View",
-        name: "",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Gets the list view with the specified ID.
-    getById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "view"
-    },
-    // Gets the list view with the specified title.
-    getByTitle: {
-        argNames: ["title"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "view"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-//# sourceMappingURL=mapper.js.map
-
-/***/ }),
-/* 86 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-/**
- * Navigation
- */
-exports.navigationservicerest = {
-    /**
-     * Properties
-     */
-    properties: [
-        "MenuState|menustate|([Name])|menunode"
-    ],
-    /**
-     * Methods
-     */
-    // Method to get the menu state.
-    getMenuState: {
-        argNames: ["menuNodeKey", "depth", "customProperties", "mapProviderName"],
-        name: "MenuState",
-        RequestType: types_1.RequestType.GetWithArgsInQS
-    }
-};
-//# sourceMappingURL=mapper.js.map
-
-/***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-/**
- * Property Values
- */
-exports.propertyvalues = {
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-//# sourceMappingURL=mapper.js.map
-
-/***/ }),
-/* 88 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-/**
- * Search
- */
-exports.search = {
-    postquery: {
-        argNames: ["request"],
-        metadataType: "Microsoft.Office.Server.Search.REST.SearchRequest",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    }
-};
-//# sourceMappingURL=mapper.js.map
-
-/***/ }),
-/* 89 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-/**
- * Role Assignment
- */
-exports.roleassignment = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "Member", "RoleDefinitionBindings|roledefinitions"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * Role Assignments
- */
-exports.roleassignments = {
-    // Adds a new role assignment with the specified principal and role definitions to the collection.
-    addRoleAssignment: {
-        argNames: ["principalId", "roleDefId"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Gets the role assignment associated with the specified principal ID from the collection.
-    getByPrincipalId: {
-        argNames: ["principalId"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "roleassignment"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Gets the role definition with the specified role type.
-    removeRoleAssignment: {
-        argNames: ["principalId", "roleDefId"],
-        requestType: types_1.RequestType.PostWithArgs
-    }
-};
-/**
- * Role Definition
- */
-exports.roledefinition = {
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * Role Definitions
- */
-exports.roledefinitions = {
-    // Gets the role definition with the specified ID from the collection.
-    getById: {
-        argNames: ["roleDefId"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "roledefinition"
-    },
-    // Gets the role definition with the specified name.
-    getByName: {
-        argNames: ["name"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "roledefinition"
-    },
-    // Gets the role definitions with the specified role type.
-    getByType: {
-        argNames: ["roleType"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "roledefinitions"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-//# sourceMappingURL=mapper.js.map
-
-/***/ }),
-/* 90 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-/**
- * Site
- */
-exports.site = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features", "Owner|user", "RootWeb|web",
-        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
-    createPreviewSPSite: {
-        argNames: ["upgrade", "sendemail"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Extend the upgrade reminder date for this SPSite by the days specified at WebApplication.UpgradeReminderDelay.
-    extendUpgradeReminderDate: {
-        requestType: types_1.RequestType.Post
-    },
-    // Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
-    getCatalog: {
-        argNames: ["typeCatalog"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    // Specifies the collection of the site collection changes from the change log that have occurred within the scope of the site collection, based on the specified query.
-    getChanges: {
-        argNames: ["query"],
-        metadataType: "SP.ChangeQuery",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Specifies the collection of custom list templates for a given site.
-    getCustomListTemplates: {
-        argNames: ["web"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Returns the collection of site definitions that are available for creating Web sites within the site collection.
-    getWebTemplates: {
-        argNames: ["LCID", "overrideCompatLevel"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Invalidates cached upgrade information about the site collection so that this information will be recomputed the next time it is needed.
-    invalidate: {
-        requestType: types_1.RequestType.Post
-    },
-    // Returns true if the object needs to be upgraded; otherwise, false.
-    needsUpgradeByType: {
-        argNames: ["versionUpgrade", "recursive"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Returns the site at the specified URL.
-    openWeb: {
-        argNames: ["strUrl"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    // Returns the site with the specified GUID.
-    openWebById: {
-        argNames: ["gWebId"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    // Queries the object
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
-    runHealthCheck: {
-        argNames: ["ruleId", "bRepair", "bRunAlways"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Either runs a site collection upgrade, or schedules it to be run in the future, depending on available system resources and the value of the queueOnly parameter. The user executing this method MUST be a farm administrator or a site collection administrator.
-    runUpgradeSiteSession: {
-        argNames: ["versionUpgrade", "queueOnly", "sendEmail"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Updates it's properties.
-    update: {
-        metadataType: "SP.Site",
-        name: "",
-        requestMethod: "MERGE",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Sets whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
-    updateClientObjectModelUseRemoteAPIsPermissionSetting: {
-        argNames: ["requireUseRemoteAPIs"],
-        requestType: types_1.RequestType.PostWithArgs
-    }
-};
-/**
- * Tenant App
- */
-exports.tenantapp = {
-    // Deploy solution package in tenant app catalog
-    deploy: {
-        requestType: types_1.RequestType.Post
-    },
-    // Install solution package from tenant app catalog to SharePoint site
-    install: {
-        requestType: types_1.RequestType.Post
-    },
-    // Queries the object
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Remove solution package from tenant app catalog
-    remove: {
-        requestType: types_1.RequestType.Post
-    },
-    // Retract solution package in the tenant app catalog
-    retract: {
-        requestType: types_1.RequestType.Post
-    },
-    // Upgrade solution package in SharePoint site
-    upgrade: {
-        requestType: types_1.RequestType.Post
-    },
-    // Uninstall solution package from SharePoint site
-    uninstall: {
-        requestType: types_1.RequestType.Post
-    }
-};
-/**
- * Tenant Apps
- */
-exports.tenantapps = {
-    // Get an app by id
-    getById: {
-        argNames: ["guid"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "tenantapp"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * Tenant App Catalog
- */
-exports.tenantappcatalog = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "AvailableApps|tenantapps|/getById('[Id]')|tenantapp"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Adds the folder that is located at the specified URL to the collection.
-    add: {
-        argNames: ["overwrite", "url"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Get an app by id.
-    getById: {
-        argNames: ["guid"],
-        name: "AvailableApps/getById('[[guid]]')",
-        requestType: types_1.RequestType.GetReplace,
-        returnType: "tenantapp"
-    },
-    // Gets the site collection app catalog sites
-    SiteCollectionAppCatalogsSites: {
-        requestType: types_1.RequestType.Post
-    }
-};
-/**
- * Utility
- */
-exports.utility = {
-    createEmailBodyForInvitation: {
-        argNames: ["pageAddress"],
-        name: "SP.Utilities.Utility.CreateEmailBodyForInvitation",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    getAppLicenseDeploymentId: {
-        name: "SP.Utilities.Utility.GetAppLicenseDeploymentId",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.Get
-    },
-    getAppLicenseInformation: {
-        name: "SP.Utilities.Utility.GetAppLicenseInformation",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.Get
-    },
-    getCurrentUserEmailAddresses: {
-        name: "SP.Utilities.Utility.GetCurrentUserEmailAddresses",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.Get
-    },
-    getLocalizedString: {
-        argNames: ["sourceValue"],
-        name: "SP.Utilities.Utility.GetLocalizedString",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.GetWithArgsValueOnly
-    },
-    getLowerCaseString: {
-        argNames: ["sourceValue", "lcid"],
-        name: "SP.Utilities.Utility.GetLowerCaseString",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    importAppLicense: {
-        argNames: ["url"],
-        name: "SP.Utilities.Utility.ImportAppLicense",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    isUserLicensedForEntityInContext: {
-        argNames: ["url"],
-        name: "SP.Utilities.Utility.IsUserLicensedForEntityInContext",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    localizeWebPartGallery: {
-        argNames: ["url"],
-        name: "SP.Utilities.Utility.LocalizeWebPartGallery",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    markDiscussionAsFeatured: {
-        argNames: ["url"],
-        name: "SP.Utilities.Utility.MarkDiscussionAsFeatured",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    resolvePrincipal: {
-        name: "SP.Utilities.Utility.ResolvePrincipalInCurrentContext",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.Post
-    },
-    searchPrincipals: {
-        name: "SP.Utilities.Utility.SearchPrincipalsUsingContextWeb",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.Post
-    },
-    unmarkDiscussionAsFeatured: {
-        argNames: ["url"],
-        name: "SP.Utilities.Utility.UnmarkDiscussionAsFeatured",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgsInBody
-    }
-};
-/**
- * Web
- */
-exports.web = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "AllProperties|propertyvalues", "AppTiles", "AssociatedMemberGroup|group", "AssociatedOwnerGroup|group",
-        "AssociatedVisitorGroup|group", "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields",
-        "ClientWebParts", "ContentTypes|contenttypes|('[Name]')|contenttype", "CurrentUser|user", "DataLeakagePreventionStatusInfo",
-        "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features",
-        "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "FirstUniqueAncestorSecurableObject",
-        "Folders|folders|/getByUrl('[Name]')|folder", "Lists|lists|/getByTitle('[Name]')|list",
-        "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb",
-        "PushNotificationSubscribers", "RecycleBin", "RegionalSettings", "RoleAssignments|roleassignments|([Name])|roleassignment",
-        "RoleDefinitions|roledefinitions|/getByName('[Name]')|roledefinition", "RootFolder|folder|/getByUrl('[Name]')|file",
-        "SiteGroups|sitegroups|/getByName('[Name]')|group", "SiteUserInfoList", "SiteUsers|users|/getById([Name])|user",
-        "TenantAppCatalog|tenantappcatalog", "ThemeInfo", "TitleResource",
-        "UserCustomActions|usercustomactions|('[Name]')|usercustomaction", "WebInfos|webinfos", "Webs|webs", "WorkflowAssociations", "WorkflowTemplates"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Applies the theme specified by the contents of each of the files specified in the arguments to the site.
-    applyTheme: {
-        argNames: ["colorpaletteurl", "fontschemeurl", "backgroundimageurl", "sharegenerated"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Applies the specified site definition or site template to the Web site that has no template applied to it.
-    applyWebTemplate: {
-        argName: ["name"],
-        requestType: types_1.RequestType.PostWithArgsInQS
-    },
-    // Creates unique role assignments for the securable object.
-    breakRoleInheritance: {
-        argNames: ["copyroleassignments", "clearsubscopes"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Checks whether the push notification subscriber exist for the current user with the given device application instance ID.
-    doesPushNotificationSubscriberExist: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly
-    },
-    // Returns whether the current user has the given set of permissions.
-    doesUserHavePermissions: {
-        argNames: ["High", "Low"],
-        requestType: types_1.RequestType.GetWithArgsInQS
-    },
-    // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
-    ensureUser: {
-        argNames: ["logonName"],
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Sends data to an OData service.
-    executeRemoteLOB: {
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Gets the app BDC catalog.
-    getAppBdcCatalog: {
-        requestType: types_1.RequestType.Post
-    },
-    // Gets the app BDC catalog for the specified app instance.
-    getAppBdcCatalogForAppInstance: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    // Retrieves an AppInstance installed on this Site.
-    getAppInstanceById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly
-    },
-    // Retrieves all AppInstances installed on this site that are instances of the specified App.
-    getAppInstancesByProductId: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly
-    },
-    // Returns a collection of site templates available for the site.
-    getAvailableWebTemplates: {
-        argNames: ["lcid", "doincludecrosslanguage"],
-        requestType: types_1.RequestType.GetWithArgs
-    },
-    // Returns the list gallery on the site.
-    getCatalog: {
-        argNames: ["galleryType"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly
-    },
-    // Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
-    getChanges: {
-        argNames: ["query"],
-        metadataType: "SP.ChangeQuery",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Gets the context information for the site. Static method.
-    getContextWebInformation: {
-        name: "contextInfo",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.Post
-    },
-    // Gets the custom list templates for the site.
-    getCustomListTemplates: {
-        requestType: types_1.RequestType.Get
-    },
-    // Gets the document libraries on a site. Static method. (SharePoint Online only)
-    getDocumentLibraries: {
-        argNames: ["url"],
-        name: "sp.web.getDocumentLibraries",
-        requestType: types_1.RequestType.GetWithArgsInQS
-    },
-    // Gets the specified external content type in a line-of-business (LOB) system application.
-    getEntity: {
-        argNames: ["namespace", "name"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Returns the file object located at the specified server-relative URL.
-    getFileByServerRelativeUrl: {
-        argNames: ["url"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "file"
-    },
-    // Returns the folder object located at the specified server-relative URL.
-    getFolderByServerRelativeUrl: {
-        argNames: ["url"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "folder"
-    },
-    // Gets the list at the specified site-relative URL. (SharePoint Online only)
-    getList: {
-        argNames: ["url"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "list"
-    },
-    // Gets the push notification subscriber over the site for the specified device application instance ID.
-    getPushNotificationSubscriber: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly
-    },
-    // Queries for the push notification subscribers over the site for the specified value of custom arguments. Null or empty custom arguments will return subscribers without any filtering.
-    getPushNotificationSubscribersByArgs: {
-        argNames: ["args"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly
-    },
-    // Queries for the push notification subscribers over the site for the specified user.
-    getPushNotificationSubscribersByUser: {
-        argNames: ["loginName"],
-        requestType: types_1.RequestType.GetWithArgsInQS
-    },
-    // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
-    getSubwebsFilteredForCurrentUser: {
-        argNames: ["nwebtemplatefilter", "nconfigurationfilter"],
-        requestType: types_1.RequestType.GetWithArgs,
-        returnType: "webinfos"
-    },
-    // Returns the user corresponding to the specified member identifier for the current site.
-    getUserById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "user"
-    },
-    // Gets the effective permissions that the specified user has within the current application scope.
-    getUserEffectivePermissions: {
-        argNames: ["loginName"],
-        name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
-        requestType: types_1.RequestType.GetReplace
-    },
-    // Gets the site URL from a page URL. Static method.
-    getWebUrlFromPageUrl: {
-        name: "sp.web.getWebUrlFromPageUrl",
-        requestType: types_1.RequestType.GetWithArgsInQS
-    },
-    // Uploads and installs an app package to this site.
-    loadAndInstallApp: {
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Uploads and installs an App package on the site in a specified locale.
-    loadAndInstallAppInSpecifiedLocale: {
-        argNames: ["appPackageStream", "installationLocaleLCID"],
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Uploads an App package and creates an instance from it.
-    loadApp: {
-        argNames: ["appPackageStream", "installationLocaleLCID"],
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Returns the name of the image file for the icon that is used to represent the specified file.
-    mapToIcon: {
-        argNames: ["filename", "progid", "size"],
-        requestType: types_1.RequestType.GetWithArgs
-    },
-    // Processes a notification from an external system.
-    processExternalNotification: {
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Queries the object
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Registers the subscriber for push notifications over the site. If the registration already exists, the service token is updated with the new value.
-    registerPushNotificationSubscriber: {
-        argNames: ["deviceappinstanceid", "servicetoken"],
-        requestType: types_1.RequestType.PostWithArgs
-    },
-    // Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
-    resetRoleInheritance: {
-        requestType: types_1.RequestType.Post
-    },
-    // Unregisters the subscriber for push notifications from the site.
-    unregisterPushNotificationSubscriber: {
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    // Updates it's properties.
-    update: {
-        metadataType: "SP.Web",
-        name: "",
-        requestMethod: "MERGE",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    }
-};
-/**
- * Web Information Collection
- */
-exports.webinfos = {
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * Webs
- */
-exports.webs = {
-    add: {
-        argNames: ["parameters"],
-        metadataType: "SP.WebCreationInformation",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-//# sourceMappingURL=mapper.js.map
-
-/***/ }),
-/* 91 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-/**
- * People Manager
- */
-exports.peoplemanager = {
-    amIFollowedBy: {
-        argNames: ["accountName"],
-        requestType: types_1.RequestType.GetWithArgsInQS
-    },
-    amIFollowing: {
-        argNames: ["accountName"],
-        requestType: types_1.RequestType.GetWithArgsInQS
-    },
-    follow: {
-        argNames: ["accountName"],
-        requestType: types_1.RequestType.PostWithArgsInQS
-    },
-    followTag: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    getFollowedTags: {
-        argNames: ["maxCount"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly
-    },
-    getFollowersFor: {
-        argNames: ["accountName"],
-        requestType: types_1.RequestType.GetWithArgsInQS
-    },
-    getMyFollowers: {
-        requestType: types_1.RequestType.Get
-    },
-    getMyProperties: {
-        requestType: types_1.RequestType.Get
-    },
-    getMySuggestions: {
-        requestType: types_1.RequestType.Get
-    },
-    getPeopleFollowedBy: {
-        argNames: ["accountName"],
-        requestType: types_1.RequestType.GetWithArgsInQS
-    },
-    getPeopleFollowedByMe: {
-        requestType: types_1.RequestType.Get
-    },
-    getPropertiesFor: {
-        argNames: ["accountName"],
-        requestType: types_1.RequestType.GetWithArgsInQS
-    },
-    getTrendingTags: {
-        name: "sp.userprofiles.peoplemanager.gettrendingtags",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.Get
-    },
-    getUserProfilePropertyFor: {
-        argNames: ["accountName", "propertyName"],
-        requestType: types_1.RequestType.GetWithArgsInQS
-    },
-    hideSuggestion: {
-        argNames: ["accountName"],
-        requestType: types_1.RequestType.PostWithArgsInQS
-    },
-    isFollowing: {
-        argNames: ["possibleFollowerAccountName", "possibleFolloweeAccountName"],
-        name: "sp.userprofiles.peoplemanager.isfollowing",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.GetWithArgsInQS
-    },
-    setMyProfilePicture: {
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    stopFollowing: {
-        argNames: ["accountName"],
-        requestType: types_1.RequestType.PostWithArgsInQS
-    },
-    stopFollowingTag: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-};
-/**
- * Profile Loader
- */
-exports.profileloader = {
-    createPersonalSiteEnqueueBulk: {
-        argNames: ["emailIDs"],
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    getOwnerUserProfile: {
-        name: "sp.userprofiles.profileloader.getowneruserprofile",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.Post,
-        returnType: "userprofile"
-    },
-    getUserProfile: {
-        requestType: types_1.RequestType.Post,
-        returnType: "userprofile"
-    },
-};
-/**
- * Social Feed
- */
-exports.socialfeed = {
-    actor: {
-        argNames: ["accountName"],
-        name: "actor(item=@v)?@v='[[accountName]]'",
-        requestType: types_1.RequestType.GetReplace
-    },
-    actorFeed: {
-        argNames: ["accountName"],
-        name: "actor(item=@v)/feed?@v='[[accountName]]'",
-        requestType: types_1.RequestType.GetReplace
-    },
-    clearMyUnreadMentionCount: {
-        name: "my/mentionfeed/clearMyUnreadMentionCount",
-        requestType: types_1.RequestType.Post
-    },
-    my: {
-        name: "my",
-        requestType: types_1.RequestType.Get
-    },
-    myFeed: {
-        name: "my/feed",
-        requestType: types_1.RequestType.Get
-    },
-    myLikes: {
-        name: "my/likes",
-        requestType: types_1.RequestType.Get
-    },
-    myMentionFeed: {
-        name: "my/mentionfeed",
-        requestType: types_1.RequestType.Get
-    },
-    myNews: {
-        name: "my/news",
-        requestType: types_1.RequestType.Get
-    },
-    myTimelineFeed: {
-        name: "my/timelinefeed",
-        requestType: types_1.RequestType.Get
-    },
-    myUnreadMentionCount: {
-        name: "my/unreadmentioncount",
-        requestType: types_1.RequestType.Get
-    }
-};
-/**
- * User Profile
- */
-exports.userprofile = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "PersonalSite|site"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    createPersonalSiteEnque: {
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    shareAllSocialData: {
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    }
-};
-//# sourceMappingURL=mapper.js.map
-
-/***/ }),
-/* 92 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-/**
- * Group
- */
-exports.group = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "Users|users|/getById([Name])|user"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * Site Groups
- */
-exports.sitegroups = {
-    // Adds a group to the group collection.
-    add: {
-        metadataType: "SP.Group",
-        name: "",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Returns a group from the collection based on the member ID of the group.
-    getById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "group"
-    },
-    // Returns a cross-site group from the collection based on the name of the group.
-    getByName: {
-        argNames: ["name"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "group"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Removes the group with the specified member ID from the collection.
-    removeById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    // Removes the cross-site group with the specified name from the collection.
-    removeByLoginName: {
-        argNames: ["name"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-};
-/**
- * People Picker
- */
-exports.peoplepicker = {
-    clientPeoplePickerResolveUser: {
-        argNames: ["queryParams"],
-        metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
-        name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerResolveUser",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    clientPeoplePickerSearchUser: {
-        argNames: ["queryParams"],
-        metadataType: "SP.UI.ApplicationPages.ClientPeoplePickerQueryParameters",
-        name: "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface.ClientPeoplePickerSearchUser",
-        replaceEndpointFl: true,
-        requestType: types_1.RequestType.PostWithArgsInBody
-    }
-};
-/**
- * User
- */
-exports.user = {
-    /*********************************************************************************************************************************/
-    // Properties
-    /*********************************************************************************************************************************/
-    properties: [
-        "Groups|sitegroups|([Name])|group"
-    ],
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * Users
- */
-exports.users = {
-    // Adds a user to the user collection.
-    add: {
-        metadataType: "SP.User",
-        name: "",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Gets the user with the specified email address.
-    getByEmail: {
-        argNames: ["email"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "user"
-    },
-    // Gets the user with the specified member identifier (ID).
-    getById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "user"
-    },
-    // Gets the user with the specified login name.
-    getByLoginName: {
-        argNames: ["loginName"],
-        name: "getByLoginName(@v)?@v='[[loginName]]'",
-        requestType: types_1.RequestType.GetReplace,
-        returnType: "user"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    },
-    // Removes the user with the specified ID.
-    removeById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.PostWithArgsValueOnly
-    },
-    // Removes the user with the specified login name.
-    removeByLoginName: {
-        argNames: ["loginName"],
-        name: "removeByLoginName(@v)?@v='[[loginName]]'",
-        requestType: types_1.RequestType.PostReplace
-    }
-};
-//# sourceMappingURL=mapper.js.map
-
-/***/ }),
-/* 93 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-/**
- * User Custom Action
- */
-exports.usercustomaction = {
-    // Deletes the object
-    delete: {
-        requestType: types_1.RequestType.Delete
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-/**
- * User Custom Actions
- */
-exports.usercustomactions = {
-    // Adds a user custom action to the collection.
-    add: {
-        metadataType: "SP.UserCustomAction",
-        name: "",
-        requestType: types_1.RequestType.PostWithArgsInBody
-    },
-    // Deletes all custom actions in the collection.
-    clear: {
-        requestType: types_1.RequestType.Post
-    },
-    // Returns the custom action with the specified identifier.
-    getById: {
-        argNames: ["id"],
-        requestType: types_1.RequestType.GetWithArgsValueOnly,
-        returnType: "usercustomaction"
-    },
-    // Queries the collection
-    query: {
-        argNames: ["oData"],
-        requestType: types_1.RequestType.OData
-    }
-};
-//# sourceMappingURL=mapper.js.map
-
-/***/ }),
-/* 94 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ComplexTypes = __webpack_require__(95);
-exports.ComplexTypes = ComplexTypes;
-var Results = __webpack_require__(96);
-exports.Results = Results;
-var Helper = __webpack_require__(97);
-exports.Helper = Helper;
-var SPTypes = __webpack_require__(107);
-exports.SPTypes = SPTypes;
-//# sourceMappingURL=types.js.map
-
-/***/ }),
 /* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=complexTypes.js.map
+var ComplexTypes = __webpack_require__(96);
+exports.ComplexTypes = ComplexTypes;
+var Results = __webpack_require__(97);
+exports.Results = Results;
+var SPTypes = __webpack_require__(98);
+exports.SPTypes = SPTypes;
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 /* 96 */
@@ -6220,7 +7365,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=results.js.map
+//# sourceMappingURL=complexTypes.js.map
 
 /***/ }),
 /* 97 */
@@ -6229,25 +7374,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var App = __webpack_require__(98);
-exports.App = App;
-var Dependencies = __webpack_require__(99);
-exports.Dependencies = Dependencies;
-var Field = __webpack_require__(100);
-exports.Field = Field;
-var JSLink = __webpack_require__(101);
-exports.JSLink = JSLink;
-var ListForm = __webpack_require__(102);
-exports.ListForm = ListForm;
-var Loader = __webpack_require__(103);
-exports.Loader = Loader;
-var SPConfig = __webpack_require__(104);
-exports.SPConfig = SPConfig;
-var Taxonomy = __webpack_require__(105);
-exports.Taxonomy = Taxonomy;
-var WebPart = __webpack_require__(106);
-exports.WebPart = WebPart;
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=results.js.map
 
 /***/ }),
 /* 98 */
@@ -6256,91 +7383,10 @@ exports.WebPart = WebPart;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=app.js.map
-
-/***/ }),
-/* 99 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=dependencies.js.map
-
-/***/ }),
-/* 100 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=field.js.map
-
-/***/ }),
-/* 101 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=jslink.js.map
-
-/***/ }),
-/* 102 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=listForm.js.map
-
-/***/ }),
-/* 103 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=loader.js.map
-
-/***/ }),
-/* 104 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=spCfg.js.map
-
-/***/ }),
-/* 105 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=taxonomy.js.map
-
-/***/ }),
-/* 106 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=webpart.js.map
-
-/***/ }),
-/* 107 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=sptypes.js.map
 
 /***/ }),
-/* 108 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6356,8 +7402,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var _1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /**
  * Base Request
  */
@@ -6391,7 +7436,7 @@ var BaseRequest = /** @class */ (function (_super) {
         // Get the method information
         var methodInfo = new _1.MethodInfo(methodName, methodConfig, args);
         // Update the target information
-        targetInfo.bufferFl = methodConfig.requestType == types_1.RequestType.GetBuffer;
+        targetInfo.bufferFl = methodConfig.requestType == _1.RequestType.GetBuffer;
         targetInfo.data = methodInfo.body;
         targetInfo.method = methodInfo.requestMethod;
         // See if we are replacing the endpoint
@@ -6444,7 +7489,7 @@ var BaseRequest = /** @class */ (function (_super) {
                     _this.response = _this.xhr.response;
                     _this.status = _this.xhr.status;
                     // See if we are returning a file buffer
-                    if (_this.requestType == types_1.RequestType.GetBuffer) {
+                    if (_this.requestType == _1.RequestType.GetBuffer) {
                         // Execute the callback
                         callback ? callback(_this.xhr.response) : null;
                     }
@@ -6470,7 +7515,7 @@ var BaseRequest = /** @class */ (function (_super) {
             this.response = this.xhr.response;
             this.status = this.xhr.status;
             // See if we are returning a file buffer
-            if (this.requestType == types_1.RequestType.GetBuffer) {
+            if (this.requestType == _1.RequestType.GetBuffer) {
                 // Return the response
                 return this.xhr.response;
             }
@@ -6638,261 +7683,14 @@ exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map
 
 /***/ }),
-/* 109 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(1);
-/**
- * Base Execution
- */
-var BaseExecution = /** @class */ (function (_super) {
-    __extends(BaseExecution, _super);
-    function BaseExecution() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    // Method to execute this request as a batch request
-    BaseExecution.prototype.batch = function (arg) {
-        var callback = null;
-        var appendFl = false;
-        // See if the input is a boolean
-        if (typeof (arg) === "boolean") {
-            // Set the flag
-            appendFl = arg;
-        }
-        else {
-            // Set the callback
-            callback = arg;
-        }
-        // Set the base
-        this.base = this.base ? this.base : this;
-        // See if we are appending this request
-        if (appendFl && this.base.batchRequests) {
-            // Append the request
-            this.base.batchRequests[this.base.batchRequests.length - 1].push({
-                targetInfo: new _1.TargetInfo(this.targetInfo)
-            });
-        }
-        else {
-            // Ensure the batch requests exist
-            this.base.batchRequests = this.base.batchRequests || [];
-            // Create the request
-            this.base.batchRequests.push([{
-                    callback: callback,
-                    targetInfo: new _1.TargetInfo(this.targetInfo)
-                }]);
-        }
-        // Return this object
-        return this;
-    };
-    // Method to execute the request
-    BaseExecution.prototype.execute = function () {
-        var _this = this;
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        var callback = null;
-        var waitFl = false;
-        // Set the callback and wait flag
-        switch (args.length) {
-            case 1:
-                callback = typeof (args[0]) === "boolean" ? callback : args[0];
-                waitFl = typeof (args[0]) === "boolean" ? args[0] : waitFl;
-                break;
-            case 2:
-                callback = args[0];
-                waitFl = args[1];
-                break;
-        }
-        // Set the base
-        this.base = this.base ? this.base : this;
-        // Set the response index
-        this.responseIndex = this.base.responses.length;
-        // Add this object to the responses
-        this.base.responses.push(this);
-        // See if we are waiting for the responses to complete
-        if (waitFl) {
-            // Wait for the responses to execute
-            this.waitForRequestsToComplete(function () {
-                // Execute this request
-                _this.executeRequest(true, function (response) {
-                    // See if there is a callback
-                    if (callback) {
-                        // Set the base to this object, and clear requests
-                        // This will ensure requests from this object do not conflict w/ this request
-                        _this.base = _this;
-                        _this.base.responses = [];
-                        // Execute the callback and see if it returns a promise
-                        var returnVal = callback(response);
-                        if (returnVal && typeof (returnVal.done) === "function") {
-                            // Wait for the promise to complete
-                            returnVal.done(function () {
-                                // Reset the base
-                                _this.base = _this.parent.base;
-                                // Set the wait flag
-                                _this.base.waitFlags[_this.responseIndex] = true;
-                            });
-                            // Wait for the promise to complete
-                            return;
-                        }
-                        // Reset the base
-                        _this.base = _this.parent.base;
-                    }
-                    // Set the wait flag
-                    _this.base.waitFlags[_this.responseIndex] = true;
-                });
-            }, this.responseIndex);
-        }
-        else {
-            // Execute this request
-            this.executeRequest(true, function (response) {
-                // Execute the callback and see if it returns a promise
-                var returnVal = callback ? callback(response) : null;
-                if (returnVal && typeof (returnVal.done) === "function") {
-                    // Wait for the promise to complete
-                    returnVal.done(function () {
-                        // Set the wait flag
-                        _this.base.waitFlags[_this.responseIndex] = true;
-                    });
-                }
-                else {
-                    // Set the wait flag
-                    _this.base.waitFlags[_this.responseIndex] = true;
-                }
-            });
-        }
-        // Return this object
-        return this;
-    };
-    // Method to execute the request synchronously
-    BaseExecution.prototype.executeAndWait = function () { return this.executeRequest(false); };
-    // Method to wait for the parent requests to complete
-    BaseExecution.prototype.waitForRequestsToComplete = function (callback, requestIdx) {
-        var _this = this;
-        // Loop until the requests have completed
-        var intervalId = lib_1.ContextInfo.window.setInterval(function () {
-            var counter = 0;
-            // Parse the responses to the requests
-            for (var i = 0; i < _this.base.responses.length; i++) {
-                var response = _this.base.responses[i];
-                // See if we are waiting until a specified index
-                if (requestIdx == counter++) {
-                    break;
-                }
-                // Return if the request hasn't completed
-                if (response.xhr == null || !response.xhr.completedFl) {
-                    return;
-                }
-                // Ensure the wait flag is set for the previous request
-                if (counter > 0 && _this.base.waitFlags[counter - 1] != true) {
-                    return;
-                }
-            }
-            // Clear the interval
-            lib_1.ContextInfo.window.clearInterval(intervalId);
-            // Execute the callback
-            callback();
-        }, 10);
-    };
-    return BaseExecution;
-}(_1.BaseRequest));
-exports.BaseExecution = BaseExecution;
-//# sourceMappingURL=baseExecution.js.map
-
-/***/ }),
-/* 110 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = __webpack_require__(1);
-/*********************************************************************************************************************************/
-// Base
-// This is the base class for all objects.
-/*********************************************************************************************************************************/
-var Base = /** @class */ (function (_super) {
-    __extends(Base, _super);
-    /**
-     * Constructor
-     * @param targetInfo - The target information.
-     */
-    function Base(targetInfo) {
-        var _this = _super.call(this) || this;
-        // Default the properties
-        _this.targetInfo = Object.create(targetInfo || {});
-        _this.responses = [];
-        _this.requestType = 0;
-        _this.waitFlags = [];
-        return _this;
-    }
-    // Method to wait for the requests to complete
-    Base.prototype.done = function (callback) {
-        var _this = this;
-        // Ensure the base is set
-        this.base = this.base ? this.base : this;
-        // Ensure the response index is set
-        this.responseIndex = this.responseIndex >= 0 ? this.responseIndex : 0;
-        // Wait for the responses to execute
-        this.waitForRequestsToComplete(function () {
-            var responses = _this.base.responses;
-            // Clear the responses
-            _this.base.responses = [];
-            // Clear the wait flags
-            _this.base.waitFlags = [];
-            // Execute the callback back
-            callback ? callback.apply(_this, responses) : null;
-        });
-    };
-    // Method to get the request information
-    Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
-    // Method to stringify the object
-    Base.prototype.stringify = function () {
-        // Stringify the object
-        return JSON.stringify({
-            response: this.response,
-            status: this.status,
-            targetInfo: this.targetInfo
-        });
-    };
-    return Base;
-}(_1.BaseExecution));
-exports.Base = Base;
-//# sourceMappingURL=base.js.map
-
-/***/ }),
-/* 111 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(1);
+var lib_1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /**
  * Batch Requests
  */
@@ -6982,14 +7780,13 @@ exports.Batch = Batch;
 //# sourceMappingURL=batch.js.map
 
 /***/ }),
-/* 112 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var _1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Method Information
 // This class will create the method information for the request.
@@ -7038,13 +7835,13 @@ var MethodInfo = /** @class */ (function () {
             }
             // Determine the request method, based on the request type
             switch (this.methodInfo.requestType) {
-                case types_1.RequestType.Delete:
-                case types_1.RequestType.Post:
-                case types_1.RequestType.PostWithArgs:
-                case types_1.RequestType.PostWithArgsInBody:
-                case types_1.RequestType.PostWithArgsInQS:
-                case types_1.RequestType.PostWithArgsValueOnly:
-                case types_1.RequestType.PostReplace:
+                case _1.RequestType.Delete:
+                case _1.RequestType.Post:
+                case _1.RequestType.PostWithArgs:
+                case _1.RequestType.PostWithArgsInBody:
+                case _1.RequestType.PostWithArgsInQS:
+                case _1.RequestType.PostWithArgsValueOnly:
+                case _1.RequestType.PostReplace:
                     return "POST";
                 default:
                     return "GET";
@@ -7063,12 +7860,12 @@ var MethodInfo = /** @class */ (function () {
         /*********************************************************************************************************************************/
         // Private Variables
         /*********************************************************************************************************************************/
-        get: function () { return this.methodInfo.requestType == types_1.RequestType.GetWithArgsInBody || this.methodInfo.requestType == types_1.RequestType.PostWithArgsInBody; },
+        get: function () { return this.methodInfo.requestType == _1.RequestType.GetWithArgsInBody || this.methodInfo.requestType == _1.RequestType.PostWithArgsInBody; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MethodInfo.prototype, "passDataInQS", {
-        get: function () { return this.methodInfo.requestType == types_1.RequestType.GetWithArgsInQS || this.methodInfo.requestType == types_1.RequestType.PostWithArgsInQS; },
+        get: function () { return this.methodInfo.requestType == _1.RequestType.GetWithArgsInQS || this.methodInfo.requestType == _1.RequestType.PostWithArgsInQS; },
         enumerable: true,
         configurable: true
     });
@@ -7078,7 +7875,7 @@ var MethodInfo = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MethodInfo.prototype, "replace", {
-        get: function () { return this.methodInfo.requestType == types_1.RequestType.GetReplace || this.methodInfo.requestType == types_1.RequestType.PostReplace; },
+        get: function () { return this.methodInfo.requestType == _1.RequestType.GetReplace || this.methodInfo.requestType == _1.RequestType.PostReplace; },
         enumerable: true,
         configurable: true
     });
@@ -7171,7 +7968,7 @@ var MethodInfo = /** @class */ (function () {
     MethodInfo.prototype.generateUrl = function () {
         var url = this.methodInfo.name;
         // See if we are deleting the object
-        if (this.methodInfo.requestType == types_1.RequestType.Delete) {
+        if (this.methodInfo.requestType == _1.RequestType.Delete) {
             // Update the url
             url = "deleteObject";
         }
@@ -7195,7 +7992,7 @@ var MethodInfo = /** @class */ (function () {
                 url = url.replace("[[" + key + "]]", encodeURIComponent(this.methodParams[key]));
             }
         }
-        else if (this.methodInfo.requestType == types_1.RequestType.OData) {
+        else if (this.methodInfo.requestType == _1.RequestType.OData) {
             var oData = new _1.OData(this.methodParams["oData"]);
             // Update the url
             url = "?" + oData.QueryString;
@@ -7215,8 +8012,8 @@ var MethodInfo = /** @class */ (function () {
                     value = typeof (value) === "string" ? "'" + value + "'" : value;
                     switch (this.methodInfo.requestType) {
                         // Append the value only
-                        case types_1.RequestType.GetWithArgsValueOnly:
-                        case types_1.RequestType.PostWithArgsValueOnly:
+                        case _1.RequestType.GetWithArgsValueOnly:
+                        case _1.RequestType.PostWithArgsValueOnly:
                             params += value + ", ";
                             break;
                         // Append the parameter and value
@@ -7238,7 +8035,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 113 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7364,13 +8161,47 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 114 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
+/**
+ * Request Type
+ */
+exports.RequestType = {
+    // Requests
+    Custom: 0,
+    Delete: 1,
+    Merge: 2,
+    OData: 3,
+    // Get Requests
+    Get: 10,
+    GetBuffer: 11,
+    GetWithArgs: 12,
+    GetWithArgsInBody: 13,
+    GetWithArgsInQS: 14,
+    GetWithArgsValueOnly: 15,
+    GetReplace: 16,
+    // Post Requests
+    Post: 20,
+    PostWithArgs: 21,
+    PostWithArgsInBody: 22,
+    PostWithArgsInQS: 23,
+    PostWithArgsValueOnly: 24,
+    PostReplace: 25
+};
+//# sourceMappingURL=requestType.js.map
+
+/***/ }),
+/* 104 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(1);
 /**
  * Target Information
  */
@@ -7505,17 +8336,16 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 115 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
-/*********************************************************************************************************************************/
-// Request
-// This class will execute the xml http request.
-/*********************************************************************************************************************************/
+var lib_1 = __webpack_require__(1);
+/**
+ * XML HTTP Request Class
+ */
 var XHRRequest = /** @class */ (function () {
     /*********************************************************************************************************************************/
     // Constructor
@@ -7675,13 +8505,22 @@ exports.XHRRequest = XHRRequest;
 //# sourceMappingURL=xhrRequest.js.map
 
 /***/ }),
-/* 116 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = __webpack_require__(2);
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(1);
 /**
  * JS Link
  */
@@ -7782,7 +8621,7 @@ var _JSLink = /** @class */ (function () {
      */
     _JSLink.prototype.register = function () {
         // Get the template manager
-        var templateManager = _1.ContextInfo.window.SPClientTemplates;
+        var templateManager = lib_1.ContextInfo.window.SPClientTemplates;
         templateManager = templateManager ? templateManager.TemplateManager : null;
         // Ensure it exists
         if (templateManager) {
@@ -7796,7 +8635,7 @@ exports.JSLink = _JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 117 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7812,7 +8651,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 var web_1 = __webpack_require__(39);
 /**
  * List
@@ -7860,7 +8699,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 118 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7876,7 +8715,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /**
  * Navigation
  */
@@ -7907,7 +8746,7 @@ exports.Navigation = _Navigation;
 //# sourceMappingURL=navigation.js.map
 
 /***/ }),
-/* 119 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7923,7 +8762,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // People Manager
 /*********************************************************************************************************************************/
@@ -7949,7 +8788,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 120 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7965,7 +8804,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // People Picker
 /*********************************************************************************************************************************/
@@ -7992,7 +8831,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 121 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8008,7 +8847,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Profile Loader
 /*********************************************************************************************************************************/
@@ -8035,7 +8874,58 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 122 */
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var helper_1 = __webpack_require__(17);
+var lib_1 = __webpack_require__(1);
+var mapper_1 = __webpack_require__(12);
+/**
+ * SharePoint REST Library
+ */
+exports.$REST = {
+    __ver: 3.18,
+    ContextInfo: lib_1.ContextInfo,
+    DefaultRequestToHostFl: false,
+    Helper: {
+        App: helper_1.App,
+        Dependencies: helper_1.Dependencies,
+        FieldSchemaXML: helper_1.FieldSchemaXML,
+        JSLink: helper_1.JSLink,
+        ListForm: helper_1.ListForm,
+        ListFormField: helper_1.ListFormField,
+        Loader: helper_1.Loader,
+        parse: helper_1.parse,
+        SPConfig: helper_1.SPConfig,
+        Taxonomy: helper_1.Taxonomy,
+        WebPart: helper_1.WebPart
+    },
+    List: function (listName, targetInfo) { return new lib_1.List(listName, targetInfo); },
+    Navigation: function (url, targetInfo) { return new lib_1.Navigation(url, targetInfo); },
+    PeopleManager: function (targetInfo) { return new lib_1.PeopleManager(targetInfo); },
+    PeoplePicker: function (targetInfo) { return new lib_1.PeoplePicker(targetInfo); },
+    ProfileLoader: function (targetInfo) { return new lib_1.ProfileLoader(targetInfo); },
+    Search: function (url, targetInfo) { return new lib_1.Search(url, targetInfo); },
+    Site: function (url, targetInfo) { return new lib_1.Site(url, targetInfo); },
+    SPTypes: mapper_1.SPTypes,
+    SocialFeed: lib_1.SocialFeed,
+    UserProfile: function (targetInfo) { return new lib_1.UserProfile(targetInfo); },
+    Utility: function (url, targetInfo) { return new lib_1.Utility(url, targetInfo); },
+    Web: function (url, targetInfo) { return new lib_1.Web(url, targetInfo); }
+};
+// See if the library doesn't exist, or is an older version
+var global = lib_1.ContextInfo.window.$REST;
+if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {
+    // Set the global variable
+    lib_1.ContextInfo.window.$REST = exports.$REST;
+}
+//# sourceMappingURL=rest.js.map
+
+/***/ }),
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8051,8 +8941,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Search
 /*********************************************************************************************************************************/
@@ -8097,7 +8986,7 @@ var _Search = /** @class */ (function (_super) {
         return this.executeMethod("query", {
             argNames: ["query"],
             name: "query?[[query]]",
-            requestType: types_1.RequestType.GetReplace
+            requestType: utils_1.RequestType.GetReplace
         }, this.getQuery(settings));
     };
     /** The suggest method */
@@ -8106,7 +8995,7 @@ var _Search = /** @class */ (function (_super) {
         return this.executeMethod("query", {
             argNames: ["query"],
             name: "suggest?[[query]]",
-            requestType: types_1.RequestType.GetReplace
+            requestType: utils_1.RequestType.GetReplace
         }, this.getQuery(settings));
     };
     return _Search;
@@ -8115,7 +9004,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 123 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8131,8 +9020,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
-var _1 = __webpack_require__(2);
+var utils_1 = __webpack_require__(0);
+var _1 = __webpack_require__(1);
 /*********************************************************************************************************************************/
 // Site
 // The SPSite object.
@@ -8172,7 +9061,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 124 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8188,8 +9077,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // Social Feed
 /*********************************************************************************************************************************/
@@ -8221,7 +9109,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         return this.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
-            requestType: types_1.RequestType.PostWithArgsInBody
+            requestType: utils_1.RequestType.PostWithArgsInBody
         }, [postInfo]);
     };
     // Method to post to the current user's feed
@@ -8233,7 +9121,7 @@ var _SocialFeed = /** @class */ (function (_super) {
         return this.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "my/feed/post",
-            requestType: types_1.RequestType.PostWithArgsInBody
+            requestType: utils_1.RequestType.PostWithArgsInBody
         }, [postInfo]);
     };
     return _SocialFeed;
@@ -8242,7 +9130,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 125 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8258,7 +9146,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /*********************************************************************************************************************************/
 // User Profile
 /*********************************************************************************************************************************/
@@ -8285,7 +9173,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 126 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8301,8 +9189,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var types_1 = __webpack_require__(0);
-var utils_1 = __webpack_require__(1);
+var utils_1 = __webpack_require__(0);
 /**
  * Utility
  */
@@ -8342,7 +9229,7 @@ var _Utility = /** @class */ (function (_super) {
             argNames: ["parameters"],
             name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
             replaceEndpointFl: true,
-            requestType: types_1.RequestType.PostWithArgsInBody
+            requestType: utils_1.RequestType.PostWithArgsInBody
         }, [parameters]);
     };
     // Method to send an email
@@ -8370,7 +9257,7 @@ var _Utility = /** @class */ (function (_super) {
             metadataType: "SP.Utilities.EmailProperties",
             name: "SP.Utilities.Utility.sendEmail",
             replaceEndpointFl: true,
-            requestType: types_1.RequestType.PostWithArgsInBody
+            requestType: utils_1.RequestType.PostWithArgsInBody
         }, [properties]);
     };
     return _Utility;
@@ -8379,13 +9266,22 @@ exports.Utility = _Utility;
 //# sourceMappingURL=utility.js.map
 
 /***/ }),
-/* 127 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(1);
 /**
  * Dependencies
  * This class will ensure the core SP scripts are loaded on the page.
@@ -8457,15 +9353,15 @@ exports.Dependencies = _Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 128 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
-var types_1 = __webpack_require__(0);
-var types_2 = __webpack_require__(40);
+var lib_1 = __webpack_require__(1);
+var __1 = __webpack_require__(18);
+var spCfg_1 = __webpack_require__(40);
 /**
  * Field Schema XML
  * Helper class for generating the field schema xml
@@ -8497,47 +9393,47 @@ var _FieldSchemaXML = /** @class */ (function () {
                     // Set the type
                     switch (fieldInfo.type) {
                         // Boolean
-                        case types_2.HelperTypes.SPCfgFieldType.Boolean:
+                        case spCfg_1.SPCfgFieldType.Boolean:
                             _this.createBoolean(fieldInfo, props);
                             break;
                         // Calculated
-                        case types_2.HelperTypes.SPCfgFieldType.Calculated:
+                        case spCfg_1.SPCfgFieldType.Calculated:
                             _this.createCalculated(fieldInfo, props);
                             break;
                         // Choice
-                        case types_2.HelperTypes.SPCfgFieldType.Choice:
+                        case spCfg_1.SPCfgFieldType.Choice:
                             _this.createChoice(fieldInfo, props);
                             break;
                         // Date/Time
-                        case types_2.HelperTypes.SPCfgFieldType.Date:
+                        case spCfg_1.SPCfgFieldType.Date:
                             _this.createDate(fieldInfo, props);
                             break;
                         // Lookup
-                        case types_2.HelperTypes.SPCfgFieldType.Lookup:
+                        case spCfg_1.SPCfgFieldType.Lookup:
                             _this.createLookup(fieldInfo, props);
                             break;
                         // MMS
-                        case types_2.HelperTypes.SPCfgFieldType.MMS:
+                        case spCfg_1.SPCfgFieldType.MMS:
                             _this.createMMS(fieldInfo, props);
                             break;
                         // Note
-                        case types_2.HelperTypes.SPCfgFieldType.Note:
+                        case spCfg_1.SPCfgFieldType.Note:
                             _this.createNote(fieldInfo, props);
                             break;
                         // Number
-                        case types_2.HelperTypes.SPCfgFieldType.Number:
+                        case spCfg_1.SPCfgFieldType.Number:
                             _this.createNumber(fieldInfo, props);
                             break;
                         // Text
-                        case types_2.HelperTypes.SPCfgFieldType.Text:
+                        case spCfg_1.SPCfgFieldType.Text:
                             _this.createText(fieldInfo, props);
                             break;
                         // URL
-                        case types_2.HelperTypes.SPCfgFieldType.Url:
+                        case spCfg_1.SPCfgFieldType.Url:
                             _this.createUrl(fieldInfo, props);
                             break;
                         // User
-                        case types_2.HelperTypes.SPCfgFieldType.User:
+                        case spCfg_1.SPCfgFieldType.User:
                             _this.createUser(fieldInfo, props);
                             break;
                         // Field type not supported
@@ -8573,21 +9469,21 @@ var _FieldSchemaXML = /** @class */ (function () {
             props["Type"] = "Calculated";
             // Set the result type
             switch (fieldInfo.resultType) {
-                case types_1.SPTypes.FieldResultType.Boolean:
+                case __1.SPTypes.FieldResultType.Boolean:
                     props["ResultType"] = "Boolean";
                     break;
-                case types_1.SPTypes.FieldResultType.Currency:
+                case __1.SPTypes.FieldResultType.Currency:
                     props["ResultType"] = "Currency";
                     break;
-                case types_1.SPTypes.FieldResultType.DateOnly:
+                case __1.SPTypes.FieldResultType.DateOnly:
                     props["Format"] = "DateOnly";
                     props["ResultType"] = "DateTime";
                     break;
-                case types_1.SPTypes.FieldResultType.DateTime:
+                case __1.SPTypes.FieldResultType.DateTime:
                     props["Format"] = "DateTime";
                     props["ResultType"] = "DateTime";
                     break;
-                case types_1.SPTypes.FieldResultType.Number:
+                case __1.SPTypes.FieldResultType.Number:
                     props["ResultType"] = "Number";
                     break;
                 default:
@@ -8637,7 +9533,7 @@ var _FieldSchemaXML = /** @class */ (function () {
             // Set the field type
             props["Type"] = "DateTime";
             // Set the date/time properties
-            props["Format"] = fieldInfo.format == types_1.SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
+            props["Format"] = fieldInfo.format == __1.SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
             // Generate the schema
             schemaXml = "<Field " + _this.toString(props) + " />";
             // Resolve the request
@@ -8724,10 +9620,10 @@ var _FieldSchemaXML = /** @class */ (function () {
             if (fieldInfo.appendFl) {
                 props["AppendOnly"] = "TRUE";
             }
-            if (fieldInfo.noteType == types_1.SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == types_1.SPTypes.FieldNoteType.RichText) {
+            if (fieldInfo.noteType == __1.SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == __1.SPTypes.FieldNoteType.RichText) {
                 props["RichText"] = "TRUE";
             }
-            if (fieldInfo.noteType == types_1.SPTypes.FieldNoteType.EnhancedRichText) {
+            if (fieldInfo.noteType == __1.SPTypes.FieldNoteType.EnhancedRichText) {
                 props["RichTextMode"] = "FullHtml";
             }
             if (fieldInfo.numberOfLines > 0) {
@@ -8753,10 +9649,10 @@ var _FieldSchemaXML = /** @class */ (function () {
             if (fieldInfo.min != null) {
                 props["Min"] = fieldInfo.min;
             }
-            if (fieldInfo.numberType == types_1.SPTypes.FieldNumberType.Integer) {
+            if (fieldInfo.numberType == __1.SPTypes.FieldNumberType.Integer) {
                 props["Decimals"] = 0;
             }
-            if (fieldInfo.numberType == types_1.SPTypes.FieldNumberType.Percentage) {
+            if (fieldInfo.numberType == __1.SPTypes.FieldNumberType.Percentage) {
                 props["ShowPercentage"] = "TRUE";
             }
             // Generate the schema
@@ -8820,17 +9716,54 @@ var _FieldSchemaXML = /** @class */ (function () {
     return _FieldSchemaXML;
 }());
 exports.FieldSchemaXML = new _FieldSchemaXML();
-//# sourceMappingURL=field.js.map
+//# sourceMappingURL=fieldSchemaXML.js.map
 
 /***/ }),
-/* 129 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
-var types_1 = __webpack_require__(0);
+/**
+ * SharePoint Configuration Field Types
+ */
+exports.SPCfgFieldType = {
+    Boolean: 0,
+    Calculated: 1,
+    Choice: 2,
+    Date: 3,
+    Lookup: 4,
+    MMS: 5,
+    Note: 6,
+    Number: 7,
+    Text: 8,
+    Url: 9,
+    User: 10
+};
+/**
+ * SharePoint Configuration Types
+ * The value determines the order to install the object type.
+ */
+exports.SPCfgType = {
+    Fields: 0,
+    ContentTypes: 1,
+    Lists: 2,
+    SiteUserCustomActions: 3,
+    WebParts: 5,
+    WebUserCustomActions: 4
+};
+//# sourceMappingURL=spCfgTypes.js.map
+
+/***/ }),
+/* 123 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(1);
+var mapper_1 = __webpack_require__(12);
 /**
  * JSLink Helper Methods
  */
@@ -8970,7 +9903,7 @@ exports.JSLink = {
             // Update the context, based on the field type
             switch (ctx.CurrentFieldSchema.Type) {
                 case "MultiChoice":
-                    var regExp = new RegExp(types_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString, "g");
+                    var regExp = new RegExp(mapper_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString, "g");
                     // Update the field value
                     fieldValue = ctx.CurrentFieldValue
                         .replace(regExp, "; ")
@@ -8990,11 +9923,11 @@ exports.JSLink = {
                             // User Lookup ID
                             userValue.EntityData.SPUserID +
                                 // Delimiter
-                                types_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString +
+                                mapper_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString +
                                 // User Lookup Value
                                 userValue.DisplayText +
                                 // Optional Delimiter
-                                ((i == ctx.CurrentFieldValue.length - 1 ? "" : types_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString));
+                                ((i == ctx.CurrentFieldValue.length - 1 ? "" : mapper_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString));
                     }
                     break;
             }
@@ -9003,7 +9936,7 @@ exports.JSLink = {
             ctx.CurrentFieldValue = fieldValue;
         }
         // Determine the control mode
-        var controlMode = types_1.SPTypes.ControlMode.Display;
+        var controlMode = mapper_1.SPTypes.ControlMode.Display;
         if (requireValueFl && (fieldValue == null || fieldValue == "")) {
             // Inherit the control mode
             controlMode = ctx.ControlMode;
@@ -9195,13 +10128,13 @@ exports.JSLink = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 130 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
+var lib_1 = __webpack_require__(1);
 var parse_1 = __webpack_require__(41);
 /**
  * List Form
@@ -9568,14 +10501,14 @@ exports.ListForm = _ListForm;
 //# sourceMappingURL=listForm.js.map
 
 /***/ }),
-/* 131 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
-var types_1 = __webpack_require__(0);
+var lib_1 = __webpack_require__(1);
+var __1 = __webpack_require__(18);
 var taxonomy_1 = __webpack_require__(42);
 /**
  * List Form Field
@@ -9624,19 +10557,19 @@ var _ListFormField = /** @class */ (function () {
             // Update the field info, based on the type
             switch (_this._fieldInfo.type) {
                 // Choice
-                case types_1.SPTypes.FieldType.Choice:
-                case types_1.SPTypes.FieldType.MultiChoice:
+                case __1.SPTypes.FieldType.Choice:
+                case __1.SPTypes.FieldType.MultiChoice:
                     var choices = _this._fieldInfo.field.Choices;
                     _this._fieldInfo.choices = (choices ? choices.results : null) || [];
-                    _this._fieldInfo.multi = _this._fieldInfo.type == types_1.SPTypes.FieldType.MultiChoice;
+                    _this._fieldInfo.multi = _this._fieldInfo.type == __1.SPTypes.FieldType.MultiChoice;
                     break;
                 // Date/Time
-                case types_1.SPTypes.FieldType.DateTime:
+                case __1.SPTypes.FieldType.DateTime:
                     var fldDate = _this._fieldInfo.field;
-                    _this._fieldInfo.showTime = fldDate.DisplayFormat == types_1.SPTypes.DateFormat.DateTime;
+                    _this._fieldInfo.showTime = fldDate.DisplayFormat == __1.SPTypes.DateFormat.DateTime;
                     break;
                 // Lookup
-                case types_1.SPTypes.FieldType.Lookup:
+                case __1.SPTypes.FieldType.Lookup:
                     var fldLookup = _this._fieldInfo.field;
                     _this._fieldInfo.lookupField = fldLookup.LookupField;
                     _this._fieldInfo.lookupListId = fldLookup.LookupList;
@@ -9644,7 +10577,7 @@ var _ListFormField = /** @class */ (function () {
                     _this._fieldInfo.multi = fldLookup.AllowMultipleValues;
                     break;
                 // Number
-                case types_1.SPTypes.FieldType.Number:
+                case __1.SPTypes.FieldType.Number:
                     var fldNumber = _this._fieldInfo.field;
                     _this._fieldInfo.maxValue = fldNumber.MaximumValue;
                     _this._fieldInfo.minValue = fldNumber.MinimumValue;
@@ -9656,22 +10589,22 @@ var _ListFormField = /** @class */ (function () {
                     }
                     break;
                 // Note
-                case types_1.SPTypes.FieldType.Note:
+                case __1.SPTypes.FieldType.Note:
                     var fldNote = _this._fieldInfo.field;
                     _this._fieldInfo.multiline = true;
                     _this._fieldInfo.richText = fldNote.RichText;
                     _this._fieldInfo.rows = fldNote.NumberOfLines;
                     break;
                 // Text
-                case types_1.SPTypes.FieldType.Text:
+                case __1.SPTypes.FieldType.Text:
                     _this._fieldInfo.multiline = false;
                     _this._fieldInfo.richText = false;
                     _this._fieldInfo.rows = 1;
                     break;
                 // User
-                case types_1.SPTypes.FieldType.User:
+                case __1.SPTypes.FieldType.User:
                     var fldUser = _this._fieldInfo.field;
-                    _this._fieldInfo.allowGroups = fldUser.SelectionMode == types_1.SPTypes.FieldUserSelectionType.PeopleAndGroups;
+                    _this._fieldInfo.allowGroups = fldUser.SelectionMode == __1.SPTypes.FieldUserSelectionType.PeopleAndGroups;
                     _this._fieldInfo.multi = fldUser.AllowMultipleValues;
                     break;
                 // Default
@@ -9778,14 +10711,14 @@ exports.ListFormField = _ListFormField;
 //# sourceMappingURL=listFormField.js.map
 
 /***/ }),
-/* 132 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
+var lib_1 = __webpack_require__(1);
 /**
  * Loader
  */
@@ -9838,1081 +10771,13 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 133 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
-var _1 = __webpack_require__(37);
-/**
- * SharePoint Configuration
- */
-var _SPConfig = /** @class */ (function () {
-    /**
-     * Constructor
-     */
-    function _SPConfig(cfg, webUrl) {
-        var _this = this;
-        // Method to install by configuration type
-        this.installByType = function (cfgType, callback, targetName) { return _this.install(callback, cfgType, targetName); };
-        // Method to uninstall by the configuration type
-        this.uninstallByType = function (cfgType, callback, targetName) { return _this.uninstall(callback, cfgType, targetName); };
-        /**
-         * Methods
-         */
-        // Method to create the content types
-        this.createContentTypes = function (contentTypes, cfgContentTypes) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the content types exist
-                if (cfgContentTypes == null || cfgContentTypes.length == 0) {
-                    // Resolve the promise
-                    resolve();
-                    return;
-                }
-                var _loop_1 = function (i) {
-                    var cfgContentType = cfgContentTypes[i];
-                    // See if this content type already exists
-                    var ct = _this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
-                    if (ct) {
-                        // Log
-                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' already exists.");
-                        // Update the configuration
-                        cfgContentType.ContentType = ct;
-                    }
-                    else {
-                        // Log
-                        console.log("[gd-sprest][Content Type] Creating the '" + cfgContentType.Name + "' content type.");
-                        // See if the parent name exists
-                        if (cfgContentType.ParentName) {
-                            // Get the web containing the parent content type
-                            (new lib_1.Web(cfgContentType.ParentWebUrl || _this._webUrl))
-                                .ContentTypes()
-                                .query({
-                                Filter: "Name eq '" + cfgContentType.ParentName + "'"
-                            })
-                                .execute(function (parent) {
-                                // See if the parent exists
-                                if (parent.results[0]) {
-                                    // Add the available content type
-                                    contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
-                                        // See if it was successful
-                                        if (ct.existsFl) {
-                                            // Log
-                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
-                                            // Update the configuration
-                                            cfgContentType.ContentType = ct;
-                                            // Trigger the event
-                                            cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
-                                        }
-                                        else {
-                                            // Log
-                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
-                                            console.error("[gd-sprest][Field] Error: " + ct.response);
-                                        }
-                                    }, true);
-                                }
-                                else {
-                                    // Log
-                                    console.log("[gd-sprest][Content Type] The parent content type '" + cfgContentType.Name + "' was not found.");
-                                }
-                            });
-                        }
-                        else {
-                            // Create the content type
-                            contentTypes.add({
-                                Description: cfgContentType.Description,
-                                Group: cfgContentType.Group,
-                                Name: cfgContentType.Name
-                            }).execute(function (ct) {
-                                // See if it was successful
-                                if (ct.existsFl) {
-                                    // Log
-                                    console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
-                                    // Update the configuration
-                                    cfgContentType.ContentType = ct;
-                                    // Trigger the event
-                                    cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
-                                }
-                                else {
-                                    // Log
-                                    console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
-                                    console.error("[gd-sprest][Field] Error: " + ct.response);
-                                }
-                            });
-                        }
-                    }
-                };
-                // Parse the configuration
-                for (var i = 0; i < cfgContentTypes.length; i++) {
-                    _loop_1(i);
-                }
-                // Wait for the requests to complete
-                contentTypes.done(function () {
-                    var _loop_2 = function (i) {
-                        var cfgContentType = cfgContentTypes[i];
-                        var cfgUpdate = {};
-                        var updateFl = false;
-                        // Ensure the content type exists
-                        if (cfgContentType.ContentType == null) {
-                            return "continue";
-                        }
-                        /**
-                         * See if we need to update the properties
-                         */
-                        // Description
-                        if (cfgContentType.ContentType.Description != cfgContentType.Description) {
-                            // Update the configuration
-                            cfgUpdate.Description = cfgContentType.Description;
-                            // Log
-                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Description requires update.");
-                            // Set the flag
-                            updateFl = true;
-                        }
-                        // Group
-                        if (cfgContentType.ContentType.Group != cfgContentType.Group) {
-                            // Update the configuration
-                            cfgUpdate.Group = cfgContentType.Group;
-                            // Log
-                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Group requires update.");
-                            // Set the flag
-                            updateFl = true;
-                        }
-                        // JSLink
-                        if (cfgContentType.ContentType.JSlink != cfgContentType.JSLink) {
-                            // Update the configuration
-                            cfgUpdate.JSLink = cfgContentType.JSLink;
-                            // Log
-                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] JSLink requires update.");
-                            // Set the flag
-                            updateFl = true;
-                        }
-                        // Name
-                        if (cfgContentType.ContentType.Name != cfgContentType.Name) {
-                            // Update the configuration
-                            cfgUpdate.Name = cfgContentType.Name;
-                            // Log
-                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Name requires update.");
-                            // Set the flag
-                            updateFl = true;
-                        }
-                        // See if an update is needed
-                        if (updateFl) {
-                            // Log
-                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the webpart.");
-                            // Update the content type
-                            cfgContentType.ContentType.update({ JSLink: cfgContentType.JSLink }).execute(function () {
-                                // Log
-                                console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
-                                // Trigger the event
-                                cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
-                            });
-                        }
-                        else {
-                            // Trigger the event
-                            cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
-                        }
-                    };
-                    // Parse the configuration
-                    for (var i = 0; i < cfgContentTypes.length; i++) {
-                        _loop_2(i);
-                    }
-                    // Wait for the requests to complete
-                    contentTypes.done(function () {
-                        // Resolve the promise
-                        resolve();
-                    });
-                });
-            });
-        };
-        // Method to create the fields
-        this.createFields = function (fields, cfgFields) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the fields exist
-                if (cfgFields == null || cfgFields.length == 0) {
-                    // Resolve the promise and return
-                    resolve();
-                    return;
-                }
-                var _loop_3 = function (i) {
-                    var cfgField = cfgFields[i];
-                    // See if this field already exists
-                    var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
-                    if (field) {
-                        // Log
-                        console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
-                        // Trigger the event
-                        cfgField.onUpdated ? cfgField.onUpdated(field) : null;
-                    }
-                    else {
-                        // Log
-                        console.log("[gd-sprest][Field] Creating the '" + cfgField.name + "' field.");
-                        //
-                        var onFieldCreated_1 = function (field) {
-                            // See if it was successful
-                            if (field.existsFl) {
-                                // Log
-                                console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
-                                // Trigger the event
-                                cfgField.onCreated ? cfgField.onCreated(field) : null;
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][Field] The field '" + cfgField.name + "' failed to be created.");
-                                console.error("[gd-sprest][Field] Error: " + field.response);
-                            }
-                        };
-                        // Compute the schema xml
-                        _1.Helper.FieldSchemaXML.generate(cfgField).then(function (response) {
-                            var schemas = typeof (response) === "string" ? [response] : response;
-                            // Parse the fields to add
-                            for (var i_1 = 0; i_1 < schemas.length; i_1++) {
-                                // Add the field
-                                fields.createFieldAsXml(schemas[i_1]).execute(onFieldCreated_1, true);
-                            }
-                        });
-                    }
-                };
-                // Parse the fields
-                for (var i = 0; i < cfgFields.length; i++) {
-                    _loop_3(i);
-                }
-                // Wait for the requests to complete
-                fields.done(function () {
-                    // Resolve the promise
-                    resolve();
-                });
-            });
-        };
-        // Method to create the lists
-        this.createLists = function (lists, cfgLists) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // See if the configuration type exists
-                if (_this._cfgType) {
-                    // Ensure it's for this type
-                    if (_this._cfgType != _1.Helper.Types.SPCfgType.Lists) {
-                        // Resolve the promise and return
-                        resolve();
-                        return;
-                    }
-                }
-                // Ensure the lists exist
-                if (cfgLists == null || cfgLists.length == 0) {
-                    // Resolve the promise and return
-                    resolve();
-                    return;
-                }
-                var _loop_4 = function (i) {
-                    var cfgList = cfgLists[i];
-                    // See if the target name exists
-                    if (_this._cfgType && _this._targetName) {
-                        // Ensure it's for this list
-                        if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
-                            return "continue";
-                        }
-                    }
-                    // See if this content type already exists
-                    var list = _this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
-                    if (list) {
-                        // Log
-                        console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
-                    }
-                    else {
-                        // Log
-                        console.log("[gd-sprest][List] Creating the '" + cfgList.ListInformation.Title + "' list.");
-                        // Update the list name and remove spaces
-                        var listInfo_1 = cfgList.ListInformation;
-                        var listName_1 = listInfo_1.Title;
-                        listInfo_1.Title = listName_1.replace(/ /g, "");
-                        // Add the list
-                        lists.add(listInfo_1)
-                            .execute(function (list) {
-                            // Restore the list name in the configuration
-                            listInfo_1.Title = listName_1;
-                            // See if the request was successful
-                            if (list.existsFl) {
-                                // See if we need to update the list
-                                if (list.existsFl && list.Title != listName_1) {
-                                    // Update the list
-                                    list.update({ Title: listName_1 }).execute(function () {
-                                        // Log
-                                        console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
-                                    });
-                                }
-                                else {
-                                    // Log
-                                    console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
-                                }
-                                // Trigger the event
-                                cfgList.onCreated ? cfgList.onCreated(list) : null;
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][List] The list '" + listInfo_1.Title + "' failed to be created.");
-                                console.log("[gd-sprest][List] Error: '" + list.response);
-                            }
-                        });
-                    }
-                };
-                // Parse the content types
-                for (var i = 0; i < cfgLists.length; i++) {
-                    _loop_4(i);
-                }
-                // Wait for the requests to complete
-                lists.done(function () {
-                    // Update the lists
-                    _this.updateLists(cfgLists).then(function () {
-                        // Resolve the promise
-                        resolve();
-                    });
-                });
-            });
-        };
-        // Method to create the user custom actions
-        this.createUserCustomActions = function (customActions, cfgCustomActions) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // See if the configuration type exists
-                if (_this._cfgType) {
-                    // Ensure it's for this type
-                    if (_this._cfgType != _1.Helper.Types.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.SPCfgType.WebUserCustomActions) {
-                        // Resolve the promise
-                        resolve();
-                        return;
-                    }
-                }
-                // Ensure the lists exist
-                if (cfgCustomActions == null || cfgCustomActions.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
-                    return;
-                }
-                // Parse the custom actions
-                for (var i = 0; i < cfgCustomActions.length; i++) {
-                    var cfgCustomAction = cfgCustomActions[i];
-                    // See if the target name exists
-                    if (_this._cfgType && _this._targetName) {
-                        // Ensure it's for this custom action
-                        if (cfgCustomAction.Name.toLowerCase() != _this._targetName ||
-                            cfgCustomAction.Title.toLowerCase() != _this._targetName) {
-                            // Skip this custom action
-                            continue;
-                        }
-                    }
-                    // See if this custom action already exists
-                    if (_this.isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
-                        // Log
-                        console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
-                    }
-                    else {
-                        // Add the custom action
-                        customActions.add(cfgCustomAction).execute(function (ca) {
-                            // Ensure it exists
-                            if (ca.existsFl) {
-                                // Log
-                                console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was created successfully.");
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' failed to be created.");
-                                console.log("[gd-sprest][Custom Action] Error: " + ca.response);
-                            }
-                        }, true);
-                    }
-                }
-                // Wait for the requests to complete
-                customActions.done(function () {
-                    // Resolve the promise
-                    resolve();
-                });
-            });
-        };
-        // Method to create the list views
-        this.createViews = function (views, cfgViews) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the list views exist
-                if (cfgViews == null || cfgViews.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
-                    return;
-                }
-                var _loop_5 = function (i) {
-                    var cfgView = cfgViews[i];
-                    // See if this view exists
-                    var view = _this.isInCollection("Title", cfgView.ViewName, views.results);
-                    if (view) {
-                        // Log
-                        console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' already exists.");
-                    }
-                    else {
-                        // Add the view
-                        views.add({
-                            Title: cfgView.ViewName,
-                            ViewQuery: cfgView.ViewQuery
-                        }).execute(function (view) {
-                            // Ensure it exists
-                            if (view.existsFl) {
-                                // Log
-                                console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' was created successfully.");
-                                // Trigger the event
-                                cfgView.onCreated ? cfgView.onCreated(view) : null;
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' failed to be created.");
-                                console.log("[gd-sprest][View] Error: " + view.response);
-                            }
-                        }, true);
-                    }
-                };
-                // Parse the views
-                for (var i = 0; i < cfgViews.length; i++) {
-                    _loop_5(i);
-                }
-                // Wait for the requests to complete
-                views.done(function () {
-                    // Update the views
-                    _this.updateViews(views, cfgViews).then(function () {
-                        // Resolve the promise
-                        resolve();
-                    });
-                });
-            });
-        };
-        // Method to create the web parts
-        this.createWebParts = function () {
-            var cfgWebParts = _this._configuration.WebPartCfg;
-            // See if the configuration type exists
-            if (_this._cfgType) {
-                // Ensure it's for this type
-                if (_this._cfgType != _1.Helper.Types.SPCfgType.WebParts) {
-                    return;
-                }
-            }
-            // Ensure the configuration exists
-            if (cfgWebParts == null || cfgWebParts.length == 0) {
-                return;
-            }
-            // Log
-            console.log("[gd-sprest][WebPart] Creating the web parts.");
-            // Get the root web
-            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
-                .Lists("Web Part Gallery")
-                .RootFolder()
-                .query({
-                Expand: ["Files"]
-            })
-                .execute(function (folder) {
-                var _loop_6 = function (i) {
-                    var cfgWebPart = cfgWebParts[i];
-                    // See if the target name exists
-                    if (_this._cfgType && _this._targetName) {
-                        // Ensure it's for this list
-                        if (cfgWebPart.FileName.toLowerCase() != _this._targetName) {
-                            return "continue";
-                        }
-                    }
-                    // See if this webpart exists
-                    var file = _this.isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
-                    if (file.existsFl) {
-                        // Log
-                        console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
-                        // Trigger the event
-                        cfgWebPart.onUpdated ? cfgWebPart.onUpdated(file) : null;
-                    }
-                    else {
-                        // Trim the xml
-                        var xml = cfgWebPart.XML.trim();
-                        // Convert the string to an array buffer
-                        var buffer = new ArrayBuffer(xml.length * 2);
-                        var bufferView = new Uint16Array(buffer);
-                        for (var j = 0; j < xml.length; j++) {
-                            bufferView[j] = xml.charCodeAt(j);
-                        }
-                        // Create the webpart, but execute the requests one at a time
-                        folder.Files.add(true, cfgWebPart.FileName, buffer).execute(function (file) {
-                            // See if group exists
-                            if (cfgWebPart.Group) {
-                                // Set the target to the root web
-                                (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
-                                    .Lists("Web Part Gallery")
-                                    .Items()
-                                    .query({
-                                    Filter: "FileLeafRef eq '" + cfgWebPart.FileName + "'"
-                                })
-                                    .execute(function (items) {
-                                    // Update the item
-                                    items.results[0].update({
-                                        Group: cfgWebPart.Group
-                                    }).execute();
-                                });
-                            }
-                            // Log
-                            console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
-                            // Trigger the event
-                            cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
-                        });
-                    }
-                };
-                // Parse the configuration
-                for (var i = 0; i < cfgWebParts.length; i++) {
-                    _loop_6(i);
-                }
-            });
-        };
-        // Method to install the site components
-        this.installSite = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure site actions exist
-                if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
-                    // Resolve the promise
-                    resolve();
-                    return;
-                }
-                // Log
-                console.log("[gd-sprest] Loading the site information...");
-                // Get the site
-                (new lib_1.Site(_this._webUrl))
-                    .query({
-                    Expand: ["UserCustomActions"]
-                })
-                    .execute(function (site) {
-                    // Install the user custom actions
-                    _this.createUserCustomActions(site.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : []).then(function () {
-                        // Resolve the promise
-                        resolve(site);
-                    });
-                });
-            });
-        };
-        // Method to install the web components
-        this.installWeb = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Log
-                console.log("[gd-sprest] Loading the web information...");
-                // Get the web
-                (new lib_1.Web(_this._webUrl))
-                    .query({
-                    Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
-                })
-                    .execute(function (web) {
-                    // Create the fields
-                    _this.createFields(web.Fields, _this._configuration.Fields).then(function () {
-                        // Create the content types
-                        _this.createContentTypes(web.ContentTypes, _this._configuration.ContentTypes).then(function () {
-                            // Create the lists
-                            _this.createLists(web.Lists, _this._configuration.ListCfg).then(function () {
-                                // Create the web custom actions
-                                _this.createUserCustomActions(web.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null).then(function () {
-                                    // Resolve the promise
-                                    resolve();
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        };
-        // Method to see if an object exists in a collection
-        this.isInCollection = function (key, value, collection) {
-            var valueLower = value.toLowerCase();
-            // Parse the collection
-            for (var i = 0; i < collection.length; i++) {
-                var keyValue = collection[i][key];
-                keyValue = keyValue ? keyValue.toLowerCase() : "";
-                // See if the item exists
-                if (valueLower == keyValue) {
-                    // Return true
-                    return collection[i];
-                }
-            }
-            // Not in the collection
-            return false;
-        };
-        // Method to remove the content type
-        this.removeContentTypes = function (contentTypes, cfgContentTypes) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the content types exist
-                if (cfgContentTypes == null || cfgContentTypes.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
-                    return;
-                }
-                var _loop_7 = function (i) {
-                    var cfgContentType = cfgContentTypes[i];
-                    // Get the field
-                    var ct = _this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
-                    if (ct) {
-                        // Remove the field
-                        ct.delete().execute(function () {
-                            // Log
-                            console.log("[gd-sprest][Field] The content type '" + ct.Name + "' was removed.");
-                        }, true);
-                    }
-                };
-                // Parse the configuration
-                for (var i = 0; i < cfgContentTypes.length; i++) {
-                    _loop_7(i);
-                }
-                // Wait for the requests to complete
-                contentTypes.done(function () {
-                    // Resolve the promise
-                    resolve();
-                });
-            });
-        };
-        // Method to remove the fields
-        this.removeFields = function (fields, cfgFields) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the fields exist
-                if (cfgFields == null || cfgFields.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
-                    return;
-                }
-                var _loop_8 = function (i) {
-                    var cfgField = cfgFields[i];
-                    // Get the field
-                    var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
-                    if (field) {
-                        // Remove the field
-                        field.delete().execute(function () {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was removed.");
-                        }, true);
-                    }
-                };
-                // Parse the configuration
-                for (var i = 0; i < cfgFields.length; i++) {
-                    _loop_8(i);
-                }
-                // Wait for the requests to complete
-                fields.done(function () {
-                    // Resolve the promise
-                    resolve();
-                });
-            });
-        };
-        // Method to remove the lists
-        this.removeLists = function (lists, cfgLists) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // See if the configuration type exists
-                if (_this._cfgType) {
-                    // Ensure it's for this type
-                    if (_this._cfgType != _1.Helper.Types.SPCfgType.Lists) {
-                        // Resolve the promise
-                        resolve();
-                        return;
-                    }
-                }
-                // Ensure the lists exist
-                if (cfgLists == null || cfgLists.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
-                    return;
-                }
-                var _loop_9 = function (i) {
-                    var cfgList = cfgLists[i];
-                    // See if the target name exists
-                    if (_this._cfgType && _this._targetName) {
-                        // Ensure it's for this list
-                        if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
-                            return "continue";
-                        }
-                    }
-                    // Get the list
-                    var list = _this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
-                    if (list) {
-                        // Remove the list
-                        list.delete().execute(function () {
-                            // Log
-                            console.log("[gd-sprest][List] The list '" + list.Title + "' was removed.");
-                        }, true);
-                    }
-                };
-                // Parse the configuration
-                for (var i = 0; i < cfgLists.length; i++) {
-                    _loop_9(i);
-                }
-                // Wait for the requests to complete
-                lists.done(function () {
-                    // Resolve the promise
-                    resolve();
-                });
-            });
-        };
-        // Method to remove the user custom actions
-        this.removeUserCustomActions = function (customActions, cfgCustomActions) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // See if the configuration type exists
-                if (_this._cfgType) {
-                    // Ensure it's for this type
-                    if (_this._cfgType != _1.Helper.Types.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.Helper.Types.SPCfgType.WebUserCustomActions) {
-                        // Resolve the promise
-                        resolve();
-                        return;
-                    }
-                }
-                // Ensure the custom actions exist
-                if (cfgCustomActions == null || cfgCustomActions.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
-                    return;
-                }
-                var _loop_10 = function (i) {
-                    var cfgCustomAction = cfgCustomActions[i];
-                    // See if the target name exists
-                    if (_this._cfgType && _this._targetName) {
-                        // Ensure it's for this custom action
-                        if (cfgCustomAction.Name.toLowerCase() != _this._targetName ||
-                            cfgCustomAction.Title.toLowerCase() != _this._targetName) {
-                            return "continue";
-                        }
-                    }
-                    // Get the custom action
-                    var ca = _this.isInCollection("Name", cfgCustomAction.Name, customActions.results);
-                    if (ca) {
-                        // Remove the custom action
-                        ca.delete().execute(function () {
-                            // Log
-                            console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was removed.");
-                        }, true);
-                    }
-                };
-                // Parse the configuration
-                for (var i = 0; i < cfgCustomActions.length; i++) {
-                    _loop_10(i);
-                }
-                // Wait for the requests to complete
-                customActions.done(function () {
-                    // Resolve the promise
-                    resolve();
-                });
-            });
-        };
-        // Method to remove the web parts
-        this.removeWebParts = function () {
-            var cfgWebParts = _this._configuration.WebPartCfg;
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // See if the configuration type exists
-                if (_this._cfgType) {
-                    // Ensure it's for this type
-                    if (_this._cfgType != _1.Helper.Types.SPCfgType.WebParts) {
-                        // Resolve the promise
-                        resolve();
-                        return;
-                    }
-                }
-                // Ensure the configuration exists
-                if (cfgWebParts == null || cfgWebParts.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
-                    return;
-                }
-                // Log
-                console.log("[gd-sprest][WebPart] Creating the web parts.");
-                // Get the root web
-                (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
-                    .Lists("Web Part Gallery")
-                    .RootFolder()
-                    .Files()
-                    .execute(function (files) {
-                    var _loop_11 = function (i) {
-                        var cfgWebPart = cfgWebParts[i];
-                        // See if the target name exists
-                        if (_this._cfgType && _this._targetName) {
-                            // Ensure it's for this list
-                            if (cfgWebPart.FileName.toLowerCase() != _this._targetName) {
-                                return "continue";
-                            }
-                        }
-                        // Get the file
-                        var file = _this.isInCollection("Name", cfgWebPart.FileName, files.results);
-                        if (file) {
-                            // Remove the file
-                            file.delete().execute(function () {
-                                // Log
-                                console.log("[gd-sprest][WebPart] The webpart '" + file.Name + "' file was removed.");
-                            }, true);
-                        }
-                    };
-                    // Parse the configuration
-                    for (var i = 0; i < cfgWebParts.length; i++) {
-                        _loop_11(i);
-                    }
-                    // Resolve the promise
-                    resolve();
-                });
-            });
-        };
-        // Method to update the lists
-        this.updateLists = function (cfgLists) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                var request = function (idx, resolve) {
-                    // Get the list configuration
-                    var cfgList = cfgLists[idx];
-                    // See if the target name exists
-                    if (_this._targetName) {
-                        // Ensure it's for this list
-                        if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
-                            // Update the next list
-                            request(idx + 1, resolve);
-                            return;
-                        }
-                    }
-                    // Ensure the configuration exists
-                    if (cfgList) {
-                        // Get the web
-                        (new lib_1.Web(_this._webUrl))
-                            .Lists(cfgList.ListInformation.Title)
-                            .query({
-                            Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
-                        })
-                            .execute(function (list) {
-                            // See if the title field is being updated
-                            if (cfgList.TitleFieldDisplayName) {
-                                // Parse the fields
-                                for (var i = 0; i < list.Fields.results.length; i++) {
-                                    var field = list.Fields.results[i];
-                                    // See if this is the title field
-                                    if (field.InternalName == "Title") {
-                                        // See if an update is required
-                                        if (field.Title != cfgList.TitleFieldDisplayName) {
-                                            // Update the field name
-                                            field.update({ Title: cfgList.TitleFieldDisplayName }).execute(function () {
-                                                // Log
-                                                console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
-                                            });
-                                        }
-                                    }
-                                }
-                            }
-                            // Update the list fields
-                            _this.createFields(list.Fields, cfgList.CustomFields).then(function () {
-                                // Update the content types
-                                _this.createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(function () {
-                                    // Update the views
-                                    _this.createViews(list.Views, cfgList.ViewInformation).then(function () {
-                                        // Trigger the event
-                                        cfgList.onUpdated ? cfgList.onUpdated(list) : null;
-                                        // Update the next list
-                                        request(idx + 1, resolve);
-                                    });
-                                });
-                            });
-                            // Update the user custom actions
-                            _this.createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
-                        });
-                    }
-                    else {
-                        // Resolve the promise
-                        resolve();
-                    }
-                };
-                // Execute the request
-                request(0, resolve);
-            });
-        };
-        // Method to update the views
-        this.updateViews = function (views, cfgViews) {
-            var counter = 0;
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                var _loop_12 = function (i) {
-                    var cfgView = cfgViews[i];
-                    // Get the view
-                    var view = views.getByTitle(cfgView.ViewName);
-                    // See if the view fields are defined
-                    if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
-                        // Log
-                        console.log("[gd-sprest][View] Updating the view fields for the '" + cfgView.ViewName + "' view.");
-                        // Clear the view fields
-                        view.ViewFields().removeAllViewFields().execute(true);
-                        // Parse the view fields
-                        for (var i_2 = 0; i_2 < cfgView.ViewFields.length; i_2++) {
-                            // Add the view field
-                            view.ViewFields().addViewField(cfgView.ViewFields[i_2]).execute(true);
-                        }
-                    }
-                    // See if we are updating the view properties
-                    if (cfgView.JSLink || cfgView.ViewQuery) {
-                        var props = {};
-                        // Log
-                        console.log("[gd-sprest][View] Updating the view properties for the '" + cfgView.ViewName + "' view.");
-                        // Set the properties
-                        cfgView.JSLink ? props["JSLink"] = cfgView.JSLink : null;
-                        cfgView.ViewQuery ? props["ViewQuery"] = cfgView.ViewQuery : null;
-                        // Update the view
-                        view.update(props).execute(true);
-                    }
-                    // Wait for the requests to complete
-                    view.done(function () {
-                        var args = [];
-                        for (var _i = 0; _i < arguments.length; _i++) {
-                            args[_i] = arguments[_i];
-                        }
-                        // Trigger the event
-                        cfgView.onUpdated ? cfgView.onUpdated(view) : null;
-                        // See if we are done
-                        if (++counter >= cfgViews.length) {
-                            // Resolve the promise
-                            resolve();
-                        }
-                    });
-                };
-                // Parse the views
-                for (var i = 0; i < cfgViews.length; i++) {
-                    _loop_12(i);
-                }
-            });
-        };
-        // Method to uninstall the site components
-        this.uninstallSite = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Log
-                console.log("[gd-sprest][uninstall] Loading the site information...");
-                // Ensure site actions exist
-                if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
-                    // Resolve the promise
-                    resolve();
-                    return;
-                }
-                // Get the site
-                (new lib_1.Site(_this._webUrl))
-                    .query({
-                    Expand: ["UserCustomActions"]
-                })
-                    .execute(function (site) {
-                    // Remove the user custom actions
-                    _this.removeUserCustomActions(site.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : []).then(function () {
-                        // Resolve the promise
-                        resolve(site);
-                    });
-                });
-            });
-        };
-        // Method to uninstall the web components
-        this.uninstallWeb = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Log
-                console.log("[gd-sprest][uninstall] Loading the web information...");
-                // Get the web
-                (new lib_1.Web(_this._webUrl))
-                    .query({
-                    Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
-                })
-                    .execute(function (web) {
-                    // Remove the fields
-                    _this.removeFields(web.Fields, _this._configuration.Fields).then(function () {
-                        // Remove the content types
-                        _this.removeContentTypes(web.ContentTypes, _this._configuration.ContentTypes).then(function () {
-                            // Remove the lists
-                            _this.removeLists(web.Lists, _this._configuration.ListCfg).then(function () {
-                                // Remove the web custom actions
-                                _this.removeUserCustomActions(web.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null).then(function () {
-                                    // Resolve the promise
-                                    resolve();
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        };
-        // Save the configuration
-        this._configuration = cfg;
-        // Save the target web url
-        this._webUrl = webUrl;
-    }
-    /**
-     * Public Methods
-     */
-    // Method to install the configuration
-    _SPConfig.prototype.install = function (callback, cfgType, targetName) {
-        var _this = this;
-        // Update the global variables
-        this._cfgType = cfgType;
-        this._targetName = targetName ? targetName.toLowerCase() : null;
-        // Install the web components
-        this.installWeb().then(function () {
-            // Install the site components
-            _this.installSite().then(function () {
-                // Create the webparts
-                _this.createWebParts();
-                // Log
-                console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
-                // See if the callback exists
-                if (callback && typeof (callback) === "function") {
-                    // Execute the callback
-                    callback();
-                }
-            });
-        });
-    };
-    // Method to install a specific list
-    _SPConfig.prototype.installList = function (listName, callback) { this.installByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
-    // Method to install a specific site custom action
-    _SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
-    // Method to install a specific web custom action
-    _SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
-    // Method to uninstall the configuration
-    _SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
-        var _this = this;
-        // Update the global variables
-        this._cfgType = cfgType;
-        this._targetName = targetName;
-        // Uninstall the web components
-        this.uninstallWeb().then(function () {
-            // Uninstall the site components
-            _this.uninstallSite().then(function () {
-                // Remove the webparts
-                _this.removeWebParts().then(function () {
-                    // Log
-                    console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
-                    // See if the callback exists
-                    if (callback && typeof (callback) === "function") {
-                        // Execute the callback
-                        callback();
-                    }
-                });
-            });
-        });
-    };
-    // Method to install a specific list
-    _SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.Lists, callback, listName); };
-    // Method to install a specific site custom action
-    _SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); };
-    // Method to install a specific web custom action
-    _SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(_1.Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); };
-    return _SPConfig;
-}());
-;
-exports.SPConfig = _SPConfig;
-//# sourceMappingURL=spCfg.js.map
-
-/***/ }),
-/* 134 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(2);
+var lib_1 = __webpack_require__(1);
 /**
  * Web Part
  */
@@ -11185,6 +11050,30 @@ var _WebPart = /** @class */ (function () {
 }());
 exports.WebPart = _WebPart;
 //# sourceMappingURL=webpart.js.map
+
+/***/ }),
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var helper_1 = __webpack_require__(17);
+exports.Helper = helper_1.Types;
+var mapper_1 = __webpack_require__(12);
+exports.SP = mapper_1.Types;
+var utils_1 = __webpack_require__(0);
+exports.Util = utils_1.Types;
+//# sourceMappingURL=types.js.map
 
 /***/ })
 /******/ ]);

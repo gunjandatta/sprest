@@ -1,2 +1,2 @@
-import { Types } from "../mapper";
-export declare const Dependencies: Types.Helper.Dependencies.IDependencies;
+import { IDependencies } from "./types";
+export declare const Dependencies: IDependencies;

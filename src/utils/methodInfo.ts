@@ -1,32 +1,14 @@
-import { RequestType } from "../types";
-import { OData } from ".";
-
-/**
- * Method Information Settings
- */
-export interface IMethodInfo {
-    argNames?: Array<string>;
-    argValues?: Array<any>;
-    data?: any;
-    getAllItemsFl?: boolean;
-    inheritMetadataType?: boolean;
-    metadataType?: string;
-    name?: string;
-    replaceEndpointFl?: boolean;
-    requestMethod?: string;
-    requestType?: number;
-    returnType?: string;
-}
+import { OData, RequestType, Types } from ".";
 
 /*********************************************************************************************************************************/
 // Method Information
 // This class will create the method information for the request.
 /*********************************************************************************************************************************/
-export class MethodInfo implements IMethodInfo {
+export class MethodInfo implements Types.IMethodInfo {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
-    constructor(methodName: string, methodInfo: IMethodInfo, args: any) {
+    constructor(methodName: string, methodInfo: Types.IMethodInfo, args: any) {
         // Default the properties
         this.methodInfo = methodInfo;
         this.methodInfo.argValues = args;
@@ -84,7 +66,7 @@ export class MethodInfo implements IMethodInfo {
     private get isTemplate(): boolean { return this.methodInfo.data ? true : false; }
     private get replace(): boolean { return this.methodInfo.requestType == RequestType.GetReplace || this.methodInfo.requestType == RequestType.PostReplace; }
     private methodData: any;
-    private methodInfo: IMethodInfo;
+    private methodInfo: Types.IMethodInfo;
     private methodParams: any;
     private methodUrl: string;
 

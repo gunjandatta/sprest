@@ -1,6 +1,10 @@
+export * from "./spCfgTypes";
 import { ContextInfo, List, Site, Web } from "../lib";
-import { Types } from "../mapper";
-import { Helper } from ".";
+import { Types } from "..";
+import {
+    FieldSchemaXML, SPCfgFieldType, SPCfgType,
+    Types as SPCfgTypes
+} from ".";
 
 /**
  * SharePoint Configuration
@@ -14,7 +18,7 @@ class _SPConfig {
     private _cfgType: number;
 
     // The SharePoint Configuration
-    private _configuration: Types.Helper.SPConfig.ISPConfigProps
+    private _configuration: SPCfgTypes.ISPConfigProps
 
     // The target name to install/uninstall
     private _targetName: string;
@@ -25,7 +29,7 @@ class _SPConfig {
     /**
      * Constructor
      */
-    constructor(cfg: Types.Helper.SPConfig.ISPConfigProps, webUrl?: string) {
+    constructor(cfg: SPCfgTypes.ISPConfigProps, webUrl?: string) {
         // Save the configuration
         this._configuration = cfg;
 
@@ -66,13 +70,13 @@ class _SPConfig {
     installByType = (cfgType: number, callback?: any, targetName?: string) => { return this.install(callback, cfgType, targetName); }
 
     // Method to install a specific list
-    installList(listName: string, callback?: any) { this.installByType(Helper.Types.SPCfgType.Lists, callback, listName); }
+    installList(listName: string, callback?: any) { this.installByType(SPCfgType.Lists, callback, listName); }
 
     // Method to install a specific site custom action
-    installSiteCustomAction(caName: string, callback?: any) { this.installByType(Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); }
+    installSiteCustomAction(caName: string, callback?: any) { this.installByType(SPCfgType.SiteUserCustomActions, callback, caName); }
 
     // Method to install a specific web custom action
-    installWebCustomAction(caName: string, callback?: any) { this.installByType(Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); }
+    installWebCustomAction(caName: string, callback?: any) { this.installByType(SPCfgType.WebUserCustomActions, callback, caName); }
 
     // Method to uninstall the configuration
     uninstall(callback?: any, cfgType?: number, targetName?: string) {
@@ -103,20 +107,20 @@ class _SPConfig {
     uninstallByType = (cfgType: number, callback?: any, targetName?: string) => { return this.uninstall(callback, cfgType, targetName); }
 
     // Method to install a specific list
-    uninstallList(listName: string, callback?: any) { this.uninstallByType(Helper.Types.SPCfgType.Lists, callback, listName); }
+    uninstallList(listName: string, callback?: any) { this.uninstallByType(SPCfgType.Lists, callback, listName); }
 
     // Method to install a specific site custom action
-    uninstallSiteCustomAction(caName: string, callback?: any) { this.uninstallByType(Helper.Types.SPCfgType.SiteUserCustomActions, callback, caName); }
+    uninstallSiteCustomAction(caName: string, callback?: any) { this.uninstallByType(SPCfgType.SiteUserCustomActions, callback, caName); }
 
     // Method to install a specific web custom action
-    uninstallWebCustomAction(caName: string, callback?: any) { this.uninstallByType(Helper.Types.SPCfgType.WebUserCustomActions, callback, caName); }
+    uninstallWebCustomAction(caName: string, callback?: any) { this.uninstallByType(SPCfgType.WebUserCustomActions, callback, caName); }
 
     /**
      * Methods
      */
 
     // Method to create the content types
-    private createContentTypes = (contentTypes: Types.IContentTypeResults, cfgContentTypes: Array<Types.Helper.SPConfig.ISPCfgContentTypeInfo>): PromiseLike<void> => {
+    private createContentTypes = (contentTypes: Types.SP.IContentTypeResults, cfgContentTypes: Array<SPCfgTypes.ISPCfgContentTypeInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the content types exist
@@ -210,7 +214,7 @@ class _SPConfig {
                 // Parse the configuration
                 for (let i = 0; i < cfgContentTypes.length; i++) {
                     let cfgContentType = cfgContentTypes[i];
-                    let cfgUpdate: Types.Helper.SPConfig.ISPCfgContentTypeInfo = {} as any;
+                    let cfgUpdate: SPCfgTypes.ISPCfgContentTypeInfo = {} as any;
                     let updateFl = false;
 
                     // Ensure the content type exists
@@ -297,7 +301,7 @@ class _SPConfig {
     }
 
     // Method to create the fields
-    private createFields = (fields: Types.IFieldResults, cfgFields: Array<Types.Helper.SPConfig.ISPCfgFieldInfo>): PromiseLike<void> => {
+    private createFields = (fields: Types.SP.IFieldResults, cfgFields: Array<SPCfgTypes.ISPCfgFieldInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the fields exist
@@ -324,7 +328,7 @@ class _SPConfig {
                     console.log("[gd-sprest][Field] Creating the '" + cfgField.name + "' field.");
 
                     //
-                    let onFieldCreated = (field: Types.IFieldResult) => {
+                    let onFieldCreated = (field: Types.SP.IFieldResult) => {
                         // See if it was successful
                         if (field.existsFl) {
                             // Log
@@ -340,7 +344,7 @@ class _SPConfig {
                     }
 
                     // Compute the schema xml
-                    Helper.FieldSchemaXML.generate(cfgField).then(response => {
+                    FieldSchemaXML.generate(cfgField).then(response => {
                         let schemas: Array<string> = typeof (response) === "string" ? [response] : response as any;
 
                         // Parse the fields to add
@@ -361,13 +365,13 @@ class _SPConfig {
     }
 
     // Method to create the lists
-    private createLists = (lists: Types.IListResults, cfgLists: Array<Types.Helper.SPConfig.ISPCfgListInfo>): PromiseLike<void> => {
+    private createLists = (lists: Types.SP.IListResults, cfgLists: Array<SPCfgTypes.ISPCfgListInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
             if (this._cfgType) {
                 // Ensure it's for this type
-                if (this._cfgType != Helper.Types.SPCfgType.Lists) {
+                if (this._cfgType != SPCfgType.Lists) {
                     // Resolve the promise and return
                     resolve();
                     return;
@@ -452,13 +456,13 @@ class _SPConfig {
     }
 
     // Method to create the user custom actions
-    private createUserCustomActions = (customActions: Types.IUserCustomActionResults, cfgCustomActions: Array<Types.IUserCustomActionCreationInformation>): PromiseLike<void> => {
+    private createUserCustomActions = (customActions: Types.SP.IUserCustomActionResults, cfgCustomActions: Array<Types.SP.IUserCustomActionCreationInformation>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
             if (this._cfgType) {
                 // Ensure it's for this type
-                if (this._cfgType != Helper.Types.SPCfgType.SiteUserCustomActions || this._cfgType != Helper.Types.SPCfgType.WebUserCustomActions) {
+                if (this._cfgType != SPCfgType.SiteUserCustomActions || this._cfgType != SPCfgType.WebUserCustomActions) {
                     // Resolve the promise
                     resolve();
                     return;
@@ -515,7 +519,7 @@ class _SPConfig {
     }
 
     // Method to create the list views
-    private createViews = (views: Types.IViewResults, cfgViews: Array<Types.Helper.SPConfig.ISPCfgViewInfo>): PromiseLike<void> => {
+    private createViews = (views: Types.SP.IViewResults, cfgViews: Array<SPCfgTypes.ISPCfgViewInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the list views exist
@@ -530,7 +534,7 @@ class _SPConfig {
                 let cfgView = cfgViews[i];
 
                 // See if this view exists
-                let view: Types.IViewResult = this.isInCollection("Title", cfgView.ViewName, views.results);
+                let view: Types.SP.IViewResult = this.isInCollection("Title", cfgView.ViewName, views.results);
                 if (view) {
                     // Log
                     console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' already exists.");
@@ -574,7 +578,7 @@ class _SPConfig {
         // See if the configuration type exists
         if (this._cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != Helper.Types.SPCfgType.WebParts) { return; }
+            if (this._cfgType != SPCfgType.WebParts) { return; }
         }
 
         // Ensure the configuration exists
@@ -609,7 +613,7 @@ class _SPConfig {
                     }
 
                     // See if this webpart exists
-                    let file: Types.IFileResult = this.isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
+                    let file: Types.SP.IFileResult = this.isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
                     if (file.existsFl) {
                         // Log
                         console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
@@ -662,7 +666,7 @@ class _SPConfig {
     }
 
     // Method to install the site components
-    private installSite = (): PromiseLike<Types.ISiteQueryResult> => {
+    private installSite = (): PromiseLike<Types.SP.ISiteQueryResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure site actions exist
@@ -746,7 +750,7 @@ class _SPConfig {
     }
 
     // Method to remove the content type
-    private removeContentTypes = (contentTypes: Types.IContentTypeResults, cfgContentTypes: Array<Types.Helper.SPConfig.ISPCfgContentTypeInfo>): PromiseLike<void> => {
+    private removeContentTypes = (contentTypes: Types.SP.IContentTypeResults, cfgContentTypes: Array<SPCfgTypes.ISPCfgContentTypeInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the content types exist
@@ -761,7 +765,7 @@ class _SPConfig {
                 let cfgContentType = cfgContentTypes[i];
 
                 // Get the field
-                let ct: Types.IContentTypeResult = this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                let ct: Types.SP.IContentTypeResult = this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
                 if (ct) {
                     // Remove the field
                     ct.delete().execute(() => {
@@ -780,7 +784,7 @@ class _SPConfig {
     }
 
     // Method to remove the fields
-    private removeFields = (fields: Types.IFieldResults, cfgFields: Array<Types.Helper.SPConfig.ISPCfgFieldInfo>): PromiseLike<void> => {
+    private removeFields = (fields: Types.SP.IFieldResults, cfgFields: Array<SPCfgTypes.ISPCfgFieldInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the fields exist
@@ -795,7 +799,7 @@ class _SPConfig {
                 let cfgField = cfgFields[i];
 
                 // Get the field
-                let field: Types.IFieldResult = this.isInCollection("InternalName", cfgField.name, fields.results);
+                let field: Types.SP.IFieldResult = this.isInCollection("InternalName", cfgField.name, fields.results);
                 if (field) {
                     // Remove the field
                     field.delete().execute(() => {
@@ -814,13 +818,13 @@ class _SPConfig {
     }
 
     // Method to remove the lists
-    private removeLists = (lists: Types.IListResults, cfgLists: Array<Types.Helper.SPConfig.ISPCfgListInfo>): PromiseLike<void> => {
+    private removeLists = (lists: Types.SP.IListResults, cfgLists: Array<SPCfgTypes.ISPCfgListInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
             if (this._cfgType) {
                 // Ensure it's for this type
-                if (this._cfgType != Helper.Types.SPCfgType.Lists) {
+                if (this._cfgType != SPCfgType.Lists) {
                     // Resolve the promise
                     resolve();
                     return;
@@ -848,7 +852,7 @@ class _SPConfig {
                 }
 
                 // Get the list
-                let list: Types.IListResult = this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                let list: Types.SP.IListResult = this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
                 if (list) {
                     // Remove the list
                     list.delete().execute(() => {
@@ -866,13 +870,13 @@ class _SPConfig {
         });
     }
     // Method to remove the user custom actions
-    private removeUserCustomActions = (customActions: Types.IUserCustomActionResults, cfgCustomActions: Array<Types.IUserCustomActionCreationInformation>): PromiseLike<void> => {
+    private removeUserCustomActions = (customActions: Types.SP.IUserCustomActionResults, cfgCustomActions: Array<Types.SP.IUserCustomActionCreationInformation>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
             if (this._cfgType) {
                 // Ensure it's for this type
-                if (this._cfgType != Helper.Types.SPCfgType.SiteUserCustomActions || this._cfgType != Helper.Types.SPCfgType.WebUserCustomActions) {
+                if (this._cfgType != SPCfgType.SiteUserCustomActions || this._cfgType != SPCfgType.WebUserCustomActions) {
                     // Resolve the promise
                     resolve();
                     return;
@@ -901,7 +905,7 @@ class _SPConfig {
                 }
 
                 // Get the custom action
-                let ca: Types.IUserCustomActionResult = this.isInCollection("Name", cfgCustomAction.Name, customActions.results);
+                let ca: Types.SP.IUserCustomActionResult = this.isInCollection("Name", cfgCustomAction.Name, customActions.results);
                 if (ca) {
                     // Remove the custom action
                     ca.delete().execute(() => {
@@ -928,7 +932,7 @@ class _SPConfig {
             // See if the configuration type exists
             if (this._cfgType) {
                 // Ensure it's for this type
-                if (this._cfgType != Helper.Types.SPCfgType.WebParts) {
+                if (this._cfgType != SPCfgType.WebParts) {
                     // Resolve the promise
                     resolve();
                     return;
@@ -969,7 +973,7 @@ class _SPConfig {
                         }
 
                         // Get the file
-                        let file: Types.IFileResult = this.isInCollection("Name", cfgWebPart.FileName, files.results);
+                        let file: Types.SP.IFileResult = this.isInCollection("Name", cfgWebPart.FileName, files.results);
                         if (file) {
                             // Remove the file
                             file.delete().execute(() => {
@@ -986,7 +990,7 @@ class _SPConfig {
     }
 
     // Method to update the lists
-    private updateLists = (cfgLists: Array<Types.Helper.SPConfig.ISPCfgListInfo>): PromiseLike<void> => {
+    private updateLists = (cfgLists: Array<SPCfgTypes.ISPCfgListInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (idx: number, resolve) => {
@@ -1065,7 +1069,7 @@ class _SPConfig {
     }
 
     // Method to update the views
-    private updateViews = (views: Types.IViewResults, cfgViews: Array<Types.Helper.SPConfig.ISPCfgViewInfo>): PromiseLike<void> => {
+    private updateViews = (views: Types.SP.IViewResults, cfgViews: Array<SPCfgTypes.ISPCfgViewInfo>): PromiseLike<void> => {
         let counter = 0;
 
         // Return a promise
@@ -1075,7 +1079,7 @@ class _SPConfig {
                 let cfgView = cfgViews[i];
 
                 // Get the view
-                let view: Types.IView = views.getByTitle(cfgView.ViewName);
+                let view: Types.SP.IView = views.getByTitle(cfgView.ViewName);
 
                 // See if the view fields are defined
                 if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
@@ -1123,7 +1127,7 @@ class _SPConfig {
     }
 
     // Method to uninstall the site components
-    private uninstallSite = (): PromiseLike<Types.ISiteQueryResult> => {
+    private uninstallSite = (): PromiseLike<Types.SP.ISiteQueryResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Log
@@ -1186,4 +1190,4 @@ class _SPConfig {
         });
     }
 };
-export const SPConfig: Types.Helper.SPConfig.ISPConfig = _SPConfig as any;
+export const SPConfig: SPCfgTypes.ISPConfig = _SPConfig as any;

@@ -1,14 +1,14 @@
 import { ContextInfo } from "../lib";
-import { Types } from "../mapper";
-import { SPTypes } from "../types";
+import { SPTypes } from "../mapper";
+import { IJSLink } from "./types";
 
 /**
  * JSLink Helper Methods
  */
-export const JSLink: Types.Helper.JSLink.IJSLink = {
+export const JSLink: IJSLink = {
     // Hide event flag
     _hideEventFl: false,
-    
+
     /**
      * Field to Method Mapper
      * 1 - Display Form

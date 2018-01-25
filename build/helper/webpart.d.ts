@@ -1,2 +1,2 @@
-import { Types } from "../mapper";
-export declare const WebPart: Types.Helper.WebPart.IWebPart;
+import * as WebPartTypes from "./types";
+export declare const WebPart: WebPartTypes.IWebPart;

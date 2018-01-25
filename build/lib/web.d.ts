@@ -1,2 +1,2 @@
-import { Types } from "../mapper";
-export declare const Web: Types.IWeb;
+import { Types } from "..";
+export declare const Web: Types.SP.IWeb;
