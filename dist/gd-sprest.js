@@ -75,7 +75,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(78));
 __export(__webpack_require__(79));
-__export(__webpack_require__(80));
+__export(__webpack_require__(98));
 __export(__webpack_require__(99));
 __export(__webpack_require__(100));
 __export(__webpack_require__(101));
@@ -109,9 +109,8 @@ __export(__webpack_require__(114));
 __export(__webpack_require__(115));
 __export(__webpack_require__(116));
 __export(__webpack_require__(117));
-__export(__webpack_require__(118));
 __export(__webpack_require__(39));
-var Types = __webpack_require__(119);
+var Types = __webpack_require__(118);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -257,11 +256,11 @@ module.exports = {};
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Mapper = __webpack_require__(81);
+var Mapper = __webpack_require__(80);
 exports.Mapper = Mapper;
-var SPTypes = __webpack_require__(94);
+var SPTypes = __webpack_require__(93);
 exports.SPTypes = SPTypes;
-var Types = __webpack_require__(95);
+var Types = __webpack_require__(94);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -345,17 +344,17 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(76));
+__export(__webpack_require__(119));
 __export(__webpack_require__(120));
-__export(__webpack_require__(121));
+__export(__webpack_require__(122));
 __export(__webpack_require__(123));
 __export(__webpack_require__(124));
 __export(__webpack_require__(125));
-__export(__webpack_require__(126));
 __export(__webpack_require__(41));
 __export(__webpack_require__(40));
 __export(__webpack_require__(42));
-__export(__webpack_require__(127));
-var Types = __webpack_require__(128);
+__export(__webpack_require__(126));
+var Types = __webpack_require__(127);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -398,11 +397,12 @@ SOFTWARE.
 __webpack_require__(43);
 var Helper = __webpack_require__(17);
 exports.Helper = Helper;
-__export(__webpack_require__(1));
 var mapper_1 = __webpack_require__(12);
 exports.SPTypes = mapper_1.SPTypes;
-var Types = __webpack_require__(129);
+var Types = __webpack_require__(128);
 exports.Types = Types;
+__export(__webpack_require__(1));
+__export(__webpack_require__(129));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -904,7 +904,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(122));
+__export(__webpack_require__(121));
 var lib_1 = __webpack_require__(1);
 var _1 = __webpack_require__(17);
 /**
@@ -4277,249 +4277,36 @@ exports.ContextInfo = _ContextInfo;
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
-var _1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// Base
-// This is the base class for all objects.
-/*********************************************************************************************************************************/
-var Base = /** @class */ (function (_super) {
-    __extends(Base, _super);
-    /**
-     * Constructor
-     * @param targetInfo - The target information.
-     */
-    function Base(targetInfo) {
-        var _this = _super.call(this) || this;
-        // Default the properties
-        _this.targetInfo = Object.create(targetInfo || {});
-        _this.responses = [];
-        _this.requestType = 0;
-        _this.waitFlags = [];
-        return _this;
-    }
-    // Method to wait for the requests to complete
-    Base.prototype.done = function (callback) {
-        var _this = this;
-        // Ensure the base is set
-        this.base = this.base ? this.base : this;
-        // Ensure the response index is set
-        this.responseIndex = this.responseIndex >= 0 ? this.responseIndex : 0;
-        // Wait for the responses to execute
-        this.waitForRequestsToComplete(function () {
-            var responses = _this.base.responses;
-            // Clear the responses
-            _this.base.responses = [];
-            // Clear the wait flags
-            _this.base.waitFlags = [];
-            // Execute the callback back
-            callback ? callback.apply(_this, responses) : null;
-        });
-    };
-    // Method to get the request information
-    Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
-    // Method to stringify the object
-    Base.prototype.stringify = function () {
-        // Stringify the object
-        return JSON.stringify({
-            response: this.response,
-            status: this.status,
-            targetInfo: this.targetInfo
-        });
-    };
-    return Base;
-}(_1.BaseExecution));
-exports.Base = Base;
-//# sourceMappingURL=base.js.map
+/**
+ * Request Type
+ */
+exports.RequestType = {
+    // Requests
+    Custom: 0,
+    Delete: 1,
+    Merge: 2,
+    OData: 3,
+    // Get Requests
+    Get: 10,
+    GetBuffer: 11,
+    GetWithArgs: 12,
+    GetWithArgsInBody: 13,
+    GetWithArgsInQS: 14,
+    GetWithArgsValueOnly: 15,
+    GetReplace: 16,
+    // Post Requests
+    Post: 20,
+    PostWithArgs: 21,
+    PostWithArgsInBody: 22,
+    PostWithArgsInQS: 23,
+    PostWithArgsValueOnly: 24,
+    PostReplace: 25
+};
+//# sourceMappingURL=requestType.js.map
 
 /***/ }),
 /* 79 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(1);
-var _1 = __webpack_require__(0);
-/**
- * Base Execution
- */
-var BaseExecution = /** @class */ (function (_super) {
-    __extends(BaseExecution, _super);
-    function BaseExecution() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    // Method to execute this request as a batch request
-    BaseExecution.prototype.batch = function (arg) {
-        var callback = null;
-        var appendFl = false;
-        // See if the input is a boolean
-        if (typeof (arg) === "boolean") {
-            // Set the flag
-            appendFl = arg;
-        }
-        else {
-            // Set the callback
-            callback = arg;
-        }
-        // Set the base
-        this.base = this.base ? this.base : this;
-        // See if we are appending this request
-        if (appendFl && this.base.batchRequests) {
-            // Append the request
-            this.base.batchRequests[this.base.batchRequests.length - 1].push({
-                targetInfo: new _1.TargetInfo(this.targetInfo)
-            });
-        }
-        else {
-            // Ensure the batch requests exist
-            this.base.batchRequests = this.base.batchRequests || [];
-            // Create the request
-            this.base.batchRequests.push([{
-                    callback: callback,
-                    targetInfo: new _1.TargetInfo(this.targetInfo)
-                }]);
-        }
-        // Return this object
-        return this;
-    };
-    // Method to execute the request
-    BaseExecution.prototype.execute = function () {
-        var _this = this;
-        var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
-            args[_i] = arguments[_i];
-        }
-        var callback = null;
-        var waitFl = false;
-        // Set the callback and wait flag
-        switch (args.length) {
-            case 1:
-                callback = typeof (args[0]) === "boolean" ? callback : args[0];
-                waitFl = typeof (args[0]) === "boolean" ? args[0] : waitFl;
-                break;
-            case 2:
-                callback = args[0];
-                waitFl = args[1];
-                break;
-        }
-        // Set the base
-        this.base = this.base ? this.base : this;
-        // Set the response index
-        this.responseIndex = this.base.responses.length;
-        // Add this object to the responses
-        this.base.responses.push(this);
-        // See if we are waiting for the responses to complete
-        if (waitFl) {
-            // Wait for the responses to execute
-            this.waitForRequestsToComplete(function () {
-                // Execute this request
-                _this.executeRequest(true, function (response) {
-                    // See if there is a callback
-                    if (callback) {
-                        // Set the base to this object, and clear requests
-                        // This will ensure requests from this object do not conflict w/ this request
-                        _this.base = _this;
-                        _this.base.responses = [];
-                        // Execute the callback and see if it returns a promise
-                        var returnVal = callback(response);
-                        if (returnVal && typeof (returnVal.done) === "function") {
-                            // Wait for the promise to complete
-                            returnVal.done(function () {
-                                // Reset the base
-                                _this.base = _this.parent.base;
-                                // Set the wait flag
-                                _this.base.waitFlags[_this.responseIndex] = true;
-                            });
-                            // Wait for the promise to complete
-                            return;
-                        }
-                        // Reset the base
-                        _this.base = _this.parent.base;
-                    }
-                    // Set the wait flag
-                    _this.base.waitFlags[_this.responseIndex] = true;
-                });
-            }, this.responseIndex);
-        }
-        else {
-            // Execute this request
-            this.executeRequest(true, function (response) {
-                // Execute the callback and see if it returns a promise
-                var returnVal = callback ? callback(response) : null;
-                if (returnVal && typeof (returnVal.done) === "function") {
-                    // Wait for the promise to complete
-                    returnVal.done(function () {
-                        // Set the wait flag
-                        _this.base.waitFlags[_this.responseIndex] = true;
-                    });
-                }
-                else {
-                    // Set the wait flag
-                    _this.base.waitFlags[_this.responseIndex] = true;
-                }
-            });
-        }
-        // Return this object
-        return this;
-    };
-    // Method to execute the request synchronously
-    BaseExecution.prototype.executeAndWait = function () { return this.executeRequest(false); };
-    // Method to wait for the parent requests to complete
-    BaseExecution.prototype.waitForRequestsToComplete = function (callback, requestIdx) {
-        var _this = this;
-        // Loop until the requests have completed
-        var intervalId = lib_1.ContextInfo.window.setInterval(function () {
-            var counter = 0;
-            // Parse the responses to the requests
-            for (var i = 0; i < _this.base.responses.length; i++) {
-                var response = _this.base.responses[i];
-                // See if we are waiting until a specified index
-                if (requestIdx == counter++) {
-                    break;
-                }
-                // Return if the request hasn't completed
-                if (response.xhr == null || !response.xhr.completedFl) {
-                    return;
-                }
-                // Ensure the wait flag is set for the previous request
-                if (counter > 0 && _this.base.waitFlags[counter - 1] != true) {
-                    return;
-                }
-            }
-            // Clear the interval
-            lib_1.ContextInfo.window.clearInterval(intervalId);
-            // Execute the callback
-            callback();
-        }, 10);
-    };
-    return BaseExecution;
-}(_1.BaseRequest));
-exports.BaseExecution = BaseExecution;
-//# sourceMappingURL=baseExecution.js.map
-
-/***/ }),
-/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4793,7 +4580,7 @@ exports.BaseHelper = BaseHelper;
 //# sourceMappingURL=baseHelper.js.map
 
 /***/ }),
-/* 81 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4802,6 +4589,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
+__export(__webpack_require__(81));
 __export(__webpack_require__(82));
 __export(__webpack_require__(83));
 __export(__webpack_require__(84));
@@ -4813,11 +4601,10 @@ __export(__webpack_require__(89));
 __export(__webpack_require__(90));
 __export(__webpack_require__(91));
 __export(__webpack_require__(92));
-__export(__webpack_require__(93));
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 82 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4837,7 +4624,7 @@ exports.audit = {
 //# sourceMappingURL=audit.js.map
 
 /***/ }),
-/* 83 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4885,7 +4672,7 @@ exports.eventreceivers = {
 //# sourceMappingURL=eventReceiver.js.map
 
 /***/ }),
-/* 84 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5198,7 +4985,7 @@ exports.limitedwebpartmanager = {
 //# sourceMappingURL=file.js.map
 
 /***/ }),
-/* 85 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5742,7 +5529,7 @@ exports.views = {
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 86 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5772,7 +5559,7 @@ exports.navigationservicerest = {
 //# sourceMappingURL=navigation.js.map
 
 /***/ }),
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5792,7 +5579,7 @@ exports.propertyvalues = {
 //# sourceMappingURL=propertyValues.js.map
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5812,7 +5599,7 @@ exports.search = {
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5913,7 +5700,7 @@ exports.roledefinitions = {
 //# sourceMappingURL=security.js.map
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6420,7 +6207,7 @@ exports.webs = {
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6595,7 +6382,7 @@ exports.userprofile = {
 //# sourceMappingURL=social.js.map
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6750,7 +6537,7 @@ exports.users = {
 //# sourceMappingURL=user.js.map
 
 /***/ }),
-/* 93 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6800,7 +6587,7 @@ exports.usercustomactions = {
 //# sourceMappingURL=userCustomAction.js.map
 
 /***/ }),
-/* 94 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7344,22 +7131,22 @@ exports.ViewType = {
 //# sourceMappingURL=sptypes.js.map
 
 /***/ }),
-/* 95 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var ComplexTypes = __webpack_require__(96);
+var ComplexTypes = __webpack_require__(95);
 exports.ComplexTypes = ComplexTypes;
-var Results = __webpack_require__(97);
+var Results = __webpack_require__(96);
 exports.Results = Results;
-var SPTypes = __webpack_require__(98);
+var SPTypes = __webpack_require__(97);
 exports.SPTypes = SPTypes;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 96 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7368,7 +7155,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=complexTypes.js.map
 
 /***/ }),
-/* 97 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7377,7 +7164,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=results.js.map
 
 /***/ }),
-/* 98 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7386,7 +7173,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=sptypes.js.map
 
 /***/ }),
-/* 99 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7683,7 +7470,254 @@ exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map
 
 /***/ }),
+/* 99 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(1);
+var _1 = __webpack_require__(0);
+/**
+ * Base Execution
+ */
+var BaseExecution = /** @class */ (function (_super) {
+    __extends(BaseExecution, _super);
+    function BaseExecution() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    // Method to execute this request as a batch request
+    BaseExecution.prototype.batch = function (arg) {
+        var callback = null;
+        var appendFl = false;
+        // See if the input is a boolean
+        if (typeof (arg) === "boolean") {
+            // Set the flag
+            appendFl = arg;
+        }
+        else {
+            // Set the callback
+            callback = arg;
+        }
+        // Set the base
+        this.base = this.base ? this.base : this;
+        // See if we are appending this request
+        if (appendFl && this.base.batchRequests) {
+            // Append the request
+            this.base.batchRequests[this.base.batchRequests.length - 1].push({
+                targetInfo: new _1.TargetInfo(this.targetInfo)
+            });
+        }
+        else {
+            // Ensure the batch requests exist
+            this.base.batchRequests = this.base.batchRequests || [];
+            // Create the request
+            this.base.batchRequests.push([{
+                    callback: callback,
+                    targetInfo: new _1.TargetInfo(this.targetInfo)
+                }]);
+        }
+        // Return this object
+        return this;
+    };
+    // Method to execute the request
+    BaseExecution.prototype.execute = function () {
+        var _this = this;
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        var callback = null;
+        var waitFl = false;
+        // Set the callback and wait flag
+        switch (args.length) {
+            case 1:
+                callback = typeof (args[0]) === "boolean" ? callback : args[0];
+                waitFl = typeof (args[0]) === "boolean" ? args[0] : waitFl;
+                break;
+            case 2:
+                callback = args[0];
+                waitFl = args[1];
+                break;
+        }
+        // Set the base
+        this.base = this.base ? this.base : this;
+        // Set the response index
+        this.responseIndex = this.base.responses.length;
+        // Add this object to the responses
+        this.base.responses.push(this);
+        // See if we are waiting for the responses to complete
+        if (waitFl) {
+            // Wait for the responses to execute
+            this.waitForRequestsToComplete(function () {
+                // Execute this request
+                _this.executeRequest(true, function (response) {
+                    // See if there is a callback
+                    if (callback) {
+                        // Set the base to this object, and clear requests
+                        // This will ensure requests from this object do not conflict w/ this request
+                        _this.base = _this;
+                        _this.base.responses = [];
+                        // Execute the callback and see if it returns a promise
+                        var returnVal = callback(response);
+                        if (returnVal && typeof (returnVal.done) === "function") {
+                            // Wait for the promise to complete
+                            returnVal.done(function () {
+                                // Reset the base
+                                _this.base = _this.parent.base;
+                                // Set the wait flag
+                                _this.base.waitFlags[_this.responseIndex] = true;
+                            });
+                            // Wait for the promise to complete
+                            return;
+                        }
+                        // Reset the base
+                        _this.base = _this.parent.base;
+                    }
+                    // Set the wait flag
+                    _this.base.waitFlags[_this.responseIndex] = true;
+                });
+            }, this.responseIndex);
+        }
+        else {
+            // Execute this request
+            this.executeRequest(true, function (response) {
+                // Execute the callback and see if it returns a promise
+                var returnVal = callback ? callback(response) : null;
+                if (returnVal && typeof (returnVal.done) === "function") {
+                    // Wait for the promise to complete
+                    returnVal.done(function () {
+                        // Set the wait flag
+                        _this.base.waitFlags[_this.responseIndex] = true;
+                    });
+                }
+                else {
+                    // Set the wait flag
+                    _this.base.waitFlags[_this.responseIndex] = true;
+                }
+            });
+        }
+        // Return this object
+        return this;
+    };
+    // Method to execute the request synchronously
+    BaseExecution.prototype.executeAndWait = function () { return this.executeRequest(false); };
+    // Method to wait for the parent requests to complete
+    BaseExecution.prototype.waitForRequestsToComplete = function (callback, requestIdx) {
+        var _this = this;
+        // Loop until the requests have completed
+        var intervalId = lib_1.ContextInfo.window.setInterval(function () {
+            var counter = 0;
+            // Parse the responses to the requests
+            for (var i = 0; i < _this.base.responses.length; i++) {
+                var response = _this.base.responses[i];
+                // See if we are waiting until a specified index
+                if (requestIdx == counter++) {
+                    break;
+                }
+                // Return if the request hasn't completed
+                if (response.xhr == null || !response.xhr.completedFl) {
+                    return;
+                }
+                // Ensure the wait flag is set for the previous request
+                if (counter > 0 && _this.base.waitFlags[counter - 1] != true) {
+                    return;
+                }
+            }
+            // Clear the interval
+            lib_1.ContextInfo.window.clearInterval(intervalId);
+            // Execute the callback
+            callback();
+        }, 10);
+    };
+    return BaseExecution;
+}(_1.BaseRequest));
+exports.BaseExecution = BaseExecution;
+//# sourceMappingURL=baseExecution.js.map
+
+/***/ }),
 /* 100 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var _1 = __webpack_require__(0);
+/*********************************************************************************************************************************/
+// Base
+// This is the base class for all objects.
+/*********************************************************************************************************************************/
+var Base = /** @class */ (function (_super) {
+    __extends(Base, _super);
+    /**
+     * Constructor
+     * @param targetInfo - The target information.
+     */
+    function Base(targetInfo) {
+        var _this = _super.call(this) || this;
+        // Default the properties
+        _this.targetInfo = Object.create(targetInfo || {});
+        _this.responses = [];
+        _this.requestType = 0;
+        _this.waitFlags = [];
+        return _this;
+    }
+    // Method to wait for the requests to complete
+    Base.prototype.done = function (callback) {
+        var _this = this;
+        // Ensure the base is set
+        this.base = this.base ? this.base : this;
+        // Ensure the response index is set
+        this.responseIndex = this.responseIndex >= 0 ? this.responseIndex : 0;
+        // Wait for the responses to execute
+        this.waitForRequestsToComplete(function () {
+            var responses = _this.base.responses;
+            // Clear the responses
+            _this.base.responses = [];
+            // Clear the wait flags
+            _this.base.waitFlags = [];
+            // Execute the callback back
+            callback ? callback.apply(_this, responses) : null;
+        });
+    };
+    // Method to get the request information
+    Base.prototype.getInfo = function () { return (new _1.TargetInfo(this.targetInfo)).requestInfo; };
+    // Method to stringify the object
+    Base.prototype.stringify = function () {
+        // Stringify the object
+        return JSON.stringify({
+            response: this.response,
+            status: this.status,
+            targetInfo: this.targetInfo
+        });
+    };
+    return Base;
+}(_1.BaseExecution));
+exports.Base = Base;
+//# sourceMappingURL=base.js.map
+
+/***/ }),
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7780,7 +7814,7 @@ exports.Batch = Batch;
 //# sourceMappingURL=batch.js.map
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8035,7 +8069,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8159,40 +8193,6 @@ var OData = /** @class */ (function () {
 }());
 exports.OData = OData;
 //# sourceMappingURL=oData.js.map
-
-/***/ }),
-/* 103 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Request Type
- */
-exports.RequestType = {
-    // Requests
-    Custom: 0,
-    Delete: 1,
-    Merge: 2,
-    OData: 3,
-    // Get Requests
-    Get: 10,
-    GetBuffer: 11,
-    GetWithArgs: 12,
-    GetWithArgsInBody: 13,
-    GetWithArgsInQS: 14,
-    GetWithArgsValueOnly: 15,
-    GetReplace: 16,
-    // Post Requests
-    Post: 20,
-    PostWithArgs: 21,
-    PostWithArgsInBody: 22,
-    PostWithArgsInQS: 23,
-    PostWithArgsValueOnly: 24,
-    PostReplace: 25
-};
-//# sourceMappingURL=requestType.js.map
 
 /***/ }),
 /* 104 */
@@ -8879,57 +8879,6 @@ exports.ProfileLoader = _ProfileLoader;
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var helper_1 = __webpack_require__(17);
-var lib_1 = __webpack_require__(1);
-var mapper_1 = __webpack_require__(12);
-/**
- * SharePoint REST Library
- */
-exports.$REST = {
-    __ver: 3.19,
-    ContextInfo: lib_1.ContextInfo,
-    DefaultRequestToHostFl: false,
-    Helper: {
-        App: helper_1.App,
-        Dependencies: helper_1.Dependencies,
-        FieldSchemaXML: helper_1.FieldSchemaXML,
-        JSLink: helper_1.JSLink,
-        ListForm: helper_1.ListForm,
-        ListFormField: helper_1.ListFormField,
-        Loader: helper_1.Loader,
-        parse: helper_1.parse,
-        SPConfig: helper_1.SPConfig,
-        Taxonomy: helper_1.Taxonomy,
-        WebPart: helper_1.WebPart
-    },
-    List: function (listName, targetInfo) { return new lib_1.List(listName, targetInfo); },
-    Navigation: function (url, targetInfo) { return new lib_1.Navigation(url, targetInfo); },
-    PeopleManager: function (targetInfo) { return new lib_1.PeopleManager(targetInfo); },
-    PeoplePicker: function (targetInfo) { return new lib_1.PeoplePicker(targetInfo); },
-    ProfileLoader: function (targetInfo) { return new lib_1.ProfileLoader(targetInfo); },
-    Search: function (url, targetInfo) { return new lib_1.Search(url, targetInfo); },
-    Site: function (url, targetInfo) { return new lib_1.Site(url, targetInfo); },
-    SPTypes: mapper_1.SPTypes,
-    SocialFeed: lib_1.SocialFeed,
-    UserProfile: function (targetInfo) { return new lib_1.UserProfile(targetInfo); },
-    Utility: function (url, targetInfo) { return new lib_1.Utility(url, targetInfo); },
-    Web: function (url, targetInfo) { return new lib_1.Web(url, targetInfo); }
-};
-// See if the library doesn't exist, or is an older version
-var global = lib_1.ContextInfo.window.$REST;
-if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {
-    // Set the global variable
-    lib_1.ContextInfo.window.$REST = exports.$REST;
-}
-//# sourceMappingURL=rest.js.map
-
-/***/ }),
-/* 114 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -9004,7 +8953,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 115 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9061,7 +9010,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 116 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9130,7 +9079,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 117 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9173,7 +9122,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 118 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9266,7 +9215,7 @@ exports.Utility = _Utility;
 //# sourceMappingURL=utility.js.map
 
 /***/ }),
-/* 119 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9275,7 +9224,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 120 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9353,7 +9302,7 @@ exports.Dependencies = _Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 121 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9719,7 +9668,7 @@ exports.FieldSchemaXML = new _FieldSchemaXML();
 //# sourceMappingURL=fieldSchemaXML.js.map
 
 /***/ }),
-/* 122 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9756,7 +9705,7 @@ exports.SPCfgType = {
 //# sourceMappingURL=spCfgTypes.js.map
 
 /***/ }),
-/* 123 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10128,7 +10077,7 @@ exports.JSLink = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 124 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10501,7 +10450,7 @@ exports.ListForm = _ListForm;
 //# sourceMappingURL=listForm.js.map
 
 /***/ }),
-/* 125 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10711,7 +10660,7 @@ exports.ListFormField = _ListFormField;
 //# sourceMappingURL=listFormField.js.map
 
 /***/ }),
-/* 126 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10771,7 +10720,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 127 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11052,7 +11001,7 @@ exports.WebPart = _WebPart;
 //# sourceMappingURL=webpart.js.map
 
 /***/ }),
-/* 128 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11061,7 +11010,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 129 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11074,6 +11023,57 @@ exports.SP = mapper_1.Types;
 var utils_1 = __webpack_require__(0);
 exports.Util = utils_1.Types;
 //# sourceMappingURL=types.js.map
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Helper = __webpack_require__(17);
+var Lib = __webpack_require__(1);
+var Mapper = __webpack_require__(12);
+/**
+ * SharePoint REST Library
+ */
+exports.$REST = {
+    __ver: 3.19,
+    ContextInfo: Lib.ContextInfo,
+    DefaultRequestToHostFl: false,
+    Helper: {
+        App: Helper.App,
+        Dependencies: Helper.Dependencies,
+        FieldSchemaXML: Helper.FieldSchemaXML,
+        JSLink: Helper.JSLink,
+        ListForm: Helper.ListForm,
+        ListFormField: Helper.ListFormField,
+        Loader: Helper.Loader,
+        parse: Helper.parse,
+        SPConfig: Helper.SPConfig,
+        Taxonomy: Helper.Taxonomy,
+        WebPart: Helper.WebPart
+    },
+    List: function (listName, targetInfo) { return new Lib.List(listName, targetInfo); },
+    Navigation: function (url, targetInfo) { return new Lib.Navigation(url, targetInfo); },
+    PeopleManager: function (targetInfo) { return new Lib.PeopleManager(targetInfo); },
+    PeoplePicker: function (targetInfo) { return new Lib.PeoplePicker(targetInfo); },
+    ProfileLoader: function (targetInfo) { return new Lib.ProfileLoader(targetInfo); },
+    Search: function (url, targetInfo) { return new Lib.Search(url, targetInfo); },
+    Site: function (url, targetInfo) { return new Lib.Site(url, targetInfo); },
+    SPTypes: Mapper.SPTypes,
+    SocialFeed: Lib.SocialFeed,
+    UserProfile: function (targetInfo) { return new Lib.UserProfile(targetInfo); },
+    Utility: function (url, targetInfo) { return new Lib.Utility(url, targetInfo); },
+    Web: function (url, targetInfo) { return new Lib.Web(url, targetInfo); }
+};
+// See if the library doesn't exist, or is an older version
+var global = Lib.ContextInfo.window.$REST;
+if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {
+    // Set the global variable
+    Lib.ContextInfo.window.$REST = exports.$REST;
+}
+//# sourceMappingURL=rest.js.map
 
 /***/ })
 /******/ ]);

@@ -28,7 +28,8 @@ SOFTWARE.
 ***************************************************************************************************/
 import "core-js/es6/promise"
 import * as Helper from "./helper"
-export * from "./lib";
 import { SPTypes } from "./mapper";
 import * as Types from "./types";
+export * from "./lib";
+export * from "./rest";
 export { Helper, SPTypes, Types }

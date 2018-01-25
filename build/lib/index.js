@@ -10,7 +10,6 @@ __export(require("./navigation"));
 __export(require("./peopleManager"));
 __export(require("./peoplePicker"));
 __export(require("./profileLoader"));
-__export(require("./rest"));
 __export(require("./search"));
 __export(require("./site"));
 __export(require("./socialFeed"));
