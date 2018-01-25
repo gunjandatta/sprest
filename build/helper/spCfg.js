@@ -1024,12 +1024,6 @@ var _SPConfig = /** @class */ (function () {
             });
         });
     };
-    // Method to install a specific list
-    _SPConfig.prototype.installList = function (listName, callback) { this.installByType(_1.SPCfgType.Lists, callback, listName); };
-    // Method to install a specific site custom action
-    _SPConfig.prototype.installSiteCustomAction = function (caName, callback) { this.installByType(_1.SPCfgType.SiteUserCustomActions, callback, caName); };
-    // Method to install a specific web custom action
-    _SPConfig.prototype.installWebCustomAction = function (caName, callback) { this.installByType(_1.SPCfgType.WebUserCustomActions, callback, caName); };
     // Method to uninstall the configuration
     _SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
         var _this = this;
@@ -1053,12 +1047,6 @@ var _SPConfig = /** @class */ (function () {
             });
         });
     };
-    // Method to install a specific list
-    _SPConfig.prototype.uninstallList = function (listName, callback) { this.uninstallByType(_1.SPCfgType.Lists, callback, listName); };
-    // Method to install a specific site custom action
-    _SPConfig.prototype.uninstallSiteCustomAction = function (caName, callback) { this.uninstallByType(_1.SPCfgType.SiteUserCustomActions, callback, caName); };
-    // Method to install a specific web custom action
-    _SPConfig.prototype.uninstallWebCustomAction = function (caName, callback) { this.uninstallByType(_1.SPCfgType.WebUserCustomActions, callback, caName); };
     return _SPConfig;
 }());
 ;

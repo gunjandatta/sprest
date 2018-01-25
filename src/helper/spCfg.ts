@@ -69,15 +69,6 @@ class _SPConfig {
     // Method to install by configuration type
     installByType = (cfgType: number, callback?: any, targetName?: string) => { return this.install(callback, cfgType, targetName); }
 
-    // Method to install a specific list
-    installList(listName: string, callback?: any) { this.installByType(SPCfgType.Lists, callback, listName); }
-
-    // Method to install a specific site custom action
-    installSiteCustomAction(caName: string, callback?: any) { this.installByType(SPCfgType.SiteUserCustomActions, callback, caName); }
-
-    // Method to install a specific web custom action
-    installWebCustomAction(caName: string, callback?: any) { this.installByType(SPCfgType.WebUserCustomActions, callback, caName); }
-
     // Method to uninstall the configuration
     uninstall(callback?: any, cfgType?: number, targetName?: string) {
         // Update the global variables
@@ -105,15 +96,6 @@ class _SPConfig {
 
     // Method to uninstall by the configuration type
     uninstallByType = (cfgType: number, callback?: any, targetName?: string) => { return this.uninstall(callback, cfgType, targetName); }
-
-    // Method to install a specific list
-    uninstallList(listName: string, callback?: any) { this.uninstallByType(SPCfgType.Lists, callback, listName); }
-
-    // Method to install a specific site custom action
-    uninstallSiteCustomAction(caName: string, callback?: any) { this.uninstallByType(SPCfgType.SiteUserCustomActions, callback, caName); }
-
-    // Method to install a specific web custom action
-    uninstallWebCustomAction(caName: string, callback?: any) { this.uninstallByType(SPCfgType.WebUserCustomActions, callback, caName); }
 
     /**
      * Methods
