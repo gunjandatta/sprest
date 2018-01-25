@@ -13,7 +13,7 @@ import { IREST } from "./types";
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 3.18,
+    __ver: 3.19,
     ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

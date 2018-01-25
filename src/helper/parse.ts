@@ -3,7 +3,7 @@ import { Base } from "../utils";
 /**
  * Convert a JSON string to a base object
  */
-export const parse = (jsonString: string) => {
+export const parse = <T = Base>(jsonString: string): T => {
     // Try to parse the string
     try {
         let obj = JSON.parse(jsonString);

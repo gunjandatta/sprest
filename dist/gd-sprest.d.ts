@@ -123,10 +123,11 @@ declare module 'gd-sprest/helper/loader' {
 }
 
 declare module 'gd-sprest/helper/parse' {
+    import { Base } from "gd-sprest/utils";
     /**
       * Convert a JSON string to a base object
       */
-    export const parse: (jsonString: string) => any;
+    export const parse: <T = Base<any, any, any>>(jsonString: string) => T;
 }
 
 declare module 'gd-sprest/helper/spCfg' {

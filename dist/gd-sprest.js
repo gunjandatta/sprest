@@ -8887,7 +8887,7 @@ var mapper_1 = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.18,
+    __ver: 3.19,
     ContextInfo: lib_1.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
