@@ -1,6 +1,5 @@
 import { ContextInfo } from "../lib";
-import * as Types from "./index.def";
-import { BaseRequest, TargetInfo } from ".";
+import { BaseRequest, TargetInfo, Types } from ".";
 
 /**
  * Base Execution

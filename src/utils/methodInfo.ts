@@ -1,5 +1,4 @@
-import * as Types from "./index.def";
-import { OData, RequestType } from ".";
+import { OData, RequestType, Types } from ".";
 
 /*********************************************************************************************************************************/
 // Method Information

@@ -1,5 +1,5 @@
-import * as Types from "./index.def";
+import { IRequestType } from "./types";
 /**
  * Request Type
  */
-export declare const RequestType: Types.IRequestType;
+export declare const RequestType: IRequestType;

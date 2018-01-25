@@ -21,4 +21,4 @@ class _UserProfile extends Base {
         this.addMethods(this, { __metadata: { type: "userprofile" } });
     }
 }
-export const UserProfile: Types.IUserProfile = <any>_UserProfile;
+export const UserProfile: Types.SP.IUserProfile = <any>_UserProfile;

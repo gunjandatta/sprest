@@ -1,2 +1,2 @@
 import { Types } from "..";
-export declare const PeoplePicker: Types.IPeoplePicker;
+export declare const PeoplePicker: Types.SP.IPeoplePicker;

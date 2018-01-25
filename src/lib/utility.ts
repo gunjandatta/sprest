@@ -77,4 +77,4 @@ class _Utility extends Base {
         }, [properties]);
     }
 }
-export const Utility: Types.IUtility = _Utility as any;
+export const Utility: Types.SP.IUtility = _Utility as any;

@@ -1,4 +1,3 @@
-import * as Types from "./index.def";
 import {
     Base,
     BaseHelper,
@@ -6,6 +5,7 @@ import {
     MethodInfo,
     RequestType,
     TargetInfo,
+    Types,
     XHRRequest
 } from ".";
 

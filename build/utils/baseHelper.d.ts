@@ -1,5 +1,4 @@
-import * as Types from "./index.def";
-import { Base } from ".";
+import { Base, Types } from ".";
 /**
  * Request Helper
  */

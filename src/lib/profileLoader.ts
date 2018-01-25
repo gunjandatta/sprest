@@ -21,4 +21,4 @@ class _ProfileLoader extends Base {
         this.addMethods(this, { __metadata: { type: "profileloader" } });
     }
 }
-export const ProfileLoader: Types.IProfileLoader = _ProfileLoader as any;
+export const ProfileLoader: Types.SP.IProfileLoader = _ProfileLoader as any;

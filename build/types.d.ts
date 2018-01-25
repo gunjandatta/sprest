@@ -1,4 +1,4 @@
-export * from "./mapper/index.def";
-import * as Helper from "./helper/index.def";
-import * as Utils from "./utils/index.def";
-export { Helper, Utils };
+import { Types as HelperTypes } from "./helper";
+import { Types } from "./mapper";
+import { Types as UtilTypes } from "./utils";
+export { HelperTypes as Helper, Types as SP, UtilTypes as Util };

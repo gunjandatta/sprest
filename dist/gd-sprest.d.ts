@@ -27,9 +27,9 @@ declare module 'gd-sprest' {
     import "core-js/es6/promise";
     import * as Helper from "gd-sprest/helper";
     export * from "gd-sprest/lib";
-    export * from "gd-sprest/mapper";
+    import { SPTypes } from "gd-sprest/mapper";
     import * as Types from "gd-sprest/types";
-    export { Helper, Types };
+    export { Helper, SPTypes, Types };
 }
 
 declare module 'gd-sprest/helper' {
@@ -44,12 +44,13 @@ declare module 'gd-sprest/helper' {
     export * from "gd-sprest/helper/spCfg";
     export * from "gd-sprest/helper/taxonomy";
     export * from "gd-sprest/helper/webpart";
-    import * as Types from "gd-sprest/helper/index.def";
+    import * as Types from "gd-sprest/helper/types";
     export { Types };
 }
 
 declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/contextInfo";
+    export * from "gd-sprest/lib/jslink";
     export * from "gd-sprest/lib/list";
     export * from "gd-sprest/lib/navigation";
     export * from "gd-sprest/lib/peopleManager";
@@ -67,49 +68,52 @@ declare module 'gd-sprest/lib' {
 declare module 'gd-sprest/mapper' {
     import * as Mapper from "gd-sprest/mapper/mapper";
     import * as SPTypes from "gd-sprest/mapper/sptypes";
-    export { Mapper, SPTypes };
+    import * as Types from "gd-sprest/mapper/types";
+    export { Mapper, SPTypes, Types };
 }
 
 declare module 'gd-sprest/types' {
-    export * from "gd-sprest/mapper/index.def";
-    import * as Helper from "gd-sprest/helper/index.def";
-    import * as Utils from "gd-sprest/utils/index.def";
-    export { Helper, Utils };
+    import { Types as HelperTypes } from "gd-sprest/helper";
+    import { Types } from "gd-sprest/mapper";
+    import { Types as UtilTypes } from "gd-sprest/utils";
+    export { HelperTypes as Helper, Types as SP, UtilTypes as Util };
 }
 
 declare module 'gd-sprest/helper/app' {
-    import { IApp } from "gd-sprest/helper/app.def";
+    import { IApp } from "gd-sprest/helper/types";
     export const App: IApp;
 }
 
 declare module 'gd-sprest/helper/dependencies' {
-    import { IDependencies } from "gd-sprest/helper/dependencies.def";
+    import { IDependencies } from "gd-sprest/helper/types";
     export const Dependencies: IDependencies;
 }
 
 declare module 'gd-sprest/helper/fieldSchemaXML' {
-    import { IFieldSchemaXML } from "gd-sprest/helper/fieldSchemaXML.def";
+    import { IFieldSchemaXML } from "gd-sprest/helper/types";
     export const FieldSchemaXML: IFieldSchemaXML;
 }
 
 declare module 'gd-sprest/helper/jslink' {
-    import { IJSLink } from "gd-sprest/helper/jsLink.def";
-    export * from "gd-sprest/helper/jsLinkHelper";
+    import { IJSLink } from "gd-sprest/helper/types";
+    /**
+      * JSLink Helper Methods
+      */
     export const JSLink: IJSLink;
 }
 
 declare module 'gd-sprest/helper/listForm' {
-    import * as ListFormTypes from "gd-sprest/helper/listForm.def";
+    import * as ListFormTypes from "gd-sprest/helper/types";
     export const ListForm: ListFormTypes.IListForm;
 }
 
 declare module 'gd-sprest/helper/listFormField' {
-    import * as ListFormFieldTypes from "gd-sprest/helper/listFormField.def";
+    import * as ListFormFieldTypes from "gd-sprest/helper/types";
     export const ListFormField: ListFormFieldTypes.IListFormField;
 }
 
 declare module 'gd-sprest/helper/loader' {
-    import { ILoader } from "gd-sprest/helper/index.def";
+    import { ILoader } from "gd-sprest/helper/types";
     /**
       * Loader
       */
@@ -125,40 +129,37 @@ declare module 'gd-sprest/helper/parse' {
 
 declare module 'gd-sprest/helper/spCfg' {
     export * from "gd-sprest/helper/spCfgTypes";
-    import * as SPCfgTypes from "gd-sprest/helper/spCfg.def";
+    import { Types as SPCfgTypes } from "gd-sprest/helper";
     export const SPConfig: SPCfgTypes.ISPConfig;
 }
 
 declare module 'gd-sprest/helper/taxonomy' {
-    import * as TaxonomyTypes from "gd-sprest/helper/taxonomy.def";
+    import * as TaxonomyTypes from "gd-sprest/helper/types";
     export const Taxonomy: TaxonomyTypes.ITaxonomy;
 }
 
 declare module 'gd-sprest/helper/webpart' {
-    import * as WebPartTypes from "gd-sprest/helper/webpart.def";
+    import * as WebPartTypes from "gd-sprest/helper/types";
     export const WebPart: WebPartTypes.IWebPart;
 }
 
-declare module 'gd-sprest/helper/index.def' {
-    export * from "gd-sprest/helper/app.def";
-    export * from "gd-sprest/helper/dependencies.def";
-    export * from "gd-sprest/helper/loader.def";
-    export * from "gd-sprest/helper/spCfg.def";
-    export * from "gd-sprest/helper/spCfgTypes.def";
-    export * from "gd-sprest/helper/taxonomy.def";
-    export * from "gd-sprest/helper/webpart.def";
-    import * as FieldSchemaXML from "gd-sprest/helper/fieldSchemaXML.def";
-    import * as JSLink from "gd-sprest/helper/jslink.def";
-    import * as ListForm from "gd-sprest/helper/listForm.def";
-    import * as ListFormField from "gd-sprest/helper/listFormField.def";
-    import * as Taxonomy from "gd-sprest/helper/taxonomy.def";
-    import * as WebPart from "gd-sprest/helper/webpart.def";
-    export { FieldSchemaXML, JSLink, ListForm, ListFormField, Taxonomy, WebPart };
+declare module 'gd-sprest/helper/types' {
+    export * from "gd-sprest/helper/types/app";
+    export * from "gd-sprest/helper/types/dependencies";
+    export * from "gd-sprest/helper/types/fieldSchemaXML";
+    export * from "gd-sprest/helper/types/jslink";
+    export * from "gd-sprest/helper/types/listForm";
+    export * from "gd-sprest/helper/types/listFormField";
+    export * from "gd-sprest/helper/types/loader";
+    export * from "gd-sprest/helper/types/spCfg";
+    export * from "gd-sprest/helper/types/spCfgTypes";
+    export * from "gd-sprest/helper/types/taxonomy";
+    export * from "gd-sprest/helper/types/webpart";
 }
 
 declare module 'gd-sprest/lib/contextInfo' {
     import { Types } from "gd-sprest/";
-    import { IBase } from "gd-sprest/utils/index.def";
+    import { Types as BaseTypes } from "gd-sprest/utils";
     /**
         * Context Information
         */
@@ -264,7 +265,7 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** List Id */
             listId: string;
             /** List Permissions Mask */
-            listPermMask: Types.IBasePermissions;
+            listPermMask: Types.SP.IBasePermissions;
             /** List Title */
             listTitle: string;
             /** List Url */
@@ -280,7 +281,7 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** Page List Id */
             pageListId: string;
             /** Page Permissions Mask */
-            pagePermMask: Types.IBasePermissions;
+            pagePermMask: Types.SP.IBasePermissions;
             /** Page Personalization Scope */
             pagePersonalizationScope: number;
             /** Prefer User Time Zone */
@@ -366,7 +367,7 @@ declare module 'gd-sprest/lib/contextInfo' {
             /** Web Logo Url */
             webLogoUrl: string;
             /** Web Permissions Mask */
-            webPermMask: Types.IBasePermissions;
+            webPermMask: Types.SP.IBasePermissions;
             /** Web Server Relative Url */
             webServerRelativeUrl: string;
             /** Web Template */
@@ -395,34 +396,39 @@ declare module 'gd-sprest/lib/contextInfo' {
                 * Method to get the web context information.
                 * @param url - The relative url of the web.
                 */
-            getWeb(url: string): IBase<Types.IContextWebInfo>;
+            getWeb(url: string): BaseTypes.IBase<Types.SP.IContextWebInfo>;
     }
     export const ContextInfo: IContextInformation;
 }
 
+declare module 'gd-sprest/lib/jslink' {
+    import { IJSLink } from "gd-sprest/lib/jslink.def";
+    export const JSLink: IJSLink;
+}
+
 declare module 'gd-sprest/lib/list' {
     import { Types } from "gd-sprest/";
-    export const List: Types.IList;
+    export const List: Types.SP.IList;
 }
 
 declare module 'gd-sprest/lib/navigation' {
-    import { INavigationServiceREST } from "gd-sprest/mapper/navigation";
+    import { INavigationServiceREST } from "gd-sprest/mapper/types";
     export const Navigation: INavigationServiceREST;
 }
 
 declare module 'gd-sprest/lib/peopleManager' {
     import { Types } from "gd-sprest/";
-    export const PeopleManager: Types.IPeopleManager;
+    export const PeopleManager: Types.SP.IPeopleManager;
 }
 
 declare module 'gd-sprest/lib/peoplePicker' {
     import { Types } from "gd-sprest/";
-    export const PeoplePicker: Types.IPeoplePicker;
+    export const PeoplePicker: Types.SP.IPeoplePicker;
 }
 
 declare module 'gd-sprest/lib/profileLoader' {
     import { Types } from "gd-sprest/";
-    export const ProfileLoader: Types.IProfileLoader;
+    export const ProfileLoader: Types.SP.IProfileLoader;
 }
 
 declare module 'gd-sprest/lib/rest' {
@@ -435,1361 +441,51 @@ declare module 'gd-sprest/lib/rest' {
 
 declare module 'gd-sprest/lib/search' {
     import { Types } from "gd-sprest/";
-    export const Search: Types.ISearch;
+    export const Search: Types.SP.ISearch;
 }
 
 declare module 'gd-sprest/lib/site' {
     import { Types } from "gd-sprest/";
-    export const Site: Types.ISite;
+    export const Site: Types.SP.ISite;
 }
 
 declare module 'gd-sprest/lib/socialFeed' {
     import { Types } from "gd-sprest/";
-    export const SocialFeed: Types.ISocialFeed;
+    export const SocialFeed: Types.SP.ISocialFeed;
 }
 
 declare module 'gd-sprest/lib/userProfile' {
     import { Types } from "gd-sprest/";
-    export const UserProfile: Types.IUserProfile;
+    export const UserProfile: Types.SP.IUserProfile;
 }
 
 declare module 'gd-sprest/lib/utility' {
     import { Types } from "gd-sprest/";
-    export const Utility: Types.IUtility;
+    export const Utility: Types.SP.IUtility;
 }
 
 declare module 'gd-sprest/lib/web' {
     import { Types } from "gd-sprest/";
-    export const Web: Types.IWeb;
+    export const Web: Types.SP.IWeb;
 }
 
 declare module 'gd-sprest/mapper/mapper' {
-    export const Mapper: {
-        attachment: {};
-        attachmentfiles: {
-            add: {
-                argNames: string[];
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        audit: {
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        contenttype: {
-            properties: string[];
-            delete: {
-                requestType: number;
-            };
-            update: {
-                metadataType: string;
-                name: string;
-                requestMethod: string;
-                requestType: number;
-            };
-        };
-        contenttypes: {
-            add: {
-                metadataType: string;
-                name: string;
-                requestType: number;
-            };
-            addAvailableContentType: {
-                argNames: string[];
-                requestType: number;
-            };
-            getById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        eventreceiver: {
-            delete: {
-                requestType: number;
-            };
-            update: {
-                metadataType: string;
-                name: string;
-                requestMethod: string;
-                requestType: number;
-            };
-        };
-        eventreceivers: {
-            add: {
-                metadataType: string;
-                name: string;
-                requestType: number;
-            };
-            getById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        field: {
-            delete: {
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            setShowInDisplayForm: {
-                argNames: string[];
-                requestType: number;
-            };
-            setShowInEditForm: {
-                argNames: string[];
-                requestType: number;
-            };
-            setShowInNewForm: {
-                argNames: string[];
-                requestType: number;
-            };
-            update: {
-                inheritMetadataType: boolean;
-                name: string;
-                requestMethod: string;
-                requestType: number;
-            };
-        };
-        fields: {
-            add: {
-                metadataType: string;
-                name: string;
-                requestType: number;
-            };
-            addField: {
-                argNames: string[];
-                metadataType: string;
-                name: string;
-                requestType: number;
-            };
-            addDependentLookupField: {
-                argNames: string[];
-                requestType: number;
-            };
-            createFieldAsXml: {
-                argNames: string[];
-                requestType: number;
-                data: {
-                    parameters: {
-                        __metadata: {
-                            type: string;
-                        };
-                        Options: number;
-                        SchemaXml: string;
-                    };
-                };
-            };
-            getById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getByInternalNameOrTitle: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getByTitle: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        fieldlinks: {
-            add: {
-                argNames: string[];
-                metadataType: string;
-                name: string;
-                requestType: number;
-            };
-            getById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        file: {
-            properties: string[];
-            approve: {
-                argNames: string[];
-                requestType: number;
-            };
-            cancelupload: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-            checkin: {
-                argNames: string[];
-                requestType: number;
-            };
-            checkout: {
-                requestType: number;
-            };
-            content: {
-                name: string;
-                requestType: number;
-            };
-            continueUpload: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-            copyTo: {
-                argNames: string[];
-                requestType: number;
-            };
-            delete: {
-                requestType: number;
-            };
-            deny: {
-                argNames: string[];
-                requestType: number;
-            };
-            finishUpload: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-            getlimitedwebpartmanager: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-            moveTo: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-            openBinaryStream: {
-                requestType: number;
-            };
-            publish: {
-                argNames: string[];
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            recycle: {
-                requestType: number;
-            };
-            saveBinaryStream: {
-                requestType: number;
-            };
-            startUpload: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-            undoCheckOut: {
-                requestType: number;
-            };
-            unpublish: {
-                argNames: string[];
-                requestType: number;
-            };
-            update: {
-                metadataType: string;
-                name: string;
-                requestMethod: string;
-                requestType: number;
-            };
-        };
-        files: {
-            add: {
-                argNames: string[];
-                requestType: number;
-            };
-            addTemplateFile: {
-                argNames: string[];
-                requestType: number;
-            };
-            getByUrl: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        fileversion: {
-            properties: any[];
-            delete: {
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        fileversions: {
-            delete: {
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        folder: {
-            properties: string[];
-            delete: {
-                requestType: number;
-            };
-            getByUrl: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            recycle: {
-                requestType: number;
-            };
-            update: {
-                metadataType: string;
-                name: string;
-                requestMethod: string;
-                requestType: number;
-            };
-        };
-        folders: {
-            properties: string[];
-            add: {
-                argNames: string[];
-                requestType: number;
-            };
-            getbyurl: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        group: {
-            properties: string[];
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        sitegroups: {
-            add: {
-                metadataType: string;
-                name: string;
-                requestType: number;
-            };
-            getById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getByName: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            removeById: {
-                argNames: string[];
-                requestType: number;
-            };
-            removeByLoginName: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        limitedwebpartmanager: {
-            get_WebParts: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-        };
-        list: {
-            properties: string[];
-            breakRoleInheritance: {
-                argNames: string[];
-                requestType: number;
-            };
-            delete: {
-                requestType: number;
-            };
-            getChanges: {
-                argNames: string[];
-                metadataType: string;
-                requestType: number;
-            };
-            getItemById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getItems: {
-                argNames: string[];
-                requestType: number;
-                data: {
-                    query: {
-                        __metadata: {
-                            type: string;
-                        };
-                        ViewXml: string;
-                    };
-                };
-            };
-            getItemsByQuery: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-                data: {
-                    query: {
-                        __metadata: {
-                            type: string;
-                        };
-                        ViewXml: string;
-                    };
-                };
-            };
-            getListItemChangesSinceToken: {
-                argNames: string[];
-                metadataType: string;
-                requestType: number;
-            };
-            getRelatedFields: {
-                requestType: number;
-            };
-            getUserEffectivePermissions: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-            getViewById: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            recycle: {
-                requestType: number;
-            };
-            renderListData: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-            renderListFormData: {
-                argNames: string[];
-                requestType: number;
-            };
-            reserveListItemId: {
-                requestType: number;
-            };
-            resetRoleInheritance: {
-                requestType: number;
-            };
-            update: {
-                metadataType: string;
-                name: string;
-                requestMethod: string;
-                requestType: number;
-            };
-        };
-        lists: {
-            add: {
-                metadataType: string;
-                name: string;
-                requestType: number;
-            };
-            ensureSiteAssetsLibrary: {
-                requestType: number;
-            };
-            ensureSitePagesLibrary: {
-                requestType: number;
-            };
-            getById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getByTitle: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        listitem: {
-            properties: string[];
-            breakRoleInheritance: {
-                argNames: string[];
-                requestType: number;
-            };
-            delete: {
-                requestType: number;
-            };
-            getUserEffectivePermissions: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            recycle: {
-                requestType: number;
-            };
-            resetRoleInheritance: {
-                requestType: number;
-            };
-            update: {
-                inheritMetadataType: boolean;
-                name: string;
-                requestMethod: string;
-                requestType: number;
-            };
-            validateUpdateListItem: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        items: {
-            add: {
-                metadataType: (obj: any) => any;
-                name: string;
-                requestType: number;
-            };
-            getById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        navigationservicerest: {
-            properties: string[];
-            getMenuState: {
-                argNames: string[];
-                name: string;
-                RequestType: number;
-            };
-        };
-        peoplemanager: {
-            amIFollowedBy: {
-                argNames: string[];
-                requestType: number;
-            };
-            amIFollowing: {
-                argNames: string[];
-                requestType: number;
-            };
-            follow: {
-                argNames: string[];
-                requestType: number;
-            };
-            followTag: {
-                argNames: string[];
-                requestType: number;
-            };
-            getFollowedTags: {
-                argNames: string[];
-                requestType: number;
-            };
-            getFollowersFor: {
-                argNames: string[];
-                requestType: number;
-            };
-            getMyFollowers: {
-                requestType: number;
-            };
-            getMyProperties: {
-                requestType: number;
-            };
-            getMySuggestions: {
-                requestType: number;
-            };
-            getPeopleFollowedBy: {
-                argNames: string[];
-                requestType: number;
-            };
-            getPeopleFollowedByMe: {
-                requestType: number;
-            };
-            getPropertiesFor: {
-                argNames: string[];
-                requestType: number;
-            };
-            getTrendingTags: {
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            getUserProfilePropertyFor: {
-                argNames: string[];
-                requestType: number;
-            };
-            hideSuggestion: {
-                argNames: string[];
-                requestType: number;
-            };
-            isFollowing: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            setMyProfilePicture: {
-                requestType: number;
-            };
-            stopFollowing: {
-                argNames: string[];
-                requestType: number;
-            };
-            stopFollowingTag: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        peoplepicker: {
-            clientPeoplePickerResolveUser: {
-                argNames: string[];
-                metadataType: string;
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            clientPeoplePickerSearchUser: {
-                argNames: string[];
-                metadataType: string;
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-        };
-        profileloader: {
-            createPersonalSiteEnqueueBulk: {
-                argNames: string[];
-                requestType: number;
-            };
-            getOwnerUserProfile: {
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-                returnType: string;
-            };
-            getUserProfile: {
-                requestType: number;
-                returnType: string;
-            };
-        };
-        propertyvalues: {
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        roleassignment: {
-            properties: string[];
-            delete: {
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        roleassignments: {
-            addRoleAssignment: {
-                argNames: string[];
-                requestType: number;
-            };
-            getByPrincipalId: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            removeRoleAssignment: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        roledefinition: {
-            delete: {
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        roledefinitions: {
-            getById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getByName: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getByType: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        search: {
-            postquery: {
-                argNames: string[];
-                metadataType: string;
-                requestType: number;
-            };
-        };
-        site: {
-            properties: string[];
-            createPreviewSPSite: {
-                argNames: string[];
-                requestType: number;
-            };
-            extendUpgradeReminderDate: {
-                requestType: number;
-            };
-            getCatalog: {
-                argNames: string[];
-                requestType: number;
-            };
-            getChanges: {
-                argNames: string[];
-                metadataType: string;
-                requestType: number;
-            };
-            getCustomListTemplates: {
-                argNames: string[];
-                requestType: number;
-            };
-            getWebTemplates: {
-                argNames: string[];
-                requestType: number;
-            };
-            invalidate: {
-                requestType: number;
-            };
-            needsUpgradeByType: {
-                argNames: string[];
-                requestType: number;
-            };
-            openWeb: {
-                argNames: string[];
-                requestType: number;
-            };
-            openWebById: {
-                argNames: string[];
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            runHealthCheck: {
-                argNames: string[];
-                requestType: number;
-            };
-            runUpgradeSiteSession: {
-                argNames: string[];
-                requestType: number;
-            };
-            update: {
-                metadataType: string;
-                name: string;
-                requestMethod: string;
-                requestType: number;
-            };
-            updateClientObjectModelUseRemoteAPIsPermissionSetting: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        socialfeed: {
-            actor: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-            actorFeed: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-            clearMyUnreadMentionCount: {
-                name: string;
-                requestType: number;
-            };
-            my: {
-                name: string;
-                requestType: number;
-            };
-            myFeed: {
-                name: string;
-                requestType: number;
-            };
-            myLikes: {
-                name: string;
-                requestType: number;
-            };
-            myMentionFeed: {
-                name: string;
-                requestType: number;
-            };
-            myNews: {
-                name: string;
-                requestType: number;
-            };
-            myTimelineFeed: {
-                name: string;
-                requestType: number;
-            };
-            myUnreadMentionCount: {
-                name: string;
-                requestType: number;
-            };
-        };
-        tenantapp: {
-            deploy: {
-                requestType: number;
-            };
-            install: {
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            remove: {
-                requestType: number;
-            };
-            retract: {
-                requestType: number;
-            };
-            upgrade: {
-                requestType: number;
-            };
-            uninstall: {
-                requestType: number;
-            };
-        };
-        tenantappcatalog: {
-            properties: string[];
-            add: {
-                argNames: string[];
-                requestType: number;
-            };
-            getById: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-                returnType: string;
-            };
-            SiteCollectionAppCatalogsSites: {
-                requestType: number;
-            };
-        };
-        tenantapps: {
-            getById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        user: {
-            properties: string[];
-            delete: {
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        users: {
-            add: {
-                metadataType: string;
-                name: string;
-                requestType: number;
-            };
-            getByEmail: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getByLoginName: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            removeById: {
-                argNames: string[];
-                requestType: number;
-            };
-            removeByLoginName: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-        };
-        usercustomaction: {
-            delete: {
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        usercustomactions: {
-            add: {
-                metadataType: string;
-                name: string;
-                requestType: number;
-            };
-            clear: {
-                requestType: number;
-            };
-            getById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        userprofile: {
-            properties: string[];
-            createPersonalSiteEnque: {
-                requestType: number;
-            };
-            shareAllSocialData: {
-                requestType: number;
-            };
-        };
-        utility: {
-            createEmailBodyForInvitation: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            getAppLicenseDeploymentId: {
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            getAppLicenseInformation: {
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            getCurrentUserEmailAddresses: {
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            getLocalizedString: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            getLowerCaseString: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            importAppLicense: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            isUserLicensedForEntityInContext: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            localizeWebPartGallery: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            markDiscussionAsFeatured: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            resolvePrincipal: {
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            searchPrincipals: {
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            unmarkDiscussionAsFeatured: {
-                argNames: string[];
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-        };
-        version: {
-            getById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            deleteAll: {
-                requestType: number;
-            };
-            deleteById: {
-                argNames: string[];
-                requestType: number;
-            };
-            deleteByLabel: {
-                argNames: string[];
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            restoreByLabel: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        view: {
-            properties: string[];
-            delete: {
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            renderAsHtml: {
-                requestType: number;
-            };
-            update: {
-                metadataType: string;
-                name: string;
-                requestMethod: string;
-                requestType: number;
-            };
-        };
-        views: {
-            add: {
-                metadataType: string;
-                name: string;
-                requestType: number;
-            };
-            getById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getByTitle: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        viewfieldcollection: {
-            addViewField: {
-                argNames: string[];
-                requestType: number;
-            };
-            moveViewFieldTo: {
-                argNames: string[];
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            removeAllViewFields: {
-                requestType: number;
-            };
-            removeViewField: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        web: {
-            properties: string[];
-            applyTheme: {
-                argNames: string[];
-                requestType: number;
-            };
-            applyWebTemplate: {
-                argName: string[];
-                requestType: number;
-            };
-            breakRoleInheritance: {
-                argNames: string[];
-                requestType: number;
-            };
-            delete: {
-                requestType: number;
-            };
-            doesPushNotificationSubscriberExist: {
-                argNames: string[];
-                requestType: number;
-            };
-            doesUserHavePermissions: {
-                argNames: string[];
-                requestType: number;
-            };
-            ensureUser: {
-                argNames: string[];
-                requestType: number;
-            };
-            executeRemoteLOB: {
-                requestType: number;
-            };
-            getAppBdcCatalog: {
-                requestType: number;
-            };
-            getAppBdcCatalogForAppInstance: {
-                argNames: string[];
-                requestType: number;
-            };
-            getAppInstanceById: {
-                argNames: string[];
-                requestType: number;
-            };
-            getAppInstancesByProductId: {
-                argNames: string[];
-                requestType: number;
-            };
-            getAvailableWebTemplates: {
-                argNames: string[];
-                requestType: number;
-            };
-            getCatalog: {
-                argNames: string[];
-                requestType: number;
-            };
-            getChanges: {
-                argNames: string[];
-                metadataType: string;
-                requestType: number;
-            };
-            getContextWebInformation: {
-                name: string;
-                replaceEndpointFl: boolean;
-                requestType: number;
-            };
-            getCustomListTemplates: {
-                requestType: number;
-            };
-            getDocumentLibraries: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-            getEntity: {
-                argNames: string[];
-                requestType: number;
-            };
-            getFileByServerRelativeUrl: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getFolderByServerRelativeUrl: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getList: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getPushNotificationSubscriber: {
-                argNames: string[];
-                requestType: number;
-            };
-            getPushNotificationSubscribersByArgs: {
-                argNames: string[];
-                requestType: number;
-            };
-            getPushNotificationSubscribersByUser: {
-                argNames: string[];
-                requestType: number;
-            };
-            getSubwebsFilteredForCurrentUser: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getUserById: {
-                argNames: string[];
-                requestType: number;
-                returnType: string;
-            };
-            getUserEffectivePermissions: {
-                argNames: string[];
-                name: string;
-                requestType: number;
-            };
-            getWebUrlFromPageUrl: {
-                name: string;
-                requestType: number;
-            };
-            loadAndInstallApp: {
-                requestType: number;
-            };
-            loadAndInstallAppInSpecifiedLocale: {
-                argNames: string[];
-                requestType: number;
-            };
-            loadApp: {
-                argNames: string[];
-                requestType: number;
-            };
-            mapToIcon: {
-                argNames: string[];
-                requestType: number;
-            };
-            processExternalNotification: {
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-            registerPushNotificationSubscriber: {
-                argNames: string[];
-                requestType: number;
-            };
-            resetRoleInheritance: {
-                requestType: number;
-            };
-            unregisterPushNotificationSubscriber: {
-                requestType: number;
-            };
-            update: {
-                metadataType: string;
-                name: string;
-                requestMethod: string;
-                requestType: number;
-            };
-        };
-        webinfos: {
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-        webs: {
-            add: {
-                argNames: string[];
-                metadataType: string;
-                requestType: number;
-            };
-            query: {
-                argNames: string[];
-                requestType: number;
-            };
-        };
-    };
+    export * from "gd-sprest/mapper/audit";
+    export * from "gd-sprest/mapper/eventReceiver";
+    export * from "gd-sprest/mapper/file";
+    export * from "gd-sprest/mapper/list";
+    export * from "gd-sprest/mapper/navigation";
+    export * from "gd-sprest/mapper/propertyValues";
+    export * from "gd-sprest/mapper/search";
+    export * from "gd-sprest/mapper/security";
+    export * from "gd-sprest/mapper/site";
+    export * from "gd-sprest/mapper/social";
+    export * from "gd-sprest/mapper/user";
+    export * from "gd-sprest/mapper/userCustomAction";
 }
 
 declare module 'gd-sprest/mapper/sptypes' {
-    import { SPTypes } from "gd-sprest/mapper/index.def";
+    import { SPTypes } from "gd-sprest/mapper/types";
     /**
         * Calendar Types
         */
@@ -1943,37 +639,95 @@ declare module 'gd-sprest/mapper/sptypes' {
     export const ViewType: SPTypes.IViewType;
 }
 
-declare module 'gd-sprest/mapper/index.def' {
-    import * as ComplexTypes from "gd-sprest/mapper/complexTypes.def";
-    import * as Results from "gd-sprest/mapper/results.def";
-    import * as SPTypes from "gd-sprest/mapper/sptypes.def";
+declare module 'gd-sprest/mapper/types' {
+    export * from "gd-sprest/mapper/types/attachment";
+    export * from "gd-sprest/mapper/types/attachments";
+    export * from "gd-sprest/mapper/types/audit";
+    import * as ComplexTypes from "gd-sprest/mapper/types/complexTypes";
+    export * from "gd-sprest/mapper/types/contentType";
+    export * from "gd-sprest/mapper/types/contentTypes";
+    export * from "gd-sprest/mapper/types/eventReceiver";
+    export * from "gd-sprest/mapper/types/eventReceivers";
+    export * from "gd-sprest/mapper/types/field";
+    export * from "gd-sprest/mapper/types/fieldLink";
+    export * from "gd-sprest/mapper/types/fieldLinks";
+    export * from "gd-sprest/mapper/types/fields";
+    export * from "gd-sprest/mapper/types/file";
+    export * from "gd-sprest/mapper/types/files";
+    export * from "gd-sprest/mapper/types/fileVersion";
+    export * from "gd-sprest/mapper/types/fileVersions";
+    export * from "gd-sprest/mapper/types/folder";
+    export * from "gd-sprest/mapper/types/folders";
+    export * from "gd-sprest/mapper/types/group";
+    export * from "gd-sprest/mapper/types/groups";
+    export * from "gd-sprest/mapper/types/items";
+    export * from "gd-sprest/mapper/types/limitedWebPartManager";
+    export * from "gd-sprest/mapper/types/list";
+    export * from "gd-sprest/mapper/types/listItem";
+    export * from "gd-sprest/mapper/types/lists";
+    export * from "gd-sprest/mapper/types/navigation";
+    export * from "gd-sprest/mapper/types/peopleManager";
+    export * from "gd-sprest/mapper/types/peoplePicker";
+    export * from "gd-sprest/mapper/types/profileLoader";
+    export * from "gd-sprest/mapper/types/propertyValues";
+    import * as Results from "gd-sprest/mapper/types/results";
+    export * from "gd-sprest/mapper/types/roleAssignment";
+    export * from "gd-sprest/mapper/types/roleAssignments";
+    export * from "gd-sprest/mapper/types/roleDefinition";
+    export * from "gd-sprest/mapper/types/roleDefinitions";
+    export * from "gd-sprest/mapper/types/search";
+    export * from "gd-sprest/mapper/types/site";
+    export * from "gd-sprest/mapper/types/socialFeed";
+    import * as SPTypes from "gd-sprest/mapper/types/sptypes";
+    export * from "gd-sprest/mapper/types/tenantApp";
+    export * from "gd-sprest/mapper/types/tenantAppCatalog";
+    export * from "gd-sprest/mapper/types/tenantApps";
+    export * from "gd-sprest/mapper/types/types";
+    export * from "gd-sprest/mapper/types/user";
+    export * from "gd-sprest/mapper/types/userCustomAction";
+    export * from "gd-sprest/mapper/types/userCustomActions";
+    export * from "gd-sprest/mapper/types/userProfile";
+    export * from "gd-sprest/mapper/types/users";
+    export * from "gd-sprest/mapper/types/utility";
+    export * from "gd-sprest/mapper/types/version";
+    export * from "gd-sprest/mapper/types/versions";
+    export * from "gd-sprest/mapper/types/view";
+    export * from "gd-sprest/mapper/types/viewFieldCollection";
+    export * from "gd-sprest/mapper/types/views";
+    export * from "gd-sprest/mapper/types/web";
+    export * from "gd-sprest/mapper/types/webs";
     export { ComplexTypes, Results, SPTypes };
-    export * from "gd-sprest/mapper/audit";
-    export * from "gd-sprest/mapper/eventReceiver";
-    export * from "gd-sprest/mapper/file";
-    export * from "gd-sprest/mapper/list";
-    export * from "gd-sprest/mapper/navigation";
-    export * from "gd-sprest/mapper/propertyValues.def";
-    export * from "gd-sprest/mapper/search";
-    export * from "gd-sprest/mapper/security";
-    export * from "gd-sprest/mapper/site";
-    export * from "gd-sprest/mapper/social";
-    export * from "gd-sprest/mapper/types.def";
-    export * from "gd-sprest/mapper/user";
-    export * from "gd-sprest/mapper/userCustomAction";
 }
 
-declare module 'gd-sprest/utils/index.def' {
-    export * from "gd-sprest/utils/base.def";
-    export * from "gd-sprest/utils/baseExecution.def";
-    export * from "gd-sprest/utils/baseHelper.def";
-    export * from "gd-sprest/utils/baseRequest.def";
-    export * from "gd-sprest/utils/methodInfo.def";
-    export * from "gd-sprest/utils/requestType.def";
-    export * from "gd-sprest/utils/targetInfo.def";
+declare module 'gd-sprest/utils' {
+    export * from "gd-sprest/utils/base";
+    export * from "gd-sprest/utils/baseExecution";
+    export * from "gd-sprest/utils/baseHelper";
+    export * from "gd-sprest/utils/baseRequest";
+    export * from "gd-sprest/utils/batch";
+    export * from "gd-sprest/utils/methodInfo";
+    export * from "gd-sprest/utils/oData";
+    export * from "gd-sprest/utils/requestType";
+    export * from "gd-sprest/utils/targetInfo";
+    export * from "gd-sprest/utils/xhrRequest";
+    import * as Types from "gd-sprest/utils/types";
+    export { Types };
 }
 
-declare module 'gd-sprest/helper/app.def' {
+declare module 'gd-sprest/helper/spCfgTypes' {
+    import { ISPCfgFieldType, ISPCfgType } from "gd-sprest/helper/types";
+    /**
+        * SharePoint Configuration Field Types
+        */
+    export const SPCfgFieldType: ISPCfgFieldType;
+    /**
+        * SharePoint Configuration Types
+        * The value determines the order to install the object type.
+        */
+    export const SPCfgType: ISPCfgType;
+}
+
+declare module 'gd-sprest/helper/types/app' {
     import { Types } from "gd-sprest/";
     /**
         * App Helper Methods
@@ -1986,9 +740,9 @@ declare module 'gd-sprest/helper/app.def' {
                 * @param overwriteFl - Flag to overwrite the file in the destination folder, if it already exists. This value is falst by default.
                 * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
                 */
-            copyFileToHostWeb(srcFileUrl: string, dstFolder: Types.IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{
-                    file: Types.IFileResult;
-                    folder: Types.IFolderResult;
+            copyFileToHostWeb(srcFileUrl: string, dstFolder: Types.SP.IFolderResult, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{
+                    file: Types.SP.IFileResult;
+                    folder: Types.SP.IFolderResult;
             }>;
             /**
                 * Method to copy a file from the app web to the host web.
@@ -1998,8 +752,8 @@ declare module 'gd-sprest/helper/app.def' {
                 * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
                 */
             copyFileToHostWeb(srcFileUrl: string, dstFolderUrl: string, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{
-                    file: Types.IFileResult;
-                    folder: Types.IFolderResult;
+                    file: Types.SP.IFileResult;
+                    folder: Types.SP.IFolderResult;
             }>;
             /**
                 * Method to copy a file from the app web to the host web
@@ -2008,44 +762,44 @@ declare module 'gd-sprest/helper/app.def' {
                 * @param rootWebFl - Flag to target the root web of the site collection, otherwise the host web.
                 */
             copyFilesToHostWeb(fileUrls: Array<string>, folderUrls: Array<string>, overwriteFl?: boolean, rootWebFl?: boolean): PromiseLike<{
-                    files: Array<Types.IFileResult>;
-                    folders: Array<Types.IFolderResult>;
+                    files: Array<Types.SP.IFileResult>;
+                    folders: Array<Types.SP.IFolderResult>;
             }>;
             /**
                 * Method to create sub-folders.
                 * @param folder - The app web relative url to the source file.
                 * @param subFolderUrl - The host web relative url of the destination folder.
                 */
-            createSubFolders(folder: Types.IFolderResult, subFolderUrl: string): PromiseLike<Types.IFolderResult>;
+            createSubFolders(folder: Types.SP.IFolderResult, subFolderUrl: string): PromiseLike<Types.SP.IFolderResult>;
             /**
                 * Method to get the file content.
                 * @param web - The web containing the files.
                 * @param fileUrls - An array of file urls, relative to the web.
                 * @param createFl - Flag to create the folder, if it doesn't exist.
                 */
-            getFolder(web: Types.IWeb | Types.IWebResult, folderUrl: string, createFl?: boolean): PromiseLike<Types.IFolderResult>;
+            getFolder(web: Types.SP.IWeb | Types.SP.IWebResult, folderUrl: string, createFl?: boolean): PromiseLike<Types.SP.IFolderResult>;
             /**
                 * Method to remove empty folders
                 * @param web - The web containing the files.
                 * @param folderUrls - An array of folder urls, relative to the web.
                 */
-            removeEmptyFolders(web: Types.IWebResult, folderUrls: Array<string>): PromiseLike<void>;
+            removeEmptyFolders(web: Types.SP.IWebResult, folderUrls: Array<string>): PromiseLike<void>;
             /**
                 * Method to remove files from a web.
                 * @param web - The web containing the files.
                 * @param fileUrl - The file url, relative to the web.
                 */
-            removeFile(web: Types.IWebResult, fileUrl: string): PromiseLike<void>;
+            removeFile(web: Types.SP.IWebResult, fileUrl: string): PromiseLike<void>;
             /**
                 * Method to remove files from a web.
                 * @param web - The web containing the files.
                 * @param fileUrls - An array of file urls, relative to the web.
                 */
-            removeFiles(web: Types.IWebResult, fileUrls: Array<string>): PromiseLike<void>;
+            removeFiles(web: Types.SP.IWebResult, fileUrls: Array<string>): PromiseLike<void>;
     }
 }
 
-declare module 'gd-sprest/helper/dependencies.def' {
+declare module 'gd-sprest/helper/types/dependencies' {
     /**
         * Dependencies
         */
@@ -2072,8 +826,8 @@ declare module 'gd-sprest/helper/dependencies.def' {
     }
 }
 
-declare module 'gd-sprest/helper/fieldSchemaXML.def' {
-    import { IFieldInfo } from "gd-sprest/helper/index.def";
+declare module 'gd-sprest/helper/types/fieldSchemaXML' {
+    import { IFieldInfo } from "gd-sprest/helper/types";
     /**
       * Field Schema XML
       */
@@ -2083,66 +837,74 @@ declare module 'gd-sprest/helper/fieldSchemaXML.def' {
     }
 }
 
-export * from "gd-sprest/helper/jsLinkHelper.def";
-/**
-    * Fields Template
-    */
-export interface IFieldTemplate {
-        DisplayForm?: any;
-        EditForm?: any;
-        Name: string;
-        NewForm?: any;
-        View?: any;
-}
-/**
-    * Templates
-    */
-export interface ITemplates {
-        Body?: any;
-        Footer?: any;
-        Fields?: Array<IFieldTemplate>;
-        Group?: any;
-        Header?: any;
-        Item?: any;
-        OnPostRender?: any;
-        OnPreRender?: any;
-}
-/**
-    * JS Link Configuration
-    */
-export interface IJSLinkCfg {
-        /** The base view id. */
-        BaseViewID?: number | string;
-        /** The list template type. */
-        ListTemplateType?: number;
-        /** The post render event. */
-        OnPostRender?: any;
-        /** The pre render event. */
-        OnPreRender?: any;
-        /** The JSLink template overrides. */
-        Templates?: ITemplates;
-}
-/**
-    * JS Link
-    */
-export interface IJSLink extends IJSLinkCfg {
-        /** Constructor */
-        new (cfg?: IJSLinkCfg): IJSLink;
-        /** Method to get the template configuration. */
-        getTemplate(): IJSLinkCfg;
-        /** Method to register the JSLink template override. */
-        register(): void;
-}
-
-declare module 'gd-sprest/helper/jsLinkHelper' {
-    import { IJSLinkHelper } from "gd-sprest/helper/jslinkHelper.def";
+declare module 'gd-sprest/helper/types/jslink' {
     /**
-      * JSLink Helper Methods
-      */
-    export const JSLink: IJSLinkHelper;
+        * JSLink Methods
+        */
+    export interface IJSLink {
+            /**
+                * Internal field to method mapper
+                */
+            _fieldToMethodMapper: any;
+            /**
+                * Internal field used by the hideField method.
+                */
+            _hideEventFl: boolean;
+            /**
+                * Disables edit for the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to disable edit.
+                * @param requireValueFl - Flag to only disable the field, if a value exists.
+                */
+            disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
+            /**
+                * Disable quick edit for the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to disable edit.
+                */
+            disableQuickEdit(ctx: any, field: any): any;
+            /**
+                * Returns the list view.
+                * @param ctx - The client context.
+                */
+            getListView(ctx: any): any;
+            /**
+                * Returns the list view items.
+                * @param ctx - The client context.
+                */
+            getListViewItems(ctx: any): any;
+            /**
+                * Returns the selected list view items
+                */
+            getListViewSelectedItems(): any;
+            /**
+                * Returns the webpart containing the JSLink field/form/view.
+                * @param ctx - The client context.
+                */
+            getWebPart(ctx: any): any;
+            /**
+                * Hides the specified field.
+                * @param ctx - The client context.
+                * @param field - The field to hide.
+                */
+            hideField(ctx: any, field: any): any;
+            /**
+                * Removes the field and html from the page.
+                * @param ctx - The client context.
+                * @param field - The field to remove.
+                */
+            removeField(ctx: any, field: any): any;
+            /**
+                * Method to render the default html for a field.
+                * @param ctx - The client context.
+                * @param field - The form field.
+                * @param formType - The form type. (Display, Edit, New or View)
+                */
+            renderField(ctx: any, field: any, formType?: number): any;
+    }
 }
 
-declare module 'gd-sprest/helper/listForm.def' {
+declare module 'gd-sprest/helper/types/listForm' {
     import { Types } from "gd-sprest/";
     /**
         * List Form
@@ -2157,7 +919,7 @@ declare module 'gd-sprest/helper/listForm.def' {
                 * Method to load the item attachments
                 * @param listInfo - The list form information.
              */
-            loadAttachments(listInfo: IListFormProps): PromiseLike<Array<Types.IAttachment>>;
+            loadAttachments(listInfo: IListFormProps): PromiseLike<Array<Types.SP.IAttachment>>;
             /**
                 * Method to refresh the item.
                 * @param listInfo - The list form information.
@@ -2166,19 +928,19 @@ declare module 'gd-sprest/helper/listForm.def' {
             /**
                 * Method to remove attachments from an item.
                 */
-            removeAttachments(listInfo: IListFormProps, attachmentInfo: Array<Types.IAttachment>): PromiseLike<void>;
+            removeAttachments(listInfo: IListFormProps, attachmentInfo: Array<Types.SP.IAttachment>): PromiseLike<void>;
             /**
                 * Method to save attachments to the item.
                 * @param listInfo - The list form information.
                 * @param attachmentInfo - The attachment files to add.
                 */
-            saveAttachments(listInfo: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>>;
+            saveAttachments(listInfo: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<Types.SP.IAttachment>>;
             /**
                 * Method to save the item.
                 * @param itemValues - The list item values.
                 * @param list - The list.
                 */
-            saveItem(itemValues: any, list: Types.IListResult): PromiseLike<IListFormResult>;
+            saveItem(itemValues: any, list: Types.SP.IListResult): PromiseLike<IListFormResult>;
     }
     /**
         * List Form Attachment Information
@@ -2206,7 +968,7 @@ declare module 'gd-sprest/helper/listForm.def' {
             /** The form fields */
             fields?: Array<string>;
             /** The list item */
-            item?: Types.IListItemQueryResult | Types.IListItemResult;
+            item?: Types.SP.IListItemQueryResult | Types.SP.IListItemResult;
             /** The item id */
             itemId?: number;
             /** The list name */
@@ -2214,7 +976,7 @@ declare module 'gd-sprest/helper/listForm.def' {
             /** Flag to deteremine if we are loading attachments */
             loadAttachments?: boolean;
             /** OData query used when loading an item */
-            query?: Types.ODataQuery;
+            query?: Types.SP.ODataQuery;
             /** The relative web url containing the list */
             webUrl?: string;
     }
@@ -2223,23 +985,23 @@ declare module 'gd-sprest/helper/listForm.def' {
         */
     export interface IListFormResult {
             /** The item attachments */
-            attachments?: Array<Types.IAttachment>;
+            attachments?: Array<Types.SP.IAttachment>;
             /** The form fields */
             fields: {
-                    [key: string]: Types.IFieldResult;
+                    [key: string]: Types.SP.IFieldResult;
             };
             /** The list item */
-            item?: Types.IListItemQueryResult | Types.IListItemResult;
+            item?: Types.SP.IListItemQueryResult | Types.SP.IListItemResult;
             /** The item query */
-            query?: Types.ODataQuery;
+            query?: Types.SP.ODataQuery;
             /** The list */
-            list: Types.IListResult;
+            list: Types.SP.IListResult;
     }
 }
 
-declare module 'gd-sprest/helper/listFormField.def' {
+declare module 'gd-sprest/helper/types/listFormField' {
     import { Types } from "gd-sprest/";
-    import { ITermInfo } from "gd-sprest/helper/taxonomy.def";
+    import { ITermInfo } from "gd-sprest/helper/types";
     /**
         * List Form Field Information
         */
@@ -2247,7 +1009,7 @@ declare module 'gd-sprest/helper/listFormField.def' {
             /** The default value. */
             defaultValue?: any;
             /** The list field. */
-            field?: Types.IFieldResult | Types.IFieldQueryResult;
+            field?: Types.SP.IFieldResult | Types.SP.IFieldQueryResult;
             /** The list name. */
             listName: string;
             /** The internal name of the field. */
@@ -2348,30 +1110,32 @@ declare module 'gd-sprest/helper/listFormField.def' {
                 */
             new (props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
             /** Method to load the lookup data */
-            loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.IListItemQueryResult>>;
+            loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.SP.IListItemQueryResult>>;
             /** Method to load the mms data */
             loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<ITermInfo>>;
             /** Method to load the mms value field */
-            loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<Types.IFieldManagedMetadata>;
+            loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<Types.SP.IFieldManagedMetadata>;
     }
 }
 
-declare module 'gd-sprest/helper/spCfgTypes' {
-    import { ISPCfgFieldType, ISPCfgType } from "gd-sprest/helper/index.def";
+declare module 'gd-sprest/helper/types/loader' {
     /**
-        * SharePoint Configuration Field Types
+        * Loader
         */
-    export const SPCfgFieldType: ISPCfgFieldType;
-    /**
-        * SharePoint Configuration Types
-        * The value determines the order to install the object type.
-        */
-    export const SPCfgType: ISPCfgType;
+    export interface ILoader {
+            loaded: boolean;
+            /**
+                * Waits for the SharePoint core libraries to be loaded.
+                * @param callback - The callback function.
+                * @param timeout - The max time (ms) to wait for the libraries to be loaded.
+                * @param loadLibraries - Flag to load the core libraries manually.
+                */
+            waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean): any;
+    }
 }
 
-declare module 'gd-sprest/helper/spCfg.def' {
+declare module 'gd-sprest/helper/types/spCfg' {
     import { Types } from "gd-sprest/";
-    export * from "gd-sprest/helper/spCfgTypes.def";
     /**
         * Field Information
         */
@@ -2480,11 +1244,11 @@ declare module 'gd-sprest/helper/spCfg.def' {
     /**
         * SharePoint Configuration - Content Type Information
         */
-    export interface ISPCfgContentTypeInfo extends Types.IContentTypeCreationInformation {
+    export interface ISPCfgContentTypeInfo extends Types.SP.IContentTypeCreationInformation {
             /**
                 * The content type. (This value is set internally.)
                 */
-            ContentType?: Types.IContentTypeResult;
+            ContentType?: Types.SP.IContentTypeResult;
             /**
                 * The field references.
                 */
@@ -2504,11 +1268,11 @@ declare module 'gd-sprest/helper/spCfg.def' {
             /**
                 * Event triggered after the content type is created.
                 */
-            onCreated?: (ct: Types.IContentTypeResult) => void;
+            onCreated?: (ct: Types.SP.IContentTypeResult) => void;
             /**
                 * Event triggered after the content type is updated.
                 */
-            onUpdated?: (ct: Types.IContentTypeResult) => void;
+            onUpdated?: (ct: Types.SP.IContentTypeResult) => void;
     }
     /**
         * SharePoint Configuration - Custom Action Information
@@ -2517,11 +1281,11 @@ declare module 'gd-sprest/helper/spCfg.def' {
             /**
                 * Custom actions to be created at the site collection level.
                 */
-            Site?: Array<Types.IUserCustomActionCreationInformation>;
+            Site?: Array<Types.SP.IUserCustomActionCreationInformation>;
             /**
                 * Custom actions to be created at the web level.
                 */
-            Web?: Array<Types.IUserCustomActionCreationInformation>;
+            Web?: Array<Types.SP.IUserCustomActionCreationInformation>;
     }
     /**
         * SharePoint Configuration - Field Information
@@ -2530,36 +1294,36 @@ declare module 'gd-sprest/helper/spCfg.def' {
             /**
                 * Event triggered after the field is created.
                 */
-            onCreated?: (field: Types.IFieldResult) => void;
+            onCreated?: (field: Types.SP.IFieldResult) => void;
             /**
                 * Event triggered after the field is updated.
                 */
-            onUpdated?: (field: Types.IFieldResult) => void;
+            onUpdated?: (field: Types.SP.IFieldResult) => void;
     }
     /**
         * SharePoint Configuration - List Information
         */
     export interface ISPCfgListInfo {
-            /** The content types. */
+            /** The content Types.SP. */
             ContentTypes?: Array<ISPCfgContentTypeInfo>;
             /** The custom list fields. */
             CustomFields?: Array<ISPCfgFieldInfo>;
             /** The list creation information. */
-            ListInformation: Types.IListCreationInformation;
+            ListInformation: Types.SP.IListCreationInformation;
             /** The title display name. */
             TitleFieldDisplayName?: string;
             /** The user custom actions. */
-            UserCustomActions?: Array<Types.IUserCustomActionCreationInformation>;
+            UserCustomActions?: Array<Types.SP.IUserCustomActionCreationInformation>;
             /** The view information. */
             ViewInformation?: Array<ISPCfgViewInfo>;
             /**
                 * Event triggered after the list is created or updated.
                 */
-            onCreated?: (list: Types.IListResult) => void;
+            onCreated?: (list: Types.SP.IListResult) => void;
             /**
                 * Event triggered after the list is updated.
                 */
-            onUpdated?: (list: Types.IListQueryResult) => void;
+            onUpdated?: (list: Types.SP.IListQueryResult) => void;
     }
     /**
         * SharePoint Configuration - View Information
@@ -2576,11 +1340,11 @@ declare module 'gd-sprest/helper/spCfg.def' {
             /**
                 * Event triggered after the view is created or updated.
                 */
-            onCreated?: (view: Types.IViewResult) => void;
+            onCreated?: (view: Types.SP.IViewResult) => void;
             /**
                 * Event triggered after the view is updated.
                 */
-            onUpdated?: (view: Types.IView) => void;
+            onUpdated?: (view: Types.SP.IView) => void;
     }
     /**
         * SharePoint Configuration - WebPart Information
@@ -2595,11 +1359,11 @@ declare module 'gd-sprest/helper/spCfg.def' {
             /**
                 * Event triggered after the webpart file is created.
                 */
-            onCreated?: (file: Types.IFileResult) => void;
+            onCreated?: (file: Types.SP.IFileResult) => void;
             /**
                 * Event triggered after the webpart file is updated.
                 */
-            onUpdated?: (file: Types.IFileResult) => void;
+            onUpdated?: (file: Types.SP.IFileResult) => void;
     }
     /**
         * SharePoint Configuration Methods
@@ -2640,7 +1404,7 @@ declare module 'gd-sprest/helper/spCfg.def' {
         * SharePoint Configuration - Properties
         */
     export interface ISPConfigProps {
-            /** The content types. */
+            /** The content Types.SP. */
             ContentTypes?: Array<ISPCfgContentTypeInfo>;
             /** The custom action configuration. */
             CustomActionCfg?: ISPCfgCustomActionInfo;
@@ -2668,7 +1432,33 @@ declare module 'gd-sprest/helper/spCfg.def' {
     }
 }
 
-declare module 'gd-sprest/helper/taxonomy.def' {
+declare module 'gd-sprest/helper/types/spCfgTypes' {
+    /** The field types */
+    export type ISPCfgFieldType = {
+        Boolean: number;
+        Calculated: number;
+        Choice: number;
+        Date: number;
+        Lookup: number;
+        MMS: number;
+        Note: number;
+        Number: number;
+        Text: number;
+        Url: number;
+        User: number;
+    };
+    /** The configuration types */
+    export type ISPCfgType = {
+        Fields: number;
+        ContentTypes: number;
+        Lists: number;
+        SiteUserCustomActions: number;
+        WebParts: number;
+        WebUserCustomActions: number;
+    };
+}
+
+declare module 'gd-sprest/helper/types/taxonomy' {
     /**
         * Taxonomy Helper Class
         */
@@ -2757,7 +1547,7 @@ declare module 'gd-sprest/helper/taxonomy.def' {
     }
 }
 
-declare module 'gd-sprest/helper/webpart.def' {
+declare module 'gd-sprest/helper/types/webpart' {
     /**
         * Web Part
         */
@@ -2810,50 +1600,39 @@ declare module 'gd-sprest/helper/webpart.def' {
     }
 }
 
-declare module 'gd-sprest/helper/loader.def' {
-    /**
-        * Loader
-        */
-    export interface ILoader {
-            loaded: boolean;
-            /**
-                * Waits for the SharePoint core libraries to be loaded.
-                * @param callback - The callback function.
-                * @param timeout - The max time (ms) to wait for the libraries to be loaded.
-                * @param loadLibraries - Flag to load the core libraries manually.
-                */
-            waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean): any;
-    }
+declare module 'gd-sprest/' {
+    /***************************************************************************************************
+    MIT License
+    
+    Copyright (c) 2016 Dattabase, LLC.
+    
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+    
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+    
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+     ***************************************************************************************************/
+    import "core-js/es6/promise";
+    import * as Helper from "gd-sprest/helper";
+    export * from "gd-sprest/lib";
+    import { SPTypes } from "gd-sprest/mapper";
+    import * as Types from "gd-sprest/types";
+    export { Helper, SPTypes, Types };
 }
 
-declare module 'gd-sprest/helper/spCfgTypes.def' {
-    /** The field types */
-    export type ISPCfgFieldType = {
-        Boolean: number;
-        Calculated: number;
-        Choice: number;
-        Date: number;
-        Lookup: number;
-        MMS: number;
-        Note: number;
-        Number: number;
-        Text: number;
-        Url: number;
-        User: number;
-    };
-    /** The configuration types */
-    export type ISPCfgType = {
-        Fields: number;
-        ContentTypes: number;
-        Lists: number;
-        SiteUserCustomActions: number;
-        WebParts: number;
-        WebUserCustomActions: number;
-    };
-}
-
-declare module 'gd-sprest/helper/jslink.def' {
-    export * from "gd-sprest/helper/jsLinkHelper.def";
+declare module 'gd-sprest/lib/jslink.def' {
     /**
         * Fields Template
         */
@@ -2905,46 +1684,10 @@ declare module 'gd-sprest/helper/jslink.def' {
     }
 }
 
-declare module 'gd-sprest/' {
-    /***************************************************************************************************
-    MIT License
-    
-    Copyright (c) 2016 Dattabase, LLC.
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
-     ***************************************************************************************************/
-    import "core-js/es6/promise";
-    import * as Helper from "gd-sprest/helper";
-    export * from "gd-sprest/lib";
-    export * from "gd-sprest/mapper";
-    import * as Types from "gd-sprest/types";
-    export { Helper, Types };
-}
-
-declare module 'gd-sprest/mapper/navigation' {
-    export * from "gd-sprest/mapper/navigation/navigation";
-}
-
 declare module 'gd-sprest/lib/rest.def' {
+    import { Types } from "gd-sprest/";
     import { IContextInformation } from "gd-sprest/lib";
     import { Base } from "gd-sprest/utils";
-    import { Types } from "gd-sprest/";
     /**
         * SharePoint REST Library
         */
@@ -2976,19 +1719,19 @@ declare module 'gd-sprest/lib/rest.def' {
                     /**
                         * Helper class for generating a field schema xml
                         */
-                    FieldSchemaXML: Types.Helper.FieldSchemaXML.IFieldSchemaXML;
+                    FieldSchemaXML: Types.Helper.IFieldSchemaXML;
                     /**
                         * Helper class for implementing JSLink solutions
                         */
-                    JSLink: Types.Helper.JSLink.IJSLink;
+                    JSLink: Types.Helper.IJSLink;
                     /**
                         * Helper class for implementing custom list forms
                         */
-                    ListForm: Types.Helper.ListForm.IListForm;
+                    ListForm: Types.Helper.IListForm;
                     /**
                         * Helper class for implementing custom list forms
                         */
-                    ListFormField: Types.Helper.ListFormField.IListFormField;
+                    ListFormField: Types.Helper.IListFormField;
                     /**
                         * Helper class for waiting until the core SP scripts are loaded
                         */
@@ -3005,47 +1748,47 @@ declare module 'gd-sprest/lib/rest.def' {
                     /**
                         * Helper class for getting information from the taxonomy term store
                         */
-                    Taxonomy: Types.Helper.Taxonomy.ITaxonomy;
+                    Taxonomy: Types.Helper.ITaxonomy;
                     /**
                         * Helper class for creating modern webparts in SharePoint 2013+ environments
                         */
-                    WebPart: Types.Helper.WebPart.IWebPart;
+                    WebPart: Types.Helper.IWebPart;
             };
             /**
                 * Use this api to interact with SharePoint lists and libraries.
                 * @param listName - The name of the list.
                 * @param targetInfo - (Optional) The target information.
                 */
-            List: (listName: string, targetInfo?: Types.Utils.ITargetInfo) => Types.IList;
+            List: (listName: string, targetInfo?: Types.Util.ITargetInfo) => Types.SP.IList;
             /**
                 * Use this api to interact with SharePoint navigation.
                 * @param url - (Optional) The web url.
                 * @param targetInfo - (Optional) The target information.
                 */
-            Navigation: (url?: string, targetInfo?: Types.Utils.ITargetInfo) => Types.INavigationServiceREST;
+            Navigation: (url?: string, targetInfo?: Types.Util.ITargetInfo) => Types.SP.INavigationServiceREST;
             /**
                 * Use this api to interact with SharePoint user profiles.
                 * @param targetInfo - (Optional) The target information.
                 */
-            PeopleManager: (targetInfo?: Types.Utils.ITargetInfo) => Types.IPeopleManager;
+            PeopleManager: (targetInfo?: Types.Util.ITargetInfo) => Types.SP.IPeopleManager;
             /**
                 * Use this api to search for users.
                 * @param settings - The search settings.
                 */
-            PeoplePicker: (settings?: Types.Utils.ITargetInfo) => Types.IPeoplePicker;
+            PeoplePicker: (settings?: Types.Util.ITargetInfo) => Types.SP.IPeoplePicker;
             /**
                 * Use this api to interact with the user profile loader.
                 * @param targetInfo - (Optional) The target information.
                 */
-            ProfileLoader: (targetInfo?: Types.Utils.ITargetInfo) => Types.IProfileLoader;
+            ProfileLoader: (targetInfo?: Types.Util.ITargetInfo) => Types.SP.IProfileLoader;
             /**
                 * Use this api to interact with the SharePoint search service.
                 * @param url - The optional url to execute the search against.
                 * @param settings - The search settings.
                 */
-            Search: (url?: string, settings?: Types.Utils.ITargetInfo) => Types.ISearch;
+            Search: (url?: string, settings?: Types.Util.ITargetInfo) => Types.SP.ISearch;
             /**
-                * The SharePoint enumerator types.
+                * The SharePoint enumerator Types.SP.
                 */
             SPTypes: any;
             /**
@@ -3053,32 +1796,1594 @@ declare module 'gd-sprest/lib/rest.def' {
                 * @param url - (Optional) The site url.
                 * @param targetInfo - (Optional) The target information.
                 */
-            Site: (url?: string, targetInfo?: Types.Utils.ITargetInfo) => Types.ISite;
+            Site: (url?: string, targetInfo?: Types.Util.ITargetInfo) => Types.SP.ISite;
             /**
                 * Use this api to interact with the current user's social profile.
                 */
-            SocialFeed: Types.ISocialFeed;
+            SocialFeed: Types.SP.ISocialFeed;
             /**
                 * Use this api to interact with the current user's profile.
                 * @param targetInfo - (Optional) The target information.
                 */
-            UserProfile: (targetInfo?: Types.Utils.ITargetInfo) => Types.IUserProfile;
+            UserProfile: (targetInfo?: Types.Util.ITargetInfo) => Types.SP.IUserProfile;
             /**
                 * The utility api
                 * @param url - (Optional) The web url.
                 * @param targetInfo - (Optional) The target information.
                 */
-            Utility: (url?: string, targetInfo?: Types.Utils.ITargetInfo) => Types.IUtility;
+            Utility: (url?: string, targetInfo?: Types.Util.ITargetInfo) => Types.SP.IUtility;
             /**
                 * Use this api to interact with a SharePoint web.
                 * @param url - (Optional) The web url.
                 * @param targetInfo - (Optional) The target information.
                 */
-            Web: (url?: string, targetInfo?: Types.Utils.ITargetInfo) => Types.IWeb;
+            Web: (url?: string, targetInfo?: Types.Util.ITargetInfo) => Types.SP.IWeb;
     }
 }
 
-declare module 'gd-sprest/mapper/complexTypes.def' {
+declare module 'gd-sprest/mapper/audit' {
+    /**
+      * Audit
+      */
+    export const audit: {
+        query: {
+            argNames: string[];
+            requestType: number;
+        };
+    };
+}
+
+declare module 'gd-sprest/mapper/eventReceiver' {
+    /**
+        * Event Receiver
+        */
+    export const eventreceiver: {
+            delete: {
+                    requestType: number;
+            };
+            update: {
+                    metadataType: string;
+                    name: string;
+                    requestMethod: string;
+                    requestType: number;
+            };
+    };
+    /**
+        * Event Receivers
+        */
+    export const eventreceivers: {
+            add: {
+                    metadataType: string;
+                    name: string;
+                    requestType: number;
+            };
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+}
+
+declare module 'gd-sprest/mapper/file' {
+    /**
+        * Attachment
+        */
+    export const attachment: {};
+    /**
+        * Attachment Files
+        */
+    export const attachmentfiles: {
+            add: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * File
+        */
+    export const file: {
+            properties: string[];
+            approve: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            cancelupload: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+            checkin: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            checkout: {
+                    requestType: number;
+            };
+            content: {
+                    name: string;
+                    requestType: number;
+            };
+            continueUpload: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+            copyTo: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            delete: {
+                    requestType: number;
+            };
+            deny: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            finishUpload: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+            getlimitedwebpartmanager: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+            moveTo: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+            openBinaryStream: {
+                    requestType: number;
+            };
+            publish: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            recycle: {
+                    requestType: number;
+            };
+            saveBinaryStream: {
+                    requestType: number;
+            };
+            startUpload: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+            undoCheckOut: {
+                    requestType: number;
+            };
+            unpublish: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            update: {
+                    metadataType: string;
+                    name: string;
+                    requestMethod: string;
+                    requestType: number;
+            };
+    };
+    /**
+        * Files
+        */
+    export const files: {
+            add: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            addTemplateFile: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getByUrl: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * File Version
+        */
+    export const fileversion: {
+            properties: any[];
+            delete: {
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * File Versions
+        */
+    export const fileversions: {
+            delete: {
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Folder
+        */
+    export const folder: {
+            properties: string[];
+            delete: {
+                    requestType: number;
+            };
+            getByUrl: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            recycle: {
+                    requestType: number;
+            };
+            update: {
+                    metadataType: string;
+                    name: string;
+                    requestMethod: string;
+                    requestType: number;
+            };
+    };
+    /**
+        * Folders
+        */
+    export const folders: {
+            properties: string[];
+            add: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getbyurl: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Limited Web Part Manager
+        */
+    export const limitedwebpartmanager: {
+            get_WebParts: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+    };
+}
+
+declare module 'gd-sprest/mapper/list' {
+    /**
+        * Content Type
+        */
+    export const contenttype: {
+            properties: string[];
+            delete: {
+                    requestType: number;
+            };
+            update: {
+                    metadataType: string;
+                    name: string;
+                    requestMethod: string;
+                    requestType: number;
+            };
+    };
+    /**
+        * Content Types
+        */
+    export const contenttypes: {
+            add: {
+                    metadataType: string;
+                    name: string;
+                    requestType: number;
+            };
+            addAvailableContentType: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Field
+        */
+    export const field: {
+            delete: {
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            setShowInDisplayForm: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            setShowInEditForm: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            setShowInNewForm: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            update: {
+                    inheritMetadataType: boolean;
+                    name: string;
+                    requestMethod: string;
+                    requestType: number;
+            };
+    };
+    /**
+        * Field Links
+        */
+    export const fieldlinks: {
+            add: {
+                    argNames: string[];
+                    metadataType: string;
+                    name: string;
+                    requestType: number;
+            };
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Fields
+        */
+    export const fields: {
+            add: {
+                    metadataType: string;
+                    name: string;
+                    requestType: number;
+            };
+            addField: {
+                    argNames: string[];
+                    metadataType: string;
+                    name: string;
+                    requestType: number;
+            };
+            addDependentLookupField: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            createFieldAsXml: {
+                    argNames: string[];
+                    requestType: number;
+                    data: {
+                            parameters: {
+                                    __metadata: {
+                                            type: string;
+                                    };
+                                    Options: number;
+                                    SchemaXml: string;
+                            };
+                    };
+            };
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getByInternalNameOrTitle: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getByTitle: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Items
+        */
+    export const items: {
+            add: {
+                    metadataType: (obj: any) => any;
+                    name: string;
+                    requestType: number;
+            };
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * List
+        */
+    export const list: {
+            properties: string[];
+            breakRoleInheritance: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            delete: {
+                    requestType: number;
+            };
+            getChanges: {
+                    argNames: string[];
+                    metadataType: string;
+                    requestType: number;
+            };
+            getItemById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getItems: {
+                    argNames: string[];
+                    requestType: number;
+                    data: {
+                            query: {
+                                    __metadata: {
+                                            type: string;
+                                    };
+                                    ViewXml: string;
+                            };
+                    };
+            };
+            getItemsByQuery: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+                    data: {
+                            query: {
+                                    __metadata: {
+                                            type: string;
+                                    };
+                                    ViewXml: string;
+                            };
+                    };
+            };
+            getListItemChangesSinceToken: {
+                    argNames: string[];
+                    metadataType: string;
+                    requestType: number;
+            };
+            getRelatedFields: {
+                    requestType: number;
+            };
+            getUserEffectivePermissions: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+            getViewById: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            recycle: {
+                    requestType: number;
+            };
+            renderListData: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+            renderListFormData: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            reserveListItemId: {
+                    requestType: number;
+            };
+            resetRoleInheritance: {
+                    requestType: number;
+            };
+            update: {
+                    metadataType: string;
+                    name: string;
+                    requestMethod: string;
+                    requestType: number;
+            };
+    };
+    /**
+        * List Item
+        */
+    export const listitem: {
+            properties: string[];
+            breakRoleInheritance: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            delete: {
+                    requestType: number;
+            };
+            getUserEffectivePermissions: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            recycle: {
+                    requestType: number;
+            };
+            resetRoleInheritance: {
+                    requestType: number;
+            };
+            update: {
+                    inheritMetadataType: boolean;
+                    name: string;
+                    requestMethod: string;
+                    requestType: number;
+            };
+            validateUpdateListItem: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Lists
+        */
+    export const lists: {
+            add: {
+                    metadataType: string;
+                    name: string;
+                    requestType: number;
+            };
+            ensureSiteAssetsLibrary: {
+                    requestType: number;
+            };
+            ensureSitePagesLibrary: {
+                    requestType: number;
+            };
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getByTitle: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Version
+        */
+    export const version: {
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            deleteAll: {
+                    requestType: number;
+            };
+            deleteById: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            deleteByLabel: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            restoreByLabel: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * View
+        */
+    export const view: {
+            properties: string[];
+            delete: {
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            renderAsHtml: {
+                    requestType: number;
+            };
+            update: {
+                    metadataType: string;
+                    name: string;
+                    requestMethod: string;
+                    requestType: number;
+            };
+    };
+    /**
+        * View Field Collection
+        */
+    export const viewfieldcollection: {
+            addViewField: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            moveViewFieldTo: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            removeAllViewFields: {
+                    requestType: number;
+            };
+            removeViewField: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Views
+        */
+    export const views: {
+            add: {
+                    metadataType: string;
+                    name: string;
+                    requestType: number;
+            };
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getByTitle: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+}
+
+declare module 'gd-sprest/mapper/navigation' {
+    /**
+      * Navigation
+      */
+    export const navigationservicerest: {
+        properties: string[];
+        getMenuState: {
+            argNames: string[];
+            name: string;
+            RequestType: number;
+        };
+    };
+}
+
+declare module 'gd-sprest/mapper/propertyValues' {
+    /**
+      * Property Values
+      */
+    export const propertyvalues: {
+        query: {
+            argNames: string[];
+            requestType: number;
+        };
+    };
+}
+
+declare module 'gd-sprest/mapper/search' {
+    /**
+      * Search
+      */
+    export const search: {
+        postquery: {
+            argNames: string[];
+            metadataType: string;
+            requestType: number;
+        };
+    };
+}
+
+declare module 'gd-sprest/mapper/security' {
+    /**
+        * Role Assignment
+        */
+    export const roleassignment: {
+            properties: string[];
+            delete: {
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Role Assignments
+        */
+    export const roleassignments: {
+            addRoleAssignment: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getByPrincipalId: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            removeRoleAssignment: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Role Definition
+        */
+    export const roledefinition: {
+            delete: {
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Role Definitions
+        */
+    export const roledefinitions: {
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getByName: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getByType: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+}
+
+declare module 'gd-sprest/mapper/site' {
+    /**
+        * Site
+        */
+    export const site: {
+            properties: string[];
+            createPreviewSPSite: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            extendUpgradeReminderDate: {
+                    requestType: number;
+            };
+            getCatalog: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getChanges: {
+                    argNames: string[];
+                    metadataType: string;
+                    requestType: number;
+            };
+            getCustomListTemplates: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getWebTemplates: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            invalidate: {
+                    requestType: number;
+            };
+            needsUpgradeByType: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            openWeb: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            openWebById: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            runHealthCheck: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            runUpgradeSiteSession: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            update: {
+                    metadataType: string;
+                    name: string;
+                    requestMethod: string;
+                    requestType: number;
+            };
+            updateClientObjectModelUseRemoteAPIsPermissionSetting: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Tenant App
+        */
+    export const tenantapp: {
+            deploy: {
+                    requestType: number;
+            };
+            install: {
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            remove: {
+                    requestType: number;
+            };
+            retract: {
+                    requestType: number;
+            };
+            upgrade: {
+                    requestType: number;
+            };
+            uninstall: {
+                    requestType: number;
+            };
+    };
+    /**
+        * Tenant Apps
+        */
+    export const tenantapps: {
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Tenant App Catalog
+        */
+    export const tenantappcatalog: {
+            properties: string[];
+            add: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getById: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+                    returnType: string;
+            };
+            SiteCollectionAppCatalogsSites: {
+                    requestType: number;
+            };
+    };
+    /**
+        * Utility
+        */
+    export const utility: {
+            createEmailBodyForInvitation: {
+                    argNames: string[];
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            getAppLicenseDeploymentId: {
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            getAppLicenseInformation: {
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            getCurrentUserEmailAddresses: {
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            getLocalizedString: {
+                    argNames: string[];
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            getLowerCaseString: {
+                    argNames: string[];
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            importAppLicense: {
+                    argNames: string[];
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            isUserLicensedForEntityInContext: {
+                    argNames: string[];
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            localizeWebPartGallery: {
+                    argNames: string[];
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            markDiscussionAsFeatured: {
+                    argNames: string[];
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            resolvePrincipal: {
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            searchPrincipals: {
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            unmarkDiscussionAsFeatured: {
+                    argNames: string[];
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+    };
+    /**
+        * Web
+        */
+    export const web: {
+            properties: string[];
+            applyTheme: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            applyWebTemplate: {
+                    argName: string[];
+                    requestType: number;
+            };
+            breakRoleInheritance: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            delete: {
+                    requestType: number;
+            };
+            doesPushNotificationSubscriberExist: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            doesUserHavePermissions: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            ensureUser: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            executeRemoteLOB: {
+                    requestType: number;
+            };
+            getAppBdcCatalog: {
+                    requestType: number;
+            };
+            getAppBdcCatalogForAppInstance: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getAppInstanceById: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getAppInstancesByProductId: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getAvailableWebTemplates: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getCatalog: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getChanges: {
+                    argNames: string[];
+                    metadataType: string;
+                    requestType: number;
+            };
+            getContextWebInformation: {
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            getCustomListTemplates: {
+                    requestType: number;
+            };
+            getDocumentLibraries: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+            getEntity: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getFileByServerRelativeUrl: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getFolderByServerRelativeUrl: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getList: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getPushNotificationSubscriber: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getPushNotificationSubscribersByArgs: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getPushNotificationSubscribersByUser: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getSubwebsFilteredForCurrentUser: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getUserById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getUserEffectivePermissions: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+            getWebUrlFromPageUrl: {
+                    name: string;
+                    requestType: number;
+            };
+            loadAndInstallApp: {
+                    requestType: number;
+            };
+            loadAndInstallAppInSpecifiedLocale: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            loadApp: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            mapToIcon: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            processExternalNotification: {
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            registerPushNotificationSubscriber: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            resetRoleInheritance: {
+                    requestType: number;
+            };
+            unregisterPushNotificationSubscriber: {
+                    requestType: number;
+            };
+            update: {
+                    metadataType: string;
+                    name: string;
+                    requestMethod: string;
+                    requestType: number;
+            };
+    };
+    /**
+        * Web Information Collection
+        */
+    export const webinfos: {
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Webs
+        */
+    export const webs: {
+            add: {
+                    argNames: string[];
+                    metadataType: string;
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+}
+
+declare module 'gd-sprest/mapper/social' {
+    /**
+        * People Manager
+        */
+    export const peoplemanager: {
+            amIFollowedBy: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            amIFollowing: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            follow: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            followTag: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getFollowedTags: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getFollowersFor: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getMyFollowers: {
+                    requestType: number;
+            };
+            getMyProperties: {
+                    requestType: number;
+            };
+            getMySuggestions: {
+                    requestType: number;
+            };
+            getPeopleFollowedBy: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getPeopleFollowedByMe: {
+                    requestType: number;
+            };
+            getPropertiesFor: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getTrendingTags: {
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            getUserProfilePropertyFor: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            hideSuggestion: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            isFollowing: {
+                    argNames: string[];
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            setMyProfilePicture: {
+                    requestType: number;
+            };
+            stopFollowing: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            stopFollowingTag: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Profile Loader
+        */
+    export const profileloader: {
+            createPersonalSiteEnqueueBulk: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            getOwnerUserProfile: {
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+                    returnType: string;
+            };
+            getUserProfile: {
+                    requestType: number;
+                    returnType: string;
+            };
+    };
+    /**
+        * Social Feed
+        */
+    export const socialfeed: {
+            actor: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+            actorFeed: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+            clearMyUnreadMentionCount: {
+                    name: string;
+                    requestType: number;
+            };
+            my: {
+                    name: string;
+                    requestType: number;
+            };
+            myFeed: {
+                    name: string;
+                    requestType: number;
+            };
+            myLikes: {
+                    name: string;
+                    requestType: number;
+            };
+            myMentionFeed: {
+                    name: string;
+                    requestType: number;
+            };
+            myNews: {
+                    name: string;
+                    requestType: number;
+            };
+            myTimelineFeed: {
+                    name: string;
+                    requestType: number;
+            };
+            myUnreadMentionCount: {
+                    name: string;
+                    requestType: number;
+            };
+    };
+    /**
+        * User Profile
+        */
+    export const userprofile: {
+            properties: string[];
+            createPersonalSiteEnque: {
+                    requestType: number;
+            };
+            shareAllSocialData: {
+                    requestType: number;
+            };
+    };
+}
+
+declare module 'gd-sprest/mapper/user' {
+    /**
+        * Group
+        */
+    export const group: {
+            properties: string[];
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Site Groups
+        */
+    export const sitegroups: {
+            add: {
+                    metadataType: string;
+                    name: string;
+                    requestType: number;
+            };
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getByName: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            removeById: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            removeByLoginName: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * People Picker
+        */
+    export const peoplepicker: {
+            clientPeoplePickerResolveUser: {
+                    argNames: string[];
+                    metadataType: string;
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+            clientPeoplePickerSearchUser: {
+                    argNames: string[];
+                    metadataType: string;
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
+            };
+    };
+    /**
+        * User
+        */
+    export const user: {
+            properties: string[];
+            delete: {
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * Users
+        */
+    export const users: {
+            add: {
+                    metadataType: string;
+                    name: string;
+                    requestType: number;
+            };
+            getByEmail: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getByLoginName: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            removeById: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            removeByLoginName: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+            };
+    };
+}
+
+declare module 'gd-sprest/mapper/userCustomAction' {
+    /**
+        * User Custom Action
+        */
+    export const usercustomaction: {
+            delete: {
+                    requestType: number;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
+        * User Custom Actions
+        */
+    export const usercustomactions: {
+            add: {
+                    metadataType: string;
+                    name: string;
+                    requestType: number;
+            };
+            clear: {
+                    requestType: number;
+            };
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+}
+
+declare module 'gd-sprest/mapper/types/attachment' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { Types } from "gd-sprest/";
+    import { IAttachmentFiles } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface IAttachmentFilesMethods {
+            /**
+                * Adds the attachment that is represented by the specified file name and byte array to the list item.
+                * @param fileName - The filename of the attachment.
+                * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
+                */
+            add(fileName: any, content: any): IBase<IAttachment>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IAttachmentFiles>;
+    }
+    /**
+        * Attachment
+        */
+    export interface IAttachment {
+            /** The filename. */
+            FileName: string;
+            /** The filename as a path. */
+            FileNameAsPath: Types.SP.IResourcePath;
+            /** The server relative path. */
+            ServerRelativePath: Types.SP.IResourcePath;
+            /** The server relative url. */
+            ServerRelativeUrl: string;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/attachments' {
+    import { IBaseCollection } from "gd-sprest/utils/types";
+    import { IAttachment, IAttachmentFilesMethods } from "gd-sprest/mapper/types";
+    /**
+      * Attachment Files
+      */
+    export interface IAttachmentFiles extends IAttachmentFilesMethods, IBaseCollection<IAttachment> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/audit' {
+    /**
+      * Audit
+      */
+    export interface IAudit {
+        AuditFlags: number;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/complexTypes' {
     import { Types } from "gd-sprest/";
     /**
         * App License
@@ -3439,7 +3744,7 @@ declare module 'gd-sprest/mapper/complexTypes.def' {
     /**
         * Field Multi-User
         */
-    export interface FieldMultiUserValue extends Types.IResults<FieldUserValue> {
+    export interface FieldMultiUserValue extends Types.SP.IResults<FieldUserValue> {
     }
     /**
         * Field Rating Scale Question Answer
@@ -4059,7 +4364,7 @@ declare module 'gd-sprest/mapper/complexTypes.def' {
             /** The number of properties to show hit highlighting for in the search  */
             HitHighlightedMultivaluePropertyLimit?: number;
             /** The properties to highlight in the search result summary when the property value matches the search terms entered by the user. */
-            HithighlightedProperties?: Types.Results.String;
+            HithighlightedProperties?: Types.SP.Results.String;
             /** The maximum number of characters to display in the hit-highlighted summary generated for a search result. */
             MaxSnippetLength?: number;
             QLSQuerySession?: string;
@@ -4082,7 +4387,7 @@ declare module 'gd-sprest/mapper/complexTypes.def' {
             /** The ID of the ranking model to use for the query. */
             RankingModelId?: string;
             /** The set of refinement filters used when issuing a refinement query. For GET requests, the RefinementFilters parameter is specified as an FQL filter. For POST requests, the RefinementFilters parameter is specified as an array of FQL filters. */
-            RefinementFilters?: Types.Results.String;
+            RefinementFilters?: Types.SP.Results.String;
             /** The set of refiners to return in a search result. */
             Refiners?: string;
             /** Special rules for reordering search  These rules can specify that documents matching certain conditions are ranked higher or lower in the  */
@@ -4094,9 +4399,9 @@ declare module 'gd-sprest/mapper/complexTypes.def' {
             /** The maximum number of rows to return per page. Compared to RowLimit, RowsPerPage refers to the maximum number of rows to return per page, and is used primarily when you want to implement paging for search  */
             RowsPerPage?: number;
             /** The managed properties to return in the search  To return a managed property, set the property's retrievable flag to true in the search schema. */
-            SelectProperties?: Types.Results.String;
+            SelectProperties?: Types.SP.Results.String;
             /** The list of properties by which the search results are ordered. */
-            SortList?: Types.Results.Object;
+            SortList?: Types.SP.Results.Object;
             /** The result source ID to use for executing the search query. */
             SourceId?: string;
             /** The first row that is included in the search results that are returned. You use this parameter when you want to implement paging for search  */
@@ -4182,7 +4487,7 @@ declare module 'gd-sprest/mapper/complexTypes.def' {
         * Simple Data Row
         */
     export interface SimpleDataRow {
-            Cells: Types.Results.DataRow;
+            Cells: Types.SP.Results.DataRow;
     }
     /**
         * Simple Data Table
@@ -4668,8 +4973,2586 @@ declare module 'gd-sprest/mapper/complexTypes.def' {
     }
 }
 
-declare module 'gd-sprest/mapper/results.def' {
-    import { ComplexTypes } from "gd-sprest/mapper/index.def";
+declare module 'gd-sprest/mapper/types/contentType' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { Types } from "gd-sprest/";
+    import { IFieldResult, IFields, IFieldLink, IFieldLinks, IListResult } from "gd-sprest/mapper/types";
+    /**
+        * Content Type Creation Information
+        */
+    export interface IContentTypeCreationInformation {
+            /** The content type description. */
+            Description?: string;
+            /** The content type group. */
+            Group?: string;
+            /** The content type id. */
+            Id?: string;
+            /** The content type name. */
+            Name: string;
+    }
+    /**
+        * Content Type Methods
+        */
+    export interface IContentTypeMethods {
+            /**
+                * Deletes the content type.
+                */
+            delete(): IBase;
+            /**
+                * Updates it's properties.
+                * @param data - The content type properties to update.
+                */
+            update(data: any): IBase;
+    }
+    /**
+        * Content Type Properties
+        */
+    export interface IContentTypeProps {
+            /** Gets or sets a description of the content type. */
+            Description: string;
+            /** Gets or sets a value that specifies the name of a custom display form template to use for list items that have been assigned the content type. */
+            DisplayFormTemplateName: string;
+            /** Gets or sets a value that specifies the URL of a custom display form to use for list items that have been assigned the content type. */
+            DisplayFormUrl: string;
+            /** Gets or sets a value that specifies the file path to the document template used for a new list item that has been assigned the content type. */
+            DocumentTemplate: string;
+            /** Gets a value that specifies the URL of the document template assigned to the content type. */
+            DocumentTemplateUrl: string;
+            /** Gets or sets a value that specifies the name of a custom edit form template to use for list items that have been assigned the content type. */
+            EditFormTemplateName: string;
+            /** Gets or sets a value that specifies the URL of a custom edit form to use for list items that have been assigned the content type. */
+            EditFormUrl: string;
+            /** Gets or sets a value that specifies the content type group for the content type. */
+            Group: string;
+            /** Gets or sets a value that specifies whether the content type is unavailable for creation or usage directly from a user export interface. */
+            Hidden: boolean;
+            /** Gets a value that specifies an identifier for the content type. */
+            Id: Types.SP.IStringValue;
+            /** Gets or sets the JSLink for the content type custom form template. The JSLink property is not supported on Survey or Events lists. A SharePoint calendar is an Events list. */
+            JSlink: string;
+            MobileDisplayFormUrl: string;
+            MobileEditFormUrl: string;
+            MobileNewFormUrl: string;
+            /** Gets or sets a value that specifies the name of the content type. */
+            Name: string;
+            /** Gets or sets a value that specifies the name of the content type. */
+            NewFormTemplateName: string;
+            /** Gets or sets a value that specifies the name of the content type. */
+            NewFormUrl: string;
+            /** Gets or sets a value that specifies whether changes to the content type properties are denied. */
+            Readonly: boolean;
+            /** Gets a value that specifies the XML Schema representing the content type. */
+            SchemaXml: string;
+            /** Gets a non-localized version of the XML schema that defines the content type. */
+            SchemaXmlWithResourceTokens: string;
+            /** Gets a value that specifies a server-relative path to the content type scope of the content type. */
+            Scope: string;
+            /** Gets or sets whether the content type can be modified. */
+            Sealed: boolean;
+            /** A string representation of the value of the Id. */
+            StringId: string;
+    }
+    /**
+        * Content Type Query Properties
+        */
+    export interface IContentTypeQueryProps {
+            DescriptionResource(): IBase;
+            /**
+                * Gets the column (also known as field) references in the content type.
+                */
+            FieldLinks(): IFieldLinks;
+            /**
+                * Gets the column (also known as field) reference in the content type.
+                * @param guid - The guid of the field link.
+                */
+            FieldLinks(guid: string): IBase<IFieldLink>;
+            /**
+                * Gets the fields for the content type.
+                */
+            Fields(): IFields;
+            /**
+                * Gets the field for the content type.
+                * @param internalNameOrTitle - The internal name or title of the field.
+                */
+            Fields(internalNameOrTitle: string): IFields;
+            NameResource(): IBase;
+            /** Gets the parent content type of the content type. */
+            Parent(): IContentTypeMethods;
+            /**
+                * Gets a value that specifies the collection of workflow associations for the content type.
+                */
+            WorkflowAssociations(): IBase;
+    }
+    /**
+        * Content Type Query Result
+        */
+    export interface IContentTypeQueryResult extends IContentTypeMethods, IContentTypeProps {
+            DescriptionResource: Types.SP.IResourcePath;
+            /**
+                * Gets the column (also known as field) references in the content type.
+                */
+            FieldLinks: Types.SP.IResults<IFieldLink>;
+            /**
+                * Gets the fields for the content type.
+                */
+            Fields: Types.SP.IResults<IFieldResult>;
+            NameResource: Types.SP.IResourcePath;
+            /** Gets the parent content type of the content type. */
+            Parent: IListResult | Types.SP.IWebResult;
+            /**
+                * Gets a value that specifies the collection of workflow associations for the content type.
+                */
+            WorkflowAssociations: Types.SP.IResults<any>;
+    }
+    /**
+        * Content Type Result
+        */
+    export interface IContentTypeResult extends IContentTypeMethods, IContentTypeProps, IContentTypeQueryProps, IBase<IContentType, IContentTypeResult, IContentTypeQueryResult> {
+    }
+    /**
+        * Content Type
+        */
+    export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBase<IContentType, IContentTypeResult, IContentTypeQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/contentTypes' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IContentType, IContentTypeCreationInformation, IContentTypeQueryResult, IContentTypeResult } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface IContentTypesMethods {
+            /**
+                * Adds a content type to the collection.
+                * @param parameters - The content type creation information.
+                */
+            add(parameters: IContentTypeCreationInformation): IBase<IContentType, IContentTypeResult>;
+            /**
+                * Adds an existing content type to this collection.
+                * @param contentTypeId - The content type id to add.
+                */
+            addAvailableContentType(contentTypeId: any): IBase<IContentType, IContentTypeResult>;
+            /**
+                * Gets a content type by id.
+                * @param id - The content type id.
+                */
+            getById(id: any): IContentType & IBase<IContentType, IContentTypeResult, IContentTypeQueryResult>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IContentTypes, IContentTypeResults>;
+    }
+    /**
+        * Content Types
+        */
+    export interface IContentTypes extends IContentTypesMethods, IBaseCollection<IContentType, IContentTypeResult, IContentTypeQueryResult> {
+    }
+    /**
+        * Content Type Results
+        */
+    export interface IContentTypeResults extends IContentTypesMethods, IBaseCollection<IContentTypeResult, IContentTypeResult, IContentTypeQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/eventReceiver' {
+    import { IBase } from "gd-sprest/utils/types";
+    /**
+        * Event Receiver Definition Creation Information
+        */
+    export interface IEventReceiverDefinitionCreationInformation {
+            /** The event receiver type. */
+            EventType: number;
+            /** The strong name of the assembly that is used for receiving events. */
+            ReceiverAssembly?: string;
+            /** A string that represents the class that is used for receiving events. */
+            ReceiverClass?: string;
+            /** The name of the event receiver. */
+            ReceiverName: string;
+            /** The URL of a web service that is used for receiving events. */
+            ReceiverUrl?: string;
+            /** An integer that represents the relative sequence of the event. */
+            SequenceNumber?: number;
+            /** The execution synchronization of the event receiver. */
+            Synchronization?: number;
+    }
+    /**
+        * Event Receiver Methods
+        */
+    export interface IEventReceiverMethods {
+            /**
+                * Deletes the event receiver.
+                */
+            delete(): IBase;
+            /**
+                * Updates it's properties.
+                * @param data - The field properties to update.
+                */
+            update(data: any): IBase;
+    }
+    /**
+        * Event Receiver Properties
+        */
+    export interface IEventReceiverProps {
+            /** Specifies the type of event. */
+            EventType: number;
+            /** The strong name of the assembly that is used for receiving events. */
+            ReceiverAssembly?: string;
+            /** A string that represents the class that is used for receiving events. */
+            ReceiverClass?: string;
+            /** The unique identifier of the event receiver. */
+            ReceiverId?: string;
+            /** The name of the event receiver. */
+            ReceiverName: string;
+            /** The URL of a web service that is used for receiving events. */
+            ReceiverUrl?: string;
+            /** An integer that represents the relative sequence of the event. */
+            SequenceNumber?: number;
+            /** The execution synchronization of the event receiver. */
+            Synchronization?: number;
+    }
+    /**
+        * Event Receiver Query Properties
+        */
+    export interface IEventReceiverQueryProps {
+    }
+    /**
+        * Event Receiver Query Result
+        */
+    export interface IEventReceiverQueryResult extends IEventReceiverMethods, IEventReceiverProps {
+    }
+    /**
+        * Event Receiver Result
+        */
+    export interface IEventReceiverResult extends IEventReceiverMethods, IEventReceiverProps, IEventReceiverQueryProps, IBase<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> {
+    }
+    /**
+        * Event Receiver
+        */
+    export interface IEventReceiver extends IEventReceiverMethods, IEventReceiverQueryProps, IBase<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/eventReceivers' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IEventReceiver, IEventReceiverDefinitionCreationInformation, IEventReceiverQueryResult, IEventReceiverResult } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface IEventReceiversMethods {
+            /**
+                * Adds an event receiver to the collection.
+                * @param parameters - The event receiver definition creation information.
+                */
+            add(parameters: IEventReceiverDefinitionCreationInformation): IBase<IEventReceiver, IEventReceiverResult>;
+            /**
+                * Gets an event receiver in the collection.
+                * @param id - The id of the event receiver.
+                */
+            getById(id: string): IEventReceiver & IBase<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IEventReceivers, IEventReceiverResults>;
+    }
+    /**
+        * Event Receivers
+        */
+    export interface IEventReceivers extends IEventReceiversMethods, IBaseCollection<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> {
+    }
+    /**
+        * Event Receiver Results
+        */
+    export interface IEventReceiverResults extends IEventReceiversMethods, IBaseCollection<IEventReceiverResult, IEventReceiverResult, IEventReceiverQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/field' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { IResourcePath } from "gd-sprest/mapper/types";
+    /**
+        * Field Creation Information
+        */
+    export interface IFieldCreationInformation {
+            /** The choices. */
+            Choices?: {
+                    results: Array<string>;
+            };
+            /** The field type. */
+            FieldTypeKind: number;
+            /** Indicates whether only the first eight characters are used for the field name. */
+            IsCompactName?: boolean;
+            /** The name of the source lookup field. */
+            LookupFieldName?: string;
+            /** The ID of the target list for the source lookup field. */
+            LookupListId?: any;
+            /** The ID of the site that contains the list that is the source for the lookup field value. */
+            LookupWebId?: any;
+            /** A value that specifies whether the field requires a value. */
+            Required?: boolean;
+            /** A value that specifies the display name of the field. */
+            Title: string;
+    }
+    /**
+        * Field Methods
+        */
+    export interface IFieldMethods {
+            /**
+                * Deletes the field.
+                */
+            delete(): IBase;
+            /**
+                * Sets the value of the ShowInDisplayForm property for this field.
+                * @param showInForm - Flag to show the field in the display form.
+                */
+            setShowInDisplayForm(showInForm: any): IBase;
+            /**
+                * Sets the value of the ShowInEditForm property for this field.
+                * @param showInForm - Flag to show the field in the display form.
+                */
+            setShowInEditForm(showInForm: any): IBase;
+            /**
+                * Sets the value of the ShowInNewForm property for this field.
+                * @param showInForm - Flag to show the field in the display form.
+                */
+            setShowInNewForm(showInForm: any): IBase;
+            /**
+                * Updates it's properties.
+                * @param data - The field properties to update.
+                */
+            update(data: any): IBase;
+    }
+    /**
+        * Field Properties
+        */
+    export interface IFieldProps {
+            AutoIndexed: boolean;
+            /** Gets a value that specifies whether the field can be deleted. */
+            CanBeDeleted: boolean;
+            /** Gets or sets a value that specifies the default value for the field. */
+            DefaultValue: string;
+            /** Gets or sets a value that specifies the description of the field. */
+            Description: string;
+            /** Gets or sets a value that specifies the reading order of the field. */
+            Direction: string;
+            /** Gets or sets a value that specifies whether to require unique field values in a list or library column. */
+            EnforceUniqueValues: boolean;
+            /** Gets the name of the entity property for the list item entity that uses this field. */
+            EntityPropertyName: string;
+            /** Gets or sets a value that specifies the type of the field. Represents a FieldType value. See FieldType in the .NET client object model reference for a list of field type values. */
+            FieldTypeKind: number;
+            /** Gets a value that specifies whether list items in the list can be filtered by the field value. */
+            Filterable: boolean;
+            /** Gets a Boolean value that indicates whether the field derives from a base field type. */
+            FromBaseType: boolean;
+            /** Gets or sets a value that specifies the field group. */
+            Group: string;
+            /** Gets or sets a value that specifies whether the field is hidden in list views and list forms. */
+            Hidden: boolean;
+            /** Gets a value that specifies the field identifier. */
+            Id: string;
+            /** Gets or sets a Boolean value that specifies whether the field is indexed. */
+            Indexed: boolean;
+            /** Gets a value that specifies the field internal name. */
+            InternalName: string;
+            /** Gets or sets the name of an external JS file containing any client rendering logic for fields of this type. */
+            JSLink: string;
+            /** Gets or sets a value that specifies whether the value of the field is read-only. */
+            ReadOnlyField: boolean;
+            /** Gets or sets a value that specifies whether the field requires a value. */
+            Required: boolean;
+            /** Gets or sets a value that specifies the XML schema that defines the field. */
+            SchemaXml: string;
+            /** Gets a value that specifies the server-relative URL of the list or the site to which the field belongs. */
+            Scope: string;
+            /** Gets a value that specifies whether properties on the field cannot be changed and whether the field cannot be deleted. */
+            Sealed: boolean;
+            /** Gets a value that specifies whether list items in the list can be sorted by the field value. */
+            Sortable: boolean;
+            /** Gets or sets a value that specifies a customizable identifier of the field. */
+            StaticName: string;
+            /** Gets or sets value that specifies the display name of the field. */
+            Title: string;
+            /** Gets or sets a value that specifies the type of the field. */
+            TypeAsString: string;
+            /** Gets a value that specifies the display name for the type of the field. */
+            TypeDisplayName: string;
+            /** Gets a value that specifies the description for the type of the field. */
+            TypeShortDescription: string;
+            /** Gets or sets a value that specifies the data validation criteria for the value of the field. */
+            ValidationFormula: string;
+            /** Gets or sets a value that specifies the error message returned when data validation fails for the field. */
+            ValidationMessage: string;
+    }
+    /**
+        * Field Query Properties
+        */
+    export interface IFieldQueryProps {
+            DescriptionResource(): IBase<IResourcePath>;
+            TitleResource(): IBase<IResourcePath>;
+    }
+    /**
+        * Field Query Result
+        */
+    export interface IFieldQueryResult extends IFieldMethods, IFieldProps {
+            DescriptionResource: IResourcePath;
+            TitleResource: IResourcePath;
+    }
+    /**
+        * Field Result
+        */
+    export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryProps, IBase<IField, IFieldResult, IFieldQueryResult> {
+    }
+    /**
+        * Field
+        */
+    export interface IField extends IFieldMethods, IFieldQueryProps, IBase<IField, IFieldResult, IFieldQueryResult> {
+    }
+    /**
+        * Base Choice Field
+        */
+    export interface IFieldBaseChoice extends IFieldResult {
+            /** A value that specifies values that are available for selection in the field. */
+            Choices: {
+                    results: Array<string>;
+            };
+            /** A value that specifies whether the field can accept values other than those specified by the Choices property. */
+            FillInChoice: boolean;
+            /** A value that specifies the internal values corresponding to Choices. */
+            Mappings: string;
+    }
+    /**
+        * Calculated Field
+        */
+    export interface IFieldCalculated extends IFieldResult {
+            /** The date and time format that is displayed in the field. */
+            DateFormat: number;
+            /** A value that specifies the formula for the field. */
+            Formula: string;
+            /** A value that specifies the output format for the field. */
+            OutputType: number;
+    }
+    /**
+        * Choice Field
+        */
+    export interface IFieldChoice extends IFieldBaseChoice {
+            /** Determines whether to display the choice field as option buttons (also known as "radio buttons") or as a drop-down list. */
+            EditFormat: number;
+    }
+    /**
+        * Computed Field
+        */
+    export interface IFieldComputed extends IFieldResult {
+            /** A value that specifies whether a lookup field can reference the field. */
+            EnableLookup: boolean;
+    }
+    /**
+        * Currency Field
+        */
+    export interface IFieldCurrency extends IFieldNumber {
+            /** A value that specifies the language code identifier (LCID) used to format the value of the field. */
+            CurrencyLocaleId: number;
+    }
+    /**
+        * Date/Time Field
+        */
+    export interface IFieldDateTime extends IFieldResult {
+            /** A value that specifies the calendar type of the field. */
+            DateTimeCalendarType: number;
+            /** The format of the date and time that is displayed in the field. */
+            DisplayFormat: number;
+            /** Represents a date and time friendly format. */
+            FriendlyDisplayFormat: number;
+    }
+    /**
+        * Lookup Field
+        */
+    export interface IFieldLookup extends IFieldResult {
+            /** A value that specifies whether the lookup field allows multiple values. You cannot set a deletion constraint on a lookup field that allows multiple values. */
+            AllowMultipleValues: boolean;
+            /** Flag to determine if this is a dependent lookup field. */
+            IsDependentLookup: boolean;
+            /** A value that specifies whether this lookup field is returned by SP.List.getRelatedFields from the list being looked up to. Always returns false if the field represents a secondary column in a multiple-column lookup. Secondary columns are not discoverable from the source list. */
+            IsRelationship: boolean;
+            /** A value that specifies the internal field name of the field used as the lookup values. */
+            LookupField: string;
+            /** A value that specifies the list identifier of the list that contains the field to use as the lookup values. */
+            LookupList: string;
+            /** The ID of the Web site that contains the list that is the source of this field's value. */
+            LookupWebId: string;
+            /** A value that specifies the primary lookup field identifier if this is a dependent lookup field. Otherwise, it is an empty string. */
+            PrimaryFieldId: string;
+            /** A value that specifies the delete behavior of the lookup field. */
+            RelationshipDeleteBehavior: number;
+    }
+    /**
+        * Managed Metadata Field
+        */
+    export interface IFieldManagedMetadata extends IFieldLookup {
+            /** The root term */
+            AnchorId: string;
+            /** Flag to determine if the anchor is valid. */
+            IsAnchorValid: boolean;
+            /** Flag to determine if this is a keyword. */
+            IsKeyword: boolean;
+            /** Flag to determine if the path is rendered. */
+            IsPathRendered: boolean;
+            /** Flag to determine if the term set is valid. */
+            IsTermSetValid: boolean;
+            /** A valid that specifies if the term is pinned to filters pane. */
+            PinnedToFiltersPane: boolean;
+            /** A value that specifies if the term is shown in the filters pane. */
+            ShowInFiltersPane: number;
+            /** The term store id. */
+            SspId: string;
+            /** The term set id. */
+            TermSetId: string;
+            /** Flag to determine if the field was created by the user. */
+            UserCreated: boolean;
+    }
+    /**
+        * Multi-Choice Field
+        */
+    export interface IFieldMultiChoice extends IFieldBaseChoice {
+    }
+    /**
+        * Note Field
+        */
+    export interface IFieldNote extends IFieldResult {
+            /** A value that specifies whether a hyperlink is allowed as a value of the field. */
+            AllowHyperlink: boolean;
+            /** A value that specifies whether all changes to the value of the field are displayed in list forms. */
+            AppendOnly: boolean;
+            /** A value that specifies the number of lines of text to display for the field. */
+            NumberOfLines: number;
+            /** A value that specifies whether the field supports a subset of rich formatting. */
+            RestrictedMode: boolean;
+            /** A value that specifies whether the field supports rich formatting. */
+            RichText: boolean;
+            /** A value that specifies whether an implementation specific mechanism for linking wiki pages is supported. */
+            WikiLinking: boolean;
+    }
+    /**
+        * Number Field
+        */
+    export interface IFieldNumber extends IFieldResult {
+            /** A value that specifies the minimum allowed value for the field. */
+            MaximumValue: number;
+            /** A value that specifies the minimum allowed value for the field. */
+            MinimumValue: number;
+            /** Flag to determine if the number is displayed as a percentage. */
+            ShowAsPercentage?: boolean;
+    }
+    /**
+        * Rating Scale Field
+        */
+    export interface IFieldRatingScale extends IFieldBaseChoice {
+            /** A value that specifies the end number for the rating scale. */
+            GridEndNumber: number;
+            /** A value that specifies the display text corresponding to the choice in the rating scale that indicates the non-applicable option. */
+            GridNAOptionText: string;
+            /** A value that specifies the start number for the rating scale. */
+            GridStartNumber: number;
+            /** A value that specifies the display text corresponding to the average of the rating scale. */
+            GridTextRangeAverage: string;
+            /** A value that specifies the display text corresponding to the maximum of the rating scale. */
+            GridTextRangeHigh: string;
+            /** A value that specifies the display text corresponding to the minimum of the rating scale. */
+            GridTextRangeLow: string;
+            /** A value that specifies the number of options in the rating scale. */
+            RangeCount: number;
+    }
+    /**
+        * Text Field
+        */
+    export interface IFieldText extends IFieldResult {
+            /** A value that specifies the maximum number of characters allowed in the value of the field. */
+            MaxLength: number;
+    }
+    /**
+        * URL Field
+        */
+    export interface IFieldUrl extends IFieldResult {
+            /** A value that specifies the display format for the value in the field. */
+            DisplayFormat: number;
+    }
+    /**
+        * User Field
+        */
+    export interface IFieldUser extends IFieldLookup {
+            /** A value that specifies whether to display the name of the user in a survey list. */
+            AllowDisplay: boolean;
+            /** A value that specifies whether presence is enabled on the field. */
+            Presence: boolean;
+            /** A value that specifies the identifier of the SharePoint group whose members can be selected as values of the field. */
+            SelectionGroup: number;
+            /** A value that specifies whether users and groups or only users can be selected. */
+            SelectionMode: number;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/fieldLink' {
+    /**
+      * Field Link
+      */
+    export interface IFieldLink {
+        DisplayName: string;
+        FieldInternalName: string;
+        Hidden: boolean;
+        Id: string;
+        Name: string;
+        ReadOnly: boolean;
+        Required: boolean;
+        ShowInDisplayForm: boolean;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/fieldLinks' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IFieldLink } from "gd-sprest/mapper/types";
+    /**
+        * Field Links
+        */
+    export interface IFieldLinks extends IBaseCollection<IFieldLink, IFieldLink, IFieldLink> {
+            /**
+                * Adds a content type to the collection.
+                * @param data - The field link properties.
+                */
+            add(data: any): IBase<IFieldLink>;
+            /**
+                * Gets the field link by its id.
+                * @param id - The id of the field.
+                */
+            getById(id: any): IFieldLink & IBase<IFieldLink>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IFieldLinks>;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/fields' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IField, IFieldCreationInformation, IFieldQueryResult, IFieldResult } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface IFieldsMethods {
+            /**
+                * Adds a field to the field collection.
+                * @param parameters - The field properties.
+                */
+            add(parameters: IField): IBase<IField, IFieldResult>;
+            /**
+                * Adds a field to the field collection.
+                * @param parameters - The field creation information.
+                */
+            addField(parameters: IFieldCreationInformation): IBase<IField, IFieldResult>;
+            /**
+                * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
+                * @param displayName - The title of the new field.
+                * @param primaryLookupField - The ID of the lookup field to associate this dependent lookup field with.
+                * @param showField - The name of the field from the target list to include data from.
+                */
+            addDependentLookupField(displayName: any, primaryLookupField: any, showField: any): IBase<IField, IFieldResult>;
+            /**
+                * Creates a field based on the specified schema, Boolean value, and field options.
+                * Set the option to addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
+                * @param schemaXml - The schema XML definition of the field.
+                */
+            createFieldAsXml(schemaXml: any): IBase<IField, IFieldResult>;
+            /**
+                * Gets the field with the specified ID.
+                * @param id - The field id.
+                */
+            getById(id: any): IField & IBase<IField, IFieldResult, IFieldQueryResult>;
+            /**
+                * Returns the first Field object with the specified internal name or title from the collection.
+                * @param internalNameOrTitle - The internal name or title of the field.
+                */
+            getByInternalNameOrTitle(internalNameOrTitle: any): IField & IBase<IField, IFieldResult, IFieldQueryResult>;
+            /**
+                * Returns the first field object in the collection based on the title of the specified field.
+                * @param title - The title of the field.
+                */
+            getByTitle(title: any): IField & IBase<IField, IFieldResult, IFieldQueryResult>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IFields, IFieldResults>;
+    }
+    /**
+        * Fields
+        */
+    export interface IFields extends IFieldsMethods, IBaseCollection<IField, IFieldResult, IFieldQueryResult> {
+    }
+    /**
+        * Field Results
+        */
+    export interface IFieldResults extends IFieldsMethods, IBaseCollection<IFieldResult, IFieldResult, IFieldQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/file' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { Types } from "gd-sprest/";
+    import { IFileVersionResult, IFileVersions } from "gd-sprest/mapper/types";
+    /**
+        * File Methods
+        */
+    export interface IFileMethods {
+            /**
+                * Approves the file submitted for content approval with the specified comment.
+                * @param comment - The comment for the approval. It's length must be <= 1023.
+                */
+            approve(comment: any): IBase;
+            /**
+                * Stops the chunk upload session without saving the uploaded data. If the file doesn’t already exist in the library, the partially uploaded file will be deleted. Use this in response to user action (as in a request to cancel an upload) or an error or exception.
+                * Use the uploadId value that was passed to the StartUpload method that started the upload session.
+                * This method is currently available only on Office 365.
+                * @param uploadId - The unique id of the upload session.
+                */
+            cancelupload(uploadId: any): IBase;
+            /**
+                * Checks the file in to a document library based on the check-in type.
+                * @param comment - The comment for the check-in. Its length must be <= 1023.
+                * @param checkInType - The check-in type: MinorCheckIn - 0; MajorCheckIn - 1; OverwriteCheckIn - 2
+                */
+            checkin(comment: any, checkInType: any): IBase;
+            /**
+                * Checks out the file from a document library based on the check-out type.
+                */
+            checkout(): IBase;
+            /**
+                * Returns the file content.
+                */
+            content(): IBase;
+            /**
+                * Continues the chunk upload session with an additional fragment. The current file content is not changed.
+                * Use the uploadId value that was passed to the StartUpload method that started the upload session.
+                * This method is currently available only on Office 365.
+                * @param uploadId - The unique id of the upload session.
+                * @param fileOffset - The size of the offset into the file where the fragment starts.
+                */
+            continueUpload(uploadId: any, fileOffset: any): IBase;
+            /**
+                * Copies the file to the destination URL.
+                * @param strNewUrl - The absolute URL or server relative URL of the destination file path to copy to.
+                * @param bOverWrite - True to overwrite a file with the same name in the location.
+                */
+            copyTo(strNewUrl: any, bOverWrite: any): IBase;
+            /**
+                * Deletes the File.
+                */
+            delete(): IBase;
+            /**
+                * Denies approval for a file that was submitted for content approval.
+                * Only documents in lists that are enabled for content approval can be denied.
+                * @param comment - The comment for the denial. It's length must be <= 1023.
+                */
+            deny(comment: any): IBase;
+            /**
+                * Uploads the last file fragment and commits the file. The current file content is changed when this method completes.
+                * Use the uploadId value that was passed to the StartUpload method that started the upload session.
+                * This method is currently available only on Office 365.
+                * @param uploadId - The unique id of the upload session.
+                * @param fileOffset - The size of the offset into the file where the fragment starts.
+                */
+            finishUpload(uploadId: any, fileOffset: any): IBase;
+            /**
+                * Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
+                * An exception is thrown if the file is not an ASPX page.
+                * @param scope - The webpart personalization scope: User - 0; Shared - 1
+                */
+            getlimitedwebpartmanager(scope: any): IBase;
+            /**
+                * Moves the file to the specified destination URL.
+                * @param newUrl - The absolute url or server relative url of the destination file path to move to.
+                * @param flags - The move operation: Overwrite - 1; AllowBrokenThickets (Move even if supporting files are separated from the file) - 8;
+                */
+            moveTo(newUrl: any, flags: any): IBase;
+            /**
+                * Opens the file as a stream.
+                */
+            openBinaryStream(): IBase;
+            /**
+                * Submits the file for content approval with the specified comment.
+                * @param comment - The comment for the published file. It's length must be <= 1023.
+                */
+            publish(comment: any): IBase;
+            /**
+                * Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+                */
+            recycle(): IBase;
+            /**
+                * Saves the file as a stream.
+                * @param stream - The binary stream of the file.
+                */
+            saveBinaryStream(stream: any): IBase;
+            /**
+                * Starts a new chunk upload session and uploads the first fragment. The current file content is not changed when this method completes.
+                * The method is idempotent (and therefore does not change the result) as long as you use the same values for uploadId and stream.
+                * The upload session ends either when you use the CancelUpload method or when you successfully complete the upload session by passing the rest of the file contents through the ContinueUpload and FinishUpload methods.
+                * @param uploadId - The unique id of the upload session.
+                */
+            startUpload(uploadId: any): IBase;
+            /**
+                * Reverts an existing checkout for the file.
+                */
+            undoCheckOut(): IBase;
+            /**
+                * Removes the file from content approval or unpublish a major version.
+                * @param comment - The comment for the unpublish operation. Its length must be <= 1023.
+                */
+            unpublish(comment: any): IBase;
+            /**
+                * Updates it's properties.
+                * @param data - The file properties to update.
+                */
+            update(data: any): IBase;
+    }
+    /**
+        * File Properties
+        */
+    export interface IFileProps {
+            /** Gets a value that returns the comment used when a document is checked in to a document library. */
+            CheckInComment: string;
+            /** Gets a value that indicates how the file is checked out of a document library. Represents an SP.CheckOutType value: . The checkout state of a file is independent of its locked state. */
+            CheckOutType: number;
+            /** Returns internal version of content, used to validate document equality for read purposes. */
+            ContentTag: string;
+            /** Gets a value that specifies the customization status of the file. Represents an SP.CustomizedPageStatus value: None = 0; Uncustomized = 1; Customized = 2. */
+            CustomizedPageStatus: number;
+            /** Gets a value that specifies the ETag value. */
+            ETag: string;
+            /** Gets a value that specifies whether the file exists. */
+            Exists: boolean;
+            /** Gets the size of the file in bytes, excluding the size of any Web Parts that are used in the file. */
+            Length: number;
+            /** Gets a value that specifies the publishing level of the file. Represents an SP.FileLevel value: Published = 1; Draft = 2; Checkout = 255. */
+            Level: number;
+            LinkingUrl: string;
+            /** Gets a value that specifies the major version of the file. */
+            MajorVersion: number;
+            /** Gets a value that specifies the minor version of the file. */
+            MinorVersion: number;
+            /** Gets the name of the file including the extension. */
+            Name: string;
+            ServerRelativePath: Types.SP.IResourcePath;
+            /** Gets the relative URL of the file based on the URL for the server. */
+            ServerRelativeUrl: string;
+            SiteId: string;
+            /** Gets a value that specifies when the file was created. */
+            TimeCreated: string;
+            /** Gets a value that specifies when the file was last modified. */
+            TimeLastModified: string;
+            /** Gets a value that specifies the display name of the file. */
+            Title: string;
+            /** Gets a value that specifies the implementation-specific version identifier of the file. */
+            UiVersion: number;
+            /** Gets a value that specifies the implementation-specific version identifier of the file. */
+            UiVersionLabel: string;
+            UniqueId: string;
+            WebId: string;
+    }
+    /**
+        * File Query Properties
+        */
+    export interface IFileQueryProps {
+            /**
+                * Gets a value that specifies the user who added the file.
+                */
+            Author(): Types.SP.IUser;
+            /**
+                * Gets a value that returns the user who has checked out the file.
+                */
+            CheckedOutByUser(): Types.SP.IUser;
+            EffectiveInformationRightsManagementSettings(): IBase;
+            InformationRightsManagementSettings(): IBase;
+            /**
+                * Gets a value that specifies the list item field values for the list item corresponding to the file.
+                */
+            ListItemAllFields(): IBase;
+            /**
+                * Gets a value that returns the user that owns the current lock on the file.
+                */
+            LockedByUser(): Types.SP.IUser;
+            /**
+                * Gets a value that returns the user who last modified the file.
+                */
+            ModifiedBy(): Types.SP.IUser;
+            /**
+                * Property Bag
+                */
+            Properties(): IBase<Types.SP.IPropertyValues>;
+            VersionEvents(): IBase;
+            /**
+                * Gets a value that returns a collection of file version objects that represent the versions of the file.
+                */
+            Versions(): IBase<IFileVersions>;
+    }
+    /**
+        * File Query Result
+        */
+    export interface IFileQueryResult extends IFileMethods, IFileProps {
+            /**
+                * Gets a value that specifies the user who added the file.
+                */
+            Author: Types.SP.IUserResult;
+            /**
+                * Gets a value that returns the user who has checked out the file.
+                */
+            CheckedOutByUser: Types.SP.IUserResult;
+            EffectiveInformationRightsManagementSettings: IBase;
+            InformationRightsManagementSettings: Types.SP.IInformationRightsManagementSettings;
+            /**
+                * Gets a value that specifies the list item field values for the list item corresponding to the file.
+                */
+            ListItemAllFields: Types.SP.IListItemResult;
+            /**
+                * Gets a value that returns the user that owns the current lock on the file.
+                */
+            LockedByUser: Types.SP.IUserResult;
+            /**
+                * Gets a value that returns the user who last modified the file.
+                */
+            ModifiedBy: Types.SP.IUserResult;
+            /**
+                * Property Bag
+                */
+            Properties: Types.SP.IPropertyValues;
+            VersionEvents: Types.SP.IResults<any>;
+            /**
+                * Gets a value that returns a collection of file version objects that represent the versions of the file.
+                */
+            Versions: Types.SP.IResults<IFileVersionResult>;
+    }
+    /**
+        * File Result
+        */
+    export interface IFileResult extends IFileMethods, IFileProps, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> {
+    }
+    /**
+        * File
+        */
+    export interface IFile extends IFileMethods, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/files' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IFile, IFileQueryResult, IFileResult } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface IFilesMethods {
+            /**
+                * Adds a file to this collection.
+                * @param overwrite - true to overwrite the file if it already exists; otherwise false.
+                * @param url - The folder-relative URL of the file.
+                * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
+                */
+            add(overwrite: any, url: any, content: any): IBase<IFile, IFileResult>;
+            /**
+                * Adds a ghosted file to an existing list or document library.
+                * @param urlOfFile - The server-relative URL where you want to save the file.
+                * @param templateFileType - The SP.TemplateFileType to use to create the file.
+                */
+            addTemplateFile(urlOfFile: any, templateFileType: number): IBase<IFile, IFileResult>;
+            /**
+                * Get the file at the specified URL.
+                * @param serverRelativeUrl - The name or server relative url of the file.
+                */
+            getByUrl(serverRelativeUrl: any): IFile & IBase<IFile, IFileResult, IFileQueryResult>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IFiles>;
+    }
+    /**
+        * Files
+        */
+    export interface IFiles extends IFilesMethods, IBaseCollection<IFile, IFileResult, IFileQueryResult> {
+    }
+    /**
+        * File Results
+        */
+    export interface IFileResults extends IFilesMethods, IBaseCollection<IFileResult, IFileResult, IFileQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/fileVersion' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { Types } from "gd-sprest/";
+    import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from "gd-sprest/mapper/types";
+    /**
+        * File Version Methods
+        */
+    export interface IFileVersionMethods {
+            /**
+                * Deletes the file version.
+                */
+            delete(): any;
+    }
+    /**
+        * File Version Properties
+        */
+    export interface IFileVersionProps {
+            /** Gets a value that specifies the check-in comment. */
+            CheckInComment: string;
+            /** Gets a value that specifies the creation date and time for the file version. */
+            Created: string;
+            /** Gets the internal identifier for the file version. */
+            ID: number;
+            /** Gets a value that specifies whether the file version is the current version. */
+            IsCurrentVersion: string;
+            /**  */
+            Size: number;
+            /** Gets a value that specifies the relative URL of the file version based on the URL for the site or subsite. */
+            Url: string;
+            /** Gets a value that specifies the implementation specific identifier of the file. Uses the majorVersionNumber.minorVersionNumber format, for example: 1.2. */
+            VersionLabel: string;
+    }
+    /**
+        * File Version Query Properties
+        */
+    export interface IFileVersionQueryProps {
+            /**
+                * Gets a value that specifies the user that represents the creator of the file version.
+                */
+            CreatedBy(): Types.SP.IUser;
+    }
+    /**
+        * File Version Query Result
+        */
+    export interface IFileVersionQueryResult extends IFileVersionMethods, IFileVersionProps {
+            /**
+                * A value that specifies the user that represents the creator of the file version.
+                */
+            CreatedBy: Types.SP.IUserResult;
+    }
+    /**
+        * File Version Result
+        */
+    export interface IFileVersionResult extends IFileVersionMethods, IFileVersionProps, IFileVersionQueryProps, IBase<IFileVersion, IFileVersionResult, IFileVersionQueryResult> {
+    }
+    /**
+        * File Version
+        */
+    export interface IFileVersion extends IFileVersionMethods, IFileVersionQueryProps, IBase<IFileVersion, IFileVersionResult, IFileVersionQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/fileVersions' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from "gd-sprest/mapper/types";
+    /**
+        * File Versions
+        */
+    export interface IFileVersions extends IBaseCollection<IFileVersion, IFileVersionResult, IFileVersionQueryResult> {
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IFileVersions>;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/folder' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { Types } from "gd-sprest/";
+    import { IFile, IFileResults, IFiles, IFolderResults, IFolders } from "gd-sprest/mapper/types";
+    /**
+        * Folder Methods
+        */
+    export interface IFolderMethods {
+            /**
+                * Deletes the folder.
+                */
+            delete(): IBase;
+            /**
+                * Get the folder at the specified URL.
+                * @param serverRelativeUrl - The server-relative URL of the folder.
+                */
+            getByUrl(serverRelativeUrl: any): IFolder & IBase<IFolder, IFolderResult, IFolderQueryResult>;
+            /**
+                * Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+                */
+            recycle(): IBase;
+            /**
+                * Updates it's properties.
+                * @param data - The file properties to update.
+                */
+            update(data: any): IBase;
+    }
+    /**
+        * Folder Properties
+        */
+    export interface IFolderProps {
+            /** Specifies the sequence in which content types are displayed. */
+            ContentTypeOrder: Types.SP.IStringValue;
+            /** Gets a value that specifies whether the file exists. */
+            Exists: boolean;
+            /** Gets a value that specifies the count of items in the list folder. */
+            ItemCount: number;
+            /** Indicates whether the folder is enabled for WOPI default action. */
+            IsWOPIEnabled: boolean;
+            /** Gets the name of the folder. */
+            Name: string;
+            ServerRelativePath: Types.SP.IResourcePath;
+            /** Gets the server-relative URL of the list folder. */
+            ServerRelativeUrl: string;
+            TimeCreated: string;
+            TimeLastModified: string;
+            /** Gets or sets a value that specifies the content type order. */
+            UniqueContentTypeOrder: Types.SP.IStringValue;
+            UniqueId: string;
+            /** Gets or sets a value that specifies folder-relative URL for the list folder welcome page. */
+            WelcomePage: string;
+    }
+    /**
+        * Folder Query Properties
+        */
+    export interface IFolderQueryProps {
+            /**
+                * Gets the files contained in the folder.
+                */
+            Files(): IFiles;
+            /**
+                * Gets the file contained in the folder.
+                * @param url - The url of the file within the current folder.
+                */
+            Files(url: string): IFile;
+            /**
+                * Gets the folders contained in the list folder.
+                */
+            Folders(): IFolders;
+            /**
+                * Gets the folder contained in the list folder.
+                * @param url - The url of the sub-folder within the current folder.
+                */
+            Folders(url: string): IFolderMethods;
+            /**
+                * Specifies the list item field (2) values for the list item corresponding to the file.
+                */
+            ListItemAllFields(): IBase<Types.SP.IListItem>;
+            /**
+                * Gets the parent list folder of the folder.
+                */
+            ParentFolder(): IFolderMethods;
+            /**
+                * Property Bag
+                */
+            Properties(): IBase<Types.SP.IPropertyValues>;
+            StorageMetrics(): IBase;
+    }
+    /**
+        * Folder Query Result
+        */
+    export interface IFolderQueryResult extends IFolderMethods, IFolderProps {
+            /**
+                * Gets the files contained in the folder.
+                */
+            Files: IFileResults;
+            /**
+                * Gets the folders contained in the list folder.
+                */
+            Folders: IFolderResults;
+            /**
+                * Specifies the list item field (2) values for the list item corresponding to the file.
+                */
+            ListItemAllFields: Types.SP.IListItemResults;
+            /**
+                * Gets the parent list folder of the folder.
+                */
+            ParentFolder: IFolderResult;
+            /**
+                * Property Bag
+                */
+            Properties: Types.SP.IPropertyValues;
+            StorageMetrics: any;
+    }
+    /**
+        * Folder Result
+        */
+    export interface IFolderResult extends IFolderMethods, IFolderProps, IFolderQueryProps, IFolderQueryProps, IBase<IFolder, IFolderResult, IFolderQueryResult> {
+    }
+    /**
+        * Folder
+        */
+    export interface IFolder extends IFolderMethods, IFolderQueryProps, IBase<IFolder, IFolderResult, IFolderQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/folders' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IFolder, IFolderQueryResult, IFolderResult } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface IFoldersMethods {
+            /**
+                * Adds the folder that is located at the specified URL to the collection.
+                * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.
+                */
+            add(url: any): IBase<IFolder, IFolderResult>;
+            /**
+                * Get the file at the specified URL.
+                * @param serverRelativeUrl - The server-relative URL of the folder.
+                */
+            getbyurl(serverRelativeUrl: any): IFolder & IBase<IFolder, IFolderResult, IFolderQueryResult>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IFolders, IFolderResults>;
+    }
+    /**
+        * Folders
+        */
+    export interface IFolders extends IFoldersMethods, IBaseCollection<IFolder, IFolderResult, IFolderQueryResult> {
+    }
+    /**
+        * Folder Results
+        */
+    export interface IFolderResults extends IFoldersMethods, IBaseCollection<IFolderResult, IFolderResult, IFolderQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/group' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { IUser, IUserResult, IUserResults, IUsers } from "gd-sprest/mapper/types";
+    /**
+        * Group Creation Information
+        */
+    export interface IGroupCreationInformation {
+            /** The group description. */
+            Description?: string;
+            /** The group name. */
+            Title: string;
+    }
+    /**
+        * Group Methods
+        */
+    export interface IGroupMethods {
+    }
+    /**
+        * Group Properties
+        */
+    export interface IGroupProps {
+            /** Gets or sets a value that indicates whether the group members can edit membership in the group. */
+            AllowMembersEditMembership: boolean;
+            /** Gets or sets a value that indicates whether to allow users to request membership in the group and request to leave the group. */
+            AllowRequestToJoinLeave: boolean;
+            /** Gets or sets the description of the group. */
+            Description: string;
+            /** Gets a value that specifies the member identifier for the user or group. */
+            Id: string;
+            /** Gets a value that indicates whether this member should be hidden in the UI. */
+            IsHiddenInUI: string;
+            /** Gets the name of the group. */
+            LoginName: string;
+            /** Gets or sets a value that indicates whether only group members are allowed to view the membership of the group. */
+            OnlyAllowMembersViewMembership: boolean;
+            /** Gets the name for the owner of this group. */
+            OwnerTitle: string;
+            /** Gets or sets the email address to which the requests of the membership are sent. */
+            RequestToJoinLeaveEmailSetting: string;
+            /** Gets a value containing the type of the principal. Represents a bitwise SP.PrincipalType value: None = 0; User = 1; DistributionList = 2; SecurityGroup = 4; SharePointGroup = 8; All = 15. */
+            PrincipalType: string;
+            /** Gets or sets a value that specifies the name of the principal. */
+            Title: string;
+    }
+    /**
+        * Group Query Properties
+        */
+    export interface IGroupQueryProps {
+            /**
+                * Gets or sets a value that indicates whether the request to join or leave the group can be accepted automatically.
+                */
+            AutoAcceptRequestToJoinLeave(): IBase<boolean>;
+            /**
+                * Gets a value that indicates whether the current user can edit the membership of the group.
+                */
+            CanCurrentUserEditMembership(): IBase<boolean>;
+            /**
+                * Gets a value that indicates whether the current user can manage the group.
+                */
+            CanCurrentUserManageGroup(): IBase<boolean>;
+            /**
+                * Gets a value that indicates whether the current user can view the membership of the group.
+                */
+            CanCurrentUserViewMembership(): IBase<boolean>;
+            /**
+                * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.
+                */
+            Owner(): IUser;
+            /**
+                * Gets a collection of user objects that represents all of the users in the group.
+                */
+            Users(): IUsers;
+            /**
+                * Gets a collection of user objects that represents all of the users in the group.
+                * @param id - The user id.
+                */
+            Users(id: any): IUser;
+    }
+    /**
+        * Group Query Result
+        */
+    export interface IGroupQueryResult extends IGroupMethods, IGroupProps {
+            /**
+                * Gets or sets a value that indicates whether the request to join or leave the group can be accepted automatically.
+                */
+            AutoAcceptRequestToJoinLeave: boolean;
+            /**
+                * Gets a value that indicates whether the current user can edit the membership of the group.
+                */
+            CanCurrentUserEditMembership: boolean;
+            /**
+                * Gets a value that indicates whether the current user can manage the group.
+                */
+            CanCurrentUserManageGroup: boolean;
+            /**
+                * Gets a value that indicates whether the current user can view the membership of the group.
+                */
+            CanCurrentUserViewMembership: boolean;
+            /**
+                * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.
+                */
+            Owner: IUserResult;
+            /**
+                * Gets a collection of user objects that represents all of the users in the group.
+                */
+            Users: IUserResults;
+    }
+    /**
+        * Group Result
+        */
+    export interface IGroupResult extends IGroupMethods, IGroupProps, IGroupQueryProps, IBase<IGroup, IGroupResult, IGroupQueryResult> {
+    }
+    /**
+        * Group
+        */
+    export interface IGroup extends IGroupMethods, IGroupQueryProps, IBase<IGroup, IGroupResult, IGroupQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/groups' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IGroup, IGroupCreationInformation, IGroupQueryResult, IGroupResult } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface ISiteGroupsMethods {
+            /**
+                * Adds a site to the site collection.
+                * @param groupInfo - The group creation information.
+                */
+            add(groupInfo: IGroupCreationInformation): IBase<IGroup, IGroupResult>;
+            /**
+                * Returns a group from the collection based on the member ID of the group.
+                * @param id - The site group id.
+                */
+            getById(id: any): IGroup & IBase<IGroup, IGroupResult, IGroupQueryResult>;
+            /**
+                * Returns a cross-site group from the collection based on the name of the group.
+                * @param name - The name of the group. The group name is specified in its LoginName property.
+                */
+            getByName(name: any): IGroup & IBase<IGroup, IGroupResult, IGroupQueryResult>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<ISiteGroups, ISiteGroupResults>;
+            /**
+                * Removes the group with the specified member ID from the collection.
+                * @param id - The ID of the group to remove.
+                */
+            removeById(id: any): IBase;
+            /**
+                * Removes the cross-site group with the specified name from the collection.
+                * @param name - The name of the group to remove. The group name is specified in its LoginName property.
+                */
+            removeByLoginName(name: any): IBase;
+    }
+    /**
+        * Site Groups
+        */
+    export interface ISiteGroups extends ISiteGroupsMethods, IBaseCollection<IGroup, IGroupResult, IGroupQueryResult> {
+    }
+    /**
+        * Site Group Results
+        */
+    export interface ISiteGroupResults extends ISiteGroupsMethods, IBaseCollection<IGroupResult, IGroupResult, IGroupQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/items' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IListItem, IListItemQueryResult, IListItemResult } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface IListItemsMethods {
+            /**
+                * Adds an item to the list item collection.
+                * @param data - The item properties.
+                */
+            add(data: any): IBase<IListItem, IListItemResult>;
+            /**
+                * Gets an item by the specified id.
+                * @param id - The item id.
+                */
+            getById(id: any): IListItem & IBase<IListItem, IListItemResult, IListItemQueryResult>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IListItems, IListItemResults>;
+    }
+    /**
+        * List Items
+        */
+    export interface IListItems extends IListItemsMethods, IBaseCollection<IListItem, IListItemResult, IListItemQueryResult> {
+    }
+    /**
+        * List Item Results
+        */
+    export interface IListItemResults extends IListItemsMethods, IBaseCollection<IListItemResult, IListItemResult, IListItemQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/limitedWebPartManager' {
+    import { IBase } from "gd-sprest/utils/types";
+    /**
+        * Limited Web Part Manager
+        */
+    export interface ILimitedWebPartManager extends IBase<ILimitedWebPartManager, ILimitedWebPartManager> {
+            /**
+                * Properties
+                */
+            HasPersonalizedParts: boolean;
+            Scope: number;
+            /**
+                * Gets a webpart by its id.
+                * @param id - The web part id.
+                */
+            WebParts(id: any): IBase;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/list' {
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { Types } from "gd-sprest/";
+    import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from "gd-sprest/mapper/types";
+    /**
+        * List Creation Information
+        */
+    export interface IListCreationInformation {
+            /** The list template type. */
+            BaseTemplate: number;
+            /** The list schema xml. */
+            CustomSchemaXml?: string;
+            /** The list of data source properties. */
+            DataSourceProperties?: Array<string>;
+            /** The list description. */
+            Description?: string;
+            /** The list document template type. */
+            DocumentTemplateType?: number;
+            /** Option to display the list on the quick launch. */
+            QuickLaunchOption?: number;
+            /** The list template feature id. */
+            TemplateFeatureId?: string;
+            /** The list name. */
+            Title: string;
+    }
+    /**
+        * List Data Source
+        */
+    export interface IListDataSource {
+            Properties: Array<string>;
+    }
+    /**
+        * List Template
+        */
+    export interface IListTemplate {
+            AllowsFolderCreation: boolean;
+            Description: string;
+            FeatureId: string;
+            Hidden: boolean;
+            ImageUrl: string;
+            InternalName: string;
+            IsCustomTemplate: boolean;
+            ListTemplateTypeKind: number;
+            Name: string;
+            OnQuickLaunch: boolean;
+            Unique: boolean;
+    }
+    /**
+        * List Methods
+        */
+    export interface IListMethods {
+            /**
+                * Creates unique role assignments for the securable object.
+                * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
+                * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
+                */
+            breakRoleInheritance(copyRoleAssignments: any, clearSubScopes: any): any;
+            /**
+                * Deletes the list.
+                */
+            delete(): IBase;
+            /**
+                * A static method to get the list by the entity name.
+                * @param entityTypeName - The entity type name of the list.
+                * @param callback - The method to be executed after the request completes.
+                */
+            getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?: any): IBase<IList, IListResult, IListQueryResult>;
+            /**
+                * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
+                * @param query - The change query.
+                */
+            getChanges(query: any): IBase;
+            /**
+                * Returns the list item with the specified list item identifier.
+                * @param id - The list item id.
+                */
+            getItemById(id: any): IListItem & IBase<IListItem, IListItemResult, IListItemQueryResult>;
+            /**
+                * Returns a collection of items from the list based on the view xml.
+                * @param viewXml - The view xml CAML query.
+                */
+            getItems(viewXml: any): IBase<IListItems, IListItemResults>;
+            /**
+                * Returns a collection of items from the list based on the specified query.
+                * @camlQuery - The caml query.
+                */
+            getItemsByQuery(camlQuery: any): IBase<IListItems, IListItemResults>;
+            /**
+                * Returns a collection of items from the list based on the specified query.
+                * @query - The query that contains the change token.
+                */
+            getListItemChangesSinceToken(query: Types.SP.ComplexTypes.ChangeLogItemQuery): IBase<IListItems, IListItemResults>;
+            /**
+                * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
+                */
+            getRelatedFields(): IBase;
+            /**
+                * Gets the effective user permissions for the current user.
+                * @param loginName - The user login name.
+                */
+            getUserEffectivePermissions(loginName: any): IBase;
+            /**
+                * Returns the list view with the specified view identifier.
+                * @param viewId - The view id.
+                */
+            getViewById(viewId: any): IView & IBase<IView, IViewResult, IViewQueryResult>;
+            /**
+                * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+                */
+            recycle(): IBase;
+            /**
+                * Renders the list data.
+                * @param viewXml - A CAML query that defines the items and fields that you want returned.
+                */
+            renderListData(viewXml: any): IBase;
+            /**
+                * Renders the list form data.
+                * @param itemId - The item id.
+                * @param formId - The identifier of the form.
+                * @param mode - The SP.ControlMode of the control used to display the item.
+                */
+            renderListFormData(itemId: any, formId: any, mode: number): IBase;
+            /**
+                * Reserves a list item ID for idempotent list item creation.
+                */
+            reserveListItemId(): IBase;
+            /**
+                * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+                */
+            resetRoleInheritance(): IBase;
+            /**
+                * Updates it's properties.
+                * @param data - The list properties to update.
+                */
+            update(data: any): IBase;
+    }
+    /**
+        * List Properties
+        */
+    export interface IListProps {
+            /** Gets a value that specifies whether the list supports content Types.SP. */
+            AllowContentTypes: boolean;
+            AllowDeletion: boolean;
+            /** Gets the list definition type on which the list is based. Represents a ListTemplateType value. See ListTemplateType in the .NET client object model reference for template type values. */
+            BaseTemplate: number;
+            /** Gets the base type for the list. Represents an SP.BaseType value: Generic List = 0; Document Library = 1; Discussion Board = 3; Survey = 4; Issue = 5. */
+            BaseType: number;
+            /**
+                * Gets a value that specifies the override of the web application's BrowserFileHandling property at the list level. Represents an SP.BrowserFileHandling value: Permissive = 0; Strict = 1.
+                */
+            BrowserFileHandling: number;
+            /** Gets or sets a value that specifies whether content types are enabled for the list. */
+            ContentTypesEnabled: boolean;
+            /** Gets a value that specifies when the list was created. */
+            Created: string;
+            CurrentChangeToken: Types.SP.IStringValue;
+            /** Gets a value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
+            DefaultContentApprovalWorkflowId: string;
+            /** Gets or sets a value that specifies the description of the list. */
+            Description: string;
+            /** Gets or sets a value that specifies the reading order of the list. Returns ""NONE"", ""LTR"", or ""RTL"". */
+            Direction: string;
+            /** Gets or sets a value that specifies the server-relative URL of the document template for the list. Returns a server-relative URL if the base type is DocumentLibrary, otherwise returns null. */
+            DocumentTemplateUrl: string;
+            /** Gets or sets a value that specifies the minimum permission required to view minor versions and drafts within the list. Represents an SP.DraftVisibilityType value: Reader = 0; Author = 1; Approver = 2. */
+            DraftVersionVisibility: number;
+            EnableAssignToEmail: boolean;
+            /** Gets or sets a value that specifies whether list item attachments are enabled for the list. */
+            EnableAttachments: boolean;
+            /** Gets or sets a value that specifies whether new list folders can be added to the list. */
+            EnableFolderCreation: boolean;
+            /** Gets or sets a value that specifies whether minor versions are enabled for the list. */
+            EnableMinorVersions: boolean;
+            /** Gets or sets a value that specifies whether content approval is enabled for the list. */
+            EnableModeration: boolean;
+            /** Gets or sets a value that specifies whether historical versions of list items and documents can be created in the list. */
+            EnableVersioning: boolean;
+            /**  */
+            EntityTypeName: string;
+            ExcludeFromOfflineClient: boolean;
+            FileSavePostProcessingEnabled: boolean;
+            /** Gets or sets a value that indicates whether forced checkout is enabled for the document library. */
+            ForceCheckout: boolean;
+            /** Gets a value that specifies whether the list is an external list. */
+            HasExternalDataSource: boolean;
+            /** Gets or sets a Boolean value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
+            Hidden: boolean;
+            /** Gets the GUID that identifies the list in the database. */
+            Id: string;
+            /** Gets a value that specifies the URI for the icon of the list. */
+            ImageUrl: string;
+            /**  */
+            IrmEnabled: boolean;
+            /**  */
+            IrmExpire: boolean;
+            /**  */
+            IrmReject: boolean;
+            /** Gets or sets a value that specifies a flag that a client application can use to determine whether to display the list. */
+            IsApplicationList: boolean;
+            /** Gets a value that specifies whether the list is a gallery. */
+            IsCatalog: boolean;
+            /**  */
+            IsPrivate: boolean;
+            /** Gets a value that specifies the number of list items in the list. */
+            ItemCount: number;
+            /** Gets a value that specifies the last time a list item was deleted from the list. */
+            LastItemDeletedDate: string;
+            /** Gets a value that specifies the last time a list item, field, or property of the list was modified. */
+            LastItemModifiedDate: string;
+            ListExperienceOptions: number;
+            /**  */
+            ListItemEntityTypeFullName: string;
+            MajorVersionLimit: number;
+            MajorWithMinorVersionsLimit: number;
+            /** Gets or sets a value that indicates whether the list in a Meeting Workspace site contains data for multiple meeting instances within the site. */
+            MultipleDataList: boolean;
+            /** Gets or sets a value that specifies that the crawler must not crawl the list. */
+            NoCrawl: boolean;
+            /** Gets a value that specifies the server-relative URL of the site that contains the list. */
+            ParentWebUrl: string;
+            ParserDisabled: boolean;
+            ReadSecurity: number;
+            /** Gets a value that indicates whether folders can be created within the list. */
+            ServerTemplateCanCreateFolders: boolean;
+            /** Gets a value that specifies the feature identifier of the feature that contains the list schema for the list. Returns an empty GUID if the list schema is not contained within a feature. */
+            TemplateFeatureId: string;
+            /** Gets or sets the displayed title for the list. Its length must be <= 255 characters. */
+            Title: string;
+    }
+    /**
+        * List Query Properties
+        */
+    export interface IListQueryProps {
+            /**
+                * Gets the content types that are associated with the list.
+                */
+            ContentTypes(): IContentTypes;
+            /**
+                * Gets the content types that are associated with the list.
+                * @param id - The id of the content type.
+                */
+            ContentTypes(id: string): IContentType;
+            /**
+                * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
+                */
+            DataSource(): IBase<Array<string>>;
+            /**
+                * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
+                */
+            DefaultDisplayFormUrl(): IBase<string>;
+            /**
+                * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
+                */
+            DefaultEditFormUrl(): IBase<string>;
+            /**
+                * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
+                */
+            DefaultNewFormUrl(): IBase<string>;
+            /**
+                * Gets the default list view.
+             */
+            DefaultView(): IView;
+            DescriptionResouce(): IBase<Types.SP.IResourcePath>;
+            /**
+                * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
+                */
+            EffectiveBasePermissions(): IBase<Types.SP.IBasePermissions>;
+            /**
+                * Gets a value that specifies the effective permissions on the list that are for the user export interface.
+             */
+            EffectiveBasePermissionsForUI(): IBase<Types.SP.IBasePermissions>;
+            /**
+                * Gets the event receivers associated with the list.
+             */
+            EventReceivers(): Types.SP.IEventReceivers;
+            /**
+                * Gets the event receiver associated with the list.
+                * @param id - The id of the event receiver.
+             */
+            EventReceivers(id: string): Types.SP.IEventReceiver;
+            /**
+                * Gets the fields in the list.
+                */
+            Fields(): Types.SP.IFields;
+            /**
+                * Gets the field in the list.
+                * @param internalNameOrTitle - The internal name or title of the field.
+                */
+            Fields(internalNameOrTitle: string): Types.SP.IField;
+            /**
+                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+                */
+            FirstUniqueAncestorSecurableObject(): IBase<string>;
+            /**
+                * Gets the list forms in the list.
+                */
+            Forms(): IBase;
+            /**
+                * Gets the list form in the list.
+                * @param id - The id of the form.
+                */
+            Forms(id: string): IBase;
+            /**
+                * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
+                */
+            HasUniqueRoleAssignments(): IBase;
+            /**
+                * Gets a value that specifies the information rights management settings.
+             */
+            InformationRightsManagementSettings(): IBase;
+            /**
+                * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
+                */
+            IsSiteAssetsLibrary(): IBase<boolean>;
+            /**
+                * Gets the list items in the list.
+                */
+            Items(): IListItems;
+            /**
+                * Gets the list item in the list.
+                * @param id - The id of the list item.
+                */
+            Items(id: number): IListItem;
+            /**
+                * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
+                */
+            OnQuickLaunch(): IBase<boolean>;
+            /**
+                * Gets a value that specifies the site that contains the list.
+                */
+            ParentWeb(): Types.SP.IWeb;
+            /**
+                * Gets the role assignments for the securable object.
+                */
+            RoleAssignments(): Types.SP.IRoleAssignments;
+            /**
+                * Gets the role assignments for the securable object.
+                * @param id - The role assignment id.
+                */
+            RoleAssignments(id: string): Types.SP.IRoleAssignment;
+            /**
+                * Gets the root folder of the list.
+                */
+            RootFolder(): Types.SP.IFolder;
+            /**
+                * Gets the file in the root folder of the list.
+                * @param url - The url of the file within the root folder.
+                */
+            RootFolder(url: string): Types.SP.IFile;
+            /**
+                * Gets a value that specifies the list schema of the list.
+                */
+            SchemaXml(): IBase<string>;
+            Subscriptions(): IBase<IBase>;
+            TitleResource(): IBase<Types.SP.IResourcePath>;
+            /**
+                * Gets the user custom actions for the list.
+                */
+            UserCustomActions(): Types.SP.IUserCustomActions;
+            /**
+                * Gets the user custom action(s) for the list.
+                * @param id - The id of the user custom action.
+                */
+            UserCustomActions(id: string): Types.SP.IUserCustomAction;
+            /**
+                * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
+                */
+            ValidationFormula(): IBase<string>;
+            /**
+                * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
+                */
+            ValidationMessage(): IBase<string>;
+            /**
+                * Gets the views in the list.
+                */
+            Views(): IViews;
+            /**
+                * Gets the view in the list.
+                * @param id - The id of the view.
+                */
+            Views(id: string): IView;
+            /**
+                * Gets a value that specifies the collection of all workflow associations for the list.
+                */
+            WorkflowAssociations(): IBase<string>;
+            WriteSecurity(): IBase<number>;
+    }
+    /**
+        * List Query Result
+        */
+    export interface IListQueryResult extends IListMethods, IListProps {
+            /**
+                * Gets the content types that are associated with the list.
+                */
+            ContentTypes: IContentTypeResults;
+            /**
+                * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
+                */
+            DataSource: IListDataSource;
+            /**
+                * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
+                */
+            DefaultDisplayFormUrl: string;
+            /**
+                * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
+                */
+            DefaultEditFormUrl: string;
+            /**
+                * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
+                */
+            DefaultNewFormUrl: string;
+            /**
+                * Gets the default list view.
+             */
+            DefaultView: IViewResult;
+            /**
+                * Gets the URL of the default view for the list.
+                */
+            DefaultViewUrl: string;
+            DescriptionResouce: Types.SP.IResourcePath;
+            /**
+                * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
+                */
+            EffectiveBasePermissions: Types.SP.IBasePermissions;
+            /**
+                * Gets a value that specifies the effective permissions on the list that are for the user export interface.
+             */
+            EffectiveBasePermissionsForUI: Types.SP.IBasePermissions;
+            /**
+                * Gets the event receivers associated with the list.
+             */
+            EventReceivers: Types.SP.IEventReceiverResults;
+            /**
+                * Gets the fields in the list.
+                */
+            Fields: Types.SP.IFieldResults;
+            /**
+                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+                */
+            FirstUniqueAncestorSecurableObject: Types.SP.IWebResult;
+            /**
+                * Gets the list forms in the list.
+                */
+            Forms: Types.SP.IResults<Types.SP.IForm>;
+            /**
+                * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
+                */
+            HasUniqueRoleAssignments: boolean;
+            /**
+                * Gets a value that specifies the information rights management settings.
+             */
+            InformationRightsManagementSettings: Types.SP.IInformationRightsManagementSettings;
+            /**
+                * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
+                */
+            IsSiteAssetsLibrary: boolean;
+            /**
+                * Gets the list items in the list.
+                */
+            Items: IListItemResults;
+            /**
+                * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
+                */
+            OnQuickLaunch: boolean;
+            /**
+                * Gets a value that specifies the site that contains the list.
+                */
+            ParentWeb: Types.SP.IWebResult;
+            /**
+                * Gets the role assignments for the securable object.
+                */
+            RoleAssignments: Types.SP.IRoleAssignmentResults;
+            /**
+                * Gets the root folder of the list.
+                */
+            RootFolder: Types.SP.IFolderResult;
+            /**
+                * Gets a value that specifies the list schema of the list.
+                */
+            SchemaXml: string;
+            Subscriptions: Types.SP.IResults<Types.SP.ISubscription>;
+            TitleResource: Types.SP.IResourcePath;
+            /**
+                * Gets the user custom actions for the list.
+                */
+            UserCustomActions: Types.SP.IUserCustomActionResults;
+            /**
+                * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
+                */
+            ValidationFormula: string;
+            /**
+                * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
+                */
+            ValidationMessage: string;
+            /**
+                * Gets the views in the list.
+                */
+            Views: IViewResults;
+            /**
+                * Gets a value that specifies the collection of all workflow associations for the list.
+                */
+            WorkflowAssociations: Types.SP.IResults<string>;
+            WriteSecurity: number;
+    }
+    /**
+        * List Result
+        */
+    export interface IListResult extends IListMethods, IListProps, IListQueryProps, IBase<IList, IListResult, IListQueryResult> {
+    }
+    /**
+        * List
+        */
+    export interface IList extends IListMethods, IListQueryProps, IBase<IList, IListResult, IListQueryResult> {
+            /**
+                * Constructor
+                * @param listName - The name of the list.
+                * @param targetInfo - (Optional) The target information.
+                */
+            new (listName: string, targetInfo?: ITargetInfo): IList;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/listItem' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { Types } from "gd-sprest/";
+    import { IContentType, IContentTypeResult, IList, IListResult } from "gd-sprest/mapper/types";
+    /**
+        * List Item Methods
+        */
+    export interface IListItemMethods {
+            /**
+                * Creates unique role assignments for the securable object.
+                * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
+                * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
+                */
+            breakRoleInheritance(copyRoleAssignments: any, clearSubScopes: any): IBase;
+            /**
+                * Deletes the list item.
+                */
+            delete(): IBase;
+            /**
+                * Gets the effective permissions that a specified user has on the list item.
+                * @param loginName - The login name.
+                */
+            getUserEffectivePermissions(loginName: any): IBase;
+            /**
+                * Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
+                */
+            recycle(): IBase;
+            /**
+                * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
+                */
+            resetRoleInheritance(): IBase;
+            /**
+                * Updates it's properties.
+                * @param data - The list properties to update.
+                */
+            update(data: any): IBase;
+            /**
+                * Validates and sets the values of the specified collection of fields for the list item.
+                * @param formValues - The fields to change and their new values. Pass this parameter in the request body, as shown in the request example.
+                * @param bNewDocumentUpdate - True if the list item is a document being updated after upload; otherwise false. Pass this parameter in the request body, as shown in the request example, or in the URI path.
+                */
+            validateUpdateListItem(formValues: any, bNewDocumentUpdate: any): any;
+    }
+    /**
+        * List Item Properties
+        */
+    export interface IListItemProps {
+            /**
+                * Gets a value that specifies the display name of the list item.
+                */
+            DisplayName: string;
+            /** Gets a value that specifies the effective permissions on the list item that are assigned to the current user. */
+            EffectiveBasePermissions: Types.SP.IBasePermissions;
+            /** Gets the effective base permissions for the current user, as they should be displayed in UI. */
+            EffectiveBasePermissionsForUI: Types.SP.IBasePermissions;
+            /** Gets a value that specifies whether the list item is a file or a list folder. Represents an SP.FileSystemObjectType value: Invalid = -1; File = 0; Folder = 1; Web = 2. */
+            FileSystemObjectType: number;
+            IconOverlay: string;
+            /** Gets a value that specifies the list item identifier. */
+            Id: number;
+            ServerRedirectedEmbedUrl: string;
+    }
+    /**
+        * List Item Query Properties
+        */
+    export interface IListItemQueryProps {
+            /**
+                * Get the attachment collection.
+                */
+            AttachmentFiles(): Types.SP.IAttachmentFiles;
+            /**
+                * Gets the specified attachment file.
+                * @param fileName - The filename of the attachment.
+                */
+            AttachmentFiles(fileName: string): IBase<Types.SP.IAttachment>;
+            /**
+                * Gets a value that specifies the content type of the list item.
+                */
+            ContentType(): IContentType;
+            /**
+                * Gets the values for the list item as HTML.
+                */
+            FieldValuesAsHtml(): IBase;
+            /**
+                * Gets the list item's field values as a collection of string values.
+                */
+            FieldValuesAsText(): IBase;
+            /**
+                * Gets the formatted values to be displayed in an edit form.
+                */
+            FieldValuesForEdit(): IBase;
+            /**
+                * Gets the file that is represented by the item from a document library.
+                */
+            File(): Types.SP.IFile;
+            /**
+                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+                */
+            FirstUniqueAncestorSecurableObject(): IBase<string>;
+            /**
+                * Gets a folder object that is associated with a folder item.
+                */
+            Folder(): Types.SP.IFolder;
+            GetDlpPolicyTip(): IBase;
+            /**
+                * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
+                */
+            HasUniqueRoleAssignments(): IBase<string>;
+            /**
+                * Gets the parent list that contains the list item.
+                */
+            ParentList(): IList;
+            /**
+                * Property Bag
+                */
+            Properties(): IBase<Types.SP.IPropertyValues>;
+            /**
+                * Gets the role assignments for the securable object.
+                */
+            RoleAssignments(): Types.SP.IRoleAssignments;
+            /**
+                * Gets the role assignment(s) for the securable object.
+                * @param id - The role assignment id.
+                */
+            RoleAssignments(id: string): Types.SP.IRoleAssignment;
+    }
+    /**
+        * List Item Query Result
+        */
+    export interface IListItemQueryResult extends IListItemMethods, IListItemProps {
+            /**
+                * Get the attachment collection.
+                */
+            AttachmentFiles: Types.SP.IAttachmentFilesMethods & Types.SP.IResults<Types.SP.IAttachment>;
+            /**
+                * Gets a value that specifies the content type of the list item.
+                */
+            ContentType: IContentTypeResult;
+            /**
+                * Gets the values for the list item as HTML.
+                */
+            FieldValuesAsHtml: Array<string>;
+            /**
+                * Gets the list item's field values as a collection of string values.
+                */
+            FieldValuesAsText: Array<string>;
+            /**
+                * Gets the formatted values to be displayed in an edit form.
+                */
+            FieldValuesForEdit: Array<string>;
+            /**
+                * Gets the file that is represented by the item from a document library.
+                */
+            File: Types.SP.IFileResult;
+            /**
+                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+                */
+            FirstUniqueAncestorSecurableObject: IListResult;
+            /**
+                * Gets a folder object that is associated with a folder item.
+                */
+            Folder: Types.SP.IFolderResult;
+            GetDlpPolicyTip(): IBase;
+            /**
+                * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
+                */
+            HasUniqueRoleAssignments: boolean;
+            /**
+                * Gets the parent list that contains the list item.
+                */
+            ParentList: IListResult;
+            /**
+                * Property Bag
+                */
+            Properties: Array<string>;
+            /**
+                * Gets the role assignments for the securable object.
+                */
+            RoleAssignments: Types.SP.IRoleAssignmentResults;
+    }
+    /**
+        * List Item Result
+        */
+    export interface IListItemResult extends IListItemMethods, IListItemProps, IListItemQueryProps, IBase<IListItem, IListItemResult, IListItemQueryResult> {
+    }
+    /**
+        * List Item
+        */
+    export interface IListItem extends IListItemMethods, IListItemQueryProps, IBase<IListItem, IListItemResult, IListItemQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/lists' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IList, IListCreationInformation, IListQueryResult, IListResult } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface IListsMethods {
+            /**
+                * Adds a list to the list collection.
+                * @param parameters - The list creation information.
+                */
+            add(parameters: IListCreationInformation): IBase<IList, IListResult>;
+            /**
+                * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
+                */
+            ensureSiteAssetsLibrary(): IBase<IList, IListResult, IListQueryResult>;
+            /**
+                * Gets a list that is the default location for wiki pages.
+                */
+            ensureSitePagesLibrary(): IBase<IList, IListResult, IListQueryResult>;
+            /**
+                * Returns the list with the specified list identifier.
+                * @param id - The list id.
+                */
+            getById(id: any): IList & IBase<IList, IListResult, IListQueryResult>;
+            /**
+                * Returns the list with the specified title from the collection.
+                * @param title - The list title.
+                */
+            getByTitle(title: any): IList & IBase<IList, IListResult, IListQueryResult>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<ILists, IListResults>;
+    }
+    /**
+        * Lists
+        */
+    export interface ILists extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> {
+    }
+    /**
+        * List Results
+        */
+    export interface IListResults extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/navigation' {
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IMenuState } from "gd-sprest/mapper/types";
+    /**
+        * Navigation Methods
+        */
+    export interface INavigationServiceRESTMethods {
+            /**
+                * Method to get the menu state.
+                * @param menuNodeKey - The key of the start node. If no key is provided, the root node is used.
+                * @param depth - The depth of the dump. Default is 10.
+                * @param customProperties - (Optionally implemented by a site map data provider.) A comma-separated list of custom properties to return. Use the "\" character to escape a comma separator within a property.
+                * @param mapProviderName - Specifies which provider on the site is selected. If no SiteMapProvider used, "CurrentNavSiteMapProviderNoEncode" is used.
+                */
+            getMenuState(menuNodeKey?: number, depth?: number, customProperties?: string, mapProviderName?: string): IBase<IMenuState>;
+    }
+    /**
+        * Navigation Properties
+        */
+    export interface INavigationServiceRESTProps {
+    }
+    /**
+        * Navigation Queryable Properties
+        */
+    export interface INavigationServiceRESTQueryProps {
+            MenuState(): IBase<IMenuState>;
+            MenuState(key: number): IBase<IMenuState>;
+    }
+    /**
+        * Navigation
+        */
+    export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBase<INavigationServiceREST> {
+            /**
+                * Constructor
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            new (url?: string, targetInfo?: ITargetInfo): INavigationServiceREST;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/peopleManager' {
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { ComplexTypes } from "gd-sprest/mapper/types";
+    /**
+        * Person Properties
+        */
+    export interface IPersonProperties extends IBase<IPersonProperties> {
+            /**
+                * The user's account name.
+                */
+            AccountName: string;
+            /**
+                * The account names of the user's direct reports.
+                */
+            DirectReports: string;
+            /**
+                * The user's display name.
+                */
+            DisplayName: string;
+            /**
+                * The user's email address.
+                */
+            Email: string;
+            /**
+                * The account names of the user's manager hierarchy.
+                */
+            ExtendedManagers: string;
+            /**
+                * The account names of the user's extended reports.
+                */
+            ExtendedReports: string;
+            /**
+                * A Boolean value that indicates whether the user is being followed by the current user.
+                */
+            IsFollowed: boolean;
+            /**
+                * The user's latest microblog post.
+                */
+            LatestPost: string;
+            /**
+                * The account names of the user's peers.
+                */
+            Peers: string;
+            /**
+                * The absolute URL of the user's personal site.
+                */
+            PersonalUrl: string;
+            /**
+                * The URL of the user's profile picture.
+                */
+            PictureUrl: string;
+            /**
+                * The user's title.
+                */
+            Title: string;
+            /**
+                * The user profile properties for the user.
+                */
+            UserProfileProperties: ComplexTypes.KeyValue;
+            /**
+                * The URL of the user's profile page.
+                */
+            UserUrl: string;
+    }
+    /**
+        * People Manager
+        */
+    export interface IPeopleManager extends IBase<IPeopleManager> {
+            /**
+                * Constructor
+                * @param targetInfo - (Optional) The target information.
+                */
+            new (targetInfo?: ITargetInfo): IPeopleManager;
+            /**
+                * The URL of the edit profile page for the current user.
+                */
+            EditProfileLink: string;
+            /**
+                * A Boolean value that indicates whether the current user's People I'm Following list is public.
+                */
+            IsMyPeopleListPublic: boolean;
+            /** Checks whether the specified user is following the current user.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+             */
+            amIFollowedBy(accountName: string): IBase;
+            /**
+                * Checks whether the current user is following the specified user.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            amIFollowing(accountName: string): IBase;
+            /**
+                * Adds the specified user to the current user's list of followed users.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            follow(accountName: string): IBase;
+            /**
+                * Adds the specified tag to the current user's list of followed tags.
+                * @param id - The ID of the tag to start following.
+                */
+            followTag(id: string): IBase;
+            /**
+                * Gets tags that the user is following.
+                * @param maxCount - The maximum number of tags to get.
+                */
+            getFollowedTags(maxCount: number): IBase;
+            /**
+                * Gets the people who are following the specified user.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            getFollowersFor(accountName: string): IBase<IPersonProperties>;
+            /**
+                * Gets the people who are following the current user.
+                */
+            getMyFollowers(): IBase<IPersonProperties>;
+            /**
+                * Gets user properties for the current user.
+                */
+            getMyProperties(): IBase<IPersonProperties>;
+            /**
+                * Gets suggestions for who the current user might want to follow.
+                */
+            getMySuggestions(): IBase<IPersonProperties>;
+            /**
+                * Gets the people who the specified user is following.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            getPeopleFollowedBy(accountName: string): IBase<IPersonProperties>;
+            /**
+                * Gets the people who the current user is following.
+                */
+            getPeopleFollowedByMe(): IBase<IPersonProperties>;
+            /**
+                * Gets user properties for the specified user.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            getPropertiesFor(accountName: string): IBase<IPersonProperties>;
+            /**
+                * Gets the most popular tags.
+                */
+            getTrendingTags(): IBase;
+            /**
+                * Gets the specified user profile property for the specified user.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                * @param propertyName - The case-sensitive name of the property to get.
+                */
+            getUserProfilePropertyFor(accountName: string, propertyName: string): IBase<IPersonProperties>;
+            /**
+                * Removes the specified user from the user's list of suggested people to follow.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            hideSuggestion(accountName: string): IBase;
+            /**
+                * Checks whether the first user is following the second user.
+                * @param possibleFollowerAccountName - The account name of the user who might be following possiblefolloweeaccountname, encoded and passed as an alias in the query string.
+                * @param possibleFolloweeAccountName - The account name of the user who might be followed, encoded and passed as an alias in the query string.
+                */
+            isFollowing(possibleFollowerAccountName: string, possibleFolloweeAccountName: string): IBase;
+            /**
+                * Uploads and sets the user profile picture. Users can upload a picture to their own profile only.
+                * @param stream - The picture in BMP, JPEG, or PNG format of up to 4.76MB.
+                */
+            setMyProfilePicture(stream: any): IBase;
+            /**
+                * Remove the specified user from the current user's list of followed users.
+                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
+                */
+            stopFollowing(accountName: string): IBase;
+            /**
+                * Remove the specified tag from the current user's list of followed tags.
+                * @param id - The ID of the tag to stop following.
+                */
+            stopFollowingTag(id: string): IBase;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/peoplePicker' {
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IEntityData } from "gd-sprest/mapper/types";
+    /**
+        * People Picker Query
+        */
+    export interface IPeoplePickerQuery {
+            /** True to allow the email address. */
+            AllowEmailAddresses?: boolean;
+            /** True to allow multiple entities.  */
+            AllowMultipleEntities?: boolean;
+            /** True to allow all url zones. */
+            AllUrlZones?: boolean;
+            /** True to enable claim providers. */
+            EnabledClaimProviders?: boolean;
+            /** True to force claims. */
+            ForceClaims?: boolean;
+            /** Maximum entity suggestions. */
+            MaximumEntitySuggestions: number;
+            /** The principal source. */
+            PrincipalSource?: number;
+            /** The principal type. */
+            PrincipalType?: number;
+            /** The query string. This value must be >= 3 characters. */
+            QueryString?: string;
+            /** Required flag. */
+            Required?: boolean;
+            /** The SharePoint group id. */
+            SharePointGroupID?: number;
+            /** The url zone. */
+            UrlZone?: number;
+            /** Url zone specified flag. */
+            UrlZoneSpecified?: boolean;
+            /** The web. */
+            Web?: any;
+            /** The web application id. */
+            WebApplicationID?: any;
+    }
+    /**
+        * People Picker Resolve User
+        */
+    export interface IPeoplePickerResolveUser {
+            ClientPeoplePickerResolveUser: Array<IPeoplePickerUser>;
+    }
+    /**
+        * People Picker Search User
+        */
+    export interface IPeoplePickerSearchUser {
+            ClientPeoplePickerSearchUser: Array<IPeoplePickerUser>;
+    }
+    /**
+        * People Picker User
+        */
+    export interface IPeoplePickerUser {
+            /** Description */
+            Description: string;
+            /** Display Text */
+            DisplayText: string;
+            /** The user entity data. */
+            EntityData: IEntityData;
+            /** Entity Type */
+            EntityType: string;
+            /** Flag to determine if the search user is resolved. */
+            IsResolved: boolean;
+            /** The search value. */
+            Key: string;
+            /** An array of un-resolved user entities. */
+            MultipleMatches: Array<IEntityData>;
+            /** Provider Display Name */
+            ProviderDisplayName: string;
+            /** Provider Name */
+            ProviderName: string;
+    }
+    /**
+        * People Picker
+        */
+    export interface IPeoplePicker extends IBase {
+            /**
+                * Constructor
+                * @param settings - The search settings.
+                */
+            new (settings?: ITargetInfo): IPeoplePicker;
+            /** Method to resolve users.
+                * @param query - The people picker query.
+             */
+            clientPeoplePickerResolveUser(query: IPeoplePickerQuery): IBase<IPeoplePickerResolveUser>;
+            /** Method to search for users.
+                * @param query - The people picker query.
+             */
+            clientPeoplePickerSearchUser(query: IPeoplePickerQuery): IBase<IPeoplePickerSearchUser>;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/profileLoader' {
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IUserProfile } from "gd-sprest/mapper/types";
+    /**
+        * Profile Loader
+        */
+    export interface IProfileLoader extends IBase<IProfileLoader> {
+            /**
+                * Constructor
+                * @param targetInfo - (Optional) The target information.
+                */
+            new (targetInfo?: ITargetInfo): IProfileLoader;
+            /**
+                * Provisions one or more users' personal sites. (My Site administrator on SharePoint Online only)
+                * @param emailIDs - The email addresses of the users to provision sites for. Maximum 200 characters.
+                */
+            createPersonalSiteEnqueueBulk(emailIDs: Array<string>): IBase;
+            /**
+                * Gets the user profile of the site owner.
+                */
+            getOwnerUserProfile(): IBase<IUserProfile>;
+            /**
+                * Gets the user profile that corresponds to the current user.
+                */
+            getUserProfile(): IBase<IUserProfile>;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/propertyValues' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { ComplexTypes, ODataQuery } from "gd-sprest/mapper/types";
+    /**
+        * Property Values
+        */
+    export interface IPropertyValues extends IBase, ComplexTypes.KeyValue {
+            /**
+                * Queries the collection.
+                * @param oData - The OData information.
+                */
+            query(query: ODataQuery): IPropertyValues;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/results' {
+    import { ComplexTypes } from "gd-sprest/mapper/types";
     /**
         * App License
         */
@@ -4854,7 +7737,571 @@ declare module 'gd-sprest/mapper/results.def' {
     }
 }
 
-declare module 'gd-sprest/mapper/sptypes.def' {
+declare module 'gd-sprest/mapper/types/roleAssignment' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { Types } from "gd-sprest/";
+    import { IRoleDefinition, IRoleDefinitions } from "gd-sprest/mapper/types";
+    /**
+        * Role Assignment Methods
+        */
+    export interface IRoleAssignmentMethods {
+            /**
+                * Deletes the role assignment.
+                */
+            delete(): IBase;
+    }
+    /**
+        * Role Assignment Properties
+        */
+    export interface IRoleAssignmentProps {
+            /** The unique identifier of the role assignment. */
+            PrincipalId: string;
+    }
+    /**
+        * Role Assignment Query Properties
+        */
+    export interface IRoleAssignmentQueryProps {
+            /**
+                * Gets the user or group that corresponds to the Role Assignment.
+                */
+            Member(): IBase<Types.SP.IGroup | Types.SP.IUser>;
+            /**
+                * Gets the collection of role definition bindings for the role assignment.
+                */
+            RoleDefinitionBindings(): IRoleDefinitions;
+    }
+    /**
+        * Role Assignment Query Result
+        */
+    export interface IRoleAssignmentQueryResult extends IRoleAssignmentMethods, IRoleAssignmentProps {
+            /**
+                * Gets the user or group that corresponds to the Role Assignment.
+                */
+            Member: Types.SP.IUser;
+            /**
+                * Gets the collection of role definition bindings for the role assignment.
+                */
+            RoleDefinitionBindings: Types.SP.IResults<IRoleDefinition>;
+    }
+    /**
+        * Role Assignment Result
+        */
+    export interface IRoleAssignmentResult extends IRoleAssignmentMethods, IRoleAssignmentProps, IRoleAssignmentQueryProps, IBase<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
+    }
+    /**
+        * Role Assignment
+        */
+    export interface IRoleAssignment extends IRoleAssignmentMethods, IRoleAssignmentQueryProps, IBase<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/roleAssignments' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IRoleAssignment, IRoleAssignmentQueryResult, IRoleAssignmentResult } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface IRoleAssignmentsMethods {
+            /**
+                * Adds a new role assignment with the specified principal and role definitions to the collection.
+                * @param principalId - The ID of the user or group to assign permissions to.
+                * @param roleDefId - The ID of the role definition that defines the permissions to assign.
+                */
+            addRoleAssignment(principalId: any, roleDefId: any): IBase<IRoleAssignment, IRoleAssignmentResult>;
+            /**
+                * Gets the role assignment associated with the specified principal ID from the collection.
+                * @param principalId - The ID of the user or group to assign permissions to.
+                */
+            getByPrincipalId(principalId: any): IRoleAssignment & IBase<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult>;
+            /**
+                * Gets the role definition with the specified role type.
+                * @param principalId - The ID of the user or group to assign permissions to.
+                * @param roleDefId - The ID of the role definition that defines the permissions to assign.
+                */
+            removeRoleAssignment(principalId: any, roleDefId: any): IBase;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IRoleAssignments, IRoleAssignmentResults>;
+    }
+    /**
+        * Role Assignments
+        */
+    export interface IRoleAssignments extends IRoleAssignmentsMethods, IBaseCollection<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
+    }
+    /**
+        * Role Assignment Results
+        */
+    export interface IRoleAssignmentResults extends IRoleAssignmentsMethods, IBaseCollection<IRoleAssignmentResult, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/roleDefinition' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { IBasePermissions } from "gd-sprest/mapper/types";
+    /**
+        * Role Definition Methods
+        */
+    export interface IRoleDefinitionMethods {
+            /**
+                * Deletes the role definition.
+                */
+            delete(): IBase;
+    }
+    /**
+        * Role Definition Properties
+        */
+    export interface IRoleDefinitionProps {
+            /** Gets or sets a value that specifies the base permissions for the role definition. */
+            BasePermissions: IBasePermissions;
+            /** Gets or sets a value that specifies the description of the role definition. */
+            Description: string;
+            /** Gets a value that specifies whether the role definition is displayed. */
+            Hidden: boolean;
+            /** Gets a value that specifies the Id of the role definition. */
+            Id: number;
+            /** Gets or sets a value that specifies the role definition name. */
+            Name: string;
+            /** Gets or sets a value that specifies the order position of the object in the site collection Permission Levels page. */
+            Order: number;
+            /** Gets a value that specifies the type of the role definition. Represents an SP.RoleType value. See RoleType in the .NET client object model reference for a list of role type values. */
+            RoleTypeKind: number;
+    }
+    /**
+        * Role Definition Query Properties
+        */
+    export interface IRoleDefinitionQueryProps {
+    }
+    /**
+        * Role Definition Query Result
+        */
+    export interface IRoleDefinitionQueryResult extends IRoleDefinitionMethods, IRoleDefinitionProps {
+    }
+    /**
+        * Role Definition Result
+        */
+    export interface IRoleDefinitionResult extends IRoleDefinitionMethods, IRoleDefinitionProps, IRoleDefinitionQueryProps, IBase<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
+    }
+    /**
+        * Role Definition
+        */
+    export interface IRoleDefinition extends IRoleDefinitionMethods, IRoleDefinitionQueryProps, IBase<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/roleDefinitions' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IRoleDefinition, IRoleDefinitionQueryResult, IRoleDefinitionResult } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface IRoleDefinitionsMethods {
+            /**
+                * Gets the role definition with the specified ID from the collection.
+                * @param roleDefId - The ID of the role definition that defines the permissions to assign.
+                */
+            getById(roleDefId: any): IRoleDefinition & IBase<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
+            /**
+                * Gets the role definition with the specified name.
+                * @param name -
+                */
+            getByName(name: any): IRoleDefinition & IBase<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
+            /**
+                * Gets the role definition with the specified role type.
+                * @param roleType - The RoleTypeKind of the role definition.
+                */
+            getByType(roleType: number): IRoleDefinition & IBase<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IRoleDefinitions, IRoleDefinitionResults>;
+    }
+    /**
+        * Role Definitions
+        */
+    export interface IRoleDefinitions extends IRoleDefinitionsMethods, IBaseCollection<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
+    }
+    /**
+        * Role Definition Results
+        */
+    export interface IRoleDefinitionResults extends IRoleDefinitionsMethods, IBaseCollection<IRoleDefinitionResult, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/search' {
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { ComplexTypes } from "gd-sprest/mapper/types";
+    /**
+        * Search
+        */
+    export interface ISearch extends IBase<ISearch, ComplexTypes.SearchResult> {
+            /**
+                * Constructor
+                * @param url - The optional url to execute the search against.
+                * @param settings - The search settings.
+                */
+            new (url?: string, settings?: ITargetInfo): ISearch;
+            /** Method to execute a search query.
+                * @param settings - The search request settings.
+             */
+            postquery(settings: ComplexTypes.SearchRequest): IBase<ComplexTypes.SearchResult>;
+            /** Method to execute a search query.
+                * @param settings - The search request settings.
+             */
+            searchquery(settings: ComplexTypes.SearchRequest): IBase<ComplexTypes.SearchResult>;
+            /** Method to execute a search suggestion.
+                * @param settings - The search suggest settings.
+             */
+            suggest(settings: ComplexTypes.SearchSuggestion): IBase<ComplexTypes.QuerySuggestionResults>;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/site' {
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { Types } from "gd-sprest/";
+    import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from "gd-sprest/mapper/types";
+    /**
+        * Site Methods
+        */
+    export interface ISiteMethods {
+            /**
+                * Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
+                * @param upgrade - If true, the evaluation site collection MUST be upgraded when it is created. If false, the evaluation site collection MUST NOT be upgraded when it is created.
+                * @param sendEmail - If true, a notification email MUST be sent to the requestor and the site collection administrators at the completion of the creation of the evaluation site collection. If false, such notification MUST NOT be sent.
+                */
+            createPreviewSPSite(upgrade: any, sendEmail: any): IBase;
+            /**
+                * Extend the upgrade reminder date for this SPSite by the days specified at WebApplication.UpgradeReminderDelay.
+                */
+            extendUpgradeReminderDate(): IBase;
+            /**
+                * Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
+                * @param typeCatalog - Specifies the list template type for the gallery.
+                */
+            getCatalog(typeCatalog: any): IBase;
+            /**
+                * Specifies the collection of the site collection changes from the change log that have occurred within the scope of the site collection, based on the specified query.
+                * @param query - The change query.
+                */
+            getChanges(query: any): IBase;
+            /**
+                * Specifies the collection of custom list templates for a given site.
+                * @param web - Specifies the site that contains the custom list templates to be returned.
+                */
+            getCustomListTemplates(web: any): IBase;
+            /**
+                * Returns the collection of site definitions that are available for creating Web sites within the site collection.
+                * @param LCID - A 32-bit unsigned integer that specifies the language of the site definitions that are returned from the site collection.
+                * @param overrideCompatLevel - Specifies the compatibility level of the site to return from the site collection. If this value is 0, the compatibility level of the site is used.
+                */
+            getWebTemplates(LCID: any, overrideCompatLevel: any): IBase;
+            /**
+                * Invalidates cached upgrade information about the site collection so that this information will be recomputed the next time it is needed.
+                */
+            invalidate(): IBase;
+            /**
+                * Returns true if the object needs to be upgraded; otherwise, false.
+                * @param versionUpgrade - If true, version-to-version site collection upgrade is requested; otherwise false for build-to-build site collection upgrade.
+                * @param recursive - If true, child upgradable objects will be inspected; otherwise false.
+                */
+            needsUpgradeByType(versionUpgrade: any, recursive: any): IBase;
+            /**
+                * Returns the site at the specified URL.
+                * @param strUrl - The server-relative URL or site-relative URL of the site to return. If strUrl is empty, the top-level site is returned.
+                */
+            openWeb(strUrl: any): IBase<IWeb, IWebResult, IWebQueryResult>;
+            /**
+                * Returns the site with the specified GUID.
+                * @param gWebId - A GUID that specifies which site to return.
+                */
+            openWebById(gWebId: any): IBase<IWeb, IWebResult, IWebQueryResult>;
+            /**
+                * Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
+                * @param ruleId - Specifies the rule or rules to be run. If the value is an empty GUID, all rules are run, otherwise only the specified rule is run.
+                * @param bRepair - Specifies whether repairable rules are to be run in repair mode.
+                * @param bRunAlays - Specifies whether the rules will be run as a result of this call or cached results from a previous run can be returned.
+                */
+            runHealthCheck(ruleId: any, bRepair: any, bRunAlways: any): IBase;
+            /**
+                * Either runs a site collection upgrade, or schedules it to be run in the future, depending on available system resources and the value of the queueOnly parameter. The user executing this method MUST be a farm administrator or a site collection administrator.
+                * @param versionUpgrade - If true, specifies that a version-to-version upgrade will be performed. If false, specifies that a build-to-build upgrade will be performed.
+                * @param queueOnly - If true, specifies that the upgrade will not be run immediately; it will be queued for a later run.
+                * @param sendEmail - If true, a notification email will be sent to the requestor and the site collection administrators at the completion of the site collection upgrade. If false, such notification will not be sent.
+                */
+            runUpgradeSiteSession(versionUpgrade: any, queueOnly: any, sendEmail: any): IBase;
+            /**
+                * Updates it's properties.
+                * @param data - The list properties to update.
+                */
+            update(data: any): IBase;
+            /**
+                * Sets whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
+                * @param requireUseRemoteAPIs - Specifies whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
+                */
+            updateClientObjectModelUseRemoteAPIsPermissionSetting(requireUseRemoteAPIs: any): IBase;
+    }
+    /**
+        * Site Properties
+        */
+    export interface ISiteProps {
+            /** A value that specifies whether creation of declarative workflows can be used on this site collection. */
+            AllowCreationDeclarativeWorkflow: boolean;
+            /** Gets or sets a value that specifies whether a designer can be used on this site collection. */
+            AllowDesigner: boolean;
+            /** Gets or sets a value that specifies whether master page editing is allowed on this site collection. */
+            AllowMasterPageEditing: boolean;
+            /** Gets or sets a value that specifies whether this site collection can be reverted to its base template. */
+            AllowRevertFromTemplate: boolean;
+            AllowSaveDeclarativeWorkflowAsTemplate: boolean;
+            AllowSavePublishDeclarativeWorkflow: boolean;
+            /** Whether version to version upgrade is allowed on this site. */
+            AllowSelfServiceUpgrade: boolean;
+            /** Whether upgrade evaluation site collection is allowed. */
+            AllowSelfServiceUpgradeEvaluation: boolean;
+            AuditLogTrimmingRetention: number;
+            /** Property indicating whether or not this object can be upgraded. */
+            CanUpgrade: boolean;
+            Classification: string;
+            /** Gets the major version of this site collection for purposes of major version-level compatibility checks. */
+            CompatibilityLevel: string;
+            CurrentChangeToken: string;
+            DisableAppViews: boolean;
+            DisableCompanyWideSharingLinks: boolean;
+            DisableFlows: boolean;
+            ExternalSharingTipsEnabled: boolean;
+            GroupId: string;
+            /** Gets the GUID that identifies the site collection. */
+            Id: string;
+            /** Gets or sets the comment that is used in locking a site collection. */
+            LockIssue: string;
+            /** Gets a value that specifies the maximum number of list items allowed per operation before throttling will occur. */
+            MaxItemsPerThrottledOperation: number;
+            NeedsB2BUpgrade: boolean;
+            /** Specifies the primary URI of this site collection, including the host name, port number, and path. */
+            PrimaryUri: string;
+            /** Gets or sets a Boolean value that specifies whether the site collection is read-only, locked, and unavailable for write access. */
+            ReadOnly: boolean;
+            RequiredDesignerVersion: string;
+            SandboxedCodeActivationCapability: number;
+            ServerRelativePath: Types.SP.IResourcePath;
+            /** Gets the server-relative URL of the root Web site in the site collection. */
+            ServerRelativeUrl: string;
+            ShareByEmailEnabled: boolean;
+            ShowPeoplePickerSuggestionsForGuestUsers: boolean;
+            /** Property that indicates whether users will be able to share links to documents that can be accessed without logging in. */
+            ShareByLinkEnabled: boolean;
+            /** Gets or sets a value that specifies whether the URL structure of this site collection is viewable. */
+            ShowUrlStructure: boolean;
+            StatusBarLink: string;
+            StatusBarText: string;
+            TrimAuditLog: boolean;
+            /** Gets or sets a value that specifies whether the Visual Upgrade UI of this site collection is displayed. */
+            UIVersionConfigurationEnabled: boolean;
+            /** Specifies the upgrade information of this site collection. */
+            UpgradeInfo: Types.SP.IUpgradeInfo;
+            /** Specifies a date, after which site collection administrators will be reminded to upgrade the site collection. */
+            UpgradeReminderDate: string;
+            UpgradeScheduled: boolean;
+            UpgradeScheduledDate: string;
+            /** Specifies whether the site is currently upgrading. */
+            Upgrading: boolean;
+            /** Gets the full URL to the root Web site of the site collection, including host name, port number, and path. */
+            Url: string;
+            /** Gets a value that specifies usage information about the site, including bandwidth, storage, and the number of visits to the site collection. */
+            Usage: Types.SP.IUsageInfo;
+    }
+    /**
+        * Site Query Properties
+        */
+    export interface ISiteQueryProps {
+            Audit(): IBase<Types.SP.IAudit>;
+            /**
+                * Gets the event receivers associated with the site.
+             */
+            EventReceivers(): Types.SP.IEventReceivers;
+            /**
+                * Gets the event receiver associated with the site.
+                * @param id - The id of the event receiver.
+             */
+            EventReceivers(id: string): Types.SP.IEventReceiver;
+            /**
+                * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
+                */
+            Features(): IBase;
+            /**
+                * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
+                */
+            Owner(): Types.SP.IUser;
+            /** Gets a value that specifies the collection of recycle bin items for the site collection. */
+            RecycleBin(): IBase<Types.SP.IResults<Types.SP.IRecycleBinItem>>;
+            /**
+                * Gets a value that returns the top-level site of the site collection.
+                */
+            RootWeb(): IWeb;
+            SecondaryContact(): IBase;
+            /**
+                * Gets the user custom action for the list.
+                */
+            UserCustomActions(): Types.SP.IUserCustomActions;
+            /**
+                * Gets the user custom action(s) for the list.
+                * @param id - The id of the user custom action.
+                */
+            UserCustomActions(id: string): Types.SP.IUserCustomAction;
+    }
+    /**
+        * Site Query Result
+        */
+    export interface ISiteQueryResult extends ISiteMethods, ISiteProps {
+            Audit: Types.SP.IAudit;
+            /**
+                * Gets the event receivers associated with the site.
+             */
+            EventReceivers: Types.SP.IResults<Types.SP.IEventReceiverResult>;
+            /**
+                * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
+                */
+            Features: Types.SP.IResults<Types.SP.IFeature>;
+            /**
+                * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
+                */
+            Owner: Types.SP.IUserResult;
+            /** Gets a value that specifies the collection of recycle bin items for the site collection. */
+            RecycleBin: Types.SP.IResults<Types.SP.IRecycleBinItem>;
+            /**
+                * Gets a value that returns the top-level site of the site collection.
+                */
+            RootWeb: IWebResult;
+            SecondaryContact: Types.SP.IUserResult;
+            /**
+                * Gets the user custom action for the list.
+                */
+            UserCustomActions: Types.SP.IUserCustomActionResults;
+    }
+    /**
+        * Site Result
+        */
+    export interface ISiteResult extends ISiteMethods, ISiteProps, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {
+    }
+    /**
+        * Site
+        */
+    export interface ISite extends ISiteMethods, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {
+            /**
+                * Constructor
+                * @param url - (Optional) The site url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            new (url?: string, targetInfo?: ITargetInfo): ISite;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/socialFeed' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { Types } from "gd-sprest/";
+    /**
+        * Social Feed
+        */
+    export interface ISocialFeed {
+            /**
+                * Gets information about the specified user and the current user.
+                * @param accountName - The login name of the user.
+                */
+            actor(accountName: string): IBase<ISocialRestActor>;
+            /**
+                * Gets the feed of activity by the specified user (Personal feed type) or gets the specified site feed.
+                * @param accountName - The login name of the user.
+                */
+            actorFeed(accountName: string): IBase<ISocialRestThread>;
+            /**
+                * Gets the feed of microblog posts that mention the current user, represented by MentionReference thread types, and sets the user's unread mention count to 0.
+                */
+            clearMyUnreadMentionCount(): IBase;
+            /**
+                * Gets information about the current user.
+                */
+            my(): IBase<ISocialRestActor>;
+            /**
+                * Gets the feed of activity by the current user (Personal feed type).
+                */
+            myFeed(): IBase<ISocialRestFeed>;
+            /**
+                * Gets the feed of microblog posts that the current user likes, represented by LikeReference thread Types.SP. See Reference threads and digest threads in SharePoint Server 2013 social feeds.
+                */
+            myLikes(): IBase<ISocialRestFeed>;
+            /**
+                * Gets the feed of microblog posts that mention the current user, represented by MentionReference thread Types.SP.
+                */
+            myMentionFeed(): IBase<ISocialRestFeed>;
+            /**
+                * Gets the feed of activity by the current user and by people and content the user is following, sorted by last modified date (News feed type).
+                */
+            myNews(): IBase<ISocialRestFeed>;
+            /**
+                * Gets the feed of activity by the current user and by people and content the user is following, sorted by created date (Timeline feed type).
+                */
+            myTimelineFeed(): IBase<ISocialRestFeed>;
+            /**
+                * Gets the count of unread mentions for the current user.
+                */
+            myUnreadMentionCount(): IBase<ISocialRestFeed>;
+            /**
+                * Creates a root post in the specified site feed.
+                * @param accountName - The login name of the user.
+                */
+            postToFeed(accountName: string, postInfo: Types.SP.ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
+            /**
+                * Creates a root post in the current user's feed.
+                * @param creationData - The post creation data.
+                */
+            postToMyFeed(creationData: Types.SP.ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
+    }
+    /**
+        * Social Rest Actor
+        */
+    export interface ISocialRestActor extends IBase<ISocialRestActor> {
+            /**
+                * Properties
+                */
+            FollowableItem?: string;
+            FollwableItemActor: Types.SP.ComplexTypes.SocialActor;
+            Me: Types.SP.ComplexTypes.SocialActor;
+            /**
+                * Methods
+                */
+            clearUnreadMentionCount(): IBase<ISocialRestFeed>;
+    }
+    /**
+        * Social Rest Feed
+        */
+    export interface ISocialRestFeed extends IBase<ISocialRestFeed> {
+            /**
+                * Properties
+                */
+            SocialFeed: Types.SP.ComplexTypes.SocialFeed;
+            /**
+                * Creates a root post in the user's feed.
+                */
+            post(postInfo: Types.SP.ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
+    }
+    /**
+        * Social Rest Thread
+        */
+    export interface ISocialRestThread extends IBase<ISocialRestThread> {
+            /**
+                * Properties
+                */
+            ID?: string;
+            SocialThread: Types.SP.ComplexTypes.SocialThread;
+            /**
+                * Methods
+                */
+            delete(): IBase<ISocialRestThread>;
+            reply(restCreationData: Types.SP.ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/sptypes' {
     /**
         * Calendar Types
         */
@@ -5730,89 +9177,162 @@ declare module 'gd-sprest/mapper/sptypes.def' {
     };
 }
 
-declare module 'gd-sprest/mapper/audit' {
-    export * from "gd-sprest/mapper/audit/audit";
-}
-
-declare module 'gd-sprest/mapper/eventReceiver' {
-    export * from "gd-sprest/mapper/eventReceiver/eventReceiver";
-    export * from "gd-sprest/mapper/eventReceiver/eventReceivers";
-}
-
-declare module 'gd-sprest/mapper/file' {
-    export * from "gd-sprest/mapper/file/attachment";
-    export * from "gd-sprest/mapper/file/attachments";
-    export * from "gd-sprest/mapper/file/file";
-    export * from "gd-sprest/mapper/file/files";
-    export * from "gd-sprest/mapper/file/fileVersion";
-    export * from "gd-sprest/mapper/file/fileVersions";
-    export * from "gd-sprest/mapper/file/folder";
-    export * from "gd-sprest/mapper/file/folders";
-}
-
-declare module 'gd-sprest/mapper/list' {
-    export * from "gd-sprest/mapper/list/contentType";
-    export * from "gd-sprest/mapper/list/contentTypes";
-    export * from "gd-sprest/mapper/list/field";
-    export * from "gd-sprest/mapper/list/fieldLink";
-    export * from "gd-sprest/mapper/list/fieldLinks";
-    export * from "gd-sprest/mapper/list/fields";
-    export * from "gd-sprest/mapper/list/items";
-    export * from "gd-sprest/mapper/list/list";
-    export * from "gd-sprest/mapper/list/listItem";
-    export * from "gd-sprest/mapper/list/lists";
-    export * from "gd-sprest/mapper/list/version";
-    export * from "gd-sprest/mapper/list/versions";
-    export * from "gd-sprest/mapper/list/view";
-    export * from "gd-sprest/mapper/list/viewFieldCollection";
-    export * from "gd-sprest/mapper/list/views";
-}
-
-declare module 'gd-sprest/mapper/propertyValues.def' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { ComplexTypes, ODataQuery } from "gd-sprest/mapper/index.def";
+declare module 'gd-sprest/mapper/types/tenantApp' {
+    import { IBase } from "gd-sprest/utils/types";
     /**
-        * Property Values
+        * Methods
         */
-    export interface IPropertyValues extends IBase, ComplexTypes.KeyValue {
+    export interface ITenantAppMethods {
             /**
-                * Queries the collection.
-                * @param oData - The OData information.
+                * Deploy solution package in tenant app catalog
+                * Enable solution to be available to install to specific sites. This API is designed to be executed in the context of the tenant app catalog site.
                 */
-            query(query: ODataQuery): IPropertyValues;
+            deploy(): IBase;
+            /**
+                * Install solution package from tenant app catalog to SharePoint site
+                * Install a solution package with specific identifier from tenant app catalog to the site based on URL context. This REST call can be executed in the context of the site where the install operation should happen.
+                */
+            install(): IBase;
+            /**
+                * Remove solution package from tenant app catalog
+                * Remove the solution package from the tenant app catalog. This API is designed to be executed in the context of the tenant app catalog site.
+                */
+            remove(): IBase;
+            /**
+                * Retract solution package in the tenant app catalog
+                * Retract solution to be available from the sites. This API is designed to be executed in the context of the tenant app catalog site.
+                */
+            retract(): IBase;
+            /**
+                * Uninstall solution package from SharePoint site
+                * Uninstall a solution package from the site. This REST call can be executed in the context of the site where the uninstall operation should happen.
+                */
+            uninstall(): IBase;
+            /**
+                * Upgrade solution package in SharePoint site
+                * Upgrade a solution package from the site to a newer version available in the tenant app catalog. This REST call can be executed in the context of the site where the upgrade operation should happen.
+                */
+            upgrade(): IBase;
+    }
+    /**
+        * Properties
+        */
+    export interface ITenantAppProps {
+            /** The app version. */
+            AppCatalogVersion: string;
+            /** Flag indicating an upgrade is available. */
+            CanUpgrade: boolean;
+            /** Flag indicating if the current version is deployed. */
+            CurrentVersionDeployed: boolean;
+            /** Flag indicating if the app is deployed. */
+            Deployed: boolean;
+            /** The app id. */
+            ID: string;
+            /** The installed version. */
+            InstalledVersion: string;
+            /** Flag indicating if this is a client-side solution. */
+            IsClientSideSolution: boolean;
+            /** The app title. */
+            Title: string;
+    }
+    /**
+        * Tenant App Result
+        */
+    export interface ITenantAppResult extends ITenantAppMethods, ITenantAppProps, IBase<ITenantApp, ITenantAppResult> {
+    }
+    /**
+        * Tenant App
+        */
+    export interface ITenantApp extends ITenantAppMethods, IBase<ITenantApp, ITenantAppResult> {
     }
 }
 
-declare module 'gd-sprest/mapper/search' {
-    export * from "gd-sprest/mapper/search/search";
+declare module 'gd-sprest/mapper/types/tenantAppCatalog' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { Types } from "gd-sprest/";
+    import { ITenantApp, ITenantApps } from "gd-sprest/mapper/types";
+    /**
+        * Tenant App Catalog Methods
+        */
+    export interface ITenantAppCatalogMethods {
+            /**
+                * Add solution package to tenant app catalog
+                * Adding solution to the tenant app catalog. This API is designed to be executed in the context of the tenant app catalog site.
+                * @param overwrite - Flag to overwrite the solution.
+                * @param url - The file name of the solution.
+                */
+            add(overwrite?: boolean, url?: string): IBase<Types.SP.IFile, Types.SP.IFileResult>;
+            /**
+                * Deploy solution package in tenant app catalog
+                * Enable solution to be available to install to specific sites. This API is designed to be executed in the context of the tenant app catalog site.
+                * @param guid - The app id.
+                */
+            getById(guid: string): ITenantApp;
+    }
+    /**
+        * Tenant App Catalog Properties
+        */
+    export interface ITenantAppCatalogProps {
+            /**
+                * List available packages from tenant app catalog
+                * REST API for getting list of available SharePoint Framework solutions or add-ins in tenant app catalog.
+                */
+            AvailableApps(): ITenantApps;
+            /**
+                * No documentation available. Need to research this.
+                */
+            SiteCollectionAppCatalogsSites(): IBaseCollection;
+    }
+    /**
+        * Tenant App Catalog Query Properties
+        */
+    export interface ITenantAppCatalogQueryProps {
+            /**
+                * List available packages from tenant app catalog
+                * REST API for getting list of available SharePoint Framework solutions or add-ins in tenant app catalog.
+                */
+            AvailableApps(): ITenantApps;
+    }
+    /**
+        * Tenant App Catalog Query Result
+        */
+    export interface ITenantAppCatalogQueryResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps {
+    }
+    /**
+        * Tenant App Catalog Result
+        */
+    export interface ITenantAppCatalogResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps, ITenantAppCatalogQueryProps, IBase<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> {
+    }
+    /**
+        * Tenant App Catalog
+        */
+    export interface ITenantAppCatalog extends ITenantAppCatalogMethods, ITenantAppCatalogQueryProps, IBase<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> {
+    }
 }
 
-declare module 'gd-sprest/mapper/security' {
-    export * from "gd-sprest/mapper/security/roleAssignment";
-    export * from "gd-sprest/mapper/security/roleAssignments";
-    export * from "gd-sprest/mapper/security/roleDefinition";
-    export * from "gd-sprest/mapper/security/roleDefinitions";
+declare module 'gd-sprest/mapper/types/tenantApps' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { ITenantApp } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface ITenantAppsMethods {
+            /**
+                * Details on individual solution package from tenant app catalog
+                * REST API for getting details on individual SharePoint Framework solution or add-in available in the tenant app catalog.
+                * @param guid - The app id.
+                */
+            getById(guid: string): IBase<ITenantApp>;
+    }
+    /**
+        * Tenant Apps
+        */
+    export interface ITenantApps extends ITenantAppsMethods, IBaseCollection<ITenantApp> {
+    }
 }
 
-declare module 'gd-sprest/mapper/site' {
-    export * from "gd-sprest/mapper/site/site";
-    export * from "gd-sprest/mapper/site/tenantApp";
-    export * from "gd-sprest/mapper/site/tenantApps";
-    export * from "gd-sprest/mapper/site/tenantAppCatalog";
-    export * from "gd-sprest/mapper/site/utility";
-    export * from "gd-sprest/mapper/site/web";
-    export * from "gd-sprest/mapper/site/webs";
-}
-
-declare module 'gd-sprest/mapper/social' {
-    export * from "gd-sprest/mapper/social/peopleManager";
-    export * from "gd-sprest/mapper/social/profileLoader";
-    export * from "gd-sprest/mapper/social/socialFeed";
-    export * from "gd-sprest/mapper/social/userProfile";
-}
-
-declare module 'gd-sprest/mapper/types.def' {
-    import { IUser } from "gd-sprest/mapper/user";
+declare module 'gd-sprest/mapper/types/types' {
+    import { IUser } from "gd-sprest/mapper/types/user";
     /**
         * App Tiles
         */
@@ -6200,3469 +9720,382 @@ declare module 'gd-sprest/mapper/types.def' {
     }
 }
 
-declare module 'gd-sprest/mapper/user' {
-    export * from "gd-sprest/mapper/user/group";
-    export * from "gd-sprest/mapper/user/groups";
-    export * from "gd-sprest/mapper/user/peoplePicker";
-    export * from "gd-sprest/mapper/user/user";
-    export * from "gd-sprest/mapper/user/users";
-}
-
-declare module 'gd-sprest/mapper/userCustomAction' {
-    export * from "gd-sprest/mapper/userCustomAction/userCustomAction";
-    export * from "gd-sprest/mapper/userCustomAction/userCustomActions";
-}
-
-declare module 'gd-sprest/utils/base.def' {
-    import { Types } from "gd-sprest/";
-    import { IBaseExecution, IRequestInfo } from "gd-sprest/utils/index.def";
+declare module 'gd-sprest/mapper/types/user' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { IGroup, ISiteGroupResults, ISiteGroups, IUser } from "gd-sprest/mapper/types";
     /**
-        * Base
+        * User Creation Information
         */
-    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result> {
-            defaultToWebFl: boolean;
-            /** True, if the object exists, false otherwise. */
-            existsFl: boolean;
-            /** The parent object, which created this object. */
-            parent: any;
-            /** The response */
-            response: string;
-            /**
-                * Method to wait for the requests to complete.
-                * @param callback - The method to be executed after the request completes.
-                */
-            done(callback?: (...args) => any): any;
-            /**
-                * Method to wait for the requests to complete.
-                * @param callback - The method to be executed after the request completes.
-                */
-            done(callback?: (value?: Result, ...args) => any): any;
-            /**
-                * Method to get the request information.
-                */
-            getInfo(): IRequestInfo;
-            /**
-                * Queries the collection.
-                * @param oData - The OData information.
-                */
-            query?(query: Types.ODataQuery): IBase<Result, QueryResult>;
-            /**
-                * Method to stringify the object.
-                */
-            stringify(): string;
+    export interface IUserCreationInformation {
+            Email?: string;
+            LoginName: string;
+            Title?: string;
     }
     /**
-        * Base Collection Results
+        * User Methods
         */
-    export interface IBaseCollectionResult<Result> extends Types.IResults<Result> {
-            /** True, if the object exists, false otherwise. */
-            existsFl: boolean;
-            /** The raw string response. */
-            response: string;
-            /** Method to stringify the object. */
-            stringify(): string;
-    }
-    /**
-        * Base Collection
-        */
-    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.IResults<Type>, IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
-    }
-}
-
-declare module 'gd-sprest/utils/baseExecution.def' {
-    import { BaseExecution, TargetInfo } from "gd-sprest/utils";
-    import { IBaseRequest } from "gd-sprest/utils/index.def";
-    /**
-        * Base Execution
-        */
-    export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest {
-            /** The batch requests. */
-            batchRequests: Array<Array<{
-                    callback?: any;
-                    response?: BaseExecution;
-                    targetInfo: TargetInfo;
-            }>>;
-            /** The parent. */
-            parent: BaseExecution;
-            /** The index of this object in the responses array. */
-            responseIndex: number;
-            /** The responses. */
-            responses: Array<BaseExecution>;
-            /** The wait flags. */
-            waitFlags: Array<boolean>;
+    export interface IUserMethods {
             /**
-                * Method to execute the request as a batch.
-                * Currently available in SharePoint Online only.
-                * @param callback - The method to be executed after the request completes.
-                */
-            batch(callback?: (value?: Result, ...args) => any): Type;
-            /**
-                * Method to execute the request as a batch.
-                * Currently available in SharePoint Online only.
-                * @param appendFl - Flag to execute the request as part of a change set.
-                */
-            batch(appendFl?: boolean): Type;
-            /**
-                * Method to execute the request.
-                * @param callback - The method to be executed after the request completes.
-                */
-            execute(callback?: (value?: Result, ...args) => any): Type;
-            /**
-                * Method to execute the request.
-                * @param waitFl - Flag to execute the request, after the previous requests have completed.
-                */
-            execute(waitFl: boolean): Type;
-            /**
-                * Method to execute the request.
-                * @param callback - The method to be executed after the request completes.
-                * @param waitFl - Flag to execute the request, after the previous requests have completed.
-                */
-            execute(callback: (value?: Result, ...args) => any, waitFl: boolean): Type;
-            /**
-                * Method to execute the request synchronously.
-                */
-            executeAndWait(): Result;
-            /**
-                * Method to wait for the parent requests to complete
-                * @param callback - The callback method.
-                * @param requestIdx - The request index.
-                */
-            waitForRequestsToComplete(callback: () => void, requestIdx?: number): any;
-    }
-}
-
-declare module 'gd-sprest/utils/baseHelper.def' {
-    import { Base } from "gd-sprest/utils";
-    /**
-      * Request Helper Methods
-      */
-    export interface IBaseHelper {
-        /** The base object. */
-        base: Base;
-        /** The request type */
-        requestType: number;
-        /** The request's raw response. */
-        response: string;
-        /** The request's status. */
-        status: number;
-        /** Adds methods based on the object type. */
-        addMethods(base: Base, data: any): any;
-        /** Adds properties based on the object type. */
-        addProperties(base: Base, data: any): any;
-        /** Updates the data collection objects. */
-        updateDataCollection(obj: Base, results: Array<Base>): any;
-        /** Updates the data object. */
-        updateDataObject(isBatchRequest: boolean): any;
-        /** Updates the metadata. */
-        updateMetadata(base: any, data: any): any;
-    }
-}
-
-declare module 'gd-sprest/utils/baseRequest.def' {
-    import { XHRRequest } from "gd-sprest/utils";
-    import { IBaseHelper, IMethodInfo, ITargetInfo } from "gd-sprest/utils/index.def";
-    /**
-      * Base Request
-      */
-    export interface IBaseRequest extends IBaseHelper {
-        /** Flag to get all items. */
-        getAllItemsFl: boolean;
-        /** The target information. */
-        targetInfo: ITargetInfo;
-        /** The request. */
-        xhr: XHRRequest;
-        /** Method to execute the request. */
-        executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): any;
-        /** Method to execute the request. */
-        executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
-        /** Gets the property as a collection. */
-        getCollection(method: string, args?: any): any;
-        /** Gets the next set of results. */
-        getNextSetOfResults(): any;
-        /** Gets the property. */
-        getProperty(propertyName: string, requestType?: string): any;
-        /** Updates the metdata uri. */
-        updateMetadataUri(metadata: any, targetInfo: ITargetInfo): any;
-        /** Validates the data collection results. */
-        validateDataCollectionResults(): PromiseLike<void>;
-    }
-}
-
-declare module 'gd-sprest/utils/methodInfo.def' {
-    /**
-      * Method Information Settings
-      */
-    export interface IMethodInfo {
-        argNames?: Array<string>;
-        argValues?: Array<any>;
-        data?: any;
-        getAllItemsFl?: boolean;
-        inheritMetadataType?: boolean;
-        metadataType?: string;
-        name?: string;
-        replaceEndpointFl?: boolean;
-        requestMethod?: string;
-        requestType?: number;
-        returnType?: string;
-    }
-}
-
-declare module 'gd-sprest/utils/requestType.def' {
-    /**
-      * Request Type
-      */
-    export type IRequestType = {
-        Custom: number;
-        Delete: number;
-        Merge: number;
-        OData: number;
-        Get: number;
-        GetBuffer: number;
-        GetWithArgs: number;
-        GetWithArgsInBody: number;
-        GetWithArgsInQS: number;
-        GetWithArgsValueOnly: number;
-        GetReplace: number;
-        Post: number;
-        PostWithArgs: number;
-        PostWithArgsInBody: number;
-        PostWithArgsInQS: number;
-        PostWithArgsValueOnly: number;
-        PostReplace: number;
-    };
-}
-
-declare module 'gd-sprest/utils/targetInfo.def' {
-    /**
-        * Request Information
-        */
-    export interface IRequestInfo {
-            /** The data being sent in the body of the request. */
-            data?: object;
-            /** The request method (GET/POST) */
-            method: string;
-            /** The url of the request. */
-            url: string;
-    }
-    /**
-        * Target Information
-        */
-    export interface ITargetInfo {
-            /** True if the expected request returns an array buffer. */
-            bufferFl?: boolean;
-            /** The method to execute after the asynchronous request executes. */
-            callback?: () => void;
-            /** The data to be passed in the body of the request. */
-            data?: any;
-            /** True to default the request to the web api, site api otherwise. */
-            defaultToWebFl?: boolean;
-            /** The endpoint of the request. */
-            endpoint?: string;
-            /** The method to execute. */
-            method?: string;
-            /** True to override the default request to host flag. */
-            overrideDefaultRequestToHostFl?: boolean;
-            /** The request digest to use for the request. */
-            requestDigest?: string;
-            /** The request header. */
-            requestHeader?: object;
-            /** The request information. */
-            requestInfo?: object;
-            /** The url of the site/web to execute the request against. */
-            url?: string;
-    }
-}
-
-declare module 'gd-sprest/helper/jsLinkHelper.def' {
-    /**
-        * JSLink Helper Methods
-        */
-    export interface IJSLinkHelper {
-            /**
-                * Internal field to method mapper
-                */
-            _fieldToMethodMapper: any;
-            /**
-                * Internal field used by the hideField method.
-                */
-            _hideEventFl: boolean;
-            /**
-                * Disables edit for the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to disable edit.
-                * @param requireValueFl - Flag to only disable the field, if a value exists.
-                */
-            disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
-            /**
-                * Disable quick edit for the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to disable edit.
-                */
-            disableQuickEdit(ctx: any, field: any): any;
-            /**
-                * Returns the list view.
-                * @param ctx - The client context.
-                */
-            getListView(ctx: any): any;
-            /**
-                * Returns the list view items.
-                * @param ctx - The client context.
-                */
-            getListViewItems(ctx: any): any;
-            /**
-                * Returns the selected list view items
-                */
-            getListViewSelectedItems(): any;
-            /**
-                * Returns the webpart containing the JSLink field/form/view.
-                * @param ctx - The client context.
-                */
-            getWebPart(ctx: any): any;
-            /**
-                * Hides the specified field.
-                * @param ctx - The client context.
-                * @param field - The field to hide.
-                */
-            hideField(ctx: any, field: any): any;
-            /**
-                * Removes the field and html from the page.
-                * @param ctx - The client context.
-                * @param field - The field to remove.
-                */
-            removeField(ctx: any, field: any): any;
-            /**
-                * Method to render the default html for a field.
-                * @param ctx - The client context.
-                * @param field - The form field.
-                * @param formType - The form type. (Display, Edit, New or View)
-                */
-            renderField(ctx: any, field: any, formType?: number): any;
-    }
-}
-
-/**
-    * JSLink Helper Methods
-    */
-export interface IJSLinkHelper {
-        /**
-            * Internal field to method mapper
-            */
-        _fieldToMethodMapper: any;
-        /**
-            * Internal field used by the hideField method.
-            */
-        _hideEventFl: boolean;
-        /**
-            * Disables edit for the specified field.
-            * @param ctx - The client context.
-            * @param field - The field to disable edit.
-            * @param requireValueFl - Flag to only disable the field, if a value exists.
-            */
-        disableEdit(ctx: any, field: any, requireValueFl?: boolean): string;
-        /**
-            * Disable quick edit for the specified field.
-            * @param ctx - The client context.
-            * @param field - The field to disable edit.
-            */
-        disableQuickEdit(ctx: any, field: any): any;
-        /**
-            * Returns the list view.
-            * @param ctx - The client context.
-            */
-        getListView(ctx: any): any;
-        /**
-            * Returns the list view items.
-            * @param ctx - The client context.
-            */
-        getListViewItems(ctx: any): any;
-        /**
-            * Returns the selected list view items
-            */
-        getListViewSelectedItems(): any;
-        /**
-            * Returns the webpart containing the JSLink field/form/view.
-            * @param ctx - The client context.
-            */
-        getWebPart(ctx: any): any;
-        /**
-            * Hides the specified field.
-            * @param ctx - The client context.
-            * @param field - The field to hide.
-            */
-        hideField(ctx: any, field: any): any;
-        /**
-            * Removes the field and html from the page.
-            * @param ctx - The client context.
-            * @param field - The field to remove.
-            */
-        removeField(ctx: any, field: any): any;
-        /**
-            * Method to render the default html for a field.
-            * @param ctx - The client context.
-            * @param field - The form field.
-            * @param formType - The form type. (Display, Edit, New or View)
-            */
-        renderField(ctx: any, field: any, formType?: number): any;
-}
-
-declare module 'gd-sprest/mapper/navigation/navigation' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/index.def";
-    import { IMenuState } from "gd-sprest/mapper/index.def";
-    /**
-        * Navigation Methods
-        */
-    export interface INavigationServiceRESTMethods {
-            /**
-                * Method to get the menu state.
-                * @param menuNodeKey - The key of the start node. If no key is provided, the root node is used.
-                * @param depth - The depth of the dump. Default is 10.
-                * @param customProperties - (Optionally implemented by a site map data provider.) A comma-separated list of custom properties to return. Use the "\" character to escape a comma separator within a property.
-                * @param mapProviderName - Specifies which provider on the site is selected. If no SiteMapProvider used, "CurrentNavSiteMapProviderNoEncode" is used.
-                */
-            getMenuState(menuNodeKey?: number, depth?: number, customProperties?: string, mapProviderName?: string): IBase<IMenuState>;
-    }
-    /**
-        * Navigation Properties
-        */
-    export interface INavigationServiceRESTProps {
-    }
-    /**
-        * Navigation Queryable Properties
-        */
-    export interface INavigationServiceRESTQueryProps {
-            MenuState(): IBase<IMenuState>;
-            MenuState(key: number): IBase<IMenuState>;
-    }
-    /**
-        * Navigation
-        */
-    export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBase<INavigationServiceREST> {
-            /**
-                * Constructor
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            new (url?: string, targetInfo?: ITargetInfo): INavigationServiceREST;
-    }
-}
-
-declare module 'gd-sprest/utils' {
-    export * from "gd-sprest/utils/base";
-    export * from "gd-sprest/utils/baseExecution";
-    export * from "gd-sprest/utils/baseHelper";
-    export * from "gd-sprest/utils/baseRequest";
-    export * from "gd-sprest/utils/batch";
-    export * from "gd-sprest/utils/methodInfo";
-    export * from "gd-sprest/utils/oData";
-    export * from "gd-sprest/utils/requestType";
-    export * from "gd-sprest/utils/targetInfo";
-    export * from "gd-sprest/utils/xhrRequest";
-}
-
-declare module 'gd-sprest/mapper/audit/audit' {
-    /**
-      * Audit
-      */
-    export interface IAudit {
-        AuditFlags: number;
-    }
-}
-
-declare module 'gd-sprest/mapper/eventReceiver/eventReceiver' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    /**
-        * Event Receiver Definition Creation Information
-        */
-    export interface IEventReceiverDefinitionCreationInformation {
-            /** The event receiver type. */
-            EventType: number;
-            /** The strong name of the assembly that is used for receiving events. */
-            ReceiverAssembly?: string;
-            /** A string that represents the class that is used for receiving events. */
-            ReceiverClass?: string;
-            /** The name of the event receiver. */
-            ReceiverName: string;
-            /** The URL of a web service that is used for receiving events. */
-            ReceiverUrl?: string;
-            /** An integer that represents the relative sequence of the event. */
-            SequenceNumber?: number;
-            /** The execution synchronization of the event receiver. */
-            Synchronization?: number;
-    }
-    /**
-        * Event Receiver Methods
-        */
-    export interface IEventReceiverMethods {
-            /**
-                * Deletes the event receiver.
+                * Deletes the user custom action.
                 */
             delete(): IBase;
-            /**
-                * Updates it's properties.
-                * @param data - The field properties to update.
-                */
-            update(data: any): IBase;
     }
     /**
-        * Event Receiver Properties
+        * User Properties
         */
-    export interface IEventReceiverProps {
-            /** Specifies the type of event. */
-            EventType: number;
-            /** The strong name of the assembly that is used for receiving events. */
-            ReceiverAssembly?: string;
-            /** A string that represents the class that is used for receiving events. */
-            ReceiverClass?: string;
-            /** The unique identifier of the event receiver. */
-            ReceiverId?: string;
-            /** The name of the event receiver. */
-            ReceiverName: string;
-            /** The URL of a web service that is used for receiving events. */
-            ReceiverUrl?: string;
-            /** An integer that represents the relative sequence of the event. */
-            SequenceNumber?: number;
-            /** The execution synchronization of the event receiver. */
-            Synchronization?: number;
-    }
-    /**
-        * Event Receiver Query Properties
-        */
-    export interface IEventReceiverQueryProps {
-    }
-    /**
-        * Event Receiver Query Result
-        */
-    export interface IEventReceiverQueryResult extends IEventReceiverMethods, IEventReceiverProps {
-    }
-    /**
-        * Event Receiver Result
-        */
-    export interface IEventReceiverResult extends IEventReceiverMethods, IEventReceiverProps, IEventReceiverQueryProps, IBase<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> {
-    }
-    /**
-        * Event Receiver
-        */
-    export interface IEventReceiver extends IEventReceiverMethods, IEventReceiverQueryProps, IBase<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/eventReceiver/eventReceivers' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IEventReceiver, IEventReceiverDefinitionCreationInformation, IEventReceiverQueryResult, IEventReceiverResult } from "gd-sprest/mapper/eventReceiver";
-    /**
-        * Methods
-        */
-    export interface IEventReceiversMethods {
-            /**
-                * Adds an event receiver to the collection.
-                * @param parameters - The event receiver definition creation information.
-                */
-            add(parameters: IEventReceiverDefinitionCreationInformation): IBase<IEventReceiver, IEventReceiverResult>;
-            /**
-                * Gets an event receiver in the collection.
-                * @param id - The id of the event receiver.
-                */
-            getById(id: string): IEventReceiver & IBase<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IEventReceivers, IEventReceiverResults>;
-    }
-    /**
-        * Event Receivers
-        */
-    export interface IEventReceivers extends IEventReceiversMethods, IBaseCollection<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> {
-    }
-    /**
-        * Event Receiver Results
-        */
-    export interface IEventReceiverResults extends IEventReceiversMethods, IBaseCollection<IEventReceiverResult, IEventReceiverResult, IEventReceiverQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/file/attachment' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    import { IAttachmentFiles } from "gd-sprest/mapper/file";
-    /**
-        * Methods
-        */
-    export interface IAttachmentFilesMethods {
-            /**
-                * Adds the attachment that is represented by the specified file name and byte array to the list item.
-                * @param fileName - The filename of the attachment.
-                * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
-                */
-            add(fileName: any, content: any): IBase<IAttachment>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IAttachmentFiles>;
-    }
-    /**
-        * Attachment
-        */
-    export interface IAttachment {
-            /** The filename. */
-            FileName: string;
-            /** The filename as a path. */
-            FileNameAsPath: Types.IResourcePath;
-            /** The server relative path. */
-            ServerRelativePath: Types.IResourcePath;
-            /** The server relative url. */
-            ServerRelativeUrl: string;
-    }
-}
-
-declare module 'gd-sprest/mapper/file/attachments' {
-    import { IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IAttachment, IAttachmentFilesMethods } from "gd-sprest/mapper/file";
-    /**
-      * Attachment Files
-      */
-    export interface IAttachmentFiles extends IAttachmentFilesMethods, IBaseCollection<IAttachment> {
-    }
-}
-
-declare module 'gd-sprest/mapper/file/file' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    import { IFileVersionResult, IFileVersions } from "gd-sprest/mapper/file";
-    /**
-        * File Methods
-        */
-    export interface IFileMethods {
-            /**
-                * Approves the file submitted for content approval with the specified comment.
-                * @param comment - The comment for the approval. It's length must be <= 1023.
-                */
-            approve(comment: any): IBase;
-            /**
-                * Stops the chunk upload session without saving the uploaded data. If the file doesn’t already exist in the library, the partially uploaded file will be deleted. Use this in response to user action (as in a request to cancel an upload) or an error or exception.
-                * Use the uploadId value that was passed to the StartUpload method that started the upload session.
-                * This method is currently available only on Office 365.
-                * @param uploadId - The unique id of the upload session.
-                */
-            cancelupload(uploadId: any): IBase;
-            /**
-                * Checks the file in to a document library based on the check-in type.
-                * @param comment - The comment for the check-in. Its length must be <= 1023.
-                * @param checkInType - The check-in type: MinorCheckIn - 0; MajorCheckIn - 1; OverwriteCheckIn - 2
-                */
-            checkin(comment: any, checkInType: any): IBase;
-            /**
-                * Checks out the file from a document library based on the check-out type.
-                */
-            checkout(): IBase;
-            /**
-                * Returns the file content.
-                */
-            content(): IBase;
-            /**
-                * Continues the chunk upload session with an additional fragment. The current file content is not changed.
-                * Use the uploadId value that was passed to the StartUpload method that started the upload session.
-                * This method is currently available only on Office 365.
-                * @param uploadId - The unique id of the upload session.
-                * @param fileOffset - The size of the offset into the file where the fragment starts.
-                */
-            continueUpload(uploadId: any, fileOffset: any): IBase;
-            /**
-                * Copies the file to the destination URL.
-                * @param strNewUrl - The absolute URL or server relative URL of the destination file path to copy to.
-                * @param bOverWrite - True to overwrite a file with the same name in the location.
-                */
-            copyTo(strNewUrl: any, bOverWrite: any): IBase;
-            /**
-                * Deletes the File.
-                */
-            delete(): IBase;
-            /**
-                * Denies approval for a file that was submitted for content approval.
-                * Only documents in lists that are enabled for content approval can be denied.
-                * @param comment - The comment for the denial. It's length must be <= 1023.
-                */
-            deny(comment: any): IBase;
-            /**
-                * Uploads the last file fragment and commits the file. The current file content is changed when this method completes.
-                * Use the uploadId value that was passed to the StartUpload method that started the upload session.
-                * This method is currently available only on Office 365.
-                * @param uploadId - The unique id of the upload session.
-                * @param fileOffset - The size of the offset into the file where the fragment starts.
-                */
-            finishUpload(uploadId: any, fileOffset: any): IBase;
-            /**
-                * Specifies the control set used to access, modify, or add Web Parts associated with this Web Part Page and view.
-                * An exception is thrown if the file is not an ASPX page.
-                * @param scope - The webpart personalization scope: User - 0; Shared - 1
-                */
-            getlimitedwebpartmanager(scope: any): IBase;
-            /**
-                * Moves the file to the specified destination URL.
-                * @param newUrl - The absolute url or server relative url of the destination file path to move to.
-                * @param flags - The move operation: Overwrite - 1; AllowBrokenThickets (Move even if supporting files are separated from the file) - 8;
-                */
-            moveTo(newUrl: any, flags: any): IBase;
-            /**
-                * Opens the file as a stream.
-                */
-            openBinaryStream(): IBase;
-            /**
-                * Submits the file for content approval with the specified comment.
-                * @param comment - The comment for the published file. It's length must be <= 1023.
-                */
-            publish(comment: any): IBase;
-            /**
-                * Moves the file to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-                */
-            recycle(): IBase;
-            /**
-                * Saves the file as a stream.
-                * @param stream - The binary stream of the file.
-                */
-            saveBinaryStream(stream: any): IBase;
-            /**
-                * Starts a new chunk upload session and uploads the first fragment. The current file content is not changed when this method completes.
-                * The method is idempotent (and therefore does not change the result) as long as you use the same values for uploadId and stream.
-                * The upload session ends either when you use the CancelUpload method or when you successfully complete the upload session by passing the rest of the file contents through the ContinueUpload and FinishUpload methods.
-                * @param uploadId - The unique id of the upload session.
-                */
-            startUpload(uploadId: any): IBase;
-            /**
-                * Reverts an existing checkout for the file.
-                */
-            undoCheckOut(): IBase;
-            /**
-                * Removes the file from content approval or unpublish a major version.
-                * @param comment - The comment for the unpublish operation. Its length must be <= 1023.
-                */
-            unpublish(comment: any): IBase;
-            /**
-                * Updates it's properties.
-                * @param data - The file properties to update.
-                */
-            update(data: any): IBase;
-    }
-    /**
-        * File Properties
-        */
-    export interface IFileProps {
-            /** Gets a value that returns the comment used when a document is checked in to a document library. */
-            CheckInComment: string;
-            /** Gets a value that indicates how the file is checked out of a document library. Represents an SP.CheckOutType value: . The checkout state of a file is independent of its locked state. */
-            CheckOutType: number;
-            /** Returns internal version of content, used to validate document equality for read purposes. */
-            ContentTag: string;
-            /** Gets a value that specifies the customization status of the file. Represents an SP.CustomizedPageStatus value: None = 0; Uncustomized = 1; Customized = 2. */
-            CustomizedPageStatus: number;
-            /** Gets a value that specifies the ETag value. */
-            ETag: string;
-            /** Gets a value that specifies whether the file exists. */
-            Exists: boolean;
-            /** Gets the size of the file in bytes, excluding the size of any Web Parts that are used in the file. */
-            Length: number;
-            /** Gets a value that specifies the publishing level of the file. Represents an SP.FileLevel value: Published = 1; Draft = 2; Checkout = 255. */
-            Level: number;
-            LinkingUrl: string;
-            /** Gets a value that specifies the major version of the file. */
-            MajorVersion: number;
-            /** Gets a value that specifies the minor version of the file. */
-            MinorVersion: number;
-            /** Gets the name of the file including the extension. */
-            Name: string;
-            ServerRelativePath: Types.IResourcePath;
-            /** Gets the relative URL of the file based on the URL for the server. */
-            ServerRelativeUrl: string;
-            SiteId: string;
-            /** Gets a value that specifies when the file was created. */
-            TimeCreated: string;
-            /** Gets a value that specifies when the file was last modified. */
-            TimeLastModified: string;
-            /** Gets a value that specifies the display name of the file. */
+    export interface IUserProps {
+            /** Gets or sets the email address of the user. */
+            Email: string;
+            /** Gets a value that specifies the member identifier for the user or group. */
+            Id: string;
+            /** Gets a value that indicates whether this member should be hidden in the UI. */
+            IsHiddenInUI: boolean;
+            IsSharedByEmailGuestUser: boolean;
+            /** Gets or sets a Boolean value that specifies whether the user is a site collection administrator. */
+            IsSiteAdmin: boolean;
+            /** Gets the login name of the user. */
+            LoginName: string;
+            /** Gets a value containing the type of the principal. Represents a bitwise SP.PrincipalType value: None = 0; User = 1; DistributionList = 2; SecurityGroup = 4; SharePointGroup = 8; All = 15. */
+            PrincipalType: string;
+            /** Gets or sets a value that specifies the name of the principal. */
             Title: string;
-            /** Gets a value that specifies the implementation-specific version identifier of the file. */
-            UiVersion: number;
-            /** Gets a value that specifies the implementation-specific version identifier of the file. */
-            UiVersionLabel: string;
-            UniqueId: string;
-            WebId: string;
+            /** Gets the information of the user that contains the user's name identifier and the issuer of the user's name identifier. */
+            UserId: string;
     }
     /**
-        * File Query Properties
+        * User Query Properties
         */
-    export interface IFileQueryProps {
+    export interface IUserQueryProps {
             /**
-                * Gets a value that specifies the user who added the file.
+                * Gets the groups of which the user is a member.
                 */
-            Author(): Types.IUser;
+            Groups(): ISiteGroups;
             /**
-                * Gets a value that returns the user who has checked out the file.
+                * Gets the group of which the user is a member.
+                * @param id - The group id.
                 */
-            CheckedOutByUser(): Types.IUser;
-            EffectiveInformationRightsManagementSettings(): IBase;
-            InformationRightsManagementSettings(): IBase;
-            /**
-                * Gets a value that specifies the list item field values for the list item corresponding to the file.
-                */
-            ListItemAllFields(): IBase;
-            /**
-                * Gets a value that returns the user that owns the current lock on the file.
-                */
-            LockedByUser(): Types.IUser;
-            /**
-                * Gets a value that returns the user who last modified the file.
-                */
-            ModifiedBy(): Types.IUser;
-            /**
-                * Property Bag
-                */
-            Properties(): IBase<Types.IPropertyValues>;
-            VersionEvents(): IBase;
-            /**
-                * Gets a value that returns a collection of file version objects that represent the versions of the file.
-                */
-            Versions(): IBase<IFileVersions>;
+            Groups(id: number): IBase<IGroup>;
     }
     /**
-        * File Query Result
+        * User Query Result
         */
-    export interface IFileQueryResult extends IFileMethods, IFileProps {
+    export interface IUserQueryResult extends IUserMethods, IUserProps {
             /**
-                * Gets a value that specifies the user who added the file.
+                * Gets the groups of which the user is a member.
                 */
-            Author: Types.IUserResult;
-            /**
-                * Gets a value that returns the user who has checked out the file.
-                */
-            CheckedOutByUser: Types.IUserResult;
-            EffectiveInformationRightsManagementSettings: IBase;
-            InformationRightsManagementSettings: Types.IInformationRightsManagementSettings;
-            /**
-                * Gets a value that specifies the list item field values for the list item corresponding to the file.
-                */
-            ListItemAllFields: Types.IListItemResult;
-            /**
-                * Gets a value that returns the user that owns the current lock on the file.
-                */
-            LockedByUser: Types.IUserResult;
-            /**
-                * Gets a value that returns the user who last modified the file.
-                */
-            ModifiedBy: Types.IUserResult;
-            /**
-                * Property Bag
-                */
-            Properties: Types.IPropertyValues;
-            VersionEvents: Types.IResults<any>;
-            /**
-                * Gets a value that returns a collection of file version objects that represent the versions of the file.
-                */
-            Versions: Types.IResults<IFileVersionResult>;
+            Groups: ISiteGroupResults;
     }
     /**
-        * File Result
+        * User Result
         */
-    export interface IFileResult extends IFileMethods, IFileProps, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> {
+    export interface IUserResult extends IUserMethods, IUserProps, IUserQueryProps, IBase<IUser, IUserResult, IUserQueryResult> {
     }
     /**
-        * File
+        * User
         */
-    export interface IFile extends IFileMethods, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> {
+    export interface IUser extends IUserMethods, IUserQueryProps, IBase<IUser, IUserResult, IUserQueryResult> {
     }
 }
 
-declare module 'gd-sprest/mapper/file/files' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IFile, IFileQueryResult, IFileResult } from "gd-sprest/mapper/file";
+declare module 'gd-sprest/mapper/types/userCustomAction' {
+    import { IBase } from "gd-sprest/utils/types";
+    import { IBasePermissions, IUserCustomActionMethods } from "gd-sprest/mapper/types";
     /**
-        * Methods
+        * User Custom Action Information
         */
-    export interface IFilesMethods {
-            /**
-                * Adds a file to this collection.
-                * @param overwrite - true to overwrite the file if it already exists; otherwise false.
-                * @param url - The folder-relative URL of the file.
-                * @param content - The contents of the file. The maximum size of a binary file that you can add by using the REST API is 2 GB.
-                */
-            add(overwrite: any, url: any, content: any): IBase<IFile, IFileResult>;
-            /**
-                * Adds a ghosted file to an existing list or document library.
-                * @param urlOfFile - The server-relative URL where you want to save the file.
-                * @param templateFileType - The SP.TemplateFileType to use to create the file.
-                */
-            addTemplateFile(urlOfFile: any, templateFileType: number): IBase<IFile, IFileResult>;
-            /**
-                * Get the file at the specified URL.
-                * @param serverRelativeUrl - The name or server relative url of the file.
-                */
-            getByUrl(serverRelativeUrl: any): IFile & IBase<IFile, IFileResult, IFileQueryResult>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IFiles>;
-    }
-    /**
-        * Files
-        */
-    export interface IFiles extends IFilesMethods, IBaseCollection<IFile, IFileResult, IFileQueryResult> {
-    }
-    /**
-        * File Results
-        */
-    export interface IFileResults extends IFilesMethods, IBaseCollection<IFileResult, IFileResult, IFileQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/file/fileVersion' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from "gd-sprest/mapper/file";
-    /**
-        * File Version Methods
-        */
-    export interface IFileVersionMethods {
-            /**
-                * Deletes the file version.
-                */
-            delete(): any;
-    }
-    /**
-        * File Version Properties
-        */
-    export interface IFileVersionProps {
-            /** Gets a value that specifies the check-in comment. */
-            CheckInComment: string;
-            /** Gets a value that specifies the creation date and time for the file version. */
-            Created: string;
-            /** Gets the internal identifier for the file version. */
-            ID: number;
-            /** Gets a value that specifies whether the file version is the current version. */
-            IsCurrentVersion: string;
-            /**  */
-            Size: number;
-            /** Gets a value that specifies the relative URL of the file version based on the URL for the site or subsite. */
-            Url: string;
-            /** Gets a value that specifies the implementation specific identifier of the file. Uses the majorVersionNumber.minorVersionNumber format, for example: 1.2. */
-            VersionLabel: string;
-    }
-    /**
-        * File Version Query Properties
-        */
-    export interface IFileVersionQueryProps {
-            /**
-                * Gets a value that specifies the user that represents the creator of the file version.
-                */
-            CreatedBy(): Types.IUser;
-    }
-    /**
-        * File Version Query Result
-        */
-    export interface IFileVersionQueryResult extends IFileVersionMethods, IFileVersionProps {
-            /**
-                * A value that specifies the user that represents the creator of the file version.
-                */
-            CreatedBy: Types.IUserResult;
-    }
-    /**
-        * File Version Result
-        */
-    export interface IFileVersionResult extends IFileVersionMethods, IFileVersionProps, IFileVersionQueryProps, IBase<IFileVersion, IFileVersionResult, IFileVersionQueryResult> {
-    }
-    /**
-        * File Version
-        */
-    export interface IFileVersion extends IFileVersionMethods, IFileVersionQueryProps, IBase<IFileVersion, IFileVersionResult, IFileVersionQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/file/fileVersions' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IFileVersion, IFileVersionQueryResult, IFileVersionResult } from "gd-sprest/mapper/file";
-    /**
-        * File Versions
-        */
-    export interface IFileVersions extends IBaseCollection<IFileVersion, IFileVersionResult, IFileVersionQueryResult> {
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IFileVersions>;
-    }
-}
-
-declare module 'gd-sprest/mapper/file/folder' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    import { IFile, IFileResults, IFiles, IFolderResults, IFolders } from "gd-sprest/mapper/file";
-    /**
-        * Folder Methods
-        */
-    export interface IFolderMethods {
-            /**
-                * Deletes the folder.
-                */
-            delete(): IBase;
-            /**
-                * Get the folder at the specified URL.
-                * @param serverRelativeUrl - The server-relative URL of the folder.
-                */
-            getByUrl(serverRelativeUrl: any): IFolder & IBase<IFolder, IFolderResult, IFolderQueryResult>;
-            /**
-                * Moves the list folder to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-                */
-            recycle(): IBase;
-            /**
-                * Updates it's properties.
-                * @param data - The file properties to update.
-                */
-            update(data: any): IBase;
-    }
-    /**
-        * Folder Properties
-        */
-    export interface IFolderProps {
-            /** Specifies the sequence in which content types are displayed. */
-            ContentTypeOrder: Types.IStringValue;
-            /** Gets a value that specifies whether the file exists. */
-            Exists: boolean;
-            /** Gets a value that specifies the count of items in the list folder. */
-            ItemCount: number;
-            /** Indicates whether the folder is enabled for WOPI default action. */
-            IsWOPIEnabled: boolean;
-            /** Gets the name of the folder. */
-            Name: string;
-            ServerRelativePath: Types.IResourcePath;
-            /** Gets the server-relative URL of the list folder. */
-            ServerRelativeUrl: string;
-            TimeCreated: string;
-            TimeLastModified: string;
-            /** Gets or sets a value that specifies the content type order. */
-            UniqueContentTypeOrder: Types.IStringValue;
-            UniqueId: string;
-            /** Gets or sets a value that specifies folder-relative URL for the list folder welcome page. */
-            WelcomePage: string;
-    }
-    /**
-        * Folder Query Properties
-        */
-    export interface IFolderQueryProps {
-            /**
-                * Gets the files contained in the folder.
-                */
-            Files(): IFiles;
-            /**
-                * Gets the file contained in the folder.
-                * @param url - The url of the file within the current folder.
-                */
-            Files(url: string): IFile;
-            /**
-                * Gets the folders contained in the list folder.
-                */
-            Folders(): IFolders;
-            /**
-                * Gets the folder contained in the list folder.
-                * @param url - The url of the sub-folder within the current folder.
-                */
-            Folders(url: string): IFolderMethods;
-            /**
-                * Specifies the list item field (2) values for the list item corresponding to the file.
-                */
-            ListItemAllFields(): IBase<Types.IListItem>;
-            /**
-                * Gets the parent list folder of the folder.
-                */
-            ParentFolder(): IFolderMethods;
-            /**
-                * Property Bag
-                */
-            Properties(): IBase<Types.IPropertyValues>;
-            StorageMetrics(): IBase;
-    }
-    /**
-        * Folder Query Result
-        */
-    export interface IFolderQueryResult extends IFolderMethods, IFolderProps {
-            /**
-                * Gets the files contained in the folder.
-                */
-            Files: IFileResults;
-            /**
-                * Gets the folders contained in the list folder.
-                */
-            Folders: IFolderResults;
-            /**
-                * Specifies the list item field (2) values for the list item corresponding to the file.
-                */
-            ListItemAllFields: Types.IListItemResults;
-            /**
-                * Gets the parent list folder of the folder.
-                */
-            ParentFolder: IFolderResult;
-            /**
-                * Property Bag
-                */
-            Properties: Types.IPropertyValues;
-            StorageMetrics: any;
-    }
-    /**
-        * Folder Result
-        */
-    export interface IFolderResult extends IFolderMethods, IFolderProps, IFolderQueryProps, IFolderQueryProps, IBase<IFolder, IFolderResult, IFolderQueryResult> {
-    }
-    /**
-        * Folder
-        */
-    export interface IFolder extends IFolderMethods, IFolderQueryProps, IBase<IFolder, IFolderResult, IFolderQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/file/folders' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IFolder, IFolderQueryResult, IFolderResult } from "gd-sprest/mapper/file";
-    /**
-        * Methods
-        */
-    export interface IFoldersMethods {
-            /**
-                * Adds the folder that is located at the specified URL to the collection.
-                * @param url - The path where you want to add the folder (including the name of the new folder) as a fully-qualified URL, server-relative URL, or site-relative URL.
-                */
-            add(url: any): IBase<IFolder, IFolderResult>;
-            /**
-                * Get the file at the specified URL.
-                * @param serverRelativeUrl - The server-relative URL of the folder.
-                */
-            getbyurl(serverRelativeUrl: any): IFolder & IBase<IFolder, IFolderResult, IFolderQueryResult>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IFolders, IFolderResults>;
-    }
-    /**
-        * Folders
-        */
-    export interface IFolders extends IFoldersMethods, IBaseCollection<IFolder, IFolderResult, IFolderQueryResult> {
-    }
-    /**
-        * Folder Results
-        */
-    export interface IFolderResults extends IFoldersMethods, IBaseCollection<IFolderResult, IFolderResult, IFolderQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/list/contentType' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    import { IFieldResult, IFields, IFieldLink, IFieldLinks, IListResult } from "gd-sprest/mapper/list";
-    /**
-        * Content Type Creation Information
-        */
-    export interface IContentTypeCreationInformation {
-            /** The content type description. */
+    export interface IUserCustomActionCreationInformation {
+            /** A value that specifies an implementation specific XML fragment that determines user export interface properties of the custom action. */
+            CommandUIExtension?: string;
+            /** The description of the custom action. */
             Description?: string;
-            /** The content type group. */
+            /** A value that specifies an implementation-specific value that determines the position of the custom action in the page. */
             Group?: string;
-            /** The content type id. */
-            Id?: string;
-            /** The content type name. */
+            /** The URL of the image associated with the custom action. */
+            ImageUrl?: string;
+            /** The location of the custom action. */
+            Location?: string;
+            /** The name of the custom action. */
             Name: string;
+            /** The value that specifies the identifier of the object associated with the custom action. */
+            RegistrationId?: string;
+            /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
+            RegistrationType?: number;
+            /** The value that specifies the permissions needed for the custom action. */
+            Rights?: any;
+            /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
+            ScriptBlock?: string;
+            /** A value that specifies the URI of a file which contains the ECMAScript to execute on the page. */
+            ScriptSrc?: string;
+            /** The value that specifies an implementation-specific value that determines the order of the custom action that appears on the page. */
+            Sequence?: number;
+            /** The display title of the custom action. */
+            Title?: string;
+            /** The URL, URI, or ECMAScript (JScript, JavaScript) function associated with the action. */
+            Url?: string;
     }
     /**
-        * Content Type Methods
+        * User Custom Action Methods
         */
-    export interface IContentTypeMethods {
+    export interface IUserCustomActionMethods {
             /**
-                * Deletes the content type.
+                * Deletes the user custom action.
                 */
             delete(): IBase;
-            /**
-                * Updates it's properties.
-                * @param data - The content type properties to update.
-                */
-            update(data: any): IBase;
     }
     /**
-        * Content Type Properties
+        * User Custom Action Properties
         */
-    export interface IContentTypeProps {
-            /** Gets or sets a description of the content type. */
+    export interface IUserCustomActionProps {
+            /** Gets or sets a value that specifies an implementation specific XML fragment that determines user export interface properties of the custom action. */
+            CommandUIExtension: string;
+            /** Gets or sets the description of the custom action. */
             Description: string;
-            /** Gets or sets a value that specifies the name of a custom display form template to use for list items that have been assigned the content type. */
-            DisplayFormTemplateName: string;
-            /** Gets or sets a value that specifies the URL of a custom display form to use for list items that have been assigned the content type. */
-            DisplayFormUrl: string;
-            /** Gets or sets a value that specifies the file path to the document template used for a new list item that has been assigned the content type. */
-            DocumentTemplate: string;
-            /** Gets a value that specifies the URL of the document template assigned to the content type. */
-            DocumentTemplateUrl: string;
-            /** Gets or sets a value that specifies the name of a custom edit form template to use for list items that have been assigned the content type. */
-            EditFormTemplateName: string;
-            /** Gets or sets a value that specifies the URL of a custom edit form to use for list items that have been assigned the content type. */
-            EditFormUrl: string;
-            /** Gets or sets a value that specifies the content type group for the content type. */
+            /** Gets or sets a value that specifies an implementation-specific value that determines the position of the custom action in the page. */
             Group: string;
-            /** Gets or sets a value that specifies whether the content type is unavailable for creation or usage directly from a user export interface. */
-            Hidden: boolean;
-            /** Gets a value that specifies an identifier for the content type. */
-            Id: Types.IStringValue;
-            /** Gets or sets the JSLink for the content type custom form template. The JSLink property is not supported on Survey or Events lists. A SharePoint calendar is an Events list. */
-            JSlink: string;
-            MobileDisplayFormUrl: string;
-            MobileEditFormUrl: string;
-            MobileNewFormUrl: string;
-            /** Gets or sets a value that specifies the name of the content type. */
-            Name: string;
-            /** Gets or sets a value that specifies the name of the content type. */
-            NewFormTemplateName: string;
-            /** Gets or sets a value that specifies the name of the content type. */
-            NewFormUrl: string;
-            /** Gets or sets a value that specifies whether changes to the content type properties are denied. */
-            Readonly: boolean;
-            /** Gets a value that specifies the XML Schema representing the content type. */
-            SchemaXml: string;
-            /** Gets a non-localized version of the XML schema that defines the content type. */
-            SchemaXmlWithResourceTokens: string;
-            /** Gets a value that specifies a server-relative path to the content type scope of the content type. */
-            Scope: string;
-            /** Gets or sets whether the content type can be modified. */
-            Sealed: boolean;
-            /** A string representation of the value of the Id. */
-            StringId: string;
-    }
-    /**
-        * Content Type Query Properties
-        */
-    export interface IContentTypeQueryProps {
-            DescriptionResource(): IBase;
-            /**
-                * Gets the column (also known as field) references in the content type.
-                */
-            FieldLinks(): IFieldLinks;
-            /**
-                * Gets the column (also known as field) reference in the content type.
-                * @param guid - The guid of the field link.
-                */
-            FieldLinks(guid: string): IBase<IFieldLink>;
-            /**
-                * Gets the fields for the content type.
-                */
-            Fields(): IFields;
-            /**
-                * Gets the field for the content type.
-                * @param internalNameOrTitle - The internal name or title of the field.
-                */
-            Fields(internalNameOrTitle: string): IFields;
-            NameResource(): IBase;
-            /** Gets the parent content type of the content type. */
-            Parent(): IContentTypeMethods;
-            /**
-                * Gets a value that specifies the collection of workflow associations for the content type.
-                */
-            WorkflowAssociations(): IBase;
-    }
-    /**
-        * Content Type Query Result
-        */
-    export interface IContentTypeQueryResult extends IContentTypeMethods, IContentTypeProps {
-            DescriptionResource: Types.IResourcePath;
-            /**
-                * Gets the column (also known as field) references in the content type.
-                */
-            FieldLinks: Types.IResults<IFieldLink>;
-            /**
-                * Gets the fields for the content type.
-                */
-            Fields: Types.IResults<IFieldResult>;
-            NameResource: Types.IResourcePath;
-            /** Gets the parent content type of the content type. */
-            Parent: IListResult | Types.IWebResult;
-            /**
-                * Gets a value that specifies the collection of workflow associations for the content type.
-                */
-            WorkflowAssociations: Types.IResults<any>;
-    }
-    /**
-        * Content Type Result
-        */
-    export interface IContentTypeResult extends IContentTypeMethods, IContentTypeProps, IContentTypeQueryProps, IBase<IContentType, IContentTypeResult, IContentTypeQueryResult> {
-    }
-    /**
-        * Content Type
-        */
-    export interface IContentType extends IContentTypeMethods, IContentTypeQueryProps, IBase<IContentType, IContentTypeResult, IContentTypeQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/list/contentTypes' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IContentType, IContentTypeCreationInformation, IContentTypeQueryResult, IContentTypeResult } from "gd-sprest/mapper/list";
-    /**
-        * Methods
-        */
-    export interface IContentTypesMethods {
-            /**
-                * Adds a content type to the collection.
-                * @param parameters - The content type creation information.
-                */
-            add(parameters: IContentTypeCreationInformation): IBase<IContentType, IContentTypeResult>;
-            /**
-                * Adds an existing content type to this collection.
-                * @param contentTypeId - The content type id to add.
-                */
-            addAvailableContentType(contentTypeId: any): IBase<IContentType, IContentTypeResult>;
-            /**
-                * Gets a content type by id.
-                * @param id - The content type id.
-                */
-            getById(id: any): IContentType & IBase<IContentType, IContentTypeResult, IContentTypeQueryResult>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IContentTypes, IContentTypeResults>;
-    }
-    /**
-        * Content Types
-        */
-    export interface IContentTypes extends IContentTypesMethods, IBaseCollection<IContentType, IContentTypeResult, IContentTypeQueryResult> {
-    }
-    /**
-        * Content Type Results
-        */
-    export interface IContentTypeResults extends IContentTypesMethods, IBaseCollection<IContentTypeResult, IContentTypeResult, IContentTypeQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/list/field' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    /**
-        * Field Creation Information
-        */
-    export interface IFieldCreationInformation {
-            /** The choices. */
-            Choices?: {
-                    results: Array<string>;
-            };
-            /** The field type. */
-            FieldTypeKind: number;
-            /** Indicates whether only the first eight characters are used for the field name. */
-            IsCompactName?: boolean;
-            /** The name of the source lookup field. */
-            LookupFieldName?: string;
-            /** The ID of the target list for the source lookup field. */
-            LookupListId?: any;
-            /** The ID of the site that contains the list that is the source for the lookup field value. */
-            LookupWebId?: any;
-            /** A value that specifies whether the field requires a value. */
-            Required?: boolean;
-            /** A value that specifies the display name of the field. */
-            Title: string;
-    }
-    /**
-        * Field Methods
-        */
-    export interface IFieldMethods {
-            /**
-                * Deletes the field.
-                */
-            delete(): IBase;
-            /**
-                * Sets the value of the ShowInDisplayForm property for this field.
-                * @param showInForm - Flag to show the field in the display form.
-                */
-            setShowInDisplayForm(showInForm: any): IBase;
-            /**
-                * Sets the value of the ShowInEditForm property for this field.
-                * @param showInForm - Flag to show the field in the display form.
-                */
-            setShowInEditForm(showInForm: any): IBase;
-            /**
-                * Sets the value of the ShowInNewForm property for this field.
-                * @param showInForm - Flag to show the field in the display form.
-                */
-            setShowInNewForm(showInForm: any): IBase;
-            /**
-                * Updates it's properties.
-                * @param data - The field properties to update.
-                */
-            update(data: any): IBase;
-    }
-    /**
-        * Field Properties
-        */
-    export interface IFieldProps {
-            AutoIndexed: boolean;
-            /** Gets a value that specifies whether the field can be deleted. */
-            CanBeDeleted: boolean;
-            /** Gets or sets a value that specifies the default value for the field. */
-            DefaultValue: string;
-            /** Gets or sets a value that specifies the description of the field. */
-            Description: string;
-            /** Gets or sets a value that specifies the reading order of the field. */
-            Direction: string;
-            /** Gets or sets a value that specifies whether to require unique field values in a list or library column. */
-            EnforceUniqueValues: boolean;
-            /** Gets the name of the entity property for the list item entity that uses this field. */
-            EntityPropertyName: string;
-            /** Gets or sets a value that specifies the type of the field. Represents a FieldType value. See FieldType in the .NET client object model reference for a list of field type values. */
-            FieldTypeKind: number;
-            /** Gets a value that specifies whether list items in the list can be filtered by the field value. */
-            Filterable: boolean;
-            /** Gets a Boolean value that indicates whether the field derives from a base field type. */
-            FromBaseType: boolean;
-            /** Gets or sets a value that specifies the field group. */
-            Group: string;
-            /** Gets or sets a value that specifies whether the field is hidden in list views and list forms. */
-            Hidden: boolean;
-            /** Gets a value that specifies the field identifier. */
+            /** Gets a value that specifies the identifier of the custom action. */
             Id: string;
-            /** Gets or sets a Boolean value that specifies whether the field is indexed. */
-            Indexed: boolean;
-            /** Gets a value that specifies the field internal name. */
-            InternalName: string;
-            /** Gets or sets the name of an external JS file containing any client rendering logic for fields of this type. */
-            JSLink: string;
-            /** Gets or sets a value that specifies whether the value of the field is read-only. */
-            ReadOnlyField: boolean;
-            /** Gets or sets a value that specifies whether the field requires a value. */
-            Required: boolean;
-            /** Gets or sets a value that specifies the XML schema that defines the field. */
-            SchemaXml: string;
-            /** Gets a value that specifies the server-relative URL of the list or the site to which the field belongs. */
-            Scope: string;
-            /** Gets a value that specifies whether properties on the field cannot be changed and whether the field cannot be deleted. */
-            Sealed: boolean;
-            /** Gets a value that specifies whether list items in the list can be sorted by the field value. */
-            Sortable: boolean;
-            /** Gets or sets a value that specifies a customizable identifier of the field. */
-            StaticName: string;
-            /** Gets or sets value that specifies the display name of the field. */
-            Title: string;
-            /** Gets or sets a value that specifies the type of the field. */
-            TypeAsString: string;
-            /** Gets a value that specifies the display name for the type of the field. */
-            TypeDisplayName: string;
-            /** Gets a value that specifies the description for the type of the field. */
-            TypeShortDescription: string;
-            /** Gets or sets a value that specifies the data validation criteria for the value of the field. */
-            ValidationFormula: string;
-            /** Gets or sets a value that specifies the error message returned when data validation fails for the field. */
-            ValidationMessage: string;
-    }
-    /**
-        * Field Query Properties
-        */
-    export interface IFieldQueryProps {
-            DescriptionResource(): IBase<Types.IResourcePath>;
-            TitleResource(): IBase<Types.IResourcePath>;
-    }
-    /**
-        * Field Query Result
-        */
-    export interface IFieldQueryResult extends IFieldMethods, IFieldProps {
-            DescriptionResource: Types.IResourcePath;
-            TitleResource: Types.IResourcePath;
-    }
-    /**
-        * Field Result
-        */
-    export interface IFieldResult extends IFieldMethods, IFieldProps, IFieldQueryProps, IBase<IField, IFieldResult, IFieldQueryResult> {
-    }
-    /**
-        * Field
-        */
-    export interface IField extends IFieldMethods, IFieldQueryProps, IBase<IField, IFieldResult, IFieldQueryResult> {
-    }
-    /**
-        * Base Choice Field
-        */
-    export interface IFieldBaseChoice extends IFieldResult {
-            /** A value that specifies values that are available for selection in the field. */
-            Choices: {
-                    results: Array<string>;
-            };
-            /** A value that specifies whether the field can accept values other than those specified by the Choices property. */
-            FillInChoice: boolean;
-            /** A value that specifies the internal values corresponding to Choices. */
-            Mappings: string;
-    }
-    /**
-        * Calculated Field
-        */
-    export interface IFieldCalculated extends IFieldResult {
-            /** The date and time format that is displayed in the field. */
-            DateFormat: number;
-            /** A value that specifies the formula for the field. */
-            Formula: string;
-            /** A value that specifies the output format for the field. */
-            OutputType: number;
-    }
-    /**
-        * Choice Field
-        */
-    export interface IFieldChoice extends IFieldBaseChoice {
-            /** Determines whether to display the choice field as option buttons (also known as "radio buttons") or as a drop-down list. */
-            EditFormat: number;
-    }
-    /**
-        * Computed Field
-        */
-    export interface IFieldComputed extends IFieldResult {
-            /** A value that specifies whether a lookup field can reference the field. */
-            EnableLookup: boolean;
-    }
-    /**
-        * Currency Field
-        */
-    export interface IFieldCurrency extends IFieldNumber {
-            /** A value that specifies the language code identifier (LCID) used to format the value of the field. */
-            CurrencyLocaleId: number;
-    }
-    /**
-        * Date/Time Field
-        */
-    export interface IFieldDateTime extends IFieldResult {
-            /** A value that specifies the calendar type of the field. */
-            DateTimeCalendarType: number;
-            /** The format of the date and time that is displayed in the field. */
-            DisplayFormat: number;
-            /** Represents a date and time friendly format. */
-            FriendlyDisplayFormat: number;
-    }
-    /**
-        * Lookup Field
-        */
-    export interface IFieldLookup extends IFieldResult {
-            /** A value that specifies whether the lookup field allows multiple values. You cannot set a deletion constraint on a lookup field that allows multiple values. */
-            AllowMultipleValues: boolean;
-            /** Flag to determine if this is a dependent lookup field. */
-            IsDependentLookup: boolean;
-            /** A value that specifies whether this lookup field is returned by SP.List.getRelatedFields from the list being looked up to. Always returns false if the field represents a secondary column in a multiple-column lookup. Secondary columns are not discoverable from the source list. */
-            IsRelationship: boolean;
-            /** A value that specifies the internal field name of the field used as the lookup values. */
-            LookupField: string;
-            /** A value that specifies the list identifier of the list that contains the field to use as the lookup values. */
-            LookupList: string;
-            /** The ID of the Web site that contains the list that is the source of this field's value. */
-            LookupWebId: string;
-            /** A value that specifies the primary lookup field identifier if this is a dependent lookup field. Otherwise, it is an empty string. */
-            PrimaryFieldId: string;
-            /** A value that specifies the delete behavior of the lookup field. */
-            RelationshipDeleteBehavior: number;
-    }
-    /**
-        * Managed Metadata Field
-        */
-    export interface IFieldManagedMetadata extends IFieldLookup {
-            /** The root term */
-            AnchorId: string;
-            /** Flag to determine if the anchor is valid. */
-            IsAnchorValid: boolean;
-            /** Flag to determine if this is a keyword. */
-            IsKeyword: boolean;
-            /** Flag to determine if the path is rendered. */
-            IsPathRendered: boolean;
-            /** Flag to determine if the term set is valid. */
-            IsTermSetValid: boolean;
-            /** A valid that specifies if the term is pinned to filters pane. */
-            PinnedToFiltersPane: boolean;
-            /** A value that specifies if the term is shown in the filters pane. */
-            ShowInFiltersPane: number;
-            /** The term store id. */
-            SspId: string;
-            /** The term set id. */
-            TermSetId: string;
-            /** Flag to determine if the field was created by the user. */
-            UserCreated: boolean;
-    }
-    /**
-        * Multi-Choice Field
-        */
-    export interface IFieldMultiChoice extends IFieldBaseChoice {
-    }
-    /**
-        * Note Field
-        */
-    export interface IFieldNote extends IFieldResult {
-            /** A value that specifies whether a hyperlink is allowed as a value of the field. */
-            AllowHyperlink: boolean;
-            /** A value that specifies whether all changes to the value of the field are displayed in list forms. */
-            AppendOnly: boolean;
-            /** A value that specifies the number of lines of text to display for the field. */
-            NumberOfLines: number;
-            /** A value that specifies whether the field supports a subset of rich formatting. */
-            RestrictedMode: boolean;
-            /** A value that specifies whether the field supports rich formatting. */
-            RichText: boolean;
-            /** A value that specifies whether an implementation specific mechanism for linking wiki pages is supported. */
-            WikiLinking: boolean;
-    }
-    /**
-        * Number Field
-        */
-    export interface IFieldNumber extends IFieldResult {
-            /** A value that specifies the minimum allowed value for the field. */
-            MaximumValue: number;
-            /** A value that specifies the minimum allowed value for the field. */
-            MinimumValue: number;
-            /** Flag to determine if the number is displayed as a percentage. */
-            ShowAsPercentage?: boolean;
-    }
-    /**
-        * Rating Scale Field
-        */
-    export interface IFieldRatingScale extends IFieldBaseChoice {
-            /** A value that specifies the end number for the rating scale. */
-            GridEndNumber: number;
-            /** A value that specifies the display text corresponding to the choice in the rating scale that indicates the non-applicable option. */
-            GridNAOptionText: string;
-            /** A value that specifies the start number for the rating scale. */
-            GridStartNumber: number;
-            /** A value that specifies the display text corresponding to the average of the rating scale. */
-            GridTextRangeAverage: string;
-            /** A value that specifies the display text corresponding to the maximum of the rating scale. */
-            GridTextRangeHigh: string;
-            /** A value that specifies the display text corresponding to the minimum of the rating scale. */
-            GridTextRangeLow: string;
-            /** A value that specifies the number of options in the rating scale. */
-            RangeCount: number;
-    }
-    /**
-        * Text Field
-        */
-    export interface IFieldText extends IFieldResult {
-            /** A value that specifies the maximum number of characters allowed in the value of the field. */
-            MaxLength: number;
-    }
-    /**
-        * URL Field
-        */
-    export interface IFieldUrl extends IFieldResult {
-            /** A value that specifies the display format for the value in the field. */
-            DisplayFormat: number;
-    }
-    /**
-        * User Field
-        */
-    export interface IFieldUser extends IFieldLookup {
-            /** A value that specifies whether to display the name of the user in a survey list. */
-            AllowDisplay: boolean;
-            /** A value that specifies whether presence is enabled on the field. */
-            Presence: boolean;
-            /** A value that specifies the identifier of the SharePoint group whose members can be selected as values of the field. */
-            SelectionGroup: number;
-            /** A value that specifies whether users and groups or only users can be selected. */
-            SelectionMode: number;
-    }
-}
-
-declare module 'gd-sprest/mapper/list/fieldLink' {
-    /**
-      * Field Link
-      */
-    export interface IFieldLink {
-        DisplayName: string;
-        FieldInternalName: string;
-        Hidden: boolean;
-        Id: string;
-        Name: string;
-        ReadOnly: boolean;
-        Required: boolean;
-        ShowInDisplayForm: boolean;
-    }
-}
-
-declare module 'gd-sprest/mapper/list/fieldLinks' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IFieldLink } from "gd-sprest/mapper/list";
-    /**
-        * Field Links
-        */
-    export interface IFieldLinks extends IBaseCollection<IFieldLink, IFieldLink, IFieldLink> {
-            /**
-                * Adds a content type to the collection.
-                * @param data - The field link properties.
-                */
-            add(data: any): IBase<IFieldLink>;
-            /**
-                * Gets the field link by its id.
-                * @param id - The id of the field.
-                */
-            getById(id: any): IFieldLink & IBase<IFieldLink>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IFieldLinks>;
-    }
-}
-
-declare module 'gd-sprest/mapper/list/fields' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IField, IFieldCreationInformation, IFieldQueryResult, IFieldResult } from "gd-sprest/mapper/list";
-    /**
-        * Methods
-        */
-    export interface IFieldsMethods {
-            /**
-                * Adds a field to the field collection.
-                * @param parameters - The field properties.
-                */
-            add(parameters: IField): IBase<IField, IFieldResult>;
-            /**
-                * Adds a field to the field collection.
-                * @param parameters - The field creation information.
-                */
-            addField(parameters: IFieldCreationInformation): IBase<IField, IFieldResult>;
-            /**
-                * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
-                * @param displayName - The title of the new field.
-                * @param primaryLookupField - The ID of the lookup field to associate this dependent lookup field with.
-                * @param showField - The name of the field from the target list to include data from.
-                */
-            addDependentLookupField(displayName: any, primaryLookupField: any, showField: any): IBase<IField, IFieldResult>;
-            /**
-                * Creates a field based on the specified schema, Boolean value, and field options.
-                * Set the option to addFieldInternalNameHint - 8 to ensure the internal name in the schema xml is not altered.
-                * @param schemaXml - The schema XML definition of the field.
-                */
-            createFieldAsXml(schemaXml: any): IBase<IField, IFieldResult>;
-            /**
-                * Gets the field with the specified ID.
-                * @param id - The field id.
-                */
-            getById(id: any): IField & IBase<IField, IFieldResult, IFieldQueryResult>;
-            /**
-                * Returns the first Field object with the specified internal name or title from the collection.
-                * @param internalNameOrTitle - The internal name or title of the field.
-                */
-            getByInternalNameOrTitle(internalNameOrTitle: any): IField & IBase<IField, IFieldResult, IFieldQueryResult>;
-            /**
-                * Returns the first field object in the collection based on the title of the specified field.
-                * @param title - The title of the field.
-                */
-            getByTitle(title: any): IField & IBase<IField, IFieldResult, IFieldQueryResult>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IFields, IFieldResults>;
-    }
-    /**
-        * Fields
-        */
-    export interface IFields extends IFieldsMethods, IBaseCollection<IField, IFieldResult, IFieldQueryResult> {
-    }
-    /**
-        * Field Results
-        */
-    export interface IFieldResults extends IFieldsMethods, IBaseCollection<IFieldResult, IFieldResult, IFieldQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/list/items' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IListItem, IListItemQueryResult, IListItemResult } from "gd-sprest/mapper/list";
-    /**
-        * Methods
-        */
-    export interface IListItemsMethods {
-            /**
-                * Adds an item to the list item collection.
-                * @param data - The item properties.
-                */
-            add(data: any): IBase<IListItem, IListItemResult>;
-            /**
-                * Gets an item by the specified id.
-                * @param id - The item id.
-                */
-            getById(id: any): IListItem & IBase<IListItem, IListItemResult, IListItemQueryResult>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IListItems, IListItemResults>;
-    }
-    /**
-        * List Items
-        */
-    export interface IListItems extends IListItemsMethods, IBaseCollection<IListItem, IListItemResult, IListItemQueryResult> {
-    }
-    /**
-        * List Item Results
-        */
-    export interface IListItemResults extends IListItemsMethods, IBaseCollection<IListItemResult, IListItemResult, IListItemQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/list/list' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from "gd-sprest/mapper/list";
-    /**
-        * List Creation Information
-        */
-    export interface IListCreationInformation {
-            /** The list template type. */
-            BaseTemplate: number;
-            /** The list schema xml. */
-            CustomSchemaXml?: string;
-            /** The list of data source properties. */
-            DataSourceProperties?: Array<string>;
-            /** The list description. */
-            Description?: string;
-            /** The list document template type. */
-            DocumentTemplateType?: number;
-            /** Option to display the list on the quick launch. */
-            QuickLaunchOption?: number;
-            /** The list template feature id. */
-            TemplateFeatureId?: string;
-            /** The list name. */
-            Title: string;
-    }
-    /**
-        * List Data Source
-        */
-    export interface IListDataSource {
-            Properties: Array<string>;
-    }
-    /**
-        * List Template
-        */
-    export interface IListTemplate {
-            AllowsFolderCreation: boolean;
-            Description: string;
-            FeatureId: string;
-            Hidden: boolean;
+            /** Gets or sets the URL of the image associated with the custom action. */
             ImageUrl: string;
-            InternalName: string;
-            IsCustomTemplate: boolean;
-            ListTemplateTypeKind: number;
+            /** Gets or sets the location of the custom action. */
+            Location: string;
+            /** Gets or sets the name of the custom action. */
             Name: string;
-            OnQuickLaunch: boolean;
-            Unique: boolean;
-    }
-    /**
-        * List Methods
-        */
-    export interface IListMethods {
-            /**
-                * Creates unique role assignments for the securable object.
-                * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
-                * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
-                */
-            breakRoleInheritance(copyRoleAssignments: any, clearSubScopes: any): any;
-            /**
-                * Deletes the list.
-                */
-            delete(): IBase;
-            /**
-                * A static method to get the list by the entity name.
-                * @param entityTypeName - The entity type name of the list.
-                * @param callback - The method to be executed after the request completes.
-                */
-            getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?: any): IBase<IList, IListResult, IListQueryResult>;
-            /**
-                * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
-                * @param query - The change query.
-                */
-            getChanges(query: any): IBase;
-            /**
-                * Returns the list item with the specified list item identifier.
-                * @param id - The list item id.
-                */
-            getItemById(id: any): IListItem & IBase<IListItem, IListItemResult, IListItemQueryResult>;
-            /**
-                * Returns a collection of items from the list based on the view xml.
-                * @param viewXml - The view xml CAML query.
-                */
-            getItems(viewXml: any): IBase<IListItems, IListItemResults>;
-            /**
-                * Returns a collection of items from the list based on the specified query.
-                * @camlQuery - The caml query.
-                */
-            getItemsByQuery(camlQuery: any): IBase<IListItems, IListItemResults>;
-            /**
-                * Returns a collection of items from the list based on the specified query.
-                * @query - The query that contains the change token.
-                */
-            getListItemChangesSinceToken(query: Types.ComplexTypes.ChangeLogItemQuery): IBase<IListItems, IListItemResults>;
-            /**
-                * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
-                */
-            getRelatedFields(): IBase;
-            /**
-                * Gets the effective user permissions for the current user.
-                * @param loginName - The user login name.
-                */
-            getUserEffectivePermissions(loginName: any): IBase;
-            /**
-                * Returns the list view with the specified view identifier.
-                * @param viewId - The view id.
-                */
-            getViewById(viewId: any): IView & IBase<IView, IViewResult, IViewQueryResult>;
-            /**
-                * Moves the list to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-                */
-            recycle(): IBase;
-            /**
-                * Renders the list data.
-                * @param viewXml - A CAML query that defines the items and fields that you want returned.
-                */
-            renderListData(viewXml: any): IBase;
-            /**
-                * Renders the list form data.
-                * @param itemId - The item id.
-                * @param formId - The identifier of the form.
-                * @param mode - The SP.ControlMode of the control used to display the item.
-                */
-            renderListFormData(itemId: any, formId: any, mode: number): IBase;
-            /**
-                * Reserves a list item ID for idempotent list item creation.
-                */
-            reserveListItemId(): IBase;
-            /**
-                * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
-                */
-            resetRoleInheritance(): IBase;
-            /**
-                * Updates it's properties.
-                * @param data - The list properties to update.
-                */
-            update(data: any): IBase;
-    }
-    /**
-        * List Properties
-        */
-    export interface IListProps {
-            /** Gets a value that specifies whether the list supports content types. */
-            AllowContentTypes: boolean;
-            AllowDeletion: boolean;
-            /** Gets the list definition type on which the list is based. Represents a ListTemplateType value. See ListTemplateType in the .NET client object model reference for template type values. */
-            BaseTemplate: number;
-            /** Gets the base type for the list. Represents an SP.BaseType value: Generic List = 0; Document Library = 1; Discussion Board = 3; Survey = 4; Issue = 5. */
-            BaseType: number;
-            /**
-                * Gets a value that specifies the override of the web application's BrowserFileHandling property at the list level. Represents an SP.BrowserFileHandling value: Permissive = 0; Strict = 1.
-                */
-            BrowserFileHandling: number;
-            /** Gets or sets a value that specifies whether content types are enabled for the list. */
-            ContentTypesEnabled: boolean;
-            /** Gets a value that specifies when the list was created. */
-            Created: string;
-            CurrentChangeToken: Types.IStringValue;
-            /** Gets a value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
-            DefaultContentApprovalWorkflowId: string;
-            /** Gets or sets a value that specifies the description of the list. */
-            Description: string;
-            /** Gets or sets a value that specifies the reading order of the list. Returns ""NONE"", ""LTR"", or ""RTL"". */
-            Direction: string;
-            /** Gets or sets a value that specifies the server-relative URL of the document template for the list. Returns a server-relative URL if the base type is DocumentLibrary, otherwise returns null. */
-            DocumentTemplateUrl: string;
-            /** Gets or sets a value that specifies the minimum permission required to view minor versions and drafts within the list. Represents an SP.DraftVisibilityType value: Reader = 0; Author = 1; Approver = 2. */
-            DraftVersionVisibility: number;
-            EnableAssignToEmail: boolean;
-            /** Gets or sets a value that specifies whether list item attachments are enabled for the list. */
-            EnableAttachments: boolean;
-            /** Gets or sets a value that specifies whether new list folders can be added to the list. */
-            EnableFolderCreation: boolean;
-            /** Gets or sets a value that specifies whether minor versions are enabled for the list. */
-            EnableMinorVersions: boolean;
-            /** Gets or sets a value that specifies whether content approval is enabled for the list. */
-            EnableModeration: boolean;
-            /** Gets or sets a value that specifies whether historical versions of list items and documents can be created in the list. */
-            EnableVersioning: boolean;
-            /**  */
-            EntityTypeName: string;
-            ExcludeFromOfflineClient: boolean;
-            FileSavePostProcessingEnabled: boolean;
-            /** Gets or sets a value that indicates whether forced checkout is enabled for the document library. */
-            ForceCheckout: boolean;
-            /** Gets a value that specifies whether the list is an external list. */
-            HasExternalDataSource: boolean;
-            /** Gets or sets a Boolean value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
-            Hidden: boolean;
-            /** Gets the GUID that identifies the list in the database. */
-            Id: string;
-            /** Gets a value that specifies the URI for the icon of the list. */
-            ImageUrl: string;
-            /**  */
-            IrmEnabled: boolean;
-            /**  */
-            IrmExpire: boolean;
-            /**  */
-            IrmReject: boolean;
-            /** Gets or sets a value that specifies a flag that a client application can use to determine whether to display the list. */
-            IsApplicationList: boolean;
-            /** Gets a value that specifies whether the list is a gallery. */
-            IsCatalog: boolean;
-            /**  */
-            IsPrivate: boolean;
-            /** Gets a value that specifies the number of list items in the list. */
-            ItemCount: number;
-            /** Gets a value that specifies the last time a list item was deleted from the list. */
-            LastItemDeletedDate: string;
-            /** Gets a value that specifies the last time a list item, field, or property of the list was modified. */
-            LastItemModifiedDate: string;
-            ListExperienceOptions: number;
-            /**  */
-            ListItemEntityTypeFullName: string;
-            MajorVersionLimit: number;
-            MajorWithMinorVersionsLimit: number;
-            /** Gets or sets a value that indicates whether the list in a Meeting Workspace site contains data for multiple meeting instances within the site. */
-            MultipleDataList: boolean;
-            /** Gets or sets a value that specifies that the crawler must not crawl the list. */
-            NoCrawl: boolean;
-            /** Gets a value that specifies the server-relative URL of the site that contains the list. */
-            ParentWebUrl: string;
-            ParserDisabled: boolean;
-            ReadSecurity: number;
-            /** Gets a value that indicates whether folders can be created within the list. */
-            ServerTemplateCanCreateFolders: boolean;
-            /** Gets a value that specifies the feature identifier of the feature that contains the list schema for the list. Returns an empty GUID if the list schema is not contained within a feature. */
-            TemplateFeatureId: string;
-            /** Gets or sets the displayed title for the list. Its length must be <= 255 characters. */
+            /** Gets or sets the value that specifies the identifier of the object associated with the custom action. */
+            RegistrationId: string;
+            /** Gets or sets the value that specifies the type of object associated with the custom action. */
+            RegistrationType: number;
+            /** Gets or sets the value that specifies the permissions needed for the custom action. */
+            Rights: IBasePermissions;
+            /** Gets a value that specifies the scope of the custom action. */
+            Scope: number;
+            /** Gets or sets the value that specifies the ECMAScript to be executed when the custom action is performed. */
+            ScriptBlock: string;
+            /** Gets or sets a value that specifies the URI of a file which contains the ECMAScript to execute on the page. */
+            ScriptSrc: string;
+            /** Gets or sets the value that specifies an implementation-specific value that determines the order of the custom action that appears on the page. */
+            Sequence: number;
+            /** Gets or sets the display title of the custom action. */
             Title: string;
+            /** Gets or sets the URL, URI, or ECMAScript (JScript, JavaScript) function associated with the action. */
+            Url: string;
+            /** Gets a value that specifies an implementation specific version identifier. */
+            VersionOfUserCustomAction: string;
     }
     /**
-        * List Query Properties
+        * User Custom Action Query Properties
         */
-    export interface IListQueryProps {
-            /**
-                * Gets the content types that are associated with the list.
-                */
-            ContentTypes(): IContentTypes;
-            /**
-                * Gets the content types that are associated with the list.
-                * @param id - The id of the content type.
-                */
-            ContentTypes(id: string): IContentType;
-            /**
-                * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
-                */
-            DataSource(): IBase<Array<string>>;
-            /**
-                * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
-                */
-            DefaultDisplayFormUrl(): IBase<string>;
-            /**
-                * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-                */
-            DefaultEditFormUrl(): IBase<string>;
-            /**
-                * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-                */
-            DefaultNewFormUrl(): IBase<string>;
-            /**
-                * Gets the default list view.
-             */
-            DefaultView(): IView;
-            DescriptionResouce(): IBase<Types.IResourcePath>;
-            /**
-                * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
-                */
-            EffectiveBasePermissions(): IBase<Types.IBasePermissions>;
-            /**
-                * Gets a value that specifies the effective permissions on the list that are for the user export interface.
-             */
-            EffectiveBasePermissionsForUI(): IBase<Types.IBasePermissions>;
-            /**
-                * Gets the event receivers associated with the list.
-             */
-            EventReceivers(): Types.IEventReceivers;
-            /**
-                * Gets the event receiver associated with the list.
-                * @param id - The id of the event receiver.
-             */
-            EventReceivers(id: string): Types.IEventReceiver;
-            /**
-                * Gets the fields in the list.
-                */
-            Fields(): Types.IFields;
-            /**
-                * Gets the field in the list.
-                * @param internalNameOrTitle - The internal name or title of the field.
-                */
-            Fields(internalNameOrTitle: string): Types.IField;
-            /**
-                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-                */
-            FirstUniqueAncestorSecurableObject(): IBase<string>;
-            /**
-                * Gets the list forms in the list.
-                */
-            Forms(): IBase;
-            /**
-                * Gets the list form in the list.
-                * @param id - The id of the form.
-                */
-            Forms(id: string): IBase;
-            /**
-                * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
-                */
-            HasUniqueRoleAssignments(): IBase;
-            /**
-                * Gets a value that specifies the information rights management settings.
-             */
-            InformationRightsManagementSettings(): IBase;
-            /**
-                * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
-                */
-            IsSiteAssetsLibrary(): IBase<boolean>;
-            /**
-                * Gets the list items in the list.
-                */
-            Items(): IListItems;
-            /**
-                * Gets the list item in the list.
-                * @param id - The id of the list item.
-                */
-            Items(id: number): IListItem;
-            /**
-                * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
-                */
-            OnQuickLaunch(): IBase<boolean>;
-            /**
-                * Gets a value that specifies the site that contains the list.
-                */
-            ParentWeb(): Types.IWeb;
-            /**
-                * Gets the role assignments for the securable object.
-                */
-            RoleAssignments(): Types.IRoleAssignments;
-            /**
-                * Gets the role assignments for the securable object.
-                * @param id - The role assignment id.
-                */
-            RoleAssignments(id: string): Types.IRoleAssignment;
-            /**
-                * Gets the root folder of the list.
-                */
-            RootFolder(): Types.IFolder;
-            /**
-                * Gets the file in the root folder of the list.
-                * @param url - The url of the file within the root folder.
-                */
-            RootFolder(url: string): Types.IFile;
-            /**
-                * Gets a value that specifies the list schema of the list.
-                */
-            SchemaXml(): IBase<string>;
-            Subscriptions(): IBase<IBase>;
-            TitleResource(): IBase<Types.IResourcePath>;
-            /**
-                * Gets the user custom actions for the list.
-                */
-            UserCustomActions(): Types.IUserCustomActions;
-            /**
-                * Gets the user custom action(s) for the list.
-                * @param id - The id of the user custom action.
-                */
-            UserCustomActions(id: string): Types.IUserCustomAction;
-            /**
-                * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
-                */
-            ValidationFormula(): IBase<string>;
-            /**
-                * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
-                */
-            ValidationMessage(): IBase<string>;
-            /**
-                * Gets the views in the list.
-                */
-            Views(): IViews;
-            /**
-                * Gets the view in the list.
-                * @param id - The id of the view.
-                */
-            Views(id: string): IView;
-            /**
-                * Gets a value that specifies the collection of all workflow associations for the list.
-                */
-            WorkflowAssociations(): IBase<string>;
-            WriteSecurity(): IBase<number>;
+    export interface IUserCustomActionQueryProps {
     }
     /**
-        * List Query Result
+        * User Custom Action Query Result
         */
-    export interface IListQueryResult extends IListMethods, IListProps {
-            /**
-                * Gets the content types that are associated with the list.
-                */
-            ContentTypes: IContentTypeResults;
-            /**
-                * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
-                */
-            DataSource: IListDataSource;
-            /**
-                * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
-                */
-            DefaultDisplayFormUrl: string;
-            /**
-                * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-                */
-            DefaultEditFormUrl: string;
-            /**
-                * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-                */
-            DefaultNewFormUrl: string;
-            /**
-                * Gets the default list view.
-             */
-            DefaultView: IViewResult;
-            /**
-                * Gets the URL of the default view for the list.
-                */
-            DefaultViewUrl: string;
-            DescriptionResouce: Types.IResourcePath;
-            /**
-                * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
-                */
-            EffectiveBasePermissions: Types.IBasePermissions;
-            /**
-                * Gets a value that specifies the effective permissions on the list that are for the user export interface.
-             */
-            EffectiveBasePermissionsForUI: Types.IBasePermissions;
-            /**
-                * Gets the event receivers associated with the list.
-             */
-            EventReceivers: Types.IEventReceiverResults;
-            /**
-                * Gets the fields in the list.
-                */
-            Fields: Types.IFieldResults;
-            /**
-                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-                */
-            FirstUniqueAncestorSecurableObject: Types.IWebResult;
-            /**
-                * Gets the list forms in the list.
-                */
-            Forms: Types.IResults<Types.IForm>;
-            /**
-                * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
-                */
-            HasUniqueRoleAssignments: boolean;
-            /**
-                * Gets a value that specifies the information rights management settings.
-             */
-            InformationRightsManagementSettings: Types.IInformationRightsManagementSettings;
-            /**
-                * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
-                */
-            IsSiteAssetsLibrary: boolean;
-            /**
-                * Gets the list items in the list.
-                */
-            Items: IListItemResults;
-            /**
-                * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
-                */
-            OnQuickLaunch: boolean;
-            /**
-                * Gets a value that specifies the site that contains the list.
-                */
-            ParentWeb: Types.IWebResult;
-            /**
-                * Gets the role assignments for the securable object.
-                */
-            RoleAssignments: Types.IRoleAssignmentResults;
-            /**
-                * Gets the root folder of the list.
-                */
-            RootFolder: Types.IFolderResult;
-            /**
-                * Gets a value that specifies the list schema of the list.
-                */
-            SchemaXml: string;
-            Subscriptions: Types.IResults<Types.ISubscription>;
-            TitleResource: Types.IResourcePath;
-            /**
-                * Gets the user custom actions for the list.
-                */
-            UserCustomActions: Types.IUserCustomActionResults;
-            /**
-                * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
-                */
-            ValidationFormula: string;
-            /**
-                * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
-                */
-            ValidationMessage: string;
-            /**
-                * Gets the views in the list.
-                */
-            Views: IViewResults;
-            /**
-                * Gets a value that specifies the collection of all workflow associations for the list.
-                */
-            WorkflowAssociations: Types.IResults<string>;
-            WriteSecurity: number;
+    export interface IUserCustomActionQueryResult extends IUserCustomActionMethods, IUserCustomActionProps {
     }
     /**
-        * List Result
+        * User Custom Action Result
         */
-    export interface IListResult extends IListMethods, IListProps, IListQueryProps, IBase<IList, IListResult, IListQueryResult> {
+    export interface IUserCustomActionResult extends IUserCustomActionMethods, IUserCustomActionProps, IUserCustomActionQueryProps, IBase<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> {
     }
     /**
-        * List
+        * User Custom Action
         */
-    export interface IList extends IListMethods, IListQueryProps, IBase<IList, IListResult, IListQueryResult> {
+    export interface IUserCustomAction extends IUserCustomActionMethods, IUserCustomActionQueryProps, IBase<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/userCustomActions' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IUserCustomAction, IUserCustomActionCreationInformation, IUserCustomActionQueryResult, IUserCustomActionResult } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface IUserCustomActionsMethods {
+            /**
+                * Adds a custom actino to the user custom action collection.
+                * @param parameters - The user custom action information.
+                */
+            add(parameters: IUserCustomActionCreationInformation): IBase<IUserCustomAction, IUserCustomActionResult>;
+            /**
+                * Deletes all custom actions in the collection.
+                */
+            clear(): IBase;
+            /**
+                * Returns the custom action with the specified identifier.
+                * @param id - The ID of the user custom action to get.
+                */
+            getById(id: any): IUserCustomAction & IBase<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IUserCustomActions, IUserCustomActionResults>;
+    }
+    /**
+        * User Custom Actions
+        */
+    export interface IUserCustomActions extends IUserCustomActionsMethods, IBaseCollection<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> {
+    }
+    /**
+        * User Custom Action Results
+        */
+    export interface IUserCustomActionResults extends IUserCustomActionsMethods, IBaseCollection<IUserCustomActionResult, IUserCustomActionResult, IUserCustomActionQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/userProfile' {
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IWeb } from "gd-sprest/mapper/types";
+    /**
+        * User Profile
+        */
+    export interface IUserProfile extends IBase<IUserProfile> {
             /**
                 * Constructor
-                * @param listName - The name of the list.
                 * @param targetInfo - (Optional) The target information.
                 */
-            new (listName: string, targetInfo?: ITargetInfo): IList;
-    }
-}
-
-declare module 'gd-sprest/mapper/list/listItem' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    import { IContentType, IContentTypeResult, IList, IListResult } from "gd-sprest/mapper/list";
-    /**
-        * List Item Methods
-        */
-    export interface IListItemMethods {
+            new (targetInfo?: ITargetInfo): IUserProfile;
             /**
-                * Creates unique role assignments for the securable object.
-                * @param copyRoleAssignments - True to copy the role assignments from the parent securable object; false to remove the inherited role assignments except one that contains the current user.
-                * @param clearSubScopes - True to make all child securable objects inherit role assignments from the current object; false (default) to leave role assignments unchanged for child securable objects that do not inherit role assignments from their parent object.
+                * An object containing the user's FollowedDocumentsUrl and FollowedSitesUrl.
                 */
-            breakRoleInheritance(copyRoleAssignments: any, clearSubScopes: any): IBase;
+            FollowedContent(): IBase<any>;
             /**
-                * Deletes the list item.
+                * The account name of the user. (SharePoint Online only)
                 */
-            delete(): IBase;
+            AccountName: string;
             /**
-                * Gets the effective permissions that a specified user has on the list item.
-                * @param loginName - The login name.
-                */
-            getUserEffectivePermissions(loginName: any): IBase;
-            /**
-                * Moves the list item to the Recycle Bin and returns the identifier of the new Recycle Bin item.
-                */
-            recycle(): IBase;
-            /**
-                * Resets the role inheritance for the securable object and inherits role assignments from the parent securable object.
-                */
-            resetRoleInheritance(): IBase;
-            /**
-                * Updates it's properties.
-                * @param data - The list properties to update.
-                */
-            update(data: any): IBase;
-            /**
-                * Validates and sets the values of the specified collection of fields for the list item.
-                * @param formValues - The fields to change and their new values. Pass this parameter in the request body, as shown in the request example.
-                * @param bNewDocumentUpdate - True if the list item is a document being updated after upload; otherwise false. Pass this parameter in the request body, as shown in the request example, or in the URI path.
-                */
-            validateUpdateListItem(formValues: any, bNewDocumentUpdate: any): any;
-    }
-    /**
-        * List Item Properties
-        */
-    export interface IListItemProps {
-            /**
-                * Gets a value that specifies the display name of the list item.
+                * The display name of the user. (SharePoint Online only)
                 */
             DisplayName: string;
-            /** Gets a value that specifies the effective permissions on the list item that are assigned to the current user. */
-            EffectiveBasePermissions: Types.IBasePermissions;
-            /** Gets the effective base permissions for the current user, as they should be displayed in UI. */
-            EffectiveBasePermissionsForUI: Types.IBasePermissions;
-            /** Gets a value that specifies whether the list item is a file or a list folder. Represents an SP.FileSystemObjectType value: Invalid = -1; File = 0; Folder = 1; Web = 2. */
-            FileSystemObjectType: number;
-            IconOverlay: string;
-            /** Gets a value that specifies the list item identifier. */
-            Id: number;
-            ServerRedirectedEmbedUrl: string;
-    }
-    /**
-        * List Item Query Properties
-        */
-    export interface IListItemQueryProps {
+            FollowPersonalSiteUrl: string;
+            IsPeopleListPublic: boolean;
+            IsPrivacySettingOn: boolean;
+            IsSelf: boolean;
+            JobTitle: string;
+            MySiteFirstRunExperience: number;
+            MySiteHostUrl: string;
             /**
-                * Get the attachment collection.
+                * The FirstRun flag of the user. (SharePoint Online only)
                 */
-            AttachmentFiles(): Types.IAttachmentFiles;
+            O15FirstRunExperience: number;
             /**
-                * Gets the specified attachment file.
-                * @param fileName - The filename of the attachment.
+                * The personal site of the user.
                 */
-            AttachmentFiles(fileName: string): IBase<Types.IAttachment>;
+            PersonalSite(): IBase<IWeb>;
             /**
-                * Gets a value that specifies the content type of the list item.
+                * The capabilities of the user's personal site.
                 */
-            ContentType(): IContentType;
+            PersonalSiteCapabilities: number;
             /**
-                * Gets the values for the list item as HTML.
+                * The error thrown when the user's personal site was first created, if any. (SharePoint Online only)
                 */
-            FieldValuesAsHtml(): IBase;
+            PersonalSiteFirstCreationError: string;
             /**
-                * Gets the list item's field values as a collection of string values.
+                * The date and time when the user's personal site was first created. (SharePoint Online only)
                 */
-            FieldValuesAsText(): IBase;
+            PersonalSiteFirstCreationTime: string;
             /**
-                * Gets the formatted values to be displayed in an edit form.
+                * The status for the state of the personal site instantiation.
+                * See PersonalSiteInstantiationState in the .NET client object model reference for a list of instantiation state values.
                 */
-            FieldValuesForEdit(): IBase;
+            PersonalSiteInstantiationState: number;
             /**
-                * Gets the file that is represented by the item from a document library.
+                * The date and time when the user's personal site was last created. (SharePoint Online only)
                 */
-            File(): Types.IFile;
+            PersonalSiteLastCreationTime: string;
             /**
-                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
+                * The number of attempts made to create the user's personal site. (SharePoint Online only)
                 */
-            FirstUniqueAncestorSecurableObject(): IBase<string>;
+            PersonalSiteNumberOfRetries: number;
             /**
-                * Gets a folder object that is associated with a folder item.
+                * A Boolean value that indicates whether the user's picture is imported from Exchange.
                 */
-            Folder(): Types.IFolder;
-            GetDlpPolicyTip(): IBase;
+            PictureImportEnabled: boolean;
+            PictureUrl: string;
             /**
-                * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
+                * The public URL of the personal site of the current user. (SharePoint Online only)
                 */
-            HasUniqueRoleAssignments(): IBase<string>;
+            PublicUrl: string;
             /**
-                * Gets the parent list that contains the list item.
+                * The URL used to create the user's personal site.
                 */
-            ParentList(): IList;
+            UrlToCreatePersonalSite: string;
             /**
-                * Property Bag
+                * Enqueues creating a personal site for this user, which can be used to share documents, web pages, and other files.
+                * For SharePoint Online development, My Site Host administrators can also use the CreatePersonalSiteEnqueueBulk method to create personal sites for one or more users.
+                * @param interactiveFl - True if this is an interactively (web) initiated request, or false if this is a non-interactively (client) initiated request.
                 */
-            Properties(): IBase<Types.IPropertyValues>;
+            createPersonalSiteEnque(interactiveFl: boolean): IBase;
             /**
-                * Gets the role assignments for the securable object.
+                * Sets the privacy settings for this profile.
+                * @param publicFl - true to make all social data public; false to make all social data private.
                 */
-            RoleAssignments(): Types.IRoleAssignments;
-            /**
-                * Gets the role assignment(s) for the securable object.
-                * @param id - The role assignment id.
-                */
-            RoleAssignments(id: string): Types.IRoleAssignment;
-    }
-    /**
-        * List Item Query Result
-        */
-    export interface IListItemQueryResult extends IListItemMethods, IListItemProps {
-            /**
-                * Get the attachment collection.
-                */
-            AttachmentFiles: Types.IAttachmentFilesMethods & Types.IResults<Types.IAttachment>;
-            /**
-                * Gets a value that specifies the content type of the list item.
-                */
-            ContentType: IContentTypeResult;
-            /**
-                * Gets the values for the list item as HTML.
-                */
-            FieldValuesAsHtml: Array<string>;
-            /**
-                * Gets the list item's field values as a collection of string values.
-                */
-            FieldValuesAsText: Array<string>;
-            /**
-                * Gets the formatted values to be displayed in an edit form.
-                */
-            FieldValuesForEdit: Array<string>;
-            /**
-                * Gets the file that is represented by the item from a document library.
-                */
-            File: Types.IFileResult;
-            /**
-                * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
-                */
-            FirstUniqueAncestorSecurableObject: IListResult;
-            /**
-                * Gets a folder object that is associated with a folder item.
-                */
-            Folder: Types.IFolderResult;
-            GetDlpPolicyTip(): IBase;
-            /**
-                * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
-                */
-            HasUniqueRoleAssignments: boolean;
-            /**
-                * Gets the parent list that contains the list item.
-                */
-            ParentList: IListResult;
-            /**
-                * Property Bag
-                */
-            Properties: Array<string>;
-            /**
-                * Gets the role assignments for the securable object.
-                */
-            RoleAssignments: Types.IRoleAssignmentResults;
-    }
-    /**
-        * List Item Result
-        */
-    export interface IListItemResult extends IListItemMethods, IListItemProps, IListItemQueryProps, IBase<IListItem, IListItemResult, IListItemQueryResult> {
-    }
-    /**
-        * List Item
-        */
-    export interface IListItem extends IListItemMethods, IListItemQueryProps, IBase<IListItem, IListItemResult, IListItemQueryResult> {
+            shareAllSocialData(publicFl: boolean): IBase;
     }
 }
 
-declare module 'gd-sprest/mapper/list/lists' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IList, IListCreationInformation, IListQueryResult, IListResult } from "gd-sprest/mapper/list";
+declare module 'gd-sprest/mapper/types/users' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IUser, IUserCreationInformation, IUserQueryResult, IUserResult } from "gd-sprest/mapper/types";
     /**
         * Methods
         */
-    export interface IListsMethods {
+    export interface IUsersMethods {
             /**
-                * Adds a list to the list collection.
-                * @param parameters - The list creation information.
+                * Adds a site to the site collection.
+                * @param userInfo - The user creation information.
                 */
-            add(parameters: IListCreationInformation): IBase<IList, IListResult>;
+            add(userInfo: IUserCreationInformation): IBase<IUser, IUserResult>;
             /**
-                * Gets a list that is the default asset location for images or other files, which the users upload to their wiki pages.
+                * Gets the user with the specified email address.
+                * @param email - The email of the user to get.
                 */
-            ensureSiteAssetsLibrary(): IBase<IList, IListResult, IListQueryResult>;
+            getByEmail(email: any): IUser & IBase<IUser, IUserResult, IUserQueryResult>;
             /**
-                * Gets a list that is the default location for wiki pages.
+                * Gets the user with the specified member identifier (ID).
+                * @param id - The ID of the user to get.
                 */
-            ensureSitePagesLibrary(): IBase<IList, IListResult, IListQueryResult>;
+            getById(id: any): IUser & IBase<IUser, IUserResult, IUserQueryResult>;
             /**
-                * Returns the list with the specified list identifier.
-                * @param id - The list id.
+                * Gets the user with the specified login name.
+                * @param loginName - The login name of the user to get, passed as an alias in the query string.
                 */
-            getById(id: any): IList & IBase<IList, IListResult, IListQueryResult>;
-            /**
-                * Returns the list with the specified title from the collection.
-                * @param title - The list title.
-                */
-            getByTitle(title: any): IList & IBase<IList, IListResult, IListQueryResult>;
+            getByLoginName(loginName: any): IUser & IBase<IUser, IUserResult, IUserQueryResult>;
             /**
                 * Method to get the next set of results.
                 */
-            next(): IBase<ILists, IListResults>;
+            next(): IBase<IUsers, IUserResults>;
+            /**
+                * Removes the user with the specified ID.
+                * @param id - The ID of the user to remove.
+                */
+            removeById(id: any): IBase;
+            /**
+                * Removes the user with the specified login name.
+                * @param loginName - The login name of the user to remove.
+                */
+            removeByLoginName(loginName: any): IBase;
     }
     /**
-        * Lists
+        * Users
         */
-    export interface ILists extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> {
+    export interface IUsers extends IUsersMethods, IBaseCollection<IUser, IUserResult, IUserQueryResult> {
     }
     /**
-        * List Results
+        * User Results
         */
-    export interface IListResults extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> {
+    export interface IUserResults extends IUsersMethods, IBaseCollection<IUserResult, IUserResult, IUserQueryResult> {
     }
 }
 
-declare module 'gd-sprest/mapper/list/version' {
-    /**
-      * Version
-      */
-    export interface IVersion {
-        /** The check-in comment. */
-        CheckInComment: string;
-        /** The created date. */
-        Created: string;
-        /** The version id. */
-        ID: number;
-        /** Flag determining if this is the current version. */
-        IsCurrentVersion: boolean;
-        /** The file length. */
-        Length: number;
-        /** The file size. */
-        Size: number;
-        /** The file url. */
-        Url: string;
-        /** The version label. */
-        VersionLabel: string;
-    }
-}
-
-declare module 'gd-sprest/mapper/list/versions' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IVersion } from "gd-sprest/mapper/list";
-    /**
-        * Versions
-        */
-    export interface IVersions extends IBaseCollection<IVersion, IVersion, IVersion> {
-            /**
-                * Deletes all versions in the collection.
-                */
-            deleteAll(): IBase;
-            /**
-                * Deletes a version, by the specified id.
-                * @param id - The version id to delete.
-                */
-            deleteById(id: any): IBase;
-            /**
-                * Deletes a version, by the specified label.
-                * @param label - The version label to delete.
-                */
-            deleteByLabel(label: any): IBase;
-            /**
-                * Gets the version with the specified ID.
-                * @param id - The version id to get.
-                */
-            getById(id: any): IBase<IVersion>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IVersions>;
-            /**
-                * Restores a version, by the specified label.
-                * @param label - The version label to restore.
-                */
-            restoreByLabel(label: any): IBase<IVersion>;
-    }
-}
-
-declare module 'gd-sprest/mapper/list/view' {
-    import { IBase } from "gd-sprest/utils/index.def";
+declare module 'gd-sprest/mapper/types/utility' {
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
     import { Types } from "gd-sprest/";
-    import { IViewFields } from "gd-sprest/mapper/list";
-    /**
-        * View Creation Information
-        */
-    export interface IViewCreationInformation {
-            /** The relative url to the jslink */
-            JSLink?: string;
-            /** The new list view is a paged view. */
-            Paged?: boolean;
-            /** The new list view is a personal view. If the value is false, the new list view is a public view. */
-            PersonalView?: boolean;
-            /** The maximum number of list items that the new list view displays on a visual page of the list view. */
-            RowLimit?: number;
-            /** Option to set as default view. */
-            SetAsDefaultView?: boolean;
-            /** The name of the view. */
-            Title: string;
-            /** The query for the new list view. */
-            ViewQuery?: string;
-            /** The view type. */
-            ViewTypeKind?: number;
-    }
-    /**
-        * View Methods
-        */
-    export interface IViewMethods {
-            /**
-                * Deletes the view.
-                */
-            delete(): IBase;
-            /**
-                * Returns the list view as HTML.
-                */
-            renderAsHtml(): IBase;
-            /**
-                * Updates it's properties.
-                * @param data - The list properties to update.
-                */
-            update(data: any): IBase;
-    }
-    /**
-        * View Properties
-        */
-    export interface IViewProps {
-            /** Gets or sets a value that specifies fields and functions that define totals shown in a list view. If not null, the XML must conform to FieldRefDefinitionAggregation, as specified in [MS-WSSCAML]. */
-            Aggregations: string;
-            /** Gets or sets a value that specifies whether totals are shown in the list view. */
-            AggregationsStatus: string;
-            /** Gets a value that specifies the base view identifier of the list view. */
-            BaseViewId: string;
-            /** Gets or sets the identifier of the content type with which the view is associated so that the view is available only on folders of this content type. */
-            ContentTypeId: Types.IStringValue;
-            /** Gets or sets a value that specifies whether the list view is the default list view. */
-            DefaultView: boolean;
-            /** Gets or sets a value that specifies whether the list view is the default list view for the content type specified by contentTypeId. */
-            DefaultViewForContentType: boolean;
-            /** Gets or sets a value that specifies whether the list view was modified in an editor. */
-            EditorModified: boolean;
-            /** Gets or sets a value that specifies the column and row formatting for the list view. If not null, the XML must conform to ViewFormatDefinitions, as specified in [MS-WSSCAML]. */
-            Formats: string;
-            /** Gets or sets a value that specifies whether the list view is hidden. */
-            Hidden: boolean;
-            /** Gets a value that specifies the XML document that represents the list view. */
-            HtmlSchemaXml: string;
-            /** Gets a value that specifies the view identifier of the list view. */
-            Id: string;
-            /** Gets a value that specifies the URI (Uniform Resource Identifier) of the image for the list view. */
-            ImageUrl: string;
-            /** Gets or sets a value that specifies whether the current folder is displayed in the list view. */
-            IncludeRootFolder: boolean;
-            /** Gets or sets the name of the JavaScript file used for the view. */
-            JSLink: string;
-            /** Gets or sets a string that represents the view XML. */
-            ListViewXml: string;
-            /** Gets or sets a value that specifies the view method for the list view. If not null, the XML must conform to Method, as specified in [MS-WSSCAP]. */
-            Method: string;
-            /** Gets or sets a value that specifies whether the list view is the default mobile list view. */
-            MobileDefaultView: boolean;
-            /** Gets or sets a value that specifies whether the list view is a mobile list view. */
-            MobileView: boolean;
-            /** Gets a value that specifies the content approval type for the list view. */
-            ModerationType: string;
-            /** Gets a value that specifies whether list items can be reordered in the list view. */
-            OrderedView: boolean;
-            /** Gets or sets a value that specifies whether the list view is a paged view. */
-            Paged: boolean;
-            /** Gets a value that specifies whether the list view is a personal view. */
-            PersonalView: boolean;
-            /** Gets a value that specifies whether the list view is read-only. */
-            ReadOnlyView: boolean;
-            /** Gets a value that specifies whether the list view requires client integration rights. */
-            RequiresClientIntegration: boolean;
-            /** Gets or sets a value that specifies the maximum number of list items to display in a visual page of the list view. */
-            RowLimit: number;
-            /** Gets or sets a value that specifies the scope for the list view. Represents a ViewScope value. DefaultValue = 0, Recursive = 1, RecursiveAll = 2, FilesOnly = 3. */
-            Scope: number;
-            /** Gets a value that specifies the server-relative URL of the list view page. */
-            ServerRelativeUrl: string;
-            /** Gets a value that specifies the identifier of the view style for the list view. */
-            StyleId: string;
-            TabularView: boolean;
-            /** Gets a value that specifies whether the list view is a threaded view. */
-            Threaded: boolean;
-            /** Gets or sets a value that specifies the display name of the list view. */
-            Title: string;
-            /** Gets or sets a value that specifies the toolbar for the list view. */
-            Toolbar: string;
-            /** Gets a value that specifies the name of the template for the toolbar that is used in the list view. */
-            ToolbarTemplateName: string;
-            /** Gets or sets a value that specifies the view data for the list view. If not null, the XML must conform to FieldRefDefinitionViewData, as specified in [MS-WSSCAML]. */
-            ViewData: string;
-            VisualizationInfo: Types.IVisualization;
-            /** Gets or sets a value that specifies the joins that are used in the list view. If not null, the XML must conform to ListJoinsDefinition, as specified in [MS-WSSCAML]. */
-            ViewJoins: string;
-            /** Gets or sets a value that specifies the projected fields that will be used by the list view. If not null, the XML must conform to ProjectedFieldsDefinitionType, as specified in [MS-WSSCAML]. */
-            ViewProjectedFields: string;
-            /** Gets or sets a value that specifies the query that is used by the list view. If not null, the XML must conform to CamlQueryRoot, as specified in [MS-WSSCAML]. */
-            ViewQuery: string;
-            /** Gets a value that specifies the type of the list view. Can be HTML, GRID, CALENDAR, RECURRENCE, CHART, or GANTT. */
-            ViewType: string;
-    }
-    /**
-        * View Query Properties
-        */
-    export interface IViewQueryProps {
-            /** Gets a value that specifies the collection of fields in the list view. */
-            ViewFields(): IViewFields;
-    }
-    /**
-        * View Query Result
-        */
-    export interface IViewQueryResult extends IViewMethods, IViewProps {
-            /** A value that specifies the collection of fields in the list view. */
-            ViewFields: Types.IResults<string>;
-    }
-    /**
-        * View Result
-        */
-    export interface IViewResult extends IViewMethods, IViewProps, IViewQueryProps, IBase<IView, IViewResult, IViewQueryResult> {
-    }
-    /**
-        * View
-        */
-    export interface IView extends IViewMethods, IViewQueryProps, IBase<IView, IViewResult, IViewQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/list/viewFieldCollection' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    /**
-        * View Fields
-        */
-    export interface IViewFields extends IBase<IViewFields, IViewFields, IViewFields> {
-            /** Gets a value that specifies the XML schema that represents the collection. */
-            SchemaXml: string;
-            /** Specifies the XML schema of the collection of fields. The Items property is returned with the resource, but it doesn't have a URI-addressable endpoint. */
-            Items: string;
-            /** The view field collection. */
-            results: Array<any>;
-            /**
-                * Adds the field with the specified field internal name or display name to the collection.
-                * @param fieldName - The case-sensitive internal name or display name of the field to add.
-                */
-            addViewField(fieldName: any): IBase;
-            /**
-                * Moves the field with the specified field internal name to the specified position in the collection.
-                * @param field - The case-sensitive internal name of the field to move. Send this parameter and the index parameter in the request body, as shown in the example.
-                * @param index - The zero-based index of the new position for the field. Send this parameter and the field parameter in the request body, as shown in the example.
-                */
-            moveViewFieldTo(field: any, index: any): IBase;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IViewFields>;
-            /**
-                * Removes all the fields from the collection.
-                */
-            removeAllViewFields(): IBase;
-            /**
-                * Removes the field with the specified field internal name from the collection.
-                * @param fieldName - The case-sensitive internal name or display name of the field to add.
-                */
-            removeViewField(fieldName: any): IBase;
-    }
-}
-
-declare module 'gd-sprest/mapper/list/views' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IView, IViewCreationInformation, IViewQueryResult, IViewResult } from "gd-sprest/mapper/list";
-    /**
-        * Methods
-        */
-    export interface IViewsMethods {
-            /**
-                * Adds a list view to the view collection.
-                */
-            add(parameters: IViewCreationInformation): IBase<IView, IViewResult>;
-            /**
-                * Gets the list view with the specified ID.
-                * @param id - The ID of the view.
-                */
-            getById(id: any): IView & IBase<IView, IViewResult, IViewQueryResult>;
-            /**
-                * Gets the list view with the specified title.
-                * @param title - The case-sensitive title of the view.
-                */
-            getByTitle(title: any): IView & IBase<IView, IViewResult, IViewQueryResult>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IViews>;
-    }
-    /**
-        * Views
-        */
-    export interface IViews extends IViewsMethods, IBaseCollection<IView, IViewResult, IViewQueryResult> {
-    }
-    /**
-        * View Results
-        */
-    export interface IViewResults extends IViewsMethods, IBaseCollection<IViewResult, IViewResult, IViewQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/search/search' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    /**
-        * Search
-        */
-    export interface ISearch extends IBase<ISearch, Types.ComplexTypes.SearchResult> {
-            /**
-                * Constructor
-                * @param url - The optional url to execute the search against.
-                * @param settings - The search settings.
-                */
-            new (url?: string, settings?: ITargetInfo): ISearch;
-            /** Method to execute a search query.
-                * @param settings - The search request settings.
-             */
-            postquery(settings: Types.ComplexTypes.SearchRequest): IBase<Types.ComplexTypes.SearchResult>;
-            /** Method to execute a search query.
-                * @param settings - The search request settings.
-             */
-            searchquery(settings: Types.ComplexTypes.SearchRequest): IBase<Types.ComplexTypes.SearchResult>;
-            /** Method to execute a search suggestion.
-                * @param settings - The search suggest settings.
-             */
-            suggest(settings: Types.ComplexTypes.SearchSuggestion): IBase<Types.ComplexTypes.QuerySuggestionResults>;
-    }
-}
-
-declare module 'gd-sprest/mapper/security/roleAssignment' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    import { IRoleDefinition, IRoleDefinitions } from "gd-sprest/mapper/security";
-    /**
-        * Role Assignment Methods
-        */
-    export interface IRoleAssignmentMethods {
-            /**
-                * Deletes the role assignment.
-                */
-            delete(): IBase;
-    }
-    /**
-        * Role Assignment Properties
-        */
-    export interface IRoleAssignmentProps {
-            /** The unique identifier of the role assignment. */
-            PrincipalId: string;
-    }
-    /**
-        * Role Assignment Query Properties
-        */
-    export interface IRoleAssignmentQueryProps {
-            /**
-                * Gets the user or group that corresponds to the Role Assignment.
-                */
-            Member(): IBase<Types.IGroup | Types.IUser>;
-            /**
-                * Gets the collection of role definition bindings for the role assignment.
-                */
-            RoleDefinitionBindings(): IRoleDefinitions;
-    }
-    /**
-        * Role Assignment Query Result
-        */
-    export interface IRoleAssignmentQueryResult extends IRoleAssignmentMethods, IRoleAssignmentProps {
-            /**
-                * Gets the user or group that corresponds to the Role Assignment.
-                */
-            Member: Types.IUser;
-            /**
-                * Gets the collection of role definition bindings for the role assignment.
-                */
-            RoleDefinitionBindings: Types.IResults<IRoleDefinition>;
-    }
-    /**
-        * Role Assignment Result
-        */
-    export interface IRoleAssignmentResult extends IRoleAssignmentMethods, IRoleAssignmentProps, IRoleAssignmentQueryProps, IBase<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
-    }
-    /**
-        * Role Assignment
-        */
-    export interface IRoleAssignment extends IRoleAssignmentMethods, IRoleAssignmentQueryProps, IBase<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/security/roleAssignments' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IRoleAssignment, IRoleAssignmentQueryResult, IRoleAssignmentResult } from "gd-sprest/mapper/security";
-    /**
-        * Methods
-        */
-    export interface IRoleAssignmentsMethods {
-            /**
-                * Adds a new role assignment with the specified principal and role definitions to the collection.
-                * @param principalId - The ID of the user or group to assign permissions to.
-                * @param roleDefId - The ID of the role definition that defines the permissions to assign.
-                */
-            addRoleAssignment(principalId: any, roleDefId: any): IBase<IRoleAssignment, IRoleAssignmentResult>;
-            /**
-                * Gets the role assignment associated with the specified principal ID from the collection.
-                * @param principalId - The ID of the user or group to assign permissions to.
-                */
-            getByPrincipalId(principalId: any): IRoleAssignment & IBase<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult>;
-            /**
-                * Gets the role definition with the specified role type.
-                * @param principalId - The ID of the user or group to assign permissions to.
-                * @param roleDefId - The ID of the role definition that defines the permissions to assign.
-                */
-            removeRoleAssignment(principalId: any, roleDefId: any): IBase;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IRoleAssignments, IRoleAssignmentResults>;
-    }
-    /**
-        * Role Assignments
-        */
-    export interface IRoleAssignments extends IRoleAssignmentsMethods, IBaseCollection<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
-    }
-    /**
-        * Role Assignment Results
-        */
-    export interface IRoleAssignmentResults extends IRoleAssignmentsMethods, IBaseCollection<IRoleAssignmentResult, IRoleAssignmentResult, IRoleAssignmentQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/security/roleDefinition' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    /**
-        * Role Definition Methods
-        */
-    export interface IRoleDefinitionMethods {
-            /**
-                * Deletes the role definition.
-                */
-            delete(): IBase;
-    }
-    /**
-        * Role Definition Properties
-        */
-    export interface IRoleDefinitionProps {
-            /** Gets or sets a value that specifies the base permissions for the role definition. */
-            BasePermissions: Types.IBasePermissions;
-            /** Gets or sets a value that specifies the description of the role definition. */
-            Description: string;
-            /** Gets a value that specifies whether the role definition is displayed. */
-            Hidden: boolean;
-            /** Gets a value that specifies the Id of the role definition. */
-            Id: number;
-            /** Gets or sets a value that specifies the role definition name. */
-            Name: string;
-            /** Gets or sets a value that specifies the order position of the object in the site collection Permission Levels page. */
-            Order: number;
-            /** Gets a value that specifies the type of the role definition. Represents an SP.RoleType value. See RoleType in the .NET client object model reference for a list of role type values. */
-            RoleTypeKind: number;
-    }
-    /**
-        * Role Definition Query Properties
-        */
-    export interface IRoleDefinitionQueryProps {
-    }
-    /**
-        * Role Definition Query Result
-        */
-    export interface IRoleDefinitionQueryResult extends IRoleDefinitionMethods, IRoleDefinitionProps {
-    }
-    /**
-        * Role Definition Result
-        */
-    export interface IRoleDefinitionResult extends IRoleDefinitionMethods, IRoleDefinitionProps, IRoleDefinitionQueryProps, IBase<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
-    }
-    /**
-        * Role Definition
-        */
-    export interface IRoleDefinition extends IRoleDefinitionMethods, IRoleDefinitionQueryProps, IBase<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/security/roleDefinitions' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IRoleDefinition, IRoleDefinitionQueryResult, IRoleDefinitionResult } from "gd-sprest/mapper/security";
-    /**
-        * Methods
-        */
-    export interface IRoleDefinitionsMethods {
-            /**
-                * Gets the role definition with the specified ID from the collection.
-                * @param roleDefId - The ID of the role definition that defines the permissions to assign.
-                */
-            getById(roleDefId: any): IRoleDefinition & IBase<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
-            /**
-                * Gets the role definition with the specified name.
-                * @param name -
-                */
-            getByName(name: any): IRoleDefinition & IBase<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
-            /**
-                * Gets the role definition with the specified role type.
-                * @param roleType - The RoleTypeKind of the role definition.
-                */
-            getByType(roleType: number): IRoleDefinition & IBase<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IRoleDefinitions, IRoleDefinitionResults>;
-    }
-    /**
-        * Role Definitions
-        */
-    export interface IRoleDefinitions extends IRoleDefinitionsMethods, IBaseCollection<IRoleDefinition, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
-    }
-    /**
-        * Role Definition Results
-        */
-    export interface IRoleDefinitionResults extends IRoleDefinitionsMethods, IBaseCollection<IRoleDefinitionResult, IRoleDefinitionResult, IRoleDefinitionQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/site/site' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from "gd-sprest/mapper/site";
-    /**
-        * Site Methods
-        */
-    export interface ISiteMethods {
-            /**
-                * Creates a temporary evaluation SPSite for this SPSite, for the purposes of determining whether an upgrade is likely to be successful.
-                * @param upgrade - If true, the evaluation site collection MUST be upgraded when it is created. If false, the evaluation site collection MUST NOT be upgraded when it is created.
-                * @param sendEmail - If true, a notification email MUST be sent to the requestor and the site collection administrators at the completion of the creation of the evaluation site collection. If false, such notification MUST NOT be sent.
-                */
-            createPreviewSPSite(upgrade: any, sendEmail: any): IBase;
-            /**
-                * Extend the upgrade reminder date for this SPSite by the days specified at WebApplication.UpgradeReminderDelay.
-                */
-            extendUpgradeReminderDate(): IBase;
-            /**
-                * Specifies the list template gallery, site template gallery, Web Part gallery, master page gallery, or other galleries from the site collection, including custom galleries that are defined by users.
-                * @param typeCatalog - Specifies the list template type for the gallery.
-                */
-            getCatalog(typeCatalog: any): IBase;
-            /**
-                * Specifies the collection of the site collection changes from the change log that have occurred within the scope of the site collection, based on the specified query.
-                * @param query - The change query.
-                */
-            getChanges(query: any): IBase;
-            /**
-                * Specifies the collection of custom list templates for a given site.
-                * @param web - Specifies the site that contains the custom list templates to be returned.
-                */
-            getCustomListTemplates(web: any): IBase;
-            /**
-                * Returns the collection of site definitions that are available for creating Web sites within the site collection.
-                * @param LCID - A 32-bit unsigned integer that specifies the language of the site definitions that are returned from the site collection.
-                * @param overrideCompatLevel - Specifies the compatibility level of the site to return from the site collection. If this value is 0, the compatibility level of the site is used.
-                */
-            getWebTemplates(LCID: any, overrideCompatLevel: any): IBase;
-            /**
-                * Invalidates cached upgrade information about the site collection so that this information will be recomputed the next time it is needed.
-                */
-            invalidate(): IBase;
-            /**
-                * Returns true if the object needs to be upgraded; otherwise, false.
-                * @param versionUpgrade - If true, version-to-version site collection upgrade is requested; otherwise false for build-to-build site collection upgrade.
-                * @param recursive - If true, child upgradable objects will be inspected; otherwise false.
-                */
-            needsUpgradeByType(versionUpgrade: any, recursive: any): IBase;
-            /**
-                * Returns the site at the specified URL.
-                * @param strUrl - The server-relative URL or site-relative URL of the site to return. If strUrl is empty, the top-level site is returned.
-                */
-            openWeb(strUrl: any): IBase<IWeb, IWebResult, IWebQueryResult>;
-            /**
-                * Returns the site with the specified GUID.
-                * @param gWebId - A GUID that specifies which site to return.
-                */
-            openWebById(gWebId: any): IBase<IWeb, IWebResult, IWebQueryResult>;
-            /**
-                * Runs a health check as follows. (The health rules referenced below perform an implementation-dependent check on the health of a site collection)
-                * @param ruleId - Specifies the rule or rules to be run. If the value is an empty GUID, all rules are run, otherwise only the specified rule is run.
-                * @param bRepair - Specifies whether repairable rules are to be run in repair mode.
-                * @param bRunAlays - Specifies whether the rules will be run as a result of this call or cached results from a previous run can be returned.
-                */
-            runHealthCheck(ruleId: any, bRepair: any, bRunAlways: any): IBase;
-            /**
-                * Either runs a site collection upgrade, or schedules it to be run in the future, depending on available system resources and the value of the queueOnly parameter. The user executing this method MUST be a farm administrator or a site collection administrator.
-                * @param versionUpgrade - If true, specifies that a version-to-version upgrade will be performed. If false, specifies that a build-to-build upgrade will be performed.
-                * @param queueOnly - If true, specifies that the upgrade will not be run immediately; it will be queued for a later run.
-                * @param sendEmail - If true, a notification email will be sent to the requestor and the site collection administrators at the completion of the site collection upgrade. If false, such notification will not be sent.
-                */
-            runUpgradeSiteSession(versionUpgrade: any, queueOnly: any, sendEmail: any): IBase;
-            /**
-                * Updates it's properties.
-                * @param data - The list properties to update.
-                */
-            update(data: any): IBase;
-            /**
-                * Sets whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
-                * @param requireUseRemoteAPIs - Specifies whether the client-side object model (CSOM) requests that are made in the context of any site inside the site collection require UseRemoteAPIs permission.
-                */
-            updateClientObjectModelUseRemoteAPIsPermissionSetting(requireUseRemoteAPIs: any): IBase;
-    }
-    /**
-        * Site Properties
-        */
-    export interface ISiteProps {
-            /** A value that specifies whether creation of declarative workflows can be used on this site collection. */
-            AllowCreationDeclarativeWorkflow: boolean;
-            /** Gets or sets a value that specifies whether a designer can be used on this site collection. */
-            AllowDesigner: boolean;
-            /** Gets or sets a value that specifies whether master page editing is allowed on this site collection. */
-            AllowMasterPageEditing: boolean;
-            /** Gets or sets a value that specifies whether this site collection can be reverted to its base template. */
-            AllowRevertFromTemplate: boolean;
-            AllowSaveDeclarativeWorkflowAsTemplate: boolean;
-            AllowSavePublishDeclarativeWorkflow: boolean;
-            /** Whether version to version upgrade is allowed on this site. */
-            AllowSelfServiceUpgrade: boolean;
-            /** Whether upgrade evaluation site collection is allowed. */
-            AllowSelfServiceUpgradeEvaluation: boolean;
-            AuditLogTrimmingRetention: number;
-            /** Property indicating whether or not this object can be upgraded. */
-            CanUpgrade: boolean;
-            Classification: string;
-            /** Gets the major version of this site collection for purposes of major version-level compatibility checks. */
-            CompatibilityLevel: string;
-            CurrentChangeToken: string;
-            DisableAppViews: boolean;
-            DisableCompanyWideSharingLinks: boolean;
-            DisableFlows: boolean;
-            ExternalSharingTipsEnabled: boolean;
-            GroupId: string;
-            /** Gets the GUID that identifies the site collection. */
-            Id: string;
-            /** Gets or sets the comment that is used in locking a site collection. */
-            LockIssue: string;
-            /** Gets a value that specifies the maximum number of list items allowed per operation before throttling will occur. */
-            MaxItemsPerThrottledOperation: number;
-            NeedsB2BUpgrade: boolean;
-            /** Specifies the primary URI of this site collection, including the host name, port number, and path. */
-            PrimaryUri: string;
-            /** Gets or sets a Boolean value that specifies whether the site collection is read-only, locked, and unavailable for write access. */
-            ReadOnly: boolean;
-            RequiredDesignerVersion: string;
-            SandboxedCodeActivationCapability: number;
-            ServerRelativePath: Types.IResourcePath;
-            /** Gets the server-relative URL of the root Web site in the site collection. */
-            ServerRelativeUrl: string;
-            ShareByEmailEnabled: boolean;
-            ShowPeoplePickerSuggestionsForGuestUsers: boolean;
-            /** Property that indicates whether users will be able to share links to documents that can be accessed without logging in. */
-            ShareByLinkEnabled: boolean;
-            /** Gets or sets a value that specifies whether the URL structure of this site collection is viewable. */
-            ShowUrlStructure: boolean;
-            StatusBarLink: string;
-            StatusBarText: string;
-            TrimAuditLog: boolean;
-            /** Gets or sets a value that specifies whether the Visual Upgrade UI of this site collection is displayed. */
-            UIVersionConfigurationEnabled: boolean;
-            /** Specifies the upgrade information of this site collection. */
-            UpgradeInfo: Types.IUpgradeInfo;
-            /** Specifies a date, after which site collection administrators will be reminded to upgrade the site collection. */
-            UpgradeReminderDate: string;
-            UpgradeScheduled: boolean;
-            UpgradeScheduledDate: string;
-            /** Specifies whether the site is currently upgrading. */
-            Upgrading: boolean;
-            /** Gets the full URL to the root Web site of the site collection, including host name, port number, and path. */
-            Url: string;
-            /** Gets a value that specifies usage information about the site, including bandwidth, storage, and the number of visits to the site collection. */
-            Usage: Types.IUsageInfo;
-    }
-    /**
-        * Site Query Properties
-        */
-    export interface ISiteQueryProps {
-            Audit(): IBase<Types.IAudit>;
-            /**
-                * Gets the event receivers associated with the site.
-             */
-            EventReceivers(): Types.IEventReceivers;
-            /**
-                * Gets the event receiver associated with the site.
-                * @param id - The id of the event receiver.
-             */
-            EventReceivers(id: string): Types.IEventReceiver;
-            /**
-                * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
-                */
-            Features(): IBase;
-            /**
-                * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
-                */
-            Owner(): Types.IUser;
-            /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-            RecycleBin(): IBase<Types.IResults<Types.IRecycleBinItem>>;
-            /**
-                * Gets a value that returns the top-level site of the site collection.
-                */
-            RootWeb(): IWeb;
-            SecondaryContact(): IBase;
-            /**
-                * Gets the user custom action for the list.
-                */
-            UserCustomActions(): Types.IUserCustomActions;
-            /**
-                * Gets the user custom action(s) for the list.
-                * @param id - The id of the user custom action.
-                */
-            UserCustomActions(id: string): Types.IUserCustomAction;
-    }
-    /**
-        * Site Query Result
-        */
-    export interface ISiteQueryResult extends ISiteMethods, ISiteProps {
-            Audit: Types.IAudit;
-            /**
-                * Gets the event receivers associated with the site.
-             */
-            EventReceivers: Types.IResults<Types.IEventReceiverResult>;
-            /**
-                * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
-                */
-            Features: Types.IResults<Types.IFeature>;
-            /**
-                * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
-                */
-            Owner: Types.IUserResult;
-            /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-            RecycleBin: Types.IResults<Types.IRecycleBinItem>;
-            /**
-                * Gets a value that returns the top-level site of the site collection.
-                */
-            RootWeb: IWebResult;
-            SecondaryContact: Types.IUserResult;
-            /**
-                * Gets the user custom action for the list.
-                */
-            UserCustomActions: Types.IUserCustomActionResults;
-    }
-    /**
-        * Site Result
-        */
-    export interface ISiteResult extends ISiteMethods, ISiteProps, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {
-    }
-    /**
-        * Site
-        */
-    export interface ISite extends ISiteMethods, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {
-            /**
-                * Constructor
-                * @param url - (Optional) The site url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            new (url?: string, targetInfo?: ITargetInfo): ISite;
-    }
-}
-
-declare module 'gd-sprest/mapper/site/tenantApp' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    /**
-        * Methods
-        */
-    export interface ITenantAppMethods {
-            /**
-                * Deploy solution package in tenant app catalog
-                * Enable solution to be available to install to specific sites. This API is designed to be executed in the context of the tenant app catalog site.
-                */
-            deploy(): IBase;
-            /**
-                * Install solution package from tenant app catalog to SharePoint site
-                * Install a solution package with specific identifier from tenant app catalog to the site based on URL context. This REST call can be executed in the context of the site where the install operation should happen.
-                */
-            install(): IBase;
-            /**
-                * Remove solution package from tenant app catalog
-                * Remove the solution package from the tenant app catalog. This API is designed to be executed in the context of the tenant app catalog site.
-                */
-            remove(): IBase;
-            /**
-                * Retract solution package in the tenant app catalog
-                * Retract solution to be available from the sites. This API is designed to be executed in the context of the tenant app catalog site.
-                */
-            retract(): IBase;
-            /**
-                * Uninstall solution package from SharePoint site
-                * Uninstall a solution package from the site. This REST call can be executed in the context of the site where the uninstall operation should happen.
-                */
-            uninstall(): IBase;
-            /**
-                * Upgrade solution package in SharePoint site
-                * Upgrade a solution package from the site to a newer version available in the tenant app catalog. This REST call can be executed in the context of the site where the upgrade operation should happen.
-                */
-            upgrade(): IBase;
-    }
-    /**
-        * Properties
-        */
-    export interface ITenantAppProps {
-            /** The app version. */
-            AppCatalogVersion: string;
-            /** Flag indicating an upgrade is available. */
-            CanUpgrade: boolean;
-            /** Flag indicating if the current version is deployed. */
-            CurrentVersionDeployed: boolean;
-            /** Flag indicating if the app is deployed. */
-            Deployed: boolean;
-            /** The app id. */
-            ID: string;
-            /** The installed version. */
-            InstalledVersion: string;
-            /** Flag indicating if this is a client-side solution. */
-            IsClientSideSolution: boolean;
-            /** The app title. */
-            Title: string;
-    }
-    /**
-        * Tenant App Result
-        */
-    export interface ITenantAppResult extends ITenantAppMethods, ITenantAppProps, IBase<ITenantApp, ITenantAppResult> {
-    }
-    /**
-        * Tenant App
-        */
-    export interface ITenantApp extends ITenantAppMethods, IBase<ITenantApp, ITenantAppResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/site/tenantApps' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { ITenantApp } from "gd-sprest/mapper/site";
-    /**
-        * Methods
-        */
-    export interface ITenantAppsMethods {
-            /**
-                * Details on individual solution package from tenant app catalog
-                * REST API for getting details on individual SharePoint Framework solution or add-in available in the tenant app catalog.
-                * @param guid - The app id.
-                */
-            getById(guid: string): IBase<ITenantApp>;
-    }
-    /**
-        * Tenant Apps
-        */
-    export interface ITenantApps extends ITenantAppsMethods, IBaseCollection<ITenantApp> {
-    }
-}
-
-declare module 'gd-sprest/mapper/site/tenantAppCatalog' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    import { ITenantApp, ITenantApps } from "gd-sprest/mapper/site";
-    /**
-        * Tenant App Catalog Methods
-        */
-    export interface ITenantAppCatalogMethods {
-            /**
-                * Add solution package to tenant app catalog
-                * Adding solution to the tenant app catalog. This API is designed to be executed in the context of the tenant app catalog site.
-                * @param overwrite - Flag to overwrite the solution.
-                * @param url - The file name of the solution.
-                */
-            add(overwrite?: boolean, url?: string): IBase<Types.IFile, Types.IFileResult>;
-            /**
-                * Deploy solution package in tenant app catalog
-                * Enable solution to be available to install to specific sites. This API is designed to be executed in the context of the tenant app catalog site.
-                * @param guid - The app id.
-                */
-            getById(guid: string): ITenantApp;
-    }
-    /**
-        * Tenant App Catalog Properties
-        */
-    export interface ITenantAppCatalogProps {
-            /**
-                * List available packages from tenant app catalog
-                * REST API for getting list of available SharePoint Framework solutions or add-ins in tenant app catalog.
-                */
-            AvailableApps(): ITenantApps;
-            /**
-                * No documentation available. Need to research this.
-                */
-            SiteCollectionAppCatalogsSites(): IBaseCollection;
-    }
-    /**
-        * Tenant App Catalog Query Properties
-        */
-    export interface ITenantAppCatalogQueryProps {
-            /**
-                * List available packages from tenant app catalog
-                * REST API for getting list of available SharePoint Framework solutions or add-ins in tenant app catalog.
-                */
-            AvailableApps(): ITenantApps;
-    }
-    /**
-        * Tenant App Catalog Query Result
-        */
-    export interface ITenantAppCatalogQueryResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps {
-    }
-    /**
-        * Tenant App Catalog Result
-        */
-    export interface ITenantAppCatalogResult extends ITenantAppCatalogMethods, ITenantAppCatalogProps, ITenantAppCatalogQueryProps, IBase<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> {
-    }
-    /**
-        * Tenant App Catalog
-        */
-    export interface ITenantAppCatalog extends ITenantAppCatalogMethods, ITenantAppCatalogQueryProps, IBase<ITenantAppCatalog, ITenantAppCatalogResult, ITenantAppCatalogQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/site/utility' {
-    import { KeyValue } from "gd-sprest/mapper/complexTypes.def";
-    import { IBase, ITargetInfo } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
+    import { ComplexTypes } from "gd-sprest/mapper/types";
     /**
         * Email
         */
     export interface IEmail {
             /** A collection of additional email headers. */
-            AdditionalHeaders?: Array<KeyValue>;
+            AdditionalHeaders?: Array<ComplexTypes.KeyValue>;
             /** A string or collection of email addresses to blind carbon copy the email to. */
             BCC?: Array<string>;
             /** A value that specifies the body of the email. */
@@ -9825,7 +10258,7 @@ declare module 'gd-sprest/mapper/site/utility' {
                 * @param listUrl - The relative url to the library.
                 * @param content - The html content.
                 */
-            createWikiPage(pageUrl: string, content?: string): IBase<Types.IFile, Types.IFileResult, Types.IFileQueryResult>;
+            createWikiPage(pageUrl: string, content?: string): IBase<Types.SP.IFile, Types.SP.IFileResult, Types.SP.IFileQueryResult>;
             /**
                 * Method to send an email.
                 * @param email - The email properties.
@@ -9834,10 +10267,299 @@ declare module 'gd-sprest/mapper/site/utility' {
     }
 }
 
-declare module 'gd-sprest/mapper/site/web' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/index.def";
+declare module 'gd-sprest/mapper/types/version' {
+    /**
+      * Version
+      */
+    export interface IVersion {
+        /** The check-in comment. */
+        CheckInComment: string;
+        /** The created date. */
+        Created: string;
+        /** The version id. */
+        ID: number;
+        /** Flag determining if this is the current version. */
+        IsCurrentVersion: boolean;
+        /** The file length. */
+        Length: number;
+        /** The file size. */
+        Size: number;
+        /** The file url. */
+        Url: string;
+        /** The version label. */
+        VersionLabel: string;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/versions' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IVersion } from "gd-sprest/mapper/types";
+    /**
+        * Versions
+        */
+    export interface IVersions extends IBaseCollection<IVersion, IVersion, IVersion> {
+            /**
+                * Deletes all versions in the collection.
+                */
+            deleteAll(): IBase;
+            /**
+                * Deletes a version, by the specified id.
+                * @param id - The version id to delete.
+                */
+            deleteById(id: any): IBase;
+            /**
+                * Deletes a version, by the specified label.
+                * @param label - The version label to delete.
+                */
+            deleteByLabel(label: any): IBase;
+            /**
+                * Gets the version with the specified ID.
+                * @param id - The version id to get.
+                */
+            getById(id: any): IBase<IVersion>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IVersions>;
+            /**
+                * Restores a version, by the specified label.
+                * @param label - The version label to restore.
+                */
+            restoreByLabel(label: any): IBase<IVersion>;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/view' {
+    import { IBase } from "gd-sprest/utils/types";
     import { Types } from "gd-sprest/";
-    import { ITenantAppCatalog, IWebInfo, IWebResult, IWebResults, IWebs } from "gd-sprest/mapper/site";
+    import { IViewFields } from "gd-sprest/mapper/types";
+    /**
+        * View Creation Information
+        */
+    export interface IViewCreationInformation {
+            /** The relative url to the jslink */
+            JSLink?: string;
+            /** The new list view is a paged view. */
+            Paged?: boolean;
+            /** The new list view is a personal view. If the value is false, the new list view is a public view. */
+            PersonalView?: boolean;
+            /** The maximum number of list items that the new list view displays on a visual page of the list view. */
+            RowLimit?: number;
+            /** Option to set as default view. */
+            SetAsDefaultView?: boolean;
+            /** The name of the view. */
+            Title: string;
+            /** The query for the new list view. */
+            ViewQuery?: string;
+            /** The view type. */
+            ViewTypeKind?: number;
+    }
+    /**
+        * View Methods
+        */
+    export interface IViewMethods {
+            /**
+                * Deletes the view.
+                */
+            delete(): IBase;
+            /**
+                * Returns the list view as HTML.
+                */
+            renderAsHtml(): IBase;
+            /**
+                * Updates it's properties.
+                * @param data - The list properties to update.
+                */
+            update(data: any): IBase;
+    }
+    /**
+        * View Properties
+        */
+    export interface IViewProps {
+            /** Gets or sets a value that specifies fields and functions that define totals shown in a list view. If not null, the XML must conform to FieldRefDefinitionAggregation, as specified in [MS-WSSCAML]. */
+            Aggregations: string;
+            /** Gets or sets a value that specifies whether totals are shown in the list view. */
+            AggregationsStatus: string;
+            /** Gets a value that specifies the base view identifier of the list view. */
+            BaseViewId: string;
+            /** Gets or sets the identifier of the content type with which the view is associated so that the view is available only on folders of this content type. */
+            ContentTypeId: Types.SP.IStringValue;
+            /** Gets or sets a value that specifies whether the list view is the default list view. */
+            DefaultView: boolean;
+            /** Gets or sets a value that specifies whether the list view is the default list view for the content type specified by contentTypeId. */
+            DefaultViewForContentType: boolean;
+            /** Gets or sets a value that specifies whether the list view was modified in an editor. */
+            EditorModified: boolean;
+            /** Gets or sets a value that specifies the column and row formatting for the list view. If not null, the XML must conform to ViewFormatDefinitions, as specified in [MS-WSSCAML]. */
+            Formats: string;
+            /** Gets or sets a value that specifies whether the list view is hidden. */
+            Hidden: boolean;
+            /** Gets a value that specifies the XML document that represents the list view. */
+            HtmlSchemaXml: string;
+            /** Gets a value that specifies the view identifier of the list view. */
+            Id: string;
+            /** Gets a value that specifies the URI (Uniform Resource Identifier) of the image for the list view. */
+            ImageUrl: string;
+            /** Gets or sets a value that specifies whether the current folder is displayed in the list view. */
+            IncludeRootFolder: boolean;
+            /** Gets or sets the name of the JavaScript file used for the view. */
+            JSLink: string;
+            /** Gets or sets a string that represents the view XML. */
+            ListViewXml: string;
+            /** Gets or sets a value that specifies the view method for the list view. If not null, the XML must conform to Method, as specified in [MS-WSSCAP]. */
+            Method: string;
+            /** Gets or sets a value that specifies whether the list view is the default mobile list view. */
+            MobileDefaultView: boolean;
+            /** Gets or sets a value that specifies whether the list view is a mobile list view. */
+            MobileView: boolean;
+            /** Gets a value that specifies the content approval type for the list view. */
+            ModerationType: string;
+            /** Gets a value that specifies whether list items can be reordered in the list view. */
+            OrderedView: boolean;
+            /** Gets or sets a value that specifies whether the list view is a paged view. */
+            Paged: boolean;
+            /** Gets a value that specifies whether the list view is a personal view. */
+            PersonalView: boolean;
+            /** Gets a value that specifies whether the list view is read-only. */
+            ReadOnlyView: boolean;
+            /** Gets a value that specifies whether the list view requires client integration rights. */
+            RequiresClientIntegration: boolean;
+            /** Gets or sets a value that specifies the maximum number of list items to display in a visual page of the list view. */
+            RowLimit: number;
+            /** Gets or sets a value that specifies the scope for the list view. Represents a ViewScope value. DefaultValue = 0, Recursive = 1, RecursiveAll = 2, FilesOnly = 3. */
+            Scope: number;
+            /** Gets a value that specifies the server-relative URL of the list view page. */
+            ServerRelativeUrl: string;
+            /** Gets a value that specifies the identifier of the view style for the list view. */
+            StyleId: string;
+            TabularView: boolean;
+            /** Gets a value that specifies whether the list view is a threaded view. */
+            Threaded: boolean;
+            /** Gets or sets a value that specifies the display name of the list view. */
+            Title: string;
+            /** Gets or sets a value that specifies the toolbar for the list view. */
+            Toolbar: string;
+            /** Gets a value that specifies the name of the template for the toolbar that is used in the list view. */
+            ToolbarTemplateName: string;
+            /** Gets or sets a value that specifies the view data for the list view. If not null, the XML must conform to FieldRefDefinitionViewData, as specified in [MS-WSSCAML]. */
+            ViewData: string;
+            VisualizationInfo: Types.SP.IVisualization;
+            /** Gets or sets a value that specifies the joins that are used in the list view. If not null, the XML must conform to ListJoinsDefinition, as specified in [MS-WSSCAML]. */
+            ViewJoins: string;
+            /** Gets or sets a value that specifies the projected fields that will be used by the list view. If not null, the XML must conform to ProjectedFieldsDefinitionType, as specified in [MS-WSSCAML]. */
+            ViewProjectedFields: string;
+            /** Gets or sets a value that specifies the query that is used by the list view. If not null, the XML must conform to CamlQueryRoot, as specified in [MS-WSSCAML]. */
+            ViewQuery: string;
+            /** Gets a value that specifies the type of the list view. Can be HTML, GRID, CALENDAR, RECURRENCE, CHART, or GANTT. */
+            ViewType: string;
+    }
+    /**
+        * View Query Properties
+        */
+    export interface IViewQueryProps {
+            /** Gets a value that specifies the collection of fields in the list view. */
+            ViewFields(): IViewFields;
+    }
+    /**
+        * View Query Result
+        */
+    export interface IViewQueryResult extends IViewMethods, IViewProps {
+            /** A value that specifies the collection of fields in the list view. */
+            ViewFields: Types.SP.IResults<string>;
+    }
+    /**
+        * View Result
+        */
+    export interface IViewResult extends IViewMethods, IViewProps, IViewQueryProps, IBase<IView, IViewResult, IViewQueryResult> {
+    }
+    /**
+        * View
+        */
+    export interface IView extends IViewMethods, IViewQueryProps, IBase<IView, IViewResult, IViewQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/viewFieldCollection' {
+    import { IBase } from "gd-sprest/utils/types";
+    /**
+        * View Fields
+        */
+    export interface IViewFields extends IBase<IViewFields, IViewFields, IViewFields> {
+            /** Gets a value that specifies the XML schema that represents the collection. */
+            SchemaXml: string;
+            /** Specifies the XML schema of the collection of fields. The Items property is returned with the resource, but it doesn't have a URI-addressable endpoint. */
+            Items: string;
+            /** The view field collection. */
+            results: Array<any>;
+            /**
+                * Adds the field with the specified field internal name or display name to the collection.
+                * @param fieldName - The case-sensitive internal name or display name of the field to add.
+                */
+            addViewField(fieldName: any): IBase;
+            /**
+                * Moves the field with the specified field internal name to the specified position in the collection.
+                * @param field - The case-sensitive internal name of the field to move. Send this parameter and the index parameter in the request body, as shown in the example.
+                * @param index - The zero-based index of the new position for the field. Send this parameter and the field parameter in the request body, as shown in the example.
+                */
+            moveViewFieldTo(field: any, index: any): IBase;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IViewFields>;
+            /**
+                * Removes all the fields from the collection.
+                */
+            removeAllViewFields(): IBase;
+            /**
+                * Removes the field with the specified field internal name from the collection.
+                * @param fieldName - The case-sensitive internal name or display name of the field to add.
+                */
+            removeViewField(fieldName: any): IBase;
+    }
+}
+
+declare module 'gd-sprest/mapper/types/views' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IView, IViewCreationInformation, IViewQueryResult, IViewResult } from "gd-sprest/mapper/types";
+    /**
+        * Methods
+        */
+    export interface IViewsMethods {
+            /**
+                * Adds a list view to the view collection.
+                */
+            add(parameters: IViewCreationInformation): IBase<IView, IViewResult>;
+            /**
+                * Gets the list view with the specified ID.
+                * @param id - The ID of the view.
+                */
+            getById(id: any): IView & IBase<IView, IViewResult, IViewQueryResult>;
+            /**
+                * Gets the list view with the specified title.
+                * @param title - The case-sensitive title of the view.
+                */
+            getByTitle(title: any): IView & IBase<IView, IViewResult, IViewQueryResult>;
+            /**
+                * Method to get the next set of results.
+                */
+            next(): IBase<IViews>;
+    }
+    /**
+        * Views
+        */
+    export interface IViews extends IViewsMethods, IBaseCollection<IView, IViewResult, IViewQueryResult> {
+    }
+    /**
+        * View Results
+        */
+    export interface IViewResults extends IViewsMethods, IBaseCollection<IViewResult, IViewResult, IViewQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/web' {
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { Types } from "gd-sprest/";
+    import { ITenantAppCatalog, IWebInfo, IWebResult, IWebResults, IWebs } from "gd-sprest/mapper/types";
     /**
         * Web Creation Information
         */
@@ -9918,7 +10640,7 @@ declare module 'gd-sprest/mapper/site/web' {
             /**
                 * Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, it will add the user to the site.
                 */
-            ensureUser(loginName: string): IBase<Types.IUser, Types.IUserResult, Types.IUserQueryResult>;
+            ensureUser(loginName: string): IBase<Types.SP.IUser, Types.SP.IUserResult, Types.SP.IUserQueryResult>;
             /**
                 * Sends data to an OData service.
                 * @param inputStream - The OData input object. Used for create or update operations only.
@@ -9982,17 +10704,17 @@ declare module 'gd-sprest/mapper/site/web' {
                 * Returns the file object located at the specified server-relative URL.
                 * @param url - The server relative url of the file.
                 */
-            getFileByServerRelativeUrl(url: any): Types.IFile & IBase<Types.IFile, Types.IFileResult, Types.IFileQueryResult>;
+            getFileByServerRelativeUrl(url: any): Types.SP.IFile & IBase<Types.SP.IFile, Types.SP.IFileResult, Types.SP.IFileQueryResult>;
             /**
                 * Returns the folder object located at the specified server-relative URL.
                 * @param url - The server relative url of the folder.
                 */
-            getFolderByServerRelativeUrl(url: any): Types.IFolder & IBase<Types.IFolder, Types.IFolderResult, Types.IFolderQueryResult>;
+            getFolderByServerRelativeUrl(url: any): Types.SP.IFolder & IBase<Types.SP.IFolder, Types.SP.IFolderResult, Types.SP.IFolderQueryResult>;
             /**
                 * The list at the specified site-relative URL. (SharePoint Online only)
                 * @param url - The server relative url of the list.
                 */
-            getList(url: any): Types.IList & IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
+            getList(url: any): Types.SP.IList & IBase<Types.SP.IList, Types.SP.IListResult, Types.SP.IListQueryResult>;
             /**
                 * The push notification subscriber over the site for the specified device application instance ID.
                 * @param id - The ID of the device app instance.
@@ -10013,12 +10735,12 @@ declare module 'gd-sprest/mapper/site/web' {
                 * @param nWebTemplateFilter - The ID of the template used in the site definition of the sites.
                 * @param nConfigurationFilter - The ID of the site template used to provision the sites.
                 */
-            getSubwebsFilteredForCurrentUser(nWebTemplateFilter: any, nConfigurationFilter: any): IBase<Types.IResults<IWebInfo>>;
+            getSubwebsFilteredForCurrentUser(nWebTemplateFilter: any, nConfigurationFilter: any): IBase<Types.SP.IResults<IWebInfo>>;
             /**
                 * Returns the user corresponding to the specified member identifier for the current site.
                 * @param id - The user id.
                 */
-            getUserById(id: any): Types.IUser & IBase<Types.IUser, Types.IUserResult, Types.IUserQueryResult>;
+            getUserById(id: any): Types.SP.IUser & IBase<Types.SP.IUser, Types.SP.IUserResult, Types.SP.IUserQueryResult>;
             /**
                 * The effective permissions that the specified user has within the current application scope.
                 * @param loginName - The user login name.
@@ -10123,7 +10845,7 @@ declare module 'gd-sprest/mapper/site/web' {
                 * Gets or sets a Boolean value that specifies whether the Web site can be saved as a site template.
                 */
             SaveSiteAsTemplateEnabled: boolean;
-            ServerRelativePath: Types.IResourcePath;
+            ServerRelativePath: Types.SP.IResourcePath;
             /** Gets or sets the server-relative URL for the Web site. */
             ServerRelativeUrl: string;
             SiteLogoDescription: string;
@@ -10166,7 +10888,7 @@ declare module 'gd-sprest/mapper/site/web' {
             /**
                 * Property Bag
                 */
-            AllProperties(): IBase<Types.IPropertyValues>;
+            AllProperties(): IBase<Types.SP.IPropertyValues>;
             /**
                 * Gets a value that specifies whether the current user is allowed to revert the site to a default site template.
                 */
@@ -10183,44 +10905,44 @@ declare module 'gd-sprest/mapper/site/web' {
                 * Gets a collection of metadata for the Web site.
                 */
             AllProperties(): IBase;
-            AppTiles(): Types.IAppTiles;
+            AppTiles(): Types.SP.IAppTiles;
             /**
                 * Gets or sets the group of users who have been given contribute permissions to the Web site.
                 */
-            AssociatedMemberGroup(): Types.IGroup;
+            AssociatedMemberGroup(): Types.SP.IGroup;
             /**
                 * Gets or sets the associated owner group of the Web site.
                 */
-            AssociatedOwnerGroup(): Types.IGroup;
+            AssociatedOwnerGroup(): Types.SP.IGroup;
             /**
                 * Gets or sets the associated visitor group of the Web site.
                 */
-            AssociatedVisitorGroup(): Types.IGroup;
-            Author(): Types.IUser;
+            AssociatedVisitorGroup(): Types.SP.IGroup;
+            Author(): Types.SP.IUser;
             /**
                 * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
                 */
-            AvailableContentTypes(): IBase<Types.IContentTypes>;
+            AvailableContentTypes(): IBase<Types.SP.IContentTypes>;
             /**
                 * Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
                 */
-            AvailableFields(): IBase<Types.IFields>;
+            AvailableFields(): IBase<Types.SP.IFields>;
             ClientWebParts(): IBase;
             /**
                 * Gets the content types that are associated with the web.
                 */
-            ContentTypes(): Types.IContentTypes;
+            ContentTypes(): Types.SP.IContentTypes;
             /**
                 * Gets the content type that are associated with the web.
                 * @param id - The id of the content type.
                 */
-            ContentTypes(id: string): Types.IContentType;
+            ContentTypes(id: string): Types.SP.IContentType;
             /**
                 * Gets the current user of the site.
                 */
-            CurrentUser(): Types.IUser;
+            CurrentUser(): Types.SP.IUser;
             DataLeakagePreventionStatusInfo(): IBase;
-            DescriptionResource(): IBase<Types.IResourcePath>;
+            DescriptionResource(): IBase<Types.SP.IResourcePath>;
             /**
                 * Gets the URL where the current user can download SharePoint Designer.
                 */
@@ -10232,12 +10954,12 @@ declare module 'gd-sprest/mapper/site/web' {
             /**
                 * Gets the event receivers associated with the web.
              */
-            EventReceivers(): Types.IEventReceivers;
+            EventReceivers(): Types.SP.IEventReceivers;
             /**
                 * Gets the event receiver associated with the web.
                 * @param id - The id of the event receiver.
              */
-            EventReceivers(id: string): Types.IEventReceiver;
+            EventReceivers(id: string): Types.SP.IEventReceiver;
             /**
                 * Gets a value that specifies the collection of features that are currently activated in the site.
                 */
@@ -10245,30 +10967,30 @@ declare module 'gd-sprest/mapper/site/web' {
             /**
                 * Gets the fields in the web.
                 */
-            Fields(): Types.IFields;
+            Fields(): Types.SP.IFields;
             /**
                 * Gets the field in the web.
                 * @param internalNameOrTitle - The internal name or title of the field.
                 */
-            Fields(internalNameOrTitle: string): Types.IField;
+            Fields(internalNameOrTitle: string): Types.SP.IField;
             /**
                 * Gets the folders contained in the root folder.
                 */
-            Folders(): Types.IFolders;
+            Folders(): Types.SP.IFolders;
             /**
                 * Gets the folder contained in the root folder.
                 * @param url - The url of the sub-folder within the current folder.
                 */
-            Folders(url: string): Types.IFolder;
+            Folders(url: string): Types.SP.IFolder;
             /**
                 * Gets the lists in the Web.
                 */
-            Lists(): Types.ILists;
+            Lists(): Types.SP.ILists;
             /**
                 * Gets the list in the Web.
                 * @param name - The list name.
                 */
-            Lists(name: string): Types.IList;
+            Lists(name: string): Types.SP.IList;
             /**
                 * Gets the list definitions and list templates available for creating lists on the site.
                 */
@@ -10281,7 +11003,7 @@ declare module 'gd-sprest/mapper/site/web' {
             /**
                 * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
                 */
-            Navigation(): IBase<Types.INavigation>;
+            Navigation(): IBase<Types.SP.INavigation>;
             /**
                 * Gets the parent website of the specified website.
                 */
@@ -10301,21 +11023,21 @@ declare module 'gd-sprest/mapper/site/web' {
             /**
                 * Gets the role definitions for the web.
                 */
-            RoleDefinitions(): Types.IRoleDefinitions;
+            RoleDefinitions(): Types.SP.IRoleDefinitions;
             /**
                 * Gets the role definitions for the web.
                 * @param name - The role definition name.
                 */
-            RoleDefinitions(name: string): Types.IRoleDefinition;
+            RoleDefinitions(name: string): Types.SP.IRoleDefinition;
             /**
                 * Gets the root folder in the web.
                 */
-            RootFolder(): Types.IFolder;
+            RootFolder(): Types.SP.IFolder;
             /**
                 * Gets the file in the web's root folder.
                 * @param url - (Optional) The url of the file within the root folder.
                 */
-            RootFolder(url: string): Types.IFile;
+            RootFolder(url: string): Types.SP.IFile;
             /**
                 * Gets a value that specifies whether the current user is able to view the file system structure of this site.
                 */
@@ -10323,12 +11045,12 @@ declare module 'gd-sprest/mapper/site/web' {
             /**
                 * Gets the site groups for the web.
                 */
-            SiteGroups(): Types.ISiteGroups;
+            SiteGroups(): Types.SP.ISiteGroups;
             /**
                 * Gets the site groups for the web.
                 * @param name - The group name.
                 */
-            SiteGroups(name: string): Types.IGroup;
+            SiteGroups(name: string): Types.SP.IGroup;
             /**
                 * Gets the UserInfo list of the site collection that contains the Web site.
                 */
@@ -10336,12 +11058,12 @@ declare module 'gd-sprest/mapper/site/web' {
             /**
                 * Gets the collection of all users that belong to the site collection.
                 */
-            SiteUsers(): Types.IUsers;
+            SiteUsers(): Types.SP.IUsers;
             /**
                 * Gets the collection of all users that belong to the site collection.
                 * @param id - The user id.
                 */
-            SiteUsers(id: any): Types.IUser;
+            SiteUsers(id: any): Types.SP.IUser;
             /**
                 * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
                 */
@@ -10352,16 +11074,16 @@ declare module 'gd-sprest/mapper/site/web' {
                 * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
                 */
             ThemeInfo(): IBase;
-            TitleResource(): IBase<Types.IResourcePath>;
+            TitleResource(): IBase<Types.SP.IResourcePath>;
             /**
                 * Gets the user custom actions for the web.
                 */
-            UserCustomActions(): Types.IUserCustomActions;
+            UserCustomActions(): Types.SP.IUserCustomActions;
             /**
                 * Gets the user custom action for the web.
                 * @param id - The id of the user custom action.
                 */
-            UserCustomActions(id: string): Types.IUserCustomAction;
+            UserCustomActions(id: string): Types.SP.IUserCustomAction;
             /**
                 * Represents key properties of the subsites of a site.
                 */
@@ -10408,40 +11130,40 @@ declare module 'gd-sprest/mapper/site/web' {
                 * A collection of metadata for the Web site.
                 */
             AllProperties?: Array<string>;
-            AppTiles?: Types.IAppTiles;
+            AppTiles?: Types.SP.IAppTiles;
             /**
                 * The group of users who have been given contribute permissions to the Web site.
                 */
-            AssociatedMemberGroup: Types.IGroupResult;
+            AssociatedMemberGroup: Types.SP.IGroupResult;
             /**
                 * The associated owner group of the Web site.
                 */
-            AssociatedOwnerGroup: Types.IGroupResult;
+            AssociatedOwnerGroup: Types.SP.IGroupResult;
             /**
                 * The associated visitor group of the Web site.
                 */
-            AssociatedVisitorGroup: Types.IGroupResult;
+            AssociatedVisitorGroup: Types.SP.IGroupResult;
             /** */
-            Author: Types.IUserResult;
+            Author: Types.SP.IUserResult;
             /**
                 * The collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
                 */
-            AvailableContentTypes: Types.IResults<Types.IContentTypeResult>;
+            AvailableContentTypes: Types.SP.IResults<Types.SP.IContentTypeResult>;
             /**
                 * A value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
                 */
-            AvailableFields: Types.IResults<Types.IFieldResult>;
+            AvailableFields: Types.SP.IResults<Types.SP.IFieldResult>;
             ClientWebParts: IBase;
             /**
                 * Gets the content types that are associated with the web.
                 */
-            ContentTypes: Types.IContentTypeResults;
+            ContentTypes: Types.SP.IContentTypeResults;
             /**
                 * Gets the current user of the site.
                 */
-            CurrentUser: Types.IUserResult;
-            DataLeakagePreventionStatusInfo: Types.IContainsConfidentialInfo;
-            DescriptionResource: Types.IResourcePath;
+            CurrentUser: Types.SP.IUserResult;
+            DataLeakagePreventionStatusInfo: Types.SP.IContainsConfidentialInfo;
+            DescriptionResource: Types.SP.IResourcePath;
             /**
                 * Gets the URL where the current user can download SharePoint Designer.
                 */
@@ -10449,35 +11171,35 @@ declare module 'gd-sprest/mapper/site/web' {
             /**
                 * Represents the intersection of permissions of the app principal and the user principal. In the app-only case, this property returns only the permissions of the app principal. To check only user permissions (ignoring app permissions), use the GetUserEffectivePermissions method.
                 */
-            EffectiveBasePermissions: Types.IBasePermissions;
+            EffectiveBasePermissions: Types.SP.IBasePermissions;
             /**
                 * Gets the event receivers associated with the web.
              */
-            EventReceivers: Types.IEventReceiverResults;
+            EventReceivers: Types.SP.IEventReceiverResults;
             /**
                 * Gets a value that specifies the collection of features that are currently activated in the site.
                 */
-            Features: Types.IResults<Types.IFeature>;
+            Features: Types.SP.IResults<Types.SP.IFeature>;
             /**
                 * The fields in the web.
                 */
-            Fields: Types.IFieldResults;
+            Fields: Types.SP.IFieldResults;
             /**
                 * The folders contained in the root folder.
                 */
-            Folders: Types.IFolderResults;
+            Folders: Types.SP.IFolderResults;
             /**
                 * Gets the lists in the Web.
                 */
-            Lists: Types.IListResults;
+            Lists: Types.SP.IListResults;
             /**
                 * The list definitions and list templates available for creating lists on the site.
                 */
-            ListTemplates: Types.IResults<Types.IListTemplate>;
+            ListTemplates: Types.SP.IResults<Types.SP.IListTemplate>;
             /**
                 * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
                 */
-            Navigation: Types.INavigation;
+            Navigation: Types.SP.INavigation;
             /**
                 * Gets the parent website of the specified website.
                 */
@@ -10489,19 +11211,19 @@ declare module 'gd-sprest/mapper/site/web' {
             /**
                 * Specifies the collection of recycle bin items of the recycle bin of the site.
                 */
-            RecycleBin: Types.IResults<Types.IRecycleBinItem>;
+            RecycleBin: Types.SP.IResults<Types.SP.IRecycleBinItem>;
             /**
                 * Gets the regional settings that are currently implemented on the website.
                 */
-            RegionalSettings: Types.IRegionalSettings;
+            RegionalSettings: Types.SP.IRegionalSettings;
             /**
                 * Gets the role definitions for the web.
                 */
-            RoleDefinitions: Types.IRoleDefinitionResults;
+            RoleDefinitions: Types.SP.IRoleDefinitionResults;
             /**
                 * Gets the root folder in the web.
                 */
-            RootFolder: Types.IFolderResult;
+            RootFolder: Types.SP.IFolderResult;
             /**
                 * Gets a value that specifies whether the current user is able to view the file system structure of this site.
                 */
@@ -10509,34 +11231,34 @@ declare module 'gd-sprest/mapper/site/web' {
             /**
                 * Gets the site groups for the web.
                 */
-            SiteGroups: Types.ISiteGroupResults;
+            SiteGroups: Types.SP.ISiteGroupResults;
             /**
                 * Gets the UserInfo list of the site collection that contains the Web site.
                 */
-            SiteUserInfoList: Types.IListResult;
+            SiteUserInfoList: Types.SP.IListResult;
             /**
                 * The collection of all users that belong to the site collection.
                 */
-            SiteUsers: Types.IUserResults;
+            SiteUsers: Types.SP.IUserResults;
             /**
                 * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
                 */
-            SupportedUILanguageIds: Types.IResults<number>;
+            SupportedUILanguageIds: Types.SP.IResults<number>;
             /** Gets the tenant app catalog. */
             TenantAppCatalog: ITenantAppCatalog;
             /**
                 * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
                 */
-            ThemeInfo: Types.IThemeInfo;
-            TitleResource: Types.IResourcePath;
+            ThemeInfo: Types.SP.IThemeInfo;
+            TitleResource: Types.SP.IResourcePath;
             /**
                 * Gets the user custom actions for the web.
                 */
-            UserCustomActions: Types.IUserCustomActionResults;
+            UserCustomActions: Types.SP.IUserCustomActionResults;
             /**
                 * Represents key properties of the subsites of a site.
                 */
-            WebInfos: Types.IResults<IWebInfo>;
+            WebInfos: Types.SP.IResults<IWebInfo>;
             /**
                 * A Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
                 */
@@ -10546,11 +11268,11 @@ declare module 'gd-sprest/mapper/site/web' {
             /**
                 * A value that specifies the collection of all workflow associations for the site.
                 */
-            WorkflowAssociations: Types.IResults<any>;
+            WorkflowAssociations: Types.SP.IResults<any>;
             /**
                 * A value that specifies the collection of workflow templates associated with the site.
                 */
-            WorkflowTemplates: Types.IResults<Types.IWorkflowTemplate>;
+            WorkflowTemplates: Types.SP.IResults<Types.SP.IWorkflowTemplate>;
     }
     /**
         * Web Result
@@ -10570,9 +11292,9 @@ declare module 'gd-sprest/mapper/site/web' {
     }
 }
 
-declare module 'gd-sprest/mapper/site/webs' {
-    import { IWeb, IWebCreationInformation, IWebQueryResult, IWebResult } from "gd-sprest/mapper/site";
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
+declare module 'gd-sprest/mapper/types/webs' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    import { IWeb, IWebCreationInformation, IWebQueryResult, IWebResult } from "gd-sprest/mapper/types";
     /**
         * Methods
         */
@@ -10599,945 +11321,8 @@ declare module 'gd-sprest/mapper/site/webs' {
     }
 }
 
-declare module 'gd-sprest/mapper/social/peopleManager' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    /**
-        * Person Properties
-        */
-    export interface IPersonProperties extends IBase<IPersonProperties> {
-            /**
-                * The user's account name.
-                */
-            AccountName: string;
-            /**
-                * The account names of the user's direct reports.
-                */
-            DirectReports: string;
-            /**
-                * The user's display name.
-                */
-            DisplayName: string;
-            /**
-                * The user's email address.
-                */
-            Email: string;
-            /**
-                * The account names of the user's manager hierarchy.
-                */
-            ExtendedManagers: string;
-            /**
-                * The account names of the user's extended reports.
-                */
-            ExtendedReports: string;
-            /**
-                * A Boolean value that indicates whether the user is being followed by the current user.
-                */
-            IsFollowed: boolean;
-            /**
-                * The user's latest microblog post.
-                */
-            LatestPost: string;
-            /**
-                * The account names of the user's peers.
-                */
-            Peers: string;
-            /**
-                * The absolute URL of the user's personal site.
-                */
-            PersonalUrl: string;
-            /**
-                * The URL of the user's profile picture.
-                */
-            PictureUrl: string;
-            /**
-                * The user's title.
-                */
-            Title: string;
-            /**
-                * The user profile properties for the user.
-                */
-            UserProfileProperties: Types.ComplexTypes.KeyValue;
-            /**
-                * The URL of the user's profile page.
-                */
-            UserUrl: string;
-    }
-    /**
-        * People Manager
-        */
-    export interface IPeopleManager extends IBase<IPeopleManager> {
-            /**
-                * Constructor
-                * @param targetInfo - (Optional) The target information.
-                */
-            new (targetInfo?: ITargetInfo): IPeopleManager;
-            /**
-                * The URL of the edit profile page for the current user.
-                */
-            EditProfileLink: string;
-            /**
-                * A Boolean value that indicates whether the current user's People I'm Following list is public.
-                */
-            IsMyPeopleListPublic: boolean;
-            /** Checks whether the specified user is following the current user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-             */
-            amIFollowedBy(accountName: string): IBase;
-            /**
-                * Checks whether the current user is following the specified user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            amIFollowing(accountName: string): IBase;
-            /**
-                * Adds the specified user to the current user's list of followed users.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            follow(accountName: string): IBase;
-            /**
-                * Adds the specified tag to the current user's list of followed tags.
-                * @param id - The ID of the tag to start following.
-                */
-            followTag(id: string): IBase;
-            /**
-                * Gets tags that the user is following.
-                * @param maxCount - The maximum number of tags to get.
-                */
-            getFollowedTags(maxCount: number): IBase;
-            /**
-                * Gets the people who are following the specified user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            getFollowersFor(accountName: string): IBase<IPersonProperties>;
-            /**
-                * Gets the people who are following the current user.
-                */
-            getMyFollowers(): IBase<IPersonProperties>;
-            /**
-                * Gets user properties for the current user.
-                */
-            getMyProperties(): IBase<IPersonProperties>;
-            /**
-                * Gets suggestions for who the current user might want to follow.
-                */
-            getMySuggestions(): IBase<IPersonProperties>;
-            /**
-                * Gets the people who the specified user is following.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            getPeopleFollowedBy(accountName: string): IBase<IPersonProperties>;
-            /**
-                * Gets the people who the current user is following.
-                */
-            getPeopleFollowedByMe(): IBase<IPersonProperties>;
-            /**
-                * Gets user properties for the specified user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            getPropertiesFor(accountName: string): IBase<IPersonProperties>;
-            /**
-                * Gets the most popular tags.
-                */
-            getTrendingTags(): IBase;
-            /**
-                * Gets the specified user profile property for the specified user.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                * @param propertyName - The case-sensitive name of the property to get.
-                */
-            getUserProfilePropertyFor(accountName: string, propertyName: string): IBase<IPersonProperties>;
-            /**
-                * Removes the specified user from the user's list of suggested people to follow.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            hideSuggestion(accountName: string): IBase;
-            /**
-                * Checks whether the first user is following the second user.
-                * @param possibleFollowerAccountName - The account name of the user who might be following possiblefolloweeaccountname, encoded and passed as an alias in the query string.
-                * @param possibleFolloweeAccountName - The account name of the user who might be followed, encoded and passed as an alias in the query string.
-                */
-            isFollowing(possibleFollowerAccountName: string, possibleFolloweeAccountName: string): IBase;
-            /**
-                * Uploads and sets the user profile picture. Users can upload a picture to their own profile only.
-                * @param stream - The picture in BMP, JPEG, or PNG format of up to 4.76MB.
-                */
-            setMyProfilePicture(stream: any): IBase;
-            /**
-                * Remove the specified user from the current user's list of followed users.
-                * @param accountName - The account name of the user, encoded and passed as an alias in the query string.
-                */
-            stopFollowing(accountName: string): IBase;
-            /**
-                * Remove the specified tag from the current user's list of followed tags.
-                * @param id - The ID of the tag to stop following.
-                */
-            stopFollowingTag(id: string): IBase;
-    }
-}
-
-declare module 'gd-sprest/mapper/social/profileLoader' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    /**
-        * Profile Loader
-        */
-    export interface IProfileLoader extends IBase<IProfileLoader> {
-            /**
-                * Constructor
-                * @param targetInfo - (Optional) The target information.
-                */
-            new (targetInfo?: ITargetInfo): IProfileLoader;
-            /**
-                * Provisions one or more users' personal sites. (My Site administrator on SharePoint Online only)
-                * @param emailIDs - The email addresses of the users to provision sites for. Maximum 200 characters.
-                */
-            createPersonalSiteEnqueueBulk(emailIDs: Array<string>): IBase;
-            /**
-                * Gets the user profile of the site owner.
-                */
-            getOwnerUserProfile(): IBase<Types.IUserProfile>;
-            /**
-                * Gets the user profile that corresponds to the current user.
-                */
-            getUserProfile(): IBase<Types.IUserProfile>;
-    }
-}
-
-declare module 'gd-sprest/mapper/social/socialFeed' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    /**
-        * Social Feed
-        */
-    export interface ISocialFeed {
-            /**
-                * Gets information about the specified user and the current user.
-                * @param accountName - The login name of the user.
-                */
-            actor(accountName: string): IBase<ISocialRestActor>;
-            /**
-                * Gets the feed of activity by the specified user (Personal feed type) or gets the specified site feed.
-                * @param accountName - The login name of the user.
-                */
-            actorFeed(accountName: string): IBase<ISocialRestThread>;
-            /**
-                * Gets the feed of microblog posts that mention the current user, represented by MentionReference thread types, and sets the user's unread mention count to 0.
-                */
-            clearMyUnreadMentionCount(): IBase;
-            /**
-                * Gets information about the current user.
-                */
-            my(): IBase<ISocialRestActor>;
-            /**
-                * Gets the feed of activity by the current user (Personal feed type).
-                */
-            myFeed(): IBase<ISocialRestFeed>;
-            /**
-                * Gets the feed of microblog posts that the current user likes, represented by LikeReference thread types. See Reference threads and digest threads in SharePoint Server 2013 social feeds.
-                */
-            myLikes(): IBase<ISocialRestFeed>;
-            /**
-                * Gets the feed of microblog posts that mention the current user, represented by MentionReference thread types.
-                */
-            myMentionFeed(): IBase<ISocialRestFeed>;
-            /**
-                * Gets the feed of activity by the current user and by people and content the user is following, sorted by last modified date (News feed type).
-                */
-            myNews(): IBase<ISocialRestFeed>;
-            /**
-                * Gets the feed of activity by the current user and by people and content the user is following, sorted by created date (Timeline feed type).
-                */
-            myTimelineFeed(): IBase<ISocialRestFeed>;
-            /**
-                * Gets the count of unread mentions for the current user.
-                */
-            myUnreadMentionCount(): IBase<ISocialRestFeed>;
-            /**
-                * Creates a root post in the specified site feed.
-                * @param accountName - The login name of the user.
-                */
-            postToFeed(accountName: string, postInfo: Types.ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
-            /**
-                * Creates a root post in the current user's feed.
-                * @param creationData - The post creation data.
-                */
-            postToMyFeed(creationData: Types.ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
-    }
-    /**
-        * Social Rest Actor
-        */
-    export interface ISocialRestActor extends IBase<ISocialRestActor> {
-            /**
-                * Properties
-                */
-            FollowableItem?: string;
-            FollwableItemActor: Types.ComplexTypes.SocialActor;
-            Me: Types.ComplexTypes.SocialActor;
-            /**
-                * Methods
-                */
-            clearUnreadMentionCount(): IBase<ISocialRestFeed>;
-    }
-    /**
-        * Social Rest Feed
-        */
-    export interface ISocialRestFeed extends IBase<ISocialRestFeed> {
-            /**
-                * Properties
-                */
-            SocialFeed: Types.ComplexTypes.SocialFeed;
-            /**
-                * Creates a root post in the user's feed.
-                */
-            post(postInfo: Types.ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
-    }
-    /**
-        * Social Rest Thread
-        */
-    export interface ISocialRestThread extends IBase<ISocialRestThread> {
-            /**
-                * Properties
-                */
-            ID?: string;
-            SocialThread: Types.ComplexTypes.SocialThread;
-            /**
-                * Methods
-                */
-            delete(): IBase<ISocialRestThread>;
-            reply(restCreationData: Types.ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
-    }
-}
-
-declare module 'gd-sprest/mapper/social/userProfile' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    /**
-        * User Profile
-        */
-    export interface IUserProfile extends IBase<IUserProfile> {
-            /**
-                * Constructor
-                * @param targetInfo - (Optional) The target information.
-                */
-            new (targetInfo?: ITargetInfo): IUserProfile;
-            /**
-                * An object containing the user's FollowedDocumentsUrl and FollowedSitesUrl.
-                */
-            FollowedContent(): IBase<any>;
-            /**
-                * The account name of the user. (SharePoint Online only)
-                */
-            AccountName: string;
-            /**
-                * The display name of the user. (SharePoint Online only)
-                */
-            DisplayName: string;
-            FollowPersonalSiteUrl: string;
-            IsPeopleListPublic: boolean;
-            IsPrivacySettingOn: boolean;
-            IsSelf: boolean;
-            JobTitle: string;
-            MySiteFirstRunExperience: number;
-            MySiteHostUrl: string;
-            /**
-                * The FirstRun flag of the user. (SharePoint Online only)
-                */
-            O15FirstRunExperience: number;
-            /**
-                * The personal site of the user.
-                */
-            PersonalSite(): IBase<Types.IWeb>;
-            /**
-                * The capabilities of the user's personal site.
-                */
-            PersonalSiteCapabilities: number;
-            /**
-                * The error thrown when the user's personal site was first created, if any. (SharePoint Online only)
-                */
-            PersonalSiteFirstCreationError: string;
-            /**
-                * The date and time when the user's personal site was first created. (SharePoint Online only)
-                */
-            PersonalSiteFirstCreationTime: string;
-            /**
-                * The status for the state of the personal site instantiation.
-                * See PersonalSiteInstantiationState in the .NET client object model reference for a list of instantiation state values.
-                */
-            PersonalSiteInstantiationState: number;
-            /**
-                * The date and time when the user's personal site was last created. (SharePoint Online only)
-                */
-            PersonalSiteLastCreationTime: string;
-            /**
-                * The number of attempts made to create the user's personal site. (SharePoint Online only)
-                */
-            PersonalSiteNumberOfRetries: number;
-            /**
-                * A Boolean value that indicates whether the user's picture is imported from Exchange.
-                */
-            PictureImportEnabled: boolean;
-            PictureUrl: string;
-            /**
-                * The public URL of the personal site of the current user. (SharePoint Online only)
-                */
-            PublicUrl: string;
-            /**
-                * The URL used to create the user's personal site.
-                */
-            UrlToCreatePersonalSite: string;
-            /**
-                * Enqueues creating a personal site for this user, which can be used to share documents, web pages, and other files.
-                * For SharePoint Online development, My Site Host administrators can also use the CreatePersonalSiteEnqueueBulk method to create personal sites for one or more users.
-                * @param interactiveFl - True if this is an interactively (web) initiated request, or false if this is a non-interactively (client) initiated request.
-                */
-            createPersonalSiteEnque(interactiveFl: boolean): IBase;
-            /**
-                * Sets the privacy settings for this profile.
-                * @param publicFl - true to make all social data public; false to make all social data private.
-                */
-            shareAllSocialData(publicFl: boolean): IBase;
-    }
-}
-
-declare module 'gd-sprest/mapper/user/group' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { IUser, IUserResult, IUserResults, IUsers } from "gd-sprest/mapper/user";
-    /**
-        * Group Creation Information
-        */
-    export interface IGroupCreationInformation {
-            /** The group description. */
-            Description?: string;
-            /** The group name. */
-            Title: string;
-    }
-    /**
-        * Group Methods
-        */
-    export interface IGroupMethods {
-    }
-    /**
-        * Group Properties
-        */
-    export interface IGroupProps {
-            /** Gets or sets a value that indicates whether the group members can edit membership in the group. */
-            AllowMembersEditMembership: boolean;
-            /** Gets or sets a value that indicates whether to allow users to request membership in the group and request to leave the group. */
-            AllowRequestToJoinLeave: boolean;
-            /** Gets or sets the description of the group. */
-            Description: string;
-            /** Gets a value that specifies the member identifier for the user or group. */
-            Id: string;
-            /** Gets a value that indicates whether this member should be hidden in the UI. */
-            IsHiddenInUI: string;
-            /** Gets the name of the group. */
-            LoginName: string;
-            /** Gets or sets a value that indicates whether only group members are allowed to view the membership of the group. */
-            OnlyAllowMembersViewMembership: boolean;
-            /** Gets the name for the owner of this group. */
-            OwnerTitle: string;
-            /** Gets or sets the email address to which the requests of the membership are sent. */
-            RequestToJoinLeaveEmailSetting: string;
-            /** Gets a value containing the type of the principal. Represents a bitwise SP.PrincipalType value: None = 0; User = 1; DistributionList = 2; SecurityGroup = 4; SharePointGroup = 8; All = 15. */
-            PrincipalType: string;
-            /** Gets or sets a value that specifies the name of the principal. */
-            Title: string;
-    }
-    /**
-        * Group Query Properties
-        */
-    export interface IGroupQueryProps {
-            /**
-                * Gets or sets a value that indicates whether the request to join or leave the group can be accepted automatically.
-                */
-            AutoAcceptRequestToJoinLeave(): IBase<boolean>;
-            /**
-                * Gets a value that indicates whether the current user can edit the membership of the group.
-                */
-            CanCurrentUserEditMembership(): IBase<boolean>;
-            /**
-                * Gets a value that indicates whether the current user can manage the group.
-                */
-            CanCurrentUserManageGroup(): IBase<boolean>;
-            /**
-                * Gets a value that indicates whether the current user can view the membership of the group.
-                */
-            CanCurrentUserViewMembership(): IBase<boolean>;
-            /**
-                * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.
-                */
-            Owner(): IUser;
-            /**
-                * Gets a collection of user objects that represents all of the users in the group.
-                */
-            Users(): IUsers;
-            /**
-                * Gets a collection of user objects that represents all of the users in the group.
-                * @param id - The user id.
-                */
-            Users(id: any): IUser;
-    }
-    /**
-        * Group Query Result
-        */
-    export interface IGroupQueryResult extends IGroupMethods, IGroupProps {
-            /**
-                * Gets or sets a value that indicates whether the request to join or leave the group can be accepted automatically.
-                */
-            AutoAcceptRequestToJoinLeave: boolean;
-            /**
-                * Gets a value that indicates whether the current user can edit the membership of the group.
-                */
-            CanCurrentUserEditMembership: boolean;
-            /**
-                * Gets a value that indicates whether the current user can manage the group.
-                */
-            CanCurrentUserManageGroup: boolean;
-            /**
-                * Gets a value that indicates whether the current user can view the membership of the group.
-                */
-            CanCurrentUserViewMembership: boolean;
-            /**
-                * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.
-                */
-            Owner: IUserResult;
-            /**
-                * Gets a collection of user objects that represents all of the users in the group.
-                */
-            Users: IUserResults;
-    }
-    /**
-        * Group Result
-        */
-    export interface IGroupResult extends IGroupMethods, IGroupProps, IGroupQueryProps, IBase<IGroup, IGroupResult, IGroupQueryResult> {
-    }
-    /**
-        * Group
-        */
-    export interface IGroup extends IGroupMethods, IGroupQueryProps, IBase<IGroup, IGroupResult, IGroupQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/user/groups' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IGroup, IGroupCreationInformation, IGroupQueryResult, IGroupResult } from "gd-sprest/mapper/user";
-    /**
-        * Methods
-        */
-    export interface ISiteGroupsMethods {
-            /**
-                * Adds a site to the site collection.
-                * @param groupInfo - The group creation information.
-                */
-            add(groupInfo: IGroupCreationInformation): IBase<IGroup, IGroupResult>;
-            /**
-                * Returns a group from the collection based on the member ID of the group.
-                * @param id - The site group id.
-                */
-            getById(id: any): IGroup & IBase<IGroup, IGroupResult, IGroupQueryResult>;
-            /**
-                * Returns a cross-site group from the collection based on the name of the group.
-                * @param name - The name of the group. The group name is specified in its LoginName property.
-                */
-            getByName(name: any): IGroup & IBase<IGroup, IGroupResult, IGroupQueryResult>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<ISiteGroups, ISiteGroupResults>;
-            /**
-                * Removes the group with the specified member ID from the collection.
-                * @param id - The ID of the group to remove.
-                */
-            removeById(id: any): IBase;
-            /**
-                * Removes the cross-site group with the specified name from the collection.
-                * @param name - The name of the group to remove. The group name is specified in its LoginName property.
-                */
-            removeByLoginName(name: any): IBase;
-    }
-    /**
-        * Site Groups
-        */
-    export interface ISiteGroups extends ISiteGroupsMethods, IBaseCollection<IGroup, IGroupResult, IGroupQueryResult> {
-    }
-    /**
-        * Site Group Results
-        */
-    export interface ISiteGroupResults extends ISiteGroupsMethods, IBaseCollection<IGroupResult, IGroupResult, IGroupQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/user/peoplePicker' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    /**
-        * People Picker Query
-        */
-    export interface IPeoplePickerQuery {
-            /** True to allow the email address. */
-            AllowEmailAddresses?: boolean;
-            /** True to allow multiple entities.  */
-            AllowMultipleEntities?: boolean;
-            /** True to allow all url zones. */
-            AllUrlZones?: boolean;
-            /** True to enable claim providers. */
-            EnabledClaimProviders?: boolean;
-            /** True to force claims. */
-            ForceClaims?: boolean;
-            /** Maximum entity suggestions. */
-            MaximumEntitySuggestions: number;
-            /** The principal source. */
-            PrincipalSource?: number;
-            /** The principal type. */
-            PrincipalType?: number;
-            /** The query string. This value must be >= 3 characters. */
-            QueryString?: string;
-            /** Required flag. */
-            Required?: boolean;
-            /** The SharePoint group id. */
-            SharePointGroupID?: number;
-            /** The url zone. */
-            UrlZone?: number;
-            /** Url zone specified flag. */
-            UrlZoneSpecified?: boolean;
-            /** The web. */
-            Web?: any;
-            /** The web application id. */
-            WebApplicationID?: any;
-    }
-    /**
-        * People Picker Resolve User
-        */
-    export interface IPeoplePickerResolveUser {
-            ClientPeoplePickerResolveUser: Array<IPeoplePickerUser>;
-    }
-    /**
-        * People Picker Search User
-        */
-    export interface IPeoplePickerSearchUser {
-            ClientPeoplePickerSearchUser: Array<IPeoplePickerUser>;
-    }
-    /**
-        * People Picker User
-        */
-    export interface IPeoplePickerUser {
-            /** Description */
-            Description: string;
-            /** Display Text */
-            DisplayText: string;
-            /** The user entity data. */
-            EntityData: Types.IEntityData;
-            /** Entity Type */
-            EntityType: string;
-            /** Flag to determine if the search user is resolved. */
-            IsResolved: boolean;
-            /** The search value. */
-            Key: string;
-            /** An array of un-resolved user entities. */
-            MultipleMatches: Array<Types.IEntityData>;
-            /** Provider Display Name */
-            ProviderDisplayName: string;
-            /** Provider Name */
-            ProviderName: string;
-    }
-    /**
-        * People Picker
-        */
-    export interface IPeoplePicker extends IBase {
-            /**
-                * Constructor
-                * @param settings - The search settings.
-                */
-            new (settings?: ITargetInfo): IPeoplePicker;
-            /** Method to resolve users.
-                * @param query - The people picker query.
-             */
-            clientPeoplePickerResolveUser(query: IPeoplePickerQuery): IBase<IPeoplePickerResolveUser>;
-            /** Method to search for users.
-                * @param query - The people picker query.
-             */
-            clientPeoplePickerSearchUser(query: IPeoplePickerQuery): IBase<IPeoplePickerSearchUser>;
-    }
-}
-
-declare module 'gd-sprest/mapper/user/user' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { IGroup, ISiteGroupResults, ISiteGroups, IUser } from "gd-sprest/mapper/user";
-    /**
-        * User Creation Information
-        */
-    export interface IUserCreationInformation {
-            Email?: string;
-            LoginName: string;
-            Title?: string;
-    }
-    /**
-        * User Methods
-        */
-    export interface IUserMethods {
-            /**
-                * Deletes the user custom action.
-                */
-            delete(): IBase;
-    }
-    /**
-        * User Properties
-        */
-    export interface IUserProps {
-            /** Gets or sets the email address of the user. */
-            Email: string;
-            /** Gets a value that specifies the member identifier for the user or group. */
-            Id: string;
-            /** Gets a value that indicates whether this member should be hidden in the UI. */
-            IsHiddenInUI: boolean;
-            IsSharedByEmailGuestUser: boolean;
-            /** Gets or sets a Boolean value that specifies whether the user is a site collection administrator. */
-            IsSiteAdmin: boolean;
-            /** Gets the login name of the user. */
-            LoginName: string;
-            /** Gets a value containing the type of the principal. Represents a bitwise SP.PrincipalType value: None = 0; User = 1; DistributionList = 2; SecurityGroup = 4; SharePointGroup = 8; All = 15. */
-            PrincipalType: string;
-            /** Gets or sets a value that specifies the name of the principal. */
-            Title: string;
-            /** Gets the information of the user that contains the user's name identifier and the issuer of the user's name identifier. */
-            UserId: string;
-    }
-    /**
-        * User Query Properties
-        */
-    export interface IUserQueryProps {
-            /**
-                * Gets the groups of which the user is a member.
-                */
-            Groups(): ISiteGroups;
-            /**
-                * Gets the group of which the user is a member.
-                * @param id - The group id.
-                */
-            Groups(id: number): IBase<IGroup>;
-    }
-    /**
-        * User Query Result
-        */
-    export interface IUserQueryResult extends IUserMethods, IUserProps {
-            /**
-                * Gets the groups of which the user is a member.
-                */
-            Groups: ISiteGroupResults;
-    }
-    /**
-        * User Result
-        */
-    export interface IUserResult extends IUserMethods, IUserProps, IUserQueryProps, IBase<IUser, IUserResult, IUserQueryResult> {
-    }
-    /**
-        * User
-        */
-    export interface IUser extends IUserMethods, IUserQueryProps, IBase<IUser, IUserResult, IUserQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/user/users' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IUser, IUserCreationInformation, IUserQueryResult, IUserResult } from "gd-sprest/mapper/user";
-    /**
-        * Methods
-        */
-    export interface IUsersMethods {
-            /**
-                * Adds a site to the site collection.
-                * @param userInfo - The user creation information.
-                */
-            add(userInfo: IUserCreationInformation): IBase<IUser, IUserResult>;
-            /**
-                * Gets the user with the specified email address.
-                * @param email - The email of the user to get.
-                */
-            getByEmail(email: any): IUser & IBase<IUser, IUserResult, IUserQueryResult>;
-            /**
-                * Gets the user with the specified member identifier (ID).
-                * @param id - The ID of the user to get.
-                */
-            getById(id: any): IUser & IBase<IUser, IUserResult, IUserQueryResult>;
-            /**
-                * Gets the user with the specified login name.
-                * @param loginName - The login name of the user to get, passed as an alias in the query string.
-                */
-            getByLoginName(loginName: any): IUser & IBase<IUser, IUserResult, IUserQueryResult>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IUsers, IUserResults>;
-            /**
-                * Removes the user with the specified ID.
-                * @param id - The ID of the user to remove.
-                */
-            removeById(id: any): IBase;
-            /**
-                * Removes the user with the specified login name.
-                * @param loginName - The login name of the user to remove.
-                */
-            removeByLoginName(loginName: any): IBase;
-    }
-    /**
-        * Users
-        */
-    export interface IUsers extends IUsersMethods, IBaseCollection<IUser, IUserResult, IUserQueryResult> {
-    }
-    /**
-        * User Results
-        */
-    export interface IUserResults extends IUsersMethods, IBaseCollection<IUserResult, IUserResult, IUserQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/userCustomAction/userCustomAction' {
-    import { IBase } from "gd-sprest/utils/index.def";
-    import { Types } from "gd-sprest/";
-    import { IUserCustomActionMethods } from "gd-sprest/mapper/userCustomAction";
-    /**
-        * User Custom Action Information
-        */
-    export interface IUserCustomActionCreationInformation {
-            /** A value that specifies an implementation specific XML fragment that determines user export interface properties of the custom action. */
-            CommandUIExtension?: string;
-            /** The description of the custom action. */
-            Description?: string;
-            /** A value that specifies an implementation-specific value that determines the position of the custom action in the page. */
-            Group?: string;
-            /** The URL of the image associated with the custom action. */
-            ImageUrl?: string;
-            /** The location of the custom action. */
-            Location?: string;
-            /** The name of the custom action. */
-            Name: string;
-            /** The value that specifies the identifier of the object associated with the custom action. */
-            RegistrationId?: string;
-            /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
-            RegistrationType?: number;
-            /** The value that specifies the permissions needed for the custom action. */
-            Rights?: any;
-            /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
-            ScriptBlock?: string;
-            /** A value that specifies the URI of a file which contains the ECMAScript to execute on the page. */
-            ScriptSrc?: string;
-            /** The value that specifies an implementation-specific value that determines the order of the custom action that appears on the page. */
-            Sequence?: number;
-            /** The display title of the custom action. */
-            Title?: string;
-            /** The URL, URI, or ECMAScript (JScript, JavaScript) function associated with the action. */
-            Url?: string;
-    }
-    /**
-        * User Custom Action Methods
-        */
-    export interface IUserCustomActionMethods {
-            /**
-                * Deletes the user custom action.
-                */
-            delete(): IBase;
-    }
-    /**
-        * User Custom Action Properties
-        */
-    export interface IUserCustomActionProps {
-            /** Gets or sets a value that specifies an implementation specific XML fragment that determines user export interface properties of the custom action. */
-            CommandUIExtension: string;
-            /** Gets or sets the description of the custom action. */
-            Description: string;
-            /** Gets or sets a value that specifies an implementation-specific value that determines the position of the custom action in the page. */
-            Group: string;
-            /** Gets a value that specifies the identifier of the custom action. */
-            Id: string;
-            /** Gets or sets the URL of the image associated with the custom action. */
-            ImageUrl: string;
-            /** Gets or sets the location of the custom action. */
-            Location: string;
-            /** Gets or sets the name of the custom action. */
-            Name: string;
-            /** Gets or sets the value that specifies the identifier of the object associated with the custom action. */
-            RegistrationId: string;
-            /** Gets or sets the value that specifies the type of object associated with the custom action. */
-            RegistrationType: number;
-            /** Gets or sets the value that specifies the permissions needed for the custom action. */
-            Rights: Types.IBasePermissions;
-            /** Gets a value that specifies the scope of the custom action. */
-            Scope: number;
-            /** Gets or sets the value that specifies the ECMAScript to be executed when the custom action is performed. */
-            ScriptBlock: string;
-            /** Gets or sets a value that specifies the URI of a file which contains the ECMAScript to execute on the page. */
-            ScriptSrc: string;
-            /** Gets or sets the value that specifies an implementation-specific value that determines the order of the custom action that appears on the page. */
-            Sequence: number;
-            /** Gets or sets the display title of the custom action. */
-            Title: string;
-            /** Gets or sets the URL, URI, or ECMAScript (JScript, JavaScript) function associated with the action. */
-            Url: string;
-            /** Gets a value that specifies an implementation specific version identifier. */
-            VersionOfUserCustomAction: string;
-    }
-    /**
-        * User Custom Action Query Properties
-        */
-    export interface IUserCustomActionQueryProps {
-    }
-    /**
-        * User Custom Action Query Result
-        */
-    export interface IUserCustomActionQueryResult extends IUserCustomActionMethods, IUserCustomActionProps {
-    }
-    /**
-        * User Custom Action Result
-        */
-    export interface IUserCustomActionResult extends IUserCustomActionMethods, IUserCustomActionProps, IUserCustomActionQueryProps, IBase<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> {
-    }
-    /**
-        * User Custom Action
-        */
-    export interface IUserCustomAction extends IUserCustomActionMethods, IUserCustomActionQueryProps, IBase<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> {
-    }
-}
-
-declare module 'gd-sprest/mapper/userCustomAction/userCustomActions' {
-    import { IBase, IBaseCollection } from "gd-sprest/utils/index.def";
-    import { IUserCustomAction, IUserCustomActionCreationInformation, IUserCustomActionQueryResult, IUserCustomActionResult } from "gd-sprest/mapper/userCustomAction";
-    /**
-        * Methods
-        */
-    export interface IUserCustomActionsMethods {
-            /**
-                * Adds a custom actino to the user custom action collection.
-                * @param parameters - The user custom action information.
-                */
-            add(parameters: IUserCustomActionCreationInformation): IBase<IUserCustomAction, IUserCustomActionResult>;
-            /**
-                * Deletes all custom actions in the collection.
-                */
-            clear(): IBase;
-            /**
-                * Returns the custom action with the specified identifier.
-                * @param id - The ID of the user custom action to get.
-                */
-            getById(id: any): IUserCustomAction & IBase<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult>;
-            /**
-                * Method to get the next set of results.
-                */
-            next(): IBase<IUserCustomActions, IUserCustomActionResults>;
-    }
-    /**
-        * User Custom Actions
-        */
-    export interface IUserCustomActions extends IUserCustomActionsMethods, IBaseCollection<IUserCustomAction, IUserCustomActionResult, IUserCustomActionQueryResult> {
-    }
-    /**
-        * User Custom Action Results
-        */
-    export interface IUserCustomActionResults extends IUserCustomActionsMethods, IBaseCollection<IUserCustomActionResult, IUserCustomActionResult, IUserCustomActionQueryResult> {
-    }
-}
-
 declare module 'gd-sprest/utils/base' {
-    import * as Types from "gd-sprest/utils/index.def";
-    import { BaseExecution } from "gd-sprest/utils";
+    import { BaseExecution, Types } from "gd-sprest/utils";
     /*********************************************************************************************************************************/
     export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements Types.IBase {
             /**
@@ -11554,8 +11339,7 @@ declare module 'gd-sprest/utils/base' {
 }
 
 declare module 'gd-sprest/utils/baseExecution' {
-    import * as Types from "gd-sprest/utils/index.def";
-    import { BaseRequest, TargetInfo } from "gd-sprest/utils";
+    import { BaseRequest, TargetInfo, Types } from "gd-sprest/utils";
     /**
       * Base Execution
       */
@@ -11577,8 +11361,7 @@ declare module 'gd-sprest/utils/baseExecution' {
 }
 
 declare module 'gd-sprest/utils/baseHelper' {
-    import * as Types from "gd-sprest/utils/index.def";
-    import { Base } from "gd-sprest/utils";
+    import { Base, Types } from "gd-sprest/utils";
     /**
       * Request Helper
       */
@@ -11596,8 +11379,7 @@ declare module 'gd-sprest/utils/baseHelper' {
 }
 
 declare module 'gd-sprest/utils/baseRequest' {
-    import * as Types from "gd-sprest/utils/index.def";
-    import { Base, BaseHelper, XHRRequest } from "gd-sprest/utils";
+    import { Base, BaseHelper, Types, XHRRequest } from "gd-sprest/utils";
     /**
       * Base Request
       */
@@ -11633,7 +11415,7 @@ declare module 'gd-sprest/utils/batch' {
 }
 
 declare module 'gd-sprest/utils/methodInfo' {
-    import * as Types from "gd-sprest/utils/index.def";
+    import { Types } from "gd-sprest/utils";
     /*********************************************************************************************************************************/
     export class MethodInfo implements Types.IMethodInfo {
         /*********************************************************************************************************************************/
@@ -11654,7 +11436,7 @@ declare module 'gd-sprest/utils/oData' {
       */
     export class OData {
         /*********************************************************************************************************************************/
-        constructor(oData: Types.ODataQuery);
+        constructor(oData: Types.SP.ODataQuery);
         /*********************************************************************************************************************************/
         Custom: string;
         Expand: Array<string>;
@@ -11669,26 +11451,26 @@ declare module 'gd-sprest/utils/oData' {
 }
 
 declare module 'gd-sprest/utils/requestType' {
-    import * as Types from "gd-sprest/utils/index.def";
+    import { IRequestType } from "gd-sprest/utils/types";
     /**
       * Request Type
       */
-    export const RequestType: Types.IRequestType;
+    export const RequestType: IRequestType;
 }
 
 declare module 'gd-sprest/utils/targetInfo' {
-    import * as Types from "gd-sprest/utils/index.def";
+    import { IRequestInfo, ITargetInfo } from "gd-sprest/utils/types";
     /**
       * Target Information
       */
     export class TargetInfo {
         /*********************************************************************************************************************************/
-        constructor(targetInfo: Types.ITargetInfo);
+        constructor(targetInfo: ITargetInfo);
         /*********************************************************************************************************************************/
-        request: Types.ITargetInfo;
+        request: ITargetInfo;
         readonly isBatchRequest: boolean;
         requestData: any;
-        readonly requestInfo: Types.IRequestInfo;
+        readonly requestInfo: IRequestInfo;
         requestHeaders: object;
         requestMethod: string;
         requestUrl: string;
@@ -11710,6 +11492,276 @@ declare module 'gd-sprest/utils/xhrRequest' {
         readonly requestData: any;
         readonly requestUrl: string;
         readonly status: number;
+    }
+}
+
+declare module 'gd-sprest/utils/types' {
+    export * from "gd-sprest/utils/types/base";
+    export * from "gd-sprest/utils/types/baseExecution";
+    export * from "gd-sprest/utils/types/baseHelper";
+    export * from "gd-sprest/utils/types/baseRequest";
+    export * from "gd-sprest/utils/types/methodInfo";
+    export * from "gd-sprest/utils/types/requestType";
+    export * from "gd-sprest/utils/types/targetInfo";
+}
+
+declare module 'gd-sprest/utils/types/base' {
+    import { Types } from "gd-sprest/";
+    import { IBaseExecution, IRequestInfo } from "gd-sprest/utils/types";
+    /**
+        * Base
+        */
+    export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result> {
+            defaultToWebFl: boolean;
+            /** True, if the object exists, false otherwise. */
+            existsFl: boolean;
+            /** The parent object, which created this object. */
+            parent: any;
+            /** The response */
+            response: string;
+            /**
+                * Method to wait for the requests to complete.
+                * @param callback - The method to be executed after the request completes.
+                */
+            done(callback?: (...args) => any): any;
+            /**
+                * Method to wait for the requests to complete.
+                * @param callback - The method to be executed after the request completes.
+                */
+            done(callback?: (value?: Result, ...args) => any): any;
+            /**
+                * Method to get the request information.
+                */
+            getInfo(): IRequestInfo;
+            /**
+                * Queries the collection.
+                * @param oData - The OData information.
+                */
+            query?(query: Types.SP.ODataQuery): IBase<Result, QueryResult>;
+            /**
+                * Method to stringify the object.
+                */
+            stringify(): string;
+    }
+    /**
+        * Base Collection Results
+        */
+    export interface IBaseCollectionResult<Result> extends Types.SP.IResults<Result> {
+            /** True, if the object exists, false otherwise. */
+            existsFl: boolean;
+            /** The raw string response. */
+            response: string;
+            /** Method to stringify the object. */
+            stringify(): string;
+    }
+    /**
+        * Base Collection
+        */
+    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.SP.IResults<Type>, IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
+    }
+}
+
+declare module 'gd-sprest/utils/types/baseExecution' {
+    import { BaseExecution, TargetInfo } from "gd-sprest/utils";
+    import { IBaseRequest } from "gd-sprest/utils/types";
+    /**
+        * Base Execution
+        */
+    export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest {
+            /** The batch requests. */
+            batchRequests: Array<Array<{
+                    callback?: any;
+                    response?: BaseExecution;
+                    targetInfo: TargetInfo;
+            }>>;
+            /** The parent. */
+            parent: BaseExecution;
+            /** The index of this object in the responses array. */
+            responseIndex: number;
+            /** The responses. */
+            responses: Array<BaseExecution>;
+            /** The wait flags. */
+            waitFlags: Array<boolean>;
+            /**
+                * Method to execute the request as a batch.
+                * Currently available in SharePoint Online only.
+                * @param callback - The method to be executed after the request completes.
+                */
+            batch(callback?: (value?: Result, ...args) => any): Type;
+            /**
+                * Method to execute the request as a batch.
+                * Currently available in SharePoint Online only.
+                * @param appendFl - Flag to execute the request as part of a change set.
+                */
+            batch(appendFl?: boolean): Type;
+            /**
+                * Method to execute the request.
+                * @param callback - The method to be executed after the request completes.
+                */
+            execute(callback?: (value?: Result, ...args) => any): Type;
+            /**
+                * Method to execute the request.
+                * @param waitFl - Flag to execute the request, after the previous requests have completed.
+                */
+            execute(waitFl: boolean): Type;
+            /**
+                * Method to execute the request.
+                * @param callback - The method to be executed after the request completes.
+                * @param waitFl - Flag to execute the request, after the previous requests have completed.
+                */
+            execute(callback: (value?: Result, ...args) => any, waitFl: boolean): Type;
+            /**
+                * Method to execute the request synchronously.
+                */
+            executeAndWait(): Result;
+            /**
+                * Method to wait for the parent requests to complete
+                * @param callback - The callback method.
+                * @param requestIdx - The request index.
+                */
+            waitForRequestsToComplete(callback: () => void, requestIdx?: number): any;
+    }
+}
+
+declare module 'gd-sprest/utils/types/baseHelper' {
+    import { Base } from "gd-sprest/utils";
+    /**
+      * Request Helper Methods
+      */
+    export interface IBaseHelper {
+        /** The base object. */
+        base: Base;
+        /** The request type */
+        requestType: number;
+        /** The request's raw response. */
+        response: string;
+        /** The request's status. */
+        status: number;
+        /** Adds methods based on the object type. */
+        addMethods(base: Base, data: any): any;
+        /** Adds properties based on the object type. */
+        addProperties(base: Base, data: any): any;
+        /** Updates the data collection objects. */
+        updateDataCollection(obj: Base, results: Array<Base>): any;
+        /** Updates the data object. */
+        updateDataObject(isBatchRequest: boolean): any;
+        /** Updates the metadata. */
+        updateMetadata(base: any, data: any): any;
+    }
+}
+
+declare module 'gd-sprest/utils/types/baseRequest' {
+    import { XHRRequest } from "gd-sprest/utils";
+    import { IBaseHelper, IMethodInfo, ITargetInfo } from "gd-sprest/utils/types";
+    /**
+      * Base Request
+      */
+    export interface IBaseRequest extends IBaseHelper {
+        /** Flag to get all items. */
+        getAllItemsFl: boolean;
+        /** The target information. */
+        targetInfo: ITargetInfo;
+        /** The request. */
+        xhr: XHRRequest;
+        /** Method to execute the request. */
+        executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): any;
+        /** Method to execute the request. */
+        executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
+        /** Gets the property as a collection. */
+        getCollection(method: string, args?: any): any;
+        /** Gets the next set of results. */
+        getNextSetOfResults(): any;
+        /** Gets the property. */
+        getProperty(propertyName: string, requestType?: string): any;
+        /** Updates the metdata uri. */
+        updateMetadataUri(metadata: any, targetInfo: ITargetInfo): any;
+        /** Validates the data collection results. */
+        validateDataCollectionResults(): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/utils/types/methodInfo' {
+    /**
+      * Method Information Settings
+      */
+    export interface IMethodInfo {
+        argNames?: Array<string>;
+        argValues?: Array<any>;
+        data?: any;
+        getAllItemsFl?: boolean;
+        inheritMetadataType?: boolean;
+        metadataType?: string;
+        name?: string;
+        replaceEndpointFl?: boolean;
+        requestMethod?: string;
+        requestType?: number;
+        returnType?: string;
+    }
+}
+
+declare module 'gd-sprest/utils/types/requestType' {
+    /**
+      * Request Type
+      */
+    export type IRequestType = {
+        Custom: number;
+        Delete: number;
+        Merge: number;
+        OData: number;
+        Get: number;
+        GetBuffer: number;
+        GetWithArgs: number;
+        GetWithArgsInBody: number;
+        GetWithArgsInQS: number;
+        GetWithArgsValueOnly: number;
+        GetReplace: number;
+        Post: number;
+        PostWithArgs: number;
+        PostWithArgsInBody: number;
+        PostWithArgsInQS: number;
+        PostWithArgsValueOnly: number;
+        PostReplace: number;
+    };
+}
+
+declare module 'gd-sprest/utils/types/targetInfo' {
+    /**
+        * Request Information
+        */
+    export interface IRequestInfo {
+            /** The data being sent in the body of the request. */
+            data?: object;
+            /** The request method (GET/POST) */
+            method: string;
+            /** The url of the request. */
+            url: string;
+    }
+    /**
+        * Target Information
+        */
+    export interface ITargetInfo {
+            /** True if the expected request returns an array buffer. */
+            bufferFl?: boolean;
+            /** The method to execute after the asynchronous request executes. */
+            callback?: () => void;
+            /** The data to be passed in the body of the request. */
+            data?: any;
+            /** True to default the request to the web api, site api otherwise. */
+            defaultToWebFl?: boolean;
+            /** The endpoint of the request. */
+            endpoint?: string;
+            /** The method to execute. */
+            method?: string;
+            /** True to override the default request to host flag. */
+            overrideDefaultRequestToHostFl?: boolean;
+            /** The request digest to use for the request. */
+            requestDigest?: string;
+            /** The request header. */
+            requestHeader?: object;
+            /** The request information. */
+            requestInfo?: object;
+            /** The url of the site/web to execute the request against. */
+            url?: string;
     }
 }
 

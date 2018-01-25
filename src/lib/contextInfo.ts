@@ -1,6 +1,8 @@
 import { Types } from "..";
-import { Base } from "../utils";
-import { IBase } from "../utils/index.def";
+import {
+    Base,
+    Types as BaseTypes
+} from "../utils";
 
 /**
  * Context Information
@@ -161,7 +163,7 @@ export interface IContextInformation {
     listId: string;
 
     /** List Permissions Mask */
-    listPermMask: Types.IBasePermissions;
+    listPermMask: Types.SP.IBasePermissions;
 
     /** List Title */
     listTitle: string;
@@ -185,7 +187,7 @@ export interface IContextInformation {
     pageListId: string;
 
     /** Page Permissions Mask */
-    pagePermMask: Types.IBasePermissions;
+    pagePermMask: Types.SP.IBasePermissions;
 
     /** Page Personalization Scope */
     pagePersonalizationScope: number;
@@ -314,7 +316,7 @@ export interface IContextInformation {
     webLogoUrl: string;
 
     /** Web Permissions Mask */
-    webPermMask: Types.IBasePermissions;
+    webPermMask: Types.SP.IBasePermissions;
 
     /** Web Server Relative Url */
     webServerRelativeUrl: string;
@@ -355,7 +357,7 @@ export interface IContextInformation {
      * Method to get the web context information.
      * @param url - The relative url of the web.
      */
-    getWeb(url: string): IBase<Types.IContextWebInfo>;
+    getWeb(url: string): BaseTypes.IBase<Types.SP.IContextWebInfo>;
 }
 
 /**

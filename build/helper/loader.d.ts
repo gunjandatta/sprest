@@ -1,4 +1,4 @@
-import { ILoader } from "./index.def";
+import { ILoader } from "./types";
 /**
  * Loader
  */

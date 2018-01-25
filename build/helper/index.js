@@ -14,6 +14,6 @@ __export(require("./parse"));
 __export(require("./spCfg"));
 __export(require("./taxonomy"));
 __export(require("./webpart"));
-var Types = require("./index.def");
+var Types = require("./types");
 exports.Types = Types;
 //# sourceMappingURL=index.js.map

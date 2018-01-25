@@ -1,3 +1,3 @@
 export * from "./spCfgTypes";
-import * as SPCfgTypes from "./spCfg.def";
+import { Types as SPCfgTypes } from ".";
 export declare const SPConfig: SPCfgTypes.ISPConfig;

@@ -1,9 +1,9 @@
-import * as Types from "./index.def";
+import { IRequestType } from "./types";
 
 /**
  * Request Type
  */
-export const RequestType: Types.IRequestType = {
+export const RequestType: IRequestType = {
     // Requests
     Custom: 0,
     Delete: 1,

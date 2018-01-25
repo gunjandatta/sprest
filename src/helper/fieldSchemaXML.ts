@@ -1,6 +1,6 @@
 import { ContextInfo, Web } from "../lib";
 import { SPTypes, Types } from "..";
-import { IFieldSchemaXML } from "./fieldSchemaXML.def";
+import { IFieldSchemaXML } from "./types";
 import { SPCfgFieldType } from "./spCfg";
 
 /**

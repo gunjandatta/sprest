@@ -47,4 +47,4 @@ class _List extends Base {
         });
     }
 }
-export const List: Types.IList = <any>_List;
+export const List: Types.SP.IList = <any>_List;

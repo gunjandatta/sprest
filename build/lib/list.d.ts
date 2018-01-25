@@ -1,2 +1,2 @@
 import { Types } from "..";
-export declare const List: Types.IList;
+export declare const List: Types.SP.IList;

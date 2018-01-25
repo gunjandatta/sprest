@@ -1,5 +1,4 @@
-import * as Types from "./index.def";
-import { BaseExecution } from ".";
+import { BaseExecution, Types } from ".";
 /*********************************************************************************************************************************/
 /*********************************************************************************************************************************/
 export declare class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements Types.IBase {

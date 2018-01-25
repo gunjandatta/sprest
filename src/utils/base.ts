@@ -1,6 +1,5 @@
-import * as Types from "./index.def";
 import {
-    BaseExecution, Batch, TargetInfo
+    BaseExecution, Batch, TargetInfo, Types
 } from ".";
 
 /*********************************************************************************************************************************/

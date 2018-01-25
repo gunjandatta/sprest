@@ -1,5 +1,5 @@
 import { ContextInfo } from "../lib";
-import * as Types from "./index.def";
+import { IRequestInfo, ITargetInfo } from "./types";
 
 /**
  * Target Information
@@ -8,7 +8,7 @@ export class TargetInfo {
     /*********************************************************************************************************************************/
     // Constructor
     /*********************************************************************************************************************************/
-    constructor(targetInfo: Types.ITargetInfo) {
+    constructor(targetInfo: ITargetInfo) {
         // Default the properties
         this.request = targetInfo || {};
         this.requestData = this.request.data;
@@ -24,7 +24,7 @@ export class TargetInfo {
     /*********************************************************************************************************************************/
 
     // The target information
-    request: Types.ITargetInfo;
+    request: ITargetInfo;
 
     // Flag to determine if this is a batch request
     get isBatchRequest(): boolean { return this.request.endpoint == "$batch"; }
@@ -33,7 +33,7 @@ export class TargetInfo {
     requestData: any;
 
     // The request information
-    get requestInfo(): Types.IRequestInfo {
+    get requestInfo(): IRequestInfo {
         // Return the request information
         return {
             data: this.requestData,

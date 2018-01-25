@@ -1,2 +1,2 @@
-import { IApp } from "./app.def";
+import { IApp } from "./types";
 export declare const App: IApp;

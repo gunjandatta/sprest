@@ -1,5 +1,5 @@
 import { Types } from "..";
-import * as TaxonomyTypes from "./taxonomy.def";
+import * as TaxonomyTypes from "./types";
 declare var SP;
 
 /**

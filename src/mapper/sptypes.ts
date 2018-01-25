@@ -1,4 +1,4 @@
-import { SPTypes } from "./index.def";
+import { SPTypes } from "./types";
 
 /**
  * Calendar Types

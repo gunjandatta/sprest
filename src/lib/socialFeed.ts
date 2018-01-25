@@ -54,4 +54,4 @@ class _SocialFeed extends Base {
         }, [postInfo]);
     }
 }
-export const SocialFeed: Types.ISocialFeed = <any>(new _SocialFeed());
+export const SocialFeed: Types.SP.ISocialFeed = <any>(new _SocialFeed());

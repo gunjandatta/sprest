@@ -1,7 +1,6 @@
-import * as Types from "./index.def";
 import { ContextInfo } from "../lib";
 import { Mapper } from "../mapper";
-import { Base, RequestType } from ".";
+import { Base, RequestType, Types } from ".";
 
 /**
  * Request Helper

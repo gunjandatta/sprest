@@ -1,2 +1,2 @@
 import { Types } from "..";
-export declare const SocialFeed: Types.ISocialFeed;
+export declare const SocialFeed: Types.SP.ISocialFeed;

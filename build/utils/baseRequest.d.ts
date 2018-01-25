@@ -1,5 +1,4 @@
-import * as Types from "./index.def";
-import { Base, BaseHelper, XHRRequest } from ".";
+import { Base, BaseHelper, Types, XHRRequest } from ".";
 /**
  * Base Request
  */

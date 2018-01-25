@@ -1,7 +1,7 @@
 import { Site, Web } from "../lib";
 import { SPTypes, Types } from "..";
 import { Taxonomy } from "./taxonomy";
-import * as ListFormFieldTypes from "./listFormField.def";
+import * as ListFormFieldTypes from "./types";
 declare var SP;
 
 /**
@@ -67,7 +67,7 @@ class _ListFormField {
     }
 
     // Method to load the lookup data
-    static loadLookupData(info: ListFormFieldTypes.IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.IListItemQueryResult>> {
+    static loadLookupData(info: ListFormFieldTypes.IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.SP.IListItemQueryResult>> {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the current site collection
@@ -113,7 +113,7 @@ class _ListFormField {
     }
 
     // Method to load the mms value field
-    static loadMMSValueField(info: ListFormFieldTypes.IListFormMMSFieldInfo): PromiseLike<Types.IFieldResult> {
+    static loadMMSValueField(info: ListFormFieldTypes.IListFormMMSFieldInfo): PromiseLike<Types.SP.IFieldResult> {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if we are allowing multiple values
@@ -159,20 +159,20 @@ class _ListFormField {
             // Choice
             case SPTypes.FieldType.Choice:
             case SPTypes.FieldType.MultiChoice:
-                let choices = (this._fieldInfo.field as Types.IFieldChoice).Choices;
+                let choices = (this._fieldInfo.field as Types.SP.IFieldChoice).Choices;
                 (this._fieldInfo as ListFormFieldTypes.IListFormChoiceFieldInfo).choices = (choices ? choices.results : null) || [];
                 (this._fieldInfo as ListFormFieldTypes.IListFormChoiceFieldInfo).multi = this._fieldInfo.type == SPTypes.FieldType.MultiChoice;
                 break;
 
             // Date/Time
             case SPTypes.FieldType.DateTime:
-                let fldDate = this._fieldInfo.field as Types.IFieldDateTime;
+                let fldDate = this._fieldInfo.field as Types.SP.IFieldDateTime;
                 (this._fieldInfo as ListFormFieldTypes.IListFormDateFieldInfo).showTime = fldDate.DisplayFormat == SPTypes.DateFormat.DateTime;
                 break;
 
             // Lookup
             case SPTypes.FieldType.Lookup:
-                let fldLookup = this._fieldInfo.field as Types.IFieldLookup;
+                let fldLookup = this._fieldInfo.field as Types.SP.IFieldLookup;
                 (this._fieldInfo as ListFormFieldTypes.IListFormLookupFieldInfo).lookupField = fldLookup.LookupField;
                 (this._fieldInfo as ListFormFieldTypes.IListFormLookupFieldInfo).lookupListId = fldLookup.LookupList;
                 (this._fieldInfo as ListFormFieldTypes.IListFormLookupFieldInfo).lookupWebId = fldLookup.LookupWebId;
@@ -181,7 +181,7 @@ class _ListFormField {
 
             // Number
             case SPTypes.FieldType.Number:
-                let fldNumber = this._fieldInfo.field as Types.IFieldNumber;
+                let fldNumber = this._fieldInfo.field as Types.SP.IFieldNumber;
                 (this._fieldInfo as ListFormFieldTypes.IListFormNumberFieldInfo).maxValue = fldNumber.MaximumValue;
                 (this._fieldInfo as ListFormFieldTypes.IListFormNumberFieldInfo).minValue = fldNumber.MinimumValue;
                 if (fldNumber.ShowAsPercentage != undefined) {
@@ -193,7 +193,7 @@ class _ListFormField {
 
             // Note
             case SPTypes.FieldType.Note:
-                let fldNote = this._fieldInfo.field as Types.IFieldNote;
+                let fldNote = this._fieldInfo.field as Types.SP.IFieldNote;
                 (this._fieldInfo as ListFormFieldTypes.IListFormTextFieldInfo).multiline = true;
                 (this._fieldInfo as ListFormFieldTypes.IListFormTextFieldInfo).richText = fldNote.RichText;
                 (this._fieldInfo as ListFormFieldTypes.IListFormTextFieldInfo).rows = fldNote.NumberOfLines;
@@ -208,7 +208,7 @@ class _ListFormField {
 
             // User
             case SPTypes.FieldType.User:
-                let fldUser = this._fieldInfo.field as Types.IFieldUser;
+                let fldUser = this._fieldInfo.field as Types.SP.IFieldUser;
                 (this._fieldInfo as ListFormFieldTypes.IListFormUserFieldInfo).allowGroups = fldUser.SelectionMode == SPTypes.FieldUserSelectionType.PeopleAndGroups;
                 (this._fieldInfo as ListFormFieldTypes.IListFormUserFieldInfo).multi = fldUser.AllowMultipleValues;
                 break;
@@ -217,7 +217,7 @@ class _ListFormField {
             default:
                 // See if this is an MMS field
                 if (this._fieldInfo.typeAsString.startsWith("TaxonomyFieldType")) {
-                    let fldMMS = this._fieldInfo.field as Types.IFieldManagedMetadata;
+                    let fldMMS = this._fieldInfo.field as Types.SP.IFieldManagedMetadata;
                     (this._fieldInfo as ListFormFieldTypes.IListFormMMSFieldInfo).multi = fldMMS.AllowMultipleValues;
                     (this._fieldInfo as ListFormFieldTypes.IListFormMMSFieldInfo).termId = fldMMS.IsAnchorValid ? fldMMS.AnchorId : fldMMS.TermSetId;
                     (this._fieldInfo as ListFormFieldTypes.IListFormMMSFieldInfo).termSetId = fldMMS.TermSetId;

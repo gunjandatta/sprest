@@ -1,11 +1,9 @@
 "use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(require("./mapper/index.def"));
-var Helper = require("./helper/index.def");
-exports.Helper = Helper;
-var Utils = require("./utils/index.def");
-exports.Utils = Utils;
+var helper_1 = require("./helper");
+exports.Helper = helper_1.Types;
+var mapper_1 = require("./mapper");
+exports.SP = mapper_1.Types;
+var utils_1 = require("./utils");
+exports.Util = utils_1.Types;
 //# sourceMappingURL=types.js.map

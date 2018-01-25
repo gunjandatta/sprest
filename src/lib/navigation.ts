@@ -1,4 +1,4 @@
-import { INavigationServiceREST } from "../mapper/navigation";
+import { INavigationServiceREST } from "../mapper/types";
 import { Base } from "../utils";
 
 /**
