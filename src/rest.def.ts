@@ -1,7 +1,28 @@
-import { IHelper } from "./helper";
+import {
+    IApp, IDependencies, IFieldSchemaXML, IListForm,
+    IListFormField, ILoader, ISPConfig, ITaxonomy, IWebPart
+} from "./helper";
 import { IContextInformation, IJSLink } from "./lib";
+import { Base } from "./utils";
 import { SPTypes, Types } from "./mapper";
 import { ITargetInfo } from "./utils";
+
+/**
+ * Helper
+ */
+export interface IHelper {
+    App: IApp;
+    Dependencies: IDependencies;
+    FieldSchemaXML: IFieldSchemaXML;
+    JSLink: IJSLink;
+    ListForm: IListForm;
+    ListFormField: IListFormField;
+    Loader: ILoader;
+    parse: (jsonString: string) => Base;
+    SPConfig: ISPConfig;
+    Taxonomy: ITaxonomy;
+    WebPart: IWebPart;
+}
 
 /**
  * SharePoint REST Library

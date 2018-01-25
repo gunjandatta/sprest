@@ -1,22 +1,31 @@
 export * from "./rest.def";
-import { Helper } from "./helper";
 import {
-    ContextInfo,
-    JSLink,
-    List,
-    Navigation,
-    PeopleManager,
-    PeoplePicker,
-    ProfileLoader,
-    Search,
-    Site,
-    SocialFeed,
-    UserProfile,
-    Utility,
-    Web
+    App, Dependencies, FieldSchemaXML, ListForm, ListFormField,
+    Loader, parse, SPConfig, Taxonomy, WebPart
+} from "./helper";
+import {
+    ContextInfo, JSLink, List, Navigation, PeopleManager, PeoplePicker,
+    ProfileLoader, Search, Site, SocialFeed, UserProfile, Utility, Web
 } from "./lib";
 import { SPTypes, Types } from "./mapper";
-import { IREST } from "./rest.def";
+import { IHelper, IREST } from "./rest.def";
+
+/**
+ * Helper
+ */
+export const Helper: IHelper = {
+    App,
+    Dependencies,
+    FieldSchemaXML,
+    JSLink,
+    ListForm,
+    ListFormField,
+    Loader,
+    parse,
+    SPConfig,
+    Taxonomy,
+    WebPart
+};
 
 /**
  * SharePoint REST Library

@@ -1,7 +1,6 @@
 export * from "./app";
 export * from "./dependencies";
 export * from "./fieldSchemaXML";
-export * from "./helper";
 export * from "./jslink";
 export * from "./listForm";
 export * from "./listFormField";

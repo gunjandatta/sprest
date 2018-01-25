@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "target": "es5"
+    },
+    "include": [
+        "*.ts"
+    ]
+}

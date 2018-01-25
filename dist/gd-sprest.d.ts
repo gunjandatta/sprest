@@ -24,17 +24,16 @@ declare module 'gd-sprest' {
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
      ***************************************************************************************************/
+    import "core-js/es6/promise";
     export * from "gd-sprest/helper";
     export * from "gd-sprest/mapper";
     export * from "gd-sprest/rest";
-    import "core-js/es6/promise";
 }
 
 declare module 'gd-sprest/helper' {
     export * from "gd-sprest/helper/app";
     export * from "gd-sprest/helper/dependencies";
     export * from "gd-sprest/helper/fieldSchemaXML";
-    export * from "gd-sprest/helper/helper";
     export * from "gd-sprest/helper/jslink";
     export * from "gd-sprest/helper/listForm";
     export * from "gd-sprest/helper/listFormField";
@@ -54,10 +53,14 @@ declare module 'gd-sprest/mapper' {
 
 declare module 'gd-sprest/rest' {
     export * from "gd-sprest/rest.def";
-    import { IREST } from "gd-sprest/rest.def";
+    import { IHelper, IREST } from "gd-sprest/rest.def";
     /**
-      * SharePoint REST Library
-      */
+        * Helper
+        */
+    export const Helper: IHelper;
+    /**
+        * SharePoint REST Library
+        */
     export const $REST: IREST;
 }
 
@@ -77,40 +80,6 @@ declare module 'gd-sprest/helper/fieldSchemaXML' {
     export * from "gd-sprest/helper/fieldSchemaXML.def";
     import { IFieldSchemaXML } from "gd-sprest/helper";
     export const FieldSchemaXML: IFieldSchemaXML;
-}
-
-declare module 'gd-sprest/helper/helper' {
-    import { Base } from "gd-sprest/utils";
-    import { IApp } from "gd-sprest/helper/app";
-    import { IDependencies } from "gd-sprest/helper/dependencies";
-    import { IFieldSchemaXML } from "gd-sprest/helper/fieldSchemaXML";
-    import { IJSLink } from "gd-sprest/helper/jslink";
-    import { IListForm } from "gd-sprest/helper/listForm";
-    import { IListFormField } from "gd-sprest/helper/listFormField";
-    import { ILoader } from "gd-sprest/helper/loader";
-    import { ISPConfig } from "gd-sprest/helper/spCfg";
-    import { ITaxonomy } from "gd-sprest/helper/taxonomy";
-    import { IWebPart } from "gd-sprest/helper/webpart";
-    /**
-        * Helper
-        */
-    export interface IHelper {
-            App: IApp;
-            Dependencies: IDependencies;
-            FieldSchemaXML: IFieldSchemaXML;
-            JSLink: IJSLink;
-            parse: (jsonString: string) => Base;
-            Loader: ILoader;
-            ListForm: IListForm;
-            ListFormField: IListFormField;
-            SPConfig: ISPConfig;
-            Taxonomy: ITaxonomy;
-            WebPart: IWebPart;
-    }
-    /**
-        * Helper
-        */
-    export const Helper: IHelper;
 }
 
 declare module 'gd-sprest/helper/jslink' {
@@ -2056,10 +2025,27 @@ declare module 'gd-sprest/mapper/types' {
 }
 
 declare module 'gd-sprest/rest.def' {
-    import { IHelper } from "gd-sprest/helper";
+    import { IApp, IDependencies, IFieldSchemaXML, IListForm, IListFormField, ILoader, ISPConfig, ITaxonomy, IWebPart } from "gd-sprest/helper";
     import { IContextInformation, IJSLink } from "gd-sprest/lib";
+    import { Base } from "gd-sprest/utils";
     import { Types } from "gd-sprest/mapper";
     import { ITargetInfo } from "gd-sprest/utils";
+    /**
+        * Helper
+        */
+    export interface IHelper {
+            App: IApp;
+            Dependencies: IDependencies;
+            FieldSchemaXML: IFieldSchemaXML;
+            JSLink: IJSLink;
+            ListForm: IListForm;
+            ListFormField: IListFormField;
+            Loader: ILoader;
+            parse: (jsonString: string) => Base;
+            SPConfig: ISPConfig;
+            Taxonomy: ITaxonomy;
+            WebPart: IWebPart;
+    }
     /**
         * SharePoint REST Library
         */
@@ -2259,19 +2245,6 @@ declare module 'gd-sprest/helper/fieldSchemaXML.def' {
         /** Method to generate the field schema xml. */
         generate: (fieldInfo: IFieldInfo) => PromiseLike<string>;
     }
-}
-
-declare module 'gd-sprest/utils' {
-    export * from "gd-sprest/utils/baseHelper";
-    export * from "gd-sprest/utils/baseRequest";
-    export * from "gd-sprest/utils/baseExecution";
-    export * from "gd-sprest/utils/base";
-    export * from "gd-sprest/utils/batch";
-    export * from "gd-sprest/utils/methodInfo";
-    export * from "gd-sprest/utils/oData";
-    export * from "gd-sprest/utils/requestType";
-    export * from "gd-sprest/utils/targetInfo";
-    export * from "gd-sprest/utils/xhrRequest";
 }
 
 declare module 'gd-sprest/helper/jsLink.def' {
@@ -5791,185 +5764,17 @@ declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/web";
 }
 
-declare module 'gd-sprest/utils/baseHelper' {
-    export * from "gd-sprest/utils/baseHelper.def";
-    import { Base, IBaseHelper } from "gd-sprest/utils";
-    /**
-      * Request Helper
-      */
-    export class BaseHelper implements IBaseHelper {
-        base: Base;
-        requestType: number;
-        response: string;
-        status: number;
-        addMethods(base: Base, data: any): void;
-        addProperties(base: any, data: any): void;
-        updateDataCollection(obj: any, results: any): void;
-        updateDataObject(isBatchRequest: boolean): void;
-        updateMetadata(base: any, data: any): void;
-    }
-}
-
-declare module 'gd-sprest/utils/baseRequest' {
-    export * from "gd-sprest/utils/baseRequest.def";
-    import { Base, IBaseRequest, BaseHelper, IMethodInfo, ITargetInfo, XHRRequest } from "gd-sprest/utils";
-    /**
-      * Base Request
-      */
-    export class BaseRequest extends BaseHelper implements IBaseRequest {
-        getAllItemsFl: boolean;
-        requestType: number;
-        targetInfo: ITargetInfo;
-        xhr: XHRRequest;
-        executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
-        executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
-        getCollection(method: string, args?: any): Base<any, any, any>;
-        getNextSetOfResults(): Base<any, any, any>;
-        getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
-        updateMetadataUri(metadata: any, targetInfo: ITargetInfo): void;
-        validateDataCollectionResults(): PromiseLike<void>;
-    }
-}
-
-declare module 'gd-sprest/utils/baseExecution' {
-    export * from "gd-sprest/utils/baseExecution.def";
-    import { BaseRequest, TargetInfo, IBaseExecution } from "gd-sprest/utils";
-    /**
-      * Base Execution
-      */
-    export class BaseExecution<Type = any, Result = Type> extends BaseRequest implements IBaseExecution {
-        batchRequests: Array<Array<{
-            callback?: any;
-            response?: BaseExecution;
-            targetInfo: TargetInfo;
-        }>>;
-        parent: BaseExecution;
-        responseIndex: number;
-        responses: Array<BaseExecution>;
-        waitFlags: Array<boolean>;
-        batch(arg?: any): this;
-        execute(...args: any[]): this;
-        executeAndWait(): any;
-        waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
-    }
-}
-
-declare module 'gd-sprest/utils/base' {
-    export * from "gd-sprest/utils/base.def";
-    import { BaseExecution, IBase, IRequestInfo, ITargetInfo } from "gd-sprest/utils";
-    /*********************************************************************************************************************************/
-    export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements IBase {
-            /**
-                * Constructor
-                * @param targetInfo - The target information.
-                */
-            constructor(targetInfo: ITargetInfo);
-            defaultToWebFl: boolean;
-            existsFl: any;
-            done(callback: (...args) => any): void;
-            getInfo(): IRequestInfo;
-            stringify(): string;
-    }
-}
-
-declare module 'gd-sprest/utils/batch' {
-    import { TargetInfo } from "gd-sprest/utils";
-    /**
-        * Batch Requests
-        */
-    export class Batch {
-            /**
-                * Methods
-                */
-            static getTargetInfo(requests: Array<Array<{
-                    callback?: any;
-                    targetInfo: TargetInfo;
-            }>>): TargetInfo;
-    }
-}
-
-declare module 'gd-sprest/utils/methodInfo' {
-    export * from "gd-sprest/utils/methodInfo.def";
-    import { IMethodInfo } from "gd-sprest/utils";
-    /*********************************************************************************************************************************/
-    export class MethodInfo implements IMethodInfo {
-        /*********************************************************************************************************************************/
-        constructor(methodName: string, methodInfo: IMethodInfo, args: any);
-        /*********************************************************************************************************************************/
-        readonly body: string;
-        readonly getAllItemsFl: boolean;
-        readonly replaceEndpointFl: boolean;
-        readonly requestMethod: string;
-        readonly url: string;
-    }
-}
-
-declare module 'gd-sprest/utils/oData' {
-    import { Types } from "gd-sprest/mapper";
-    /**
-      * OData
-      */
-    export class OData {
-        /*********************************************************************************************************************************/
-        constructor(oData: Types.ODataQuery);
-        /*********************************************************************************************************************************/
-        Custom: string;
-        Expand: Array<string>;
-        Filter: string;
-        GetAllItems: boolean;
-        OrderBy: Array<string>;
-        readonly QueryString: string;
-        Select: Array<string>;
-        Skip: number;
-        Top: number;
-    }
-}
-
-declare module 'gd-sprest/utils/requestType' {
-    export * from "gd-sprest/utils/requestType.def";
-    import { IRequestType } from "gd-sprest/utils";
-    /**
-      * Request Type
-      */
-    export const RequestType: IRequestType;
-}
-
-declare module 'gd-sprest/utils/targetInfo' {
-    export * from "gd-sprest/utils/targetInfo.def";
-    import { IRequestInfo, ITargetInfo } from "gd-sprest/utils";
-    /**
-      * Target Information
-      */
-    export class TargetInfo {
-        /*********************************************************************************************************************************/
-        constructor(targetInfo: ITargetInfo);
-        /*********************************************************************************************************************************/
-        request: ITargetInfo;
-        readonly isBatchRequest: boolean;
-        requestData: any;
-        readonly requestInfo: IRequestInfo;
-        requestHeaders: object;
-        requestMethod: string;
-        requestUrl: string;
-    }
-}
-
-declare module 'gd-sprest/utils/xhrRequest' {
-    import { TargetInfo } from "gd-sprest/utils";
-    /**
-      * XML HTTP Request Class
-      */
-    export class XHRRequest {
-        /*********************************************************************************************************************************/
-        constructor(asyncFl: boolean, targetInfo: TargetInfo, callback?: (...args) => void);
-        /*********************************************************************************************************************************/
-        readonly completedFl: boolean;
-        readonly response: any;
-        readonly request: any;
-        readonly requestData: any;
-        readonly requestUrl: string;
-        readonly status: number;
-    }
+declare module 'gd-sprest/utils' {
+    export * from "gd-sprest/utils/baseHelper";
+    export * from "gd-sprest/utils/baseRequest";
+    export * from "gd-sprest/utils/baseExecution";
+    export * from "gd-sprest/utils/base";
+    export * from "gd-sprest/utils/batch";
+    export * from "gd-sprest/utils/methodInfo";
+    export * from "gd-sprest/utils/oData";
+    export * from "gd-sprest/utils/requestType";
+    export * from "gd-sprest/utils/targetInfo";
+    export * from "gd-sprest/utils/xhrRequest";
 }
 
 declare module 'gd-sprest/helper/spCfgTypes.def' {
@@ -11265,6 +11070,187 @@ declare module 'gd-sprest/lib/utility' {
 declare module 'gd-sprest/lib/web' {
     import { Types } from "gd-sprest/mapper";
     export const Web: Types.IWeb;
+}
+
+declare module 'gd-sprest/utils/baseHelper' {
+    export * from "gd-sprest/utils/baseHelper.def";
+    import { Base, IBaseHelper } from "gd-sprest/utils";
+    /**
+      * Request Helper
+      */
+    export class BaseHelper implements IBaseHelper {
+        base: Base;
+        requestType: number;
+        response: string;
+        status: number;
+        addMethods(base: Base, data: any): void;
+        addProperties(base: any, data: any): void;
+        updateDataCollection(obj: any, results: any): void;
+        updateDataObject(isBatchRequest: boolean): void;
+        updateMetadata(base: any, data: any): void;
+    }
+}
+
+declare module 'gd-sprest/utils/baseRequest' {
+    export * from "gd-sprest/utils/baseRequest.def";
+    import { Base, IBaseRequest, BaseHelper, IMethodInfo, ITargetInfo, XHRRequest } from "gd-sprest/utils";
+    /**
+      * Base Request
+      */
+    export class BaseRequest extends BaseHelper implements IBaseRequest {
+        getAllItemsFl: boolean;
+        requestType: number;
+        targetInfo: ITargetInfo;
+        xhr: XHRRequest;
+        executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): Base<any, any, any>;
+        executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
+        getCollection(method: string, args?: any): Base<any, any, any>;
+        getNextSetOfResults(): Base<any, any, any>;
+        getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
+        updateMetadataUri(metadata: any, targetInfo: ITargetInfo): void;
+        validateDataCollectionResults(): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/utils/baseExecution' {
+    export * from "gd-sprest/utils/baseExecution.def";
+    import { BaseRequest, TargetInfo, IBaseExecution } from "gd-sprest/utils";
+    /**
+      * Base Execution
+      */
+    export class BaseExecution<Type = any, Result = Type> extends BaseRequest implements IBaseExecution {
+        batchRequests: Array<Array<{
+            callback?: any;
+            response?: BaseExecution;
+            targetInfo: TargetInfo;
+        }>>;
+        parent: BaseExecution;
+        responseIndex: number;
+        responses: Array<BaseExecution>;
+        waitFlags: Array<boolean>;
+        batch(arg?: any): this;
+        execute(...args: any[]): this;
+        executeAndWait(): any;
+        waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
+    }
+}
+
+declare module 'gd-sprest/utils/base' {
+    export * from "gd-sprest/utils/base.def";
+    import { BaseExecution, IBase, IRequestInfo, ITargetInfo } from "gd-sprest/utils";
+    /*********************************************************************************************************************************/
+    export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements IBase {
+            /**
+                * Constructor
+                * @param targetInfo - The target information.
+                */
+            constructor(targetInfo: ITargetInfo);
+            defaultToWebFl: boolean;
+            existsFl: any;
+            done(callback: (...args) => any): void;
+            getInfo(): IRequestInfo;
+            stringify(): string;
+    }
+}
+
+declare module 'gd-sprest/utils/batch' {
+    import { TargetInfo } from "gd-sprest/utils";
+    /**
+        * Batch Requests
+        */
+    export class Batch {
+            /**
+                * Methods
+                */
+            static getTargetInfo(requests: Array<Array<{
+                    callback?: any;
+                    targetInfo: TargetInfo;
+            }>>): TargetInfo;
+    }
+}
+
+declare module 'gd-sprest/utils/methodInfo' {
+    export * from "gd-sprest/utils/methodInfo.def";
+    import { IMethodInfo } from "gd-sprest/utils";
+    /*********************************************************************************************************************************/
+    export class MethodInfo implements IMethodInfo {
+        /*********************************************************************************************************************************/
+        constructor(methodName: string, methodInfo: IMethodInfo, args: any);
+        /*********************************************************************************************************************************/
+        readonly body: string;
+        readonly getAllItemsFl: boolean;
+        readonly replaceEndpointFl: boolean;
+        readonly requestMethod: string;
+        readonly url: string;
+    }
+}
+
+declare module 'gd-sprest/utils/oData' {
+    import { Types } from "gd-sprest/mapper";
+    /**
+      * OData
+      */
+    export class OData {
+        /*********************************************************************************************************************************/
+        constructor(oData: Types.ODataQuery);
+        /*********************************************************************************************************************************/
+        Custom: string;
+        Expand: Array<string>;
+        Filter: string;
+        GetAllItems: boolean;
+        OrderBy: Array<string>;
+        readonly QueryString: string;
+        Select: Array<string>;
+        Skip: number;
+        Top: number;
+    }
+}
+
+declare module 'gd-sprest/utils/requestType' {
+    export * from "gd-sprest/utils/requestType.def";
+    import { IRequestType } from "gd-sprest/utils";
+    /**
+      * Request Type
+      */
+    export const RequestType: IRequestType;
+}
+
+declare module 'gd-sprest/utils/targetInfo' {
+    export * from "gd-sprest/utils/targetInfo.def";
+    import { IRequestInfo, ITargetInfo } from "gd-sprest/utils";
+    /**
+      * Target Information
+      */
+    export class TargetInfo {
+        /*********************************************************************************************************************************/
+        constructor(targetInfo: ITargetInfo);
+        /*********************************************************************************************************************************/
+        request: ITargetInfo;
+        readonly isBatchRequest: boolean;
+        requestData: any;
+        readonly requestInfo: IRequestInfo;
+        requestHeaders: object;
+        requestMethod: string;
+        requestUrl: string;
+    }
+}
+
+declare module 'gd-sprest/utils/xhrRequest' {
+    import { TargetInfo } from "gd-sprest/utils";
+    /**
+      * XML HTTP Request Class
+      */
+    export class XHRRequest {
+        /*********************************************************************************************************************************/
+        constructor(asyncFl: boolean, targetInfo: TargetInfo, callback?: (...args) => void);
+        /*********************************************************************************************************************************/
+        readonly completedFl: boolean;
+        readonly response: any;
+        readonly request: any;
+        readonly requestData: any;
+        readonly requestUrl: string;
+        readonly status: number;
+    }
 }
 
 declare module 'gd-sprest/utils/baseHelper.def' {

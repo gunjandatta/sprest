@@ -29,8 +29,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
+require("core-js/es6/promise");
 __export(require("./helper"));
 __export(require("./mapper"));
 __export(require("./rest"));
-require("core-js/es6/promise");
 //# sourceMappingURL=index.js.map
