@@ -6877,7 +6877,7 @@ declare module 'gd-sprest/mapper/types/lists' {
     /**
         * List Results
         */
-    export interface IListResults extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> {
+    export interface IListResults extends IListsMethods, IBaseCollection<IListResult, IListResult, IListQueryResult> {
     }
 }
 
