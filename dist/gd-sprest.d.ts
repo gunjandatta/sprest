@@ -26,9 +26,10 @@ declare module 'gd-sprest' {
      ***************************************************************************************************/
     import "core-js/es6/promise";
     import * as Helper from "gd-sprest/helper";
-    export * from "gd-sprest/lib";
     import { SPTypes } from "gd-sprest/mapper";
     import * as Types from "gd-sprest/types";
+    export * from "gd-sprest/lib";
+    export * from "gd-sprest/rest";
     export { Helper, SPTypes, Types };
 }
 
@@ -48,25 +49,6 @@ declare module 'gd-sprest/helper' {
     export { Types };
 }
 
-declare module 'gd-sprest/lib' {
-    export * from "gd-sprest/lib/contextInfo";
-    export * from "gd-sprest/lib/jslink";
-    export * from "gd-sprest/lib/list";
-    export * from "gd-sprest/lib/navigation";
-    export * from "gd-sprest/lib/peopleManager";
-    export * from "gd-sprest/lib/peoplePicker";
-    export * from "gd-sprest/lib/profileLoader";
-    export * from "gd-sprest/lib/rest";
-    export * from "gd-sprest/lib/search";
-    export * from "gd-sprest/lib/site";
-    export * from "gd-sprest/lib/socialFeed";
-    export * from "gd-sprest/lib/userProfile";
-    export * from "gd-sprest/lib/utility";
-    export * from "gd-sprest/lib/web";
-    import * as Types from "gd-sprest/lib/types";
-    export { Types };
-}
-
 declare module 'gd-sprest/mapper' {
     import * as Mapper from "gd-sprest/mapper/mapper";
     import * as SPTypes from "gd-sprest/mapper/sptypes";
@@ -79,6 +61,166 @@ declare module 'gd-sprest/types' {
     import { Types } from "gd-sprest/mapper";
     import { Types as UtilTypes } from "gd-sprest/utils";
     export { HelperTypes as Helper, Types as SP, UtilTypes as Util };
+}
+
+declare module 'gd-sprest/lib' {
+    export * from "gd-sprest/lib/contextInfo";
+    export * from "gd-sprest/lib/jslink";
+    export * from "gd-sprest/lib/list";
+    export * from "gd-sprest/lib/navigation";
+    export * from "gd-sprest/lib/peopleManager";
+    export * from "gd-sprest/lib/peoplePicker";
+    export * from "gd-sprest/lib/profileLoader";
+    export * from "gd-sprest/lib/search";
+    export * from "gd-sprest/lib/site";
+    export * from "gd-sprest/lib/socialFeed";
+    export * from "gd-sprest/lib/userProfile";
+    export * from "gd-sprest/lib/utility";
+    export * from "gd-sprest/lib/web";
+    import * as Types from "gd-sprest/lib/types";
+    export { Types };
+}
+
+declare module 'gd-sprest/rest' {
+    import * as Helper from "gd-sprest/helper";
+    import * as Lib from "gd-sprest/lib";
+    import * as Mapper from "gd-sprest/mapper";
+    import * as Util from "gd-sprest/utils";
+    /**
+        * SharePoint REST Library
+        */
+    export interface IREST {
+            /**
+                * The version number of the library.
+                */
+            __ver: number;
+            /**
+                * A reference to the _spPageContextInfo global variable.
+                */
+            ContextInfo: Lib.Types.IContextInformation;
+            /**
+                * False by default.
+                */
+            DefaultRequestToHostFl: boolean;
+            /**
+                * Helper methods.
+                */
+            Helper: {
+                    /**
+                        * Helper classes for the app web
+                        */
+                    App: Helper.Types.IApp;
+                    /**
+                        * Helper class to load the required SP scripts
+                        */
+                    Dependencies: Helper.Types.IDependencies;
+                    /**
+                        * Helper class for generating a field schema xml
+                        */
+                    FieldSchemaXML: Helper.Types.IFieldSchemaXML;
+                    /**
+                        * Helper class for implementing JSLink solutions
+                        */
+                    JSLink: Helper.Types.IJSLink;
+                    /**
+                        * Helper class for implementing custom list forms
+                        */
+                    ListForm: Helper.Types.IListForm;
+                    /**
+                        * Helper class for implementing custom list forms
+                        */
+                    ListFormField: Helper.Types.IListFormField;
+                    /**
+                        * Helper class for waiting until the core SP scripts are loaded
+                        */
+                    Loader: Helper.Types.ILoader;
+                    /**
+                        * Helper method to convert a json string to a base object
+                        * This will require you to use the stringify method of the base object.
+                        */
+                    parse: (jsonString: string) => Util.Base;
+                    /**
+                        * Helper class for automating SharePoint assets
+                        */
+                    SPConfig: Helper.Types.ISPConfig;
+                    /**
+                        * Helper class for getting information from the taxonomy term store
+                        */
+                    Taxonomy: Helper.Types.ITaxonomy;
+                    /**
+                        * Helper class for creating modern webparts in SharePoint 2013+ environments
+                        */
+                    WebPart: Helper.Types.IWebPart;
+            };
+            /**
+                * Use this api to interact with SharePoint lists and libraries.
+                * @param listName - The name of the list.
+                * @param targetInfo - (Optional) The target information.
+                */
+            List: (listName: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IList;
+            /**
+                * Use this api to interact with SharePoint navigation.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            Navigation: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.INavigationServiceREST;
+            /**
+                * Use this api to interact with SharePoint user profiles.
+                * @param targetInfo - (Optional) The target information.
+                */
+            PeopleManager: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IPeopleManager;
+            /**
+                * Use this api to search for users.
+                * @param settings - The search settings.
+                */
+            PeoplePicker: (settings?: Util.Types.ITargetInfo) => Mapper.Types.IPeoplePicker;
+            /**
+                * Use this api to interact with the user profile loader.
+                * @param targetInfo - (Optional) The target information.
+                */
+            ProfileLoader: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IProfileLoader;
+            /**
+                * Use this api to interact with the SharePoint search service.
+                * @param url - The optional url to execute the search against.
+                * @param settings - The search settings.
+                */
+            Search: (url?: string, settings?: Util.Types.ITargetInfo) => Mapper.Types.ISearch;
+            /**
+                * The SharePoint enumerator Mapper.Types.
+                */
+            SPTypes: any;
+            /**
+                * Use this api to interact with a SharePoint site collection.
+                * @param url - (Optional) The site url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            Site: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.ISite;
+            /**
+                * Use this api to interact with the current user's social profile.
+                */
+            SocialFeed: Mapper.Types.ISocialFeed;
+            /**
+                * Use this api to interact with the current user's profile.
+                * @param targetInfo - (Optional) The target information.
+                */
+            UserProfile: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IUserProfile;
+            /**
+                * The utility api
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            Utility: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IUtility;
+            /**
+                * Use this api to interact with a SharePoint web.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            Web: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IWeb;
+    }
+    /**
+        * SharePoint REST Library
+        */
+    export const $REST: any;
 }
 
 declare module 'gd-sprest/helper/app' {
@@ -158,85 +300,6 @@ declare module 'gd-sprest/helper/types' {
     export * from "gd-sprest/helper/types/spCfgTypes";
     export * from "gd-sprest/helper/types/taxonomy";
     export * from "gd-sprest/helper/types/webpart";
-}
-
-declare module 'gd-sprest/lib/contextInfo' {
-    import { IContextInformation } from "gd-sprest/lib/types";
-    export const ContextInfo: IContextInformation;
-}
-
-declare module 'gd-sprest/lib/jslink' {
-    import { IJSLink } from "gd-sprest/lib/types";
-    export const JSLink: IJSLink;
-}
-
-declare module 'gd-sprest/lib/list' {
-    import { Types } from "gd-sprest/";
-    export const List: Types.SP.IList;
-}
-
-declare module 'gd-sprest/lib/navigation' {
-    import { INavigationServiceREST } from "gd-sprest/mapper/types";
-    export const Navigation: INavigationServiceREST;
-}
-
-declare module 'gd-sprest/lib/peopleManager' {
-    import { Types } from "gd-sprest/";
-    export const PeopleManager: Types.SP.IPeopleManager;
-}
-
-declare module 'gd-sprest/lib/peoplePicker' {
-    import { Types } from "gd-sprest/";
-    export const PeoplePicker: Types.SP.IPeoplePicker;
-}
-
-declare module 'gd-sprest/lib/profileLoader' {
-    import { Types } from "gd-sprest/";
-    export const ProfileLoader: Types.SP.IProfileLoader;
-}
-
-declare module 'gd-sprest/lib/rest' {
-    import { IREST } from "gd-sprest/lib/types";
-    /**
-      * SharePoint REST Library
-      */
-    export const $REST: IREST;
-}
-
-declare module 'gd-sprest/lib/search' {
-    import { Types } from "gd-sprest/";
-    export const Search: Types.SP.ISearch;
-}
-
-declare module 'gd-sprest/lib/site' {
-    import { Types } from "gd-sprest/";
-    export const Site: Types.SP.ISite;
-}
-
-declare module 'gd-sprest/lib/socialFeed' {
-    import { Types } from "gd-sprest/";
-    export const SocialFeed: Types.SP.ISocialFeed;
-}
-
-declare module 'gd-sprest/lib/userProfile' {
-    import { Types } from "gd-sprest/";
-    export const UserProfile: Types.SP.IUserProfile;
-}
-
-declare module 'gd-sprest/lib/utility' {
-    import { Types } from "gd-sprest/";
-    export const Utility: Types.SP.IUtility;
-}
-
-declare module 'gd-sprest/lib/web' {
-    import { Types } from "gd-sprest/";
-    export const Web: Types.SP.IWeb;
-}
-
-declare module 'gd-sprest/lib/types' {
-    export * from "gd-sprest/lib/types/contextInfo";
-    export * from "gd-sprest/lib/types/jslink";
-    export * from "gd-sprest/lib/types/rest";
 }
 
 declare module 'gd-sprest/mapper/mapper' {
@@ -470,18 +533,88 @@ declare module 'gd-sprest/mapper/types' {
 }
 
 declare module 'gd-sprest/utils' {
-    export * from "gd-sprest/utils/base";
-    export * from "gd-sprest/utils/baseExecution";
+    export * from "gd-sprest/utils/requestType";
     export * from "gd-sprest/utils/baseHelper";
     export * from "gd-sprest/utils/baseRequest";
+    export * from "gd-sprest/utils/baseExecution";
+    export * from "gd-sprest/utils/base";
     export * from "gd-sprest/utils/batch";
     export * from "gd-sprest/utils/methodInfo";
     export * from "gd-sprest/utils/oData";
-    export * from "gd-sprest/utils/requestType";
     export * from "gd-sprest/utils/targetInfo";
     export * from "gd-sprest/utils/xhrRequest";
     import * as Types from "gd-sprest/utils/types";
     export { Types };
+}
+
+declare module 'gd-sprest/lib/contextInfo' {
+    import { IContextInformation } from "gd-sprest/lib/types";
+    export const ContextInfo: IContextInformation;
+}
+
+declare module 'gd-sprest/lib/jslink' {
+    import { IJSLink } from "gd-sprest/lib/types";
+    export const JSLink: IJSLink;
+}
+
+declare module 'gd-sprest/lib/list' {
+    import { Types } from "gd-sprest/";
+    export const List: Types.SP.IList;
+}
+
+declare module 'gd-sprest/lib/navigation' {
+    import { INavigationServiceREST } from "gd-sprest/mapper/types";
+    export const Navigation: INavigationServiceREST;
+}
+
+declare module 'gd-sprest/lib/peopleManager' {
+    import { Types } from "gd-sprest/";
+    export const PeopleManager: Types.SP.IPeopleManager;
+}
+
+declare module 'gd-sprest/lib/peoplePicker' {
+    import { Types } from "gd-sprest/";
+    export const PeoplePicker: Types.SP.IPeoplePicker;
+}
+
+declare module 'gd-sprest/lib/profileLoader' {
+    import { Types } from "gd-sprest/";
+    export const ProfileLoader: Types.SP.IProfileLoader;
+}
+
+declare module 'gd-sprest/lib/search' {
+    import { Types } from "gd-sprest/";
+    export const Search: Types.SP.ISearch;
+}
+
+declare module 'gd-sprest/lib/site' {
+    import { Types } from "gd-sprest/";
+    export const Site: Types.SP.ISite;
+}
+
+declare module 'gd-sprest/lib/socialFeed' {
+    import { Types } from "gd-sprest/";
+    export const SocialFeed: Types.SP.ISocialFeed;
+}
+
+declare module 'gd-sprest/lib/userProfile' {
+    import { Types } from "gd-sprest/";
+    export const UserProfile: Types.SP.IUserProfile;
+}
+
+declare module 'gd-sprest/lib/utility' {
+    import { Types } from "gd-sprest/";
+    export const Utility: Types.SP.IUtility;
+}
+
+declare module 'gd-sprest/lib/web' {
+    import { Types } from "gd-sprest/";
+    export const Web: Types.SP.IWeb;
+}
+
+declare module 'gd-sprest/lib/types' {
+    export * from "gd-sprest/lib/types/contextInfo";
+    export * from "gd-sprest/lib/types/jslink";
 }
 
 declare module 'gd-sprest/helper/spCfgTypes' {
@@ -1367,470 +1500,6 @@ declare module 'gd-sprest/helper/types/webpart' {
             onRenderEdit?: (wp: IWebPartInfo) => any;
             /** The target element id to render the webpart to */
             elementId: string;
-    }
-}
-
-declare module 'gd-sprest/' {
-    /***************************************************************************************************
-    MIT License
-    
-    Copyright (c) 2016 Dattabase, LLC.
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
-     ***************************************************************************************************/
-    import "core-js/es6/promise";
-    import * as Helper from "gd-sprest/helper";
-    export * from "gd-sprest/lib";
-    import { SPTypes } from "gd-sprest/mapper";
-    import * as Types from "gd-sprest/types";
-    export { Helper, SPTypes, Types };
-}
-
-declare module 'gd-sprest/lib/types/contextInfo' {
-    import { Types } from "gd-sprest/";
-    import { Types as BaseTypes } from "gd-sprest/utils";
-    /**
-        * Context Information
-        */
-    export interface IContextInformation {
-            /** AAD Instance Url */
-            aadInstanceUrl: string;
-            /** AAD Tenant Id */
-            aadTenantId: string;
-            /** Alerts Enabled */
-            alertsEnabled: boolean;
-            /** Allow Silverlight Prompt */
-            allowSilverlightPrompt: boolean;
-            /** Block Downloads Experience Enabled */
-            blockDownloadsExperienceEnabled: boolean;
-            /** Can User Create Microsoft Form */
-            canUserCreateMicrosoftForm: boolean;
-            /** Can User Create Visio Drawing */
-            canUserCreateVisioDrawing: boolean;
-            /** CDN Prefix */
-            cdnPrefix: string;
-            /** Client Server Time Delta */
-            clientServerTimeDelta: number;
-            /** Correlation ID */
-            CorrelationId: string;
-            /** Cross Domain Photos Enabled */
-            crossDomainPhotosEnabled: boolean;
-            /** Current Culture LCID */
-            currentCultureLCID: string;
-            /** Current Culture Name */
-            currentCultureName: string;
-            /** Current Language */
-            currentLanguage: string;
-            /** Current UI Culture Name */
-            currentUICultureName: string;
-            /** Department ID */
-            departmentId: string;
-            /** Design Package ID */
-            DesignPackageId: string;
-            /** Disable App Views */
-            disableAppViews: boolean;
-            /** Disable Flows */
-            disableFlows: boolean;
-            /** Document */
-            document: HTMLDocument;
-            /** Environment */
-            env: string;
-            /** True if the _spPageContextInfo object exists, flase otherwise. */
-            existsFl: boolean;
-            /** Farm Label */
-            farmLabel: string;
-            /** FID */
-            fid: string;
-            /** Form Digest Timeout Seconds */
-            formDigestTimeoutSeconds: number;
-            /** Form Digest Value */
-            formDigestValue: string;
-            /** Group Color */
-            groupColor: string;
-            /** Group Has Homepage */
-            groupHasHomepage: boolean;
-            /** Group ID */
-            groupId: string;
-            /** Group Type */
-            groupType: string;
-            /** Guests Enabled */
-            guestsEnabled: boolean;
-            /** Has Manage Web Permissions */
-            hasManageWebPermissions: boolean;
-            /** Has Pending Web Template Extension */
-            hasPendingWebTemplateExtension: boolean;
-            /** Hide Sync Button On ODB */
-            hideSyncButtonOnODB: boolean;
-            /** Hub Site ID */
-            hubSiteId: boolean;
-            /** IDLE Session Sign Out Enabled */
-            idleSessionSignOutEnabled: boolean;
-            /** Is Anonymous Guest User */
-            isAnonymousGuestUser: boolean;
-            /** Is App Web */
-            isAppWeb: boolean;
-            /** Is Email Authentication Guest User */
-            isEmailAuthenticatinoGuesUser: boolean;
-            /** Is External Guest User */
-            isExternalGuestUser: boolean;
-            /** Is Hub Site */
-            isHubSite: boolean;
-            /** Is Multi Geo Tenant */
-            isMultiGeoTenant: boolean;
-            /** Is No-Script Enabled */
-            isNoScriptEnabled: boolean;
-            /** Is Site Administrator */
-            isSiteAdmin: boolean;
-            /** Is SharePoint Online */
-            isSPO: boolean;
-            /** Is Tenant Development Site */
-            isTenantDevSite: boolean;
-            /** Is Web Welcome Page */
-            isWebWelcomePage: boolean;
-            /** Layouts Url */
-            layoutsUrl: string;
-            /** List Base Template */
-            listBaseTemplate: number;
-            /** List Id */
-            listId: string;
-            /** List Permissions Mask */
-            listPermMask: Types.SP.IBasePermissions;
-            /** List Title */
-            listTitle: string;
-            /** List Url */
-            listUrl: string;
-            /** Maximum File Size */
-            maximumFileSize: number;
-            /** NID */
-            nid: string;
-            /** Open in Client */
-            openInClient: boolean;
-            /** Page Item Id */
-            pageItemId: number;
-            /** Page List Id */
-            pageListId: string;
-            /** Page Permissions Mask */
-            pagePermMask: Types.SP.IBasePermissions;
-            /** Page Personalization Scope */
-            pagePersonalizationScope: number;
-            /** Prefer User Time Zone */
-            preferUserTimeZone: boolean;
-            /** Preview Features Enabled */
-            PreviewFeaturesEnabled: boolean;
-            /** Profile Url */
-            profileUrl: string;
-            /** Publishing Feature On */
-            PublishingFeatureOn: boolean;
-            /** Recycle Bin Item Count */
-            RecycleBinItemCount: number;
-            /** Server Redirected Url */
-            serverRedirectedUrl: string;
-            /** Server Request Path */
-            serverRequestPath: string;
-            /** Server Time */
-            serverTime: string;
-            /** Show NGSC Dialog for Sync on ODB */
-            showNGSCDialogForSyncOnODB: boolean;
-            /** Show NGSC Dialog for Sync on TS */
-            showNGSCDialogForSyncOnTS: boolean;
-            /** Site Absolute Url */
-            siteAbsoluteUrl: string;
-            /** Site Classification */
-            siteClassification: string;
-            /** Site Client Tag */
-            siteClientTag: string;
-            /** Site Color */
-            siteColor: string;
-            /** Site ID */
-            siteId: string;
-            /** Site Pages Enabled */
-            sitePagesEnabled: boolean;
-            /** Site Server Relative Url */
-            siteServerRelativeUrl: string;
-            /** Site Subscription ID */
-            siteSubscriptionId: string;
-            /** Support Percent Store Page */
-            supportPercentStorePage: boolean;
-            /** Support Pound Store Path */
-            supportPoundStorePath: boolean;
-            /** System User Key */
-            systemUserKey: string;
-            /** Tenant App Version */
-            tenantAppVersion: string;
-            /** Theme Cache Token */
-            themeCacheToken: string;
-            /** Theme CSS Folder Url */
-            themeCssFolderUrl: string;
-            /** Theme Image File Names */
-            themeImageFileNames: any;
-            /** Update From Digest Page Loaded */
-            updateFromDigestPageLoaded: Date;
-            /** User Display Name */
-            userDisplayName: string;
-            /** User EMail */
-            userEmail: string;
-            /** User First Day of Week */
-            userFirstDayOfWeek: any;
-            /** User Id */
-            userId: number;
-            /** User Login Name */
-            userLoginName: string;
-            /** User Time 24 */
-            userTime24: boolean;
-            /** User Time Zone Data */
-            userTimeZoneData: any;
-            /** View ID */
-            viewId: string;
-            /** View Only Experience Enabled */
-            viewOnlyExperienceEnabled: boolean;
-            /** Web Absolute Url */
-            webAbsoluteUrl: string;
-            /** Web Description */
-            webDescription: string;
-            /** Web First Day of Week */
-            webFirstDayOfWeek: number;
-            /** Web ID */
-            webId: string;
-            /** Web Language */
-            webLanguage: number;
-            /** Web Logo Url */
-            webLogoUrl: string;
-            /** Web Permissions Mask */
-            webPermMask: Types.SP.IBasePermissions;
-            /** Web Server Relative Url */
-            webServerRelativeUrl: string;
-            /** Web Template */
-            webTemplate: string;
-            /** Web Time 24 */
-            webTime24: boolean;
-            /** Web Title */
-            webTitle: string;
-            /** Web UI Version */
-            webUIVersion: number;
-            /** Window */
-            window: {
-                    $REST: any;
-                    addEventListener: any;
-                    clearInterval: any;
-                    document: HTMLDocument;
-                    setInterval: any;
-                    SP: any;
-                    SPClientTemplates: any;
-            };
-            /**
-                * Method to generate a guid.
-                */
-            generateGUID: () => string;
-            /**
-                * Method to get the web context information.
-                * @param url - The relative url of the web.
-                */
-            getWeb(url: string): BaseTypes.IBase<Types.SP.IContextWebInfo>;
-    }
-}
-
-declare module 'gd-sprest/lib/types/jslink' {
-    /**
-        * Fields Template
-        */
-    export interface IFieldTemplate {
-            DisplayForm?: any;
-            EditForm?: any;
-            Name: string;
-            NewForm?: any;
-            View?: any;
-    }
-    /**
-        * Templates
-        */
-    export interface ITemplates {
-            Body?: any;
-            Footer?: any;
-            Fields?: Array<IFieldTemplate>;
-            Group?: any;
-            Header?: any;
-            Item?: any;
-            OnPostRender?: any;
-            OnPreRender?: any;
-    }
-    /**
-        * JS Link Configuration
-        */
-    export interface IJSLinkCfg {
-            /** The base view id. */
-            BaseViewID?: number | string;
-            /** The list template type. */
-            ListTemplateType?: number;
-            /** The post render event. */
-            OnPostRender?: any;
-            /** The pre render event. */
-            OnPreRender?: any;
-            /** The JSLink template overrides. */
-            Templates?: ITemplates;
-    }
-    /**
-        * JS Link
-        */
-    export interface IJSLink extends IJSLinkCfg {
-            /** Constructor */
-            new (cfg?: IJSLinkCfg): IJSLink;
-            /** Method to get the template configuration. */
-            getTemplate(): IJSLinkCfg;
-            /** Method to register the JSLink template override. */
-            register(): void;
-    }
-}
-
-declare module 'gd-sprest/lib/types/rest' {
-    import { Types } from "gd-sprest/";
-    import { Base } from "gd-sprest/utils";
-    import { IContextInformation } from "gd-sprest/lib/types";
-    /**
-        * SharePoint REST Library
-        */
-    export interface IREST {
-            /**
-                * The version number of the library.
-                */
-            __ver: number;
-            /**
-                * A reference to the _spPageContextInfo global variable.
-                */
-            ContextInfo: IContextInformation;
-            /**
-                * False by default.
-                */
-            DefaultRequestToHostFl: boolean;
-            /**
-                * Helper methods.
-                */
-            Helper: {
-                    /**
-                        * Helper classes for the app web
-                        */
-                    App: Types.Helper.IApp;
-                    /**
-                        * Helper class to load the required SP scripts
-                        */
-                    Dependencies: Types.Helper.IDependencies;
-                    /**
-                        * Helper class for generating a field schema xml
-                        */
-                    FieldSchemaXML: Types.Helper.IFieldSchemaXML;
-                    /**
-                        * Helper class for implementing JSLink solutions
-                        */
-                    JSLink: Types.Helper.IJSLink;
-                    /**
-                        * Helper class for implementing custom list forms
-                        */
-                    ListForm: Types.Helper.IListForm;
-                    /**
-                        * Helper class for implementing custom list forms
-                        */
-                    ListFormField: Types.Helper.IListFormField;
-                    /**
-                        * Helper class for waiting until the core SP scripts are loaded
-                        */
-                    Loader: Types.Helper.ILoader;
-                    /**
-                        * Helper method to convert a json string to a base object
-                        * This will require you to use the stringify method of the base object.
-                        */
-                    parse: (jsonString: string) => Base;
-                    /**
-                        * Helper class for automating SharePoint assets
-                        */
-                    SPConfig: Types.Helper.ISPConfig;
-                    /**
-                        * Helper class for getting information from the taxonomy term store
-                        */
-                    Taxonomy: Types.Helper.ITaxonomy;
-                    /**
-                        * Helper class for creating modern webparts in SharePoint 2013+ environments
-                        */
-                    WebPart: Types.Helper.IWebPart;
-            };
-            /**
-                * Use this api to interact with SharePoint lists and libraries.
-                * @param listName - The name of the list.
-                * @param targetInfo - (Optional) The target information.
-                */
-            List: (listName: string, targetInfo?: Types.Util.ITargetInfo) => Types.SP.IList;
-            /**
-                * Use this api to interact with SharePoint navigation.
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            Navigation: (url?: string, targetInfo?: Types.Util.ITargetInfo) => Types.SP.INavigationServiceREST;
-            /**
-                * Use this api to interact with SharePoint user profiles.
-                * @param targetInfo - (Optional) The target information.
-                */
-            PeopleManager: (targetInfo?: Types.Util.ITargetInfo) => Types.SP.IPeopleManager;
-            /**
-                * Use this api to search for users.
-                * @param settings - The search settings.
-                */
-            PeoplePicker: (settings?: Types.Util.ITargetInfo) => Types.SP.IPeoplePicker;
-            /**
-                * Use this api to interact with the user profile loader.
-                * @param targetInfo - (Optional) The target information.
-                */
-            ProfileLoader: (targetInfo?: Types.Util.ITargetInfo) => Types.SP.IProfileLoader;
-            /**
-                * Use this api to interact with the SharePoint search service.
-                * @param url - The optional url to execute the search against.
-                * @param settings - The search settings.
-                */
-            Search: (url?: string, settings?: Types.Util.ITargetInfo) => Types.SP.ISearch;
-            /**
-                * The SharePoint enumerator Types.SP.
-                */
-            SPTypes: any;
-            /**
-                * Use this api to interact with a SharePoint site collection.
-                * @param url - (Optional) The site url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            Site: (url?: string, targetInfo?: Types.Util.ITargetInfo) => Types.SP.ISite;
-            /**
-                * Use this api to interact with the current user's social profile.
-                */
-            SocialFeed: Types.SP.ISocialFeed;
-            /**
-                * Use this api to interact with the current user's profile.
-                * @param targetInfo - (Optional) The target information.
-                */
-            UserProfile: (targetInfo?: Types.Util.ITargetInfo) => Types.SP.IUserProfile;
-            /**
-                * The utility api
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            Utility: (url?: string, targetInfo?: Types.Util.ITargetInfo) => Types.SP.IUtility;
-            /**
-                * Use this api to interact with a SharePoint web.
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            Web: (url?: string, targetInfo?: Types.Util.ITargetInfo) => Types.SP.IWeb;
     }
 }
 
@@ -7208,7 +6877,7 @@ declare module 'gd-sprest/mapper/types/lists' {
     /**
         * List Results
         */
-    export interface IListResults extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> {
+    export interface IListResults extends IListsMethods, IBaseCollection<IListResult, IListResult, IListQueryResult> {
     }
 }
 
@@ -11334,43 +11003,12 @@ declare module 'gd-sprest/mapper/types/webs' {
     }
 }
 
-declare module 'gd-sprest/utils/base' {
-    import { BaseExecution, Types } from "gd-sprest/utils";
-    /*********************************************************************************************************************************/
-    export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements Types.IBase {
-            /**
-                * Constructor
-                * @param targetInfo - The target information.
-                */
-            constructor(targetInfo: Types.ITargetInfo);
-            defaultToWebFl: boolean;
-            existsFl: any;
-            done(callback: (...args) => any): void;
-            getInfo(): Types.IRequestInfo;
-            stringify(): string;
-    }
-}
-
-declare module 'gd-sprest/utils/baseExecution' {
-    import { BaseRequest, TargetInfo, Types } from "gd-sprest/utils";
+declare module 'gd-sprest/utils/requestType' {
+    import { IRequestType } from "gd-sprest/utils/types";
     /**
-      * Base Execution
+      * Request Type
       */
-    export class BaseExecution<Type = any, Result = Type> extends BaseRequest implements Types.IBaseExecution {
-        batchRequests: Array<Array<{
-            callback?: any;
-            response?: BaseExecution;
-            targetInfo: TargetInfo;
-        }>>;
-        parent: BaseExecution;
-        responseIndex: number;
-        responses: Array<BaseExecution>;
-        waitFlags: Array<boolean>;
-        batch(arg?: any): this;
-        execute(...args: any[]): this;
-        executeAndWait(): any;
-        waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
-    }
+    export const RequestType: IRequestType;
 }
 
 declare module 'gd-sprest/utils/baseHelper' {
@@ -11408,6 +11046,45 @@ declare module 'gd-sprest/utils/baseRequest' {
         getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
         updateMetadataUri(metadata: any, targetInfo: Types.ITargetInfo): void;
         validateDataCollectionResults(): PromiseLike<void>;
+    }
+}
+
+declare module 'gd-sprest/utils/baseExecution' {
+    import { BaseRequest, TargetInfo, Types } from "gd-sprest/utils";
+    /**
+      * Base Execution
+      */
+    export class BaseExecution<Type = any, Result = Type> extends BaseRequest implements Types.IBaseExecution {
+        batchRequests: Array<Array<{
+            callback?: any;
+            response?: BaseExecution;
+            targetInfo: TargetInfo;
+        }>>;
+        parent: BaseExecution;
+        responseIndex: number;
+        responses: Array<BaseExecution>;
+        waitFlags: Array<boolean>;
+        batch(arg?: any): this;
+        execute(...args: any[]): this;
+        executeAndWait(): any;
+        waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
+    }
+}
+
+declare module 'gd-sprest/utils/base' {
+    import { BaseExecution, Types } from "gd-sprest/utils";
+    /*********************************************************************************************************************************/
+    export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseExecution<Type, Result> implements Types.IBase {
+            /**
+                * Constructor
+                * @param targetInfo - The target information.
+                */
+            constructor(targetInfo: Types.ITargetInfo);
+            defaultToWebFl: boolean;
+            existsFl: any;
+            done(callback: (...args) => any): void;
+            getInfo(): Types.IRequestInfo;
+            stringify(): string;
     }
 }
 
@@ -11463,14 +11140,6 @@ declare module 'gd-sprest/utils/oData' {
     }
 }
 
-declare module 'gd-sprest/utils/requestType' {
-    import { IRequestType } from "gd-sprest/utils/types";
-    /**
-      * Request Type
-      */
-    export const RequestType: IRequestType;
-}
-
 declare module 'gd-sprest/utils/targetInfo' {
     import { IRequestInfo, ITargetInfo } from "gd-sprest/utils/types";
     /**
@@ -11516,6 +11185,334 @@ declare module 'gd-sprest/utils/types' {
     export * from "gd-sprest/utils/types/methodInfo";
     export * from "gd-sprest/utils/types/requestType";
     export * from "gd-sprest/utils/types/targetInfo";
+}
+
+declare module 'gd-sprest/' {
+    /***************************************************************************************************
+    MIT License
+    
+    Copyright (c) 2016 Dattabase, LLC.
+    
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+    
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+    
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+     ***************************************************************************************************/
+    import "core-js/es6/promise";
+    import * as Helper from "gd-sprest/helper";
+    import { SPTypes } from "gd-sprest/mapper";
+    import * as Types from "gd-sprest/types";
+    export * from "gd-sprest/lib";
+    export * from "gd-sprest/rest";
+    export { Helper, SPTypes, Types };
+}
+
+declare module 'gd-sprest/lib/types/contextInfo' {
+    import { Types } from "gd-sprest/";
+    import { Types as BaseTypes } from "gd-sprest/utils";
+    /**
+        * Context Information
+        */
+    export interface IContextInformation {
+            /** AAD Instance Url */
+            aadInstanceUrl: string;
+            /** AAD Tenant Id */
+            aadTenantId: string;
+            /** Alerts Enabled */
+            alertsEnabled: boolean;
+            /** Allow Silverlight Prompt */
+            allowSilverlightPrompt: boolean;
+            /** Block Downloads Experience Enabled */
+            blockDownloadsExperienceEnabled: boolean;
+            /** Can User Create Microsoft Form */
+            canUserCreateMicrosoftForm: boolean;
+            /** Can User Create Visio Drawing */
+            canUserCreateVisioDrawing: boolean;
+            /** CDN Prefix */
+            cdnPrefix: string;
+            /** Client Server Time Delta */
+            clientServerTimeDelta: number;
+            /** Correlation ID */
+            CorrelationId: string;
+            /** Cross Domain Photos Enabled */
+            crossDomainPhotosEnabled: boolean;
+            /** Current Culture LCID */
+            currentCultureLCID: string;
+            /** Current Culture Name */
+            currentCultureName: string;
+            /** Current Language */
+            currentLanguage: string;
+            /** Current UI Culture Name */
+            currentUICultureName: string;
+            /** Department ID */
+            departmentId: string;
+            /** Design Package ID */
+            DesignPackageId: string;
+            /** Disable App Views */
+            disableAppViews: boolean;
+            /** Disable Flows */
+            disableFlows: boolean;
+            /** Document */
+            document: HTMLDocument;
+            /** Environment */
+            env: string;
+            /** True if the _spPageContextInfo object exists, flase otherwise. */
+            existsFl: boolean;
+            /** Farm Label */
+            farmLabel: string;
+            /** FID */
+            fid: string;
+            /** Form Digest Timeout Seconds */
+            formDigestTimeoutSeconds: number;
+            /** Form Digest Value */
+            formDigestValue: string;
+            /** Group Color */
+            groupColor: string;
+            /** Group Has Homepage */
+            groupHasHomepage: boolean;
+            /** Group ID */
+            groupId: string;
+            /** Group Type */
+            groupType: string;
+            /** Guests Enabled */
+            guestsEnabled: boolean;
+            /** Has Manage Web Permissions */
+            hasManageWebPermissions: boolean;
+            /** Has Pending Web Template Extension */
+            hasPendingWebTemplateExtension: boolean;
+            /** Hide Sync Button On ODB */
+            hideSyncButtonOnODB: boolean;
+            /** Hub Site ID */
+            hubSiteId: boolean;
+            /** IDLE Session Sign Out Enabled */
+            idleSessionSignOutEnabled: boolean;
+            /** Is Anonymous Guest User */
+            isAnonymousGuestUser: boolean;
+            /** Is App Web */
+            isAppWeb: boolean;
+            /** Is Email Authentication Guest User */
+            isEmailAuthenticatinoGuesUser: boolean;
+            /** Is External Guest User */
+            isExternalGuestUser: boolean;
+            /** Is Hub Site */
+            isHubSite: boolean;
+            /** Is Multi Geo Tenant */
+            isMultiGeoTenant: boolean;
+            /** Is No-Script Enabled */
+            isNoScriptEnabled: boolean;
+            /** Is Site Administrator */
+            isSiteAdmin: boolean;
+            /** Is SharePoint Online */
+            isSPO: boolean;
+            /** Is Tenant Development Site */
+            isTenantDevSite: boolean;
+            /** Is Web Welcome Page */
+            isWebWelcomePage: boolean;
+            /** Layouts Url */
+            layoutsUrl: string;
+            /** List Base Template */
+            listBaseTemplate: number;
+            /** List Id */
+            listId: string;
+            /** List Permissions Mask */
+            listPermMask: Types.SP.IBasePermissions;
+            /** List Title */
+            listTitle: string;
+            /** List Url */
+            listUrl: string;
+            /** Maximum File Size */
+            maximumFileSize: number;
+            /** NID */
+            nid: string;
+            /** Open in Client */
+            openInClient: boolean;
+            /** Page Item Id */
+            pageItemId: number;
+            /** Page List Id */
+            pageListId: string;
+            /** Page Permissions Mask */
+            pagePermMask: Types.SP.IBasePermissions;
+            /** Page Personalization Scope */
+            pagePersonalizationScope: number;
+            /** Prefer User Time Zone */
+            preferUserTimeZone: boolean;
+            /** Preview Features Enabled */
+            PreviewFeaturesEnabled: boolean;
+            /** Profile Url */
+            profileUrl: string;
+            /** Publishing Feature On */
+            PublishingFeatureOn: boolean;
+            /** Recycle Bin Item Count */
+            RecycleBinItemCount: number;
+            /** Server Redirected Url */
+            serverRedirectedUrl: string;
+            /** Server Request Path */
+            serverRequestPath: string;
+            /** Server Time */
+            serverTime: string;
+            /** Show NGSC Dialog for Sync on ODB */
+            showNGSCDialogForSyncOnODB: boolean;
+            /** Show NGSC Dialog for Sync on TS */
+            showNGSCDialogForSyncOnTS: boolean;
+            /** Site Absolute Url */
+            siteAbsoluteUrl: string;
+            /** Site Classification */
+            siteClassification: string;
+            /** Site Client Tag */
+            siteClientTag: string;
+            /** Site Color */
+            siteColor: string;
+            /** Site ID */
+            siteId: string;
+            /** Site Pages Enabled */
+            sitePagesEnabled: boolean;
+            /** Site Server Relative Url */
+            siteServerRelativeUrl: string;
+            /** Site Subscription ID */
+            siteSubscriptionId: string;
+            /** Support Percent Store Page */
+            supportPercentStorePage: boolean;
+            /** Support Pound Store Path */
+            supportPoundStorePath: boolean;
+            /** System User Key */
+            systemUserKey: string;
+            /** Tenant App Version */
+            tenantAppVersion: string;
+            /** Theme Cache Token */
+            themeCacheToken: string;
+            /** Theme CSS Folder Url */
+            themeCssFolderUrl: string;
+            /** Theme Image File Names */
+            themeImageFileNames: any;
+            /** Update From Digest Page Loaded */
+            updateFromDigestPageLoaded: Date;
+            /** User Display Name */
+            userDisplayName: string;
+            /** User EMail */
+            userEmail: string;
+            /** User First Day of Week */
+            userFirstDayOfWeek: any;
+            /** User Id */
+            userId: number;
+            /** User Login Name */
+            userLoginName: string;
+            /** User Time 24 */
+            userTime24: boolean;
+            /** User Time Zone Data */
+            userTimeZoneData: any;
+            /** View ID */
+            viewId: string;
+            /** View Only Experience Enabled */
+            viewOnlyExperienceEnabled: boolean;
+            /** Web Absolute Url */
+            webAbsoluteUrl: string;
+            /** Web Description */
+            webDescription: string;
+            /** Web First Day of Week */
+            webFirstDayOfWeek: number;
+            /** Web ID */
+            webId: string;
+            /** Web Language */
+            webLanguage: number;
+            /** Web Logo Url */
+            webLogoUrl: string;
+            /** Web Permissions Mask */
+            webPermMask: Types.SP.IBasePermissions;
+            /** Web Server Relative Url */
+            webServerRelativeUrl: string;
+            /** Web Template */
+            webTemplate: string;
+            /** Web Time 24 */
+            webTime24: boolean;
+            /** Web Title */
+            webTitle: string;
+            /** Web UI Version */
+            webUIVersion: number;
+            /** Window */
+            window: {
+                    $REST: any;
+                    addEventListener: any;
+                    clearInterval: any;
+                    document: HTMLDocument;
+                    setInterval: any;
+                    SP: any;
+                    SPClientTemplates: any;
+            };
+            /**
+                * Method to generate a guid.
+                */
+            generateGUID: () => string;
+            /**
+                * Method to get the web context information.
+                * @param url - The relative url of the web.
+                */
+            getWeb(url: string): BaseTypes.IBase<Types.SP.IContextWebInfo>;
+    }
+}
+
+declare module 'gd-sprest/lib/types/jslink' {
+    /**
+        * Fields Template
+        */
+    export interface IFieldTemplate {
+            DisplayForm?: any;
+            EditForm?: any;
+            Name: string;
+            NewForm?: any;
+            View?: any;
+    }
+    /**
+        * Templates
+        */
+    export interface ITemplates {
+            Body?: any;
+            Footer?: any;
+            Fields?: Array<IFieldTemplate>;
+            Group?: any;
+            Header?: any;
+            Item?: any;
+            OnPostRender?: any;
+            OnPreRender?: any;
+    }
+    /**
+        * JS Link Configuration
+        */
+    export interface IJSLinkCfg {
+            /** The base view id. */
+            BaseViewID?: number | string;
+            /** The list template type. */
+            ListTemplateType?: number;
+            /** The post render event. */
+            OnPostRender?: any;
+            /** The pre render event. */
+            OnPreRender?: any;
+            /** The JSLink template overrides. */
+            Templates?: ITemplates;
+    }
+    /**
+        * JS Link
+        */
+    export interface IJSLink extends IJSLinkCfg {
+            /** Constructor */
+            new (cfg?: IJSLinkCfg): IJSLink;
+            /** Method to get the template configuration. */
+            getTemplate(): IJSLinkCfg;
+            /** Method to register the JSLink template override. */
+            register(): void;
+    }
 }
 
 declare module 'gd-sprest/utils/types/base' {

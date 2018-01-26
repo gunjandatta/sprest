@@ -40,5 +40,5 @@ export interface ILists extends IListsMethods, IBaseCollection<IList, IListResul
 /**
  * List Results
  */
-export interface IListResults extends IListsMethods, IBaseCollection<IList, IListResult, IListQueryResult> {
+export interface IListResults extends IListsMethods, IBaseCollection<IListResult, IListResult, IListQueryResult> {
 }
