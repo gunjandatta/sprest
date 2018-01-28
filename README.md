@@ -31,10 +31,6 @@ The REST api execute requests based on the user's permissions. There is no way t
 ### Features
 The [Wiki](https://github.com/gunjandatta/sprest/wiki) gives a detailed overview of the framework.
 
-#### [Automation](https://github.com/gunjandatta/sprest/wiki/Automation)
-The "SharePoint Configuration" class allows the developer to define configuration files for the SharePoint solution. The configuration options are available through the built-in intellisense, shown below. This configuration class contains built-in methods to install and uninstall the SharePoint assets.
-![SharePoint Enumerator Types](https://github.com/gunjandatta/sprest/wiki/images/intellisense-ts-types-cfg-type.png)
-
 #### [Caching](https://github.com/gunjandatta/sprest/wiki/Session-Storage)
 The library has been designed to create the SharePoint object based on the response from the SharePoint REST API. This will allow us to easily stringify the request's target information and the SharePoint REST API's response to the local or storage session. A built-in stringify and parse method has been included in the library. Based on this design, SharePoint object will also contain all of its built-in methods.
 
