@@ -94,9 +94,10 @@ var BaseExecution = /** @class */ (function (_super) {
                         _this.base.responses = [];
                         // Execute the callback and see if it returns a promise
                         var returnVal = callback(response);
-                        if (returnVal && typeof (returnVal.done) === "function") {
+                        var waitFunc = returnVal ? returnVal.done || returnVal.then : null;
+                        if (waitFunc && typeof (waitFunc) === "function") {
                             // Wait for the promise to complete
-                            returnVal.done(function () {
+                            waitFunc(function () {
                                 // Reset the base
                                 _this.base = _this.parent.base;
                                 // Set the wait flag
