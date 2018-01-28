@@ -34,6 +34,9 @@ The library has been designed to create the SharePoint object based on the respo
 #### Intellisense
 One of the more important features of this framework is the intellisense. The classes have been setup to ensure the developer does not need to define the output type of the request. The "Types" and "SPTypes" classes can both be imported into the project. The "Types" class includes allows of the interfaces available in the library. The "SPTypes" class contains all of the enumerators in SharePoint. These interfaces can be used to provide intellisense for the custom variables.[Caching](https://github.com/gunjandatta/sprest/wiki/Session-Storage)
 
+#### [[Server-Side to Client-Side Code Conversion|Execution-CodeConversion]]
+The execution method was designed to give a server-side like experience, similar to SharePoint 2010/2013 solutions. This will help convert existing server-side solutions to client-side solutions.
+
 #### Helpers
 The library contains various helpers to help with the various ways to develop against SharePoint 2013/Online
 - [App/Add-In Web](https://github.com/gunjandatta/sprest/wiki/AddIn-Model) - Helper methods when developing within an app web
