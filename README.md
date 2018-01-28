@@ -25,9 +25,6 @@ The gd-sprest library is similar to the pnp-js-core, with the main difference be
 ### Bugs/Feature Requests/Help
 [Click Here](https://github.com/gunjandatta/sprest/issues) to report any bugs, request any new features or if need help with code examples. Pull requests are welcomed for anyone interested in submitting them. Feel free to [email](mailto:github@dattabase.com) for other questions.
 
-### Security
-The REST api execute requests based on the user's permissions. There is no way to elevate priviledges requests against the SharePoint REST.
-
 ### Features
 The [Wiki](https://github.com/gunjandatta/sprest/wiki) gives a detailed overview of the framework.
 
@@ -53,7 +50,7 @@ The library contains various helpers to help with the various ways to develop ag
 #### Modern Experience in SharePoint 2013
 One of the key reasons of creating this libray, was to give an easy way to develop using the modern web stack in SharePoint 2013 environments.
 
-#### [Office Fabric UI React Framework](https://developer.microsoft.com/en-us/fabric#/components)
+##### [Office Fabric UI React Framework](https://developer.microsoft.com/en-us/fabric#/components)
 The gd-sprest-react library contains various components utilizing the [Office Fabric UI](https://dev.office.com/fabric) [React Framework](https://reactjs.org/).
 
 ##### User Adoption
@@ -88,6 +85,9 @@ The SharePoint Configuration automation feature allows the develoepr to easily c
 
 ##### Upgrade Path to SharePoint Framework [SPFx](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/sharepoint-framework-overview)
 The javascript, typescript, react/angular/react/etc solutions developed for SharePoint 2013 can easily be migrated/copied to a SharePoint Framework (SPFx) modern solution.
+
+#### Security
+The REST api execute requests based on the user's permissions. There is no way to elevate priviledges requests against the SharePoint REST.
 
 ### Various Project Examples
 _The [gd-sprest-webparts](https://github.com/gunjandatta/sprest-webparts) github project contains the latest code samples._
