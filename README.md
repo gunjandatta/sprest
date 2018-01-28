@@ -16,9 +16,9 @@ The SharePoint REST Framework was designed for SharePoint 2013, but works in bot
 
 ### gd-sprest vs pnp-js-core
 The gd-sprest library is similar to the pnp-js-core, with the main difference being the ability to be used within the browser console window. This feature provides a "Powershell-Like" experience within the browser console window. Some reasons to use this functionality:
-* No access to the server farm
+* No powershell or admin access to the server farm
 * Ability to create scripts which can be tested in staging before running aginst production
-* For more efficient development of code, the developer has the ability to test code requests without having to deploy the solution
+* The intellisense and ability to make live requests allows for easy debug issues in production
 * Easy way to perform research and development by exploring the REST API with the available intellisense
 
 ### Bugs/Feature Requests/Help
@@ -27,109 +27,11 @@ The gd-sprest library is similar to the pnp-js-core, with the main difference be
 ### Security
 The REST api execute requests based on the user's permissions. There is no way to elevate priviledges requests against the SharePoint REST.
 
-## Get Started
-### Packages
-#### NPM
-Add the npm package to your project:
-```
-npm --save install gd-sprest
-```
-#### Yarn
-Add the package from yarn:
-```
-yarn add gd-sprest
-```
-### Code Examples
-#### JavaScript
-```
-var $REST = require("gd-sprest");
-
-// Get the current web and lists
-$REST.Web().query({
-    Expand: ["Lists"]
-}).execute(function(web) {
-    // Parse the lists
-    for(var i=0; i<web.Lists.results.length; i++) {
-        var list = web.Lists.results[i];
-    }
-});
-```
-#### NodeJS
-```
-const $REST = require("gd-sprest);
-
-// Create a new generic list.
-request = $REST.Web("https://dev.sharepoint.com")
-    .Lists().add({
-        BaseTemplate: $REST.SPTypes.ListTemplateType.GenericList,
-        Title: "New List"
-    });
-
-// Log the request information
-console.log(request.getInfo());
-
-// Console Output:
-// {
-//     data: '{"BaseTemplate":100,"Title":"New List","__metadata":{"type":"SP.List"}}',
-//     method: 'POST',
-//     url: 'https://dev.sharepoint.com'
-// }
-```
-#### TypeScript
-```
-import { List }
-
-// Get the "Site Assets" library, fields and views
-(new List("Site Assets"))
-    // Query the list
-    .query({
-        Expand: ["Fields", "Views"]
-    })
-    // Execute the request
-    .execute((list) => {
-        // Parse the fields
-        for(let i=0; i<list.Fields.results.length; i++) {
-            let field = list.Fields.results[i];
-        }
-
-        // Parse the views
-        for(let i=0; i<list.Views.results.length; i++) {
-            let field = list.Views.results[i];
-        }
-    });
-```
-
-## Development
-### Add-In Model
-The add-in model uses the app web for SharePoint Hosted Apps/Add-Ins. The provider hosted model would use CSOM, and not this library. This framework has built-in helper methods and a global flag for determining which web the request should execute against Host vs App/Add-In. The request will be automatically updated based on the target web, so there is no additional code required from the developer. This allows the developer to create a single source of code that works against both the SharePoint and App/Add-In webs.
-
-### Available Libraries
-```
-import {
-    $REST,
-    ContextInfo,
-    Helper,
-    List,
-    Navigation,
-    PeopleManager,
-    PeoplePicker,
-    ProfileLoader,
-    RequestType,
-    Search,
-    Site,
-    SocialFeed,
-    SPTypes,
-    Types,
-    UserProfile,
-    Utility,
-    Web
-} from "gd-sprest";
-```
-
-### Automation
+### Features
+#### Automation
 The "SharePoint Configuration" class allows the developer to define configuration files for the SharePoint solution. This class contains built-in methods for execution (install, uninstall, etc), so there is no need to write additional code.
 
-### Helper
+#### Helper
 The Helper class contains the following classes
 * App - Helper methods when developing within an app web
 * Dependencies - Loads the required SharePoint scripts
@@ -142,10 +44,10 @@ The Helper class contains the following classes
 * Taxonomy - Helper class for getting terms from the managed metadata taxonomy term store
 * WebParts - Helper class for creating webpart solutions
 
-### Intellisense
+#### Intellisense
 One of the more important features of this framework is the intellisense. The classes have been setup to ensure the developer does not need to define the output type of the request. The "Types" and "SPTypes" classes can both be imported into the project. The "Types" class includes allows of the interfaces available in the library. The "SPTypes" class contains all of the enumerators in SharePoint. These interfaces can be used to provide intellisense for the custom variables.
 
-### Modern Experience in SharePoint 2013
+#### Modern Experience in SharePoint 2013
 The gd-sprest-react library contains SharePoint components:
 * Field
 * Item Form
@@ -153,10 +55,10 @@ The gd-sprest-react library contains SharePoint components:
 * People Picker
 * WebParts
 These components use the office fabric ui, to provide an Office 365 experience within SharePoint 2013.
-#### Upgrade Path to SharePoint Framework
+##### Upgrade Path to SharePoint Framework
 The react components developed for SharePoint 2013 can be ported over to the SharePoint Framework's modern webpart.
 
-### WebParts
+#### WebParts
 The webpart component allows the developer to easialy assign react components to be rendered based on the page's state (Display/Edit). This component currently supports webpart, publishing and wiki pages. The following webpart components are available:
 
 * Configuration - A react component to be used when the page is being edited, displaying an "Edit Configuration" button to render a panel for custom webpart properties.

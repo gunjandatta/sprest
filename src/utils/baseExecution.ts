@@ -90,9 +90,10 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest implem
 
                         // Execute the callback and see if it returns a promise
                         let returnVal = callback(response);
-                        if (returnVal && typeof (returnVal.done) === "function") {
+                        let waitFunc = returnVal ? returnVal.done || returnVal.then : null;
+                        if (waitFunc && typeof (waitFunc) === "function") {
                             // Wait for the promise to complete
-                            returnVal.done(() => {
+                            waitFunc(() => {
                                 // Reset the base
                                 this.base = this.parent.base;
 
