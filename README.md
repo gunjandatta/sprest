@@ -34,7 +34,7 @@ The library has been designed to create the SharePoint object based on the respo
 #### Intellisense
 One of the more important features of this framework is the intellisense. The classes have been setup to ensure the developer does not need to define the output type of the request. The "Types" and "SPTypes" classes can both be imported into the project. The "Types" class includes allows of the interfaces available in the library. The "SPTypes" class contains all of the enumerators in SharePoint. These interfaces can be used to provide intellisense for the custom variables.[Caching](https://github.com/gunjandatta/sprest/wiki/Session-Storage)
 
-#### [[Server-Side to Client-Side Code Conversion|Execution-CodeConversion]]
+#### [Server-Side to Client-Side Code Conversion](https://github.com/gunjandatta/sprest/wiki/Execution-CodeConversion)
 The execution method was designed to give a server-side like experience, similar to SharePoint 2010/2013 solutions. This will help convert existing server-side solutions to client-side solutions.
 
 #### Helpers
@@ -47,8 +47,8 @@ The library contains various helpers to help with the various ways to develop ag
 - ListFormField - Helper class for custom list forms
 - [Caching](https://github.com/gunjandatta/sprest/wiki/Session-Storage) - Based on the library's design to create the SharePoint object from the SharePoint REST API's response, the object can be recreated from data stored in the local/session storage.
 - [Custom Fields](https://github.com/gunjandatta/sprest/wiki/Automation-Fields) - As part of the automation features for creating various SharePoint assets, there are helper classes for site and list fields. A helper for creating the Schema XML is available. The SharePoint Configuration intellisense has built in intellisense for creating fields, to handle advanced customizations.
-- [[Taxonomy|Taxonomy]] - Helper class for getting terms from the managed metadata taxonomy term store
-- [[WebPart|WebPart]] - Helper class for creating webpart solutions
+- [Taxonomy](https://github.com/gunjandatta/sprest/wiki/Taxonomy) - Helper class for getting terms from the managed metadata taxonomy term store
+- [WebPart](https://github.com/gunjandatta/sprest/wiki/WebPart) - Helper class for creating webpart solutions
 
 #### Modern Experience in SharePoint 2013
 One of the key reasons of creating this libray, was to give an easy way to develop using the modern web stack in SharePoint 2013 environments.
@@ -76,15 +76,15 @@ The SharePoint Configuration automation feature allows the develoepr to easily c
 - WebParts
 
 ##### [SharePoint React Components](https://github.com/gunjandatta/sprest/wiki/React)
-- [[Field|React-Field]]
-- [[Item Form|React-Item-Form]]
-- [[Panel|React-Panel]]
-- [[People Picker|React-People-Picker]]
-- [[WebPart|React-WebPart]]
-    - [[Configuration|React-WebPart-Configuration]]
-    - [[List |React-WebPart-List]]
-    - [[Search |React-WebPart-Search]]
-    - [[Tabs |React-WebPart-Tabs]]
+- [Field](https://github.com/gunjandatta/sprest/wiki/React-Field)
+- [Item Form](https://github.com/gunjandatta/sprest/wiki/React-Item-Form)
+- [Panel](https://github.com/gunjandatta/sprest/wiki/React-Panel)
+- [People Picker](https://github.com/gunjandatta/sprest/wiki/React-People-Picker)
+- [WebPart](https://github.com/gunjandatta/sprest/wiki/React-WebPart)
+    - [Configuration](https://github.com/gunjandatta/sprest/wiki/React-WebPart-Configuration)
+    - [List](https://github.com/gunjandatta/sprest/wiki/React-WebPart-List)
+    - [Search](https://github.com/gunjandatta/sprest/wiki/React-WebPart-Search)
+    - [Tabs](https://github.com/gunjandatta/sprest/wiki/React-WebPart-Tabs)
 
 ##### Upgrade Path to SharePoint Framework [SPFx](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/sharepoint-framework-overview)
 The javascript, typescript, react/angular/react/etc solutions developed for SharePoint 2013 can easily be migrated/copied to a SharePoint Framework (SPFx) modern solution.
