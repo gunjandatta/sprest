@@ -9,7 +9,7 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> exten
     constructor(targetInfo: Types.ITargetInfo);
     defaultToWebFl: boolean;
     existsFl: any;
-    done(callback: (...args) => any): void;
+    done<T = Types.IBase>(resolve: (value?: T) => void): void;
     getInfo(): Types.IRequestInfo;
     stringify(): string;
 }

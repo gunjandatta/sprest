@@ -7266,7 +7266,7 @@ var BaseRequest = /** @class */ (function (_super) {
                     // See if we are returning a file buffer
                     if (_this.requestType == _1.RequestType.GetBuffer) {
                         // Execute the callback
-                        callback ? callback(_this.xhr.response) : null;
+                        callback ? callback(_this.response) : null;
                     }
                     else {
                         // Update the data object
@@ -7292,7 +7292,7 @@ var BaseRequest = /** @class */ (function (_super) {
             // See if we are returning a file buffer
             if (this.requestType == _1.RequestType.GetBuffer) {
                 // Return the response
-                return this.xhr.response;
+                return this.response;
             }
             // Update the base object
             this.updateDataObject(isBatchRequest);
@@ -7671,7 +7671,7 @@ var Base = /** @class */ (function (_super) {
         return _this;
     }
     // Method to wait for the requests to complete
-    Base.prototype.done = function (callback) {
+    Base.prototype.done = function (resolve) {
         var _this = this;
         // Ensure the base is set
         this.base = this.base ? this.base : this;
@@ -7684,8 +7684,8 @@ var Base = /** @class */ (function (_super) {
             _this.base.responses = [];
             // Clear the wait flags
             _this.base.waitFlags = [];
-            // Execute the callback back
-            callback ? callback.apply(_this, responses) : null;
+            // Resolve the request
+            resolve ? resolve.apply(_this, responses) : null;
         });
     };
     // Method to get the request information

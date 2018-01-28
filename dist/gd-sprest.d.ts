@@ -11040,7 +11040,7 @@ declare module 'gd-sprest/utils/baseRequest' {
         targetInfo: Types.ITargetInfo;
         xhr: XHRRequest;
         executeMethod(methodName: string, methodConfig: Types.IMethodInfo, args?: any): Base<any, any, any>;
-        executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
+        executeRequest(asyncFl: boolean, callback?: (...args) => void): string | this;
         getCollection(method: string, args?: any): Base<any, any, any>;
         getNextSetOfResults(): Base<any, any, any>;
         getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
@@ -11066,7 +11066,7 @@ declare module 'gd-sprest/utils/baseExecution' {
         waitFlags: Array<boolean>;
         batch(arg?: any): this;
         execute(...args: any[]): this;
-        executeAndWait(): any;
+        executeAndWait(): string | this;
         waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
     }
 }
@@ -11082,7 +11082,7 @@ declare module 'gd-sprest/utils/base' {
             constructor(targetInfo: Types.ITargetInfo);
             defaultToWebFl: boolean;
             existsFl: any;
-            done(callback: (...args) => any): void;
+            done<T = Types.IBase>(resolve: (value?: T) => void): void;
             getInfo(): Types.IRequestInfo;
             stringify(): string;
     }
@@ -11531,14 +11531,9 @@ declare module 'gd-sprest/utils/types/base' {
             response: string;
             /**
                 * Method to wait for the requests to complete.
-                * @param callback - The method to be executed after the request completes.
+                * @param resolve - The method to be executed after the request completes.
                 */
-            done(callback?: (...args) => any): any;
-            /**
-                * Method to wait for the requests to complete.
-                * @param callback - The method to be executed after the request completes.
-                */
-            done(callback?: (value?: Result, ...args) => any): any;
+            done<T = IBase>(resolve: (value?: T) => void): any;
             /**
                 * Method to get the request information.
                 */
@@ -11595,9 +11590,9 @@ declare module 'gd-sprest/utils/types/baseExecution' {
             /**
                 * Method to execute the request as a batch.
                 * Currently available in SharePoint Online only.
-                * @param callback - The method to be executed after the request completes.
+                * @param resolve - The method to be executed after the request completes.
                 */
-            batch(callback?: (value?: Result, ...args) => any): Type;
+            batch(resolve: (value?: Result) => void): Type;
             /**
                 * Method to execute the request as a batch.
                 * Currently available in SharePoint Online only.
@@ -11606,20 +11601,15 @@ declare module 'gd-sprest/utils/types/baseExecution' {
             batch(appendFl?: boolean): Type;
             /**
                 * Method to execute the request.
-                * @param callback - The method to be executed after the request completes.
-                */
-            execute(callback?: (value?: Result, ...args) => any): Type;
-            /**
-                * Method to execute the request.
                 * @param waitFl - Flag to execute the request, after the previous requests have completed.
                 */
             execute(waitFl: boolean): Type;
             /**
                 * Method to execute the request.
-                * @param callback - The method to be executed after the request completes.
+                * @param resolve - The method to be executed after the request completes.
                 * @param waitFl - Flag to execute the request, after the previous requests have completed.
                 */
-            execute(callback: (value?: Result, ...args) => any, waitFl: boolean): Type;
+            execute(resolve?: (value?: Result) => void, waitFl?: boolean): Type;
             /**
                 * Method to execute the request synchronously.
                 */

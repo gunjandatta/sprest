@@ -21,9 +21,9 @@ export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest 
     /**
      * Method to execute the request as a batch.
      * Currently available in SharePoint Online only.
-     * @param callback - The method to be executed after the request completes.
+     * @param resolve - The method to be executed after the request completes.
      */
-    batch(callback?: (value?: Result, ...args) => any): Type;
+    batch(resolve: (value?: Result) => void): Type;
     /**
      * Method to execute the request as a batch.
      * Currently available in SharePoint Online only.
@@ -32,20 +32,15 @@ export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest 
     batch(appendFl?: boolean): Type;
     /**
      * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
-     */
-    execute(callback?: (value?: Result, ...args) => any): Type;
-    /**
-     * Method to execute the request.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
     execute(waitFl: boolean): Type;
     /**
      * Method to execute the request.
-     * @param callback - The method to be executed after the request completes.
+     * @param resolve - The method to be executed after the request completes.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
-    execute(callback: (value?: Result, ...args) => any, waitFl: boolean): Type;
+    execute(resolve?: (value?: Result) => void, waitFl?: boolean): Type;
     /**
      * Method to execute the request synchronously.
      */

@@ -112,7 +112,7 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
                     // See if we are returning a file buffer
                     if (this.requestType == RequestType.GetBuffer) {
                         // Execute the callback
-                        callback ? callback(this.xhr.response) : null;
+                        callback ? callback(this.response) : null;
                     } else {
                         // Update the data object
                         this.updateDataObject(isBatchRequest);
@@ -140,7 +140,7 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
             // See if we are returning a file buffer
             if (this.requestType == RequestType.GetBuffer) {
                 // Return the response
-                return this.xhr.response;
+                return this.response;
             }
 
             // Update the base object
