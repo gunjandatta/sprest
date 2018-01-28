@@ -31,7 +31,7 @@ var Base = /** @class */ (function (_super) {
         return _this;
     }
     // Method to wait for the requests to complete
-    Base.prototype.done = function (callback) {
+    Base.prototype.done = function (resolve) {
         var _this = this;
         // Ensure the base is set
         this.base = this.base ? this.base : this;
@@ -44,8 +44,8 @@ var Base = /** @class */ (function (_super) {
             _this.base.responses = [];
             // Clear the wait flags
             _this.base.waitFlags = [];
-            // Execute the callback back
-            callback ? callback.apply(_this, responses) : null;
+            // Resolve the request
+            resolve ? resolve.apply(_this, responses) : null;
         });
     };
     // Method to get the request information

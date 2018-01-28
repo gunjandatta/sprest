@@ -13,14 +13,9 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
     response: string;
     /**
      * Method to wait for the requests to complete.
-     * @param callback - The method to be executed after the request completes.
+     * @param resolve - The method to be executed after the request completes.
      */
-    done(callback?: (...args) => any): any;
-    /**
-     * Method to wait for the requests to complete.
-     * @param callback - The method to be executed after the request completes.
-     */
-    done(callback?: (value?: Result, ...args) => any): any;
+    done<T = IBase>(resolve: (value?: T) => void): any;
     /**
      * Method to get the request information.
      */

@@ -28,7 +28,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseE
     existsFl;
 
     // Method to wait for the requests to complete
-    done(callback: (...args) => any) {
+    done<T=Types.IBase>(resolve: (value?: T) => void) {
         // Ensure the base is set
         this.base = this.base ? this.base : this;
 
@@ -45,8 +45,8 @@ export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseE
             // Clear the wait flags
             this.base.waitFlags = [];
 
-            // Execute the callback back
-            callback ? callback.apply(this, responses) : null;
+            // Resolve the request
+            resolve ? resolve.apply(this, responses) : null;
         });
     }
 

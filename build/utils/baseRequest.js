@@ -99,7 +99,7 @@ var BaseRequest = /** @class */ (function (_super) {
                     // See if we are returning a file buffer
                     if (_this.requestType == _1.RequestType.GetBuffer) {
                         // Execute the callback
-                        callback ? callback(_this.xhr.response) : null;
+                        callback ? callback(_this.response) : null;
                     }
                     else {
                         // Update the data object
@@ -125,7 +125,7 @@ var BaseRequest = /** @class */ (function (_super) {
             // See if we are returning a file buffer
             if (this.requestType == _1.RequestType.GetBuffer) {
                 // Return the response
-                return this.xhr.response;
+                return this.response;
             }
             // Update the base object
             this.updateDataObject(isBatchRequest);

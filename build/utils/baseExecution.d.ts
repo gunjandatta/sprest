@@ -14,6 +14,6 @@ export declare class BaseExecution<Type = any, Result = Type> extends BaseReques
     waitFlags: Array<boolean>;
     batch(arg?: any): this;
     execute(...args: any[]): this;
-    executeAndWait(): any;
+    executeAndWait(): string | this;
     waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
 }
