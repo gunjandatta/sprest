@@ -60,15 +60,17 @@ class _Taxonomy {
                 let context = SP.ClientContext.get_current();
                 let session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
 
-                // Get the terms
+                // Get the term set terms
                 let termStore = session.get_termStores().getById(termStoreId);
-                let terms = termStore.getTermSet(termSetId).getAllTerms();
+                let termSet = termStore.getTermSet(termSetId);
+                let terms = termSet.getAllTerms();
+                context.load(termSet);
                 context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
 
                 // Execute the request
                 context.executeQueryAsync(() => {
                     // Resolve the promise
-                    resolve(this.getTerms(terms));
+                    resolve(this.getTerms(termSet, terms));
                 }, (...args) => {
                     // Log
                     console.error("[gd-sprest] Error getting the term group.");
@@ -103,14 +105,16 @@ class _Taxonomy {
         return new Promise((resolve, reject) => {
             // Get the term group
             this.getTermGroup().then(({ context, termGroup }) => {
-                // Get the terms
-                let terms = termGroup.get_termSets().getByName(termSetName).getAllTerms();
+                // Get the term set terms
+                let termSet = termGroup.get_termSets().getByName(termSetName);
+                let terms = termSet.getAllTerms();
+                context.load(termSet);
                 context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
 
                 // Execute the request
                 context.executeQueryAsync(() => {
                     // Resolve the promise
-                    resolve(this.getTerms(terms));
+                    resolve(this.getTerms(termSet, terms));
                 }, (...args) => {
                     // Log
                     console.error("[gd-sprest] Error getting the terms from the default site collection.");
@@ -145,14 +149,16 @@ class _Taxonomy {
         return new Promise((resolve, reject) => {
             // Get the term group
             this.getTermGroup(groupName).then(({ context, termGroup }) => {
-                // Get the "DoD" terms under the "Entities" term group
-                let terms = termGroup.get_termSets().getByName(termSetName).getAllTerms();
+                // Get the term set terms
+                let termSet = termGroup.get_termSets().getByName(termSetName);
+                let terms = termSet.getAllTerms();
+                context.load(termSet);
                 context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
 
                 // Execute the request
                 context.executeQueryAsync(() => {
                     // Resolve the promise
-                    resolve(this.getTerms(terms));
+                    resolve(this.getTerms(termSet, terms));
                 }, (...args) => {
                     // Log
                     console.error("[gd-sprest] Error getting the terms.");
@@ -276,8 +282,14 @@ class _Taxonomy {
             for (let i = 0; i < terms.length; i++) {
                 let term = terms[i];
 
-                // Add the term
-                addTerm(root, term, term.pathAsString.split(";"))
+                // See if this is the root term
+                if (term.pathAsString == "") {
+                    // Set the root information
+                    root.info = term;
+                } else {
+                    // Add the term
+                    addTerm(root, term, term.pathAsString.split(";"))
+                }
             }
         }
 
@@ -292,8 +304,18 @@ class _Taxonomy {
     /**
      * Method to get the terms
      */
-    private getTerms = (termSetTerms): Array<TaxonomyTypes.ITermInfo> => {
+    private getTerms = (termSet, termSetTerms): Array<TaxonomyTypes.ITermInfo> => {
         let terms: Array<TaxonomyTypes.ITermInfo> = [];
+
+        // Add the root term
+        terms.push({
+            description: termSet.get_description(),
+            id: termSet.get_id().toString(),
+            name: termSet.get_name(),
+            path: [],
+            pathAsString: "",
+            props: termSet.get_customProperties()
+        });
 
         // Parse the term sets terms
         let enumerator = termSetTerms.getEnumerator();

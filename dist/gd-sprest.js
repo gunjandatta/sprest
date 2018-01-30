@@ -2052,14 +2052,16 @@ var _Taxonomy = /** @class */ (function () {
                     // Get the taxonomy session
                     var context = SP.ClientContext.get_current();
                     var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
-                    // Get the terms
+                    // Get the term set terms
                     var termStore = session.get_termStores().getById(termStoreId);
-                    var terms = termStore.getTermSet(termSetId).getAllTerms();
+                    var termSet = termStore.getTermSet(termSetId);
+                    var terms = termSet.getAllTerms();
+                    context.load(termSet);
                     context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
                     // Execute the request
                     context.executeQueryAsync(function () {
                         // Resolve the promise
-                        resolve(_this.getTerms(terms));
+                        resolve(_this.getTerms(termSet, terms));
                     }, function () {
                         var args = [];
                         for (var _i = 0; _i < arguments.length; _i++) {
@@ -2096,13 +2098,15 @@ var _Taxonomy = /** @class */ (function () {
                 // Get the term group
                 _this.getTermGroup().then(function (_a) {
                     var context = _a.context, termGroup = _a.termGroup;
-                    // Get the terms
-                    var terms = termGroup.get_termSets().getByName(termSetName).getAllTerms();
+                    // Get the term set terms
+                    var termSet = termGroup.get_termSets().getByName(termSetName);
+                    var terms = termSet.getAllTerms();
+                    context.load(termSet);
                     context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
                     // Execute the request
                     context.executeQueryAsync(function () {
                         // Resolve the promise
-                        resolve(_this.getTerms(terms));
+                        resolve(_this.getTerms(termSet, terms));
                     }, function () {
                         var args = [];
                         for (var _i = 0; _i < arguments.length; _i++) {
@@ -2139,13 +2143,15 @@ var _Taxonomy = /** @class */ (function () {
                 // Get the term group
                 _this.getTermGroup(groupName).then(function (_a) {
                     var context = _a.context, termGroup = _a.termGroup;
-                    // Get the "DoD" terms under the "Entities" term group
-                    var terms = termGroup.get_termSets().getByName(termSetName).getAllTerms();
+                    // Get the term set terms
+                    var termSet = termGroup.get_termSets().getByName(termSetName);
+                    var terms = termSet.getAllTerms();
+                    context.load(termSet);
                     context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
                     // Execute the request
                     context.executeQueryAsync(function () {
                         // Resolve the promise
-                        resolve(_this.getTerms(terms));
+                        resolve(_this.getTerms(termSet, terms));
                     }, function () {
                         var args = [];
                         for (var _i = 0; _i < arguments.length; _i++) {
@@ -2256,8 +2262,15 @@ var _Taxonomy = /** @class */ (function () {
                 // Parse the terms
                 for (var i = 0; i < terms.length; i++) {
                     var term = terms[i];
-                    // Add the term
-                    addTerm(root, term, term.pathAsString.split(";"));
+                    // See if this is the root term
+                    if (term.pathAsString == "") {
+                        // Set the root information
+                        root.info = term;
+                    }
+                    else {
+                        // Add the term
+                        addTerm(root, term, term.pathAsString.split(";"));
+                    }
                 }
             }
             // Return the root term
@@ -2269,8 +2282,17 @@ var _Taxonomy = /** @class */ (function () {
         /**
          * Method to get the terms
          */
-        this.getTerms = function (termSetTerms) {
+        this.getTerms = function (termSet, termSetTerms) {
             var terms = [];
+            // Add the root term
+            terms.push({
+                description: termSet.get_description(),
+                id: termSet.get_id().toString(),
+                name: termSet.get_name(),
+                path: [],
+                pathAsString: "",
+                props: termSet.get_customProperties()
+            });
             // Parse the term sets terms
             var enumerator = termSetTerms.getEnumerator();
             while (enumerator.moveNext()) {
@@ -10609,6 +10631,11 @@ var _ListFormField = /** @class */ (function () {
             taxonomy_1.Taxonomy.getTermSetById(info.termStoreId, info.termSetId).then(function (termSet) {
                 // Get the target root term
                 var root = taxonomy_1.Taxonomy.findById(termSet, info.termId);
+                // See if the root node doesn't exist
+                if (root == null) {
+                    // Set the root to the term set
+                    root = taxonomy_1.Taxonomy.findById(termSet, info.termSetId);
+                }
                 // Resolve the request
                 resolve(taxonomy_1.Taxonomy.toArray(root));
             });
@@ -11027,7 +11054,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.23,
+    __ver: 3.24,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

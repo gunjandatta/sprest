@@ -164,6 +164,11 @@ var _ListFormField = /** @class */ (function () {
             taxonomy_1.Taxonomy.getTermSetById(info.termStoreId, info.termSetId).then(function (termSet) {
                 // Get the target root term
                 var root = taxonomy_1.Taxonomy.findById(termSet, info.termId);
+                // See if the root node doesn't exist
+                if (root == null) {
+                    // Set the root to the term set
+                    root = taxonomy_1.Taxonomy.findById(termSet, info.termSetId);
+                }
                 // Resolve the request
                 resolve(taxonomy_1.Taxonomy.toArray(root));
             });
