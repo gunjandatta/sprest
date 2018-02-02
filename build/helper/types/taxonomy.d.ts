@@ -7,13 +7,13 @@ export interface ITaxonomy {
      * @param term - The term
      * @param termId - The term id to search for
      */
-    findById(term: ITerm, termId: string): ITermInfo;
+    findById(term: ITerm, termId: string): ITerm;
     /**
      * Method to find a term by name
      * @param term - The term
      * @param termName - The term name to search for
      */
-    findByName(term: ITerm, termName: string): ITermInfo;
+    findByName(term: ITerm, termName: string): ITerm;
     /**
      * Method to get the terms by id
      * @param termStoreId - The term store guid

@@ -9,11 +9,11 @@ class _Taxonomy {
     /**
      * Method to find a term by id
      */
-    findById = (term: TaxonomyTypes.ITerm, termId: string): TaxonomyTypes.ITermInfo => {
+    findById = (term: TaxonomyTypes.ITerm, termId: string): TaxonomyTypes.ITerm => {
         // See if this is the root node
         if (term.info && term.info.id == termId) {
             // Return the root node
-            return term as any;
+            return term;
         }
 
         // Parse the child nodes
@@ -30,11 +30,11 @@ class _Taxonomy {
     /**
      * Method to find a term by name
      */
-    findByName = (term: TaxonomyTypes.ITerm, termName: string): TaxonomyTypes.ITermInfo => {
+    findByName = (term: TaxonomyTypes.ITerm, termName: string): TaxonomyTypes.ITerm => {
         // See if this is the root node
         if (term.info && term.info.name == termName) {
             // Return the root node
-            return term as any;
+            return term;
         }
 
         // Parse the child nodes
