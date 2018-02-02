@@ -244,13 +244,13 @@ class _Taxonomy {
     /**
      * Method to convert a term to a field value
      */
-    toFieldValue = (term: TaxonomyTypes.ITermInfo) => {
+    toFieldValue = (term: TaxonomyTypes.ITerm) => {
         // Ensure the term exists
         if (term) {
             return {
                 __metadata: { "type": "SP.Taxonomy.TaxonomyFieldValue" },
-                Label: term.name,
-                TermGuid: term.id,
+                Label: term.info.name,
+                TermGuid: term.info.id,
                 WssId: -1
             };
         }
@@ -262,7 +262,7 @@ class _Taxonomy {
     /**
      * Method to convert a collection of terms to a field value
      */
-    toFieldMultiValue = (terms: Array<TaxonomyTypes.ITermInfo>) => {
+    toFieldMultiValue = (terms: Array<TaxonomyTypes.ITerm>) => {
         let results = [];
 
         // Ensure terms exist
@@ -270,7 +270,7 @@ class _Taxonomy {
             // Parse the terms
             for (let i = 0; i < terms.length; i++) {
                 // Add the term
-                results.push(";#" + terms[i].name + "|" + terms[i].id);
+                results.push(";#" + terms[i].info.name + "|" + terms[i].info.id);
             }
         }
 

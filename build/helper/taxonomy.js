@@ -246,8 +246,8 @@ var _Taxonomy = /** @class */ (function () {
             if (term) {
                 return {
                     __metadata: { "type": "SP.Taxonomy.TaxonomyFieldValue" },
-                    Label: term.name,
-                    TermGuid: term.id,
+                    Label: term.info.name,
+                    TermGuid: term.info.id,
                     WssId: -1
                 };
             }
@@ -264,7 +264,7 @@ var _Taxonomy = /** @class */ (function () {
                 // Parse the terms
                 for (var i = 0; i < terms.length; i++) {
                     // Add the term
-                    results.push(";#" + terms[i].name + "|" + terms[i].id);
+                    results.push(";#" + terms[i].info.name + "|" + terms[i].info.id);
                 }
             }
             // Return a blank array

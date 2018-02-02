@@ -52,12 +52,12 @@ export interface ITaxonomy {
      * Method to convert a term to a field value
      * @param term - The term
      */
-    toFieldValue(term: ITermInfo): any;
+    toFieldValue(term: ITerm): any;
     /**
      * Method to convert a collection of terms to a field value
      * @param terms - The terms
      */
-    toFieldMultiValue(terms: Array<ITermInfo>): any;
+    toFieldMultiValue(terms: Array<ITerm>): any;
     /**
      * Method to convert an array of terms into a term set
      * @param terms - The terms
