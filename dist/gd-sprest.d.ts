@@ -936,6 +936,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
     export interface IListFormChoiceFieldInfo extends IListFormFieldInfo {
             /** The choices. */
             choices?: Array<string>;
+            /** The list field. */
+            field?: Types.SP.IFieldChoice | Types.SP.IFieldMultiChoice;
             /** Flag to determine if multiple values exist */
             multi?: boolean;
     }
@@ -943,6 +945,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
         * List Form Date Field Information
         */
     export interface IListFormDateFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: Types.SP.IFieldDateTime;
             /** Flag determining if we are displaying time */
             showTime?: boolean;
     }
@@ -950,6 +954,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
         * List Form Lookup Field Information
         */
     export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: Types.SP.IFieldLookup;
             /** The lookup field */
             lookupField?: string;
             /** The lookup list id */
@@ -963,6 +969,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
         * List Form MMS Field Information
         */
     export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: Types.SP.IFieldManagedMetadata;
             /** Flag to determine if multiple values exist */
             multi?: boolean;
             /** The term id */
@@ -976,6 +984,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
         * List Form Number Field Information
         */
     export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: Types.SP.IFieldNumber | Types.SP.IFieldCurrency;
             /** The maximum value */
             maxValue?: number;
             /** The minimum value */
@@ -987,6 +997,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
         * List Form Text Field Information
         */
     export interface IListFormTextFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: Types.SP.IFieldText | Types.SP.IFieldNote;
             /** Flag determining if this is a note field */
             multiline?: boolean;
             /** Flag determining if this field value is html encoded */
@@ -995,11 +1007,20 @@ declare module 'gd-sprest/helper/types/listFormField' {
             rows?: number;
     }
     /**
+        * List Form URL Field Information
+        */
+    export interface IListFormUrlFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: Types.SP.IFieldUrl;
+    }
+    /**
         * List Form User Field Information
         */
     export interface IListFormUserFieldInfo extends IListFormFieldInfo {
             /** Flag to determine if groups are allowed */
             allowGroups?: boolean;
+            /** The list field. */
+            field?: Types.SP.IFieldUser;
             /** Flag to determine if multiple values exist */
             multi?: boolean;
     }
@@ -1416,12 +1437,12 @@ declare module 'gd-sprest/helper/types/taxonomy' {
                 * Method to convert a term to a field value
                 * @param term - The term
                 */
-            toFieldValue(term: ITerm): any;
+            toFieldValue(term: ITerm | ITermInfo): any;
             /**
                 * Method to convert a collection of terms to a field value
                 * @param terms - The terms
                 */
-            toFieldMultiValue(terms: Array<ITerm>): any;
+            toFieldMultiValue(terms: Array<ITerm | ITermInfo>): any;
             /**
                 * Method to convert an array of terms into a term set
                 * @param terms - The terms

@@ -2233,12 +2233,13 @@ var _Taxonomy = /** @class */ (function () {
          * Method to convert a term to a field value
          */
         this.toFieldValue = function (term) {
+            var termInfo = term ? term["info"] || term : null;
             // Ensure the term exists
-            if (term) {
+            if (termInfo) {
                 return {
                     __metadata: { "type": "SP.Taxonomy.TaxonomyFieldValue" },
-                    Label: term.info.name,
-                    TermGuid: term.info.id,
+                    Label: termInfo.name,
+                    TermGuid: termInfo.id,
                     WssId: -1
                 };
             }
@@ -2254,8 +2255,9 @@ var _Taxonomy = /** @class */ (function () {
             if (terms && terms.length > 0) {
                 // Parse the terms
                 for (var i = 0; i < terms.length; i++) {
+                    var termInfo = terms[i]["info"] || terms[i];
                     // Add the term
-                    results.push(";#" + terms[i].info.name + "|" + terms[i].info.id);
+                    results.push(";#" + termInfo.name + "|" + termInfo.id);
                 }
             }
             // Return a blank array
@@ -11089,7 +11091,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.29,
+    __ver: 3.30,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

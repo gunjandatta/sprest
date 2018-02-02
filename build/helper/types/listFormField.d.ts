@@ -31,6 +31,8 @@ export interface IListFormFieldInfo {
 export interface IListFormChoiceFieldInfo extends IListFormFieldInfo {
     /** The choices. */
     choices?: Array<string>;
+    /** The list field. */
+    field?: Types.SP.IFieldChoice | Types.SP.IFieldMultiChoice;
     /** Flag to determine if multiple values exist */
     multi?: boolean;
 }
@@ -38,6 +40,8 @@ export interface IListFormChoiceFieldInfo extends IListFormFieldInfo {
  * List Form Date Field Information
  */
 export interface IListFormDateFieldInfo extends IListFormFieldInfo {
+    /** The list field. */
+    field?: Types.SP.IFieldDateTime;
     /** Flag determining if we are displaying time */
     showTime?: boolean;
 }
@@ -45,6 +49,8 @@ export interface IListFormDateFieldInfo extends IListFormFieldInfo {
  * List Form Lookup Field Information
  */
 export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
+    /** The list field. */
+    field?: Types.SP.IFieldLookup;
     /** The lookup field */
     lookupField?: string;
     /** The lookup list id */
@@ -58,6 +64,8 @@ export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
  * List Form MMS Field Information
  */
 export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
+    /** The list field. */
+    field?: Types.SP.IFieldManagedMetadata;
     /** Flag to determine if multiple values exist */
     multi?: boolean;
     /** The term id */
@@ -71,6 +79,8 @@ export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
  * List Form Number Field Information
  */
 export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
+    /** The list field. */
+    field?: Types.SP.IFieldNumber | Types.SP.IFieldCurrency;
     /** The maximum value */
     maxValue?: number;
     /** The minimum value */
@@ -82,6 +92,8 @@ export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
  * List Form Text Field Information
  */
 export interface IListFormTextFieldInfo extends IListFormFieldInfo {
+    /** The list field. */
+    field?: Types.SP.IFieldText | Types.SP.IFieldNote;
     /** Flag determining if this is a note field */
     multiline?: boolean;
     /** Flag determining if this field value is html encoded */
@@ -90,11 +102,20 @@ export interface IListFormTextFieldInfo extends IListFormFieldInfo {
     rows?: number;
 }
 /**
+ * List Form URL Field Information
+ */
+export interface IListFormUrlFieldInfo extends IListFormFieldInfo {
+    /** The list field. */
+    field?: Types.SP.IFieldUrl;
+}
+/**
  * List Form User Field Information
  */
 export interface IListFormUserFieldInfo extends IListFormFieldInfo {
     /** Flag to determine if groups are allowed */
     allowGroups?: boolean;
+    /** The list field. */
+    field?: Types.SP.IFieldUser;
     /** Flag to determine if multiple values exist */
     multi?: boolean;
 }
