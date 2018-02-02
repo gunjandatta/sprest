@@ -32,7 +32,7 @@ class _Taxonomy {
      */
     findByName = (term: TaxonomyTypes.ITerm, termName: string): TaxonomyTypes.ITermInfo => {
         // See if this is the root node
-        if (term.info && term.info.id == termName) {
+        if (term.info && term.info.name == termName) {
             // Return the root node
             return term as any;
         }
@@ -43,7 +43,7 @@ class _Taxonomy {
             if (prop == "info" || prop == "parent") { continue; }
 
             // Find the term by id
-            let childTerm = this.findById(term[prop], termName);
+            let childTerm = this.findByName(term[prop], termName);
             if (childTerm) { return childTerm; }
         }
     };
@@ -242,6 +242,46 @@ class _Taxonomy {
     }
 
     /**
+     * Method to convert a term to a field value
+     */
+    toFieldValue = (term: TaxonomyTypes.ITermInfo) => {
+        // Ensure the term exists
+        if (term) {
+            return {
+                __metadata: { "type": "SP.Taxonomy.TaxonomyFieldValue" },
+                Label: term.name,
+                TermGuid: term.id,
+                WssId: -1
+            };
+        }
+
+        // Return nothing
+        return null;
+    }
+
+    /**
+     * Method to convert a collection of terms to a field value
+     */
+    toFieldMultiValue = (terms: Array<TaxonomyTypes.ITermInfo>) => {
+        let results = [];
+
+        // Ensure terms exist
+        if (terms && terms.length > 0) {
+            // Parse the terms
+            for (let i = 0; i < terms.length; i++) {
+                // Add the term
+                results.push(";#" + terms[i].name + "|" + terms[i].id);
+            }
+        }
+
+        // Return a blank array
+        return {
+            __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+            results
+        }
+    }
+
+    /**
      * Method to convert the terms to an object
      */
     toObject = (terms: Array<TaxonomyTypes.ITermInfo>): TaxonomyTypes.ITerm => {
@@ -389,8 +429,8 @@ class _Taxonomy {
                     });
                 } else {
                     // Get the default site collection group
-                    let termStore = session.getDefaultSiteCollectionTermStore(context.get_site());
-                    let termGroup = termStore.getSiteCollectionGroup();
+                    let termStore = session.getDefaultSiteCollectionTermStore();
+                    let termGroup = termStore.getSiteCollectionGroup(context.get_site());
                     context.load(termGroup);
 
                     // Resolve the promise

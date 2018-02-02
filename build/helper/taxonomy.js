@@ -33,7 +33,7 @@ var _Taxonomy = /** @class */ (function () {
          */
         this.findByName = function (term, termName) {
             // See if this is the root node
-            if (term.info && term.info.id == termName) {
+            if (term.info && term.info.name == termName) {
                 // Return the root node
                 return term;
             }
@@ -44,7 +44,7 @@ var _Taxonomy = /** @class */ (function () {
                     continue;
                 }
                 // Find the term by id
-                var childTerm = _this.findById(term[prop], termName);
+                var childTerm = _this.findByName(term[prop], termName);
                 if (childTerm) {
                     return childTerm;
                 }
@@ -239,6 +239,41 @@ var _Taxonomy = /** @class */ (function () {
             return terms;
         };
         /**
+         * Method to convert a term to a field value
+         */
+        this.toFieldValue = function (term) {
+            // Ensure the term exists
+            if (term) {
+                return {
+                    __metadata: { "type": "SP.Taxonomy.TaxonomyFieldValue" },
+                    Label: term.name,
+                    TermGuid: term.id,
+                    WssId: -1
+                };
+            }
+            // Return nothing
+            return null;
+        };
+        /**
+         * Method to convert a collection of terms to a field value
+         */
+        this.toFieldMultiValue = function (terms) {
+            var results = [];
+            // Ensure terms exist
+            if (terms && terms.length > 0) {
+                // Parse the terms
+                for (var i = 0; i < terms.length; i++) {
+                    // Add the term
+                    results.push(";#" + terms[i].name + "|" + terms[i].id);
+                }
+            }
+            // Return a blank array
+            return {
+                __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+                results: results
+            };
+        };
+        /**
          * Method to convert the terms to an object
          */
         this.toObject = function (terms) {
@@ -376,8 +411,8 @@ var _Taxonomy = /** @class */ (function () {
                     }
                     else {
                         // Get the default site collection group
-                        var termStore = session.getDefaultSiteCollectionTermStore(context.get_site());
-                        var termGroup = termStore.getSiteCollectionGroup();
+                        var termStore = session.getDefaultSiteCollectionTermStore();
+                        var termGroup = termStore.getSiteCollectionGroup(context.get_site());
                         context.load(termGroup);
                         // Resolve the promise
                         resolve({ context: context, termGroup: termGroup });
