@@ -2368,7 +2368,7 @@ var _Taxonomy = /** @class */ (function () {
                     else {
                         // Get the default site collection group
                         var termStore = session.getDefaultSiteCollectionTermStore(context.get_site());
-                        var termGroup = termStore.getSiteCollectionGroup;
+                        var termGroup = termStore.getSiteCollectionGroup();
                         context.load(termGroup);
                         // Resolve the promise
                         resolve({ context: context, termGroup: termGroup });
@@ -11054,7 +11054,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.24,
+    __ver: 3.25,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

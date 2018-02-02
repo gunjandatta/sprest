@@ -390,7 +390,7 @@ class _Taxonomy {
                 } else {
                     // Get the default site collection group
                     let termStore = session.getDefaultSiteCollectionTermStore(context.get_site());
-                    let termGroup = termStore.getSiteCollectionGroup
+                    let termGroup = termStore.getSiteCollectionGroup();
                     context.load(termGroup);
 
                     // Resolve the promise

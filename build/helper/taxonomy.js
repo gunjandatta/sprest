@@ -377,7 +377,7 @@ var _Taxonomy = /** @class */ (function () {
                     else {
                         // Get the default site collection group
                         var termStore = session.getDefaultSiteCollectionTermStore(context.get_site());
-                        var termGroup = termStore.getSiteCollectionGroup;
+                        var termGroup = termStore.getSiteCollectionGroup();
                         context.load(termGroup);
                         // Resolve the promise
                         resolve({ context: context, termGroup: termGroup });
