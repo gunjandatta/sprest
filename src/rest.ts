@@ -164,7 +164,7 @@ export interface IREST {
  * SharePoint REST Library
  */
 export const $REST: any = {
-    __ver: 3.30,
+    __ver: 3.31,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

@@ -9585,7 +9585,10 @@ var _FieldSchemaXML = /** @class */ (function () {
                 StaticName: fieldInfo.name + "_0",
                 DisplayName: fieldInfo.title + " Value",
                 Type: "Note",
-                Hidden: "TRUE"
+                Hidden: "TRUE",
+                Required: "FALSE",
+                ShowInViewForms: "FALSE",
+                CanToggleHidden: "TRUE"
             };
             // Generate the value field schema xml
             var schemaXmlValue = "<Field " + _this.toString(valueProps) + " />";
@@ -11091,7 +11094,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.30,
+    __ver: 3.31,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
