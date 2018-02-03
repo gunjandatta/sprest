@@ -840,10 +840,10 @@ declare module 'gd-sprest/helper/types/listForm' {
             saveAttachments(listInfo: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<Types.SP.IAttachment>>;
             /**
                 * Method to save the item.
-                * @param itemValues - The list item values.
                 * @param list - The list.
+                * @param itemValues - The list item values.
                 */
-            saveItem(itemValues: any, list: Types.SP.IListResult): PromiseLike<IListFormResult>;
+            saveItem(info: IListFormResult, formValues: any): PromiseLike<IListFormResult>;
     }
     /**
         * List Form Attachment Information
@@ -936,6 +936,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
     export interface IListFormChoiceFieldInfo extends IListFormFieldInfo {
             /** The choices. */
             choices?: Array<string>;
+            /** The list field. */
+            field?: Types.SP.IFieldChoice | Types.SP.IFieldMultiChoice;
             /** Flag to determine if multiple values exist */
             multi?: boolean;
     }
@@ -943,6 +945,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
         * List Form Date Field Information
         */
     export interface IListFormDateFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: Types.SP.IFieldDateTime;
             /** Flag determining if we are displaying time */
             showTime?: boolean;
     }
@@ -950,6 +954,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
         * List Form Lookup Field Information
         */
     export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: Types.SP.IFieldLookup;
             /** The lookup field */
             lookupField?: string;
             /** The lookup list id */
@@ -963,6 +969,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
         * List Form MMS Field Information
         */
     export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: Types.SP.IFieldManagedMetadata;
             /** Flag to determine if multiple values exist */
             multi?: boolean;
             /** The term id */
@@ -976,6 +984,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
         * List Form Number Field Information
         */
     export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: Types.SP.IFieldNumber | Types.SP.IFieldCurrency;
             /** The maximum value */
             maxValue?: number;
             /** The minimum value */
@@ -987,6 +997,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
         * List Form Text Field Information
         */
     export interface IListFormTextFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: Types.SP.IFieldText | Types.SP.IFieldNote;
             /** Flag determining if this is a note field */
             multiline?: boolean;
             /** Flag determining if this field value is html encoded */
@@ -995,11 +1007,20 @@ declare module 'gd-sprest/helper/types/listFormField' {
             rows?: number;
     }
     /**
+        * List Form URL Field Information
+        */
+    export interface IListFormUrlFieldInfo extends IListFormFieldInfo {
+            /** The list field. */
+            field?: Types.SP.IFieldUrl;
+    }
+    /**
         * List Form User Field Information
         */
     export interface IListFormUserFieldInfo extends IListFormFieldInfo {
             /** Flag to determine if groups are allowed */
             allowGroups?: boolean;
+            /** The list field. */
+            field?: Types.SP.IFieldUser;
             /** Flag to determine if multiple values exist */
             multi?: boolean;
     }
@@ -1371,13 +1392,13 @@ declare module 'gd-sprest/helper/types/taxonomy' {
                 * @param term - The term
                 * @param termId - The term id to search for
                 */
-            findById(term: ITerm, termId: string): ITermInfo;
+            findById(term: ITerm, termId: string): ITerm;
             /**
                 * Method to find a term by name
                 * @param term - The term
                 * @param termName - The term name to search for
                 */
-            findByName(term: ITerm, termName: string): ITermInfo;
+            findByName(term: ITerm, termName: string): ITerm;
             /**
                 * Method to get the terms by id
                 * @param termStoreId - The term store guid
@@ -1412,6 +1433,16 @@ declare module 'gd-sprest/helper/types/taxonomy' {
                 * @param term - The term
                 */
             toArray(term: ITerm | ITermInfo): Array<ITermInfo>;
+            /**
+                * Method to convert a term to a field value
+                * @param term - The term
+                */
+            toFieldValue(term: ITerm | ITermInfo): any;
+            /**
+                * Method to convert a collection of terms to a field value
+                * @param terms - The terms
+                */
+            toFieldMultiValue(terms: Array<ITerm | ITermInfo>): any;
             /**
                 * Method to convert an array of terms into a term set
                 * @param terms - The terms

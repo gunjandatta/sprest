@@ -9,11 +9,11 @@ class _Taxonomy {
     /**
      * Method to find a term by id
      */
-    findById = (term: TaxonomyTypes.ITerm, termId: string): TaxonomyTypes.ITermInfo => {
+    findById = (term: TaxonomyTypes.ITerm, termId: string): TaxonomyTypes.ITerm => {
         // See if this is the root node
         if (term.info && term.info.id == termId) {
             // Return the root node
-            return term as any;
+            return term;
         }
 
         // Parse the child nodes
@@ -30,11 +30,11 @@ class _Taxonomy {
     /**
      * Method to find a term by name
      */
-    findByName = (term: TaxonomyTypes.ITerm, termName: string): TaxonomyTypes.ITermInfo => {
+    findByName = (term: TaxonomyTypes.ITerm, termName: string): TaxonomyTypes.ITerm => {
         // See if this is the root node
-        if (term.info && term.info.id == termName) {
+        if (term.info && term.info.name == termName) {
             // Return the root node
-            return term as any;
+            return term;
         }
 
         // Parse the child nodes
@@ -43,7 +43,7 @@ class _Taxonomy {
             if (prop == "info" || prop == "parent") { continue; }
 
             // Find the term by id
-            let childTerm = this.findById(term[prop], termName);
+            let childTerm = this.findByName(term[prop], termName);
             if (childTerm) { return childTerm; }
         }
     };
@@ -60,15 +60,17 @@ class _Taxonomy {
                 let context = SP.ClientContext.get_current();
                 let session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
 
-                // Get the terms
+                // Get the term set terms
                 let termStore = session.get_termStores().getById(termStoreId);
-                let terms = termStore.getTermSet(termSetId).getAllTerms();
+                let termSet = termStore.getTermSet(termSetId);
+                let terms = termSet.getAllTerms();
+                context.load(termSet);
                 context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
 
                 // Execute the request
                 context.executeQueryAsync(() => {
                     // Resolve the promise
-                    resolve(this.getTerms(terms));
+                    resolve(this.getTerms(termSet, terms));
                 }, (...args) => {
                     // Log
                     console.error("[gd-sprest] Error getting the term group.");
@@ -103,14 +105,16 @@ class _Taxonomy {
         return new Promise((resolve, reject) => {
             // Get the term group
             this.getTermGroup().then(({ context, termGroup }) => {
-                // Get the terms
-                let terms = termGroup.get_termSets().getByName(termSetName).getAllTerms();
+                // Get the term set terms
+                let termSet = termGroup.get_termSets().getByName(termSetName);
+                let terms = termSet.getAllTerms();
+                context.load(termSet);
                 context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
 
                 // Execute the request
                 context.executeQueryAsync(() => {
                     // Resolve the promise
-                    resolve(this.getTerms(terms));
+                    resolve(this.getTerms(termSet, terms));
                 }, (...args) => {
                     // Log
                     console.error("[gd-sprest] Error getting the terms from the default site collection.");
@@ -145,14 +149,16 @@ class _Taxonomy {
         return new Promise((resolve, reject) => {
             // Get the term group
             this.getTermGroup(groupName).then(({ context, termGroup }) => {
-                // Get the "DoD" terms under the "Entities" term group
-                let terms = termGroup.get_termSets().getByName(termSetName).getAllTerms();
+                // Get the term set terms
+                let termSet = termGroup.get_termSets().getByName(termSetName);
+                let terms = termSet.getAllTerms();
+                context.load(termSet);
                 context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
 
                 // Execute the request
                 context.executeQueryAsync(() => {
                     // Resolve the promise
-                    resolve(this.getTerms(terms));
+                    resolve(this.getTerms(termSet, terms));
                 }, (...args) => {
                     // Log
                     console.error("[gd-sprest] Error getting the terms.");
@@ -236,6 +242,50 @@ class _Taxonomy {
     }
 
     /**
+     * Method to convert a term to a field value
+     */
+    toFieldValue = (term: TaxonomyTypes.ITerm | TaxonomyTypes.ITermInfo) => {
+        let termInfo: TaxonomyTypes.ITermInfo = term ? term["info"] || term : null;
+
+        // Ensure the term exists
+        if (termInfo) {
+            return {
+                __metadata: { "type": "SP.Taxonomy.TaxonomyFieldValue" },
+                Label: termInfo.name,
+                TermGuid: termInfo.id,
+                WssId: -1
+            };
+        }
+
+        // Return nothing
+        return null;
+    }
+
+    /**
+     * Method to convert a collection of terms to a field value
+     */
+    toFieldMultiValue = (terms: Array<TaxonomyTypes.ITerm | TaxonomyTypes.ITermInfo>) => {
+        let results = [];
+
+        // Ensure terms exist
+        if (terms && terms.length > 0) {
+            // Parse the terms
+            for (let i = 0; i < terms.length; i++) {
+                let termInfo: TaxonomyTypes.ITermInfo = terms[i]["info"] || terms[i];
+
+                // Add the term
+                results.push(";#" + termInfo.name + "|" + termInfo.id);
+            }
+        }
+
+        // Return a blank array
+        return {
+            __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+            results
+        }
+    }
+
+    /**
      * Method to convert the terms to an object
      */
     toObject = (terms: Array<TaxonomyTypes.ITermInfo>): TaxonomyTypes.ITerm => {
@@ -276,8 +326,14 @@ class _Taxonomy {
             for (let i = 0; i < terms.length; i++) {
                 let term = terms[i];
 
-                // Add the term
-                addTerm(root, term, term.pathAsString.split(";"))
+                // See if this is the root term
+                if (term.pathAsString == "") {
+                    // Set the root information
+                    root.info = term;
+                } else {
+                    // Add the term
+                    addTerm(root, term, term.pathAsString.split(";"))
+                }
             }
         }
 
@@ -292,8 +348,18 @@ class _Taxonomy {
     /**
      * Method to get the terms
      */
-    private getTerms = (termSetTerms): Array<TaxonomyTypes.ITermInfo> => {
+    private getTerms = (termSet, termSetTerms): Array<TaxonomyTypes.ITermInfo> => {
         let terms: Array<TaxonomyTypes.ITermInfo> = [];
+
+        // Add the root term
+        terms.push({
+            description: termSet.get_description(),
+            id: termSet.get_id().toString(),
+            name: termSet.get_name(),
+            path: [],
+            pathAsString: "",
+            props: termSet.get_customProperties()
+        });
 
         // Parse the term sets terms
         let enumerator = termSetTerms.getEnumerator();
@@ -367,8 +433,8 @@ class _Taxonomy {
                     });
                 } else {
                     // Get the default site collection group
-                    let termStore = session.getDefaultSiteCollectionTermStore(context.get_site());
-                    let termGroup = termStore.getSiteCollectionGroup
+                    let termStore = session.getDefaultSiteCollectionTermStore();
+                    let termGroup = termStore.getSiteCollectionGroup(context.get_site());
                     context.load(termGroup);
 
                     // Resolve the promise

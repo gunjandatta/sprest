@@ -7,13 +7,13 @@ export interface ITaxonomy {
      * @param term - The term
      * @param termId - The term id to search for
      */
-    findById(term: ITerm, termId: string): ITermInfo;
+    findById(term: ITerm, termId: string): ITerm;
     /**
      * Method to find a term by name
      * @param term - The term
      * @param termName - The term name to search for
      */
-    findByName(term: ITerm, termName: string): ITermInfo;
+    findByName(term: ITerm, termName: string): ITerm;
     /**
      * Method to get the terms by id
      * @param termStoreId - The term store guid
@@ -48,6 +48,16 @@ export interface ITaxonomy {
      * @param term - The term
      */
     toArray(term: ITerm | ITermInfo): Array<ITermInfo>;
+    /**
+     * Method to convert a term to a field value
+     * @param term - The term
+     */
+    toFieldValue(term: ITerm | ITermInfo): any;
+    /**
+     * Method to convert a collection of terms to a field value
+     * @param terms - The terms
+     */
+    toFieldMultiValue(terms: Array<ITerm | ITermInfo>): any;
     /**
      * Method to convert an array of terms into a term set
      * @param terms - The terms

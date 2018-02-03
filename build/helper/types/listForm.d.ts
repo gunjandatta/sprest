@@ -30,10 +30,10 @@ export interface IListForm {
     saveAttachments(listInfo: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<Types.SP.IAttachment>>;
     /**
      * Method to save the item.
-     * @param itemValues - The list item values.
      * @param list - The list.
+     * @param itemValues - The list item values.
      */
-    saveItem(itemValues: any, list: Types.SP.IListResult): PromiseLike<IListFormResult>;
+    saveItem(info: IListFormResult, formValues: any): PromiseLike<IListFormResult>;
 }
 /**
  * List Form Attachment Information

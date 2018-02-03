@@ -106,6 +106,12 @@ class _ListFormField {
                 // Get the target root term
                 let root = Taxonomy.findById(termSet, info.termId);
 
+                // See if the root node doesn't exist
+                if (root == null) {
+                    // Set the root to the term set
+                    root = Taxonomy.findById(termSet, info.termSetId);
+                }
+
                 // Resolve the request
                 resolve(Taxonomy.toArray(root));
             });
