@@ -4,7 +4,6 @@ import { IBaseExecution, IRequestInfo } from ".";
  * Base
  */
 export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result> {
-    defaultToWebFl: boolean;
     /** True, if the object exists, false otherwise. */
     existsFl: boolean;
     /** The parent object, which created this object. */

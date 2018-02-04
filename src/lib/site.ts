@@ -15,7 +15,7 @@ class _Site extends Base {
         super(targetInfo);
 
         // Default the properties
-        this.defaultToWebFl = true;
+        this.targetInfo.defaultToWebFl = true;
         this.targetInfo.endpoint = "site";
 
         // See if the web url exists

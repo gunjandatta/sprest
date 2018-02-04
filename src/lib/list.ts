@@ -14,7 +14,7 @@ class _List extends Base {
         super(targetInfo);
 
         // Default the properties
-        this.defaultToWebFl = true;
+        this.targetInfo.defaultToWebFl = true;
         this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
 
         // Add the methods

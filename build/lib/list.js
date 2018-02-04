@@ -25,7 +25,7 @@ var _List = /** @class */ (function (_super) {
         // Call the base constructor
         _super.call(this, targetInfo) || this;
         // Default the properties
-        _this.defaultToWebFl = true;
+        _this.targetInfo.defaultToWebFl = true;
         _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
         // Add the methods
         _this.addMethods(_this, { __metadata: { type: "list" } });

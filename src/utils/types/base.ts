@@ -5,9 +5,6 @@ import { IBaseExecution, IRequestInfo } from ".";
  * Base
  */
 export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result> {
-    // Flag to default the url to the current web url, site otherwise
-    defaultToWebFl: boolean;
-
     /** True, if the object exists, false otherwise. */
     existsFl: boolean;
 

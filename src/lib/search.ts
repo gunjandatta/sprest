@@ -13,7 +13,7 @@ class _Search extends Base {
         super(targetInfo);
 
         // Default the properties
-        this.defaultToWebFl = true;
+        this.targetInfo.defaultToWebFl = true;
         this.targetInfo.endpoint = "search";
 
         // See if the web url exists

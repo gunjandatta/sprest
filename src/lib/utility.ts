@@ -13,7 +13,7 @@ class _Utility extends Base {
         super(targetInfo);
 
         // Default the properties
-        this.defaultToWebFl = true;
+        this.targetInfo.defaultToWebFl = true;
         this.targetInfo.endpoint = "SP.Utilities.Utility";
 
         // See if the web url exists
