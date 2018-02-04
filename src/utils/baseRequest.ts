@@ -50,6 +50,7 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
         // Update the target information
         targetInfo.bufferFl = methodConfig.requestType == RequestType.GetBuffer;
         targetInfo.data = methodInfo.body;
+        targetInfo.defaultToWebFl = this.base.targetInfo.defaultToWebFl;
         targetInfo.method = methodInfo.requestMethod;
 
         // See if we are replacing the endpoint
