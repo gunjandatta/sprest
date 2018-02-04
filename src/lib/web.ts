@@ -13,7 +13,7 @@ class _Web extends Base<Types.SP.IWeb> {
         super(targetInfo);
 
         // Default the properties
-        this.defaultToWebFl = true;
+        this.targetInfo.defaultToWebFl = true;
         this.targetInfo.endpoint = "web";
 
         // See if the web url exists

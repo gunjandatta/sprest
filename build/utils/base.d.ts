@@ -7,7 +7,6 @@ export declare class Base<Type = any, Result = Type, QueryResult = Result> exten
      * @param targetInfo - The target information.
      */
     constructor(targetInfo: Types.ITargetInfo);
-    defaultToWebFl: boolean;
     existsFl: any;
     done<T = Types.IBase>(resolve: (value?: T) => void): void;
     getInfo(): Types.IRequestInfo;

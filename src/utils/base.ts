@@ -21,9 +21,6 @@ export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseE
         this.waitFlags = [];
     }
 
-    // Flag to default the url to the current web url, site otherwise
-    defaultToWebFl: boolean;
-
     // Flag to determine if the requested object exists
     existsFl;
 

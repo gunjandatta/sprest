@@ -13,7 +13,7 @@ class _SocialFeed extends Base {
         super(targetInfo);
 
         // Default the properties
-        this.defaultToWebFl = true;
+        this.targetInfo.defaultToWebFl = true;
         this.targetInfo.endpoint = "social.feed";
 
         // Add the methods

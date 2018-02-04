@@ -11111,7 +11111,6 @@ declare module 'gd-sprest/utils/base' {
                 * @param targetInfo - The target information.
                 */
             constructor(targetInfo: Types.ITargetInfo);
-            defaultToWebFl: boolean;
             existsFl: any;
             done<T = Types.IBase>(resolve: (value?: T) => void): void;
             getInfo(): Types.IRequestInfo;
@@ -11553,7 +11552,6 @@ declare module 'gd-sprest/utils/types/base' {
         * Base
         */
     export interface IBase<Type = any, Result = Type, QueryResult = Result> extends IBaseExecution<Type, Result> {
-            defaultToWebFl: boolean;
             /** True, if the object exists, false otherwise. */
             existsFl: boolean;
             /** The parent object, which created this object. */

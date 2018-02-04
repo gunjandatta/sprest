@@ -26,7 +26,7 @@ var _Site = /** @class */ (function (_super) {
         // Call the base constructor
         _super.call(this, targetInfo) || this;
         // Default the properties
-        _this.defaultToWebFl = true;
+        _this.targetInfo.defaultToWebFl = true;
         _this.targetInfo.endpoint = "site";
         // See if the web url exists
         if (url) {

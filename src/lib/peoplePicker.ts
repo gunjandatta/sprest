@@ -13,7 +13,7 @@ class _PeoplePicker extends Base {
         super(targetInfo);
 
         // Default the properties
-        this.defaultToWebFl = true;
+        this.targetInfo.defaultToWebFl = true;
         this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
         this.targetInfo.overrideDefaultRequestToHostFl = true;
         
