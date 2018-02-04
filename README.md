@@ -20,7 +20,7 @@ The gd-sprest library is similar to the pnp-js-core, with the main difference be
 * Ability to create scripts which can be tested in staging before running aginst production
 * The intellisense and ability to make live requests allows for easy debug issues in production
 * Easy way to perform research and development by exploring the REST API with the available intellisense
-* Designed to give work in very restricted SharePoint environments with limited access to the SharePoint Farm, Web App, Site Collection, Root Web, etc.
+* Designed to work in very restricted SharePoint environments with limited access to the SharePoint Farm, Web App, Site Collection, Root Web, etc.
 
 ### Bugs/Feature Requests/Help
 [Click Here](https://github.com/gunjandatta/sprest/issues) to report any bugs, request any new features or if need help with code examples. Pull requests are welcomed for anyone interested in submitting them. Feel free to [email](mailto:github@dattabase.com) for other questions.
