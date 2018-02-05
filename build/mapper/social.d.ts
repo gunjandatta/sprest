@@ -1,3 +1,6 @@
+/**
+ * People Manager
+ */
 export declare const peoplemanager: {
     amIFollowedBy: {
         argNames: string[];
@@ -74,6 +77,9 @@ export declare const peoplemanager: {
         requestType: number;
     };
 };
+/**
+ * Profile Loader
+ */
 export declare const profileloader: {
     createPersonalSiteEnqueueBulk: {
         argNames: string[];
@@ -90,6 +96,9 @@ export declare const profileloader: {
         returnType: string;
     };
 };
+/**
+ * Social Feed
+ */
 export declare const socialfeed: {
     actor: {
         argNames: string[];
@@ -134,6 +143,9 @@ export declare const socialfeed: {
         requestType: number;
     };
 };
+/**
+ * User Profile
+ */
 export declare const userprofile: {
     properties: string[];
     createPersonalSiteEnque: {

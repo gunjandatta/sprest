@@ -1,6 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
+/**
+ * People Manager
+ */
 exports.peoplemanager = {
     amIFollowedBy: {
         argNames: ["accountName"],
@@ -77,6 +80,9 @@ exports.peoplemanager = {
         requestType: utils_1.RequestType.PostWithArgsValueOnly
     },
 };
+/**
+ * Profile Loader
+ */
 exports.profileloader = {
     createPersonalSiteEnqueueBulk: {
         argNames: ["emailIDs"],
@@ -93,6 +99,9 @@ exports.profileloader = {
         returnType: "userprofile"
     },
 };
+/**
+ * Social Feed
+ */
 exports.socialfeed = {
     actor: {
         argNames: ["accountName"],
@@ -137,10 +146,19 @@ exports.socialfeed = {
         requestType: utils_1.RequestType.Get
     }
 };
+/**
+ * User Profile
+ */
 exports.userprofile = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
     properties: [
         "PersonalSite|site"
     ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
     createPersonalSiteEnque: {
         requestType: utils_1.RequestType.PostWithArgsValueOnly
     },

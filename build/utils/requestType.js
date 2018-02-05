@@ -1,10 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Request Type
+ */
 exports.RequestType = {
+    // Requests
     Custom: 0,
     Delete: 1,
     Merge: 2,
     OData: 3,
+    // Get Requests
     Get: 10,
     GetBuffer: 11,
     GetWithArgs: 12,
@@ -12,6 +17,7 @@ exports.RequestType = {
     GetWithArgsInQS: 14,
     GetWithArgsValueOnly: 15,
     GetReplace: 16,
+    // Post Requests
     Post: 20,
     PostWithArgs: 21,
     PostWithArgsInBody: 22,

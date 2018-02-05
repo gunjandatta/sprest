@@ -3,6 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var Helper = require("./helper");
 var Lib = require("./lib");
 var Mapper = require("./mapper");
+/**
+ * SharePoint REST Library
+ */
 exports.$REST = {
     __ver: 3.33,
     ContextInfo: Lib.ContextInfo,
@@ -33,8 +36,10 @@ exports.$REST = {
     Utility: function (url, targetInfo) { return new Lib.Utility(url, targetInfo); },
     Web: function (url, targetInfo) { return new Lib.Web(url, targetInfo); }
 };
+// See if the library doesn't exist, or is an older version
 var global = Lib.ContextInfo.window.$REST;
 if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {
+    // Set the global variable
     Lib.ContextInfo.window.$REST = exports.$REST;
 }
 //# sourceMappingURL=rest.js.map

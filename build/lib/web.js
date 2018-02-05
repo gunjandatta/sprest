@@ -11,15 +11,27 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
-var _Web = (function (_super) {
+/*********************************************************************************************************************************/
+// Web
+/*********************************************************************************************************************************/
+var _Web = /** @class */ (function (_super) {
     __extends(_Web, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
     function _Web(url, targetInfo) {
-        var _this = _super.call(this, targetInfo) || this;
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
         _this.targetInfo.defaultToWebFl = true;
         _this.targetInfo.endpoint = "web";
+        // See if the web url exists
         if (url) {
+            // Set the settings
             _this.targetInfo.url = url;
         }
+        // Add the methods
         _this.addMethods(_this, { __metadata: { type: "web" } });
         return _this;
     }

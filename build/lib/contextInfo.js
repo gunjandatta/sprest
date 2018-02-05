@@ -1,10 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
-var _ContextInfo = (function () {
+/**
+ * Context Information
+ */
+var _ContextInfo = /** @class */ (function () {
     function _ContextInfo() {
     }
     Object.defineProperty(_ContextInfo, "_contextInfo", {
+        // The current context information
         get: function () {
             return this.window["_spPageContextInfo"] ||
                 {
@@ -24,6 +28,9 @@ var _ContextInfo = (function () {
     });
     ;
     Object.defineProperty(_ContextInfo, "aadInstanceUrl", {
+        /**
+         * Properties
+         */
         get: function () { return this._contextInfo.aadInstanceUrl; },
         enumerable: true,
         configurable: true
@@ -553,13 +560,20 @@ var _ContextInfo = (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * Methods
+     */
+    // Method to generate a guid
     _ContextInfo.generateGUID = function () {
+        // Set the batch id
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
             return v.toString(16);
         });
     };
+    // Method to get the context information for a web
     _ContextInfo.getWeb = function (url) {
+        // Create a new base object
         return new utils_1.Base({
             endpoint: "contextinfo",
             method: "POST",

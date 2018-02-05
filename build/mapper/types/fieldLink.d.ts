@@ -1,3 +1,6 @@
+/**
+ * Field Link
+ */
 export interface IFieldLink {
     DisplayName: string;
     FieldInternalName: string;

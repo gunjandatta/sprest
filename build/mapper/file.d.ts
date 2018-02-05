@@ -1,4 +1,10 @@
+/**
+ * Attachment
+ */
 export declare const attachment: {};
+/**
+ * Attachment Files
+ */
 export declare const attachmentfiles: {
     add: {
         argNames: string[];
@@ -9,6 +15,9 @@ export declare const attachmentfiles: {
         requestType: number;
     };
 };
+/**
+ * File
+ */
 export declare const file: {
     properties: string[];
     approve: {
@@ -98,6 +107,9 @@ export declare const file: {
         requestType: number;
     };
 };
+/**
+ * Files
+ */
 export declare const files: {
     add: {
         argNames: string[];
@@ -117,6 +129,9 @@ export declare const files: {
         requestType: number;
     };
 };
+/**
+ * File Version
+ */
 export declare const fileversion: {
     properties: any[];
     delete: {
@@ -127,6 +142,9 @@ export declare const fileversion: {
         requestType: number;
     };
 };
+/**
+ * File Versions
+ */
 export declare const fileversions: {
     delete: {
         requestType: number;
@@ -136,6 +154,9 @@ export declare const fileversions: {
         requestType: number;
     };
 };
+/**
+ * Folder
+ */
 export declare const folder: {
     properties: string[];
     delete: {
@@ -160,6 +181,9 @@ export declare const folder: {
         requestType: number;
     };
 };
+/**
+ * Folders
+ */
 export declare const folders: {
     properties: string[];
     add: {
@@ -176,6 +200,9 @@ export declare const folders: {
         requestType: number;
     };
 };
+/**
+ * Limited Web Part Manager
+ */
 export declare const limitedwebpartmanager: {
     get_WebParts: {
         argNames: string[];

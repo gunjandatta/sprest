@@ -11,13 +11,23 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
-var _PeoplePicker = (function (_super) {
+/*********************************************************************************************************************************/
+// People Picker
+/*********************************************************************************************************************************/
+var _PeoplePicker = /** @class */ (function (_super) {
     __extends(_PeoplePicker, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
     function _PeoplePicker(targetInfo) {
-        var _this = _super.call(this, targetInfo) || this;
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
         _this.targetInfo.defaultToWebFl = true;
         _this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
         _this.targetInfo.overrideDefaultRequestToHostFl = true;
+        // Add the methods
         _this.addMethods(_this, { __metadata: { type: "peoplepicker" } });
         return _this;
     }

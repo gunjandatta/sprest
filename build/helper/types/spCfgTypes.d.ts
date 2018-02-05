@@ -1,3 +1,4 @@
+/** The field types */
 export declare type ISPCfgFieldType = {
     Boolean: number;
     Calculated: number;
@@ -11,6 +12,7 @@ export declare type ISPCfgFieldType = {
     Url: number;
     User: number;
 };
+/** The configuration types */
 export declare type ISPCfgType = {
     Fields: number;
     ContentTypes: number;

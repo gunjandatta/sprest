@@ -1,4 +1,7 @@
 import { BaseRequest, TargetInfo, Types } from ".";
+/**
+ * Base Execution
+ */
 export declare class BaseExecution<Type = any, Result = Type> extends BaseRequest implements Types.IBaseExecution {
     batchRequests: Array<Array<{
         callback?: any;

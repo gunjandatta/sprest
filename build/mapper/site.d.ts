@@ -1,3 +1,6 @@
+/**
+ * Site
+ */
 export declare const site: {
     properties: string[];
     createPreviewSPSite: {
@@ -62,6 +65,9 @@ export declare const site: {
         requestType: number;
     };
 };
+/**
+ * Tenant App
+ */
 export declare const tenantapp: {
     deploy: {
         requestType: number;
@@ -86,6 +92,9 @@ export declare const tenantapp: {
         requestType: number;
     };
 };
+/**
+ * Tenant Apps
+ */
 export declare const tenantapps: {
     getById: {
         argNames: string[];
@@ -97,6 +106,9 @@ export declare const tenantapps: {
         requestType: number;
     };
 };
+/**
+ * Tenant App Catalog
+ */
 export declare const tenantappcatalog: {
     properties: string[];
     add: {
@@ -113,6 +125,9 @@ export declare const tenantappcatalog: {
         requestType: number;
     };
 };
+/**
+ * Utility
+ */
 export declare const utility: {
     createEmailBodyForInvitation: {
         argNames: string[];
@@ -188,6 +203,9 @@ export declare const utility: {
         requestType: number;
     };
 };
+/**
+ * Web
+ */
 export declare const web: {
     properties: string[];
     applyTheme: {
@@ -350,12 +368,18 @@ export declare const web: {
         requestType: number;
     };
 };
+/**
+ * Web Information Collection
+ */
 export declare const webinfos: {
     query: {
         argNames: string[];
         requestType: number;
     };
 };
+/**
+ * Webs
+ */
 export declare const webs: {
     add: {
         argNames: string[];

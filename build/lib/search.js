@@ -11,33 +11,56 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
-var _Search = (function (_super) {
+/*********************************************************************************************************************************/
+// Search
+/*********************************************************************************************************************************/
+var _Search = /** @class */ (function (_super) {
     __extends(_Search, _super);
+    /*********************************************************************************************************************************/
+    // Constructor
+    /*********************************************************************************************************************************/
     function _Search(url, targetInfo) {
-        var _this = _super.call(this, targetInfo) || this;
+        var _this = 
+        // Call the base constructor
+        _super.call(this, targetInfo) || this;
+        // Default the properties
         _this.targetInfo.defaultToWebFl = true;
         _this.targetInfo.endpoint = "search";
+        // See if the web url exists
         if (url) {
+            // Set the settings
             _this.targetInfo.url = url;
         }
+        // Add the methods
         _this.addMethods(_this, { __metadata: { type: "search" } });
         return _this;
     }
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
+    // Method to compute the query
     _Search.prototype.getQuery = function (parameters) {
         var query = "";
+        // Parse the parameters
         for (var key in parameters) {
+            // Append the parameter to the query
             query += (query == "" ? "" : "&") + key + "='" + parameters[key] + "'";
         }
+        // Return the query
         return [query];
     };
+    /** The search query method */
     _Search.prototype.searchquery = function (settings) {
+        // Execute the request
         return this.executeMethod("query", {
             argNames: ["query"],
             name: "query?[[query]]",
             requestType: utils_1.RequestType.GetReplace
         }, this.getQuery(settings));
     };
+    /** The suggest method */
     _Search.prototype.suggest = function (settings) {
+        // Execute the request
         return this.executeMethod("query", {
             argNames: ["query"],
             name: "suggest?[[query]]",

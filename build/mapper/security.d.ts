@@ -1,3 +1,6 @@
+/**
+ * Role Assignment
+ */
 export declare const roleassignment: {
     properties: string[];
     delete: {
@@ -8,6 +11,9 @@ export declare const roleassignment: {
         requestType: number;
     };
 };
+/**
+ * Role Assignments
+ */
 export declare const roleassignments: {
     addRoleAssignment: {
         argNames: string[];
@@ -27,6 +33,9 @@ export declare const roleassignments: {
         requestType: number;
     };
 };
+/**
+ * Role Definition
+ */
 export declare const roledefinition: {
     delete: {
         requestType: number;
@@ -36,6 +45,9 @@ export declare const roledefinition: {
         requestType: number;
     };
 };
+/**
+ * Role Definitions
+ */
 export declare const roledefinitions: {
     getById: {
         argNames: string[];

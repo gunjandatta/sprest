@@ -1,5 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Calendar Types
+ */
 exports.CalendarTypes = {
     Gregorian: 1,
     JapaneseEmperorEra: 3,
@@ -16,12 +19,24 @@ exports.CalendarTypes = {
     ChineseLunar: 15,
     SakaEra: 16
 };
+/**
+ * Check Out Types
+ */
 exports.CheckOutType = { Online: 0, Offline: 1, None: 2 };
+/**
+ * Choice Format Types
+ */
 exports.ChoiceFormatType = { Dropdown: 0, RadioButtons: 1 };
+/**
+ * Client Template Utility
+ */
 exports.ClientTemplatesUtility = {
     UserLookupDelimitString: ";#",
     UserMultiValueDelimitString: ",#"
 };
+/**
+ * Control Modes
+ */
 exports.ControlMode = {
     Invalid: 0,
     Display: 1,
@@ -29,9 +44,21 @@ exports.ControlMode = {
     New: 3,
     View: 4
 };
+/**
+ * Date Format
+ */
 exports.DateFormat = { DateOnly: 0, DateTime: 1 };
+/**
+ * Draft Visibility Types
+ */
 exports.DraftVisibilityType = { Reader: 0, Author: 1, Approver: 2 };
+/**
+ * Event Receiver Synchronization Types
+ */
 exports.EventReceiverSynchronizationType = { Synchronization: 1, Asynchronous: 2 };
+/**
+ * Event Receiver Types
+ */
 exports.EventReceiverType = {
     ItemAdding: 1,
     ItemUpdating: 2,
@@ -109,24 +136,48 @@ exports.EventReceiverType = {
     EmailReceived: 20000,
     ContextEvent: 32766
 };
+/**
+ * Field Note Types
+ */
 exports.FieldNoteType = {
+    /** Enhance Rich Text */
     EnhancedRichText: 0,
+    /** Rich Text */
     RichText: 1,
+    /** Text Only */
     TextOnly: 2
 };
+/**
+ * Field Number Type
+ */
 exports.FieldNumberType = {
+    /** Decimal */
     Decimal: 0,
+    /** Integer */
     Integer: 1,
+    /** Percentage */
     Percentage: 2,
 };
+/**
+ * Field Result Types
+ */
 exports.FieldResultType = {
+    /** Boolean */
     Boolean: "Boolean",
+    /** Currency */
     Currency: "Currency",
+    /** Date Only */
     DateOnly: "DateOnly",
+    /** Date & Time */
     DateTime: "DateTime",
+    /** Number */
     Number: "Number",
+    /** Text */
     Text: "Text"
 };
+/**
+ * Field Types
+ */
 exports.FieldType = {
     AllDayEvent: 29,
     Attachments: 19,
@@ -162,13 +213,25 @@ exports.FieldType = {
     WorkflowEventType: 30,
     WorkflowStatus: 28
 };
+/**
+ * Field User Selection Types
+ */
 exports.FieldUserSelectionType = { PeopleOnly: 0, PeopleAndGroups: 1 };
+/**
+ * File Template Types
+*/
 exports.FileTemplateType = { StandardPage: 0, WikiPage: 1, FormPage: 2 };
+/**
+ * Friendly Date Format
+ */
 exports.FriendlyDateFormat = {
     Unspecified: 0,
     Disabled: 1,
     Relative: 2
 };
+/**
+ * List Template Types
+*/
 exports.ListTemplateType = {
     AccessRequest: 160,
     AdminTasks: 1200,
@@ -229,6 +292,9 @@ exports.ListTemplateType = {
     WorkflowProcess: 118,
     XMLForm: 115
 };
+/**
+ * Locale LCID Types
+ */
 exports.LocaleLCIDType = {
     Afrikaans: 1078,
     Albanian: 1052,
@@ -364,6 +430,9 @@ exports.LocaleLCIDType = {
     UzbekLatin: 1091,
     Vietnamese: 1066,
 };
+/**
+ * Page Types
+ */
 exports.PageType = {
     DefaultView: 0,
     DialogView: 2,
@@ -379,6 +448,9 @@ exports.PageType = {
     SolutionForm: 10,
     View: 3
 };
+/**
+ * Personal Site Capabilities
+ */
 exports.PersonalSiteCapabilities = {
     Education: 16,
     Guest: 32,
@@ -388,6 +460,9 @@ exports.PersonalSiteCapabilities = {
     Social: 2,
     Storage: 4
 };
+/**
+ * Principal Sources
+ */
 exports.PrincipalSources = {
     All: 15,
     MembershipProvider: 4,
@@ -396,6 +471,9 @@ exports.PrincipalSources = {
     UserInfoList: 1,
     Windows: 2
 };
+/**
+ * Principal Types
+ */
 exports.PrincipalTypes = {
     All: 15,
     DistributionList: 2,
@@ -404,7 +482,13 @@ exports.PrincipalTypes = {
     SharePointGroup: 8,
     User: 1
 };
+/**
+ * Relationship Delete Behavior Types
+ */
 exports.RelationshipDeleteBehaviorType = { None: 0, Cascade: 1, Restrict: 2 };
+/**
+ * Reordering Rule Match Types
+ */
 exports.ReorderingRuleMatchType = {
     ContentTypeIs: 5,
     FileExtensionMatches: 6,
@@ -416,6 +500,9 @@ exports.ReorderingRuleMatchType = {
     UrlExactlyMatches: 4,
     UrlStartsWith: 3
 };
+/**
+ * Role Types
+ */
 exports.RoleType = {
     Administrator: 5,
     Contributor: 3,
@@ -425,9 +512,21 @@ exports.RoleType = {
     Reader: 2,
     WebDesigner: 4
 };
+/**
+ * URL Format Types
+ */
 exports.UrlFormatType = { Hyperlink: 0, Image: 1 };
+/**
+ * URL Zones
+ */
 exports.URLZones = { Default: 0, Intranet: 1, Internet: 2, Custom: 3, Extranet: 4 };
+/**
+ * User Custom Action Registration Types
+ */
 exports.UserCustomActionRegistrationType = { None: 0, List: 1, ContentType: 2, ProgId: 3, FileType: 4 };
+/**
+ * View Types
+ */
 exports.ViewType = {
     Calendar: 524288,
     Chart: 131072,

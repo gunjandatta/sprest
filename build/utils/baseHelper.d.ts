@@ -1,4 +1,7 @@
 import { Base, Types } from ".";
+/**
+ * Request Helper
+ */
 export declare class BaseHelper implements Types.IBaseHelper {
     base: Base;
     requestType: number;

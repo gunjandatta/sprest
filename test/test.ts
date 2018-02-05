@@ -1,5 +1,5 @@
 import {
-    $REST, Types
+    $REST
 } from "../build";
 
 // Get the navigation menu
