@@ -1,6 +1,3 @@
-/**
- * Event Receiver
- */
 export declare const eventreceiver: {
     delete: {
         requestType: number;
@@ -12,9 +9,6 @@ export declare const eventreceiver: {
         requestType: number;
     };
 };
-/**
- * Event Receivers
- */
 export declare const eventreceivers: {
     add: {
         metadataType: string;

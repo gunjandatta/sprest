@@ -11,23 +11,13 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
-/*********************************************************************************************************************************/
-// Profile Loader
-/*********************************************************************************************************************************/
-var _ProfileLoader = /** @class */ (function (_super) {
+var _ProfileLoader = (function (_super) {
     __extends(_ProfileLoader, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
     function _ProfileLoader(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
+        var _this = _super.call(this, targetInfo) || this;
         _this.targetInfo.defaultToWebFl = true;
         _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
         _this.targetInfo.method = "POST";
-        // Add the methods
         _this.addMethods(_this, { __metadata: { type: "profileloader" } });
         return _this;
     }

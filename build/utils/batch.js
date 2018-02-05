@@ -2,27 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 var _1 = require(".");
-/**
- * Batch Requests
- */
-var Batch = /** @class */ (function () {
+var Batch = (function () {
     function Batch() {
     }
-    /**
-     * Methods
-     */
-    // Method to generate a batch request
     Batch.getTargetInfo = function (requests) {
         var batchId = "batch_" + lib_1.ContextInfo.generateGUID();
         var batchRequests = [];
-        // Parse the requests
         for (var i = 0; i < requests.length; i++) {
-            // Create the batch request
             batchRequests.push(this.createBatch(batchId, requests[i]));
         }
-        // End the batch request
         batchRequests.push("--" + batchId + "--");
-        // Return the target info
         return new _1.TargetInfo({
             endpoint: "$batch",
             method: "POST",
@@ -32,20 +21,15 @@ var Batch = /** @class */ (function () {
             }
         });
     };
-    // Method to generate a batch request
     Batch.createBatch = function (batchId, requests) {
-        // Create the batch request
         var batch = ["--" + batchId];
-        // Determine if the batch requires a change set
         var requiresChangeset = requests[0] && requests[0].targetInfo.requestMethod != "GET";
         if (requiresChangeset) {
             var changesets = [];
             var changesetId = "changeset_" + lib_1.ContextInfo.generateGUID();
-            // Parse the requests
             for (var i = 0; i < requests.length; i++) {
                 var request = [];
                 var targetInfo = requests[i].targetInfo;
-                // Create a change set
                 request.push("--" + changesetId);
                 request.push("Content-Type: application/http");
                 request.push("Content-Transfer-Encoding: binary");
@@ -55,14 +39,10 @@ var Batch = /** @class */ (function () {
                 request.push("");
                 targetInfo.requestData ? request.push(targetInfo.requestData) : null;
                 request.push("");
-                // Add the request to the change set
                 changesets.push(request.join("\r\n"));
             }
-            // End the change set
             changesets.push("--" + changesetId + "--");
-            // Generate the change set
             var changeset = changesets.join("\r\n");
-            // Add the change set information to the batch
             batch.push("Content-Type: multipart/mixed; boundary=" + changesetId);
             batch.push("Content-Length: " + changeset.length);
             batch.push("Content-Transfer-Encoding: binary");
@@ -72,7 +52,6 @@ var Batch = /** @class */ (function () {
         }
         else if (requests[0]) {
             var targetInfo = requests[0].targetInfo;
-            // Add the request to the batch
             batch.push("Content-Type: application/http");
             batch.push("Content-Transfer-Encoding: binary");
             batch.push("");
@@ -82,7 +61,6 @@ var Batch = /** @class */ (function () {
             targetInfo.requestData ? batch.push(targetInfo.requestData) : null;
             batch.push("");
         }
-        // Return the batch request
         return batch.join("\r\n");
     };
     return Batch;

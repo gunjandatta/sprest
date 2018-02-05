@@ -1,6 +1,3 @@
-/**
- * Method Information Settings
- */
 export interface IMethodInfo {
     argNames?: Array<string>;
     argValues?: Array<any>;

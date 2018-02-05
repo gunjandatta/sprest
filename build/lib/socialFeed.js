@@ -11,32 +11,17 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
-/*********************************************************************************************************************************/
-// Social Feed
-/*********************************************************************************************************************************/
-var _SocialFeed = /** @class */ (function (_super) {
+var _SocialFeed = (function (_super) {
     __extends(_SocialFeed, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
     function _SocialFeed(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
+        var _this = _super.call(this, targetInfo) || this;
         _this.targetInfo.defaultToWebFl = true;
         _this.targetInfo.endpoint = "social.feed";
-        // Add the methods
         _this.addMethods(_this, { __metadata: { type: "socialfeed" } });
         return _this;
     }
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Method to post to another user's feed
     _SocialFeed.prototype.postToFeed = function (accountName, creationData) {
         var postInfo = { ID: null, creationData: creationData };
-        // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
         return this.executeMethod("postToMyFeed", {
@@ -45,10 +30,8 @@ var _SocialFeed = /** @class */ (function (_super) {
             requestType: utils_1.RequestType.PostWithArgsInBody
         }, [postInfo]);
     };
-    // Method to post to the current user's feed
     _SocialFeed.prototype.postToMyFeed = function (creationData) {
         var postInfo = { ID: null, creationData: creationData };
-        // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
         return this.executeMethod("postToMyFeed", {

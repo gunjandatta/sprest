@@ -1,6 +1,3 @@
-/**
- * User Custom Action
- */
 export declare const usercustomaction: {
     delete: {
         requestType: number;
@@ -10,9 +7,6 @@ export declare const usercustomaction: {
         requestType: number;
     };
 };
-/**
- * User Custom Actions
- */
 export declare const usercustomactions: {
     add: {
         metadataType: string;

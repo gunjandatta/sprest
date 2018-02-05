@@ -1,6 +1,3 @@
-/**
- * Request Type
- */
 export declare type IRequestType = {
     Custom: number;
     Delete: number;

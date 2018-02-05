@@ -1,6 +1,3 @@
-/**
- * Search
- */
 export declare const search: {
     postquery: {
         argNames: string[];

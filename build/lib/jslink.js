@@ -1,17 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
-/**
- * JS Link
- */
-var _JSLink = /** @class */ (function () {
-    /**
-     * Constructor
-     */
+var _JSLink = (function () {
     function _JSLink(cfg) {
-        // See if the configuration exists
         if (cfg) {
-            // Set the properties
             this._baseViewID = cfg.BaseViewID;
             this._listTemplateType = cfg.ListTemplateType;
             this._onPostRender = cfg.OnPostRender;
@@ -44,15 +36,8 @@ var _JSLink = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    /**
-     * Methods
-     */
-    /**
-     * Returns the CSR template.
-     */
     _JSLink.prototype.getTemplate = function () {
         var template = {};
-        // Add the properties
         if (this._baseViewID) {
             template.BaseViewID = this._baseViewID;
         }
@@ -68,15 +53,11 @@ var _JSLink = /** @class */ (function () {
         if (this._templates) {
             template.Templates = this._templates;
         }
-        // See if there are fields
         if (template.Templates && template.Templates.Fields) {
             var fields = {};
-            // Parse the fields
             for (var _i = 0, _a = template.Templates.Fields; _i < _a.length; _i++) {
                 var field = _a[_i];
-                // Add the field
                 fields[field.Name] = {};
-                // Add the field properties
                 if (field.DisplayForm) {
                     fields[field.Name].DisplayForm = field.DisplayForm;
                 }
@@ -90,22 +71,14 @@ var _JSLink = /** @class */ (function () {
                     fields[field.Name].View = field.View;
                 }
             }
-            // Update the fields
             template.Templates.Fields = fields;
         }
-        // Return the template
         return template;
     };
-    /**
-     * Method to register the CSR override.
-     */
     _JSLink.prototype.register = function () {
-        // Get the template manager
         var templateManager = lib_1.ContextInfo.window.SPClientTemplates;
         templateManager = templateManager ? templateManager.TemplateManager : null;
-        // Ensure it exists
         if (templateManager) {
-            // Apply the customization
             templateManager.RegisterTemplateOverrides(this.getTemplate());
         }
     };

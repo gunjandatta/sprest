@@ -1,6 +1,3 @@
-/**
- * Group
- */
 export declare const group: {
     properties: string[];
     query: {
@@ -8,9 +5,6 @@ export declare const group: {
         requestType: number;
     };
 };
-/**
- * Site Groups
- */
 export declare const sitegroups: {
     add: {
         metadataType: string;
@@ -40,9 +34,6 @@ export declare const sitegroups: {
         requestType: number;
     };
 };
-/**
- * People Picker
- */
 export declare const peoplepicker: {
     clientPeoplePickerResolveUser: {
         argNames: string[];
@@ -59,9 +50,6 @@ export declare const peoplepicker: {
         requestType: number;
     };
 };
-/**
- * User
- */
 export declare const user: {
     properties: string[];
     delete: {
@@ -72,9 +60,6 @@ export declare const user: {
         requestType: number;
     };
 };
-/**
- * Users
- */
 export declare const users: {
     add: {
         metadataType: string;

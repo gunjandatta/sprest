@@ -1,6 +1,3 @@
-/**
- * Content Type
- */
 export declare const contenttype: {
     properties: string[];
     delete: {
@@ -13,9 +10,6 @@ export declare const contenttype: {
         requestType: number;
     };
 };
-/**
- * Content Types
- */
 export declare const contenttypes: {
     add: {
         metadataType: string;
@@ -36,9 +30,6 @@ export declare const contenttypes: {
         requestType: number;
     };
 };
-/**
- * Field
- */
 export declare const field: {
     delete: {
         requestType: number;
@@ -66,9 +57,6 @@ export declare const field: {
         requestType: number;
     };
 };
-/**
- * Field Links
- */
 export declare const fieldlinks: {
     add: {
         argNames: string[];
@@ -86,9 +74,6 @@ export declare const fieldlinks: {
         requestType: number;
     };
 };
-/**
- * Fields
- */
 export declare const fields: {
     add: {
         metadataType: string;
@@ -138,9 +123,6 @@ export declare const fields: {
         requestType: number;
     };
 };
-/**
- * Items
- */
 export declare const items: {
     add: {
         metadataType: (obj: any) => any;
@@ -157,9 +139,6 @@ export declare const items: {
         requestType: number;
     };
 };
-/**
- * List
- */
 export declare const list: {
     properties: string[];
     breakRoleInheritance: {
@@ -252,9 +231,6 @@ export declare const list: {
         requestType: number;
     };
 };
-/**
- * List Item
- */
 export declare const listitem: {
     properties: string[];
     breakRoleInheritance: {
@@ -290,9 +266,6 @@ export declare const listitem: {
         requestType: number;
     };
 };
-/**
- * Lists
- */
 export declare const lists: {
     add: {
         metadataType: string;
@@ -320,9 +293,6 @@ export declare const lists: {
         requestType: number;
     };
 };
-/**
- * Version
- */
 export declare const version: {
     getById: {
         argNames: string[];
@@ -349,9 +319,6 @@ export declare const version: {
         requestType: number;
     };
 };
-/**
- * View
- */
 export declare const view: {
     properties: string[];
     delete: {
@@ -371,9 +338,6 @@ export declare const view: {
         requestType: number;
     };
 };
-/**
- * View Field Collection
- */
 export declare const viewfieldcollection: {
     addViewField: {
         argNames: string[];
@@ -395,9 +359,6 @@ export declare const viewfieldcollection: {
         requestType: number;
     };
 };
-/**
- * Views
- */
 export declare const views: {
     add: {
         metadataType: string;
