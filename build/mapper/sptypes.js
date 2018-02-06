@@ -513,6 +513,15 @@ exports.RoleType = {
     WebDesigner: 4
 };
 /**
+ * Status Pri Color
+ */
+exports.StatusPriColor = {
+    Blue: "blue",
+    Green: "green",
+    Red: "red",
+    Yellow: "yellow"
+};
+/**
  * URL Format Types
  */
 exports.UrlFormatType = { Hyperlink: 0, Image: 1 };

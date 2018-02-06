@@ -135,6 +135,10 @@ export declare const ReorderingRuleMatchType: SPTypes.IReorderingRuleMatchType;
  */
 export declare const RoleType: SPTypes.IRoleType;
 /**
+ * Status Pri Color
+ */
+export declare const StatusPriColor: SPTypes.IStatusPriColor;
+/**
  * URL Format Types
  */
 export declare const UrlFormatType: SPTypes.IUrlFormatType;

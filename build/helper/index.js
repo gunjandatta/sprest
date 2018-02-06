@@ -11,9 +11,12 @@ __export(require("./listForm"));
 __export(require("./listFormField"));
 __export(require("./loader"));
 __export(require("./parse"));
+__export(require("./sbLink"));
 __export(require("./spCfg"));
 __export(require("./taxonomy"));
 __export(require("./webpart"));
+var SP = require("./sp");
+exports.SP = SP;
 var Types = require("./types");
 exports.Types = Types;
 //# sourceMappingURL=index.js.map

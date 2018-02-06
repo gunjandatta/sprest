@@ -68,6 +68,20 @@ export interface IREST {
         parse: (jsonString: string) => Util.Base;
 
         /**
+         * SharePoint Core Library
+         */
+        SP: {
+            /** Modal Dialog */
+            ModalDialog: Helper.Types.IModalDialog,
+
+            /** Notify */
+            Notify: Helper.Types.INotify,
+
+            /** Status */
+            Status: Helper.Types.IStatus
+        },
+
+        /**
          * Helper class for automating SharePoint assets
          */
         SPConfig: Helper.Types.ISPConfig;
@@ -164,7 +178,7 @@ export interface IREST {
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 3.35,
+    __ver: 3.36,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -176,6 +190,7 @@ export const $REST: IREST = {
         ListFormField: Helper.ListFormField,
         Loader: Helper.Loader,
         parse: Helper.parse,
+        SP: Helper.SP,
         SPConfig: Helper.SPConfig,
         Taxonomy: Helper.Taxonomy,
         WebPart: Helper.WebPart

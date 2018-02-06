@@ -1109,6 +1109,23 @@ export type IRoleType = {
 };
 
 /**
+ * Status Pri Color
+ */
+export interface IStatusPriColor {
+    /** Information */
+    Blue: string,
+
+    /** Success */
+    Green: string,
+
+    /** Very Important */
+    Red: string,
+
+    /** Important */
+    Yellow: string
+}
+
+/**
  * URL Format Types
  */
 export type IUrlFormatType = {
