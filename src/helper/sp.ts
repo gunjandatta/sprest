@@ -8,19 +8,19 @@ export const ModalDialog: IModalDialog = {
     // Closes the dialog
     close: (dialogResult?: number) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.ModialDialog.close(dialogResult); });
+        ModalDialog.load().then(() => { SP.UI.ModialDialog.close(dialogResult); });
     },
 
     // Close the dialog
     commonModalDialogClose: (dialogResult?: number, returnVal?: any) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.ModialDialog.commonModalDialogClose(dialogResult, returnVal); });
+        ModalDialog.load().then(() => { SP.UI.ModialDialog.commonModalDialogClose(dialogResult, returnVal); });
     },
 
     // Open a dialog
     commonModalDialogOpen: (url: string, options?: IDialogOptions, callback?: (dialogResult?: number, returnVal?: any) => void, args?: any) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.ModialDialog.commonModalDialogOpen(url, options, callback, args); });
+        ModalDialog.load().then(() => { SP.UI.ModialDialog.commonModalDialogOpen(url, options, callback, args); });
     },
 
     // Method to ensure the core library is loaded
@@ -42,37 +42,37 @@ export const ModalDialog: IModalDialog = {
     // Opens a pop-up page
     OpenPopUpPage: (url: string, callback?: (dialogResult?: number, returnVal?: any) => void, width?: number, height?: number) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.ModialDialog.OpenPopUpPage(url, callback, width, height); });
+        ModalDialog.load().then(() => { SP.UI.ModialDialog.OpenPopUpPage(url, callback, width, height); });
     },
 
     // Refreshes the page
     RefreshPage: (dialogResult?: number) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.ModialDialog.RefreshPage(dialogResult); });
+        ModalDialog.load().then(() => { SP.UI.ModialDialog.RefreshPage(dialogResult); });
     },
 
     // Shows a modal dialog
     showModalDialog: (options: IDialogOptions) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.ModialDialog.showModalDialog(options); });
+        ModalDialog.load().then(() => { SP.UI.ModialDialog.showModalDialog(options); });
     },
 
     // Shows a pop-up dialog
     ShowPopupDialog: (url: string) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.ModialDialog.ShowPopupDialog(url); });
+        ModalDialog.load().then(() => { SP.UI.ModialDialog.ShowPopupDialog(url); });
     },
 
     // Shows a wait screen
     showWaitScreenSize: (title: string, message: string, callback: () => void, height: number, width: number) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.ModialDialog.showWaitScreenSize(title, message, callback, height, width); });
+        ModalDialog.load().then(() => { SP.UI.ModialDialog.showWaitScreenSize(title, message, callback, height, width); });
     },
 
     // Shows a wait screen w/ no close button
     showWaitScreenWithNoClose: (title: string, message: string, height: number, width: number) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.ModialDialog.showWaitScreenWithNoClose(title, message, height, width); });
+        ModalDialog.load().then(() => { SP.UI.ModialDialog.showWaitScreenWithNoClose(title, message, height, width); });
     }
 }
 
@@ -85,7 +85,7 @@ export const Notify: INotify = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the library and call the method
-            this.load().then(() => { resolve(SP.UI.Notify.addNotification(html, sticky)); });
+            Notify.load().then(() => { resolve(SP.UI.Notify.addNotification(html, sticky)); });
         });
     },
 
@@ -108,7 +108,7 @@ export const Notify: INotify = {
     // Removes a notification
     removeNotification: (id: string) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.Notify.removeNotification(id); });
+        Notify.load().then(() => { SP.UI.Notify.removeNotification(id); });
     }
 }
 
@@ -121,7 +121,7 @@ export const Status: IStatus = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the library and call the method
-            this.load().then(() => { SP.UI.Status.addStatus(title, html, prepend); });
+            Status.load().then(() => { SP.UI.Status.addStatus(title, html, prepend); });
         });
     },
 
@@ -130,7 +130,7 @@ export const Status: IStatus = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the library and call the method
-            this.load().then(() => { SP.UI.Status.appendStatus(id, title, html); });
+            Status.load().then(() => { SP.UI.Status.appendStatus(id, title, html); });
         });
     },
 
@@ -153,24 +153,24 @@ export const Status: IStatus = {
     // Removes all status messages
     removeAllStatus: (hide?: boolean) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.Status.removeAllStatus(hide); });
+        Status.load().then(() => { SP.UI.Status.removeAllStatus(hide); });
     },
 
     // Removes a status
     removeStatus: (id: string) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.Status.removeStatus(id); });
+        Status.load().then(() => { SP.UI.Status.removeStatus(id); });
     },
 
     // Sets the status color
     setStatusPriColor: (id: string, color: string) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.Status.setStatusPriColor(id, color); });
+        Status.load().then(() => { SP.UI.Status.setStatusPriColor(id, color); });
     },
 
     // Updates the status
     updateStatus: (id: string, html: string) => {
         // Load the library and call the method
-        this.load().then(() => { SP.UI.Status.updateStatus(id, html); });
+        Status.load().then(() => { SP.UI.Status.updateStatus(id, html); });
     }
 }
