@@ -2,6 +2,7 @@ export * from "./app";
 export * from "./dependencies";
 export * from "./fieldSchemaXML";
 export * from "./jslink";
+export * from "./linkInfo";
 export * from "./listForm";
 export * from "./listFormField";
 export * from "./loader";

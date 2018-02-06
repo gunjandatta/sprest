@@ -6,6 +6,7 @@ export * from "./listForm";
 export * from "./listFormField";
 export * from "./loader";
 export * from "./parse";
+export * from "./sbLink";
 export * from "./spCfg";
 export * from "./taxonomy";
 export * from "./webpart";
