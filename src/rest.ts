@@ -68,7 +68,12 @@ export interface IREST {
         parse: (jsonString: string) => Util.Base;
 
         /**
-         * SharePoint Core Library
+         * Helper class for adding links to the top ribbon bar
+         */
+        RibbonLink: Helper.Types.IRibbonLink;
+
+        /**
+         * SharePoint Core Library Reference
          */
         SP: {
             /** Modal Dialog */
@@ -79,12 +84,17 @@ export interface IREST {
 
             /** Status */
             Status: Helper.Types.IStatus
-        },
+        };
 
         /**
          * Helper class for automating SharePoint assets
          */
         SPConfig: Helper.Types.ISPConfig;
+
+        /**
+         * Helper class for adding links to the suite bar
+         */
+        SuiteBarLink: Helper.Types.ISuiteBarLink;
 
         /**
          * Helper class for getting information from the taxonomy term store
@@ -190,11 +200,13 @@ export const $REST: IREST = {
         ListFormField: Helper.ListFormField,
         Loader: Helper.Loader,
         parse: Helper.parse,
+        RibbonLink: Helper.RibbonLink,
         SP: Helper.SP,
         SPConfig: Helper.SPConfig,
+        SuiteBarLink: Helper.SuiteBarLink,
         Taxonomy: Helper.Taxonomy,
         WebPart: Helper.WebPart
-    },
+    } as any,
     List: (listName, targetInfo) => { return new Lib.List(listName, targetInfo); },
     Navigation: (url, targetInfo) => { return new Lib.Navigation(url, targetInfo); },
     PeopleManager: (targetInfo) => { return new Lib.PeopleManager(targetInfo); },

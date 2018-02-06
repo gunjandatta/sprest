@@ -352,12 +352,13 @@ __export(__webpack_require__(124));
 __export(__webpack_require__(125));
 __export(__webpack_require__(41));
 __export(__webpack_require__(126));
+__export(__webpack_require__(127));
 __export(__webpack_require__(40));
 __export(__webpack_require__(42));
-__export(__webpack_require__(127));
-var SP = __webpack_require__(128);
+__export(__webpack_require__(128));
+var SP = __webpack_require__(129);
 exports.SP = SP;
-var Types = __webpack_require__(129);
+var Types = __webpack_require__(130);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -402,10 +403,10 @@ var Helper = __webpack_require__(17);
 exports.Helper = Helper;
 var mapper_1 = __webpack_require__(12);
 exports.SPTypes = mapper_1.SPTypes;
-var Types = __webpack_require__(130);
+var Types = __webpack_require__(131);
 exports.Types = Types;
 __export(__webpack_require__(1));
-__export(__webpack_require__(131));
+__export(__webpack_require__(132));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -10796,6 +10797,42 @@ exports.Loader = {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
+ * Ribbon Link
+ */
+exports.RibbonLink = function (props) {
+    var link = null;
+    // Default the append flag
+    var appendFl = typeof (props.appendFl) === "boolean" ? props.appendFl : false;
+    // Get the ribbon top bar
+    var topBar = document.querySelector("#RibbonContainer-TabRowRight");
+    if (topBar) {
+        // Get the link
+        link = document.querySelector("#" + props.id);
+        if (link == null) {
+            // Create the link
+            link = document.createElement("a");
+            link.className = "ms-promotedActionButton " + (props.className || "");
+            link.href = props.href ? props.href : "javascript:void()";
+            link.innerHTML = "<span class='ms-promotedActionButton-text'>" + props.title + "</span>";
+            link.id = props.id;
+            link.onclick = props.onClick;
+            // Add the link
+            appendFl ? topBar.appendChild(link) : topBar.insertBefore(link, topBar.firstChild);
+        }
+    }
+    // Return the link
+    return link;
+};
+//# sourceMappingURL=ribbonLink.js.map
+
+/***/ }),
+/* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
  * Suite Bar Link
  */
 exports.SuiteBarLink = function (props) {
@@ -10829,7 +10866,7 @@ exports.SuiteBarLink = function (props) {
 //# sourceMappingURL=sbLink.js.map
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11110,7 +11147,7 @@ exports.WebPart = _WebPart;
 //# sourceMappingURL=webpart.js.map
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11280,7 +11317,7 @@ exports.Status = {
 //# sourceMappingURL=sp.js.map
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11289,7 +11326,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11304,7 +11341,7 @@ exports.Util = utils_1.Types;
 //# sourceMappingURL=types.js.map
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11329,8 +11366,10 @@ exports.$REST = {
         ListFormField: Helper.ListFormField,
         Loader: Helper.Loader,
         parse: Helper.parse,
+        RibbonLink: Helper.RibbonLink,
         SP: Helper.SP,
         SPConfig: Helper.SPConfig,
+        SuiteBarLink: Helper.SuiteBarLink,
         Taxonomy: Helper.Taxonomy,
         WebPart: Helper.WebPart
     },

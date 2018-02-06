@@ -56,7 +56,11 @@ export interface IREST {
          */
         parse: (jsonString: string) => Util.Base;
         /**
-         * SharePoint Core Library
+         * Helper class for adding links to the top ribbon bar
+         */
+        RibbonLink: Helper.Types.IRibbonLink;
+        /**
+         * SharePoint Core Library Reference
          */
         SP: {
             /** Modal Dialog */
@@ -70,6 +74,10 @@ export interface IREST {
          * Helper class for automating SharePoint assets
          */
         SPConfig: Helper.Types.ISPConfig;
+        /**
+         * Helper class for adding links to the suite bar
+         */
+        SuiteBarLink: Helper.Types.ISuiteBarLink;
         /**
          * Helper class for getting information from the taxonomy term store
          */

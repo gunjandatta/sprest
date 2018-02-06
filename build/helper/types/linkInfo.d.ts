@@ -15,3 +15,17 @@ export interface ILinkInfo {
     /** The link title */
     title: string;
 }
+/**
+ * Ribbon Link
+ */
+export interface IRibbonLink {
+    /** Creates the ribbon link */
+    new (props: ILinkInfo): HTMLAnchorElement;
+}
+/**
+ * Suitebar Link
+ */
+export interface ISuiteBarLink {
+    /** Creates the suitebar link */
+    new (props: ILinkInfo): HTMLAnchorElement;
+}
