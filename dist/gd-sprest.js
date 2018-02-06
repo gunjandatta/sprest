@@ -351,10 +351,13 @@ __export(__webpack_require__(123));
 __export(__webpack_require__(124));
 __export(__webpack_require__(125));
 __export(__webpack_require__(41));
+__export(__webpack_require__(126));
 __export(__webpack_require__(40));
 __export(__webpack_require__(42));
-__export(__webpack_require__(126));
-var Types = __webpack_require__(127);
+__export(__webpack_require__(127));
+var SP = __webpack_require__(128);
+exports.SP = SP;
+var Types = __webpack_require__(129);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -399,10 +402,10 @@ var Helper = __webpack_require__(17);
 exports.Helper = Helper;
 var mapper_1 = __webpack_require__(12);
 exports.SPTypes = mapper_1.SPTypes;
-var Types = __webpack_require__(128);
+var Types = __webpack_require__(130);
 exports.Types = Types;
 __export(__webpack_require__(1));
-__export(__webpack_require__(129));
+__export(__webpack_require__(131));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -7153,6 +7156,15 @@ exports.RoleType = {
     WebDesigner: 4
 };
 /**
+ * Status Pri Color
+ */
+exports.StatusPriColor = {
+    Blue: "blue",
+    Green: "green",
+    Red: "red",
+    Yellow: "yellow"
+};
+/**
  * URL Format Types
  */
 exports.UrlFormatType = { Hyperlink: 0, Image: 1 };
@@ -10783,6 +10795,46 @@ exports.Loader = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Suite Bar Link
+ */
+exports.SuiteBarLink = function (props) {
+    var link = null;
+    // Default the append flag
+    var appendFl = typeof (props.appendFl) === "boolean" ? props.appendFl : true;
+    // Get the suite bar top links
+    var topLinks = document.querySelector("#suiteLinksBox > ul");
+    if (topLinks) {
+        // Query for the link, and ensure it exists
+        link = topLinks.querySelector("#" + props.id);
+        if (link == null) {
+            // Create a list link
+            link = document.createElement("a");
+            link.className = "ms-core-suiteLink-a " + (props.className || "");
+            link.href = props.href ? props.href : "javascript:void()";
+            link.id = props.id;
+            link.innerHTML = props.title;
+            link.onclick = props.onClick;
+            // Create the suite bar link
+            var sbLink = document.createElement("li");
+            sbLink.className = "ms-core-suiteLink";
+            sbLink.appendChild(link);
+            // Append the item to the list
+            appendFl ? topLinks.appendChild(sbLink) : topLinks.insertBefore(sbLink, topLinks.firstChild);
+        }
+    }
+    // Return the link
+    return link;
+};
+//# sourceMappingURL=sbLink.js.map
+
+/***/ }),
+/* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
 /**
  * Web Part
@@ -11058,7 +11110,177 @@ exports.WebPart = _WebPart;
 //# sourceMappingURL=webpart.js.map
 
 /***/ }),
-/* 127 */
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var _this = this;
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Modal Dialog
+ */
+exports.ModalDialog = {
+    // Closes the dialog
+    close: function (dialogResult) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.ModialDialog.close(dialogResult); });
+    },
+    // Close the dialog
+    commonModalDialogClose: function (dialogResult, returnVal) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.ModialDialog.commonModalDialogClose(dialogResult, returnVal); });
+    },
+    // Open a dialog
+    commonModalDialogOpen: function (url, options, callback, args) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.ModialDialog.commonModalDialogOpen(url, options, callback, args); });
+    },
+    // Method to ensure the core library is loaded
+    load: function () {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // See if the class exists
+            if (SP && SP.UI && SP.UI.ModalDialog) {
+                resolve();
+            }
+            else {
+                // Wait for the core script to be loaded
+                SP.SOD.executeFunc("sp.js", "SP.UI.ModalDialog", function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            }
+        });
+    },
+    // Opens a pop-up page
+    OpenPopUpPage: function (url, callback, width, height) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.ModialDialog.OpenPopUpPage(url, callback, width, height); });
+    },
+    // Refreshes the page
+    RefreshPage: function (dialogResult) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.ModialDialog.RefreshPage(dialogResult); });
+    },
+    // Shows a modal dialog
+    showModalDialog: function (options) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.ModialDialog.showModalDialog(options); });
+    },
+    // Shows a pop-up dialog
+    ShowPopupDialog: function (url) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.ModialDialog.ShowPopupDialog(url); });
+    },
+    // Shows a wait screen
+    showWaitScreenSize: function (title, message, callback, height, width) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.ModialDialog.showWaitScreenSize(title, message, callback, height, width); });
+    },
+    // Shows a wait screen w/ no close button
+    showWaitScreenWithNoClose: function (title, message, height, width) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.ModialDialog.showWaitScreenWithNoClose(title, message, height, width); });
+    }
+};
+/**
+ * Notification
+ */
+exports.Notify = {
+    // Adds a notification
+    addNotify: function (html, sticky) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Load the library and call the method
+            _this.load().then(function () { resolve(SP.UI.Notify.addNotification(html, sticky)); });
+        });
+    },
+    // Method to ensure the core library is loaded
+    load: function () {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // See if the class exists
+            if (SP && SP.UI && SP.UI.Notify) {
+                resolve();
+            }
+            else {
+                // Wait for the core script to be loaded
+                SP.SOD.executeFunc("sp.js", "SP.UI.Notify", function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            }
+        });
+    },
+    // Removes a notification
+    removeNotification: function (id) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.Notify.removeNotification(id); });
+    }
+};
+/**
+ * Status
+ */
+exports.Status = {
+    // Adds a status
+    addStatus: function (title, html, prepend) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Load the library and call the method
+            _this.load().then(function () { SP.UI.Status.addStatus(title, html, prepend); });
+        });
+    },
+    // Appends a status
+    appendStatus: function (id, title, html) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Load the library and call the method
+            _this.load().then(function () { SP.UI.Status.appendStatus(id, title, html); });
+        });
+    },
+    // Method to ensure the core library is loaded
+    load: function () {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // See if the class exists
+            if (SP && SP.UI && SP.UI.Status) {
+                resolve();
+            }
+            else {
+                // Wait for the core script to be loaded
+                SP.SOD.executeFunc("sp.js", "SP.UI.Status", function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            }
+        });
+    },
+    // Removes all status messages
+    removeAllStatus: function (hide) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.Status.removeAllStatus(hide); });
+    },
+    // Removes a status
+    removeStatus: function (id) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.Status.removeStatus(id); });
+    },
+    // Sets the status color
+    setStatusPriColor: function (id, color) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.Status.setStatusPriColor(id, color); });
+    },
+    // Updates the status
+    updateStatus: function (id, html) {
+        // Load the library and call the method
+        _this.load().then(function () { SP.UI.Status.updateStatus(id, html); });
+    }
+};
+//# sourceMappingURL=sp.js.map
+
+/***/ }),
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11067,7 +11289,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 128 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11082,7 +11304,7 @@ exports.Util = utils_1.Types;
 //# sourceMappingURL=types.js.map
 
 /***/ }),
-/* 129 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11095,7 +11317,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.35,
+    __ver: 3.36,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -11107,6 +11329,7 @@ exports.$REST = {
         ListFormField: Helper.ListFormField,
         Loader: Helper.Loader,
         parse: Helper.parse,
+        SP: Helper.SP,
         SPConfig: Helper.SPConfig,
         Taxonomy: Helper.Taxonomy,
         WebPart: Helper.WebPart

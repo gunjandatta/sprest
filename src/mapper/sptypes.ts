@@ -597,6 +597,16 @@ export const RoleType: SPTypes.IRoleType = {
 };
 
 /**
+ * Status Pri Color
+ */
+export const StatusPriColor: SPTypes.IStatusPriColor = {
+    Blue: "blue",
+    Green: "green",
+    Red: "red",
+    Yellow: "yellow"
+}
+
+/**
  * URL Format Types
  */
 export const UrlFormatType: SPTypes.IUrlFormatType = { Hyperlink: 0, Image: 1 };

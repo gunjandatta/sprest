@@ -56,6 +56,17 @@ export interface IREST {
          */
         parse: (jsonString: string) => Util.Base;
         /**
+         * SharePoint Core Library
+         */
+        SP: {
+            /** Modal Dialog */
+            ModalDialog: Helper.Types.IModalDialog;
+            /** Notify */
+            Notify: Helper.Types.INotify;
+            /** Status */
+            Status: Helper.Types.IStatus;
+        };
+        /**
          * Helper class for automating SharePoint assets
          */
         SPConfig: Helper.Types.ISPConfig;

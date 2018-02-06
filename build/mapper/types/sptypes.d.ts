@@ -822,6 +822,19 @@ export declare type IRoleType = {
     WebDesigner: number;
 };
 /**
+ * Status Pri Color
+ */
+export interface IStatusPriColor {
+    /** Information */
+    Blue: string;
+    /** Success */
+    Green: string;
+    /** Very Important */
+    Red: string;
+    /** Important */
+    Yellow: string;
+}
+/**
  * URL Format Types
  */
 export declare type IUrlFormatType = {
