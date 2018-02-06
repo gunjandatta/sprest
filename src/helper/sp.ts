@@ -81,7 +81,7 @@ export const ModalDialog: IModalDialog = {
  */
 export const Notify: INotify = {
     // Adds a notification
-    addNotify: (html: string, sticky?: boolean): PromiseLike<string> => {
+    addNotification: (html: string, sticky?: boolean): PromiseLike<string> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the library and call the method

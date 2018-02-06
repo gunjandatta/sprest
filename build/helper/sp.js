@@ -73,7 +73,7 @@ exports.ModalDialog = {
  */
 exports.Notify = {
     // Adds a notification
-    addNotify: function (html, sticky) {
+    addNotification: function (html, sticky) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Load the library and call the method

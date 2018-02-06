@@ -11226,7 +11226,7 @@ exports.ModalDialog = {
  */
 exports.Notify = {
     // Adds a notification
-    addNotify: function (html, sticky) {
+    addNotification: function (html, sticky) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Load the library and call the method
@@ -11354,7 +11354,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.37,
+    __ver: 3.38,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

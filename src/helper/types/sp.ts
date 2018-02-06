@@ -134,7 +134,7 @@ export interface INotify {
      * @param sticky - Specifies whether the notification stays on the page until removed.
      * @returns A promise containing the ID of the notification that was added to the page.
      */
-    addNotify(html: string, sticky?: boolean): PromiseLike<string>;
+    addNotification(html: string, sticky?: boolean): PromiseLike<string>;
 
     /**
      * Method to ensure the core script is loaded
