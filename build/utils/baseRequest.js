@@ -46,7 +46,7 @@ var BaseRequest = /** @class */ (function (_super) {
         // Update the target information
         targetInfo.bufferFl = methodConfig.requestType == _1.RequestType.GetBuffer;
         targetInfo.data = methodInfo.body;
-        targetInfo.defaultToWebFl = typeof (targetInfo) === "undefined" && this.base ? this.base.targetInfo.defaultToWebFl : targetInfo.defaultToWebFl;
+        targetInfo.defaultToWebFl = typeof (targetInfo.defaultToWebFl) === "undefined" && this.base ? this.base.targetInfo.defaultToWebFl : targetInfo.defaultToWebFl;
         targetInfo.method = methodInfo.requestMethod;
         // See if we are replacing the endpoint
         if (methodInfo.replaceEndpointFl) {
