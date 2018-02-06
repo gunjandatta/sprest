@@ -120,8 +120,11 @@ export const Status: IStatus = {
     addStatus: (title: string, html?: string, prepend?: boolean): PromiseLike<string> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Load the library and call the method
-            Status.load().then(() => { SP.UI.Status.addStatus(title, html, prepend); });
+            // Load the library
+            Status.load().then(() => {
+                // Add the status and resolve the promise
+                resolve(SP.UI.Status.addStatus(title, html, prepend));
+            });
         });
     },
 
@@ -129,8 +132,11 @@ export const Status: IStatus = {
     appendStatus: (id: string, title: string, html: string): PromiseLike<string> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Load the library and call the method
-            Status.load().then(() => { SP.UI.Status.appendStatus(id, title, html); });
+            // Load the library
+            Status.load().then(() => {
+                // Add the status and resolve the promise
+                resolve(SP.UI.Status.appendStatus(id, title, html));
+            });
         });
     },
 
