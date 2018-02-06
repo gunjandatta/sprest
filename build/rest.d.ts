@@ -136,4 +136,4 @@ export interface IREST {
 /**
  * SharePoint REST Library
  */
-export declare const $REST: any;
+export declare const $REST: IREST;

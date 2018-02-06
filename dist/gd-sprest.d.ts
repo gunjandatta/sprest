@@ -220,7 +220,7 @@ declare module 'gd-sprest/rest' {
     /**
         * SharePoint REST Library
         */
-    export const $REST: any;
+    export const $REST: IREST;
 }
 
 declare module 'gd-sprest/helper/app' {
