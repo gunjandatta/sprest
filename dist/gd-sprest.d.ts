@@ -42,6 +42,7 @@ declare module 'gd-sprest/helper' {
     export * from "gd-sprest/helper/listFormField";
     export * from "gd-sprest/helper/loader";
     export * from "gd-sprest/helper/parse";
+    export * from "gd-sprest/helper/ribbonLink";
     export * from "gd-sprest/helper/sbLink";
     export * from "gd-sprest/helper/spCfg";
     export * from "gd-sprest/helper/taxonomy";
@@ -143,7 +144,11 @@ declare module 'gd-sprest/rest' {
                         */
                     parse: (jsonString: string) => Util.Base;
                     /**
-                        * SharePoint Core Library
+                        * Helper class for adding links to the top ribbon bar
+                        */
+                    RibbonLink: Helper.Types.IRibbonLink;
+                    /**
+                        * SharePoint Core Library Reference
                         */
                     SP: {
                             /** Modal Dialog */
@@ -157,6 +162,10 @@ declare module 'gd-sprest/rest' {
                         * Helper class for automating SharePoint assets
                         */
                     SPConfig: Helper.Types.ISPConfig;
+                    /**
+                        * Helper class for adding links to the suite bar
+                        */
+                    SuiteBarLink: Helper.Types.ISuiteBarLink;
                     /**
                         * Helper class for getting information from the taxonomy term store
                         */
@@ -284,6 +293,14 @@ declare module 'gd-sprest/helper/parse' {
       * Convert a JSON string to a base object
       */
     export const parse: <T = Base<any, any, any>>(jsonString: string) => T;
+}
+
+declare module 'gd-sprest/helper/ribbonLink' {
+    import { ILinkInfo } from "gd-sprest/helper/types";
+    /**
+      * Ribbon Link
+      */
+    export const RibbonLink: (props: ILinkInfo) => HTMLAnchorElement;
 }
 
 declare module 'gd-sprest/helper/sbLink' {
@@ -853,21 +870,35 @@ declare module 'gd-sprest/helper/types/jslink' {
 
 declare module 'gd-sprest/helper/types/linkInfo' {
     /**
-      * Link Information
-      */
+        * Link Information
+        */
     export interface ILinkInfo {
-        /** True to append the link at the end of the list. */
-        appendFl?: boolean;
-        /** The link class name */
-        className?: string;
-        /** The link url */
-        href?: string;
-        /** The link id */
-        id: string;
-        /** The link click event */
-        onClick?: (link?: HTMLElement, ev?: MouseEvent) => void;
-        /** The link title */
-        title: string;
+            /** True to append the link at the end of the list. */
+            appendFl?: boolean;
+            /** The link class name */
+            className?: string;
+            /** The link url */
+            href?: string;
+            /** The link id */
+            id: string;
+            /** The link click event */
+            onClick?: (link?: HTMLElement, ev?: MouseEvent) => void;
+            /** The link title */
+            title: string;
+    }
+    /**
+        * Ribbon Link
+        */
+    export interface IRibbonLink {
+            /** Creates the ribbon link */
+            new (props: ILinkInfo): HTMLAnchorElement;
+    }
+    /**
+        * Suitebar Link
+        */
+    export interface ISuiteBarLink {
+            /** Creates the suitebar link */
+            new (props: ILinkInfo): HTMLAnchorElement;
     }
 }
 
@@ -1232,7 +1263,7 @@ declare module 'gd-sprest/helper/types/sp' {
                 * @param sticky - Specifies whether the notification stays on the page until removed.
                 * @returns A promise containing the ID of the notification that was added to the page.
                 */
-            addNotify(html: string, sticky?: boolean): PromiseLike<string>;
+            addNotification(html: string, sticky?: boolean): PromiseLike<string>;
             /**
                 * Method to ensure the core script is loaded
                 */

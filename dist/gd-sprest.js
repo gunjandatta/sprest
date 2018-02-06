@@ -352,12 +352,13 @@ __export(__webpack_require__(124));
 __export(__webpack_require__(125));
 __export(__webpack_require__(41));
 __export(__webpack_require__(126));
+__export(__webpack_require__(127));
 __export(__webpack_require__(40));
 __export(__webpack_require__(42));
-__export(__webpack_require__(127));
-var SP = __webpack_require__(128);
+__export(__webpack_require__(128));
+var SP = __webpack_require__(129);
 exports.SP = SP;
-var Types = __webpack_require__(129);
+var Types = __webpack_require__(130);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -402,10 +403,10 @@ var Helper = __webpack_require__(17);
 exports.Helper = Helper;
 var mapper_1 = __webpack_require__(12);
 exports.SPTypes = mapper_1.SPTypes;
-var Types = __webpack_require__(130);
+var Types = __webpack_require__(131);
 exports.Types = Types;
 __export(__webpack_require__(1));
-__export(__webpack_require__(131));
+__export(__webpack_require__(132));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -10796,6 +10797,42 @@ exports.Loader = {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
+ * Ribbon Link
+ */
+exports.RibbonLink = function (props) {
+    var link = null;
+    // Default the append flag
+    var appendFl = typeof (props.appendFl) === "boolean" ? props.appendFl : false;
+    // Get the ribbon top bar
+    var topBar = document.querySelector("#RibbonContainer-TabRowRight");
+    if (topBar) {
+        // Get the link
+        link = document.querySelector("#" + props.id);
+        if (link == null) {
+            // Create the link
+            link = document.createElement("a");
+            link.className = "ms-promotedActionButton " + (props.className || "");
+            link.href = props.href ? props.href : "javascript:void()";
+            link.innerHTML = "<span class='ms-promotedActionButton-text'>" + props.title + "</span>";
+            link.id = props.id;
+            link.onclick = props.onClick;
+            // Add the link
+            appendFl ? topBar.appendChild(link) : topBar.insertBefore(link, topBar.firstChild);
+        }
+    }
+    // Return the link
+    return link;
+};
+//# sourceMappingURL=ribbonLink.js.map
+
+/***/ }),
+/* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+/**
  * Suite Bar Link
  */
 exports.SuiteBarLink = function (props) {
@@ -10829,7 +10866,7 @@ exports.SuiteBarLink = function (props) {
 //# sourceMappingURL=sbLink.js.map
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11110,12 +11147,11 @@ exports.WebPart = _WebPart;
 //# sourceMappingURL=webpart.js.map
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Modal Dialog
@@ -11124,17 +11160,17 @@ exports.ModalDialog = {
     // Closes the dialog
     close: function (dialogResult) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.ModialDialog.close(dialogResult); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.close(dialogResult); });
     },
     // Close the dialog
     commonModalDialogClose: function (dialogResult, returnVal) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.ModialDialog.commonModalDialogClose(dialogResult, returnVal); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.commonModalDialogClose(dialogResult, returnVal); });
     },
     // Open a dialog
     commonModalDialogOpen: function (url, options, callback, args) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.ModialDialog.commonModalDialogOpen(url, options, callback, args); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.commonModalDialogOpen(url, options, callback, args); });
     },
     // Method to ensure the core library is loaded
     load: function () {
@@ -11156,32 +11192,32 @@ exports.ModalDialog = {
     // Opens a pop-up page
     OpenPopUpPage: function (url, callback, width, height) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.ModialDialog.OpenPopUpPage(url, callback, width, height); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.OpenPopUpPage(url, callback, width, height); });
     },
     // Refreshes the page
     RefreshPage: function (dialogResult) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.ModialDialog.RefreshPage(dialogResult); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.RefreshPage(dialogResult); });
     },
     // Shows a modal dialog
     showModalDialog: function (options) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.ModialDialog.showModalDialog(options); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.showModalDialog(options); });
     },
     // Shows a pop-up dialog
     ShowPopupDialog: function (url) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.ModialDialog.ShowPopupDialog(url); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.ShowPopupDialog(url); });
     },
     // Shows a wait screen
     showWaitScreenSize: function (title, message, callback, height, width) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.ModialDialog.showWaitScreenSize(title, message, callback, height, width); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.showWaitScreenSize(title, message, callback, height, width); });
     },
     // Shows a wait screen w/ no close button
     showWaitScreenWithNoClose: function (title, message, height, width) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.ModialDialog.showWaitScreenWithNoClose(title, message, height, width); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.showWaitScreenWithNoClose(title, message, height, width); });
     }
 };
 /**
@@ -11189,11 +11225,11 @@ exports.ModalDialog = {
  */
 exports.Notify = {
     // Adds a notification
-    addNotify: function (html, sticky) {
+    addNotification: function (html, sticky) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Load the library and call the method
-            _this.load().then(function () { resolve(SP.UI.Notify.addNotification(html, sticky)); });
+            exports.Notify.load().then(function () { resolve(SP.UI.Notify.addNotification(html, sticky)); });
         });
     },
     // Method to ensure the core library is loaded
@@ -11216,7 +11252,7 @@ exports.Notify = {
     // Removes a notification
     removeNotification: function (id) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.Notify.removeNotification(id); });
+        exports.Notify.load().then(function () { SP.UI.Notify.removeNotification(id); });
     }
 };
 /**
@@ -11228,7 +11264,7 @@ exports.Status = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Load the library and call the method
-            _this.load().then(function () { SP.UI.Status.addStatus(title, html, prepend); });
+            exports.Status.load().then(function () { SP.UI.Status.addStatus(title, html, prepend); });
         });
     },
     // Appends a status
@@ -11236,7 +11272,7 @@ exports.Status = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Load the library and call the method
-            _this.load().then(function () { SP.UI.Status.appendStatus(id, title, html); });
+            exports.Status.load().then(function () { SP.UI.Status.appendStatus(id, title, html); });
         });
     },
     // Method to ensure the core library is loaded
@@ -11259,28 +11295,28 @@ exports.Status = {
     // Removes all status messages
     removeAllStatus: function (hide) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.Status.removeAllStatus(hide); });
+        exports.Status.load().then(function () { SP.UI.Status.removeAllStatus(hide); });
     },
     // Removes a status
     removeStatus: function (id) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.Status.removeStatus(id); });
+        exports.Status.load().then(function () { SP.UI.Status.removeStatus(id); });
     },
     // Sets the status color
     setStatusPriColor: function (id, color) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.Status.setStatusPriColor(id, color); });
+        exports.Status.load().then(function () { SP.UI.Status.setStatusPriColor(id, color); });
     },
     // Updates the status
     updateStatus: function (id, html) {
         // Load the library and call the method
-        _this.load().then(function () { SP.UI.Status.updateStatus(id, html); });
+        exports.Status.load().then(function () { SP.UI.Status.updateStatus(id, html); });
     }
 };
 //# sourceMappingURL=sp.js.map
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11289,7 +11325,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11304,7 +11340,7 @@ exports.Util = utils_1.Types;
 //# sourceMappingURL=types.js.map
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11317,7 +11353,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.36,
+    __ver: 3.39,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -11329,8 +11365,10 @@ exports.$REST = {
         ListFormField: Helper.ListFormField,
         Loader: Helper.Loader,
         parse: Helper.parse,
+        RibbonLink: Helper.RibbonLink,
         SP: Helper.SP,
         SPConfig: Helper.SPConfig,
+        SuiteBarLink: Helper.SuiteBarLink,
         Taxonomy: Helper.Taxonomy,
         WebPart: Helper.WebPart
     },

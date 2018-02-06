@@ -7,7 +7,7 @@ var Mapper = require("./mapper");
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.36,
+    __ver: 3.39,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -19,8 +19,10 @@ exports.$REST = {
         ListFormField: Helper.ListFormField,
         Loader: Helper.Loader,
         parse: Helper.parse,
+        RibbonLink: Helper.RibbonLink,
         SP: Helper.SP,
         SPConfig: Helper.SPConfig,
+        SuiteBarLink: Helper.SuiteBarLink,
         Taxonomy: Helper.Taxonomy,
         WebPart: Helper.WebPart
     },
