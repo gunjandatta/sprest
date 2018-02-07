@@ -11,7 +11,7 @@ exports.RibbonLink = function (props) {
     var topBar = document.querySelector("#RibbonContainer-TabRowRight");
     if (topBar) {
         // Get the link
-        link = document.querySelector("#" + props.id);
+        link = topBar.querySelector("#" + props.id);
         if (link == null) {
             // Create the link
             link = document.createElement("a");

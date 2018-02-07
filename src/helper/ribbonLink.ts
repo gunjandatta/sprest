@@ -13,7 +13,7 @@ export const RibbonLink = (props: ILinkInfo): HTMLAnchorElement => {
     let topBar = document.querySelector("#RibbonContainer-TabRowRight");
     if (topBar) {
         // Get the link
-        link = document.querySelector("#" + props.id) as HTMLAnchorElement;
+        link = topBar.querySelector("#" + props.id) as HTMLAnchorElement;
         if (link == null) {
             // Create the link
             link = document.createElement("a");

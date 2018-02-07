@@ -10816,7 +10816,7 @@ exports.RibbonLink = function (props) {
     var topBar = document.querySelector("#RibbonContainer-TabRowRight");
     if (topBar) {
         // Get the link
-        link = document.querySelector("#" + props.id);
+        link = topBar.querySelector("#" + props.id);
         if (link == null) {
             // Create the link
             link = document.createElement("a");
@@ -11368,7 +11368,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.41,
+    __ver: 3.42,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
