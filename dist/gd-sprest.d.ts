@@ -2052,6 +2052,7 @@ declare module 'gd-sprest/mapper/file' {
         * Limited Web Part Manager
         */
     export const limitedwebpartmanager: {
+            properties: string[];
             get_WebParts: {
                     argNames: string[];
                     name: string;
