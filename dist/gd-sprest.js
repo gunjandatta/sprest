@@ -5026,6 +5026,15 @@ exports.folders = {
  * Limited Web Part Manager
  */
 exports.limitedwebpartmanager = {
+    /*********************************************************************************************************************************/
+    // Properties
+    /*********************************************************************************************************************************/
+    properties: [
+        "WebParts|webparts|/([Id])|webpart"
+    ],
+    /*********************************************************************************************************************************/
+    // Methods
+    /*********************************************************************************************************************************/
     // Gets a webpart by its id.
     get_WebParts: {
         argNames: ["id"],
@@ -10807,7 +10816,7 @@ exports.RibbonLink = function (props) {
     var topBar = document.querySelector("#RibbonContainer-TabRowRight");
     if (topBar) {
         // Get the link
-        link = document.querySelector("#" + props.id);
+        link = topBar.querySelector("#" + props.id);
         if (link == null) {
             // Create the link
             link = document.createElement("a");
@@ -11263,16 +11272,22 @@ exports.Status = {
     addStatus: function (title, html, prepend) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            // Load the library and call the method
-            exports.Status.load().then(function () { SP.UI.Status.addStatus(title, html, prepend); });
+            // Load the library
+            exports.Status.load().then(function () {
+                // Add the status and resolve the promise
+                resolve(SP.UI.Status.addStatus(title, html, prepend));
+            });
         });
     },
     // Appends a status
     appendStatus: function (id, title, html) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            // Load the library and call the method
-            exports.Status.load().then(function () { SP.UI.Status.appendStatus(id, title, html); });
+            // Load the library
+            exports.Status.load().then(function () {
+                // Add the status and resolve the promise
+                resolve(SP.UI.Status.appendStatus(id, title, html));
+            });
         });
     },
     // Method to ensure the core library is loaded
@@ -11353,7 +11368,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.39,
+    __ver: 3.42,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

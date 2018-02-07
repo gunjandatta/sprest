@@ -110,16 +110,22 @@ exports.Status = {
     addStatus: function (title, html, prepend) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            // Load the library and call the method
-            exports.Status.load().then(function () { SP.UI.Status.addStatus(title, html, prepend); });
+            // Load the library
+            exports.Status.load().then(function () {
+                // Add the status and resolve the promise
+                resolve(SP.UI.Status.addStatus(title, html, prepend));
+            });
         });
     },
     // Appends a status
     appendStatus: function (id, title, html) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            // Load the library and call the method
-            exports.Status.load().then(function () { SP.UI.Status.appendStatus(id, title, html); });
+            // Load the library
+            exports.Status.load().then(function () {
+                // Add the status and resolve the promise
+                resolve(SP.UI.Status.appendStatus(id, title, html));
+            });
         });
     },
     // Method to ensure the core library is loaded

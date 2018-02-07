@@ -204,6 +204,7 @@ export declare const folders: {
  * Limited Web Part Manager
  */
 export declare const limitedwebpartmanager: {
+    properties: string[];
     get_WebParts: {
         argNames: string[];
         name: string;
