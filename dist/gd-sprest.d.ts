@@ -319,6 +319,9 @@ declare module 'gd-sprest/helper/spCfg' {
 
 declare module 'gd-sprest/helper/taxonomy' {
     import * as TaxonomyTypes from "gd-sprest/helper/types";
+    /**
+      * Taxonomy Helper Class
+      */
     export const Taxonomy: TaxonomyTypes.ITaxonomy;
 }
 
@@ -1663,6 +1666,20 @@ declare module 'gd-sprest/helper/types/taxonomy' {
                 */
             findByName(term: ITerm, termName: string): ITerm;
             /**
+                * Method to get the term group
+                * @param groupName - The gruop name.
+                */
+            getTermGroup(groupName?: string): PromiseLike<{
+                    context: any;
+                    termGroup: any;
+            }>;
+            /**
+                * Method to get the terms
+                * @param termSet - The term set.
+                * @param termSetTerms - The term set terms.
+                */
+            getTerms(termSet: any, termSetTerms: any): Array<ITermInfo>;
+            /**
                 * Method to get the terms by id
                 * @param termStoreId - The term store guid
                 * @param termSetId - The term set guid
@@ -1691,6 +1708,10 @@ declare module 'gd-sprest/helper/types/taxonomy' {
                 * Method to get the term set from the default site collection
                 */
             getTermSetByGroupName(termSetName: string, groupName: string): PromiseLike<ITerm>;
+            /**
+                * Method to ensure the taxonomy script references are loaded.
+                */
+            loadScripts(): PromiseLike<void>;
             /**
                 * Method to convert a term set into an array of terms
                 * @param term - The term

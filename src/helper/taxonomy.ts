@@ -22,7 +22,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
             if (prop == "info" || prop == "parent") { continue; }
 
             // Find the term by id
-            let childTerm = this.findById(term[prop], termId);
+            let childTerm = Taxonomy.findById(term[prop], termId);
             if (childTerm) { return childTerm; }
         }
     },
@@ -43,9 +43,51 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
             if (prop == "info" || prop == "parent") { continue; }
 
             // Find the term by id
-            let childTerm = this.findByName(term[prop], termName);
+            let childTerm = Taxonomy.findByName(term[prop], termName);
             if (childTerm) { return childTerm; }
         }
+    },
+    /**
+     * Method to get the terms
+     */
+    getTerms: (termSet, termSetTerms): Array<TaxonomyTypes.ITermInfo> => {
+        let terms: Array<TaxonomyTypes.ITermInfo> = [];
+
+        // Add the root term
+        terms.push({
+            description: termSet.get_description(),
+            id: termSet.get_id().toString(),
+            name: termSet.get_name(),
+            path: [],
+            pathAsString: "",
+            props: termSet.get_customProperties()
+        });
+
+        // Parse the term sets terms
+        let enumerator = termSetTerms.getEnumerator();
+        while (enumerator.moveNext()) {
+            let term = enumerator.get_current();
+
+            // Create the terms
+            terms.push({
+                description: term.get_description(),
+                id: term.get_id().toString(),
+                name: term.get_name(),
+                path: term.get_pathOfTerm().split(";"),
+                pathAsString: term.get_pathOfTerm(),
+                props: term.get_customProperties()
+            });
+        }
+
+        // Sort the terms
+        terms.sort((a, b) => {
+            if (a < b) { return -1; }
+            if (a > b) { return 1; }
+            return 0;
+        });
+
+        // Return the terms
+        return terms;
     },
 
     /**
@@ -55,7 +97,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the scripts
-            this.loadScripts().then(() => {
+            Taxonomy.loadScripts().then(() => {
                 // Get the taxonomy session
                 let context = SP.ClientContext.get_current();
                 let session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
@@ -105,56 +147,13 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
     },
 
     /**
-     * Method to get the terms
-     */
-    getTerms: (termSet, termSetTerms): Array<TaxonomyTypes.ITermInfo> => {
-        let terms: Array<TaxonomyTypes.ITermInfo> = [];
-
-        // Add the root term
-        terms.push({
-            description: termSet.get_description(),
-            id: termSet.get_id().toString(),
-            name: termSet.get_name(),
-            path: [],
-            pathAsString: "",
-            props: termSet.get_customProperties()
-        });
-
-        // Parse the term sets terms
-        let enumerator = termSetTerms.getEnumerator();
-        while (enumerator.moveNext()) {
-            let term = enumerator.get_current();
-
-            // Create the terms
-            terms.push({
-                description: term.get_description(),
-                id: term.get_id().toString(),
-                name: term.get_name(),
-                path: term.get_pathOfTerm().split(";"),
-                pathAsString: term.get_pathOfTerm(),
-                props: term.get_customProperties()
-            });
-        }
-
-        // Sort the terms
-        terms.sort((a, b) => {
-            if (a < b) { return -1; }
-            if (a > b) { return 1; }
-            return 0;
-        });
-
-        // Return the terms
-        return terms;
-    },
-
-    /**
      * Method to get the terms by id
      */
     getTermsById: (termStoreId: string, termSetId): PromiseLike<any> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the scripts
-            this.loadScripts().then(() => {
+            Taxonomy.loadScripts().then(() => {
                 // Get the taxonomy session
                 let context = SP.ClientContext.get_current();
                 let session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
@@ -169,7 +168,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
                 // Execute the request
                 context.executeQueryAsync(() => {
                     // Resolve the promise
-                    resolve(this.getTerms(termSet, terms));
+                    resolve(Taxonomy.getTerms(termSet, terms));
                 }, (...args) => {
                     // Log
                     console.error("[gd-sprest] Error getting the term group.");
@@ -189,9 +188,9 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the terms
-            this.getTermsById(termStoreId, termSetId).then(terms => {
+            Taxonomy.getTermsById(termStoreId, termSetId).then(terms => {
                 // Resolve the promise
-                resolve(this.toObject(terms));
+                resolve(Taxonomy.toObject(terms));
             });
         });
     },
@@ -203,7 +202,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the term group
-            this.getTermGroup().then(({ context, termGroup }) => {
+            Taxonomy.getTermGroup().then(({ context, termGroup }) => {
                 // Get the term set terms
                 let termSet = termGroup.get_termSets().getByName(termSetName);
                 let terms = termSet.getAllTerms();
@@ -213,7 +212,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
                 // Execute the request
                 context.executeQueryAsync(() => {
                     // Resolve the promise
-                    resolve(this.getTerms(termSet, terms));
+                    resolve(Taxonomy.getTerms(termSet, terms));
                 }, (...args) => {
                     // Log
                     console.error("[gd-sprest] Error getting the terms from the default site collection.");
@@ -233,9 +232,9 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the terms
-            this.getTermsFromDefaultSC(termSetName).then(terms => {
+            Taxonomy.getTermsFromDefaultSC(termSetName).then(terms => {
                 // Resolve the object
-                resolve(this.toObject(terms));
+                resolve(Taxonomy.toObject(terms));
             });
         });
     },
@@ -247,7 +246,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the term group
-            this.getTermGroup(groupName).then(({ context, termGroup }) => {
+            Taxonomy.getTermGroup(groupName).then(({ context, termGroup }) => {
                 // Get the term set terms
                 let termSet = termGroup.get_termSets().getByName(termSetName);
                 let terms = termSet.getAllTerms();
@@ -257,7 +256,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
                 // Execute the request
                 context.executeQueryAsync(() => {
                     // Resolve the promise
-                    resolve(this.getTerms(termSet, terms));
+                    resolve(Taxonomy.getTerms(termSet, terms));
                 }, (...args) => {
                     // Log
                     console.error("[gd-sprest] Error getting the terms.");
@@ -277,9 +276,9 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the terms
-            this.getTermsByGroupName(termSetName, groupName).then(terms => {
+            Taxonomy.getTermsByGroupName(termSetName, groupName).then(terms => {
                 // Resolve the object
-                resolve(this.toObject(terms));
+                resolve(Taxonomy.toObject(terms));
             });
         });
     },
