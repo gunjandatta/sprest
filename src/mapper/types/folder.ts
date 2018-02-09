@@ -93,7 +93,7 @@ export interface IFolderQueryProps {
      * Gets the folder contained in the list folder.
      * @param url - The url of the sub-folder within the current folder.
      */
-    Folders(url: string): IFolderMethods;
+    Folders(url: string): IFolder;
 
     /**
      * Specifies the list item field (2) values for the list item corresponding to the file.
@@ -103,7 +103,7 @@ export interface IFolderQueryProps {
     /**
      * Gets the parent list folder of the folder.
      */
-    ParentFolder(): IFolderMethods;
+    ParentFolder(): IFolder;
 
     /**
      * Property Bag

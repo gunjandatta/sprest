@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 18);
+/******/ 	return __webpack_require__(__webpack_require__.s = 43);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,9 +73,8 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(78));
 __export(__webpack_require__(79));
-__export(__webpack_require__(98));
+__export(__webpack_require__(80));
 __export(__webpack_require__(99));
 __export(__webpack_require__(100));
 __export(__webpack_require__(101));
@@ -83,7 +82,8 @@ __export(__webpack_require__(102));
 __export(__webpack_require__(103));
 __export(__webpack_require__(104));
 __export(__webpack_require__(105));
-var Types = __webpack_require__(106);
+__export(__webpack_require__(106));
+var Types = __webpack_require__(107);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -97,8 +97,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(77));
-__export(__webpack_require__(107));
+__export(__webpack_require__(78));
 __export(__webpack_require__(108));
 __export(__webpack_require__(109));
 __export(__webpack_require__(110));
@@ -109,8 +108,9 @@ __export(__webpack_require__(114));
 __export(__webpack_require__(115));
 __export(__webpack_require__(116));
 __export(__webpack_require__(117));
+__export(__webpack_require__(118));
 __export(__webpack_require__(39));
-var Types = __webpack_require__(118);
+var Types = __webpack_require__(119);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -119,7 +119,7 @@ exports.Types = Types;
 /***/ (function(module, exports, __webpack_require__) {
 
 var store = __webpack_require__(27)('wks');
-var uid = __webpack_require__(20);
+var uid = __webpack_require__(19);
 var Symbol = __webpack_require__(3).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
@@ -175,7 +175,7 @@ module.exports = __webpack_require__(8) ? function (object, key, value) {
 var global = __webpack_require__(3);
 var hide = __webpack_require__(5);
 var has = __webpack_require__(9);
-var SRC = __webpack_require__(20)('src');
+var SRC = __webpack_require__(19)('src');
 var TO_STRING = 'toString';
 var $toString = Function[TO_STRING];
 var TPL = ('' + $toString).split(TO_STRING);
@@ -256,11 +256,11 @@ module.exports = {};
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Mapper = __webpack_require__(80);
+var Mapper = __webpack_require__(81);
 exports.Mapper = Mapper;
-var SPTypes = __webpack_require__(93);
+var SPTypes = __webpack_require__(94);
 exports.SPTypes = SPTypes;
-var Types = __webpack_require__(94);
+var Types = __webpack_require__(95);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -280,8 +280,8 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(4);
-var IE8_DOM_DEFINE = __webpack_require__(45);
-var toPrimitive = __webpack_require__(46);
+var IE8_DOM_DEFINE = __webpack_require__(46);
+var toPrimitive = __webpack_require__(47);
 var dP = Object.defineProperty;
 
 exports.f = __webpack_require__(8) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
@@ -343,27 +343,139 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(76));
-__export(__webpack_require__(119));
+__export(__webpack_require__(77));
 __export(__webpack_require__(120));
-__export(__webpack_require__(122));
+__export(__webpack_require__(121));
 __export(__webpack_require__(123));
 __export(__webpack_require__(124));
 __export(__webpack_require__(125));
-__export(__webpack_require__(41));
 __export(__webpack_require__(126));
+__export(__webpack_require__(41));
 __export(__webpack_require__(127));
+__export(__webpack_require__(128));
 __export(__webpack_require__(40));
 __export(__webpack_require__(42));
-__export(__webpack_require__(128));
-var SP = __webpack_require__(129);
+__export(__webpack_require__(129));
+var SP = __webpack_require__(130);
 exports.SP = SP;
-var Types = __webpack_require__(130);
+var Types = __webpack_require__(131);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
 /* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = __webpack_require__(13);
+var TAG = __webpack_require__(2)('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports) {
+
+var id = 0;
+var px = Math.random();
+module.exports = function (key) {
+  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+};
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isObject = __webpack_require__(7);
+var document = __webpack_require__(3).document;
+// typeof document.createElement is 'object' in old IE
+var is = isObject(document) && isObject(document.createElement);
+module.exports = function (it) {
+  return is ? document.createElement(it) : {};
+};
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports) {
+
+// 7.1.4 ToInteger
+var ceil = Math.ceil;
+var floor = Math.floor;
+module.exports = function (it) {
+  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+};
+
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+// 7.2.1 RequireObjectCoercible(argument)
+module.exports = function (it) {
+  if (it == undefined) throw TypeError("Can't call method on  " + it);
+  return it;
+};
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+var IObject = __webpack_require__(54);
+var defined = __webpack_require__(22);
+module.exports = function (it) {
+  return IObject(defined(it));
+};
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var shared = __webpack_require__(27)('keys');
+var uid = __webpack_require__(19);
+module.exports = function (key) {
+  return shared[key] || (shared[key] = uid(key));
+};
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var def = __webpack_require__(14).f;
+var has = __webpack_require__(9);
+var TAG = __webpack_require__(2)('toStringTag');
+
+module.exports = function (it, tag, stat) {
+  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
+};
+
+
+/***/ }),
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -398,128 +510,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ***************************************************************************************************/
-__webpack_require__(43);
 var Helper = __webpack_require__(17);
 exports.Helper = Helper;
 var mapper_1 = __webpack_require__(12);
 exports.SPTypes = mapper_1.SPTypes;
-var Types = __webpack_require__(131);
+var Types = __webpack_require__(132);
 exports.Types = Types;
 __export(__webpack_require__(1));
-__export(__webpack_require__(132));
+__export(__webpack_require__(133));
 //# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(13);
-var TAG = __webpack_require__(2)('toStringTag');
-// ES3 wrong here
-var ARG = cof(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-module.exports = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof(O)
-    // ES3 arguments fallback
-    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-};
-
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports) {
-
-var id = 0;
-var px = Math.random();
-module.exports = function (key) {
-  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-};
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__(7);
-var document = __webpack_require__(3).document;
-// typeof document.createElement is 'object' in old IE
-var is = isObject(document) && isObject(document.createElement);
-module.exports = function (it) {
-  return is ? document.createElement(it) : {};
-};
-
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-// 7.1.4 ToInteger
-var ceil = Math.ceil;
-var floor = Math.floor;
-module.exports = function (it) {
-  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
-};
-
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-// 7.2.1 RequireObjectCoercible(argument)
-module.exports = function (it) {
-  if (it == undefined) throw TypeError("Can't call method on  " + it);
-  return it;
-};
-
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(53);
-var defined = __webpack_require__(23);
-module.exports = function (it) {
-  return IObject(defined(it));
-};
-
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var shared = __webpack_require__(27)('keys');
-var uid = __webpack_require__(20);
-module.exports = function (key) {
-  return shared[key] || (shared[key] = uid(key));
-};
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var def = __webpack_require__(14).f;
-var has = __webpack_require__(9);
-var TAG = __webpack_require__(2)('toStringTag');
-
-module.exports = function (it, tag, stat) {
-  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
-};
-
 
 /***/ }),
 /* 27 */
@@ -572,9 +571,9 @@ var redefine = __webpack_require__(6);
 var hide = __webpack_require__(5);
 var has = __webpack_require__(9);
 var Iterators = __webpack_require__(11);
-var $iterCreate = __webpack_require__(49);
-var setToStringTag = __webpack_require__(26);
-var getPrototypeOf = __webpack_require__(56);
+var $iterCreate = __webpack_require__(50);
+var setToStringTag = __webpack_require__(25);
+var getPrototypeOf = __webpack_require__(57);
 var ITERATOR = __webpack_require__(2)('iterator');
 var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
 var FF_ITERATOR = '@@iterator';
@@ -698,7 +697,7 @@ module.exports = $export;
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__(52);
+var $keys = __webpack_require__(53);
 var enumBugKeys = __webpack_require__(35);
 
 module.exports = Object.keys || function keys(O) {
@@ -711,7 +710,7 @@ module.exports = Object.keys || function keys(O) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
-var toInteger = __webpack_require__(22);
+var toInteger = __webpack_require__(21);
 var min = Math.min;
 module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
@@ -741,9 +740,9 @@ module.exports = document && document.documentElement;
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(15);
-var invoke = __webpack_require__(69);
+var invoke = __webpack_require__(70);
 var html = __webpack_require__(36);
-var cel = __webpack_require__(21);
+var cel = __webpack_require__(20);
 var global = __webpack_require__(3);
 var process = global.process;
 var setTask = global.setImmediate;
@@ -908,7 +907,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(121));
+__export(__webpack_require__(122));
 var lib_1 = __webpack_require__(1);
 var _1 = __webpack_require__(17);
 /**
@@ -1131,7 +1130,7 @@ var _SPConfig = /** @class */ (function () {
                             }
                         };
                         // Compute the schema xml
-                        _1.FieldSchemaXML.generate(cfgField).then(function (response) {
+                        _1.FieldSchemaXML(cfgField).then(function (response) {
                             var schemas = typeof (response) === "string" ? [response] : response;
                             // Parse the fields to add
                             for (var i_1 = 0; i_1 < schemas.length; i_1++) {
@@ -1998,74 +1997,125 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * Taxonomy Helper Class
  */
-var _Taxonomy = /** @class */ (function () {
-    function _Taxonomy() {
-        var _this = this;
-        /**
-         * Method to find a term by id
-         */
-        this.findById = function (term, termId) {
-            // See if this is the root node
-            if (term.info && term.info.id == termId) {
-                // Return the root node
-                return term;
+exports.Taxonomy = {
+    /**
+     * Method to find a term by id
+     */
+    findById: function (term, termId) {
+        // See if this is the root node
+        if (term.info && term.info.id == termId) {
+            // Return the root node
+            return term;
+        }
+        // Parse the child nodes
+        for (var prop in term) {
+            // Skip the info and parent
+            if (prop == "info" || prop == "parent") {
+                continue;
             }
-            // Parse the child nodes
-            for (var prop in term) {
-                // Skip the info and parent
-                if (prop == "info" || prop == "parent") {
-                    continue;
-                }
-                // Find the term by id
-                var childTerm = _this.findById(term[prop], termId);
-                if (childTerm) {
-                    return childTerm;
-                }
+            // Find the term by id
+            var childTerm = exports.Taxonomy.findById(term[prop], termId);
+            if (childTerm) {
+                return childTerm;
             }
-        };
-        /**
-         * Method to find a term by name
-         */
-        this.findByName = function (term, termName) {
-            // See if this is the root node
-            if (term.info && term.info.name == termName) {
-                // Return the root node
-                return term;
+        }
+    },
+    /**
+     * Method to find a term by name
+     */
+    findByName: function (term, termName) {
+        // See if this is the root node
+        if (term.info && term.info.name == termName) {
+            // Return the root node
+            return term;
+        }
+        // Parse the child nodes
+        for (var prop in term) {
+            // Skip the info and parent
+            if (prop == "info" || prop == "parent") {
+                continue;
             }
-            // Parse the child nodes
-            for (var prop in term) {
-                // Skip the info and parent
-                if (prop == "info" || prop == "parent") {
-                    continue;
-                }
-                // Find the term by id
-                var childTerm = _this.findByName(term[prop], termName);
-                if (childTerm) {
-                    return childTerm;
-                }
+            // Find the term by id
+            var childTerm = exports.Taxonomy.findByName(term[prop], termName);
+            if (childTerm) {
+                return childTerm;
             }
-        };
-        /**
-         * Method to get the terms by id
-         */
-        this.getTermsById = function (termStoreId, termSetId) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Load the scripts
-                _this.loadScripts().then(function () {
-                    // Get the taxonomy session
-                    var context = SP.ClientContext.get_current();
-                    var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
-                    // Get the term set terms
-                    var termStore = session.get_termStores().getById(termStoreId);
-                    var termSet = termStore.getTermSet(termSetId);
-                    var terms = termSet.getAllTerms();
-                    context.load(termSet);
-                    context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
-                    // Execute the request
+        }
+    },
+    /**
+     * Method to get the terms
+     */
+    getTerms: function (termSet, termSetTerms) {
+        var terms = [];
+        // Add the root term
+        terms.push({
+            description: termSet.get_description(),
+            id: termSet.get_id().toString(),
+            name: termSet.get_name(),
+            path: [],
+            pathAsString: "",
+            props: termSet.get_customProperties()
+        });
+        // Parse the term sets terms
+        var enumerator = termSetTerms.getEnumerator();
+        while (enumerator.moveNext()) {
+            var term = enumerator.get_current();
+            // Create the terms
+            terms.push({
+                description: term.get_description(),
+                id: term.get_id().toString(),
+                name: term.get_name(),
+                path: term.get_pathOfTerm().split(";"),
+                pathAsString: term.get_pathOfTerm(),
+                props: term.get_customProperties()
+            });
+        }
+        // Sort the terms
+        terms.sort(function (a, b) {
+            if (a < b) {
+                return -1;
+            }
+            if (a > b) {
+                return 1;
+            }
+            return 0;
+        });
+        // Return the terms
+        return terms;
+    },
+    /**
+     * Method to get the term group
+     */
+    getTermGroup: function (groupName) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Load the scripts
+            exports.Taxonomy.loadScripts().then(function () {
+                // Get the taxonomy session
+                var context = SP.ClientContext.get_current();
+                var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+                // See if we are getting a specific group name
+                if (groupName) {
+                    // Resolve the promise
+                    var termStores_1 = session.get_termStores();
+                    context.load(termStores_1, "Include(Groups)");
                     context.executeQueryAsync(function () {
-                        // Resolve the promise
-                        resolve(_this.getTerms(termSet, terms));
+                        // Get the default store
+                        var enumerator = termStores_1.getEnumerator();
+                        var termStore = enumerator.moveNext() ? enumerator.get_current() : null;
+                        if (termStore) {
+                            // Get the term group
+                            var termGroup = termStore.get_groups().getByName(groupName);
+                            context.load(termGroup);
+                            // Resolve the promise
+                            resolve({ context: context, termGroup: termGroup });
+                        }
+                        else {
+                            // Log
+                            console.error("[gd-sprest] Unable to get the taxonomy store.");
+                            // Reject the promise
+                            reject();
+                        }
                     }, function () {
                         var args = [];
                         for (var _i = 0; _i < arguments.length; _i++) {
@@ -2077,350 +2127,291 @@ var _Taxonomy = /** @class */ (function () {
                         // Reject the promise
                         reject(args);
                     });
-                });
-            });
-        };
-        /**
-         * Method to get the term set by id
-         */
-        this.getTermSetById = function (termStoreId, termSetId) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Get the terms
-                _this.getTermsById(termStoreId, termSetId).then(function (terms) {
+                }
+                else {
+                    // Get the default site collection group
+                    var termStore = session.getDefaultSiteCollectionTermStore();
+                    var termGroup = termStore.getSiteCollectionGroup(context.get_site());
+                    context.load(termGroup);
                     // Resolve the promise
-                    resolve(_this.toObject(terms));
-                });
+                    resolve({ context: context, termGroup: termGroup });
+                }
             });
-        };
-        /**
-         * Method to get the terms from the default site collection
-         */
-        this.getTermsFromDefaultSC = function (termSetName) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Get the term group
-                _this.getTermGroup().then(function (_a) {
-                    var context = _a.context, termGroup = _a.termGroup;
-                    // Get the term set terms
-                    var termSet = termGroup.get_termSets().getByName(termSetName);
-                    var terms = termSet.getAllTerms();
-                    context.load(termSet);
-                    context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
-                    // Execute the request
-                    context.executeQueryAsync(function () {
-                        // Resolve the promise
-                        resolve(_this.getTerms(termSet, terms));
-                    }, function () {
-                        var args = [];
-                        for (var _i = 0; _i < arguments.length; _i++) {
-                            args[_i] = arguments[_i];
-                        }
-                        // Log
-                        console.error("[gd-sprest] Error getting the terms from the default site collection.");
-                        console.error("[gd-sprest] Error: " + args[1].get_message());
-                        // Reject the promise
-                        reject(args);
-                    });
-                });
-            });
-        };
-        /**
-         * Method to get the term set from the default site collection
-         */
-        this.getTermSetFromDefaultSC = function (termSetName) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Get the terms
-                _this.getTermsFromDefaultSC(termSetName).then(function (terms) {
-                    // Resolve the object
-                    resolve(_this.toObject(terms));
-                });
-            });
-        };
-        /**
-         * Method to get a terms from a specified group
-         */
-        this.getTermsByGroupName = function (termSetName, groupName) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Get the term group
-                _this.getTermGroup(groupName).then(function (_a) {
-                    var context = _a.context, termGroup = _a.termGroup;
-                    // Get the term set terms
-                    var termSet = termGroup.get_termSets().getByName(termSetName);
-                    var terms = termSet.getAllTerms();
-                    context.load(termSet);
-                    context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
-                    // Execute the request
-                    context.executeQueryAsync(function () {
-                        // Resolve the promise
-                        resolve(_this.getTerms(termSet, terms));
-                    }, function () {
-                        var args = [];
-                        for (var _i = 0; _i < arguments.length; _i++) {
-                            args[_i] = arguments[_i];
-                        }
-                        // Log
-                        console.error("[gd-sprest] Error getting the terms.");
-                        console.error("[gd-sprest] Error: " + args[1].get_message());
-                        // Reject the promise
-                        reject(args);
-                    });
-                });
-            });
-        };
-        /**
-         * Method to get the term set from the default site collection
-         */
-        this.getTermSetByGroupName = function (termSetName, groupName) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Get the terms
-                _this.getTermsByGroupName(termSetName, groupName).then(function (terms) {
-                    // Resolve the object
-                    resolve(_this.toObject(terms));
-                });
-            });
-        };
-        /**
-         * Method to ensure the taxonomy script references are loaded.
-         */
-        this.loadScripts = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the core script is loaded
-                SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", function () {
-                    // Ensure the taxonomy script is loaded
-                    SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
-                    SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
-                        // Resolve the promise
-                        resolve();
-                    });
-                }, "sp.js");
-            });
-        };
-        /**
-         * Method to convert a term to an array of term information
-         */
-        this.toArray = function (term) {
-            var terms = [];
-            // Recursive method to extract the child terms
-            var getChildTerms = function (term, terms) {
-                // Parse the properties
-                for (var prop in term) {
-                    // Skip the info and parent properties
-                    if (prop == "info" || prop == "parent") {
-                        continue;
+        });
+    },
+    /**
+     * Method to get the terms by id
+     */
+    getTermsById: function (termStoreId, termSetId) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Load the scripts
+            exports.Taxonomy.loadScripts().then(function () {
+                // Get the taxonomy session
+                var context = SP.ClientContext.get_current();
+                var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+                // Get the term set terms
+                var termStore = session.get_termStores().getById(termStoreId);
+                var termSet = termStore.getTermSet(termSetId);
+                var terms = termSet.getAllTerms();
+                context.load(termSet);
+                context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
+                // Execute the request
+                context.executeQueryAsync(function () {
+                    // Resolve the promise
+                    resolve(exports.Taxonomy.getTerms(termSet, terms));
+                }, function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
                     }
-                    // Add the child term
-                    var childTerm = term[prop];
-                    terms.push(childTerm.info);
-                    // Add the child terms
-                    getChildTerms(childTerm, terms);
+                    // Log
+                    console.error("[gd-sprest] Error getting the term group.");
+                    console.error("[gd-sprest] Error: " + args[1].get_message());
+                    // Reject the promise
+                    reject(args);
+                });
+            });
+        });
+    },
+    /**
+     * Method to get the term set by id
+     */
+    getTermSetById: function (termStoreId, termSetId) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Get the terms
+            exports.Taxonomy.getTermsById(termStoreId, termSetId).then(function (terms) {
+                // Resolve the promise
+                resolve(exports.Taxonomy.toObject(terms));
+            });
+        });
+    },
+    /**
+     * Method to get the terms from the default site collection
+     */
+    getTermsFromDefaultSC: function (termSetName) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Get the term group
+            exports.Taxonomy.getTermGroup().then(function (_a) {
+                var context = _a.context, termGroup = _a.termGroup;
+                // Get the term set terms
+                var termSet = termGroup.get_termSets().getByName(termSetName);
+                var terms = termSet.getAllTerms();
+                context.load(termSet);
+                context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
+                // Execute the request
+                context.executeQueryAsync(function () {
+                    // Resolve the promise
+                    resolve(exports.Taxonomy.getTerms(termSet, terms));
+                }, function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Log
+                    console.error("[gd-sprest] Error getting the terms from the default site collection.");
+                    console.error("[gd-sprest] Error: " + args[1].get_message());
+                    // Reject the promise
+                    reject(args);
+                });
+            });
+        });
+    },
+    /**
+     * Method to get the term set from the default site collection
+     */
+    getTermSetFromDefaultSC: function (termSetName) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Get the terms
+            exports.Taxonomy.getTermsFromDefaultSC(termSetName).then(function (terms) {
+                // Resolve the object
+                resolve(exports.Taxonomy.toObject(terms));
+            });
+        });
+    },
+    /**
+     * Method to get a terms from a specified group
+     */
+    getTermsByGroupName: function (termSetName, groupName) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Get the term group
+            exports.Taxonomy.getTermGroup(groupName).then(function (_a) {
+                var context = _a.context, termGroup = _a.termGroup;
+                // Get the term set terms
+                var termSet = termGroup.get_termSets().getByName(termSetName);
+                var terms = termSet.getAllTerms();
+                context.load(termSet);
+                context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
+                // Execute the request
+                context.executeQueryAsync(function () {
+                    // Resolve the promise
+                    resolve(exports.Taxonomy.getTerms(termSet, terms));
+                }, function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Log
+                    console.error("[gd-sprest] Error getting the terms.");
+                    console.error("[gd-sprest] Error: " + args[1].get_message());
+                    // Reject the promise
+                    reject(args);
+                });
+            });
+        });
+    },
+    /**
+     * Method to get the term set from the default site collection
+     */
+    getTermSetByGroupName: function (termSetName, groupName) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Get the terms
+            exports.Taxonomy.getTermsByGroupName(termSetName, groupName).then(function (terms) {
+                // Resolve the object
+                resolve(exports.Taxonomy.toObject(terms));
+            });
+        });
+    },
+    /**
+     * Method to ensure the taxonomy script references are loaded.
+     */
+    loadScripts: function () {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Ensure the core script is loaded
+            SP.SOD.executeFunc("sp.js", "SP.Utilities.Utility", function () {
+                // Ensure the taxonomy script is loaded
+                SP.SOD.registerSod("sp.taxonomy.js", SP.Utilities.Utility.getLayoutsPageUrl("sp.taxonomy.js"));
+                SP.SOD.executeFunc("sp.taxonomy.js", "SP.Taxonomy.TaxonomySession", function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            }, "sp.js");
+        });
+    },
+    /**
+     * Method to convert a term to an array of term information
+     */
+    toArray: function (term) {
+        var terms = [];
+        // Recursive method to extract the child terms
+        var getChildTerms = function (term, terms) {
+            // Parse the properties
+            for (var prop in term) {
+                // Skip the info and parent properties
+                if (prop == "info" || prop == "parent") {
+                    continue;
                 }
-            };
-            // Ensure the term exists
-            if (term) {
-                // See if the root node contains term information
-                if (term.info) {
-                    // Add the root term
-                    terms.push(term.info);
-                }
-                // Get the child terms
-                getChildTerms(term, terms);
+                // Add the child term
+                var childTerm = term[prop];
+                terms.push(childTerm.info);
+                // Add the child terms
+                getChildTerms(childTerm, terms);
             }
-            // Return the child terms
-            return terms;
         };
-        /**
-         * Method to convert a term to a field value
-         */
-        this.toFieldValue = function (term) {
-            var termInfo = term ? term["info"] || term : null;
-            // Ensure the term exists
-            if (termInfo) {
-                return {
-                    __metadata: { "type": "SP.Taxonomy.TaxonomyFieldValue" },
-                    Label: termInfo.name,
-                    TermGuid: termInfo.id,
-                    WssId: -1
-                };
+        // Ensure the term exists
+        if (term) {
+            // See if the root node contains term information
+            if (term.info) {
+                // Add the root term
+                terms.push(term.info);
             }
-            // Return nothing
-            return null;
-        };
-        /**
-         * Method to convert a collection of terms to a field value
-         */
-        this.toFieldMultiValue = function (terms) {
-            var results = [];
-            // Ensure terms exist
-            if (terms && terms.length > 0) {
-                // Parse the terms
-                for (var i = 0; i < terms.length; i++) {
-                    var termInfo = terms[i]["info"] || terms[i];
-                    // Add the term
-                    results.push(";#" + termInfo.name + "|" + termInfo.id);
-                }
-            }
-            // Return a blank array
+            // Get the child terms
+            getChildTerms(term, terms);
+        }
+        // Return the child terms
+        return terms;
+    },
+    /**
+     * Method to convert a term to a field value
+     */
+    toFieldValue: function (term) {
+        var termInfo = term ? term["info"] || term : null;
+        // Ensure the term exists
+        if (termInfo) {
             return {
-                __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
-                results: results
+                __metadata: { "type": "SP.Taxonomy.TaxonomyFieldValue" },
+                Label: termInfo.name,
+                TermGuid: termInfo.id,
+                WssId: -1
             };
+        }
+        // Return nothing
+        return null;
+    },
+    /**
+     * Method to convert a collection of terms to a field value
+     */
+    toFieldMultiValue: function (terms) {
+        var results = [];
+        // Ensure terms exist
+        if (terms && terms.length > 0) {
+            // Parse the terms
+            for (var i = 0; i < terms.length; i++) {
+                var termInfo = terms[i]["info"] || terms[i];
+                // Add the term
+                results.push(";#" + termInfo.name + "|" + termInfo.id);
+            }
+        }
+        // Return a blank array
+        return {
+            __metadata: { type: "Collection(SP.Taxonomy.TaxonomyFieldValue)" },
+            results: results
         };
-        /**
-         * Method to convert the terms to an object
-         */
-        this.toObject = function (terms) {
-            var root = {};
-            // Recursive method to add terms
-            var addTerm = function (node, info, path) {
-                var term = node;
-                var termName = "";
-                // Loop for each term
-                while (path.length > 0) {
-                    // Ensure the term exists
-                    termName = path[0];
-                    if (term[termName] == null) {
-                        // Create the term
-                        term[termName] = {};
-                    }
-                    // Set the term
-                    var parent_1 = term;
-                    term = term[termName];
-                    // Set the parent
-                    term.parent = parent_1;
-                    // Remove the term from the path
-                    path.splice(0, 1);
+    },
+    /**
+     * Method to convert the terms to an object
+     */
+    toObject: function (terms) {
+        var root = {};
+        // Recursive method to add terms
+        var addTerm = function (node, info, path) {
+            var term = node;
+            var termName = "";
+            // Loop for each term
+            while (path.length > 0) {
+                // Ensure the term exists
+                termName = path[0];
+                if (term[termName] == null) {
+                    // Create the term
+                    term[termName] = {};
                 }
-                // Set the info
-                term.info = info;
-            };
-            // Ensure the terms exist
-            if (terms) {
-                // Parse the terms
-                for (var i = 0; i < terms.length; i++) {
-                    var term = terms[i];
-                    // See if this is the root term
-                    if (term.pathAsString == "") {
-                        // Set the root information
-                        root.info = term;
-                    }
-                    else {
-                        // Add the term
-                        addTerm(root, term, term.pathAsString.split(";"));
-                    }
+                // Set the term
+                var parent_1 = term;
+                term = term[termName];
+                // Set the parent
+                term.parent = parent_1;
+                // Remove the term from the path
+                path.splice(0, 1);
+            }
+            // Set the info
+            term.info = info;
+        };
+        // Ensure the terms exist
+        if (terms) {
+            // Parse the terms
+            for (var i = 0; i < terms.length; i++) {
+                var term = terms[i];
+                // See if this is the root term
+                if (term.pathAsString == "") {
+                    // Set the root information
+                    root.info = term;
+                }
+                else {
+                    // Add the term
+                    addTerm(root, term, term.pathAsString.split(";"));
                 }
             }
-            // Return the root term
-            return root;
-        };
-        /**
-         * Private Methods
-         */
-        /**
-         * Method to get the terms
-         */
-        this.getTerms = function (termSet, termSetTerms) {
-            var terms = [];
-            // Add the root term
-            terms.push({
-                description: termSet.get_description(),
-                id: termSet.get_id().toString(),
-                name: termSet.get_name(),
-                path: [],
-                pathAsString: "",
-                props: termSet.get_customProperties()
-            });
-            // Parse the term sets terms
-            var enumerator = termSetTerms.getEnumerator();
-            while (enumerator.moveNext()) {
-                var term = enumerator.get_current();
-                // Create the terms
-                terms.push({
-                    description: term.get_description(),
-                    id: term.get_id().toString(),
-                    name: term.get_name(),
-                    path: term.get_pathOfTerm().split(";"),
-                    pathAsString: term.get_pathOfTerm(),
-                    props: term.get_customProperties()
-                });
-            }
-            // Sort the terms
-            terms.sort(function (a, b) {
-                if (a < b) {
-                    return -1;
-                }
-                if (a > b) {
-                    return 1;
-                }
-                return 0;
-            });
-            // Return the terms
-            return terms;
-        };
-        /**
-         * Method to get the term group
-         */
-        this.getTermGroup = function (groupName) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Load the scripts
-                _this.loadScripts().then(function () {
-                    // Get the taxonomy session
-                    var context = SP.ClientContext.get_current();
-                    var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
-                    // See if we are getting a specific group name
-                    if (groupName) {
-                        // Resolve the promise
-                        var termStores_1 = session.get_termStores();
-                        context.load(termStores_1, "Include(Groups)");
-                        context.executeQueryAsync(function () {
-                            // Get the default store
-                            var enumerator = termStores_1.getEnumerator();
-                            var termStore = enumerator.moveNext() ? enumerator.get_current() : null;
-                            if (termStore) {
-                                // Get the term group
-                                var termGroup = termStore.get_groups().getByName(groupName);
-                                context.load(termGroup);
-                                // Resolve the promise
-                                resolve({ context: context, termGroup: termGroup });
-                            }
-                            else {
-                                // Log
-                                console.error("[gd-sprest] Unable to get the taxonomy store.");
-                                // Reject the promise
-                                reject();
-                            }
-                        }, function () {
-                            var args = [];
-                            for (var _i = 0; _i < arguments.length; _i++) {
-                                args[_i] = arguments[_i];
-                            }
-                            // Log
-                            console.error("[gd-sprest] Error getting the term group.");
-                            console.error("[gd-sprest] Error: " + args[1].get_message());
-                            // Reject the promise
-                            reject(args);
-                        });
-                    }
-                    else {
-                        // Get the default site collection group
-                        var termStore = session.getDefaultSiteCollectionTermStore();
-                        var termGroup = termStore.getSiteCollectionGroup(context.get_site());
-                        context.load(termGroup);
-                        // Resolve the promise
-                        resolve({ context: context, termGroup: termGroup });
-                    }
-                });
-            });
-        };
+        }
+        // Return the root term
+        return root;
     }
-    return _Taxonomy;
-}());
-exports.Taxonomy = new _Taxonomy();
+};
 //# sourceMappingURL=taxonomy.js.map
 
 /***/ }),
@@ -2428,20 +2419,28 @@ exports.Taxonomy = new _Taxonomy();
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(44);
-__webpack_require__(47);
-__webpack_require__(58);
-__webpack_require__(62);
-module.exports = __webpack_require__(10).Promise;
+module.exports = __webpack_require__(26);
 
 
 /***/ }),
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(45);
+__webpack_require__(48);
+__webpack_require__(59);
+__webpack_require__(63);
+module.exports = __webpack_require__(10).Promise;
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 // 19.1.3.6 Object.prototype.toString()
-var classof = __webpack_require__(19);
+var classof = __webpack_require__(18);
 var test = {};
 test[__webpack_require__(2)('toStringTag')] = 'z';
 if (test + '' != '[object z]') {
@@ -2452,16 +2451,16 @@ if (test + '' != '[object z]') {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = !__webpack_require__(8) && !__webpack_require__(28)(function () {
-  return Object.defineProperty(__webpack_require__(21)('div'), 'a', { get: function () { return 7; } }).a != 7;
+  return Object.defineProperty(__webpack_require__(20)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
@@ -2479,12 +2478,12 @@ module.exports = function (it, S) {
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var $at = __webpack_require__(48)(true);
+var $at = __webpack_require__(49)(true);
 
 // 21.1.3.27 String.prototype[@@iterator]()
 __webpack_require__(30)(String, 'String', function (iterated) {
@@ -2503,11 +2502,11 @@ __webpack_require__(30)(String, 'String', function (iterated) {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(22);
-var defined = __webpack_require__(23);
+var toInteger = __webpack_require__(21);
+var defined = __webpack_require__(22);
 // true  -> String#at
 // false -> String#codePointAt
 module.exports = function (TO_STRING) {
@@ -2526,14 +2525,14 @@ module.exports = function (TO_STRING) {
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var create = __webpack_require__(50);
+var create = __webpack_require__(51);
 var descriptor = __webpack_require__(29);
-var setToStringTag = __webpack_require__(26);
+var setToStringTag = __webpack_require__(25);
 var IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
@@ -2546,21 +2545,21 @@ module.exports = function (Constructor, NAME, next) {
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(4);
-var dPs = __webpack_require__(51);
+var dPs = __webpack_require__(52);
 var enumBugKeys = __webpack_require__(35);
-var IE_PROTO = __webpack_require__(25)('IE_PROTO');
+var IE_PROTO = __webpack_require__(24)('IE_PROTO');
 var Empty = function () { /* empty */ };
 var PROTOTYPE = 'prototype';
 
 // Create object with fake `null` prototype: use iframe Object with cleared prototype
 var createDict = function () {
   // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__(21)('iframe');
+  var iframe = __webpack_require__(20)('iframe');
   var i = enumBugKeys.length;
   var lt = '<';
   var gt = '>';
@@ -2593,7 +2592,7 @@ module.exports = Object.create || function create(O, Properties) {
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(14);
@@ -2612,13 +2611,13 @@ module.exports = __webpack_require__(8) ? Object.defineProperties : function def
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(9);
-var toIObject = __webpack_require__(24);
-var arrayIndexOf = __webpack_require__(54)(false);
-var IE_PROTO = __webpack_require__(25)('IE_PROTO');
+var toIObject = __webpack_require__(23);
+var arrayIndexOf = __webpack_require__(55)(false);
+var IE_PROTO = __webpack_require__(24)('IE_PROTO');
 
 module.exports = function (object, names) {
   var O = toIObject(object);
@@ -2635,7 +2634,7 @@ module.exports = function (object, names) {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
@@ -2647,14 +2646,14 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // false -> Array#indexOf
 // true  -> Array#includes
-var toIObject = __webpack_require__(24);
+var toIObject = __webpack_require__(23);
 var toLength = __webpack_require__(34);
-var toAbsoluteIndex = __webpack_require__(55);
+var toAbsoluteIndex = __webpack_require__(56);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
     var O = toIObject($this);
@@ -2676,10 +2675,10 @@ module.exports = function (IS_INCLUDES) {
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(22);
+var toInteger = __webpack_require__(21);
 var max = Math.max;
 var min = Math.min;
 module.exports = function (index, length) {
@@ -2689,13 +2688,13 @@ module.exports = function (index, length) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(9);
-var toObject = __webpack_require__(57);
-var IE_PROTO = __webpack_require__(25)('IE_PROTO');
+var toObject = __webpack_require__(58);
+var IE_PROTO = __webpack_require__(24)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
 module.exports = Object.getPrototypeOf || function (O) {
@@ -2708,21 +2707,21 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
-var defined = __webpack_require__(23);
+var defined = __webpack_require__(22);
 module.exports = function (it) {
   return Object(defined(it));
 };
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $iterators = __webpack_require__(59);
+var $iterators = __webpack_require__(60);
 var getKeys = __webpack_require__(33);
 var redefine = __webpack_require__(6);
 var global = __webpack_require__(3);
@@ -2783,15 +2782,15 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var addToUnscopables = __webpack_require__(60);
-var step = __webpack_require__(61);
+var addToUnscopables = __webpack_require__(61);
+var step = __webpack_require__(62);
 var Iterators = __webpack_require__(11);
-var toIObject = __webpack_require__(24);
+var toIObject = __webpack_require__(23);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
@@ -2824,7 +2823,7 @@ addToUnscopables('entries');
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 22.1.3.31 Array.prototype[@@unscopables]
@@ -2837,7 +2836,7 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports) {
 
 module.exports = function (done, value) {
@@ -2846,7 +2845,7 @@ module.exports = function (done, value) {
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2854,18 +2853,18 @@ module.exports = function (done, value) {
 var LIBRARY = __webpack_require__(31);
 var global = __webpack_require__(3);
 var ctx = __webpack_require__(15);
-var classof = __webpack_require__(19);
+var classof = __webpack_require__(18);
 var $export = __webpack_require__(32);
 var isObject = __webpack_require__(7);
 var aFunction = __webpack_require__(16);
-var anInstance = __webpack_require__(63);
-var forOf = __webpack_require__(64);
-var speciesConstructor = __webpack_require__(68);
+var anInstance = __webpack_require__(64);
+var forOf = __webpack_require__(65);
+var speciesConstructor = __webpack_require__(69);
 var task = __webpack_require__(37).set;
-var microtask = __webpack_require__(70)();
+var microtask = __webpack_require__(71)();
 var newPromiseCapabilityModule = __webpack_require__(38);
-var perform = __webpack_require__(71);
-var promiseResolve = __webpack_require__(72);
+var perform = __webpack_require__(72);
+var promiseResolve = __webpack_require__(73);
 var PROMISE = 'Promise';
 var TypeError = global.TypeError;
 var process = global.process;
@@ -3028,7 +3027,7 @@ if (!USE_NATIVE) {
     this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
     this._n = false;          // <- notify
   };
-  Internal.prototype = __webpack_require__(73)($Promise.prototype, {
+  Internal.prototype = __webpack_require__(74)($Promise.prototype, {
     // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
     then: function then(onFulfilled, onRejected) {
       var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
@@ -3059,8 +3058,8 @@ if (!USE_NATIVE) {
 }
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
-__webpack_require__(26)($Promise, PROMISE);
-__webpack_require__(74)(PROMISE);
+__webpack_require__(25)($Promise, PROMISE);
+__webpack_require__(75)(PROMISE);
 Wrapper = __webpack_require__(10)[PROMISE];
 
 // statics
@@ -3079,7 +3078,7 @@ $export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
     return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
   }
 });
-$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(75)(function (iter) {
+$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(76)(function (iter) {
   $Promise.all(iter)['catch'](empty);
 })), PROMISE, {
   // 25.4.4.1 Promise.all(iterable)
@@ -3126,7 +3125,7 @@ $export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(75)(function
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports) {
 
 module.exports = function (it, Constructor, name, forbiddenField) {
@@ -3137,15 +3136,15 @@ module.exports = function (it, Constructor, name, forbiddenField) {
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ctx = __webpack_require__(15);
-var call = __webpack_require__(65);
-var isArrayIter = __webpack_require__(66);
+var call = __webpack_require__(66);
+var isArrayIter = __webpack_require__(67);
 var anObject = __webpack_require__(4);
 var toLength = __webpack_require__(34);
-var getIterFn = __webpack_require__(67);
+var getIterFn = __webpack_require__(68);
 var BREAK = {};
 var RETURN = {};
 var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
@@ -3168,7 +3167,7 @@ exports.RETURN = RETURN;
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
@@ -3186,7 +3185,7 @@ module.exports = function (iterator, fn, value, entries) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
@@ -3200,10 +3199,10 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof = __webpack_require__(19);
+var classof = __webpack_require__(18);
 var ITERATOR = __webpack_require__(2)('iterator');
 var Iterators = __webpack_require__(11);
 module.exports = __webpack_require__(10).getIteratorMethod = function (it) {
@@ -3214,7 +3213,7 @@ module.exports = __webpack_require__(10).getIteratorMethod = function (it) {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.3.20 SpeciesConstructor(O, defaultConstructor)
@@ -3229,7 +3228,7 @@ module.exports = function (O, D) {
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports) {
 
 // fast apply, http://jsperf.lnkit.com/fast-apply/5
@@ -3251,7 +3250,7 @@ module.exports = function (fn, args, that) {
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(3);
@@ -3325,7 +3324,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -3338,7 +3337,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(4);
@@ -3356,7 +3355,7 @@ module.exports = function (C, x) {
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var redefine = __webpack_require__(6);
@@ -3367,7 +3366,7 @@ module.exports = function (target, src, safe) {
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3387,7 +3386,7 @@ module.exports = function (KEY) {
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var ITERATOR = __webpack_require__(2)('iterator');
@@ -3415,7 +3414,7 @@ module.exports = function (exec, skipClosing) {
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3426,11 +3425,9 @@ var lib_1 = __webpack_require__(1);
  * App Helper Methods
  * Helper methods designed to be run from the app web.
  */
-var _App = /** @class */ (function () {
-    function _App() {
-    }
+exports.App = {
     // Method to copy a file in this app web to the host web
-    _App.copyFileToHostWeb = function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
+    copyFileToHostWeb: function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
         var srcFile = null;
         var origVal = lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl;
         // Return a promise
@@ -3516,9 +3513,9 @@ var _App = /** @class */ (function () {
                 web.done(function () { resolve({ file: srcFile, folder: dstFolder }); });
             }
         });
-    };
+    },
     // Method to copy a file in this app web to the host web
-    _App.copyFilesToHostWeb = function (fileUrls, folderUrls, overwriteFl, rootWebFl) {
+    copyFilesToHostWeb: function (fileUrls, folderUrls, overwriteFl, rootWebFl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var request = function (files, folders, idx) {
@@ -3542,9 +3539,9 @@ var _App = /** @class */ (function () {
             // Execute the request
             request([], [], 0);
         });
-    };
+    },
     // Method to create sub-folders
-    _App.createSubFolders = function (folder, subFolderUrl) {
+    createSubFolders: function (folder, subFolderUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var request = function (resolve) {
@@ -3580,9 +3577,9 @@ var _App = /** @class */ (function () {
             // Execute the request
             request(resolve);
         });
-    };
+    },
     // Method to get a folder
-    _App.getFolder = function (web, folderUrl, createFl) {
+    getFolder: function (web, folderUrl, createFl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var dstFolder = null;
@@ -3625,9 +3622,9 @@ var _App = /** @class */ (function () {
                 });
             });
         });
-    };
+    },
     // Method to remove empty folders
-    _App.removeEmptyFolders = function (web, folderUrls) {
+    removeEmptyFolders: function (web, folderUrls) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure folder urls exist
@@ -3677,9 +3674,9 @@ var _App = /** @class */ (function () {
                 web.done(function () { resolve(); });
             }
         });
-    };
+    },
     // Method to remove a file
-    _App.removeFile = function (web, fileUrl) {
+    removeFile: function (web, fileUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var folder = null;
@@ -3702,9 +3699,9 @@ var _App = /** @class */ (function () {
                 }
             }, true);
         });
-    };
+    },
     // Method to remove files
-    _App.removeFiles = function (web, fileUrls, idx) {
+    removeFiles: function (web, fileUrls, idx) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var request = function (idx, resolve) {
@@ -3724,14 +3721,12 @@ var _App = /** @class */ (function () {
             // Execute the request
             request(0, resolve);
         });
-    };
-    return _App;
-}());
-exports.App = new _App();
+    }
+};
 //# sourceMappingURL=app.js.map
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4323,7 +4318,7 @@ exports.ContextInfo = _ContextInfo;
 //# sourceMappingURL=contextInfo.js.map
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4357,7 +4352,7 @@ exports.RequestType = {
 //# sourceMappingURL=requestType.js.map
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4631,7 +4626,7 @@ exports.BaseHelper = BaseHelper;
 //# sourceMappingURL=baseHelper.js.map
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4640,7 +4635,6 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(81));
 __export(__webpack_require__(82));
 __export(__webpack_require__(83));
 __export(__webpack_require__(84));
@@ -4652,10 +4646,11 @@ __export(__webpack_require__(89));
 __export(__webpack_require__(90));
 __export(__webpack_require__(91));
 __export(__webpack_require__(92));
+__export(__webpack_require__(93));
 //# sourceMappingURL=mapper.js.map
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4675,7 +4670,7 @@ exports.audit = {
 //# sourceMappingURL=audit.js.map
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4723,7 +4718,7 @@ exports.eventreceivers = {
 //# sourceMappingURL=eventReceiver.js.map
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5045,7 +5040,7 @@ exports.limitedwebpartmanager = {
 //# sourceMappingURL=file.js.map
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5589,7 +5584,7 @@ exports.views = {
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5619,7 +5614,7 @@ exports.navigationservicerest = {
 //# sourceMappingURL=navigation.js.map
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5639,7 +5634,7 @@ exports.propertyvalues = {
 //# sourceMappingURL=propertyValues.js.map
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5659,7 +5654,7 @@ exports.search = {
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5760,7 +5755,7 @@ exports.roledefinitions = {
 //# sourceMappingURL=security.js.map
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6267,7 +6262,7 @@ exports.webs = {
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6442,7 +6437,7 @@ exports.userprofile = {
 //# sourceMappingURL=social.js.map
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6597,7 +6592,7 @@ exports.users = {
 //# sourceMappingURL=user.js.map
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6647,7 +6642,7 @@ exports.usercustomactions = {
 //# sourceMappingURL=userCustomAction.js.map
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7200,28 +7195,19 @@ exports.ViewType = {
 //# sourceMappingURL=sptypes.js.map
 
 /***/ }),
-/* 94 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var ComplexTypes = __webpack_require__(95);
-exports.ComplexTypes = ComplexTypes;
-var Results = __webpack_require__(96);
-exports.Results = Results;
-var SPTypes = __webpack_require__(97);
-exports.SPTypes = SPTypes;
-//# sourceMappingURL=index.js.map
-
-/***/ }),
 /* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=complexTypes.js.map
+var ComplexTypes = __webpack_require__(96);
+exports.ComplexTypes = ComplexTypes;
+var Results = __webpack_require__(97);
+exports.Results = Results;
+var SPTypes = __webpack_require__(98);
+exports.SPTypes = SPTypes;
+//# sourceMappingURL=index.js.map
 
 /***/ }),
 /* 96 */
@@ -7230,7 +7216,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=results.js.map
+//# sourceMappingURL=complexTypes.js.map
 
 /***/ }),
 /* 97 */
@@ -7239,10 +7225,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-//# sourceMappingURL=sptypes.js.map
+//# sourceMappingURL=results.js.map
 
 /***/ }),
 /* 98 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+//# sourceMappingURL=sptypes.js.map
+
+/***/ }),
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7540,7 +7535,7 @@ exports.BaseRequest = BaseRequest;
 //# sourceMappingURL=baseRequest.js.map
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7717,7 +7712,7 @@ exports.BaseExecution = BaseExecution;
 //# sourceMappingURL=baseExecution.js.map
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7788,7 +7783,7 @@ exports.Base = Base;
 //# sourceMappingURL=base.js.map
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7885,7 +7880,7 @@ exports.Batch = Batch;
 //# sourceMappingURL=batch.js.map
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8140,7 +8135,7 @@ exports.MethodInfo = MethodInfo;
 //# sourceMappingURL=methodInfo.js.map
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8266,7 +8261,7 @@ exports.OData = OData;
 //# sourceMappingURL=oData.js.map
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8407,7 +8402,7 @@ exports.TargetInfo = TargetInfo;
 //# sourceMappingURL=targetInfo.js.map
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8576,7 +8571,7 @@ exports.XHRRequest = XHRRequest;
 //# sourceMappingURL=xhrRequest.js.map
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8585,7 +8580,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8706,7 +8701,7 @@ exports.JSLink = _JSLink;
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8770,7 +8765,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8817,7 +8812,7 @@ exports.Navigation = _Navigation;
 //# sourceMappingURL=navigation.js.map
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8859,7 +8854,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8902,7 +8897,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8945,7 +8940,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9024,7 +9019,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9081,7 +9076,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9150,7 +9145,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9193,7 +9188,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9286,7 +9281,7 @@ exports.Utility = _Utility;
 //# sourceMappingURL=utility.js.map
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9295,7 +9290,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9373,376 +9368,364 @@ exports.Dependencies = _Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
-var __1 = __webpack_require__(18);
+var __1 = __webpack_require__(26);
 var spCfg_1 = __webpack_require__(40);
 /**
  * Field Schema XML
  * Helper class for generating the field schema xml
  */
-var _FieldSchemaXML = /** @class */ (function () {
-    function _FieldSchemaXML() {
-        var _this = this;
-        // Method to resolve this request
-        this._resolve = null;
-        // Generates the schema xml, based on the field information provided.
-        this.generate = function (fieldInfo) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Set the resolve method
-                _this._resolve = resolve;
-                // See if the schema xml has been defined
-                if (fieldInfo.schemaXml) {
-                    // Resolve the promise
-                    resolve(fieldInfo.schemaXml);
+exports.FieldSchemaXML = function (fieldInfo) {
+    var _resolve = null;
+    // Returns the schema xml for a boolean field.
+    var createBoolean = function (fieldInfo, props) {
+        var schemaXml = null;
+        // Set the field type
+        props["Type"] = "Boolean";
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + ">";
+        if (fieldInfo.defaultValue) {
+            schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
+        }
+        schemaXml += "</Field>";
+        // Resolve the request
+        _resolve(schemaXml);
+    };
+    // Returns the schema xml for a calculated field.
+    var createCalculated = function (fieldInfo, props) {
+        var schemaXml = null;
+        // Set the field type
+        props["Type"] = "Calculated";
+        // Set the result type
+        switch (fieldInfo.resultType) {
+            case __1.SPTypes.FieldResultType.Boolean:
+                props["ResultType"] = "Boolean";
+                break;
+            case __1.SPTypes.FieldResultType.Currency:
+                props["ResultType"] = "Currency";
+                break;
+            case __1.SPTypes.FieldResultType.DateOnly:
+                props["Format"] = "DateOnly";
+                props["ResultType"] = "DateTime";
+                break;
+            case __1.SPTypes.FieldResultType.DateTime:
+                props["Format"] = "DateTime";
+                props["ResultType"] = "DateTime";
+                break;
+            case __1.SPTypes.FieldResultType.Number:
+                props["ResultType"] = "Number";
+                break;
+            default:
+                props["ResultType"] = "Text";
+                break;
+        }
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + ">";
+        if (fieldInfo.formula) {
+            schemaXml += "<Formula>" + fieldInfo.formula + "</Formula>";
+        }
+        if (fieldInfo.fieldRefs) {
+            schemaXml += "<FieldRefs>";
+            for (var i = 0; i < fieldInfo.fieldRefs.length; i++) {
+                schemaXml += "<FieldRef Name=\"" + fieldInfo.fieldRefs[i] + "\" />";
+            }
+            schemaXml += "</FieldRefs>";
+        }
+        schemaXml += "</Field>";
+        // Resolve the request
+        _resolve(schemaXml);
+    };
+    // Returns the schema xml for a choice field.
+    var createChoice = function (fieldInfo, props) {
+        var schemaXml = null;
+        // Set the field type
+        props["Type"] = fieldInfo.multi ? "MultiChoice" : "Choice";
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + ">";
+        if (fieldInfo.defaultValue) {
+            schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
+        }
+        if (fieldInfo.choices) {
+            schemaXml += "<CHOICES>";
+            for (var i = 0; i < fieldInfo.choices.length; i++) {
+                schemaXml += "<CHOICE>" + fieldInfo.choices[i] + "</CHOICE>";
+            }
+            schemaXml += "</CHOICES>";
+        }
+        schemaXml += "</Field>";
+        // Resolve the request
+        _resolve(schemaXml);
+    };
+    // Returns the schema xml for a date field.
+    var createDate = function (fieldInfo, props) {
+        var schemaXml = null;
+        // Set the field type
+        props["Type"] = "DateTime";
+        // Set the date/time properties
+        props["Format"] = fieldInfo.format == __1.SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + " />";
+        // Resolve the request
+        _resolve(schemaXml);
+    };
+    // Returns the schema xml for a lookup field.
+    var createLookup = function (fieldInfo, props) {
+        var schemaXml = null;
+        // Set the field type
+        props["Type"] = fieldInfo.multi ? "LookupMulti" : "Lookup";
+        // Set the lookup properties
+        if (fieldInfo.fieldRef) {
+            props["FieldRef"] = fieldInfo.fieldRef;
+        }
+        if (fieldInfo.multi) {
+            props["Mult"] = "TRUE";
+        }
+        if (fieldInfo.showField) {
+            props["ShowField"] = fieldInfo.showField;
+        }
+        // See if the lookup name exists
+        if (fieldInfo.listName) {
+            // Get the web containing the list
+            (new lib_1.Web(fieldInfo.webUrl))
+                .Lists(fieldInfo.listName)
+                .query({
+                Expand: ["ParentWeb"]
+            })
+                .execute(function (list) {
+                // Set the list and web ids
+                props["List"] = list.Id;
+                if (fieldInfo.webUrl) {
+                    props["WebId"] = list.ParentWeb.Id;
                 }
-                else {
-                    // Set the base properties
-                    var props = {};
-                    props["ID"] = "{" + lib_1.ContextInfo.generateGUID() + "}";
-                    props["Name"] = fieldInfo.name;
-                    props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
-                    props["StaticName"] = fieldInfo.name;
-                    props["DisplayName"] = fieldInfo.title;
-                    // Set the type
-                    switch (fieldInfo.type) {
-                        // Boolean
-                        case spCfg_1.SPCfgFieldType.Boolean:
-                            _this.createBoolean(fieldInfo, props);
-                            break;
-                        // Calculated
-                        case spCfg_1.SPCfgFieldType.Calculated:
-                            _this.createCalculated(fieldInfo, props);
-                            break;
-                        // Choice
-                        case spCfg_1.SPCfgFieldType.Choice:
-                            _this.createChoice(fieldInfo, props);
-                            break;
-                        // Date/Time
-                        case spCfg_1.SPCfgFieldType.Date:
-                            _this.createDate(fieldInfo, props);
-                            break;
-                        // Lookup
-                        case spCfg_1.SPCfgFieldType.Lookup:
-                            _this.createLookup(fieldInfo, props);
-                            break;
-                        // MMS
-                        case spCfg_1.SPCfgFieldType.MMS:
-                            _this.createMMS(fieldInfo, props);
-                            break;
-                        // Note
-                        case spCfg_1.SPCfgFieldType.Note:
-                            _this.createNote(fieldInfo, props);
-                            break;
-                        // Number
-                        case spCfg_1.SPCfgFieldType.Number:
-                            _this.createNumber(fieldInfo, props);
-                            break;
-                        // Text
-                        case spCfg_1.SPCfgFieldType.Text:
-                            _this.createText(fieldInfo, props);
-                            break;
-                        // URL
-                        case spCfg_1.SPCfgFieldType.Url:
-                            _this.createUrl(fieldInfo, props);
-                            break;
-                        // User
-                        case spCfg_1.SPCfgFieldType.User:
-                            _this.createUser(fieldInfo, props);
-                            break;
-                        // Field type not supported
-                        default:
-                            // Resolve the promise
-                            resolve();
-                            break;
-                    }
-                }
-            });
-        };
-        /**
-         * Methods
-         */
-        /** Returns the schema xml for a boolean field. */
-        this.createBoolean = function (fieldInfo, props) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "Boolean";
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + ">";
-            if (fieldInfo.defaultValue) {
-                schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
-            }
-            schemaXml += "</Field>";
-            // Resolve the request
-            _this._resolve(schemaXml);
-        };
-        /** Returns the schema xml for a calculated field. */
-        this.createCalculated = function (fieldInfo, props) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "Calculated";
-            // Set the result type
-            switch (fieldInfo.resultType) {
-                case __1.SPTypes.FieldResultType.Boolean:
-                    props["ResultType"] = "Boolean";
-                    break;
-                case __1.SPTypes.FieldResultType.Currency:
-                    props["ResultType"] = "Currency";
-                    break;
-                case __1.SPTypes.FieldResultType.DateOnly:
-                    props["Format"] = "DateOnly";
-                    props["ResultType"] = "DateTime";
-                    break;
-                case __1.SPTypes.FieldResultType.DateTime:
-                    props["Format"] = "DateTime";
-                    props["ResultType"] = "DateTime";
-                    break;
-                case __1.SPTypes.FieldResultType.Number:
-                    props["ResultType"] = "Number";
-                    break;
-                default:
-                    props["ResultType"] = "Text";
-                    break;
-            }
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + ">";
-            if (fieldInfo.formula) {
-                schemaXml += "<Formula>" + fieldInfo.formula + "</Formula>";
-            }
-            if (fieldInfo.fieldRefs) {
-                schemaXml += "<FieldRefs>";
-                for (var i = 0; i < fieldInfo.fieldRefs.length; i++) {
-                    schemaXml += "<FieldRef Name=\"" + fieldInfo.fieldRefs[i] + "\" />";
-                }
-                schemaXml += "</FieldRefs>";
-            }
-            schemaXml += "</Field>";
-            // Resolve the request
-            _this._resolve(schemaXml);
-        };
-        /** Returns the schema xml for a choice field. */
-        this.createChoice = function (fieldInfo, props) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = fieldInfo.multi ? "MultiChoice" : "Choice";
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + ">";
-            if (fieldInfo.defaultValue) {
-                schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>";
-            }
-            if (fieldInfo.choices) {
-                schemaXml += "<CHOICES>";
-                for (var i = 0; i < fieldInfo.choices.length; i++) {
-                    schemaXml += "<CHOICE>" + fieldInfo.choices[i] + "</CHOICE>";
-                }
-                schemaXml += "</CHOICES>";
-            }
-            schemaXml += "</Field>";
-            // Resolve the request
-            _this._resolve(schemaXml);
-        };
-        /** Returns the schema xml for a date field. */
-        this.createDate = function (fieldInfo, props) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "DateTime";
-            // Set the date/time properties
-            props["Format"] = fieldInfo.format == __1.SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the request
-            _this._resolve(schemaXml);
-        };
-        /** Returns the schema xml for a lookup field. */
-        this.createLookup = function (fieldInfo, props) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = fieldInfo.multi ? "LookupMulti" : "Lookup";
-            // Set the lookup properties
-            if (fieldInfo.fieldRef) {
-                props["FieldRef"] = fieldInfo.fieldRef;
-            }
-            if (fieldInfo.multi) {
-                props["Mult"] = "TRUE";
-            }
-            if (fieldInfo.showField) {
-                props["ShowField"] = fieldInfo.showField;
-            }
-            // See if the lookup name exists
-            if (fieldInfo.listName) {
-                // Get the web containing the list
-                (new lib_1.Web(fieldInfo.webUrl))
-                    .Lists(fieldInfo.listName)
-                    .query({
-                    Expand: ["ParentWeb"]
-                })
-                    .execute(function (list) {
-                    // Set the list and web ids
-                    props["List"] = list.Id;
-                    if (fieldInfo.webUrl) {
-                        props["WebId"] = list.ParentWeb.Id;
-                    }
-                    // Resolve the request
-                    _this._resolve("<Field " + _this.toString(props) + " />");
-                });
-            }
-            else {
-                // Set the list id
-                props["List"] = fieldInfo.listId;
                 // Resolve the request
-                _this._resolve("<Field " + _this.toString(props) + " />");
-            }
-        };
-        /** Returns the schema xml for a managed metadata field. */
-        this.createMMS = function (fieldInfo, props) {
-            // Create the value field
-            var valueProps = {
-                ID: "{" + lib_1.ContextInfo.generateGUID() + "}",
-                Name: fieldInfo.name + "_0",
-                StaticName: fieldInfo.name + "_0",
-                DisplayName: fieldInfo.title + " Value",
-                Type: "Note",
-                Hidden: "TRUE",
-                Required: "FALSE",
-                ShowInViewForms: "FALSE",
-                CanToggleHidden: "TRUE"
-            };
-            // Generate the value field schema xml
-            var schemaXmlValue = "<Field " + _this.toString(valueProps) + " />";
-            // Set the mms properties
-            props["Type"] = "TaxonomyFieldType";
-            props["ShowField"] = "Term" + (fieldInfo.locale ? fieldInfo.locale.toString() : "1033");
-            // Generate the mms field schema xml
-            var schemaXml = [
-                "<Field " + _this.toString(props) + ">",
-                "<Customization>",
-                "<ArrayOfProperty>",
-                "<Property>",
-                "<Name>TextField</Name>",
-                "<Value xmlns:q6=\"http://www.w3.org/2001/XMLSchema\" p4:type=\"q6:string\" xmlns:p4=\"http://www.w3.org/2001/XMLSchema-instance\">" + valueProps.ID + "</Value>",
-                "</Property>",
-                "</ArrayOfProperty>",
-                "</Customization>",
-                "</Field>"
-            ].join("");
+                _resolve("<Field " + toString(props) + " />");
+            });
+        }
+        else {
+            // Set the list id
+            props["List"] = fieldInfo.listId;
             // Resolve the request
-            _this._resolve([schemaXmlValue, schemaXml]);
+            _resolve("<Field " + toString(props) + " />");
+        }
+    };
+    // Returns the schema xml for a managed metadata field.
+    var createMMS = function (fieldInfo, props) {
+        // Create the value field
+        var valueProps = {
+            ID: "{" + lib_1.ContextInfo.generateGUID() + "}",
+            Name: fieldInfo.name + "_0",
+            StaticName: fieldInfo.name + "_0",
+            DisplayName: fieldInfo.title + " Value",
+            Type: "Note",
+            Hidden: "TRUE",
+            Required: "FALSE",
+            ShowInViewForms: "FALSE",
+            CanToggleHidden: "TRUE"
         };
-        /** Returns the schema xml for a note field. */
-        this.createNote = function (fieldInfo, props) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "Note";
-            // Set the note properties
-            if (fieldInfo.appendFl) {
-                props["AppendOnly"] = "TRUE";
+        // Generate the value field schema xml
+        var schemaXmlValue = "<Field " + toString(valueProps) + " />";
+        // Set the mms properties
+        props["Type"] = "TaxonomyFieldType";
+        props["ShowField"] = "Term" + (fieldInfo.locale ? fieldInfo.locale.toString() : "1033");
+        // Generate the mms field schema xml
+        var schemaXml = [
+            "<Field " + toString(props) + ">",
+            "<Customization>",
+            "<ArrayOfProperty>",
+            "<Property>",
+            "<Name>TextField</Name>",
+            "<Value xmlns:q6=\"http://www.w3.org/2001/XMLSchema\" p4:type=\"q6:string\" xmlns:p4=\"http://www.w3.org/2001/XMLSchema-instance\">" + valueProps.ID + "</Value>",
+            "</Property>",
+            "</ArrayOfProperty>",
+            "</Customization>",
+            "</Field>"
+        ].join("");
+        // Resolve the request
+        _resolve([schemaXmlValue, schemaXml]);
+    };
+    // Returns the schema xml for a note field.
+    var createNote = function (fieldInfo, props) {
+        var schemaXml = null;
+        // Set the field type
+        props["Type"] = "Note";
+        // Set the note properties
+        if (fieldInfo.appendFl) {
+            props["AppendOnly"] = "TRUE";
+        }
+        if (fieldInfo.noteType == __1.SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == __1.SPTypes.FieldNoteType.RichText) {
+            props["RichText"] = "TRUE";
+        }
+        if (fieldInfo.noteType == __1.SPTypes.FieldNoteType.EnhancedRichText) {
+            props["RichTextMode"] = "FullHtml";
+        }
+        if (fieldInfo.numberOfLines > 0) {
+            props["NumLines"] = fieldInfo.numberOfLines;
+        }
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + " />";
+        // Resolve the request
+        _resolve(schemaXml);
+    };
+    // Returns the schema xml for a number field.
+    var createNumber = function (fieldInfo, props) {
+        var schemaXml = null;
+        // Set the field type
+        props["Type"] = "Number";
+        // Set the number properties
+        if (fieldInfo.decimals >= 0) {
+            props["Decimals"] = fieldInfo.decimals;
+        }
+        if (fieldInfo.max != null) {
+            props["Max"] = fieldInfo.max;
+        }
+        if (fieldInfo.min != null) {
+            props["Min"] = fieldInfo.min;
+        }
+        if (fieldInfo.numberType == __1.SPTypes.FieldNumberType.Integer) {
+            props["Decimals"] = 0;
+        }
+        if (fieldInfo.numberType == __1.SPTypes.FieldNumberType.Percentage) {
+            props["ShowPercentage"] = "TRUE";
+        }
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + " />";
+        // Resolve the request
+        _resolve(schemaXml);
+    };
+    // Returns the schema xml for a text field.
+    var createText = function (fieldInfo, props) {
+        var schemaXml = null;
+        // Set the field type
+        props["Type"] = "Text";
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + " />";
+        // Resolve the request
+        _resolve(schemaXml);
+    };
+    // Returns the schema xml for a url field.
+    var createUrl = function (fieldInfo, props) {
+        var schemaXml = null;
+        // Set the field type
+        props["Type"] = "URL";
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + " />";
+        // Resolve the request
+        _resolve(schemaXml);
+    };
+    // Returns the schema xml for a user field.
+    var createUser = function (fieldInfo, props) {
+        var schemaXml = null;
+        // Set the field type
+        props["Type"] = "User";
+        // Set the user properties
+        if (fieldInfo.multi) {
+            props["Mult"] = "TRUE";
+        }
+        if (fieldInfo.selectionMode != null) {
+            props["UserSelectionMode"] = fieldInfo.selectionMode;
+        }
+        if (fieldInfo.selectionScope != null) {
+            props["UserSelectionScope"] = fieldInfo.selectionScope;
+        }
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + " />";
+        // Resolve the request
+        _resolve(schemaXml);
+    };
+    // Method to convert the properties to a string
+    var toString = function (props) {
+        var properties = "";
+        // Parse the properties
+        for (var key in props) {
+            var value = props[key];
+            // Add the property
+            properties += (properties ? " " : "") + key + "=\"" + props[key] + "\"";
+        }
+        // Return the string value
+        return properties;
+    };
+    // Return a promise
+    return new Promise(function (resolve, reject) {
+        // Set the resolve method
+        _resolve = resolve;
+        // See if the schema xml has been defined
+        if (fieldInfo.schemaXml) {
+            // Resolve the promise
+            resolve(fieldInfo.schemaXml);
+        }
+        else {
+            // Set the base properties
+            var props = {};
+            props["ID"] = "{" + lib_1.ContextInfo.generateGUID() + "}";
+            props["Name"] = fieldInfo.name;
+            props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
+            props["StaticName"] = fieldInfo.name;
+            props["DisplayName"] = fieldInfo.title;
+            // Set the type
+            switch (fieldInfo.type) {
+                // Boolean
+                case spCfg_1.SPCfgFieldType.Boolean:
+                    createBoolean(fieldInfo, props);
+                    break;
+                // Calculated
+                case spCfg_1.SPCfgFieldType.Calculated:
+                    createCalculated(fieldInfo, props);
+                    break;
+                // Choice
+                case spCfg_1.SPCfgFieldType.Choice:
+                    createChoice(fieldInfo, props);
+                    break;
+                // Date/Time
+                case spCfg_1.SPCfgFieldType.Date:
+                    createDate(fieldInfo, props);
+                    break;
+                // Lookup
+                case spCfg_1.SPCfgFieldType.Lookup:
+                    createLookup(fieldInfo, props);
+                    break;
+                // MMS
+                case spCfg_1.SPCfgFieldType.MMS:
+                    createMMS(fieldInfo, props);
+                    break;
+                // Note
+                case spCfg_1.SPCfgFieldType.Note:
+                    createNote(fieldInfo, props);
+                    break;
+                // Number
+                case spCfg_1.SPCfgFieldType.Number:
+                    createNumber(fieldInfo, props);
+                    break;
+                // Text
+                case spCfg_1.SPCfgFieldType.Text:
+                    createText(fieldInfo, props);
+                    break;
+                // URL
+                case spCfg_1.SPCfgFieldType.Url:
+                    createUrl(fieldInfo, props);
+                    break;
+                // User
+                case spCfg_1.SPCfgFieldType.User:
+                    createUser(fieldInfo, props);
+                    break;
+                // Field type not supported
+                default:
+                    // Resolve the promise
+                    resolve();
+                    break;
             }
-            if (fieldInfo.noteType == __1.SPTypes.FieldNoteType.EnhancedRichText || fieldInfo.noteType == __1.SPTypes.FieldNoteType.RichText) {
-                props["RichText"] = "TRUE";
-            }
-            if (fieldInfo.noteType == __1.SPTypes.FieldNoteType.EnhancedRichText) {
-                props["RichTextMode"] = "FullHtml";
-            }
-            if (fieldInfo.numberOfLines > 0) {
-                props["NumLines"] = fieldInfo.numberOfLines;
-            }
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the request
-            _this._resolve(schemaXml);
-        };
-        /** Returns the schema xml for a number field. */
-        this.createNumber = function (fieldInfo, props) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "Number";
-            // Set the number properties
-            if (fieldInfo.decimals >= 0) {
-                props["Decimals"] = fieldInfo.decimals;
-            }
-            if (fieldInfo.max != null) {
-                props["Max"] = fieldInfo.max;
-            }
-            if (fieldInfo.min != null) {
-                props["Min"] = fieldInfo.min;
-            }
-            if (fieldInfo.numberType == __1.SPTypes.FieldNumberType.Integer) {
-                props["Decimals"] = 0;
-            }
-            if (fieldInfo.numberType == __1.SPTypes.FieldNumberType.Percentage) {
-                props["ShowPercentage"] = "TRUE";
-            }
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the request
-            _this._resolve(schemaXml);
-        };
-        /** Returns the schema xml for a text field. */
-        this.createText = function (fieldInfo, props) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "Text";
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the request
-            _this._resolve(schemaXml);
-        };
-        /** Returns the schema xml for a url field. */
-        this.createUrl = function (fieldInfo, props) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "URL";
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the request
-            _this._resolve(schemaXml);
-        };
-        /** Returns the schema xml for a user field. */
-        this.createUser = function (fieldInfo, props) {
-            var schemaXml = null;
-            // Set the field type
-            props["Type"] = "User";
-            // Set the user properties
-            if (fieldInfo.multi) {
-                props["Mult"] = "TRUE";
-            }
-            if (fieldInfo.selectionMode != null) {
-                props["UserSelectionMode"] = fieldInfo.selectionMode;
-            }
-            if (fieldInfo.selectionScope != null) {
-                props["UserSelectionScope"] = fieldInfo.selectionScope;
-            }
-            // Generate the schema
-            schemaXml = "<Field " + _this.toString(props) + " />";
-            // Resolve the request
-            _this._resolve(schemaXml);
-        };
-        // Method to convert the properties to a string
-        this.toString = function (props) {
-            var properties = "";
-            // Parse the properties
-            for (var key in props) {
-                var value = props[key];
-                // Add the property
-                properties += (properties ? " " : "") + key + "=\"" + props[key] + "\"";
-            }
-            // Return the string value
-            return properties;
-        };
-    }
-    return _FieldSchemaXML;
-}());
-exports.FieldSchemaXML = new _FieldSchemaXML();
+        }
+    });
+};
 //# sourceMappingURL=fieldSchemaXML.js.map
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9779,7 +9762,7 @@ exports.SPCfgType = {
 //# sourceMappingURL=spCfgTypes.js.map
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10151,7 +10134,7 @@ exports.JSLink = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10172,9 +10155,6 @@ var _ListForm = /** @class */ (function () {
         this._info = null;
         this._props = null;
         this._resolve = null;
-        /**
-         * Methods
-         */
         // Method to load the list data
         this.load = function () {
             // Clear the information
@@ -10396,6 +10376,14 @@ var _ListForm = /** @class */ (function () {
             _this.load();
         });
     }
+    /**
+     * Methods
+     */
+    // Method to create an instance of the list form
+    _ListForm.create = function (props) {
+        // Return an instance of the list form
+        return new _ListForm(props);
+    };
     // Method to load the item attachments
     _ListForm.loadAttachments = function (info) {
         // Return a promise
@@ -10524,14 +10512,14 @@ exports.ListForm = _ListForm;
 //# sourceMappingURL=listForm.js.map
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
-var __1 = __webpack_require__(18);
+var __1 = __webpack_require__(26);
 var taxonomy_1 = __webpack_require__(42);
 /**
  * List Form Field
@@ -10544,9 +10532,6 @@ var _ListFormField = /** @class */ (function () {
         var _this = this;
         this._fieldInfo = null;
         this._resolve = null;
-        /**
-         * Methods
-         */
         // Load the field
         this.load = function () {
             // See if the field exists
@@ -10662,6 +10647,14 @@ var _ListFormField = /** @class */ (function () {
             }
         });
     }
+    /**
+     * Methods
+     */
+    // Method to create an instance of the list form field
+    _ListFormField.create = function (props) {
+        // Return an instance of the list form field
+        return new _ListFormField(props);
+    };
     // Method to load the lookup data
     _ListFormField.loadLookupData = function (info, queryTop) {
         // Return a promise
@@ -10739,7 +10732,7 @@ exports.ListFormField = _ListFormField;
 //# sourceMappingURL=listFormField.js.map
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10799,7 +10792,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10835,7 +10828,7 @@ exports.RibbonLink = function (props) {
 //# sourceMappingURL=ribbonLink.js.map
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10875,7 +10868,7 @@ exports.SuiteBarLink = function (props) {
 //# sourceMappingURL=sbLink.js.map
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11150,13 +11143,18 @@ var _WebPart = /** @class */ (function () {
             _this.render();
         });
     }
+    // Method to create an instance of the webpart
+    _WebPart.create = function (props) {
+        // Return an instance of the webpart
+        return new _WebPart(props);
+    };
     return _WebPart;
 }());
 exports.WebPart = _WebPart;
 //# sourceMappingURL=webpart.js.map
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11331,7 +11329,7 @@ exports.Status = {
 //# sourceMappingURL=sp.js.map
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11340,7 +11338,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11355,7 +11353,7 @@ exports.Util = utils_1.Types;
 //# sourceMappingURL=types.js.map
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11368,7 +11366,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.42,
+    __ver: 3.44,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

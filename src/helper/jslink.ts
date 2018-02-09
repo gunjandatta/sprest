@@ -353,4 +353,4 @@ export const JSLink: IJSLink = {
         // Return the item's field value html
         return fieldRenderer ? fieldRenderer.RenderField(ctx, field, currentItem, ctx.ListSchema) : currentItem[field.Name];
     }
-} as any;
+}

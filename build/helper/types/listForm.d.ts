@@ -9,6 +9,11 @@ export interface IListForm {
      */
     new (props: IListFormProps): PromiseLike<IListFormResult>;
     /**
+     * Creates an instance of the list form
+     * @param props - The list form properties.
+     */
+    create(props: IListFormProps): PromiseLike<IListFormResult>;
+    /**
      * Method to load the item attachments
      * @param listInfo - The list form information.
     */

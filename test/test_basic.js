@@ -434,7 +434,7 @@ function testListItem(list) {
     writeToLog("Creating the list item", LogType.SubHeader);
 
     // Create the item
-    item = list.Items().add({
+    var item = list.Items().add({
         Title: "New Item"
     }).executeAndWait();
     assert(item, "create", "existsFl", true);

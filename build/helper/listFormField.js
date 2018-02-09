@@ -14,9 +14,6 @@ var _ListFormField = /** @class */ (function () {
         var _this = this;
         this._fieldInfo = null;
         this._resolve = null;
-        /**
-         * Methods
-         */
         // Load the field
         this.load = function () {
             // See if the field exists
@@ -132,6 +129,14 @@ var _ListFormField = /** @class */ (function () {
             }
         });
     }
+    /**
+     * Methods
+     */
+    // Method to create an instance of the list form field
+    _ListFormField.create = function (props) {
+        // Return an instance of the list form field
+        return new _ListFormField(props);
+    };
     // Method to load the lookup data
     _ListFormField.loadLookupData = function (info, queryTop) {
         // Return a promise

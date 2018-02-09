@@ -35,7 +35,7 @@ export interface IApp {
      * @param folder - The app web relative url to the source file.
      * @param subFolderUrl - The host web relative url of the destination folder.
      */
-    createSubFolders(folder: Types.SP.IFolderResult, subFolderUrl: string): PromiseLike<Types.SP.IFolderResult>;
+    createSubFolders(folder: Types.SP.IFolder, subFolderUrl: string): PromiseLike<Types.SP.IFolderResult>;
 
     /**
      * Method to get the file content.

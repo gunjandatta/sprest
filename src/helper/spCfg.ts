@@ -326,7 +326,7 @@ class _SPConfig {
                     }
 
                     // Compute the schema xml
-                    FieldSchemaXML.generate(cfgField).then(response => {
+                    FieldSchemaXML(cfgField).then(response => {
                         let schemas: Array<string> = typeof (response) === "string" ? [response] : response as any;
 
                         // Parse the fields to add
