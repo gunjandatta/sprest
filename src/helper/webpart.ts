@@ -70,6 +70,12 @@ class _WebPart {
         }
     }
 
+    // Method to create an instance of the webpart
+    static create(props: WebPartTypes.IWebPartProps) {
+        // Return an instance of the webpart
+        return new _WebPart(props);
+    }
+
     /**
      * Method to get the webpart
      */

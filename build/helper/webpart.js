@@ -269,6 +269,11 @@ var _WebPart = /** @class */ (function () {
             _this.render();
         });
     }
+    // Method to create an instance of the webpart
+    _WebPart.create = function (props) {
+        // Return an instance of the webpart
+        return new _WebPart(props);
+    };
     return _WebPart;
 }());
 exports.WebPart = _WebPart;

@@ -5,11 +5,9 @@ var lib_1 = require("../lib");
  * App Helper Methods
  * Helper methods designed to be run from the app web.
  */
-var _App = /** @class */ (function () {
-    function _App() {
-    }
+exports.App = {
     // Method to copy a file in this app web to the host web
-    _App.copyFileToHostWeb = function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
+    copyFileToHostWeb: function (fileUrl, dstFolder, overwriteFl, rootWebFl) {
         var srcFile = null;
         var origVal = lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl;
         // Return a promise
@@ -95,9 +93,9 @@ var _App = /** @class */ (function () {
                 web.done(function () { resolve({ file: srcFile, folder: dstFolder }); });
             }
         });
-    };
+    },
     // Method to copy a file in this app web to the host web
-    _App.copyFilesToHostWeb = function (fileUrls, folderUrls, overwriteFl, rootWebFl) {
+    copyFilesToHostWeb: function (fileUrls, folderUrls, overwriteFl, rootWebFl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var request = function (files, folders, idx) {
@@ -121,9 +119,9 @@ var _App = /** @class */ (function () {
             // Execute the request
             request([], [], 0);
         });
-    };
+    },
     // Method to create sub-folders
-    _App.createSubFolders = function (folder, subFolderUrl) {
+    createSubFolders: function (folder, subFolderUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var request = function (resolve) {
@@ -159,9 +157,9 @@ var _App = /** @class */ (function () {
             // Execute the request
             request(resolve);
         });
-    };
+    },
     // Method to get a folder
-    _App.getFolder = function (web, folderUrl, createFl) {
+    getFolder: function (web, folderUrl, createFl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var dstFolder = null;
@@ -204,9 +202,9 @@ var _App = /** @class */ (function () {
                 });
             });
         });
-    };
+    },
     // Method to remove empty folders
-    _App.removeEmptyFolders = function (web, folderUrls) {
+    removeEmptyFolders: function (web, folderUrls) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure folder urls exist
@@ -256,9 +254,9 @@ var _App = /** @class */ (function () {
                 web.done(function () { resolve(); });
             }
         });
-    };
+    },
     // Method to remove a file
-    _App.removeFile = function (web, fileUrl) {
+    removeFile: function (web, fileUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var folder = null;
@@ -281,9 +279,9 @@ var _App = /** @class */ (function () {
                 }
             }, true);
         });
-    };
+    },
     // Method to remove files
-    _App.removeFiles = function (web, fileUrls, idx) {
+    removeFiles: function (web, fileUrls, idx) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             var request = function (idx, resolve) {
@@ -303,8 +301,6 @@ var _App = /** @class */ (function () {
             // Execute the request
             request(0, resolve);
         });
-    };
-    return _App;
-}());
-exports.App = new _App();
+    }
+};
 //# sourceMappingURL=app.js.map

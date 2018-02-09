@@ -15,9 +15,6 @@ var _ListForm = /** @class */ (function () {
         this._info = null;
         this._props = null;
         this._resolve = null;
-        /**
-         * Methods
-         */
         // Method to load the list data
         this.load = function () {
             // Clear the information
@@ -239,6 +236,14 @@ var _ListForm = /** @class */ (function () {
             _this.load();
         });
     }
+    /**
+     * Methods
+     */
+    // Method to create an instance of the list form
+    _ListForm.create = function (props) {
+        // Return an instance of the list form
+        return new _ListForm(props);
+    };
     // Method to load the item attachments
     _ListForm.loadAttachments = function (info) {
         // Return a promise

@@ -226,7 +226,7 @@ var _SPConfig = /** @class */ (function () {
                             }
                         };
                         // Compute the schema xml
-                        _1.FieldSchemaXML.generate(cfgField).then(function (response) {
+                        _1.FieldSchemaXML(cfgField).then(function (response) {
                             var schemas = typeof (response) === "string" ? [response] : response;
                             // Parse the fields to add
                             for (var i_1 = 0; i_1 < schemas.length; i_1++) {

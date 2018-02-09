@@ -38,6 +38,12 @@ class _ListFormField {
      * Methods
      */
 
+    // Method to create an instance of the list form field
+    static create(props: ListFormFieldTypes.IListFormFieldInfo) {
+        // Return an instance of the list form field
+        return new _ListFormField(props);
+    }
+
     // Load the field
     private load = () => {
         // See if the field exists

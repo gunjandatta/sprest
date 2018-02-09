@@ -1,114 +1,37 @@
 import { ContextInfo, Web } from "../lib";
-import { SPTypes, Types } from "..";
-import { IFieldSchemaXML } from "./types";
+import { SPTypes } from "..";
 import { SPCfgFieldType } from "./spCfg";
+import {
+    IFieldInfo, IFieldInfoCalculated, IFieldInfoChoice,
+    IFieldInfoDate, IFieldInfoLookup, IFieldInfoMMS,
+    IFieldInfoNote, IFieldInfoNumber, IFieldInfoUser
+} from "./types";
 
 /**
  * Field Schema XML
  * Helper class for generating the field schema xml
  */
-class _FieldSchemaXML {
-    // Method to resolve this request
-    _resolve = null;
+export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
+    let _resolve = null;
 
-    // Generates the schema xml, based on the field information provided.
-    generate = (fieldInfo: Types.Helper.IFieldInfo): PromiseLike<string> => {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // Set the resolve method
-            this._resolve = resolve;
-
-            // See if the schema xml has been defined
-            if (fieldInfo.schemaXml) {
-                // Resolve the promise
-                resolve(fieldInfo.schemaXml);
-            } else {
-                // Set the base properties
-                let props = {};
-                props["ID"] = "{" + ContextInfo.generateGUID() + "}";
-                props["Name"] = fieldInfo.name;
-                props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
-                props["StaticName"] = fieldInfo.name;
-                props["DisplayName"] = fieldInfo.title;
-
-                // Set the type
-                switch (fieldInfo.type) {
-                    // Boolean
-                    case SPCfgFieldType.Boolean:
-                        this.createBoolean(fieldInfo, props);
-                        break;
-                    // Calculated
-                    case SPCfgFieldType.Calculated:
-                        this.createCalculated(fieldInfo, props);
-                        break;
-                    // Choice
-                    case SPCfgFieldType.Choice:
-                        this.createChoice(fieldInfo, props);
-                        break;
-                    // Date/Time
-                    case SPCfgFieldType.Date:
-                        this.createDate(fieldInfo, props);
-                        break;
-                    // Lookup
-                    case SPCfgFieldType.Lookup:
-                        this.createLookup(fieldInfo, props);
-                        break;
-                    // MMS
-                    case SPCfgFieldType.MMS:
-                        this.createMMS(fieldInfo, props);
-                        break;
-                    // Note
-                    case SPCfgFieldType.Note:
-                        this.createNote(fieldInfo, props);
-                        break;
-                    // Number
-                    case SPCfgFieldType.Number:
-                        this.createNumber(fieldInfo, props);
-                        break;
-                    // Text
-                    case SPCfgFieldType.Text:
-                        this.createText(fieldInfo, props);
-                        break;
-                    // URL
-                    case SPCfgFieldType.Url:
-                        this.createUrl(fieldInfo, props);
-                        break;
-                    // User
-                    case SPCfgFieldType.User:
-                        this.createUser(fieldInfo, props);
-                        break;
-                    // Field type not supported
-                    default:
-                        // Resolve the promise
-                        resolve();
-                        break;
-                }
-            }
-        });
-    }
-
-    /**
-     * Methods
-     */
-
-    /** Returns the schema xml for a boolean field. */
-    private createBoolean = (fieldInfo: Types.Helper.IFieldInfo, props: object) => {
+    // Returns the schema xml for a boolean field.
+    let createBoolean = (fieldInfo: IFieldInfo, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
         props["Type"] = "Boolean";
 
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + ">";
+        schemaXml = "<Field " + toString(props) + ">";
         if (fieldInfo.defaultValue) { schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>"; }
         schemaXml += "</Field>";
 
         // Resolve the request
-        this._resolve(schemaXml);
+        _resolve(schemaXml);
     }
 
-    /** Returns the schema xml for a calculated field. */
-    private createCalculated = (fieldInfo: Types.Helper.IFieldInfoCalculated, props: object) => {
+    // Returns the schema xml for a calculated field.
+    let createCalculated = (fieldInfo: IFieldInfoCalculated, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -139,7 +62,7 @@ class _FieldSchemaXML {
         }
 
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + ">";
+        schemaXml = "<Field " + toString(props) + ">";
         if (fieldInfo.formula) { schemaXml += "<Formula>" + fieldInfo.formula + "</Formula>"; }
         if (fieldInfo.fieldRefs) {
             schemaXml += "<FieldRefs>";
@@ -149,18 +72,18 @@ class _FieldSchemaXML {
         schemaXml += "</Field>";
 
         // Resolve the request
-        this._resolve(schemaXml);
+        _resolve(schemaXml);
     }
 
-    /** Returns the schema xml for a choice field. */
-    private createChoice = (fieldInfo: Types.Helper.IFieldInfoChoice, props: object) => {
+    // Returns the schema xml for a choice field.
+    let createChoice = (fieldInfo: IFieldInfoChoice, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
         props["Type"] = fieldInfo.multi ? "MultiChoice" : "Choice";
 
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + ">";
+        schemaXml = "<Field " + toString(props) + ">";
         if (fieldInfo.defaultValue) { schemaXml += "<Default>" + fieldInfo.defaultValue + "</Default>"; }
         if (fieldInfo.choices) {
             schemaXml += "<CHOICES>";
@@ -170,11 +93,11 @@ class _FieldSchemaXML {
         schemaXml += "</Field>";
 
         // Resolve the request
-        this._resolve(schemaXml);
+        _resolve(schemaXml);
     }
 
-    /** Returns the schema xml for a date field. */
-    private createDate = (fieldInfo: Types.Helper.IFieldInfoDate, props: object) => {
+    // Returns the schema xml for a date field.
+    let createDate = (fieldInfo: IFieldInfoDate, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -184,14 +107,14 @@ class _FieldSchemaXML {
         props["Format"] = fieldInfo.format == SPTypes.DateFormat.DateTime ? "DateTime" : "DateOnly";
 
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
+        schemaXml = "<Field " + toString(props) + " />";
 
         // Resolve the request
-        this._resolve(schemaXml);
+        _resolve(schemaXml);
     }
 
-    /** Returns the schema xml for a lookup field. */
-    private createLookup = (fieldInfo: Types.Helper.IFieldInfoLookup, props: object) => {
+    // Returns the schema xml for a lookup field.
+    let createLookup = (fieldInfo: IFieldInfoLookup, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -219,19 +142,19 @@ class _FieldSchemaXML {
                     if (fieldInfo.webUrl) { props["WebId"] = list.ParentWeb.Id }
 
                     // Resolve the request
-                    this._resolve("<Field " + this.toString(props) + " />");
+                    _resolve("<Field " + toString(props) + " />");
                 });
         } else {
             // Set the list id
             props["List"] = fieldInfo.listId;
 
             // Resolve the request
-            this._resolve("<Field " + this.toString(props) + " />");
+            _resolve("<Field " + toString(props) + " />");
         }
     }
 
-    /** Returns the schema xml for a managed metadata field. */
-    private createMMS = (fieldInfo: Types.Helper.IFieldInfoMMS, props: object) => {
+    // Returns the schema xml for a managed metadata field.
+    let createMMS = (fieldInfo: IFieldInfoMMS, props: object) => {
         // Create the value field
         let valueProps = {
             ID: "{" + ContextInfo.generateGUID() + "}",
@@ -246,7 +169,7 @@ class _FieldSchemaXML {
         };
 
         // Generate the value field schema xml
-        let schemaXmlValue = "<Field " + this.toString(valueProps) + " />";
+        let schemaXmlValue = "<Field " + toString(valueProps) + " />";
 
         // Set the mms properties
         props["Type"] = "TaxonomyFieldType";
@@ -254,7 +177,7 @@ class _FieldSchemaXML {
 
         // Generate the mms field schema xml
         let schemaXml = [
-            "<Field " + this.toString(props) + ">",
+            "<Field " + toString(props) + ">",
             "<Customization>",
             "<ArrayOfProperty>",
             "<Property>",
@@ -267,11 +190,11 @@ class _FieldSchemaXML {
         ].join("");
 
         // Resolve the request
-        this._resolve([schemaXmlValue, schemaXml]);
+        _resolve([schemaXmlValue, schemaXml]);
     }
 
-    /** Returns the schema xml for a note field. */
-    private createNote = (fieldInfo: Types.Helper.IFieldInfoNote, props: object) => {
+    // Returns the schema xml for a note field.
+    let createNote = (fieldInfo: IFieldInfoNote, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -284,14 +207,14 @@ class _FieldSchemaXML {
         if (fieldInfo.numberOfLines > 0) { props["NumLines"] = fieldInfo.numberOfLines; }
 
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
+        schemaXml = "<Field " + toString(props) + " />";
 
         // Resolve the request
-        this._resolve(schemaXml);
+        _resolve(schemaXml);
     }
 
-    /** Returns the schema xml for a number field. */
-    private createNumber = (fieldInfo: Types.Helper.IFieldInfoNumber, props: object) => {
+    // Returns the schema xml for a number field.
+    let createNumber = (fieldInfo: IFieldInfoNumber, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -305,42 +228,42 @@ class _FieldSchemaXML {
         if (fieldInfo.numberType == SPTypes.FieldNumberType.Percentage) { props["ShowPercentage"] = "TRUE"; }
 
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
+        schemaXml = "<Field " + toString(props) + " />";
 
         // Resolve the request
-        this._resolve(schemaXml);
+        _resolve(schemaXml);
     }
 
-    /** Returns the schema xml for a text field. */
-    private createText = (fieldInfo: Types.Helper.IFieldInfo, props: object) => {
+    // Returns the schema xml for a text field.
+    let createText = (fieldInfo: IFieldInfo, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
         props["Type"] = "Text";
 
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
+        schemaXml = "<Field " + toString(props) + " />";
 
         // Resolve the request
-        this._resolve(schemaXml);
+        _resolve(schemaXml);
     }
 
-    /** Returns the schema xml for a url field. */
-    private createUrl = (fieldInfo: Types.Helper.IFieldInfo, props: object) => {
+    // Returns the schema xml for a url field.
+    let createUrl = (fieldInfo: IFieldInfo, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
         props["Type"] = "URL";
 
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
+        schemaXml = "<Field " + toString(props) + " />";
 
         // Resolve the request
-        this._resolve(schemaXml);
+        _resolve(schemaXml);
     }
 
-    /** Returns the schema xml for a user field. */
-    private createUser = (fieldInfo: Types.Helper.IFieldInfoUser, props: object) => {
+    // Returns the schema xml for a user field.
+    let createUser = (fieldInfo: IFieldInfoUser, props: object) => {
         let schemaXml: string = null;
 
         // Set the field type
@@ -352,14 +275,14 @@ class _FieldSchemaXML {
         if (fieldInfo.selectionScope != null) { props["UserSelectionScope"] = fieldInfo.selectionScope; }
 
         // Generate the schema
-        schemaXml = "<Field " + this.toString(props) + " />";
+        schemaXml = "<Field " + toString(props) + " />";
 
         // Resolve the request
-        this._resolve(schemaXml);
+        _resolve(schemaXml);
     }
 
     // Method to convert the properties to a string
-    private toString = (props) => {
+    let toString = (props) => {
         let properties = "";
 
         // Parse the properties
@@ -373,5 +296,77 @@ class _FieldSchemaXML {
         // Return the string value
         return properties;
     }
+
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        // Set the resolve method
+        _resolve = resolve;
+
+        // See if the schema xml has been defined
+        if (fieldInfo.schemaXml) {
+            // Resolve the promise
+            resolve(fieldInfo.schemaXml);
+        } else {
+            // Set the base properties
+            let props = {};
+            props["ID"] = "{" + ContextInfo.generateGUID() + "}";
+            props["Name"] = fieldInfo.name;
+            props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
+            props["StaticName"] = fieldInfo.name;
+            props["DisplayName"] = fieldInfo.title;
+
+            // Set the type
+            switch (fieldInfo.type) {
+                // Boolean
+                case SPCfgFieldType.Boolean:
+                    createBoolean(fieldInfo, props);
+                    break;
+                // Calculated
+                case SPCfgFieldType.Calculated:
+                    createCalculated(fieldInfo, props);
+                    break;
+                // Choice
+                case SPCfgFieldType.Choice:
+                    createChoice(fieldInfo, props);
+                    break;
+                // Date/Time
+                case SPCfgFieldType.Date:
+                    createDate(fieldInfo, props);
+                    break;
+                // Lookup
+                case SPCfgFieldType.Lookup:
+                    createLookup(fieldInfo, props);
+                    break;
+                // MMS
+                case SPCfgFieldType.MMS:
+                    createMMS(fieldInfo, props);
+                    break;
+                // Note
+                case SPCfgFieldType.Note:
+                    createNote(fieldInfo, props);
+                    break;
+                // Number
+                case SPCfgFieldType.Number:
+                    createNumber(fieldInfo, props);
+                    break;
+                // Text
+                case SPCfgFieldType.Text:
+                    createText(fieldInfo, props);
+                    break;
+                // URL
+                case SPCfgFieldType.Url:
+                    createUrl(fieldInfo, props);
+                    break;
+                // User
+                case SPCfgFieldType.User:
+                    createUser(fieldInfo, props);
+                    break;
+                // Field type not supported
+                default:
+                    // Resolve the promise
+                    resolve();
+                    break;
+            }
+        }
+    });
 }
-export const FieldSchemaXML: IFieldSchemaXML = new _FieldSchemaXML();

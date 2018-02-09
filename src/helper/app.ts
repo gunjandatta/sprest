@@ -6,9 +6,9 @@ import { IApp } from "./types";
  * App Helper Methods
  * Helper methods designed to be run from the app web.
  */
-class _App {
+export const App: IApp = {
     // Method to copy a file in this app web to the host web
-    static copyFileToHostWeb = (fileUrl, dstFolder, overwriteFl, rootWebFl): PromiseLike<{ file: Types.SP.IFileResult, folder: Types.SP.IFolderResult }> => {
+    copyFileToHostWeb: (fileUrl, dstFolder, overwriteFl, rootWebFl): PromiseLike<{ file: Types.SP.IFileResult, folder: Types.SP.IFolderResult }> => {
         let srcFile = null;
         let origVal = ContextInfo.window.$REST.DefaultRequestToHostFl;
 
@@ -107,10 +107,10 @@ class _App {
                 web.done(() => { resolve({ file: srcFile, folder: dstFolder }); });
             }
         });
-    }
+    },
 
     // Method to copy a file in this app web to the host web
-    static copyFilesToHostWeb = (fileUrls, folderUrls, overwriteFl, rootWebFl): PromiseLike<{ files: Array<Types.SP.IFileResult>, folders: Array<Types.SP.IFolderResult> }> => {
+    copyFilesToHostWeb: (fileUrls, folderUrls, overwriteFl, rootWebFl): PromiseLike<{ files: Array<Types.SP.IFileResult>, folders: Array<Types.SP.IFolderResult> }> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (files, folders, idx) => {
@@ -137,10 +137,10 @@ class _App {
             // Execute the request
             request([], [], 0);
         });
-    }
+    },
 
     // Method to create sub-folders
-    static createSubFolders = (folder, subFolderUrl): PromiseLike<Types.SP.IFolderResult> => {
+    createSubFolders: (folder:Types.SP.IFolder, subFolderUrl): PromiseLike<Types.SP.IFolderResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (resolve) => {
@@ -178,10 +178,10 @@ class _App {
             // Execute the request
             request(resolve);
         });
-    }
+    },
 
     // Method to get a folder
-    static getFolder = (web, folderUrl, createFl): PromiseLike<Types.SP.IFolderResult> => {
+    getFolder: (web:Types.SP.IWebResult, folderUrl, createFl): PromiseLike<Types.SP.IFolderResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let dstFolder = null;
@@ -230,10 +230,10 @@ class _App {
                 });
             });
         });
-    }
+    },
 
     // Method to remove empty folders
-    static removeEmptyFolders = (web, folderUrls): PromiseLike<void> => {
+    removeEmptyFolders: (web, folderUrls): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure folder urls exist
@@ -281,10 +281,10 @@ class _App {
                 web.done(() => { resolve(); });
             }
         });
-    }
+    },
 
     // Method to remove a file
-    static removeFile = (web, fileUrl): PromiseLike<void> => {
+    removeFile: (web, fileUrl): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let folder = null;
@@ -308,10 +308,10 @@ class _App {
                 }
             }, true);
         });
-    }
+    },
 
     // Method to remove files
-    static removeFiles = (web, fileUrls, idx): PromiseLike<void> => {
+    removeFiles: (web, fileUrls, idx?): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (idx: number, resolve) => {
@@ -333,4 +333,3 @@ class _App {
         });
     }
 }
-export const App: IApp = new _App() as any;

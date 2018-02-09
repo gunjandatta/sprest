@@ -167,6 +167,12 @@ export interface IListFormField {
      */
     new(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
 
+    /**
+     * Creates an instance of the list form field
+     * @param props - The list form field properties
+     */
+    create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
+
     /** Method to load the lookup data */
     loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.SP.IListItemQueryResult>>;
 

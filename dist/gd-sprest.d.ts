@@ -248,6 +248,10 @@ declare module 'gd-sprest/rest' {
 
 declare module 'gd-sprest/helper/app' {
     import { IApp } from "gd-sprest/helper/types";
+    /**
+      * App Helper Methods
+      * Helper methods designed to be run from the app web.
+      */
     export const App: IApp;
 }
 
@@ -257,8 +261,12 @@ declare module 'gd-sprest/helper/dependencies' {
 }
 
 declare module 'gd-sprest/helper/fieldSchemaXML' {
-    import { IFieldSchemaXML } from "gd-sprest/helper/types";
-    export const FieldSchemaXML: IFieldSchemaXML;
+    import { IFieldInfo } from "gd-sprest/helper/types";
+    /**
+      * Field Schema XML
+      * Helper class for generating the field schema xml
+      */
+    export const FieldSchemaXML: (fieldInfo: IFieldInfo) => PromiseLike<string>;
 }
 
 declare module 'gd-sprest/helper/jslink' {
@@ -737,7 +745,7 @@ declare module 'gd-sprest/helper/types/app' {
                 * @param folder - The app web relative url to the source file.
                 * @param subFolderUrl - The host web relative url of the destination folder.
                 */
-            createSubFolders(folder: Types.SP.IFolderResult, subFolderUrl: string): PromiseLike<Types.SP.IFolderResult>;
+            createSubFolders(folder: Types.SP.IFolder, subFolderUrl: string): PromiseLike<Types.SP.IFolderResult>;
             /**
                 * Method to get the file content.
                 * @param web - The web containing the files.
@@ -799,8 +807,8 @@ declare module 'gd-sprest/helper/types/fieldSchemaXML' {
       * Field Schema XML
       */
     export interface IFieldSchemaXML {
-        /** Method to generate the field schema xml. */
-        generate: (fieldInfo: IFieldInfo) => PromiseLike<string>;
+        /** Creates the suitebar link */
+        new (fieldInfo: IFieldInfo): PromiseLike<string>;
     }
 }
 
@@ -916,6 +924,11 @@ declare module 'gd-sprest/helper/types/listForm' {
                 * @param props - The list form properties.
                 */
             new (props: IListFormProps): PromiseLike<IListFormResult>;
+            /**
+                * Creates an instance of the list form
+                * @param props - The list form properties.
+                */
+            create(props: IListFormProps): PromiseLike<IListFormResult>;
             /**
                 * Method to load the item attachments
                 * @param listInfo - The list form information.
@@ -1131,6 +1144,11 @@ declare module 'gd-sprest/helper/types/listFormField' {
                 * @param props - The list form field properties
                 */
             new (props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
+            /**
+                * Creates an instance of the list form field
+                * @param props - The list form field properties
+                */
+            create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
             /** Method to load the lookup data */
             loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.SP.IListItemQueryResult>>;
             /** Method to load the mms data */
@@ -1775,6 +1793,11 @@ declare module 'gd-sprest/helper/types/webpart' {
                 * @param props - The webpart properties.
                 */
             new (props: IWebPartProps): any;
+            /**
+                * Creates an instance of a webpart.
+                * @param props - The webpart properties.
+                */
+            create(props: IWebPartProps): any;
     }
     /**
         * The webpart configuration
@@ -6128,7 +6151,7 @@ declare module 'gd-sprest/mapper/types/folder' {
                 * Gets the folder contained in the list folder.
                 * @param url - The url of the sub-folder within the current folder.
                 */
-            Folders(url: string): IFolderMethods;
+            Folders(url: string): IFolder;
             /**
                 * Specifies the list item field (2) values for the list item corresponding to the file.
                 */
@@ -6136,7 +6159,7 @@ declare module 'gd-sprest/mapper/types/folder' {
             /**
                 * Gets the parent list folder of the folder.
                 */
-            ParentFolder(): IFolderMethods;
+            ParentFolder(): IFolder;
             /**
                 * Property Bag
                 */

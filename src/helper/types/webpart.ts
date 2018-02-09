@@ -7,6 +7,12 @@ export interface IWebPart {
      * @param props - The webpart properties.
      */
     new(props: IWebPartProps);
+
+    /**
+     * Creates an instance of a webpart.
+     * @param props - The webpart properties.
+     */
+    create(props: IWebPartProps)
 }
 
 /**

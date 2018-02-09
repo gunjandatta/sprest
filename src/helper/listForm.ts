@@ -34,6 +34,12 @@ class _ListForm {
      * Methods
      */
 
+    // Method to create an instance of the list form
+    static create(props: ListFormTypes.IListFormProps) {
+        // Return an instance of the list form
+        return new _ListForm(props);
+    }
+
     // Method to load the list data
     private load = () => {
         // Clear the information
