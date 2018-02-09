@@ -24,7 +24,6 @@ declare module 'gd-sprest' {
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
      ***************************************************************************************************/
-    import "core-js/es6/promise";
     import * as Helper from "gd-sprest/helper";
     import { SPTypes } from "gd-sprest/mapper";
     import * as Types from "gd-sprest/types";
@@ -11562,7 +11561,6 @@ declare module 'gd-sprest/' {
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
      ***************************************************************************************************/
-    import "core-js/es6/promise";
     import * as Helper from "gd-sprest/helper";
     import { SPTypes } from "gd-sprest/mapper";
     import * as Types from "gd-sprest/types";
