@@ -399,7 +399,7 @@ exports.Taxonomy = {
             term.info = info;
         };
         // Ensure the terms exist
-        if (terms) {
+        if (terms && terms.length > 0) {
             // Parse the terms
             for (var i = 0; i < terms.length; i++) {
                 var term = terms[i];
@@ -413,9 +413,11 @@ exports.Taxonomy = {
                     addTerm(root, term, term.pathAsString.split(";"));
                 }
             }
+            // Return the root term
+            return exports.Taxonomy.findById(root, terms[0].id);
         }
-        // Return the root term
-        return root;
+        // Return nothing
+        return null;
     }
 };
 //# sourceMappingURL=taxonomy.js.map

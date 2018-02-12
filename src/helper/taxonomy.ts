@@ -419,7 +419,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         }
 
         // Ensure the terms exist
-        if (terms) {
+        if (terms && terms.length > 0) {
             // Parse the terms
             for (let i = 0; i < terms.length; i++) {
                 let term = terms[i];
@@ -433,9 +433,12 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
                     addTerm(root, term, term.pathAsString.split(";"))
                 }
             }
+
+            // Return the root term
+            return Taxonomy.findById(root, terms[0].id);
         }
 
-        // Return the root term
-        return root;
+        // Return nothing
+        return null;
     }
 };

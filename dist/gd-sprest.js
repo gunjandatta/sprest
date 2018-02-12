@@ -2393,7 +2393,7 @@ exports.Taxonomy = {
             term.info = info;
         };
         // Ensure the terms exist
-        if (terms) {
+        if (terms && terms.length > 0) {
             // Parse the terms
             for (var i = 0; i < terms.length; i++) {
                 var term = terms[i];
@@ -2407,9 +2407,11 @@ exports.Taxonomy = {
                     addTerm(root, term, term.pathAsString.split(";"));
                 }
             }
+            // Return the root term
+            return exports.Taxonomy.findById(root, terms[0].id);
         }
-        // Return the root term
-        return root;
+        // Return nothing
+        return null;
     }
 };
 //# sourceMappingURL=taxonomy.js.map
@@ -11366,7 +11368,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.45,
+    __ver: 3.46,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
