@@ -194,6 +194,8 @@ class _ListFormField {
             // Number
             case SPTypes.FieldType.Number:
                 let fldNumber = this._fieldInfo.field as Types.SP.IFieldNumber;
+                let startIdx = fldNumber.SchemaXml.indexOf('Decimals="') + 10;
+                (this._fieldInfo as ListFormFieldTypes.IListFormNumberFieldInfo).decimals = startIdx > 10 ? parseInt(fldNumber.SchemaXml.substr(startIdx, fldNumber.SchemaXml.substr(startIdx).indexOf('"'))) : 0;
                 (this._fieldInfo as ListFormFieldTypes.IListFormNumberFieldInfo).maxValue = fldNumber.MaximumValue;
                 (this._fieldInfo as ListFormFieldTypes.IListFormNumberFieldInfo).minValue = fldNumber.MinimumValue;
                 if (fldNumber.ShowAsPercentage != undefined) {

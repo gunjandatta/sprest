@@ -10589,6 +10589,8 @@ var _ListFormField = /** @class */ (function () {
                 // Number
                 case __1.SPTypes.FieldType.Number:
                     var fldNumber = _this._fieldInfo.field;
+                    var startIdx = fldNumber.SchemaXml.indexOf('Decimals="') + 10;
+                    _this._fieldInfo.decimals = startIdx > 10 ? parseInt(fldNumber.SchemaXml.substr(startIdx, fldNumber.SchemaXml.substr(startIdx).indexOf('"'))) : 0;
                     _this._fieldInfo.maxValue = fldNumber.MaximumValue;
                     _this._fieldInfo.minValue = fldNumber.MinimumValue;
                     if (fldNumber.ShowAsPercentage != undefined) {
@@ -11368,7 +11370,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.46,
+    __ver: 3.47,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
