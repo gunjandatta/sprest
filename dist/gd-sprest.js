@@ -10593,12 +10593,7 @@ var _ListFormField = /** @class */ (function () {
                     _this._fieldInfo.decimals = startIdx > 10 ? parseInt(fldNumber.SchemaXml.substr(startIdx, fldNumber.SchemaXml.substr(startIdx).indexOf('"'))) : 0;
                     _this._fieldInfo.maxValue = fldNumber.MaximumValue;
                     _this._fieldInfo.minValue = fldNumber.MinimumValue;
-                    if (fldNumber.ShowAsPercentage != undefined) {
-                        _this._fieldInfo.showAsPercentage = fldNumber.ShowAsPercentage;
-                    }
-                    else {
-                        _this._fieldInfo.showAsPercentage = fldNumber.SchemaXml.indexOf('Percentage="TRUE"') > 0;
-                    }
+                    _this._fieldInfo.showAsPercentage = fldNumber.SchemaXml.indexOf('Percentage="TRUE"') > 0;
                     break;
                 // Note
                 case __1.SPTypes.FieldType.Note:
@@ -11370,7 +11365,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.47,
+    __ver: 3.48,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

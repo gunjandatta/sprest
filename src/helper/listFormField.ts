@@ -198,11 +198,7 @@ class _ListFormField {
                 (this._fieldInfo as ListFormFieldTypes.IListFormNumberFieldInfo).decimals = startIdx > 10 ? parseInt(fldNumber.SchemaXml.substr(startIdx, fldNumber.SchemaXml.substr(startIdx).indexOf('"'))) : 0;
                 (this._fieldInfo as ListFormFieldTypes.IListFormNumberFieldInfo).maxValue = fldNumber.MaximumValue;
                 (this._fieldInfo as ListFormFieldTypes.IListFormNumberFieldInfo).minValue = fldNumber.MinimumValue;
-                if (fldNumber.ShowAsPercentage != undefined) {
-                    (this._fieldInfo as ListFormFieldTypes.IListFormNumberFieldInfo).showAsPercentage = fldNumber.ShowAsPercentage;
-                } else {
-                    (this._fieldInfo as ListFormFieldTypes.IListFormNumberFieldInfo).showAsPercentage = fldNumber.SchemaXml.indexOf('Percentage="TRUE"') > 0;
-                }
+                (this._fieldInfo as ListFormFieldTypes.IListFormNumberFieldInfo).showAsPercentage = fldNumber.SchemaXml.indexOf('Percentage="TRUE"') > 0;
                 break;
 
             // Note
