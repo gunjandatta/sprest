@@ -2111,21 +2111,16 @@ exports.Taxonomy = {
                             resolve({ context: context, termGroup: termGroup });
                         }
                         else {
-                            // Log
-                            console.error("[gd-sprest] Unable to get the taxonomy store.");
                             // Reject the promise
-                            reject();
+                            reject("Unable to find the taxonomy store.");
                         }
                     }, function () {
                         var args = [];
                         for (var _i = 0; _i < arguments.length; _i++) {
                             args[_i] = arguments[_i];
                         }
-                        // Log
-                        console.error("[gd-sprest] Error getting the term group.");
-                        console.error("[gd-sprest] Error: " + args[1].get_message());
                         // Reject the promise
-                        reject(args);
+                        reject(args[1].get_message());
                     });
                 }
                 else {
@@ -2165,11 +2160,8 @@ exports.Taxonomy = {
                     for (var _i = 0; _i < arguments.length; _i++) {
                         args[_i] = arguments[_i];
                     }
-                    // Log
-                    console.error("[gd-sprest] Error getting the term group.");
-                    console.error("[gd-sprest] Error: " + args[1].get_message());
                     // Reject the promise
-                    reject(args);
+                    reject(args[1].get_message());
                 });
             });
         });
@@ -2181,9 +2173,16 @@ exports.Taxonomy = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Get the terms
-            exports.Taxonomy.getTermsById(termStoreId, termSetId).then(function (terms) {
+            exports.Taxonomy.getTermsById(termStoreId, termSetId).then(
+            // Success
+            function (terms) {
                 // Resolve the promise
                 resolve(exports.Taxonomy.toObject(terms));
+            }, 
+            // Error
+            function (reason) {
+                // Reject the promise
+                reject(reason);
             });
         });
     },
@@ -2194,7 +2193,9 @@ exports.Taxonomy = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Get the term group
-            exports.Taxonomy.getTermGroup().then(function (_a) {
+            exports.Taxonomy.getTermGroup().then(
+            // Success
+            function (_a) {
                 var context = _a.context, termGroup = _a.termGroup;
                 // Get the term set terms
                 var termSet = termGroup.get_termSets().getByName(termSetName);
@@ -2210,12 +2211,14 @@ exports.Taxonomy = {
                     for (var _i = 0; _i < arguments.length; _i++) {
                         args[_i] = arguments[_i];
                     }
-                    // Log
-                    console.error("[gd-sprest] Error getting the terms from the default site collection.");
-                    console.error("[gd-sprest] Error: " + args[1].get_message());
                     // Reject the promise
-                    reject(args);
+                    reject(args[1].get_message());
                 });
+            }, 
+            // Error
+            function (reason) {
+                // Reject the promise
+                reject(reason);
             });
         });
     },
@@ -2226,9 +2229,16 @@ exports.Taxonomy = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Get the terms
-            exports.Taxonomy.getTermsFromDefaultSC(termSetName).then(function (terms) {
+            exports.Taxonomy.getTermsFromDefaultSC(termSetName).then(
+            // Success
+            function (terms) {
                 // Resolve the object
                 resolve(exports.Taxonomy.toObject(terms));
+            }, 
+            // Error
+            function (reason) {
+                // Reject the promise
+                reject(reason);
             });
         });
     },
@@ -2255,11 +2265,8 @@ exports.Taxonomy = {
                     for (var _i = 0; _i < arguments.length; _i++) {
                         args[_i] = arguments[_i];
                     }
-                    // Log
-                    console.error("[gd-sprest] Error getting the terms.");
-                    console.error("[gd-sprest] Error: " + args[1].get_message());
                     // Reject the promise
-                    reject(args);
+                    reject(args[1].get_message());
                 });
             });
         });
@@ -2271,9 +2278,16 @@ exports.Taxonomy = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Get the terms
-            exports.Taxonomy.getTermsByGroupName(termSetName, groupName).then(function (terms) {
+            exports.Taxonomy.getTermsByGroupName(termSetName, groupName).then(
+            // Success
+            function (terms) {
                 // Resolve the object
                 resolve(exports.Taxonomy.toObject(terms));
+            }, 
+            // Error
+            function (reason) {
+                // Reject the promise
+                reject(reason);
             });
         });
     },
@@ -11365,7 +11379,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.48,
+    __ver: 3.49,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
