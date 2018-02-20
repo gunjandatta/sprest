@@ -2,6 +2,7 @@ import * as Helper from "./helper";
 import * as Lib from "./lib";
 import * as Mapper from "./mapper";
 import * as Util from "./utils";
+declare var SP;
 
 /**
  * SharePoint REST Library
@@ -226,4 +227,7 @@ let global = Lib.ContextInfo.window.$REST;
 if (global == null || global.__ver == null || global.__ver < $REST.__ver) {
     // Set the global variable
     Lib.ContextInfo.window.$REST = $REST;
+
+    // Alert other scripts this library is loaded
+    SP ? SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js") : null;
 }
