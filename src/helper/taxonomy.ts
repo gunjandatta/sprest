@@ -80,9 +80,9 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         }
 
         // Sort the terms
-        terms.sort((a, b) => {
-            if (a < b) { return -1; }
-            if (a > b) { return 1; }
+        terms = terms.sort((a, b) => {
+            if (a.pathAsString < b.pathAsString) { return -1; }
+            if (a.pathAsString > b.pathAsString) { return 1; }
             return 0;
         });
 

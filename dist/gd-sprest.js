@@ -2071,11 +2071,11 @@ exports.Taxonomy = {
             });
         }
         // Sort the terms
-        terms.sort(function (a, b) {
-            if (a < b) {
+        terms = terms.sort(function (a, b) {
+            if (a.pathAsString < b.pathAsString) {
                 return -1;
             }
-            if (a > b) {
+            if (a.pathAsString > b.pathAsString) {
                 return 1;
             }
             return 0;
