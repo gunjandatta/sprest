@@ -8,11 +8,11 @@
 ## Overview:
 The SharePoint REST Framework was designed for SharePoint 2013, but works in both SharePoint 2013/2016 and Office 365. This framework is designed to remove the overhead of SharePoint development, allowing the developer to focus on the client requirements. A reference to the associated github projects are listed below:
 
+* [Home Page](https://gunjandatta.github.io) - Overview of this framework.
 * [gd-sprest](https://github.com/gunjandatta/sprest) - An easy way to execute requests against the SharePoint 2013/Online REST api
 * [gd-sprest-react](https://github.com/gunjandatta/sprest-react) - Extends the [Office Fabric React Framework](https://dev.office.com/fabric) with components designed for SharePoint 2013/Online.
 * [gd-sprest-webpart](http://dattabase.com/sharepoint-2013-modern-webpart/) - A series of blog posts for creating a SharePoint 2013 modern webparts.
 * [gd-sprest-webparts](https://github.com/gunjandatta/sprest-webparts) - SharePoint 2013 modern react webpart examples.
-* [Wiki](https://github.com/gunjandatta/sprest/wiki) - Additional details of getting started with this framework.
 
 ### gd-sprest vs pnp-js-core
 The gd-sprest library is similar to the pnp-js-core, with the main difference being the ability to be used within the browser console window. This feature provides a "Powershell-Like" experience within the browser console window. Some reasons to use this functionality:
