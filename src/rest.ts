@@ -189,7 +189,7 @@ export interface IREST {
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 3.49,
+    __ver: 3.53,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -229,5 +229,5 @@ if (global == null || global.__ver == null || global.__ver < $REST.__ver) {
     Lib.ContextInfo.window.$REST = $REST;
 
     // Alert other scripts this library is loaded
-    SP ? SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js") : null;
+    SP && SP.SOD ? SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js") : null;
 }

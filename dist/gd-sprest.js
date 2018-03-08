@@ -11379,7 +11379,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.49,
+    __ver: 3.53,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -11417,7 +11417,7 @@ if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver
     // Set the global variable
     Lib.ContextInfo.window.$REST = exports.$REST;
     // Alert other scripts this library is loaded
-    SP ? SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js") : null;
+    SP && SP.SOD ? SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js") : null;
 }
 //# sourceMappingURL=rest.js.map
 
