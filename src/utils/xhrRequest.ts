@@ -110,7 +110,7 @@ export class XHRRequest {
             this.xhr.setRequestHeader("X-RequestDigest", this.targetInfo.request.requestDigest);
         } else {
             // Get the request digest
-            let requestDigest: any = ContextInfo.document.querySelector("#__REQUESTDIGEST");
+            let requestDigest: any = ContextInfo.document ? ContextInfo.document.querySelector("#__REQUESTDIGEST") : "";
             requestDigest = requestDigest ? requestDigest.value : "";
 
             // Set the request digest

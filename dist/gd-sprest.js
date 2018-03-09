@@ -3864,7 +3864,7 @@ var _ContextInfo = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(_ContextInfo, "document", {
-        get: function () { return this.window.document; },
+        get: function () { return this.window ? this.window.document : null; },
         enumerable: true,
         configurable: true
     });
@@ -8324,7 +8324,7 @@ var TargetInfo = /** @class */ (function () {
     /*********************************************************************************************************************************/
     // Method to get the domain url
     TargetInfo.prototype.getDomainUrl = function () {
-        var url = lib_1.ContextInfo.document.location.href;
+        var url = lib_1.ContextInfo.document ? lib_1.ContextInfo.document.location.href : "";
         // See if this is an app web
         if (lib_1.ContextInfo.isAppWeb) {
             // Set the url to the host url
@@ -8342,7 +8342,7 @@ var TargetInfo = /** @class */ (function () {
     // Method to get a query string value
     TargetInfo.getQueryStringValue = function (key) {
         // Get the query string
-        var queryString = lib_1.ContextInfo.existsFl ? lib_1.ContextInfo.document.location.href.split('?') : [""];
+        var queryString = lib_1.ContextInfo.existsFl && lib_1.ContextInfo.document ? lib_1.ContextInfo.document.location.href.split('?') : [""];
         queryString = queryString.length > 1 ? queryString[1] : queryString[0];
         // Parse the values
         var values = queryString.split('&');
@@ -8532,7 +8532,7 @@ var XHRRequest = /** @class */ (function () {
         }
         else {
             // Get the request digest
-            var requestDigest = lib_1.ContextInfo.document.querySelector("#__REQUESTDIGEST");
+            var requestDigest = lib_1.ContextInfo.document ? lib_1.ContextInfo.document.querySelector("#__REQUESTDIGEST") : "";
             requestDigest = requestDigest ? requestDigest.value : "";
             // Set the request digest
             this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
@@ -11379,7 +11379,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.53,
+    __ver: 3.55,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -11413,11 +11413,11 @@ exports.$REST = {
 };
 // See if the library doesn't exist, or is an older version
 var global = Lib.ContextInfo.window.$REST;
-if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {
+if ((global == null || global.__ver == null || global.__ver < exports.$REST.__ver) && Lib.ContextInfo.window.SP) {
     // Set the global variable
     Lib.ContextInfo.window.$REST = exports.$REST;
     // Alert other scripts this library is loaded
-    SP && SP.SOD ? SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js") : null;
+    Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
 }
 //# sourceMappingURL=rest.js.map
 
