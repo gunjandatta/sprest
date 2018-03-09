@@ -52,23 +52,23 @@ export interface IPeoplePickerSearchUser {
  */
 export interface IPeoplePickerUser {
     /** Description */
-    Description: string;
+    Description?: string;
     /** Display Text */
     DisplayText: string;
     /** The user entity data. */
-    EntityData: IEntityData;
+    EntityData?: IEntityData;
     /** Entity Type */
-    EntityType: string;
+    EntityType?: string;
     /** Flag to determine if the search user is resolved. */
-    IsResolved: boolean;
+    IsResolved?: boolean;
     /** The search value. */
     Key: string;
     /** An array of un-resolved user entities. */
-    MultipleMatches: Array<IEntityData>;
+    MultipleMatches?: Array<IEntityData>;
     /** Provider Display Name */
-    ProviderDisplayName: string;
+    ProviderDisplayName?: string;
     /** Provider Name */
-    ProviderName: string;
+    ProviderName?: string;
 }
 /**
  * People Picker
