@@ -3800,6 +3800,7 @@ declare module 'gd-sprest/mapper/types/complexTypes' {
             Department?: string;
             EMail?: string;
             FirstName?: string;
+            Id?: number;
             ID?: number;
             ImnName?: string;
             JobTitle?: string;

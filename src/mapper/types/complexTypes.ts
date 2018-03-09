@@ -431,6 +431,7 @@ export interface FieldUserValue {
     Department?: string;
     EMail?: string;
     FirstName?: string;
+    Id?: number;
     ID?: number;
     ImnName?: string;
     JobTitle?: string;
