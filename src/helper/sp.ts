@@ -64,13 +64,13 @@ export const ModalDialog: IModalDialog = {
     },
 
     // Shows a wait screen
-    showWaitScreenSize: (title: string, message: string, callback: () => void, height: number, width: number) => {
+    showWaitScreenSize: (title: string, message?: string, callback?: () => void, height?: number, width?: number) => {
         // Load the library and call the method
         ModalDialog.load().then(() => { SP.UI.ModalDialog.showWaitScreenSize(title, message, callback, height, width); });
     },
 
     // Shows a wait screen w/ no close button
-    showWaitScreenWithNoClose: (title: string, message: string, height: number, width: number) => {
+    showWaitScreenWithNoClose: (title: string, message?: string, height?: number, width?: number) => {
         // Load the library and call the method
         ModalDialog.load().then(() => { SP.UI.ModalDialog.showWaitScreenWithNoClose(title, message, height, width); });
     }
@@ -129,7 +129,7 @@ export const Status: IStatus = {
     },
 
     // Appends a status
-    appendStatus: (id: string, title: string, html: string): PromiseLike<string> => {
+    appendStatus: (id: string, title: string, html?: string): PromiseLike<string> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Load the library
