@@ -108,9 +108,8 @@ __export(__webpack_require__(114));
 __export(__webpack_require__(115));
 __export(__webpack_require__(116));
 __export(__webpack_require__(117));
-__export(__webpack_require__(118));
 __export(__webpack_require__(39));
-var Types = __webpack_require__(119);
+var Types = __webpack_require__(118);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -344,21 +343,21 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(77));
+__export(__webpack_require__(119));
 __export(__webpack_require__(120));
-__export(__webpack_require__(121));
+__export(__webpack_require__(122));
 __export(__webpack_require__(123));
 __export(__webpack_require__(124));
 __export(__webpack_require__(125));
-__export(__webpack_require__(126));
 __export(__webpack_require__(41));
+__export(__webpack_require__(126));
 __export(__webpack_require__(127));
-__export(__webpack_require__(128));
 __export(__webpack_require__(40));
 __export(__webpack_require__(42));
-__export(__webpack_require__(129));
-var SP = __webpack_require__(130);
+__export(__webpack_require__(128));
+var SP = __webpack_require__(129);
 exports.SP = SP;
-var Types = __webpack_require__(131);
+var Types = __webpack_require__(130);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -514,10 +513,10 @@ var Helper = __webpack_require__(17);
 exports.Helper = Helper;
 var mapper_1 = __webpack_require__(12);
 exports.SPTypes = mapper_1.SPTypes;
-var Types = __webpack_require__(132);
+var Types = __webpack_require__(131);
 exports.Types = Types;
 __export(__webpack_require__(1));
-__export(__webpack_require__(133));
+__export(__webpack_require__(132));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -907,7 +906,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(122));
+__export(__webpack_require__(121));
 var lib_1 = __webpack_require__(1);
 var _1 = __webpack_require__(17);
 /**
@@ -8601,127 +8600,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(1);
-/**
- * JS Link
- */
-var _JSLink = /** @class */ (function () {
-    /**
-     * Constructor
-     */
-    function _JSLink(cfg) {
-        // See if the configuration exists
-        if (cfg) {
-            // Set the properties
-            this._baseViewID = cfg.BaseViewID;
-            this._listTemplateType = cfg.ListTemplateType;
-            this._onPostRender = cfg.OnPostRender;
-            this._onPreRender = cfg.OnPreRender;
-            this._templates = cfg.Templates;
-        }
-    }
-    Object.defineProperty(_JSLink.prototype, "BaseViewID", {
-        set: function (value) { this._baseViewID = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "ListTemplateType", {
-        set: function (value) { this._listTemplateType = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "OnPostRender", {
-        set: function (value) { this._onPostRender = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "OnPreRender", {
-        set: function (value) { this._onPreRender = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "Templates", {
-        set: function (value) { this._templates = value; },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Methods
-     */
-    /**
-     * Returns the CSR template.
-     */
-    _JSLink.prototype.getTemplate = function () {
-        var template = {};
-        // Add the properties
-        if (this._baseViewID) {
-            template.BaseViewID = this._baseViewID;
-        }
-        if (this._listTemplateType) {
-            template.ListTemplateType = this._listTemplateType;
-        }
-        if (this._onPostRender) {
-            template.OnPostRender = this._onPostRender;
-        }
-        if (this._onPreRender) {
-            template.OnPreRender = this._onPreRender;
-        }
-        if (this._templates) {
-            template.Templates = this._templates;
-        }
-        // See if there are fields
-        if (template.Templates && template.Templates.Fields) {
-            var fields = {};
-            // Parse the fields
-            for (var _i = 0, _a = template.Templates.Fields; _i < _a.length; _i++) {
-                var field = _a[_i];
-                // Add the field
-                fields[field.Name] = {};
-                // Add the field properties
-                if (field.DisplayForm) {
-                    fields[field.Name].DisplayForm = field.DisplayForm;
-                }
-                if (field.EditForm) {
-                    fields[field.Name].EditForm = field.EditForm;
-                }
-                if (field.NewForm) {
-                    fields[field.Name].NewForm = field.NewForm;
-                }
-                if (field.View) {
-                    fields[field.Name].View = field.View;
-                }
-            }
-            // Update the fields
-            template.Templates.Fields = fields;
-        }
-        // Return the template
-        return template;
-    };
-    /**
-     * Method to register the CSR override.
-     */
-    _JSLink.prototype.register = function () {
-        // Get the template manager
-        var templateManager = lib_1.ContextInfo.window.SPClientTemplates;
-        templateManager = templateManager ? templateManager.TemplateManager : null;
-        // Ensure it exists
-        if (templateManager) {
-            // Apply the customization
-            templateManager.RegisterTemplateOverrides(this.getTemplate());
-        }
-    };
-    return _JSLink;
-}());
-exports.JSLink = _JSLink;
-//# sourceMappingURL=jslink.js.map
-
-/***/ }),
-/* 109 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -8781,7 +8659,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 110 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8828,7 +8706,7 @@ exports.Navigation = _Navigation;
 //# sourceMappingURL=navigation.js.map
 
 /***/ }),
-/* 111 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8870,7 +8748,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 112 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8913,7 +8791,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 113 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8956,7 +8834,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 114 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9035,7 +8913,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 115 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9092,7 +8970,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 116 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9161,7 +9039,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 117 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9204,7 +9082,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 118 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9297,7 +9175,7 @@ exports.Utility = _Utility;
 //# sourceMappingURL=utility.js.map
 
 /***/ }),
-/* 119 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9306,7 +9184,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 120 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9384,7 +9262,7 @@ exports.Dependencies = _Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 121 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9741,7 +9619,7 @@ exports.FieldSchemaXML = function (fieldInfo) {
 //# sourceMappingURL=fieldSchemaXML.js.map
 
 /***/ }),
-/* 122 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9778,11 +9656,12 @@ exports.SPCfgType = {
 //# sourceMappingURL=spCfgTypes.js.map
 
 /***/ }),
-/* 123 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
+var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
 var mapper_1 = __webpack_require__(12);
@@ -10055,6 +9934,20 @@ exports.JSLink = {
         }
     },
     /**
+     * Registers the JSLink configuration
+     * @param cfg - The JSLink configuration.
+     */
+    register: function (cfg) {
+        // Get the template manager
+        var templateManager = lib_1.ContextInfo.window.SPClientTemplates;
+        templateManager = templateManager ? templateManager.TemplateManager : null;
+        // Ensure it exists
+        if (templateManager) {
+            // Apply the customization
+            templateManager.RegisterTemplateOverrides(_this.getTemplate());
+        }
+    },
+    /**
      * Removes the field and html from the page.
      * @param ctx - The client context.
      * @param field - The field to remove.
@@ -10150,7 +10043,7 @@ exports.JSLink = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 124 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10528,7 +10421,7 @@ exports.ListForm = _ListForm;
 //# sourceMappingURL=listForm.js.map
 
 /***/ }),
-/* 125 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10745,7 +10638,7 @@ exports.ListFormField = _ListFormField;
 //# sourceMappingURL=listFormField.js.map
 
 /***/ }),
-/* 126 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10805,7 +10698,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 127 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10841,7 +10734,7 @@ exports.RibbonLink = function (props) {
 //# sourceMappingURL=ribbonLink.js.map
 
 /***/ }),
-/* 128 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10881,7 +10774,7 @@ exports.SuiteBarLink = function (props) {
 //# sourceMappingURL=sbLink.js.map
 
 /***/ }),
-/* 129 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11167,7 +11060,7 @@ exports.WebPart = _WebPart;
 //# sourceMappingURL=webpart.js.map
 
 /***/ }),
-/* 130 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11342,7 +11235,7 @@ exports.Status = {
 //# sourceMappingURL=sp.js.map
 
 /***/ }),
-/* 131 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11351,7 +11244,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 132 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11366,7 +11259,7 @@ exports.Util = utils_1.Types;
 //# sourceMappingURL=types.js.map
 
 /***/ }),
-/* 133 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11379,7 +11272,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.58,
+    __ver: 3.59,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
