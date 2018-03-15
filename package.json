@@ -1,6 +1,6 @@
 {
   "name": "gd-sprest",
-  "version": "3.4.4",
+  "version": "3.6.0",
   "description": "An easy way to develop against the SharePoint REST API.",
   "author": "Gunjan Datta <me@dattabase.com> (https://gunjandatta.github.io/sprest)",
   "license": "MIT",
@@ -23,13 +23,15 @@
     "url": "https://github.com/gunjandatta/sprest/issues"
   },
   "homepage": "https://gunjandatta.github.io/sprest",
-  "dependencies": {},
+  "peerDependencies": {
+    "core-js": "^2.5.3"
+  },
   "devDependencies": {
-    "@types/core-js": "^0.9.44",
+    "@types/core-js": "^0.9.46",
     "core-js": "^2.5.3",
     "dts-bundle": "^0.7.3",
-    "uglify-js": "^3.2.2",
-    "webpack": "^3.10.0"
+    "uglify-js": "^3.3.12",
+    "webpack": "^3.11.0"
   },
   "scripts": {
     "build": "tsc && webpack",

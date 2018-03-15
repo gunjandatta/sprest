@@ -116,7 +116,7 @@ var _ContextInfo = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(_ContextInfo, "document", {
-        get: function () { return this.window.document; },
+        get: function () { return this.window ? this.window.document : null; },
         enumerable: true,
         configurable: true
     });

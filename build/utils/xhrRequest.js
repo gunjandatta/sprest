@@ -108,7 +108,7 @@ var XHRRequest = /** @class */ (function () {
         }
         else {
             // Get the request digest
-            var requestDigest = lib_1.ContextInfo.document.querySelector("#__REQUESTDIGEST");
+            var requestDigest = lib_1.ContextInfo.document ? lib_1.ContextInfo.document.querySelector("#__REQUESTDIGEST") : "";
             requestDigest = requestDigest ? requestDigest.value : "";
             // Set the request digest
             this.xhr.setRequestHeader("X-RequestDigest", requestDigest);

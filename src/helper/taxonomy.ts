@@ -80,9 +80,9 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         }
 
         // Sort the terms
-        terms.sort((a, b) => {
-            if (a < b) { return -1; }
-            if (a > b) { return 1; }
+        terms = terms.sort((a, b) => {
+            if (a.pathAsString < b.pathAsString) { return -1; }
+            if (a.pathAsString > b.pathAsString) { return 1; }
             return 0;
         });
 
@@ -119,19 +119,12 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
                             // Resolve the promise
                             resolve({ context, termGroup });
                         } else {
-                            // Log
-                            console.error("[gd-sprest] Unable to get the taxonomy store.");
-
                             // Reject the promise
-                            reject();
+                            reject("Unable to find the taxonomy store.");
                         }
                     }, (...args) => {
-                        // Log
-                        console.error("[gd-sprest] Error getting the term group.");
-                        console.error("[gd-sprest] Error: " + args[1].get_message());
-
                         // Reject the promise
-                        reject(args);
+                        reject(args[1].get_message());
                     });
                 } else {
                     // Get the default site collection group
@@ -170,12 +163,8 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
                     // Resolve the promise
                     resolve(Taxonomy.getTerms(termSet, terms));
                 }, (...args) => {
-                    // Log
-                    console.error("[gd-sprest] Error getting the term group.");
-                    console.error("[gd-sprest] Error: " + args[1].get_message());
-
                     // Reject the promise
-                    reject(args);
+                    reject(args[1].get_message());
                 });
             });
         });
@@ -188,10 +177,18 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the terms
-            Taxonomy.getTermsById(termStoreId, termSetId).then(terms => {
-                // Resolve the promise
-                resolve(Taxonomy.toObject(terms));
-            });
+            Taxonomy.getTermsById(termStoreId, termSetId).then(
+                // Success
+                terms => {
+                    // Resolve the promise
+                    resolve(Taxonomy.toObject(terms));
+                },
+                // Error
+                reason => {
+                    // Reject the promise
+                    reject(reason);
+                }
+            );
         });
     },
 
@@ -202,26 +199,30 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the term group
-            Taxonomy.getTermGroup().then(({ context, termGroup }) => {
-                // Get the term set terms
-                let termSet = termGroup.get_termSets().getByName(termSetName);
-                let terms = termSet.getAllTerms();
-                context.load(termSet);
-                context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
+            Taxonomy.getTermGroup().then(
+                // Success
+                ({ context, termGroup }) => {
+                    // Get the term set terms
+                    let termSet = termGroup.get_termSets().getByName(termSetName);
+                    let terms = termSet.getAllTerms();
+                    context.load(termSet);
+                    context.load(terms, "Include(CustomProperties, Description, Id, Name, PathOfTerm)");
 
-                // Execute the request
-                context.executeQueryAsync(() => {
-                    // Resolve the promise
-                    resolve(Taxonomy.getTerms(termSet, terms));
-                }, (...args) => {
-                    // Log
-                    console.error("[gd-sprest] Error getting the terms from the default site collection.");
-                    console.error("[gd-sprest] Error: " + args[1].get_message());
-
+                    // Execute the request
+                    context.executeQueryAsync(() => {
+                        // Resolve the promise
+                        resolve(Taxonomy.getTerms(termSet, terms));
+                    }, (...args) => {
+                        // Reject the promise
+                        reject(args[1].get_message());
+                    });
+                },
+                // Error
+                reason => {
                     // Reject the promise
-                    reject(args);
-                });
-            });
+                    reject(reason);
+                }
+            );
         });
     },
 
@@ -232,10 +233,18 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the terms
-            Taxonomy.getTermsFromDefaultSC(termSetName).then(terms => {
-                // Resolve the object
-                resolve(Taxonomy.toObject(terms));
-            });
+            Taxonomy.getTermsFromDefaultSC(termSetName).then(
+                // Success
+                terms => {
+                    // Resolve the object
+                    resolve(Taxonomy.toObject(terms));
+                },
+                // Error
+                reason => {
+                    // Reject the promise
+                    reject(reason);
+                }
+            );
         });
     },
 
@@ -258,12 +267,8 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
                     // Resolve the promise
                     resolve(Taxonomy.getTerms(termSet, terms));
                 }, (...args) => {
-                    // Log
-                    console.error("[gd-sprest] Error getting the terms.");
-                    console.error("[gd-sprest] Error: " + args[1].get_message());
-
                     // Reject the promise
-                    reject(args);
+                    reject(args[1].get_message());
                 });
             });
         });
@@ -276,10 +281,18 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the terms
-            Taxonomy.getTermsByGroupName(termSetName, groupName).then(terms => {
-                // Resolve the object
-                resolve(Taxonomy.toObject(terms));
-            });
+            Taxonomy.getTermsByGroupName(termSetName, groupName).then(
+                // Success
+                terms => {
+                    // Resolve the object
+                    resolve(Taxonomy.toObject(terms));
+                },
+                // Error
+                reason => {
+                    // Reject the promise
+                    reject(reason);
+                }
+            );
         });
     },
 
@@ -419,7 +432,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
         }
 
         // Ensure the terms exist
-        if (terms) {
+        if (terms && terms.length > 0) {
             // Parse the terms
             for (let i = 0; i < terms.length; i++) {
                 let term = terms[i];
@@ -433,9 +446,12 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
                     addTerm(root, term, term.pathAsString.split(";"))
                 }
             }
+
+            // Return the root term
+            return Taxonomy.findById(root, terms[0].id);
         }
 
-        // Return the root term
-        return root;
+        // Return nothing
+        return null;
     }
 };

@@ -57,7 +57,7 @@ export class TargetInfo {
 
     // Method to get the domain url
     private getDomainUrl(): string {
-        let url: any = ContextInfo.document.location.href;
+        let url: any = ContextInfo.document ? ContextInfo.document.location.href : "";
 
         // See if this is an app web
         if (ContextInfo.isAppWeb) {
@@ -79,7 +79,7 @@ export class TargetInfo {
     // Method to get a query string value
     private static getQueryStringValue(key: string) {
         // Get the query string
-        var queryString: any = ContextInfo.existsFl ? ContextInfo.document.location.href.split('?') : [""];
+        var queryString: any = ContextInfo.existsFl && ContextInfo.document ? ContextInfo.document.location.href.split('?') : [""];
         queryString = queryString.length > 1 ? queryString[1] : queryString[0];
 
         // Parse the values

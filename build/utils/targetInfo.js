@@ -41,7 +41,7 @@ var TargetInfo = /** @class */ (function () {
     /*********************************************************************************************************************************/
     // Method to get the domain url
     TargetInfo.prototype.getDomainUrl = function () {
-        var url = lib_1.ContextInfo.document.location.href;
+        var url = lib_1.ContextInfo.document ? lib_1.ContextInfo.document.location.href : "";
         // See if this is an app web
         if (lib_1.ContextInfo.isAppWeb) {
             // Set the url to the host url
@@ -59,7 +59,7 @@ var TargetInfo = /** @class */ (function () {
     // Method to get a query string value
     TargetInfo.getQueryStringValue = function (key) {
         // Get the query string
-        var queryString = lib_1.ContextInfo.existsFl ? lib_1.ContextInfo.document.location.href.split('?') : [""];
+        var queryString = lib_1.ContextInfo.existsFl && lib_1.ContextInfo.document ? lib_1.ContextInfo.document.location.href.split('?') : [""];
         queryString = queryString.length > 1 ? queryString[1] : queryString[0];
         // Parse the values
         var values = queryString.split('&');

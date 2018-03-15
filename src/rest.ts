@@ -2,6 +2,7 @@ import * as Helper from "./helper";
 import * as Lib from "./lib";
 import * as Mapper from "./mapper";
 import * as Util from "./utils";
+declare var SP;
 
 /**
  * SharePoint REST Library
@@ -188,7 +189,7 @@ export interface IREST {
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 3.44,
+    __ver: 3.60,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -223,7 +224,10 @@ export const $REST: IREST = {
 
 // See if the library doesn't exist, or is an older version
 let global = Lib.ContextInfo.window.$REST;
-if (global == null || global.__ver == null || global.__ver < $REST.__ver) {
+if ((global == null || global.__ver == null || global.__ver < $REST.__ver) && Lib.ContextInfo.window.SP) {
     // Set the global variable
     Lib.ContextInfo.window.$REST = $REST;
+
+    // Alert other scripts this library is loaded
+    Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
 }

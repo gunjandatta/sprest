@@ -1,5 +1,4 @@
 export * from "./contextInfo";
-export * from "./jslink";
 export * from "./list";
 export * from "./navigation";
 export * from "./peopleManager";

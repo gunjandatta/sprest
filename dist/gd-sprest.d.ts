@@ -68,7 +68,6 @@ declare module 'gd-sprest/types' {
 
 declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/contextInfo";
-    export * from "gd-sprest/lib/jslink";
     export * from "gd-sprest/lib/list";
     export * from "gd-sprest/lib/navigation";
     export * from "gd-sprest/lib/peopleManager";
@@ -623,11 +622,6 @@ declare module 'gd-sprest/lib/contextInfo' {
     export const ContextInfo: IContextInformation;
 }
 
-declare module 'gd-sprest/lib/jslink' {
-    import { IJSLink } from "gd-sprest/lib/types";
-    export const JSLink: IJSLink;
-}
-
 declare module 'gd-sprest/lib/list' {
     import { Types } from "gd-sprest/";
     export const List: Types.SP.IList;
@@ -685,7 +679,6 @@ declare module 'gd-sprest/lib/web' {
 
 declare module 'gd-sprest/lib/types' {
     export * from "gd-sprest/lib/types/contextInfo";
-    export * from "gd-sprest/lib/types/jslink";
 }
 
 declare module 'gd-sprest/helper/spCfgTypes' {
@@ -863,6 +856,11 @@ declare module 'gd-sprest/helper/types/jslink' {
                 */
             hideField(ctx: any, field: any): any;
             /**
+                * Registers the JSLink configuration.
+                * @param cfg - The JSLink configuration.
+                */
+            register(cfg: IJSLinkCfg): any;
+            /**
                 * Removes the field and html from the page.
                 * @param ctx - The client context.
                 * @param field - The field to remove.
@@ -875,6 +873,44 @@ declare module 'gd-sprest/helper/types/jslink' {
                 * @param formType - The form type. (Display, Edit, New or View)
                 */
             renderField(ctx: any, field: any, formType?: number): any;
+    }
+    /**
+        * JS Link Configuration
+        */
+    export interface IJSLinkCfg {
+            /** The base view id. */
+            BaseViewID?: number | string;
+            /** The list template type. */
+            ListTemplateType?: number;
+            /** The post render event. */
+            OnPostRender?: any;
+            /** The pre render event. */
+            OnPreRender?: any;
+            /** The JSLink template overrides. */
+            Templates?: IJSLinkCfgTemplate;
+    }
+    /**
+        * Fields Template
+        */
+    export interface IJSLinkCfgField {
+            DisplayForm?: any;
+            EditForm?: any;
+            Name: string;
+            NewForm?: any;
+            View?: any;
+    }
+    /**
+        * Templates
+        */
+    export interface IJSLinkCfgTemplate {
+            Body?: any;
+            Footer?: any;
+            Fields?: Array<IJSLinkCfgField>;
+            Group?: any;
+            Header?: any;
+            Item?: any;
+            OnPostRender?: any;
+            OnPreRender?: any;
     }
 }
 
@@ -1094,6 +1130,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
         * List Form Number Field Information
         */
     export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
+            /** The number of decimals. */
+            decimals?: number;
             /** The list field. */
             field?: Types.SP.IFieldNumber | Types.SP.IFieldCurrency;
             /** The maximum value */
@@ -3798,6 +3836,7 @@ declare module 'gd-sprest/mapper/types/complexTypes' {
             Department?: string;
             EMail?: string;
             FirstName?: string;
+            Id?: number;
             ID?: number;
             ImnName?: string;
             JobTitle?: string;
@@ -7490,23 +7529,23 @@ declare module 'gd-sprest/mapper/types/peoplePicker' {
         */
     export interface IPeoplePickerUser {
             /** Description */
-            Description: string;
+            Description?: string;
             /** Display Text */
             DisplayText: string;
             /** The user entity data. */
-            EntityData: IEntityData;
+            EntityData?: IEntityData;
             /** Entity Type */
-            EntityType: string;
+            EntityType?: string;
             /** Flag to determine if the search user is resolved. */
-            IsResolved: boolean;
+            IsResolved?: boolean;
             /** The search value. */
             Key: string;
             /** An array of un-resolved user entities. */
-            MultipleMatches: Array<IEntityData>;
+            MultipleMatches?: Array<IEntityData>;
             /** Provider Display Name */
-            ProviderDisplayName: string;
+            ProviderDisplayName?: string;
             /** Provider Name */
-            ProviderName: string;
+            ProviderName?: string;
     }
     /**
         * People Picker
@@ -11809,58 +11848,6 @@ declare module 'gd-sprest/lib/types/contextInfo' {
                 * @param url - The relative url of the web.
                 */
             getWeb(url: string): BaseTypes.IBase<Types.SP.IContextWebInfo>;
-    }
-}
-
-declare module 'gd-sprest/lib/types/jslink' {
-    /**
-        * Fields Template
-        */
-    export interface IFieldTemplate {
-            DisplayForm?: any;
-            EditForm?: any;
-            Name: string;
-            NewForm?: any;
-            View?: any;
-    }
-    /**
-        * Templates
-        */
-    export interface ITemplates {
-            Body?: any;
-            Footer?: any;
-            Fields?: Array<IFieldTemplate>;
-            Group?: any;
-            Header?: any;
-            Item?: any;
-            OnPostRender?: any;
-            OnPreRender?: any;
-    }
-    /**
-        * JS Link Configuration
-        */
-    export interface IJSLinkCfg {
-            /** The base view id. */
-            BaseViewID?: number | string;
-            /** The list template type. */
-            ListTemplateType?: number;
-            /** The post render event. */
-            OnPostRender?: any;
-            /** The pre render event. */
-            OnPreRender?: any;
-            /** The JSLink template overrides. */
-            Templates?: ITemplates;
-    }
-    /**
-        * JS Link
-        */
-    export interface IJSLink extends IJSLinkCfg {
-            /** Constructor */
-            new (cfg?: IJSLinkCfg): IJSLink;
-            /** Method to get the template configuration. */
-            getTemplate(): IJSLinkCfg;
-            /** Method to register the JSLink template override. */
-            register(): void;
     }
 }
 

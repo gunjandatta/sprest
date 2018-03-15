@@ -58,6 +58,12 @@ export interface IJSLink {
     hideField(ctx: any, field: any);
 
     /**
+     * Registers the JSLink configuration.
+     * @param cfg - The JSLink configuration.
+     */
+    register(cfg: IJSLinkCfg);
+
+    /**
      * Removes the field and html from the page.
      * @param ctx - The client context.
      * @param field - The field to remove.
@@ -71,4 +77,48 @@ export interface IJSLink {
      * @param formType - The form type. (Display, Edit, New or View)
      */
     renderField(ctx, field, formType?: number);
+}
+
+/**
+ * JS Link Configuration
+ */
+export interface IJSLinkCfg {
+    /** The base view id. */
+    BaseViewID?: number | string;
+
+    /** The list template type. */
+    ListTemplateType?: number;
+
+    /** The post render event. */
+    OnPostRender?: any;
+
+    /** The pre render event. */
+    OnPreRender?: any;
+
+    /** The JSLink template overrides. */
+    Templates?: IJSLinkCfgTemplate;
+}
+/**
+ * Fields Template
+ */
+export interface IJSLinkCfgField {
+    DisplayForm?: any;
+    EditForm?: any;
+    Name: string;
+    NewForm?: any;
+    View?: any;
+}
+
+/**
+ * Templates
+ */
+export interface IJSLinkCfgTemplate {
+    Body?: any;
+    Footer?: any;
+    Fields?: Array<IJSLinkCfgField>;
+    Group?: any;
+    Header?: any;
+    Item?: any;
+    OnPostRender?: any;
+    OnPreRender?: any;
 }

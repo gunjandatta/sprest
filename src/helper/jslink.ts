@@ -1,6 +1,6 @@
 import { ContextInfo } from "../lib";
 import { SPTypes } from "../mapper";
-import { IJSLink } from "./types";
+import { IJSLink, IJSLinkCfg } from "./types";
 
 /**
  * JSLink Helper Methods
@@ -288,6 +288,25 @@ export const JSLink: IJSLink = {
                     }
                 }
             });
+        }
+    },
+
+    /**
+     * Registers the JSLink configuration
+     * @param cfg - The JSLink configuration.
+     */
+    register: (cfg: IJSLinkCfg) => {
+        // Ensure a configuration exists
+        if (cfg) {
+            // Get the template manager
+            let templateManager = ContextInfo.window.SPClientTemplates;
+            templateManager = templateManager ? templateManager.TemplateManager : null;
+
+            // Ensure it exists
+            if (templateManager) {
+                // Apply the customization
+                templateManager.RegisterTemplateOverrides(cfg);
+            }
         }
     },
 

@@ -108,9 +108,8 @@ __export(__webpack_require__(114));
 __export(__webpack_require__(115));
 __export(__webpack_require__(116));
 __export(__webpack_require__(117));
-__export(__webpack_require__(118));
 __export(__webpack_require__(39));
-var Types = __webpack_require__(119);
+var Types = __webpack_require__(118);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -344,21 +343,21 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(77));
+__export(__webpack_require__(119));
 __export(__webpack_require__(120));
-__export(__webpack_require__(121));
+__export(__webpack_require__(122));
 __export(__webpack_require__(123));
 __export(__webpack_require__(124));
 __export(__webpack_require__(125));
-__export(__webpack_require__(126));
 __export(__webpack_require__(41));
+__export(__webpack_require__(126));
 __export(__webpack_require__(127));
-__export(__webpack_require__(128));
 __export(__webpack_require__(40));
 __export(__webpack_require__(42));
-__export(__webpack_require__(129));
-var SP = __webpack_require__(130);
+__export(__webpack_require__(128));
+var SP = __webpack_require__(129);
 exports.SP = SP;
-var Types = __webpack_require__(131);
+var Types = __webpack_require__(130);
 exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
@@ -514,10 +513,10 @@ var Helper = __webpack_require__(17);
 exports.Helper = Helper;
 var mapper_1 = __webpack_require__(12);
 exports.SPTypes = mapper_1.SPTypes;
-var Types = __webpack_require__(132);
+var Types = __webpack_require__(131);
 exports.Types = Types;
 __export(__webpack_require__(1));
-__export(__webpack_require__(133));
+__export(__webpack_require__(132));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
@@ -907,7 +906,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(122));
+__export(__webpack_require__(121));
 var lib_1 = __webpack_require__(1);
 var _1 = __webpack_require__(17);
 /**
@@ -2071,11 +2070,11 @@ exports.Taxonomy = {
             });
         }
         // Sort the terms
-        terms.sort(function (a, b) {
-            if (a < b) {
+        terms = terms.sort(function (a, b) {
+            if (a.pathAsString < b.pathAsString) {
                 return -1;
             }
-            if (a > b) {
+            if (a.pathAsString > b.pathAsString) {
                 return 1;
             }
             return 0;
@@ -2111,21 +2110,16 @@ exports.Taxonomy = {
                             resolve({ context: context, termGroup: termGroup });
                         }
                         else {
-                            // Log
-                            console.error("[gd-sprest] Unable to get the taxonomy store.");
                             // Reject the promise
-                            reject();
+                            reject("Unable to find the taxonomy store.");
                         }
                     }, function () {
                         var args = [];
                         for (var _i = 0; _i < arguments.length; _i++) {
                             args[_i] = arguments[_i];
                         }
-                        // Log
-                        console.error("[gd-sprest] Error getting the term group.");
-                        console.error("[gd-sprest] Error: " + args[1].get_message());
                         // Reject the promise
-                        reject(args);
+                        reject(args[1].get_message());
                     });
                 }
                 else {
@@ -2165,11 +2159,8 @@ exports.Taxonomy = {
                     for (var _i = 0; _i < arguments.length; _i++) {
                         args[_i] = arguments[_i];
                     }
-                    // Log
-                    console.error("[gd-sprest] Error getting the term group.");
-                    console.error("[gd-sprest] Error: " + args[1].get_message());
                     // Reject the promise
-                    reject(args);
+                    reject(args[1].get_message());
                 });
             });
         });
@@ -2181,9 +2172,16 @@ exports.Taxonomy = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Get the terms
-            exports.Taxonomy.getTermsById(termStoreId, termSetId).then(function (terms) {
+            exports.Taxonomy.getTermsById(termStoreId, termSetId).then(
+            // Success
+            function (terms) {
                 // Resolve the promise
                 resolve(exports.Taxonomy.toObject(terms));
+            }, 
+            // Error
+            function (reason) {
+                // Reject the promise
+                reject(reason);
             });
         });
     },
@@ -2194,7 +2192,9 @@ exports.Taxonomy = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Get the term group
-            exports.Taxonomy.getTermGroup().then(function (_a) {
+            exports.Taxonomy.getTermGroup().then(
+            // Success
+            function (_a) {
                 var context = _a.context, termGroup = _a.termGroup;
                 // Get the term set terms
                 var termSet = termGroup.get_termSets().getByName(termSetName);
@@ -2210,12 +2210,14 @@ exports.Taxonomy = {
                     for (var _i = 0; _i < arguments.length; _i++) {
                         args[_i] = arguments[_i];
                     }
-                    // Log
-                    console.error("[gd-sprest] Error getting the terms from the default site collection.");
-                    console.error("[gd-sprest] Error: " + args[1].get_message());
                     // Reject the promise
-                    reject(args);
+                    reject(args[1].get_message());
                 });
+            }, 
+            // Error
+            function (reason) {
+                // Reject the promise
+                reject(reason);
             });
         });
     },
@@ -2226,9 +2228,16 @@ exports.Taxonomy = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Get the terms
-            exports.Taxonomy.getTermsFromDefaultSC(termSetName).then(function (terms) {
+            exports.Taxonomy.getTermsFromDefaultSC(termSetName).then(
+            // Success
+            function (terms) {
                 // Resolve the object
                 resolve(exports.Taxonomy.toObject(terms));
+            }, 
+            // Error
+            function (reason) {
+                // Reject the promise
+                reject(reason);
             });
         });
     },
@@ -2255,11 +2264,8 @@ exports.Taxonomy = {
                     for (var _i = 0; _i < arguments.length; _i++) {
                         args[_i] = arguments[_i];
                     }
-                    // Log
-                    console.error("[gd-sprest] Error getting the terms.");
-                    console.error("[gd-sprest] Error: " + args[1].get_message());
                     // Reject the promise
-                    reject(args);
+                    reject(args[1].get_message());
                 });
             });
         });
@@ -2271,9 +2277,16 @@ exports.Taxonomy = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Get the terms
-            exports.Taxonomy.getTermsByGroupName(termSetName, groupName).then(function (terms) {
+            exports.Taxonomy.getTermsByGroupName(termSetName, groupName).then(
+            // Success
+            function (terms) {
                 // Resolve the object
                 resolve(exports.Taxonomy.toObject(terms));
+            }, 
+            // Error
+            function (reason) {
+                // Reject the promise
+                reject(reason);
             });
         });
     },
@@ -2393,7 +2406,7 @@ exports.Taxonomy = {
             term.info = info;
         };
         // Ensure the terms exist
-        if (terms) {
+        if (terms && terms.length > 0) {
             // Parse the terms
             for (var i = 0; i < terms.length; i++) {
                 var term = terms[i];
@@ -2407,9 +2420,11 @@ exports.Taxonomy = {
                     addTerm(root, term, term.pathAsString.split(";"));
                 }
             }
+            // Return the root term
+            return exports.Taxonomy.findById(root, terms[0].id);
         }
-        // Return the root term
-        return root;
+        // Return nothing
+        return null;
     }
 };
 //# sourceMappingURL=taxonomy.js.map
@@ -3848,7 +3863,7 @@ var _ContextInfo = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(_ContextInfo, "document", {
-        get: function () { return this.window.document; },
+        get: function () { return this.window ? this.window.document : null; },
         enumerable: true,
         configurable: true
     });
@@ -8308,7 +8323,7 @@ var TargetInfo = /** @class */ (function () {
     /*********************************************************************************************************************************/
     // Method to get the domain url
     TargetInfo.prototype.getDomainUrl = function () {
-        var url = lib_1.ContextInfo.document.location.href;
+        var url = lib_1.ContextInfo.document ? lib_1.ContextInfo.document.location.href : "";
         // See if this is an app web
         if (lib_1.ContextInfo.isAppWeb) {
             // Set the url to the host url
@@ -8326,7 +8341,7 @@ var TargetInfo = /** @class */ (function () {
     // Method to get a query string value
     TargetInfo.getQueryStringValue = function (key) {
         // Get the query string
-        var queryString = lib_1.ContextInfo.existsFl ? lib_1.ContextInfo.document.location.href.split('?') : [""];
+        var queryString = lib_1.ContextInfo.existsFl && lib_1.ContextInfo.document ? lib_1.ContextInfo.document.location.href.split('?') : [""];
         queryString = queryString.length > 1 ? queryString[1] : queryString[0];
         // Parse the values
         var values = queryString.split('&');
@@ -8516,7 +8531,7 @@ var XHRRequest = /** @class */ (function () {
         }
         else {
             // Get the request digest
-            var requestDigest = lib_1.ContextInfo.document.querySelector("#__REQUESTDIGEST");
+            var requestDigest = lib_1.ContextInfo.document ? lib_1.ContextInfo.document.querySelector("#__REQUESTDIGEST") : "";
             requestDigest = requestDigest ? requestDigest.value : "";
             // Set the request digest
             this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
@@ -8585,127 +8600,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var lib_1 = __webpack_require__(1);
-/**
- * JS Link
- */
-var _JSLink = /** @class */ (function () {
-    /**
-     * Constructor
-     */
-    function _JSLink(cfg) {
-        // See if the configuration exists
-        if (cfg) {
-            // Set the properties
-            this._baseViewID = cfg.BaseViewID;
-            this._listTemplateType = cfg.ListTemplateType;
-            this._onPostRender = cfg.OnPostRender;
-            this._onPreRender = cfg.OnPreRender;
-            this._templates = cfg.Templates;
-        }
-    }
-    Object.defineProperty(_JSLink.prototype, "BaseViewID", {
-        set: function (value) { this._baseViewID = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "ListTemplateType", {
-        set: function (value) { this._listTemplateType = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "OnPostRender", {
-        set: function (value) { this._onPostRender = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "OnPreRender", {
-        set: function (value) { this._onPreRender = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(_JSLink.prototype, "Templates", {
-        set: function (value) { this._templates = value; },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Methods
-     */
-    /**
-     * Returns the CSR template.
-     */
-    _JSLink.prototype.getTemplate = function () {
-        var template = {};
-        // Add the properties
-        if (this._baseViewID) {
-            template.BaseViewID = this._baseViewID;
-        }
-        if (this._listTemplateType) {
-            template.ListTemplateType = this._listTemplateType;
-        }
-        if (this._onPostRender) {
-            template.OnPostRender = this._onPostRender;
-        }
-        if (this._onPreRender) {
-            template.OnPreRender = this._onPreRender;
-        }
-        if (this._templates) {
-            template.Templates = this._templates;
-        }
-        // See if there are fields
-        if (template.Templates && template.Templates.Fields) {
-            var fields = {};
-            // Parse the fields
-            for (var _i = 0, _a = template.Templates.Fields; _i < _a.length; _i++) {
-                var field = _a[_i];
-                // Add the field
-                fields[field.Name] = {};
-                // Add the field properties
-                if (field.DisplayForm) {
-                    fields[field.Name].DisplayForm = field.DisplayForm;
-                }
-                if (field.EditForm) {
-                    fields[field.Name].EditForm = field.EditForm;
-                }
-                if (field.NewForm) {
-                    fields[field.Name].NewForm = field.NewForm;
-                }
-                if (field.View) {
-                    fields[field.Name].View = field.View;
-                }
-            }
-            // Update the fields
-            template.Templates.Fields = fields;
-        }
-        // Return the template
-        return template;
-    };
-    /**
-     * Method to register the CSR override.
-     */
-    _JSLink.prototype.register = function () {
-        // Get the template manager
-        var templateManager = lib_1.ContextInfo.window.SPClientTemplates;
-        templateManager = templateManager ? templateManager.TemplateManager : null;
-        // Ensure it exists
-        if (templateManager) {
-            // Apply the customization
-            templateManager.RegisterTemplateOverrides(this.getTemplate());
-        }
-    };
-    return _JSLink;
-}());
-exports.JSLink = _JSLink;
-//# sourceMappingURL=jslink.js.map
-
-/***/ }),
-/* 109 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -8765,7 +8659,7 @@ exports.List = _List;
 //# sourceMappingURL=list.js.map
 
 /***/ }),
-/* 110 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8812,7 +8706,7 @@ exports.Navigation = _Navigation;
 //# sourceMappingURL=navigation.js.map
 
 /***/ }),
-/* 111 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8854,7 +8748,7 @@ exports.PeopleManager = _PeopleManager;
 //# sourceMappingURL=peopleManager.js.map
 
 /***/ }),
-/* 112 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8897,7 +8791,7 @@ exports.PeoplePicker = _PeoplePicker;
 //# sourceMappingURL=peoplePicker.js.map
 
 /***/ }),
-/* 113 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8940,7 +8834,7 @@ exports.ProfileLoader = _ProfileLoader;
 //# sourceMappingURL=profileLoader.js.map
 
 /***/ }),
-/* 114 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9019,7 +8913,7 @@ exports.Search = _Search;
 //# sourceMappingURL=search.js.map
 
 /***/ }),
-/* 115 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9076,7 +8970,7 @@ exports.Site = _Site;
 //# sourceMappingURL=site.js.map
 
 /***/ }),
-/* 116 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9145,7 +9039,7 @@ exports.SocialFeed = (new _SocialFeed());
 //# sourceMappingURL=socialFeed.js.map
 
 /***/ }),
-/* 117 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9188,7 +9082,7 @@ exports.UserProfile = _UserProfile;
 //# sourceMappingURL=userProfile.js.map
 
 /***/ }),
-/* 118 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9281,7 +9175,7 @@ exports.Utility = _Utility;
 //# sourceMappingURL=utility.js.map
 
 /***/ }),
-/* 119 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9290,7 +9184,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 120 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9368,7 +9262,7 @@ exports.Dependencies = _Dependencies;
 //# sourceMappingURL=dependencies.js.map
 
 /***/ }),
-/* 121 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9725,7 +9619,7 @@ exports.FieldSchemaXML = function (fieldInfo) {
 //# sourceMappingURL=fieldSchemaXML.js.map
 
 /***/ }),
-/* 122 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9762,7 +9656,7 @@ exports.SPCfgType = {
 //# sourceMappingURL=spCfgTypes.js.map
 
 /***/ }),
-/* 123 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10039,6 +9933,23 @@ exports.JSLink = {
         }
     },
     /**
+     * Registers the JSLink configuration
+     * @param cfg - The JSLink configuration.
+     */
+    register: function (cfg) {
+        // Ensure a configuration exists
+        if (cfg) {
+            // Get the template manager
+            var templateManager = lib_1.ContextInfo.window.SPClientTemplates;
+            templateManager = templateManager ? templateManager.TemplateManager : null;
+            // Ensure it exists
+            if (templateManager) {
+                // Apply the customization
+                templateManager.RegisterTemplateOverrides(cfg);
+            }
+        }
+    },
+    /**
      * Removes the field and html from the page.
      * @param ctx - The client context.
      * @param field - The field to remove.
@@ -10134,7 +10045,7 @@ exports.JSLink = {
 //# sourceMappingURL=jslink.js.map
 
 /***/ }),
-/* 124 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10512,7 +10423,7 @@ exports.ListForm = _ListForm;
 //# sourceMappingURL=listForm.js.map
 
 /***/ }),
-/* 125 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10587,14 +10498,11 @@ var _ListFormField = /** @class */ (function () {
                 // Number
                 case __1.SPTypes.FieldType.Number:
                     var fldNumber = _this._fieldInfo.field;
+                    var startIdx = fldNumber.SchemaXml.indexOf('Decimals="') + 10;
+                    _this._fieldInfo.decimals = startIdx > 10 ? parseInt(fldNumber.SchemaXml.substr(startIdx, fldNumber.SchemaXml.substr(startIdx).indexOf('"'))) : 0;
                     _this._fieldInfo.maxValue = fldNumber.MaximumValue;
                     _this._fieldInfo.minValue = fldNumber.MinimumValue;
-                    if (fldNumber.ShowAsPercentage != undefined) {
-                        _this._fieldInfo.showAsPercentage = fldNumber.ShowAsPercentage;
-                    }
-                    else {
-                        _this._fieldInfo.showAsPercentage = fldNumber.SchemaXml.indexOf('Percentage="TRUE"') > 0;
-                    }
+                    _this._fieldInfo.showAsPercentage = fldNumber.SchemaXml.indexOf('Percentage="TRUE"') > 0;
                     break;
                 // Note
                 case __1.SPTypes.FieldType.Note:
@@ -10732,7 +10640,7 @@ exports.ListFormField = _ListFormField;
 //# sourceMappingURL=listFormField.js.map
 
 /***/ }),
-/* 126 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10792,7 +10700,7 @@ exports.Loader = {
 //# sourceMappingURL=loader.js.map
 
 /***/ }),
-/* 127 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10828,7 +10736,7 @@ exports.RibbonLink = function (props) {
 //# sourceMappingURL=ribbonLink.js.map
 
 /***/ }),
-/* 128 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10868,7 +10776,7 @@ exports.SuiteBarLink = function (props) {
 //# sourceMappingURL=sbLink.js.map
 
 /***/ }),
-/* 129 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11154,7 +11062,7 @@ exports.WebPart = _WebPart;
 //# sourceMappingURL=webpart.js.map
 
 /***/ }),
-/* 130 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11167,17 +11075,17 @@ exports.ModalDialog = {
     // Closes the dialog
     close: function (dialogResult) {
         // Load the library and call the method
-        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.close(dialogResult); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModalDialog.close(dialogResult); });
     },
     // Close the dialog
     commonModalDialogClose: function (dialogResult, returnVal) {
         // Load the library and call the method
-        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.commonModalDialogClose(dialogResult, returnVal); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModalDialog.commonModalDialogClose(dialogResult, returnVal); });
     },
     // Open a dialog
     commonModalDialogOpen: function (url, options, callback, args) {
         // Load the library and call the method
-        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.commonModalDialogOpen(url, options, callback, args); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModalDialog.commonModalDialogOpen(url, options, callback, args); });
     },
     // Method to ensure the core library is loaded
     load: function () {
@@ -11199,32 +11107,32 @@ exports.ModalDialog = {
     // Opens a pop-up page
     OpenPopUpPage: function (url, callback, width, height) {
         // Load the library and call the method
-        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.OpenPopUpPage(url, callback, width, height); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModalDialog.OpenPopUpPage(url, callback, width, height); });
     },
     // Refreshes the page
     RefreshPage: function (dialogResult) {
         // Load the library and call the method
-        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.RefreshPage(dialogResult); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModalDialog.RefreshPage(dialogResult); });
     },
     // Shows a modal dialog
     showModalDialog: function (options) {
         // Load the library and call the method
-        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.showModalDialog(options); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModalDialog.showModalDialog(options); });
     },
     // Shows a pop-up dialog
     ShowPopupDialog: function (url) {
         // Load the library and call the method
-        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.ShowPopupDialog(url); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModalDialog.ShowPopupDialog(url); });
     },
     // Shows a wait screen
     showWaitScreenSize: function (title, message, callback, height, width) {
         // Load the library and call the method
-        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.showWaitScreenSize(title, message, callback, height, width); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModalDialog.showWaitScreenSize(title, message, callback, height, width); });
     },
     // Shows a wait screen w/ no close button
     showWaitScreenWithNoClose: function (title, message, height, width) {
         // Load the library and call the method
-        exports.ModalDialog.load().then(function () { SP.UI.ModialDialog.showWaitScreenWithNoClose(title, message, height, width); });
+        exports.ModalDialog.load().then(function () { SP.UI.ModalDialog.showWaitScreenWithNoClose(title, message, height, width); });
     }
 };
 /**
@@ -11329,7 +11237,7 @@ exports.Status = {
 //# sourceMappingURL=sp.js.map
 
 /***/ }),
-/* 131 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11338,7 +11246,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 132 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11353,7 +11261,7 @@ exports.Util = utils_1.Types;
 //# sourceMappingURL=types.js.map
 
 /***/ }),
-/* 133 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11366,7 +11274,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.44,
+    __ver: 3.60,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -11400,9 +11308,11 @@ exports.$REST = {
 };
 // See if the library doesn't exist, or is an older version
 var global = Lib.ContextInfo.window.$REST;
-if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {
+if ((global == null || global.__ver == null || global.__ver < exports.$REST.__ver) && Lib.ContextInfo.window.SP) {
     // Set the global variable
     Lib.ContextInfo.window.$REST = exports.$REST;
+    // Alert other scripts this library is loaded
+    Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
 }
 //# sourceMappingURL=rest.js.map
 

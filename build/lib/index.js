@@ -4,7 +4,6 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./contextInfo"));
-__export(require("./jslink"));
 __export(require("./list"));
 __export(require("./navigation"));
 __export(require("./peopleManager"));

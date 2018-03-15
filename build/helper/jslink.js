@@ -271,6 +271,23 @@ exports.JSLink = {
         }
     },
     /**
+     * Registers the JSLink configuration
+     * @param cfg - The JSLink configuration.
+     */
+    register: function (cfg) {
+        // Ensure a configuration exists
+        if (cfg) {
+            // Get the template manager
+            var templateManager = lib_1.ContextInfo.window.SPClientTemplates;
+            templateManager = templateManager ? templateManager.TemplateManager : null;
+            // Ensure it exists
+            if (templateManager) {
+                // Apply the customization
+                templateManager.RegisterTemplateOverrides(cfg);
+            }
+        }
+    },
+    /**
      * Removes the field and html from the page.
      * @param ctx - The client context.
      * @param field - The field to remove.

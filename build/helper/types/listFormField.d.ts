@@ -79,6 +79,8 @@ export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
  * List Form Number Field Information
  */
 export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
+    /** The number of decimals. */
+    decimals?: number;
     /** The list field. */
     field?: Types.SP.IFieldNumber | Types.SP.IFieldCurrency;
     /** The maximum value */

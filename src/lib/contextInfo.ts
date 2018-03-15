@@ -42,7 +42,7 @@ class _ContextInfo {
     static get DesignPackageId() { return this._contextInfo.DesignPackageId; }
     static get disableAppViews() { return this._contextInfo.disableAppViews; }
     static get disableFlows() { return this._contextInfo.disableFlows; }
-    static get document() { return this.window.document; }
+    static get document() { return this.window ? this.window.document : null; }
     static get env() { return this._contextInfo.env; }
     static get existsFl() { return this._contextInfo.existsFl == null; }
     static get farmLabel() { return this._contextInfo.farmLabel; }
