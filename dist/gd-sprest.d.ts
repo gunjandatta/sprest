@@ -806,7 +806,7 @@ declare module 'gd-sprest/helper/types/fieldSchemaXML' {
 
 declare module 'gd-sprest/helper/types/jslink' {
     /**
-        * JSLink Methods
+        * JSLink
         */
     export interface IJSLink {
             /**
@@ -875,7 +875,7 @@ declare module 'gd-sprest/helper/types/jslink' {
             renderField(ctx: any, field: any, formType?: number): any;
     }
     /**
-        * JS Link Configuration
+        * JSLink Configuration
         */
     export interface IJSLinkCfg {
             /** The base view id. */
@@ -890,22 +890,23 @@ declare module 'gd-sprest/helper/types/jslink' {
             Templates?: IJSLinkCfgTemplate;
     }
     /**
-        * Fields Template
+        * JSLink Field Configuration
         */
     export interface IJSLinkCfgField {
             DisplayForm?: any;
             EditForm?: any;
-            Name: string;
             NewForm?: any;
             View?: any;
     }
     /**
-        * Templates
+        * JSLink Templates
         */
     export interface IJSLinkCfgTemplate {
             Body?: any;
             Footer?: any;
-            Fields?: Array<IJSLinkCfgField>;
+            Fields?: {
+                    [key: string]: IJSLinkCfgField;
+            };
             Group?: any;
             Header?: any;
             Item?: any;
