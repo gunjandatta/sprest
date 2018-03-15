@@ -1,5 +1,4 @@
 "use strict";
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
 var mapper_1 = require("../mapper");
@@ -276,13 +275,16 @@ exports.JSLink = {
      * @param cfg - The JSLink configuration.
      */
     register: function (cfg) {
-        // Get the template manager
-        var templateManager = lib_1.ContextInfo.window.SPClientTemplates;
-        templateManager = templateManager ? templateManager.TemplateManager : null;
-        // Ensure it exists
-        if (templateManager) {
-            // Apply the customization
-            templateManager.RegisterTemplateOverrides(_this.getTemplate());
+        // Ensure a configuration exists
+        if (cfg) {
+            // Get the template manager
+            var templateManager = lib_1.ContextInfo.window.SPClientTemplates;
+            templateManager = templateManager ? templateManager.TemplateManager : null;
+            // Ensure it exists
+            if (templateManager) {
+                // Apply the customization
+                templateManager.RegisterTemplateOverrides(cfg);
+            }
         }
     },
     /**

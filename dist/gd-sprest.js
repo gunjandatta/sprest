@@ -9661,7 +9661,6 @@ exports.SPCfgType = {
 
 "use strict";
 
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
 var mapper_1 = __webpack_require__(12);
@@ -9938,13 +9937,16 @@ exports.JSLink = {
      * @param cfg - The JSLink configuration.
      */
     register: function (cfg) {
-        // Get the template manager
-        var templateManager = lib_1.ContextInfo.window.SPClientTemplates;
-        templateManager = templateManager ? templateManager.TemplateManager : null;
-        // Ensure it exists
-        if (templateManager) {
-            // Apply the customization
-            templateManager.RegisterTemplateOverrides(_this.getTemplate());
+        // Ensure a configuration exists
+        if (cfg) {
+            // Get the template manager
+            var templateManager = lib_1.ContextInfo.window.SPClientTemplates;
+            templateManager = templateManager ? templateManager.TemplateManager : null;
+            // Ensure it exists
+            if (templateManager) {
+                // Apply the customization
+                templateManager.RegisterTemplateOverrides(cfg);
+            }
         }
     },
     /**
@@ -11272,7 +11274,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.59,
+    __ver: 3.60,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
