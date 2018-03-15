@@ -297,7 +297,7 @@ export interface ISPConfig {
      * @param cfg - The SharePoint configuration information.
      * @param webUrl - An optional string representing the relative web url.
      */
-    new(cfg: ISPConfigProps, webUrl?: string);
+    new(cfg: ISPConfigProps, webUrl?: string): ISPConfig;
 
     /**
      * Method to install the configuration

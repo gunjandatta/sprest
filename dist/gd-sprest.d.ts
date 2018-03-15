@@ -1226,8 +1226,8 @@ declare module 'gd-sprest/helper/types/sp' {
             dialogReturnValueCallback?: (dialogResult: number, returnVal: any) => void;
             /** An integer value that specifies the height of the dialog. If height is not specified, the height of the dialog is autosized by default. If autosize is false, the dialog height is set to 576 pixels. */
             height?: number;
-            /** A string that contains the HTML of the page that appears in the dialog. If both html and url are specified, url takes precedence. Either url or html must be specified. */
-            html?: string;
+            /** An html element to display in the dialog. If both html and url are specified, url takes precedence. Either url or html must be specified. */
+            html?: HTMLElement;
             /** A Boolean value that specifies whether the Close button appears on the dialog. */
             showClose?: boolean;
             /** A Boolean value that specifies whether the dialog opens in a maximized state. true the dialog opens maximized. Otherwise, the dialog is opened at the requested sized if specified; otherwise, the default size, if specified; otherwise, the autosized size. */
@@ -1619,7 +1619,7 @@ declare module 'gd-sprest/helper/types/spCfg' {
                 * @param cfg - The SharePoint configuration information.
                 * @param webUrl - An optional string representing the relative web url.
                 */
-            new (cfg: ISPConfigProps, webUrl?: string): any;
+            new (cfg: ISPConfigProps, webUrl?: string): ISPConfig;
             /**
                 * Method to install the configuration
                 * @param callback - An optional function called after the execution completes.
