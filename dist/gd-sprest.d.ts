@@ -1619,7 +1619,7 @@ declare module 'gd-sprest/helper/types/spCfg' {
                 * @param cfg - The SharePoint configuration information.
                 * @param webUrl - An optional string representing the relative web url.
                 */
-            new (cfg: ISPConfigProps, webUrl?: string): any;
+            new (cfg: ISPConfigProps, webUrl?: string): ISPConfig;
             /**
                 * Method to install the configuration
                 * @param callback - An optional function called after the execution completes.
