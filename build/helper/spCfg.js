@@ -19,9 +19,6 @@ var _SPConfig = /** @class */ (function () {
         this.installByType = function (cfgType, callback, targetName) { return _this.install(callback, cfgType, targetName); };
         // Method to uninstall by the configuration type
         this.uninstallByType = function (cfgType, callback, targetName) { return _this.uninstall(callback, cfgType, targetName); };
-        /**
-         * Methods
-         */
         // Method to create the content types
         this.createContentTypes = function (contentTypes, cfgContentTypes) {
             // Return a promise
@@ -445,7 +442,7 @@ var _SPConfig = /** @class */ (function () {
             });
         };
         // Method to create the web parts
-        this.createWebParts = function () {
+        this.createWebParts = function (galleryName) {
             var cfgWebParts = _this._configuration.WebPartCfg;
             // See if the configuration type exists
             if (_this._cfgType) {
@@ -462,7 +459,7 @@ var _SPConfig = /** @class */ (function () {
             console.log("[gd-sprest][WebPart] Creating the web parts.");
             // Get the root web
             (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
-                .Lists("Web Part Gallery")
+                .Lists(galleryName)
                 .RootFolder()
                 .query({
                 Expand: ["Files"]
@@ -500,7 +497,7 @@ var _SPConfig = /** @class */ (function () {
                             if (cfgWebPart.Group) {
                                 // Set the target to the root web
                                 (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
-                                    .Lists("Web Part Gallery")
+                                    .Lists(galleryName)
                                     .Items()
                                     .query({
                                     Filter: "FileLeafRef eq '" + cfgWebPart.FileName + "'"
@@ -762,7 +759,7 @@ var _SPConfig = /** @class */ (function () {
             });
         };
         // Method to remove the web parts
-        this.removeWebParts = function () {
+        this.removeWebParts = function (galleryName) {
             var cfgWebParts = _this._configuration.WebPartCfg;
             // Return a promise
             return new Promise(function (resolve, reject) {
@@ -785,7 +782,7 @@ var _SPConfig = /** @class */ (function () {
                 console.log("[gd-sprest][WebPart] Creating the web parts.");
                 // Get the root web
                 (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
-                    .Lists("Web Part Gallery")
+                    .Lists(galleryName)
                     .RootFolder()
                     .Files()
                     .execute(function (files) {
@@ -1005,37 +1002,16 @@ var _SPConfig = /** @class */ (function () {
     // Method to install the configuration
     _SPConfig.prototype.install = function (callback, cfgType, targetName) {
         var _this = this;
-        // Update the global variables
-        this._cfgType = cfgType;
-        this._targetName = targetName ? targetName.toLowerCase() : null;
-        // Install the web components
-        this.installWeb().then(function () {
-            // Install the site components
-            _this.installSite().then(function () {
-                // Create the webparts
-                _this.createWebParts();
-                // Log
-                console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
-                // See if the callback exists
-                if (callback && typeof (callback) === "function") {
-                    // Execute the callback
-                    callback();
-                }
-            });
-        });
-    };
-    // Method to uninstall the configuration
-    _SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
-        var _this = this;
-        // Update the global variables
-        this._cfgType = cfgType;
-        this._targetName = targetName;
-        // Uninstall the web components
-        this.uninstallWeb().then(function () {
-            // Uninstall the site components
-            _this.uninstallSite().then(function () {
-                // Remove the webparts
-                _this.removeWebParts().then(function () {
+        this.loadLocalizedGalleryName(function (galleryName) {
+            // Update the global variables
+            _this._cfgType = cfgType;
+            _this._targetName = targetName ? targetName.toLowerCase() : null;
+            // Install the web components
+            _this.installWeb().then(function () {
+                // Install the site components
+                _this.installSite().then(function () {
+                    // Create the webparts
+                    _this.createWebParts(galleryName);
                     // Log
                     console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
                     // See if the callback exists
@@ -1046,6 +1022,46 @@ var _SPConfig = /** @class */ (function () {
                 });
             });
         });
+    };
+    // Method to uninstall the configuration
+    _SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
+        var _this = this;
+        this.loadLocalizedGalleryName(function (galleryName) {
+            // Update the global variables
+            _this._cfgType = cfgType;
+            _this._targetName = targetName;
+            // Uninstall the web components
+            _this.uninstallWeb().then(function () {
+                // Uninstall the site components
+                _this.uninstallSite().then(function () {
+                    // Remove the webparts
+                    _this.removeWebParts(galleryName).then(function () {
+                        // Log
+                        console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                        // See if the callback exists
+                        if (callback && typeof (callback) === "function") {
+                            // Execute the callback
+                            callback();
+                        }
+                    });
+                });
+            });
+        });
+    };
+    /**
+     * Methods
+     */
+    _SPConfig.prototype.loadLocalizedGalleryName = function (callback) {
+        SP.SOD.executeOrDelayUntilScriptLoaded(function () {
+            var ctx = SP.ClientContext.get_current();
+            var localizedName = SP.Utilities.Utility.getLocalizedString(ctx, "$Resources:webpartgalleryList", "core", SP.PageContextInfo.get_currentLanguage());
+            ctx.executeQueryAsync(function (sender, args) {
+                callback(localizedName.get_value());
+            }, function (sender, args) {
+                console.log("[gd-sprest] Failed loading the localized web part gallery name - using default.");
+                callback("Web Part Gallery");
+            });
+        }, "sp.js");
     };
     return _SPConfig;
 }());

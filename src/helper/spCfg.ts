@@ -6,6 +6,8 @@ import {
     Types as SPCfgTypes
 } from ".";
 
+declare var SP;
+
 /**
  * SharePoint Configuration
  */
@@ -43,44 +45,18 @@ class _SPConfig {
 
     // Method to install the configuration
     install(callback?: any, cfgType?: number, targetName?: string) {
-        // Update the global variables
-        this._cfgType = cfgType;
-        this._targetName = targetName ? targetName.toLowerCase() : null;
+        this.loadLocalizedGalleryName((galleryName: string) => {
+            // Update the global variables
+            this._cfgType = cfgType;
+            this._targetName = targetName ? targetName.toLowerCase() : null;
 
-        // Install the web components
-        this.installWeb().then(() => {
-            // Install the site components
-            this.installSite().then(() => {
-                // Create the webparts
-                this.createWebParts();
+            // Install the web components
+            this.installWeb().then(() => {
+                // Install the site components
+                this.installSite().then(() => {
+                    // Create the webparts
+                    this.createWebParts(galleryName);
 
-                // Log
-                console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
-
-                // See if the callback exists
-                if (callback && typeof (callback) === "function") {
-                    // Execute the callback
-                    callback();
-                }
-            });
-        });
-    }
-
-    // Method to install by configuration type
-    installByType = (cfgType: number, callback?: any, targetName?: string) => { return this.install(callback, cfgType, targetName); }
-
-    // Method to uninstall the configuration
-    uninstall(callback?: any, cfgType?: number, targetName?: string) {
-        // Update the global variables
-        this._cfgType = cfgType;
-        this._targetName = targetName;
-
-        // Uninstall the web components
-        this.uninstallWeb().then(() => {
-            // Uninstall the site components
-            this.uninstallSite().then(() => {
-                // Remove the webparts
-                this.removeWebParts().then(() => {
                     // Log
                     console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
 
@@ -94,12 +70,57 @@ class _SPConfig {
         });
     }
 
+    // Method to install by configuration type
+    installByType = (cfgType: number, callback?: any, targetName?: string) => { return this.install(callback, cfgType, targetName); }
+
+    // Method to uninstall the configuration
+    uninstall(callback?: any, cfgType?: number, targetName?: string) {
+        this.loadLocalizedGalleryName((galleryName: string) => {
+            // Update the global variables
+            this._cfgType = cfgType;
+            this._targetName = targetName;
+
+            // Uninstall the web components
+            this.uninstallWeb().then(() => {
+                // Uninstall the site components
+                this.uninstallSite().then(() => {
+                    // Remove the webparts
+                    this.removeWebParts(galleryName).then(() => {
+                        // Log
+                        console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+
+                        // See if the callback exists
+                        if (callback && typeof (callback) === "function") {
+                            // Execute the callback
+                            callback();
+                        }
+                    });
+                });
+            });
+        });
+    }
+
     // Method to uninstall by the configuration type
     uninstallByType = (cfgType: number, callback?: any, targetName?: string) => { return this.uninstall(callback, cfgType, targetName); }
 
     /**
      * Methods
      */
+
+     private loadLocalizedGalleryName(callback:(galleryName: string) => void) {
+        SP.SOD.executeOrDelayUntilScriptLoaded(function () {
+            var ctx = SP.ClientContext.get_current();
+            var localizedName = SP.Utilities.Utility.getLocalizedString(ctx, "$Resources:webpartgalleryList", "core", SP.PageContextInfo.get_currentLanguage());
+            ctx.executeQueryAsync(
+                (sender, args) => {
+                    callback(localizedName.get_value());
+                }, 
+                (sender, args) => {
+                    console.log("[gd-sprest] Failed loading the localized web part gallery name - using default.");
+                    callback("Web Part Gallery");
+                });         
+        }, "sp.js");         
+     }
 
     // Method to create the content types
     private createContentTypes = (contentTypes: Types.SP.IContentTypeResults, cfgContentTypes: Array<SPCfgTypes.ISPCfgContentTypeInfo>): PromiseLike<void> => {
@@ -554,7 +575,7 @@ class _SPConfig {
     }
 
     // Method to create the web parts
-    private createWebParts = () => {
+    private createWebParts = (galleryName:string) => {
         let cfgWebParts = this._configuration.WebPartCfg;
 
         // See if the configuration type exists
@@ -572,7 +593,7 @@ class _SPConfig {
         // Get the root web
         (new Web(ContextInfo.siteServerRelativeUrl))
             // Get the web part gallery
-            .Lists("Web Part Gallery")
+            .Lists(galleryName)
             // Get the root folder
             .RootFolder()
             // Expand the files and items
@@ -620,7 +641,7 @@ class _SPConfig {
                                 // Set the target to the root web
                                 (new Web(ContextInfo.siteServerRelativeUrl))
                                     // Get the web part gallery
-                                    .Lists("Web Part Gallery")
+                                    .Lists(galleryName)
                                     // Get the Items
                                     .Items()
                                     // Query for this webpart
@@ -906,7 +927,7 @@ class _SPConfig {
     }
 
     // Method to remove the web parts
-    private removeWebParts = (): PromiseLike<void> => {
+    private removeWebParts = (galleryName:string): PromiseLike<void> => {
         let cfgWebParts = this._configuration.WebPartCfg;
 
         // Return a promise
@@ -934,7 +955,7 @@ class _SPConfig {
             // Get the root web
             (new Web(ContextInfo.siteServerRelativeUrl))
                 // Get the web part gallery
-                .Lists("Web Part Gallery")
+                .Lists(galleryName)
                 // Get the root folder
                 .RootFolder()
                 // Get the webpart files
