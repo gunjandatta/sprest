@@ -1,5 +1,4 @@
-import { Types } from "../..";
-import { ITermInfo } from ".";
+import { Helper, Types } from "../..";
 /**
  * List Form Field Information
  */
@@ -74,6 +73,8 @@ export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
     termSetId?: string;
     /** The term store id */
     termStoreId?: string;
+    /** The value field */
+    valueField?: Types.SP.IFieldNote;
 }
 /**
  * List Form Number Field Information
@@ -129,16 +130,11 @@ export interface IListFormField {
      * Creates an instance of the list form field
      * @param props - The list form field properties
      */
-    new (props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
-    /**
-     * Creates an instance of the list form field
-     * @param props - The list form field properties
-     */
     create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
     /** Method to load the lookup data */
     loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.SP.IListItemQueryResult>>;
     /** Method to load the mms data */
-    loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<ITermInfo>>;
+    loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<Helper.Types.ITermInfo>>;
     /** Method to load the mms value field */
-    loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<Types.SP.IFieldManagedMetadata>;
+    loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<Types.SP.IFieldNote>;
 }

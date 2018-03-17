@@ -1,4 +1,4 @@
-import { Types } from "../..";
+import { Types } from "../../mapper";
 
 /**
  * List Form
@@ -8,44 +8,49 @@ export interface IListForm {
      * Creates an instance of the list form
      * @param props - The list form properties.
      */
-    new(props: IListFormProps): PromiseLike<IListFormResult>;
-
-    /**
-     * Creates an instance of the list form
-     * @param props - The list form properties.
-     */
     create(props: IListFormProps): PromiseLike<IListFormResult>;
 
     /**
+     * Method to generate the odata query for the list item.
+     */
+    generateODataQuery(info: IListFormResult, loadAttachments?: boolean): Types.ODataQuery;
+
+    /**
      * Method to load the item attachments
-     * @param listInfo - The list form information.
+     * @param info - The list form information.
     */
-    loadAttachments(listInfo: IListFormProps): PromiseLike<Array<Types.SP.IAttachment>>
+    loadAttachments(info: IListFormProps): PromiseLike<Array<Types.IAttachment>>
 
     /**
      * Method to refresh the item.
-     * @param listInfo - The list form information.
+     * @param info - The list form information.
      */
-    refreshItem(listInfo: IListFormResult): PromiseLike<IListFormResult>;
+    refreshItem(info: IListFormResult): PromiseLike<IListFormResult>;
 
     /**
-     * Method to remove attachments from an item.
+     * Method to remove attachment from an item.
      */
-    removeAttachments(listInfo: IListFormProps, attachmentInfo: Array<Types.SP.IAttachment>): PromiseLike<void>;
+    removeAttachment(info: IListFormResult, fileName: string): PromiseLike<IListFormResult>;
 
     /**
      * Method to save attachments to the item.
-     * @param listInfo - The list form information.
+     * @param info - The list form information.
      * @param attachmentInfo - The attachment files to add.
      */
-    saveAttachments(listInfo: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<Types.SP.IAttachment>>;
+    saveAttachments(info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>>;
 
     /**
      * Method to save the item.
-     * @param list - The list.
+     * @param info - The list form information.
      * @param itemValues - The list item values.
      */
     saveItem(info: IListFormResult, formValues: any): PromiseLike<IListFormResult>;
+
+    /**
+     * Method to show the file dialog.
+     * @param info - The list form information.
+     */
+    showFileDialog(info: IListFormResult): PromiseLike<IListFormResult>;
 }
 
 /**
@@ -69,17 +74,70 @@ export interface IListFormCache {
 }
 
 /**
+ * List Form Display
+ */
+export interface IListFormDisplay {
+    /**
+     * Method to get the fields
+     */
+    getFields(): Array<HTMLDivElement>;
+}
+
+/**
+ * List Form Display Properties
+ */
+export interface IListFormDisplayProps {
+    /** The element to render the form to. */
+    el: Element;
+
+    /** The fields to exclude from the form. */
+    excludeFields?: Array<string>;
+
+    /** The fields to include in the form. */
+    includeFields?: Array<string>;
+
+    /** The list form information. */
+    info: IListFormResult;
+}
+
+/**
+ * List Form Edit
+ */
+export interface IListFormEdit {
+    /**
+     * Method to get the fields
+     */
+    getFields<T = any>(): Array<T>;
+
+    /**
+     * Method to get the form values
+     */
+    getValues<T = any>(): PromiseLike<T>;
+}
+
+/**
+ * List Form Edit Properties
+ */
+export interface IListFormEditProps extends IListFormDisplayProps {
+    /** The form mode (New/Edit) */
+    controlMode?: number;
+}
+
+/**
  * List Form Properties
  */
 export interface IListFormProps {
     /** If defined, the data will be cached to the session storage. */
     cacheKey?: string;
 
+    /** The form fields to exclude. */
+    excludeFields?: Array<string>;
+
     /** The form fields */
     fields?: Array<string>;
 
     /** The list item */
-    item?: Types.SP.IListItemQueryResult | Types.SP.IListItemResult;
+    item?: Types.IListItemQueryResult | Types.IListItemResult;
 
     /** The item id */
     itemId?: number;
@@ -91,7 +149,7 @@ export interface IListFormProps {
     loadAttachments?: boolean;
 
     /** OData query used when loading an item */
-    query?: Types.SP.ODataQuery;
+    query?: Types.ODataQuery;
 
     /** The relative web url containing the list */
     webUrl?: string;
@@ -101,18 +159,21 @@ export interface IListFormProps {
  * List Form Result
  */
 export interface IListFormResult {
-    /** The item attachments */
-    attachments?: Array<Types.SP.IAttachment>;
+    /** The item attachments. */
+    attachments?: Array<Types.IAttachment>;
 
-    /** The form fields */
-    fields: { [key: string]: Types.SP.IFieldResult };
+    /** The form fields. */
+    fields: { [key: string]: Types.IFieldResult };
 
-    /** The list item */
-    item?: Types.SP.IListItemQueryResult | Types.SP.IListItemResult;
+    /** The list item. */
+    item?: Types.IListItemQueryResult | Types.IListItemResult;
 
-    /** The item query */
-    query?: Types.SP.ODataQuery;
+    /** The item query. */
+    query?: Types.ODataQuery;
 
-    /** The list */
-    list: Types.SP.IListResult;
+    /** The list. */
+    list: Types.IListResult;
+
+    /** The relative web url containing the list. */
+    webUrl?: string;
 }
