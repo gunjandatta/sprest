@@ -398,7 +398,8 @@ export const web = {
     // Returns the list gallery on the site.
     getCatalog: {
         argNames: ["galleryType"],
-        requestType: RequestType.GetWithArgsValueOnly
+        requestType: RequestType.GetWithArgsValueOnly,
+        returnType: "list"
     },
 
     // Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
@@ -408,7 +409,7 @@ export const web = {
         requestType: RequestType.PostWithArgsInBody
     },
 
-    // Gets the context information for the site. Static method.
+    // Gets the context information for the site.
     getContextWebInformation: {
         name: "contextInfo",
         replaceEndpointFl: true,
@@ -420,11 +421,12 @@ export const web = {
         requestType: RequestType.Get
     },
 
-    // Gets the document libraries on a site. Static method. (SharePoint Online only)
+    // Gets the document libraries on a site. (SharePoint Online only)
     getDocumentLibraries: {
         argNames: ["url"],
-        name: "sp.web.getDocumentLibraries",
-        requestType: RequestType.GetWithArgsInQS
+        name: "sp.web.getDocumentLibraries(@v)?@v='[[url]]'",
+        replaceEndpointFl: true,
+        requestType: RequestType.GetReplace
     },
 
     // Gets the specified external content type in a line-of-business (LOB) system application.
@@ -493,7 +495,7 @@ export const web = {
         requestType: RequestType.GetReplace
     },
 
-    // Gets the site URL from a page URL. Static method.
+    // Gets the site URL from a page URL.
     getWebUrlFromPageUrl: {
         name: "sp.web.getWebUrlFromPageUrl",
         requestType: RequestType.GetWithArgsInQS
