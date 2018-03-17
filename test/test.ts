@@ -1,5 +1,5 @@
 import {
-    $REST, Helper
+    $REST
 } from "../build";
 
 // Get the navigation menu

@@ -806,7 +806,7 @@ declare module 'gd-sprest/helper/types/fieldSchemaXML' {
 
 declare module 'gd-sprest/helper/types/jslink' {
     /**
-        * JSLink Methods
+        * JSLink
         */
     export interface IJSLink {
             /**
@@ -875,7 +875,7 @@ declare module 'gd-sprest/helper/types/jslink' {
             renderField(ctx: any, field: any, formType?: number): any;
     }
     /**
-        * JS Link Configuration
+        * JSLink Configuration
         */
     export interface IJSLinkCfg {
             /** The base view id. */
@@ -890,22 +890,23 @@ declare module 'gd-sprest/helper/types/jslink' {
             Templates?: IJSLinkCfgTemplate;
     }
     /**
-        * Fields Template
+        * JSLink Field Configuration
         */
     export interface IJSLinkCfgField {
             DisplayForm?: any;
             EditForm?: any;
-            Name: string;
             NewForm?: any;
             View?: any;
     }
     /**
-        * Templates
+        * JSLink Templates
         */
     export interface IJSLinkCfgTemplate {
             Body?: any;
             Footer?: any;
-            Fields?: Array<IJSLinkCfgField>;
+            Fields?: {
+                    [key: string]: IJSLinkCfgField;
+            };
             Group?: any;
             Header?: any;
             Item?: any;
@@ -2942,6 +2943,7 @@ declare module 'gd-sprest/mapper/site' {
             getCatalog: {
                     argNames: string[];
                     requestType: number;
+                    returnType: string;
             };
             getChanges: {
                     argNames: string[];
@@ -2959,6 +2961,7 @@ declare module 'gd-sprest/mapper/site' {
             getDocumentLibraries: {
                     argNames: string[];
                     name: string;
+                    replaceEndpointFl: boolean;
                     requestType: number;
             };
             getEntity: {
@@ -10747,7 +10750,7 @@ declare module 'gd-sprest/mapper/types/web' {
                 * Returns the list gallery on the site.
                 * @param galleryType - The gallery type. Represents a ListTemplateType value such as WebTemplateCatalog = 111, WebPartCatalog = 113 ListTemplateCatalog = 114, MasterPageCatalog = 116, SolutionCatalog = 121, ThemeCatalog = 123, DesignCatalog = 124, AppDataCatalog = 125.
                 */
-            getCatalog(galleryType: any): IBase;
+            getCatalog(galleryType: any): Types.SP.IList & IBase<Types.SP.IList, Types.SP.IListResult, Types.SP.IListQueryResult>;
             /**
                 * Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
                 * @param query - The change query.

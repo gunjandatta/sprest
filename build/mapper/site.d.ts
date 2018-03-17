@@ -260,6 +260,7 @@ export declare const web: {
     getCatalog: {
         argNames: string[];
         requestType: number;
+        returnType: string;
     };
     getChanges: {
         argNames: string[];
@@ -277,6 +278,7 @@ export declare const web: {
     getDocumentLibraries: {
         argNames: string[];
         name: string;
+        replaceEndpointFl: boolean;
         requestType: number;
     };
     getEntity: {

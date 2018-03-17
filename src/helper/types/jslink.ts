@@ -1,5 +1,5 @@
 /**
- * JSLink Methods
+ * JSLink
  */
 export interface IJSLink {
     /**
@@ -80,7 +80,7 @@ export interface IJSLink {
 }
 
 /**
- * JS Link Configuration
+ * JSLink Configuration
  */
 export interface IJSLinkCfg {
     /** The base view id. */
@@ -99,23 +99,22 @@ export interface IJSLinkCfg {
     Templates?: IJSLinkCfgTemplate;
 }
 /**
- * Fields Template
+ * JSLink Field Configuration
  */
 export interface IJSLinkCfgField {
     DisplayForm?: any;
     EditForm?: any;
-    Name: string;
     NewForm?: any;
     View?: any;
 }
 
 /**
- * Templates
+ * JSLink Templates
  */
 export interface IJSLinkCfgTemplate {
     Body?: any;
     Footer?: any;
-    Fields?: Array<IJSLinkCfgField>;
+    Fields?: { [key: string]: IJSLinkCfgField };
     Group?: any;
     Header?: any;
     Item?: any;

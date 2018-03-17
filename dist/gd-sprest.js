@@ -118,7 +118,7 @@ exports.Types = Types;
 /***/ (function(module, exports, __webpack_require__) {
 
 var store = __webpack_require__(27)('wks');
-var uid = __webpack_require__(19);
+var uid = __webpack_require__(20);
 var Symbol = __webpack_require__(3).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
@@ -174,7 +174,7 @@ module.exports = __webpack_require__(8) ? function (object, key, value) {
 var global = __webpack_require__(3);
 var hide = __webpack_require__(5);
 var has = __webpack_require__(9);
-var SRC = __webpack_require__(19)('src');
+var SRC = __webpack_require__(20)('src');
 var TO_STRING = 'toString';
 var $toString = Function[TO_STRING];
 var TPL = ('' + $toString).split(TO_STRING);
@@ -342,6 +342,52 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
+// Type definitions for gd-sprest
+// Project: https://gunjandatta.github.io/sprest
+// Definitions by: Gunjan Datta <https://github.com/gunjandatta>
+/***************************************************************************************************
+MIT License
+
+Copyright (c) 2016 Dattabase, LLC.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+***************************************************************************************************/
+var Helper = __webpack_require__(18);
+exports.Helper = Helper;
+var mapper_1 = __webpack_require__(12);
+exports.SPTypes = mapper_1.SPTypes;
+var Types = __webpack_require__(131);
+exports.Types = Types;
+__export(__webpack_require__(1));
+__export(__webpack_require__(132));
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(77));
 __export(__webpack_require__(119));
 __export(__webpack_require__(120));
@@ -362,7 +408,7 @@ exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
@@ -391,7 +437,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 var id = 0;
@@ -402,7 +448,7 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(7);
@@ -415,7 +461,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 // 7.1.4 ToInteger
@@ -427,7 +473,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 // 7.2.1 RequireObjectCoercible(argument)
@@ -438,30 +484,30 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
 var IObject = __webpack_require__(54);
-var defined = __webpack_require__(22);
+var defined = __webpack_require__(23);
 module.exports = function (it) {
   return IObject(defined(it));
 };
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var shared = __webpack_require__(27)('keys');
-var uid = __webpack_require__(19);
+var uid = __webpack_require__(20);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var def = __webpack_require__(14).f;
@@ -472,52 +518,6 @@ module.exports = function (it, tag, stat) {
   if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
 };
 
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-// Type definitions for gd-sprest
-// Project: https://gunjandatta.github.io/sprest
-// Definitions by: Gunjan Datta <https://github.com/gunjandatta>
-/***************************************************************************************************
-MIT License
-
-Copyright (c) 2016 Dattabase, LLC.
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-***************************************************************************************************/
-var Helper = __webpack_require__(17);
-exports.Helper = Helper;
-var mapper_1 = __webpack_require__(12);
-exports.SPTypes = mapper_1.SPTypes;
-var Types = __webpack_require__(131);
-exports.Types = Types;
-__export(__webpack_require__(1));
-__export(__webpack_require__(132));
-//# sourceMappingURL=index.js.map
 
 /***/ }),
 /* 27 */
@@ -571,7 +571,7 @@ var hide = __webpack_require__(5);
 var has = __webpack_require__(9);
 var Iterators = __webpack_require__(11);
 var $iterCreate = __webpack_require__(50);
-var setToStringTag = __webpack_require__(25);
+var setToStringTag = __webpack_require__(26);
 var getPrototypeOf = __webpack_require__(57);
 var ITERATOR = __webpack_require__(2)('iterator');
 var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
@@ -709,7 +709,7 @@ module.exports = Object.keys || function keys(O) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
-var toInteger = __webpack_require__(21);
+var toInteger = __webpack_require__(22);
 var min = Math.min;
 module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
@@ -741,7 +741,7 @@ module.exports = document && document.documentElement;
 var ctx = __webpack_require__(15);
 var invoke = __webpack_require__(70);
 var html = __webpack_require__(36);
-var cel = __webpack_require__(20);
+var cel = __webpack_require__(21);
 var global = __webpack_require__(3);
 var process = global.process;
 var setTask = global.setImmediate;
@@ -908,7 +908,8 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(121));
 var lib_1 = __webpack_require__(1);
-var _1 = __webpack_require__(17);
+var __1 = __webpack_require__(17);
+var _1 = __webpack_require__(18);
 /**
  * SharePoint Configuration
  */
@@ -1365,7 +1366,7 @@ var _SPConfig = /** @class */ (function () {
             console.log("[gd-sprest][WebPart] Creating the web parts.");
             // Get the root web
             (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
-                .Lists("Web Part Gallery")
+                .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 .RootFolder()
                 .query({
                 Expand: ["Files"]
@@ -1403,7 +1404,7 @@ var _SPConfig = /** @class */ (function () {
                             if (cfgWebPart.Group) {
                                 // Set the target to the root web
                                 (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
-                                    .Lists("Web Part Gallery")
+                                    .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                                     .Items()
                                     .query({
                                     Filter: "FileLeafRef eq '" + cfgWebPart.FileName + "'"
@@ -2434,7 +2435,7 @@ exports.Taxonomy = {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(44);
-module.exports = __webpack_require__(26);
+module.exports = __webpack_require__(17);
 
 
 /***/ }),
@@ -2455,7 +2456,7 @@ module.exports = __webpack_require__(10).Promise;
 "use strict";
 
 // 19.1.3.6 Object.prototype.toString()
-var classof = __webpack_require__(18);
+var classof = __webpack_require__(19);
 var test = {};
 test[__webpack_require__(2)('toStringTag')] = 'z';
 if (test + '' != '[object z]') {
@@ -2470,7 +2471,7 @@ if (test + '' != '[object z]') {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = !__webpack_require__(8) && !__webpack_require__(28)(function () {
-  return Object.defineProperty(__webpack_require__(20)('div'), 'a', { get: function () { return 7; } }).a != 7;
+  return Object.defineProperty(__webpack_require__(21)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
@@ -2520,8 +2521,8 @@ __webpack_require__(30)(String, 'String', function (iterated) {
 /* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(21);
-var defined = __webpack_require__(22);
+var toInteger = __webpack_require__(22);
+var defined = __webpack_require__(23);
 // true  -> String#at
 // false -> String#codePointAt
 module.exports = function (TO_STRING) {
@@ -2547,7 +2548,7 @@ module.exports = function (TO_STRING) {
 
 var create = __webpack_require__(51);
 var descriptor = __webpack_require__(29);
-var setToStringTag = __webpack_require__(25);
+var setToStringTag = __webpack_require__(26);
 var IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
@@ -2567,14 +2568,14 @@ module.exports = function (Constructor, NAME, next) {
 var anObject = __webpack_require__(4);
 var dPs = __webpack_require__(52);
 var enumBugKeys = __webpack_require__(35);
-var IE_PROTO = __webpack_require__(24)('IE_PROTO');
+var IE_PROTO = __webpack_require__(25)('IE_PROTO');
 var Empty = function () { /* empty */ };
 var PROTOTYPE = 'prototype';
 
 // Create object with fake `null` prototype: use iframe Object with cleared prototype
 var createDict = function () {
   // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__(20)('iframe');
+  var iframe = __webpack_require__(21)('iframe');
   var i = enumBugKeys.length;
   var lt = '<';
   var gt = '>';
@@ -2630,9 +2631,9 @@ module.exports = __webpack_require__(8) ? Object.defineProperties : function def
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(9);
-var toIObject = __webpack_require__(23);
+var toIObject = __webpack_require__(24);
 var arrayIndexOf = __webpack_require__(55)(false);
-var IE_PROTO = __webpack_require__(24)('IE_PROTO');
+var IE_PROTO = __webpack_require__(25)('IE_PROTO');
 
 module.exports = function (object, names) {
   var O = toIObject(object);
@@ -2666,7 +2667,7 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 
 // false -> Array#indexOf
 // true  -> Array#includes
-var toIObject = __webpack_require__(23);
+var toIObject = __webpack_require__(24);
 var toLength = __webpack_require__(34);
 var toAbsoluteIndex = __webpack_require__(56);
 module.exports = function (IS_INCLUDES) {
@@ -2693,7 +2694,7 @@ module.exports = function (IS_INCLUDES) {
 /* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(21);
+var toInteger = __webpack_require__(22);
 var max = Math.max;
 var min = Math.min;
 module.exports = function (index, length) {
@@ -2709,7 +2710,7 @@ module.exports = function (index, length) {
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(9);
 var toObject = __webpack_require__(58);
-var IE_PROTO = __webpack_require__(24)('IE_PROTO');
+var IE_PROTO = __webpack_require__(25)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
 module.exports = Object.getPrototypeOf || function (O) {
@@ -2726,7 +2727,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
-var defined = __webpack_require__(22);
+var defined = __webpack_require__(23);
 module.exports = function (it) {
   return Object(defined(it));
 };
@@ -2805,7 +2806,7 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
 var addToUnscopables = __webpack_require__(61);
 var step = __webpack_require__(62);
 var Iterators = __webpack_require__(11);
-var toIObject = __webpack_require__(23);
+var toIObject = __webpack_require__(24);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
@@ -2868,7 +2869,7 @@ module.exports = function (done, value) {
 var LIBRARY = __webpack_require__(31);
 var global = __webpack_require__(3);
 var ctx = __webpack_require__(15);
-var classof = __webpack_require__(18);
+var classof = __webpack_require__(19);
 var $export = __webpack_require__(32);
 var isObject = __webpack_require__(7);
 var aFunction = __webpack_require__(16);
@@ -3073,7 +3074,7 @@ if (!USE_NATIVE) {
 }
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
-__webpack_require__(25)($Promise, PROMISE);
+__webpack_require__(26)($Promise, PROMISE);
 __webpack_require__(75)(PROMISE);
 Wrapper = __webpack_require__(10)[PROMISE];
 
@@ -3217,7 +3218,7 @@ module.exports = function (it) {
 /* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var classof = __webpack_require__(18);
+var classof = __webpack_require__(19);
 var ITERATOR = __webpack_require__(2)('iterator');
 var Iterators = __webpack_require__(11);
 module.exports = __webpack_require__(10).getIteratorMethod = function (it) {
@@ -6115,7 +6116,8 @@ exports.web = {
     // Returns the list gallery on the site.
     getCatalog: {
         argNames: ["galleryType"],
-        requestType: utils_1.RequestType.GetWithArgsValueOnly
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "list"
     },
     // Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
     getChanges: {
@@ -6123,7 +6125,7 @@ exports.web = {
         metadataType: "SP.ChangeQuery",
         requestType: utils_1.RequestType.PostWithArgsInBody
     },
-    // Gets the context information for the site. Static method.
+    // Gets the context information for the site.
     getContextWebInformation: {
         name: "contextInfo",
         replaceEndpointFl: true,
@@ -6133,11 +6135,12 @@ exports.web = {
     getCustomListTemplates: {
         requestType: utils_1.RequestType.Get
     },
-    // Gets the document libraries on a site. Static method. (SharePoint Online only)
+    // Gets the document libraries on a site. (SharePoint Online only)
     getDocumentLibraries: {
         argNames: ["url"],
-        name: "sp.web.getDocumentLibraries",
-        requestType: utils_1.RequestType.GetWithArgsInQS
+        name: "sp.web.getDocumentLibraries(@v)?@v='[[url]]'",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.GetReplace
     },
     // Gets the specified external content type in a line-of-business (LOB) system application.
     getEntity: {
@@ -6195,7 +6198,7 @@ exports.web = {
         name: "getUserEffectivePermissions(@user)?@user='[[loginName]]'",
         requestType: utils_1.RequestType.GetReplace
     },
-    // Gets the site URL from a page URL. Static method.
+    // Gets the site URL from a page URL.
     getWebUrlFromPageUrl: {
         name: "sp.web.getWebUrlFromPageUrl",
         requestType: utils_1.RequestType.GetWithArgsInQS
@@ -9269,7 +9272,7 @@ exports.Dependencies = _Dependencies;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
-var __1 = __webpack_require__(26);
+var __1 = __webpack_require__(17);
 var spCfg_1 = __webpack_require__(40);
 /**
  * Field Schema XML
@@ -10430,7 +10433,7 @@ exports.ListForm = _ListForm;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
-var __1 = __webpack_require__(26);
+var __1 = __webpack_require__(17);
 var taxonomy_1 = __webpack_require__(42);
 /**
  * List Form Field
@@ -11252,7 +11255,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var helper_1 = __webpack_require__(17);
+var helper_1 = __webpack_require__(18);
 exports.Helper = helper_1.Types;
 var mapper_1 = __webpack_require__(12);
 exports.SP = mapper_1.Types;
@@ -11267,14 +11270,14 @@ exports.Util = utils_1.Types;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Helper = __webpack_require__(17);
+var Helper = __webpack_require__(18);
 var Lib = __webpack_require__(1);
 var Mapper = __webpack_require__(12);
 /**
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.61,
+    __ver: 3.63,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

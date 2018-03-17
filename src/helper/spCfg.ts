@@ -1,6 +1,6 @@
 export * from "./spCfgTypes";
 import { ContextInfo, List, Site, Web } from "../lib";
-import { Types } from "..";
+import { SPTypes, Types } from "..";
 import {
     FieldSchemaXML, SPCfgFieldType, SPCfgType,
     Types as SPCfgTypes
@@ -571,8 +571,8 @@ class _SPConfig {
 
         // Get the root web
         (new Web(ContextInfo.siteServerRelativeUrl))
-            // Get the web part gallery
-            .Lists("Web Part Gallery")
+            // Get the web part catalog
+            .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
             // Get the root folder
             .RootFolder()
             // Expand the files and items
@@ -619,8 +619,8 @@ class _SPConfig {
                             if (cfgWebPart.Group) {
                                 // Set the target to the root web
                                 (new Web(ContextInfo.siteServerRelativeUrl))
-                                    // Get the web part gallery
-                                    .Lists("Web Part Gallery")
+                                    // Get the web part catalog
+                                    .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                                     // Get the Items
                                     .Items()
                                     // Query for this webpart
