@@ -1,2 +1,5 @@
-import * as ListFormFieldTypes from "./types";
-export declare const ListFormField: ListFormFieldTypes.IListFormField;
+import { IListFormField } from "./types";
+/**
+ * List Form Field
+ */
+export declare const ListFormField: IListFormField;

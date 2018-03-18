@@ -1,2 +1,5 @@
-import * as ListFormTypes from "./types";
-export declare const ListForm: ListFormTypes.IListForm;
+import { IListForm } from "./types";
+/**
+ * List Form
+ */
+export declare const ListForm: IListForm;

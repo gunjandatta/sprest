@@ -276,13 +276,19 @@ declare module 'gd-sprest/helper/jslink' {
 }
 
 declare module 'gd-sprest/helper/listForm' {
-    import * as ListFormTypes from "gd-sprest/helper/types";
-    export const ListForm: ListFormTypes.IListForm;
+    import { IListForm } from "gd-sprest/helper/types";
+    /**
+      * List Form
+      */
+    export const ListForm: IListForm;
 }
 
 declare module 'gd-sprest/helper/listFormField' {
-    import * as ListFormFieldTypes from "gd-sprest/helper/types";
-    export const ListFormField: ListFormFieldTypes.IListFormField;
+    import { IListFormField } from "gd-sprest/helper/types";
+    /**
+      * List Form Field
+      */
+    export const ListFormField: IListFormField;
 }
 
 declare module 'gd-sprest/helper/loader' {
@@ -950,7 +956,7 @@ declare module 'gd-sprest/helper/types/linkInfo' {
 }
 
 declare module 'gd-sprest/helper/types/listForm' {
-    import { Types } from "gd-sprest/";
+    import { Types } from "gd-sprest/mapper";
     /**
         * List Form
         */
@@ -959,38 +965,42 @@ declare module 'gd-sprest/helper/types/listForm' {
                 * Creates an instance of the list form
                 * @param props - The list form properties.
                 */
-            new (props: IListFormProps): PromiseLike<IListFormResult>;
-            /**
-                * Creates an instance of the list form
-                * @param props - The list form properties.
-                */
             create(props: IListFormProps): PromiseLike<IListFormResult>;
             /**
+                * Method to generate the odata query for the list item.
+                */
+            generateODataQuery(info: IListFormResult, loadAttachments?: boolean): Types.ODataQuery;
+            /**
                 * Method to load the item attachments
-                * @param listInfo - The list form information.
+                * @param info - The list form information.
              */
-            loadAttachments(listInfo: IListFormProps): PromiseLike<Array<Types.SP.IAttachment>>;
+            loadAttachments(info: IListFormProps): PromiseLike<Array<Types.IAttachment>>;
             /**
                 * Method to refresh the item.
-                * @param listInfo - The list form information.
+                * @param info - The list form information.
                 */
-            refreshItem(listInfo: IListFormResult): PromiseLike<IListFormResult>;
+            refreshItem(info: IListFormResult): PromiseLike<IListFormResult>;
             /**
-                * Method to remove attachments from an item.
+                * Method to remove attachment from an item.
                 */
-            removeAttachments(listInfo: IListFormProps, attachmentInfo: Array<Types.SP.IAttachment>): PromiseLike<void>;
+            removeAttachment(info: IListFormResult, fileName: string): PromiseLike<IListFormResult>;
             /**
                 * Method to save attachments to the item.
-                * @param listInfo - The list form information.
+                * @param info - The list form information.
                 * @param attachmentInfo - The attachment files to add.
                 */
-            saveAttachments(listInfo: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<Types.SP.IAttachment>>;
+            saveAttachments(info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>>;
             /**
                 * Method to save the item.
-                * @param list - The list.
+                * @param info - The list form information.
                 * @param itemValues - The list item values.
                 */
             saveItem(info: IListFormResult, formValues: any): PromiseLike<IListFormResult>;
+            /**
+                * Method to show the file dialog.
+                * @param info - The list form information.
+                */
+            showFileDialog(info: IListFormResult): PromiseLike<IListFormResult>;
     }
     /**
         * List Form Attachment Information
@@ -1010,15 +1020,59 @@ declare module 'gd-sprest/helper/types/listForm' {
             list: string;
     }
     /**
+        * List Form Display
+        */
+    export interface IListFormDisplay {
+            /**
+                * Method to get the fields
+                */
+            getFields(): Array<HTMLDivElement>;
+    }
+    /**
+        * List Form Display Properties
+        */
+    export interface IListFormDisplayProps {
+            /** The element to render the form to. */
+            el: Element;
+            /** The fields to exclude from the form. */
+            excludeFields?: Array<string>;
+            /** The fields to include in the form. */
+            includeFields?: Array<string>;
+            /** The list form information. */
+            info: IListFormResult;
+    }
+    /**
+        * List Form Edit
+        */
+    export interface IListFormEdit {
+            /**
+                * Method to get the fields
+                */
+            getFields<T = any>(): Array<T>;
+            /**
+                * Method to get the form values
+                */
+            getValues<T = any>(): PromiseLike<T>;
+    }
+    /**
+        * List Form Edit Properties
+        */
+    export interface IListFormEditProps extends IListFormDisplayProps {
+            /** The form mode (New/Edit) */
+            controlMode?: number;
+    }
+    /**
         * List Form Properties
         */
     export interface IListFormProps {
             /** If defined, the data will be cached to the session storage. */
             cacheKey?: string;
+            /** The form fields to exclude. */
+            excludeFields?: Array<string>;
             /** The form fields */
             fields?: Array<string>;
             /** The list item */
-            item?: Types.SP.IListItemQueryResult | Types.SP.IListItemResult;
+            item?: Types.IListItemQueryResult | Types.IListItemResult;
             /** The item id */
             itemId?: number;
             /** The list name */
@@ -1026,7 +1080,7 @@ declare module 'gd-sprest/helper/types/listForm' {
             /** Flag to deteremine if we are loading attachments */
             loadAttachments?: boolean;
             /** OData query used when loading an item */
-            query?: Types.SP.ODataQuery;
+            query?: Types.ODataQuery;
             /** The relative web url containing the list */
             webUrl?: string;
     }
@@ -1034,24 +1088,25 @@ declare module 'gd-sprest/helper/types/listForm' {
         * List Form Result
         */
     export interface IListFormResult {
-            /** The item attachments */
-            attachments?: Array<Types.SP.IAttachment>;
-            /** The form fields */
+            /** The item attachments. */
+            attachments?: Array<Types.IAttachment>;
+            /** The form fields. */
             fields: {
-                    [key: string]: Types.SP.IFieldResult;
+                    [key: string]: Types.IFieldResult;
             };
-            /** The list item */
-            item?: Types.SP.IListItemQueryResult | Types.SP.IListItemResult;
-            /** The item query */
-            query?: Types.SP.ODataQuery;
-            /** The list */
-            list: Types.SP.IListResult;
+            /** The list item. */
+            item?: Types.IListItemQueryResult | Types.IListItemResult;
+            /** The item query. */
+            query?: Types.ODataQuery;
+            /** The list. */
+            list: Types.IListResult;
+            /** The relative web url containing the list. */
+            webUrl?: string;
     }
 }
 
 declare module 'gd-sprest/helper/types/listFormField' {
-    import { Types } from "gd-sprest/";
-    import { ITermInfo } from "gd-sprest/helper/types";
+    import { Helper, Types } from "gd-sprest/";
     /**
         * List Form Field Information
         */
@@ -1126,6 +1181,8 @@ declare module 'gd-sprest/helper/types/listFormField' {
             termSetId?: string;
             /** The term store id */
             termStoreId?: string;
+            /** The value field */
+            valueField?: Types.SP.IFieldNote;
     }
     /**
         * List Form Number Field Information
@@ -1181,18 +1238,13 @@ declare module 'gd-sprest/helper/types/listFormField' {
                 * Creates an instance of the list form field
                 * @param props - The list form field properties
                 */
-            new (props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
-            /**
-                * Creates an instance of the list form field
-                * @param props - The list form field properties
-                */
             create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
             /** Method to load the lookup data */
             loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.SP.IListItemQueryResult>>;
             /** Method to load the mms data */
-            loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<ITermInfo>>;
+            loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<Helper.Types.ITermInfo>>;
             /** Method to load the mms value field */
-            loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<Types.SP.IFieldManagedMetadata>;
+            loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<Types.SP.IFieldNote>;
     }
 }
 
