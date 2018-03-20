@@ -929,15 +929,14 @@ class _SPConfig {
             }
 
             // Log
-            console.log("[gd-sprest][WebPart] Creating the web parts.");
+            console.log("[gd-sprest][WebPart] Removing the web parts.");
 
             // Get the root web
             (new Web(ContextInfo.siteServerRelativeUrl))
-                // Get the web part gallery
-                .Lists("Web Part Gallery")
+                .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
                 .RootFolder()
-                // Get the webpart files
+                // Expand the files and items
                 .Files()
                 // Execute the request
                 .execute(files => {
