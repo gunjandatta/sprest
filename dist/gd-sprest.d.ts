@@ -207,10 +207,6 @@ declare module 'gd-sprest/rest' {
                 */
             Search: (url?: string, settings?: Util.Types.ITargetInfo) => Mapper.Types.ISearch;
             /**
-                * The SharePoint enumerator Mapper.Types.
-                */
-            SPTypes: any;
-            /**
                 * Use this api to interact with a SharePoint site collection.
                 * @param url - (Optional) The site url.
                 * @param targetInfo - (Optional) The target information.
@@ -220,6 +216,10 @@ declare module 'gd-sprest/rest' {
                 * Use this api to interact with the current user's social profile.
                 */
             SocialFeed: Mapper.Types.ISocialFeed;
+            /**
+                * The SharePoint enumerator types.
+                */
+            SPTypes: any;
             /**
                 * Use this api to interact with the current user's profile.
                 * @param targetInfo - (Optional) The target information.

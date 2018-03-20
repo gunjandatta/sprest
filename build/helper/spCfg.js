@@ -786,7 +786,7 @@ var _SPConfig = /** @class */ (function () {
                 console.log("[gd-sprest][WebPart] Creating the web parts.");
                 // Get the root web
                 (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
-                    .Lists("Web Part Gallery")
+                    .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                     .RootFolder()
                     .Files()
                     .execute(function (files) {

@@ -933,8 +933,8 @@ class _SPConfig {
 
             // Get the root web
             (new Web(ContextInfo.siteServerRelativeUrl))
-                // Get the web part gallery
-                .Lists("Web Part Gallery")
+                // Get the web part catalog
+                .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
                 .RootFolder()
                 // Get the webpart files
