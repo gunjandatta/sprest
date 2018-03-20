@@ -1686,7 +1686,7 @@ var _SPConfig = /** @class */ (function () {
                     return;
                 }
                 // Log
-                console.log("[gd-sprest][WebPart] Creating the web parts.");
+                console.log("[gd-sprest][WebPart] Removing the web parts.");
                 // Get the root web
                 (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
                     .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
@@ -1697,7 +1697,7 @@ var _SPConfig = /** @class */ (function () {
                         var cfgWebPart = cfgWebParts[i];
                         // See if the target name exists
                         if (_this._cfgType && _this._targetName) {
-                            // Ensure it's for this list
+                            // Ensure it's for this webpart
                             if (cfgWebPart.FileName.toLowerCase() != _this._targetName) {
                                 return "continue";
                             }
@@ -11454,7 +11454,7 @@ var Mapper = __webpack_require__(13);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.65,
+    __ver: 3.66,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

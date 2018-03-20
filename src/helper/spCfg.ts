@@ -929,15 +929,15 @@ class _SPConfig {
             }
 
             // Log
-            console.log("[gd-sprest][WebPart] Creating the web parts.");
+            console.log("[gd-sprest][WebPart] Removing the web parts.");
 
             // Get the root web
             (new Web(ContextInfo.siteServerRelativeUrl))
-                // Get the web part catalog
+                // Get the webpart gallery
                 .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
                 .RootFolder()
-                // Get the webpart files
+                // Expand the files
                 .Files()
                 // Execute the request
                 .execute(files => {
@@ -947,9 +947,9 @@ class _SPConfig {
 
                         // See if the target name exists
                         if (this._cfgType && this._targetName) {
-                            // Ensure it's for this list
+                            // Ensure it's for this webpart
                             if (cfgWebPart.FileName.toLowerCase() != this._targetName) {
-                                // Skip this list
+                                // Skip this webpart
                                 continue;
                             }
                         }
