@@ -131,8 +131,8 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest implem
             });
         }
 
-        // Return this object
-        return this;
+        // Return the base object
+        return this.base as any;
     }
 
     // Method to execute the request synchronously
