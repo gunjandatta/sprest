@@ -325,8 +325,11 @@ declare module 'gd-sprest/helper/sbLink' {
 
 declare module 'gd-sprest/helper/spCfg' {
     export * from "gd-sprest/helper/spCfgTypes";
-    import { Types as SPCfgTypes } from "gd-sprest/helper";
-    export const SPConfig: SPCfgTypes.ISPConfig;
+    import { ISPConfig, ISPConfigProps } from "gd-sprest/helper/types";
+    /**
+      * SharePoint Configuration
+      */
+    export const SPConfig: (cfg: ISPConfigProps, webUrl?: string) => ISPConfig;
 }
 
 declare module 'gd-sprest/helper/taxonomy' {
@@ -1668,35 +1671,13 @@ declare module 'gd-sprest/helper/types/spCfg' {
         */
     export interface ISPConfig {
             /**
-                * Constructor
-                * @param cfg - The SharePoint configuration information.
-                * @param webUrl - An optional string representing the relative web url.
+                * Method to install the configuration
                 */
-            new (cfg: ISPConfigProps, webUrl?: string): ISPConfig;
+            install(): PromiseLike<void>;
             /**
                 * Method to install the configuration
-                * @param callback - An optional function called after the execution completes.
                 */
-            install(callback?: () => void): any;
-            /**
-                * Method to install by the configuration type.
-                * @param cfgType - The configuration type.
-                * @param callback - An optional function called after the execution completes.
-                * @param targetName - The target configuration type to install.
-                */
-            installByType(cfgType: number, callback?: any, targetName?: string): any;
-            /**
-                * Method to install the configuration
-                * @param callback - An optional function called after the execution completes.
-                */
-            uninstall(callback?: () => void): any;
-            /**
-                * Method to uninstall by the configuration type.
-                * @param cfgType - The configuration type.
-                * @param callback - An optional function called after the execution completes.
-                * @param targetName - The target configuration type to uninstall.
-                */
-            uninstallByType(cfgType: number, callback?: any, targetName?: string): any;
+            uninstall(): PromiseLike<void>;
     }
     /**
         * SharePoint Configuration - Properties

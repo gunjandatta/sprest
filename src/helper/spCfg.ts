@@ -2,107 +2,29 @@ export * from "./spCfgTypes";
 import { ContextInfo, List, Site, Web } from "../lib";
 import { SPTypes, Types } from "..";
 import {
-    FieldSchemaXML, SPCfgFieldType, SPCfgType,
-    Types as SPCfgTypes
+    ISPCfgFieldInfo, ISPCfgContentTypeInfo, ISPCfgListInfo, ISPCfgViewInfo,
+    ISPConfig, ISPConfigProps
+} from "./types";
+import {
+    FieldSchemaXML, SPCfgFieldType, SPCfgType
 } from ".";
 
 /**
  * SharePoint Configuration
  */
-class _SPConfig {
-    /**
-     * Global Properties
-     */
-
+export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     // The selected configuration type to install
-    private _cfgType: number;
-
-    // The SharePoint Configuration
-    private _configuration: SPCfgTypes.ISPConfigProps
+    let _cfgType: number;
 
     // The target name to install/uninstall
-    private _targetName: string;
-
-    // The target web url
-    private _webUrl: string;
-
-    /**
-     * Constructor
-     */
-    constructor(cfg: SPCfgTypes.ISPConfigProps, webUrl?: string) {
-        // Save the configuration
-        this._configuration = cfg;
-
-        // Save the target web url
-        this._webUrl = webUrl;
-    }
-
-    /**
-     * Public Methods
-     */
-
-    // Method to install the configuration
-    install(callback?: any, cfgType?: number, targetName?: string) {
-        // Update the global variables
-        this._cfgType = cfgType;
-        this._targetName = targetName ? targetName.toLowerCase() : null;
-
-        // Install the web components
-        this.installWeb().then(() => {
-            // Install the site components
-            this.installSite().then(() => {
-                // Create the webparts
-                this.createWebParts();
-
-                // Log
-                console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
-
-                // See if the callback exists
-                if (callback && typeof (callback) === "function") {
-                    // Execute the callback
-                    callback();
-                }
-            });
-        });
-    }
-
-    // Method to install by configuration type
-    installByType = (cfgType: number, callback?: any, targetName?: string) => { return this.install(callback, cfgType, targetName); }
-
-    // Method to uninstall the configuration
-    uninstall(callback?: any, cfgType?: number, targetName?: string) {
-        // Update the global variables
-        this._cfgType = cfgType;
-        this._targetName = targetName;
-
-        // Uninstall the web components
-        this.uninstallWeb().then(() => {
-            // Uninstall the site components
-            this.uninstallSite().then(() => {
-                // Remove the webparts
-                this.removeWebParts().then(() => {
-                    // Log
-                    console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
-
-                    // See if the callback exists
-                    if (callback && typeof (callback) === "function") {
-                        // Execute the callback
-                        callback();
-                    }
-                });
-            });
-        });
-    }
-
-    // Method to uninstall by the configuration type
-    uninstallByType = (cfgType: number, callback?: any, targetName?: string) => { return this.uninstall(callback, cfgType, targetName); }
+    let _targetName: string;
 
     /**
      * Methods
      */
 
     // Method to create the content types
-    private createContentTypes = (contentTypes: Types.SP.IContentTypeResults, cfgContentTypes: Array<SPCfgTypes.ISPCfgContentTypeInfo>): PromiseLike<void> => {
+    let createContentTypes = (contentTypes: Types.SP.IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the content types exist
@@ -117,7 +39,7 @@ class _SPConfig {
                 let cfgContentType = cfgContentTypes[i];
 
                 // See if this content type already exists
-                let ct = this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                let ct = isInCollection("Name", cfgContentType.Name, contentTypes.results);
                 if (ct) {
                     // Log
                     console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' already exists.");
@@ -131,7 +53,7 @@ class _SPConfig {
                     // See if the parent name exists
                     if (cfgContentType.ParentName) {
                         // Get the web containing the parent content type
-                        (new Web(cfgContentType.ParentWebUrl || this._webUrl))
+                        (new Web(cfgContentType.ParentWebUrl || webUrl))
                             // Get the content types
                             .ContentTypes()
                             // Filter for the parent name
@@ -196,7 +118,7 @@ class _SPConfig {
                 // Parse the configuration
                 for (let i = 0; i < cfgContentTypes.length; i++) {
                     let cfgContentType = cfgContentTypes[i];
-                    let cfgUpdate: SPCfgTypes.ISPCfgContentTypeInfo = {} as any;
+                    let cfgUpdate: ISPCfgContentTypeInfo = {} as any;
                     let updateFl = false;
 
                     // Ensure the content type exists
@@ -283,7 +205,7 @@ class _SPConfig {
     }
 
     // Method to create the fields
-    private createFields = (fields: Types.SP.IFieldResults, cfgFields: Array<SPCfgTypes.ISPCfgFieldInfo>): PromiseLike<void> => {
+    let createFields = (fields: Types.SP.IFieldResults, cfgFields: Array<ISPCfgFieldInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the fields exist
@@ -298,7 +220,7 @@ class _SPConfig {
                 let cfgField = cfgFields[i];
 
                 // See if this field already exists
-                let field = this.isInCollection("InternalName", cfgField.name, fields.results);
+                let field = isInCollection("InternalName", cfgField.name, fields.results);
                 if (field) {
                     // Log
                     console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
@@ -347,13 +269,13 @@ class _SPConfig {
     }
 
     // Method to create the lists
-    private createLists = (lists: Types.SP.IListResults, cfgLists: Array<SPCfgTypes.ISPCfgListInfo>): PromiseLike<void> => {
+    let createLists = (lists: Types.SP.IListResults, cfgLists: Array<ISPCfgListInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
-            if (this._cfgType) {
+            if (_cfgType) {
                 // Ensure it's for this type
-                if (this._cfgType != SPCfgType.Lists) {
+                if (_cfgType != SPCfgType.Lists) {
                     // Resolve the promise and return
                     resolve();
                     return;
@@ -372,16 +294,16 @@ class _SPConfig {
                 let cfgList = cfgLists[i];
 
                 // See if the target name exists
-                if (this._cfgType && this._targetName) {
+                if (_cfgType && _targetName) {
                     // Ensure it's for this list
-                    if (cfgList.ListInformation.Title.toLowerCase() != this._targetName) {
+                    if (cfgList.ListInformation.Title.toLowerCase() != _targetName) {
                         // Skip this list
                         continue;
                     }
                 }
 
                 // See if this content type already exists
-                let list = this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                let list = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
                 if (list) {
                     // Log
                     console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
@@ -429,7 +351,7 @@ class _SPConfig {
             // Wait for the requests to complete
             lists.done(() => {
                 // Update the lists
-                this.updateLists(cfgLists).then(() => {
+                updateLists(cfgLists).then(() => {
                     // Resolve the promise
                     resolve();
                 });
@@ -438,13 +360,13 @@ class _SPConfig {
     }
 
     // Method to create the user custom actions
-    private createUserCustomActions = (customActions: Types.SP.IUserCustomActionResults, cfgCustomActions: Array<Types.SP.IUserCustomActionCreationInformation>): PromiseLike<void> => {
+    let createUserCustomActions = (customActions: Types.SP.IUserCustomActionResults, cfgCustomActions: Array<Types.SP.IUserCustomActionCreationInformation>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
-            if (this._cfgType) {
+            if (_cfgType) {
                 // Ensure it's for this type
-                if (this._cfgType != SPCfgType.SiteUserCustomActions || this._cfgType != SPCfgType.WebUserCustomActions) {
+                if (_cfgType != SPCfgType.SiteUserCustomActions || _cfgType != SPCfgType.WebUserCustomActions) {
                     // Resolve the promise
                     resolve();
                     return;
@@ -463,17 +385,17 @@ class _SPConfig {
                 let cfgCustomAction = cfgCustomActions[i];
 
                 // See if the target name exists
-                if (this._cfgType && this._targetName) {
+                if (_cfgType && _targetName) {
                     // Ensure it's for this custom action
-                    if (cfgCustomAction.Name.toLowerCase() != this._targetName ||
-                        cfgCustomAction.Title.toLowerCase() != this._targetName) {
+                    if (cfgCustomAction.Name.toLowerCase() != _targetName ||
+                        cfgCustomAction.Title.toLowerCase() != _targetName) {
                         // Skip this custom action
                         continue;
                     }
                 }
 
                 // See if this custom action already exists
-                if (this.isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
+                if (isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
                     // Log
                     console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
                 } else {
@@ -501,7 +423,7 @@ class _SPConfig {
     }
 
     // Method to create the list views
-    private createViews = (views: Types.SP.IViewResults, cfgViews: Array<SPCfgTypes.ISPCfgViewInfo>): PromiseLike<void> => {
+    let createViews = (views: Types.SP.IViewResults, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the list views exist
@@ -516,7 +438,7 @@ class _SPConfig {
                 let cfgView = cfgViews[i];
 
                 // See if this view exists
-                let view: Types.SP.IViewResult = this.isInCollection("Title", cfgView.ViewName, views.results);
+                let view: Types.SP.IViewResult = isInCollection("Title", cfgView.ViewName, views.results);
                 if (view) {
                     // Log
                     console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' already exists.");
@@ -545,7 +467,7 @@ class _SPConfig {
             // Wait for the requests to complete
             views.done(() => {
                 // Update the views
-                this.updateViews(views, cfgViews).then(() => {
+                updateViews(views, cfgViews).then(() => {
                     // Resolve the promise
                     resolve();
                 });
@@ -554,13 +476,13 @@ class _SPConfig {
     }
 
     // Method to create the web parts
-    private createWebParts = () => {
-        let cfgWebParts = this._configuration.WebPartCfg;
+    let createWebParts = () => {
+        let cfgWebParts = cfg.WebPartCfg;
 
         // See if the configuration type exists
-        if (this._cfgType) {
+        if (_cfgType) {
             // Ensure it's for this type
-            if (this._cfgType != SPCfgType.WebParts) { return; }
+            if (_cfgType != SPCfgType.WebParts) { return; }
         }
 
         // Ensure the configuration exists
@@ -586,16 +508,16 @@ class _SPConfig {
                     let cfgWebPart = cfgWebParts[i];
 
                     // See if the target name exists
-                    if (this._cfgType && this._targetName) {
+                    if (_cfgType && _targetName) {
                         // Ensure it's for this list
-                        if (cfgWebPart.FileName.toLowerCase() != this._targetName) {
+                        if (cfgWebPart.FileName.toLowerCase() != _targetName) {
                             // Skip this list
                             continue;
                         }
                     }
 
                     // See if this webpart exists
-                    let file: Types.SP.IFileResult = this.isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
+                    let file: Types.SP.IFileResult = isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
                     if (file.existsFl) {
                         // Log
                         console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
@@ -648,11 +570,11 @@ class _SPConfig {
     }
 
     // Method to install the site components
-    private installSite = (): PromiseLike<Types.SP.ISiteQueryResult> => {
+    let installSite = (): PromiseLike<Types.SP.ISiteQueryResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure site actions exist
-            if (this._configuration.CustomActionCfg == null || this._configuration.CustomActionCfg.Site == null) {
+            if (cfg.CustomActionCfg == null || cfg.CustomActionCfg.Site == null) {
                 // Resolve the promise
                 resolve();
                 return;
@@ -662,7 +584,7 @@ class _SPConfig {
             console.log("[gd-sprest] Loading the site information...");
 
             // Get the site
-            (new Site(this._webUrl))
+            (new Site(webUrl))
                 // Expand the user custom actions
                 .query({
                     Expand: ["UserCustomActions"]
@@ -670,7 +592,7 @@ class _SPConfig {
                 // Execute the request
                 .execute(site => {
                     // Install the user custom actions
-                    this.createUserCustomActions(site.UserCustomActions, this._configuration.CustomActionCfg ? this._configuration.CustomActionCfg.Site : []).then(() => {
+                    createUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(() => {
                         // Resolve the promise
                         resolve(site);
                     });
@@ -679,14 +601,14 @@ class _SPConfig {
     }
 
     // Method to install the web components
-    private installWeb = (): PromiseLike<void> => {
+    let installWeb = (): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Log
             console.log("[gd-sprest] Loading the web information...");
 
             // Get the web
-            (new Web(this._webUrl))
+            (new Web(webUrl))
                 // Expand the content types, fields, lists and user custom actions
                 .query({
                     Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
@@ -694,13 +616,13 @@ class _SPConfig {
                 // Execute the request
                 .execute(web => {
                     // Create the fields
-                    this.createFields(web.Fields, this._configuration.Fields).then(() => {
+                    createFields(web.Fields, cfg.Fields).then(() => {
                         // Create the content types
-                        this.createContentTypes(web.ContentTypes, this._configuration.ContentTypes).then(() => {
+                        createContentTypes(web.ContentTypes, cfg.ContentTypes).then(() => {
                             // Create the lists
-                            this.createLists(web.Lists, this._configuration.ListCfg).then(() => {
+                            createLists(web.Lists, cfg.ListCfg).then(() => {
                                 // Create the web custom actions
-                                this.createUserCustomActions(web.UserCustomActions, this._configuration.CustomActionCfg ? this._configuration.CustomActionCfg.Web : null).then(() => {
+                                createUserCustomActions(web.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Web : null).then(() => {
                                     // Resolve the promise
                                     resolve();
                                 });
@@ -712,7 +634,7 @@ class _SPConfig {
     }
 
     // Method to see if an object exists in a collection
-    private isInCollection = (key: string, value: string, collection: Array<any>) => {
+    let isInCollection = (key: string, value: string, collection: Array<any>) => {
         let valueLower = value.toLowerCase();
 
         // Parse the collection
@@ -732,7 +654,7 @@ class _SPConfig {
     }
 
     // Method to remove the content type
-    private removeContentTypes = (contentTypes: Types.SP.IContentTypeResults, cfgContentTypes: Array<SPCfgTypes.ISPCfgContentTypeInfo>): PromiseLike<void> => {
+    let removeContentTypes = (contentTypes: Types.SP.IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the content types exist
@@ -747,7 +669,7 @@ class _SPConfig {
                 let cfgContentType = cfgContentTypes[i];
 
                 // Get the field
-                let ct: Types.SP.IContentTypeResult = this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                let ct: Types.SP.IContentTypeResult = isInCollection("Name", cfgContentType.Name, contentTypes.results);
                 if (ct) {
                     // Remove the field
                     ct.delete().execute(() => {
@@ -766,7 +688,7 @@ class _SPConfig {
     }
 
     // Method to remove the fields
-    private removeFields = (fields: Types.SP.IFieldResults, cfgFields: Array<SPCfgTypes.ISPCfgFieldInfo>): PromiseLike<void> => {
+    let removeFields = (fields: Types.SP.IFieldResults, cfgFields: Array<ISPCfgFieldInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the fields exist
@@ -781,7 +703,7 @@ class _SPConfig {
                 let cfgField = cfgFields[i];
 
                 // Get the field
-                let field: Types.SP.IFieldResult = this.isInCollection("InternalName", cfgField.name, fields.results);
+                let field: Types.SP.IFieldResult = isInCollection("InternalName", cfgField.name, fields.results);
                 if (field) {
                     // Remove the field
                     field.delete().execute(() => {
@@ -800,13 +722,13 @@ class _SPConfig {
     }
 
     // Method to remove the lists
-    private removeLists = (lists: Types.SP.IListResults, cfgLists: Array<SPCfgTypes.ISPCfgListInfo>): PromiseLike<void> => {
+    let removeLists = (lists: Types.SP.IListResults, cfgLists: Array<ISPCfgListInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
-            if (this._cfgType) {
+            if (_cfgType) {
                 // Ensure it's for this type
-                if (this._cfgType != SPCfgType.Lists) {
+                if (_cfgType != SPCfgType.Lists) {
                     // Resolve the promise
                     resolve();
                     return;
@@ -825,16 +747,16 @@ class _SPConfig {
                 let cfgList = cfgLists[i];
 
                 // See if the target name exists
-                if (this._cfgType && this._targetName) {
+                if (_cfgType && _targetName) {
                     // Ensure it's for this list
-                    if (cfgList.ListInformation.Title.toLowerCase() != this._targetName) {
+                    if (cfgList.ListInformation.Title.toLowerCase() != _targetName) {
                         // Skip this list
                         continue;
                     }
                 }
 
                 // Get the list
-                let list: Types.SP.IListResult = this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                let list: Types.SP.IListResult = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
                 if (list) {
                     // Remove the list
                     list.delete().execute(() => {
@@ -852,13 +774,13 @@ class _SPConfig {
         });
     }
     // Method to remove the user custom actions
-    private removeUserCustomActions = (customActions: Types.SP.IUserCustomActionResults, cfgCustomActions: Array<Types.SP.IUserCustomActionCreationInformation>): PromiseLike<void> => {
+    let removeUserCustomActions = (customActions: Types.SP.IUserCustomActionResults, cfgCustomActions: Array<Types.SP.IUserCustomActionCreationInformation>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
-            if (this._cfgType) {
+            if (_cfgType) {
                 // Ensure it's for this type
-                if (this._cfgType != SPCfgType.SiteUserCustomActions || this._cfgType != SPCfgType.WebUserCustomActions) {
+                if (_cfgType != SPCfgType.SiteUserCustomActions || _cfgType != SPCfgType.WebUserCustomActions) {
                     // Resolve the promise
                     resolve();
                     return;
@@ -877,17 +799,17 @@ class _SPConfig {
                 let cfgCustomAction = cfgCustomActions[i];
 
                 // See if the target name exists
-                if (this._cfgType && this._targetName) {
+                if (_cfgType && _targetName) {
                     // Ensure it's for this custom action
-                    if (cfgCustomAction.Name.toLowerCase() != this._targetName ||
-                        cfgCustomAction.Title.toLowerCase() != this._targetName) {
+                    if (cfgCustomAction.Name.toLowerCase() != _targetName ||
+                        cfgCustomAction.Title.toLowerCase() != _targetName) {
                         // Skip this custom action
                         continue;
                     }
                 }
 
                 // Get the custom action
-                let ca: Types.SP.IUserCustomActionResult = this.isInCollection("Name", cfgCustomAction.Name, customActions.results);
+                let ca: Types.SP.IUserCustomActionResult = isInCollection("Name", cfgCustomAction.Name, customActions.results);
                 if (ca) {
                     // Remove the custom action
                     ca.delete().execute(() => {
@@ -906,15 +828,15 @@ class _SPConfig {
     }
 
     // Method to remove the web parts
-    private removeWebParts = (): PromiseLike<void> => {
-        let cfgWebParts = this._configuration.WebPartCfg;
+    let removeWebParts = (): PromiseLike<void> => {
+        let cfgWebParts = cfg.WebPartCfg;
 
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
-            if (this._cfgType) {
+            if (_cfgType) {
                 // Ensure it's for this type
-                if (this._cfgType != SPCfgType.WebParts) {
+                if (_cfgType != SPCfgType.WebParts) {
                     // Resolve the promise
                     resolve();
                     return;
@@ -946,16 +868,16 @@ class _SPConfig {
                         let cfgWebPart = cfgWebParts[i];
 
                         // See if the target name exists
-                        if (this._cfgType && this._targetName) {
+                        if (_cfgType && _targetName) {
                             // Ensure it's for this webpart
-                            if (cfgWebPart.FileName.toLowerCase() != this._targetName) {
+                            if (cfgWebPart.FileName.toLowerCase() != _targetName) {
                                 // Skip this webpart
                                 continue;
                             }
                         }
 
                         // Get the file
-                        let file: Types.SP.IFileResult = this.isInCollection("Name", cfgWebPart.FileName, files.results);
+                        let file: Types.SP.IFileResult = isInCollection("Name", cfgWebPart.FileName, files.results);
                         if (file) {
                             // Remove the file
                             file.delete().execute(() => {
@@ -972,7 +894,7 @@ class _SPConfig {
     }
 
     // Method to update the lists
-    private updateLists = (cfgLists: Array<SPCfgTypes.ISPCfgListInfo>): PromiseLike<void> => {
+    let updateLists = (cfgLists: Array<ISPCfgListInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let request = (idx: number, resolve) => {
@@ -980,9 +902,9 @@ class _SPConfig {
                 let cfgList = cfgLists[idx];
 
                 // See if the target name exists
-                if (this._targetName) {
+                if (_targetName) {
                     // Ensure it's for this list
-                    if (cfgList.ListInformation.Title.toLowerCase() != this._targetName) {
+                    if (cfgList.ListInformation.Title.toLowerCase() != _targetName) {
                         // Update the next list
                         request(idx + 1, resolve);
                         return;
@@ -992,7 +914,7 @@ class _SPConfig {
                 // Ensure the configuration exists
                 if (cfgList) {
                     // Get the web
-                    (new Web(this._webUrl))
+                    (new Web(webUrl))
                         // Get the list
                         .Lists(cfgList.ListInformation.Title)
                         // Expand the content types, fields and views
@@ -1022,11 +944,11 @@ class _SPConfig {
                             }
 
                             // Update the list fields
-                            this.createFields(list.Fields, cfgList.CustomFields).then(() => {
+                            createFields(list.Fields, cfgList.CustomFields).then(() => {
                                 // Update the content types
-                                this.createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(() => {
+                                createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(() => {
                                     // Update the views
-                                    this.createViews(list.Views, cfgList.ViewInformation).then(() => {
+                                    createViews(list.Views, cfgList.ViewInformation).then(() => {
                                         // Trigger the event
                                         cfgList.onUpdated ? cfgList.onUpdated(list) : null;
 
@@ -1037,7 +959,7 @@ class _SPConfig {
                             });
 
                             // Update the user custom actions
-                            this.createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
+                            createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
                         });
                 } else {
                     // Resolve the promise
@@ -1051,7 +973,7 @@ class _SPConfig {
     }
 
     // Method to update the views
-    private updateViews = (views: Types.SP.IViewResults, cfgViews: Array<SPCfgTypes.ISPCfgViewInfo>): PromiseLike<void> => {
+    let updateViews = (views: Types.SP.IViewResults, cfgViews: Array<ISPCfgViewInfo>): PromiseLike<void> => {
         let counter = 0;
 
         // Return a promise
@@ -1109,21 +1031,21 @@ class _SPConfig {
     }
 
     // Method to uninstall the site components
-    private uninstallSite = (): PromiseLike<Types.SP.ISiteQueryResult> => {
+    let uninstallSite = (): PromiseLike<Types.SP.ISiteQueryResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Log
             console.log("[gd-sprest][uninstall] Loading the site information...");
 
             // Ensure site actions exist
-            if (this._configuration.CustomActionCfg == null || this._configuration.CustomActionCfg.Site == null) {
+            if (cfg.CustomActionCfg == null || cfg.CustomActionCfg.Site == null) {
                 // Resolve the promise
                 resolve();
                 return;
             }
 
             // Get the site
-            (new Site(this._webUrl))
+            (new Site(webUrl))
                 // Expand the user custom actions
                 .query({
                     Expand: ["UserCustomActions"]
@@ -1131,7 +1053,7 @@ class _SPConfig {
                 // Execute the request
                 .execute(site => {
                     // Remove the user custom actions
-                    this.removeUserCustomActions(site.UserCustomActions, this._configuration.CustomActionCfg ? this._configuration.CustomActionCfg.Site : []).then(() => {
+                    removeUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(() => {
                         // Resolve the promise
                         resolve(site);
                     });
@@ -1140,14 +1062,14 @@ class _SPConfig {
     }
 
     // Method to uninstall the web components
-    private uninstallWeb = (): PromiseLike<void> => {
+    let uninstallWeb = (): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Log
             console.log("[gd-sprest][uninstall] Loading the web information...");
 
             // Get the web
-            (new Web(this._webUrl))
+            (new Web(webUrl))
                 // Expand the content types, fields, lists and user custom actions
                 .query({
                     Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
@@ -1155,13 +1077,13 @@ class _SPConfig {
                 // Execute the request
                 .execute(web => {
                     // Remove the fields
-                    this.removeFields(web.Fields, this._configuration.Fields).then(() => {
+                    removeFields(web.Fields, cfg.Fields).then(() => {
                         // Remove the content types
-                        this.removeContentTypes(web.ContentTypes, this._configuration.ContentTypes).then(() => {
+                        removeContentTypes(web.ContentTypes, cfg.ContentTypes).then(() => {
                             // Remove the lists
-                            this.removeLists(web.Lists, this._configuration.ListCfg).then(() => {
+                            removeLists(web.Lists, cfg.ListCfg).then(() => {
                                 // Remove the web custom actions
-                                this.removeUserCustomActions(web.UserCustomActions, this._configuration.CustomActionCfg ? this._configuration.CustomActionCfg.Web : null).then(() => {
+                                removeUserCustomActions(web.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Web : null).then(() => {
                                     // Resolve the promise
                                     resolve();
                                 });
@@ -1171,5 +1093,51 @@ class _SPConfig {
                 });
         });
     }
-};
-export const SPConfig: SPCfgTypes.ISPConfig = _SPConfig as any;
+
+    /**
+     * Public Interface
+     */
+    return {
+        // Method to install the configuration
+        install: (): PromiseLike<void> => {
+            // Return a promise
+            return new Promise((resolve, reject) => {
+                // Install the web components
+                installWeb().then(() => {
+                    // Install the site components
+                    installSite().then(() => {
+                        // Create the webparts
+                        createWebParts();
+
+                        // Log
+                        console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+
+                        // Resolve the promise
+                        resolve();
+                    });
+                });
+            });
+        },
+
+        // Method to uninstall the configuration
+        uninstall: (): PromiseLike<void> => {
+            // Return a promise
+            return new Promise((resolve, reject) => {
+                // Uninstall the web components
+                uninstallWeb().then(() => {
+                    // Uninstall the site components
+                    uninstallSite().then(() => {
+                        // Remove the webparts
+                        removeWebParts().then(() => {
+                            // Log
+                            console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+
+                            // Resolve the promise
+                            resolve();
+                        });
+                    });
+                });
+            });
+        }
+    };
+}

@@ -1,3 +1,6 @@
 export * from "./spCfgTypes";
-import { Types as SPCfgTypes } from ".";
-export declare const SPConfig: SPCfgTypes.ISPConfig;
+import { ISPConfig, ISPConfigProps } from "./types";
+/**
+ * SharePoint Configuration
+ */
+export declare const SPConfig: (cfg: ISPConfigProps, webUrl?: string) => ISPConfig;
