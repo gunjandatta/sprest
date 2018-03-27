@@ -442,83 +442,86 @@ exports.SPConfig = function (cfg, webUrl) {
     };
     // Method to create the web parts
     var createWebParts = function () {
-        var cfgWebParts = cfg.WebPartCfg;
-        // See if the configuration type exists
-        if (_cfgType) {
-            // Ensure it's for this type
-            if (_cfgType != _1.SPCfgType.WebParts) {
-                return;
-            }
-        }
-        // Ensure the configuration exists
-        if (cfgWebParts == null || cfgWebParts.length == 0) {
-            return;
-        }
-        // Log
-        console.log("[gd-sprest][WebPart] Creating the web parts.");
-        // Get the root web
-        (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
-            .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
-            .RootFolder()
-            .query({
-            Expand: ["Files"]
-        })
-            .execute(function (folder) {
-            var _loop_6 = function (i) {
-                var cfgWebPart = cfgWebParts[i];
-                // See if the target name exists
-                if (_cfgType && _targetName) {
-                    // Ensure it's for this list
-                    if (cfgWebPart.FileName.toLowerCase() != _targetName) {
-                        return "continue";
-                    }
-                }
-                // See if this webpart exists
-                var file = isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
-                if (file.existsFl) {
-                    // Log
-                    console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
-                    // Trigger the event
-                    cfgWebPart.onUpdated ? cfgWebPart.onUpdated(file) : null;
-                }
-                else {
-                    // Trim the xml
-                    var xml = cfgWebPart.XML.trim();
-                    // Convert the string to an array buffer
-                    var buffer = new ArrayBuffer(xml.length * 2);
-                    var bufferView = new Uint16Array(buffer);
-                    for (var j = 0; j < xml.length; j++) {
-                        bufferView[j] = xml.charCodeAt(j);
-                    }
-                    // Create the webpart, but execute the requests one at a time
-                    folder.Files.add(true, cfgWebPart.FileName, buffer).execute(function (file) {
-                        // See if group exists
-                        if (cfgWebPart.Group) {
-                            // Set the target to the root web
-                            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
-                                .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
-                                .Items()
-                                .query({
-                                Filter: "FileLeafRef eq '" + cfgWebPart.FileName + "'"
-                            })
-                                .execute(function (items) {
-                                // Update the item
-                                items.results[0].update({
-                                    Group: cfgWebPart.Group
-                                }).execute();
-                            });
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var cfgWebParts = cfg.WebPartCfg;
+            // Log
+            console.log("[gd-sprest][WebPart] Creating the web parts.");
+            // Get the root web
+            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+                .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
+                .RootFolder()
+                .query({
+                Expand: ["Files"]
+            })
+                .execute(function (folder) {
+                var ctr = 0;
+                var _loop_6 = function (i) {
+                    var cfgWebPart = cfgWebParts[i];
+                    // See if the target name exists
+                    if (_cfgType && _targetName) {
+                        // Ensure it's for this list
+                        if (cfgWebPart.FileName.toLowerCase() != _targetName) {
+                            return "continue";
                         }
+                    }
+                    // The post execute method
+                    var postExecute = function () {
+                        // Increment the counter
+                        if (++ctr >= cfgWebParts.length) {
+                            // Resolve the promise
+                            resolve();
+                        }
+                    };
+                    // See if this webpart exists
+                    var file = isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
+                    if (file.existsFl) {
                         // Log
-                        console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+                        console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
                         // Trigger the event
-                        cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
-                    });
+                        cfgWebPart.onUpdated ? cfgWebPart.onUpdated(file) : null;
+                        // Execute the post event
+                        postExecute();
+                    }
+                    else {
+                        // Trim the xml
+                        var xml = cfgWebPart.XML.trim();
+                        // Convert the string to an array buffer
+                        var buffer = new ArrayBuffer(xml.length * 2);
+                        var bufferView = new Uint16Array(buffer);
+                        for (var j = 0; j < xml.length; j++) {
+                            bufferView[j] = xml.charCodeAt(j);
+                        }
+                        // Create the webpart, but execute the requests one at a time
+                        folder.Files.add(true, cfgWebPart.FileName, buffer).execute(function (file) {
+                            // See if group exists
+                            if (cfgWebPart.Group) {
+                                // Set the target to the root web
+                                (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+                                    .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
+                                    .Items()
+                                    .query({
+                                    Filter: "FileLeafRef eq '" + cfgWebPart.FileName + "'"
+                                })
+                                    .execute(function (items) {
+                                    // Update the item
+                                    items.results[0].update({
+                                        Group: cfgWebPart.Group
+                                    }).execute(postExecute);
+                                });
+                            }
+                            // Log
+                            console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+                            // Trigger the event
+                            cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
+                        });
+                    }
+                };
+                // Parse the configuration
+                for (var i = 0; i < cfgWebParts.length; i++) {
+                    _loop_6(i);
                 }
-            };
-            // Parse the configuration
-            for (var i = 0; i < cfgWebParts.length; i++) {
-                _loop_6(i);
-            }
+            });
         });
     };
     // Method to install the site components
@@ -543,35 +546,6 @@ exports.SPConfig = function (cfg, webUrl) {
                 createUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(function () {
                     // Resolve the promise
                     resolve(site);
-                });
-            });
-        });
-    };
-    // Method to install the web components
-    var installWeb = function () {
-        // Return a promise
-        return new Promise(function (resolve, reject) {
-            // Log
-            console.log("[gd-sprest] Loading the web information...");
-            // Get the web
-            (new lib_1.Web(webUrl))
-                .query({
-                Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
-            })
-                .execute(function (web) {
-                // Create the fields
-                createFields(web.Fields, cfg.Fields).then(function () {
-                    // Create the content types
-                    createContentTypes(web.ContentTypes, cfg.ContentTypes).then(function () {
-                        // Create the lists
-                        createLists(web.Lists, cfg.ListCfg).then(function () {
-                            // Create the web custom actions
-                            createUserCustomActions(web.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Web : null).then(function () {
-                                // Resolve the promise
-                                resolve();
-                            });
-                        });
-                    });
                 });
             });
         });
@@ -998,18 +972,81 @@ exports.SPConfig = function (cfg, webUrl) {
         install: function () {
             // Return a promise
             return new Promise(function (resolve, reject) {
-                // Install the web components
-                installWeb().then(function () {
-                    // Install the site components
-                    installSite().then(function () {
-                        // Create the webparts
-                        createWebParts();
-                        // Log
-                        console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                var ctr = 0;
+                var ctrExecutions = 0;
+                // Log
+                console.log("[gd-sprest] Loading the web information...");
+                // Get the web
+                var web = new lib_1.Web(webUrl);
+                // The post execution method
+                var postExecute = function () {
+                    // See if we have completed the executions
+                    if (++ctr >= ctrExecutions) {
                         // Resolve the promise
                         resolve();
+                    }
+                };
+                // See if we are creating fields
+                if (cfg.Fields && cfg.Fields.length > 0) {
+                    // Increment the counter
+                    ctrExecutions++;
+                    // Get the fields
+                    web.Fields().execute(function (fields) {
+                        // Create the fields
+                        createFields(fields, cfg.Fields).then(postExecute);
                     });
-                });
+                }
+                // See if we are creating the content types
+                if (cfg.ContentTypes && cfg.ContentTypes.length > 0) {
+                    // Increment the counter
+                    ctrExecutions++;
+                    // Get the content types
+                    web.ContentTypes().execute(function (contentTypes) {
+                        // Create the content types
+                        createContentTypes(contentTypes, cfg.ContentTypes).then(postExecute);
+                    }, true);
+                }
+                // See if we are creating the lists
+                if (cfg.ListCfg && cfg.ListCfg.length) {
+                    // Increment the counter
+                    ctrExecutions++;
+                    // Get the lists
+                    web.Lists().execute(function (lists) {
+                        // Create the lists
+                        createLists(lists, cfg.ListCfg).then(postExecute);
+                    }, true);
+                }
+                // See if we are creating the webparts
+                if (cfg.WebPartCfg && cfg.WebPartCfg.length > 0) {
+                    // Increment the counter
+                    ctrExecutions++;
+                    // Create the webparts
+                    createWebParts().then(postExecute);
+                }
+                // See if we are creating custom actions
+                if (cfg.CustomActionCfg) {
+                    // See if we are targeting the site collection
+                    if (cfg.CustomActionCfg.Site) {
+                        // Increment the counter
+                        ctrExecutions++;
+                        // Get the site
+                        (new lib_1.Site(webUrl))
+                            .UserCustomActions().execute(function (customActions) {
+                            // Create the user custom actions
+                            createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(postExecute);
+                        });
+                    }
+                    // See if we are targeting the web
+                    if (cfg.CustomActionCfg.Site) {
+                        // Increment the counter
+                        ctrExecutions++;
+                        // Get the user custom actions
+                        web.UserCustomActions().execute(function (customActions) {
+                            // Create the user custom actions
+                            createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(postExecute);
+                        });
+                    }
+                }
             });
         },
         // Method to uninstall the configuration

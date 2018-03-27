@@ -476,97 +476,105 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to create the web parts
-    let createWebParts = () => {
-        let cfgWebParts = cfg.WebPartCfg;
+    let createWebParts = (): PromiseLike<void> => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            let cfgWebParts = cfg.WebPartCfg;
 
-        // See if the configuration type exists
-        if (_cfgType) {
-            // Ensure it's for this type
-            if (_cfgType != SPCfgType.WebParts) { return; }
-        }
+            // Log
+            console.log("[gd-sprest][WebPart] Creating the web parts.");
 
-        // Ensure the configuration exists
-        if (cfgWebParts == null || cfgWebParts.length == 0) { return; }
+            // Get the root web
+            (new Web(ContextInfo.siteServerRelativeUrl))
+                // Get the web part catalog
+                .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
+                // Get the root folder
+                .RootFolder()
+                // Expand the files and items
+                .query({
+                    Expand: ["Files"]
+                })
+                // Execute the request
+                .execute(folder => {
+                    let ctr = 0;
 
-        // Log
-        console.log("[gd-sprest][WebPart] Creating the web parts.");
+                    // Parse the configuration
+                    for (let i = 0; i < cfgWebParts.length; i++) {
+                        let cfgWebPart = cfgWebParts[i];
 
-        // Get the root web
-        (new Web(ContextInfo.siteServerRelativeUrl))
-            // Get the web part catalog
-            .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
-            // Get the root folder
-            .RootFolder()
-            // Expand the files and items
-            .query({
-                Expand: ["Files"]
-            })
-            // Execute the request
-            .execute(folder => {
-                // Parse the configuration
-                for (let i = 0; i < cfgWebParts.length; i++) {
-                    let cfgWebPart = cfgWebParts[i];
-
-                    // See if the target name exists
-                    if (_cfgType && _targetName) {
-                        // Ensure it's for this list
-                        if (cfgWebPart.FileName.toLowerCase() != _targetName) {
-                            // Skip this list
-                            continue;
-                        }
-                    }
-
-                    // See if this webpart exists
-                    let file: Types.SP.IFileResult = isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
-                    if (file.existsFl) {
-                        // Log
-                        console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
-
-                        // Trigger the event
-                        cfgWebPart.onUpdated ? cfgWebPart.onUpdated(file) : null;
-                    } else {
-                        // Trim the xml
-                        let xml = cfgWebPart.XML.trim();
-
-                        // Convert the string to an array buffer
-                        let buffer = new ArrayBuffer(xml.length * 2);
-                        let bufferView = new Uint16Array(buffer);
-                        for (let j = 0; j < xml.length; j++) {
-                            bufferView[j] = xml.charCodeAt(j);
-                        }
-
-                        // Create the webpart, but execute the requests one at a time
-                        folder.Files.add(true, cfgWebPart.FileName, buffer).execute((file) => {
-                            // See if group exists
-                            if (cfgWebPart.Group) {
-                                // Set the target to the root web
-                                (new Web(ContextInfo.siteServerRelativeUrl))
-                                    // Get the web part catalog
-                                    .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
-                                    // Get the Items
-                                    .Items()
-                                    // Query for this webpart
-                                    .query({
-                                        Filter: "FileLeafRef eq '" + cfgWebPart.FileName + "'"
-                                    })
-                                    // Execute the request
-                                    .execute((items) => {
-                                        // Update the item
-                                        items.results[0].update({
-                                            Group: cfgWebPart.Group
-                                        }).execute();
-                                    });
+                        // See if the target name exists
+                        if (_cfgType && _targetName) {
+                            // Ensure it's for this list
+                            if (cfgWebPart.FileName.toLowerCase() != _targetName) {
+                                // Skip this list
+                                continue;
                             }
+                        }
 
+                        // The post execute method
+                        let postExecute = () => {
+                            // Increment the counter
+                            if (++ctr >= cfgWebParts.length) {
+                                // Resolve the promise
+                                resolve();
+                            }
+                        }
+
+                        // See if this webpart exists
+                        let file: Types.SP.IFileResult = isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
+                        if (file.existsFl) {
                             // Log
-                            console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+                            console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
 
                             // Trigger the event
-                            cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
-                        });
+                            cfgWebPart.onUpdated ? cfgWebPart.onUpdated(file) : null;
+
+                            // Execute the post event
+                            postExecute();
+                        } else {
+                            // Trim the xml
+                            let xml = cfgWebPart.XML.trim();
+
+                            // Convert the string to an array buffer
+                            let buffer = new ArrayBuffer(xml.length * 2);
+                            let bufferView = new Uint16Array(buffer);
+                            for (let j = 0; j < xml.length; j++) {
+                                bufferView[j] = xml.charCodeAt(j);
+                            }
+
+                            // Create the webpart, but execute the requests one at a time
+                            folder.Files.add(true, cfgWebPart.FileName, buffer).execute((file) => {
+                                // See if group exists
+                                if (cfgWebPart.Group) {
+                                    // Set the target to the root web
+                                    (new Web(ContextInfo.siteServerRelativeUrl))
+                                        // Get the web part catalog
+                                        .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
+                                        // Get the Items
+                                        .Items()
+                                        // Query for this webpart
+                                        .query({
+                                            Filter: "FileLeafRef eq '" + cfgWebPart.FileName + "'"
+                                        })
+                                        // Execute the request
+                                        .execute((items) => {
+                                            // Update the item
+                                            items.results[0].update({
+                                                Group: cfgWebPart.Group
+                                            }).execute(postExecute);
+                                        });
+                                }
+
+                                // Log
+                                console.log("[gd-sprest][WebPart] The '" + file.Name + "' webpart file was uploaded successfully.");
+
+                                // Trigger the event
+                                cfgWebPart.onCreated ? cfgWebPart.onCreated(file) : null;
+                            });
+                        }
                     }
-                }
-            });
+                });
+        });
     }
 
     // Method to install the site components
@@ -595,39 +603,6 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     createUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(() => {
                         // Resolve the promise
                         resolve(site);
-                    });
-                });
-        });
-    }
-
-    // Method to install the web components
-    let installWeb = (): PromiseLike<void> => {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // Log
-            console.log("[gd-sprest] Loading the web information...");
-
-            // Get the web
-            (new Web(webUrl))
-                // Expand the content types, fields, lists and user custom actions
-                .query({
-                    Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
-                })
-                // Execute the request
-                .execute(web => {
-                    // Create the fields
-                    createFields(web.Fields, cfg.Fields).then(() => {
-                        // Create the content types
-                        createContentTypes(web.ContentTypes, cfg.ContentTypes).then(() => {
-                            // Create the lists
-                            createLists(web.Lists, cfg.ListCfg).then(() => {
-                                // Create the web custom actions
-                                createUserCustomActions(web.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Web : null).then(() => {
-                                    // Resolve the promise
-                                    resolve();
-                                });
-                            })
-                        })
                     });
                 });
         });
@@ -1102,20 +1077,97 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
         install: (): PromiseLike<void> => {
             // Return a promise
             return new Promise((resolve, reject) => {
-                // Install the web components
-                installWeb().then(() => {
-                    // Install the site components
-                    installSite().then(() => {
-                        // Create the webparts
-                        createWebParts();
+                let ctr = 0;
+                let ctrExecutions = 0;
 
-                        // Log
-                        console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                // Log
+                console.log("[gd-sprest] Loading the web information...");
 
+                // Get the web
+                let web = new Web(webUrl);
+
+                // The post execution method
+                let postExecute = () => {
+                    // See if we have completed the executions
+                    if (++ctr >= ctrExecutions) {
                         // Resolve the promise
                         resolve();
+                    }
+                }
+
+                // See if we are creating fields
+                if (cfg.Fields && cfg.Fields.length > 0) {
+                    // Increment the counter
+                    ctrExecutions++;
+
+                    // Get the fields
+                    web.Fields().execute(fields => {
+                        // Create the fields
+                        createFields(fields as any, cfg.Fields).then(postExecute);
                     });
-                });
+                }
+
+                // See if we are creating the content types
+                if (cfg.ContentTypes && cfg.ContentTypes.length > 0) {
+                    // Increment the counter
+                    ctrExecutions++;
+
+                    // Get the content types
+                    web.ContentTypes().execute(contentTypes => {
+                        // Create the content types
+                        createContentTypes(contentTypes as any, cfg.ContentTypes).then(postExecute);
+                    }, true);
+                }
+
+                // See if we are creating the lists
+                if (cfg.ListCfg && cfg.ListCfg.length) {
+                    // Increment the counter
+                    ctrExecutions++;
+
+                    // Get the lists
+                    web.Lists().execute(lists => {
+                        // Create the lists
+                        createLists(lists as any, cfg.ListCfg).then(postExecute);
+                    }, true);
+                }
+
+                // See if we are creating the webparts
+                if (cfg.WebPartCfg && cfg.WebPartCfg.length > 0) {
+                    // Increment the counter
+                    ctrExecutions++;
+
+                    // Create the webparts
+                    createWebParts().then(postExecute);
+                }
+
+                // See if we are creating custom actions
+                if (cfg.CustomActionCfg) {
+                    // See if we are targeting the site collection
+                    if (cfg.CustomActionCfg.Site) {
+                        // Increment the counter
+                        ctrExecutions++;
+
+                        // Get the site
+                        (new Site(webUrl))
+                            // Get the user custom actions
+                            .UserCustomActions().execute(customActions => {
+                                // Create the user custom actions
+                                createUserCustomActions(customActions as any, cfg.CustomActionCfg.Site).then(postExecute);
+                            });
+                    }
+
+                    // See if we are targeting the web
+                    if (cfg.CustomActionCfg.Site) {
+                        // Increment the counter
+                        ctrExecutions++;
+
+                        // Get the user custom actions
+                        web.UserCustomActions().execute(customActions => {
+                            // Create the user custom actions
+                            createUserCustomActions(customActions as any, cfg.CustomActionCfg.Web).then(postExecute);
+                        });
+                    }
+                }
             });
         },
 
