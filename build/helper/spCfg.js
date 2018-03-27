@@ -22,12 +22,6 @@ exports.SPConfig = function (cfg, webUrl) {
     var createContentTypes = function (contentTypes, cfgContentTypes) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            // Ensure the content types exist
-            if (cfgContentTypes == null || cfgContentTypes.length == 0) {
-                // Resolve the promise
-                resolve();
-                return;
-            }
             var _loop_1 = function (i) {
                 var cfgContentType = cfgContentTypes[i];
                 // See if this content type already exists
@@ -187,12 +181,6 @@ exports.SPConfig = function (cfg, webUrl) {
     var createFields = function (fields, cfgFields) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            // Ensure the fields exist
-            if (cfgFields == null || cfgFields.length == 0) {
-                // Resolve the promise and return
-                resolve();
-                return;
-            }
             var _loop_3 = function (i) {
                 var cfgField = cfgFields[i];
                 // See if this field already exists
@@ -206,7 +194,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 else {
                     // Log
                     console.log("[gd-sprest][Field] Creating the '" + cfgField.name + "' field.");
-                    //
+                    // The field created event
                     var onFieldCreated_1 = function (field) {
                         // See if it was successful
                         if (field.existsFl) {
@@ -247,21 +235,6 @@ exports.SPConfig = function (cfg, webUrl) {
     var createLists = function (lists, cfgLists) {
         // Return a promise
         return new Promise(function (resolve, reject) {
-            // See if the configuration type exists
-            if (_cfgType) {
-                // Ensure it's for this type
-                if (_cfgType != _1.SPCfgType.Lists) {
-                    // Resolve the promise and return
-                    resolve();
-                    return;
-                }
-            }
-            // Ensure the lists exist
-            if (cfgLists == null || cfgLists.length == 0) {
-                // Resolve the promise and return
-                resolve();
-                return;
-            }
             var _loop_4 = function (i) {
                 var cfgList = cfgLists[i];
                 // See if the target name exists
@@ -521,32 +494,6 @@ exports.SPConfig = function (cfg, webUrl) {
                 for (var i = 0; i < cfgWebParts.length; i++) {
                     _loop_6(i);
                 }
-            });
-        });
-    };
-    // Method to install the site components
-    var installSite = function () {
-        // Return a promise
-        return new Promise(function (resolve, reject) {
-            // Ensure site actions exist
-            if (cfg.CustomActionCfg == null || cfg.CustomActionCfg.Site == null) {
-                // Resolve the promise
-                resolve();
-                return;
-            }
-            // Log
-            console.log("[gd-sprest] Loading the site information...");
-            // Get the site
-            (new lib_1.Site(webUrl))
-                .query({
-                Expand: ["UserCustomActions"]
-            })
-                .execute(function (site) {
-                // Install the user custom actions
-                createUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(function () {
-                    // Resolve the promise
-                    resolve(site);
-                });
             });
         });
     };
@@ -812,6 +759,8 @@ exports.SPConfig = function (cfg, webUrl) {
                         Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
                     })
                         .execute(function (list) {
+                        var ctr = 0;
+                        var ctrExecutions = 0;
                         // See if the title field is being updated
                         if (cfgList.TitleFieldDisplayName) {
                             // Parse the fields
@@ -830,21 +779,44 @@ exports.SPConfig = function (cfg, webUrl) {
                                 }
                             }
                         }
-                        // Update the list fields
-                        createFields(list.Fields, cfgList.CustomFields).then(function () {
-                            // Update the content types
-                            createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(function () {
-                                // Update the views
-                                createViews(list.Views, cfgList.ViewInformation).then(function () {
-                                    // Trigger the event
-                                    cfgList.onUpdated ? cfgList.onUpdated(list) : null;
-                                    // Update the next list
-                                    request(idx + 1, resolve);
-                                });
-                            });
-                        });
-                        // Update the user custom actions
-                        createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
+                        // The post execution method
+                        var postExeuction = function () {
+                            // Increment the counter
+                            if (++ctr >= ctrExecutions) {
+                                // Trigger the event
+                                cfgList.onUpdated ? cfgList.onUpdated(list) : null;
+                                // Update the next list
+                                request(idx + 1, resolve);
+                            }
+                        };
+                        // See if we are creating fields
+                        if (cfgList.CustomFields && cfgList.CustomFields.length > 0) {
+                            // Increment the counter
+                            ctrExecutions++;
+                            // Create the fields
+                            createFields(list.Fields, cfgList.CustomFields).then(postExeuction);
+                        }
+                        // See if we are creating the content types
+                        if (cfgList.ContentTypes && cfgList.ContentTypes.length > 0) {
+                            // Increment the counter
+                            ctrExecutions++;
+                            // Create the content types
+                            createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(postExeuction);
+                        }
+                        // See if we are creating the fields
+                        if (cfgList.ViewInformation && cfgList.ViewInformation.length > 0) {
+                            // Increment the counter
+                            ctrExecutions++;
+                            // Update the views
+                            createViews(list.Views, cfgList.ViewInformation).then(postExeuction);
+                        }
+                        // See if we are creating the user custom actions
+                        if (cfgList.UserCustomActions && cfgList.UserCustomActions.length > 0) {
+                            // Increment the counter
+                            ctrExecutions++;
+                            // Update the views
+                            createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
+                        }
                     });
                 }
                 else {

@@ -27,13 +27,6 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     let createContentTypes = (contentTypes: Types.SP.IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Ensure the content types exist
-            if (cfgContentTypes == null || cfgContentTypes.length == 0) {
-                // Resolve the promise
-                resolve();
-                return;
-            }
-
             // Parse the configuration
             for (let i = 0; i < cfgContentTypes.length; i++) {
                 let cfgContentType = cfgContentTypes[i];
@@ -208,13 +201,6 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     let createFields = (fields: Types.SP.IFieldResults, cfgFields: Array<ISPCfgFieldInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Ensure the fields exist
-            if (cfgFields == null || cfgFields.length == 0) {
-                // Resolve the promise and return
-                resolve();
-                return;
-            }
-
             // Parse the fields
             for (let i = 0; i < cfgFields.length; i++) {
                 let cfgField = cfgFields[i];
@@ -231,7 +217,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Log
                     console.log("[gd-sprest][Field] Creating the '" + cfgField.name + "' field.");
 
-                    //
+                    // The field created event
                     let onFieldCreated = (field: Types.SP.IFieldResult) => {
                         // See if it was successful
                         if (field.existsFl) {
@@ -272,23 +258,6 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     let createLists = (lists: Types.SP.IListResults, cfgLists: Array<ISPCfgListInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
-            // See if the configuration type exists
-            if (_cfgType) {
-                // Ensure it's for this type
-                if (_cfgType != SPCfgType.Lists) {
-                    // Resolve the promise and return
-                    resolve();
-                    return;
-                }
-            }
-
-            // Ensure the lists exist
-            if (cfgLists == null || cfgLists.length == 0) {
-                // Resolve the promise and return
-                resolve();
-                return;
-            }
-
             // Parse the content types
             for (let i = 0; i < cfgLists.length; i++) {
                 let cfgList = cfgLists[i];
@@ -573,37 +542,6 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             });
                         }
                     }
-                });
-        });
-    }
-
-    // Method to install the site components
-    let installSite = (): PromiseLike<Types.SP.ISiteQueryResult> => {
-        // Return a promise
-        return new Promise((resolve, reject) => {
-            // Ensure site actions exist
-            if (cfg.CustomActionCfg == null || cfg.CustomActionCfg.Site == null) {
-                // Resolve the promise
-                resolve();
-                return;
-            }
-
-            // Log
-            console.log("[gd-sprest] Loading the site information...");
-
-            // Get the site
-            (new Site(webUrl))
-                // Expand the user custom actions
-                .query({
-                    Expand: ["UserCustomActions"]
-                })
-                // Execute the request
-                .execute(site => {
-                    // Install the user custom actions
-                    createUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(() => {
-                        // Resolve the promise
-                        resolve(site);
-                    });
                 });
         });
     }
@@ -898,6 +836,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         })
                         // Execute the request
                         .execute(list => {
+                            let ctr = 0;
+                            let ctrExecutions = 0;
+
                             // See if the title field is being updated
                             if (cfgList.TitleFieldDisplayName) {
                                 // Parse the fields
@@ -918,23 +859,53 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 }
                             }
 
-                            // Update the list fields
-                            createFields(list.Fields, cfgList.CustomFields).then(() => {
-                                // Update the content types
-                                createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(() => {
-                                    // Update the views
-                                    createViews(list.Views, cfgList.ViewInformation).then(() => {
-                                        // Trigger the event
-                                        cfgList.onUpdated ? cfgList.onUpdated(list) : null;
+                            // The post execution method
+                            let postExeuction = () => {
+                                // Increment the counter
+                                if (++ctr >= ctrExecutions) {
+                                    // Trigger the event
+                                    cfgList.onUpdated ? cfgList.onUpdated(list) : null;
 
-                                        // Update the next list
-                                        request(idx + 1, resolve);
-                                    });
-                                })
-                            });
+                                    // Update the next list
+                                    request(idx + 1, resolve);
+                                }
+                            }
 
-                            // Update the user custom actions
-                            createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
+                            // See if we are creating fields
+                            if (cfgList.CustomFields && cfgList.CustomFields.length > 0) {
+                                // Increment the counter
+                                ctrExecutions++;
+
+                                // Create the fields
+                                createFields(list.Fields, cfgList.CustomFields).then(postExeuction);
+                            }
+
+                            // See if we are creating the content types
+                            if (cfgList.ContentTypes && cfgList.ContentTypes.length > 0) {
+                                // Increment the counter
+                                ctrExecutions++;
+
+                                // Create the content types
+                                createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(postExeuction);
+                            }
+
+                            // See if we are creating the fields
+                            if (cfgList.ViewInformation && cfgList.ViewInformation.length > 0) {
+                                // Increment the counter
+                                ctrExecutions++;
+
+                                // Update the views
+                                createViews(list.Views, cfgList.ViewInformation).then(postExeuction);
+                            }
+
+                            // See if we are creating the user custom actions
+                            if (cfgList.UserCustomActions && cfgList.UserCustomActions.length > 0) {
+                                // Increment the counter
+                                ctrExecutions++;
+
+                                // Update the views
+                                createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
+                            }
                         });
                 } else {
                     // Resolve the promise
