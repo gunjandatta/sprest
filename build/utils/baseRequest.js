@@ -241,8 +241,10 @@ var BaseRequest = /** @class */ (function (_super) {
                 if (xhr && xhr.status < 400 && typeof (xhr.response) === "string" && xhr.response.length > 0) {
                     // Convert the response and ensure the data property exists
                     var data = JSON.parse(xhr.response);
+                    // Set the next item flag
+                    _this.nextFl = data.d && data.d.__next;
                     // See if there are more items to get
-                    if (data.d && data.d.__next) {
+                    if (_this.nextFl) {
                         // See if we are getting all items in the base request
                         if (_this.getAllItemsFl) {
                             // Create the target information to query the next set of results

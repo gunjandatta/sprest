@@ -14,6 +14,7 @@ import {
  */
 export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
     getAllItemsFl: boolean;
+    nextFl: boolean;
     requestType: number;
     targetInfo: Types.ITargetInfo;
     xhr: XHRRequest;
@@ -285,8 +286,11 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
                     // Convert the response and ensure the data property exists
                     let data = JSON.parse(xhr.response);
 
+                    // Set the next item flag
+                    this.nextFl = data.d && data.d.__next;
+
                     // See if there are more items to get
-                    if (data.d && data.d.__next) {
+                    if (this.nextFl) {
                         // See if we are getting all items in the base request
                         if (this.getAllItemsFl) {
                             // Create the target information to query the next set of results

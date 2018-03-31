@@ -157,7 +157,7 @@ module.exports = function (it) {
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(15);
+var dP = __webpack_require__(14);
 var createDesc = __webpack_require__(29);
 module.exports = __webpack_require__(8) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
@@ -173,13 +173,13 @@ module.exports = __webpack_require__(8) ? function (object, key, value) {
 
 var global = __webpack_require__(3);
 var hide = __webpack_require__(5);
-var has = __webpack_require__(9);
+var has = __webpack_require__(15);
 var SRC = __webpack_require__(20)('src');
 var TO_STRING = 'toString';
 var $toString = Function[TO_STRING];
 var TPL = ('' + $toString).split(TO_STRING);
 
-__webpack_require__(10).inspectSource = function (it) {
+__webpack_require__(9).inspectSource = function (it) {
   return $toString.call(it);
 };
 
@@ -227,29 +227,19 @@ module.exports = !__webpack_require__(28)(function () {
 /* 9 */
 /***/ (function(module, exports) {
 
-var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
+var core = module.exports = { version: '2.5.4' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.5.3' };
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
 module.exports = {};
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -286,7 +276,7 @@ SOFTWARE.
 ***************************************************************************************************/
 var Helper = __webpack_require__(18);
 exports.Helper = Helper;
-var mapper_1 = __webpack_require__(13);
+var mapper_1 = __webpack_require__(12);
 exports.SPTypes = mapper_1.SPTypes;
 var Types = __webpack_require__(131);
 exports.Types = Types;
@@ -295,7 +285,7 @@ __export(__webpack_require__(132));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -310,7 +300,7 @@ exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -321,7 +311,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(4);
@@ -339,6 +329,16 @@ exports.f = __webpack_require__(8) ? Object.defineProperty : function defineProp
   if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
   if ('value' in Attributes) O[P] = Attributes.value;
   return O;
+};
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
 };
 
 
@@ -412,7 +412,7 @@ exports.Types = Types;
 /***/ (function(module, exports, __webpack_require__) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(14);
+var cof = __webpack_require__(13);
 var TAG = __webpack_require__(2)('toStringTag');
 // ES3 wrong here
 var ARG = cof(function () { return arguments; }()) == 'Arguments';
@@ -510,8 +510,8 @@ module.exports = function (key) {
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var def = __webpack_require__(15).f;
-var has = __webpack_require__(9);
+var def = __webpack_require__(14).f;
+var has = __webpack_require__(15);
 var TAG = __webpack_require__(2)('toStringTag');
 
 module.exports = function (it, tag, stat) {
@@ -568,8 +568,7 @@ var LIBRARY = __webpack_require__(31);
 var $export = __webpack_require__(32);
 var redefine = __webpack_require__(6);
 var hide = __webpack_require__(5);
-var has = __webpack_require__(9);
-var Iterators = __webpack_require__(11);
+var Iterators = __webpack_require__(10);
 var $iterCreate = __webpack_require__(48);
 var setToStringTag = __webpack_require__(26);
 var getPrototypeOf = __webpack_require__(55);
@@ -595,7 +594,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
   var VALUES_BUG = false;
   var proto = Base.prototype;
   var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
-  var $default = (!BUGGY && $native) || getMethod(DEFAULT);
+  var $default = $native || getMethod(DEFAULT);
   var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
   var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
   var methods, key, IteratorPrototype;
@@ -606,7 +605,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
       // Set @@toStringTag to native iterators
       setToStringTag(IteratorPrototype, TAG, true);
       // fix for some old engines
-      if (!LIBRARY && !has(IteratorPrototype, ITERATOR)) hide(IteratorPrototype, ITERATOR, returnThis);
+      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
     }
   }
   // fix Array#{values, @@iterator}.name in V8 / FF
@@ -647,7 +646,7 @@ module.exports = false;
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(3);
-var core = __webpack_require__(10);
+var core = __webpack_require__(9);
 var hide = __webpack_require__(5);
 var redefine = __webpack_require__(6);
 var ctx = __webpack_require__(16);
@@ -781,7 +780,7 @@ if (!setTask || !clearTask) {
     delete queue[id];
   };
   // Node.js 0.8-
-  if (__webpack_require__(14)(process) == 'process') {
+  if (__webpack_require__(13)(process) == 'process') {
     defer = function (id) {
       process.nextTick(ctx(run, id, 1));
     };
@@ -908,7 +907,7 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(119));
 var lib_1 = __webpack_require__(1);
-var __1 = __webpack_require__(12);
+var __1 = __webpack_require__(11);
 var _1 = __webpack_require__(18);
 /**
  * SharePoint Configuration
@@ -1952,7 +1951,7 @@ exports.SPConfig = function (cfg, webUrl) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(42);
-module.exports = __webpack_require__(12);
+module.exports = __webpack_require__(11);
 
 
 /***/ }),
@@ -1963,7 +1962,7 @@ __webpack_require__(43);
 __webpack_require__(46);
 __webpack_require__(57);
 __webpack_require__(61);
-module.exports = __webpack_require__(10).Promise;
+module.exports = __webpack_require__(9).Promise;
 
 
 /***/ }),
@@ -2128,7 +2127,7 @@ module.exports = Object.create || function create(O, Properties) {
 /* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(15);
+var dP = __webpack_require__(14);
 var anObject = __webpack_require__(4);
 var getKeys = __webpack_require__(33);
 
@@ -2147,7 +2146,7 @@ module.exports = __webpack_require__(8) ? Object.defineProperties : function def
 /* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var has = __webpack_require__(9);
+var has = __webpack_require__(15);
 var toIObject = __webpack_require__(24);
 var arrayIndexOf = __webpack_require__(53)(false);
 var IE_PROTO = __webpack_require__(25)('IE_PROTO');
@@ -2171,7 +2170,7 @@ module.exports = function (object, names) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(14);
+var cof = __webpack_require__(13);
 // eslint-disable-next-line no-prototype-builtins
 module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
   return cof(it) == 'String' ? it.split('') : Object(it);
@@ -2225,7 +2224,7 @@ module.exports = function (index, length) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = __webpack_require__(9);
+var has = __webpack_require__(15);
 var toObject = __webpack_require__(56);
 var IE_PROTO = __webpack_require__(25)('IE_PROTO');
 var ObjectProto = Object.prototype;
@@ -2259,7 +2258,7 @@ var getKeys = __webpack_require__(33);
 var redefine = __webpack_require__(6);
 var global = __webpack_require__(3);
 var hide = __webpack_require__(5);
-var Iterators = __webpack_require__(11);
+var Iterators = __webpack_require__(10);
 var wks = __webpack_require__(2);
 var ITERATOR = wks('iterator');
 var TO_STRING_TAG = wks('toStringTag');
@@ -2322,7 +2321,7 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
 
 var addToUnscopables = __webpack_require__(59);
 var step = __webpack_require__(60);
-var Iterators = __webpack_require__(11);
+var Iterators = __webpack_require__(10);
 var toIObject = __webpack_require__(24);
 
 // 22.1.3.4 Array.prototype.entries()
@@ -2437,7 +2436,7 @@ var notify = function (promise, isReject) {
       var resolve = reaction.resolve;
       var reject = reaction.reject;
       var domain = reaction.domain;
-      var result, then;
+      var result, then, exited;
       try {
         if (handler) {
           if (!ok) {
@@ -2447,8 +2446,11 @@ var notify = function (promise, isReject) {
           if (handler === true) result = value;
           else {
             if (domain) domain.enter();
-            result = handler(value);
-            if (domain) domain.exit();
+            result = handler(value); // may throw
+            if (domain) {
+              domain.exit();
+              exited = true;
+            }
           }
           if (result === reaction.promise) {
             reject(TypeError('Promise-chain cycle'));
@@ -2457,6 +2459,7 @@ var notify = function (promise, isReject) {
           } else resolve(result);
         } else reject(value);
       } catch (e) {
+        if (domain && !exited) domain.exit();
         reject(e);
       }
     };
@@ -2593,7 +2596,7 @@ if (!USE_NATIVE) {
 $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
 __webpack_require__(26)($Promise, PROMISE);
 __webpack_require__(73)(PROMISE);
-Wrapper = __webpack_require__(10)[PROMISE];
+Wrapper = __webpack_require__(9)[PROMISE];
 
 // statics
 $export($export.S + $export.F * !USE_NATIVE, PROMISE, {
@@ -2722,7 +2725,7 @@ module.exports = function (iterator, fn, value, entries) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
-var Iterators = __webpack_require__(11);
+var Iterators = __webpack_require__(10);
 var ITERATOR = __webpack_require__(2)('iterator');
 var ArrayProto = Array.prototype;
 
@@ -2737,8 +2740,8 @@ module.exports = function (it) {
 
 var classof = __webpack_require__(19);
 var ITERATOR = __webpack_require__(2)('iterator');
-var Iterators = __webpack_require__(11);
-module.exports = __webpack_require__(10).getIteratorMethod = function (it) {
+var Iterators = __webpack_require__(10);
+module.exports = __webpack_require__(9).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
     || it['@@iterator']
     || Iterators[classof(it)];
@@ -2791,7 +2794,7 @@ var macrotask = __webpack_require__(37).set;
 var Observer = global.MutationObserver || global.WebKitMutationObserver;
 var process = global.process;
 var Promise = global.Promise;
-var isNode = __webpack_require__(14)(process) == 'process';
+var isNode = __webpack_require__(13)(process) == 'process';
 
 module.exports = function () {
   var head, last, notify;
@@ -2905,7 +2908,7 @@ module.exports = function (target, src, safe) {
 "use strict";
 
 var global = __webpack_require__(3);
-var dP = __webpack_require__(15);
+var dP = __webpack_require__(14);
 var DESCRIPTORS = __webpack_require__(8);
 var SPECIES = __webpack_require__(2)('species');
 
@@ -3892,7 +3895,7 @@ exports.RequestType = {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
-var mapper_1 = __webpack_require__(13);
+var mapper_1 = __webpack_require__(12);
 var _1 = __webpack_require__(0);
 /**
  * Request Helper
@@ -7019,8 +7022,10 @@ var BaseRequest = /** @class */ (function (_super) {
                 if (xhr && xhr.status < 400 && typeof (xhr.response) === "string" && xhr.response.length > 0) {
                     // Convert the response and ensure the data property exists
                     var data = JSON.parse(xhr.response);
+                    // Set the next item flag
+                    _this.nextFl = data.d && data.d.__next;
                     // See if there are more items to get
-                    if (data.d && data.d.__next) {
+                    if (_this.nextFl) {
                         // See if we are getting all items in the base request
                         if (_this.getAllItemsFl) {
                             // Create the target information to query the next set of results
@@ -8789,7 +8794,7 @@ exports.Dependencies = _Dependencies;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
-var __1 = __webpack_require__(12);
+var __1 = __webpack_require__(11);
 var spCfg_1 = __webpack_require__(40);
 /**
  * Field Schema XML
@@ -9183,7 +9188,7 @@ exports.SPCfgType = {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
-var mapper_1 = __webpack_require__(13);
+var mapper_1 = __webpack_require__(12);
 /**
  * JSLink Helper Methods
  */
@@ -9571,7 +9576,7 @@ exports.JSLink = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var __1 = __webpack_require__(12);
+var __1 = __webpack_require__(11);
 /**
  * List Form
  */
@@ -10149,7 +10154,7 @@ exports.ListForm = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var __1 = __webpack_require__(12);
+var __1 = __webpack_require__(11);
 /**
  * List Form Field
  */
@@ -11423,7 +11428,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 Object.defineProperty(exports, "__esModule", { value: true });
 var helper_1 = __webpack_require__(18);
 exports.Helper = helper_1.Types;
-var mapper_1 = __webpack_require__(13);
+var mapper_1 = __webpack_require__(12);
 exports.SP = mapper_1.Types;
 var utils_1 = __webpack_require__(0);
 exports.Util = utils_1.Types;
@@ -11438,12 +11443,12 @@ exports.Util = utils_1.Types;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Helper = __webpack_require__(18);
 var Lib = __webpack_require__(1);
-var Mapper = __webpack_require__(13);
+var Mapper = __webpack_require__(12);
 /**
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.68,
+    __ver: 3.69,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

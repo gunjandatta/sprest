@@ -1,7 +1,14 @@
 import {
-    Helper
+    Helper,
+    List
 } from "../build";
 
-new Helper.ListForm({
-    listName: ""
-})
+(new List(""))
+    .Items()
+    .query({
+        Top:1
+    })
+    .execute(items => {
+        items.next().execute(nextSet => {
+        });
+    });

@@ -11462,6 +11462,7 @@ declare module 'gd-sprest/utils/baseRequest' {
       */
     export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
         getAllItemsFl: boolean;
+        nextFl: boolean;
         requestType: number;
         targetInfo: Types.ITargetInfo;
         xhr: XHRRequest;
@@ -11925,6 +11926,10 @@ declare module 'gd-sprest/utils/types/base' {
     export interface IBaseCollectionResult<Result> extends Types.SP.IResults<Result> {
             /** True, if the object exists, false otherwise. */
             existsFl: boolean;
+            /** Returns the next set of results, if paging exists. */
+            next(): IBaseCollection<Result>;
+            /** True, if more items exist. */
+            nextFl: boolean;
             /** The raw string response. */
             response: string;
             /** Method to stringify the object. */
@@ -12030,6 +12035,8 @@ declare module 'gd-sprest/utils/types/baseRequest' {
     export interface IBaseRequest extends IBaseHelper {
         /** Flag to get all items. */
         getAllItemsFl: boolean;
+        /** Flag determining if more items exist. */
+        nextFl: boolean;
         /** The target information. */
         targetInfo: ITargetInfo;
         /** The request. */
