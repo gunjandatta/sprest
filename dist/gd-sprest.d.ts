@@ -11491,7 +11491,7 @@ declare module 'gd-sprest/utils/baseExecution' {
         responses: Array<BaseExecution>;
         waitFlags: Array<boolean>;
         batch(arg?: any): this;
-        execute(...args: any[]): any;
+        execute(...args: any[]): this;
         executeAndWait(): string | this;
         waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
     }

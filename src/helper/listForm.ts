@@ -297,7 +297,7 @@ export const ListForm: IListForm = {
                 }
 
                 // Get the web
-                let list = (new Web(_props.webUrl))
+                (new Web(_props.webUrl))
                     // Get the list
                     .Lists(_props.listName)
                     // Execute the request
@@ -305,10 +305,9 @@ export const ListForm: IListForm = {
                         // Save the list and web url
                         _info.list = list;
                         _info.webUrl = _props.webUrl;
-                    });
-
-                // Load the fields
-                list.Fields()
+                    })
+                    // Load the fields
+                    .Fields()
                     // Execute the request
                     .execute(fields => {
                         // See if we are caching the data

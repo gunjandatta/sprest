@@ -7208,8 +7208,8 @@ var BaseExecution = /** @class */ (function (_super) {
                 }
             });
         }
-        // Return the base object
-        return this.base;
+        // Return this object
+        return this;
     };
     // Method to execute the request synchronously
     BaseExecution.prototype.executeAndWait = function () { return this.executeRequest(false); };
@@ -9831,15 +9831,14 @@ exports.ListForm = {
                     return;
                 }
                 // Get the web
-                var list = (new __1.Web(_props.webUrl))
+                (new __1.Web(_props.webUrl))
                     .Lists(_props.listName)
                     .execute(function (list) {
                     // Save the list and web url
                     _info.list = list;
                     _info.webUrl = _props.webUrl;
-                });
-                // Load the fields
-                list.Fields()
+                })
+                    .Fields()
                     .execute(function (fields) {
                     // See if we are caching the data
                     if (_props.cacheKey) {
@@ -11444,7 +11443,7 @@ var Mapper = __webpack_require__(13);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.67,
+    __ver: 3.68,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

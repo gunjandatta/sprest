@@ -132,8 +132,8 @@ var BaseExecution = /** @class */ (function (_super) {
                 }
             });
         }
-        // Return the base object
-        return this.base;
+        // Return this object
+        return this;
     };
     // Method to execute the request synchronously
     BaseExecution.prototype.executeAndWait = function () { return this.executeRequest(false); };

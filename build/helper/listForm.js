@@ -260,15 +260,14 @@ exports.ListForm = {
                     return;
                 }
                 // Get the web
-                var list = (new __1.Web(_props.webUrl))
+                (new __1.Web(_props.webUrl))
                     .Lists(_props.listName)
                     .execute(function (list) {
                     // Save the list and web url
                     _info.list = list;
                     _info.webUrl = _props.webUrl;
-                });
-                // Load the fields
-                list.Fields()
+                })
+                    .Fields()
                     .execute(function (fields) {
                     // See if we are caching the data
                     if (_props.cacheKey) {
