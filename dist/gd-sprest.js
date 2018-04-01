@@ -7180,15 +7180,13 @@ var BaseExecution = /** @class */ (function (_super) {
                             // Wait for the promise to complete
                             waitFunc(function () {
                                 // Reset the base
-                                _this.base = _this.parent.base;
+                                _this.base = _this.parent.base || _this.base;
                                 // Set the wait flag
                                 _this.base.waitFlags[_this.responseIndex] = true;
                             });
                             // Wait for the promise to complete
                             return;
                         }
-                        // Reset the base
-                        _this.base = _this.parent.base;
                     }
                     // Set the wait flag
                     _this.base.waitFlags[_this.responseIndex] = true;
@@ -11448,7 +11446,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.69,
+    __ver: 3.70,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
