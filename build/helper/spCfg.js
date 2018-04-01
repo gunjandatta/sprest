@@ -854,6 +854,8 @@ exports.SPConfig = function (cfg, webUrl) {
                     for (var _i = 0; _i < arguments.length; _i++) {
                         args[_i] = arguments[_i];
                     }
+                    // Log
+                    console.log("[gd-sprest][View] The updates for the '" + cfgView.ViewName + "' view has completed.");
                     // Trigger the event
                     cfgView.onUpdated ? cfgView.onUpdated(view) : null;
                     // See if we are done
@@ -950,38 +952,66 @@ exports.SPConfig = function (cfg, webUrl) {
                 if (cfg.Fields && cfg.Fields.length > 0) {
                     // Increment the counter
                     ctrExecutions++;
+                    // Log
+                    console.log("[gd-sprest][Fields] Starting the requests.");
                     // Get the fields
                     web.Fields().execute(function (fields) {
                         // Create the fields
-                        createFields(fields, cfg.Fields).then(postExecute);
+                        createFields(fields, cfg.Fields).then(function () {
+                            // Log
+                            console.log("[gd-sprest][Fields] Completed the requests.");
+                            // Execute the post execute method
+                            postExecute();
+                        });
                     });
                 }
                 // See if we are creating the content types
                 if (cfg.ContentTypes && cfg.ContentTypes.length > 0) {
                     // Increment the counter
                     ctrExecutions++;
+                    // Log
+                    console.log("[gd-sprest][Content Types] Starting the requests.");
                     // Get the content types
                     web.ContentTypes().execute(function (contentTypes) {
                         // Create the content types
-                        createContentTypes(contentTypes, cfg.ContentTypes).then(postExecute);
+                        createContentTypes(contentTypes, cfg.ContentTypes).then(function () {
+                            // Log
+                            console.log("[gd-sprest][Content Types] Completed the requests.");
+                            // Execute the post execute method
+                            postExecute();
+                        });
                     }, true);
                 }
                 // See if we are creating the lists
                 if (cfg.ListCfg && cfg.ListCfg.length) {
                     // Increment the counter
                     ctrExecutions++;
+                    // Log
+                    console.log("[gd-sprest][Lists] Starting the requests.");
                     // Get the lists
                     web.Lists().execute(function (lists) {
                         // Create the lists
-                        createLists(lists, cfg.ListCfg).then(postExecute);
+                        createLists(lists, cfg.ListCfg).then(function () {
+                            // Log
+                            console.log("[gd-sprest][Lists] Completed the requests.");
+                            // Execute the post execute method
+                            postExecute();
+                        });
                     }, true);
                 }
                 // See if we are creating the webparts
                 if (cfg.WebPartCfg && cfg.WebPartCfg.length > 0) {
                     // Increment the counter
                     ctrExecutions++;
+                    // Log
+                    console.log("[gd-sprest][WebParts] Starting the requests.");
                     // Create the webparts
-                    createWebParts().then(postExecute);
+                    createWebParts().then(function () {
+                        // Log
+                        console.log("[gd-sprest][WebParts] Completed the requests.");
+                        // Execute the post execute method
+                        postExecute();
+                    });
                 }
                 // See if we are creating custom actions
                 if (cfg.CustomActionCfg) {
@@ -989,21 +1019,35 @@ exports.SPConfig = function (cfg, webUrl) {
                     if (cfg.CustomActionCfg.Site) {
                         // Increment the counter
                         ctrExecutions++;
+                        // Log
+                        console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
                         // Get the site
                         (new lib_1.Site(webUrl))
                             .UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
-                            createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(postExecute);
+                            createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(function () {
+                                // Log
+                                console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
+                                // Execute the post execute method
+                                postExecute();
+                            });
                         });
                     }
                     // See if we are targeting the web
-                    if (cfg.CustomActionCfg.Site) {
+                    if (cfg.CustomActionCfg.Web) {
                         // Increment the counter
                         ctrExecutions++;
+                        // Log
+                        console.log("[gd-sprest][Web Custom Actions] Starting the requests.");
                         // Get the user custom actions
                         web.UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
-                            createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(postExecute);
+                            createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(function () {
+                                // Log
+                                console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
+                                // Execute the post execute method
+                                postExecute();
+                            });
                         });
                     }
                 }

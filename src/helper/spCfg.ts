@@ -944,6 +944,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
                 // Wait for the requests to complete
                 view.done((...args) => {
+                    // Log
+                    console.log("[gd-sprest][View] The updates for the '" + cfgView.ViewName + "' view has completed.");
+
                     // Trigger the event
                     cfgView.onUpdated ? cfgView.onUpdated(view) : null;
 
@@ -1052,10 +1055,19 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Increment the counter
                     ctrExecutions++;
 
+                    // Log
+                    console.log("[gd-sprest][Fields] Starting the requests.");
+
                     // Get the fields
                     web.Fields().execute(fields => {
                         // Create the fields
-                        createFields(fields as any, cfg.Fields).then(postExecute);
+                        createFields(fields as any, cfg.Fields).then(() => {
+                            // Log
+                            console.log("[gd-sprest][Fields] Completed the requests.");
+
+                            // Execute the post execute method
+                            postExecute();
+                        });
                     });
                 }
 
@@ -1064,10 +1076,19 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Increment the counter
                     ctrExecutions++;
 
+                    // Log
+                    console.log("[gd-sprest][Content Types] Starting the requests.");
+
                     // Get the content types
                     web.ContentTypes().execute(contentTypes => {
                         // Create the content types
-                        createContentTypes(contentTypes as any, cfg.ContentTypes).then(postExecute);
+                        createContentTypes(contentTypes as any, cfg.ContentTypes).then(() => {
+                            // Log
+                            console.log("[gd-sprest][Content Types] Completed the requests.");
+
+                            // Execute the post execute method
+                            postExecute();
+                        });
                     }, true);
                 }
 
@@ -1076,10 +1097,19 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Increment the counter
                     ctrExecutions++;
 
+                    // Log
+                    console.log("[gd-sprest][Lists] Starting the requests.");
+
                     // Get the lists
                     web.Lists().execute(lists => {
                         // Create the lists
-                        createLists(lists as any, cfg.ListCfg).then(postExecute);
+                        createLists(lists as any, cfg.ListCfg).then(() => {
+                            // Log
+                            console.log("[gd-sprest][Lists] Completed the requests.");
+
+                            // Execute the post execute method
+                            postExecute();
+                        });
                     }, true);
                 }
 
@@ -1088,8 +1118,17 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Increment the counter
                     ctrExecutions++;
 
+                    // Log
+                    console.log("[gd-sprest][WebParts] Starting the requests.");
+
                     // Create the webparts
-                    createWebParts().then(postExecute);
+                    createWebParts().then(() => {
+                        // Log
+                        console.log("[gd-sprest][WebParts] Completed the requests.");
+
+                        // Execute the post execute method
+                        postExecute();
+                    });
                 }
 
                 // See if we are creating custom actions
@@ -1099,24 +1138,42 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Increment the counter
                         ctrExecutions++;
 
+                        // Log
+                        console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
+
                         // Get the site
                         (new Site(webUrl))
                             // Get the user custom actions
                             .UserCustomActions().execute(customActions => {
                                 // Create the user custom actions
-                                createUserCustomActions(customActions as any, cfg.CustomActionCfg.Site).then(postExecute);
+                                createUserCustomActions(customActions as any, cfg.CustomActionCfg.Site).then(() => {
+                                    // Log
+                                    console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
+
+                                    // Execute the post execute method
+                                    postExecute();
+                                });
                             });
                     }
 
                     // See if we are targeting the web
-                    if (cfg.CustomActionCfg.Site) {
+                    if (cfg.CustomActionCfg.Web) {
                         // Increment the counter
                         ctrExecutions++;
+
+                        // Log
+                        console.log("[gd-sprest][Web Custom Actions] Starting the requests.");
 
                         // Get the user custom actions
                         web.UserCustomActions().execute(customActions => {
                             // Create the user custom actions
-                            createUserCustomActions(customActions as any, cfg.CustomActionCfg.Web).then(postExecute);
+                            createUserCustomActions(customActions as any, cfg.CustomActionCfg.Web).then(() => {
+                                // Log
+                                console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
+
+                                // Execute the post execute method
+                                postExecute();
+                            });
                         });
                     }
                 }
