@@ -95,7 +95,7 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest implem
                             // Wait for the promise to complete
                             waitFunc(() => {
                                 // Reset the base
-                                this.base = this.parent.base;
+                                this.base = this.parent.base || this.base;
 
                                 // Set the wait flag
                                 this.base.waitFlags[this.responseIndex] = true;
@@ -106,7 +106,7 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest implem
                         }
 
                         // Reset the base
-                        this.base = this.parent.base;
+                        this.base = this.parent.base || this.base;
                     }
 
                     // Set the wait flag

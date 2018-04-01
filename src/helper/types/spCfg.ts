@@ -293,39 +293,14 @@ export interface ISPCfgWebPartInfo {
  */
 export interface ISPConfig {
     /**
-     * Constructor
-     * @param cfg - The SharePoint configuration information.
-     * @param webUrl - An optional string representing the relative web url.
+     * Method to install the configuration
      */
-    new(cfg: ISPConfigProps, webUrl?: string): ISPConfig;
+    install(): PromiseLike<void>;
 
     /**
      * Method to install the configuration
-     * @param callback - An optional function called after the execution completes.
      */
-    install(callback?: () => void);
-
-    /**
-     * Method to install by the configuration type.
-     * @param cfgType - The configuration type.
-     * @param callback - An optional function called after the execution completes.
-     * @param targetName - The target configuration type to install.
-     */
-    installByType(cfgType: number, callback?: any, targetName?: string);
-
-    /**
-     * Method to install the configuration
-     * @param callback - An optional function called after the execution completes.
-     */
-    uninstall(callback?: () => void);
-
-    /**
-     * Method to uninstall by the configuration type.
-     * @param cfgType - The configuration type.
-     * @param callback - An optional function called after the execution completes.
-     * @param targetName - The target configuration type to uninstall.
-     */
-    uninstallByType(cfgType: number, callback?: any, targetName?: string);
+    uninstall(): PromiseLike<void>;
 }
 
 /**

@@ -4,6 +4,7 @@ import { Base, BaseHelper, Types, XHRRequest } from ".";
  */
 export declare class BaseRequest extends BaseHelper implements Types.IBaseRequest {
     getAllItemsFl: boolean;
+    nextFl: boolean;
     requestType: number;
     targetInfo: Types.ITargetInfo;
     xhr: XHRRequest;

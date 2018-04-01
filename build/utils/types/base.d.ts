@@ -35,6 +35,10 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
 export interface IBaseCollectionResult<Result> extends Types.SP.IResults<Result> {
     /** True, if the object exists, false otherwise. */
     existsFl: boolean;
+    /** Returns the next set of results, if paging exists. */
+    next(): IBaseCollection<Result>;
+    /** True, if more items exist. */
+    nextFl: boolean;
     /** The raw string response. */
     response: string;
     /** Method to stringify the object. */

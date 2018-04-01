@@ -6,6 +6,8 @@ import { IBaseHelper, IMethodInfo, ITargetInfo } from ".";
 export interface IBaseRequest extends IBaseHelper {
     /** Flag to get all items. */
     getAllItemsFl: boolean;
+    /** Flag determining if more items exist. */
+    nextFl: boolean;
     /** The target information. */
     targetInfo: ITargetInfo;
     /** The request. */

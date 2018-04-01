@@ -157,7 +157,7 @@ module.exports = function (it) {
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(15);
+var dP = __webpack_require__(14);
 var createDesc = __webpack_require__(29);
 module.exports = __webpack_require__(8) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
@@ -173,13 +173,13 @@ module.exports = __webpack_require__(8) ? function (object, key, value) {
 
 var global = __webpack_require__(3);
 var hide = __webpack_require__(5);
-var has = __webpack_require__(9);
+var has = __webpack_require__(15);
 var SRC = __webpack_require__(20)('src');
 var TO_STRING = 'toString';
 var $toString = Function[TO_STRING];
 var TPL = ('' + $toString).split(TO_STRING);
 
-__webpack_require__(10).inspectSource = function (it) {
+__webpack_require__(9).inspectSource = function (it) {
   return $toString.call(it);
 };
 
@@ -227,29 +227,19 @@ module.exports = !__webpack_require__(28)(function () {
 /* 9 */
 /***/ (function(module, exports) {
 
-var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
+var core = module.exports = { version: '2.5.4' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.5.3' };
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
 module.exports = {};
 
 
 /***/ }),
-/* 12 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -286,7 +276,7 @@ SOFTWARE.
 ***************************************************************************************************/
 var Helper = __webpack_require__(18);
 exports.Helper = Helper;
-var mapper_1 = __webpack_require__(13);
+var mapper_1 = __webpack_require__(12);
 exports.SPTypes = mapper_1.SPTypes;
 var Types = __webpack_require__(131);
 exports.Types = Types;
@@ -295,7 +285,7 @@ __export(__webpack_require__(132));
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -310,7 +300,7 @@ exports.Types = Types;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 14 */
+/* 13 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -321,7 +311,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(4);
@@ -339,6 +329,16 @@ exports.f = __webpack_require__(8) ? Object.defineProperty : function defineProp
   if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
   if ('value' in Attributes) O[P] = Attributes.value;
   return O;
+};
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports) {
+
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function (it, key) {
+  return hasOwnProperty.call(it, key);
 };
 
 
@@ -412,7 +412,7 @@ exports.Types = Types;
 /***/ (function(module, exports, __webpack_require__) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(14);
+var cof = __webpack_require__(13);
 var TAG = __webpack_require__(2)('toStringTag');
 // ES3 wrong here
 var ARG = cof(function () { return arguments; }()) == 'Arguments';
@@ -510,8 +510,8 @@ module.exports = function (key) {
 /* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var def = __webpack_require__(15).f;
-var has = __webpack_require__(9);
+var def = __webpack_require__(14).f;
+var has = __webpack_require__(15);
 var TAG = __webpack_require__(2)('toStringTag');
 
 module.exports = function (it, tag, stat) {
@@ -568,8 +568,7 @@ var LIBRARY = __webpack_require__(31);
 var $export = __webpack_require__(32);
 var redefine = __webpack_require__(6);
 var hide = __webpack_require__(5);
-var has = __webpack_require__(9);
-var Iterators = __webpack_require__(11);
+var Iterators = __webpack_require__(10);
 var $iterCreate = __webpack_require__(48);
 var setToStringTag = __webpack_require__(26);
 var getPrototypeOf = __webpack_require__(55);
@@ -595,7 +594,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
   var VALUES_BUG = false;
   var proto = Base.prototype;
   var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
-  var $default = (!BUGGY && $native) || getMethod(DEFAULT);
+  var $default = $native || getMethod(DEFAULT);
   var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
   var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
   var methods, key, IteratorPrototype;
@@ -606,7 +605,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
       // Set @@toStringTag to native iterators
       setToStringTag(IteratorPrototype, TAG, true);
       // fix for some old engines
-      if (!LIBRARY && !has(IteratorPrototype, ITERATOR)) hide(IteratorPrototype, ITERATOR, returnThis);
+      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
     }
   }
   // fix Array#{values, @@iterator}.name in V8 / FF
@@ -647,7 +646,7 @@ module.exports = false;
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(3);
-var core = __webpack_require__(10);
+var core = __webpack_require__(9);
 var hide = __webpack_require__(5);
 var redefine = __webpack_require__(6);
 var ctx = __webpack_require__(16);
@@ -781,7 +780,7 @@ if (!setTask || !clearTask) {
     delete queue[id];
   };
   // Node.js 0.8-
-  if (__webpack_require__(14)(process) == 'process') {
+  if (__webpack_require__(13)(process) == 'process') {
     defer = function (id) {
       process.nextTick(ctx(run, id, 1));
     };
@@ -908,460 +907,431 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(119));
 var lib_1 = __webpack_require__(1);
-var __1 = __webpack_require__(12);
+var __1 = __webpack_require__(11);
 var _1 = __webpack_require__(18);
 /**
  * SharePoint Configuration
  */
-var _SPConfig = /** @class */ (function () {
+exports.SPConfig = function (cfg, webUrl) {
+    // The selected configuration type to install
+    var _cfgType;
+    // The target name to install/uninstall
+    var _targetName;
     /**
-     * Constructor
+     * Methods
      */
-    function _SPConfig(cfg, webUrl) {
-        var _this = this;
-        // Method to install by configuration type
-        this.installByType = function (cfgType, callback, targetName) { return _this.install(callback, cfgType, targetName); };
-        // Method to uninstall by the configuration type
-        this.uninstallByType = function (cfgType, callback, targetName) { return _this.uninstall(callback, cfgType, targetName); };
-        /**
-         * Methods
-         */
-        // Method to create the content types
-        this.createContentTypes = function (contentTypes, cfgContentTypes) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the content types exist
-                if (cfgContentTypes == null || cfgContentTypes.length == 0) {
-                    // Resolve the promise
-                    resolve();
-                    return;
+    // Method to create the content types
+    var createContentTypes = function (contentTypes, cfgContentTypes) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Ensure fields exist
+            if (cfgContentTypes == null || cfgContentTypes.length == 0) {
+                // Resolve the promise
+                resolve();
+                return;
+            }
+            var _loop_1 = function (i) {
+                var cfgContentType = cfgContentTypes[i];
+                // See if this content type already exists
+                var ct = isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                if (ct) {
+                    // Log
+                    console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' already exists.");
+                    // Update the configuration
+                    cfgContentType.ContentType = ct;
                 }
-                var _loop_1 = function (i) {
-                    var cfgContentType = cfgContentTypes[i];
-                    // See if this content type already exists
-                    var ct = _this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
-                    if (ct) {
-                        // Log
-                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' already exists.");
-                        // Update the configuration
-                        cfgContentType.ContentType = ct;
+                else {
+                    // Log
+                    console.log("[gd-sprest][Content Type] Creating the '" + cfgContentType.Name + "' content type.");
+                    // See if the parent name exists
+                    if (cfgContentType.ParentName) {
+                        // Get the web containing the parent content type
+                        (new lib_1.Web(cfgContentType.ParentWebUrl || webUrl))
+                            .ContentTypes()
+                            .query({
+                            Filter: "Name eq '" + cfgContentType.ParentName + "'"
+                        })
+                            .execute(function (parent) {
+                            // See if the parent exists
+                            if (parent.results[0]) {
+                                // Add the available content type
+                                contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
+                                    // See if it was successful
+                                    if (ct.existsFl) {
+                                        // Log
+                                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                        // Update the configuration
+                                        cfgContentType.ContentType = ct;
+                                        // Trigger the event
+                                        cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                    }
+                                    else {
+                                        // Log
+                                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
+                                        console.error("[gd-sprest][Field] Error: " + ct.response);
+                                    }
+                                }, true);
+                            }
+                            else {
+                                // Log
+                                console.log("[gd-sprest][Content Type] The parent content type '" + cfgContentType.Name + "' was not found.");
+                            }
+                        });
                     }
                     else {
+                        // Create the content type
+                        contentTypes.add({
+                            Description: cfgContentType.Description,
+                            Group: cfgContentType.Group,
+                            Name: cfgContentType.Name
+                        }).execute(function (ct) {
+                            // See if it was successful
+                            if (ct.existsFl) {
+                                // Log
+                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                // Update the configuration
+                                cfgContentType.ContentType = ct;
+                                // Trigger the event
+                                cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                            }
+                            else {
+                                // Log
+                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
+                                console.error("[gd-sprest][Field] Error: " + ct.response);
+                            }
+                        });
+                    }
+                }
+            };
+            // Parse the configuration
+            for (var i = 0; i < cfgContentTypes.length; i++) {
+                _loop_1(i);
+            }
+            // Wait for the requests to complete
+            contentTypes.done(function () {
+                var _loop_2 = function (i) {
+                    var cfgContentType = cfgContentTypes[i];
+                    var cfgUpdate = {};
+                    var updateFl = false;
+                    // Ensure the content type exists
+                    if (cfgContentType.ContentType == null) {
+                        return "continue";
+                    }
+                    /**
+                     * See if we need to update the properties
+                     */
+                    // Description
+                    if (cfgContentType.ContentType.Description != cfgContentType.Description) {
+                        // Update the configuration
+                        cfgUpdate.Description = cfgContentType.Description;
                         // Log
-                        console.log("[gd-sprest][Content Type] Creating the '" + cfgContentType.Name + "' content type.");
-                        // See if the parent name exists
-                        if (cfgContentType.ParentName) {
-                            // Get the web containing the parent content type
-                            (new lib_1.Web(cfgContentType.ParentWebUrl || _this._webUrl))
-                                .ContentTypes()
-                                .query({
-                                Filter: "Name eq '" + cfgContentType.ParentName + "'"
-                            })
-                                .execute(function (parent) {
-                                // See if the parent exists
-                                if (parent.results[0]) {
-                                    // Add the available content type
-                                    contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
-                                        // See if it was successful
-                                        if (ct.existsFl) {
-                                            // Log
-                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
-                                            // Update the configuration
-                                            cfgContentType.ContentType = ct;
-                                            // Trigger the event
-                                            cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
-                                        }
-                                        else {
-                                            // Log
-                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
-                                            console.error("[gd-sprest][Field] Error: " + ct.response);
-                                        }
-                                    }, true);
-                                }
-                                else {
-                                    // Log
-                                    console.log("[gd-sprest][Content Type] The parent content type '" + cfgContentType.Name + "' was not found.");
-                                }
-                            });
-                        }
-                        else {
-                            // Create the content type
-                            contentTypes.add({
-                                Description: cfgContentType.Description,
-                                Group: cfgContentType.Group,
-                                Name: cfgContentType.Name
-                            }).execute(function (ct) {
-                                // See if it was successful
-                                if (ct.existsFl) {
-                                    // Log
-                                    console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
-                                    // Update the configuration
-                                    cfgContentType.ContentType = ct;
-                                    // Trigger the event
-                                    cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
-                                }
-                                else {
-                                    // Log
-                                    console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
-                                    console.error("[gd-sprest][Field] Error: " + ct.response);
-                                }
-                            });
-                        }
+                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Description requires update.");
+                        // Set the flag
+                        updateFl = true;
+                    }
+                    // Group
+                    if (cfgContentType.ContentType.Group != cfgContentType.Group) {
+                        // Update the configuration
+                        cfgUpdate.Group = cfgContentType.Group;
+                        // Log
+                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Group requires update.");
+                        // Set the flag
+                        updateFl = true;
+                    }
+                    // JSLink
+                    if (cfgContentType.ContentType.JSlink != cfgContentType.JSLink) {
+                        // Update the configuration
+                        cfgUpdate.JSLink = cfgContentType.JSLink;
+                        // Log
+                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] JSLink requires update.");
+                        // Set the flag
+                        updateFl = true;
+                    }
+                    // Name
+                    if (cfgContentType.ContentType.Name != cfgContentType.Name) {
+                        // Update the configuration
+                        cfgUpdate.Name = cfgContentType.Name;
+                        // Log
+                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Name requires update.");
+                        // Set the flag
+                        updateFl = true;
+                    }
+                    // See if an update is needed
+                    if (updateFl) {
+                        // Log
+                        console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the webpart.");
+                        // Update the content type
+                        cfgContentType.ContentType.update({ JSLink: cfgContentType.JSLink }).execute(function () {
+                            // Log
+                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
+                            // Trigger the event
+                            cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
+                        });
+                    }
+                    else {
+                        // Trigger the event
+                        cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
                     }
                 };
                 // Parse the configuration
                 for (var i = 0; i < cfgContentTypes.length; i++) {
-                    _loop_1(i);
+                    _loop_2(i);
                 }
                 // Wait for the requests to complete
                 contentTypes.done(function () {
-                    var _loop_2 = function (i) {
-                        var cfgContentType = cfgContentTypes[i];
-                        var cfgUpdate = {};
-                        var updateFl = false;
-                        // Ensure the content type exists
-                        if (cfgContentType.ContentType == null) {
-                            return "continue";
-                        }
-                        /**
-                         * See if we need to update the properties
-                         */
-                        // Description
-                        if (cfgContentType.ContentType.Description != cfgContentType.Description) {
-                            // Update the configuration
-                            cfgUpdate.Description = cfgContentType.Description;
-                            // Log
-                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Description requires update.");
-                            // Set the flag
-                            updateFl = true;
-                        }
-                        // Group
-                        if (cfgContentType.ContentType.Group != cfgContentType.Group) {
-                            // Update the configuration
-                            cfgUpdate.Group = cfgContentType.Group;
-                            // Log
-                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Group requires update.");
-                            // Set the flag
-                            updateFl = true;
-                        }
-                        // JSLink
-                        if (cfgContentType.ContentType.JSlink != cfgContentType.JSLink) {
-                            // Update the configuration
-                            cfgUpdate.JSLink = cfgContentType.JSLink;
-                            // Log
-                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] JSLink requires update.");
-                            // Set the flag
-                            updateFl = true;
-                        }
-                        // Name
-                        if (cfgContentType.ContentType.Name != cfgContentType.Name) {
-                            // Update the configuration
-                            cfgUpdate.Name = cfgContentType.Name;
-                            // Log
-                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Name requires update.");
-                            // Set the flag
-                            updateFl = true;
-                        }
-                        // See if an update is needed
-                        if (updateFl) {
-                            // Log
-                            console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Updating the webpart.");
-                            // Update the content type
-                            cfgContentType.ContentType.update({ JSLink: cfgContentType.JSLink }).execute(function () {
-                                // Log
-                                console.log("[gd-sprest][Content Type][" + cfgContentType.ContentType.Name + "] Update request completed.");
-                                // Trigger the event
-                                cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
-                            });
-                        }
-                        else {
-                            // Trigger the event
-                            cfgContentType.onUpdated ? cfgContentType.onUpdated(cfgContentType.ContentType) : null;
-                        }
-                    };
-                    // Parse the configuration
-                    for (var i = 0; i < cfgContentTypes.length; i++) {
-                        _loop_2(i);
-                    }
-                    // Wait for the requests to complete
-                    contentTypes.done(function () {
-                        // Resolve the promise
-                        resolve();
-                    });
-                });
-            });
-        };
-        // Method to create the fields
-        this.createFields = function (fields, cfgFields) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the fields exist
-                if (cfgFields == null || cfgFields.length == 0) {
-                    // Resolve the promise and return
-                    resolve();
-                    return;
-                }
-                var _loop_3 = function (i) {
-                    var cfgField = cfgFields[i];
-                    // See if this field already exists
-                    var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
-                    if (field) {
-                        // Log
-                        console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
-                        // Trigger the event
-                        cfgField.onUpdated ? cfgField.onUpdated(field) : null;
-                    }
-                    else {
-                        // Log
-                        console.log("[gd-sprest][Field] Creating the '" + cfgField.name + "' field.");
-                        //
-                        var onFieldCreated_1 = function (field) {
-                            // See if it was successful
-                            if (field.existsFl) {
-                                // Log
-                                console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
-                                // Trigger the event
-                                cfgField.onCreated ? cfgField.onCreated(field) : null;
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][Field] The field '" + cfgField.name + "' failed to be created.");
-                                console.error("[gd-sprest][Field] Error: " + field.response);
-                            }
-                        };
-                        // Compute the schema xml
-                        _1.FieldSchemaXML(cfgField).then(function (response) {
-                            var schemas = typeof (response) === "string" ? [response] : response;
-                            // Parse the fields to add
-                            for (var i_1 = 0; i_1 < schemas.length; i_1++) {
-                                // Add the field
-                                fields.createFieldAsXml(schemas[i_1]).execute(onFieldCreated_1, true);
-                            }
-                        });
-                    }
-                };
-                // Parse the fields
-                for (var i = 0; i < cfgFields.length; i++) {
-                    _loop_3(i);
-                }
-                // Wait for the requests to complete
-                fields.done(function () {
                     // Resolve the promise
                     resolve();
                 });
             });
-        };
-        // Method to create the lists
-        this.createLists = function (lists, cfgLists) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // See if the configuration type exists
-                if (_this._cfgType) {
-                    // Ensure it's for this type
-                    if (_this._cfgType != _1.SPCfgType.Lists) {
-                        // Resolve the promise and return
-                        resolve();
-                        return;
-                    }
-                }
-                // Ensure the lists exist
-                if (cfgLists == null || cfgLists.length == 0) {
-                    // Resolve the promise and return
-                    resolve();
-                    return;
-                }
-                var _loop_4 = function (i) {
-                    var cfgList = cfgLists[i];
-                    // See if the target name exists
-                    if (_this._cfgType && _this._targetName) {
-                        // Ensure it's for this list
-                        if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
-                            return "continue";
-                        }
-                    }
-                    // See if this content type already exists
-                    var list = _this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
-                    if (list) {
-                        // Log
-                        console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
-                    }
-                    else {
-                        // Log
-                        console.log("[gd-sprest][List] Creating the '" + cfgList.ListInformation.Title + "' list.");
-                        // Update the list name and remove spaces
-                        var listInfo_1 = cfgList.ListInformation;
-                        var listName_1 = listInfo_1.Title;
-                        listInfo_1.Title = listName_1.replace(/ /g, "");
-                        // Add the list
-                        lists.add(listInfo_1)
-                            .execute(function (list) {
-                            // Restore the list name in the configuration
-                            listInfo_1.Title = listName_1;
-                            // See if the request was successful
-                            if (list.existsFl) {
-                                // See if we need to update the list
-                                if (list.existsFl && list.Title != listName_1) {
-                                    // Update the list
-                                    list.update({ Title: listName_1 }).execute(function () {
-                                        // Log
-                                        console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
-                                    });
-                                }
-                                else {
-                                    // Log
-                                    console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
-                                }
-                                // Trigger the event
-                                cfgList.onCreated ? cfgList.onCreated(list) : null;
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][List] The list '" + listInfo_1.Title + "' failed to be created.");
-                                console.log("[gd-sprest][List] Error: '" + list.response);
-                            }
-                        });
-                    }
-                };
-                // Parse the content types
-                for (var i = 0; i < cfgLists.length; i++) {
-                    _loop_4(i);
-                }
-                // Wait for the requests to complete
-                lists.done(function () {
-                    // Update the lists
-                    _this.updateLists(cfgLists).then(function () {
-                        // Resolve the promise
-                        resolve();
-                    });
-                });
-            });
-        };
-        // Method to create the user custom actions
-        this.createUserCustomActions = function (customActions, cfgCustomActions) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // See if the configuration type exists
-                if (_this._cfgType) {
-                    // Ensure it's for this type
-                    if (_this._cfgType != _1.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.SPCfgType.WebUserCustomActions) {
-                        // Resolve the promise
-                        resolve();
-                        return;
-                    }
-                }
-                // Ensure the lists exist
-                if (cfgCustomActions == null || cfgCustomActions.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
-                    return;
-                }
-                // Parse the custom actions
-                for (var i = 0; i < cfgCustomActions.length; i++) {
-                    var cfgCustomAction = cfgCustomActions[i];
-                    // See if the target name exists
-                    if (_this._cfgType && _this._targetName) {
-                        // Ensure it's for this custom action
-                        if (cfgCustomAction.Name.toLowerCase() != _this._targetName ||
-                            cfgCustomAction.Title.toLowerCase() != _this._targetName) {
-                            // Skip this custom action
-                            continue;
-                        }
-                    }
-                    // See if this custom action already exists
-                    if (_this.isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
-                        // Log
-                        console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
-                    }
-                    else {
-                        // Add the custom action
-                        customActions.add(cfgCustomAction).execute(function (ca) {
-                            // Ensure it exists
-                            if (ca.existsFl) {
-                                // Log
-                                console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was created successfully.");
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' failed to be created.");
-                                console.log("[gd-sprest][Custom Action] Error: " + ca.response);
-                            }
-                        }, true);
-                    }
-                }
-                // Wait for the requests to complete
-                customActions.done(function () {
-                    // Resolve the promise
-                    resolve();
-                });
-            });
-        };
-        // Method to create the list views
-        this.createViews = function (views, cfgViews) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the list views exist
-                if (cfgViews == null || cfgViews.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
-                    return;
-                }
-                var _loop_5 = function (i) {
-                    var cfgView = cfgViews[i];
-                    // See if this view exists
-                    var view = _this.isInCollection("Title", cfgView.ViewName, views.results);
-                    if (view) {
-                        // Log
-                        console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' already exists.");
-                    }
-                    else {
-                        // Add the view
-                        views.add({
-                            Title: cfgView.ViewName,
-                            ViewQuery: cfgView.ViewQuery
-                        }).execute(function (view) {
-                            // Ensure it exists
-                            if (view.existsFl) {
-                                // Log
-                                console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' was created successfully.");
-                                // Trigger the event
-                                cfgView.onCreated ? cfgView.onCreated(view) : null;
-                            }
-                            else {
-                                // Log
-                                console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' failed to be created.");
-                                console.log("[gd-sprest][View] Error: " + view.response);
-                            }
-                        }, true);
-                    }
-                };
-                // Parse the views
-                for (var i = 0; i < cfgViews.length; i++) {
-                    _loop_5(i);
-                }
-                // Wait for the requests to complete
-                views.done(function () {
-                    // Update the views
-                    _this.updateViews(views, cfgViews).then(function () {
-                        // Resolve the promise
-                        resolve();
-                    });
-                });
-            });
-        };
-        // Method to create the web parts
-        this.createWebParts = function () {
-            var cfgWebParts = _this._configuration.WebPartCfg;
-            // See if the configuration type exists
-            if (_this._cfgType) {
-                // Ensure it's for this type
-                if (_this._cfgType != _1.SPCfgType.WebParts) {
-                    return;
-                }
-            }
-            // Ensure the configuration exists
-            if (cfgWebParts == null || cfgWebParts.length == 0) {
+        });
+    };
+    // Method to create the fields
+    var createFields = function (fields, cfgFields) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Ensure fields exist
+            if (cfgFields == null || cfgFields.length == 0) {
+                // Resolve the promise
+                resolve();
                 return;
             }
+            var _loop_3 = function (i) {
+                var cfgField = cfgFields[i];
+                // See if this field already exists
+                var field = isInCollection("InternalName", cfgField.name, fields.results);
+                if (field) {
+                    // Log
+                    console.log("[gd-sprest][Field] The field '" + cfgField.name + "' already exists.");
+                    // Trigger the event
+                    cfgField.onUpdated ? cfgField.onUpdated(field) : null;
+                }
+                else {
+                    // Log
+                    console.log("[gd-sprest][Field] Creating the '" + cfgField.name + "' field.");
+                    // The field created event
+                    var onFieldCreated_1 = function (field) {
+                        // See if it was successful
+                        if (field.existsFl) {
+                            // Log
+                            console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was created successfully.");
+                            // Trigger the event
+                            cfgField.onCreated ? cfgField.onCreated(field) : null;
+                        }
+                        else {
+                            // Log
+                            console.log("[gd-sprest][Field] The field '" + cfgField.name + "' failed to be created.");
+                            console.error("[gd-sprest][Field] Error: " + field.response);
+                        }
+                    };
+                    // Compute the schema xml
+                    _1.FieldSchemaXML(cfgField).then(function (response) {
+                        var schemas = typeof (response) === "string" ? [response] : response;
+                        // Parse the fields to add
+                        for (var i_1 = 0; i_1 < schemas.length; i_1++) {
+                            // Add the field
+                            fields.createFieldAsXml(schemas[i_1]).execute(onFieldCreated_1, true);
+                        }
+                    });
+                }
+            };
+            // Parse the fields
+            for (var i = 0; i < cfgFields.length; i++) {
+                _loop_3(i);
+            }
+            // Wait for the requests to complete
+            fields.done(function () {
+                // Resolve the promise
+                resolve();
+            });
+        });
+    };
+    // Method to create the lists
+    var createLists = function (lists, cfgLists) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var _loop_4 = function (i) {
+                var cfgList = cfgLists[i];
+                // See if the target name exists
+                if (_cfgType && _targetName) {
+                    // Ensure it's for this list
+                    if (cfgList.ListInformation.Title.toLowerCase() != _targetName) {
+                        return "continue";
+                    }
+                }
+                // See if this content type already exists
+                var list = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                if (list) {
+                    // Log
+                    console.log("[gd-sprest][List] The list '" + cfgList.ListInformation.Title + "' already exists.");
+                }
+                else {
+                    // Log
+                    console.log("[gd-sprest][List] Creating the '" + cfgList.ListInformation.Title + "' list.");
+                    // Update the list name and remove spaces
+                    var listInfo_1 = cfgList.ListInformation;
+                    var listName_1 = listInfo_1.Title;
+                    listInfo_1.Title = listName_1.replace(/ /g, "");
+                    // Add the list
+                    lists.add(listInfo_1)
+                        .execute(function (list) {
+                        // Restore the list name in the configuration
+                        listInfo_1.Title = listName_1;
+                        // See if the request was successful
+                        if (list.existsFl) {
+                            // See if we need to update the list
+                            if (list.existsFl && list.Title != listName_1) {
+                                // Update the list
+                                list.update({ Title: listName_1 }).execute(function () {
+                                    // Log
+                                    console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+                                });
+                            }
+                            else {
+                                // Log
+                                console.log("[gd-sprest][List] The list '" + list.Title + "' was created successfully.");
+                            }
+                            // Trigger the event
+                            cfgList.onCreated ? cfgList.onCreated(list) : null;
+                        }
+                        else {
+                            // Log
+                            console.log("[gd-sprest][List] The list '" + listInfo_1.Title + "' failed to be created.");
+                            console.log("[gd-sprest][List] Error: '" + list.response);
+                        }
+                    });
+                }
+            };
+            // Parse the content types
+            for (var i = 0; i < cfgLists.length; i++) {
+                _loop_4(i);
+            }
+            // Wait for the requests to complete
+            lists.done(function () {
+                // Update the lists
+                updateLists(cfgLists).then(function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            });
+        });
+    };
+    // Method to create the user custom actions
+    var createUserCustomActions = function (customActions, cfgCustomActions) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // See if the configuration type exists
+            if (_cfgType) {
+                // Ensure it's for this type
+                if (_cfgType != _1.SPCfgType.SiteUserCustomActions || _cfgType != _1.SPCfgType.WebUserCustomActions) {
+                    // Resolve the promise
+                    resolve();
+                    return;
+                }
+            }
+            // Ensure the lists exist
+            if (cfgCustomActions == null || cfgCustomActions.length == 0) {
+                // Resolve the promise and return it
+                resolve();
+                return;
+            }
+            // Parse the custom actions
+            for (var i = 0; i < cfgCustomActions.length; i++) {
+                var cfgCustomAction = cfgCustomActions[i];
+                // See if the target name exists
+                if (_cfgType && _targetName) {
+                    // Ensure it's for this custom action
+                    if (cfgCustomAction.Name.toLowerCase() != _targetName ||
+                        cfgCustomAction.Title.toLowerCase() != _targetName) {
+                        // Skip this custom action
+                        continue;
+                    }
+                }
+                // See if this custom action already exists
+                if (isInCollection("Name", cfgCustomAction.Name, customActions.results)) {
+                    // Log
+                    console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
+                }
+                else {
+                    // Add the custom action
+                    customActions.add(cfgCustomAction).execute(function (ca) {
+                        // Ensure it exists
+                        if (ca.existsFl) {
+                            // Log
+                            console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was created successfully.");
+                        }
+                        else {
+                            // Log
+                            console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' failed to be created.");
+                            console.log("[gd-sprest][Custom Action] Error: " + ca.response);
+                        }
+                    }, true);
+                }
+            }
+            // Wait for the requests to complete
+            customActions.done(function () {
+                // Resolve the promise
+                resolve();
+            });
+        });
+    };
+    // Method to create the list views
+    var createViews = function (views, cfgViews) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Ensure the list views exist
+            if (cfgViews == null || cfgViews.length == 0) {
+                // Resolve the promise and return it
+                resolve();
+                return;
+            }
+            var _loop_5 = function (i) {
+                var cfgView = cfgViews[i];
+                // See if this view exists
+                var view = isInCollection("Title", cfgView.ViewName, views.results);
+                if (view) {
+                    // Log
+                    console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' already exists.");
+                }
+                else {
+                    // Add the view
+                    views.add({
+                        Title: cfgView.ViewName,
+                        ViewQuery: cfgView.ViewQuery
+                    }).execute(function (view) {
+                        // Ensure it exists
+                        if (view.existsFl) {
+                            // Log
+                            console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' was created successfully.");
+                            // Trigger the event
+                            cfgView.onCreated ? cfgView.onCreated(view) : null;
+                        }
+                        else {
+                            // Log
+                            console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' failed to be created.");
+                            console.log("[gd-sprest][View] Error: " + view.response);
+                        }
+                    }, true);
+                }
+            };
+            // Parse the views
+            for (var i = 0; i < cfgViews.length; i++) {
+                _loop_5(i);
+            }
+            // Wait for the requests to complete
+            views.done(function () {
+                // Update the views
+                updateViews(views, cfgViews).then(function () {
+                    // Resolve the promise
+                    resolve();
+                });
+            });
+        });
+    };
+    // Method to create the web parts
+    var createWebParts = function () {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var cfgWebParts = cfg.WebPartCfg;
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
             // Get the root web
@@ -1372,22 +1342,33 @@ var _SPConfig = /** @class */ (function () {
                 Expand: ["Files"]
             })
                 .execute(function (folder) {
+                var ctr = 0;
                 var _loop_6 = function (i) {
                     var cfgWebPart = cfgWebParts[i];
                     // See if the target name exists
-                    if (_this._cfgType && _this._targetName) {
+                    if (_cfgType && _targetName) {
                         // Ensure it's for this list
-                        if (cfgWebPart.FileName.toLowerCase() != _this._targetName) {
+                        if (cfgWebPart.FileName.toLowerCase() != _targetName) {
                             return "continue";
                         }
                     }
+                    // The post execute method
+                    var postExecute = function () {
+                        // Increment the counter
+                        if (++ctr >= cfgWebParts.length) {
+                            // Resolve the promise
+                            resolve();
+                        }
+                    };
                     // See if this webpart exists
-                    var file = _this.isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
+                    var file = isInCollection("Name", cfgWebPart.FileName, folder.Files.results);
                     if (file.existsFl) {
                         // Log
                         console.log("[gd-sprest][WebPart] The webpart '" + cfgWebPart.FileName + "' already exists.");
                         // Trigger the event
                         cfgWebPart.onUpdated ? cfgWebPart.onUpdated(file) : null;
+                        // Execute the post event
+                        postExecute();
                     }
                     else {
                         // Trim the xml
@@ -1413,7 +1394,7 @@ var _SPConfig = /** @class */ (function () {
                                     // Update the item
                                     items.results[0].update({
                                         Group: cfgWebPart.Group
-                                    }).execute();
+                                    }).execute(postExecute);
                                 });
                             }
                             // Log
@@ -1428,348 +1409,296 @@ var _SPConfig = /** @class */ (function () {
                     _loop_6(i);
                 }
             });
-        };
-        // Method to install the site components
-        this.installSite = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure site actions exist
-                if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
+        });
+    };
+    // Method to see if an object exists in a collection
+    var isInCollection = function (key, value, collection) {
+        var valueLower = value.toLowerCase();
+        // Parse the collection
+        for (var i = 0; i < collection.length; i++) {
+            var keyValue = collection[i][key];
+            keyValue = keyValue ? keyValue.toLowerCase() : "";
+            // See if the item exists
+            if (valueLower == keyValue) {
+                // Return true
+                return collection[i];
+            }
+        }
+        // Not in the collection
+        return false;
+    };
+    // Method to remove the content type
+    var removeContentTypes = function (contentTypes, cfgContentTypes) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Ensure the content types exist
+            if (cfgContentTypes == null || cfgContentTypes.length == 0) {
+                // Resolve the promise and return it
+                resolve();
+                return;
+            }
+            var _loop_7 = function (i) {
+                var cfgContentType = cfgContentTypes[i];
+                // Get the field
+                var ct = isInCollection("Name", cfgContentType.Name, contentTypes.results);
+                if (ct) {
+                    // Remove the field
+                    ct.delete().execute(function () {
+                        // Log
+                        console.log("[gd-sprest][Field] The content type '" + ct.Name + "' was removed.");
+                    }, true);
+                }
+            };
+            // Parse the configuration
+            for (var i = 0; i < cfgContentTypes.length; i++) {
+                _loop_7(i);
+            }
+            // Wait for the requests to complete
+            contentTypes.done(function () {
+                // Resolve the promise
+                resolve();
+            });
+        });
+    };
+    // Method to remove the fields
+    var removeFields = function (fields, cfgFields) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Ensure the fields exist
+            if (cfgFields == null || cfgFields.length == 0) {
+                // Resolve the promise and return it
+                resolve();
+                return;
+            }
+            var _loop_8 = function (i) {
+                var cfgField = cfgFields[i];
+                // Get the field
+                var field = isInCollection("InternalName", cfgField.name, fields.results);
+                if (field) {
+                    // Remove the field
+                    field.delete().execute(function () {
+                        // Log
+                        console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was removed.");
+                    }, true);
+                }
+            };
+            // Parse the configuration
+            for (var i = 0; i < cfgFields.length; i++) {
+                _loop_8(i);
+            }
+            // Wait for the requests to complete
+            fields.done(function () {
+                // Resolve the promise
+                resolve();
+            });
+        });
+    };
+    // Method to remove the lists
+    var removeLists = function (lists, cfgLists) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // See if the configuration type exists
+            if (_cfgType) {
+                // Ensure it's for this type
+                if (_cfgType != _1.SPCfgType.Lists) {
                     // Resolve the promise
                     resolve();
                     return;
-                }
-                // Log
-                console.log("[gd-sprest] Loading the site information...");
-                // Get the site
-                (new lib_1.Site(_this._webUrl))
-                    .query({
-                    Expand: ["UserCustomActions"]
-                })
-                    .execute(function (site) {
-                    // Install the user custom actions
-                    _this.createUserCustomActions(site.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : []).then(function () {
-                        // Resolve the promise
-                        resolve(site);
-                    });
-                });
-            });
-        };
-        // Method to install the web components
-        this.installWeb = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Log
-                console.log("[gd-sprest] Loading the web information...");
-                // Get the web
-                (new lib_1.Web(_this._webUrl))
-                    .query({
-                    Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
-                })
-                    .execute(function (web) {
-                    // Create the fields
-                    _this.createFields(web.Fields, _this._configuration.Fields).then(function () {
-                        // Create the content types
-                        _this.createContentTypes(web.ContentTypes, _this._configuration.ContentTypes).then(function () {
-                            // Create the lists
-                            _this.createLists(web.Lists, _this._configuration.ListCfg).then(function () {
-                                // Create the web custom actions
-                                _this.createUserCustomActions(web.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null).then(function () {
-                                    // Resolve the promise
-                                    resolve();
-                                });
-                            });
-                        });
-                    });
-                });
-            });
-        };
-        // Method to see if an object exists in a collection
-        this.isInCollection = function (key, value, collection) {
-            var valueLower = value.toLowerCase();
-            // Parse the collection
-            for (var i = 0; i < collection.length; i++) {
-                var keyValue = collection[i][key];
-                keyValue = keyValue ? keyValue.toLowerCase() : "";
-                // See if the item exists
-                if (valueLower == keyValue) {
-                    // Return true
-                    return collection[i];
                 }
             }
-            // Not in the collection
-            return false;
-        };
-        // Method to remove the content type
-        this.removeContentTypes = function (contentTypes, cfgContentTypes) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the content types exist
-                if (cfgContentTypes == null || cfgContentTypes.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
-                    return;
-                }
-                var _loop_7 = function (i) {
-                    var cfgContentType = cfgContentTypes[i];
-                    // Get the field
-                    var ct = _this.isInCollection("Name", cfgContentType.Name, contentTypes.results);
-                    if (ct) {
-                        // Remove the field
-                        ct.delete().execute(function () {
-                            // Log
-                            console.log("[gd-sprest][Field] The content type '" + ct.Name + "' was removed.");
-                        }, true);
+            // Ensure the lists exist
+            if (cfgLists == null || cfgLists.length == 0) {
+                // Resolve the promise and return it
+                resolve();
+                return;
+            }
+            var _loop_9 = function (i) {
+                var cfgList = cfgLists[i];
+                // See if the target name exists
+                if (_cfgType && _targetName) {
+                    // Ensure it's for this list
+                    if (cfgList.ListInformation.Title.toLowerCase() != _targetName) {
+                        return "continue";
                     }
-                };
-                // Parse the configuration
-                for (var i = 0; i < cfgContentTypes.length; i++) {
-                    _loop_7(i);
                 }
-                // Wait for the requests to complete
-                contentTypes.done(function () {
+                // Get the list
+                var list = isInCollection("Title", cfgList.ListInformation.Title, lists.results);
+                if (list) {
+                    // Remove the list
+                    list.delete().execute(function () {
+                        // Log
+                        console.log("[gd-sprest][List] The list '" + list.Title + "' was removed.");
+                    }, true);
+                }
+            };
+            // Parse the configuration
+            for (var i = 0; i < cfgLists.length; i++) {
+                _loop_9(i);
+            }
+            // Wait for the requests to complete
+            lists.done(function () {
+                // Resolve the promise
+                resolve();
+            });
+        });
+    };
+    // Method to remove the user custom actions
+    var removeUserCustomActions = function (customActions, cfgCustomActions) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // See if the configuration type exists
+            if (_cfgType) {
+                // Ensure it's for this type
+                if (_cfgType != _1.SPCfgType.SiteUserCustomActions || _cfgType != _1.SPCfgType.WebUserCustomActions) {
                     // Resolve the promise
                     resolve();
-                });
-            });
-        };
-        // Method to remove the fields
-        this.removeFields = function (fields, cfgFields) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Ensure the fields exist
-                if (cfgFields == null || cfgFields.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
                     return;
                 }
-                var _loop_8 = function (i) {
-                    var cfgField = cfgFields[i];
-                    // Get the field
-                    var field = _this.isInCollection("InternalName", cfgField.name, fields.results);
-                    if (field) {
-                        // Remove the field
-                        field.delete().execute(function () {
-                            // Log
-                            console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was removed.");
-                        }, true);
+            }
+            // Ensure the custom actions exist
+            if (cfgCustomActions == null || cfgCustomActions.length == 0) {
+                // Resolve the promise and return it
+                resolve();
+                return;
+            }
+            var _loop_10 = function (i) {
+                var cfgCustomAction = cfgCustomActions[i];
+                // See if the target name exists
+                if (_cfgType && _targetName) {
+                    // Ensure it's for this custom action
+                    if (cfgCustomAction.Name.toLowerCase() != _targetName ||
+                        cfgCustomAction.Title.toLowerCase() != _targetName) {
+                        return "continue";
                     }
-                };
-                // Parse the configuration
-                for (var i = 0; i < cfgFields.length; i++) {
-                    _loop_8(i);
                 }
-                // Wait for the requests to complete
-                fields.done(function () {
+                // Get the custom action
+                var ca = isInCollection("Name", cfgCustomAction.Name, customActions.results);
+                if (ca) {
+                    // Remove the custom action
+                    ca.delete().execute(function () {
+                        // Log
+                        console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was removed.");
+                    }, true);
+                }
+            };
+            // Parse the configuration
+            for (var i = 0; i < cfgCustomActions.length; i++) {
+                _loop_10(i);
+            }
+            // Wait for the requests to complete
+            customActions.done(function () {
+                // Resolve the promise
+                resolve();
+            });
+        });
+    };
+    // Method to remove the web parts
+    var removeWebParts = function () {
+        var cfgWebParts = cfg.WebPartCfg;
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // See if the configuration type exists
+            if (_cfgType) {
+                // Ensure it's for this type
+                if (_cfgType != _1.SPCfgType.WebParts) {
                     // Resolve the promise
                     resolve();
-                });
-            });
-        };
-        // Method to remove the lists
-        this.removeLists = function (lists, cfgLists) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // See if the configuration type exists
-                if (_this._cfgType) {
-                    // Ensure it's for this type
-                    if (_this._cfgType != _1.SPCfgType.Lists) {
-                        // Resolve the promise
-                        resolve();
-                        return;
-                    }
-                }
-                // Ensure the lists exist
-                if (cfgLists == null || cfgLists.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
                     return;
                 }
-                var _loop_9 = function (i) {
-                    var cfgList = cfgLists[i];
+            }
+            // Ensure the configuration exists
+            if (cfgWebParts == null || cfgWebParts.length == 0) {
+                // Resolve the promise and return it
+                resolve();
+                return;
+            }
+            // Log
+            console.log("[gd-sprest][WebPart] Removing the web parts.");
+            // Get the root web
+            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+                .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
+                .RootFolder()
+                .Files()
+                .execute(function (files) {
+                var _loop_11 = function (i) {
+                    var cfgWebPart = cfgWebParts[i];
                     // See if the target name exists
-                    if (_this._cfgType && _this._targetName) {
-                        // Ensure it's for this list
-                        if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
+                    if (_cfgType && _targetName) {
+                        // Ensure it's for this webpart
+                        if (cfgWebPart.FileName.toLowerCase() != _targetName) {
                             return "continue";
                         }
                     }
-                    // Get the list
-                    var list = _this.isInCollection("Title", cfgList.ListInformation.Title, lists.results);
-                    if (list) {
-                        // Remove the list
-                        list.delete().execute(function () {
+                    // Get the file
+                    var file = isInCollection("Name", cfgWebPart.FileName, files.results);
+                    if (file) {
+                        // Remove the file
+                        file.delete().execute(function () {
                             // Log
-                            console.log("[gd-sprest][List] The list '" + list.Title + "' was removed.");
+                            console.log("[gd-sprest][WebPart] The webpart '" + file.Name + "' file was removed.");
                         }, true);
                     }
                 };
                 // Parse the configuration
-                for (var i = 0; i < cfgLists.length; i++) {
-                    _loop_9(i);
+                for (var i = 0; i < cfgWebParts.length; i++) {
+                    _loop_11(i);
                 }
-                // Wait for the requests to complete
-                lists.done(function () {
-                    // Resolve the promise
-                    resolve();
-                });
+                // Resolve the promise
+                resolve();
             });
-        };
-        // Method to remove the user custom actions
-        this.removeUserCustomActions = function (customActions, cfgCustomActions) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // See if the configuration type exists
-                if (_this._cfgType) {
-                    // Ensure it's for this type
-                    if (_this._cfgType != _1.SPCfgType.SiteUserCustomActions || _this._cfgType != _1.SPCfgType.WebUserCustomActions) {
-                        // Resolve the promise
-                        resolve();
-                        return;
-                    }
-                }
-                // Ensure the custom actions exist
-                if (cfgCustomActions == null || cfgCustomActions.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
-                    return;
-                }
-                var _loop_10 = function (i) {
-                    var cfgCustomAction = cfgCustomActions[i];
-                    // See if the target name exists
-                    if (_this._cfgType && _this._targetName) {
-                        // Ensure it's for this custom action
-                        if (cfgCustomAction.Name.toLowerCase() != _this._targetName ||
-                            cfgCustomAction.Title.toLowerCase() != _this._targetName) {
-                            return "continue";
-                        }
-                    }
-                    // Get the custom action
-                    var ca = _this.isInCollection("Name", cfgCustomAction.Name, customActions.results);
-                    if (ca) {
-                        // Remove the custom action
-                        ca.delete().execute(function () {
-                            // Log
-                            console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was removed.");
-                        }, true);
-                    }
-                };
-                // Parse the configuration
-                for (var i = 0; i < cfgCustomActions.length; i++) {
-                    _loop_10(i);
-                }
-                // Wait for the requests to complete
-                customActions.done(function () {
-                    // Resolve the promise
-                    resolve();
-                });
-            });
-        };
-        // Method to remove the web parts
-        this.removeWebParts = function () {
-            var cfgWebParts = _this._configuration.WebPartCfg;
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // See if the configuration type exists
-                if (_this._cfgType) {
-                    // Ensure it's for this type
-                    if (_this._cfgType != _1.SPCfgType.WebParts) {
-                        // Resolve the promise
-                        resolve();
+        });
+    };
+    // Method to update the lists
+    var updateLists = function (cfgLists) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var request = function (idx, resolve) {
+                // Get the list configuration
+                var cfgList = cfgLists[idx];
+                // See if the target name exists
+                if (_targetName) {
+                    // Ensure it's for this list
+                    if (cfgList.ListInformation.Title.toLowerCase() != _targetName) {
+                        // Update the next list
+                        request(idx + 1, resolve);
                         return;
                     }
                 }
                 // Ensure the configuration exists
-                if (cfgWebParts == null || cfgWebParts.length == 0) {
-                    // Resolve the promise and return it
-                    resolve();
-                    return;
-                }
-                // Log
-                console.log("[gd-sprest][WebPart] Removing the web parts.");
-                // Get the root web
-                (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
-                    .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
-                    .RootFolder()
-                    .Files()
-                    .execute(function (files) {
-                    var _loop_11 = function (i) {
-                        var cfgWebPart = cfgWebParts[i];
-                        // See if the target name exists
-                        if (_this._cfgType && _this._targetName) {
-                            // Ensure it's for this webpart
-                            if (cfgWebPart.FileName.toLowerCase() != _this._targetName) {
-                                return "continue";
-                            }
-                        }
-                        // Get the file
-                        var file = _this.isInCollection("Name", cfgWebPart.FileName, files.results);
-                        if (file) {
-                            // Remove the file
-                            file.delete().execute(function () {
-                                // Log
-                                console.log("[gd-sprest][WebPart] The webpart '" + file.Name + "' file was removed.");
-                            }, true);
-                        }
-                    };
-                    // Parse the configuration
-                    for (var i = 0; i < cfgWebParts.length; i++) {
-                        _loop_11(i);
-                    }
-                    // Resolve the promise
-                    resolve();
-                });
-            });
-        };
-        // Method to update the lists
-        this.updateLists = function (cfgLists) {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                var request = function (idx, resolve) {
-                    // Get the list configuration
-                    var cfgList = cfgLists[idx];
-                    // See if the target name exists
-                    if (_this._targetName) {
-                        // Ensure it's for this list
-                        if (cfgList.ListInformation.Title.toLowerCase() != _this._targetName) {
-                            // Update the next list
-                            request(idx + 1, resolve);
-                            return;
-                        }
-                    }
-                    // Ensure the configuration exists
-                    if (cfgList) {
-                        // Get the web
-                        (new lib_1.Web(_this._webUrl))
-                            .Lists(cfgList.ListInformation.Title)
-                            .query({
-                            Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
-                        })
-                            .execute(function (list) {
-                            // See if the title field is being updated
-                            if (cfgList.TitleFieldDisplayName) {
-                                // Parse the fields
-                                for (var i = 0; i < list.Fields.results.length; i++) {
-                                    var field = list.Fields.results[i];
-                                    // See if this is the title field
-                                    if (field.InternalName == "Title") {
-                                        // See if an update is required
-                                        if (field.Title != cfgList.TitleFieldDisplayName) {
-                                            // Update the field name
-                                            field.update({ Title: cfgList.TitleFieldDisplayName }).execute(function () {
-                                                // Log
-                                                console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
-                                            });
-                                        }
+                if (cfgList) {
+                    // Get the web
+                    (new lib_1.Web(webUrl))
+                        .Lists(cfgList.ListInformation.Title)
+                        .query({
+                        Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
+                    })
+                        .execute(function (list) {
+                        // See if the title field is being updated
+                        if (cfgList.TitleFieldDisplayName) {
+                            // Parse the fields
+                            for (var i = 0; i < list.Fields.results.length; i++) {
+                                var field = list.Fields.results[i];
+                                // See if this is the title field
+                                if (field.InternalName == "Title") {
+                                    // See if an update is required
+                                    if (field.Title != cfgList.TitleFieldDisplayName) {
+                                        // Update the field name
+                                        field.update({ Title: cfgList.TitleFieldDisplayName }).execute(function () {
+                                            // Log
+                                            console.log("[gd-sprest][List] The 'Title' field's display name was updated to '" + cfgList.TitleFieldDisplayName + "'.");
+                                        });
                                     }
                                 }
                             }
-                            // Update the list fields
-                            _this.createFields(list.Fields, cfgList.CustomFields).then(function () {
-                                // Update the content types
-                                _this.createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(function () {
+                        }
+                        // Create the fields
+                        createFields(list.Fields, cfgList.CustomFields).then(function () {
+                            // Create the content types
+                            createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(function () {
+                                // Update the views
+                                createViews(list.Views, cfgList.ViewInformation).then(function () {
                                     // Update the views
-                                    _this.createViews(list.Views, cfgList.ViewInformation).then(function () {
+                                    createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions).then(function () {
                                         // Trigger the event
                                         cfgList.onUpdated ? cfgList.onUpdated(list) : null;
                                         // Update the next list
@@ -1777,184 +1706,276 @@ var _SPConfig = /** @class */ (function () {
                                     });
                                 });
                             });
-                            // Update the user custom actions
-                            _this.createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
                         });
+                    });
+                }
+                else {
+                    // Resolve the promise
+                    resolve();
+                }
+            };
+            // Execute the request
+            request(0, resolve);
+        });
+    };
+    // Method to update the views
+    var updateViews = function (views, cfgViews) {
+        var counter = 0;
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            var _loop_12 = function (i) {
+                var cfgView = cfgViews[i];
+                // Get the view
+                var view = views.getByTitle(cfgView.ViewName);
+                // See if the view fields are defined
+                if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
+                    // Log
+                    console.log("[gd-sprest][View] Updating the view fields for the '" + cfgView.ViewName + "' view.");
+                    // Clear the view fields
+                    view.ViewFields().removeAllViewFields().execute(true);
+                    // Parse the view fields
+                    for (var i_2 = 0; i_2 < cfgView.ViewFields.length; i_2++) {
+                        // Add the view field
+                        view.ViewFields().addViewField(cfgView.ViewFields[i_2]).execute(true);
                     }
-                    else {
+                }
+                // See if we are updating the view properties
+                if (cfgView.JSLink || cfgView.ViewQuery) {
+                    var props = {};
+                    // Log
+                    console.log("[gd-sprest][View] Updating the view properties for the '" + cfgView.ViewName + "' view.");
+                    // Set the properties
+                    cfgView.JSLink ? props["JSLink"] = cfgView.JSLink : null;
+                    cfgView.ViewQuery ? props["ViewQuery"] = cfgView.ViewQuery : null;
+                    // Update the view
+                    view.update(props).execute(true);
+                }
+                // Wait for the requests to complete
+                view.done(function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Log
+                    console.log("[gd-sprest][View] The updates for the '" + cfgView.ViewName + "' view has completed.");
+                    // Trigger the event
+                    cfgView.onUpdated ? cfgView.onUpdated(view) : null;
+                    // See if we are done
+                    if (++counter >= cfgViews.length) {
                         // Resolve the promise
                         resolve();
                     }
-                };
-                // Execute the request
-                request(0, resolve);
-            });
-        };
-        // Method to update the views
-        this.updateViews = function (views, cfgViews) {
-            var counter = 0;
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                var _loop_12 = function (i) {
-                    var cfgView = cfgViews[i];
-                    // Get the view
-                    var view = views.getByTitle(cfgView.ViewName);
-                    // See if the view fields are defined
-                    if (cfgView.ViewFields && cfgView.ViewFields.length > 0) {
-                        // Log
-                        console.log("[gd-sprest][View] Updating the view fields for the '" + cfgView.ViewName + "' view.");
-                        // Clear the view fields
-                        view.ViewFields().removeAllViewFields().execute(true);
-                        // Parse the view fields
-                        for (var i_2 = 0; i_2 < cfgView.ViewFields.length; i_2++) {
-                            // Add the view field
-                            view.ViewFields().addViewField(cfgView.ViewFields[i_2]).execute(true);
-                        }
-                    }
-                    // See if we are updating the view properties
-                    if (cfgView.JSLink || cfgView.ViewQuery) {
-                        var props = {};
-                        // Log
-                        console.log("[gd-sprest][View] Updating the view properties for the '" + cfgView.ViewName + "' view.");
-                        // Set the properties
-                        cfgView.JSLink ? props["JSLink"] = cfgView.JSLink : null;
-                        cfgView.ViewQuery ? props["ViewQuery"] = cfgView.ViewQuery : null;
-                        // Update the view
-                        view.update(props).execute(true);
-                    }
-                    // Wait for the requests to complete
-                    view.done(function () {
-                        var args = [];
-                        for (var _i = 0; _i < arguments.length; _i++) {
-                            args[_i] = arguments[_i];
-                        }
-                        // Trigger the event
-                        cfgView.onUpdated ? cfgView.onUpdated(view) : null;
-                        // See if we are done
-                        if (++counter >= cfgViews.length) {
-                            // Resolve the promise
-                            resolve();
-                        }
-                    });
-                };
-                // Parse the views
-                for (var i = 0; i < cfgViews.length; i++) {
-                    _loop_12(i);
-                }
-            });
-        };
-        // Method to uninstall the site components
-        this.uninstallSite = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Log
-                console.log("[gd-sprest][uninstall] Loading the site information...");
-                // Ensure site actions exist
-                if (_this._configuration.CustomActionCfg == null || _this._configuration.CustomActionCfg.Site == null) {
+                });
+            };
+            // Parse the views
+            for (var i = 0; i < cfgViews.length; i++) {
+                _loop_12(i);
+            }
+        });
+    };
+    // Method to uninstall the site components
+    var uninstallSite = function () {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Log
+            console.log("[gd-sprest][uninstall] Loading the site information...");
+            // Ensure site actions exist
+            if (cfg.CustomActionCfg == null || cfg.CustomActionCfg.Site == null) {
+                // Resolve the promise
+                resolve();
+                return;
+            }
+            // Get the site
+            (new lib_1.Site(webUrl))
+                .query({
+                Expand: ["UserCustomActions"]
+            })
+                .execute(function (site) {
+                // Remove the user custom actions
+                removeUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(function () {
                     // Resolve the promise
-                    resolve();
-                    return;
-                }
-                // Get the site
-                (new lib_1.Site(_this._webUrl))
-                    .query({
-                    Expand: ["UserCustomActions"]
-                })
-                    .execute(function (site) {
-                    // Remove the user custom actions
-                    _this.removeUserCustomActions(site.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Site : []).then(function () {
-                        // Resolve the promise
-                        resolve(site);
-                    });
+                    resolve(site);
                 });
             });
-        };
-        // Method to uninstall the web components
-        this.uninstallWeb = function () {
-            // Return a promise
-            return new Promise(function (resolve, reject) {
-                // Log
-                console.log("[gd-sprest][uninstall] Loading the web information...");
-                // Get the web
-                (new lib_1.Web(_this._webUrl))
-                    .query({
-                    Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
-                })
-                    .execute(function (web) {
-                    // Remove the fields
-                    _this.removeFields(web.Fields, _this._configuration.Fields).then(function () {
-                        // Remove the content types
-                        _this.removeContentTypes(web.ContentTypes, _this._configuration.ContentTypes).then(function () {
-                            // Remove the lists
-                            _this.removeLists(web.Lists, _this._configuration.ListCfg).then(function () {
-                                // Remove the web custom actions
-                                _this.removeUserCustomActions(web.UserCustomActions, _this._configuration.CustomActionCfg ? _this._configuration.CustomActionCfg.Web : null).then(function () {
-                                    // Resolve the promise
-                                    resolve();
-                                });
+        });
+    };
+    // Method to uninstall the web components
+    var uninstallWeb = function () {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Log
+            console.log("[gd-sprest][uninstall] Loading the web information...");
+            // Get the web
+            (new lib_1.Web(webUrl))
+                .query({
+                Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
+            })
+                .execute(function (web) {
+                // Remove the fields
+                removeFields(web.Fields, cfg.Fields).then(function () {
+                    // Remove the content types
+                    removeContentTypes(web.ContentTypes, cfg.ContentTypes).then(function () {
+                        // Remove the lists
+                        removeLists(web.Lists, cfg.ListCfg).then(function () {
+                            // Remove the web custom actions
+                            removeUserCustomActions(web.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Web : null).then(function () {
+                                // Resolve the promise
+                                resolve();
                             });
                         });
                     });
                 });
             });
-        };
-        // Save the configuration
-        this._configuration = cfg;
-        // Save the target web url
-        this._webUrl = webUrl;
-    }
+        });
+    };
     /**
-     * Public Methods
+     * Public Interface
      */
-    // Method to install the configuration
-    _SPConfig.prototype.install = function (callback, cfgType, targetName) {
-        var _this = this;
-        // Update the global variables
-        this._cfgType = cfgType;
-        this._targetName = targetName ? targetName.toLowerCase() : null;
-        // Install the web components
-        this.installWeb().then(function () {
-            // Install the site components
-            _this.installSite().then(function () {
-                // Create the webparts
-                _this.createWebParts();
+    return {
+        // Method to install the configuration
+        install: function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                var ctr = 0;
+                var ctrExecutions = 0;
                 // Log
-                console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
-                // See if the callback exists
-                if (callback && typeof (callback) === "function") {
-                    // Execute the callback
-                    callback();
+                console.log("[gd-sprest] Loading the web information...");
+                // Get the web
+                var web = new lib_1.Web(webUrl);
+                // The post execution method
+                var postExecute = function () {
+                    // See if we have completed the executions
+                    if (++ctr >= ctrExecutions) {
+                        // Resolve the promise
+                        resolve();
+                    }
+                };
+                // See if we are creating fields
+                if (cfg.Fields && cfg.Fields.length > 0) {
+                    // Increment the counter
+                    ctrExecutions++;
+                    // Log
+                    console.log("[gd-sprest][Fields] Starting the requests.");
+                    // Get the fields
+                    web.Fields().execute(function (fields) {
+                        // Create the fields
+                        createFields(fields, cfg.Fields).then(function () {
+                            // Log
+                            console.log("[gd-sprest][Fields] Completed the requests.");
+                            // Execute the post execute method
+                            postExecute();
+                        });
+                    });
+                }
+                // See if we are creating the content types
+                if (cfg.ContentTypes && cfg.ContentTypes.length > 0) {
+                    // Increment the counter
+                    ctrExecutions++;
+                    // Log
+                    console.log("[gd-sprest][Content Types] Starting the requests.");
+                    // Get the content types
+                    web.ContentTypes().execute(function (contentTypes) {
+                        // Create the content types
+                        createContentTypes(contentTypes, cfg.ContentTypes).then(function () {
+                            // Log
+                            console.log("[gd-sprest][Content Types] Completed the requests.");
+                            // Execute the post execute method
+                            postExecute();
+                        });
+                    }, true);
+                }
+                // See if we are creating the lists
+                if (cfg.ListCfg && cfg.ListCfg.length) {
+                    // Increment the counter
+                    ctrExecutions++;
+                    // Log
+                    console.log("[gd-sprest][Lists] Starting the requests.");
+                    // Get the lists
+                    web.Lists().execute(function (lists) {
+                        // Create the lists
+                        createLists(lists, cfg.ListCfg).then(function () {
+                            // Log
+                            console.log("[gd-sprest][Lists] Completed the requests.");
+                            // Execute the post execute method
+                            postExecute();
+                        });
+                    }, true);
+                }
+                // See if we are creating the webparts
+                if (cfg.WebPartCfg && cfg.WebPartCfg.length > 0) {
+                    // Increment the counter
+                    ctrExecutions++;
+                    // Log
+                    console.log("[gd-sprest][WebParts] Starting the requests.");
+                    // Create the webparts
+                    createWebParts().then(function () {
+                        // Log
+                        console.log("[gd-sprest][WebParts] Completed the requests.");
+                        // Execute the post execute method
+                        postExecute();
+                    });
+                }
+                // See if we are creating custom actions
+                if (cfg.CustomActionCfg) {
+                    // See if we are targeting the site collection
+                    if (cfg.CustomActionCfg.Site) {
+                        // Increment the counter
+                        ctrExecutions++;
+                        // Log
+                        console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
+                        // Get the site
+                        (new lib_1.Site(webUrl))
+                            .UserCustomActions().execute(function (customActions) {
+                            // Create the user custom actions
+                            createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(function () {
+                                // Log
+                                console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
+                                // Execute the post execute method
+                                postExecute();
+                            });
+                        });
+                    }
+                    // See if we are targeting the web
+                    if (cfg.CustomActionCfg.Web) {
+                        // Increment the counter
+                        ctrExecutions++;
+                        // Log
+                        console.log("[gd-sprest][Web Custom Actions] Starting the requests.");
+                        // Get the user custom actions
+                        web.UserCustomActions().execute(function (customActions) {
+                            // Create the user custom actions
+                            createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(function () {
+                                // Log
+                                console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
+                                // Execute the post execute method
+                                postExecute();
+                            });
+                        });
+                    }
                 }
             });
-        });
-    };
-    // Method to uninstall the configuration
-    _SPConfig.prototype.uninstall = function (callback, cfgType, targetName) {
-        var _this = this;
-        // Update the global variables
-        this._cfgType = cfgType;
-        this._targetName = targetName;
-        // Uninstall the web components
-        this.uninstallWeb().then(function () {
-            // Uninstall the site components
-            _this.uninstallSite().then(function () {
-                // Remove the webparts
-                _this.removeWebParts().then(function () {
-                    // Log
-                    console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
-                    // See if the callback exists
-                    if (callback && typeof (callback) === "function") {
-                        // Execute the callback
-                        callback();
-                    }
+        },
+        // Method to uninstall the configuration
+        uninstall: function () {
+            // Return a promise
+            return new Promise(function (resolve, reject) {
+                // Uninstall the web components
+                uninstallWeb().then(function () {
+                    // Uninstall the site components
+                    uninstallSite().then(function () {
+                        // Remove the webparts
+                        removeWebParts().then(function () {
+                            // Log
+                            console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
+                            // Resolve the promise
+                            resolve();
+                        });
+                    });
                 });
             });
-        });
+        }
     };
-    return _SPConfig;
-}());
-;
-exports.SPConfig = _SPConfig;
+};
 //# sourceMappingURL=spCfg.js.map
 
 /***/ }),
@@ -1962,7 +1983,7 @@ exports.SPConfig = _SPConfig;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(42);
-module.exports = __webpack_require__(12);
+module.exports = __webpack_require__(11);
 
 
 /***/ }),
@@ -1973,7 +1994,7 @@ __webpack_require__(43);
 __webpack_require__(46);
 __webpack_require__(57);
 __webpack_require__(61);
-module.exports = __webpack_require__(10).Promise;
+module.exports = __webpack_require__(9).Promise;
 
 
 /***/ }),
@@ -2138,7 +2159,7 @@ module.exports = Object.create || function create(O, Properties) {
 /* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var dP = __webpack_require__(15);
+var dP = __webpack_require__(14);
 var anObject = __webpack_require__(4);
 var getKeys = __webpack_require__(33);
 
@@ -2157,7 +2178,7 @@ module.exports = __webpack_require__(8) ? Object.defineProperties : function def
 /* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var has = __webpack_require__(9);
+var has = __webpack_require__(15);
 var toIObject = __webpack_require__(24);
 var arrayIndexOf = __webpack_require__(53)(false);
 var IE_PROTO = __webpack_require__(25)('IE_PROTO');
@@ -2181,7 +2202,7 @@ module.exports = function (object, names) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(14);
+var cof = __webpack_require__(13);
 // eslint-disable-next-line no-prototype-builtins
 module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
   return cof(it) == 'String' ? it.split('') : Object(it);
@@ -2235,7 +2256,7 @@ module.exports = function (index, length) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = __webpack_require__(9);
+var has = __webpack_require__(15);
 var toObject = __webpack_require__(56);
 var IE_PROTO = __webpack_require__(25)('IE_PROTO');
 var ObjectProto = Object.prototype;
@@ -2269,7 +2290,7 @@ var getKeys = __webpack_require__(33);
 var redefine = __webpack_require__(6);
 var global = __webpack_require__(3);
 var hide = __webpack_require__(5);
-var Iterators = __webpack_require__(11);
+var Iterators = __webpack_require__(10);
 var wks = __webpack_require__(2);
 var ITERATOR = wks('iterator');
 var TO_STRING_TAG = wks('toStringTag');
@@ -2332,7 +2353,7 @@ for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++
 
 var addToUnscopables = __webpack_require__(59);
 var step = __webpack_require__(60);
-var Iterators = __webpack_require__(11);
+var Iterators = __webpack_require__(10);
 var toIObject = __webpack_require__(24);
 
 // 22.1.3.4 Array.prototype.entries()
@@ -2447,7 +2468,7 @@ var notify = function (promise, isReject) {
       var resolve = reaction.resolve;
       var reject = reaction.reject;
       var domain = reaction.domain;
-      var result, then;
+      var result, then, exited;
       try {
         if (handler) {
           if (!ok) {
@@ -2457,8 +2478,11 @@ var notify = function (promise, isReject) {
           if (handler === true) result = value;
           else {
             if (domain) domain.enter();
-            result = handler(value);
-            if (domain) domain.exit();
+            result = handler(value); // may throw
+            if (domain) {
+              domain.exit();
+              exited = true;
+            }
           }
           if (result === reaction.promise) {
             reject(TypeError('Promise-chain cycle'));
@@ -2467,6 +2491,7 @@ var notify = function (promise, isReject) {
           } else resolve(result);
         } else reject(value);
       } catch (e) {
+        if (domain && !exited) domain.exit();
         reject(e);
       }
     };
@@ -2603,7 +2628,7 @@ if (!USE_NATIVE) {
 $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
 __webpack_require__(26)($Promise, PROMISE);
 __webpack_require__(73)(PROMISE);
-Wrapper = __webpack_require__(10)[PROMISE];
+Wrapper = __webpack_require__(9)[PROMISE];
 
 // statics
 $export($export.S + $export.F * !USE_NATIVE, PROMISE, {
@@ -2732,7 +2757,7 @@ module.exports = function (iterator, fn, value, entries) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
-var Iterators = __webpack_require__(11);
+var Iterators = __webpack_require__(10);
 var ITERATOR = __webpack_require__(2)('iterator');
 var ArrayProto = Array.prototype;
 
@@ -2747,8 +2772,8 @@ module.exports = function (it) {
 
 var classof = __webpack_require__(19);
 var ITERATOR = __webpack_require__(2)('iterator');
-var Iterators = __webpack_require__(11);
-module.exports = __webpack_require__(10).getIteratorMethod = function (it) {
+var Iterators = __webpack_require__(10);
+module.exports = __webpack_require__(9).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
     || it['@@iterator']
     || Iterators[classof(it)];
@@ -2801,7 +2826,7 @@ var macrotask = __webpack_require__(37).set;
 var Observer = global.MutationObserver || global.WebKitMutationObserver;
 var process = global.process;
 var Promise = global.Promise;
-var isNode = __webpack_require__(14)(process) == 'process';
+var isNode = __webpack_require__(13)(process) == 'process';
 
 module.exports = function () {
   var head, last, notify;
@@ -2915,7 +2940,7 @@ module.exports = function (target, src, safe) {
 "use strict";
 
 var global = __webpack_require__(3);
-var dP = __webpack_require__(15);
+var dP = __webpack_require__(14);
 var DESCRIPTORS = __webpack_require__(8);
 var SPECIES = __webpack_require__(2)('species');
 
@@ -3902,7 +3927,7 @@ exports.RequestType = {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
-var mapper_1 = __webpack_require__(13);
+var mapper_1 = __webpack_require__(12);
 var _1 = __webpack_require__(0);
 /**
  * Request Helper
@@ -7029,8 +7054,10 @@ var BaseRequest = /** @class */ (function (_super) {
                 if (xhr && xhr.status < 400 && typeof (xhr.response) === "string" && xhr.response.length > 0) {
                     // Convert the response and ensure the data property exists
                     var data = JSON.parse(xhr.response);
+                    // Set the next item flag
+                    _this.nextFl = data.d && data.d.__next;
                     // See if there are more items to get
-                    if (data.d && data.d.__next) {
+                    if (_this.nextFl) {
                         // See if we are getting all items in the base request
                         if (_this.getAllItemsFl) {
                             // Create the target information to query the next set of results
@@ -7185,7 +7212,7 @@ var BaseExecution = /** @class */ (function (_super) {
                             // Wait for the promise to complete
                             waitFunc(function () {
                                 // Reset the base
-                                _this.base = _this.parent.base;
+                                _this.base = _this.parent.base || _this.base;
                                 // Set the wait flag
                                 _this.base.waitFlags[_this.responseIndex] = true;
                             });
@@ -7193,7 +7220,7 @@ var BaseExecution = /** @class */ (function (_super) {
                             return;
                         }
                         // Reset the base
-                        _this.base = _this.parent.base;
+                        _this.base = _this.parent.base || _this.base;
                     }
                     // Set the wait flag
                     _this.base.waitFlags[_this.responseIndex] = true;
@@ -8799,7 +8826,7 @@ exports.Dependencies = _Dependencies;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
-var __1 = __webpack_require__(12);
+var __1 = __webpack_require__(11);
 var spCfg_1 = __webpack_require__(40);
 /**
  * Field Schema XML
@@ -9193,7 +9220,7 @@ exports.SPCfgType = {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
-var mapper_1 = __webpack_require__(13);
+var mapper_1 = __webpack_require__(12);
 /**
  * JSLink Helper Methods
  */
@@ -9581,7 +9608,7 @@ exports.JSLink = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var __1 = __webpack_require__(12);
+var __1 = __webpack_require__(11);
 /**
  * List Form
  */
@@ -9841,15 +9868,14 @@ exports.ListForm = {
                     return;
                 }
                 // Get the web
-                var list = (new __1.Web(_props.webUrl))
+                (new __1.Web(_props.webUrl))
                     .Lists(_props.listName)
                     .execute(function (list) {
                     // Save the list and web url
                     _info.list = list;
                     _info.webUrl = _props.webUrl;
-                });
-                // Load the fields
-                list.Fields()
+                })
+                    .Fields()
                     .execute(function (fields) {
                     // See if we are caching the data
                     if (_props.cacheKey) {
@@ -10160,7 +10186,7 @@ exports.ListForm = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var __1 = __webpack_require__(12);
+var __1 = __webpack_require__(11);
 /**
  * List Form Field
  */
@@ -11434,7 +11460,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 Object.defineProperty(exports, "__esModule", { value: true });
 var helper_1 = __webpack_require__(18);
 exports.Helper = helper_1.Types;
-var mapper_1 = __webpack_require__(13);
+var mapper_1 = __webpack_require__(12);
 exports.SP = mapper_1.Types;
 var utils_1 = __webpack_require__(0);
 exports.Util = utils_1.Types;
@@ -11449,12 +11475,12 @@ exports.Util = utils_1.Types;
 Object.defineProperty(exports, "__esModule", { value: true });
 var Helper = __webpack_require__(18);
 var Lib = __webpack_require__(1);
-var Mapper = __webpack_require__(13);
+var Mapper = __webpack_require__(12);
 /**
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.66,
+    __ver: 3.75,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

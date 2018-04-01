@@ -99,7 +99,7 @@ var BaseExecution = /** @class */ (function (_super) {
                             // Wait for the promise to complete
                             waitFunc(function () {
                                 // Reset the base
-                                _this.base = _this.parent.base;
+                                _this.base = _this.parent.base || _this.base;
                                 // Set the wait flag
                                 _this.base.waitFlags[_this.responseIndex] = true;
                             });
@@ -107,7 +107,7 @@ var BaseExecution = /** @class */ (function (_super) {
                             return;
                         }
                         // Reset the base
-                        _this.base = _this.parent.base;
+                        _this.base = _this.parent.base || _this.base;
                     }
                     // Set the wait flag
                     _this.base.waitFlags[_this.responseIndex] = true;
