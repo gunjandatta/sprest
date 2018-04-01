@@ -23,7 +23,7 @@ exports.SPConfig = function (cfg, webUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure fields exist
-            if (cfgContentTypes && cfgContentTypes.length > 0) {
+            if (cfgContentTypes == null || cfgContentTypes.length == 0) {
                 // Resolve the promise
                 resolve();
                 return;
@@ -188,7 +188,7 @@ exports.SPConfig = function (cfg, webUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure fields exist
-            if (cfgFields && cfgFields.length > 0) {
+            if (cfgFields == null || cfgFields.length == 0) {
                 // Resolve the promise
                 resolve();
                 return;

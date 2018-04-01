@@ -28,7 +28,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure fields exist
-            if (cfgContentTypes && cfgContentTypes.length > 0) {
+            if (cfgContentTypes == null || cfgContentTypes.length == 0) {
                 // Resolve the promise
                 resolve();
                 return;
@@ -209,7 +209,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure fields exist
-            if (cfgFields && cfgFields.length > 0) {
+            if (cfgFields == null || cfgFields.length == 0) {
                 // Resolve the promise
                 resolve();
                 return;

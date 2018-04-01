@@ -104,6 +104,9 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest implem
                             // Wait for the promise to complete
                             return;
                         }
+
+                        // Reset the base
+                        this.base = this.parent.base || this.base;
                     }
 
                     // Set the wait flag

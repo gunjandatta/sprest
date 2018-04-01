@@ -925,7 +925,7 @@ exports.SPConfig = function (cfg, webUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure fields exist
-            if (cfgContentTypes && cfgContentTypes.length > 0) {
+            if (cfgContentTypes == null || cfgContentTypes.length == 0) {
                 // Resolve the promise
                 resolve();
                 return;
@@ -1090,7 +1090,7 @@ exports.SPConfig = function (cfg, webUrl) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Ensure fields exist
-            if (cfgFields && cfgFields.length > 0) {
+            if (cfgFields == null || cfgFields.length == 0) {
                 // Resolve the promise
                 resolve();
                 return;
@@ -7175,6 +7175,8 @@ var BaseExecution = /** @class */ (function (_super) {
                             // Wait for the promise to complete
                             return;
                         }
+                        // Reset the base
+                        _this.base = _this.parent.base || _this.base;
                     }
                     // Set the wait flag
                     _this.base.waitFlags[_this.responseIndex] = true;
@@ -11434,7 +11436,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.72,
+    __ver: 3.74,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
