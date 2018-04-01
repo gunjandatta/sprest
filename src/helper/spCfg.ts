@@ -27,6 +27,13 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     let createContentTypes = (contentTypes: Types.SP.IContentTypeResults, cfgContentTypes: Array<ISPCfgContentTypeInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
+            // Ensure fields exist
+            if (cfgContentTypes && cfgContentTypes.length > 0) {
+                // Resolve the promise
+                resolve();
+                return;
+            }
+
             // Parse the configuration
             for (let i = 0; i < cfgContentTypes.length; i++) {
                 let cfgContentType = cfgContentTypes[i];
@@ -201,6 +208,13 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     let createFields = (fields: Types.SP.IFieldResults, cfgFields: Array<ISPCfgFieldInfo>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
+            // Ensure fields exist
+            if (cfgFields && cfgFields.length > 0) {
+                // Resolve the promise
+                resolve();
+                return;
+            }
+
             // Parse the fields
             for (let i = 0; i < cfgFields.length; i++) {
                 let cfgField = cfgFields[i];
@@ -858,53 +872,20 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
                             // Create the fields
                             createFields(list.Fields, cfgList.CustomFields).then(() => {
-                                let ctr = 0;
-                                let ctrExecutions = 0;
-
-                                // The post execution method
-                                let postExecution = () => {
-                                    // Increment the counter
-                                    if (++ctr >= ctrExecutions) {
-                                        // Trigger the event
-                                        cfgList.onUpdated ? cfgList.onUpdated(list) : null;
-
-                                        // Update the next list
-                                        request(idx + 1, resolve);
-                                    }
-                                }
-
-                                // See if we are creating the content types
-                                if (cfgList.ContentTypes && cfgList.ContentTypes.length > 0) {
-                                    // Increment the counter
-                                    ctrExecutions++;
-
-                                    // Create the content types
-                                    createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(postExecution);
-                                }
-
-                                // See if we are creating the fields
-                                if (cfgList.ViewInformation && cfgList.ViewInformation.length > 0) {
-                                    // Increment the counter
-                                    ctrExecutions++;
-
+                                // Create the content types
+                                createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(() => {
                                     // Update the views
-                                    createViews(list.Views, cfgList.ViewInformation).then(postExecution);
-                                }
+                                    createViews(list.Views, cfgList.ViewInformation).then(() => {
+                                        // Update the views
+                                        createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions).then(() => {
+                                            // Trigger the event
+                                            cfgList.onUpdated ? cfgList.onUpdated(list) : null;
 
-                                // See if we are creating the user custom actions
-                                if (cfgList.UserCustomActions && cfgList.UserCustomActions.length > 0) {
-                                    // Increment the counter
-                                    ctrExecutions++;
-
-                                    // Update the views
-                                    createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions).then(postExecution);
-                                }
-
-                                // See if any executions exist
-                                if (ctrExecutions == 0) {
-                                    // Call the post execution event
-                                    postExecution();
-                                }
+                                            // Update the next list
+                                            request(idx + 1, resolve);
+                                        });
+                                    });
+                                });
                             });
                         });
                 } else {

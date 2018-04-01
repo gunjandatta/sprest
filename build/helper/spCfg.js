@@ -22,6 +22,12 @@ exports.SPConfig = function (cfg, webUrl) {
     var createContentTypes = function (contentTypes, cfgContentTypes) {
         // Return a promise
         return new Promise(function (resolve, reject) {
+            // Ensure fields exist
+            if (cfgContentTypes && cfgContentTypes.length > 0) {
+                // Resolve the promise
+                resolve();
+                return;
+            }
             var _loop_1 = function (i) {
                 var cfgContentType = cfgContentTypes[i];
                 // See if this content type already exists
@@ -181,6 +187,12 @@ exports.SPConfig = function (cfg, webUrl) {
     var createFields = function (fields, cfgFields) {
         // Return a promise
         return new Promise(function (resolve, reject) {
+            // Ensure fields exist
+            if (cfgFields && cfgFields.length > 0) {
+                // Resolve the promise
+                resolve();
+                return;
+            }
             var _loop_3 = function (i) {
                 var cfgField = cfgFields[i];
                 // See if this field already exists
@@ -779,44 +791,19 @@ exports.SPConfig = function (cfg, webUrl) {
                         }
                         // Create the fields
                         createFields(list.Fields, cfgList.CustomFields).then(function () {
-                            var ctr = 0;
-                            var ctrExecutions = 0;
-                            // The post execution method
-                            var postExecution = function () {
-                                // Increment the counter
-                                if (++ctr >= ctrExecutions) {
-                                    // Trigger the event
-                                    cfgList.onUpdated ? cfgList.onUpdated(list) : null;
-                                    // Update the next list
-                                    request(idx + 1, resolve);
-                                }
-                            };
-                            // See if we are creating the content types
-                            if (cfgList.ContentTypes && cfgList.ContentTypes.length > 0) {
-                                // Increment the counter
-                                ctrExecutions++;
-                                // Create the content types
-                                createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(postExecution);
-                            }
-                            // See if we are creating the fields
-                            if (cfgList.ViewInformation && cfgList.ViewInformation.length > 0) {
-                                // Increment the counter
-                                ctrExecutions++;
+                            // Create the content types
+                            createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(function () {
                                 // Update the views
-                                createViews(list.Views, cfgList.ViewInformation).then(postExecution);
-                            }
-                            // See if we are creating the user custom actions
-                            if (cfgList.UserCustomActions && cfgList.UserCustomActions.length > 0) {
-                                // Increment the counter
-                                ctrExecutions++;
-                                // Update the views
-                                createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions).then(postExecution);
-                            }
-                            // See if any executions exist
-                            if (ctrExecutions == 0) {
-                                // Call the post execution event
-                                postExecution();
-                            }
+                                createViews(list.Views, cfgList.ViewInformation).then(function () {
+                                    // Update the views
+                                    createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions).then(function () {
+                                        // Trigger the event
+                                        cfgList.onUpdated ? cfgList.onUpdated(list) : null;
+                                        // Update the next list
+                                        request(idx + 1, resolve);
+                                    });
+                                });
+                            });
                         });
                     });
                 }
