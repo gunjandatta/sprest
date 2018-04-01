@@ -836,9 +836,6 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         })
                         // Execute the request
                         .execute(list => {
-                            let ctr = 0;
-                            let ctrExecutions = 0;
-
                             // See if the title field is being updated
                             if (cfgList.TitleFieldDisplayName) {
                                 // Parse the fields
@@ -859,53 +856,56 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 }
                             }
 
-                            // The post execution method
-                            let postExeuction = () => {
-                                // Increment the counter
-                                if (++ctr >= ctrExecutions) {
-                                    // Trigger the event
-                                    cfgList.onUpdated ? cfgList.onUpdated(list) : null;
+                            // Create the fields
+                            createFields(list.Fields, cfgList.CustomFields).then(() => {
+                                let ctr = 0;
+                                let ctrExecutions = 0;
 
-                                    // Update the next list
-                                    request(idx + 1, resolve);
+                                // The post execution method
+                                let postExecution = () => {
+                                    // Increment the counter
+                                    if (++ctr >= ctrExecutions) {
+                                        // Trigger the event
+                                        cfgList.onUpdated ? cfgList.onUpdated(list) : null;
+
+                                        // Update the next list
+                                        request(idx + 1, resolve);
+                                    }
                                 }
-                            }
 
-                            // See if we are creating fields
-                            if (cfgList.CustomFields && cfgList.CustomFields.length > 0) {
-                                // Increment the counter
-                                ctrExecutions++;
+                                // See if we are creating the content types
+                                if (cfgList.ContentTypes && cfgList.ContentTypes.length > 0) {
+                                    // Increment the counter
+                                    ctrExecutions++;
 
-                                // Create the fields
-                                createFields(list.Fields, cfgList.CustomFields).then(postExeuction);
-                            }
+                                    // Create the content types
+                                    createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(postExecution);
+                                }
 
-                            // See if we are creating the content types
-                            if (cfgList.ContentTypes && cfgList.ContentTypes.length > 0) {
-                                // Increment the counter
-                                ctrExecutions++;
+                                // See if we are creating the fields
+                                if (cfgList.ViewInformation && cfgList.ViewInformation.length > 0) {
+                                    // Increment the counter
+                                    ctrExecutions++;
 
-                                // Create the content types
-                                createContentTypes(list.ContentTypes, cfgList.ContentTypes).then(postExeuction);
-                            }
+                                    // Update the views
+                                    createViews(list.Views, cfgList.ViewInformation).then(postExecution);
+                                }
 
-                            // See if we are creating the fields
-                            if (cfgList.ViewInformation && cfgList.ViewInformation.length > 0) {
-                                // Increment the counter
-                                ctrExecutions++;
+                                // See if we are creating the user custom actions
+                                if (cfgList.UserCustomActions && cfgList.UserCustomActions.length > 0) {
+                                    // Increment the counter
+                                    ctrExecutions++;
 
-                                // Update the views
-                                createViews(list.Views, cfgList.ViewInformation).then(postExeuction);
-                            }
+                                    // Update the views
+                                    createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions).then(postExecution);
+                                }
 
-                            // See if we are creating the user custom actions
-                            if (cfgList.UserCustomActions && cfgList.UserCustomActions.length > 0) {
-                                // Increment the counter
-                                ctrExecutions++;
-
-                                // Update the views
-                                createUserCustomActions(list.UserCustomActions, cfgList.UserCustomActions);
-                            }
+                                // See if any executions exist
+                                if (ctrExecutions == 0) {
+                                    // Call the post execution event
+                                    postExecution();
+                                }
+                            });
                         });
                 } else {
                     // Resolve the promise
