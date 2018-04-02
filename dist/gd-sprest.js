@@ -7245,8 +7245,8 @@ var BaseExecution = /** @class */ (function (_super) {
                 }
             });
         }
-        // Return this object
-        return this;
+        // Return the base object
+        return this.base;
     };
     // Method to execute the request synchronously
     BaseExecution.prototype.executeAndWait = function () { return this.executeRequest(false); };
@@ -11480,7 +11480,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.75,
+    __ver: 3.76,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
