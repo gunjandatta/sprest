@@ -11492,7 +11492,7 @@ declare module 'gd-sprest/utils/baseExecution' {
         responses: Array<BaseExecution>;
         waitFlags: Array<boolean>;
         batch(arg?: any): this;
-        execute(...args: any[]): this;
+        execute(...args: any[]): BaseExecution<any, any>;
         executeAndWait(): string | this;
         waitForRequestsToComplete(callback: () => void, requestIdx?: number): void;
     }
@@ -11581,6 +11581,7 @@ declare module 'gd-sprest/utils/targetInfo' {
         readonly requestInfo: IRequestInfo;
         requestHeaders: object;
         requestMethod: string;
+        requestType: number;
         requestUrl: string;
     }
 }
@@ -12138,6 +12139,8 @@ declare module 'gd-sprest/utils/types/targetInfo' {
             requestHeader?: object;
             /** The request information. */
             requestInfo?: object;
+            /** The request type. */
+            requestType?: number;
             /** The url of the site/web to execute the request against. */
             url?: string;
     }

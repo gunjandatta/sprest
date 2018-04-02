@@ -6861,6 +6861,7 @@ var BaseRequest = /** @class */ (function (_super) {
         targetInfo.data = methodInfo.body;
         targetInfo.defaultToWebFl = typeof (targetInfo.defaultToWebFl) === "undefined" && this.base ? this.base.targetInfo.defaultToWebFl : targetInfo.defaultToWebFl;
         targetInfo.method = methodInfo.requestMethod;
+        targetInfo.requestType = methodConfig.requestType;
         // See if we are replacing the endpoint
         if (methodInfo.replaceEndpointFl) {
             // Replace the endpoint
@@ -7244,6 +7245,11 @@ var BaseExecution = /** @class */ (function (_super) {
                     _this.base.waitFlags[_this.responseIndex] = true;
                 }
             });
+        }
+        // See if this is a query request
+        if (this.targetInfo.requestType == _1.RequestType.OData) {
+            // Return the parent
+            return this.parent;
         }
         // Return this object
         return this;
@@ -11480,7 +11486,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.75,
+    __ver: 3.77,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

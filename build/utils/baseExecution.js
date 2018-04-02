@@ -132,6 +132,11 @@ var BaseExecution = /** @class */ (function (_super) {
                 }
             });
         }
+        // See if this is a query request
+        if (this.targetInfo.requestType == _1.RequestType.OData) {
+            // Return the parent
+            return this.parent;
+        }
         // Return this object
         return this;
     };

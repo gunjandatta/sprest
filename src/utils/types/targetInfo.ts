@@ -46,6 +46,9 @@ export interface ITargetInfo {
     /** The request information. */
     requestInfo?: object;
 
+    /** The request type. */
+    requestType?: number;
+
     /** The url of the site/web to execute the request against. */
     url?: string;
 }
