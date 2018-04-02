@@ -1,5 +1,5 @@
 import { ContextInfo } from "../lib";
-import { BaseRequest, TargetInfo, Types } from ".";
+import { BaseRequest, RequestType, TargetInfo, Types } from ".";
 
 /**
  * Base Execution
@@ -131,8 +131,14 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest implem
             });
         }
 
-        // Return the base object
-        return this.base as any;
+        // See if this is a query request
+        if(this.targetInfo.requestType == RequestType.OData) {
+            // Return the parent
+            return this.parent;
+        }
+
+        // Return this object
+        return this;
     }
 
     // Method to execute the request synchronously

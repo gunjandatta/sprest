@@ -14,6 +14,7 @@ export declare class TargetInfo {
     readonly requestInfo: IRequestInfo;
     requestHeaders: object;
     requestMethod: string;
+    requestType: number;
     requestUrl: string;
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/

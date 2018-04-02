@@ -48,6 +48,9 @@ export class TargetInfo {
     // The request method
     requestMethod: string;
 
+    // The request type
+    requestType: number;
+
     // The request url
     requestUrl: string;
 

@@ -53,6 +53,7 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
         targetInfo.data = methodInfo.body;
         targetInfo.defaultToWebFl = typeof (targetInfo.defaultToWebFl) === "undefined" && this.base ? this.base.targetInfo.defaultToWebFl : targetInfo.defaultToWebFl;
         targetInfo.method = methodInfo.requestMethod;
+        targetInfo.requestType = methodConfig.requestType;
 
         // See if we are replacing the endpoint
         if (methodInfo.replaceEndpointFl) {

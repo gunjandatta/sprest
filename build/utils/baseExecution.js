@@ -132,8 +132,13 @@ var BaseExecution = /** @class */ (function (_super) {
                 }
             });
         }
-        // Return the base object
-        return this.base;
+        // See if this is a query request
+        if (this.targetInfo.requestType == _1.RequestType.OData) {
+            // Return the parent
+            return this.parent;
+        }
+        // Return this object
+        return this;
     };
     // Method to execute the request synchronously
     BaseExecution.prototype.executeAndWait = function () { return this.executeRequest(false); };
