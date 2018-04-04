@@ -595,7 +595,7 @@ export const ListForm: IListForm = {
     },
 
     // Method to show a file dialog
-    showFileDialog: (info: IListFormResult): PromiseLike<IListFormResult> => {
+    showFileDialog: (info: IListFormResult, onSave?: () => void): PromiseLike<IListFormResult> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Method to add an attachment
@@ -604,6 +604,9 @@ export const ListForm: IListForm = {
                 let srcFile = ev.target["files"][0];
                 if (srcFile) {
                     let reader = new FileReader();
+
+                    // Call the save event
+                    onSave ? onSave() : null;
 
                     // Set the file loaded event
                     reader.onloadend = (ev: any) => {
