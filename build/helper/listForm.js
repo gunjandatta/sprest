@@ -514,7 +514,7 @@ exports.ListForm = {
         });
     },
     // Method to show a file dialog
-    showFileDialog: function (info) {
+    showFileDialog: function (info, onSave) {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Method to add an attachment
@@ -523,6 +523,8 @@ exports.ListForm = {
                 var srcFile = ev.target["files"][0];
                 if (srcFile) {
                     var reader = new FileReader();
+                    // Call the save event
+                    onSave ? onSave() : null;
                     // Set the file loaded event
                     reader.onloadend = function (ev) {
                         var attachment = null;
