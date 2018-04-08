@@ -1671,6 +1671,8 @@ declare module 'gd-sprest/helper/types/spCfg' {
         * SharePoint Configuration Methods
         */
     export interface ISPConfig {
+            /** The configuration. */
+            _configuration: ISPConfigProps;
             /**
                 * Method to install the configuration
                 */

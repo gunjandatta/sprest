@@ -292,6 +292,9 @@ export interface ISPCfgWebPartInfo {
  * SharePoint Configuration Methods
  */
 export interface ISPConfig {
+    /** The configuration. */
+    _configuration: ISPConfigProps;
+
     /**
      * Method to install the configuration
      */

@@ -1832,6 +1832,8 @@ exports.SPConfig = function (cfg, webUrl) {
      * Public Interface
      */
     return {
+        // The configuration
+        _configuration: cfg,
         // Method to install the configuration
         install: function () {
             // Return a promise

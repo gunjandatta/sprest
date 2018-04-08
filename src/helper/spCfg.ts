@@ -1028,6 +1028,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
      * Public Interface
      */
     return {
+        // The configuration
+        _configuration: cfg,
+
         // Method to install the configuration
         install: (): PromiseLike<void> => {
             // Return a promise
