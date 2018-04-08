@@ -14,6 +14,7 @@ export const ListForm: IListForm = {
         let _cacheData: IListFormCache = null;
         let _info: IListFormResult = null;
         let _props: IListFormProps = null;
+        let _reject: () => void = null;
         let _resolve: (info: IListFormResult) => void = null;
 
         // Save the properties
@@ -33,16 +34,22 @@ export const ListForm: IListForm = {
 
             // Load the list data
             loadListData().then(() => {
-                // See if the fields have been defined
-                if (_props.fields) {
-                    // Process the fields
-                    processFields();
+                // Ensure the list exists
+                if (_info.list) {
+                    // See if the fields have been defined
+                    if (_props.fields) {
+                        // Process the fields
+                        processFields();
 
-                    // Load the item data
-                    loadItem();
+                        // Load the item data
+                        loadItem();
+                    } else {
+                        // Load the content type
+                        loadDefaultContentType();
+                    }
                 } else {
-                    // Load the content type
-                    loadDefaultContentType();
+                    // Reject the promise
+                    _reject();
                 }
             });
         }
@@ -366,7 +373,8 @@ export const ListForm: IListForm = {
 
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Save the resolve method
+            // Save the methods
+            _reject = reject;
             _resolve = resolve;
 
             // Load the list data
