@@ -1079,13 +1079,19 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
                     // Get the fields
                     web.Fields().execute(fields => {
-                        // Create the fields
-                        createFields(parse(fields.stringify()), cfg.Fields).then(() => {
-                            // Log
-                            console.log("[gd-sprest][Fields] Completed the requests.");
+                        // Return a promise
+                        return new Promise((resolve, reject) => {
+                            // Create the fields
+                            createFields(parse(fields.stringify()), cfg.Fields).then(() => {
+                                // Log
+                                console.log("[gd-sprest][Fields] Completed the requests.");
 
-                            // Execute the post execute method
-                            postExecute();
+                                // Execute the post execute method
+                                postExecute();
+
+                                // Resolve the promise
+                                resolve();
+                            });
                         });
                     });
                 }

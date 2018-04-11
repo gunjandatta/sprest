@@ -56,7 +56,18 @@ export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseE
         return JSON.stringify({
             response: this.response,
             status: this.status,
-            targetInfo: this.targetInfo
+            targetInfo: {
+                bufferFl: this.targetInfo.bufferFl,
+                defaultToWebFl: this.targetInfo.defaultToWebFl,
+                endpoint: this.targetInfo.endpoint,
+                method: this.targetInfo.method,
+                overrideDefaultRequestToHostFl: this.targetInfo.overrideDefaultRequestToHostFl,
+                requestDigest: this.targetInfo.requestDigest,
+                requestHeader: this.targetInfo.requestHeader,
+                requestInfo: this.targetInfo.requestInfo,
+                requestType: this.targetInfo.requestType,
+                url: this.targetInfo.url
+            }
         });
     }
 }

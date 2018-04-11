@@ -975,12 +975,17 @@ exports.SPConfig = function (cfg, webUrl) {
                     console.log("[gd-sprest][Fields] Starting the requests.");
                     // Get the fields
                     web.Fields().execute(function (fields) {
-                        // Create the fields
-                        createFields(_1.parse(fields.stringify()), cfg.Fields).then(function () {
-                            // Log
-                            console.log("[gd-sprest][Fields] Completed the requests.");
-                            // Execute the post execute method
-                            postExecute();
+                        // Return a promise
+                        return new Promise(function (resolve, reject) {
+                            // Create the fields
+                            createFields(_1.parse(fields.stringify()), cfg.Fields).then(function () {
+                                // Log
+                                console.log("[gd-sprest][Fields] Completed the requests.");
+                                // Execute the post execute method
+                                postExecute();
+                                // Resolve the promise
+                                resolve();
+                            });
                         });
                     });
                 }

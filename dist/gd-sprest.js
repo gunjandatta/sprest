@@ -1877,12 +1877,17 @@ exports.SPConfig = function (cfg, webUrl) {
                     console.log("[gd-sprest][Fields] Starting the requests.");
                     // Get the fields
                     web.Fields().execute(function (fields) {
-                        // Create the fields
-                        createFields(_1.parse(fields.stringify()), cfg.Fields).then(function () {
-                            // Log
-                            console.log("[gd-sprest][Fields] Completed the requests.");
-                            // Execute the post execute method
-                            postExecute();
+                        // Return a promise
+                        return new Promise(function (resolve, reject) {
+                            // Create the fields
+                            createFields(_1.parse(fields.stringify()), cfg.Fields).then(function () {
+                                // Log
+                                console.log("[gd-sprest][Fields] Completed the requests.");
+                                // Execute the post execute method
+                                postExecute();
+                                // Resolve the promise
+                                resolve();
+                            });
                         });
                     });
                 }
@@ -7371,7 +7376,18 @@ var Base = /** @class */ (function (_super) {
         return JSON.stringify({
             response: this.response,
             status: this.status,
-            targetInfo: this.targetInfo
+            targetInfo: {
+                bufferFl: this.targetInfo.bufferFl,
+                defaultToWebFl: this.targetInfo.defaultToWebFl,
+                endpoint: this.targetInfo.endpoint,
+                method: this.targetInfo.method,
+                overrideDefaultRequestToHostFl: this.targetInfo.overrideDefaultRequestToHostFl,
+                requestDigest: this.targetInfo.requestDigest,
+                requestHeader: this.targetInfo.requestHeader,
+                requestInfo: this.targetInfo.requestInfo,
+                requestType: this.targetInfo.requestType,
+                url: this.targetInfo.url
+            }
         });
     };
     return Base;
@@ -10512,6 +10528,7 @@ exports.parse = function (jsonString) {
         // Set the properties
         base.response = obj.response;
         base.status = obj.status;
+        base.targetInfo = obj.targetInfo;
         // Update the object
         base.updateDataObject(false);
         // Return the base object
@@ -11540,7 +11557,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.83,
+    __ver: 3.84,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
