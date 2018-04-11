@@ -1000,6 +1000,10 @@ exports.SPConfig = function (cfg, webUrl) {
                         contentTypes.add({
                             Description: cfgContentType.Description,
                             Group: cfgContentType.Group,
+                            Id: {
+                                __metadata: { type: "SP.ContentTypeId" },
+                                StringValue: cfgContentType.Id ? cfgContentType.Id.StringValue : "0x0100" + lib_1.ContextInfo.generateGUID().replace("{", "").replace("-", "").replace("}", "")
+                            },
                             Name: cfgContentType.Name
                         }).execute(function (ct) {
                             // See if it was successful
@@ -11557,7 +11561,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.84,
+    __ver: 3.85,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {

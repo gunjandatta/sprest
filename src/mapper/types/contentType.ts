@@ -1,6 +1,7 @@
 import { IBase, IBaseCollection } from "../../utils/types";
 import { Types } from "../..";
 import {
+    ComplexTypes,
     IField, IFieldResult, IFields,
     IFieldLink, IFieldLinks,
     IList, IListResult
@@ -17,7 +18,7 @@ export interface IContentTypeCreationInformation {
     Group?: string;
 
     /** The content type id. */
-    Id?: string;
+    Id?: ComplexTypes.ContentTypeId;
 
     /** The content type name. */
     Name: string;

@@ -3645,6 +3645,9 @@ declare module 'gd-sprest/mapper/types/complexTypes' {
         * Content Type Id
         */
     export interface ContentTypeId {
+            __metadata?: {
+                    type: string;
+            };
             StringValue: string;
     }
     /**
@@ -5092,7 +5095,7 @@ declare module 'gd-sprest/mapper/types/complexTypes' {
 declare module 'gd-sprest/mapper/types/contentType' {
     import { IBase } from "gd-sprest/utils/types";
     import { Types } from "gd-sprest/";
-    import { IFieldResult, IFields, IFieldLink, IFieldLinks, IListResult } from "gd-sprest/mapper/types";
+    import { ComplexTypes, IFieldResult, IFields, IFieldLink, IFieldLinks, IListResult } from "gd-sprest/mapper/types";
     /**
         * Content Type Creation Information
         */
@@ -5102,7 +5105,7 @@ declare module 'gd-sprest/mapper/types/contentType' {
             /** The content type group. */
             Group?: string;
             /** The content type id. */
-            Id?: string;
+            Id?: ComplexTypes.ContentTypeId;
             /** The content type name. */
             Name: string;
     }
