@@ -1878,7 +1878,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Get the fields
                     web.Fields().execute(function (fields) {
                         // Create the fields
-                        createFields(fields, cfg.Fields).then(function () {
+                        createFields(_1.parse(fields.stringify()), cfg.Fields).then(function () {
                             // Log
                             console.log("[gd-sprest][Fields] Completed the requests.");
                             // Execute the post execute method
@@ -1895,7 +1895,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Get the content types
                     web.ContentTypes().execute(function (contentTypes) {
                         // Create the content types
-                        createContentTypes(contentTypes, cfg.ContentTypes).then(function () {
+                        createContentTypes(_1.parse(contentTypes.stringify()), cfg.ContentTypes).then(function () {
                             // Log
                             console.log("[gd-sprest][Content Types] Completed the requests.");
                             // Execute the post execute method
@@ -1912,7 +1912,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Get the lists
                     web.Lists().execute(function (lists) {
                         // Create the lists
-                        createLists(lists, cfg.ListCfg).then(function () {
+                        createLists(_1.parse(lists.stringify()), cfg.ListCfg).then(function () {
                             // Log
                             console.log("[gd-sprest][Lists] Completed the requests.");
                             // Execute the post execute method
@@ -1946,7 +1946,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         (new lib_1.Site(webUrl))
                             .UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
-                            createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(function () {
+                            createUserCustomActions(_1.parse(customActions.stringify()), cfg.CustomActionCfg.Site).then(function () {
                                 // Log
                                 console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
                                 // Execute the post execute method
@@ -1963,7 +1963,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         // Get the user custom actions
                         web.UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
-                            createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(function () {
+                            createUserCustomActions(_1.parse(customActions.stringify()), cfg.CustomActionCfg.Web).then(function () {
                                 // Log
                                 console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
                                 // Execute the post execute method
@@ -11540,7 +11540,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.82,
+    __ver: 3.83,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
