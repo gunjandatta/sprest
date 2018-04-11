@@ -67,14 +67,30 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(ct => {
                                         // See if it was successful
                                         if (ct.existsFl) {
-                                            // Log
-                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                            // Update the name
+                                            (() => {
+                                                return new Promise((resolve, reject) => {
+                                                    // Ensure the name doesn't need to be updated
+                                                    if (ct.Name != cfgContentType.Name) {
+                                                        ct.update({ Name: cfgContentType.Name }).execute(() => {
+                                                            // Resolve the promise
+                                                            resolve();
+                                                        });
+                                                    } else {
+                                                        // Resolve the promise
+                                                        resolve();
+                                                    }
+                                                });
+                                            })().then(() => {
+                                                // Log
+                                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
 
-                                            // Update the configuration
-                                            cfgContentType.ContentType = ct;
+                                                // Update the configuration
+                                                cfgContentType.ContentType = ct;
 
-                                            // Trigger the event
-                                            cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                                // Trigger the event
+                                                cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                            })
                                         } else {
                                             // Log
                                             console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
