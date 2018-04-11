@@ -9143,11 +9143,14 @@ exports.FieldSchemaXML = function (fieldInfo) {
             props["StaticName"] = fieldInfo.name;
             props["DisplayName"] = fieldInfo.title;
             // Set the optional properties
-            if (typeof (fieldInfo.required) !== "undefined") {
-                props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
+            if (typeof (fieldInfo.group) !== "undefined") {
+                props["Group"] = fieldInfo.group;
             }
             if (typeof (fieldInfo.hidden) !== "undefined") {
                 props["Hidden"] = fieldInfo.hidden ? "TRUE" : "FALSE";
+            }
+            if (typeof (fieldInfo.required) !== "undefined") {
+                props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
             }
             if (typeof (fieldInfo.showInDisplayForm) !== "undefined") {
                 props["ShowInDisplayForm"] = fieldInfo.showInDisplayForm ? "TRUE" : "FALSE";
@@ -11537,7 +11540,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.81,
+    __ver: 3.82,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
