@@ -4,10 +4,16 @@ import { Types } from "../..";
  * Field Information
  */
 export interface IFieldInfo {
-    /** The default value of the field */
+    /** The default value of the field. */
     defaultValue?: string;
 
-    /** The internal name of the field */
+    /** The group name. */
+    group?: string;
+
+    /** True for hidden fields. */
+    hidden?: boolean;
+
+    /** The internal name of the field. */
     name: string;
 
     /** Flag to determine if the field is required */
@@ -15,6 +21,21 @@ export interface IFieldInfo {
 
     /** The schema definition of the field. */
     schemaXml?: string;
+
+    /** Flag to make this field visible in the display form. */
+    showInDisplayForm?: boolean;
+
+    /** Flag to make this field visible in the edit form. */
+    showInEditForm?: boolean;
+
+    /** Flag to make this field visible in the list settings. */
+    showInListSettings?: boolean;
+
+    /** Flag to make this field visible in the new form. */
+    showInNewForm?: boolean;
+
+    /** Flag to make this field visible in the list views. */
+    showInViewForms?: boolean;
 
     /** The field title */
     title?: string;
@@ -147,6 +168,11 @@ export interface ISPCfgContentTypeInfo extends Types.SP.IContentTypeCreationInfo
      * The field references.
      */
     FieldRefs?: Array<string>;
+
+    /**
+     * The group name.
+     */
+    Group?: string;
 
     /**
      * The JSLink property.
