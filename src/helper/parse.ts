@@ -14,6 +14,7 @@ export const parse = <T = Base>(jsonString: string): T => {
         // Set the properties
         base.response = obj.response;
         base.status = obj.status;
+        base.targetInfo = obj.targetInfo;
 
         // Update the object
         base.updateDataObject(false);

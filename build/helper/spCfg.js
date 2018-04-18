@@ -56,12 +56,29 @@ exports.SPConfig = function (cfg, webUrl) {
                                 contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(function (ct) {
                                     // See if it was successful
                                     if (ct.existsFl) {
-                                        // Log
-                                        console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
-                                        // Update the configuration
-                                        cfgContentType.ContentType = ct;
-                                        // Trigger the event
-                                        cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                        // Update the name
+                                        (function () {
+                                            return new Promise(function (resolve, reject) {
+                                                // Ensure the name doesn't need to be updated
+                                                if (ct.Name != cfgContentType.Name) {
+                                                    ct.update({ Name: cfgContentType.Name }).execute(function () {
+                                                        // Resolve the promise
+                                                        resolve();
+                                                    });
+                                                }
+                                                else {
+                                                    // Resolve the promise
+                                                    resolve();
+                                                }
+                                            });
+                                        })().then(function () {
+                                            // Log
+                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                            // Update the configuration
+                                            cfgContentType.ContentType = ct;
+                                            // Trigger the event
+                                            cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                        });
                                     }
                                     else {
                                         // Log
@@ -81,6 +98,10 @@ exports.SPConfig = function (cfg, webUrl) {
                         contentTypes.add({
                             Description: cfgContentType.Description,
                             Group: cfgContentType.Group,
+                            Id: {
+                                __metadata: { type: "SP.ContentTypeId" },
+                                StringValue: cfgContentType.Id ? cfgContentType.Id.StringValue : "0x0100" + lib_1.ContextInfo.generateGUID().replace("{", "").replace("-", "").replace("}", "")
+                            },
                             Name: cfgContentType.Name
                         }).execute(function (ct) {
                             // See if it was successful
@@ -930,6 +951,8 @@ exports.SPConfig = function (cfg, webUrl) {
      * Public Interface
      */
     return {
+        // The configuration
+        _configuration: cfg,
         // Method to install the configuration
         install: function () {
             // Return a promise
@@ -956,12 +979,17 @@ exports.SPConfig = function (cfg, webUrl) {
                     console.log("[gd-sprest][Fields] Starting the requests.");
                     // Get the fields
                     web.Fields().execute(function (fields) {
-                        // Create the fields
-                        createFields(fields, cfg.Fields).then(function () {
-                            // Log
-                            console.log("[gd-sprest][Fields] Completed the requests.");
-                            // Execute the post execute method
-                            postExecute();
+                        // Return a promise
+                        return new Promise(function (resolve, reject) {
+                            // Create the fields
+                            createFields(_1.parse(fields.stringify()), cfg.Fields).then(function () {
+                                // Log
+                                console.log("[gd-sprest][Fields] Completed the requests.");
+                                // Execute the post execute method
+                                postExecute();
+                                // Resolve the promise
+                                resolve();
+                            });
                         });
                     });
                 }
@@ -974,7 +1002,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Get the content types
                     web.ContentTypes().execute(function (contentTypes) {
                         // Create the content types
-                        createContentTypes(contentTypes, cfg.ContentTypes).then(function () {
+                        createContentTypes(_1.parse(contentTypes.stringify()), cfg.ContentTypes).then(function () {
                             // Log
                             console.log("[gd-sprest][Content Types] Completed the requests.");
                             // Execute the post execute method
@@ -991,7 +1019,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Get the lists
                     web.Lists().execute(function (lists) {
                         // Create the lists
-                        createLists(lists, cfg.ListCfg).then(function () {
+                        createLists(_1.parse(lists.stringify()), cfg.ListCfg).then(function () {
                             // Log
                             console.log("[gd-sprest][Lists] Completed the requests.");
                             // Execute the post execute method
@@ -1025,7 +1053,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         (new lib_1.Site(webUrl))
                             .UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
-                            createUserCustomActions(customActions, cfg.CustomActionCfg.Site).then(function () {
+                            createUserCustomActions(_1.parse(customActions.stringify()), cfg.CustomActionCfg.Site).then(function () {
                                 // Log
                                 console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
                                 // Execute the post execute method
@@ -1042,7 +1070,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         // Get the user custom actions
                         web.UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
-                            createUserCustomActions(customActions, cfg.CustomActionCfg.Web).then(function () {
+                            createUserCustomActions(_1.parse(customActions.stringify()), cfg.CustomActionCfg.Web).then(function () {
                                 // Log
                                 console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
                                 // Execute the post execute method

@@ -311,9 +311,18 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
             let props = {};
             props["ID"] = "{" + ContextInfo.generateGUID() + "}";
             props["Name"] = fieldInfo.name;
-            props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
             props["StaticName"] = fieldInfo.name;
             props["DisplayName"] = fieldInfo.title;
+
+            // Set the optional properties
+            if (typeof (fieldInfo.group) !== "undefined") { props["Group"] = fieldInfo.group; }
+            if (typeof (fieldInfo.hidden) !== "undefined") { props["Hidden"] = fieldInfo.hidden ? "TRUE" : "FALSE"; }
+            if (typeof (fieldInfo.required) !== "undefined") { props["Required"] = fieldInfo.required ? "TRUE" : "FALSE"; }
+            if (typeof (fieldInfo.showInDisplayForm) !== "undefined") { props["ShowInDisplayForm"] = fieldInfo.showInDisplayForm ? "TRUE" : "FALSE"; }
+            if (typeof (fieldInfo.showInEditForm) !== "undefined") { props["ShowInEditForm"] = fieldInfo.showInEditForm ? "TRUE" : "FALSE"; }
+            if (typeof (fieldInfo.showInListSettings) !== "undefined") { props["ShowInListSettings"] = fieldInfo.showInListSettings ? "TRUE" : "FALSE"; }
+            if (typeof (fieldInfo.showInNewForm) !== "undefined") { props["ShowInNewForm"] = fieldInfo.showInNewForm ? "TRUE" : "FALSE"; }
+            if (typeof (fieldInfo.showInViewForms) !== "undefined") { props["ShowInViewForms"] = fieldInfo.showInViewForms ? "TRUE" : "FALSE"; }
 
             // Set the type
             switch (fieldInfo.type) {

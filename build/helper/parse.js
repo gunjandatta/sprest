@@ -13,6 +13,7 @@ exports.parse = function (jsonString) {
         // Set the properties
         base.response = obj.response;
         base.status = obj.status;
+        base.targetInfo = obj.targetInfo;
         // Update the object
         base.updateDataObject(false);
         // Return the base object

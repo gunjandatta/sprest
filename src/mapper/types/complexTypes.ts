@@ -164,6 +164,7 @@ export interface ContentTypeCreationInformation {
  * Content Type Id
  */
 export interface ContentTypeId {
+    __metadata?: { type: string; };
     StringValue: string;
 }
 

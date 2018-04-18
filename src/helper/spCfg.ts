@@ -6,7 +6,7 @@ import {
     ISPConfig, ISPConfigProps
 } from "./types";
 import {
-    FieldSchemaXML, SPCfgFieldType, SPCfgType
+    FieldSchemaXML, parse, SPCfgFieldType, SPCfgType
 } from ".";
 
 /**
@@ -67,14 +67,30 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     contentTypes.addAvailableContentType(parent.results[0].Id.StringValue).execute(ct => {
                                         // See if it was successful
                                         if (ct.existsFl) {
-                                            // Log
-                                            console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
+                                            // Update the name
+                                            (() => {
+                                                return new Promise((resolve, reject) => {
+                                                    // Ensure the name doesn't need to be updated
+                                                    if (ct.Name != cfgContentType.Name) {
+                                                        ct.update({ Name: cfgContentType.Name }).execute(() => {
+                                                            // Resolve the promise
+                                                            resolve();
+                                                        });
+                                                    } else {
+                                                        // Resolve the promise
+                                                        resolve();
+                                                    }
+                                                });
+                                            })().then(() => {
+                                                // Log
+                                                console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' was created successfully.");
 
-                                            // Update the configuration
-                                            cfgContentType.ContentType = ct;
+                                                // Update the configuration
+                                                cfgContentType.ContentType = ct;
 
-                                            // Trigger the event
-                                            cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                                // Trigger the event
+                                                cfgContentType.onCreated ? cfgContentType.onCreated(ct) : null;
+                                            })
                                         } else {
                                             // Log
                                             console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
@@ -91,6 +107,10 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         contentTypes.add({
                             Description: cfgContentType.Description,
                             Group: cfgContentType.Group,
+                            Id: {
+                                __metadata: { type: "SP.ContentTypeId" },
+                                StringValue: cfgContentType.Id ? cfgContentType.Id.StringValue : "0x0100" + ContextInfo.generateGUID().replace("{", "").replace("-", "").replace("}", "")
+                            },
                             Name: cfgContentType.Name
                         }).execute((ct) => {
                             // See if it was successful
@@ -1028,6 +1048,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
      * Public Interface
      */
     return {
+        // The configuration
+        _configuration: cfg,
+
         // Method to install the configuration
         install: (): PromiseLike<void> => {
             // Return a promise
@@ -1060,13 +1083,19 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
                     // Get the fields
                     web.Fields().execute(fields => {
-                        // Create the fields
-                        createFields(fields as any, cfg.Fields).then(() => {
-                            // Log
-                            console.log("[gd-sprest][Fields] Completed the requests.");
+                        // Return a promise
+                        return new Promise((resolve, reject) => {
+                            // Create the fields
+                            createFields(parse(fields.stringify()), cfg.Fields).then(() => {
+                                // Log
+                                console.log("[gd-sprest][Fields] Completed the requests.");
 
-                            // Execute the post execute method
-                            postExecute();
+                                // Execute the post execute method
+                                postExecute();
+
+                                // Resolve the promise
+                                resolve();
+                            });
                         });
                     });
                 }
@@ -1082,7 +1111,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Get the content types
                     web.ContentTypes().execute(contentTypes => {
                         // Create the content types
-                        createContentTypes(contentTypes as any, cfg.ContentTypes).then(() => {
+                        createContentTypes(parse(contentTypes.stringify()), cfg.ContentTypes).then(() => {
                             // Log
                             console.log("[gd-sprest][Content Types] Completed the requests.");
 
@@ -1103,7 +1132,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Get the lists
                     web.Lists().execute(lists => {
                         // Create the lists
-                        createLists(lists as any, cfg.ListCfg).then(() => {
+                        createLists(parse(lists.stringify()), cfg.ListCfg).then(() => {
                             // Log
                             console.log("[gd-sprest][Lists] Completed the requests.");
 
@@ -1146,7 +1175,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Get the user custom actions
                             .UserCustomActions().execute(customActions => {
                                 // Create the user custom actions
-                                createUserCustomActions(customActions as any, cfg.CustomActionCfg.Site).then(() => {
+                                createUserCustomActions(parse(customActions.stringify()), cfg.CustomActionCfg.Site).then(() => {
                                     // Log
                                     console.log("[gd-sprest][Site Custom Actions] Completed the requests.");
 
@@ -1167,7 +1196,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Get the user custom actions
                         web.UserCustomActions().execute(customActions => {
                             // Create the user custom actions
-                            createUserCustomActions(customActions as any, cfg.CustomActionCfg.Web).then(() => {
+                            createUserCustomActions(parse(customActions.stringify()), cfg.CustomActionCfg.Web).then(() => {
                                 // Log
                                 console.log("[gd-sprest][Web Custom Actions] Completed the requests.");
 
