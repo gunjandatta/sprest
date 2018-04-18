@@ -281,6 +281,7 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
     validateDataCollectionResults(): PromiseLike<void> {
         // Return a promise
         return new Promise((resolve, reject) => {
+            // Method to validate the request
             let request = (xhr, resolve) => {
                 // Validate the response
                 if (xhr && xhr.status < 400 && typeof (xhr.response) === "string" && xhr.response.length > 0) {
@@ -312,10 +313,10 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
 
                                     // Validate the data collection
                                     request(xhr, resolve);
+                                } else {
+                                    // Resolve the promise
+                                    resolve();
                                 }
-
-                                // Resolve the promise
-                                resolve();
                             });
                         } else {
                             // Add a method to get the next set of results

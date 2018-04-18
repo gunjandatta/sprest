@@ -237,6 +237,7 @@ var BaseRequest = /** @class */ (function (_super) {
         var _this = this;
         // Return a promise
         return new Promise(function (resolve, reject) {
+            // Method to validate the request
             var request = function (xhr, resolve) {
                 // Validate the response
                 if (xhr && xhr.status < 400 && typeof (xhr.response) === "string" && xhr.response.length > 0) {
@@ -264,8 +265,10 @@ var BaseRequest = /** @class */ (function (_super) {
                                     // Validate the data collection
                                     request(xhr, resolve);
                                 }
-                                // Resolve the promise
-                                resolve();
+                                else {
+                                    // Resolve the promise
+                                    resolve();
+                                }
                             });
                         }
                         else {

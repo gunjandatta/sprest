@@ -325,11 +325,11 @@ declare module 'gd-sprest/helper/sbLink' {
 
 declare module 'gd-sprest/helper/spCfg' {
     export * from "gd-sprest/helper/spCfgTypes";
-    import { ISPConfig, ISPConfigProps } from "gd-sprest/helper/types";
+    import { Types } from "gd-sprest/";
     /**
       * SharePoint Configuration
       */
-    export const SPConfig: (cfg: ISPConfigProps, webUrl?: string) => ISPConfig;
+    export const SPConfig: (cfg: Types.Helper.ISPConfigProps, webUrl?: string) => Types.Helper.ISPConfig;
 }
 
 declare module 'gd-sprest/helper/taxonomy' {
@@ -701,6 +701,38 @@ declare module 'gd-sprest/helper/spCfgTypes' {
         * The value determines the order to install the object type.
         */
     export const SPCfgType: ISPCfgType;
+}
+
+declare module 'gd-sprest/' {
+    /***************************************************************************************************
+    MIT License
+    
+    Copyright (c) 2016 Dattabase, LLC.
+    
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+    
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+    
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+     ***************************************************************************************************/
+    import * as Helper from "gd-sprest/helper";
+    import { SPTypes } from "gd-sprest/mapper";
+    import * as Types from "gd-sprest/types";
+    export * from "gd-sprest/lib";
+    export * from "gd-sprest/rest";
+    export { Helper, SPTypes, Types };
 }
 
 declare module 'gd-sprest/helper/types/app' {
@@ -11636,38 +11668,6 @@ declare module 'gd-sprest/utils/types' {
     export * from "gd-sprest/utils/types/methodInfo";
     export * from "gd-sprest/utils/types/requestType";
     export * from "gd-sprest/utils/types/targetInfo";
-}
-
-declare module 'gd-sprest/' {
-    /***************************************************************************************************
-    MIT License
-    
-    Copyright (c) 2016 Dattabase, LLC.
-    
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
-    
-    The above copyright notice and this permission notice shall be included in all
-    copies or substantial portions of the Software.
-    
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-    SOFTWARE.
-     ***************************************************************************************************/
-    import * as Helper from "gd-sprest/helper";
-    import { SPTypes } from "gd-sprest/mapper";
-    import * as Types from "gd-sprest/types";
-    export * from "gd-sprest/lib";
-    export * from "gd-sprest/rest";
-    export { Helper, SPTypes, Types };
 }
 
 declare module 'gd-sprest/lib/types/contextInfo' {
