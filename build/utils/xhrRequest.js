@@ -160,4 +160,3 @@ var XHRRequest = /** @class */ (function () {
     return XHRRequest;
 }());
 exports.XHRRequest = XHRRequest;
-//# sourceMappingURL=xhrRequest.js.map

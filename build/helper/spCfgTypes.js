@@ -28,4 +28,3 @@ exports.SPCfgType = {
     WebParts: 5,
     WebUserCustomActions: 4
 };
-//# sourceMappingURL=spCfgTypes.js.map

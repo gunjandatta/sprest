@@ -1102,4 +1102,3 @@ exports.SPConfig = function (cfg, webUrl) {
         }
     };
 };
-//# sourceMappingURL=spCfg.js.map

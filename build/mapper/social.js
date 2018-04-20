@@ -166,4 +166,3 @@ exports.userprofile = {
         requestType: utils_1.RequestType.PostWithArgsValueOnly
     }
 };
-//# sourceMappingURL=social.js.map

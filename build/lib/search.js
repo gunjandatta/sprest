@@ -70,4 +70,3 @@ var _Search = /** @class */ (function (_super) {
     return _Search;
 }(utils_1.Base));
 exports.Search = _Search;
-//# sourceMappingURL=search.js.map

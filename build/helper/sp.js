@@ -166,4 +166,3 @@ exports.Status = {
         exports.Status.load().then(function () { SP.UI.Status.updateStatus(id, html); });
     }
 };
-//# sourceMappingURL=sp.js.map

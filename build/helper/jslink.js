@@ -380,4 +380,3 @@ exports.JSLink = {
         return fieldRenderer ? fieldRenderer.RenderField(ctx, field, currentItem, ctx.ListSchema) : currentItem[field.Name];
     }
 };
-//# sourceMappingURL=jslink.js.map

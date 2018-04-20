@@ -34,4 +34,3 @@ var _PeoplePicker = /** @class */ (function (_super) {
     return _PeoplePicker;
 }(utils_1.Base));
 exports.PeoplePicker = _PeoplePicker;
-//# sourceMappingURL=peoplePicker.js.map

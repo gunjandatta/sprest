@@ -20,4 +20,3 @@ var SP = require("./sp");
 exports.SP = SP;
 var Types = require("./types");
 exports.Types = Types;
-//# sourceMappingURL=index.js.map

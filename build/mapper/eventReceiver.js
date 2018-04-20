@@ -39,4 +39,3 @@ exports.eventreceivers = {
         requestType: utils_1.RequestType.OData
     }
 };
-//# sourceMappingURL=eventReceiver.js.map

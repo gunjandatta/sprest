@@ -7,7 +7,7 @@ var Mapper = require("./mapper");
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.86,
+    __ver: 3.87,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -47,4 +47,3 @@ if ((global == null || global.__ver == null || global.__ver < exports.$REST.__ve
     // Alert other scripts this library is loaded
     Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
 }
-//# sourceMappingURL=rest.js.map

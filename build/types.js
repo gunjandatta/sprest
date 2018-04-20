@@ -6,4 +6,3 @@ var mapper_1 = require("./mapper");
 exports.SP = mapper_1.Types;
 var utils_1 = require("./utils");
 exports.Util = utils_1.Types;
-//# sourceMappingURL=types.js.map

@@ -34,4 +34,3 @@ var _UserProfile = /** @class */ (function (_super) {
     return _UserProfile;
 }(utils_1.Base));
 exports.UserProfile = _UserProfile;
-//# sourceMappingURL=userProfile.js.map

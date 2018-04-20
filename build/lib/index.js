@@ -17,4 +17,3 @@ __export(require("./utility"));
 __export(require("./web"));
 var Types = require("./types");
 exports.Types = Types;
-//# sourceMappingURL=index.js.map

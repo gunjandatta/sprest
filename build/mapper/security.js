@@ -92,4 +92,3 @@ exports.roledefinitions = {
         requestType: utils_1.RequestType.OData
     }
 };
-//# sourceMappingURL=security.js.map

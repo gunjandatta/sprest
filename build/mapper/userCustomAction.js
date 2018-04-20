@@ -41,4 +41,3 @@ exports.usercustomactions = {
         requestType: utils_1.RequestType.OData
     }
 };
-//# sourceMappingURL=userCustomAction.js.map

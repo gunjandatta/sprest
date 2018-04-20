@@ -372,4 +372,3 @@ exports.FieldSchemaXML = function (fieldInfo) {
         }
     });
 };
-//# sourceMappingURL=fieldSchemaXML.js.map

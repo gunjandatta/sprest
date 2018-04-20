@@ -37,4 +37,3 @@ var Types = require("./types");
 exports.Types = Types;
 __export(require("./lib"));
 __export(require("./rest"));
-//# sourceMappingURL=index.js.map

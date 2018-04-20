@@ -117,4 +117,3 @@ var OData = /** @class */ (function () {
     return OData;
 }());
 exports.OData = OData;
-//# sourceMappingURL=oData.js.map
