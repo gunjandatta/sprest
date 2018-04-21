@@ -85,7 +85,7 @@ var XHRRequest = /** @class */ (function () {
         throw new Error("This browser does not support xml http requests.");
     };
     // Method to default the request headers
-    XHRRequest.prototype.defaultHeaders = function () {
+    XHRRequest.prototype.defaultHeaders = function (requestDigest) {
         // See if the custom headers exist
         if (this.targetInfo.requestHeaders) {
             // Parse the custom headers
@@ -101,18 +101,8 @@ var XHRRequest = /** @class */ (function () {
         }
         // Set the method
         this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
-        // See if the request digest has been defined
-        if (this.targetInfo.request.requestDigest) {
-            // Set the request digest
-            this.xhr.setRequestHeader("X-RequestDigest", this.targetInfo.request.requestDigest);
-        }
-        else {
-            // Get the request digest
-            var requestDigest = lib_1.ContextInfo.document ? lib_1.ContextInfo.document.querySelector("#__REQUESTDIGEST") : "";
-            requestDigest = requestDigest ? requestDigest.value : "";
-            // Set the request digest
-            this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
-        }
+        // Set the request digest
+        this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
         // See if we are deleting or updating the data
         if (this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE") {
             // Append the header for deleting/updating
@@ -121,6 +111,39 @@ var XHRRequest = /** @class */ (function () {
     };
     // Method to execute the xml http request
     XHRRequest.prototype.execute = function () {
+        var _this = this;
+        var requestDigest = this.targetInfo.request.requestDigest || "";
+        if (requestDigest == "") {
+            // Get the request digest
+            requestDigest = lib_1.ContextInfo.document ? lib_1.ContextInfo.document.querySelector("#__REQUESTDIGEST") : "";
+            requestDigest = requestDigest ? requestDigest.value : "";
+        }
+        // See if we are targeting the context endpoint or if this is a GET request
+        if (this.targetInfo.request.endpoint == "contextinfo") {
+            // Execute the request
+            this.executeRequest(requestDigest);
+        }
+        else if (this.targetInfo.requestMethod != "GET" && requestDigest == "") {
+            // See if this is a synchronous request
+            if (!this.asyncFl) {
+                // Log
+                console.info("[gd-sprest] POST requests must include the request digest information for synchronous requests. This is due to the modern page not including this information on the page.");
+            }
+            else {
+                // Get the context information
+                lib_1.ContextInfo.getWeb(this.targetInfo.request.url || document.location.pathname.substr(0, document.location.pathname.lastIndexOf('/'))).execute(function (contextInfo) {
+                    // Execute the request
+                    _this.executeRequest(contextInfo.GetContextWebInformation.FormDigestValue);
+                });
+            }
+        }
+        else {
+            // Execute the request
+            this.executeRequest(requestDigest);
+        }
+    };
+    // Method to execute the xml http request
+    XHRRequest.prototype.executeRequest = function (requestDigest) {
         var _this = this;
         // Ensure the xml http request exists
         if (this.xhr == null) {
@@ -147,7 +170,7 @@ var XHRRequest = /** @class */ (function () {
         }
         else {
             // Default the headers
-            this.defaultHeaders();
+            this.defaultHeaders(requestDigest);
             // Ensure the arguments passed is defaulted as a string, unless it's an array buffer
             if (this.targetInfo.requestData && typeof (this.targetInfo.requestData) !== "string") {
                 // Stringify the data object, if it's not an array buffer

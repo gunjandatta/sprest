@@ -111,7 +111,7 @@ export class TargetInfo {
         let template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
 
         // See if we are defaulting the url for the app web
-        if (ContextInfo.existsFl && ContextInfo.window.$REST.DefaultRequestToHostFl && ContextInfo.isAppWeb && !this.request.overrideDefaultRequestToHostFl && this.request.url == null) {
+        if (ContextInfo.existsFl && ContextInfo.window.$REST && ContextInfo.window.$REST.DefaultRequestToHostFl && ContextInfo.isAppWeb && !this.request.overrideDefaultRequestToHostFl && this.request.url == null) {
             // Default the url to the host web
             this.request.url = hostUrl;
         }

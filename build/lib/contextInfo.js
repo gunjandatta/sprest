@@ -10,7 +10,7 @@ var _ContextInfo = /** @class */ (function () {
     Object.defineProperty(_ContextInfo, "_contextInfo", {
         // The current context information
         get: function () {
-            return this.window["_spPageContextInfo"] ||
+            return this.window["_spPageContextInfo"] || (this._spfxPageContext && this._spfxPageContext.legacyPageContext) ||
                 {
                     existsFl: false,
                     isAppWeb: false,
@@ -571,6 +571,8 @@ var _ContextInfo = /** @class */ (function () {
             return v.toString(16);
         });
     };
+    // The page context information from an spfx project
+    _ContextInfo._spfxPageContext = null;
     // Method to get the context information for a web
     _ContextInfo.getWeb = function (url) {
         // Create a new base object
@@ -580,6 +582,8 @@ var _ContextInfo = /** @class */ (function () {
             url: url
         });
     };
+    // Method to set the page context information from an SPFX project
+    _ContextInfo.setPageContext = function (spfxPageContext) { exports.ContextInfo["_spfxPageContext"] = spfxPageContext; };
     return _ContextInfo;
 }());
 exports.ContextInfo = _ContextInfo;
