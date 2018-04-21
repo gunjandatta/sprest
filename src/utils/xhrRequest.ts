@@ -123,7 +123,7 @@ export class XHRRequest {
             requestDigest = requestDigest ? requestDigest.value : "";
         }
 
-        // See if we are targeting the context endpoint or if this is a GET request
+        // See if we are targeting the context endpoint
         if (this.targetInfo.request.endpoint == "contextinfo") {
             // Execute the request
             this.executeRequest(requestDigest);
