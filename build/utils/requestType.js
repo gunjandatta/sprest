@@ -25,4 +25,3 @@ exports.RequestType = {
     PostWithArgsValueOnly: 24,
     PostReplace: 25
 };
-//# sourceMappingURL=requestType.js.map

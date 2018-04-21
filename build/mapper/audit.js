@@ -11,4 +11,3 @@ exports.audit = {
         requestType: utils_1.RequestType.OData
     }
 };
-//# sourceMappingURL=audit.js.map

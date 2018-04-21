@@ -31,4 +31,3 @@ exports.SuiteBarLink = function (props) {
     // Return the link
     return link;
 };
-//# sourceMappingURL=sbLink.js.map

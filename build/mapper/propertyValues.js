@@ -11,4 +11,3 @@ exports.propertyvalues = {
         requestType: utils_1.RequestType.OData
     }
 };
-//# sourceMappingURL=propertyValues.js.map

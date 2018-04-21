@@ -60,4 +60,3 @@ var _SocialFeed = /** @class */ (function (_super) {
     return _SocialFeed;
 }(utils_1.Base));
 exports.SocialFeed = (new _SocialFeed());
-//# sourceMappingURL=socialFeed.js.map

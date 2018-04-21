@@ -295,4 +295,3 @@ var BaseRequest = /** @class */ (function (_super) {
     return BaseRequest;
 }(_1.BaseHelper));
 exports.BaseRequest = BaseRequest;
-//# sourceMappingURL=baseRequest.js.map

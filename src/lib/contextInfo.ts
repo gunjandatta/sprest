@@ -7,7 +7,7 @@ import { IContextInformation } from "./types";
 class _ContextInfo {
     // The current context information
     private static get _contextInfo(): IContextInformation {
-        return this.window["_spPageContextInfo"] ||
+        return this.window["_spPageContextInfo"] || (this._spfxPageContext && this._spfxPageContext.legacyPageContext) ||
             {
                 existsFl: false,
                 isAppWeb: false,
@@ -20,6 +20,9 @@ class _ContextInfo {
                 webServerRelativeUrl: ""
             }
     };
+
+    // The page context information from an spfx project
+    private static _spfxPageContext = null;
 
     /**
      * Properties
@@ -154,5 +157,8 @@ class _ContextInfo {
             url
         });
     }
+
+    // Method to set the page context information from an SPFX project
+    static setPageContext = (spfxPageContext: any) => { ContextInfo["_spfxPageContext"] = spfxPageContext; }
 }
 export const ContextInfo: IContextInformation = _ContextInfo as any;

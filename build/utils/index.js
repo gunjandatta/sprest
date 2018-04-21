@@ -15,4 +15,3 @@ __export(require("./targetInfo"));
 __export(require("./xhrRequest"));
 var Types = require("./types");
 exports.Types = Types;
-//# sourceMappingURL=index.js.map

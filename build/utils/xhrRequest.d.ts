@@ -23,6 +23,7 @@ export declare class XHRRequest {
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
     private createXHR();
-    private defaultHeaders();
+    private defaultHeaders(requestDigest);
     private execute();
+    private executeRequest(requestDigest);
 }

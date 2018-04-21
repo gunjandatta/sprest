@@ -243,4 +243,6 @@ export interface IContextInformation {
      * @param url - The relative url of the web.
      */
     getWeb(url: string): BaseTypes.IBase<Types.SP.IContextWebInfo>;
+    /** The page context object from an SPFX project. */
+    setPageContext(spfxPageContext: any): any;
 }

@@ -535,4 +535,3 @@ exports.views = {
         requestType: utils_1.RequestType.OData
     }
 };
-//# sourceMappingURL=list.js.map

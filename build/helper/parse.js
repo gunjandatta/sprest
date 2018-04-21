@@ -22,4 +22,3 @@ exports.parse = function (jsonString) {
     catch (_a) { }
     return null;
 };
-//# sourceMappingURL=parse.js.map

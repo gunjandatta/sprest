@@ -11910,6 +11910,8 @@ declare module 'gd-sprest/lib/types/contextInfo' {
                 * @param url - The relative url of the web.
                 */
             getWeb(url: string): BaseTypes.IBase<Types.SP.IContextWebInfo>;
+            /** The page context object from an SPFX project. */
+            setPageContext(spfxPageContext: any): any;
     }
 }
 

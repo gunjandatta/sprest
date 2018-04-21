@@ -11,4 +11,3 @@ exports.search = {
         requestType: utils_1.RequestType.PostWithArgsInBody
     }
 };
-//# sourceMappingURL=search.js.map

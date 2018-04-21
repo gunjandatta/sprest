@@ -48,4 +48,3 @@ var _Site = /** @class */ (function (_super) {
     return _Site;
 }(utils_1.Base));
 exports.Site = _Site;
-//# sourceMappingURL=site.js.map

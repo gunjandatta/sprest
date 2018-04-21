@@ -51,4 +51,3 @@ exports.Loader = {
         }, 25);
     }
 };
-//# sourceMappingURL=loader.js.map

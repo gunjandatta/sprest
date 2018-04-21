@@ -33,4 +33,3 @@ var _PeopleManager = /** @class */ (function (_super) {
     return _PeopleManager;
 }(utils_1.Base));
 exports.PeopleManager = _PeopleManager;
-//# sourceMappingURL=peopleManager.js.map

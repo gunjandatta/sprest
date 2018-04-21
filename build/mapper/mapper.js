@@ -15,4 +15,3 @@ __export(require("./site"));
 __export(require("./social"));
 __export(require("./user"));
 __export(require("./userCustomAction"));
-//# sourceMappingURL=mapper.js.map

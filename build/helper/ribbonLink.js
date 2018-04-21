@@ -27,4 +27,3 @@ exports.RibbonLink = function (props) {
     // Return the link
     return link;
 };
-//# sourceMappingURL=ribbonLink.js.map

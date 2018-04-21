@@ -38,4 +38,3 @@ var _Web = /** @class */ (function (_super) {
     return _Web;
 }(utils_1.Base));
 exports.Web = _Web;
-//# sourceMappingURL=web.js.map

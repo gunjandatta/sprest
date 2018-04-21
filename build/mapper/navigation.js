@@ -21,4 +21,3 @@ exports.navigationservicerest = {
         RequestType: utils_1.RequestType.GetWithArgsInQS
     }
 };
-//# sourceMappingURL=navigation.js.map
