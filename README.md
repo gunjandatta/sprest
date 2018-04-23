@@ -10,7 +10,7 @@
 The SharePoint REST Framework was designed for SharePoint 2013, but works in both SharePoint 2013/Online (Classic/Modern). This framework is designed to remove a lot of the overhead required for SharePoint development, allowing the developer to focus on the client requirements.
 
 ### References
-- [SharePoint 2013 Modern WebPart](http://dattabase.com/sharepoint-2013-modern-webpart/) - A series of blog posts for creating a SharePoint 2013 modern webparts using:
+- [SharePoint 2013 Modern WebPart](http://dattabase.com/sharepoint-2013-modern-webpart/) - A series of blog posts for creating SharePoint 2013 modern webparts using:
     - JavaScript (No Build)
     - TypeScript
     - React
