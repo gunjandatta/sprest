@@ -3171,14 +3171,16 @@ declare module 'gd-sprest/mapper/social' {
     export const peoplemanager: {
             amIFollowedBy: {
                     argNames: string[];
+                    name: string;
                     requestType: number;
             };
             amIFollowing: {
-                    argNames: string[];
+                    name: string;
                     requestType: number;
             };
             follow: {
                     argNames: string[];
+                    name: string;
                     requestType: number;
             };
             followTag: {
@@ -3191,6 +3193,7 @@ declare module 'gd-sprest/mapper/social' {
             };
             getFollowersFor: {
                     argNames: string[];
+                    name: string;
                     requestType: number;
             };
             getMyFollowers: {
@@ -3204,6 +3207,7 @@ declare module 'gd-sprest/mapper/social' {
             };
             getPeopleFollowedBy: {
                     argNames: string[];
+                    name: string;
                     requestType: number;
             };
             getPeopleFollowedByMe: {
@@ -3211,6 +3215,7 @@ declare module 'gd-sprest/mapper/social' {
             };
             getPropertiesFor: {
                     argNames: string[];
+                    name: string;
                     requestType: number;
             };
             getTrendingTags: {
@@ -3220,10 +3225,12 @@ declare module 'gd-sprest/mapper/social' {
             };
             getUserProfilePropertyFor: {
                     argNames: string[];
+                    name: string;
                     requestType: number;
             };
             hideSuggestion: {
                     argNames: string[];
+                    name: string;
                     requestType: number;
             };
             isFollowing: {
@@ -3237,6 +3244,7 @@ declare module 'gd-sprest/mapper/social' {
             };
             stopFollowing: {
                     argNames: string[];
+                    name: string;
                     requestType: number;
             };
             stopFollowingTag: {
@@ -3316,9 +3324,11 @@ declare module 'gd-sprest/mapper/social' {
     export const userprofile: {
             properties: string[];
             createPersonalSiteEnque: {
+                    argNames: string[];
                     requestType: number;
             };
             shareAllSocialData: {
+                    argNames: string[];
                     requestType: number;
             };
     };
