@@ -4,14 +4,16 @@
 export declare const peoplemanager: {
     amIFollowedBy: {
         argNames: string[];
+        name: string;
         requestType: number;
     };
     amIFollowing: {
-        argNames: string[];
+        name: string;
         requestType: number;
     };
     follow: {
         argNames: string[];
+        name: string;
         requestType: number;
     };
     followTag: {
@@ -24,6 +26,7 @@ export declare const peoplemanager: {
     };
     getFollowersFor: {
         argNames: string[];
+        name: string;
         requestType: number;
     };
     getMyFollowers: {
@@ -37,6 +40,7 @@ export declare const peoplemanager: {
     };
     getPeopleFollowedBy: {
         argNames: string[];
+        name: string;
         requestType: number;
     };
     getPeopleFollowedByMe: {
@@ -44,6 +48,7 @@ export declare const peoplemanager: {
     };
     getPropertiesFor: {
         argNames: string[];
+        name: string;
         requestType: number;
     };
     getTrendingTags: {
@@ -53,10 +58,12 @@ export declare const peoplemanager: {
     };
     getUserProfilePropertyFor: {
         argNames: string[];
+        name: string;
         requestType: number;
     };
     hideSuggestion: {
         argNames: string[];
+        name: string;
         requestType: number;
     };
     isFollowing: {
@@ -70,6 +77,7 @@ export declare const peoplemanager: {
     };
     stopFollowing: {
         argNames: string[];
+        name: string;
         requestType: number;
     };
     stopFollowingTag: {
@@ -149,9 +157,11 @@ export declare const socialfeed: {
 export declare const userprofile: {
     properties: string[];
     createPersonalSiteEnque: {
+        argNames: string[];
         requestType: number;
     };
     shareAllSocialData: {
+        argNames: string[];
         requestType: number;
     };
 };

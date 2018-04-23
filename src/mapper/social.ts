@@ -6,17 +6,19 @@ import { RequestType } from "../utils";
 export const peoplemanager = {
     amIFollowedBy: {
         argNames: ["accountName"],
-        requestType: RequestType.GetWithArgsInQS
+        name: "amIFollowedBy(@v)?@v='[[accountName]]'",
+        requestType: RequestType.GetReplace
     },
 
     amIFollowing: {
-        argNames: ["accountName"],
-        requestType: RequestType.GetWithArgsInQS
+        name: "amIFollowing(@v)?@v='[[accountName]]'",
+        requestType: RequestType.GetReplace
     },
 
     follow: {
         argNames: ["accountName"],
-        requestType: RequestType.PostWithArgsInQS
+        name: "follow(@v)?@v='[[accountName]]'",
+        requestType: RequestType.PostReplace
     },
 
     followTag: {
@@ -31,7 +33,8 @@ export const peoplemanager = {
 
     getFollowersFor: {
         argNames: ["accountName"],
-        requestType: RequestType.GetWithArgsInQS
+        name: "getFollowersFor(@v)?@v='[[accountName]]'",
+        requestType: RequestType.GetReplace
     },
 
     getMyFollowers: {
@@ -48,7 +51,8 @@ export const peoplemanager = {
 
     getPeopleFollowedBy: {
         argNames: ["accountName"],
-        requestType: RequestType.GetWithArgsInQS
+        name: "getPeopleFollowedBy(@v)?@v='[[accountName]]'",
+        requestType: RequestType.GetReplace
     },
 
     getPeopleFollowedByMe: {
@@ -57,7 +61,8 @@ export const peoplemanager = {
 
     getPropertiesFor: {
         argNames: ["accountName"],
-        requestType: RequestType.GetWithArgsInQS
+        name: "getPropertiesFor(@v)?@v='[[accountName]]'",
+        requestType: RequestType.GetReplace
     },
 
     getTrendingTags: {
@@ -68,19 +73,21 @@ export const peoplemanager = {
 
     getUserProfilePropertyFor: {
         argNames: ["accountName", "propertyName"],
-        requestType: RequestType.GetWithArgsInQS
+        name: "getUserProfilePropertyFor(accountname=@v, propertyname='[[propertyName]]')?@v='[[accountName]]'",
+        requestType: RequestType.GetReplace
     },
 
     hideSuggestion: {
         argNames: ["accountName"],
-        requestType: RequestType.PostWithArgsInQS
+        name: "hideSuggestion(@v)?@v='[[accountName]]'",
+        requestType: RequestType.PostReplace
     },
 
     isFollowing: {
         argNames: ["possibleFollowerAccountName", "possibleFolloweeAccountName"],
-        name: "sp.userprofiles.peoplemanager.isfollowing",
+        name: "sp.userprofiles.peoplemanager.isfollowing(possiblefolloweraccountname=@v, possiblefolloweeaccountname=@y)?@v='[[possibleFollowerAccountName]]'&@y='[[possibleFolloweeAccountName]]'",
         replaceEndpointFl: true,
-        requestType: RequestType.GetWithArgsInQS
+        requestType: RequestType.GetReplace
     },
 
     setMyProfilePicture: {
@@ -89,6 +96,7 @@ export const peoplemanager = {
 
     stopFollowing: {
         argNames: ["accountName"],
+        name: "stopFollowing(@v)?@v='[[accountName]]'",
         requestType: RequestType.PostWithArgsInQS
     },
 
@@ -194,10 +202,12 @@ export const userprofile = {
     /*********************************************************************************************************************************/
 
     createPersonalSiteEnque: {
+        argNames: ["interactiveMode"],
         requestType: RequestType.PostWithArgsValueOnly
     },
 
     shareAllSocialData: {
+        argNames: ["makePublic"],
         requestType: RequestType.PostWithArgsValueOnly
     }
 };
