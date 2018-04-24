@@ -1,5 +1,5 @@
 import { IBase, ITargetInfo } from "../../utils/types";
-import { ComplexTypes } from ".";
+import { ComplexTypes, IResults } from ".";
 
 /**
  * Person Properties
@@ -28,12 +28,12 @@ export interface IPersonProperties extends IBase<IPersonProperties> {
     /**
      * The account names of the user's manager hierarchy.
      */
-    ExtendedManagers: string;
+    ExtendedManagers: IResults<string>;
 
     /**
      * The account names of the user's extended reports.
      */
-    ExtendedReports: string;
+    ExtendedReports: IResults<string>;
 
     /**
      * A Boolean value that indicates whether the user is being followed by the current user.
@@ -48,7 +48,7 @@ export interface IPersonProperties extends IBase<IPersonProperties> {
     /**
      * The account names of the user's peers.
      */
-    Peers: string;
+    Peers: IResults<string>;
 
     /**
      * The absolute URL of the user's personal site.
@@ -68,7 +68,7 @@ export interface IPersonProperties extends IBase<IPersonProperties> {
     /**
      * The user profile properties for the user.
      */
-    UserProfileProperties: ComplexTypes.KeyValue;
+    UserProfileProperties: IResults<ComplexTypes.KeyValue>;
 
     /**
      * The URL of the user's profile page.
