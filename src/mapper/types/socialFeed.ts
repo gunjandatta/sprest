@@ -42,7 +42,7 @@ export interface ISocialFeed {
     myLikes(): IBase<ISocialRestFeed>;
 
     /**
-     * Gets the feed of microblog posts that mention the current user, represented by MentionReference thread Types.SP.
+     * Gets the feed of microblog posts that mention the current user.
      */
     myMentionFeed(): IBase<ISocialRestFeed>;
 

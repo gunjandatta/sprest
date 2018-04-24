@@ -1,4 +1,5 @@
 import {
+    $REST,
     Helper,
     List
 } from "../build";

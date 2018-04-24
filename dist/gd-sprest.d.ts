@@ -7403,7 +7403,7 @@ declare module 'gd-sprest/mapper/types/navigation' {
 
 declare module 'gd-sprest/mapper/types/peopleManager' {
     import { IBase, ITargetInfo } from "gd-sprest/utils/types";
-    import { ComplexTypes } from "gd-sprest/mapper/types";
+    import { ComplexTypes, IResults } from "gd-sprest/mapper/types";
     /**
         * Person Properties
         */
@@ -7427,11 +7427,11 @@ declare module 'gd-sprest/mapper/types/peopleManager' {
             /**
                 * The account names of the user's manager hierarchy.
                 */
-            ExtendedManagers: string;
+            ExtendedManagers: IResults<string>;
             /**
                 * The account names of the user's extended reports.
                 */
-            ExtendedReports: string;
+            ExtendedReports: IResults<string>;
             /**
                 * A Boolean value that indicates whether the user is being followed by the current user.
                 */
@@ -7443,7 +7443,7 @@ declare module 'gd-sprest/mapper/types/peopleManager' {
             /**
                 * The account names of the user's peers.
                 */
-            Peers: string;
+            Peers: IResults<string>;
             /**
                 * The absolute URL of the user's personal site.
                 */
@@ -7459,7 +7459,7 @@ declare module 'gd-sprest/mapper/types/peopleManager' {
             /**
                 * The user profile properties for the user.
                 */
-            UserProfileProperties: ComplexTypes.KeyValue;
+            UserProfileProperties: IResults<ComplexTypes.KeyValue>;
             /**
                 * The URL of the user's profile page.
                 */
@@ -8391,7 +8391,7 @@ declare module 'gd-sprest/mapper/types/socialFeed' {
                 */
             myLikes(): IBase<ISocialRestFeed>;
             /**
-                * Gets the feed of microblog posts that mention the current user, represented by MentionReference thread Types.SP.
+                * Gets the feed of microblog posts that mention the current user.
                 */
             myMentionFeed(): IBase<ISocialRestFeed>;
             /**
