@@ -1312,7 +1312,7 @@ declare module 'gd-sprest/helper/types/sp' {
             /** A Boolean value that specifies whether the dialog platform handles dialog sizing. */
             autoSize?: boolean;
             /** A function pointer that specifies the return callback function. The function takes two parameters, a dialogResult of type SP.UI.DialogResult Enumeration and a returnValue of type object that contains any data returned by the dialog. */
-            dialogReturnValueCallback?: (dialogResult: number, returnVal: any) => void;
+            dialogReturnValueCallback?: (dialogResult?: number, returnVal?: any) => void;
             /** An integer value that specifies the height of the dialog. If height is not specified, the height of the dialog is autosized by default. If autosize is false, the dialog height is set to 576 pixels. */
             height?: number;
             /** An html element to display in the dialog. If both html and url are specified, url takes precedence. Either url or html must be specified. */
@@ -1390,7 +1390,7 @@ declare module 'gd-sprest/helper/types/sp' {
                 * @param height - The height of the wait screen dialog.
                 * @param width - The width of the wait screen dialog.
                 */
-            showWaitScreenSize(title: string, message: string, callback: () => void, height: number, width: number): any;
+            showWaitScreenSize(title: string, message?: string, callback?: () => void, height?: number, width?: number): any;
             /**
                 * Displays a wait screen dialog that does not have a Cancel button using the specified parameters.
                 * @param title - The title of the wait screen dialog.
@@ -1398,7 +1398,7 @@ declare module 'gd-sprest/helper/types/sp' {
                 * @param height - The height of the wait screen dialog.
                 * @param width - The width of the wait screen dialog.
                 */
-            showWaitScreenWithNoClose(title: string, message: string, height: number, width: number): any;
+            showWaitScreenWithNoClose(title: string, message?: string, height?: number, width?: number): any;
     }
     /**
         * Notify
