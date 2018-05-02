@@ -1020,7 +1020,7 @@ exports.SPConfig = function (cfg, webUrl) {
                                 console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
                                 console.error("[gd-sprest][Field] Error: " + ct.response);
                             }
-                        });
+                        }, true);
                     }
                 }
             };

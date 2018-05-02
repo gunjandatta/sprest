@@ -128,7 +128,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
                                 console.error("[gd-sprest][Field] Error: " + ct.response);
                             }
-                        });
+                        }, true);
                     }
                 }
             }
