@@ -1922,6 +1922,10 @@ declare module 'gd-sprest/helper/types/webpart' {
                 * @param props - The webpart properties.
                 */
             create(props: IWebPartProps): any;
+            /**
+                * Determines if the page is being edited.
+                */
+            isEditMode(): boolean;
     }
     /**
         * The webpart configuration
