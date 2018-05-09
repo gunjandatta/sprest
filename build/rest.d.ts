@@ -75,6 +75,14 @@ export interface IREST {
          */
         SPConfig: Helper.Types.ISPConfig;
         /**
+         * The field configuration types
+         */
+        SPCfgFieldType: Helper.Types.ISPCfgFieldType;
+        /**
+         * The configuration types
+         */
+        SPCfgType: Helper.Types.ISPCfgType;
+        /**
          * Helper class for adding links to the suite bar
          */
         SuiteBarLink: Helper.Types.ISuiteBarLink;

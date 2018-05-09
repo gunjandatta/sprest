@@ -93,6 +93,16 @@ export interface IREST {
         SPConfig: Helper.Types.ISPConfig;
 
         /**
+         * The field configuration types
+         */
+        SPCfgFieldType: Helper.Types.ISPCfgFieldType;
+
+        /**
+         * The configuration types
+         */
+        SPCfgType: Helper.Types.ISPCfgType;
+
+        /**
          * Helper class for adding links to the suite bar
          */
         SuiteBarLink: Helper.Types.ISuiteBarLink;
@@ -189,7 +199,7 @@ export interface IREST {
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 3.92,
+    __ver: 3.93,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
