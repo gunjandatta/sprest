@@ -71,10 +71,6 @@ export interface IREST {
             Status: Helper.Types.IStatus;
         };
         /**
-         * Helper class for automating SharePoint assets
-         */
-        SPConfig: Helper.Types.ISPConfig;
-        /**
          * The field configuration types
          */
         SPCfgFieldType: Helper.Types.ISPCfgFieldType;
@@ -82,6 +78,10 @@ export interface IREST {
          * The configuration types
          */
         SPCfgType: Helper.Types.ISPCfgType;
+        /**
+         * Helper class for automating SharePoint assets
+         */
+        SPConfig: Helper.Types.ISPConfig;
         /**
          * Helper class for adding links to the suite bar
          */

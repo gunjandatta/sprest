@@ -11601,7 +11601,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.93,
+    __ver: 3.94,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -11615,6 +11615,8 @@ exports.$REST = {
         parse: Helper.parse,
         RibbonLink: Helper.RibbonLink,
         SP: Helper.SP,
+        SPCfgFieldType: Helper.SPCfgFieldType,
+        SPCfgType: Helper.SPCfgType,
         SPConfig: Helper.SPConfig,
         SuiteBarLink: Helper.SuiteBarLink,
         Taxonomy: Helper.Taxonomy,

@@ -157,10 +157,6 @@ declare module 'gd-sprest/rest' {
                             Status: Helper.Types.IStatus;
                     };
                     /**
-                        * Helper class for automating SharePoint assets
-                        */
-                    SPConfig: Helper.Types.ISPConfig;
-                    /**
                         * The field configuration types
                         */
                     SPCfgFieldType: Helper.Types.ISPCfgFieldType;
@@ -168,6 +164,10 @@ declare module 'gd-sprest/rest' {
                         * The configuration types
                         */
                     SPCfgType: Helper.Types.ISPCfgType;
+                    /**
+                        * Helper class for automating SharePoint assets
+                        */
+                    SPConfig: Helper.Types.ISPConfig;
                     /**
                         * Helper class for adding links to the suite bar
                         */
