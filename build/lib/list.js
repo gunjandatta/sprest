@@ -26,7 +26,7 @@ var _List = /** @class */ (function (_super) {
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
+        _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName.replace(/\'/g, "''") + "')";
         // Add the methods
         _this.addMethods(_this, { __metadata: { type: "list" } });
         return _this;
