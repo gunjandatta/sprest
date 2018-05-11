@@ -19,6 +19,14 @@ export const group = {
     query: {
         argNames: ["oData"],
         requestType: RequestType.OData
+    },
+
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.Group",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: RequestType.PostWithArgsInBody
     }
 };
 
@@ -111,6 +119,14 @@ export const user = {
     query: {
         argNames: ["oData"],
         requestType: RequestType.OData
+    },
+
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.User",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: RequestType.PostWithArgsInBody
     }
 };
 

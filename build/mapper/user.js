@@ -18,6 +18,13 @@ exports.group = {
     query: {
         argNames: ["oData"],
         requestType: utils_1.RequestType.OData
+    },
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.Group",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: utils_1.RequestType.PostWithArgsInBody
     }
 };
 /**
@@ -98,6 +105,13 @@ exports.user = {
     query: {
         argNames: ["oData"],
         requestType: utils_1.RequestType.OData
+    },
+    // Updates it's properties.
+    update: {
+        metadataType: "SP.User",
+        name: "",
+        requestMethod: "MERGE",
+        requestType: utils_1.RequestType.PostWithArgsInBody
     }
 };
 /**
