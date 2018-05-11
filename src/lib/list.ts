@@ -9,13 +9,13 @@ class _List extends Base {
     /**
      * Constructor
      */
-    constructor(listName, targetInfo?) {
+    constructor(listName: string, targetInfo?) {
         // Call the base constructor
         super(targetInfo);
 
         // Default the properties
         this.targetInfo.defaultToWebFl = true;
-        this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
+        this.targetInfo.endpoint = "web/lists/getByTitle('" + listName.replace(/\'/g, "''") + "')";
 
         // Add the methods
         this.addMethods(this, { __metadata: { type: "list" } });

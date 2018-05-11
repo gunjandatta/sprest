@@ -13,6 +13,11 @@ export interface IWebPart {
      * @param props - The webpart properties.
      */
     create(props: IWebPartProps)
+
+    /**
+     * Determines if the page is being edited.
+     */
+    isEditMode():boolean;
 }
 
 /**

@@ -88,6 +88,16 @@ export interface IREST {
         };
 
         /**
+         * The field configuration types
+         */
+        SPCfgFieldType: Helper.Types.ISPCfgFieldType;
+
+        /**
+         * The configuration types
+         */
+        SPCfgType: Helper.Types.ISPCfgType;
+
+        /**
          * Helper class for automating SharePoint assets
          */
         SPConfig: Helper.Types.ISPConfig;
@@ -189,7 +199,7 @@ export interface IREST {
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 3.91,
+    __ver: 3.95,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -203,6 +213,8 @@ export const $REST: IREST = {
         parse: Helper.parse,
         RibbonLink: Helper.RibbonLink,
         SP: Helper.SP,
+        SPCfgFieldType: Helper.SPCfgFieldType,
+        SPCfgType: Helper.SPCfgType,
         SPConfig: Helper.SPConfig,
         SuiteBarLink: Helper.SuiteBarLink,
         Taxonomy: Helper.Taxonomy,

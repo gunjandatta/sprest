@@ -71,6 +71,14 @@ export interface IREST {
             Status: Helper.Types.IStatus;
         };
         /**
+         * The field configuration types
+         */
+        SPCfgFieldType: Helper.Types.ISPCfgFieldType;
+        /**
+         * The configuration types
+         */
+        SPCfgType: Helper.Types.ISPCfgType;
+        /**
          * Helper class for automating SharePoint assets
          */
         SPConfig: Helper.Types.ISPConfig;

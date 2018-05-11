@@ -7,7 +7,7 @@ var Mapper = require("./mapper");
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.91,
+    __ver: 3.95,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -21,6 +21,8 @@ exports.$REST = {
         parse: Helper.parse,
         RibbonLink: Helper.RibbonLink,
         SP: Helper.SP,
+        SPCfgFieldType: Helper.SPCfgFieldType,
+        SPCfgType: Helper.SPCfgType,
         SPConfig: Helper.SPConfig,
         SuiteBarLink: Helper.SuiteBarLink,
         Taxonomy: Helper.Taxonomy,

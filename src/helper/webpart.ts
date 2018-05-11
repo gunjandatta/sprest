@@ -243,7 +243,7 @@ class _WebPart {
     /**
      * Method to detect if a page is being edited
      */
-    private isEditMode = () => {
+    static isEditMode = () => {
         let formName = MSOWebPartPageFormName ? MSOWebPartPageFormName : "";
 
         // Get the form
@@ -279,7 +279,7 @@ class _WebPart {
 
         // See if the page is being edited
         let returnVal = null;
-        if (this.isEditMode()) {
+        if (WebPart.isEditMode()) {
             // Add the help link
             this.addHelpLink();
 

@@ -1020,7 +1020,7 @@ exports.SPConfig = function (cfg, webUrl) {
                                 console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
                                 console.error("[gd-sprest][Field] Error: " + ct.response);
                             }
-                        });
+                        }, true);
                     }
                 }
             };
@@ -4025,7 +4025,7 @@ var BaseHelper = /** @class */ (function () {
                                 // Update the ' char in the property name
                                 subPropName = subPropName.replace(/'/g, "\\'");
                                 // Add the property
-                                base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name) : null;" +
+                                base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name.replace(/\'/g, \"''\")) : null;" +
                                     "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             }
                             else {
@@ -8269,7 +8269,7 @@ var _List = /** @class */ (function (_super) {
         _super.call(this, targetInfo) || this;
         // Default the properties
         _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName + "')";
+        _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName.replace(/\'/g, "''") + "')";
         // Add the methods
         _this.addMethods(_this, { __metadata: { type: "list" } });
         return _this;
@@ -11302,24 +11302,6 @@ var _WebPart = /** @class */ (function () {
             return targetInfo;
         };
         /**
-         * Method to detect if a page is being edited
-         */
-        this.isEditMode = function () {
-            var formName = MSOWebPartPageFormName ? MSOWebPartPageFormName : "";
-            // Get the form
-            var form = document.forms[MSOWebPartPageFormName];
-            if (form) {
-                // Get the wiki page mode
-                var wikiPageMode = form._wikiPageMode ? form._wikiPageMode.value : null;
-                // Get the webpart page mode
-                var wpPageMode = form.MSOLayout_InDesignMode ? form.MSOLayout_InDesignMode.value : null;
-                // Determine if the page is being edited
-                return wikiPageMode == "Edit" || wpPageMode == "1";
-            }
-            // Unable to determine
-            return false;
-        };
-        /**
          * Method to render the webpart
          */
         this.render = function () {
@@ -11333,7 +11315,7 @@ var _WebPart = /** @class */ (function () {
             }
             // See if the page is being edited
             var returnVal = null;
-            if (_this.isEditMode()) {
+            if (exports.WebPart.isEditMode()) {
                 // Add the help link
                 _this.addHelpLink();
                 // Call the render event
@@ -11382,6 +11364,24 @@ var _WebPart = /** @class */ (function () {
     _WebPart.create = function (props) {
         // Return an instance of the webpart
         return new _WebPart(props);
+    };
+    /**
+     * Method to detect if a page is being edited
+     */
+    _WebPart.isEditMode = function () {
+        var formName = MSOWebPartPageFormName ? MSOWebPartPageFormName : "";
+        // Get the form
+        var form = document.forms[MSOWebPartPageFormName];
+        if (form) {
+            // Get the wiki page mode
+            var wikiPageMode = form._wikiPageMode ? form._wikiPageMode.value : null;
+            // Get the webpart page mode
+            var wpPageMode = form.MSOLayout_InDesignMode ? form.MSOLayout_InDesignMode.value : null;
+            // Determine if the page is being edited
+            return wikiPageMode == "Edit" || wpPageMode == "1";
+        }
+        // Unable to determine
+        return false;
     };
     return _WebPart;
 }());
@@ -11601,7 +11601,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.91,
+    __ver: 3.95,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
@@ -11615,6 +11615,8 @@ exports.$REST = {
         parse: Helper.parse,
         RibbonLink: Helper.RibbonLink,
         SP: Helper.SP,
+        SPCfgFieldType: Helper.SPCfgFieldType,
+        SPCfgType: Helper.SPCfgType,
         SPConfig: Helper.SPConfig,
         SuiteBarLink: Helper.SuiteBarLink,
         Taxonomy: Helper.Taxonomy,

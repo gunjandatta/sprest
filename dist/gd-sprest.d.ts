@@ -157,6 +157,14 @@ declare module 'gd-sprest/rest' {
                             Status: Helper.Types.IStatus;
                     };
                     /**
+                        * The field configuration types
+                        */
+                    SPCfgFieldType: Helper.Types.ISPCfgFieldType;
+                    /**
+                        * The configuration types
+                        */
+                    SPCfgType: Helper.Types.ISPCfgType;
+                    /**
                         * Helper class for automating SharePoint assets
                         */
                     SPConfig: Helper.Types.ISPConfig;
@@ -1922,6 +1930,10 @@ declare module 'gd-sprest/helper/types/webpart' {
                 * @param props - The webpart properties.
                 */
             create(props: IWebPartProps): any;
+            /**
+                * Determines if the page is being edited.
+                */
+            isEditMode(): boolean;
     }
     /**
         * The webpart configuration
