@@ -1,3 +1,5 @@
+import { ContextInfo } from "../lib";
+import { RibbonLink } from "./ribbonLink";
 import { ILinkInfo } from "./types";
 
 /**
@@ -31,6 +33,11 @@ export const SuiteBarLink = (props: ILinkInfo): HTMLAnchorElement => {
             // Append the item to the list
             appendFl ? topLinks.appendChild(sbLink) : topLinks.insertBefore(sbLink, topLinks.firstChild);
         }
+    }
+    // Else, see if this is SPO
+    else if (ContextInfo.isSPO) {
+        // Create this as a ribbon link
+        link = RibbonLink(props);
     }
 
     // Return the link
