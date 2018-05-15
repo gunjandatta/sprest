@@ -4061,7 +4061,7 @@ var BaseHelper = /** @class */ (function () {
                                 // Update the ' char in the property name
                                 subPropName = subPropName.replace(/'/g, "\\'");
                                 // Add the property
-                                base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name.replace(/\'/g, \"''\")) : null;" +
+                                base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name.toString().replace(/\'/g, \"''\")) : null;" +
                                     "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             }
                             else {
@@ -11621,7 +11621,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.97,
+    __ver: 3.98,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Helper: {
