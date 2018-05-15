@@ -81,7 +81,7 @@ export class BaseHelper implements Types.IBaseHelper {
 
                                 // Add the property
                                 base[propName] = new Function("name",
-                                    "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name.replace(/\'/g, \"''\")) : null;" +
+                                    "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name.toString().replace(/\'/g, \"''\")) : null;" +
                                     "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             } else {
                                 // Add the property

@@ -7,6 +7,12 @@ export declare const group: {
         argNames: string[];
         requestType: number;
     };
+    update: {
+        metadataType: string;
+        name: string;
+        requestMethod: string;
+        requestType: number;
+    };
 };
 /**
  * Site Groups
@@ -69,6 +75,12 @@ export declare const user: {
     };
     query: {
         argNames: string[];
+        requestType: number;
+    };
+    update: {
+        metadataType: string;
+        name: string;
+        requestMethod: string;
         requestType: number;
     };
 };

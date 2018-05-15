@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = require("../lib");
+var ribbonLink_1 = require("./ribbonLink");
 /**
  * Suite Bar Link
  */
@@ -27,6 +29,10 @@ exports.SuiteBarLink = function (props) {
             // Append the item to the list
             appendFl ? topLinks.appendChild(sbLink) : topLinks.insertBefore(sbLink, topLinks.firstChild);
         }
+    }
+    else if (lib_1.ContextInfo.isSPO) {
+        // Create this as a ribbon link
+        link = ribbonLink_1.RibbonLink(props);
     }
     // Return the link
     return link;

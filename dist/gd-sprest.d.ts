@@ -3356,6 +3356,12 @@ declare module 'gd-sprest/mapper/user' {
                     argNames: string[];
                     requestType: number;
             };
+            update: {
+                    metadataType: string;
+                    name: string;
+                    requestMethod: string;
+                    requestType: number;
+            };
     };
     /**
         * Site Groups
@@ -3418,6 +3424,12 @@ declare module 'gd-sprest/mapper/user' {
             };
             query: {
                     argNames: string[];
+                    requestType: number;
+            };
+            update: {
+                    metadataType: string;
+                    name: string;
+                    requestMethod: string;
                     requestType: number;
             };
     };
