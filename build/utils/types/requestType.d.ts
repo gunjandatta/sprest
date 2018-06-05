@@ -13,6 +13,8 @@ export declare type IRequestType = {
     GetWithArgsInQS: number;
     GetWithArgsValueOnly: number;
     GetReplace: number;
+    GraphGet: number;
+    GraphPost: number;
     Post: number;
     PostWithArgs: number;
     PostWithArgsInBody: number;

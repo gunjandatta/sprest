@@ -19,6 +19,10 @@ export interface IREST {
      */
     DefaultRequestToHostFl: boolean;
     /**
+     * Use this api to interact with the Graph API.
+     */
+    Graph: any;
+    /**
      * Helper methods.
      */
     Helper: {

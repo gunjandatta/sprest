@@ -7,7 +7,7 @@ export declare class BaseHelper implements Types.IBaseHelper {
     requestType: number;
     response: string;
     status: number;
-    addMethods(base: Base, data: any): void;
+    addMethods(base: Base, data: any, graphType?: string): void;
     addProperties(base: any, data: any): void;
     updateDataCollection(obj: any, results: any): void;
     updateDataObject(isBatchRequest: boolean): void;

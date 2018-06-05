@@ -17,6 +17,10 @@ export type IRequestType = {
     GetWithArgsValueOnly: number;
     GetReplace: number;
 
+    // Graph Requests
+    GraphGet: number;
+    GraphPost: number;
+
     // Post Requests
     Post: number;
     PostWithArgs: number;

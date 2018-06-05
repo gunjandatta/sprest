@@ -60,14 +60,15 @@ declare module 'gd-sprest/mapper' {
 }
 
 declare module 'gd-sprest/types' {
-    import { Types as HelperTypes } from "gd-sprest/helper";
-    import { Types } from "gd-sprest/mapper";
-    import { Types as UtilTypes } from "gd-sprest/utils";
-    export { HelperTypes as Helper, Types as SP, UtilTypes as Util };
+    import { Types as Helper } from "gd-sprest/helper";
+    import { Types as SP } from "gd-sprest/mapper";
+    import { Types as Util } from "gd-sprest/utils";
+    export { Helper, SP, Util };
 }
 
 declare module 'gd-sprest/lib' {
     export * from "gd-sprest/lib/contextInfo";
+    export * from "gd-sprest/lib/graph";
     export * from "gd-sprest/lib/list";
     export * from "gd-sprest/lib/navigation";
     export * from "gd-sprest/lib/peopleManager";
@@ -104,6 +105,10 @@ declare module 'gd-sprest/rest' {
                 * False by default.
                 */
             DefaultRequestToHostFl: boolean;
+            /**
+                * Use this api to interact with the Graph API.
+                */
+            Graph: any;
             /**
                 * Helper methods.
                 */
@@ -389,6 +394,7 @@ declare module 'gd-sprest/mapper/mapper' {
     export * from "gd-sprest/mapper/audit";
     export * from "gd-sprest/mapper/eventReceiver";
     export * from "gd-sprest/mapper/file";
+    export * from "gd-sprest/mapper/graph";
     export * from "gd-sprest/mapper/list";
     export * from "gd-sprest/mapper/navigation";
     export * from "gd-sprest/mapper/propertyValues";
@@ -578,6 +584,7 @@ declare module 'gd-sprest/mapper/types' {
     export * from "gd-sprest/mapper/types/fileVersions";
     export * from "gd-sprest/mapper/types/folder";
     export * from "gd-sprest/mapper/types/folders";
+    export * from "gd-sprest/mapper/types/graph";
     export * from "gd-sprest/mapper/types/group";
     export * from "gd-sprest/mapper/types/groups";
     export * from "gd-sprest/mapper/types/items";
@@ -637,6 +644,11 @@ declare module 'gd-sprest/utils' {
 declare module 'gd-sprest/lib/contextInfo' {
     import { IContextInformation } from "gd-sprest/lib/types";
     export const ContextInfo: IContextInformation;
+}
+
+declare module 'gd-sprest/lib/graph' {
+    import { Types } from "gd-sprest/mapper";
+    export const Graph: Types.IGraph;
 }
 
 declare module 'gd-sprest/lib/list' {
@@ -2239,6 +2251,19 @@ declare module 'gd-sprest/mapper/file' {
                     requestType: number;
             };
     };
+}
+
+declare module 'gd-sprest/mapper/graph' {
+    /**
+      * Graph v1.0
+      */
+    export const graph: {
+        properties: string[];
+        me: {
+            requestType: number;
+        };
+    };
+    export const graph_user: {};
 }
 
 declare module 'gd-sprest/mapper/list' {
@@ -6399,6 +6424,70 @@ declare module 'gd-sprest/mapper/types/folders' {
         * Folder Results
         */
     export interface IFolderResults extends IFoldersMethods, IBaseCollection<IFolderResult, IFolderResult, IFolderQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/graph' {
+    import { IBase } from "gd-sprest/utils/types";
+    /**
+        * Graph Methods
+        */
+    export interface IGraphMethods {
+    }
+    /**
+        * Graph Query Properties
+        */
+    export interface IGraphQueryProps {
+    }
+    /**
+        * Graph Result
+        */
+    export interface IGraphResult {
+    }
+    /**
+        * Graph Query Result
+        */
+    export interface IGraphQueryResult {
+    }
+    /**
+        * Graph Token
+        */
+    export interface IGraphToken {
+            access_token: string;
+            expires_on: string;
+            resource: string;
+            scope: string;
+            token_type: string;
+    }
+    /**
+        * Graph
+        */
+    export interface IGraph extends IGraphMethods, IGraphQueryProps, IBase<IGraph, IGraphResult, IGraphQueryResult> {
+            /**
+                * Constructor
+                * @param version - The version of the graph to target.
+                */
+            new (listName: string): IGraph;
+            /**
+                * Method to get the access token from a classic page.
+                */
+            getAccessToken(): Promise<IGraphToken>;
+    }
+    /**
+        * Graph User
+        */
+    export interface IGraphUser {
+            id: string;
+            businessPhones: Array<string>;
+            displayName: string;
+            givenName: string;
+            jobTitle: string;
+            mail: string;
+            mobilePhone: string;
+            officeLocation: string;
+            preferredLanguage: string;
+            surname: string;
+            userPrincipalName: string;
     }
 }
 
@@ -11537,7 +11626,7 @@ declare module 'gd-sprest/utils/baseHelper' {
         requestType: number;
         response: string;
         status: number;
-        addMethods(base: Base, data: any): void;
+        addMethods(base: Base, data: any, graphType?: string): void;
         addProperties(base: any, data: any): void;
         updateDataCollection(obj: any, results: any): void;
         updateDataObject(isBatchRequest: boolean): void;
@@ -11667,6 +11756,7 @@ declare module 'gd-sprest/utils/targetInfo' {
         /*********************************************************************************************************************************/
         request: ITargetInfo;
         readonly isBatchRequest: boolean;
+        readonly isGraph: boolean;
         requestData: any;
         readonly requestInfo: IRequestInfo;
         requestHeaders: object;
@@ -12154,6 +12244,8 @@ declare module 'gd-sprest/utils/types/requestType' {
         GetWithArgsInQS: number;
         GetWithArgsValueOnly: number;
         GetReplace: number;
+        GraphGet: number;
+        GraphPost: number;
         Post: number;
         PostWithArgs: number;
         PostWithArgsInBody: number;
@@ -12179,6 +12271,8 @@ declare module 'gd-sprest/utils/types/targetInfo' {
         * Target Information
         */
     export interface ITargetInfo {
+            /** The access token for the graph api request. */
+            accessToken?: string;
             /** True if the expected request returns an array buffer. */
             bufferFl?: boolean;
             /** The method to execute after the asynchronous request executes. */

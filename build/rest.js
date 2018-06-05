@@ -10,6 +10,7 @@ exports.$REST = {
     __ver: 3.98,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
+    Graph: Lib.Graph,
     Helper: {
         App: Helper.App,
         Dependencies: Helper.Dependencies,

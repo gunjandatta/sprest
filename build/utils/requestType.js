@@ -17,11 +17,14 @@ exports.RequestType = {
     GetWithArgsInQS: 14,
     GetWithArgsValueOnly: 15,
     GetReplace: 16,
+    // Graph Requests
+    GraphGet: 20,
+    GraphPost: 21,
     // Post Requests
-    Post: 20,
-    PostWithArgs: 21,
-    PostWithArgsInBody: 22,
-    PostWithArgsInQS: 23,
-    PostWithArgsValueOnly: 24,
-    PostReplace: 25
+    Post: 30,
+    PostWithArgs: 31,
+    PostWithArgsInBody: 32,
+    PostWithArgsInQS: 33,
+    PostWithArgsValueOnly: 34,
+    PostReplace: 35
 };

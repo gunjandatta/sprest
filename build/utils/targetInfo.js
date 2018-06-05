@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = require("../lib");
+var _1 = require(".");
 /**
  * Target Information
  */
@@ -15,11 +16,17 @@ var TargetInfo = /** @class */ (function () {
         this.requestHeaders = this.request.requestHeader;
         this.requestMethod = this.request.method ? this.request.method : "GET";
         // Set the request url
-        this.setRequestUrl();
+        this.isGraph ? this.setGraphRequestUrl() : this.setRESTRequestUrl();
     }
     Object.defineProperty(TargetInfo.prototype, "isBatchRequest", {
         // Flag to determine if this is a batch request
         get: function () { return this.request.endpoint == "$batch"; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(TargetInfo.prototype, "isGraph", {
+        // Flag to determine if this is a graph request
+        get: function () { return this.request.requestType == _1.RequestType.GraphGet || this.request.requestType == _1.RequestType.GraphPost; },
         enumerable: true,
         configurable: true
     });
@@ -77,12 +84,17 @@ var TargetInfo = /** @class */ (function () {
         // Key was not found
         return null;
     };
-    // Method to set the request url
-    TargetInfo.prototype.setRequestUrl = function () {
+    // Method to set the request url for the Graph API
+    TargetInfo.prototype.setGraphRequestUrl = function () {
+        // Return the request url
+        this.requestUrl = "https://graph.microsoft.com/" + this.request.endpoint;
+    };
+    // Method to set the request url for the REST API
+    TargetInfo.prototype.setRESTRequestUrl = function () {
         var endpoint = this.request.endpoint ? "/" + this.request.endpoint : "";
         var hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
         var qs = (endpoint.indexOf("?") === -1 ? "?" : "&") + "@target='{{Target}}'";
-        var template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
+        var template = "{{Url}}" + (this.request.endpoint ? "/_api/{{EndPoint}}{{TargetUrl}}" : "");
         // See if we are defaulting the url for the app web
         if (lib_1.ContextInfo.existsFl && lib_1.ContextInfo.window.$REST && lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl && lib_1.ContextInfo.isAppWeb && !this.request.overrideDefaultRequestToHostFl && this.request.url == null) {
             // Default the url to the host web

@@ -4,6 +4,15 @@ import {
     List
 } from "../build";
 
+$REST.Search().postquery({
+    Querytext: "*",
+    Properties: {
+        Key: "GraphQuery",
+        Value: "ACTOR(ME,action:1013)",
+        ValueType: "string"
+    }
+})
+
 Helper.SPConfig({
     ListCfg: [{
         ContentTypes: [

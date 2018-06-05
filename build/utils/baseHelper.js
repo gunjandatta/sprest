@@ -10,7 +10,7 @@ var BaseHelper = /** @class */ (function () {
     function BaseHelper() {
     }
     // Method to add the methods to base object
-    BaseHelper.prototype.addMethods = function (base, data) {
+    BaseHelper.prototype.addMethods = function (base, data, graphType) {
         var isCollection = data.results && data.results.length > 0;
         // Determine the metadata
         var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
@@ -211,7 +211,7 @@ var BaseHelper = /** @class */ (function () {
                     // Update the base object's properties
                     this.addProperties(obj, data.d);
                     // Add the methods
-                    this.addMethods(obj, data.d);
+                    this.addMethods(obj, data.d, data["@odata.context"]);
                     // Update the data collection
                     this.updateDataCollection(obj, data.d.results);
                 }

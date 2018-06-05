@@ -1,5 +1,6 @@
 import { ContextInfo } from "../lib";
 import { IRequestInfo, ITargetInfo } from "./types";
+import { RequestType } from ".";
 
 /**
  * Target Information
@@ -16,7 +17,7 @@ export class TargetInfo {
         this.requestMethod = this.request.method ? this.request.method : "GET";
 
         // Set the request url
-        this.setRequestUrl()
+        this.isGraph ? this.setGraphRequestUrl() : this.setRESTRequestUrl();
     }
 
     /*********************************************************************************************************************************/
@@ -28,6 +29,9 @@ export class TargetInfo {
 
     // Flag to determine if this is a batch request
     get isBatchRequest(): boolean { return this.request.endpoint == "$batch"; }
+
+    // Flag to determine if this is a graph request
+    get isGraph(): boolean { return this.request.requestType == RequestType.GraphGet || this.request.requestType == RequestType.GraphPost; }
 
     // The request data
     requestData: any;
@@ -103,12 +107,18 @@ export class TargetInfo {
         return null;
     }
 
-    // Method to set the request url
-    private setRequestUrl() {
+    // Method to set the request url for the Graph API
+    private setGraphRequestUrl() {
+        // Return the request url
+        this.requestUrl = "https://graph.microsoft.com/" + this.request.endpoint;
+    }
+
+    // Method to set the request url for the REST API
+    private setRESTRequestUrl() {
         let endpoint = this.request.endpoint ? "/" + this.request.endpoint : "";
         let hostUrl = TargetInfo.getQueryStringValue("SPHostUrl");
         let qs = (endpoint.indexOf("?") === -1 ? "?" : "&") + "@target='{{Target}}'";
-        let template = "{{Url}}/_api/{{EndPoint}}{{TargetUrl}}";
+        let template = "{{Url}}" + (this.request.endpoint ? "/_api/{{EndPoint}}{{TargetUrl}}" : "");
 
         // See if we are defaulting the url for the app web
         if (ContextInfo.existsFl && ContextInfo.window.$REST && ContextInfo.window.$REST.DefaultRequestToHostFl && ContextInfo.isAppWeb && !this.request.overrideDefaultRequestToHostFl && this.request.url == null) {

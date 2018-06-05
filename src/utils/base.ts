@@ -57,6 +57,7 @@ export class Base<Type = any, Result = Type, QueryResult = Result> extends BaseE
             response: this.response,
             status: this.status,
             targetInfo: {
+                accessToken: this.targetInfo.accessToken,
                 bufferFl: this.targetInfo.bufferFl,
                 defaultToWebFl: this.targetInfo.defaultToWebFl,
                 endpoint: this.targetInfo.endpoint,

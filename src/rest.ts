@@ -24,6 +24,11 @@ export interface IREST {
     DefaultRequestToHostFl: boolean;
 
     /**
+     * Use this api to interact with the Graph API.
+     */
+    Graph: any;
+
+    /**
      * Helper methods.
      */
     Helper: {
@@ -202,6 +207,7 @@ export const $REST: IREST = {
     __ver: 3.98,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
+    Graph: Lib.Graph,
     Helper: {
         App: Helper.App,
         Dependencies: Helper.Dependencies,
