@@ -9,7 +9,7 @@ var webpack = require("webpack-stream");
 // Build the solution
 gulp.task("build", ["build-ts", "build-def"], () => {
     // Get the source files
-    return gulp.src(["core-js/es6/promise", "build/index.js"])
+    return gulp.src(["node_modules/core-js/es6/promise.js", "build/index.js"])
         // Compile using webpack
         .pipe(webpack({
             output: {
