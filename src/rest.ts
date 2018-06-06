@@ -218,7 +218,7 @@ export interface IREST {
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 3.98,
+    __ver: 3.99,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Graph: Lib.Graph,
@@ -242,7 +242,7 @@ export const $REST: IREST = {
     } as any,
     List: (listName, targetInfo) => { return new Lib.List(listName, targetInfo); },
     ListByEntityName: (entityTypeName: string, callback: (IList) => void, targetInfo?) => { return Lib.List.getByEntityName(entityTypeName, callback, targetInfo); },
-    ListDataAsStream: (listFullUrl, parameters) => { return Lib.List.getListDataAsStream(listFullUrl, parameters); },
+    ListDataAsStream: (listFullUrl, parameters) => { return Lib.List.getDataAsStream(listFullUrl, parameters); },
     Navigation: (url, targetInfo) => { return new Lib.Navigation(url, targetInfo); },
     PeopleManager: (targetInfo) => { return new Lib.PeopleManager(targetInfo); },
     PeoplePicker: (targetInfo) => { return new Lib.PeoplePicker(targetInfo); },

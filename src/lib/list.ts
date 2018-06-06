@@ -47,8 +47,8 @@ class _List extends Base {
         });
     }
 
-    // Method to get the list data from the SP.List.GetListDataAsStream endpoint
-    static getListDataAsStream(listFullUrl: string, parameters: Types.SP.IListDataParameters = {}) {
+    // Method to get the list data from the SP.List.getDataAsStream endpoint
+    static getDataAsStream(listFullUrl: string, parameters: Types.SP.IListDataParameters = {}) {
         let params = "?listFullUrl='" + listFullUrl + "'";
 
         // Parse the parameters
@@ -59,7 +59,7 @@ class _List extends Base {
 
         // Return the base object
         return new Base({
-            endpoint: "SP.List.GetListDataAsStream" + params
+            endpoint: "SP.List.getDataAsStream" + params
         });
     }
 }

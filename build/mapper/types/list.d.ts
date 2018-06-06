@@ -674,7 +674,7 @@ export interface IList extends IListMethods, IListQueryProps, IBase<IList, IList
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
      */
-    getListDataAsStream(listFullUrl: string, parameters?: any): IBase<IListDataStream>;
+    getDataAsStream(listFullUrl: string, parameters?: any): IBase<IListDataStream>;
     /**
      * A static method to get the list by the entity name.
      * @param entityTypeName - The entity type name of the list.
