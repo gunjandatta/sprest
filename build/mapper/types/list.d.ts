@@ -1,6 +1,6 @@
 import { IBase, ITargetInfo } from "../../utils/types";
 import { Types } from "../..";
-import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from ".";
+import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemProps, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from ".";
 /**
  * List Creation Information
  */
@@ -27,6 +27,20 @@ export interface IListCreationInformation {
  */
 export interface IListDataSource {
     Properties: Array<string>;
+}
+/**
+ * List Data Stream
+ */
+export interface IListDataStream<RowProps = IListItemProps> {
+    FilterFields?: string;
+    FilterLink: string;
+    FirstRow: number;
+    FolderPermissions: string;
+    ForceNoHierarchy: string;
+    HierarchyHasIndention: string;
+    LastRow: number;
+    Row: Array<RowProps>;
+    RowLimit: number;
 }
 /**
  * List Template
@@ -58,12 +72,6 @@ export interface IListMethods {
      * Deletes the list.
      */
     delete(): IBase;
-    /**
-     * A static method to get the list by the entity name.
-     * @param entityTypeName - The entity type name of the list.
-     * @param callback - The method to be executed after the request completes.
-     */
-    getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?: any): IBase<IList, IListResult, IListQueryResult>;
     /**
      * Returns the collection of changes from the change log that have occurred within the list, based on the specified query.
      * @param query - The change query.
@@ -516,4 +524,17 @@ export interface IList extends IListMethods, IListQueryProps, IBase<IList, IList
      * @param targetInfo - (Optional) The target information.
      */
     new (listName: string, targetInfo?: ITargetInfo): IList;
+    /**
+     * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
+     * @param listFullUrl - The absolute url of the list.
+     * @param parameters - The optional list data parameters.
+     * @param overrideParameters - The optional list data override parameters.
+     */
+    getListDataAsStream(listFullUrl: string, parameters?: any, overrideParameters?: any): IBase<IListDataStream>;
+    /**
+     * A static method to get the list by the entity name.
+     * @param entityTypeName - The entity type name of the list.
+     * @param callback - The method to be executed after the request completes.
+     */
+    getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?: any): IBase<IList, IListResult, IListQueryResult>;
 }

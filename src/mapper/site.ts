@@ -456,14 +456,6 @@ export const web = {
         returnType: "list"
     },
 
-    // Gets the list data from the SP.List.GetListDataAsStream api endpoint
-    getListDataAsStream: {
-        argNames: ["listFullUrl", "parameters", "overrideParameters"],
-        name: "SP.List.GetListDataAsStream",
-        replaceEndpointFl: true,
-        requestType: RequestType.GetWithArgsInQS
-    },
-
     // Gets the push notification subscriber over the site for the specified device application instance ID.
     getPushNotificationSubscriber: {
         argNames: ["id"],

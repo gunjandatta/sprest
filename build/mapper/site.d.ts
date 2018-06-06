@@ -300,12 +300,6 @@ export declare const web: {
         requestType: number;
         returnType: string;
     };
-    getListDataAsStream: {
-        argNames: string[];
-        name: string;
-        replaceEndpointFl: boolean;
-        requestType: number;
-    };
     getPushNotificationSubscriber: {
         argNames: string[];
         requestType: number;

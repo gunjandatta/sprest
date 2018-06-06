@@ -5822,13 +5822,6 @@ exports.web = {
         requestType: utils_1.RequestType.GetWithArgsValueOnly,
         returnType: "list"
     },
-    // Gets the list data from the SP.List.GetListDataAsStream api endpoint
-    getListDataAsStream: {
-        argNames: ["listFullUrl", "parameters", "overrideParameters"],
-        name: "SP.List.GetListDataAsStream",
-        replaceEndpointFl: true,
-        requestType: utils_1.RequestType.GetWithArgsInQS
-    },
     // Gets the push notification subscriber over the site for the specified device application instance ID.
     getPushNotificationSubscriber: {
         argNames: ["id"],
@@ -8488,6 +8481,26 @@ var _List = /** @class */ (function (_super) {
         query.execute(function (lists) {
             // Execute the callback method
             callback(lists.results ? lists.results[0] : lists);
+        });
+    };
+    // Method to get the list data from the SP.List.GetListDataAsStream endpoint
+    _List.getListDataAsStream = function (listFullUrl, parameters, overrideParameters) {
+        if (parameters === void 0) { parameters = {}; }
+        if (overrideParameters === void 0) { overrideParameters = {}; }
+        var params = "?listFullUrl='" + listFullUrl + "'";
+        // Parse the parameters
+        for (var key in parameters) {
+            // Append the parameter
+            params += "&" + key + "=" + parameters[key];
+        }
+        // Parse the override parameters
+        for (var key in overrideParameters) {
+            // Append the parameter
+            params += "&" + key + "=" + overrideParameters[key];
+        }
+        // Return the base object
+        return new utils_1.Base({
+            endpoint: "SP.List.GetListDataAsStream" + params
         });
     };
     return _List;
@@ -11789,6 +11802,8 @@ exports.$REST = {
         WebPart: Helper.WebPart
     },
     List: function (listName, targetInfo) { return new Lib.List(listName, targetInfo); },
+    ListByEntityName: function (entityTypeName, callback, targetInfo) { return Lib.List.getByEntityName(entityTypeName, callback, targetInfo); },
+    ListDataAsStream: function (listFullUrl, parameters, overrideParameters) { return Lib.List.getListDataAsStream(listFullUrl, parameters, overrideParameters); },
     Navigation: function (url, targetInfo) { return new Lib.Navigation(url, targetInfo); },
     PeopleManager: function (targetInfo) { return new Lib.PeopleManager(targetInfo); },
     PeoplePicker: function (targetInfo) { return new Lib.PeoplePicker(targetInfo); },
@@ -11801,8 +11816,6 @@ exports.$REST = {
     Utility: function (url, targetInfo) { return new Lib.Utility(url, targetInfo); },
     Web: function (url, targetInfo) { return new Lib.Web(url, targetInfo); }
 };
-// Add the static methods
-exports.$REST.List["getByEntityName"] = Lib.List.getByEntityName;
 // See if the library doesn't exist, or is an older version
 var global = Lib.ContextInfo.window.$REST;
 if ((global == null || global.__ver == null || global.__ver < exports.$REST.__ver) && Lib.ContextInfo.window.SP) {

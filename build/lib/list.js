@@ -52,6 +52,26 @@ var _List = /** @class */ (function (_super) {
             callback(lists.results ? lists.results[0] : lists);
         });
     };
+    // Method to get the list data from the SP.List.GetListDataAsStream endpoint
+    _List.getListDataAsStream = function (listFullUrl, parameters, overrideParameters) {
+        if (parameters === void 0) { parameters = {}; }
+        if (overrideParameters === void 0) { overrideParameters = {}; }
+        var params = "?listFullUrl='" + listFullUrl + "'";
+        // Parse the parameters
+        for (var key in parameters) {
+            // Append the parameter
+            params += "&" + key + "=" + parameters[key];
+        }
+        // Parse the override parameters
+        for (var key in overrideParameters) {
+            // Append the parameter
+            params += "&" + key + "=" + overrideParameters[key];
+        }
+        // Return the base object
+        return new utils_1.Base({
+            endpoint: "SP.List.GetListDataAsStream" + params
+        });
+    };
     return _List;
 }(utils_1.Base));
 exports.List = _List;

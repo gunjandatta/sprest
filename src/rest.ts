@@ -131,6 +131,21 @@ export interface IREST {
     List: (listName: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IList;
 
     /**
+     * Use this api to get the list name by its entity name.
+     * @param entityTypeName - The entity type name of the list.
+     * @param callback - The method to be executed after the request completes.
+     */
+    ListByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): Util.Types.IBase<Mapper.Types.IList, Mapper.Types.IListResult, Mapper.Types.IListQueryResult>;
+
+    /**
+     * Use this api to get the list data.
+     * @param listFullUrl - The absolute url of the list.
+     * @param parameters - The optional list data parameters.
+     * @param overrideParameters - The optional list data override parameters.
+     */
+    ListDataAsStream: (listFullUrl: string, parameters?: any, overrideParameters?: any) => Util.Types.IBase<Mapper.Types.IListDataStream>
+
+    /**
      * Use this api to interact with SharePoint navigation.
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
@@ -227,6 +242,8 @@ export const $REST: IREST = {
         WebPart: Helper.WebPart
     } as any,
     List: (listName, targetInfo) => { return new Lib.List(listName, targetInfo); },
+    ListByEntityName: (entityTypeName: string, callback: (IList) => void, targetInfo?) => { return Lib.List.getByEntityName(entityTypeName, callback, targetInfo); },
+    ListDataAsStream: (listFullUrl, parameters, overrideParameters) => { return Lib.List.getListDataAsStream(listFullUrl, parameters, overrideParameters); },
     Navigation: (url, targetInfo) => { return new Lib.Navigation(url, targetInfo); },
     PeopleManager: (targetInfo) => { return new Lib.PeopleManager(targetInfo); },
     PeoplePicker: (targetInfo) => { return new Lib.PeoplePicker(targetInfo); },
@@ -239,9 +256,6 @@ export const $REST: IREST = {
     Utility: (url, targetInfo) => { return new Lib.Utility(url, targetInfo); },
     Web: (url, targetInfo) => { return new Lib.Web(url, targetInfo); }
 };
-
-// Add the static methods
-$REST.List["getByEntityName"] = Lib.List.getByEntityName;
 
 // See if the library doesn't exist, or is an older version
 let global = Lib.ContextInfo.window.$REST;

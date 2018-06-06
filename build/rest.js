@@ -30,6 +30,8 @@ exports.$REST = {
         WebPart: Helper.WebPart
     },
     List: function (listName, targetInfo) { return new Lib.List(listName, targetInfo); },
+    ListByEntityName: function (entityTypeName, callback, targetInfo) { return Lib.List.getByEntityName(entityTypeName, callback, targetInfo); },
+    ListDataAsStream: function (listFullUrl, parameters, overrideParameters) { return Lib.List.getListDataAsStream(listFullUrl, parameters, overrideParameters); },
     Navigation: function (url, targetInfo) { return new Lib.Navigation(url, targetInfo); },
     PeopleManager: function (targetInfo) { return new Lib.PeopleManager(targetInfo); },
     PeoplePicker: function (targetInfo) { return new Lib.PeoplePicker(targetInfo); },
@@ -42,8 +44,6 @@ exports.$REST = {
     Utility: function (url, targetInfo) { return new Lib.Utility(url, targetInfo); },
     Web: function (url, targetInfo) { return new Lib.Web(url, targetInfo); }
 };
-// Add the static methods
-exports.$REST.List["getByEntityName"] = Lib.List.getByEntityName;
 // See if the library doesn't exist, or is an older version
 var global = Lib.ContextInfo.window.$REST;
 if ((global == null || global.__ver == null || global.__ver < exports.$REST.__ver) && Lib.ContextInfo.window.SP) {
