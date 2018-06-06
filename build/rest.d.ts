@@ -115,9 +115,8 @@ export interface IREST {
      * Use this api to get the list data.
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
-     * @param overrideParameters - The optional list data override parameters.
      */
-    ListDataAsStream: (listFullUrl: string, parameters?: any, overrideParameters?: any) => Util.Types.IBase<Mapper.Types.IListDataStream>;
+    ListDataAsStream: (listFullUrl: string, parameters?: Mapper.Types.IListDataParameters) => Util.Types.IBase<Mapper.Types.IListDataStream>;
     /**
      * Use this api to interact with SharePoint navigation.
      * @param url - (Optional) The web url.

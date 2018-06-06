@@ -8484,19 +8484,13 @@ var _List = /** @class */ (function (_super) {
         });
     };
     // Method to get the list data from the SP.List.GetListDataAsStream endpoint
-    _List.getListDataAsStream = function (listFullUrl, parameters, overrideParameters) {
+    _List.getListDataAsStream = function (listFullUrl, parameters) {
         if (parameters === void 0) { parameters = {}; }
-        if (overrideParameters === void 0) { overrideParameters = {}; }
         var params = "?listFullUrl='" + listFullUrl + "'";
         // Parse the parameters
         for (var key in parameters) {
             // Append the parameter
             params += "&" + key + "=" + parameters[key];
-        }
-        // Parse the override parameters
-        for (var key in overrideParameters) {
-            // Append the parameter
-            params += "&" + key + "=" + overrideParameters[key];
         }
         // Return the base object
         return new utils_1.Base({
@@ -11803,7 +11797,7 @@ exports.$REST = {
     },
     List: function (listName, targetInfo) { return new Lib.List(listName, targetInfo); },
     ListByEntityName: function (entityTypeName, callback, targetInfo) { return Lib.List.getByEntityName(entityTypeName, callback, targetInfo); },
-    ListDataAsStream: function (listFullUrl, parameters, overrideParameters) { return Lib.List.getListDataAsStream(listFullUrl, parameters, overrideParameters); },
+    ListDataAsStream: function (listFullUrl, parameters) { return Lib.List.getListDataAsStream(listFullUrl, parameters); },
     Navigation: function (url, targetInfo) { return new Lib.Navigation(url, targetInfo); },
     PeopleManager: function (targetInfo) { return new Lib.PeopleManager(targetInfo); },
     PeoplePicker: function (targetInfo) { return new Lib.PeoplePicker(targetInfo); },

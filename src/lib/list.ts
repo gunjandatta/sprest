@@ -48,19 +48,13 @@ class _List extends Base {
     }
 
     // Method to get the list data from the SP.List.GetListDataAsStream endpoint
-    static getListDataAsStream(listFullUrl: string, parameters: any = {}, overrideParameters: any = {}) {
+    static getListDataAsStream(listFullUrl: string, parameters: Types.SP.IListDataParameters = {}) {
         let params = "?listFullUrl='" + listFullUrl + "'";
 
         // Parse the parameters
         for (let key in parameters) {
             // Append the parameter
             params += "&" + key + "=" + parameters[key];
-        }
-
-        // Parse the override parameters
-        for (let key in overrideParameters) {
-            // Append the parameter
-            params += "&" + key + "=" + overrideParameters[key];
         }
 
         // Return the base object
