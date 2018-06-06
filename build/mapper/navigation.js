@@ -18,6 +18,6 @@ exports.navigationservicerest = {
     getMenuState: {
         argNames: ["menuNodeKey", "depth", "customProperties", "mapProviderName"],
         name: "MenuState",
-        RequestType: utils_1.RequestType.GetWithArgsInQS
+        RequestType: utils_1.RequestType.GetWithArgsInQSAsVar
     }
 };

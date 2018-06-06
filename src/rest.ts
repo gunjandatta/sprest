@@ -24,7 +24,7 @@ export interface IREST {
     DefaultRequestToHostFl: boolean;
 
     /**
-     * Use this api to interact with the Graph API.
+     * Use this api to interact with the Graph API. (Still In Development)
      */
     Graph: any;
 
@@ -239,6 +239,9 @@ export const $REST: IREST = {
     Utility: (url, targetInfo) => { return new Lib.Utility(url, targetInfo); },
     Web: (url, targetInfo) => { return new Lib.Web(url, targetInfo); }
 };
+
+// Add the static methods
+$REST.List["getByEntityName"] = Lib.List.getByEntityName;
 
 // See if the library doesn't exist, or is an older version
 let global = Lib.ContextInfo.window.$REST;

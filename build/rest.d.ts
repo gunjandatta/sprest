@@ -19,7 +19,7 @@ export interface IREST {
      */
     DefaultRequestToHostFl: boolean;
     /**
-     * Use this api to interact with the Graph API.
+     * Use this api to interact with the Graph API. (Still In Development)
      */
     Graph: any;
     /**

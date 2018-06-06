@@ -3976,8 +3976,9 @@ exports.RequestType = {
     GetWithArgs: 12,
     GetWithArgsInBody: 13,
     GetWithArgsInQS: 14,
-    GetWithArgsValueOnly: 15,
-    GetReplace: 16,
+    GetWithArgsInQSAsVar: 15,
+    GetWithArgsValueOnly: 16,
+    GetReplace: 17,
     // Graph Requests
     GraphGet: 20,
     GraphPost: 21,
@@ -3986,8 +3987,9 @@ exports.RequestType = {
     PostWithArgs: 31,
     PostWithArgsInBody: 32,
     PostWithArgsInQS: 33,
-    PostWithArgsValueOnly: 34,
-    PostReplace: 35
+    PostWithArgsInQSAsVar: 34,
+    PostWithArgsValueOnly: 35,
+    PostReplace: 36
 };
 
 
@@ -4212,6 +4214,10 @@ var BaseHelper = /** @class */ (function () {
                     this.addMethods(obj, data.d, data["@odata.context"]);
                     // Update the data collection
                     this.updateDataCollection(obj, data.d.results);
+                }
+                else {
+                    // Update the base object's properties
+                    this.addProperties(obj, data);
                 }
                 // See if the batch request exists
                 if (isBatchRequest) {
@@ -4693,7 +4699,7 @@ var utils_1 = __webpack_require__(0);
  */
 exports.graph = {
     properties: [
-        "groups|graph_groups|?[Name]|graph_group",
+        "groups|graph_groups|/{[Name]}|graph_group",
         "users|graph_users|/{[Name]}|graph_user"
     ],
     /**
@@ -5275,7 +5281,7 @@ exports.navigationservicerest = {
     getMenuState: {
         argNames: ["menuNodeKey", "depth", "customProperties", "mapProviderName"],
         name: "MenuState",
-        RequestType: utils_1.RequestType.GetWithArgsInQS
+        RequestType: utils_1.RequestType.GetWithArgsInQSAsVar
     }
 };
 
@@ -5710,7 +5716,7 @@ exports.web = {
     // Applies the specified site definition or site template to the Web site that has no template applied to it.
     applyWebTemplate: {
         argName: ["name"],
-        requestType: utils_1.RequestType.PostWithArgsInQS
+        requestType: utils_1.RequestType.PostWithArgsInQSAsVar
     },
     // Creates unique role assignments for the securable object.
     breakRoleInheritance: {
@@ -5729,7 +5735,7 @@ exports.web = {
     // Returns whether the current user has the given set of permissions.
     doesUserHavePermissions: {
         argNames: ["High", "Low"],
-        requestType: utils_1.RequestType.GetWithArgsInQS
+        requestType: utils_1.RequestType.GetWithArgsInQSAsVar
     },
     // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
     ensureUser: {
@@ -5816,6 +5822,13 @@ exports.web = {
         requestType: utils_1.RequestType.GetWithArgsValueOnly,
         returnType: "list"
     },
+    // Gets the list data from the SP.List.GetListDataAsStream api endpoint
+    getListDataAsStream: {
+        argNames: ["listFullUrl", "parameters", "overrideParameters"],
+        name: "SP.List.GetListDataAsStream",
+        replaceEndpointFl: true,
+        requestType: utils_1.RequestType.GetWithArgsInQS
+    },
     // Gets the push notification subscriber over the site for the specified device application instance ID.
     getPushNotificationSubscriber: {
         argNames: ["id"],
@@ -5829,7 +5842,7 @@ exports.web = {
     // Queries for the push notification subscribers over the site for the specified user.
     getPushNotificationSubscribersByUser: {
         argNames: ["loginName"],
-        requestType: utils_1.RequestType.GetWithArgsInQS
+        requestType: utils_1.RequestType.GetWithArgsInQSAsVar
     },
     // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
     getSubwebsFilteredForCurrentUser: {
@@ -5852,7 +5865,7 @@ exports.web = {
     // Gets the site URL from a page URL.
     getWebUrlFromPageUrl: {
         name: "sp.web.getWebUrlFromPageUrl",
-        requestType: utils_1.RequestType.GetWithArgsInQS
+        requestType: utils_1.RequestType.GetWithArgsInQSAsVar
     },
     // Uploads and installs an app package to this site.
     loadAndInstallApp: {
@@ -6018,7 +6031,7 @@ exports.peoplemanager = {
     stopFollowing: {
         argNames: ["accountName"],
         name: "stopFollowing(@v)?@v='[[accountName]]'",
-        requestType: utils_1.RequestType.PostWithArgsInQS
+        requestType: utils_1.RequestType.PostWithArgsInQSAsVar
     },
     stopFollowingTag: {
         argNames: ["id"],
@@ -7656,6 +7669,7 @@ var MethodInfo = /** @class */ (function () {
                 case _1.RequestType.PostWithArgs:
                 case _1.RequestType.PostWithArgsInBody:
                 case _1.RequestType.PostWithArgsInQS:
+                case _1.RequestType.PostWithArgsInQSAsVar:
                 case _1.RequestType.PostWithArgsValueOnly:
                 case _1.RequestType.PostReplace:
                     return "POST";
@@ -7682,6 +7696,11 @@ var MethodInfo = /** @class */ (function () {
     });
     Object.defineProperty(MethodInfo.prototype, "passDataInQS", {
         get: function () { return this.methodInfo.requestType == _1.RequestType.GetWithArgsInQS || this.methodInfo.requestType == _1.RequestType.PostWithArgsInQS; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MethodInfo.prototype, "passDataInQSAsVar", {
+        get: function () { return this.methodInfo.requestType == _1.RequestType.GetWithArgsInQSAsVar || this.methodInfo.requestType == _1.RequestType.PostWithArgsInQSAsVar; },
         enumerable: true,
         configurable: true
     });
@@ -7794,8 +7813,8 @@ var MethodInfo = /** @class */ (function () {
             // Stringify the data to be passed in the body
             this.methodData = JSON.stringify(data);
         }
-        // See if we are passing the data in the query string
-        if (this.passDataInQS) {
+        // See if we are passing the data in the query string as a variable
+        if (this.passDataInQSAsVar) {
             var data = this.methodParams || this.methodData;
             // Append the parameters in the query string
             url += "(@v)?@v=" + (typeof (data) === "string" ? "'" + encodeURIComponent(data) + "'" : JSON.stringify(data));
@@ -7815,7 +7834,7 @@ var MethodInfo = /** @class */ (function () {
             // Set the get all items Flag
             this.methodInfo.getAllItemsFl = oData.GetAllItems;
         }
-        else if (!this.passDataInBody && !this.passDataInQS) {
+        else if (!this.passDataInBody && !this.passDataInQSAsVar) {
             var params = "";
             // Ensure data exists
             var data = this.methodParams || this.methodData;
@@ -7839,8 +7858,15 @@ var MethodInfo = /** @class */ (function () {
                     }
                 }
             }
-            // Set the url
-            url += params.length > 0 ? "(" + params.replace(/, $/, "") + ")" : "";
+            // See if we are passing data in the query string
+            if (this.passDataInQS) {
+                // Set the url
+                url += params.length > 0 ? "?" + params.replace(/, $/, "&") : "";
+            }
+            else {
+                // Set the url
+                url += params.length > 0 ? "(" + params.replace(/, $/, "") + ")" : "";
+            }
         }
         // Return the url
         return url;
@@ -11775,6 +11801,8 @@ exports.$REST = {
     Utility: function (url, targetInfo) { return new Lib.Utility(url, targetInfo); },
     Web: function (url, targetInfo) { return new Lib.Web(url, targetInfo); }
 };
+// Add the static methods
+exports.$REST.List["getByEntityName"] = Lib.List.getByEntityName;
 // See if the library doesn't exist, or is an older version
 var global = Lib.ContextInfo.window.$REST;
 if ((global == null || global.__ver == null || global.__ver < exports.$REST.__ver) && Lib.ContextInfo.window.SP) {

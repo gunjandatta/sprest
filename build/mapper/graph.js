@@ -6,7 +6,7 @@ var utils_1 = require("../utils");
  */
 exports.graph = {
     properties: [
-        "groups|graph_groups|?[Name]|graph_group",
+        "groups|graph_groups|/{[Name]}|graph_group",
         "users|graph_users|/{[Name]}|graph_user"
     ],
     /**

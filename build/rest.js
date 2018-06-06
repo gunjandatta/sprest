@@ -42,6 +42,8 @@ exports.$REST = {
     Utility: function (url, targetInfo) { return new Lib.Utility(url, targetInfo); },
     Web: function (url, targetInfo) { return new Lib.Web(url, targetInfo); }
 };
+// Add the static methods
+exports.$REST.List["getByEntityName"] = Lib.List.getByEntityName;
 // See if the library doesn't exist, or is an older version
 var global = Lib.ContextInfo.window.$REST;
 if ((global == null || global.__ver == null || global.__ver < exports.$REST.__ver) && Lib.ContextInfo.window.SP) {

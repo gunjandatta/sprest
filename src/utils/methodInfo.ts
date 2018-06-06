@@ -46,6 +46,7 @@ export class MethodInfo implements Types.IMethodInfo {
             case RequestType.PostWithArgs:
             case RequestType.PostWithArgsInBody:
             case RequestType.PostWithArgsInQS:
+            case RequestType.PostWithArgsInQSAsVar:
             case RequestType.PostWithArgsValueOnly:
             case RequestType.PostReplace:
                 return "POST";
@@ -63,6 +64,7 @@ export class MethodInfo implements Types.IMethodInfo {
 
     private get passDataInBody(): boolean { return this.methodInfo.requestType == RequestType.GetWithArgsInBody || this.methodInfo.requestType == RequestType.PostWithArgsInBody; }
     private get passDataInQS(): boolean { return this.methodInfo.requestType == RequestType.GetWithArgsInQS || this.methodInfo.requestType == RequestType.PostWithArgsInQS; }
+    private get passDataInQSAsVar(): boolean { return this.methodInfo.requestType == RequestType.GetWithArgsInQSAsVar || this.methodInfo.requestType == RequestType.PostWithArgsInQSAsVar; }
     private get isTemplate(): boolean { return this.methodInfo.data ? true : false; }
     private get replace(): boolean { return this.methodInfo.requestType == RequestType.GetReplace || this.methodInfo.requestType == RequestType.PostReplace; }
     private methodData: any;
@@ -180,8 +182,8 @@ export class MethodInfo implements Types.IMethodInfo {
             this.methodData = JSON.stringify(data);
         }
 
-        // See if we are passing the data in the query string
-        if (this.passDataInQS) {
+        // See if we are passing the data in the query string as a variable
+        if (this.passDataInQSAsVar) {
             let data = this.methodParams || this.methodData;
 
             // Append the parameters in the query string
@@ -206,8 +208,8 @@ export class MethodInfo implements Types.IMethodInfo {
             // Set the get all items Flag
             this.methodInfo.getAllItemsFl = oData.GetAllItems;
         }
-        // Else, see if we are not passing the data in the body or query string
-        else if (!this.passDataInBody && !this.passDataInQS) {
+        // Else, see if we are not passing the data in the body or query string as a variable
+        else if (!this.passDataInBody && !this.passDataInQSAsVar) {
             let params = "";
 
             // Ensure data exists
@@ -235,8 +237,14 @@ export class MethodInfo implements Types.IMethodInfo {
                 }
             }
 
-            // Set the url
-            url += params.length > 0 ? "(" + params.replace(/, $/, "") + ")" : "";
+            // See if we are passing data in the query string
+            if (this.passDataInQS) {
+                // Set the url
+                url += params.length > 0 ? "?" + params.replace(/, $/, "&") : "";
+            } else {
+                // Set the url
+                url += params.length > 0 ? "(" + params.replace(/, $/, "") + ")" : "";
+            }
         }
 
         // Return the url

@@ -14,6 +14,7 @@ export type IRequestType = {
     GetWithArgs: number;
     GetWithArgsInBody: number;
     GetWithArgsInQS: number;
+    GetWithArgsInQSAsVar: number;
     GetWithArgsValueOnly: number;
     GetReplace: number;
 
@@ -26,6 +27,7 @@ export type IRequestType = {
     PostWithArgs: number;
     PostWithArgsInBody: number;
     PostWithArgsInQS: number;
+    PostWithArgsInQSAsVar: number;
     PostWithArgsValueOnly: number;
     PostReplace: number;
 }

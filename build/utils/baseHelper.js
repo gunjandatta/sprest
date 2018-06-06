@@ -215,6 +215,10 @@ var BaseHelper = /** @class */ (function () {
                     // Update the data collection
                     this.updateDataCollection(obj, data.d.results);
                 }
+                else {
+                    // Update the base object's properties
+                    this.addProperties(obj, data);
+                }
                 // See if the batch request exists
                 if (isBatchRequest) {
                     // Get the batch request

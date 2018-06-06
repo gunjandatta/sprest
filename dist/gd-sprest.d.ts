@@ -106,7 +106,7 @@ declare module 'gd-sprest/rest' {
                 */
             DefaultRequestToHostFl: boolean;
             /**
-                * Use this api to interact with the Graph API.
+                * Use this api to interact with the Graph API. (Still In Development)
                 */
             Graph: any;
             /**
@@ -3105,6 +3105,12 @@ declare module 'gd-sprest/mapper/site' {
                     argNames: string[];
                     requestType: number;
                     returnType: string;
+            };
+            getListDataAsStream: {
+                    argNames: string[];
+                    name: string;
+                    replaceEndpointFl: boolean;
+                    requestType: number;
             };
             getPushNotificationSubscriber: {
                     argNames: string[];
@@ -12242,6 +12248,7 @@ declare module 'gd-sprest/utils/types/requestType' {
         GetWithArgs: number;
         GetWithArgsInBody: number;
         GetWithArgsInQS: number;
+        GetWithArgsInQSAsVar: number;
         GetWithArgsValueOnly: number;
         GetReplace: number;
         GraphGet: number;
@@ -12250,6 +12257,7 @@ declare module 'gd-sprest/utils/types/requestType' {
         PostWithArgs: number;
         PostWithArgsInBody: number;
         PostWithArgsInQS: number;
+        PostWithArgsInQSAsVar: number;
         PostWithArgsValueOnly: number;
         PostReplace: number;
     };
