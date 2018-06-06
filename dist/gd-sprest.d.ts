@@ -548,6 +548,28 @@ declare module 'gd-sprest/mapper/sptypes' {
         */
     export const RelationshipDeleteBehaviorType: SPTypes.IRelationshipDeleteBehaviorType;
     /**
+        * Render List Data Options
+        */
+    export const RenderListDataOptions: {
+            None: number;
+            ContextInfo: number;
+            ListData: number;
+            ListSchema: number;
+            MenuView: number;
+            ListContentType: number;
+            FileSystemItemId: number;
+            ClientFormSchema: number;
+            QuickLaunch: number;
+            Spotlight: number;
+            Visualization: number;
+            ViewMetadata: number;
+            DisableAutoHyperlink: number;
+            EnableMediaTAUrls: number;
+            ParentInfo: number;
+            PageContextInfo: number;
+            ClientSideComponentManifest: number;
+    };
+    /**
         * Reordering Rule Match Types
         */
     export const ReorderingRuleMatchType: SPTypes.IReorderingRuleMatchType;
@@ -9538,6 +9560,28 @@ declare module 'gd-sprest/mapper/types/sptypes' {
             Cascade: number;
             /** Restrict behavior. */
             Restrict: number;
+    };
+    /**
+        * Render List Data Options
+        */
+    export type RenderListDataOptions = {
+            None: number;
+            ContextInfo: number;
+            ListData: number;
+            ListSchema: number;
+            MenuView: number;
+            ListContentType: number;
+            FileSystemItemId: number;
+            ClientFormSchema: number;
+            QuickLaunch: number;
+            Spotlight: number;
+            Visualization: number;
+            ViewMetadata: number;
+            DisableAutoHyperlink: number;
+            EnableMediaTAUrls: number;
+            ParentInfo: number;
+            PageContextInfo: number;
+            ClientSideComponentManifest: number;
     };
     /**
         * Reordering Rule Match Types

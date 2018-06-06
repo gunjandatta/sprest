@@ -52,7 +52,7 @@ var _List = /** @class */ (function (_super) {
             callback(lists.results ? lists.results[0] : lists);
         });
     };
-    // Method to get the list data from the SP.List.getDataAsStream endpoint
+    // Method to get the list data from the SP.List.getListDataAsStream endpoint
     _List.getDataAsStream = function (listFullUrl, parameters) {
         if (parameters === void 0) { parameters = {}; }
         var params = "?listFullUrl='" + listFullUrl + "'";
@@ -63,7 +63,7 @@ var _List = /** @class */ (function (_super) {
         }
         // Return the base object
         return new utils_1.Base({
-            endpoint: "SP.List.getDataAsStream" + params
+            endpoint: "SP.List.getListDataAsStream" + params
         });
     };
     return _List;

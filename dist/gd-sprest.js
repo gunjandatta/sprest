@@ -6834,6 +6834,28 @@ exports.PrincipalTypes = {
  */
 exports.RelationshipDeleteBehaviorType = { None: 0, Cascade: 1, Restrict: 2 };
 /**
+ * Render List Data Options
+ */
+exports.RenderListDataOptions = {
+    None: 0,
+    ContextInfo: 1,
+    ListData: 2,
+    ListSchema: 4,
+    MenuView: 8,
+    ListContentType: 16,
+    FileSystemItemId: 32,
+    ClientFormSchema: 64,
+    QuickLaunch: 128,
+    Spotlight: 256,
+    Visualization: 512,
+    ViewMetadata: 1024,
+    DisableAutoHyperlink: 2048,
+    EnableMediaTAUrls: 4096,
+    ParentInfo: 8192,
+    PageContextInfo: 16384,
+    ClientSideComponentManifest: 32768
+};
+/**
  * Reordering Rule Match Types
  */
 exports.ReorderingRuleMatchType = {
@@ -8483,7 +8505,7 @@ var _List = /** @class */ (function (_super) {
             callback(lists.results ? lists.results[0] : lists);
         });
     };
-    // Method to get the list data from the SP.List.getDataAsStream endpoint
+    // Method to get the list data from the SP.List.getListDataAsStream endpoint
     _List.getDataAsStream = function (listFullUrl, parameters) {
         if (parameters === void 0) { parameters = {}; }
         var params = "?listFullUrl='" + listFullUrl + "'";
@@ -8494,7 +8516,7 @@ var _List = /** @class */ (function (_super) {
         }
         // Return the base object
         return new utils_1.Base({
-            endpoint: "SP.List.getDataAsStream" + params
+            endpoint: "SP.List.getListDataAsStream" + params
         });
     };
     return _List;
@@ -11773,7 +11795,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 3.99,
+    __ver: 4.00,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Graph: Lib.Graph,

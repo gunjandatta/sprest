@@ -127,6 +127,28 @@ export declare const PrincipalTypes: SPTypes.IPrincipalTypes;
  */
 export declare const RelationshipDeleteBehaviorType: SPTypes.IRelationshipDeleteBehaviorType;
 /**
+ * Render List Data Options
+ */
+export declare const RenderListDataOptions: {
+    None: number;
+    ContextInfo: number;
+    ListData: number;
+    ListSchema: number;
+    MenuView: number;
+    ListContentType: number;
+    FileSystemItemId: number;
+    ClientFormSchema: number;
+    QuickLaunch: number;
+    Spotlight: number;
+    Visualization: number;
+    ViewMetadata: number;
+    DisableAutoHyperlink: number;
+    EnableMediaTAUrls: number;
+    ParentInfo: number;
+    PageContextInfo: number;
+    ClientSideComponentManifest: number;
+};
+/**
  * Reordering Rule Match Types
  */
 export declare const ReorderingRuleMatchType: SPTypes.IReorderingRuleMatchType;
