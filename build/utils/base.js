@@ -57,6 +57,7 @@ var Base = /** @class */ (function (_super) {
             response: this.response,
             status: this.status,
             targetInfo: {
+                accessToken: this.targetInfo.accessToken,
                 bufferFl: this.targetInfo.bufferFl,
                 defaultToWebFl: this.targetInfo.defaultToWebFl,
                 endpoint: this.targetInfo.endpoint,

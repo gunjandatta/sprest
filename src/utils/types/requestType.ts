@@ -14,14 +14,20 @@ export type IRequestType = {
     GetWithArgs: number;
     GetWithArgsInBody: number;
     GetWithArgsInQS: number;
+    GetWithArgsInQSAsVar: number;
     GetWithArgsValueOnly: number;
     GetReplace: number;
+
+    // Graph Requests
+    GraphGet: number;
+    GraphPost: number;
 
     // Post Requests
     Post: number;
     PostWithArgs: number;
     PostWithArgsInBody: number;
     PostWithArgsInQS: number;
+    PostWithArgsInQSAsVar: number;
     PostWithArgsValueOnly: number;
     PostReplace: number;
 }

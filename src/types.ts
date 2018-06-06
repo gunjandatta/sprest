@@ -1,8 +1,8 @@
-import { Types as HelperTypes } from "./helper";
-import { Types } from "./mapper";
-import { Types as UtilTypes } from "./utils"
+import { Types as Helper } from "./helper";
+import { Types as SP } from "./mapper";
+import { Types as Util } from "./utils"
 export {
-    HelperTypes as Helper,
-    Types as SP,
-    UtilTypes as Util
+    Helper,
+    SP,
+    Util
 }

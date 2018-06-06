@@ -16,6 +16,7 @@ export declare class MethodInfo implements Types.IMethodInfo {
     /*********************************************************************************************************************************/
     private readonly passDataInBody;
     private readonly passDataInQS;
+    private readonly passDataInQSAsVar;
     private readonly isTemplate;
     private readonly replace;
     private methodData;

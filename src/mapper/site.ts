@@ -329,7 +329,7 @@ export const web = {
     // Applies the specified site definition or site template to the Web site that has no template applied to it.
     applyWebTemplate: {
         argName: ["name"],
-        requestType: RequestType.PostWithArgsInQS
+        requestType: RequestType.PostWithArgsInQSAsVar
     },
 
     // Creates unique role assignments for the securable object.
@@ -352,7 +352,7 @@ export const web = {
     // Returns whether the current user has the given set of permissions.
     doesUserHavePermissions: {
         argNames: ["High", "Low"],
-        requestType: RequestType.GetWithArgsInQS
+        requestType: RequestType.GetWithArgsInQSAsVar
     },
 
     // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
@@ -471,7 +471,7 @@ export const web = {
     // Queries for the push notification subscribers over the site for the specified user.
     getPushNotificationSubscribersByUser: {
         argNames: ["loginName"],
-        requestType: RequestType.GetWithArgsInQS
+        requestType: RequestType.GetWithArgsInQSAsVar
     },
 
     // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
@@ -498,7 +498,7 @@ export const web = {
     // Gets the site URL from a page URL.
     getWebUrlFromPageUrl: {
         name: "sp.web.getWebUrlFromPageUrl",
-        requestType: RequestType.GetWithArgsInQS
+        requestType: RequestType.GetWithArgsInQSAsVar
     },
 
     // Uploads and installs an app package to this site.

@@ -16,6 +16,7 @@ export * from "./fileVersion";
 export * from "./fileVersions";
 export * from "./folder";
 export * from "./folders";
+export * from "./graph";
 export * from "./group";
 export * from "./groups";
 export * from "./items";

@@ -12,7 +12,7 @@ export class BaseHelper implements Types.IBaseHelper {
     status: number;
 
     // Method to add the methods to base object
-    addMethods(base: Base, data) {
+    addMethods(base: Base, data, graphType?: string) {
         let isCollection = data.results && data.results.length > 0;
 
         // Determine the metadata
@@ -242,10 +242,13 @@ export class BaseHelper implements Types.IBaseHelper {
                     this.addProperties(obj, data.d);
 
                     // Add the methods
-                    this.addMethods(obj, data.d);
+                    this.addMethods(obj, data.d, data["@odata.context"]);
 
                     // Update the data collection
                     this.updateDataCollection(obj, data.d.results);
+                } else {
+                    // Update the base object's properties
+                    this.addProperties(obj, data);
                 }
 
                 // See if the batch request exists

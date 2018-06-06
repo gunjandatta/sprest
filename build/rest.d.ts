@@ -19,6 +19,10 @@ export interface IREST {
      */
     DefaultRequestToHostFl: boolean;
     /**
+     * Use this api to interact with the Graph API. (Still In Development)
+     */
+    Graph: any;
+    /**
      * Helper methods.
      */
     Helper: {
@@ -101,6 +105,18 @@ export interface IREST {
      * @param targetInfo - (Optional) The target information.
      */
     List: (listName: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IList;
+    /**
+     * Use this api to get the list name by its entity name.
+     * @param entityTypeName - The entity type name of the list.
+     * @param callback - The method to be executed after the request completes.
+     */
+    ListByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?: any): Util.Types.IBase<Mapper.Types.IList, Mapper.Types.IListResult, Mapper.Types.IListQueryResult>;
+    /**
+     * Use this api to get the list data.
+     * @param listFullUrl - The absolute url of the list.
+     * @param parameters - The optional list data parameters.
+     */
+    ListDataAsStream: (listFullUrl: string, parameters?: Mapper.Types.IListDataParameters) => Util.Types.IBase<Mapper.Types.IListDataStream>;
     /**
      * Use this api to interact with SharePoint navigation.
      * @param url - (Optional) The web url.

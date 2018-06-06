@@ -95,23 +95,39 @@ var XHRRequest = /** @class */ (function () {
             }
         }
         else {
-            // Set the default headers
-            this.xhr.setRequestHeader("Accept", "application/json;odata=verbose");
-            this.xhr.setRequestHeader("Content-Type", "application/json;odata=verbose");
+            // See if this is a graph request
+            if (this.targetInfo.isGraph) {
+                // Set the default headers
+                this.xhr.setRequestHeader("Accept", "application/json");
+                this.xhr.setRequestHeader("Content-Type", "application/json");
+            }
+            else {
+                // Set the default headers
+                this.xhr.setRequestHeader("Accept", "application/json;odata=verbose");
+                this.xhr.setRequestHeader("Content-Type", "application/json;odata=verbose");
+            }
         }
-        // Set the method
-        this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
-        // Set the request digest
-        this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
-        // See if we are deleting or updating the data
-        if (this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE") {
-            // Append the header for deleting/updating
-            this.xhr.setRequestHeader("IF-MATCH", "*");
+        // See if this is a graph request
+        if (this.targetInfo.isGraph) {
+            // Set the authorization
+            this.xhr.setRequestHeader("Authorization", "Bearer " + this.targetInfo.request.accessToken);
+        }
+        else {
+            // Set the method
+            this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
+            // Set the request digest
+            this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
+            // See if we are deleting or updating the data
+            if (this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE") {
+                // Append the header for deleting/updating
+                this.xhr.setRequestHeader("IF-MATCH", "*");
+            }
         }
     };
     // Method to execute the xml http request
     XHRRequest.prototype.execute = function () {
         var _this = this;
+        // Set the request digest
         var requestDigest = this.targetInfo.request.requestDigest || "";
         if (requestDigest == "") {
             // Get the request digest

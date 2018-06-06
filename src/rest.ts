@@ -24,6 +24,11 @@ export interface IREST {
     DefaultRequestToHostFl: boolean;
 
     /**
+     * Use this api to interact with the Graph API. (Still In Development)
+     */
+    Graph: any;
+
+    /**
      * Helper methods.
      */
     Helper: {
@@ -126,6 +131,20 @@ export interface IREST {
     List: (listName: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IList;
 
     /**
+     * Use this api to get the list name by its entity name.
+     * @param entityTypeName - The entity type name of the list.
+     * @param callback - The method to be executed after the request completes.
+     */
+    ListByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?): Util.Types.IBase<Mapper.Types.IList, Mapper.Types.IListResult, Mapper.Types.IListQueryResult>;
+
+    /**
+     * Use this api to get the list data.
+     * @param listFullUrl - The absolute url of the list.
+     * @param parameters - The optional list data parameters.
+     */
+    ListDataAsStream: (listFullUrl: string, parameters?: Mapper.Types.IListDataParameters) => Util.Types.IBase<Mapper.Types.IListDataStream>
+
+    /**
      * Use this api to interact with SharePoint navigation.
      * @param url - (Optional) The web url.
      * @param targetInfo - (Optional) The target information.
@@ -199,9 +218,10 @@ export interface IREST {
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 3.98,
+    __ver: 3.99,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
+    Graph: Lib.Graph,
     Helper: {
         App: Helper.App,
         Dependencies: Helper.Dependencies,
@@ -221,6 +241,8 @@ export const $REST: IREST = {
         WebPart: Helper.WebPart
     } as any,
     List: (listName, targetInfo) => { return new Lib.List(listName, targetInfo); },
+    ListByEntityName: (entityTypeName: string, callback: (IList) => void, targetInfo?) => { return Lib.List.getByEntityName(entityTypeName, callback, targetInfo); },
+    ListDataAsStream: (listFullUrl, parameters) => { return Lib.List.getDataAsStream(listFullUrl, parameters); },
     Navigation: (url, targetInfo) => { return new Lib.Navigation(url, targetInfo); },
     PeopleManager: (targetInfo) => { return new Lib.PeopleManager(targetInfo); },
     PeoplePicker: (targetInfo) => { return new Lib.PeoplePicker(targetInfo); },

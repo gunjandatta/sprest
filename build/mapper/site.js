@@ -282,7 +282,7 @@ exports.web = {
     // Applies the specified site definition or site template to the Web site that has no template applied to it.
     applyWebTemplate: {
         argName: ["name"],
-        requestType: utils_1.RequestType.PostWithArgsInQS
+        requestType: utils_1.RequestType.PostWithArgsInQSAsVar
     },
     // Creates unique role assignments for the securable object.
     breakRoleInheritance: {
@@ -301,7 +301,7 @@ exports.web = {
     // Returns whether the current user has the given set of permissions.
     doesUserHavePermissions: {
         argNames: ["High", "Low"],
-        requestType: utils_1.RequestType.GetWithArgsInQS
+        requestType: utils_1.RequestType.GetWithArgsInQSAsVar
     },
     // Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, adds the user to the site.
     ensureUser: {
@@ -401,7 +401,7 @@ exports.web = {
     // Queries for the push notification subscribers over the site for the specified user.
     getPushNotificationSubscribersByUser: {
         argNames: ["loginName"],
-        requestType: utils_1.RequestType.GetWithArgsInQS
+        requestType: utils_1.RequestType.GetWithArgsInQSAsVar
     },
     // Returns the collection of child sites of the current site based on the specified query. (SharePoint Online only)
     getSubwebsFilteredForCurrentUser: {
@@ -424,7 +424,7 @@ exports.web = {
     // Gets the site URL from a page URL.
     getWebUrlFromPageUrl: {
         name: "sp.web.getWebUrlFromPageUrl",
-        requestType: utils_1.RequestType.GetWithArgsInQS
+        requestType: utils_1.RequestType.GetWithArgsInQSAsVar
     },
     // Uploads and installs an app package to this site.
     loadAndInstallApp: {

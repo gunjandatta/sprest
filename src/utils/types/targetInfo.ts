@@ -16,6 +16,9 @@ export interface IRequestInfo {
  * Target Information
  */
 export interface ITargetInfo {
+    /** The access token for the graph api request. */
+    accessToken?: string;
+
     /** True if the expected request returns an array buffer. */
     bufferFl?: boolean;
 

@@ -1,5 +1,5 @@
 import { Types } from "..";
-import { Base } from "../utils";
+import { Base, RequestType } from "../utils";
 import { Web } from "./web";
 
 /**
@@ -44,6 +44,22 @@ class _List extends Base {
         query.execute((lists) => {
             // Execute the callback method
             callback(lists.results ? lists.results[0] : lists);
+        });
+    }
+
+    // Method to get the list data from the SP.List.getDataAsStream endpoint
+    static getDataAsStream(listFullUrl: string, parameters: Types.SP.IListDataParameters = {}) {
+        let params = "?listFullUrl='" + listFullUrl + "'";
+
+        // Parse the parameters
+        for (let key in parameters) {
+            // Append the parameter
+            params += "&" + key + "=" + parameters[key];
+        }
+
+        // Return the base object
+        return new Base({
+            endpoint: "SP.List.getDataAsStream" + params
         });
     }
 }

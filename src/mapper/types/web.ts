@@ -644,7 +644,7 @@ export interface IWebQueryProps {
 
     /** Gets the tenant app catalog. */
     TenantAppCatalog(): ITenantAppCatalog;
-    
+
     /**
      * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
      */
@@ -868,7 +868,7 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
 
     /** Gets the tenant app catalog. */
     TenantAppCatalog: ITenantAppCatalog;
-    
+
     /**
      * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
      */

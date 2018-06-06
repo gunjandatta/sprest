@@ -10,6 +10,7 @@ export declare class TargetInfo {
     /*********************************************************************************************************************************/
     request: ITargetInfo;
     readonly isBatchRequest: boolean;
+    readonly isGraph: boolean;
     requestData: any;
     readonly requestInfo: IRequestInfo;
     requestHeaders: object;
@@ -20,5 +21,6 @@ export declare class TargetInfo {
     /*********************************************************************************************************************************/
     private getDomainUrl();
     private static getQueryStringValue(key);
-    private setRequestUrl();
+    private setGraphRequestUrl();
+    private setRESTRequestUrl();
 }

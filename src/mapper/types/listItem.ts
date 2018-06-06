@@ -75,6 +75,9 @@ export interface IListItemProps {
     Id: number;
 
     ServerRedirectedEmbedUrl: string;
+
+    /** Gets the title field value. */
+    Title?: string;
 }
 
 /**

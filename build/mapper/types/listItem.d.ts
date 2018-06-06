@@ -58,6 +58,8 @@ export interface IListItemProps {
     /** Gets a value that specifies the list item identifier. */
     Id: number;
     ServerRedirectedEmbedUrl: string;
+    /** Gets the title field value. */
+    Title?: string;
 }
 /**
  * List Item Query Properties

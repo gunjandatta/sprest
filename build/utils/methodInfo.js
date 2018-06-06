@@ -54,6 +54,7 @@ var MethodInfo = /** @class */ (function () {
                 case _1.RequestType.PostWithArgs:
                 case _1.RequestType.PostWithArgsInBody:
                 case _1.RequestType.PostWithArgsInQS:
+                case _1.RequestType.PostWithArgsInQSAsVar:
                 case _1.RequestType.PostWithArgsValueOnly:
                 case _1.RequestType.PostReplace:
                     return "POST";
@@ -80,6 +81,11 @@ var MethodInfo = /** @class */ (function () {
     });
     Object.defineProperty(MethodInfo.prototype, "passDataInQS", {
         get: function () { return this.methodInfo.requestType == _1.RequestType.GetWithArgsInQS || this.methodInfo.requestType == _1.RequestType.PostWithArgsInQS; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MethodInfo.prototype, "passDataInQSAsVar", {
+        get: function () { return this.methodInfo.requestType == _1.RequestType.GetWithArgsInQSAsVar || this.methodInfo.requestType == _1.RequestType.PostWithArgsInQSAsVar; },
         enumerable: true,
         configurable: true
     });
@@ -192,8 +198,8 @@ var MethodInfo = /** @class */ (function () {
             // Stringify the data to be passed in the body
             this.methodData = JSON.stringify(data);
         }
-        // See if we are passing the data in the query string
-        if (this.passDataInQS) {
+        // See if we are passing the data in the query string as a variable
+        if (this.passDataInQSAsVar) {
             var data = this.methodParams || this.methodData;
             // Append the parameters in the query string
             url += "(@v)?@v=" + (typeof (data) === "string" ? "'" + encodeURIComponent(data) + "'" : JSON.stringify(data));
@@ -213,7 +219,7 @@ var MethodInfo = /** @class */ (function () {
             // Set the get all items Flag
             this.methodInfo.getAllItemsFl = oData.GetAllItems;
         }
-        else if (!this.passDataInBody && !this.passDataInQS) {
+        else if (!this.passDataInBody && !this.passDataInQSAsVar) {
             var params = "";
             // Ensure data exists
             var data = this.methodParams || this.methodData;
@@ -237,8 +243,15 @@ var MethodInfo = /** @class */ (function () {
                     }
                 }
             }
-            // Set the url
-            url += params.length > 0 ? "(" + params.replace(/, $/, "") + ")" : "";
+            // See if we are passing data in the query string
+            if (this.passDataInQS) {
+                // Set the url
+                url += params.length > 0 ? "?" + params.replace(/, $/, "&") : "";
+            }
+            else {
+                // Set the url
+                url += params.length > 0 ? "(" + params.replace(/, $/, "") + ")" : "";
+            }
         }
         // Return the url
         return url;

@@ -97,7 +97,7 @@ export const peoplemanager = {
     stopFollowing: {
         argNames: ["accountName"],
         name: "stopFollowing(@v)?@v='[[accountName]]'",
-        requestType: RequestType.PostWithArgsInQS
+        requestType: RequestType.PostWithArgsInQSAsVar
     },
 
     stopFollowingTag: {
