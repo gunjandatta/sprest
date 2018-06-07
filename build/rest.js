@@ -7,7 +7,7 @@ var Mapper = require("./mapper");
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.00,
+    __ver: 4.01,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Graph: Lib.Graph,
