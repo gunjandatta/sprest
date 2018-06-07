@@ -28,6 +28,17 @@ class _Site extends Base {
         this.addMethods(this, { __metadata: { type: "site" } });
     }
 
+    // Method to see if a site exists
+    static exists(url: string) {
+        // Return the base object
+        return new Base({
+            data: { url },
+            defaultToWebFl: true,
+            endpoint: "SP.Site.Exists",
+            method: "POST"
+        });
+    }
+
     // Method to get the root web
     getRootWeb() { return new Web(null, this.targetInfo); }
 

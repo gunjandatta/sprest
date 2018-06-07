@@ -37,6 +37,16 @@ var _Site = /** @class */ (function (_super) {
         _this.addMethods(_this, { __metadata: { type: "site" } });
         return _this;
     }
+    // Method to see if a site exists
+    _Site.exists = function (url) {
+        // Return the base object
+        return new utils_1.Base({
+            data: { url: url },
+            defaultToWebFl: true,
+            endpoint: "SP.Site.Exists",
+            method: "POST"
+        });
+    };
     // Method to get the root web
     _Site.prototype.getRootWeb = function () { return new _1.Web(null, this.targetInfo); };
     // Method to determine if the current user has access, based on the permissions.

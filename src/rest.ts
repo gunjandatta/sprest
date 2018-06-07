@@ -184,6 +184,12 @@ export interface IREST {
     Site: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.ISite;
 
     /**
+     * Use this api to see if a site collection exists.
+     * @param url - The absolute url of the site collection.
+     */
+    SiteExists: (url: string) => Util.Types.IBase<Mapper.Types.ISiteExists>;
+
+    /**
      * Use this api to interact with the current user's social profile.
      */
     SocialFeed: Mapper.Types.ISocialFeed;
@@ -218,7 +224,7 @@ export interface IREST {
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 4.00,
+    __ver: 4.01,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Graph: Lib.Graph,
@@ -249,6 +255,7 @@ export const $REST: IREST = {
     ProfileLoader: (targetInfo) => { return new Lib.ProfileLoader(targetInfo); },
     Search: (url, targetInfo) => { return new Lib.Search(url, targetInfo); },
     Site: (url, targetInfo) => { return new Lib.Site(url, targetInfo); },
+    SiteExists: (url) => { return Lib.Site.exists(url); },
     SPTypes: Mapper.SPTypes,
     SocialFeed: Lib.SocialFeed,
     UserProfile: (targetInfo) => { return new Lib.UserProfile(targetInfo); },
