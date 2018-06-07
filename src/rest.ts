@@ -2,6 +2,7 @@ import * as Helper from "./helper";
 import * as Lib from "./lib";
 import * as Mapper from "./mapper";
 import * as Util from "./utils";
+import { Web } from "./lib";
 declare var SP;
 
 /**
@@ -170,6 +171,12 @@ export interface IREST {
     ProfileLoader: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IProfileLoader;
 
     /**
+     * Use this api to get a remote web.
+     * @param requestUrl - The absolute url of the remote web.
+     */
+    RemoteWeb: (requestUrl?: string) => Util.Types.IBase<Mapper.Types.IWebRemote>;
+
+    /**
      * Use this api to interact with the SharePoint search service.
      * @param url - The optional url to execute the search against.
      * @param settings - The search settings.
@@ -224,7 +231,7 @@ export interface IREST {
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 4.01,
+    __ver: 4.02,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Graph: Lib.Graph,
@@ -253,6 +260,7 @@ export const $REST: IREST = {
     PeopleManager: (targetInfo) => { return new Lib.PeopleManager(targetInfo); },
     PeoplePicker: (targetInfo) => { return new Lib.PeoplePicker(targetInfo); },
     ProfileLoader: (targetInfo) => { return new Lib.ProfileLoader(targetInfo); },
+    RemoteWeb: (requestUrl) => { return Lib.Web.getRemoteWeb(requestUrl); },
     Search: (url, targetInfo) => { return new Lib.Search(url, targetInfo); },
     Site: (url, targetInfo) => { return new Lib.Site(url, targetInfo); },
     SiteExists: (url) => { return Lib.Site.exists(url); },

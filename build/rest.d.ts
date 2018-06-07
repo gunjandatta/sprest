@@ -139,6 +139,11 @@ export interface IREST {
      */
     ProfileLoader: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IProfileLoader;
     /**
+     * Use this api to get a remote web.
+     * @param requestUrl - The absolute url of the remote web.
+     */
+    RemoteWeb: (requestUrl?: string) => Util.Types.IBase<Mapper.Types.IWebRemote>;
+    /**
      * Use this api to interact with the SharePoint search service.
      * @param url - The optional url to execute the search against.
      * @param settings - The search settings.

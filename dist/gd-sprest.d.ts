@@ -226,6 +226,11 @@ declare module 'gd-sprest/rest' {
                 */
             ProfileLoader: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IProfileLoader;
             /**
+                * Use this api to get a remote web.
+                * @param requestUrl - The absolute url of the remote web.
+                */
+            RemoteWeb: (requestUrl?: string) => Util.Types.IBase<Mapper.Types.IWebRemote>;
+            /**
                 * Use this api to interact with the SharePoint search service.
                 * @param url - The optional url to execute the search against.
                 * @param settings - The search settings.
@@ -11802,6 +11807,15 @@ declare module 'gd-sprest/mapper/types/web' {
             WorkflowTemplates: Types.SP.IResults<Types.SP.IWorkflowTemplate>;
     }
     /**
+        * Web Remote
+        */
+    export interface IWebRemote {
+            CanSendEmail: boolean;
+            ShareByEmailEnabled: boolean;
+            ShareByLinkEnabled: boolean;
+            Web: IWebProps;
+    }
+    /**
         * Web Result
         */
     export interface IWebResult extends IWebMethods, IWebProps, IWebQueryProps, IBase<IWeb, IWebResult, IWebQueryResult> {
@@ -11816,6 +11830,11 @@ declare module 'gd-sprest/mapper/types/web' {
                 * @param targetInfo - (Optional) The target information.
                 */
             new (url?: string, targetInfo?: ITargetInfo): IWeb;
+            /**
+                * Method to get a remote web.
+                * @param requestUrl - The absolute url of the remote web.
+                */
+            getRemoteWeb(requestUrl: string): IBase<IWebRemote>;
     }
 }
 
@@ -11866,6 +11885,7 @@ declare module 'gd-sprest/utils/baseHelper' {
         requestType: number;
         response: string;
         status: number;
+        addBaseReferences(base: Base, obj: any): void;
         addMethods(base: Base, data: any, graphType?: string): void;
         addProperties(base: any, data: any): void;
         updateDataCollection(obj: any, results: any): void;

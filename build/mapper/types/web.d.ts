@@ -716,6 +716,15 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     WorkflowTemplates: Types.SP.IResults<Types.SP.IWorkflowTemplate>;
 }
 /**
+ * Web Remote
+ */
+export interface IWebRemote {
+    CanSendEmail: boolean;
+    ShareByEmailEnabled: boolean;
+    ShareByLinkEnabled: boolean;
+    Web: IWebProps;
+}
+/**
  * Web Result
  */
 export interface IWebResult extends IWebMethods, IWebProps, IWebQueryProps, IBase<IWeb, IWebResult, IWebQueryResult> {
@@ -730,4 +739,9 @@ export interface IWeb extends IWebMethods, IWebQueryProps, IBase<IWeb, IWebResul
      * @param targetInfo - (Optional) The target information.
      */
     new (url?: string, targetInfo?: ITargetInfo): IWeb;
+    /**
+     * Method to get a remote web.
+     * @param requestUrl - The absolute url of the remote web.
+     */
+    getRemoteWeb(requestUrl: string): IBase<IWebRemote>;
 }

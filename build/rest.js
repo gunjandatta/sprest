@@ -7,7 +7,7 @@ var Mapper = require("./mapper");
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.01,
+    __ver: 4.02,
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Graph: Lib.Graph,
@@ -36,6 +36,7 @@ exports.$REST = {
     PeopleManager: function (targetInfo) { return new Lib.PeopleManager(targetInfo); },
     PeoplePicker: function (targetInfo) { return new Lib.PeoplePicker(targetInfo); },
     ProfileLoader: function (targetInfo) { return new Lib.ProfileLoader(targetInfo); },
+    RemoteWeb: function (requestUrl) { return Lib.Web.getRemoteWeb(requestUrl); },
     Search: function (url, targetInfo) { return new Lib.Search(url, targetInfo); },
     Site: function (url, targetInfo) { return new Lib.Site(url, targetInfo); },
     SiteExists: function (url) { return Lib.Site.exists(url); },

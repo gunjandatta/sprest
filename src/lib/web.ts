@@ -25,5 +25,16 @@ class _Web extends Base<Types.SP.IWeb> {
         // Add the methods
         this.addMethods(this, { __metadata: { type: "web" } });
     }
+
+    // Method to get a remote web
+    static getRemoteWeb(requestUrl: string) {
+        // Return the remote web information
+        return new Base({
+            data: { requestUrl },
+            defaultToWebFl: true,
+            endpoint: "SP.RemoteWeb?$expand=Web",
+            method: "POST"
+        });
+    }
 }
 export const Web: Types.SP.IWeb = _Web as any;
