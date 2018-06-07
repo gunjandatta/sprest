@@ -3,6 +3,14 @@ import { Types } from "../..";
 import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from ".";
 
 /**
+ * Site Exists
+ */
+export interface ISiteExists {
+    /** True if the site collection exists, false otherwise. */
+    Exists: boolean;
+}
+
+/**
  * Site Methods
  */
 export interface ISiteMethods {
@@ -310,4 +318,10 @@ export interface ISite extends ISiteMethods, ISiteQueryProps, IBase<ISite, ISite
      * @param targetInfo - (Optional) The target information.
      */
     new(url?: string, targetInfo?: ITargetInfo): ISite;
+
+    /**
+     * Method to check if a site collection exists.
+     * @param url - The absolute url of the site collection.
+     */
+    exists(url: string): IBase<ISiteExists>;
 }

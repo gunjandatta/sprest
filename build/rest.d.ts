@@ -151,6 +151,11 @@ export interface IREST {
      */
     Site: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.ISite;
     /**
+     * Use this api to see if a site collection exists.
+     * @param url - The absolute url of the site collection.
+     */
+    SiteExists: (url: string) => Util.Types.IBase<Mapper.Types.ISiteExists>;
+    /**
      * Use this api to interact with the current user's social profile.
      */
     SocialFeed: Mapper.Types.ISocialFeed;

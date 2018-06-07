@@ -238,6 +238,11 @@ declare module 'gd-sprest/rest' {
                 */
             Site: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.ISite;
             /**
+                * Use this api to see if a site collection exists.
+                * @param url - The absolute url of the site collection.
+                */
+            SiteExists: (url: string) => Util.Types.IBase<Mapper.Types.ISiteExists>;
+            /**
                 * Use this api to interact with the current user's social profile.
                 */
             SocialFeed: Mapper.Types.ISocialFeed;
@@ -8436,6 +8441,13 @@ declare module 'gd-sprest/mapper/types/site' {
     import { Types } from "gd-sprest/";
     import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from "gd-sprest/mapper/types";
     /**
+        * Site Exists
+        */
+    export interface ISiteExists {
+            /** True if the site collection exists, false otherwise. */
+            Exists: boolean;
+    }
+    /**
         * Site Methods
         */
     export interface ISiteMethods {
@@ -8668,6 +8680,11 @@ declare module 'gd-sprest/mapper/types/site' {
                 * @param targetInfo - (Optional) The target information.
                 */
             new (url?: string, targetInfo?: ITargetInfo): ISite;
+            /**
+                * Method to check if a site collection exists.
+                * @param url - The absolute url of the site collection.
+                */
+            exists(url: string): IBase<ISiteExists>;
     }
 }
 
