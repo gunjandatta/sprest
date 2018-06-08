@@ -40,6 +40,7 @@ exports.$REST = {
     Search: function (url, targetInfo) { return new Lib.Search(url, targetInfo); },
     Site: function (url, targetInfo) { return new Lib.Site(url, targetInfo); },
     SiteExists: function (url) { return Lib.Site.exists(url); },
+    SiteUrl: function (id) { return Lib.Site.getUrlById(id); },
     SPTypes: Mapper.SPTypes,
     SocialFeed: Lib.SocialFeed,
     UserProfile: function (targetInfo) { return new Lib.UserProfile(targetInfo); },

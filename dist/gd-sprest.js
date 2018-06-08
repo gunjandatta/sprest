@@ -8850,6 +8850,16 @@ var _Site = /** @class */ (function (_super) {
     };
     // Method to get the root web
     _Site.prototype.getRootWeb = function () { return new _1.Web(null, this.targetInfo); };
+    // Method to get the url by id
+    _Site.getUrlById = function (id) {
+        // Return the base object
+        return new utils_1.Base({
+            data: { id: id },
+            defaultToWebFl: true,
+            endpoint: "SP.Site.GetUrlById",
+            method: "POST"
+        });
+    };
     // Method to determine if the current user has access, based on the permissions.
     _Site.prototype.hasAccess = function (permissions) {
         // TO DO
@@ -11854,6 +11864,7 @@ exports.$REST = {
     Search: function (url, targetInfo) { return new Lib.Search(url, targetInfo); },
     Site: function (url, targetInfo) { return new Lib.Site(url, targetInfo); },
     SiteExists: function (url) { return Lib.Site.exists(url); },
+    SiteUrl: function (id) { return Lib.Site.getUrlById(id); },
     SPTypes: Mapper.SPTypes,
     SocialFeed: Lib.SocialFeed,
     UserProfile: function (targetInfo) { return new Lib.UserProfile(targetInfo); },

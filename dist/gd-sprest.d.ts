@@ -248,6 +248,11 @@ declare module 'gd-sprest/rest' {
                 */
             SiteExists: (url: string) => Util.Types.IBase<Mapper.Types.ISiteExists>;
             /**
+                * Use this api to get the url of a site, by its id.
+                * @param id - The site id.
+                */
+            SiteUrl: (id: string) => Util.Types.IBase<Mapper.Types.ISiteUrl>;
+            /**
                 * Use this api to interact with the current user's social profile.
                 */
             SocialFeed: Mapper.Types.ISocialFeed;
@@ -8676,6 +8681,13 @@ declare module 'gd-sprest/mapper/types/site' {
     export interface ISiteResult extends ISiteMethods, ISiteProps, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {
     }
     /**
+        * Site Url
+        */
+    export interface ISiteUrl {
+            /** The site url. */
+            GetUrlById: string;
+    }
+    /**
         * Site
         */
     export interface ISite extends ISiteMethods, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {
@@ -8690,6 +8702,11 @@ declare module 'gd-sprest/mapper/types/site' {
                 * @param url - The absolute url of the site collection.
                 */
             exists(url: string): IBase<ISiteExists>;
+            /**
+                * Method to get the url of a site, by its id.
+                * @param id - The site id.
+                */
+            getUrlById(id: string): IBase<ISiteUrl>;
     }
 }
 

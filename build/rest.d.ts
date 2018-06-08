@@ -161,6 +161,11 @@ export interface IREST {
      */
     SiteExists: (url: string) => Util.Types.IBase<Mapper.Types.ISiteExists>;
     /**
+     * Use this api to get the url of a site, by its id.
+     * @param id - The site id.
+     */
+    SiteUrl: (id: string) => Util.Types.IBase<Mapper.Types.ISiteUrl>;
+    /**
      * Use this api to interact with the current user's social profile.
      */
     SocialFeed: Mapper.Types.ISocialFeed;
