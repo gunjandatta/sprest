@@ -8848,6 +8848,16 @@ var _Site = /** @class */ (function (_super) {
             method: "POST"
         });
     };
+    // Method to get the app context
+    _Site.getAppContext = function (siteUrl) {
+        // Return the base object
+        return new utils_1.Base({
+            data: { siteUrl: siteUrl },
+            defaultToWebFl: true,
+            endpoint: "SP.AppContextSite",
+            method: "POST"
+        });
+    };
     // Method to get the root web
     _Site.prototype.getRootWeb = function () { return new _1.Web(null, this.targetInfo); };
     // Method to get the url by id
@@ -11832,6 +11842,7 @@ var Mapper = __webpack_require__(12);
  */
 exports.$REST = {
     __ver: 4.02,
+    AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Graph: Lib.Graph,

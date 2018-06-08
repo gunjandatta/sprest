@@ -39,6 +39,17 @@ class _Site extends Base {
         });
     }
 
+    // Method to get the app context
+    static getAppContext(siteUrl: string) {
+        // Return the base object
+        return new Base({
+            data: { siteUrl },
+            defaultToWebFl: true,
+            endpoint: "SP.AppContextSite",
+            method: "POST"
+        });
+    }
+
     // Method to get the root web
     getRootWeb() { return new Web(null, this.targetInfo); }
 

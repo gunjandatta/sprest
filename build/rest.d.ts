@@ -11,6 +11,10 @@ export interface IREST {
      */
     __ver: number;
     /**
+     * Use this api to get the app context information of a site.
+     */
+    AppContext: (siteUrl: string) => Util.Types.IBase;
+    /**
      * A reference to the _spPageContextInfo global variable.
      */
     ContextInfo: Lib.Types.IContextInformation;

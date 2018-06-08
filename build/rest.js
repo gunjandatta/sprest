@@ -8,6 +8,7 @@ var Mapper = require("./mapper");
  */
 exports.$REST = {
     __ver: 4.02,
+    AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Graph: Lib.Graph,

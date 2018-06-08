@@ -47,6 +47,16 @@ var _Site = /** @class */ (function (_super) {
             method: "POST"
         });
     };
+    // Method to get the app context
+    _Site.getAppContext = function (siteUrl) {
+        // Return the base object
+        return new utils_1.Base({
+            data: { siteUrl: siteUrl },
+            defaultToWebFl: true,
+            endpoint: "SP.AppContextSite",
+            method: "POST"
+        });
+    };
     // Method to get the root web
     _Site.prototype.getRootWeb = function () { return new _1.Web(null, this.targetInfo); };
     // Method to get the url by id

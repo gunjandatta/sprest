@@ -254,6 +254,11 @@ export interface ISite extends ISiteMethods, ISiteQueryProps, IBase<ISite, ISite
      */
     exists(url: string): IBase<ISiteExists>;
     /**
+     * Method to get the app context information.
+     * @param siteUrl - The absolute url of the site.
+     */
+    getAppContext(siteUrl: string): IBase;
+    /**
      * Method to get the url of a site, by its id.
      * @param id - The site id.
      */

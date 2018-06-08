@@ -98,6 +98,10 @@ declare module 'gd-sprest/rest' {
                 */
             __ver: number;
             /**
+                * Use this api to get the app context information of a site.
+                */
+            AppContext: (siteUrl: string) => Util.Types.IBase;
+            /**
                 * A reference to the _spPageContextInfo global variable.
                 */
             ContextInfo: Lib.Types.IContextInformation;
@@ -8702,6 +8706,11 @@ declare module 'gd-sprest/mapper/types/site' {
                 * @param url - The absolute url of the site collection.
                 */
             exists(url: string): IBase<ISiteExists>;
+            /**
+                * Method to get the app context information.
+                * @param siteUrl - The absolute url of the site.
+                */
+            getAppContext(siteUrl: string): IBase;
             /**
                 * Method to get the url of a site, by its id.
                 * @param id - The site id.
