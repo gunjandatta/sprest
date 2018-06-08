@@ -232,6 +232,13 @@ export interface ISiteQueryResult extends ISiteMethods, ISiteProps {
 export interface ISiteResult extends ISiteMethods, ISiteProps, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {
 }
 /**
+ * Site Url
+ */
+export interface ISiteUrl {
+    /** The site url. */
+    GetUrlById: string;
+}
+/**
  * Site
  */
 export interface ISite extends ISiteMethods, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {
@@ -246,4 +253,14 @@ export interface ISite extends ISiteMethods, ISiteQueryProps, IBase<ISite, ISite
      * @param url - The absolute url of the site collection.
      */
     exists(url: string): IBase<ISiteExists>;
+    /**
+     * Method to get the app context information.
+     * @param siteUrl - The absolute url of the site.
+     */
+    getAppContext(siteUrl: string): IBase;
+    /**
+     * Method to get the url of a site, by its id.
+     * @param id - The site id.
+     */
+    getUrlById(id: string): IBase<ISiteUrl>;
 }

@@ -11,15 +11,33 @@ export class BaseHelper implements Types.IBaseHelper {
     response: string;
     status: number;
 
+    // Method to add the base references
+    addBaseReferences(base: Base, obj: any) {
+        // Add the base references
+        obj["addMethods"] = base.addMethods;
+        obj["base"] = base.base;
+        obj["done"] = base.done;
+        obj["execute"] = base.execute;
+        obj["executeAndWait"] = base.executeAndWait
+        obj["executeMethod"] = base.executeMethod;
+        obj["existsFl"] = true;
+        obj["getProperty"] = base.getProperty;
+        obj["parent"] = base;
+        obj["targetInfo"] = base.targetInfo;
+        obj["updateMetadataUri"] = base.updateMetadataUri;
+        obj["waitForRequestsToComplete"] = base.waitForRequestsToComplete;
+    }
+
     // Method to add the methods to base object
     addMethods(base: Base, data, graphType?: string) {
+        let obj = base;
         let isCollection = data.results && data.results.length > 0;
 
         // Determine the metadata
         let metadata = isCollection ? data.results[0].__metadata : data.__metadata;
 
         // Determine the object type
-        let objType = metadata && metadata.type ? metadata.type : base.targetInfo.endpoint;
+        let objType = metadata && metadata.type ? metadata.type : obj.targetInfo.endpoint;
         objType = objType.split('/');
         objType = (objType[objType.length - 1]);
         objType = objType.split('.');
@@ -73,19 +91,19 @@ export class BaseHelper implements Types.IBaseHelper {
                         let subPropType = propInfo.length > 3 ? propInfo[3] : null;
 
                         // See if the property is null or is a collection
-                        if (base[propName] == null || (base[propName].__deferred && base[propName].__deferred.uri)) {
+                        if (obj[propName] == null || (obj[propName].__deferred && obj[propName].__deferred.uri)) {
                             // See if the base property has a sub-property defined for it
                             if (propInfo.length == 4) {
                                 // Update the ' char in the property name
                                 subPropName = subPropName.replace(/'/g, "\\'");
 
                                 // Add the property
-                                base[propName] = new Function("name",
+                                obj[propName] = new Function("name",
                                     "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name.toString().replace(/\'/g, \"''\")) : null;" +
                                     "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             } else {
                                 // Add the property
-                                base[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
+                                obj[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
                             }
                         }
                     }
@@ -100,11 +118,11 @@ export class BaseHelper implements Types.IBaseHelper {
                     methodInfo = JSON.parse(JSON.stringify(methodInfo));
 
                     // Set the metadata type
-                    methodInfo.metadataType = methods[methodName].metadataType(base);
+                    methodInfo.metadataType = methods[methodName].metadataType(obj);
                 }
 
                 // Add the method to the object
-                base[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+                obj[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
             }
         }
     }
@@ -181,18 +199,7 @@ export class BaseHelper implements Types.IBaseHelper {
                 // Parse the results
                 for (let result of results) {
                     // Add the base references
-                    result["addMethods"] = obj.addMethods;
-                    result["base"] = obj.base;
-                    result["done"] = obj.done;
-                    result["execute"] = obj.execute;
-                    result["executeAndWait"] = obj.executeAndWait
-                    result["executeMethod"] = obj.executeMethod;
-                    result["existsFl"] = true;
-                    result["getProperty"] = obj.getProperty;
-                    result["parent"] = obj;
-                    result["targetInfo"] = obj.targetInfo;
-                    result["updateMetadataUri"] = obj.updateMetadataUri;
-                    result["waitForRequestsToComplete"] = obj.waitForRequestsToComplete;
+                    this.addBaseReferences(obj, result);
 
                     // Update the metadata
                     this.updateMetadata(obj, result);

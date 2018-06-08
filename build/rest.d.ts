@@ -11,6 +11,10 @@ export interface IREST {
      */
     __ver: number;
     /**
+     * Use this api to get the app context information of a site.
+     */
+    AppContext: (siteUrl: string) => Util.Types.IBase;
+    /**
      * A reference to the _spPageContextInfo global variable.
      */
     ContextInfo: Lib.Types.IContextInformation;
@@ -139,6 +143,11 @@ export interface IREST {
      */
     ProfileLoader: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IProfileLoader;
     /**
+     * Use this api to get a remote web.
+     * @param requestUrl - The absolute url of the remote web.
+     */
+    RemoteWeb: (requestUrl?: string) => Util.Types.IBase<Mapper.Types.IWebRemote>;
+    /**
      * Use this api to interact with the SharePoint search service.
      * @param url - The optional url to execute the search against.
      * @param settings - The search settings.
@@ -155,6 +164,11 @@ export interface IREST {
      * @param url - The absolute url of the site collection.
      */
     SiteExists: (url: string) => Util.Types.IBase<Mapper.Types.ISiteExists>;
+    /**
+     * Use this api to get the url of a site, by its id.
+     * @param id - The site id.
+     */
+    SiteUrl: (id: string) => Util.Types.IBase<Mapper.Types.ISiteUrl>;
     /**
      * Use this api to interact with the current user's social profile.
      */

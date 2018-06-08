@@ -891,6 +891,16 @@ var _Web = /** @class */ (function (_super) {
         _this.addMethods(_this, { __metadata: { type: "web" } });
         return _this;
     }
+    // Method to get a remote web
+    _Web.getRemoteWeb = function (requestUrl) {
+        // Return the remote web information
+        return new utils_1.Base({
+            data: { requestUrl: requestUrl },
+            defaultToWebFl: true,
+            endpoint: "SP.RemoteWeb?$expand=Web",
+            method: "POST"
+        });
+    };
     return _Web;
 }(utils_1.Base));
 exports.Web = _Web;
@@ -4009,13 +4019,30 @@ var _1 = __webpack_require__(0);
 var BaseHelper = /** @class */ (function () {
     function BaseHelper() {
     }
+    // Method to add the base references
+    BaseHelper.prototype.addBaseReferences = function (base, obj) {
+        // Add the base references
+        obj["addMethods"] = base.addMethods;
+        obj["base"] = base.base;
+        obj["done"] = base.done;
+        obj["execute"] = base.execute;
+        obj["executeAndWait"] = base.executeAndWait;
+        obj["executeMethod"] = base.executeMethod;
+        obj["existsFl"] = true;
+        obj["getProperty"] = base.getProperty;
+        obj["parent"] = base;
+        obj["targetInfo"] = base.targetInfo;
+        obj["updateMetadataUri"] = base.updateMetadataUri;
+        obj["waitForRequestsToComplete"] = base.waitForRequestsToComplete;
+    };
     // Method to add the methods to base object
     BaseHelper.prototype.addMethods = function (base, data, graphType) {
+        var obj = base;
         var isCollection = data.results && data.results.length > 0;
         // Determine the metadata
         var metadata = isCollection ? data.results[0].__metadata : data.__metadata;
         // Determine the object type
-        var objType = metadata && metadata.type ? metadata.type : base.targetInfo.endpoint;
+        var objType = metadata && metadata.type ? metadata.type : obj.targetInfo.endpoint;
         objType = objType.split('/');
         objType = (objType[objType.length - 1]);
         objType = objType.split('.');
@@ -4061,18 +4088,18 @@ var BaseHelper = /** @class */ (function () {
                         var subPropName = propInfo.length > 2 ? propInfo[2] : null;
                         var subPropType = propInfo.length > 3 ? propInfo[3] : null;
                         // See if the property is null or is a collection
-                        if (base[propName] == null || (base[propName].__deferred && base[propName].__deferred.uri)) {
+                        if (obj[propName] == null || (obj[propName].__deferred && obj[propName].__deferred.uri)) {
                             // See if the base property has a sub-property defined for it
                             if (propInfo.length == 4) {
                                 // Update the ' char in the property name
                                 subPropName = subPropName.replace(/'/g, "\\'");
                                 // Add the property
-                                base[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name.toString().replace(/\'/g, \"''\")) : null;" +
+                                obj[propName] = new Function("name", "name = name ? '" + propName + subPropName + "'.replace(/\\[Name\\]/g, name.toString().replace(/\'/g, \"''\")) : null;" +
                                     "return this.getProperty(name ? name : '" + propName + "', name ? '" + subPropType + "' : '" + propType + "');");
                             }
                             else {
                                 // Add the property
-                                base[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
+                                obj[propName] = new Function("return this.getProperty('" + propName + "', '" + propType + "');");
                             }
                         }
                     }
@@ -4084,10 +4111,10 @@ var BaseHelper = /** @class */ (function () {
                     // Clone the object properties
                     methodInfo = JSON.parse(JSON.stringify(methodInfo));
                     // Set the metadata type
-                    methodInfo.metadataType = methods[methodName].metadataType(base);
+                    methodInfo.metadataType = methods[methodName].metadataType(obj);
                 }
                 // Add the method to the object
-                base[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
+                obj[methodName] = new Function("return this.executeMethod('" + methodName + "', " + JSON.stringify(methodInfo) + ", arguments);");
             }
         }
     };
@@ -4155,18 +4182,7 @@ var BaseHelper = /** @class */ (function () {
                 for (var _i = 0, results_2 = results_1; _i < results_2.length; _i++) {
                     var result = results_2[_i];
                     // Add the base references
-                    result["addMethods"] = obj.addMethods;
-                    result["base"] = obj.base;
-                    result["done"] = obj.done;
-                    result["execute"] = obj.execute;
-                    result["executeAndWait"] = obj.executeAndWait;
-                    result["executeMethod"] = obj.executeMethod;
-                    result["existsFl"] = true;
-                    result["getProperty"] = obj.getProperty;
-                    result["parent"] = obj;
-                    result["targetInfo"] = obj.targetInfo;
-                    result["updateMetadataUri"] = obj.updateMetadataUri;
-                    result["waitForRequestsToComplete"] = obj.waitForRequestsToComplete;
+                    this.addBaseReferences(obj, result);
                     // Update the metadata
                     this.updateMetadata(obj, result);
                     // Add the methods
@@ -8832,8 +8848,28 @@ var _Site = /** @class */ (function (_super) {
             method: "POST"
         });
     };
+    // Method to get the app context
+    _Site.getAppContext = function (siteUrl) {
+        // Return the base object
+        return new utils_1.Base({
+            data: { siteUrl: siteUrl },
+            defaultToWebFl: true,
+            endpoint: "SP.AppContextSite",
+            method: "POST"
+        });
+    };
     // Method to get the root web
     _Site.prototype.getRootWeb = function () { return new _1.Web(null, this.targetInfo); };
+    // Method to get the url by id
+    _Site.getUrlById = function (id) {
+        // Return the base object
+        return new utils_1.Base({
+            data: { id: id },
+            defaultToWebFl: true,
+            endpoint: "SP.Site.GetUrlById",
+            method: "POST"
+        });
+    };
     // Method to determine if the current user has access, based on the permissions.
     _Site.prototype.hasAccess = function (permissions) {
         // TO DO
@@ -11805,7 +11841,8 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.01,
+    __ver: 4.02,
+    AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
     Graph: Lib.Graph,
@@ -11834,9 +11871,11 @@ exports.$REST = {
     PeopleManager: function (targetInfo) { return new Lib.PeopleManager(targetInfo); },
     PeoplePicker: function (targetInfo) { return new Lib.PeoplePicker(targetInfo); },
     ProfileLoader: function (targetInfo) { return new Lib.ProfileLoader(targetInfo); },
+    RemoteWeb: function (requestUrl) { return Lib.Web.getRemoteWeb(requestUrl); },
     Search: function (url, targetInfo) { return new Lib.Search(url, targetInfo); },
     Site: function (url, targetInfo) { return new Lib.Site(url, targetInfo); },
     SiteExists: function (url) { return Lib.Site.exists(url); },
+    SiteUrl: function (id) { return Lib.Site.getUrlById(id); },
     SPTypes: Mapper.SPTypes,
     SocialFeed: Lib.SocialFeed,
     UserProfile: function (targetInfo) { return new Lib.UserProfile(targetInfo); },

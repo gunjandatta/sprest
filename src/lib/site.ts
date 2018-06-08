@@ -39,8 +39,30 @@ class _Site extends Base {
         });
     }
 
+    // Method to get the app context
+    static getAppContext(siteUrl: string) {
+        // Return the base object
+        return new Base({
+            data: { siteUrl },
+            defaultToWebFl: true,
+            endpoint: "SP.AppContextSite",
+            method: "POST"
+        });
+    }
+
     // Method to get the root web
     getRootWeb() { return new Web(null, this.targetInfo); }
+
+    // Method to get the url by id
+    static getUrlById(id: string) {
+        // Return the base object
+        return new Base({
+            data: { id },
+            defaultToWebFl: true,
+            endpoint: "SP.Site.GetUrlById",
+            method: "POST"
+        });
+    }
 
     // Method to determine if the current user has access, based on the permissions.
     hasAccess(permissions) {

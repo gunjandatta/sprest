@@ -35,6 +35,16 @@ var _Web = /** @class */ (function (_super) {
         _this.addMethods(_this, { __metadata: { type: "web" } });
         return _this;
     }
+    // Method to get a remote web
+    _Web.getRemoteWeb = function (requestUrl) {
+        // Return the remote web information
+        return new utils_1.Base({
+            data: { requestUrl: requestUrl },
+            defaultToWebFl: true,
+            endpoint: "SP.RemoteWeb?$expand=Web",
+            method: "POST"
+        });
+    };
     return _Web;
 }(utils_1.Base));
 exports.Web = _Web;
