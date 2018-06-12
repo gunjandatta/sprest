@@ -7169,6 +7169,11 @@ var BaseRequest = /** @class */ (function (_super) {
     BaseRequest.prototype.getProperty = function (propertyName, requestType) {
         // Copy the target information
         var targetInfo = Object.create(this.targetInfo);
+        // See if this is a graph request
+        if (requestType.startsWith("graph")) {
+            // Default the request type
+            targetInfo.requestType = _1.RequestType.GraphGet;
+        }
         // Clear the target information properties from any previous requests
         targetInfo.data = null;
         targetInfo.method = null;
@@ -8433,8 +8438,9 @@ var _Graph = /** @class */ (function (_super) {
         var _this = 
         // Call the base constructor
         _super.call(this, { accessToken: accessToken }) || this;
-        // Default the version
+        // Default the target information
         _this.targetInfo.endpoint = version || "v1.0";
+        _this.targetInfo.requestType = utils_1.RequestType.GraphGet;
         // Add the methods
         _this.addMethods(_this, { __metadata: { type: "graph" } });
         return _this;

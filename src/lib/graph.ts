@@ -12,8 +12,9 @@ class _Graph extends Base {
         // Call the base constructor
         super({ accessToken });
 
-        // Default the version
+        // Default the target information
         this.targetInfo.endpoint = version || "v1.0";
+        this.targetInfo.requestType = RequestType.GraphGet;
 
         // Add the methods
         this.addMethods(this, { __metadata: { type: "graph" } });

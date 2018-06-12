@@ -189,6 +189,11 @@ var BaseRequest = /** @class */ (function (_super) {
     BaseRequest.prototype.getProperty = function (propertyName, requestType) {
         // Copy the target information
         var targetInfo = Object.create(this.targetInfo);
+        // See if this is a graph request
+        if (requestType.startsWith("graph")) {
+            // Default the request type
+            targetInfo.requestType = _1.RequestType.GraphGet;
+        }
         // Clear the target information properties from any previous requests
         targetInfo.data = null;
         targetInfo.method = null;

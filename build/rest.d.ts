@@ -25,7 +25,7 @@ export interface IREST {
     /**
      * Use this api to interact with the Graph API. (Still In Development)
      */
-    Graph: any;
+    Graph: Mapper.Types.IGraph;
     /**
      * Helper methods.
      */
