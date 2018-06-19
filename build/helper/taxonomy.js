@@ -141,6 +141,116 @@ exports.Taxonomy = {
         });
     },
     /**
+     * Method to get the term groups
+     */
+    getTermGroups: function () {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Load the scripts
+            exports.Taxonomy.loadScripts().then(function () {
+                // Get the taxonomy session
+                var context = SP.ClientContext.get_current();
+                var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+                // Resolve the promise
+                var termStores = session.get_termStores();
+                context.load(termStores, "Include(Groups)");
+                context.executeQueryAsync(function () {
+                    // Get the default store
+                    var enumerator = termStores.getEnumerator();
+                    var termStore = enumerator.moveNext() ? enumerator.get_current() : null;
+                    if (termStore) {
+                        // Get the term groups
+                        var termGroups_1 = termStore.get_groups();
+                        context.load(termGroups_1, "Include(Description, Id, Name)");
+                        // Execute the request
+                        context.executeQueryAsync(
+                        // Success
+                        function () {
+                            var groups = [];
+                            // Parse the groups
+                            var enumerator = termGroups_1.getEnumerator();
+                            while (enumerator.moveNext()) {
+                                var group = enumerator.get_current();
+                                // Add the group information
+                                groups.push({
+                                    description: group.get_description(),
+                                    id: group.get_id().toString(),
+                                    name: group.get_name()
+                                });
+                            }
+                            // Resolve the promise
+                            resolve(groups);
+                        }, function () {
+                            var args = [];
+                            for (var _i = 0; _i < arguments.length; _i++) {
+                                args[_i] = arguments[_i];
+                            }
+                            // Reject the promise
+                            reject(args[1].get_message());
+                        });
+                    }
+                    else {
+                        // Reject the promise
+                        reject("Unable to find the taxonomy store.");
+                    }
+                }, function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Reject the promise
+                    reject(args[1].get_message());
+                });
+            });
+        });
+    },
+    /**
+     * Method to get the term sets from the default site collection.
+     */
+    getTermSetsFromDefaultSC: function () {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Load the scripts
+            exports.Taxonomy.loadScripts().then(function () {
+                // Get the taxonomy session
+                var context = SP.ClientContext.get_current();
+                var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+                // Get the terms sets from the default site collection
+                var termStore = session.getDefaultSiteCollectionTermStore();
+                var termGroup = termStore.getSiteCollectionGroup(context.get_site());
+                var termGroupInfo = termGroup.get_termSets();
+                context.load(termGroupInfo, "Include(CustomProperties, Description, Id, Name)");
+                // Execute the request
+                context.executeQueryAsync(
+                // Success
+                function () {
+                    var termSets = [];
+                    // Parse the term group information
+                    var enumerator = termGroupInfo.getEnumerator();
+                    while (enumerator.moveNext()) {
+                        var termSet = enumerator.get_current();
+                        // Add the group information
+                        termSets.push({
+                            description: termSet.get_description(),
+                            id: termSet.get_id().toString(),
+                            name: termSet.get_name(),
+                            props: termSet.get_customProperties()
+                        });
+                    }
+                    // Resolve the promise
+                    resolve(termSets);
+                }, function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Reject the promise
+                    reject(args[1].get_message());
+                });
+            });
+        });
+    },
+    /**
      * Method to get the terms by id
      */
     getTermsById: function (termStoreId, termSetId) {

@@ -1,5 +1,6 @@
 import { Types } from "..";
 import * as TaxonomyTypes from "./types";
+import { ITermGroupInfo, ITermInfo, ITermSetInfo } from "./types";
 declare var SP;
 
 /**
@@ -135,6 +136,115 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
                     // Resolve the promise
                     resolve({ context, termGroup });
                 }
+            });
+        });
+    },
+
+    /**
+     * Method to get the term groups
+     */
+    getTermGroups: () => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Load the scripts
+            Taxonomy.loadScripts().then(() => {
+                // Get the taxonomy session
+                let context = SP.ClientContext.get_current();
+                let session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+
+                // Resolve the promise
+                let termStores = session.get_termStores();
+                context.load(termStores, "Include(Groups)");
+                context.executeQueryAsync(() => {
+                    // Get the default store
+                    let enumerator = termStores.getEnumerator();
+                    let termStore = enumerator.moveNext() ? enumerator.get_current() : null;
+                    if (termStore) {
+                        // Get the term groups
+                        let termGroups = termStore.get_groups();
+                        context.load(termGroups, "Include(Description, Id, Name)");
+
+                        // Execute the request
+                        context.executeQueryAsync(
+                            // Success
+                            () => {
+                                let groups: Array<ITermGroupInfo> = [];
+
+                                // Parse the groups
+                                let enumerator = termGroups.getEnumerator();
+                                while (enumerator.moveNext()) {
+                                    let group = enumerator.get_current();
+
+                                    // Add the group information
+                                    groups.push({
+                                        description: group.get_description(),
+                                        id: group.get_id().toString(),
+                                        name: group.get_name()
+                                    });
+                                }
+
+                                // Resolve the promise
+                                resolve(groups);
+                            }, (...args) => {
+                                // Reject the promise
+                                reject(args[1].get_message());
+                            });
+                    } else {
+                        // Reject the promise
+                        reject("Unable to find the taxonomy store.");
+                    }
+                }, (...args) => {
+                    // Reject the promise
+                    reject(args[1].get_message());
+                });
+            });
+        });
+    },
+
+    /**
+     * Method to get the term sets from the default site collection.
+     */
+    getTermSetsFromDefaultSC: () => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Load the scripts
+            Taxonomy.loadScripts().then(() => {
+                // Get the taxonomy session
+                let context = SP.ClientContext.get_current();
+                let session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+
+                // Get the terms sets from the default site collection
+                let termStore = session.getDefaultSiteCollectionTermStore();
+                let termGroup = termStore.getSiteCollectionGroup(context.get_site());
+                let termGroupInfo = termGroup.get_termSets();
+                context.load(termGroupInfo, "Include(CustomProperties, Description, Id, Name)");
+
+                // Execute the request
+                context.executeQueryAsync(
+                    // Success
+                    () => {
+                        let termSets: Array<ITermSetInfo> = [];
+
+                        // Parse the term group information
+                        let enumerator = termGroupInfo.getEnumerator();
+                        while (enumerator.moveNext()) {
+                            let termSet = enumerator.get_current();
+
+                            // Add the group information
+                            termSets.push({
+                                description: termSet.get_description(),
+                                id: termSet.get_id().toString(),
+                                name: termSet.get_name(),
+                                props: termSet.get_customProperties()
+                            });
+                        }
+
+                        // Resolve the promise
+                        resolve(termSets);
+                    }, (...args) => {
+                        // Reject the promise
+                        reject(args[1].get_message());
+                    });
             });
         });
     },
