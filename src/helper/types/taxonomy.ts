@@ -23,6 +23,16 @@ export interface ITaxonomy {
     getTermGroup(groupName?: string): PromiseLike<{ context: any, termGroup: any }>;
 
     /**
+     * Method to get the term groups
+     */
+    getTermGroups(): PromiseLike<Array<ITermGroupInfo>>;
+
+    /**
+     * Method to get the term sets for the site collection
+     */
+    getTermSetsFromDefaultSC(): PromiseLike<Array<ITermSetInfo>>;
+
+    /**
      * Method to get the terms
      * @param termSet - The term set.
      * @param termSetTerms - The term set terms.
@@ -107,6 +117,20 @@ export interface ITerm {
 }
 
 /**
+ * Taxonomy Term Group Information
+ */
+export interface ITermGroupInfo {
+    /** The term description */
+    description: string;
+
+    /** The term id */
+    id: string;
+
+    /** The term name */
+    name: string;
+}
+
+/**
  * Taxonomy Term Information
  */
 export interface ITermInfo {
@@ -127,6 +151,23 @@ export interface ITermInfo {
 
     /** The term path as a string */
     pathAsString: string;
+
+    /** The term custom properties */
+    props: { [key: string]: string; };
+}
+
+/**
+ * Taxonomy Term Set Information
+ */
+export interface ITermSetInfo {
+    /** The term description */
+    description: string;
+
+    /** The term id */
+    id: string;
+
+    /** The term name */
+    name: string;
 
     /** The term custom properties */
     props: { [key: string]: string; };

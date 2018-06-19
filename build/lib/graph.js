@@ -23,8 +23,9 @@ var _Graph = /** @class */ (function (_super) {
         var _this = 
         // Call the base constructor
         _super.call(this, { accessToken: accessToken }) || this;
-        // Default the version
+        // Default the target information
         _this.targetInfo.endpoint = version || "v1.0";
+        _this.targetInfo.requestType = utils_1.RequestType.GraphGet;
         // Add the methods
         _this.addMethods(_this, { __metadata: { type: "graph" } });
         return _this;

@@ -4048,8 +4048,11 @@ var BaseHelper = /** @class */ (function () {
         objType = objType.split('.');
         objType = (objType[objType.length - 1]).toLowerCase();
         objType += isCollection ? "s" : "";
-        // See if the base is a field
-        if ((/^field/.test(objType) || /fields?$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
+        // See if this is a graph request
+        if (/^graph/.test(objType)) {
+            // Do nothing
+        }
+        else if ((/^field/.test(objType) || /fields?$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
             // Update the type
             objType = "field" + (isCollection ? "s" : "");
         }
@@ -4715,17 +4718,43 @@ var utils_1 = __webpack_require__(0);
  */
 exports.graph = {
     properties: [
-        "groups|graph_groups|/{[Name]}|graph_group",
-        "users|graph_users|/{[Name]}|graph_user"
+        "groups|graph_groups|/[Name]|graph_group",
+        "users|graph_users|/[Name]|graph_user"
     ],
     /**
      * me
      **/
     me: {
-        requestType: utils_1.RequestType.GraphGet
+        requestType: utils_1.RequestType.GraphGet,
+        returnType: "graph_me"
     }
 };
-exports.graph_user = {};
+/**
+ * Graph Drive
+ */
+exports.graph_drive = {
+    properties: [
+        "items|graph_drive_items|/[Name]|graph_drive_item",
+        "root|graph_drive_item",
+        "special|graph_drive_items",
+    ]
+};
+/**
+ * Graph Me
+ */
+exports.graph_me = {
+    properties: [
+        "drives|graph_drives|/[Name]|graph_drive",
+        "messages|graph_messages|/[Name]|graph_message"
+    ],
+    /**
+     * Calendar
+     */
+    calendar: {
+        requestType: utils_1.RequestType.GraphGet,
+        returnType: "graph_calendar"
+    }
+};
 
 
 /***/ }),
@@ -7169,6 +7198,11 @@ var BaseRequest = /** @class */ (function (_super) {
     BaseRequest.prototype.getProperty = function (propertyName, requestType) {
         // Copy the target information
         var targetInfo = Object.create(this.targetInfo);
+        // See if this is a graph request
+        if (requestType.startsWith("graph")) {
+            // Default the request type
+            targetInfo.requestType = _1.RequestType.GraphGet;
+        }
         // Clear the target information properties from any previous requests
         targetInfo.data = null;
         targetInfo.method = null;
@@ -8433,8 +8467,9 @@ var _Graph = /** @class */ (function (_super) {
         var _this = 
         // Call the base constructor
         _super.call(this, { accessToken: accessToken }) || this;
-        // Default the version
+        // Default the target information
         _this.targetInfo.endpoint = version || "v1.0";
+        _this.targetInfo.requestType = utils_1.RequestType.GraphGet;
         // Add the methods
         _this.addMethods(_this, { __metadata: { type: "graph" } });
         return _this;
@@ -11047,6 +11082,116 @@ exports.Taxonomy = {
         });
     },
     /**
+     * Method to get the term groups
+     */
+    getTermGroups: function () {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Load the scripts
+            exports.Taxonomy.loadScripts().then(function () {
+                // Get the taxonomy session
+                var context = SP.ClientContext.get_current();
+                var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+                // Resolve the promise
+                var termStores = session.get_termStores();
+                context.load(termStores, "Include(Groups)");
+                context.executeQueryAsync(function () {
+                    // Get the default store
+                    var enumerator = termStores.getEnumerator();
+                    var termStore = enumerator.moveNext() ? enumerator.get_current() : null;
+                    if (termStore) {
+                        // Get the term groups
+                        var termGroups_1 = termStore.get_groups();
+                        context.load(termGroups_1, "Include(Description, Id, Name)");
+                        // Execute the request
+                        context.executeQueryAsync(
+                        // Success
+                        function () {
+                            var groups = [];
+                            // Parse the groups
+                            var enumerator = termGroups_1.getEnumerator();
+                            while (enumerator.moveNext()) {
+                                var group = enumerator.get_current();
+                                // Add the group information
+                                groups.push({
+                                    description: group.get_description(),
+                                    id: group.get_id().toString(),
+                                    name: group.get_name()
+                                });
+                            }
+                            // Resolve the promise
+                            resolve(groups);
+                        }, function () {
+                            var args = [];
+                            for (var _i = 0; _i < arguments.length; _i++) {
+                                args[_i] = arguments[_i];
+                            }
+                            // Reject the promise
+                            reject(args[1].get_message());
+                        });
+                    }
+                    else {
+                        // Reject the promise
+                        reject("Unable to find the taxonomy store.");
+                    }
+                }, function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Reject the promise
+                    reject(args[1].get_message());
+                });
+            });
+        });
+    },
+    /**
+     * Method to get the term sets from the default site collection.
+     */
+    getTermSetsFromDefaultSC: function () {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Load the scripts
+            exports.Taxonomy.loadScripts().then(function () {
+                // Get the taxonomy session
+                var context = SP.ClientContext.get_current();
+                var session = SP.Taxonomy.TaxonomySession.getTaxonomySession(context);
+                // Get the terms sets from the default site collection
+                var termStore = session.getDefaultSiteCollectionTermStore();
+                var termGroup = termStore.getSiteCollectionGroup(context.get_site());
+                var termGroupInfo = termGroup.get_termSets();
+                context.load(termGroupInfo, "Include(CustomProperties, Description, Id, Name)");
+                // Execute the request
+                context.executeQueryAsync(
+                // Success
+                function () {
+                    var termSets = [];
+                    // Parse the term group information
+                    var enumerator = termGroupInfo.getEnumerator();
+                    while (enumerator.moveNext()) {
+                        var termSet = enumerator.get_current();
+                        // Add the group information
+                        termSets.push({
+                            description: termSet.get_description(),
+                            id: termSet.get_id().toString(),
+                            name: termSet.get_name(),
+                            props: termSet.get_customProperties()
+                        });
+                    }
+                    // Resolve the promise
+                    resolve(termSets);
+                }, function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Reject the promise
+                    reject(args[1].get_message());
+                });
+            });
+        });
+    },
+    /**
      * Method to get the terms by id
      */
     getTermsById: function (termStoreId, termSetId) {
@@ -11841,7 +11986,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.02,
+    __ver: 4.03,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,

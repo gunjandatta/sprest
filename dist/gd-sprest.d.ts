@@ -112,7 +112,7 @@ declare module 'gd-sprest/rest' {
             /**
                 * Use this api to interact with the Graph API. (Still In Development)
                 */
-            Graph: any;
+            Graph: Mapper.Types.IGraph;
             /**
                 * Helper methods.
                 */
@@ -1889,6 +1889,14 @@ declare module 'gd-sprest/helper/types/taxonomy' {
                     termGroup: any;
             }>;
             /**
+                * Method to get the term groups
+                */
+            getTermGroups(): PromiseLike<Array<ITermGroupInfo>>;
+            /**
+                * Method to get the term sets for the site collection
+                */
+            getTermSetsFromDefaultSC(): PromiseLike<Array<ITermSetInfo>>;
+            /**
                 * Method to get the terms
                 * @param termSet - The term set.
                 * @param termSetTerms - The term set terms.
@@ -1958,6 +1966,17 @@ declare module 'gd-sprest/helper/types/taxonomy' {
             parent?: ITerm;
     }
     /**
+        * Taxonomy Term Group Information
+        */
+    export interface ITermGroupInfo {
+            /** The term description */
+            description: string;
+            /** The term id */
+            id: string;
+            /** The term name */
+            name: string;
+    }
+    /**
         * Taxonomy Term Information
         */
     export interface ITermInfo {
@@ -1973,6 +1992,21 @@ declare module 'gd-sprest/helper/types/taxonomy' {
             path: Array<string>;
             /** The term path as a string */
             pathAsString: string;
+            /** The term custom properties */
+            props: {
+                    [key: string]: string;
+            };
+    }
+    /**
+        * Taxonomy Term Set Information
+        */
+    export interface ITermSetInfo {
+            /** The term description */
+            description: string;
+            /** The term id */
+            id: string;
+            /** The term name */
+            name: string;
             /** The term custom properties */
             props: {
                     [key: string]: string;
@@ -2308,15 +2342,31 @@ declare module 'gd-sprest/mapper/file' {
 
 declare module 'gd-sprest/mapper/graph' {
     /**
-      * Graph v1.0
-      */
+        * Graph v1.0
+        */
     export const graph: {
-        properties: string[];
-        me: {
-            requestType: number;
-        };
+            properties: string[];
+            me: {
+                    requestType: number;
+                    returnType: string;
+            };
     };
-    export const graph_user: {};
+    /**
+        * Graph Drive
+        */
+    export const graph_drive: {
+            properties: string[];
+    };
+    /**
+        * Graph Me
+        */
+    export const graph_me: {
+            properties: string[];
+            calendar: {
+                    requestType: number;
+                    returnType: string;
+            };
+    };
 }
 
 declare module 'gd-sprest/mapper/list' {
@@ -6483,6 +6533,12 @@ declare module 'gd-sprest/mapper/types/folders' {
 declare module 'gd-sprest/mapper/types/graph' {
     import { IBase } from "gd-sprest/utils/types";
     /**
+        * Graph Collection
+        */
+    export interface IGraphCollection<T> {
+            value: Array<T>;
+    }
+    /**
         * Graph Methods
         */
     export interface IGraphMethods {
@@ -6491,6 +6547,35 @@ declare module 'gd-sprest/mapper/types/graph' {
         * Graph Query Properties
         */
     export interface IGraphQueryProps {
+            /**
+                * Represents a collection of OneDrives and Document Libraries.
+                */
+            drives(): IBase<IGraphCollection<IGraphDrive>>;
+            /**
+                * Represents a OneDrive or Document Library.
+                * @param id - The drive id.
+                */
+            drives(id: string): IBase<IGraphDrive>;
+            /**
+                * Represents a collection of Azure Active Directory (Azure AD) groups.
+                * Types: Office 365 Group, Dynamic Group or Security Group
+                */
+            groups(): IBase<IGraphCollection<IGraphGroup>>;
+            /**
+                * Represents an Azure Active Directory (Azure AD) group.
+                * Types: Office 365 Group, Dynamic Group or Security Group
+                * @param id - The group id.
+                */
+            groups(id: string): IBase<IGraphGroup>;
+            /**
+                * Represents a collection of Azure AD user accounts.
+                */
+            users(): IBase<IGraphCollection<IGraphUser>>;
+            /**
+                * Represents a collection of Azure AD user accounts.
+                * @param id - The user id.
+                */
+            users(id: string): IBase<IGraphUser>;
     }
     /**
         * Graph Result
@@ -6501,6 +6586,48 @@ declare module 'gd-sprest/mapper/types/graph' {
         * Graph Query Result
         */
     export interface IGraphQueryResult {
+    }
+    /**
+        * Graph Drive
+        */
+    export interface IGraphDrive {
+            createdBy?: {
+                    user: IGraphUser;
+            };
+            createdDateTime?: string;
+            description?: string;
+            driveType?: string;
+            id?: string;
+            items?: () => IBase<IGraphCollection<IGraphDriveItem>>;
+            lastModifiedBy?: {
+                    user: IGraphUser;
+            };
+            lastModifiedDateTime?: string;
+            name?: string;
+            owner?: {
+                    user: IGraphUser;
+            };
+            quota?: IGraphDriveQuota;
+            root?: () => IBase<IGraphDriveItem>;
+            specials?: () => IBase<IGraphCollection<IGraphDriveItem>>;
+            sharepointIds?: IGraphSharePointIds;
+            systemFacet?: any;
+            webUrl?: string;
+    }
+    /**
+        * Graph Drive Item
+        */
+    export interface IGraphDriveItem {
+    }
+    /**
+        * Graph Drive Quota
+        */
+    export interface IGraphDriveQuota {
+            deleted?: number;
+            remaining?: number;
+            state?: string;
+            total?: number;
+            used?: number;
     }
     /**
         * Graph Token
@@ -6518,29 +6645,89 @@ declare module 'gd-sprest/mapper/types/graph' {
     export interface IGraph extends IGraphMethods, IGraphQueryProps, IBase<IGraph, IGraphResult, IGraphQueryResult> {
             /**
                 * Constructor
+                * @param accessToken - The access token for the graph api request.
                 * @param version - The version of the graph to target.
                 */
-            new (listName: string): IGraph;
+            new (accessToken: string, version?: string): IGraph;
             /**
                 * Method to get the access token from a classic page.
                 */
             getAccessToken(): Promise<IGraphToken>;
     }
     /**
+        * Graph Group
+        */
+    export interface IGraphGroup {
+            allowExternalSenders?: boolean;
+            autoSubscribeNewMembers?: boolean;
+            classification?: string;
+            createdDateTime?: string;
+            description?: string;
+            displayName?: string;
+            groupTypes?: Array<string>;
+            id?: string;
+            isSubscribedByMail?: boolean;
+            mail?: string;
+            mailEnabled?: boolean;
+            mailNickname?: string;
+            onPremisesLastSyncDateTime?: string;
+            onPremisesSecurityIdentifier?: string;
+            onPremisesSyncEnabled?: boolean;
+            proxyAddresses?: Array<string>;
+            renewedDateTime?: string;
+            securityEnabled?: boolean;
+            unseenCount?: number;
+            visibility?: string;
+    }
+    /**
+        * Graph SharePoint IDs
+        */
+    export interface IGraphSharePointIds {
+            listId?: string;
+            listItemId?: string;
+            listItemUniqueId?: string;
+            siteId?: string;
+            siteUrl?: string;
+            webId?: string;
+    }
+    /**
         * Graph User
         */
     export interface IGraphUser {
-            id: string;
-            businessPhones: Array<string>;
-            displayName: string;
-            givenName: string;
-            jobTitle: string;
-            mail: string;
-            mobilePhone: string;
-            officeLocation: string;
-            preferredLanguage: string;
-            surname: string;
-            userPrincipalName: string;
+            aboutMe?: string;
+            accountEnabled?: boolean;
+            assignedLicenses?: Array<string>;
+            assignedPlans?: Array<string>;
+            birthday?: string;
+            businessPhones?: Array<string>;
+            city?: string;
+            companyName?: string;
+            country?: string;
+            department?: string;
+            displayName?: string;
+            givenName?: string;
+            hireDate?: string;
+            id?: string;
+            imAddresses?: Array<string>;
+            interests?: Array<string>;
+            jobTitle?: string;
+            mail?: string;
+            mailNickname?: string;
+            mobilePhone?: string;
+            mySite?: string;
+            officeLocation?: string;
+            postalCode?: string;
+            preferredLanguage?: string;
+            preferredName?: string;
+            responsibilities?: Array<string>;
+            schools?: Array<string>;
+            skills?: Array<string>;
+            state?: string;
+            streetAddress?: string;
+            surname?: string;
+            usageLocation?: string;
+            userPrincipalName?: string;
+            userType?: string;
     }
 }
 

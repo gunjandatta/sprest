@@ -8,6 +8,7 @@ import {
     Types,
     XHRRequest
 } from ".";
+import { ITargetInfo } from "./types";
 
 /**
  * Base Request
@@ -221,7 +222,13 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
     // Method to return a property of the base object
     getProperty(propertyName: string, requestType?: string) {
         // Copy the target information
-        let targetInfo = Object.create(this.targetInfo);
+        let targetInfo: Types.ITargetInfo = Object.create(this.targetInfo);
+
+        // See if this is a graph request
+        if (requestType.startsWith("graph")) {
+            // Default the request type
+            targetInfo.requestType = RequestType.GraphGet;
+        }
 
         // Clear the target information properties from any previous requests
         targetInfo.data = null;

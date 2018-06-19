@@ -44,8 +44,12 @@ export class BaseHelper implements Types.IBaseHelper {
         objType = (objType[objType.length - 1]).toLowerCase();
         objType += isCollection ? "s" : "";
 
-        // See if the base is a field
-        if ((/^field/.test(objType) || /fields?$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
+        // See if this is a graph request
+        if (/^graph/.test(objType)) {
+            // Do nothing
+        }
+        // Else, see if the base is a field
+        else if ((/^field/.test(objType) || /fields?$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
             // Update the type
             objType = "field" + (isCollection ? "s" : "");
         }
