@@ -11146,6 +11146,53 @@ exports.Taxonomy = {
         });
     },
     /**
+     * Method to get the term sets for a group
+     */
+    getTermSets: function (groupName) {
+        // Return a promise
+        return new Promise(function (resolve, reject) {
+            // Get the term gruop
+            exports.Taxonomy.getTermGroup(groupName).then(
+            // Success
+            function (_a) {
+                var context = _a.context, termGroup = _a.termGroup;
+                // Get the term group information
+                var termGroupInfo = termGroup.get_termSets();
+                context.load(termGroupInfo, "Include(CustomProperties, Description, Id, Name)");
+                // Execute the request
+                context.executeQueryAsync(function () {
+                    var termSets = [];
+                    // Parse the term group information
+                    var enumerator = termGroupInfo.getEnumerator();
+                    while (enumerator.moveNext()) {
+                        var termSet = enumerator.get_current();
+                        // Add the group information
+                        termSets.push({
+                            description: termSet.get_description(),
+                            id: termSet.get_id().toString(),
+                            name: termSet.get_name(),
+                            props: termSet.get_customProperties()
+                        });
+                    }
+                    // Resolve the promise
+                    resolve(termSets);
+                }, function () {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i] = arguments[_i];
+                    }
+                    // Reject the promise
+                    reject(args[1].get_message());
+                });
+            }, 
+            // Error
+            function (reason) {
+                // Reject the promise
+                reject(reason);
+            });
+        });
+    },
+    /**
      * Method to get the term sets from the default site collection.
      */
     getTermSetsFromDefaultSC: function () {
@@ -11986,7 +12033,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.03,
+    __ver: 4.04,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,

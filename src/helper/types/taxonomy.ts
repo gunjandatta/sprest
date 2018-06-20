@@ -18,7 +18,7 @@ export interface ITaxonomy {
 
     /**
      * Method to get the term group
-     * @param groupName - The gruop name.
+     * @param groupName - The group name.
      */
     getTermGroup(groupName?: string): PromiseLike<{ context: any, termGroup: any }>;
 
@@ -26,6 +26,12 @@ export interface ITaxonomy {
      * Method to get the term groups
      */
     getTermGroups(): PromiseLike<Array<ITermGroupInfo>>;
+
+    /**
+     * Method to get the term sets for a group
+     * @param groupName - The group name.
+     */
+    getTermSets(groupName: string): PromiseLike<Array<ITermSetInfo>>;
 
     /**
      * Method to get the term sets for the site collection

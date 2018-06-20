@@ -48,6 +48,7 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
             if (childTerm) { return childTerm; }
         }
     },
+
     /**
      * Method to get the terms
      */
@@ -198,6 +199,54 @@ export const Taxonomy: TaxonomyTypes.ITaxonomy = {
                     reject(args[1].get_message());
                 });
             });
+        });
+    },
+
+    /**
+     * Method to get the term sets for a group
+     */
+    getTermSets: (groupName: string) => {
+        // Return a promise
+        return new Promise((resolve, reject) => {
+            // Get the term gruop
+            Taxonomy.getTermGroup(groupName).then(
+                // Success
+                ({ context, termGroup }) => {
+                    // Get the term group information
+                    let termGroupInfo = termGroup.get_termSets();
+                    context.load(termGroupInfo, "Include(CustomProperties, Description, Id, Name)");
+
+                    // Execute the request
+                    context.executeQueryAsync(() => {
+                        let termSets: Array<ITermSetInfo> = [];
+
+                        // Parse the term group information
+                        let enumerator = termGroupInfo.getEnumerator();
+                        while (enumerator.moveNext()) {
+                            let termSet = enumerator.get_current();
+
+                            // Add the group information
+                            termSets.push({
+                                description: termSet.get_description(),
+                                id: termSet.get_id().toString(),
+                                name: termSet.get_name(),
+                                props: termSet.get_customProperties()
+                            });
+                        }
+
+                        // Resolve the promise
+                        resolve(termSets);
+                    }, (...args) => {
+                        // Reject the promise
+                        reject(args[1].get_message());
+                    });
+                },
+                // Error
+                reason => {
+                    // Reject the promise
+                    reject(reason);
+                }
+            );
         });
     },
 
