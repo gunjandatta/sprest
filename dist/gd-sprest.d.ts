@@ -2030,6 +2030,12 @@ declare module 'gd-sprest/helper/types/webpart' {
                 */
             new (props: IWebPartProps): any;
             /**
+                * Adds a script editor webpart to a page.
+                * @param url - The relative url of the page.
+                * @param wpProps - The webpart properties.
+                */
+            addWebPartToPage(url: string, wpProps: IWebPartScriptEditor): PromiseLike<void>;
+            /**
                 * Creates an instance of a webpart.
                 * @param props - The webpart properties.
                 */
@@ -2078,6 +2084,21 @@ declare module 'gd-sprest/helper/types/webpart' {
             onRenderEdit?: (wp: IWebPartInfo) => any;
             /** The target element id to render the webpart to */
             elementId: string;
+    }
+    /**
+        * The script editor webpart properties
+        */
+    export interface IWebPartScriptEditor {
+            /** The webpart description. */
+            description?: string;
+            /** The webpart content. */
+            content: string;
+            /** The webpart index. */
+            index?: number;
+            /** The webpart title. */
+            title?: string;
+            /** The webpart zone. */
+            zone?: string;
     }
 }
 
