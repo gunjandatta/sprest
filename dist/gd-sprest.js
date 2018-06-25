@@ -279,10 +279,10 @@ var Helper = __webpack_require__(18);
 exports.Helper = Helper;
 var mapper_1 = __webpack_require__(12);
 exports.SPTypes = mapper_1.SPTypes;
-var Types = __webpack_require__(133);
+var Types = __webpack_require__(134);
 exports.Types = Types;
 __export(__webpack_require__(1));
-__export(__webpack_require__(134));
+__export(__webpack_require__(135));
 
 
 /***/ }),
@@ -392,19 +392,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(76));
 __export(__webpack_require__(120));
 __export(__webpack_require__(121));
-__export(__webpack_require__(123));
+__export(__webpack_require__(122));
 __export(__webpack_require__(124));
 __export(__webpack_require__(125));
 __export(__webpack_require__(126));
 __export(__webpack_require__(127));
-__export(__webpack_require__(41));
 __export(__webpack_require__(128));
-__export(__webpack_require__(40));
+__export(__webpack_require__(41));
 __export(__webpack_require__(129));
+__export(__webpack_require__(40));
 __export(__webpack_require__(130));
-var SP = __webpack_require__(131);
+__export(__webpack_require__(131));
+var SP = __webpack_require__(132);
 exports.SP = SP;
-var Types = __webpack_require__(132);
+var Types = __webpack_require__(133);
 exports.Types = Types;
 
 
@@ -916,7 +917,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(122));
+__export(__webpack_require__(123));
 var lib_1 = __webpack_require__(1);
 var __1 = __webpack_require__(11);
 var _1 = __webpack_require__(18);
@@ -9215,6 +9216,74 @@ exports.Dependencies = _Dependencies;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Executor
+ * @param methodParams - An array of parameters to execute in order synchronously.
+ * @param method - The method to execute for each method parameter provided.
+ * @param onExecuted - An optional event executed after the method completes. If a promise is returned, the executor will wait until it's resolved.
+ */
+function Executor(methodParams, method, onExecuted) {
+    var _this = this;
+    if (methodParams === void 0) { methodParams = []; }
+    var _completedFl = false;
+    var _resolve = null;
+    // Method to execute the methods
+    var executeMethods = function (idx) {
+        if (idx === void 0) { idx = 0; }
+        // Execute the method and see if a promise is returned
+        var returnVal = idx < methodParams.length ? method(methodParams[idx]) : null;
+        if (returnVal && returnVal.then) {
+            // Wait for the method to complete
+            returnVal.then(function () {
+                var args = [];
+                for (var _i = 0; _i < arguments.length; _i++) {
+                    args[_i] = arguments[_i];
+                }
+                // See if the on executed event exists
+                if (onExecuted) {
+                    // Execute the method and see if a promise is returned
+                    var returnVal_1 = onExecuted.apply(_this, args);
+                    if (returnVal_1 && returnVal_1.then) {
+                        // Wait for the method to complete
+                        returnVal_1.then(function () {
+                            // Execute the next method
+                            executeMethods(idx + 1);
+                        });
+                    }
+                    else {
+                        // Execute the next method
+                        executeMethods(idx + 1);
+                    }
+                }
+                else {
+                    // Execute the next method
+                    executeMethods(idx + 1);
+                }
+            });
+        }
+        else {
+            // Resolve the promise
+            _resolve();
+        }
+    };
+    // Return a promise
+    return new Promise(function (resolve, reject) {
+        // Set the resolve reference
+        _resolve = resolve;
+        // Execute the methods
+        executeMethods();
+    });
+}
+exports.Executor = Executor;
+
+
+/***/ }),
+/* 122 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 var lib_1 = __webpack_require__(1);
 var __1 = __webpack_require__(11);
 var spCfg_1 = __webpack_require__(40);
@@ -9590,7 +9659,7 @@ exports.FieldSchemaXML = function (fieldInfo) {
 
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9627,7 +9696,7 @@ exports.SPCfgType = {
 
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10016,7 +10085,7 @@ exports.JSLink = {
 
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10605,7 +10674,7 @@ exports.ListForm = {
 
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10798,7 +10867,7 @@ exports.ListFormField = {
 
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10858,7 +10927,7 @@ exports.Loader = {
 
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10889,7 +10958,7 @@ exports.parse = function (jsonString) {
 
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10935,7 +11004,7 @@ exports.SuiteBarLink = function (props) {
 
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11535,7 +11604,7 @@ exports.Taxonomy = {
 
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11856,7 +11925,7 @@ exports.WebPart = _WebPart;
 
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12031,7 +12100,7 @@ exports.Status = {
 
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12040,7 +12109,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12055,7 +12124,7 @@ exports.Util = utils_1.Types;
 
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12068,7 +12137,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.06,
+    __ver: 4.07,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
