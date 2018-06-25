@@ -39,6 +39,10 @@ export interface IREST {
          */
         Dependencies: Helper.Types.IDependencies;
         /**
+         * Executor
+         */
+        Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: () => PromiseLike<any> | void);
+        /**
          * Helper class for generating a field schema xml
          */
         FieldSchemaXML: Helper.Types.IFieldSchemaXML;
