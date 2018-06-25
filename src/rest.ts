@@ -49,6 +49,11 @@ export interface IREST {
         Dependencies: Helper.Types.IDependencies;
 
         /**
+         * Executor
+         */
+        Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: () => PromiseLike<any> | void);
+
+        /**
          * Helper class for generating a field schema xml
          */
         FieldSchemaXML: Helper.Types.IFieldSchemaXML;
@@ -242,7 +247,7 @@ export interface IREST {
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 4.05,
+    __ver: 4.06,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
