@@ -35,6 +35,7 @@ declare module 'gd-sprest' {
 declare module 'gd-sprest/helper' {
     export * from "gd-sprest/helper/app";
     export * from "gd-sprest/helper/dependencies";
+    export * from "gd-sprest/helper/executor";
     export * from "gd-sprest/helper/fieldSchemaXML";
     export * from "gd-sprest/helper/jslink";
     export * from "gd-sprest/helper/listForm";
@@ -304,6 +305,16 @@ declare module 'gd-sprest/helper/app' {
 declare module 'gd-sprest/helper/dependencies' {
     import { IDependencies } from "gd-sprest/helper/types";
     export const Dependencies: IDependencies;
+}
+
+declare module 'gd-sprest/helper/executor' {
+    /**
+      * Executor
+      * @param methodParams - An array of parameters to execute in order synchronously.
+      * @param method - The method to execute for each method parameter provided.
+      * @param onExecuted - An optional event executed after the method completes. If a promise is returned, the executor will wait until it's resolved.
+      */
+    export function Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: () => PromiseLike<any> | void): Promise<{}>;
 }
 
 declare module 'gd-sprest/helper/fieldSchemaXML' {
