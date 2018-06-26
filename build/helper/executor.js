@@ -45,6 +45,10 @@ function Executor(methodParams, method, onExecuted) {
                 }
             });
         }
+        else if (idx < methodParams.length) {
+            // Execute the next method
+            executeMethods(idx + 1);
+        }
         else {
             // Resolve the promise
             _resolve();

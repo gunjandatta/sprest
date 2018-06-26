@@ -9261,6 +9261,10 @@ function Executor(methodParams, method, onExecuted) {
                 }
             });
         }
+        else if (idx < methodParams.length) {
+            // Execute the next method
+            executeMethods(idx + 1);
+        }
         else {
             // Resolve the promise
             _resolve();
@@ -12137,7 +12141,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.07,
+    __ver: 4.08,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
