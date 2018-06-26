@@ -34,7 +34,14 @@ export function Executor<T = any>(methodParams: Array<T> = [], method: (param: T
                     executeMethods(idx + 1);
                 }
             });
-        } else {
+        }
+        // Else, see if additional methods need to be executed
+        else if (idx < methodParams.length) {
+            // Execute the next method
+            executeMethods(idx + 1);
+        }
+        // Else, resolve the promise
+        else {
             // Resolve the promise
             _resolve();
         }
