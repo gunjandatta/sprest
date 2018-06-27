@@ -41,7 +41,7 @@ export interface IREST {
         /**
          * Executor
          */
-        Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: () => PromiseLike<any> | void);
+        Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void);
         /**
          * Helper class for generating a field schema xml
          */
