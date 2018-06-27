@@ -129,7 +129,7 @@ declare module 'gd-sprest/rest' {
                     /**
                         * Executor
                         */
-                    Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: () => PromiseLike<any> | void);
+                    Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void);
                     /**
                         * Helper class for generating a field schema xml
                         */
@@ -314,7 +314,7 @@ declare module 'gd-sprest/helper/executor' {
       * @param method - The method to execute for each method parameter provided.
       * @param onExecuted - An optional event executed after the method completes. If a promise is returned, the executor will wait until it's resolved.
       */
-    export function Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: () => PromiseLike<any> | void): Promise<{}>;
+    export function Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): Promise<{}>;
 }
 
 declare module 'gd-sprest/helper/fieldSchemaXML' {
