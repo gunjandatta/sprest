@@ -631,6 +631,41 @@ declare module 'gd-sprest/mapper/sptypes' {
         * View Types
         */
     export const ViewType: SPTypes.IViewType;
+    /**
+        * Web Template Types
+        */
+    export const WebTemplateType: {
+            AcademicLibrary: string;
+            App: string;
+            AppCatalog: string;
+            BasicSearch: string;
+            Blog: string;
+            BusinessIntelligenceCenter: string;
+            CentralAdmin: string;
+            Community: string;
+            CommunityPortal: string;
+            Dev: string;
+            DocumentCenter: string;
+            eDiscoveryCenter: string;
+            EnterpriseSearch: string;
+            EnterpriseWiki: string;
+            Global: string;
+            GroupWorkSite: string;
+            Meetings: string;
+            MeetingWorkspace: string;
+            PerformancePoint: string;
+            ProductCatalog: string;
+            Profiles: string;
+            ProjectSite: string;
+            Publishing: string;
+            PublishingSite: string;
+            RecordsCenter: string;
+            SharedServicesAdminSite: string;
+            Site: string;
+            TeamCollaborationSite: string;
+            TenantAdmin: string;
+            Wiki: string;
+    };
 }
 
 declare module 'gd-sprest/mapper/types' {
@@ -9960,6 +9995,41 @@ declare module 'gd-sprest/mapper/types/sptypes' {
             Html: number;
             /** export typeeration whose values specify a list view type that displays recurring events. */
             Recurrence: number;
+    };
+    /**
+        * Web Template Types
+        */
+    export type WebTemplateType = {
+            AcademicLibrary: string;
+            App: string;
+            AppCatalog: string;
+            BasicSearch: string;
+            Blog: string;
+            BusinessIntelligenceCenter: string;
+            CentralAdmin: string;
+            Community: string;
+            CommunityPortal: string;
+            Dev: string;
+            DocumentCenter: string;
+            eDiscoveryCenter: string;
+            EnterpriseSearch: string;
+            EnterpriseWiki: string;
+            Global: string;
+            GroupWorkSite: string;
+            Meetings: string;
+            MeetingWorkspace: string;
+            PerformancePoint: string;
+            ProductCatalog: string;
+            Profiles: string;
+            ProjectSite: string;
+            Publishing: string;
+            PublishingSite: string;
+            RecordsCenter: string;
+            SharedServicesAdminSite: string;
+            Site: string;
+            TeamCollaborationSite: string;
+            TenantAdmin: string;
+            Wiki: string;
     };
 }
 

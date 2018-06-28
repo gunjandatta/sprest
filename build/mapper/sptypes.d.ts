@@ -176,3 +176,38 @@ export declare const UserCustomActionRegistrationType: SPTypes.IUserCustomAction
  * View Types
  */
 export declare const ViewType: SPTypes.IViewType;
+/**
+ * Web Template Types
+ */
+export declare const WebTemplateType: {
+    AcademicLibrary: string;
+    App: string;
+    AppCatalog: string;
+    BasicSearch: string;
+    Blog: string;
+    BusinessIntelligenceCenter: string;
+    CentralAdmin: string;
+    Community: string;
+    CommunityPortal: string;
+    Dev: string;
+    DocumentCenter: string;
+    eDiscoveryCenter: string;
+    EnterpriseSearch: string;
+    EnterpriseWiki: string;
+    Global: string;
+    GroupWorkSite: string;
+    Meetings: string;
+    MeetingWorkspace: string;
+    PerformancePoint: string;
+    ProductCatalog: string;
+    Profiles: string;
+    ProjectSite: string;
+    Publishing: string;
+    PublishingSite: string;
+    RecordsCenter: string;
+    SharedServicesAdminSite: string;
+    Site: string;
+    TeamCollaborationSite: string;
+    TenantAdmin: string;
+    Wiki: string;
+};

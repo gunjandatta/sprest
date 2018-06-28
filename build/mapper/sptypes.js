@@ -566,3 +566,38 @@ exports.ViewType = {
     Html: 1,
     Recurrence: 8193
 };
+/**
+ * Web Template Types
+ */
+exports.WebTemplateType = {
+    AcademicLibrary: "DOCMARKETPLACESITE",
+    App: "APP",
+    AppCatalog: "APPCATALOG",
+    BasicSearch: "SRCHCENTERLITE",
+    Blog: "BLOG",
+    BusinessIntelligenceCenter: "BICenterSite",
+    CentralAdmin: "CENTRALADMIN",
+    Community: "COMMUNITY",
+    CommunityPortal: "COMMUNITYPORTAL",
+    Dev: "DEV",
+    DocumentCenter: "BDR",
+    eDiscoveryCenter: "EDISC",
+    EnterpriseSearch: "SRCHCEN",
+    EnterpriseWiki: "ENTERWIKI",
+    Global: "GLOBAL",
+    GroupWorkSite: "SGS",
+    Meetings: "MEETINGS",
+    MeetingWorkspace: "MPS",
+    PerformancePoint: "PPMASite",
+    ProductCatalog: "PRODUCTCATALOG",
+    Profiles: "PROFILES",
+    ProjectSite: "PROJECTSITE",
+    Publishing: "BLANKINTERNET",
+    PublishingSite: "CMSPUBLISHING",
+    RecordsCenter: "OFFILE",
+    SharedServicesAdminSite: "OSRV",
+    Site: "STS",
+    TeamCollaborationSite: "TEAM",
+    TenantAdmin: "TENANTADMIN",
+    Wiki: "WIKI"
+};
