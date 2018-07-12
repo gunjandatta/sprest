@@ -3,7 +3,7 @@ import { ContextInfo, List, Site, Web } from "../lib";
 import { SPTypes, Types } from "..";
 import {
     ISPCfgFieldInfo, ISPCfgContentTypeInfo, ISPCfgListInfo, ISPCfgViewInfo,
-    ISPConfig, ISPConfigProps
+    ISPConfig, ISPConfigProps, ISPCfgCustomActionInfo
 } from "./types";
 import {
     FieldSchemaXML, parse, SPCfgFieldType, SPCfgType
@@ -402,6 +402,12 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Log
                     console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
                 } else {
+                    // See if rights exist
+                    if (cfgCustomAction.Rights) {
+                        // Update the value
+                        cfgCustomAction.Rights = updateBasePermissions(cfgCustomAction.Rights) as any;
+                    }
+
                     // Add the custom action
                     customActions.add(cfgCustomAction).execute((ca) => {
                         // Ensure it exists
@@ -838,6 +844,64 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     resolve();
                 });
         });
+    }
+
+    // Method to update the base permissions
+    let updateBasePermissions = (values: Array<number>) => {
+        let high = 0;
+        let low = 0;
+
+        // Parse the values
+        for (let i = 0; i < values.length; i++) {
+            let value = values[i];
+
+            // See if this is the full mask
+            if (value == 65) {
+                // Set the values
+                low = 65535;
+                high = 32767;
+
+                // Break from the loop
+                break;
+            }
+            // Else, see if it's empty
+            else if (value == 0) {
+                // Clear the values
+                low = 0;
+                high = 0;
+            }
+            // Else, update the base permission
+            else {
+                let bit = value - 1;
+                let bitValue = 1;
+
+                // Validate the bit
+                if (bit < 0) { continue; }
+
+                // See if it's a low permission
+                if (bit < 32) {
+                    // Compute the value
+                    bitValue = bitValue << bit;
+
+                    // Set the low value
+                    low |= bitValue;
+                }
+                // Else, it's a high permission
+                else {
+                    // Compute the value
+                    bitValue = bitValue << (bit - 32);
+
+                    // Set the high value
+                    high |= bitValue;
+                }
+            }
+        }
+
+        // Return the base permission
+        return {
+            Low: low.toString(),
+            High: high.toString()
+        };
     }
 
     // Method to update the lists

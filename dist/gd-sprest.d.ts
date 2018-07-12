@@ -9099,8 +9099,6 @@ declare module 'gd-sprest/mapper/types/sptypes' {
             AddAndCustomizePages: number;
             AddDelPrivateWebParts: number;
             AddListItems: number;
-            AnonymousSearchAccessList: number;
-            AnonymousSearchAccessWebLists: number;
             ApplyStyleSheets: number;
             ApplyThemeAndBorder: number;
             ApproveItems: number;
@@ -10723,10 +10721,7 @@ declare module 'gd-sprest/mapper/types/userCustomAction' {
             /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
             RegistrationType?: number;
             /** The value that specifies the permissions needed for the custom action. */
-            Rights?: {
-                    High: string;
-                    Low: string;
-            };
+            Rights?: Array<number>;
             /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
             ScriptBlock?: string;
             /** A value that specifies the URI of a file which contains the ECMAScript to execute on the page. */

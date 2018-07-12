@@ -5,8 +5,6 @@ export type IBasePermissionType = {
     AddAndCustomizePages: number,
     AddDelPrivateWebParts: number,
     AddListItems: number,
-    AnonymousSearchAccessList: number,
-    AnonymousSearchAccessWebLists: number,
     ApplyStyleSheets: number,
     ApplyThemeAndBorder: number,
     ApproveItems: number,

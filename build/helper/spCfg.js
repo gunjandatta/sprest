@@ -371,6 +371,11 @@ exports.SPConfig = function (cfg, webUrl) {
                     console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
                 }
                 else {
+                    // See if rights exist
+                    if (cfgCustomAction.Rights) {
+                        // Update the value
+                        cfgCustomAction.Rights = updateBasePermissions(cfgCustomAction.Rights);
+                    }
                     // Add the custom action
                     customActions.add(cfgCustomAction).execute(function (ca) {
                         // Ensure it exists
@@ -766,6 +771,54 @@ exports.SPConfig = function (cfg, webUrl) {
                 resolve();
             });
         });
+    };
+    // Method to update the base permissions
+    var updateBasePermissions = function (values) {
+        var high = 0;
+        var low = 0;
+        // Parse the values
+        for (var i = 0; i < values.length; i++) {
+            var value = values[i];
+            // See if this is the full mask
+            if (value == 65) {
+                // Set the values
+                low = 65535;
+                high = 32767;
+                // Break from the loop
+                break;
+            }
+            else if (value == 0) {
+                // Clear the values
+                low = 0;
+                high = 0;
+            }
+            else {
+                var bit = value - 1;
+                var bitValue = 1;
+                // Validate the bit
+                if (bit < 0) {
+                    continue;
+                }
+                // See if it's a low permission
+                if (bit < 32) {
+                    // Compute the value
+                    bitValue = bitValue << bit;
+                    // Set the low value
+                    low |= bitValue;
+                }
+                else {
+                    // Compute the value
+                    bitValue = bitValue << (bit - 32);
+                    // Set the high value
+                    high |= bitValue;
+                }
+            }
+        }
+        // Return the base permission
+        return {
+            Low: low.toString(),
+            High: high.toString()
+        };
     };
     // Method to update the lists
     var updateLists = function (cfgLists) {
