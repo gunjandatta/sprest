@@ -1,5 +1,9 @@
 import { SPTypes } from "./types";
 /**
+ * Base Permission Types
+ */
+export declare const BasePermissionTypes: SPTypes.IBasePermissionType;
+/**
  * Calendar Types
  */
 export declare const CalendarTypes: SPTypes.ICalendarType;

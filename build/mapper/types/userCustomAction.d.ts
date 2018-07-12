@@ -21,7 +21,10 @@ export interface IUserCustomActionCreationInformation {
     /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
     RegistrationType?: number;
     /** The value that specifies the permissions needed for the custom action. */
-    Rights?: any;
+    Rights?: {
+        High: string;
+        Low: string;
+    };
     /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
     ScriptBlock?: string;
     /** A value that specifies the URI of a file which contains the ECMAScript to execute on the page. */

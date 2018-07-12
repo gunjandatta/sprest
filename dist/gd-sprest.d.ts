@@ -455,6 +455,10 @@ declare module 'gd-sprest/mapper/mapper' {
 declare module 'gd-sprest/mapper/sptypes' {
     import { SPTypes } from "gd-sprest/mapper/types";
     /**
+        * Base Permission Types
+        */
+    export const BasePermissionTypes: SPTypes.IBasePermissionType;
+    /**
         * Calendar Types
         */
     export const CalendarTypes: SPTypes.ICalendarType;
@@ -9089,6 +9093,48 @@ declare module 'gd-sprest/mapper/types/socialFeed' {
 
 declare module 'gd-sprest/mapper/types/sptypes' {
     /**
+        * Base Permission Types
+        */
+    export type IBasePermissionType = {
+            AddAndCustomizePages: number;
+            AddDelPrivateWebParts: number;
+            AddListItems: number;
+            AnonymousSearchAccessList: number;
+            AnonymousSearchAccessWebLists: number;
+            ApplyStyleSheets: number;
+            ApplyThemeAndBorder: number;
+            ApproveItems: number;
+            BrowseDirectories: number;
+            BrowseUserInfo: number;
+            CancelCheckout: number;
+            CreateAlerts: number;
+            CreateGroups: number;
+            CreateSSCSite: number;
+            DeleteListItems: number;
+            DeleteVersions: number;
+            EditListItems: number;
+            EditMyUserInfo: number;
+            EmptyMask: number;
+            EnumeratePermissions: number;
+            FullMask: number;
+            ManageAlerts: number;
+            ManageLists: number;
+            ManagePermissions: number;
+            ManagePersonalViews: number;
+            ManageSubwebs: number;
+            ManageWeb: number;
+            Open: number;
+            OpenItems: number;
+            UpdatePersonalWebParts: number;
+            UseClientIntegration: number;
+            UseRemoteAPIs: number;
+            ViewFormPages: number;
+            ViewListItems: number;
+            ViewPages: number;
+            ViewUsageData: number;
+            ViewVersions: number;
+    };
+    /**
         * Calendar Types
         */
     export type ICalendarType = {
@@ -10677,7 +10723,10 @@ declare module 'gd-sprest/mapper/types/userCustomAction' {
             /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
             RegistrationType?: number;
             /** The value that specifies the permissions needed for the custom action. */
-            Rights?: any;
+            Rights?: {
+                    High: string;
+                    Low: string;
+            };
             /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
             ScriptBlock?: string;
             /** A value that specifies the URI of a file which contains the ECMAScript to execute on the page. */

@@ -31,7 +31,10 @@ export interface IUserCustomActionCreationInformation {
     RegistrationType?: number;
 
     /** The value that specifies the permissions needed for the custom action. */
-    Rights?: any;
+    Rights?: {
+        High: string;
+        Low: string;
+    };
 
     /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
     ScriptBlock?: string;
