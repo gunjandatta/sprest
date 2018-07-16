@@ -13,6 +13,8 @@ exports.Web = (function (url, targetInfo) {
     }
     // Add the methods
     web.addMethods(web, { __metadata: { type: "web" } });
+    // Return the web
+    return web;
 });
 // Static method to get a remote web
 exports.Web.getRemoteWeb = (function (requestUrl) {

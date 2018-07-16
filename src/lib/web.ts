@@ -16,6 +16,9 @@ export const Web: IWeb = ((url?, targetInfo?) => {
 
     // Add the methods
     web.addMethods(web, { __metadata: { type: "web" } });
+
+    // Return the web
+    return web;
 }) as any as IWeb;
 
 // Static method to get a remote web
