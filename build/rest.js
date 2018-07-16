@@ -7,7 +7,7 @@ var Mapper = require("./mapper");
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.11,
+    __ver: 4.12,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
@@ -30,23 +30,23 @@ exports.$REST = {
         Taxonomy: Helper.Taxonomy,
         WebPart: Helper.WebPart
     },
-    List: function (listName, targetInfo) { return new Lib.List(listName, targetInfo); },
-    ListByEntityName: function (entityTypeName, callback, targetInfo) { return Lib.List.getByEntityName(entityTypeName, callback, targetInfo); },
-    ListDataAsStream: function (listFullUrl, parameters) { return Lib.List.getDataAsStream(listFullUrl, parameters); },
-    Navigation: function (url, targetInfo) { return new Lib.Navigation(url, targetInfo); },
-    PeopleManager: function (targetInfo) { return new Lib.PeopleManager(targetInfo); },
-    PeoplePicker: function (targetInfo) { return new Lib.PeoplePicker(targetInfo); },
-    ProfileLoader: function (targetInfo) { return new Lib.ProfileLoader(targetInfo); },
+    List: Lib.List,
+    ListByEntityName: Lib.List.getByEntityName,
+    ListDataAsStream: Lib.List.getDataAsStream,
+    Navigation: Lib.Navigation,
+    PeopleManager: Lib.PeopleManager,
+    PeoplePicker: Lib.PeoplePicker,
+    ProfileLoader: Lib.ProfileLoader,
     RemoteWeb: function (requestUrl) { return Lib.Web.getRemoteWeb(requestUrl); },
-    Search: function (url, targetInfo) { return new Lib.Search(url, targetInfo); },
-    Site: function (url, targetInfo) { return new Lib.Site(url, targetInfo); },
+    Search: Lib.Search,
+    Site: Lib.Site,
     SiteExists: function (url) { return Lib.Site.exists(url); },
     SiteUrl: function (id) { return Lib.Site.getUrlById(id); },
     SPTypes: Mapper.SPTypes,
     SocialFeed: Lib.SocialFeed,
-    UserProfile: function (targetInfo) { return new Lib.UserProfile(targetInfo); },
-    Utility: function (url, targetInfo) { return new Lib.Utility(url, targetInfo); },
-    Web: function (url, targetInfo) { return new Lib.Web(url, targetInfo); }
+    UserProfile: Lib.UserProfile,
+    Utility: Lib.Utility,
+    Web: Lib.Web
 };
 // See if the library doesn't exist, or is an older version
 var global = Lib.ContextInfo.window.$REST;

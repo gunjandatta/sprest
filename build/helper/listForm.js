@@ -268,7 +268,7 @@ exports.ListForm = {
                     return;
                 }
                 // Get the web
-                (new __1.Web(_props.webUrl))
+                __1.Web(_props.webUrl)
                     .Lists(_props.listName)
                     .execute(function (list) {
                     // Save the list and web url
@@ -395,7 +395,7 @@ exports.ListForm = {
             var itemId = info.item ? info.item.Id : info.itemId;
             if (itemId > 0) {
                 // Get the web
-                (new __1.Web(info.webUrl))
+                __1.Web(info.webUrl)
                     .Lists(info.listName)
                     .Items(itemId)
                     .AttachmentFiles()
@@ -437,7 +437,7 @@ exports.ListForm = {
                     var attachment = info.attachments[i];
                     if (attachment.FileName == fileName) {
                         // Get the web
-                        (new __1.Web(info.webUrl))
+                        __1.Web(info.webUrl)
                             .getFileByServerRelativeUrl(attachment.ServerRelativeUrl)
                             .delete()
                             .execute(function () {
@@ -464,7 +464,7 @@ exports.ListForm = {
             var itemId = info.item ? info.item.Id : info.itemId;
             if (itemId > 0) {
                 // Get the web
-                var attachments = (new __1.Web(info.webUrl))
+                var attachments = __1.Web(info.webUrl)
                     .Lists(info.listName)
                     .Items(itemId)
                     .AttachmentFiles();

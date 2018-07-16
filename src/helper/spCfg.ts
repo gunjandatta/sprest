@@ -53,7 +53,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // See if the parent name exists
                     if (cfgContentType.ParentName) {
                         // Get the web containing the parent content type
-                        (new Web(cfgContentType.ParentWebUrl || webUrl))
+                        Web(cfgContentType.ParentWebUrl || webUrl)
                             // Get the content types
                             .ContentTypes()
                             // Filter for the parent name
@@ -494,7 +494,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             console.log("[gd-sprest][WebPart] Creating the web parts.");
 
             // Get the root web
-            (new Web(ContextInfo.siteServerRelativeUrl))
+            Web(ContextInfo.siteServerRelativeUrl)
                 // Get the web part catalog
                 .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
@@ -556,7 +556,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 // See if group exists
                                 if (cfgWebPart.Group) {
                                     // Set the target to the root web
-                                    (new Web(ContextInfo.siteServerRelativeUrl))
+                                    Web(ContextInfo.siteServerRelativeUrl)
                                         // Get the web part catalog
                                         .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                                         // Get the Items
@@ -807,7 +807,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             console.log("[gd-sprest][WebPart] Removing the web parts.");
 
             // Get the root web
-            (new Web(ContextInfo.siteServerRelativeUrl))
+            Web(ContextInfo.siteServerRelativeUrl)
                 // Get the webpart gallery
                 .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
@@ -925,7 +925,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // Ensure the configuration exists
                 if (cfgList) {
                     // Get the web
-                    (new Web(webUrl))
+                    Web(webUrl)
                         // Get the list
                         .Lists(cfgList.ListInformation.Title)
                         // Expand the content types, fields and views
@@ -1059,7 +1059,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             }
 
             // Get the site
-            (new Site(webUrl))
+            Site(webUrl)
                 // Expand the user custom actions
                 .query({
                     Expand: ["UserCustomActions"]
@@ -1083,7 +1083,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             console.log("[gd-sprest][uninstall] Loading the web information...");
 
             // Get the web
-            (new Web(webUrl))
+            Web(webUrl)
                 // Expand the content types, fields, lists and user custom actions
                 .query({
                     Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
@@ -1126,7 +1126,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 console.log("[gd-sprest] Loading the web information...");
 
                 // Get the web
-                let web = new Web(webUrl);
+                let web = Web(webUrl);
 
                 // The post execution method
                 let postExecute = () => {
@@ -1235,7 +1235,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
 
                         // Get the site
-                        (new Site(webUrl))
+                        Site(webUrl)
                             // Get the user custom actions
                             .UserCustomActions().execute(customActions => {
                                 // Create the user custom actions

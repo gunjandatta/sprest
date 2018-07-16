@@ -44,7 +44,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // See if the parent name exists
                     if (cfgContentType.ParentName) {
                         // Get the web containing the parent content type
-                        (new lib_1.Web(cfgContentType.ParentWebUrl || webUrl))
+                        lib_1.Web(cfgContentType.ParentWebUrl || webUrl)
                             .ContentTypes()
                             .query({
                             Filter: "Name eq '" + cfgContentType.ParentName + "'"
@@ -459,7 +459,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
             // Get the root web
-            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+            lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                 .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 .RootFolder()
                 .query({
@@ -508,7 +508,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             // See if group exists
                             if (cfgWebPart.Group) {
                                 // Set the target to the root web
-                                (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+                                lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                                     .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                                     .Items()
                                     .query({
@@ -739,7 +739,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Log
             console.log("[gd-sprest][WebPart] Removing the web parts.");
             // Get the root web
-            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+            lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                 .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 .RootFolder()
                 .Files()
@@ -839,7 +839,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 // Ensure the configuration exists
                 if (cfgList) {
                     // Get the web
-                    (new lib_1.Web(webUrl))
+                    lib_1.Web(webUrl)
                         .Lists(cfgList.ListInformation.Title)
                         .query({
                         Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
@@ -958,7 +958,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 return;
             }
             // Get the site
-            (new lib_1.Site(webUrl))
+            lib_1.Site(webUrl)
                 .query({
                 Expand: ["UserCustomActions"]
             })
@@ -978,7 +978,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Log
             console.log("[gd-sprest][uninstall] Loading the web information...");
             // Get the web
-            (new lib_1.Web(webUrl))
+            lib_1.Web(webUrl)
                 .query({
                 Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
             })
@@ -1015,7 +1015,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 // Log
                 console.log("[gd-sprest] Loading the web information...");
                 // Get the web
-                var web = new lib_1.Web(webUrl);
+                var web = lib_1.Web(webUrl);
                 // The post execution method
                 var postExecute = function () {
                     // See if we have completed the executions
@@ -1103,7 +1103,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         // Log
                         console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
                         // Get the site
-                        (new lib_1.Site(webUrl))
+                        lib_1.Site(webUrl)
                             .UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
                             createUserCustomActions(_1.parse(customActions.stringify()), cfg.CustomActionCfg.Site).then(function () {

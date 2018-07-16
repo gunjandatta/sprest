@@ -1,72 +1,51 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
-/*********************************************************************************************************************************/
-// Search
-/*********************************************************************************************************************************/
-var _Search = /** @class */ (function (_super) {
-    __extends(_Search, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _Search(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "search";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "search" } });
-        return _this;
+/**
+ * Search
+ */
+exports.Search = (function (url, targetInfo) {
+    var search = new utils_1.Base(targetInfo);
+    // Default the properties
+    search.targetInfo.defaultToWebFl = true;
+    search.targetInfo.endpoint = "search";
+    // See if the web url exists
+    if (url) {
+        // Set the settings
+        search.targetInfo.url = url;
     }
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Method to compute the query
-    _Search.prototype.getQuery = function (parameters) {
-        var query = "";
-        // Parse the parameters
-        for (var key in parameters) {
-            // Append the parameter to the query
-            query += (query == "" ? "" : "&") + key + "='" + parameters[key] + "'";
-        }
-        // Return the query
-        return [query];
-    };
+    // Add the methods
+    search.addMethods(search, { __metadata: { type: "search" } });
     /** The search query method */
-    _Search.prototype.searchquery = function (settings) {
+    search.searchquery = function (settings) {
         // Execute the request
-        return this.executeMethod("query", {
+        return _this.executeMethod("query", {
             argNames: ["query"],
             name: "query?[[query]]",
             requestType: utils_1.RequestType.GetReplace
-        }, this.getQuery(settings));
+        }, exports.Search.getQuery(settings));
     };
-    /** The suggest method */
-    _Search.prototype.suggest = function (settings) {
+    /** The search suggest method */
+    search.suggest = function (settings) {
         // Execute the request
-        return this.executeMethod("query", {
+        return _this.executeMethod("query", {
             argNames: ["query"],
             name: "suggest?[[query]]",
             requestType: utils_1.RequestType.GetReplace
-        }, this.getQuery(settings));
+        }, exports.Search.getQuery(settings));
     };
-    return _Search;
-}(utils_1.Base));
-exports.Search = _Search;
+    // Return the search
+    return search;
+});
+// Static method to compute the query
+exports.Search.getQuery = function (parameters) {
+    var query = "";
+    // Parse the parameters
+    for (var key in parameters) {
+        // Append the parameter to the query
+        query += (query == "" ? "" : "&") + key + "='" + parameters[key] + "'";
+    }
+    // Return the query
+    return [query];
+};

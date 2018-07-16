@@ -25,7 +25,7 @@ export interface IREST {
     /**
      * Use this api to interact with the Graph API. (Still In Development)
      */
-    Graph: Mapper.Types.IGraph;
+    Graph: Lib.Types.IGraph;
     /**
      * Helper methods.
      */
@@ -109,10 +109,8 @@ export interface IREST {
     };
     /**
      * Use this api to interact with SharePoint lists and libraries.
-     * @param listName - The name of the list.
-     * @param targetInfo - (Optional) The target information.
      */
-    List: (listName: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IList;
+    List: Lib.Types.IList;
     /**
      * Use this api to get the list name by its entity name.
      * @param entityTypeName - The entity type name of the list.
@@ -127,25 +125,23 @@ export interface IREST {
     ListDataAsStream: (listFullUrl: string, parameters?: Mapper.Types.IListDataParameters) => Util.Types.IBase<Mapper.Types.IListDataStream>;
     /**
      * Use this api to interact with SharePoint navigation.
-     * @param url - (Optional) The web url.
-     * @param targetInfo - (Optional) The target information.
      */
-    Navigation: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.INavigationServiceREST;
+    Navigation: Lib.Types.INavigation;
     /**
      * Use this api to interact with SharePoint user profiles.
      * @param targetInfo - (Optional) The target information.
      */
-    PeopleManager: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IPeopleManager;
+    PeopleManager: Lib.Types.IPeopleManager;
     /**
      * Use this api to search for users.
      * @param settings - The search settings.
      */
-    PeoplePicker: (settings?: Util.Types.ITargetInfo) => Mapper.Types.IPeoplePicker;
+    PeoplePicker: Lib.Types.IPeoplePicker;
     /**
      * Use this api to interact with the user profile loader.
      * @param targetInfo - (Optional) The target information.
      */
-    ProfileLoader: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IProfileLoader;
+    ProfileLoader: Lib.Types.IProfileLoader;
     /**
      * Use this api to get a remote web.
      * @param requestUrl - The absolute url of the remote web.
@@ -156,13 +152,11 @@ export interface IREST {
      * @param url - The optional url to execute the search against.
      * @param settings - The search settings.
      */
-    Search: (url?: string, settings?: Util.Types.ITargetInfo) => Mapper.Types.ISearch;
+    Search: Lib.Types.ISearch;
     /**
      * Use this api to interact with a SharePoint site collection.
-     * @param url - (Optional) The site url.
-     * @param targetInfo - (Optional) The target information.
      */
-    Site: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.ISite;
+    Site: Lib.Types.ISite;
     /**
      * Use this api to see if a site collection exists.
      * @param url - The absolute url of the site collection.
@@ -176,28 +170,23 @@ export interface IREST {
     /**
      * Use this api to interact with the current user's social profile.
      */
-    SocialFeed: Mapper.Types.ISocialFeed;
+    SocialFeed: Lib.Types.ISocialFeed;
     /**
      * The SharePoint enumerator types.
      */
     SPTypes: any;
     /**
      * Use this api to interact with the current user's profile.
-     * @param targetInfo - (Optional) The target information.
      */
-    UserProfile: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IUserProfile;
+    UserProfile: Lib.Types.IUserProfile;
     /**
-     * The utility api
-     * @param url - (Optional) The web url.
-     * @param targetInfo - (Optional) The target information.
+     * Use this api to interact with the available utility methods.
      */
-    Utility: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IUtility;
+    Utility: Lib.Types.IUtility;
     /**
      * Use this api to interact with a SharePoint web.
-     * @param url - (Optional) The web url.
-     * @param targetInfo - (Optional) The target information.
      */
-    Web: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IWeb;
+    Web: Lib.Types.IWeb;
 }
 /**
  * SharePoint REST Library

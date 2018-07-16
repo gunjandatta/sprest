@@ -1,2 +1,5 @@
-import { Types } from "..";
-export declare const ProfileLoader: Types.SP.IProfileLoader;
+import { IProfileLoader } from "./types";
+/**
+ * Profile Loader
+ */
+export declare const ProfileLoader: IProfileLoader;

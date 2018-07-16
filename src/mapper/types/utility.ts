@@ -174,13 +174,6 @@ export interface IUtilityMethods {
  */
 export interface IUtility extends IUtilityMethods, IBase<IUtility> {
     /**
-     * Constructor
-     * @param url - (Optional) The web url.
-     * @param targetInfo - (Optional) The target information.
-     */
-    new(url?: string, targetInfo?: ITargetInfo): IUtility;
-
-    /**
      * Creates a wiki page.
      * @param listUrl - The relative url to the library.
      * @param content - The html content.

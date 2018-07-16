@@ -1,23 +1,20 @@
-import { Types } from "..";
 import { Base } from "../utils";
+import { IPeopleManager } from "./types";
+import { ITargetInfo } from "../utils/types";
 
-/*********************************************************************************************************************************/
-// People Manager
-/*********************************************************************************************************************************/
-class _PeopleManager extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    constructor(targetInfo?) {
-        // Call the base constructor
-        super(targetInfo);
+/**
+ * People Manager
+ */
+export const PeopleManager: IPeopleManager = ((targetInfo?: ITargetInfo) => {
+    let peopleManager = new Base(targetInfo);
 
-        // Default the properties
-        this.targetInfo.defaultToWebFl = true;
-        this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
+    // Default the properties
+    peopleManager.targetInfo.defaultToWebFl = true;
+    peopleManager.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
 
-        // Add the methods
-        this.addMethods(this, { __metadata: { type: "peoplemanager" } });
-    }
-}
-export const PeopleManager: Types.SP.IPeopleManager = <any>_PeopleManager;
+    // Add the methods
+    peopleManager.addMethods(peopleManager, { __metadata: { type: "peoplemanager" } });
+
+    // Return the people manager
+    return peopleManager;
+}) as any;

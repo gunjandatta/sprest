@@ -1,37 +1,29 @@
-import { Types } from "..";
+import { Types } from "../mapper";
 import { Base, RequestType } from "../utils";
+import { IUtility } from "./types";
+import { ITargetInfo } from "../utils/types";
 
 /**
  * Utility
  */
-class _Utility extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    constructor(url?, targetInfo?) {
-        // Call the base constructor
-        super(targetInfo);
+export const Utility: IUtility = ((url?, targetInfo?) => {
+    let utility = new Base(targetInfo) as any as Types.IUtility;
 
-        // Default the properties
-        this.targetInfo.defaultToWebFl = true;
-        this.targetInfo.endpoint = "SP.Utilities.Utility";
+    // Default the properties
+    utility.targetInfo.defaultToWebFl = true;
+    utility.targetInfo.endpoint = "SP.Utilities.Utility";
 
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            this.targetInfo.url = url;
-        }
-
-        // Add the methods
-        this.addMethods(this, { __metadata: { type: "utility" } });
+    // See if the web url exists
+    if (url) {
+        // Set the settings
+        utility.targetInfo.url = url;
     }
 
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
+    // Add the methods
+    utility.addMethods(utility as any, { __metadata: { type: "utility" } });
 
     // Method to create a wiki page
-    createWikiPage(listUrl: string, content: string = "") {
+    utility.createWikiPage = (listUrl: string, content: string = "") => {
         let parameters = {
             ServerRelativeUrl: listUrl,
             WikiHtmlContent: content
@@ -47,7 +39,7 @@ class _Utility extends Base {
     }
 
     // Method to send an email
-    sendEmail(properties) {
+    utility.sendEmail = (properties) => {
         // Parse the email properties
         for (let propName of ["To", "CC", "BCC"]) {
             let propValue = properties[propName];
@@ -76,5 +68,7 @@ class _Utility extends Base {
             requestType: RequestType.PostWithArgsInBody
         }, [properties]);
     }
-}
-export const Utility: Types.SP.IUtility = _Utility as any;
+
+    // Return the utility
+    return utility;
+}) as any as IUtility;

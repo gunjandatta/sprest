@@ -1,2 +1,5 @@
-import { Types } from "..";
-export declare const Utility: Types.SP.IUtility;
+import { IUtility } from "./types";
+/**
+ * Utility
+ */
+export declare const Utility: IUtility;

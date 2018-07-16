@@ -1,4 +1,4 @@
-import { IBase, ITargetInfo } from "../../utils/types";
+import { IBase } from "../../utils/types";
 import { Types } from "../..";
 import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemProps, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from ".";
 /**
@@ -663,22 +663,4 @@ export interface IListResult extends IListMethods, IListProps, IListQueryProps, 
  * List
  */
 export interface IList extends IListMethods, IListQueryProps, IBase<IList, IListResult, IListQueryResult> {
-    /**
-     * Constructor
-     * @param listName - The name of the list.
-     * @param targetInfo - (Optional) The target information.
-     */
-    new (listName: string, targetInfo?: ITargetInfo): IList;
-    /**
-     * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
-     * @param listFullUrl - The absolute url of the list.
-     * @param parameters - The optional list data parameters.
-     */
-    getDataAsStream(listFullUrl: string, parameters?: any): IBase<IListDataStream>;
-    /**
-     * A static method to get the list by the entity name.
-     * @param entityTypeName - The entity type name of the list.
-     * @param callback - The method to be executed after the request completes.
-     */
-    getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?: any): IBase<IList, IListResult, IListQueryResult>;
 }

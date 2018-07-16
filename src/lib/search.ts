@@ -1,67 +1,61 @@
-import { Types } from "..";
+import { Types } from "../mapper"
 import { Base, RequestType } from "../utils";
+import { ISearch } from "./types";
+import { ITargetInfo } from "../utils/types";
 
-/*********************************************************************************************************************************/
-// Search
-/*********************************************************************************************************************************/
-class _Search extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    constructor(url?, targetInfo?) {
-        // Call the base constructor
-        super(targetInfo);
+/**
+ * Search
+ */
+export const Search: ISearch = ((url?, targetInfo?) => {
+    let search = new Base(targetInfo) as any as Types.ISearch;
 
-        // Default the properties
-        this.targetInfo.defaultToWebFl = true;
-        this.targetInfo.endpoint = "search";
+    // Default the properties
+    search.targetInfo.defaultToWebFl = true;
+    search.targetInfo.endpoint = "search";
 
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            this.targetInfo.url = url;
-        }
-
-        // Add the methods
-        this.addMethods(this, { __metadata: { type: "search" } });
+    // See if the web url exists
+    if (url) {
+        // Set the settings
+        search.targetInfo.url = url;
     }
 
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-
-    // Method to compute the query
-    getQuery(parameters) {
-        let query = "";
-
-        // Parse the parameters
-        for (let key in parameters) {
-            // Append the parameter to the query
-            query += (query == "" ? "" : "&") + key + "='" + parameters[key] + "'";
-        }
-
-        // Return the query
-        return [query];
-    }
+    // Add the methods
+    search.addMethods(search as any, { __metadata: { type: "search" } });
 
     /** The search query method */
-    searchquery(settings) {
+    search.searchquery = (settings: Types.ComplexTypes.SearchRequest) => {
         // Execute the request
         return this.executeMethod("query", {
             argNames: ["query"],
             name: "query?[[query]]",
             requestType: RequestType.GetReplace
-        }, this.getQuery(settings));
+        }, Search.getQuery(settings));
     }
 
-    /** The suggest method */
-    suggest(settings) {
+    /** The search suggest method */
+    search.suggest = (settings: Types.ComplexTypes.SearchSuggestion) => {
         // Execute the request
         return this.executeMethod("query", {
             argNames: ["query"],
             name: "suggest?[[query]]",
             requestType: RequestType.GetReplace
-        }, this.getQuery(settings));
+        }, Search.getQuery(settings));
     }
+
+    // Return the search
+    return search;
+}) as any;
+
+// Static method to compute the query
+Search.getQuery = (parameters: Types.ComplexTypes.SearchRequest | Types.ComplexTypes.SearchSuggestion) => {
+    let query = "";
+
+    // Parse the parameters
+    for (let key in parameters) {
+        // Append the parameter to the query
+        query += (query == "" ? "" : "&") + key + "='" + parameters[key] + "'";
+    }
+
+    // Return the query
+    return [query];
 }
-export const Search: Types.SP.ISearch = <any>_Search;

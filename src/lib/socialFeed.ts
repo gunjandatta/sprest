@@ -1,31 +1,23 @@
-import { Types } from "..";
+import { Types } from "../mapper";
 import { Base, RequestType } from "../utils";
+import { ISocialFeed } from "./types";
+import { ITargetInfo } from "../utils/types";
 
-/*********************************************************************************************************************************/
-// Social Feed
-/*********************************************************************************************************************************/
-class _SocialFeed extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    constructor(targetInfo?) {
-        // Call the base constructor
-        super(targetInfo);
+/**
+ * Social Feed
+ */
+export const SocialFeed: ISocialFeed = ((targetInfo?: ITargetInfo) => {
+    let socialFeed = new Base(targetInfo) as any as Types.ISocialFeed;
 
-        // Default the properties
-        this.targetInfo.defaultToWebFl = true;
-        this.targetInfo.endpoint = "social.feed";
+    // Default the properties
+    socialFeed.targetInfo.defaultToWebFl = true;
+    socialFeed.targetInfo.endpoint = "social.feed";
 
-        // Add the methods
-        this.addMethods(this, { __metadata: { type: "socialfeed" } });
-    }
-
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
+    // Add the methods
+    socialFeed.addMethods(socialFeed as any, { __metadata: { type: "socialfeed" } });
 
     // Method to post to another user's feed
-    postToFeed(accountName, creationData) {
+    socialFeed.postToFeed = (accountName, creationData) => {
         let postInfo = { ID: null, creationData: creationData };
 
         // Set the post metadata
@@ -40,7 +32,7 @@ class _SocialFeed extends Base {
     }
 
     // Method to post to the current user's feed
-    postToMyFeed(creationData) {
+    socialFeed.postToMyFeed = (creationData) => {
         let postInfo = { ID: null, creationData: creationData };
 
         // Set the post metadata
@@ -53,5 +45,7 @@ class _SocialFeed extends Base {
             requestType: RequestType.PostWithArgsInBody
         }, [postInfo]);
     }
-}
-export const SocialFeed: Types.SP.ISocialFeed = <any>(new _SocialFeed());
+
+    // Return the social feed
+    return socialFeed;
+}) as any;

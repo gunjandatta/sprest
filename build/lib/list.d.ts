@@ -1,2 +1,5 @@
-import { Types } from "..";
-export declare const List: Types.SP.IList;
+import { IList } from "./types";
+/**
+ * List
+ */
+export declare const List: IList;

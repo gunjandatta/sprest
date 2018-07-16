@@ -1,4 +1,4 @@
-import { IBase, ITargetInfo } from "../../utils/types";
+import { IBase } from "../../utils/types";
 import { IEntityData } from ".";
 /**
  * People Picker Query
@@ -74,14 +74,6 @@ export interface IPeoplePickerUser {
  * People Picker
  */
 export interface IPeoplePicker extends IBase {
-    /**
-     * Constructor
-     * @param settings - The search settings.
-     */
-    new (settings?: ITargetInfo): IPeoplePicker;
-    /**
-     * Methods
-     */
     /** Method to resolve users.
      * @param query - The people picker query.
     */

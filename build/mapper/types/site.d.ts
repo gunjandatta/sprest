@@ -1,4 +1,4 @@
-import { IBase, ITargetInfo } from "../../utils/types";
+import { IBase } from "../../utils/types";
 import { Types } from "../..";
 import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from ".";
 /**
@@ -242,25 +242,4 @@ export interface ISiteUrl {
  * Site
  */
 export interface ISite extends ISiteMethods, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {
-    /**
-     * Constructor
-     * @param url - (Optional) The site url.
-     * @param targetInfo - (Optional) The target information.
-     */
-    new (url?: string, targetInfo?: ITargetInfo): ISite;
-    /**
-     * Method to check if a site collection exists.
-     * @param url - The absolute url of the site collection.
-     */
-    exists(url: string): IBase<ISiteExists>;
-    /**
-     * Method to get the app context information.
-     * @param siteUrl - The absolute url of the site.
-     */
-    getAppContext(siteUrl: string): IBase;
-    /**
-     * Method to get the url of a site, by its id.
-     * @param id - The site id.
-     */
-    getUrlById(id: string): IBase<ISiteUrl>;
 }

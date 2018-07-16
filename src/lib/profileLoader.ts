@@ -1,24 +1,21 @@
-import { Types } from "..";
 import { Base } from "../utils";
+import { IProfileLoader } from "./types";
+import { ITargetInfo } from "../utils/types";
 
-/*********************************************************************************************************************************/
-// Profile Loader
-/*********************************************************************************************************************************/
-class _ProfileLoader extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    constructor(targetInfo?) {
-        // Call the base constructor
-        super(targetInfo);
+/**
+ * Profile Loader
+ */
+export const ProfileLoader: IProfileLoader = ((targetInfo?: ITargetInfo) => {
+    let profileLoader = new Base(targetInfo);
 
-        // Default the properties
-        this.targetInfo.defaultToWebFl = true;
-        this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
-        this.targetInfo.method = "POST";
+    // Default the properties
+    profileLoader.targetInfo.defaultToWebFl = true;
+    profileLoader.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+    profileLoader.targetInfo.method = "POST";
 
-        // Add the methods
-        this.addMethods(this, { __metadata: { type: "profileloader" } });
-    }
-}
-export const ProfileLoader: Types.SP.IProfileLoader = _ProfileLoader as any;
+    // Add the methods
+    profileLoader.addMethods(profileLoader, { __metadata: { type: "profileloader" } });
+
+    // Return the profile loader
+    return profileLoader;
+}) as any;

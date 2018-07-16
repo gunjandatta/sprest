@@ -128,7 +128,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         // See if the lookup name exists
         if (fieldInfo.listName) {
             // Get the web containing the list
-            (new Web(fieldInfo.webUrl))
+            Web(fieldInfo.webUrl)
                 // Get the list
                 .Lists(fieldInfo.listName)
                 // Set the query

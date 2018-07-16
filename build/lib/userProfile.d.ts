@@ -1,2 +1,5 @@
-import { Types } from "..";
-export declare const UserProfile: Types.SP.IUserProfile;
+import { IUserProfile } from "./types";
+/**
+ * User Profile
+ */
+export declare const UserProfile: IUserProfile;

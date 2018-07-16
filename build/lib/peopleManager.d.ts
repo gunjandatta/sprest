@@ -1,2 +1,5 @@
-import { Types } from "..";
-export declare const PeopleManager: Types.SP.IPeopleManager;
+import { IPeopleManager } from "./types";
+/**
+ * People Manager
+ */
+export declare const PeopleManager: IPeopleManager;

@@ -856,55 +856,31 @@ module.exports.f = function (C) {
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// Web
-/*********************************************************************************************************************************/
-var _Web = /** @class */ (function (_super) {
-    __extends(_Web, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _Web(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "web";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "web" } });
-        return _this;
+exports.Web = (function (url, targetInfo) {
+    var web = new utils_1.Base(targetInfo);
+    // Default the properties
+    web.targetInfo.defaultToWebFl = true;
+    web.targetInfo.endpoint = "web";
+    // See if the web url exists
+    if (url) {
+        // Set the settings
+        web.targetInfo.url = url;
     }
-    // Method to get a remote web
-    _Web.getRemoteWeb = function (requestUrl) {
-        // Return the remote web information
-        return new utils_1.Base({
-            data: { requestUrl: requestUrl },
-            defaultToWebFl: true,
-            endpoint: "SP.RemoteWeb?$expand=Web",
-            method: "POST"
-        });
-    };
-    return _Web;
-}(utils_1.Base));
-exports.Web = _Web;
+    // Add the methods
+    web.addMethods(web, { __metadata: { type: "web" } });
+});
+// Static method to get a remote web
+exports.Web.getRemoteWeb = (function (requestUrl) {
+    // Return the remote web information
+    return new utils_1.Base({
+        data: { requestUrl: requestUrl },
+        defaultToWebFl: true,
+        endpoint: "SP.RemoteWeb?$expand=Web",
+        method: "POST"
+    });
+});
 
 
 /***/ }),
@@ -958,7 +934,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // See if the parent name exists
                     if (cfgContentType.ParentName) {
                         // Get the web containing the parent content type
-                        (new lib_1.Web(cfgContentType.ParentWebUrl || webUrl))
+                        lib_1.Web(cfgContentType.ParentWebUrl || webUrl)
                             .ContentTypes()
                             .query({
                             Filter: "Name eq '" + cfgContentType.ParentName + "'"
@@ -1373,7 +1349,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
             // Get the root web
-            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+            lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                 .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 .RootFolder()
                 .query({
@@ -1422,7 +1398,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             // See if group exists
                             if (cfgWebPart.Group) {
                                 // Set the target to the root web
-                                (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+                                lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                                     .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                                     .Items()
                                     .query({
@@ -1653,7 +1629,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Log
             console.log("[gd-sprest][WebPart] Removing the web parts.");
             // Get the root web
-            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+            lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                 .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 .RootFolder()
                 .Files()
@@ -1753,7 +1729,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 // Ensure the configuration exists
                 if (cfgList) {
                     // Get the web
-                    (new lib_1.Web(webUrl))
+                    lib_1.Web(webUrl)
                         .Lists(cfgList.ListInformation.Title)
                         .query({
                         Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
@@ -1872,7 +1848,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 return;
             }
             // Get the site
-            (new lib_1.Site(webUrl))
+            lib_1.Site(webUrl)
                 .query({
                 Expand: ["UserCustomActions"]
             })
@@ -1892,7 +1868,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Log
             console.log("[gd-sprest][uninstall] Loading the web information...");
             // Get the web
-            (new lib_1.Web(webUrl))
+            lib_1.Web(webUrl)
                 .query({
                 Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
             })
@@ -1929,7 +1905,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 // Log
                 console.log("[gd-sprest] Loading the web information...");
                 // Get the web
-                var web = new lib_1.Web(webUrl);
+                var web = lib_1.Web(webUrl);
                 // The post execution method
                 var postExecute = function () {
                     // See if we have completed the executions
@@ -2017,7 +1993,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         // Log
                         console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
                         // Get the site
-                        (new lib_1.Site(webUrl))
+                        lib_1.Site(webUrl)
                             .UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
                             createUserCustomActions(_1.parse(customActions.stringify()), cfg.CustomActionCfg.Site).then(function () {
@@ -3138,7 +3114,7 @@ exports.App = {
             }
             // Get the host web
             lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
-            var web = (new lib_1.Web(rootWebFl ? lib_1.ContextInfo.siteServerRelativeUrl : null));
+            var web = lib_1.Web(rootWebFl ? lib_1.ContextInfo.siteServerRelativeUrl : null);
             // See if the folder url was given
             if (typeof (dstFolder) === "string") {
                 // Get the folder
@@ -3178,7 +3154,7 @@ exports.App = {
                 // Target the current web
                 lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl = false;
                 // Get the current web
-                (new lib_1.Web())
+                lib_1.Web()
                     .getFileByServerRelativeUrl(srcFileUrl_1)
                     .content()
                     .execute(function (content) {
@@ -8572,58 +8548,39 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(0);
 /**
  * Graph
  */
-var _Graph = /** @class */ (function (_super) {
-    __extends(_Graph, _super);
-    /**
-     * Constructor
-     */
-    function _Graph(accessToken, version) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, { accessToken: accessToken }) || this;
-        // Default the target information
-        _this.targetInfo.endpoint = version || "v1.0";
-        _this.targetInfo.requestType = utils_1.RequestType.GraphGet;
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "graph" } });
-        return _this;
-    }
-    // Method to get the graph token from a classic page
-    _Graph.getAuthToken = function (scope) {
-        // Return a proimse
-        return new Promise(function (resolve, reject) {
-            // Set the data 
-            var data = { "resource": "https://graph.microsoft.com" };
-            scope ? data["scope"] = scope : null;
-            // Get the access token
-            (new utils_1.Base({
-                endpoint: "SP.OAuth.Token/Acquire",
-                data: data,
-                method: "POST"
-            })).execute(function (token) {
-                // Resolve the promise
-                resolve(token);
-            });
+exports.Graph = (function (accessToken, version) {
+    var graph = new utils_1.Base({ accessToken: accessToken });
+    // Default the target information
+    graph.targetInfo.endpoint = version || "v1.0";
+    graph.targetInfo.requestType = utils_1.RequestType.GraphGet;
+    // Add the methods
+    graph.addMethods(graph, { __metadata: { type: "graph" } });
+    // Return the graph
+    return graph;
+});
+// Method to get the graph token from a classic page
+exports.Graph.getAccessToken = function (scope) {
+    // Return a promise
+    return new Promise(function (resolve, reject) {
+        // Set the data 
+        var data = { "resource": "https://graph.microsoft.com" };
+        scope ? data["scope"] = scope : null;
+        // Get the access token
+        (new utils_1.Base({
+            endpoint: "SP.OAuth.Token/Acquire",
+            data: data,
+            method: "POST"
+        })).execute(function (token) {
+            // Resolve the promise
+            resolve(token);
         });
-    };
-    return _Graph;
-}(utils_1.Base));
-exports.Graph = _Graph;
+    });
+};
 
 
 /***/ }),
@@ -8632,76 +8589,57 @@ exports.Graph = _Graph;
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(0);
 var web_1 = __webpack_require__(39);
 /**
  * List
  */
-var _List = /** @class */ (function (_super) {
-    __extends(_List, _super);
-    /**
-     * Constructor
-     */
-    function _List(listName, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "web/lists/getByTitle('" + listName.replace(/\'/g, "''") + "')";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "list" } });
-        return _this;
+exports.List = (function (listName, targetInfo) {
+    var list = new utils_1.Base(targetInfo);
+    // Default the properties
+    list.targetInfo.defaultToWebFl = true;
+    list.targetInfo.endpoint = "web/lists/getByTitle('" + listName.replace(/\'/g, "''") + "')";
+    // Add the methods
+    list.addMethods(list, { __metadata: { type: "list" } });
+    // Return the list
+    return list;
+});
+// Static method to get the list by the entity name.
+exports.List.getByEntityName = (function (entityTypeName, callback, targetInfo) {
+    // Query for the list
+    var query = web_1.Web(targetInfo)
+        .Lists()
+        .query({
+        Filter: "EntityTypeName eq '" + entityTypeName + "'",
+        Top: 1
+    });
+    // See if the callback exists
+    if (typeof (callback) != "function") {
+        // Execute the request synchronously and return it
+        var list = query.executeAndWait();
+        return list.results ? list.results[0] : list;
     }
-    // Method to get the list by the entity name.
-    _List.getByEntityName = function (entityTypeName, callback, targetInfo) {
-        // Query for the list
-        var query = (new web_1.Web(targetInfo))
-            .Lists()
-            .query({
-            Filter: "EntityTypeName eq '" + entityTypeName + "'",
-            Top: 1
-        });
-        // See if the callback exists
-        if (typeof (callback) != "function") {
-            // Execute the request synchronously and return it
-            var list = query.executeAndWait();
-            return list.results ? list.results[0] : list;
-        }
-        // Execute the request asynchronously
-        query.execute(function (lists) {
-            // Execute the callback method
-            callback(lists.results ? lists.results[0] : lists);
-        });
-    };
-    // Method to get the list data from the SP.List.getListDataAsStream endpoint
-    _List.getDataAsStream = function (listFullUrl, parameters) {
-        if (parameters === void 0) { parameters = {}; }
-        var params = "?listFullUrl='" + listFullUrl + "'";
-        // Parse the parameters
-        for (var key in parameters) {
-            // Append the parameter
-            params += "&" + key + "=" + parameters[key];
-        }
-        // Return the base object
-        return new utils_1.Base({
-            endpoint: "SP.List.getListDataAsStream" + params
-        });
-    };
-    return _List;
-}(utils_1.Base));
-exports.List = _List;
+    // Execute the request asynchronously
+    query.execute(function (lists) {
+        // Execute the callback method
+        callback(lists.results ? lists.results[0] : lists);
+    });
+});
+// Static method to get the list data from the SP.List.getListDataAsStream endpoint
+exports.List.getDataAsStream = (function (listFullUrl, parameters) {
+    if (parameters === void 0) { parameters = {}; }
+    var params = "?listFullUrl='" + listFullUrl + "'";
+    // Parse the parameters
+    for (var key in parameters) {
+        // Append the parameter
+        params += "&" + key + "=" + parameters[key];
+    }
+    // Return the base object
+    return new utils_1.Base({
+        endpoint: "SP.List.getListDataAsStream" + params
+    });
+});
 
 
 /***/ }),
@@ -8710,45 +8648,26 @@ exports.List = _List;
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(0);
 /**
  * Navigation
  */
-var _Navigation = /** @class */ (function (_super) {
-    __extends(_Navigation, _super);
-    /**
-     * Constructor
-     */
-    function _Navigation(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "navigation";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "navigationservicerest" } });
-        return _this;
+exports.Navigation = (function (url, targetInfo) {
+    var navigation = new utils_1.Base(targetInfo);
+    // Default the properties
+    navigation.targetInfo.defaultToWebFl = true;
+    navigation.targetInfo.endpoint = "navigation";
+    // See if the web url exists
+    if (url) {
+        // Set the settings
+        navigation.targetInfo.url = url;
     }
-    return _Navigation;
-}(utils_1.Base));
-exports.Navigation = _Navigation;
+    // Add the methods
+    navigation.addMethods(navigation, { __metadata: { type: "navigationservicerest" } });
+    // Return the navigation
+    return navigation;
+});
 
 
 /***/ }),
@@ -8757,40 +8676,21 @@ exports.Navigation = _Navigation;
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// People Manager
-/*********************************************************************************************************************************/
-var _PeopleManager = /** @class */ (function (_super) {
-    __extends(_PeopleManager, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _PeopleManager(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "peoplemanager" } });
-        return _this;
-    }
-    return _PeopleManager;
-}(utils_1.Base));
-exports.PeopleManager = _PeopleManager;
+/**
+ * People Manager
+ */
+exports.PeopleManager = (function (targetInfo) {
+    var peopleManager = new utils_1.Base(targetInfo);
+    // Default the properties
+    peopleManager.targetInfo.defaultToWebFl = true;
+    peopleManager.targetInfo.endpoint = "sp.userprofiles.peoplemanager";
+    // Add the methods
+    peopleManager.addMethods(peopleManager, { __metadata: { type: "peoplemanager" } });
+    // Return the people manager
+    return peopleManager;
+});
 
 
 /***/ }),
@@ -8799,41 +8699,22 @@ exports.PeopleManager = _PeopleManager;
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// People Picker
-/*********************************************************************************************************************************/
-var _PeoplePicker = /** @class */ (function (_super) {
-    __extends(_PeoplePicker, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _PeoplePicker(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
-        _this.targetInfo.overrideDefaultRequestToHostFl = true;
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "peoplepicker" } });
-        return _this;
-    }
-    return _PeoplePicker;
-}(utils_1.Base));
-exports.PeoplePicker = _PeoplePicker;
+/**
+ * People Picker
+ */
+exports.PeoplePicker = (function (targetInfo) {
+    var peoplePicker = new utils_1.Base(targetInfo);
+    // Default the properties
+    peoplePicker.targetInfo.defaultToWebFl = true;
+    peoplePicker.targetInfo.endpoint = "SP.UI.ApplicationPages.ClientPeoplePickerWebServiceInterface";
+    peoplePicker.targetInfo.overrideDefaultRequestToHostFl = true;
+    // Add the methods
+    peoplePicker.addMethods(peoplePicker, { __metadata: { type: "peoplepicker" } });
+    // Return the people picker
+    return peoplePicker;
+});
 
 
 /***/ }),
@@ -8842,41 +8723,22 @@ exports.PeoplePicker = _PeoplePicker;
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// Profile Loader
-/*********************************************************************************************************************************/
-var _ProfileLoader = /** @class */ (function (_super) {
-    __extends(_ProfileLoader, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _ProfileLoader(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
-        _this.targetInfo.method = "POST";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "profileloader" } });
-        return _this;
-    }
-    return _ProfileLoader;
-}(utils_1.Base));
-exports.ProfileLoader = _ProfileLoader;
+/**
+ * Profile Loader
+ */
+exports.ProfileLoader = (function (targetInfo) {
+    var profileLoader = new utils_1.Base(targetInfo);
+    // Default the properties
+    profileLoader.targetInfo.defaultToWebFl = true;
+    profileLoader.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader";
+    profileLoader.targetInfo.method = "POST";
+    // Add the methods
+    profileLoader.addMethods(profileLoader, { __metadata: { type: "profileloader" } });
+    // Return the profile loader
+    return profileLoader;
+});
 
 
 /***/ }),
@@ -8885,77 +8747,56 @@ exports.ProfileLoader = _ProfileLoader;
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// Search
-/*********************************************************************************************************************************/
-var _Search = /** @class */ (function (_super) {
-    __extends(_Search, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _Search(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "search";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "search" } });
-        return _this;
+/**
+ * Search
+ */
+exports.Search = (function (url, targetInfo) {
+    var search = new utils_1.Base(targetInfo);
+    // Default the properties
+    search.targetInfo.defaultToWebFl = true;
+    search.targetInfo.endpoint = "search";
+    // See if the web url exists
+    if (url) {
+        // Set the settings
+        search.targetInfo.url = url;
     }
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
-    // Method to compute the query
-    _Search.prototype.getQuery = function (parameters) {
-        var query = "";
-        // Parse the parameters
-        for (var key in parameters) {
-            // Append the parameter to the query
-            query += (query == "" ? "" : "&") + key + "='" + parameters[key] + "'";
-        }
-        // Return the query
-        return [query];
-    };
+    // Add the methods
+    search.addMethods(search, { __metadata: { type: "search" } });
     /** The search query method */
-    _Search.prototype.searchquery = function (settings) {
+    search.searchquery = function (settings) {
         // Execute the request
-        return this.executeMethod("query", {
+        return _this.executeMethod("query", {
             argNames: ["query"],
             name: "query?[[query]]",
             requestType: utils_1.RequestType.GetReplace
-        }, this.getQuery(settings));
+        }, exports.Search.getQuery(settings));
     };
-    /** The suggest method */
-    _Search.prototype.suggest = function (settings) {
+    /** The search suggest method */
+    search.suggest = function (settings) {
         // Execute the request
-        return this.executeMethod("query", {
+        return _this.executeMethod("query", {
             argNames: ["query"],
             name: "suggest?[[query]]",
             requestType: utils_1.RequestType.GetReplace
-        }, this.getQuery(settings));
+        }, exports.Search.getQuery(settings));
     };
-    return _Search;
-}(utils_1.Base));
-exports.Search = _Search;
+    // Return the search
+    return search;
+});
+// Static method to compute the query
+exports.Search.getQuery = function (parameters) {
+    var query = "";
+    // Parse the parameters
+    for (var key in parameters) {
+        // Append the parameter to the query
+        query += (query == "" ? "" : "&") + key + "='" + parameters[key] + "'";
+    }
+    // Return the query
+    return [query];
+};
 
 
 /***/ }),
@@ -8964,85 +8805,56 @@ exports.Search = _Search;
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(0);
-var _1 = __webpack_require__(1);
-/*********************************************************************************************************************************/
-// Site
-// The SPSite object.
-/*********************************************************************************************************************************/
-var _Site = /** @class */ (function (_super) {
-    __extends(_Site, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _Site(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "site";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "site" } });
-        return _this;
+/**
+ * Site
+ */
+exports.Site = (function (url, targetInfo) {
+    var site = new utils_1.Base(targetInfo);
+    // Default the properties
+    site.targetInfo.defaultToWebFl = true;
+    site.targetInfo.endpoint = "site";
+    // See if the web url exists
+    if (url) {
+        // Set the settings
+        site.targetInfo.url = url;
     }
-    // Method to see if a site exists
-    _Site.exists = function (url) {
-        // Return the base object
-        return new utils_1.Base({
-            data: { url: url },
-            defaultToWebFl: true,
-            endpoint: "SP.Site.Exists",
-            method: "POST"
-        });
-    };
-    // Method to get the app context
-    _Site.getAppContext = function (siteUrl) {
-        // Return the base object
-        return new utils_1.Base({
-            data: { siteUrl: siteUrl },
-            defaultToWebFl: true,
-            endpoint: "SP.AppContextSite",
-            method: "POST"
-        });
-    };
-    // Method to get the root web
-    _Site.prototype.getRootWeb = function () { return new _1.Web(null, this.targetInfo); };
-    // Method to get the url by id
-    _Site.getUrlById = function (id) {
-        // Return the base object
-        return new utils_1.Base({
-            data: { id: id },
-            defaultToWebFl: true,
-            endpoint: "SP.Site.GetUrlById",
-            method: "POST"
-        });
-    };
-    // Method to determine if the current user has access, based on the permissions.
-    _Site.prototype.hasAccess = function (permissions) {
-        // TO DO
-        return true;
-    };
-    ;
-    return _Site;
-}(utils_1.Base));
-exports.Site = _Site;
+    // Add the methods
+    site.addMethods(site, { __metadata: { type: "site" } });
+    // Return the site
+    return site;
+});
+// Static method to see if a site exists
+exports.Site.exists = (function (url) {
+    // Return the base object
+    return new utils_1.Base({
+        data: { url: url },
+        defaultToWebFl: true,
+        endpoint: "SP.Site.Exists",
+        method: "POST"
+    });
+});
+// Static method to get the app context
+exports.Site.getAppContext = (function (siteUrl) {
+    // Return the base object
+    return new utils_1.Base({
+        data: { siteUrl: siteUrl },
+        defaultToWebFl: true,
+        endpoint: "SP.AppContextSite",
+        method: "POST"
+    });
+});
+// Method to get the url by id
+exports.Site.getUrlById = (function (id) {
+    // Return the base object
+    return new utils_1.Base({
+        data: { id: id },
+        defaultToWebFl: true,
+        endpoint: "SP.Site.GetUrlById",
+        method: "POST"
+    });
+});
 
 
 /***/ }),
@@ -9051,67 +8863,46 @@ exports.Site = _Site;
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// Social Feed
-/*********************************************************************************************************************************/
-var _SocialFeed = /** @class */ (function (_super) {
-    __extends(_SocialFeed, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _SocialFeed(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "social.feed";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "socialfeed" } });
-        return _this;
-    }
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
+/**
+ * Social Feed
+ */
+exports.SocialFeed = (function (targetInfo) {
+    var socialFeed = new utils_1.Base(targetInfo);
+    // Default the properties
+    socialFeed.targetInfo.defaultToWebFl = true;
+    socialFeed.targetInfo.endpoint = "social.feed";
+    // Add the methods
+    socialFeed.addMethods(socialFeed, { __metadata: { type: "socialfeed" } });
     // Method to post to another user's feed
-    _SocialFeed.prototype.postToFeed = function (accountName, creationData) {
+    socialFeed.postToFeed = function (accountName, creationData) {
         var postInfo = { ID: null, creationData: creationData };
         // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.executeMethod("postToMyFeed", {
+        return _this.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
             requestType: utils_1.RequestType.PostWithArgsInBody
         }, [postInfo]);
     };
     // Method to post to the current user's feed
-    _SocialFeed.prototype.postToMyFeed = function (creationData) {
+    socialFeed.postToMyFeed = function (creationData) {
         var postInfo = { ID: null, creationData: creationData };
         // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return this.executeMethod("postToMyFeed", {
+        return _this.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "my/feed/post",
             requestType: utils_1.RequestType.PostWithArgsInBody
         }, [postInfo]);
     };
-    return _SocialFeed;
-}(utils_1.Base));
-exports.SocialFeed = (new _SocialFeed());
+    // Return the social feed
+    return socialFeed;
+});
 
 
 /***/ }),
@@ -9120,41 +8911,22 @@ exports.SocialFeed = (new _SocialFeed());
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(0);
-/*********************************************************************************************************************************/
-// User Profile
-/*********************************************************************************************************************************/
-var _UserProfile = /** @class */ (function (_super) {
-    __extends(_UserProfile, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _UserProfile(targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
-        _this.targetInfo.method = "POST";
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "userprofile" } });
-        return _this;
-    }
-    return _UserProfile;
-}(utils_1.Base));
-exports.UserProfile = _UserProfile;
+/**
+ * User Profile
+ */
+exports.UserProfile = (function (targetInfo) {
+    var userProfile = new utils_1.Base(targetInfo);
+    // Default the properties
+    userProfile.targetInfo.defaultToWebFl = true;
+    userProfile.targetInfo.endpoint = "sp.userprofiles.profileloader.getprofileloader/getUserProfile";
+    userProfile.targetInfo.method = "POST";
+    // Add the methods
+    userProfile.addMethods(userProfile, { __metadata: { type: "userprofile" } });
+    // Return the user profile
+    return userProfile;
+});
 
 
 /***/ }),
@@ -9163,54 +8935,33 @@ exports.UserProfile = _UserProfile;
 
 "use strict";
 
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
+var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(0);
 /**
  * Utility
  */
-var _Utility = /** @class */ (function (_super) {
-    __extends(_Utility, _super);
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    function _Utility(url, targetInfo) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, targetInfo) || this;
-        // Default the properties
-        _this.targetInfo.defaultToWebFl = true;
-        _this.targetInfo.endpoint = "SP.Utilities.Utility";
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            _this.targetInfo.url = url;
-        }
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "utility" } });
-        return _this;
+exports.Utility = (function (url, targetInfo) {
+    var utility = new utils_1.Base(targetInfo);
+    // Default the properties
+    utility.targetInfo.defaultToWebFl = true;
+    utility.targetInfo.endpoint = "SP.Utilities.Utility";
+    // See if the web url exists
+    if (url) {
+        // Set the settings
+        utility.targetInfo.url = url;
     }
-    /*********************************************************************************************************************************/
-    // Methods
-    /*********************************************************************************************************************************/
+    // Add the methods
+    utility.addMethods(utility, { __metadata: { type: "utility" } });
     // Method to create a wiki page
-    _Utility.prototype.createWikiPage = function (listUrl, content) {
+    utility.createWikiPage = function (listUrl, content) {
         if (content === void 0) { content = ""; }
         var parameters = {
             ServerRelativeUrl: listUrl,
             WikiHtmlContent: content
         };
         // Execute the method
-        return this.executeMethod("createWikiPage", {
+        return _this.executeMethod("createWikiPage", {
             argNames: ["parameters"],
             name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
             replaceEndpointFl: true,
@@ -9218,7 +8969,7 @@ var _Utility = /** @class */ (function (_super) {
         }, [parameters]);
     };
     // Method to send an email
-    _Utility.prototype.sendEmail = function (properties) {
+    utility.sendEmail = function (properties) {
         // Parse the email properties
         for (var _i = 0, _a = ["To", "CC", "BCC"]; _i < _a.length; _i++) {
             var propName = _a[_i];
@@ -9237,7 +8988,7 @@ var _Utility = /** @class */ (function (_super) {
             }
         }
         // Execute the method
-        return this.executeMethod("sendEmail", {
+        return _this.executeMethod("sendEmail", {
             argNames: ["properties"],
             metadataType: "SP.Utilities.EmailProperties",
             name: "SP.Utilities.Utility.sendEmail",
@@ -9245,9 +8996,9 @@ var _Utility = /** @class */ (function (_super) {
             requestType: utils_1.RequestType.PostWithArgsInBody
         }, [properties]);
     };
-    return _Utility;
-}(utils_1.Base));
-exports.Utility = _Utility;
+    // Return the utility
+    return utility;
+});
 
 
 /***/ }),
@@ -9534,7 +9285,7 @@ exports.FieldSchemaXML = function (fieldInfo) {
         // See if the lookup name exists
         if (fieldInfo.listName) {
             // Get the web containing the list
-            (new lib_1.Web(fieldInfo.webUrl))
+            lib_1.Web(fieldInfo.webUrl)
                 .Lists(fieldInfo.listName)
                 .query({
                 Expand: ["ParentWeb"]
@@ -10491,7 +10242,7 @@ exports.ListForm = {
                     return;
                 }
                 // Get the web
-                (new __1.Web(_props.webUrl))
+                __1.Web(_props.webUrl)
                     .Lists(_props.listName)
                     .execute(function (list) {
                     // Save the list and web url
@@ -10618,7 +10369,7 @@ exports.ListForm = {
             var itemId = info.item ? info.item.Id : info.itemId;
             if (itemId > 0) {
                 // Get the web
-                (new __1.Web(info.webUrl))
+                __1.Web(info.webUrl)
                     .Lists(info.listName)
                     .Items(itemId)
                     .AttachmentFiles()
@@ -10660,7 +10411,7 @@ exports.ListForm = {
                     var attachment = info.attachments[i];
                     if (attachment.FileName == fileName) {
                         // Get the web
-                        (new __1.Web(info.webUrl))
+                        __1.Web(info.webUrl)
                             .getFileByServerRelativeUrl(attachment.ServerRelativeUrl)
                             .delete()
                             .execute(function () {
@@ -10687,7 +10438,7 @@ exports.ListForm = {
             var itemId = info.item ? info.item.Id : info.itemId;
             if (itemId > 0) {
                 // Get the web
-                var attachments = (new __1.Web(info.webUrl))
+                var attachments = __1.Web(info.webUrl)
                     .Lists(info.listName)
                     .Items(itemId)
                     .AttachmentFiles();
@@ -10830,7 +10581,7 @@ exports.ListFormField = {
             }
             else {
                 // Get the web
-                (new __1.Web(_fieldInfo.webUrl))
+                __1.Web(_fieldInfo.webUrl)
                     .Lists(_fieldInfo.listName)
                     .Fields()
                     .getByInternalNameOrTitle(_fieldInfo.name)
@@ -10936,7 +10687,7 @@ exports.ListFormField = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Get the current site collection
-            (new __1.Site())
+            __1.Site()
                 .openWebById(info.lookupWebId)
                 .execute(function (web) {
                 // Get the list
@@ -10978,7 +10729,7 @@ exports.ListFormField = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Get the web
-            (new __1.Web(info.webUrl))
+            __1.Web(info.webUrl)
                 .Lists(info.listName)
                 .Fields()
                 .getByInternalNameOrTitle(info.name + "_0")
@@ -12269,7 +12020,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.11,
+    __ver: 4.12,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
@@ -12292,23 +12043,23 @@ exports.$REST = {
         Taxonomy: Helper.Taxonomy,
         WebPart: Helper.WebPart
     },
-    List: function (listName, targetInfo) { return new Lib.List(listName, targetInfo); },
-    ListByEntityName: function (entityTypeName, callback, targetInfo) { return Lib.List.getByEntityName(entityTypeName, callback, targetInfo); },
-    ListDataAsStream: function (listFullUrl, parameters) { return Lib.List.getDataAsStream(listFullUrl, parameters); },
-    Navigation: function (url, targetInfo) { return new Lib.Navigation(url, targetInfo); },
-    PeopleManager: function (targetInfo) { return new Lib.PeopleManager(targetInfo); },
-    PeoplePicker: function (targetInfo) { return new Lib.PeoplePicker(targetInfo); },
-    ProfileLoader: function (targetInfo) { return new Lib.ProfileLoader(targetInfo); },
+    List: Lib.List,
+    ListByEntityName: Lib.List.getByEntityName,
+    ListDataAsStream: Lib.List.getDataAsStream,
+    Navigation: Lib.Navigation,
+    PeopleManager: Lib.PeopleManager,
+    PeoplePicker: Lib.PeoplePicker,
+    ProfileLoader: Lib.ProfileLoader,
     RemoteWeb: function (requestUrl) { return Lib.Web.getRemoteWeb(requestUrl); },
-    Search: function (url, targetInfo) { return new Lib.Search(url, targetInfo); },
-    Site: function (url, targetInfo) { return new Lib.Site(url, targetInfo); },
+    Search: Lib.Search,
+    Site: Lib.Site,
     SiteExists: function (url) { return Lib.Site.exists(url); },
     SiteUrl: function (id) { return Lib.Site.getUrlById(id); },
     SPTypes: Mapper.SPTypes,
     SocialFeed: Lib.SocialFeed,
-    UserProfile: function (targetInfo) { return new Lib.UserProfile(targetInfo); },
-    Utility: function (url, targetInfo) { return new Lib.Utility(url, targetInfo); },
-    Web: function (url, targetInfo) { return new Lib.Web(url, targetInfo); }
+    UserProfile: Lib.UserProfile,
+    Utility: Lib.Utility,
+    Web: Lib.Web
 };
 // See if the library doesn't exist, or is an older version
 var global = Lib.ContextInfo.window.$REST;

@@ -1,4 +1,4 @@
-import { IBase, ITargetInfo } from "../../utils/types";
+import { IBase } from "../../utils/types";
 import { IMenuState } from ".";
 /**
  * Navigation Methods
@@ -29,10 +29,4 @@ export interface INavigationServiceRESTQueryProps {
  * Navigation
  */
 export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBase<INavigationServiceREST> {
-    /**
-     * Constructor
-     * @param url - (Optional) The web url.
-     * @param targetInfo - (Optional) The target information.
-     */
-    new (url?: string, targetInfo?: ITargetInfo): INavigationServiceREST;
 }

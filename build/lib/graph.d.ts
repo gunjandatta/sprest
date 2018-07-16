@@ -1,2 +1,5 @@
-import { Types } from "../mapper";
-export declare const Graph: Types.IGraph;
+import { IGraph } from "./types";
+/**
+ * Graph
+ */
+export declare const Graph: IGraph;

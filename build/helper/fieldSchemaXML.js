@@ -118,7 +118,7 @@ exports.FieldSchemaXML = function (fieldInfo) {
         // See if the lookup name exists
         if (fieldInfo.listName) {
             // Get the web containing the list
-            (new lib_1.Web(fieldInfo.webUrl))
+            lib_1.Web(fieldInfo.webUrl)
                 .Lists(fieldInfo.listName)
                 .query({
                 Expand: ["ParentWeb"]

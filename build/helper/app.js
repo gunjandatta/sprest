@@ -21,7 +21,7 @@ exports.App = {
             }
             // Get the host web
             lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
-            var web = (new lib_1.Web(rootWebFl ? lib_1.ContextInfo.siteServerRelativeUrl : null));
+            var web = lib_1.Web(rootWebFl ? lib_1.ContextInfo.siteServerRelativeUrl : null);
             // See if the folder url was given
             if (typeof (dstFolder) === "string") {
                 // Get the folder
@@ -61,7 +61,7 @@ exports.App = {
                 // Target the current web
                 lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl = false;
                 // Get the current web
-                (new lib_1.Web())
+                lib_1.Web()
                     .getFileByServerRelativeUrl(srcFileUrl_1)
                     .content()
                     .execute(function (content) {

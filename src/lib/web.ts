@@ -1,40 +1,30 @@
-import { Types } from "..";
 import { Base } from "../utils";
+import { IWeb } from "./types";
 
-/*********************************************************************************************************************************/
-// Web
-/*********************************************************************************************************************************/
-class _Web extends Base<Types.SP.IWeb> {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    constructor(url?, targetInfo?) {
-        // Call the base constructor
-        super(targetInfo);
+export const Web: IWeb = ((url?, targetInfo?) => {
+    let web = new Base(targetInfo);
 
-        // Default the properties
-        this.targetInfo.defaultToWebFl = true;
-        this.targetInfo.endpoint = "web";
+    // Default the properties
+    web.targetInfo.defaultToWebFl = true;
+    web.targetInfo.endpoint = "web";
 
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            this.targetInfo.url = url;
-        }
-
-        // Add the methods
-        this.addMethods(this, { __metadata: { type: "web" } });
+    // See if the web url exists
+    if (url) {
+        // Set the settings
+        web.targetInfo.url = url;
     }
 
-    // Method to get a remote web
-    static getRemoteWeb(requestUrl: string) {
-        // Return the remote web information
-        return new Base({
-            data: { requestUrl },
-            defaultToWebFl: true,
-            endpoint: "SP.RemoteWeb?$expand=Web",
-            method: "POST"
-        });
-    }
-}
-export const Web: Types.SP.IWeb = _Web as any;
+    // Add the methods
+    web.addMethods(web, { __metadata: { type: "web" } });
+}) as any as IWeb;
+
+// Static method to get a remote web
+Web.getRemoteWeb = ((requestUrl: string) => {
+    // Return the remote web information
+    return new Base({
+        data: { requestUrl },
+        defaultToWebFl: true,
+        endpoint: "SP.RemoteWeb?$expand=Web",
+        method: "POST"
+    });
+}) as any;

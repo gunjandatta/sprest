@@ -1,29 +1,25 @@
-import { INavigationServiceREST } from "../mapper/types";
 import { Base } from "../utils";
+import { INavigation } from "./types";
 
 /**
  * Navigation
  */
-class _Navigation extends Base {
-    /**
-     * Constructor
-     */
-    constructor(url?: string, targetInfo?) {
-        // Call the base constructor
-        super(targetInfo);
+export const Navigation: INavigation = ((url?: string, targetInfo?) => {
+    let navigation = new Base(targetInfo);
 
-        // Default the properties
-        this.targetInfo.defaultToWebFl = true;
-        this.targetInfo.endpoint = "navigation";
+    // Default the properties
+    navigation.targetInfo.defaultToWebFl = true;
+    navigation.targetInfo.endpoint = "navigation";
 
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            this.targetInfo.url = url;
-        }
-
-        // Add the methods
-        this.addMethods(this, { __metadata: { type: "navigationservicerest" } });
+    // See if the web url exists
+    if (url) {
+        // Set the settings
+        navigation.targetInfo.url = url;
     }
-}
-export const Navigation: INavigationServiceREST = _Navigation as any;
+
+    // Add the methods
+    navigation.addMethods(navigation, { __metadata: { type: "navigationservicerest" } });
+
+    // Return the navigation
+    return navigation;
+}) as any;

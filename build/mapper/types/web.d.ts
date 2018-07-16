@@ -1,4 +1,4 @@
-import { IBase, ITargetInfo } from "../../utils/types";
+import { IBase } from "../../utils/types";
 import { Types } from "../..";
 import { ITenantAppCatalog, IWebInfo, IWebResult, IWebResults, IWebs } from ".";
 /**
@@ -733,15 +733,4 @@ export interface IWebResult extends IWebMethods, IWebProps, IWebQueryProps, IBas
  * Web
  */
 export interface IWeb extends IWebMethods, IWebQueryProps, IBase<IWeb, IWebResult, IWebQueryResult> {
-    /**
-     * Constructor
-     * @param url - (Optional) The web url.
-     * @param targetInfo - (Optional) The target information.
-     */
-    new (url?: string, targetInfo?: ITargetInfo): IWeb;
-    /**
-     * Method to get a remote web.
-     * @param requestUrl - The absolute url of the remote web.
-     */
-    getRemoteWeb(requestUrl: string): IBase<IWebRemote>;
 }
