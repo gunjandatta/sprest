@@ -32,7 +32,7 @@ export interface IREST {
     /**
      * Use this api to interact with the Graph API. (Still In Development)
      */
-    Graph: Mapper.Types.IGraph;
+    Graph: Lib.Types.IGraph;
 
     /**
      * Helper methods.
@@ -136,10 +136,8 @@ export interface IREST {
 
     /**
      * Use this api to interact with SharePoint lists and libraries.
-     * @param listName - The name of the list.
-     * @param targetInfo - (Optional) The target information.
      */
-    List: (listName: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IList;
+    List: Lib.Types.IList;
 
     /**
      * Use this api to get the list name by its entity name.
@@ -157,28 +155,26 @@ export interface IREST {
 
     /**
      * Use this api to interact with SharePoint navigation.
-     * @param url - (Optional) The web url.
-     * @param targetInfo - (Optional) The target information.
      */
-    Navigation: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.INavigationServiceREST;
+    Navigation: Lib.Types.INavigation;
 
     /**
      * Use this api to interact with SharePoint user profiles.
      * @param targetInfo - (Optional) The target information.
      */
-    PeopleManager: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IPeopleManager;
+    PeopleManager: Lib.Types.IPeopleManager;
 
     /**
      * Use this api to search for users.
      * @param settings - The search settings.
      */
-    PeoplePicker: (settings?: Util.Types.ITargetInfo) => Mapper.Types.IPeoplePicker;
+    PeoplePicker: Lib.Types.IPeoplePicker;
 
     /**
      * Use this api to interact with the user profile loader.
      * @param targetInfo - (Optional) The target information.
      */
-    ProfileLoader: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IProfileLoader;
+    ProfileLoader: Lib.Types.IProfileLoader;
 
     /**
      * Use this api to get a remote web.
@@ -191,14 +187,12 @@ export interface IREST {
      * @param url - The optional url to execute the search against.
      * @param settings - The search settings.
      */
-    Search: (url?: string, settings?: Util.Types.ITargetInfo) => Mapper.Types.ISearch;
+    Search: Lib.Types.ISearch;
 
     /**
      * Use this api to interact with a SharePoint site collection.
-     * @param url - (Optional) The site url.
-     * @param targetInfo - (Optional) The target information.
      */
-    Site: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.ISite;
+    Site: Lib.Types.ISite;
 
     /**
      * Use this api to see if a site collection exists.
@@ -215,7 +209,7 @@ export interface IREST {
     /**
      * Use this api to interact with the current user's social profile.
      */
-    SocialFeed: Mapper.Types.ISocialFeed;
+    SocialFeed: Lib.Types.ISocialFeed;
 
     /**
      * The SharePoint enumerator types.
@@ -224,30 +218,25 @@ export interface IREST {
 
     /**
      * Use this api to interact with the current user's profile.
-     * @param targetInfo - (Optional) The target information.
      */
-    UserProfile: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IUserProfile;
+    UserProfile: Lib.Types.IUserProfile;
 
     /**
-     * The utility api
-     * @param url - (Optional) The web url.
-     * @param targetInfo - (Optional) The target information.
+     * Use this api to interact with the available utility methods.
      */
-    Utility: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IUtility;
+    Utility: Lib.Types.IUtility;
 
     /**
      * Use this api to interact with a SharePoint web.
-     * @param url - (Optional) The web url.
-     * @param targetInfo - (Optional) The target information.
      */
-    Web: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IWeb;
+    Web: Lib.Types.IWeb;
 }
 
 /**
  * SharePoint REST Library
  */
 export const $REST: IREST = {
-    __ver: 4.10,
+    __ver: 4.13,
     AppContext: (siteUrl: string) => { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
@@ -270,23 +259,23 @@ export const $REST: IREST = {
         Taxonomy: Helper.Taxonomy,
         WebPart: Helper.WebPart
     } as any,
-    List: (listName, targetInfo) => { return new Lib.List(listName, targetInfo); },
-    ListByEntityName: (entityTypeName: string, callback: (IList) => void, targetInfo?) => { return Lib.List.getByEntityName(entityTypeName, callback, targetInfo); },
-    ListDataAsStream: (listFullUrl, parameters) => { return Lib.List.getDataAsStream(listFullUrl, parameters); },
-    Navigation: (url, targetInfo) => { return new Lib.Navigation(url, targetInfo); },
-    PeopleManager: (targetInfo) => { return new Lib.PeopleManager(targetInfo); },
-    PeoplePicker: (targetInfo) => { return new Lib.PeoplePicker(targetInfo); },
-    ProfileLoader: (targetInfo) => { return new Lib.ProfileLoader(targetInfo); },
+    List: Lib.List,
+    ListByEntityName: Lib.List.getByEntityName,
+    ListDataAsStream: Lib.List.getDataAsStream,
+    Navigation: Lib.Navigation,
+    PeopleManager: Lib.PeopleManager,
+    PeoplePicker: Lib.PeoplePicker,
+    ProfileLoader: Lib.ProfileLoader,
     RemoteWeb: (requestUrl) => { return Lib.Web.getRemoteWeb(requestUrl); },
-    Search: (url, targetInfo) => { return new Lib.Search(url, targetInfo); },
-    Site: (url, targetInfo) => { return new Lib.Site(url, targetInfo); },
+    Search: Lib.Search,
+    Site: Lib.Site,
     SiteExists: (url) => { return Lib.Site.exists(url); },
     SiteUrl: (id: string) => { return Lib.Site.getUrlById(id); },
     SPTypes: Mapper.SPTypes,
     SocialFeed: Lib.SocialFeed,
-    UserProfile: (targetInfo) => { return new Lib.UserProfile(targetInfo); },
-    Utility: (url, targetInfo) => { return new Lib.Utility(url, targetInfo); },
-    Web: (url, targetInfo) => { return new Lib.Web(url, targetInfo); }
+    UserProfile: Lib.UserProfile,
+    Utility: Lib.Utility,
+    Web: Lib.Web
 };
 
 // See if the library doesn't exist, or is an older version

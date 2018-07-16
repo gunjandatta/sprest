@@ -18,7 +18,7 @@ exports.ListFormField = {
             }
             else {
                 // Get the web
-                (new __1.Web(_fieldInfo.webUrl))
+                __1.Web(_fieldInfo.webUrl)
                     .Lists(_fieldInfo.listName)
                     .Fields()
                     .getByInternalNameOrTitle(_fieldInfo.name)
@@ -124,7 +124,7 @@ exports.ListFormField = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Get the current site collection
-            (new __1.Site())
+            __1.Site()
                 .openWebById(info.lookupWebId)
                 .execute(function (web) {
                 // Get the list
@@ -166,7 +166,7 @@ exports.ListFormField = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Get the web
-            (new __1.Web(info.webUrl))
+            __1.Web(info.webUrl)
                 .Lists(info.listName)
                 .Fields()
                 .getByInternalNameOrTitle(info.name + "_0")

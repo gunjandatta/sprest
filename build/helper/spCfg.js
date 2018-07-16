@@ -44,7 +44,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // See if the parent name exists
                     if (cfgContentType.ParentName) {
                         // Get the web containing the parent content type
-                        (new lib_1.Web(cfgContentType.ParentWebUrl || webUrl))
+                        lib_1.Web(cfgContentType.ParentWebUrl || webUrl)
                             .ContentTypes()
                             .query({
                             Filter: "Name eq '" + cfgContentType.ParentName + "'"
@@ -371,6 +371,11 @@ exports.SPConfig = function (cfg, webUrl) {
                     console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
                 }
                 else {
+                    // See if rights exist
+                    if (cfgCustomAction.Rights) {
+                        // Update the value
+                        cfgCustomAction.Rights = updateBasePermissions(cfgCustomAction.Rights);
+                    }
                     // Add the custom action
                     customActions.add(cfgCustomAction).execute(function (ca) {
                         // Ensure it exists
@@ -454,7 +459,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Log
             console.log("[gd-sprest][WebPart] Creating the web parts.");
             // Get the root web
-            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+            lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                 .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 .RootFolder()
                 .query({
@@ -503,7 +508,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             // See if group exists
                             if (cfgWebPart.Group) {
                                 // Set the target to the root web
-                                (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+                                lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                                     .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                                     .Items()
                                     .query({
@@ -734,7 +739,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Log
             console.log("[gd-sprest][WebPart] Removing the web parts.");
             // Get the root web
-            (new lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl))
+            lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
                 .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
                 .RootFolder()
                 .Files()
@@ -767,6 +772,54 @@ exports.SPConfig = function (cfg, webUrl) {
             });
         });
     };
+    // Method to update the base permissions
+    var updateBasePermissions = function (values) {
+        var high = 0;
+        var low = 0;
+        // Parse the values
+        for (var i = 0; i < values.length; i++) {
+            var value = values[i];
+            // See if this is the full mask
+            if (value == 65) {
+                // Set the values
+                low = 65535;
+                high = 32767;
+                // Break from the loop
+                break;
+            }
+            else if (value == 0) {
+                // Clear the values
+                low = 0;
+                high = 0;
+            }
+            else {
+                var bit = value - 1;
+                var bitValue = 1;
+                // Validate the bit
+                if (bit < 0) {
+                    continue;
+                }
+                // See if it's a low permission
+                if (bit < 32) {
+                    // Compute the value
+                    bitValue = bitValue << bit;
+                    // Set the low value
+                    low |= bitValue;
+                }
+                else {
+                    // Compute the value
+                    bitValue = bitValue << (bit - 32);
+                    // Set the high value
+                    high |= bitValue;
+                }
+            }
+        }
+        // Return the base permission
+        return {
+            Low: low.toString(),
+            High: high.toString()
+        };
+    };
     // Method to update the lists
     var updateLists = function (cfgLists) {
         // Return a promise
@@ -786,7 +839,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 // Ensure the configuration exists
                 if (cfgList) {
                     // Get the web
-                    (new lib_1.Web(webUrl))
+                    lib_1.Web(webUrl)
                         .Lists(cfgList.ListInformation.Title)
                         .query({
                         Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
@@ -905,7 +958,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 return;
             }
             // Get the site
-            (new lib_1.Site(webUrl))
+            lib_1.Site(webUrl)
                 .query({
                 Expand: ["UserCustomActions"]
             })
@@ -925,7 +978,7 @@ exports.SPConfig = function (cfg, webUrl) {
             // Log
             console.log("[gd-sprest][uninstall] Loading the web information...");
             // Get the web
-            (new lib_1.Web(webUrl))
+            lib_1.Web(webUrl)
                 .query({
                 Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
             })
@@ -962,7 +1015,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 // Log
                 console.log("[gd-sprest] Loading the web information...");
                 // Get the web
-                var web = new lib_1.Web(webUrl);
+                var web = lib_1.Web(webUrl);
                 // The post execution method
                 var postExecute = function () {
                     // See if we have completed the executions
@@ -1050,7 +1103,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         // Log
                         console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
                         // Get the site
-                        (new lib_1.Site(webUrl))
+                        lib_1.Site(webUrl)
                             .UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
                             createUserCustomActions(_1.parse(customActions.stringify()), cfg.CustomActionCfg.Site).then(function () {

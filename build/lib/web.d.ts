@@ -1,2 +1,2 @@
-import { Types } from "..";
-export declare const Web: Types.SP.IWeb;
+import { IWeb } from "./types";
+export declare const Web: IWeb;

@@ -304,7 +304,7 @@ export const ListForm: IListForm = {
                 }
 
                 // Get the web
-                (new Web(_props.webUrl))
+                Web(_props.webUrl)
                     // Get the list
                     .Lists(_props.listName)
                     // Execute the request
@@ -458,7 +458,7 @@ export const ListForm: IListForm = {
             let itemId = info.item ? info.item.Id : info.itemId;
             if (itemId > 0) {
                 // Get the web
-                (new Web(info.webUrl))
+                Web(info.webUrl)
                     // Get the list
                     .Lists(info.listName)
                     // Get the item
@@ -507,7 +507,7 @@ export const ListForm: IListForm = {
                     let attachment = info.attachments[i];
                     if (attachment.FileName == fileName) {
                         // Get the web
-                        (new Web(info.webUrl))
+                        Web(info.webUrl)
                             // Get the file
                             .getFileByServerRelativeUrl(attachment.ServerRelativeUrl)
                             // Delete the file
@@ -539,7 +539,7 @@ export const ListForm: IListForm = {
             let itemId = info.item ? info.item.Id : info.itemId;
             if (itemId > 0) {
                 // Get the web
-                let attachments = (new Web(info.webUrl))
+                let attachments = Web(info.webUrl)
                     // Get the lists
                     .Lists(info.listName)
                     // Get the item

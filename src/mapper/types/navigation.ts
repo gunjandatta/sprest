@@ -32,11 +32,4 @@ export interface INavigationServiceRESTQueryProps {
 /**
  * Navigation
  */
-export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBase<INavigationServiceREST> {
-    /**
-     * Constructor
-     * @param url - (Optional) The web url.
-     * @param targetInfo - (Optional) The target information.
-     */
-    new(url?: string, targetInfo?: ITargetInfo): INavigationServiceREST;
-}
+export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBase<INavigationServiceREST> { }

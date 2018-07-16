@@ -1,4 +1,44 @@
 /**
+ * Base Permission Types
+ */
+export declare type IBasePermissionType = {
+    AddAndCustomizePages: number;
+    AddDelPrivateWebParts: number;
+    AddListItems: number;
+    ApplyStyleSheets: number;
+    ApplyThemeAndBorder: number;
+    ApproveItems: number;
+    BrowseDirectories: number;
+    BrowseUserInfo: number;
+    CancelCheckout: number;
+    CreateAlerts: number;
+    CreateGroups: number;
+    CreateSSCSite: number;
+    DeleteListItems: number;
+    DeleteVersions: number;
+    EditListItems: number;
+    EditMyUserInfo: number;
+    EmptyMask: number;
+    EnumeratePermissions: number;
+    FullMask: number;
+    ManageAlerts: number;
+    ManageLists: number;
+    ManagePermissions: number;
+    ManagePersonalViews: number;
+    ManageSubwebs: number;
+    ManageWeb: number;
+    Open: number;
+    OpenItems: number;
+    UpdatePersonalWebParts: number;
+    UseClientIntegration: number;
+    UseRemoteAPIs: number;
+    ViewFormPages: number;
+    ViewListItems: number;
+    ViewPages: number;
+    ViewUsageData: number;
+    ViewVersions: number;
+};
+/**
  * Calendar Types
  */
 export declare type ICalendarType = {

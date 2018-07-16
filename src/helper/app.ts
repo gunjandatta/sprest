@@ -24,7 +24,7 @@ export const App: IApp = {
 
             // Get the host web
             ContextInfo.window.$REST.DefaultRequestToHostFl = true;
-            let web = (new Web(rootWebFl ? ContextInfo.siteServerRelativeUrl : null));
+            let web = Web(rootWebFl ? ContextInfo.siteServerRelativeUrl : null);
 
             // See if the folder url was given
             if (typeof (dstFolder) === "string") {
@@ -66,7 +66,7 @@ export const App: IApp = {
                 ContextInfo.window.$REST.DefaultRequestToHostFl = false;
 
                 // Get the current web
-                (new Web())
+                Web()
                     .getFileByServerRelativeUrl(srcFileUrl)
                     // Get the content
                     .content()

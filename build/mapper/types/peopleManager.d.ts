@@ -1,4 +1,4 @@
-import { IBase, ITargetInfo } from "../../utils/types";
+import { IBase } from "../../utils/types";
 import { ComplexTypes, IResults } from ".";
 /**
  * Person Properties
@@ -65,11 +65,6 @@ export interface IPersonProperties extends IBase<IPersonProperties> {
  * People Manager
  */
 export interface IPeopleManager extends IBase<IPeopleManager> {
-    /**
-     * Constructor
-     * @param targetInfo - (Optional) The target information.
-     */
-    new (targetInfo?: ITargetInfo): IPeopleManager;
     /**
      * Properties
      */

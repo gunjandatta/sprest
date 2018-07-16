@@ -20,11 +20,11 @@ The SharePoint REST Framework was designed for SharePoint 2013, but works in bot
 - [gd-sprest-react](https://github.com/gunjandatta/sprest-react) - Extends the [Office Fabric React Framework](https://dev.office.com/fabric) with components designed for SharePoint 2013/Online.
 - [gd-sprest-webparts](https://github.com/gunjandatta/sprest-webparts) - SharePoint 2013 modern react webpart examples.
 
-### gd-sprest vs pnp-js-core
-The gd-sprest library is similar to the pnp-js-core, with the main difference being the ability to be used within the browser console window. This feature provides a "Powershell-Like" experience within the browser console window. This feature was designed for developers working in restricted SharePoint environments, or do not have access to the server or powershell access. Some additional benefits of the library are listed below:
+### gd-sprest vs @pnp/sp
+The gd-sprest library is similar to the @pnp/sp library, with the main difference being the ability to be used within the browser console window. This feature provides a "Powershell-Like" experience within the browser console window. This feature was designed for developers working in restricted SharePoint environments, and do not have access to the server or powershell access. Some additional benefits of the library are listed below:
 - Designed to work in restricted SharePoint environments with limited access to the SharePoint Farm, Web App, Site Collection, Root Web, etc.
 - No powershell or admin access to the server
-- Ability to create resusable scripts/solutions
+- Ability to create reusable scripts/solutions
 - Intellisense has been designed to minimize the need to specify the variable types
 - Ability to execute live requests from the browser console, helps to debug issues in production
 

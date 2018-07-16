@@ -3,7 +3,7 @@ import { ContextInfo, List, Site, Web } from "../lib";
 import { SPTypes, Types } from "..";
 import {
     ISPCfgFieldInfo, ISPCfgContentTypeInfo, ISPCfgListInfo, ISPCfgViewInfo,
-    ISPConfig, ISPConfigProps
+    ISPConfig, ISPConfigProps, ISPCfgCustomActionInfo
 } from "./types";
 import {
     FieldSchemaXML, parse, SPCfgFieldType, SPCfgType
@@ -53,7 +53,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // See if the parent name exists
                     if (cfgContentType.ParentName) {
                         // Get the web containing the parent content type
-                        (new Web(cfgContentType.ParentWebUrl || webUrl))
+                        Web(cfgContentType.ParentWebUrl || webUrl)
                             // Get the content types
                             .ContentTypes()
                             // Filter for the parent name
@@ -402,6 +402,12 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Log
                     console.log("[gd-sprest][Custom Action] The custom action '" + cfgCustomAction.Name + "' already exists.");
                 } else {
+                    // See if rights exist
+                    if (cfgCustomAction.Rights) {
+                        // Update the value
+                        cfgCustomAction.Rights = updateBasePermissions(cfgCustomAction.Rights) as any;
+                    }
+
                     // Add the custom action
                     customActions.add(cfgCustomAction).execute((ca) => {
                         // Ensure it exists
@@ -488,7 +494,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             console.log("[gd-sprest][WebPart] Creating the web parts.");
 
             // Get the root web
-            (new Web(ContextInfo.siteServerRelativeUrl))
+            Web(ContextInfo.siteServerRelativeUrl)
                 // Get the web part catalog
                 .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
@@ -550,7 +556,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 // See if group exists
                                 if (cfgWebPart.Group) {
                                     // Set the target to the root web
-                                    (new Web(ContextInfo.siteServerRelativeUrl))
+                                    Web(ContextInfo.siteServerRelativeUrl)
                                         // Get the web part catalog
                                         .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                                         // Get the Items
@@ -801,7 +807,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             console.log("[gd-sprest][WebPart] Removing the web parts.");
 
             // Get the root web
-            (new Web(ContextInfo.siteServerRelativeUrl))
+            Web(ContextInfo.siteServerRelativeUrl)
                 // Get the webpart gallery
                 .getCatalog(SPTypes.ListTemplateType.WebPartCatalog)
                 // Get the root folder
@@ -840,6 +846,64 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
         });
     }
 
+    // Method to update the base permissions
+    let updateBasePermissions = (values: Array<number>) => {
+        let high = 0;
+        let low = 0;
+
+        // Parse the values
+        for (let i = 0; i < values.length; i++) {
+            let value = values[i];
+
+            // See if this is the full mask
+            if (value == 65) {
+                // Set the values
+                low = 65535;
+                high = 32767;
+
+                // Break from the loop
+                break;
+            }
+            // Else, see if it's empty
+            else if (value == 0) {
+                // Clear the values
+                low = 0;
+                high = 0;
+            }
+            // Else, update the base permission
+            else {
+                let bit = value - 1;
+                let bitValue = 1;
+
+                // Validate the bit
+                if (bit < 0) { continue; }
+
+                // See if it's a low permission
+                if (bit < 32) {
+                    // Compute the value
+                    bitValue = bitValue << bit;
+
+                    // Set the low value
+                    low |= bitValue;
+                }
+                // Else, it's a high permission
+                else {
+                    // Compute the value
+                    bitValue = bitValue << (bit - 32);
+
+                    // Set the high value
+                    high |= bitValue;
+                }
+            }
+        }
+
+        // Return the base permission
+        return {
+            Low: low.toString(),
+            High: high.toString()
+        };
+    }
+
     // Method to update the lists
     let updateLists = (cfgLists: Array<ISPCfgListInfo>): PromiseLike<void> => {
         // Return a promise
@@ -861,7 +925,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 // Ensure the configuration exists
                 if (cfgList) {
                     // Get the web
-                    (new Web(webUrl))
+                    Web(webUrl)
                         // Get the list
                         .Lists(cfgList.ListInformation.Title)
                         // Expand the content types, fields and views
@@ -995,7 +1059,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             }
 
             // Get the site
-            (new Site(webUrl))
+            Site(webUrl)
                 // Expand the user custom actions
                 .query({
                     Expand: ["UserCustomActions"]
@@ -1019,7 +1083,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
             console.log("[gd-sprest][uninstall] Loading the web information...");
 
             // Get the web
-            (new Web(webUrl))
+            Web(webUrl)
                 // Expand the content types, fields, lists and user custom actions
                 .query({
                     Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
@@ -1062,7 +1126,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                 console.log("[gd-sprest] Loading the web information...");
 
                 // Get the web
-                let web = new Web(webUrl);
+                let web = Web(webUrl);
 
                 // The post execution method
                 let postExecute = () => {
@@ -1171,7 +1235,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
 
                         // Get the site
-                        (new Site(webUrl))
+                        Site(webUrl)
                             // Get the user custom actions
                             .UserCustomActions().execute(customActions => {
                                 // Create the user custom actions

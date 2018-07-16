@@ -113,7 +113,7 @@ declare module 'gd-sprest/rest' {
             /**
                 * Use this api to interact with the Graph API. (Still In Development)
                 */
-            Graph: Mapper.Types.IGraph;
+            Graph: Lib.Types.IGraph;
             /**
                 * Helper methods.
                 */
@@ -197,10 +197,8 @@ declare module 'gd-sprest/rest' {
             };
             /**
                 * Use this api to interact with SharePoint lists and libraries.
-                * @param listName - The name of the list.
-                * @param targetInfo - (Optional) The target information.
                 */
-            List: (listName: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IList;
+            List: Lib.Types.IList;
             /**
                 * Use this api to get the list name by its entity name.
                 * @param entityTypeName - The entity type name of the list.
@@ -215,25 +213,23 @@ declare module 'gd-sprest/rest' {
             ListDataAsStream: (listFullUrl: string, parameters?: Mapper.Types.IListDataParameters) => Util.Types.IBase<Mapper.Types.IListDataStream>;
             /**
                 * Use this api to interact with SharePoint navigation.
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
                 */
-            Navigation: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.INavigationServiceREST;
+            Navigation: Lib.Types.INavigation;
             /**
                 * Use this api to interact with SharePoint user profiles.
                 * @param targetInfo - (Optional) The target information.
                 */
-            PeopleManager: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IPeopleManager;
+            PeopleManager: Lib.Types.IPeopleManager;
             /**
                 * Use this api to search for users.
                 * @param settings - The search settings.
                 */
-            PeoplePicker: (settings?: Util.Types.ITargetInfo) => Mapper.Types.IPeoplePicker;
+            PeoplePicker: Lib.Types.IPeoplePicker;
             /**
                 * Use this api to interact with the user profile loader.
                 * @param targetInfo - (Optional) The target information.
                 */
-            ProfileLoader: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IProfileLoader;
+            ProfileLoader: Lib.Types.IProfileLoader;
             /**
                 * Use this api to get a remote web.
                 * @param requestUrl - The absolute url of the remote web.
@@ -244,13 +240,11 @@ declare module 'gd-sprest/rest' {
                 * @param url - The optional url to execute the search against.
                 * @param settings - The search settings.
                 */
-            Search: (url?: string, settings?: Util.Types.ITargetInfo) => Mapper.Types.ISearch;
+            Search: Lib.Types.ISearch;
             /**
                 * Use this api to interact with a SharePoint site collection.
-                * @param url - (Optional) The site url.
-                * @param targetInfo - (Optional) The target information.
                 */
-            Site: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.ISite;
+            Site: Lib.Types.ISite;
             /**
                 * Use this api to see if a site collection exists.
                 * @param url - The absolute url of the site collection.
@@ -264,28 +258,23 @@ declare module 'gd-sprest/rest' {
             /**
                 * Use this api to interact with the current user's social profile.
                 */
-            SocialFeed: Mapper.Types.ISocialFeed;
+            SocialFeed: Lib.Types.ISocialFeed;
             /**
                 * The SharePoint enumerator types.
                 */
             SPTypes: any;
             /**
                 * Use this api to interact with the current user's profile.
-                * @param targetInfo - (Optional) The target information.
                 */
-            UserProfile: (targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IUserProfile;
+            UserProfile: Lib.Types.IUserProfile;
             /**
-                * The utility api
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
+                * Use this api to interact with the available utility methods.
                 */
-            Utility: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IUtility;
+            Utility: Lib.Types.IUtility;
             /**
                 * Use this api to interact with a SharePoint web.
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
                 */
-            Web: (url?: string, targetInfo?: Util.Types.ITargetInfo) => Mapper.Types.IWeb;
+            Web: Lib.Types.IWeb;
     }
     /**
         * SharePoint REST Library
@@ -454,6 +443,10 @@ declare module 'gd-sprest/mapper/mapper' {
 
 declare module 'gd-sprest/mapper/sptypes' {
     import { SPTypes } from "gd-sprest/mapper/types";
+    /**
+        * Base Permission Types
+        */
+    export const BasePermissionTypes: SPTypes.IBasePermissionType;
     /**
         * Calendar Types
         */
@@ -750,67 +743,112 @@ declare module 'gd-sprest/lib/contextInfo' {
 }
 
 declare module 'gd-sprest/lib/graph' {
-    import { Types } from "gd-sprest/mapper";
-    export const Graph: Types.IGraph;
+    import { IGraph } from "gd-sprest/lib/types";
+    /**
+      * Graph
+      */
+    export const Graph: IGraph;
 }
 
 declare module 'gd-sprest/lib/list' {
-    import { Types } from "gd-sprest/";
-    export const List: Types.SP.IList;
+    import { IList } from "gd-sprest/lib/types";
+    /**
+      * List
+      */
+    export const List: IList;
 }
 
 declare module 'gd-sprest/lib/navigation' {
-    import { INavigationServiceREST } from "gd-sprest/mapper/types";
-    export const Navigation: INavigationServiceREST;
+    import { INavigation } from "gd-sprest/lib/types";
+    /**
+      * Navigation
+      */
+    export const Navigation: INavigation;
 }
 
 declare module 'gd-sprest/lib/peopleManager' {
-    import { Types } from "gd-sprest/";
-    export const PeopleManager: Types.SP.IPeopleManager;
+    import { IPeopleManager } from "gd-sprest/lib/types";
+    /**
+      * People Manager
+      */
+    export const PeopleManager: IPeopleManager;
 }
 
 declare module 'gd-sprest/lib/peoplePicker' {
-    import { Types } from "gd-sprest/";
-    export const PeoplePicker: Types.SP.IPeoplePicker;
+    import { IPeoplePicker } from "gd-sprest/lib/types";
+    /**
+      * People Picker
+      */
+    export const PeoplePicker: IPeoplePicker;
 }
 
 declare module 'gd-sprest/lib/profileLoader' {
-    import { Types } from "gd-sprest/";
-    export const ProfileLoader: Types.SP.IProfileLoader;
+    import { IProfileLoader } from "gd-sprest/lib/types";
+    /**
+      * Profile Loader
+      */
+    export const ProfileLoader: IProfileLoader;
 }
 
 declare module 'gd-sprest/lib/search' {
-    import { Types } from "gd-sprest/";
-    export const Search: Types.SP.ISearch;
+    import { ISearch } from "gd-sprest/lib/types";
+    /**
+      * Search
+      */
+    export const Search: ISearch;
 }
 
 declare module 'gd-sprest/lib/site' {
-    import { Types } from "gd-sprest/";
-    export const Site: Types.SP.ISite;
+    import { ISite } from "gd-sprest/lib/types";
+    /**
+      * Site
+      */
+    export const Site: ISite;
 }
 
 declare module 'gd-sprest/lib/socialFeed' {
-    import { Types } from "gd-sprest/";
-    export const SocialFeed: Types.SP.ISocialFeed;
+    import { ISocialFeed } from "gd-sprest/lib/types";
+    /**
+      * Social Feed
+      */
+    export const SocialFeed: ISocialFeed;
 }
 
 declare module 'gd-sprest/lib/userProfile' {
-    import { Types } from "gd-sprest/";
-    export const UserProfile: Types.SP.IUserProfile;
+    import { IUserProfile } from "gd-sprest/lib/types";
+    /**
+      * User Profile
+      */
+    export const UserProfile: IUserProfile;
 }
 
 declare module 'gd-sprest/lib/utility' {
-    import { Types } from "gd-sprest/";
-    export const Utility: Types.SP.IUtility;
+    import { IUtility } from "gd-sprest/lib/types";
+    /**
+      * Utility
+      */
+    export const Utility: IUtility;
 }
 
 declare module 'gd-sprest/lib/web' {
-    import { Types } from "gd-sprest/";
-    export const Web: Types.SP.IWeb;
+    import { IWeb } from "gd-sprest/lib/types";
+    export const Web: IWeb;
 }
 
 declare module 'gd-sprest/lib/types' {
     export * from "gd-sprest/lib/types/contextInfo";
+    export * from "gd-sprest/lib/types/graph";
+    export * from "gd-sprest/lib/types/list";
+    export * from "gd-sprest/lib/types/navigation";
+    export * from "gd-sprest/lib/types/peopleManager";
+    export * from "gd-sprest/lib/types/peoplePicker";
+    export * from "gd-sprest/lib/types/profileLoader";
+    export * from "gd-sprest/lib/types/search";
+    export * from "gd-sprest/lib/types/site";
+    export * from "gd-sprest/lib/types/socialFeed";
+    export * from "gd-sprest/lib/types/userProfile";
+    export * from "gd-sprest/lib/types/utility";
+    export * from "gd-sprest/lib/types/web";
 }
 
 declare module 'gd-sprest/helper/spCfgTypes' {
@@ -6719,16 +6757,6 @@ declare module 'gd-sprest/mapper/types/graph' {
         * Graph
         */
     export interface IGraph extends IGraphMethods, IGraphQueryProps, IBase<IGraph, IGraphResult, IGraphQueryResult> {
-            /**
-                * Constructor
-                * @param accessToken - The access token for the graph api request.
-                * @param version - The version of the graph to target.
-                */
-            new (accessToken: string, version?: string): IGraph;
-            /**
-                * Method to get the access token from a classic page.
-                */
-            getAccessToken(): Promise<IGraphToken>;
     }
     /**
         * Graph Group
@@ -7029,7 +7057,7 @@ declare module 'gd-sprest/mapper/types/limitedWebPartManager' {
 }
 
 declare module 'gd-sprest/mapper/types/list' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IBase } from "gd-sprest/utils/types";
     import { Types } from "gd-sprest/";
     import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemProps, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from "gd-sprest/mapper/types";
     /**
@@ -7694,24 +7722,6 @@ declare module 'gd-sprest/mapper/types/list' {
         * List
         */
     export interface IList extends IListMethods, IListQueryProps, IBase<IList, IListResult, IListQueryResult> {
-            /**
-                * Constructor
-                * @param listName - The name of the list.
-                * @param targetInfo - (Optional) The target information.
-                */
-            new (listName: string, targetInfo?: ITargetInfo): IList;
-            /**
-                * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
-                * @param listFullUrl - The absolute url of the list.
-                * @param parameters - The optional list data parameters.
-                */
-            getDataAsStream(listFullUrl: string, parameters?: any): IBase<IListDataStream>;
-            /**
-                * A static method to get the list by the entity name.
-                * @param entityTypeName - The entity type name of the list.
-                * @param callback - The method to be executed after the request completes.
-                */
-            getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?: any): IBase<IList, IListResult, IListQueryResult>;
     }
 }
 
@@ -7957,7 +7967,7 @@ declare module 'gd-sprest/mapper/types/lists' {
 }
 
 declare module 'gd-sprest/mapper/types/navigation' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IBase } from "gd-sprest/utils/types";
     import { IMenuState } from "gd-sprest/mapper/types";
     /**
         * Navigation Methods
@@ -7988,17 +7998,11 @@ declare module 'gd-sprest/mapper/types/navigation' {
         * Navigation
         */
     export interface INavigationServiceREST extends INavigationServiceRESTMethods, INavigationServiceRESTQueryProps, IBase<INavigationServiceREST> {
-            /**
-                * Constructor
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            new (url?: string, targetInfo?: ITargetInfo): INavigationServiceREST;
     }
 }
 
 declare module 'gd-sprest/mapper/types/peopleManager' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IBase } from "gd-sprest/utils/types";
     import { ComplexTypes, IResults } from "gd-sprest/mapper/types";
     /**
         * Person Properties
@@ -8065,11 +8069,6 @@ declare module 'gd-sprest/mapper/types/peopleManager' {
         * People Manager
         */
     export interface IPeopleManager extends IBase<IPeopleManager> {
-            /**
-                * Constructor
-                * @param targetInfo - (Optional) The target information.
-                */
-            new (targetInfo?: ITargetInfo): IPeopleManager;
             /**
                 * The URL of the edit profile page for the current user.
                 */
@@ -8173,7 +8172,7 @@ declare module 'gd-sprest/mapper/types/peopleManager' {
 }
 
 declare module 'gd-sprest/mapper/types/peoplePicker' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IBase } from "gd-sprest/utils/types";
     import { IEntityData } from "gd-sprest/mapper/types";
     /**
         * People Picker Query
@@ -8249,11 +8248,6 @@ declare module 'gd-sprest/mapper/types/peoplePicker' {
         * People Picker
         */
     export interface IPeoplePicker extends IBase {
-            /**
-                * Constructor
-                * @param settings - The search settings.
-                */
-            new (settings?: ITargetInfo): IPeoplePicker;
             /** Method to resolve users.
                 * @param query - The people picker query.
              */
@@ -8266,17 +8260,12 @@ declare module 'gd-sprest/mapper/types/peoplePicker' {
 }
 
 declare module 'gd-sprest/mapper/types/profileLoader' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IBase } from "gd-sprest/utils/types";
     import { IUserProfile } from "gd-sprest/mapper/types";
     /**
         * Profile Loader
         */
     export interface IProfileLoader extends IBase<IProfileLoader> {
-            /**
-                * Constructor
-                * @param targetInfo - (Optional) The target information.
-                */
-            new (targetInfo?: ITargetInfo): IProfileLoader;
             /**
                 * Provisions one or more users' personal sites. (My Site administrator on SharePoint Online only)
                 * @param emailIDs - The email addresses of the users to provision sites for. Maximum 200 characters.
@@ -8686,18 +8675,12 @@ declare module 'gd-sprest/mapper/types/roleDefinitions' {
 }
 
 declare module 'gd-sprest/mapper/types/search' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IBase } from "gd-sprest/utils/types";
     import { ComplexTypes } from "gd-sprest/mapper/types";
     /**
         * Search
         */
     export interface ISearch extends IBase<ISearch, ComplexTypes.SearchResult> {
-            /**
-                * Constructor
-                * @param url - The optional url to execute the search against.
-                * @param settings - The search settings.
-                */
-            new (url?: string, settings?: ITargetInfo): ISearch;
             /** Method to execute a search query.
                 * @param settings - The search request settings.
              */
@@ -8714,7 +8697,7 @@ declare module 'gd-sprest/mapper/types/search' {
 }
 
 declare module 'gd-sprest/mapper/types/site' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IBase } from "gd-sprest/utils/types";
     import { Types } from "gd-sprest/";
     import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from "gd-sprest/mapper/types";
     /**
@@ -8958,27 +8941,6 @@ declare module 'gd-sprest/mapper/types/site' {
         * Site
         */
     export interface ISite extends ISiteMethods, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {
-            /**
-                * Constructor
-                * @param url - (Optional) The site url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            new (url?: string, targetInfo?: ITargetInfo): ISite;
-            /**
-                * Method to check if a site collection exists.
-                * @param url - The absolute url of the site collection.
-                */
-            exists(url: string): IBase<ISiteExists>;
-            /**
-                * Method to get the app context information.
-                * @param siteUrl - The absolute url of the site.
-                */
-            getAppContext(siteUrl: string): IBase;
-            /**
-                * Method to get the url of a site, by its id.
-                * @param id - The site id.
-                */
-            getUrlById(id: string): IBase<ISiteUrl>;
     }
 }
 
@@ -8988,7 +8950,7 @@ declare module 'gd-sprest/mapper/types/socialFeed' {
     /**
         * Social Feed
         */
-    export interface ISocialFeed {
+    export interface ISocialFeed extends IBase<ISocialFeed> {
             /**
                 * Gets information about the specified user and the current user.
                 * @param accountName - The login name of the user.
@@ -9088,6 +9050,46 @@ declare module 'gd-sprest/mapper/types/socialFeed' {
 }
 
 declare module 'gd-sprest/mapper/types/sptypes' {
+    /**
+        * Base Permission Types
+        */
+    export type IBasePermissionType = {
+            AddAndCustomizePages: number;
+            AddDelPrivateWebParts: number;
+            AddListItems: number;
+            ApplyStyleSheets: number;
+            ApplyThemeAndBorder: number;
+            ApproveItems: number;
+            BrowseDirectories: number;
+            BrowseUserInfo: number;
+            CancelCheckout: number;
+            CreateAlerts: number;
+            CreateGroups: number;
+            CreateSSCSite: number;
+            DeleteListItems: number;
+            DeleteVersions: number;
+            EditListItems: number;
+            EditMyUserInfo: number;
+            EmptyMask: number;
+            EnumeratePermissions: number;
+            FullMask: number;
+            ManageAlerts: number;
+            ManageLists: number;
+            ManagePermissions: number;
+            ManagePersonalViews: number;
+            ManageSubwebs: number;
+            ManageWeb: number;
+            Open: number;
+            OpenItems: number;
+            UpdatePersonalWebParts: number;
+            UseClientIntegration: number;
+            UseRemoteAPIs: number;
+            ViewFormPages: number;
+            ViewListItems: number;
+            ViewPages: number;
+            ViewUsageData: number;
+            ViewVersions: number;
+    };
     /**
         * Calendar Types
         */
@@ -10677,7 +10679,7 @@ declare module 'gd-sprest/mapper/types/userCustomAction' {
             /** The value that specifies the type of object associated with the custom action. Represents an SP.UserCustomActionRegistrationType value. */
             RegistrationType?: number;
             /** The value that specifies the permissions needed for the custom action. */
-            Rights?: any;
+            Rights?: Array<number>;
             /** The value that specifies the ECMAScript to be executed when the custom action is performed. */
             ScriptBlock?: string;
             /** A value that specifies the URI of a file which contains the ECMAScript to execute on the page. */
@@ -10798,17 +10800,12 @@ declare module 'gd-sprest/mapper/types/userCustomActions' {
 }
 
 declare module 'gd-sprest/mapper/types/userProfile' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IBase } from "gd-sprest/utils/types";
     import { IWeb } from "gd-sprest/mapper/types";
     /**
         * User Profile
         */
     export interface IUserProfile extends IBase<IUserProfile> {
-            /**
-                * Constructor
-                * @param targetInfo - (Optional) The target information.
-                */
-            new (targetInfo?: ITargetInfo): IUserProfile;
             /**
                 * An object containing the user's FollowedDocumentsUrl and FollowedSitesUrl.
                 */
@@ -10943,7 +10940,7 @@ declare module 'gd-sprest/mapper/types/users' {
 }
 
 declare module 'gd-sprest/mapper/types/utility' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IBase } from "gd-sprest/utils/types";
     import { Types } from "gd-sprest/";
     import { ComplexTypes } from "gd-sprest/mapper/types";
     /**
@@ -11103,12 +11100,6 @@ declare module 'gd-sprest/mapper/types/utility' {
         * Utility
         */
     export interface IUtility extends IUtilityMethods, IBase<IUtility> {
-            /**
-                * Constructor
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            new (url?: string, targetInfo?: ITargetInfo): IUtility;
             /**
                 * Creates a wiki page.
                 * @param listUrl - The relative url to the library.
@@ -11413,7 +11404,7 @@ declare module 'gd-sprest/mapper/types/views' {
 }
 
 declare module 'gd-sprest/mapper/types/web' {
-    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    import { IBase } from "gd-sprest/utils/types";
     import { Types } from "gd-sprest/";
     import { ITenantAppCatalog, IWebInfo, IWebResult, IWebResults, IWebs } from "gd-sprest/mapper/types";
     /**
@@ -12148,17 +12139,6 @@ declare module 'gd-sprest/mapper/types/web' {
         * Web
         */
     export interface IWeb extends IWebMethods, IWebQueryProps, IBase<IWeb, IWebResult, IWebQueryResult> {
-            /**
-                * Constructor
-                * @param url - (Optional) The web url.
-                * @param targetInfo - (Optional) The target information.
-                */
-            new (url?: string, targetInfo?: ITargetInfo): IWeb;
-            /**
-                * Method to get a remote web.
-                * @param requestUrl - The absolute url of the remote web.
-                */
-            getRemoteWeb(requestUrl: string): IBase<IWebRemote>;
     }
 }
 
@@ -12620,6 +12600,243 @@ declare module 'gd-sprest/lib/types/contextInfo' {
             getWeb(url: string): BaseTypes.IBase<Types.SP.IContextWebInfo>;
             /** The page context object from an SPFX project. */
             setPageContext(spfxPageContext: any): any;
+    }
+}
+
+declare module 'gd-sprest/lib/types/graph' {
+    import { Types } from "gd-sprest/mapper";
+    /**
+        * Graph
+        */
+    export interface IGraph {
+            /**
+                * Creates an instance of the graph library.
+                * @param accessToken - The access token for the graph api request.
+                * @param version - The version of the graph to target.
+                */
+            (accessToken: string, version?: string): Types.IGraph;
+            /**
+                * Method to get the access token from a classic page.
+                */
+            getAccessToken(): Promise<Types.IGraphToken>;
+    }
+}
+
+declare module 'gd-sprest/lib/types/list' {
+    import { Types } from "gd-sprest/mapper";
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    /**
+        * List
+        */
+    export interface IList {
+            /**
+                * Creates an instance of the library.
+                * @param listName - The name of the list.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (listName: string, targetInfo?: ITargetInfo): Types.IList;
+            /**
+                * A static method to get the list by the entity name.
+                * @param entityTypeName - The entity type name of the list.
+                * @param callback - The method to be executed after the request completes.
+                */
+            getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?: any): IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
+            /**
+                * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
+                * @param listFullUrl - The absolute url of the list.
+                * @param parameters - The optional list data parameters.
+                */
+            getDataAsStream(listFullUrl: string, parameters?: any): IBase<Types.IListDataStream>;
+    }
+}
+
+declare module 'gd-sprest/lib/types/navigation' {
+    import { Types } from "gd-sprest/mapper";
+    import { ITargetInfo } from "gd-sprest/utils/types";
+    /**
+        * Navigation
+        */
+    export interface INavigation {
+            /**
+                * Creates an instance of the navigation library.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfo): Types.INavigationServiceREST;
+    }
+}
+
+declare module 'gd-sprest/lib/types/peopleManager' {
+    import { Types } from "gd-sprest/mapper";
+    import { ITargetInfo } from "gd-sprest/utils/types";
+    /**
+        * People Manager
+        */
+    export interface IPeopleManager {
+            /**
+                * Creates an instance of the people manager library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfo): Types.IPeopleManager;
+    }
+}
+
+declare module 'gd-sprest/lib/types/peoplePicker' {
+    import { Types } from "gd-sprest/mapper";
+    import { ITargetInfo } from "gd-sprest/utils/types";
+    /**
+        * People Picker
+        */
+    export interface IPeoplePicker {
+            /**
+                * Creates an instance of the people picker library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfo): Types.IPeoplePicker;
+    }
+}
+
+declare module 'gd-sprest/lib/types/profileLoader' {
+    import { Types } from "gd-sprest/mapper";
+    import { ITargetInfo } from "gd-sprest/utils/types";
+    /**
+        * Profile Loader
+        */
+    export interface IProfileLoader {
+            /**
+                * Creates an instance of the profile loader library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfo): Types.IProfileLoader;
+    }
+}
+
+declare module 'gd-sprest/lib/types/search' {
+    import { Types } from "gd-sprest/mapper";
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    /**
+        * Search
+        */
+    export interface ISearch {
+            /**
+                * Creates an instance of the search library.
+                * @param url - The optional url to execute the search against.
+                * @param targetInfo - The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfo): Types.ISearch;
+            /**
+                * Method to get the app context information.
+                * @param siteUrl - The absolute url of the site.
+                */
+            getAppContext(siteUrl: string): IBase;
+            /**
+                * Method to get the query from the search parameters.
+                * @param parameters - The search parameters.
+                */
+            getQuery: (parameters: Types.ComplexTypes.SearchRequest | Types.ComplexTypes.SearchSuggestion) => Array<string>;
+            /**
+                * Method to get the url of a site, by its id.
+                * @param id - The site id.
+                */
+            getUrlById(id: string): IBase<Types.ISiteUrl>;
+    }
+}
+
+declare module 'gd-sprest/lib/types/site' {
+    import { Types } from "gd-sprest/mapper";
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    /**
+        * Site
+        */
+    export interface ISite {
+            /**
+                * Creates an instance of the site library.
+                * @param url - (Optional) The site url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfo): Types.ISite;
+            /**
+                * Method to check if a site collection exists.
+                * @param url - The absolute url of the site collection.
+                */
+            exists(url: string): IBase<Types.ISiteExists>;
+            /**
+                * Method to get the app context information.
+                * @param siteUrl - The absolute url of the site.
+                */
+            getAppContext(siteUrl: string): IBase;
+            /**
+                * Method to get the url of a site, by its id.
+                * @param id - The site id.
+                */
+            getUrlById(id: string): IBase<Types.ISiteUrl>;
+    }
+}
+
+declare module 'gd-sprest/lib/types/socialFeed' {
+    import { Types } from "gd-sprest/mapper";
+    import { ITargetInfo } from "gd-sprest/utils/types";
+    /**
+        * Social Feed
+        */
+    export interface ISocialFeed {
+            /**
+                * Creates an instance of the social feed library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfo): Types.ISocialFeed;
+    }
+}
+
+declare module 'gd-sprest/lib/types/userProfile' {
+    import { Types } from "gd-sprest/mapper";
+    import { ITargetInfo } from "gd-sprest/utils/types";
+    /**
+        * User Profile
+        */
+    export interface IUserProfile {
+            /**
+                * Creates an instance of the user profile library.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (targetInfo?: ITargetInfo): Types.IProfileLoader;
+    }
+}
+
+declare module 'gd-sprest/lib/types/utility' {
+    import { Types } from "gd-sprest/mapper";
+    import { ITargetInfo } from "gd-sprest/utils/types";
+    /**
+        * Utility
+        */
+    export interface IUtility {
+            /**
+                * Creates an instance of the utility library.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfo): Types.IUtility;
+    }
+}
+
+declare module 'gd-sprest/lib/types/web' {
+    import { Types } from "gd-sprest/mapper";
+    import { IBase, ITargetInfo } from "gd-sprest/utils/types";
+    /**
+        * Web
+        */
+    export interface IWeb {
+            /**
+                * Creates an instance of the web library.
+                * @param url - (Optional) The web url.
+                * @param targetInfo - (Optional) The target information.
+                */
+            (url?: string, targetInfo?: ITargetInfo): Types.IWeb;
+            /**
+                * Method to get a remote web.
+                * @param requestUrl - The absolute url of the remote web.
+                */
+            getRemoteWeb(requestUrl: string): IBase<Types.IWebRemote>;
     }
 }
 

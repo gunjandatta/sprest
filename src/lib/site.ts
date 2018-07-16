@@ -1,73 +1,59 @@
-import { Types } from "..";
-import { Base } from "../utils";
-import { Web } from ".";
+import { IListDataParameters } from "../mapper/types";
+import { Base, Types } from "../utils";
+import { ISite } from "./types";
 
-/*********************************************************************************************************************************/
-// Site
-// The SPSite object.
-/*********************************************************************************************************************************/
-class _Site extends Base {
-    /*********************************************************************************************************************************/
-    // Constructor
-    /*********************************************************************************************************************************/
-    constructor(url?, targetInfo?) {
-        // Call the base constructor
-        super(targetInfo);
+/**
+ * Site
+ */
+export const Site: ISite = ((url?: string, targetInfo?: Types.ITargetInfo) => {
+    let site = new Base(targetInfo);
 
-        // Default the properties
-        this.targetInfo.defaultToWebFl = true;
-        this.targetInfo.endpoint = "site";
+    // Default the properties
+    site.targetInfo.defaultToWebFl = true;
+    site.targetInfo.endpoint = "site";
 
-        // See if the web url exists
-        if (url) {
-            // Set the settings
-            this.targetInfo.url = url;
-        }
-
-        // Add the methods
-        this.addMethods(this, { __metadata: { type: "site" } });
+    // See if the web url exists
+    if (url) {
+        // Set the settings
+        site.targetInfo.url = url;
     }
 
-    // Method to see if a site exists
-    static exists(url: string) {
-        // Return the base object
-        return new Base({
-            data: { url },
-            defaultToWebFl: true,
-            endpoint: "SP.Site.Exists",
-            method: "POST"
-        });
-    }
+    // Add the methods
+    site.addMethods(site, { __metadata: { type: "site" } });
 
-    // Method to get the app context
-    static getAppContext(siteUrl: string) {
-        // Return the base object
-        return new Base({
-            data: { siteUrl },
-            defaultToWebFl: true,
-            endpoint: "SP.AppContextSite",
-            method: "POST"
-        });
-    }
+    // Return the site
+    return site;
+}) as any as ISite;
 
-    // Method to get the root web
-    getRootWeb() { return new Web(null, this.targetInfo); }
+// Static method to see if a site exists
+Site.exists = ((url: string) => {
+    // Return the base object
+    return new Base({
+        data: { url },
+        defaultToWebFl: true,
+        endpoint: "SP.Site.Exists",
+        method: "POST"
+    });
+}) as any;
 
-    // Method to get the url by id
-    static getUrlById(id: string) {
-        // Return the base object
-        return new Base({
-            data: { id },
-            defaultToWebFl: true,
-            endpoint: "SP.Site.GetUrlById",
-            method: "POST"
-        });
-    }
+// Static method to get the app context
+Site.getAppContext = ((siteUrl: string) => {
+    // Return the base object
+    return new Base({
+        data: { siteUrl },
+        defaultToWebFl: true,
+        endpoint: "SP.AppContextSite",
+        method: "POST"
+    });
+}) as any;
 
-    // Method to determine if the current user has access, based on the permissions.
-    hasAccess(permissions) {
-        // TO DO
-        return true;
-    };
-}
-export const Site: Types.SP.ISite = <any>_Site;
+// Method to get the url by id
+Site.getUrlById = ((id: string) => {
+    // Return the base object
+    return new Base({
+        data: { id },
+        defaultToWebFl: true,
+        endpoint: "SP.Site.GetUrlById",
+        method: "POST"
+    });
+}) as any;

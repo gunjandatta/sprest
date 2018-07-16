@@ -5,13 +5,6 @@ import { ComplexTypes } from ".";
  * Search
  */
 export interface ISearch extends IBase<ISearch, ComplexTypes.SearchResult> {
-    /**
-     * Constructor
-     * @param url - The optional url to execute the search against.
-     * @param settings - The search settings.
-     */
-    new(url?: string, settings?: ITargetInfo): ISearch;
-
     /** Method to execute a search query.
      * @param settings - The search request settings.
     */

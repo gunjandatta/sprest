@@ -1,4 +1,4 @@
-import { IBase, ITargetInfo } from "../../utils/types";
+import { IBase } from "../../utils/types";
 import { Types } from "../..";
 import { ComplexTypes } from ".";
 /**
@@ -158,12 +158,6 @@ export interface IUtilityMethods {
  * Utility
  */
 export interface IUtility extends IUtilityMethods, IBase<IUtility> {
-    /**
-     * Constructor
-     * @param url - (Optional) The web url.
-     * @param targetInfo - (Optional) The target information.
-     */
-    new (url?: string, targetInfo?: ITargetInfo): IUtility;
     /**
      * Creates a wiki page.
      * @param listUrl - The relative url to the library.

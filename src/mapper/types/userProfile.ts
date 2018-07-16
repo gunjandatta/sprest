@@ -1,4 +1,4 @@
-import { IBase, ITargetInfo } from "../../utils/types";
+import { IBase } from "../../utils/types";
 import { SPTypes } from "../..";
 import { IWeb } from ".";
 
@@ -6,12 +6,6 @@ import { IWeb } from ".";
  * User Profile
  */
 export interface IUserProfile extends IBase<IUserProfile> {
-    /**
-     * Constructor
-     * @param targetInfo - (Optional) The target information.
-     */
-    new(targetInfo?: ITargetInfo): IUserProfile;
-
     /**
      * Properties
      */

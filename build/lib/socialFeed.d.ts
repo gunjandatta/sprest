@@ -1,2 +1,5 @@
-import { Types } from "..";
-export declare const SocialFeed: Types.SP.ISocialFeed;
+import { ISocialFeed } from "./types";
+/**
+ * Social Feed
+ */
+export declare const SocialFeed: ISocialFeed;

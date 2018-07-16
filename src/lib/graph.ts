@@ -1,43 +1,40 @@
-import { Types } from "../mapper";
+import { IGraphToken } from "../mapper/types";
 import { Base, RequestType } from "../utils";
+import { IGraph } from "./types";
 
 /**
  * Graph
  */
-class _Graph extends Base {
-    /**
-     * Constructor
-     */
-    constructor(accessToken: string, version?: string) {
-        // Call the base constructor
-        super({ accessToken });
+export const Graph: IGraph = ((accessToken: string, version?: string) => {
+    let graph = new Base({ accessToken });
 
-        // Default the target information
-        this.targetInfo.endpoint = version || "v1.0";
-        this.targetInfo.requestType = RequestType.GraphGet;
+    // Default the target information
+    graph.targetInfo.endpoint = version || "v1.0";
+    graph.targetInfo.requestType = RequestType.GraphGet;
 
-        // Add the methods
-        this.addMethods(this, { __metadata: { type: "graph" } });
-    }
+    // Add the methods
+    graph.addMethods(graph, { __metadata: { type: "graph" } });
 
-    // Method to get the graph token from a classic page
-    static getAuthToken(scope?: string): Promise<Types.IGraphToken> {
-        // Return a proimse
-        return new Promise((resolve, reject) => {
-            // Set the data 
-            let data = { "resource": "https://graph.microsoft.com" };
-            scope ? data["scope"] = scope : null;
+    // Return the graph
+    return graph;
+}) as any;
 
-            // Get the access token
-            (new Base({
-                endpoint: "SP.OAuth.Token/Acquire",
-                data,
-                method: "POST"
-            })).execute(token => {
-                // Resolve the promise
-                resolve(token);
-            });
+// Method to get the graph token from a classic page
+Graph.getAccessToken = (scope?: string): Promise<IGraphToken> => {
+    // Return a promise
+    return new Promise((resolve, reject) => {
+        // Set the data 
+        let data = { "resource": "https://graph.microsoft.com" };
+        scope ? data["scope"] = scope : null;
+
+        // Get the access token
+        (new Base({
+            endpoint: "SP.OAuth.Token/Acquire",
+            data,
+            method: "POST"
+        })).execute(token => {
+            // Resolve the promise
+            resolve(token);
         });
-    }
+    });
 }
-export const Graph: Types.IGraph = _Graph as any;

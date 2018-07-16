@@ -1,2 +1,5 @@
-import { Types } from "..";
-export declare const Site: Types.SP.ISite;
+import { ISite } from "./types";
+/**
+ * Site
+ */
+export declare const Site: ISite;

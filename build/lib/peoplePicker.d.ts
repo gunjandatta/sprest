@@ -1,2 +1,5 @@
-import { Types } from "..";
-export declare const PeoplePicker: Types.SP.IPeoplePicker;
+import { IPeoplePicker } from "./types";
+/**
+ * People Picker
+ */
+export declare const PeoplePicker: IPeoplePicker;

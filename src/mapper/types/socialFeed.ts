@@ -4,11 +4,7 @@ import { Types } from "../..";
 /**
  * Social Feed
  */
-export interface ISocialFeed {
-    /**
-     * Methods
-     */
-
+export interface ISocialFeed extends IBase<ISocialFeed> {
     /**
      * Gets information about the specified user and the current user.
      * @param accountName - The login name of the user.

@@ -1,2 +1,5 @@
-import { Types } from "..";
-export declare const Search: Types.SP.ISearch;
+import { ISearch } from "./types";
+/**
+ * Search
+ */
+export declare const Search: ISearch;

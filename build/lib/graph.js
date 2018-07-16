@@ -1,53 +1,34 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
 /**
  * Graph
  */
-var _Graph = /** @class */ (function (_super) {
-    __extends(_Graph, _super);
-    /**
-     * Constructor
-     */
-    function _Graph(accessToken, version) {
-        var _this = 
-        // Call the base constructor
-        _super.call(this, { accessToken: accessToken }) || this;
-        // Default the target information
-        _this.targetInfo.endpoint = version || "v1.0";
-        _this.targetInfo.requestType = utils_1.RequestType.GraphGet;
-        // Add the methods
-        _this.addMethods(_this, { __metadata: { type: "graph" } });
-        return _this;
-    }
-    // Method to get the graph token from a classic page
-    _Graph.getAuthToken = function (scope) {
-        // Return a proimse
-        return new Promise(function (resolve, reject) {
-            // Set the data 
-            var data = { "resource": "https://graph.microsoft.com" };
-            scope ? data["scope"] = scope : null;
-            // Get the access token
-            (new utils_1.Base({
-                endpoint: "SP.OAuth.Token/Acquire",
-                data: data,
-                method: "POST"
-            })).execute(function (token) {
-                // Resolve the promise
-                resolve(token);
-            });
+exports.Graph = (function (accessToken, version) {
+    var graph = new utils_1.Base({ accessToken: accessToken });
+    // Default the target information
+    graph.targetInfo.endpoint = version || "v1.0";
+    graph.targetInfo.requestType = utils_1.RequestType.GraphGet;
+    // Add the methods
+    graph.addMethods(graph, { __metadata: { type: "graph" } });
+    // Return the graph
+    return graph;
+});
+// Method to get the graph token from a classic page
+exports.Graph.getAccessToken = function (scope) {
+    // Return a promise
+    return new Promise(function (resolve, reject) {
+        // Set the data 
+        var data = { "resource": "https://graph.microsoft.com" };
+        scope ? data["scope"] = scope : null;
+        // Get the access token
+        (new utils_1.Base({
+            endpoint: "SP.OAuth.Token/Acquire",
+            data: data,
+            method: "POST"
+        })).execute(function (token) {
+            // Resolve the promise
+            resolve(token);
         });
-    };
-    return _Graph;
-}(utils_1.Base));
-exports.Graph = _Graph;
+    });
+};

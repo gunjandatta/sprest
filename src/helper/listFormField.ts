@@ -25,7 +25,7 @@ export const ListFormField: IListFormField = {
             // Else, load the field from the information provided
             else {
                 // Get the web
-                (new Web(_fieldInfo.webUrl))
+                Web(_fieldInfo.webUrl)
                     // Get the list
                     .Lists(_fieldInfo.listName)
                     // Get the fields
@@ -148,7 +148,7 @@ export const ListFormField: IListFormField = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the current site collection
-            (new Site())
+            Site()
                 // Get the web containing the lookup list
                 .openWebById(info.lookupWebId)
                 // Execute the request
@@ -200,7 +200,7 @@ export const ListFormField: IListFormField = {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Get the web
-            (new Web(info.webUrl))
+            Web(info.webUrl)
                 // Get the list
                 .Lists(info.listName)
                 // Get the fields

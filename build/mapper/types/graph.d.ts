@@ -110,16 +110,6 @@ export interface IGraphToken {
  * Graph
  */
 export interface IGraph extends IGraphMethods, IGraphQueryProps, IBase<IGraph, IGraphResult, IGraphQueryResult> {
-    /**
-     * Constructor
-     * @param accessToken - The access token for the graph api request.
-     * @param version - The version of the graph to target.
-     */
-    new (accessToken: string, version?: string): IGraph;
-    /**
-     * Method to get the access token from a classic page.
-     */
-    getAccessToken(): Promise<IGraphToken>;
 }
 /**
  * Graph Group
