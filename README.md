@@ -6,11 +6,10 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/Dattabase)
 
 ## Overview:
-The SharePoint REST Framework was designed for SharePoint 2013, but works in both SharePoint 2013/2016 and Office 365. This framework is designed to remove a lot of the overhead required for SharePoint development, allowing the developer to focus on the client requirements.
+The SharePoint REST Framework was designed for SharePoint 2013, but works in both SharePoint 2013/Online (Classic/Modern). This framework is designed to remove a lot of the overhead required for SharePoint development, allowing the developer to focus on the client requirements.
 
 ### References
-- [HomePage](https://gunjandatta.github.io) - An overview of the framework.
-- [SharePoint 2013 Modern WebPart](http://dattabase.com/sharepoint-2013-modern-webpart/) - A series of blog posts for creating a SharePoint 2013 modern webparts using:
+- [SharePoint 2013 Modern WebPart](http://dattabase.com/sharepoint-2013-modern-webpart/) - A series of blog posts for creating SharePoint 2013 modern webparts using:
     - JavaScript (No Build)
     - TypeScript
     - React
@@ -61,7 +60,10 @@ The SharePoint Configuration automation feature allows the develoepr to easily c
 The [gd-sprest-react](https://github.com/gunjandatta/sprest-react) library contains various components designed to work in SharePoint 2013/Online.
 
 ##### Upgrade Path to SharePoint Framework [SPFx](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/sharepoint-framework-overview)
-The javascript, typescript, react/angular/react/etc solutions developed for SharePoint 2013 can easily be migrated/copied to a SharePoint Framework (SPFx) modern solution.
+The javascript, typescript, react/angular/react/etc solutions developed for SharePoint 2013 can easily be migrated/copied to a SharePoint Framework (SPFx) modern solution. A [blog series](http://dattabase.com/sharepoint-app-fabric-ui-react-part-3-3/) is available for creating an Add-In for SharePoint 2013/Online using the Office Fabric-UI React framework, including converting it to a SPFX WebPart.
+
+##### SPFX Project
+Refer to the [documentation](https://gunjandatta.github.io/development/spfx) for steps on configuring this library in a SPFX project.
 
 #### Security
 The REST api execute requests based on the user's permissions. There is no way to elevate priviledges requests against the SharePoint REST.
