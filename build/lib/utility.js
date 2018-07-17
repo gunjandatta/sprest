@@ -1,5 +1,4 @@
 "use strict";
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
 /**
@@ -25,7 +24,7 @@ exports.Utility = (function (url, targetInfo) {
             WikiHtmlContent: content
         };
         // Execute the method
-        return _this.executeMethod("createWikiPage", {
+        return utility.executeMethod("createWikiPage", {
             argNames: ["parameters"],
             name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
             replaceEndpointFl: true,
@@ -52,7 +51,7 @@ exports.Utility = (function (url, targetInfo) {
             }
         }
         // Execute the method
-        return _this.executeMethod("sendEmail", {
+        return utility.executeMethod("sendEmail", {
             argNames: ["properties"],
             metadataType: "SP.Utilities.EmailProperties",
             name: "SP.Utilities.Utility.sendEmail",

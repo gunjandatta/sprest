@@ -24,7 +24,7 @@ export const SocialFeed: ISocialFeed = ((targetInfo?: ITargetInfo) => {
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
 
-        return this.executeMethod("postToMyFeed", {
+        return socialFeed.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
             requestType: RequestType.PostWithArgsInBody
@@ -39,7 +39,7 @@ export const SocialFeed: ISocialFeed = ((targetInfo?: ITargetInfo) => {
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
 
-        return this.executeMethod("postToMyFeed", {
+        return socialFeed.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "my/feed/post",
             requestType: RequestType.PostWithArgsInBody
