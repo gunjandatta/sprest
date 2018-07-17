@@ -181,7 +181,7 @@ declare module 'gd-sprest/rest' {
                     /**
                         * Helper class for automating SharePoint assets
                         */
-                    SPConfig: Helper.Types.ISPConfig;
+                    SPConfig: (cfg: Helper.Types.ISPConfigProps, webUrl?: string) => Helper.Types.ISPConfig;
                     /**
                         * Helper class for adding links to the suite bar
                         */
