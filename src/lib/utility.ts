@@ -30,7 +30,7 @@ export const Utility: IUtility = ((url?, targetInfo?) => {
         };
 
         // Execute the method
-        return this.executeMethod("createWikiPage", {
+        return utility.executeMethod("createWikiPage", {
             argNames: ["parameters"],
             name: "SP.Utilities.Utility.CreateWikiPageInContextWeb",
             replaceEndpointFl: true,
@@ -60,7 +60,7 @@ export const Utility: IUtility = ((url?, targetInfo?) => {
         }
 
         // Execute the method
-        return this.executeMethod("sendEmail", {
+        return utility.executeMethod("sendEmail", {
             argNames: ["properties"],
             metadataType: "SP.Utilities.EmailProperties",
             name: "SP.Utilities.Utility.sendEmail",

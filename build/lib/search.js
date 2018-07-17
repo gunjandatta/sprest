@@ -1,5 +1,4 @@
 "use strict";
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
 /**
@@ -20,7 +19,7 @@ exports.Search = (function (url, targetInfo) {
     /** The search query method */
     search.searchquery = function (settings) {
         // Execute the request
-        return _this.executeMethod("query", {
+        return search.executeMethod("query", {
             argNames: ["query"],
             name: "query?[[query]]",
             requestType: utils_1.RequestType.GetReplace
@@ -29,7 +28,7 @@ exports.Search = (function (url, targetInfo) {
     /** The search suggest method */
     search.suggest = function (settings) {
         // Execute the request
-        return _this.executeMethod("query", {
+        return search.executeMethod("query", {
             argNames: ["query"],
             name: "suggest?[[query]]",
             requestType: utils_1.RequestType.GetReplace

@@ -25,7 +25,7 @@ export const Search: ISearch = ((url?, targetInfo?) => {
     /** The search query method */
     search.searchquery = (settings: Types.ComplexTypes.SearchRequest) => {
         // Execute the request
-        return this.executeMethod("query", {
+        return search.executeMethod("query", {
             argNames: ["query"],
             name: "query?[[query]]",
             requestType: RequestType.GetReplace
@@ -35,7 +35,7 @@ export const Search: ISearch = ((url?, targetInfo?) => {
     /** The search suggest method */
     search.suggest = (settings: Types.ComplexTypes.SearchSuggestion) => {
         // Execute the request
-        return this.executeMethod("query", {
+        return search.executeMethod("query", {
             argNames: ["query"],
             name: "suggest?[[query]]",
             requestType: RequestType.GetReplace

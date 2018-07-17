@@ -1,5 +1,4 @@
 "use strict";
-var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = require("../utils");
 /**
@@ -18,7 +17,7 @@ exports.SocialFeed = (function (targetInfo) {
         // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return _this.executeMethod("postToMyFeed", {
+        return socialFeed.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "actor(item=@v)/feed?@v='" + encodeURIComponent(accountName) + "'",
             requestType: utils_1.RequestType.PostWithArgsInBody
@@ -30,7 +29,7 @@ exports.SocialFeed = (function (targetInfo) {
         // Set the post metadata
         postInfo["__metadata"] = { type: "SP.Social.SocialRestPostCreationData" };
         postInfo.creationData["__metadata"] = { type: "SP.Social.SocialPostCreationData" };
-        return _this.executeMethod("postToMyFeed", {
+        return socialFeed.executeMethod("postToMyFeed", {
             argNames: ["restCreationData"],
             name: "my/feed/post",
             requestType: utils_1.RequestType.PostWithArgsInBody
