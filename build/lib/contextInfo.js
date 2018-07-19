@@ -10,6 +10,7 @@ var _ContextInfo = /** @class */ (function () {
     Object.defineProperty(_ContextInfo, "_contextInfo", {
         // The current context information
         get: function () {
+            // Return the page context or a default object
             return this.window["_spPageContextInfo"] || (this._spfxPageContext && this._spfxPageContext.legacyPageContext) ||
                 {
                     existsFl: false,
