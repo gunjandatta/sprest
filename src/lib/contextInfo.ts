@@ -5,8 +5,12 @@ import { IContextInformation } from "./types";
  * Context Information
  */
 class _ContextInfo {
+    // The page context information from an spfx project
+    private static _spfxPageContext = null;
+
     // The current context information
     private static get _contextInfo(): IContextInformation {
+        // Return the page context or a default object
         return this.window["_spPageContextInfo"] || (this._spfxPageContext && this._spfxPageContext.legacyPageContext) ||
             {
                 existsFl: false,
@@ -20,9 +24,6 @@ class _ContextInfo {
                 webServerRelativeUrl: ""
             }
     };
-
-    // The page context information from an spfx project
-    private static _spfxPageContext = null;
 
     /**
      * Properties

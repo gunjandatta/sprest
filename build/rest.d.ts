@@ -3,6 +3,87 @@ import * as Lib from "./lib";
 import * as Mapper from "./mapper";
 import * as Util from "./utils";
 /**
+ * Helper
+ */
+export interface IHelper {
+    /**
+     * Helper classes for the app web
+     */
+    App: Helper.Types.IApp;
+    /**
+     * Helper class to load the required SP scripts
+     */
+    Dependencies: Helper.Types.IDependencies;
+    /**
+     * Executor
+     */
+    Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): any;
+    /**
+     * Helper class for generating a field schema xml
+     */
+    FieldSchemaXML: (fieldInfo: Helper.Types.IFieldInfo) => PromiseLike<string>;
+    /**
+     * Helper class for implementing JSLink solutions
+     */
+    JSLink: Helper.Types.IJSLink;
+    /**
+     * Helper class for implementing custom list forms
+     */
+    ListForm: Helper.Types.IListForm;
+    /**
+     * Helper class for implementing custom list forms
+     */
+    ListFormField: Helper.Types.IListFormField;
+    /**
+     * Helper class for waiting until the core SP scripts are loaded
+     */
+    Loader: Helper.Types.ILoader;
+    /**
+     * Helper method to convert a json string to a base object
+     * This will require you to use the stringify method of the base object.
+     */
+    parse<T = Util.Types.IBase>(jsonString: string): T;
+    /**
+     * Helper class for adding links to the top ribbon bar
+     */
+    RibbonLink: (props: Helper.Types.ILinkInfo) => HTMLAnchorElement;
+    /**
+     * SharePoint Core Library Reference
+     */
+    SP: {
+        /** Modal Dialog */
+        ModalDialog: Helper.Types.IModalDialog;
+        /** Notify */
+        Notify: Helper.Types.INotify;
+        /** Status */
+        Status: Helper.Types.IStatus;
+    };
+    /**
+     * The field configuration types
+     */
+    SPCfgFieldType: Helper.Types.ISPCfgFieldType;
+    /**
+     * The configuration types
+     */
+    SPCfgType: Helper.Types.ISPCfgType;
+    /**
+     * Helper class for automating SharePoint assets
+     */
+    SPConfig: (cfg: Helper.Types.ISPConfigProps, webUrl?: string) => Helper.Types.ISPConfig;
+    /**
+     * Helper class for adding links to the suite bar
+     */
+    SuiteBarLink: (props: Helper.Types.ILinkInfo) => HTMLAnchorElement;
+    /**
+     * Helper class for getting information from the taxonomy term store
+     */
+    Taxonomy: Helper.Types.ITaxonomy;
+    /**
+     * Helper class for creating modern webparts in SharePoint 2013+ environments
+     */
+    WebPart: Helper.Types.IWebPart;
+}
+/**
  * SharePoint REST Library
  */
 export interface IREST {
@@ -29,84 +110,7 @@ export interface IREST {
     /**
      * Helper methods.
      */
-    Helper: {
-        /**
-         * Helper classes for the app web
-         */
-        App: Helper.Types.IApp;
-        /**
-         * Helper class to load the required SP scripts
-         */
-        Dependencies: Helper.Types.IDependencies;
-        /**
-         * Executor
-         */
-        Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void);
-        /**
-         * Helper class for generating a field schema xml
-         */
-        FieldSchemaXML: Helper.Types.IFieldSchemaXML;
-        /**
-         * Helper class for implementing JSLink solutions
-         */
-        JSLink: Helper.Types.IJSLink;
-        /**
-         * Helper class for implementing custom list forms
-         */
-        ListForm: Helper.Types.IListForm;
-        /**
-         * Helper class for implementing custom list forms
-         */
-        ListFormField: Helper.Types.IListFormField;
-        /**
-         * Helper class for waiting until the core SP scripts are loaded
-         */
-        Loader: Helper.Types.ILoader;
-        /**
-         * Helper method to convert a json string to a base object
-         * This will require you to use the stringify method of the base object.
-         */
-        parse: (jsonString: string) => Util.Base;
-        /**
-         * Helper class for adding links to the top ribbon bar
-         */
-        RibbonLink: Helper.Types.IRibbonLink;
-        /**
-         * SharePoint Core Library Reference
-         */
-        SP: {
-            /** Modal Dialog */
-            ModalDialog: Helper.Types.IModalDialog;
-            /** Notify */
-            Notify: Helper.Types.INotify;
-            /** Status */
-            Status: Helper.Types.IStatus;
-        };
-        /**
-         * The field configuration types
-         */
-        SPCfgFieldType: Helper.Types.ISPCfgFieldType;
-        /**
-         * The configuration types
-         */
-        SPCfgType: Helper.Types.ISPCfgType;
-        /**
-         * Helper class for automating SharePoint assets
-         */
-        SPConfig: (cfg: Helper.Types.ISPConfigProps, webUrl?: string) => Helper.Types.ISPConfig;
-        /**
-         * Helper class for adding links to the suite bar
-         */
-        SuiteBarLink: Helper.Types.ISuiteBarLink;
-        /**
-         * Helper class for getting information from the taxonomy term store
-         */
-        Taxonomy: Helper.Types.ITaxonomy;
-        /**
-         * Helper class for creating modern webparts in SharePoint 2013+ environments
-         */
-        WebPart: Helper.Types.IWebPart;
-    };
+    Helper: IHelper;
     /**
      * Use this api to interact with SharePoint lists and libraries.
      */

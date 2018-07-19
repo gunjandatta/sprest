@@ -3417,6 +3417,7 @@ var _ContextInfo = /** @class */ (function () {
     Object.defineProperty(_ContextInfo, "_contextInfo", {
         // The current context information
         get: function () {
+            // Return the page context or a default object
             return this.window["_spPageContextInfo"] || (this._spfxPageContext && this._spfxPageContext.legacyPageContext) ||
                 {
                     existsFl: false,
@@ -12019,7 +12020,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.14,
+    __ver: 4.15,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
@@ -12027,6 +12028,7 @@ exports.$REST = {
     Helper: {
         App: Helper.App,
         Dependencies: Helper.Dependencies,
+        Executor: Helper.Executor,
         FieldSchemaXML: Helper.FieldSchemaXML,
         JSLink: Helper.JSLink,
         ListForm: Helper.ListForm,
