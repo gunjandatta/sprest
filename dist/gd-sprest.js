@@ -8421,12 +8421,15 @@ var XHRRequest = /** @class */ (function () {
     };
     // Method to default the request headers
     XHRRequest.prototype.defaultHeaders = function (requestDigest) {
+        var ifMatchExists = false;
         // See if the custom headers exist
         if (this.targetInfo.requestHeaders) {
             // Parse the custom headers
             for (var header in this.targetInfo.requestHeaders) {
                 // Add the header
                 this.xhr.setRequestHeader(header, this.targetInfo.requestHeaders[header]);
+                // See if this is the "IF-MATCH" header
+                ifMatchExists = ifMatchExists || header.toUpperCase() == "IF-MATCH";
             }
         }
         else {
@@ -8448,12 +8451,15 @@ var XHRRequest = /** @class */ (function () {
             this.xhr.setRequestHeader("Authorization", "Bearer " + this.targetInfo.request.accessToken);
         }
         else {
-            // Set the method
-            this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
+            // See if custom headers were not defined
+            if (this.targetInfo.requestHeaders == null) {
+                // Set the method by default
+                this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
+            }
             // Set the request digest
             this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
             // See if we are deleting or updating the data
-            if (this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE") {
+            if (this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE" && !ifMatchExists) {
                 // Append the header for deleting/updating
                 this.xhr.setRequestHeader("IF-MATCH", "*");
             }
@@ -10816,7 +10822,57 @@ exports.Loader = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var lib_1 = __webpack_require__(1);
 var utils_1 = __webpack_require__(0);
+/**
+ * Creates a document set item.
+ * @param name - The name of the document set folder to create.
+ * @param listName - The name of the document set library.
+ * @param webUrl - The url of the web containing the document set library.
+ */
+exports.createDocSet = function (name, listName, webUrl) {
+    // Return a promise
+    return new Promise(function (resolve, reject) {
+        // Get the document set's root folder
+        lib_1.Web(webUrl).Lists(listName).query({ Expand: ["ContentTypes", "ParentWeb", "RootFolder"] }).execute(function (list) {
+            // Parse the content types
+            var ctId = "0x0120D520";
+            for (var i = 0; i < list.ContentTypes.results.length; i++) {
+                // See if this is the document set content type
+                if (list.ContentTypes.results[i].StringId.startsWith(ctId)) {
+                    // Set the content type id
+                    ctId = list.ContentTypes.results[i].StringId;
+                    break;
+                }
+            }
+            // Create the document set item
+            exports.request({
+                method: "POST",
+                url: list.ParentWebUrl + "/_vti_bin/listdata.svc/" + list.Title.replace(/ /g, ""),
+                headers: {
+                    Accept: "application/json;odata=verbose",
+                    "Content-Type": "application/json;odata=verbose",
+                    Slug: list.RootFolder.ServerRelativeUrl + "/" + name + "|" + ctId,
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                data: {
+                    Title: name,
+                    Path: list.RootFolder.ServerRelativeUrl
+                }
+            }).then(function (response) {
+                // See if the request was successful
+                if (response.d && response.d.Id > 0) {
+                    // Get the document set item and resolve the promise
+                    lib_1.Web(webUrl).Lists(listName).Items(response.d.Id).execute(resolve);
+                }
+                else {
+                    // Reject the promise
+                    reject(response["response"]);
+                }
+            });
+        });
+    });
+};
 /**
  * Convert a JSON string to a base object
  */
@@ -10837,6 +10893,21 @@ exports.parse = function (jsonString) {
     }
     catch (_a) { }
     return null;
+};
+/**
+ * XML HTTP Request
+ */
+exports.request = function (props) {
+    // Return a promise
+    return new Promise(function (resolve, reject) {
+        // Execute the request and resolve the promise
+        (new utils_1.Base({
+            method: props.method || "GET",
+            url: props.url,
+            requestHeader: props.headers,
+            data: props.data
+        })).execute(resolve, reject);
+    });
 };
 
 
@@ -12020,7 +12091,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.15,
+    __ver: 4.16,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,
@@ -12028,6 +12099,7 @@ exports.$REST = {
     Helper: {
         App: Helper.App,
         Dependencies: Helper.Dependencies,
+        createDocSet: Helper.createDocSet,
         Executor: Helper.Executor,
         FieldSchemaXML: Helper.FieldSchemaXML,
         JSLink: Helper.JSLink,
@@ -12035,6 +12107,7 @@ exports.$REST = {
         ListFormField: Helper.ListFormField,
         Loader: Helper.Loader,
         parse: Helper.parse,
+        request: Helper.request,
         RibbonLink: Helper.RibbonLink,
         SP: Helper.SP,
         SPCfgFieldType: Helper.SPCfgFieldType,

@@ -11,7 +11,7 @@ __export(require("./jslink"));
 __export(require("./listForm"));
 __export(require("./listFormField"));
 __export(require("./loader"));
-__export(require("./parse"));
+__export(require("./methods"));
 __export(require("./ribbonLink"));
 __export(require("./sbLink"));
 __export(require("./spCfg"));

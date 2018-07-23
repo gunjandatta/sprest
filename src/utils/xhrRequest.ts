@@ -88,12 +88,17 @@ export class XHRRequest {
 
     // Method to default the request headers
     private defaultHeaders(requestDigest) {
+        let ifMatchExists = false;
+
         // See if the custom headers exist
         if (this.targetInfo.requestHeaders) {
             // Parse the custom headers
             for (var header in this.targetInfo.requestHeaders) {
                 // Add the header
                 this.xhr.setRequestHeader(header, this.targetInfo.requestHeaders[header]);
+
+                // See if this is the "IF-MATCH" header
+                ifMatchExists = ifMatchExists || header.toUpperCase() == "IF-MATCH";
             }
         } else {
             // See if this is a graph request
@@ -113,14 +118,17 @@ export class XHRRequest {
             // Set the authorization
             this.xhr.setRequestHeader("Authorization", "Bearer " + this.targetInfo.request.accessToken);
         } else {
-            // Set the method
-            this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
+            // See if custom headers were not defined
+            if (this.targetInfo.requestHeaders == null) {
+                // Set the method by default
+                this.xhr.setRequestHeader("X-HTTP-Method", this.targetInfo.requestMethod);
+            }
 
             // Set the request digest
             this.xhr.setRequestHeader("X-RequestDigest", requestDigest);
 
             // See if we are deleting or updating the data
-            if (this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE") {
+            if (this.targetInfo.requestMethod == "DELETE" || this.targetInfo.requestMethod == "MERGE" && !ifMatchExists) {
                 // Append the header for deleting/updating
                 this.xhr.setRequestHeader("IF-MATCH", "*");
             }
