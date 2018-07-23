@@ -6,7 +6,7 @@ export * from "./jslink";
 export * from "./listForm";
 export * from "./listFormField";
 export * from "./loader";
-export * from "./parse";
+export * from "./methods";
 export * from "./ribbonLink";
 export * from "./sbLink";
 export * from "./spCfg";

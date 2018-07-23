@@ -41,7 +41,7 @@ declare module 'gd-sprest/helper' {
     export * from "gd-sprest/helper/listForm";
     export * from "gd-sprest/helper/listFormField";
     export * from "gd-sprest/helper/loader";
-    export * from "gd-sprest/helper/parse";
+    export * from "gd-sprest/helper/methods";
     export * from "gd-sprest/helper/ribbonLink";
     export * from "gd-sprest/helper/sbLink";
     export * from "gd-sprest/helper/spCfg";
@@ -103,6 +103,10 @@ declare module 'gd-sprest/rest' {
                 */
             Dependencies: Helper.Types.IDependencies;
             /**
+                * Method to create a document set item.
+                */
+            createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<Mapper.Types.IListItemResult>;
+            /**
                 * Executor
                 */
             Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): any;
@@ -131,6 +135,10 @@ declare module 'gd-sprest/rest' {
                 * This will require you to use the stringify method of the base object.
                 */
             parse<T = Util.Types.IBase>(jsonString: string): T;
+            /**
+                * Helper method to execute an XMLHttpRequest
+                */
+            request(props: Helper.Types.IRequest): PromiseLike<any>;
             /**
                 * Helper class for adding links to the top ribbon bar
                 */
@@ -351,12 +359,25 @@ declare module 'gd-sprest/helper/loader' {
     export const Loader: ILoader;
 }
 
-declare module 'gd-sprest/helper/parse' {
+declare module 'gd-sprest/helper/methods' {
+    import { IListItemResult } from "gd-sprest/mapper/types";
     import { Base } from "gd-sprest/utils";
+    import { IRequest } from "gd-sprest/helper/types";
     /**
-      * Convert a JSON string to a base object
-      */
+        * Creates a document set item.
+        * @param name - The name of the document set folder to create.
+        * @param listName - The name of the document set library.
+        * @param webUrl - The url of the web containing the document set library.
+        */
+    export const createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<IListItemResult>;
+    /**
+        * Convert a JSON string to a base object
+        */
     export const parse: <T = Base<any, any, any>>(jsonString: string) => T;
+    /**
+        * XML HTTP Request
+        */
+    export const request: (props: IRequest) => PromiseLike<any>;
 }
 
 declare module 'gd-sprest/helper/ribbonLink' {
@@ -422,6 +443,7 @@ declare module 'gd-sprest/helper/types' {
     export * from "gd-sprest/helper/types/listForm";
     export * from "gd-sprest/helper/types/listFormField";
     export * from "gd-sprest/helper/types/loader";
+    export * from "gd-sprest/helper/types/methods";
     export * from "gd-sprest/helper/types/sp";
     export * from "gd-sprest/helper/types/spCfg";
     export * from "gd-sprest/helper/types/spCfgTypes";
@@ -1462,6 +1484,24 @@ declare module 'gd-sprest/helper/types/loader' {
                 * @param loadLibraries - Flag to load the core libraries manually.
                 */
             waitForSPLibs(callback: any, timeout?: number, loadLibraries?: boolean): any;
+    }
+}
+
+declare module 'gd-sprest/helper/types/methods' {
+    /**
+      * Request
+      */
+    export interface IRequest {
+        /** The data to pass in the request. */
+        data?: any;
+        /** The request headers. */
+        headers?: {
+            [key: string]: string;
+        };
+        /** The request method. */
+        method?: string;
+        /** The request url. */
+        url: string;
     }
 }
 

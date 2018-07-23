@@ -15,6 +15,10 @@ export interface IHelper {
      */
     Dependencies: Helper.Types.IDependencies;
     /**
+     * Method to create a document set item.
+     */
+    createDocSet: (name: string, listName: string, webUrl?: string) => PromiseLike<Mapper.Types.IListItemResult>;
+    /**
      * Executor
      */
     Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): any;
@@ -43,6 +47,10 @@ export interface IHelper {
      * This will require you to use the stringify method of the base object.
      */
     parse<T = Util.Types.IBase>(jsonString: string): T;
+    /**
+     * Helper method to execute an XMLHttpRequest
+     */
+    request(props: Helper.Types.IRequest): PromiseLike<any>;
     /**
      * Helper class for adding links to the top ribbon bar
      */
