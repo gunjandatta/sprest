@@ -298,7 +298,7 @@ export const $REST: IREST = {
 
 // See if the library doesn't exist, or is an older version
 let global = Lib.ContextInfo.window.$REST;
-if ((global == null || global.__ver == null || global.__ver < $REST.__ver) && Lib.ContextInfo.window.SP) {
+if (global == null || global.__ver == null || global.__ver < $REST.__ver) {
     // Set the global variable
     Lib.ContextInfo.window.$REST = $REST;
 
