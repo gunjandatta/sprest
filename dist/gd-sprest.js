@@ -12137,7 +12137,7 @@ exports.$REST = {
 };
 // See if the library doesn't exist, or is an older version
 var global = Lib.ContextInfo.window.$REST;
-if ((global == null || global.__ver == null || global.__ver < exports.$REST.__ver) && Lib.ContextInfo.window.SP) {
+if (global == null || global.__ver == null || global.__ver < exports.$REST.__ver) {
     // Set the global variable
     Lib.ContextInfo.window.$REST = exports.$REST;
     // Alert other scripts this library is loaded
