@@ -302,6 +302,9 @@ if (global == null || global.__ver == null || global.__ver < $REST.__ver) {
     // Set the global variable
     Lib.ContextInfo.window.$REST = $REST;
 
-    // Alert other scripts this library is loaded
-    Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
+    // Ensure the SP lib exists
+    if (Lib.ContextInfo.window.SP) {
+        // Alert other scripts this library is loaded
+        Lib.ContextInfo.window.SP.SOD.notifyScriptLoadedAndExecuteWaitingJobs("gd-sprest.js");
+    }
 }
