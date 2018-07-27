@@ -11380,10 +11380,11 @@ declare module 'gd-sprest/mapper/types/viewFieldCollection' {
     export interface IViewFields extends IBase<IViewFields, IViewFields, IViewFields> {
             /** Gets a value that specifies the XML schema that represents the collection. */
             SchemaXml: string;
-            /** Specifies the XML schema of the collection of fields. The Items property is returned with the resource, but it doesn't have a URI-addressable endpoint. */
-            Items: string;
-            /** The view field collection. */
-            results: Array<any>;
+            /** Contains an array of the view fields. */
+            Items: {
+                    /** The view field collection. */
+                    results: Array<any>;
+            };
             /**
                 * Adds the field with the specified field internal name or display name to the collection.
                 * @param fieldName - The case-sensitive internal name or display name of the field to add.
