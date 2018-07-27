@@ -10,17 +10,15 @@ exports.Loader = {
     loaded: false,
     // Method to wait for the SharePoint core libraries to be loaded
     waitForSPLibs: function (callback, timeout, loadLibraries) {
+        if (timeout === void 0) { timeout = 2500; }
+        if (loadLibraries === void 0) { loadLibraries = true; }
         var counter = 0;
-        // Default the flag to load the libraries
-        loadLibraries = typeof (loadLibraries) === "boolean" ? loadLibraries : false;
-        // Default the timeout (5 seconds)
-        timeout = typeof (timeout) === "number" ? timeout : 2500;
         // Determine the number of iterations
         var maxLoops = timeout / 25;
         // See if the flag has already been set
         if (_this.loaded) {
             // Execute the callback
-            callback();
+            callback ? callback() : null;
             return;
         }
         // See if we are loading the libraries
@@ -46,7 +44,7 @@ exports.Loader = {
                 // Stop the loop
                 clearInterval(intervalId);
                 // Execute the callback
-                callback();
+                callback ? callback() : null;
             }
         }, 25);
     }

@@ -9298,7 +9298,7 @@ exports.FieldSchemaXML = function (fieldInfo) {
             })
                 .execute(function (list) {
                 // Set the list and web ids
-                props["List"] = list.Id;
+                props["List"] = "{" + list.Id + "}";
                 if (fieldInfo.webUrl) {
                     props["WebId"] = list.ParentWeb.Id;
                 }
@@ -9308,7 +9308,7 @@ exports.FieldSchemaXML = function (fieldInfo) {
         }
         else {
             // Set the list id
-            props["List"] = fieldInfo.listId;
+            props["List"] = "{" + fieldInfo.listId.replace(/[\{\}]/g, "") + "}";
             // Resolve the request
             _resolve("<Field " + toString(props) + " />");
         }
@@ -9464,13 +9464,16 @@ exports.FieldSchemaXML = function (fieldInfo) {
             props["ID"] = "{" + lib_1.ContextInfo.generateGUID() + "}";
             props["Name"] = fieldInfo.name;
             props["StaticName"] = fieldInfo.name;
-            props["DisplayName"] = fieldInfo.title;
+            props["DisplayName"] = fieldInfo.title || fieldInfo.name;
             // Set the optional properties
             if (typeof (fieldInfo.group) !== "undefined") {
                 props["Group"] = fieldInfo.group;
             }
             if (typeof (fieldInfo.hidden) !== "undefined") {
                 props["Hidden"] = fieldInfo.hidden ? "TRUE" : "FALSE";
+            }
+            if (typeof (fieldInfo.readOnly) !== "undefined") {
+                props["ReadOnly"] = fieldInfo.readOnly ? "TRUE" : "FALSE";
             }
             if (typeof (fieldInfo.required) !== "undefined") {
                 props["Required"] = fieldInfo.required ? "TRUE" : "FALSE";
@@ -10772,17 +10775,15 @@ exports.Loader = {
     loaded: false,
     // Method to wait for the SharePoint core libraries to be loaded
     waitForSPLibs: function (callback, timeout, loadLibraries) {
+        if (timeout === void 0) { timeout = 2500; }
+        if (loadLibraries === void 0) { loadLibraries = true; }
         var counter = 0;
-        // Default the flag to load the libraries
-        loadLibraries = typeof (loadLibraries) === "boolean" ? loadLibraries : false;
-        // Default the timeout (5 seconds)
-        timeout = typeof (timeout) === "number" ? timeout : 2500;
         // Determine the number of iterations
         var maxLoops = timeout / 25;
         // See if the flag has already been set
         if (_this.loaded) {
             // Execute the callback
-            callback();
+            callback ? callback() : null;
             return;
         }
         // See if we are loading the libraries
@@ -10808,7 +10809,7 @@ exports.Loader = {
                 // Stop the loop
                 clearInterval(intervalId);
                 // Execute the callback
-                callback();
+                callback ? callback() : null;
             }
         }, 25);
     }
