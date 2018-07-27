@@ -1687,7 +1687,9 @@ declare module 'gd-sprest/helper/types/spCfg' {
             hidden?: boolean;
             /** The internal name of the field. */
             name: string;
-            /** Flag to determine if the field is required */
+            /** Flag to determine if the field is readonly. */
+            readOnly?: boolean;
+            /** Flag to determine if the field is required. */
             required?: boolean;
             /** The schema definition of the field. */
             schemaXml?: string;

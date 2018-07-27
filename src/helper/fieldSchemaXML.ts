@@ -138,15 +138,15 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
                 // Execute the request
                 .execute(list => {
                     // Set the list and web ids
-                    props["List"] = list.Id;
-                    if (fieldInfo.webUrl) { props["WebId"] = list.ParentWeb.Id }
+                    props["List"] = "{" + list.Id + "}";
+                    if (fieldInfo.webUrl) { props["WebId"] = list.ParentWeb.Id; }
 
                     // Resolve the request
                     _resolve("<Field " + toString(props) + " />");
                 });
         } else {
             // Set the list id
-            props["List"] = fieldInfo.listId;
+            props["List"] = "{" + fieldInfo.listId.replace(/[\{\}]/g, "") + "}";
 
             // Resolve the request
             _resolve("<Field " + toString(props) + " />");
@@ -312,11 +312,12 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
             props["ID"] = "{" + ContextInfo.generateGUID() + "}";
             props["Name"] = fieldInfo.name;
             props["StaticName"] = fieldInfo.name;
-            props["DisplayName"] = fieldInfo.title;
+            props["DisplayName"] = fieldInfo.title || fieldInfo.name;
 
             // Set the optional properties
             if (typeof (fieldInfo.group) !== "undefined") { props["Group"] = fieldInfo.group; }
             if (typeof (fieldInfo.hidden) !== "undefined") { props["Hidden"] = fieldInfo.hidden ? "TRUE" : "FALSE"; }
+            if (typeof (fieldInfo.readOnly) !== "undefined") { props["ReadOnly"] = fieldInfo.readOnly ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.required) !== "undefined") { props["Required"] = fieldInfo.required ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.showInDisplayForm) !== "undefined") { props["ShowInDisplayForm"] = fieldInfo.showInDisplayForm ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.showInEditForm) !== "undefined") { props["ShowInEditForm"] = fieldInfo.showInEditForm ? "TRUE" : "FALSE"; }
