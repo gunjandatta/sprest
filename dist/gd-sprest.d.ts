@@ -1731,6 +1731,19 @@ declare module 'gd-sprest/helper/types/spCfg' {
             multi?: boolean;
     }
     /**
+        * Currency Field Information
+        */
+    export interface IFieldInfoCurrency extends IFieldInfo {
+            /** The number of decimal places */
+            decimals?: number;
+            /** The country/region whose currency format is being used. */
+            lcid?: number;
+            /** The maximum value */
+            max?: number;
+            /** The minimum value */
+            min?: number;
+    }
+    /**
         * Date Field Information
         */
     export interface IFieldInfoDate extends IFieldInfo {
@@ -1977,6 +1990,7 @@ declare module 'gd-sprest/helper/types/spCfgTypes' {
         Boolean: number;
         Calculated: number;
         Choice: number;
+        Currency: number;
         Date: number;
         Lookup: number;
         MMS: number;
@@ -11380,10 +11394,11 @@ declare module 'gd-sprest/mapper/types/viewFieldCollection' {
     export interface IViewFields extends IBase<IViewFields, IViewFields, IViewFields> {
             /** Gets a value that specifies the XML schema that represents the collection. */
             SchemaXml: string;
-            /** Specifies the XML schema of the collection of fields. The Items property is returned with the resource, but it doesn't have a URI-addressable endpoint. */
-            Items: string;
-            /** The view field collection. */
-            results: Array<any>;
+            /** Contains an array of the view fields. */
+            Items: {
+                    /** The view field collection. */
+                    results: Array<any>;
+            };
             /**
                 * Adds the field with the specified field internal name or display name to the collection.
                 * @param fieldName - The case-sensitive internal name or display name of the field to add.

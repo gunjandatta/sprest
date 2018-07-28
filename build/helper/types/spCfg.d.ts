@@ -55,6 +55,19 @@ export interface IFieldInfoChoice extends IFieldInfo {
     multi?: boolean;
 }
 /**
+ * Currency Field Information
+ */
+export interface IFieldInfoCurrency extends IFieldInfo {
+    /** The number of decimal places */
+    decimals?: number;
+    /** The country/region whose currency format is being used. */
+    lcid?: number;
+    /** The maximum value */
+    max?: number;
+    /** The minimum value */
+    min?: number;
+}
+/**
  * Date Field Information
  */
 export interface IFieldInfoDate extends IFieldInfo {
