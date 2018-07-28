@@ -3,6 +3,7 @@ export type ISPCfgFieldType = {
     Boolean: number;
     Calculated: number;
     Choice: number;
+    Currency: number;
     Date: number;
     Lookup: number;
     MMS: number;

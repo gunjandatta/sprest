@@ -88,6 +88,29 @@ exports.FieldSchemaXML = function (fieldInfo) {
         // Resolve the request
         _resolve(schemaXml);
     };
+    // Returns the schema xml for a currency field.
+    var createCurrency = function (fieldInfo, props) {
+        var schemaXml = null;
+        // Set the field type
+        props["Type"] = "Currency";
+        // Set the number properties
+        if (fieldInfo.decimals >= 0) {
+            props["Decimals"] = fieldInfo.decimals;
+        }
+        if (fieldInfo.lcid > 0) {
+            props["LCID"] = fieldInfo.lcid;
+        }
+        if (fieldInfo.max != null) {
+            props["Max"] = fieldInfo.max;
+        }
+        if (fieldInfo.min != null) {
+            props["Min"] = fieldInfo.min;
+        }
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + " />";
+        // Resolve the request
+        _resolve(schemaXml);
+    };
     // Returns the schema xml for a date field.
     var createDate = function (fieldInfo, props) {
         var schemaXml = null;
@@ -334,6 +357,10 @@ exports.FieldSchemaXML = function (fieldInfo) {
                 case spCfg_1.SPCfgFieldType.Choice:
                     createChoice(fieldInfo, props);
                     break;
+                // Currency
+                case spCfg_1.SPCfgFieldType.Currency:
+                    createCurrency(fieldInfo, props);
+                    break;
                 // Date/Time
                 case spCfg_1.SPCfgFieldType.Date:
                     createDate(fieldInfo, props);
@@ -368,8 +395,8 @@ exports.FieldSchemaXML = function (fieldInfo) {
                     break;
                 // Field type not supported
                 default:
-                    // Resolve the promise
-                    resolve();
+                    // Create a text field by default
+                    createText(fieldInfo, props);
                     break;
             }
         }

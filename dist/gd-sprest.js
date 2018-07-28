@@ -9261,6 +9261,29 @@ exports.FieldSchemaXML = function (fieldInfo) {
         // Resolve the request
         _resolve(schemaXml);
     };
+    // Returns the schema xml for a currency field.
+    var createCurrency = function (fieldInfo, props) {
+        var schemaXml = null;
+        // Set the field type
+        props["Type"] = "Currency";
+        // Set the number properties
+        if (fieldInfo.decimals >= 0) {
+            props["Decimals"] = fieldInfo.decimals;
+        }
+        if (fieldInfo.lcid > 0) {
+            props["LCID"] = fieldInfo.lcid;
+        }
+        if (fieldInfo.max != null) {
+            props["Max"] = fieldInfo.max;
+        }
+        if (fieldInfo.min != null) {
+            props["Min"] = fieldInfo.min;
+        }
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + " />";
+        // Resolve the request
+        _resolve(schemaXml);
+    };
     // Returns the schema xml for a date field.
     var createDate = function (fieldInfo, props) {
         var schemaXml = null;
@@ -9507,6 +9530,10 @@ exports.FieldSchemaXML = function (fieldInfo) {
                 case spCfg_1.SPCfgFieldType.Choice:
                     createChoice(fieldInfo, props);
                     break;
+                // Currency
+                case spCfg_1.SPCfgFieldType.Currency:
+                    createCurrency(fieldInfo, props);
+                    break;
                 // Date/Time
                 case spCfg_1.SPCfgFieldType.Date:
                     createDate(fieldInfo, props);
@@ -9541,8 +9568,8 @@ exports.FieldSchemaXML = function (fieldInfo) {
                     break;
                 // Field type not supported
                 default:
-                    // Resolve the promise
-                    resolve();
+                    // Create a text field by default
+                    createText(fieldInfo, props);
                     break;
             }
         }
@@ -9564,14 +9591,15 @@ exports.SPCfgFieldType = {
     Boolean: 0,
     Calculated: 1,
     Choice: 2,
-    Date: 3,
-    Lookup: 4,
-    MMS: 5,
-    Note: 6,
-    Number: 7,
-    Text: 8,
-    Url: 9,
-    User: 10
+    Currency: 3,
+    Date: 4,
+    Lookup: 5,
+    MMS: 6,
+    Note: 7,
+    Number: 8,
+    Text: 9,
+    Url: 10,
+    User: 11
 };
 /**
  * SharePoint Configuration Types
@@ -12092,7 +12120,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.16,
+    __ver: 4.17,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,

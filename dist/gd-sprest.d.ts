@@ -1731,6 +1731,19 @@ declare module 'gd-sprest/helper/types/spCfg' {
             multi?: boolean;
     }
     /**
+        * Currency Field Information
+        */
+    export interface IFieldInfoCurrency extends IFieldInfo {
+            /** The number of decimal places */
+            decimals?: number;
+            /** The country/region whose currency format is being used. */
+            lcid?: number;
+            /** The maximum value */
+            max?: number;
+            /** The minimum value */
+            min?: number;
+    }
+    /**
         * Date Field Information
         */
     export interface IFieldInfoDate extends IFieldInfo {
@@ -1977,6 +1990,7 @@ declare module 'gd-sprest/helper/types/spCfgTypes' {
         Boolean: number;
         Calculated: number;
         Choice: number;
+        Currency: number;
         Date: number;
         Lookup: number;
         MMS: number;

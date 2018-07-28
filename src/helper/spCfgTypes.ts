@@ -7,14 +7,15 @@ export const SPCfgFieldType: ISPCfgFieldType = {
     Boolean: 0,
     Calculated: 1,
     Choice: 2,
-    Date: 3,
-    Lookup: 4,
-    MMS: 5,
-    Note: 6,
-    Number: 7,
-    Text: 8,
-    Url: 9,
-    User: 10
+    Currency: 3,
+    Date: 4,
+    Lookup: 5,
+    MMS: 6,
+    Note: 7,
+    Number: 8,
+    Text: 9,
+    Url: 10,
+    User: 11
 }
 
 /**

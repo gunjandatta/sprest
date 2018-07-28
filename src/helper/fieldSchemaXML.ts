@@ -3,8 +3,8 @@ import { SPTypes } from "..";
 import { SPCfgFieldType } from "./spCfg";
 import {
     IFieldInfo, IFieldInfoCalculated, IFieldInfoChoice,
-    IFieldInfoDate, IFieldInfoLookup, IFieldInfoMMS,
-    IFieldInfoNote, IFieldInfoNumber, IFieldInfoUser
+    IFieldInfoCurrency, IFieldInfoDate, IFieldInfoLookup,
+    IFieldInfoMMS, IFieldInfoNote, IFieldInfoNumber, IFieldInfoUser
 } from "./types";
 
 /**
@@ -91,6 +91,26 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
             schemaXml += "</CHOICES>";
         }
         schemaXml += "</Field>";
+
+        // Resolve the request
+        _resolve(schemaXml);
+    }
+
+    // Returns the schema xml for a currency field.
+    let createCurrency = (fieldInfo: IFieldInfoCurrency, props: object) => {
+        let schemaXml: string = null;
+
+        // Set the field type
+        props["Type"] = "Currency";
+
+        // Set the number properties
+        if (fieldInfo.decimals >= 0) { props["Decimals"] = fieldInfo.decimals; }
+        if (fieldInfo.lcid > 0) { props["LCID"] = fieldInfo.lcid; }
+        if (fieldInfo.max != null) { props["Max"] = fieldInfo.max; }
+        if (fieldInfo.min != null) { props["Min"] = fieldInfo.min; }
+
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + " />";
 
         // Resolve the request
         _resolve(schemaXml);
@@ -339,6 +359,10 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
                 case SPCfgFieldType.Choice:
                     createChoice(fieldInfo, props);
                     break;
+                // Currency
+                case SPCfgFieldType.Currency:
+                    createCurrency(fieldInfo, props);
+                    break;
                 // Date/Time
                 case SPCfgFieldType.Date:
                     createDate(fieldInfo, props);
@@ -373,8 +397,8 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
                     break;
                 // Field type not supported
                 default:
-                    // Resolve the promise
-                    resolve();
+                    // Create a text field by default
+                    createText(fieldInfo, props);
                     break;
             }
         }
