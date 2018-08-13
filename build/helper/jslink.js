@@ -144,8 +144,11 @@ exports.JSLink = {
                     var regExp = new RegExp(mapper_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString, "g");
                     // Update the field value
                     fieldValue = ctx.CurrentFieldValue
+                        // Replace the delimiter
                         .replace(regExp, "; ")
+                        // Trim the delimiter from the beginning
                         .replace(/^; /g, "")
+                        // Trim the delimiter from the end
                         .replace(/; $/g, "");
                     break;
                 case "Note":

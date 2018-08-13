@@ -3,6 +3,9 @@
  */
 export declare const graph: {
     properties: string[];
+    /**
+     * me
+     **/
     me: {
         requestType: number;
         returnType: string;
@@ -19,6 +22,9 @@ export declare const graph_drive: {
  */
 export declare const graph_me: {
     properties: string[];
+    /**
+     * Calendar
+     */
     calendar: {
         requestType: number;
         returnType: string;

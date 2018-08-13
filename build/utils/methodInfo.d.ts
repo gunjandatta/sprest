@@ -25,6 +25,6 @@ export declare class MethodInfo implements Types.IMethodInfo {
     private methodUrl;
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
-    private generateParams();
-    private generateUrl();
+    private generateParams;
+    private generateUrl;
 }

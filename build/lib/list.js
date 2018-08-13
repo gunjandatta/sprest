@@ -19,7 +19,9 @@ exports.List = (function (listName, targetInfo) {
 exports.List.getByEntityName = (function (entityTypeName, callback, targetInfo) {
     // Query for the list
     var query = web_1.Web(targetInfo)
+        // Get the lists
         .Lists()
+        // Set the query
         .query({
         Filter: "EntityTypeName eq '" + entityTypeName + "'",
         Top: 1

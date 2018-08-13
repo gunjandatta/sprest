@@ -42,22 +42,27 @@ var BaseHelper = /** @class */ (function () {
         if (/^graph/.test(objType)) {
             // Do nothing
         }
+        // Else, see if the base is a field
         else if ((/^field/.test(objType) || /fields?$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
             // Update the type
             objType = "field" + (isCollection ? "s" : "");
         }
+        // Else, see if the base is an item
         else if (/item$/.test(objType)) {
             // Update the type
             objType = "listitem";
         }
+        // Else, see if the base is an item collection
         else if (/items$/.test(objType)) {
             // Update the type
             objType = "items";
         }
+        // Else, see if this is a tenant app
         else if (/corporatecatalogappmetadata/.test(objType)) {
             // Update the type
             objType = "tenantapp";
         }
+        // Else, see if this is a tenant app collection
         else if (/corporatecatalogappmetadatas/.test(objType)) {
             // Update the type
             objType = "tenantapps";
@@ -170,10 +175,10 @@ var BaseHelper = /** @class */ (function () {
             obj["results"] = obj["results"] ? obj["results"].concat(results) : results;
             // See if only one object exists
             if (obj["results"].length > 0) {
-                var results_1 = obj["results"];
+                var results_2 = obj["results"];
                 // Parse the results
-                for (var _i = 0, results_2 = results_1; _i < results_2.length; _i++) {
-                    var result = results_2[_i];
+                for (var _i = 0, results_1 = results_2; _i < results_1.length; _i++) {
+                    var result = results_1[_i];
                     // Add the base references
                     this.addBaseReferences(obj, result);
                     // Update the metadata

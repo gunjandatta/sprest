@@ -16,12 +16,17 @@ exports.ListFormField = {
                 // Process the field
                 processField();
             }
+            // Else, load the field from the information provided
             else {
                 // Get the web
                 __1.Web(_fieldInfo.webUrl)
+                    // Get the list
                     .Lists(_fieldInfo.listName)
+                    // Get the fields
                     .Fields()
+                    // Get the field by its internal name
                     .getByInternalNameOrTitle(_fieldInfo.name)
+                    // Execute the request
                     .execute(function (field) {
                     // Save the field
                     _fieldInfo.field = field;
@@ -125,17 +130,23 @@ exports.ListFormField = {
         return new Promise(function (resolve, reject) {
             // Get the current site collection
             __1.Site()
+                // Get the web containing the lookup list
                 .openWebById(info.lookupWebId)
+                // Execute the request
                 .execute(function (web) {
                 // Get the list
                 web.Lists()
+                    // Get the list by id
                     .getById(info.lookupListId)
+                    // Get the items
                     .Items()
+                    // Set the query
                     .query({
                     GetAllItems: true,
                     Select: ["ID", info.lookupField],
                     Top: queryTop > 0 && queryTop <= 5000 ? queryTop : 500
                 })
+                    // Execute the request
                     .execute(function (items) {
                     // Resolve the promise
                     resolve(items.results);
@@ -167,9 +178,13 @@ exports.ListFormField = {
         return new Promise(function (resolve, reject) {
             // Get the web
             __1.Web(info.webUrl)
+                // Get the list
                 .Lists(info.listName)
+                // Get the fields
                 .Fields()
+                // Get the hidden field
                 .getByInternalNameOrTitle(info.name + "_0")
+                // Execute the request
                 .execute(function (field) {
                 // See if the field exists
                 if (field.existsFl) {

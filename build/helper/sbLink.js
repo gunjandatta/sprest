@@ -30,6 +30,7 @@ exports.SuiteBarLink = function (props) {
             appendFl ? topLinks.appendChild(sbLink) : topLinks.insertBefore(sbLink, topLinks.firstChild);
         }
     }
+    // Else, see if this is SPO
     else if (lib_1.ContextInfo.isSPO) {
         // Create this as a ribbon link
         link = ribbonLink_1.RibbonLink(props);

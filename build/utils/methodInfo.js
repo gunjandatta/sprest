@@ -164,6 +164,7 @@ var MethodInfo = /** @class */ (function () {
                 // Set the method data to first argument value
                 this.methodData = this.methodInfo.argValues[0];
             }
+            // Else, see if we are passing arguments outside of the parameters
             else if (this.methodInfo.argValues.length > this.methodInfo.argNames.length) {
                 // Set the method data to the next available argument value
                 this.methodData = this.methodInfo.argValues[this.methodInfo.argNames.length];
@@ -212,6 +213,7 @@ var MethodInfo = /** @class */ (function () {
                 url = url.replace("[[" + key + "]]", encodeURIComponent(this.methodParams[key]));
             }
         }
+        // Else, see if this is an odata request
         else if (this.methodInfo.requestType == _1.RequestType.OData) {
             var oData = new _1.OData(this.methodParams["oData"]);
             // Update the url
@@ -219,6 +221,7 @@ var MethodInfo = /** @class */ (function () {
             // Set the get all items Flag
             this.methodInfo.getAllItemsFl = oData.GetAllItems;
         }
+        // Else, see if we are not passing the data in the body or query string as a variable
         else if (!this.passDataInBody && !this.passDataInQSAsVar) {
             var params = "";
             // Ensure data exists

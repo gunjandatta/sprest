@@ -142,10 +142,13 @@ exports.FieldSchemaXML = function (fieldInfo) {
         if (fieldInfo.listName) {
             // Get the web containing the list
             lib_1.Web(fieldInfo.webUrl)
+                // Get the list
                 .Lists(fieldInfo.listName)
+                // Set the query
                 .query({
                 Expand: ["ParentWeb"]
             })
+                // Execute the request
                 .execute(function (list) {
                 // Set the list and web ids
                 props["List"] = "{" + list.Id + "}";
@@ -318,6 +321,9 @@ exports.FieldSchemaXML = function (fieldInfo) {
             // Set the optional properties
             if (typeof (fieldInfo.group) !== "undefined") {
                 props["Group"] = fieldInfo.group;
+            }
+            if (typeof (fieldInfo.jslink) !== "undefined") {
+                props["JSLink"] = fieldInfo.jslink;
             }
             if (typeof (fieldInfo.hidden) !== "undefined") {
                 props["Hidden"] = fieldInfo.hidden ? "TRUE" : "FALSE";

@@ -29,6 +29,7 @@ exports.App = {
                     .then(function (folder) {
                     // Copy the file to the host web
                     exports.App.copyFileToHostWeb(fileUrl, folder, overwriteFl)
+                        // Wait for the request to complete, and resolve the promise
                         .then(function (_a) {
                         var file = _a.file, folder = _a.folder;
                         resolve({ file: file, folder: folder });
@@ -44,6 +45,7 @@ exports.App = {
                 var srcFileUrl_1 = lib_1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(lib_1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
                 // Get the destination file
                 web.getFileByServerRelativeUrl(dstFileUrl)
+                    // Execute the request
                     .execute(function (file) {
                     // Return a promise
                     return new Promise(function (resolve, reject) {
@@ -63,7 +65,9 @@ exports.App = {
                 // Get the current web
                 lib_1.Web()
                     .getFileByServerRelativeUrl(srcFileUrl_1)
+                    // Get the content
                     .content()
+                    // Execute the request
                     .execute(function (content) {
                     // Return a promise
                     return new Promise(function (resolve, reject) {
@@ -74,6 +78,7 @@ exports.App = {
                         lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
                         // Add the file to the folder
                         (dstFolder).Files().add(true, fileName, content)
+                            // Execute the request
                             .execute(function (file) {
                             // Save a reference to this file
                             srcFile = file;
@@ -107,6 +112,7 @@ exports.App = {
                 }
                 // Copy the file
                 exports.App.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
+                    // Wait for it to complete
                     .then(function (_a) {
                     var file = _a.file, folder = _a.folder;
                     // Save a reference to the file and folder
@@ -174,6 +180,7 @@ exports.App = {
                 var dstFolderUrl = lib_1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, folderUrl.substr(folderUrl[0] == "/" ? 1 : 0));
                 // Get the folder
                 web.getFolderByServerRelativeUrl(folderUrl)
+                    // Execute the request
                     .execute(function (folder) {
                     // Return a promise
                     return new Promise(function (resolve, reject) {

@@ -937,7 +937,9 @@ exports.SPConfig = function (cfg, webUrl) {
                     if (cfgContentType.ParentName) {
                         // Get the web containing the parent content type
                         lib_1.Web(cfgContentType.ParentWebUrl || webUrl)
+                            // Get the content types
                             .ContentTypes()
+                            // Filter for the parent name
                             .query({
                             Filter: "Name eq '" + cfgContentType.ParentName + "'"
                         })
@@ -1184,6 +1186,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     listInfo_1.Title = listName_1.replace(/ /g, "");
                     // Add the list
                     lists.add(listInfo_1)
+                        // Execute the request
                         .execute(function (list) {
                         // Restore the list name in the configuration
                         listInfo_1.Title = listName_1;
@@ -1352,11 +1355,15 @@ exports.SPConfig = function (cfg, webUrl) {
             console.log("[gd-sprest][WebPart] Creating the web parts.");
             // Get the root web
             lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
+                // Get the web part catalog
                 .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
+                // Get the root folder
                 .RootFolder()
+                // Expand the files and items
                 .query({
                 Expand: ["Files"]
             })
+                // Execute the request
                 .execute(function (folder) {
                 var ctr = 0;
                 var _loop_6 = function (i) {
@@ -1401,11 +1408,15 @@ exports.SPConfig = function (cfg, webUrl) {
                             if (cfgWebPart.Group) {
                                 // Set the target to the root web
                                 lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
+                                    // Get the web part catalog
                                     .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
+                                    // Get the Items
                                     .Items()
+                                    // Query for this webpart
                                     .query({
                                     Filter: "FileLeafRef eq '" + cfgWebPart.FileName + "'"
                                 })
+                                    // Execute the request
                                     .execute(function (items) {
                                     // Update the item
                                     items.results[0].update({
@@ -1632,9 +1643,13 @@ exports.SPConfig = function (cfg, webUrl) {
             console.log("[gd-sprest][WebPart] Removing the web parts.");
             // Get the root web
             lib_1.Web(lib_1.ContextInfo.siteServerRelativeUrl)
+                // Get the webpart gallery
                 .getCatalog(__1.SPTypes.ListTemplateType.WebPartCatalog)
+                // Get the root folder
                 .RootFolder()
+                // Expand the files
                 .Files()
+                // Execute the request
                 .execute(function (files) {
                 var _loop_11 = function (i) {
                     var cfgWebPart = cfgWebParts[i];
@@ -1679,11 +1694,13 @@ exports.SPConfig = function (cfg, webUrl) {
                 // Break from the loop
                 break;
             }
+            // Else, see if it's empty
             else if (value == 0) {
                 // Clear the values
                 low = 0;
                 high = 0;
             }
+            // Else, update the base permission
             else {
                 var bit = value - 1;
                 var bitValue = 1;
@@ -1698,6 +1715,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Set the low value
                     low |= bitValue;
                 }
+                // Else, it's a high permission
                 else {
                     // Compute the value
                     bitValue = bitValue << (bit - 32);
@@ -1732,10 +1750,13 @@ exports.SPConfig = function (cfg, webUrl) {
                 if (cfgList) {
                     // Get the web
                     lib_1.Web(webUrl)
+                        // Get the list
                         .Lists(cfgList.ListInformation.Title)
+                        // Expand the content types, fields and views
                         .query({
                         Expand: ["ContentTypes", "Fields", "UserCustomActions", "Views"]
                     })
+                        // Execute the request
                         .execute(function (list) {
                         // See if the title field is being updated
                         if (cfgList.TitleFieldDisplayName) {
@@ -1851,9 +1872,11 @@ exports.SPConfig = function (cfg, webUrl) {
             }
             // Get the site
             lib_1.Site(webUrl)
+                // Expand the user custom actions
                 .query({
                 Expand: ["UserCustomActions"]
             })
+                // Execute the request
                 .execute(function (site) {
                 // Remove the user custom actions
                 removeUserCustomActions(site.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Site : []).then(function () {
@@ -1871,9 +1894,11 @@ exports.SPConfig = function (cfg, webUrl) {
             console.log("[gd-sprest][uninstall] Loading the web information...");
             // Get the web
             lib_1.Web(webUrl)
+                // Expand the content types, fields, lists and user custom actions
                 .query({
                 Expand: ["ContentTypes", "Fields", "Lists", "UserCustomActions"]
             })
+                // Execute the request
                 .execute(function (web) {
                 // Remove the fields
                 removeFields(web.Fields, cfg.Fields).then(function () {
@@ -1996,6 +2021,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         console.log("[gd-sprest][Site Custom Actions] Starting the requests.");
                         // Get the site
                         lib_1.Site(webUrl)
+                            // Get the user custom actions
                             .UserCustomActions().execute(function (customActions) {
                             // Create the user custom actions
                             createUserCustomActions(_1.parse(customActions.stringify()), cfg.CustomActionCfg.Site).then(function () {
@@ -3124,6 +3150,7 @@ exports.App = {
                     .then(function (folder) {
                     // Copy the file to the host web
                     exports.App.copyFileToHostWeb(fileUrl, folder, overwriteFl)
+                        // Wait for the request to complete, and resolve the promise
                         .then(function (_a) {
                         var file = _a.file, folder = _a.folder;
                         resolve({ file: file, folder: folder });
@@ -3139,6 +3166,7 @@ exports.App = {
                 var srcFileUrl_1 = lib_1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(lib_1.ContextInfo.webServerRelativeUrl, fileUrl.substr(fileUrl[0] == "/" ? 1 : 0));
                 // Get the destination file
                 web.getFileByServerRelativeUrl(dstFileUrl)
+                    // Execute the request
                     .execute(function (file) {
                     // Return a promise
                     return new Promise(function (resolve, reject) {
@@ -3158,7 +3186,9 @@ exports.App = {
                 // Get the current web
                 lib_1.Web()
                     .getFileByServerRelativeUrl(srcFileUrl_1)
+                    // Get the content
                     .content()
+                    // Execute the request
                     .execute(function (content) {
                     // Return a promise
                     return new Promise(function (resolve, reject) {
@@ -3169,6 +3199,7 @@ exports.App = {
                         lib_1.ContextInfo.window.$REST.DefaultRequestToHostFl = true;
                         // Add the file to the folder
                         (dstFolder).Files().add(true, fileName, content)
+                            // Execute the request
                             .execute(function (file) {
                             // Save a reference to this file
                             srcFile = file;
@@ -3202,6 +3233,7 @@ exports.App = {
                 }
                 // Copy the file
                 exports.App.copyFileToHostWeb(fileUrls[idx], folderUrls[idx], overwriteFl, rootWebFl)
+                    // Wait for it to complete
                     .then(function (_a) {
                     var file = _a.file, folder = _a.folder;
                     // Save a reference to the file and folder
@@ -3269,6 +3301,7 @@ exports.App = {
                 var dstFolderUrl = lib_1.ContextInfo.window.SP.Utilities.UrlBuilder.urlCombine(web.ServerRelativeUrl, folderUrl.substr(folderUrl[0] == "/" ? 1 : 0));
                 // Get the folder
                 web.getFolderByServerRelativeUrl(folderUrl)
+                    // Execute the request
                     .execute(function (folder) {
                     // Return a promise
                     return new Promise(function (resolve, reject) {
@@ -4085,22 +4118,27 @@ var BaseHelper = /** @class */ (function () {
         if (/^graph/.test(objType)) {
             // Do nothing
         }
+        // Else, see if the base is a field
         else if ((/^field/.test(objType) || /fields?$/.test(objType)) && objType != "fieldlinks" && objType != "fields") {
             // Update the type
             objType = "field" + (isCollection ? "s" : "");
         }
+        // Else, see if the base is an item
         else if (/item$/.test(objType)) {
             // Update the type
             objType = "listitem";
         }
+        // Else, see if the base is an item collection
         else if (/items$/.test(objType)) {
             // Update the type
             objType = "items";
         }
+        // Else, see if this is a tenant app
         else if (/corporatecatalogappmetadata/.test(objType)) {
             // Update the type
             objType = "tenantapp";
         }
+        // Else, see if this is a tenant app collection
         else if (/corporatecatalogappmetadatas/.test(objType)) {
             // Update the type
             objType = "tenantapps";
@@ -4213,10 +4251,10 @@ var BaseHelper = /** @class */ (function () {
             obj["results"] = obj["results"] ? obj["results"].concat(results) : results;
             // See if only one object exists
             if (obj["results"].length > 0) {
-                var results_1 = obj["results"];
+                var results_2 = obj["results"];
                 // Parse the results
-                for (var _i = 0, results_2 = results_1; _i < results_2.length; _i++) {
-                    var result = results_2[_i];
+                for (var _i = 0, results_1 = results_2; _i < results_1.length; _i++) {
+                    var result = results_1[_i];
                     // Add the base references
                     this.addBaseReferences(obj, result);
                     // Update the metadata
@@ -7117,9 +7155,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 "use strict";
 
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -7171,6 +7212,7 @@ var BaseRequest = /** @class */ (function (_super) {
             // Replace the endpoint
             targetInfo.endpoint = methodInfo.url;
         }
+        // Else, ensure the method url exists
         else if (methodInfo.url && methodInfo.url.length > 0) {
             // Ensure the end point exists
             targetInfo.endpoint = targetInfo.endpoint ? targetInfo.endpoint : "";
@@ -7232,9 +7274,11 @@ var BaseRequest = /** @class */ (function (_super) {
                 });
             }
         }
+        // Else, see if we already executed this request
         else if (this.xhr) {
             return this;
         }
+        // Else, we haven't executed this request
         else {
             // Create the request
             this.xhr = new _1.XHRRequest(asyncFl, targetInfo);
@@ -7345,10 +7389,12 @@ var BaseRequest = /** @class */ (function (_super) {
             // Fix the url reference
             targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
         }
+        // Else, see if this is an event receiver
         else if (/SP.EventReceiverDefinition/.test(metadata.type)) {
             // Fix the url reference
             targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
         }
+        // Else, see if this is a tenant app
         else if (/Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata/.test(targetInfo.url)) {
             // Fix the url reference
             targetInfo.url = targetInfo.url.split("Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata")[0] + "web/tenantappcatalog/availableapps/getbyid('" + this["ID"] + "')";
@@ -7426,9 +7472,12 @@ exports.BaseRequest = BaseRequest;
 "use strict";
 
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -7608,9 +7657,12 @@ exports.BaseExecution = BaseExecution;
 "use strict";
 
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -7761,6 +7813,7 @@ var Batch = /** @class */ (function () {
             batch.push(changeset);
             batch.push("");
         }
+        // Else, ensure a request exists
         else if (requests[0]) {
             var targetInfo = requests[0].targetInfo;
             // Add the request to the batch
@@ -7952,6 +8005,7 @@ var MethodInfo = /** @class */ (function () {
                 // Set the method data to first argument value
                 this.methodData = this.methodInfo.argValues[0];
             }
+            // Else, see if we are passing arguments outside of the parameters
             else if (this.methodInfo.argValues.length > this.methodInfo.argNames.length) {
                 // Set the method data to the next available argument value
                 this.methodData = this.methodInfo.argValues[this.methodInfo.argNames.length];
@@ -8000,6 +8054,7 @@ var MethodInfo = /** @class */ (function () {
                 url = url.replace("[[" + key + "]]", encodeURIComponent(this.methodParams[key]));
             }
         }
+        // Else, see if this is an odata request
         else if (this.methodInfo.requestType == _1.RequestType.OData) {
             var oData = new _1.OData(this.methodParams["oData"]);
             // Update the url
@@ -8007,6 +8062,7 @@ var MethodInfo = /** @class */ (function () {
             // Set the get all items Flag
             this.methodInfo.getAllItemsFl = oData.GetAllItems;
         }
+        // Else, see if we are not passing the data in the body or query string as a variable
         else if (!this.passDataInBody && !this.passDataInQSAsVar) {
             var params = "";
             // Ensure data exists
@@ -8287,6 +8343,7 @@ var TargetInfo = /** @class */ (function () {
             // Default the url to the current site/web url
             this.request.url = this.request.defaultToWebFl == false ? lib_1.ContextInfo.siteAbsoluteUrl : lib_1.ContextInfo.webAbsoluteUrl;
         }
+        // Else, see if the url already contains the full request
         else if (/\/_api\//.test(this.request.url)) {
             // Get the url
             var url = this.request.url.toLowerCase().split("/_api/");
@@ -8480,6 +8537,7 @@ var XHRRequest = /** @class */ (function () {
             // Execute the request
             this.executeRequest(requestDigest);
         }
+        // See if this is a post request and the request digest does not exist
         else if (this.targetInfo.requestMethod != "GET" && requestDigest == "") {
             // See if this is a synchronous request
             if (!this.asyncFl) {
@@ -8618,7 +8676,9 @@ exports.List = (function (listName, targetInfo) {
 exports.List.getByEntityName = (function (entityTypeName, callback, targetInfo) {
     // Query for the list
     var query = web_1.Web(targetInfo)
+        // Get the lists
         .Lists()
+        // Set the query
         .query({
         Filter: "EntityTypeName eq '" + entityTypeName + "'",
         Top: 1
@@ -8987,6 +9047,7 @@ exports.Utility = (function (url, targetInfo) {
                     // Add the results property
                     properties[propName] = { 'results': [propValue] };
                 }
+                // Else, assume it's an array
                 else {
                     // Add the results property
                     properties[propName] = { 'results': propValue };
@@ -9146,10 +9207,12 @@ function Executor(methodParams, method, onExecuted) {
                 }
             });
         }
+        // Else, see if additional methods need to be executed
         else if (idx < methodParams.length) {
             // Execute the next method
             executeMethods(idx + 1);
         }
+        // Else, resolve the promise
         else {
             // Resolve the promise
             _resolve();
@@ -9315,10 +9378,13 @@ exports.FieldSchemaXML = function (fieldInfo) {
         if (fieldInfo.listName) {
             // Get the web containing the list
             lib_1.Web(fieldInfo.webUrl)
+                // Get the list
                 .Lists(fieldInfo.listName)
+                // Set the query
                 .query({
                 Expand: ["ParentWeb"]
             })
+                // Execute the request
                 .execute(function (list) {
                 // Set the list and web ids
                 props["List"] = "{" + list.Id + "}";
@@ -9491,6 +9557,9 @@ exports.FieldSchemaXML = function (fieldInfo) {
             // Set the optional properties
             if (typeof (fieldInfo.group) !== "undefined") {
                 props["Group"] = fieldInfo.group;
+            }
+            if (typeof (fieldInfo.jslink) !== "undefined") {
+                props["JSLink"] = fieldInfo.jslink;
             }
             if (typeof (fieldInfo.hidden) !== "undefined") {
                 props["Hidden"] = fieldInfo.hidden ? "TRUE" : "FALSE";
@@ -9766,8 +9835,11 @@ exports.JSLink = {
                     var regExp = new RegExp(mapper_1.SPTypes.ClientTemplatesUtility.UserLookupDelimitString, "g");
                     // Update the field value
                     fieldValue = ctx.CurrentFieldValue
+                        // Replace the delimiter
                         .replace(regExp, "; ")
+                        // Trim the delimiter from the beginning
                         .replace(/^; /g, "")
+                        // Trim the delimiter from the end
                         .replace(/; $/g, "");
                     break;
                 case "Note":
@@ -10076,10 +10148,12 @@ exports.ListForm = {
             }
             // Load the content types
             _info.list.ContentTypes()
+                // Query for the default content type and expand the field links
                 .query({
                 Expand: ["FieldLinks"],
                 Top: 1
             })
+                // Execute the request, but wait for the previous one to be completed
                 .execute(function (ct) {
                 // See if we are storing data in cache
                 if (_props.cacheKey) {
@@ -10248,12 +10322,15 @@ exports.ListForm = {
                     _resolve(_info);
                 }
             }
+            // Else, see if we are loading the list item
             else if (reloadItem || _props.itemId > 0) {
                 // Update the item query
                 _info.query = exports.ListForm.generateODataQuery(_info, _props.loadAttachments);
                 // Get the list item
                 _info.list.Items(reloadItem ? _props.item.Id : _props.itemId)
+                    // Set the query
                     .query(_info.query)
+                    // Execute the request
                     .execute(function (item) {
                     // Save the attachments
                     _info.attachments = item.AttachmentFiles.results;
@@ -10280,13 +10357,17 @@ exports.ListForm = {
                 }
                 // Get the web
                 __1.Web(_props.webUrl)
+                    // Get the list
                     .Lists(_props.listName)
+                    // Execute the request
                     .execute(function (list) {
                     // Save the list and web url
                     _info.list = list;
                     _info.webUrl = _props.webUrl;
                 })
+                    // Load the fields
                     .Fields()
+                    // Execute the request
                     .execute(function (fields) {
                     // See if we are caching the data
                     if (_props.cacheKey) {
@@ -10407,9 +10488,13 @@ exports.ListForm = {
             if (itemId > 0) {
                 // Get the web
                 __1.Web(info.webUrl)
+                    // Get the list
                     .Lists(info.listName)
+                    // Get the item
                     .Items(itemId)
+                    // Get the attachment files
                     .AttachmentFiles()
+                    // Execute the request
                     .execute(function (attachments) {
                     // Resolve the promise
                     resolve(attachments.results || []);
@@ -10449,8 +10534,11 @@ exports.ListForm = {
                     if (attachment.FileName == fileName) {
                         // Get the web
                         __1.Web(info.webUrl)
+                            // Get the file
                             .getFileByServerRelativeUrl(attachment.ServerRelativeUrl)
+                            // Delete the file
                             .delete()
+                            // Execute the request
                             .execute(function () {
                             // Resolve the promise
                             resolve(info);
@@ -10476,8 +10564,11 @@ exports.ListForm = {
             if (itemId > 0) {
                 // Get the web
                 var attachments = __1.Web(info.webUrl)
+                    // Get the lists
                     .Lists(info.listName)
+                    // Get the item
                     .Items(itemId)
+                    // Get the attachment files
                     .AttachmentFiles();
                 // Parse the attachment information
                 for (var i = 0; i < attachmentInfo.length; i++) {
@@ -10521,6 +10612,7 @@ exports.ListForm = {
                 formValues["__metadata"] = { type: info.list.ListItemEntityTypeFullName };
                 // Add the item
                 info.list.Items().add(formValues)
+                    // Execute the request
                     .execute(function (item) {
                     // Update the info
                     info.item = item;
@@ -10552,9 +10644,13 @@ exports.ListForm = {
                         ext = ext[ext.length - 1].toLowerCase();
                         // Get the list
                         info.list
+                            // Get the item
                             .Items(info.item.Id)
+                            // Get the attachments
                             .AttachmentFiles()
+                            // Add the file
                             .add(srcFile.name, ev.target.result)
+                            // Execute the request
                             .execute(function () {
                             // Refresh the item
                             exports.ListForm.refreshItem(info).then(function (info) {
@@ -10616,12 +10712,17 @@ exports.ListFormField = {
                 // Process the field
                 processField();
             }
+            // Else, load the field from the information provided
             else {
                 // Get the web
                 __1.Web(_fieldInfo.webUrl)
+                    // Get the list
                     .Lists(_fieldInfo.listName)
+                    // Get the fields
                     .Fields()
+                    // Get the field by its internal name
                     .getByInternalNameOrTitle(_fieldInfo.name)
+                    // Execute the request
                     .execute(function (field) {
                     // Save the field
                     _fieldInfo.field = field;
@@ -10725,17 +10826,23 @@ exports.ListFormField = {
         return new Promise(function (resolve, reject) {
             // Get the current site collection
             __1.Site()
+                // Get the web containing the lookup list
                 .openWebById(info.lookupWebId)
+                // Execute the request
                 .execute(function (web) {
                 // Get the list
                 web.Lists()
+                    // Get the list by id
                     .getById(info.lookupListId)
+                    // Get the items
                     .Items()
+                    // Set the query
                     .query({
                     GetAllItems: true,
                     Select: ["ID", info.lookupField],
                     Top: queryTop > 0 && queryTop <= 5000 ? queryTop : 500
                 })
+                    // Execute the request
                     .execute(function (items) {
                     // Resolve the promise
                     resolve(items.results);
@@ -10767,9 +10874,13 @@ exports.ListFormField = {
         return new Promise(function (resolve, reject) {
             // Get the web
             __1.Web(info.webUrl)
+                // Get the list
                 .Lists(info.listName)
+                // Get the fields
                 .Fields()
+                // Get the hidden field
                 .getByInternalNameOrTitle(info.name + "_0")
+                // Execute the request
                 .execute(function (field) {
                 // See if the field exists
                 if (field.existsFl) {
@@ -10977,6 +11088,7 @@ exports.SuiteBarLink = function (props) {
             appendFl ? topLinks.appendChild(sbLink) : topLinks.insertBefore(sbLink, topLinks.firstChild);
         }
     }
+    // Else, see if this is SPO
     else if (lib_1.ContextInfo.isSPO) {
         // Create this as a ribbon link
         link = ribbonLink_1.RibbonLink(props);
@@ -12120,7 +12232,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.17,
+    __ver: 4.18,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,

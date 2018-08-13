@@ -19,8 +19,8 @@ export declare class TargetInfo {
     requestUrl: string;
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
-    private getDomainUrl();
-    private static getQueryStringValue(key);
-    private setGraphRequestUrl();
-    private setRESTRequestUrl();
+    private getDomainUrl;
+    private static getQueryStringValue;
+    private setGraphRequestUrl;
+    private setRESTRequestUrl;
 }

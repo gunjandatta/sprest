@@ -145,6 +145,7 @@ var XHRRequest = /** @class */ (function () {
             // Execute the request
             this.executeRequest(requestDigest);
         }
+        // See if this is a post request and the request digest does not exist
         else if (this.targetInfo.requestMethod != "GET" && requestDigest == "") {
             // See if this is a synchronous request
             if (!this.asyncFl) {
