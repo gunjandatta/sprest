@@ -293,6 +293,7 @@ export declare const listitem: {
     };
     update: {
         inheritMetadataType: boolean;
+        metadataType: (obj: any) => any;
         name: string;
         requestMethod: string;
         requestType: number;

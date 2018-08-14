@@ -5198,6 +5198,9 @@ exports.listitem = {
     // Updates it's properties.
     update: {
         inheritMetadataType: true,
+        metadataType: function (obj) {
+            return (obj.parent && obj.parent["ListItemEntityTypeFullName"]) || "SP.ListItem";
+        },
         name: "",
         requestMethod: "MERGE",
         requestType: utils_1.RequestType.PostWithArgsInBody
@@ -7188,7 +7191,7 @@ var BaseRequest = /** @class */ (function (_super) {
                 url: metadata.uri
             };
             // See if we are inheriting the metadata type
-            if (methodConfig.inheritMetadataType) {
+            if (methodConfig.inheritMetadataType && metadata.type) {
                 // Copy the metadata type
                 methodConfig.metadataType = metadata.type;
             }
@@ -12232,7 +12235,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.18,
+    __ver: 4.19,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,

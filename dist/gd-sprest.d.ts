@@ -2856,6 +2856,7 @@ declare module 'gd-sprest/mapper/list' {
             };
             update: {
                     inheritMetadataType: boolean;
+                    metadataType: (obj: any) => any;
                     name: string;
                     requestMethod: string;
                     requestType: number;

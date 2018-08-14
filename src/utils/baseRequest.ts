@@ -33,7 +33,7 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
             };
 
             // See if we are inheriting the metadata type
-            if (methodConfig.inheritMetadataType) {
+            if (methodConfig.inheritMetadataType && metadata.type) {
                 // Copy the metadata type
                 methodConfig.metadataType = metadata.type;
             }
