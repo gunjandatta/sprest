@@ -1,7 +1,6 @@
 import { IBase, IBaseCollection } from "../../utils/types";
-import { SPTypes } from "..";
 import {
-    IFile, IFileMethods, IFileQueryResult, IFileResult,
+    IFile, IFileQueryResult, IFileResult,
 } from ".";
 
 /**

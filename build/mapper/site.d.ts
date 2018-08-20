@@ -1,4 +1,47 @@
 /**
+ * Features
+ */
+export declare const features: {
+    /**
+     * Activates a feature.
+     * @param id - The feature id.
+    **/
+    add: {
+        argNames: string[];
+        requestType: number;
+    };
+    /**
+     * Gets a feature by id.
+     * @param id - The feature id.
+     */
+    getById: {
+        argNames: string[];
+        requestType: number;
+        returnType: string;
+    };
+    getByName: {
+        argNames: string[];
+        name: string;
+        requestType: number;
+        returnType: string;
+    };
+    /**
+     * Queries the collection
+     */
+    query: {
+        argNames: string[];
+        requestType: number;
+    };
+    /**
+     * Deactivates a feature.
+     * @param id - The feature id.
+    **/
+    remove: {
+        argNames: string[];
+        requestType: number;
+    };
+};
+/**
  * Site
  */
 export declare const site: {

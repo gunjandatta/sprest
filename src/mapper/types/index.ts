@@ -6,6 +6,7 @@ export * from "./contentType";
 export * from "./contentTypes";
 export * from "./eventReceiver";
 export * from "./eventReceivers";
+export * from "./features";
 export * from "./field";
 export * from "./fieldLink";
 export * from "./fieldLinks";

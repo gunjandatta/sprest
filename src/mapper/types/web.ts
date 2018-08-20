@@ -510,9 +510,15 @@ export interface IWebQueryProps {
     EventReceivers(id: string): Types.SP.IEventReceiver;
 
     /**
-     * Gets a value that specifies the collection of features that are currently activated in the site.
+     * Gets the site features.
      */
-    Features(): IBase;
+    Features(): Types.SP.IFeatures;
+
+    /**
+     * Gets the site features.
+     * @param id - The id of the feature.
+     */
+    Features(id: string): Types.SP.IFeature;
 
     /**
      * Gets the fields in the web.
@@ -782,7 +788,7 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     EventReceivers: Types.SP.IEventReceiverResults;
 
     /**
-     * Gets a value that specifies the collection of features that are currently activated in the site.
+     * Gets the site features.
      */
     Features: Types.SP.IResults<Types.SP.IFeature>;
 

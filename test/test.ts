@@ -4,6 +4,8 @@ import {
     List
 } from "../build";
 
+$REST.Web().Features().getById("").execute(f => { f.})
+
 $REST.Search().postquery({
     Querytext: "*",
     Properties: {

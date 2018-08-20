@@ -1,6 +1,55 @@
 import { RequestType } from "../utils";
 
 /**
+ * Features
+ */
+export const features = {
+    /**
+     * Activates a feature.
+     * @param id - The feature id.
+    **/
+    add: {
+        argNames: ["id"],
+        requestType: RequestType.PostWithArgsValueOnly
+    },
+
+    /**
+     * Gets a feature by id.
+     * @param id - The feature id.
+     */
+    getById: {
+        argNames: ["id"],
+        requestType: RequestType.GetWithArgsValueOnly,
+        returnType: "feature"
+    },
+
+    // Gets a feature by it's name.
+    getByName: {
+        argNames: ["name"],
+        name: "?$select=DisplayName,*&$filter=DisplayName eq '[[name]]'",
+        requestType: RequestType.GetReplace,
+        returnType: "feature"
+    },
+
+    /**
+     * Queries the collection
+     */
+    query: {
+        argNames: ["oData"],
+        requestType: RequestType.OData
+    },
+
+    /**
+     * Deactivates a feature.
+     * @param id - The feature id.
+    **/
+    remove: {
+        argNames: ["id"],
+        requestType: RequestType.PostWithArgsValueOnly
+    },
+};
+
+/**
  * Site
  */
 export const site = {
@@ -8,7 +57,7 @@ export const site = {
     // Properties
     /*********************************************************************************************************************************/
     properties: [
-        "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features", "Owner|user", "RootWeb|web",
+        "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features|features|('[Name]')|feature", "Owner|user", "RootWeb|web",
         "UserCustomActions|usercustomactions|('[Name]')|usercustomaction"
     ],
 
@@ -305,7 +354,7 @@ export const web = {
         "AllProperties|propertyvalues", "AppTiles", "AssociatedMemberGroup|group", "AssociatedOwnerGroup|group",
         "AssociatedVisitorGroup|group", "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields",
         "ClientWebParts", "ContentTypes|contenttypes|('[Name]')|contenttype", "CurrentUser|user", "DataLeakagePreventionStatusInfo",
-        "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features",
+        "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features|features|('[Name]')|feature",
         "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "FirstUniqueAncestorSecurableObject",
         "Folders|folders|/getByUrl('[Name]')|folder", "Lists|lists|/getByTitle('[Name]')|list",
         "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb",

@@ -76,12 +76,6 @@ export interface IEntityData {
     Title?: string;
 }
 /**
- * Feature
- */
-export interface IFeature {
-    DefinitionId: string;
-}
-/**
  * Form
  */
 export interface IForm {

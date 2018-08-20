@@ -696,6 +696,7 @@ declare module 'gd-sprest/mapper/types' {
     export * from "gd-sprest/mapper/types/contentTypes";
     export * from "gd-sprest/mapper/types/eventReceiver";
     export * from "gd-sprest/mapper/types/eventReceivers";
+    export * from "gd-sprest/mapper/types/features";
     export * from "gd-sprest/mapper/types/field";
     export * from "gd-sprest/mapper/types/fieldLink";
     export * from "gd-sprest/mapper/types/fieldLinks";
@@ -3121,6 +3122,49 @@ declare module 'gd-sprest/mapper/security' {
 }
 
 declare module 'gd-sprest/mapper/site' {
+    /**
+        * Features
+        */
+    export const features: {
+            /**
+                * Activates a feature.
+                * @param id - The feature id.
+             **/
+            add: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            /**
+                * Gets a feature by id.
+                * @param id - The feature id.
+                */
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getByName: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+                    returnType: string;
+            };
+            /**
+                * Queries the collection
+                */
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            /**
+                * Deactivates a feature.
+                * @param id - The feature id.
+             **/
+            remove: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
     /**
         * Site
         */
@@ -5803,6 +5847,49 @@ declare module 'gd-sprest/mapper/types/eventReceivers' {
         * Event Receiver Results
         */
     export interface IEventReceiverResults extends IEventReceiversMethods, IBaseCollection<IEventReceiverResult, IEventReceiverResult, IEventReceiverQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/features' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    /**
+        * Feature
+        */
+    export interface IFeature {
+            /** The feature definition id. */
+            DefinitionId: string;
+            /** The feature definition name. (This property is not returned by default, and must be queried for.) */
+            DisplayName?: string;
+    }
+    /**
+        * Features Methods
+        */
+    export interface IFeaturesMethods {
+            /**
+                * Activates a feature.
+                * @param id - The feature id.
+                */
+            add(id: string): IBase<IFeature>;
+            /**
+                * Gets a feature by id.
+                * @param id - The feature id.
+                */
+            getById(id: string): IBase<IFeature>;
+            /**
+                * Gets a feature by name.
+                * @param name - The feature internal name.
+                */
+            getByName(name: string): IBase<IFeatures>;
+            /**
+                * Deactivates a feature.
+                * @param id - The feature id.
+                */
+            remove(id: string): IBase;
+    }
+    /**
+        * Features
+        */
+    export interface IFeatures extends IFeaturesMethods, IBaseCollection<IFeature> {
     }
 }
 
@@ -8984,9 +9071,14 @@ declare module 'gd-sprest/mapper/types/site' {
              */
             EventReceivers(id: string): Types.SP.IEventReceiver;
             /**
-                * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
+                * Gets the site collection features.
                 */
-            Features(): IBase;
+            Features(): Types.SP.IFeatures;
+            /**
+                * Gets the site features.
+                * @param id - The id of the feature.
+                */
+            Features(id: string): Types.SP.IFeature;
             /**
                 * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
                 */
@@ -9018,7 +9110,7 @@ declare module 'gd-sprest/mapper/types/site' {
              */
             EventReceivers: Types.SP.IResults<Types.SP.IEventReceiverResult>;
             /**
-                * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
+                * Gets the site collection features.
                 */
             Features: Types.SP.IResults<Types.SP.IFeature>;
             /**
@@ -10378,12 +10470,6 @@ declare module 'gd-sprest/mapper/types/types' {
             SPUserID?: string;
             /** Title */
             Title?: string;
-    }
-    /**
-        * Feature
-        */
-    export interface IFeature {
-            DefinitionId: string;
     }
     /**
         * Form
@@ -11921,9 +12007,14 @@ declare module 'gd-sprest/mapper/types/web' {
              */
             EventReceivers(id: string): Types.SP.IEventReceiver;
             /**
-                * Gets a value that specifies the collection of features that are currently activated in the site.
+                * Gets the site features.
                 */
-            Features(): IBase;
+            Features(): Types.SP.IFeatures;
+            /**
+                * Gets the site features.
+                * @param id - The id of the feature.
+                */
+            Features(id: string): Types.SP.IFeature;
             /**
                 * Gets the fields in the web.
                 */
@@ -12137,7 +12228,7 @@ declare module 'gd-sprest/mapper/types/web' {
              */
             EventReceivers: Types.SP.IEventReceiverResults;
             /**
-                * Gets a value that specifies the collection of features that are currently activated in the site.
+                * Gets the site features.
                 */
             Features: Types.SP.IResults<Types.SP.IFeature>;
             /**

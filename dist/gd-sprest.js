@@ -5555,6 +5555,50 @@ exports.roledefinitions = {
 Object.defineProperty(exports, "__esModule", { value: true });
 var utils_1 = __webpack_require__(0);
 /**
+ * Features
+ */
+exports.features = {
+    /**
+     * Activates a feature.
+     * @param id - The feature id.
+    **/
+    add: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+    /**
+     * Gets a feature by id.
+     * @param id - The feature id.
+     */
+    getById: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.GetWithArgsValueOnly,
+        returnType: "feature"
+    },
+    // Gets a feature by it's name.
+    getByName: {
+        argNames: ["name"],
+        name: "?$select=DisplayName,*&$filter=DisplayName eq '[[name]]'",
+        requestType: utils_1.RequestType.GetReplace,
+        returnType: "feature"
+    },
+    /**
+     * Queries the collection
+     */
+    query: {
+        argNames: ["oData"],
+        requestType: utils_1.RequestType.OData
+    },
+    /**
+     * Deactivates a feature.
+     * @param id - The feature id.
+    **/
+    remove: {
+        argNames: ["id"],
+        requestType: utils_1.RequestType.PostWithArgsValueOnly
+    },
+};
+/**
  * Site
  */
 exports.site = {
@@ -5562,7 +5606,7 @@ exports.site = {
     // Properties
     /*********************************************************************************************************************************/
     properties: [
-        "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features", "Owner|user", "RootWeb|web",
+        "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features|features|('[Name]')|feature", "Owner|user", "RootWeb|web",
         "UserCustomActions|usercustomactions|('[Name]')|usercustomaction"
     ],
     /*********************************************************************************************************************************/
@@ -5814,7 +5858,7 @@ exports.web = {
         "AllProperties|propertyvalues", "AppTiles", "AssociatedMemberGroup|group", "AssociatedOwnerGroup|group",
         "AssociatedVisitorGroup|group", "Author|user", "AvailableContentTypes|contenttypes", "AvailableFields|fields",
         "ClientWebParts", "ContentTypes|contenttypes|('[Name]')|contenttype", "CurrentUser|user", "DataLeakagePreventionStatusInfo",
-        "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features",
+        "DescriptionResource", "EventReceivers|eventreceivers|('[Name]')|eventreceiver", "Features|features|('[Name]')|feature",
         "Fields|fields|/getByInternalNameOrTitle('[Name]')|field", "FirstUniqueAncestorSecurableObject",
         "Folders|folders|/getByUrl('[Name]')|folder", "Lists|lists|/getByTitle('[Name]')|list",
         "ListTemplates|listtemplates|('[Name]')|listtemplate", "Navigation", "ParentWeb",
@@ -12235,7 +12279,7 @@ var Mapper = __webpack_require__(12);
  * SharePoint REST Library
  */
 exports.$REST = {
-    __ver: 4.19,
+    __ver: 4.20,
     AppContext: function (siteUrl) { return Lib.Site.getAppContext(siteUrl); },
     ContextInfo: Lib.ContextInfo,
     DefaultRequestToHostFl: false,

@@ -25,6 +25,7 @@ export const attachmentfiles = {
         requestType: RequestType.OData
     }
 };
+
 /**
  * File
  */

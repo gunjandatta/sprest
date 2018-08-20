@@ -1,8 +1,7 @@
-import { IBase, ITargetInfo } from "../../utils/types";
-import { SPTypes, Types } from "../..";
+import { IBase } from "../../utils/types";
+import { Types } from "../..";
 import {
     IContentType, IContentTypeResults, IContentTypes,
-    ILists,
     IListItem, IListItemProps, IListItemQueryResult, IListItemResult, IListItemResults, IListItems,
     IView, IViewQueryResult, IViewResult, IViewResults, IViews
 } from ".";
