@@ -409,7 +409,7 @@ export interface IWebQueryProps {
      * Gets the site features.
      * @param id - The id of the feature.
      */
-    Features(id: string): Types.SP.IFeature;
+    Features(id: string): IBase<Types.SP.IFeature>;
     /**
      * Gets the fields in the web.
      */
