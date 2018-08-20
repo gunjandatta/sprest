@@ -1,8 +1,11 @@
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -30,7 +33,7 @@ var BaseRequest = /** @class */ (function (_super) {
                 url: metadata.uri
             };
             // See if we are inheriting the metadata type
-            if (methodConfig.inheritMetadataType) {
+            if (methodConfig.inheritMetadataType && metadata.type) {
                 // Copy the metadata type
                 methodConfig.metadataType = metadata.type;
             }
@@ -54,6 +57,7 @@ var BaseRequest = /** @class */ (function (_super) {
             // Replace the endpoint
             targetInfo.endpoint = methodInfo.url;
         }
+        // Else, ensure the method url exists
         else if (methodInfo.url && methodInfo.url.length > 0) {
             // Ensure the end point exists
             targetInfo.endpoint = targetInfo.endpoint ? targetInfo.endpoint : "";
@@ -115,9 +119,11 @@ var BaseRequest = /** @class */ (function (_super) {
                 });
             }
         }
+        // Else, see if we already executed this request
         else if (this.xhr) {
             return this;
         }
+        // Else, we haven't executed this request
         else {
             // Create the request
             this.xhr = new _1.XHRRequest(asyncFl, targetInfo);
@@ -228,10 +234,12 @@ var BaseRequest = /** @class */ (function (_super) {
             // Fix the url reference
             targetInfo.url = targetInfo.url.replace(/AvailableFields/, "fields");
         }
+        // Else, see if this is an event receiver
         else if (/SP.EventReceiverDefinition/.test(metadata.type)) {
             // Fix the url reference
             targetInfo.url = targetInfo.url.replace(/\/EventReceiver\//, "/EventReceivers/");
         }
+        // Else, see if this is a tenant app
         else if (/Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata/.test(targetInfo.url)) {
             // Fix the url reference
             targetInfo.url = targetInfo.url.split("Microsoft.SharePoint.Marketplace.CorporateCuratedGallery.CorporateCatalogAppMetadata")[0] + "web/tenantappcatalog/availableapps/getbyid('" + this["ID"] + "')";

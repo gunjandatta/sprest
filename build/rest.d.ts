@@ -21,7 +21,7 @@ export interface IHelper {
     /**
      * Executor
      */
-    Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): any;
+    Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args: any[]) => PromiseLike<any> | void): any;
     /**
      * Helper class for generating a field schema xml
      */
@@ -128,7 +128,7 @@ export interface IREST {
      * @param entityTypeName - The entity type name of the list.
      * @param callback - The method to be executed after the request completes.
      */
-    ListByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?: any): Util.Types.IBase<Mapper.Types.IList, Mapper.Types.IListResult, Mapper.Types.IListQueryResult>;
+    ListByEntityName(entityTypeName: string, callback: (IList: any) => void, targetInfo?: any): Util.Types.IBase<Mapper.Types.IList, Mapper.Types.IListResult, Mapper.Types.IListQueryResult>;
     /**
      * Use this api to get the list data.
      * @param listFullUrl - The absolute url of the list.

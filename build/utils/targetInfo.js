@@ -105,6 +105,7 @@ var TargetInfo = /** @class */ (function () {
             // Default the url to the current site/web url
             this.request.url = this.request.defaultToWebFl == false ? lib_1.ContextInfo.siteAbsoluteUrl : lib_1.ContextInfo.webAbsoluteUrl;
         }
+        // Else, see if the url already contains the full request
         else if (/\/_api\//.test(this.request.url)) {
             // Get the url
             var url = this.request.url.toLowerCase().split("/_api/");

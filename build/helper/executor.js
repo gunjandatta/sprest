@@ -45,10 +45,12 @@ function Executor(methodParams, method, onExecuted) {
                 }
             });
         }
+        // Else, see if additional methods need to be executed
         else if (idx < methodParams.length) {
             // Execute the next method
             executeMethods(idx + 1);
         }
+        // Else, resolve the promise
         else {
             // Resolve the promise
             _resolve();

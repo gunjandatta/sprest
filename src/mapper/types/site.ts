@@ -235,9 +235,15 @@ export interface ISiteQueryProps {
     EventReceivers(id: string): Types.SP.IEventReceiver;
 
     /**
-     * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
+     * Gets the site collection features.
      */
-    Features(): IBase;
+    Features(): Types.SP.IFeatures;
+
+    /**
+     * Gets the site features.
+     * @param id - The id of the feature.
+     */
+    Features(id: string): IBase<Types.SP.IFeature>;
 
     /**
      * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
@@ -278,7 +284,7 @@ export interface ISiteQueryResult extends ISiteMethods, ISiteProps {
     EventReceivers: Types.SP.IResults<Types.SP.IEventReceiverResult>;
 
     /**
-     * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
+     * Gets the site collection features.
      */
     Features: Types.SP.IResults<Types.SP.IFeature>;
 

@@ -44,6 +44,7 @@ exports.Utility = (function (url, targetInfo) {
                     // Add the results property
                     properties[propName] = { 'results': [propValue] };
                 }
+                // Else, assume it's an array
                 else {
                     // Add the results property
                     properties[propName] = { 'results': propValue };

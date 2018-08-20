@@ -9,6 +9,8 @@ export interface IFieldInfo {
     group?: string;
     /** True for hidden fields. */
     hidden?: boolean;
+    /** The JSLink value for the field. */
+    jslink?: string;
     /** The internal name of the field. */
     name: string;
     /** Flag to determine if the field is readonly. */

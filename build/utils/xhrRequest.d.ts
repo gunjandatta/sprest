@@ -5,7 +5,7 @@ import { TargetInfo } from ".";
 export declare class XHRRequest {
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
-    constructor(asyncFl: boolean, targetInfo: TargetInfo, callback?: (...args) => void);
+    constructor(asyncFl: boolean, targetInfo: TargetInfo, callback?: (...args: any[]) => void);
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
     readonly completedFl: boolean;
@@ -22,8 +22,8 @@ export declare class XHRRequest {
     private xhr;
     /*********************************************************************************************************************************/
     /*********************************************************************************************************************************/
-    private createXHR();
-    private defaultHeaders(requestDigest);
-    private execute();
-    private executeRequest(requestDigest);
+    private createXHR;
+    private defaultHeaders;
+    private execute;
+    private executeRequest;
 }

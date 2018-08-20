@@ -336,6 +336,7 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
 
             // Set the optional properties
             if (typeof (fieldInfo.group) !== "undefined") { props["Group"] = fieldInfo.group; }
+            if (typeof (fieldInfo.jslink) !== "undefined") { props["JSLink"] = fieldInfo.jslink; }
             if (typeof (fieldInfo.hidden) !== "undefined") { props["Hidden"] = fieldInfo.hidden ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.readOnly) !== "undefined") { props["ReadOnly"] = fieldInfo.readOnly ? "TRUE" : "FALSE"; }
             if (typeof (fieldInfo.required) !== "undefined") { props["Required"] = fieldInfo.required ? "TRUE" : "FALSE"; }

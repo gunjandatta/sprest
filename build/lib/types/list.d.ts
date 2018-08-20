@@ -15,7 +15,7 @@ export interface IList {
      * @param entityTypeName - The entity type name of the list.
      * @param callback - The method to be executed after the request completes.
      */
-    getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?: any): IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
+    getByEntityName(entityTypeName: string, callback: (IList: any) => void, targetInfo?: any): IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
     /**
      * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
      * @param listFullUrl - The absolute url of the list.

@@ -109,7 +109,7 @@ declare module 'gd-sprest/rest' {
             /**
                 * Executor
                 */
-            Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): any;
+            Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args: any[]) => PromiseLike<any> | void): any;
             /**
                 * Helper class for generating a field schema xml
                 */
@@ -216,7 +216,7 @@ declare module 'gd-sprest/rest' {
                 * @param entityTypeName - The entity type name of the list.
                 * @param callback - The method to be executed after the request completes.
                 */
-            ListByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?: any): Util.Types.IBase<Mapper.Types.IList, Mapper.Types.IListResult, Mapper.Types.IListQueryResult>;
+            ListByEntityName(entityTypeName: string, callback: (IList: any) => void, targetInfo?: any): Util.Types.IBase<Mapper.Types.IList, Mapper.Types.IListResult, Mapper.Types.IListQueryResult>;
             /**
                 * Use this api to get the list data.
                 * @param listFullUrl - The absolute url of the list.
@@ -315,7 +315,7 @@ declare module 'gd-sprest/helper/executor' {
       * @param method - The method to execute for each method parameter provided.
       * @param onExecuted - An optional event executed after the method completes. If a promise is returned, the executor will wait until it's resolved.
       */
-    export function Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args) => PromiseLike<any> | void): Promise<{}>;
+    export function Executor<T = any>(methodParams: Array<T>, method: (param: T) => PromiseLike<any> | void, onExecuted?: (...args: any[]) => PromiseLike<any> | void): Promise<{}>;
 }
 
 declare module 'gd-sprest/helper/fieldSchemaXML' {
@@ -696,6 +696,7 @@ declare module 'gd-sprest/mapper/types' {
     export * from "gd-sprest/mapper/types/contentTypes";
     export * from "gd-sprest/mapper/types/eventReceiver";
     export * from "gd-sprest/mapper/types/eventReceivers";
+    export * from "gd-sprest/mapper/types/features";
     export * from "gd-sprest/mapper/types/field";
     export * from "gd-sprest/mapper/types/fieldLink";
     export * from "gd-sprest/mapper/types/fieldLinks";
@@ -1003,7 +1004,7 @@ declare module 'gd-sprest/helper/types/dependencies' {
                 * Constructor
                 * @param callback - The method to execute after the dependencies are loaded.
                 */
-            constructor(callback: (...args) => void): any;
+            constructor(callback: (...args: any[]) => void): any;
             /** The maximum amount of time to wait for the scripts to be loaded. */
             MAX_WAIT: number;
             /** Flag to determine if the page context information exists */
@@ -1685,6 +1686,8 @@ declare module 'gd-sprest/helper/types/spCfg' {
             group?: string;
             /** True for hidden fields. */
             hidden?: boolean;
+            /** The JSLink value for the field. */
+            jslink?: string;
             /** The internal name of the field. */
             name: string;
             /** Flag to determine if the field is readonly. */
@@ -2307,6 +2310,11 @@ declare module 'gd-sprest/mapper/file' {
         * Attachment Files
         */
     export const attachmentfiles: {
+            /**
+                * Adds the attachment that is represented by the specified file name and byte array to the list item.
+                * @param name - The name of the file to add.
+                * @param contents - The file contents as an array buffer.
+             **/
             add: {
                     argNames: string[];
                     requestType: number;
@@ -2320,7 +2328,9 @@ declare module 'gd-sprest/mapper/file' {
         * File
         */
     export const file: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             approve: {
                     argNames: string[];
                     requestType: number;
@@ -2434,7 +2444,9 @@ declare module 'gd-sprest/mapper/file' {
         * File Version
         */
     export const fileversion: {
+            /*********************************************************************************************************************************/
             properties: any[];
+            /*********************************************************************************************************************************/
             delete: {
                     requestType: number;
             };
@@ -2459,7 +2471,9 @@ declare module 'gd-sprest/mapper/file' {
         * Folder
         */
     export const folder: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             delete: {
                     requestType: number;
             };
@@ -2486,7 +2500,9 @@ declare module 'gd-sprest/mapper/file' {
         * Folders
         */
     export const folders: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             add: {
                     argNames: string[];
                     requestType: number;
@@ -2505,7 +2521,9 @@ declare module 'gd-sprest/mapper/file' {
         * Limited Web Part Manager
         */
     export const limitedwebpartmanager: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             get_WebParts: {
                     argNames: string[];
                     name: string;
@@ -2520,6 +2538,9 @@ declare module 'gd-sprest/mapper/graph' {
         */
     export const graph: {
             properties: string[];
+            /**
+                * me
+                **/
             me: {
                     requestType: number;
                     returnType: string;
@@ -2536,6 +2557,9 @@ declare module 'gd-sprest/mapper/graph' {
         */
     export const graph_me: {
             properties: string[];
+            /**
+                * Calendar
+                */
             calendar: {
                     requestType: number;
                     returnType: string;
@@ -2548,7 +2572,9 @@ declare module 'gd-sprest/mapper/list' {
         * Content Type
         */
     export const contenttype: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             delete: {
                     requestType: number;
             };
@@ -2707,7 +2733,9 @@ declare module 'gd-sprest/mapper/list' {
         * List
         */
     export const list: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             breakRoleInheritance: {
                     argNames: string[];
                     requestType: number;
@@ -2802,7 +2830,9 @@ declare module 'gd-sprest/mapper/list' {
         * List Item
         */
     export const listitem: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             breakRoleInheritance: {
                     argNames: string[];
                     requestType: number;
@@ -2827,6 +2857,7 @@ declare module 'gd-sprest/mapper/list' {
             };
             update: {
                     inheritMetadataType: boolean;
+                    metadataType: (obj: any) => any;
                     name: string;
                     requestMethod: string;
                     requestType: number;
@@ -2899,7 +2930,9 @@ declare module 'gd-sprest/mapper/list' {
         * View
         */
     export const view: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             delete: {
                     requestType: number;
             };
@@ -2969,15 +3002,21 @@ declare module 'gd-sprest/mapper/list' {
 
 declare module 'gd-sprest/mapper/navigation' {
     /**
-      * Navigation
-      */
+        * Navigation
+        */
     export const navigationservicerest: {
-        properties: string[];
-        getMenuState: {
-            argNames: string[];
-            name: string;
-            RequestType: number;
-        };
+            /**
+                * Properties
+                */
+            properties: string[];
+            /**
+                * Methods
+                */
+            getMenuState: {
+                    argNames: string[];
+                    name: string;
+                    RequestType: number;
+            };
     };
 }
 
@@ -3011,7 +3050,9 @@ declare module 'gd-sprest/mapper/security' {
         * Role Assignment
         */
     export const roleassignment: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             delete: {
                     requestType: number;
             };
@@ -3082,10 +3123,55 @@ declare module 'gd-sprest/mapper/security' {
 
 declare module 'gd-sprest/mapper/site' {
     /**
+        * Features
+        */
+    export const features: {
+            /**
+                * Activates a feature.
+                * @param id - The feature id.
+             **/
+            add: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            /**
+                * Gets a feature by id.
+                * @param id - The feature id.
+                */
+            getById: {
+                    argNames: string[];
+                    requestType: number;
+                    returnType: string;
+            };
+            getByName: {
+                    argNames: string[];
+                    name: string;
+                    requestType: number;
+                    returnType: string;
+            };
+            /**
+                * Queries the collection
+                */
+            query: {
+                    argNames: string[];
+                    requestType: number;
+            };
+            /**
+                * Deactivates a feature.
+                * @param id - The feature id.
+             **/
+            remove: {
+                    argNames: string[];
+                    requestType: number;
+            };
+    };
+    /**
         * Site
         */
     export const site: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             createPreviewSPSite: {
                     argNames: string[];
                     requestType: number;
@@ -3193,7 +3279,9 @@ declare module 'gd-sprest/mapper/site' {
         * Tenant App Catalog
         */
     export const tenantappcatalog: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             add: {
                     argNames: string[];
                     requestType: number;
@@ -3290,7 +3378,9 @@ declare module 'gd-sprest/mapper/site' {
         * Web
         */
     export const web: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             applyTheme: {
                     argNames: string[];
                     requestType: number;
@@ -3636,7 +3726,9 @@ declare module 'gd-sprest/mapper/social' {
         * User Profile
         */
     export const userprofile: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             createPersonalSiteEnque: {
                     argNames: string[];
                     requestType: number;
@@ -3653,7 +3745,9 @@ declare module 'gd-sprest/mapper/user' {
         * Group
         */
     export const group: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             query: {
                     argNames: string[];
                     requestType: number;
@@ -3720,7 +3814,9 @@ declare module 'gd-sprest/mapper/user' {
         * User
         */
     export const user: {
+            /*********************************************************************************************************************************/
             properties: string[];
+            /*********************************************************************************************************************************/
             delete: {
                     requestType: number;
             };
@@ -5751,6 +5847,49 @@ declare module 'gd-sprest/mapper/types/eventReceivers' {
         * Event Receiver Results
         */
     export interface IEventReceiverResults extends IEventReceiversMethods, IBaseCollection<IEventReceiverResult, IEventReceiverResult, IEventReceiverQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/features' {
+    import { IBase, IBaseCollection } from "gd-sprest/utils/types";
+    /**
+        * Feature
+        */
+    export interface IFeature {
+            /** The feature definition id. */
+            DefinitionId: string;
+            /** The feature definition name. (This property is not returned by default, and must be queried for.) */
+            DisplayName?: string;
+    }
+    /**
+        * Features Methods
+        */
+    export interface IFeaturesMethods {
+            /**
+                * Activates a feature.
+                * @param id - The feature id.
+                */
+            add(id: string): IBase<IFeature>;
+            /**
+                * Gets a feature by id.
+                * @param id - The feature id.
+                */
+            getById(id: string): IBase<IFeature>;
+            /**
+                * Gets a feature by name.
+                * @param name - The feature internal name.
+                */
+            getByName(name: string): IBase<IFeatures>;
+            /**
+                * Deactivates a feature.
+                * @param id - The feature id.
+                */
+            remove(id: string): IBase;
+    }
+    /**
+        * Features
+        */
+    export interface IFeatures extends IFeaturesMethods, IBaseCollection<IFeature> {
     }
 }
 
@@ -8932,9 +9071,14 @@ declare module 'gd-sprest/mapper/types/site' {
              */
             EventReceivers(id: string): Types.SP.IEventReceiver;
             /**
-                * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
+                * Gets the site collection features.
                 */
-            Features(): IBase;
+            Features(): Types.SP.IFeatures;
+            /**
+                * Gets the site features.
+                * @param id - The id of the feature.
+                */
+            Features(id: string): IBase<Types.SP.IFeature>;
             /**
                 * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
                 */
@@ -8966,7 +9110,7 @@ declare module 'gd-sprest/mapper/types/site' {
              */
             EventReceivers: Types.SP.IResults<Types.SP.IEventReceiverResult>;
             /**
-                * Gets a value that specifies the collection of the site collection features for the site collection that contains the site.
+                * Gets the site collection features.
                 */
             Features: Types.SP.IResults<Types.SP.IFeature>;
             /**
@@ -10326,12 +10470,6 @@ declare module 'gd-sprest/mapper/types/types' {
             SPUserID?: string;
             /** Title */
             Title?: string;
-    }
-    /**
-        * Feature
-        */
-    export interface IFeature {
-            DefinitionId: string;
     }
     /**
         * Form
@@ -11869,9 +12007,14 @@ declare module 'gd-sprest/mapper/types/web' {
              */
             EventReceivers(id: string): Types.SP.IEventReceiver;
             /**
-                * Gets a value that specifies the collection of features that are currently activated in the site.
+                * Gets the site features.
                 */
-            Features(): IBase;
+            Features(): Types.SP.IFeatures;
+            /**
+                * Gets the site features.
+                * @param id - The id of the feature.
+                */
+            Features(id: string): IBase<Types.SP.IFeature>;
             /**
                 * Gets the fields in the web.
                 */
@@ -12085,7 +12228,7 @@ declare module 'gd-sprest/mapper/types/web' {
              */
             EventReceivers: Types.SP.IEventReceiverResults;
             /**
-                * Gets a value that specifies the collection of features that are currently activated in the site.
+                * Gets the site features.
                 */
             Features: Types.SP.IResults<Types.SP.IFeature>;
             /**
@@ -12271,7 +12414,7 @@ declare module 'gd-sprest/utils/baseRequest' {
         targetInfo: Types.ITargetInfo;
         xhr: XHRRequest;
         executeMethod(methodName: string, methodConfig: Types.IMethodInfo, args?: any): Base<any, any, any>;
-        executeRequest(asyncFl: boolean, callback?: (...args) => void): string | this;
+        executeRequest(asyncFl: boolean, callback?: (...args: any[]) => void): string | this;
         getCollection(method: string, args?: any): Base<any, any, any>;
         getNextSetOfResults(): Base<any, any, any>;
         getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
@@ -12398,7 +12541,7 @@ declare module 'gd-sprest/utils/xhrRequest' {
       */
     export class XHRRequest {
         /*********************************************************************************************************************************/
-        constructor(asyncFl: boolean, targetInfo: TargetInfo, callback?: (...args) => void);
+        constructor(asyncFl: boolean, targetInfo: TargetInfo, callback?: (...args: any[]) => void);
         /*********************************************************************************************************************************/
         readonly completedFl: boolean;
         readonly response: any;
@@ -12701,7 +12844,7 @@ declare module 'gd-sprest/lib/types/list' {
                 * @param entityTypeName - The entity type name of the list.
                 * @param callback - The method to be executed after the request completes.
                 */
-            getByEntityName(entityTypeName: string, callback: (IList) => void, targetInfo?: any): IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
+            getByEntityName(entityTypeName: string, callback: (IList: any) => void, targetInfo?: any): IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
             /**
                 * A static method to get the list data from the SP.List.GetListAsDataStream endpoint.
                 * @param listFullUrl - The absolute url of the list.
@@ -13057,7 +13200,7 @@ declare module 'gd-sprest/utils/types/baseRequest' {
         /** Method to execute the request. */
         executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): any;
         /** Method to execute the request. */
-        executeRequest(asyncFl: boolean, callback?: (...args) => void): any;
+        executeRequest(asyncFl: boolean, callback?: (...args: any[]) => void): any;
         /** Gets the property as a collection. */
         getCollection(method: string, args?: any): any;
         /** Gets the next set of results. */

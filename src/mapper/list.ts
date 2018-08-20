@@ -418,6 +418,9 @@ export const listitem = {
     // Updates it's properties.
     update: {
         inheritMetadataType: true,
+        metadataType: function (obj) {
+            return (obj.parent && obj.parent["ListItemEntityTypeFullName"]) || "SP.ListItem"
+        },
         name: "",
         requestMethod: "MERGE",
         requestType: RequestType.PostWithArgsInBody

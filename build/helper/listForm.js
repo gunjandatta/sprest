@@ -65,10 +65,12 @@ exports.ListForm = {
             }
             // Load the content types
             _info.list.ContentTypes()
+                // Query for the default content type and expand the field links
                 .query({
                 Expand: ["FieldLinks"],
                 Top: 1
             })
+                // Execute the request, but wait for the previous one to be completed
                 .execute(function (ct) {
                 // See if we are storing data in cache
                 if (_props.cacheKey) {
@@ -237,12 +239,15 @@ exports.ListForm = {
                     _resolve(_info);
                 }
             }
+            // Else, see if we are loading the list item
             else if (reloadItem || _props.itemId > 0) {
                 // Update the item query
                 _info.query = exports.ListForm.generateODataQuery(_info, _props.loadAttachments);
                 // Get the list item
                 _info.list.Items(reloadItem ? _props.item.Id : _props.itemId)
+                    // Set the query
                     .query(_info.query)
+                    // Execute the request
                     .execute(function (item) {
                     // Save the attachments
                     _info.attachments = item.AttachmentFiles.results;
@@ -269,13 +274,17 @@ exports.ListForm = {
                 }
                 // Get the web
                 __1.Web(_props.webUrl)
+                    // Get the list
                     .Lists(_props.listName)
+                    // Execute the request
                     .execute(function (list) {
                     // Save the list and web url
                     _info.list = list;
                     _info.webUrl = _props.webUrl;
                 })
+                    // Load the fields
                     .Fields()
+                    // Execute the request
                     .execute(function (fields) {
                     // See if we are caching the data
                     if (_props.cacheKey) {
@@ -396,9 +405,13 @@ exports.ListForm = {
             if (itemId > 0) {
                 // Get the web
                 __1.Web(info.webUrl)
+                    // Get the list
                     .Lists(info.listName)
+                    // Get the item
                     .Items(itemId)
+                    // Get the attachment files
                     .AttachmentFiles()
+                    // Execute the request
                     .execute(function (attachments) {
                     // Resolve the promise
                     resolve(attachments.results || []);
@@ -438,8 +451,11 @@ exports.ListForm = {
                     if (attachment.FileName == fileName) {
                         // Get the web
                         __1.Web(info.webUrl)
+                            // Get the file
                             .getFileByServerRelativeUrl(attachment.ServerRelativeUrl)
+                            // Delete the file
                             .delete()
+                            // Execute the request
                             .execute(function () {
                             // Resolve the promise
                             resolve(info);
@@ -465,8 +481,11 @@ exports.ListForm = {
             if (itemId > 0) {
                 // Get the web
                 var attachments = __1.Web(info.webUrl)
+                    // Get the lists
                     .Lists(info.listName)
+                    // Get the item
                     .Items(itemId)
+                    // Get the attachment files
                     .AttachmentFiles();
                 // Parse the attachment information
                 for (var i = 0; i < attachmentInfo.length; i++) {
@@ -510,6 +529,7 @@ exports.ListForm = {
                 formValues["__metadata"] = { type: info.list.ListItemEntityTypeFullName };
                 // Add the item
                 info.list.Items().add(formValues)
+                    // Execute the request
                     .execute(function (item) {
                     // Update the info
                     info.item = item;
@@ -541,9 +561,13 @@ exports.ListForm = {
                         ext = ext[ext.length - 1].toLowerCase();
                         // Get the list
                         info.list
+                            // Get the item
                             .Items(info.item.Id)
+                            // Get the attachments
                             .AttachmentFiles()
+                            // Add the file
                             .add(srcFile.name, ev.target.result)
+                            // Execute the request
                             .execute(function () {
                             // Refresh the item
                             exports.ListForm.refreshItem(info).then(function (info) {

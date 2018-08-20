@@ -70,6 +70,7 @@ var Batch = /** @class */ (function () {
             batch.push(changeset);
             batch.push("");
         }
+        // Else, ensure a request exists
         else if (requests[0]) {
             var targetInfo = requests[0].targetInfo;
             // Add the request to the batch
