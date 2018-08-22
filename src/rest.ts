@@ -2,7 +2,6 @@ import * as Helper from "./helper";
 import * as Lib from "./lib";
 import * as Mapper from "./mapper";
 import * as Util from "./utils";
-import { Web } from "./lib";
 declare var SP;
 
 /**
