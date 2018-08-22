@@ -1,7 +1,6 @@
 import {
     $REST,
-    Helper,
-    List
+    Helper
 } from "../build";
 
 $REST.Search().postquery({
