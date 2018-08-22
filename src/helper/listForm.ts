@@ -558,7 +558,7 @@ export const ListForm: IListForm = {
                 // Wait for the requests to complete
                 attachments.done((...args) => {
                     // Resolve the promise
-                    resolve(args as any);
+                    resolve.apply(args);
                 });
             } else {
                 // Resolve the promise

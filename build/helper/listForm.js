@@ -500,7 +500,7 @@ exports.ListForm = {
                         args[_i] = arguments[_i];
                     }
                     // Resolve the promise
-                    resolve(args);
+                    resolve.apply(args);
                 });
             }
             else {
