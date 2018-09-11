@@ -33,25 +33,30 @@ export const ListForm: IListForm = {
             loadFromCache();
 
             // Load the list data
-            loadListData().then(() => {
-                // Ensure the list exists
-                if (_info.list) {
-                    // See if the fields have been defined
-                    if (_props.fields) {
-                        // Process the fields
-                        processFields();
+            loadListData().then(
+                // Success
+                () => {
+                    // Ensure the list exists
+                    if (_info.list) {
+                        // See if the fields have been defined
+                        if (_props.fields) {
+                            // Process the fields
+                            processFields();
 
-                        // Load the item data
-                        loadItem();
+                            // Load the item data
+                            loadItem();
+                        } else {
+                            // Load the content type
+                            loadDefaultContentType();
+                        }
                     } else {
-                        // Load the content type
-                        loadDefaultContentType();
+                        // Reject the promise
+                        _reject();
                     }
-                } else {
-                    // Reject the promise
-                    _reject();
-                }
-            });
+                },
+                // Reject
+                _reject
+            );
         }
 
         // Method to load the default content type
@@ -260,7 +265,7 @@ export const ListForm: IListForm = {
 
                         // Resolve the promise
                         _resolve(_info);
-                    })
+                    }, _reject)
                 } else {
                     // Resolve the promise
                     _resolve(_info);
@@ -317,6 +322,13 @@ export const ListForm: IListForm = {
                     .Fields()
                     // Execute the request
                     .execute(fields => {
+                        // Ensure the fields exist
+                        if (!fields.existsFl) {
+                            // Reject the promise
+                            reject(fields.response);
+                            return;
+                        }
+
                         // See if we are caching the data
                         if (_props.cacheKey) {
                             // Update the cache
@@ -467,6 +479,13 @@ export const ListForm: IListForm = {
                     .AttachmentFiles()
                     // Execute the request
                     .execute(attachments => {
+                        // Ensure the attachments exist
+                        if (!attachments.existsFl) {
+                            // Reject the promise
+                            reject(attachments.response);
+                            return;
+                        }
+
                         // Resolve the promise
                         resolve(attachments.results || []);
                     });

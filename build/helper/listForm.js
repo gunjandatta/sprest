@@ -25,7 +25,9 @@ exports.ListForm = {
             // Load the data from cache
             loadFromCache();
             // Load the list data
-            loadListData().then(function () {
+            loadListData().then(
+            // Success
+            function () {
                 // Ensure the list exists
                 if (_info.list) {
                     // See if the fields have been defined
@@ -44,7 +46,9 @@ exports.ListForm = {
                     // Reject the promise
                     _reject();
                 }
-            });
+            }, 
+            // Reject
+            _reject);
         };
         // Method to load the default content type
         var loadDefaultContentType = function () {
@@ -232,7 +236,7 @@ exports.ListForm = {
                         _info.attachments = attachments;
                         // Resolve the promise
                         _resolve(_info);
-                    });
+                    }, _reject);
                 }
                 else {
                     // Resolve the promise
@@ -286,6 +290,12 @@ exports.ListForm = {
                     .Fields()
                     // Execute the request
                     .execute(function (fields) {
+                    // Ensure the fields exist
+                    if (!fields.existsFl) {
+                        // Reject the promise
+                        reject(fields.response);
+                        return;
+                    }
                     // See if we are caching the data
                     if (_props.cacheKey) {
                         // Update the cache
@@ -413,6 +423,12 @@ exports.ListForm = {
                     .AttachmentFiles()
                     // Execute the request
                     .execute(function (attachments) {
+                    // Ensure the attachments exist
+                    if (!attachments.existsFl) {
+                        // Reject the promise
+                        reject(attachments.response);
+                        return;
+                    }
                     // Resolve the promise
                     resolve(attachments.results || []);
                 });

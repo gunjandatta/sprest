@@ -134,6 +134,12 @@ exports.ListFormField = {
                 .openWebById(info.lookupWebId)
                 // Execute the request
                 .execute(function (web) {
+                // Ensure the web exists
+                if (!web.existsFl) {
+                    // Reject the promise
+                    reject(web.response);
+                    return;
+                }
                 // Get the list
                 web.Lists()
                     // Get the list by id
@@ -148,6 +154,12 @@ exports.ListFormField = {
                 })
                     // Execute the request
                     .execute(function (items) {
+                    // Ensure the items exist
+                    if (!items.existsFl) {
+                        // Reject the promise
+                        reject(items.response);
+                        return;
+                    }
                     // Resolve the promise
                     resolve(items.results);
                 });
@@ -169,7 +181,7 @@ exports.ListFormField = {
                 }
                 // Resolve the request
                 resolve(__1.Helper.Taxonomy.toArray(root));
-            });
+            }, reject);
         });
     },
     // Method to load the mms value field
@@ -192,8 +204,7 @@ exports.ListFormField = {
                     resolve(field);
                 }
                 else {
-                    // Log
-                    console.log("[gd-sprest] Unable to find the hidden value field for '" + info.name + "'.");
+                    reject("Unable to find the hidden value field for '" + info.name + "'.");
                 }
             });
         });
