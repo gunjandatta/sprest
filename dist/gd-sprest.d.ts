@@ -1158,7 +1158,7 @@ declare module 'gd-sprest/helper/types/linkInfo' {
             /** The link id */
             id: string;
             /** The link click event */
-            onClick?: (link?: HTMLElement, ev?: MouseEvent) => void;
+            onClick?: (ev?: MouseEvent) => void;
             /** The link title */
             title: string;
     }

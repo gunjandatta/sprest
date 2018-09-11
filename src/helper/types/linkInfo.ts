@@ -15,7 +15,7 @@ export interface ILinkInfo {
     id: string;
 
     /** The link click event */
-    onClick?: (link?: HTMLElement, ev?: MouseEvent) => void;
+    onClick?: (ev?: MouseEvent) => void;
 
     /** The link title */
     title: string;

@@ -153,6 +153,13 @@ export const ListFormField: IListFormField = {
                 .openWebById(info.lookupWebId)
                 // Execute the request
                 .execute((web) => {
+                    // Ensure the web exists
+                    if (!web.existsFl) {
+                        // Reject the promise
+                        reject(web.response);
+                        return;
+                    }
+
                     // Get the list
                     web.Lists()
                         // Get the list by id
@@ -167,6 +174,13 @@ export const ListFormField: IListFormField = {
                         })
                         // Execute the request
                         .execute((items) => {
+                            // Ensure the items exist
+                            if (!items.existsFl) {
+                                // Reject the promise
+                                reject(items.response);
+                                return;
+                            }
+
                             // Resolve the promise
                             resolve(items.results);
                         });
@@ -191,7 +205,7 @@ export const ListFormField: IListFormField = {
 
                 // Resolve the request
                 resolve(Helper.Taxonomy.toArray(root));
-            });
+            }, reject);
         });
     },
 
@@ -214,8 +228,7 @@ export const ListFormField: IListFormField = {
                         // Resolve the promise
                         resolve(field as any);
                     } else {
-                        // Log
-                        console.log("[gd-sprest] Unable to find the hidden value field for '" + info.name + "'.");
+                        reject("Unable to find the hidden value field for '" + info.name + "'.");
                     }
                 });
         });

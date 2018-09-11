@@ -1,6 +1,5 @@
 .vscode
 .gitignore
-dist
 images
 src
 test
