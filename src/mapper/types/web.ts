@@ -181,7 +181,7 @@ export interface IWebMethods {
     getFolderByServerRelativeUrl(url): Types.SP.IFolder & IBase<Types.SP.IFolder, Types.SP.IFolderResult, Types.SP.IFolderQueryResult>;
 
     /**
-     * The list at the specified site-relative URL. (SharePoint Online only)
+     * The list at the specified site-relative URL.
      * @param url - The server relative url of the list.
      */
     getList(url): Types.SP.IList & IBase<Types.SP.IList, Types.SP.IListResult, Types.SP.IListQueryResult>;
