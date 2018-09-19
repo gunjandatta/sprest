@@ -11757,7 +11757,7 @@ declare module 'gd-sprest/mapper/types/web' {
                 */
             getFolderByServerRelativeUrl(url: any): Types.SP.IFolder & IBase<Types.SP.IFolder, Types.SP.IFolderResult, Types.SP.IFolderQueryResult>;
             /**
-                * The list at the specified site-relative URL. (SharePoint Online only)
+                * The list at the specified site-relative URL.
                 * @param url - The server relative url of the list.
                 */
             getList(url: any): Types.SP.IList & IBase<Types.SP.IList, Types.SP.IListResult, Types.SP.IListQueryResult>;
