@@ -1,12 +1,12 @@
 export * from "./spCfgTypes";
-import { ContextInfo, List, Site, Web } from "../lib";
+import { ContextInfo, Site, Web } from "../lib";
 import { SPTypes, Types } from "..";
 import {
     ISPCfgFieldInfo, ISPCfgContentTypeInfo, ISPCfgListInfo, ISPCfgViewInfo,
-    ISPConfig, ISPConfigProps, ISPCfgCustomActionInfo
+    ISPConfig, ISPConfigProps
 } from "./types";
 import {
-    FieldSchemaXML, parse, SPCfgFieldType, SPCfgType
+    FieldSchemaXML, parse, SPCfgType
 } from ".";
 
 /**
@@ -101,7 +101,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                     // Log
                                     console.log("[gd-sprest][Content Type] The parent content type '" + cfgContentType.Name + "' was not found.");
                                 }
-                            });
+                            }, reject);
                     } else {
                         // Create the content type
                         contentTypes.add({
@@ -128,7 +128,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
                                 console.error("[gd-sprest][Field] Error: " + ct.response);
                             }
-                        }, true);
+                        }, reject, true);
                     }
                 }
             }
@@ -347,7 +347,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 console.log("[gd-sprest][List] The list '" + listInfo.Title + "' failed to be created.");
                                 console.log("[gd-sprest][List] Error: '" + list.response);
                             }
-                        });
+                        }, reject);
                 }
             }
 
@@ -419,7 +419,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' failed to be created.");
                             console.log("[gd-sprest][Custom Action] Error: " + ca.response);
                         }
-                    }, true);
+                    }, reject, true);
                 }
             }
 
@@ -469,7 +469,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' failed to be created.");
                             console.log("[gd-sprest][View] Error: " + view.response);
                         }
-                    }, true);
+                    }, reject, true);
                 }
             }
 
@@ -582,7 +582,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             });
                         }
                     }
-                });
+                }, reject);
         });
     }
 
@@ -628,7 +628,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     ct.delete().execute(() => {
                         // Log
                         console.log("[gd-sprest][Field] The content type '" + ct.Name + "' was removed.");
-                    }, true);
+                    }, reject, true);
                 }
             }
 
@@ -662,7 +662,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     field.delete().execute(() => {
                         // Log
                         console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was removed.");
-                    }, true);
+                    }, reject, true);
                 }
             }
 
@@ -715,7 +715,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     list.delete().execute(() => {
                         // Log
                         console.log("[gd-sprest][List] The list '" + list.Title + "' was removed.");
-                    }, true);
+                    }, reject, true);
                 }
             }
 
@@ -768,7 +768,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     ca.delete().execute(() => {
                         // Log
                         console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was removed.");
-                    }, true);
+                    }, reject, true);
                 }
             }
 
@@ -842,7 +842,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
                     // Resolve the promise
                     resolve();
-                });
+                }, reject);
         });
     }
 
@@ -967,11 +967,11 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
                                             // Update the next list
                                             request(idx + 1, resolve);
-                                        });
-                                    });
-                                });
-                            });
-                        });
+                                        }, reject);
+                                    }, reject);
+                                }, reject);
+                            }, reject);
+                        }, reject);
                 } else {
                     // Resolve the promise
                     resolve();
@@ -1071,7 +1071,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         // Resolve the promise
                         resolve(site);
                     });
-                });
+                }, reject);
         });
     }
 
@@ -1100,11 +1100,11 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 removeUserCustomActions(web.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Web : null).then(() => {
                                     // Resolve the promise
                                     resolve();
-                                });
-                            })
-                        })
-                    });
-                });
+                                }, reject);
+                            }, reject)
+                        }, reject)
+                    }, reject);
+                }, reject);
         });
     }
 
@@ -1159,9 +1159,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
                                 // Resolve the promise
                                 resolve();
-                            });
+                            }, reject);
                         });
-                    });
+                    }, reject);
                 }
 
                 // See if we are creating the content types
@@ -1182,7 +1182,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Execute the post execute method
                             postExecute();
                         });
-                    }, true);
+                    }, reject, true);
                 }
 
                 // See if we are creating the lists
@@ -1203,7 +1203,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                             // Execute the post execute method
                             postExecute();
                         });
-                    }, true);
+                    }, reject, true);
                 }
 
                 // See if we are creating the webparts
@@ -1267,7 +1267,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                                 // Execute the post execute method
                                 postExecute();
                             });
-                        });
+                        }, reject);
                     }
                 }
             });
@@ -1288,9 +1288,9 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
 
                             // Resolve the promise
                             resolve();
-                        });
-                    });
-                });
+                        }, reject);
+                    }, reject);
+                }, reject);
             });
         }
     };

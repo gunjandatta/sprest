@@ -93,7 +93,7 @@ exports.SPConfig = function (cfg, webUrl) {
                                 // Log
                                 console.log("[gd-sprest][Content Type] The parent content type '" + cfgContentType.Name + "' was not found.");
                             }
-                        });
+                        }, reject);
                     }
                     else {
                         // Create the content type
@@ -120,7 +120,7 @@ exports.SPConfig = function (cfg, webUrl) {
                                 console.log("[gd-sprest][Content Type] The content type '" + cfgContentType.Name + "' failed to be created.");
                                 console.error("[gd-sprest][Field] Error: " + ct.response);
                             }
-                        }, true);
+                        }, reject, true);
                     }
                 }
             };
@@ -320,7 +320,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             console.log("[gd-sprest][List] The list '" + listInfo_1.Title + "' failed to be created.");
                             console.log("[gd-sprest][List] Error: '" + list.response);
                         }
-                    });
+                    }, reject);
                 }
             };
             // Parse the content types
@@ -391,7 +391,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' failed to be created.");
                             console.log("[gd-sprest][Custom Action] Error: " + ca.response);
                         }
-                    }, true);
+                    }, reject, true);
                 }
             }
             // Wait for the requests to complete
@@ -437,7 +437,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             console.log("[gd-sprest][View] The view '" + cfgView.ViewName + "' failed to be created.");
                             console.log("[gd-sprest][View] Error: " + view.response);
                         }
-                    }, true);
+                    }, reject, true);
                 }
             };
             // Parse the views
@@ -543,7 +543,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 for (var i = 0; i < cfgWebParts.length; i++) {
                     _loop_6(i);
                 }
-            });
+            }, reject);
         });
     };
     // Method to see if an object exists in a collection
@@ -581,7 +581,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     ct.delete().execute(function () {
                         // Log
                         console.log("[gd-sprest][Field] The content type '" + ct.Name + "' was removed.");
-                    }, true);
+                    }, reject, true);
                 }
             };
             // Parse the configuration
@@ -614,7 +614,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     field.delete().execute(function () {
                         // Log
                         console.log("[gd-sprest][Field] The field '" + field.InternalName + "' was removed.");
-                    }, true);
+                    }, reject, true);
                 }
             };
             // Parse the configuration
@@ -663,7 +663,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     list.delete().execute(function () {
                         // Log
                         console.log("[gd-sprest][List] The list '" + list.Title + "' was removed.");
-                    }, true);
+                    }, reject, true);
                 }
             };
             // Parse the configuration
@@ -713,7 +713,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     ca.delete().execute(function () {
                         // Log
                         console.log("[gd-sprest][Custom Action] The custom action '" + ca.Name + "' was removed.");
-                    }, true);
+                    }, reject, true);
                 }
             };
             // Parse the configuration
@@ -784,7 +784,7 @@ exports.SPConfig = function (cfg, webUrl) {
                 }
                 // Resolve the promise
                 resolve();
-            });
+            }, reject);
         });
     };
     // Method to update the base permissions
@@ -896,11 +896,11 @@ exports.SPConfig = function (cfg, webUrl) {
                                         cfgList.onUpdated ? cfgList.onUpdated(list) : null;
                                         // Update the next list
                                         request(idx + 1, resolve);
-                                    });
-                                });
-                            });
-                        });
-                    });
+                                    }, reject);
+                                }, reject);
+                            }, reject);
+                        }, reject);
+                    }, reject);
                 }
                 else {
                     // Resolve the promise
@@ -991,7 +991,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Resolve the promise
                     resolve(site);
                 });
-            });
+            }, reject);
         });
     };
     // Method to uninstall the web components
@@ -1018,11 +1018,11 @@ exports.SPConfig = function (cfg, webUrl) {
                             removeUserCustomActions(web.UserCustomActions, cfg.CustomActionCfg ? cfg.CustomActionCfg.Web : null).then(function () {
                                 // Resolve the promise
                                 resolve();
-                            });
-                        });
-                    });
-                });
-            });
+                            }, reject);
+                        }, reject);
+                    }, reject);
+                }, reject);
+            }, reject);
         });
     };
     /**
@@ -1067,9 +1067,9 @@ exports.SPConfig = function (cfg, webUrl) {
                                 postExecute();
                                 // Resolve the promise
                                 resolve();
-                            });
+                            }, reject);
                         });
-                    });
+                    }, reject);
                 }
                 // See if we are creating the content types
                 if (cfg.ContentTypes && cfg.ContentTypes.length > 0) {
@@ -1086,7 +1086,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             // Execute the post execute method
                             postExecute();
                         });
-                    }, true);
+                    }, reject, true);
                 }
                 // See if we are creating the lists
                 if (cfg.ListCfg && cfg.ListCfg.length) {
@@ -1103,7 +1103,7 @@ exports.SPConfig = function (cfg, webUrl) {
                             // Execute the post execute method
                             postExecute();
                         });
-                    }, true);
+                    }, reject, true);
                 }
                 // See if we are creating the webparts
                 if (cfg.WebPartCfg && cfg.WebPartCfg.length > 0) {
@@ -1155,7 +1155,7 @@ exports.SPConfig = function (cfg, webUrl) {
                                 // Execute the post execute method
                                 postExecute();
                             });
-                        });
+                        }, reject);
                     }
                 }
             });
@@ -1174,9 +1174,9 @@ exports.SPConfig = function (cfg, webUrl) {
                             console.log("[gd-sprest] The configuration script completed, but some requests may still be running.");
                             // Resolve the promise
                             resolve();
-                        });
-                    });
-                });
+                        }, reject);
+                    }, reject);
+                }, reject);
             });
         }
     };

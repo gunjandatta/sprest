@@ -28,23 +28,16 @@ exports.ListForm = {
             loadListData().then(
             // Success
             function () {
-                // Ensure the list exists
-                if (_info.list) {
-                    // See if the fields have been defined
-                    if (_props.fields) {
-                        // Process the fields
-                        processFields();
-                        // Load the item data
-                        loadItem();
-                    }
-                    else {
-                        // Load the content type
-                        loadDefaultContentType();
-                    }
+                // See if the fields have been defined
+                if (_props.fields) {
+                    // Process the fields
+                    processFields();
+                    // Load the item data
+                    loadItem();
                 }
                 else {
-                    // Reject the promise
-                    _reject();
+                    // Load the content type
+                    loadDefaultContentType();
                 }
             }, 
             // Reject
@@ -86,7 +79,7 @@ exports.ListForm = {
                 }
                 // Resolve the promise
                 loadDefaultFields(ct.results[0]);
-            });
+            }, _reject);
         };
         // Method to load the default fields
         var loadDefaultFields = function (ct) {
@@ -259,7 +252,7 @@ exports.ListForm = {
                     _info.item = item;
                     // Resolve the promise
                     _resolve(_info);
-                });
+                }, _reject);
             }
             else {
                 // Resolve the promise
@@ -285,17 +278,11 @@ exports.ListForm = {
                     // Save the list and web url
                     _info.list = list;
                     _info.webUrl = _props.webUrl;
-                })
+                }, reject)
                     // Load the fields
                     .Fields()
                     // Execute the request
                     .execute(function (fields) {
-                    // Ensure the fields exist
-                    if (!fields.existsFl) {
-                        // Reject the promise
-                        reject(fields.response);
-                        return;
-                    }
                     // See if we are caching the data
                     if (_props.cacheKey) {
                         // Update the cache
@@ -309,7 +296,7 @@ exports.ListForm = {
                     loadFieldData(fields);
                     // Resolve the promise
                     resolve();
-                });
+                }, reject);
             });
         };
         // Method to process the fields
@@ -431,7 +418,7 @@ exports.ListForm = {
                     }
                     // Resolve the promise
                     resolve(attachments.results || []);
-                });
+                }, reject);
             }
             else {
                 // Resolve the promise
@@ -451,7 +438,7 @@ exports.ListForm = {
                 info.item = item;
                 // Resolve the promise
                 resolve(info);
-            });
+            }, reject);
         });
     },
     // Method to remove attachments from an item
@@ -475,7 +462,7 @@ exports.ListForm = {
                             .execute(function () {
                             // Resolve the promise
                             resolve(info);
-                        });
+                        }, reject);
                         // Attachment found
                         return;
                     }
@@ -537,7 +524,7 @@ exports.ListForm = {
                     exports.ListForm.refreshItem(info).then(function (info) {
                         // Resolve the promise
                         resolve(info);
-                    });
+                    }, reject);
                 });
             }
             else {
@@ -554,7 +541,7 @@ exports.ListForm = {
                         // Resolve the promise
                         resolve(info);
                     });
-                });
+                }, reject);
             }
         });
     },
@@ -592,7 +579,7 @@ exports.ListForm = {
                                 // Resolve the promise
                                 resolve(info);
                             });
-                        });
+                        }, reject);
                     };
                     // Set the error
                     reader.onerror = function (ev) {

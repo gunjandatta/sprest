@@ -48,7 +48,7 @@ exports.createDocSet = function (name, listName, webUrl) {
                     reject(response["response"]);
                 }
             });
-        });
+        }, reject);
     });
 };
 /**

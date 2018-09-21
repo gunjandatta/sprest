@@ -1,7 +1,6 @@
 import { Web } from "../lib";
 import { IListItemResult } from "../mapper/types";
 import { Base } from "../utils";
-import { resolve } from "url";
 import { IRequest } from "./types";
 
 /**
@@ -50,7 +49,7 @@ export const createDocSet = (name: string, listName: string, webUrl?: string): P
                     reject(response["response"])
                 }
             });
-        });
+        }, reject);
     });
 }
 
