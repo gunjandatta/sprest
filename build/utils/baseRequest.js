@@ -94,7 +94,7 @@ var BaseRequest = /** @class */ (function (_super) {
             // See if the not a batch request, and it already exists
             if (this.xhr && !isBatchRequest) {
                 // Execute the callback
-                callback ? callback(this) : null;
+                callback ? callback(this, false) : null;
             }
             else {
                 // Create the request
@@ -102,10 +102,11 @@ var BaseRequest = /** @class */ (function (_super) {
                     // Update the response and status
                     _this.response = _this.xhr.response;
                     _this.status = _this.xhr.status;
+                    var errorFl = !(_this.status >= 200 && _this.status < 300);
                     // See if we are returning a file buffer
                     if (_this.requestType == _1.RequestType.GetBuffer) {
                         // Execute the callback
-                        callback ? callback(_this.response) : null;
+                        callback ? callback(_this.response, errorFl) : null;
                     }
                     else {
                         // Update the data object
@@ -113,7 +114,7 @@ var BaseRequest = /** @class */ (function (_super) {
                         // Validate the data collection
                         isBatchRequest ? null : _this.validateDataCollectionResults().then(function () {
                             // Execute the callback
-                            callback ? callback(_this) : null;
+                            callback ? callback(_this, errorFl) : null;
                         });
                     }
                 });

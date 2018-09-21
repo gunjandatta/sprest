@@ -21,7 +21,7 @@ export interface IBaseRequest extends IBaseHelper {
     executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any);
 
     /** Method to execute the request. */
-    executeRequest(asyncFl: boolean, callback?: (...args) => void);
+    executeRequest(asyncFl: boolean, callback?: (response: any, errorFl: boolean) => void);
 
     /** Gets the property as a collection. */
     getCollection(method: string, args?: any);

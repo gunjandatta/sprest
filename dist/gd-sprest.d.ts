@@ -11757,7 +11757,7 @@ declare module 'gd-sprest/mapper/types/web' {
                 */
             getFolderByServerRelativeUrl(url: any): Types.SP.IFolder & IBase<Types.SP.IFolder, Types.SP.IFolderResult, Types.SP.IFolderQueryResult>;
             /**
-                * The list at the specified site-relative URL. (SharePoint Online only)
+                * The list at the specified site-relative URL.
                 * @param url - The server relative url of the list.
                 */
             getList(url: any): Types.SP.IList & IBase<Types.SP.IList, Types.SP.IListResult, Types.SP.IListQueryResult>;
@@ -12414,7 +12414,7 @@ declare module 'gd-sprest/utils/baseRequest' {
         targetInfo: Types.ITargetInfo;
         xhr: XHRRequest;
         executeMethod(methodName: string, methodConfig: Types.IMethodInfo, args?: any): Base<any, any, any>;
-        executeRequest(asyncFl: boolean, callback?: (...args: any[]) => void): string | this;
+        executeRequest(asyncFl: boolean, callback?: (response: any, errorFl: boolean) => void): string | this;
         getCollection(method: string, args?: any): Base<any, any, any>;
         getNextSetOfResults(): Base<any, any, any>;
         getProperty(propertyName: string, requestType?: string): Base<any, any, any>;
@@ -13138,10 +13138,17 @@ declare module 'gd-sprest/utils/types/baseExecution' {
             execute(waitFl: boolean): Type;
             /**
                 * Method to execute the request.
-                * @param resolve - The method to be executed after the request completes.
+                * @param resolve - The method to be executed if the request is successful.
                 * @param waitFl - Flag to execute the request, after the previous requests have completed.
                 */
             execute(resolve?: (value?: Result) => void, waitFl?: boolean): Type;
+            /**
+                * Method to execute the request.
+                * @param resolve - The method to be executed if the request is successful.
+                * @param reject - The method to be executed if the request fails.
+                * @param waitFl - Flag to execute the request, after the previous requests have completed.
+                */
+            execute(resolve?: (value?: Result) => void, reject?: (value?: Result) => void, waitFl?: boolean): Type;
             /**
                 * Method to execute the request synchronously.
                 */
@@ -13200,7 +13207,7 @@ declare module 'gd-sprest/utils/types/baseRequest' {
         /** Method to execute the request. */
         executeMethod(methodName: string, methodConfig: IMethodInfo, args?: any): any;
         /** Method to execute the request. */
-        executeRequest(asyncFl: boolean, callback?: (...args: any[]) => void): any;
+        executeRequest(asyncFl: boolean, callback?: (response: any, errorFl: boolean) => void): any;
         /** Gets the property as a collection. */
         getCollection(method: string, args?: any): any;
         /** Gets the next set of results. */

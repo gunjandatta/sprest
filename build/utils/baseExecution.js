@@ -64,18 +64,30 @@ var BaseExecution = /** @class */ (function (_super) {
         for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
         }
-        var callback = null;
+        var reject = null;
+        var resolve = null;
         var waitFl = false;
-        // Set the callback and wait flag
-        switch (args.length) {
-            case 1:
-                callback = typeof (args[0]) === "boolean" ? callback : args[0];
-                waitFl = typeof (args[0]) === "boolean" ? args[0] : waitFl;
-                break;
-            case 2:
-                callback = args[0];
-                waitFl = args[1];
-                break;
+        // Parse the arguments
+        for (var i = 0; i < args.length; i++) {
+            var arg = args[i];
+            // Check the type
+            switch (typeof (arg)) {
+                case "boolean":
+                    // Set the wait flag
+                    waitFl = arg;
+                    break;
+                case "function":
+                    // See if the resolve method exists
+                    if (resolve) {
+                        // Set the reject method
+                        reject = arg;
+                    }
+                    else {
+                        // Set the resolve method
+                        resolve = arg;
+                    }
+                    break;
+            }
         }
         // Set the base
         this.base = this.base ? this.base : this;
@@ -88,15 +100,20 @@ var BaseExecution = /** @class */ (function (_super) {
             // Wait for the responses to execute
             this.waitForRequestsToComplete(function () {
                 // Execute this request
-                _this.executeRequest(true, function (response) {
-                    // See if there is a callback
-                    if (callback) {
+                _this.executeRequest(true, function (response, errorFl) {
+                    // See if there was an error
+                    if (errorFl) {
+                        // Reject the request
+                        reject ? reject(response) : null;
+                    }
+                    // Else, see if there is a resolve method
+                    else if (resolve) {
                         // Set the base to this object, and clear requests
                         // This will ensure requests from this object do not conflict w/ this request
                         _this.base = _this;
                         _this.base.responses = [];
                         // Execute the callback and see if it returns a promise
-                        var returnVal = callback(response);
+                        var returnVal = resolve(response);
                         var waitFunc = returnVal ? returnVal.done || returnVal.then : null;
                         if (waitFunc && typeof (waitFunc) === "function") {
                             // Wait for the promise to complete
@@ -119,19 +136,26 @@ var BaseExecution = /** @class */ (function (_super) {
         }
         else {
             // Execute this request
-            this.executeRequest(true, function (response) {
-                // Execute the callback and see if it returns a promise
-                var returnVal = callback ? callback(response) : null;
-                if (returnVal && typeof (returnVal.done) === "function") {
-                    // Wait for the promise to complete
-                    returnVal.done(function () {
-                        // Set the wait flag
-                        _this.base.waitFlags[_this.responseIndex] = true;
-                    });
+            this.executeRequest(true, function (response, errorFl) {
+                // See if there was an error
+                if (errorFl) {
+                    // Reject the request
+                    reject ? reject(response) : null;
                 }
                 else {
-                    // Set the wait flag
-                    _this.base.waitFlags[_this.responseIndex] = true;
+                    // Execute the resolve and see if it returns a promise
+                    var returnVal = resolve ? resolve(response) : null;
+                    if (returnVal && typeof (returnVal.done) === "function") {
+                        // Wait for the promise to complete
+                        returnVal.done(function () {
+                            // Set the wait flag
+                            _this.base.waitFlags[_this.responseIndex] = true;
+                        });
+                    }
+                    else {
+                        // Set the wait flag
+                        _this.base.waitFlags[_this.responseIndex] = true;
+                    }
                 }
             });
         }

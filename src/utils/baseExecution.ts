@@ -51,19 +51,31 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest implem
 
     // Method to execute the request
     execute(...args) {
-        let callback = null;
+        let reject = null;
+        let resolve = null;
         let waitFl = false;
 
-        // Set the callback and wait flag
-        switch (args.length) {
-            case 1:
-                callback = typeof (args[0]) === "boolean" ? callback : args[0];
-                waitFl = typeof (args[0]) === "boolean" ? args[0] : waitFl;
-                break;
-            case 2:
-                callback = args[0];
-                waitFl = args[1];
-                break;
+        // Parse the arguments
+        for (let i = 0; i < args.length; i++) {
+            let arg = args[i];
+
+            // Check the type
+            switch (typeof (arg)) {
+                case "boolean":
+                    // Set the wait flag
+                    waitFl = arg;
+                    break;
+                case "function":
+                    // See if the resolve method exists
+                    if (resolve) {
+                        // Set the reject method
+                        reject = arg;
+                    } else {
+                        // Set the resolve method
+                        resolve = arg;
+                    }
+                    break;
+            }
         }
 
         // Set the base
@@ -80,16 +92,21 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest implem
             // Wait for the responses to execute
             this.waitForRequestsToComplete(() => {
                 // Execute this request
-                this.executeRequest(true, (response) => {
-                    // See if there is a callback
-                    if (callback) {
+                this.executeRequest(true, (response, errorFl) => {
+                    // See if there was an error
+                    if (errorFl) {
+                        // Reject the request
+                        reject ? reject(response) : null;
+                    }
+                    // Else, see if there is a resolve method
+                    else if (resolve) {
                         // Set the base to this object, and clear requests
                         // This will ensure requests from this object do not conflict w/ this request
                         this.base = this as any;
                         this.base.responses = [];
 
                         // Execute the callback and see if it returns a promise
-                        let returnVal = callback(response);
+                        let returnVal = resolve(response);
                         let waitFunc = returnVal ? returnVal.done || returnVal.then : null;
                         if (waitFunc && typeof (waitFunc) === "function") {
                             // Wait for the promise to complete
@@ -115,24 +132,30 @@ export class BaseExecution<Type = any, Result = Type> extends BaseRequest implem
             }, this.responseIndex);
         } else {
             // Execute this request
-            this.executeRequest(true, (response) => {
-                // Execute the callback and see if it returns a promise
-                let returnVal = callback ? callback(response) : null;
-                if (returnVal && typeof (returnVal.done) === "function") {
-                    // Wait for the promise to complete
-                    returnVal.done(() => {
+            this.executeRequest(true, (response, errorFl) => {
+                // See if there was an error
+                if (errorFl) {
+                    // Reject the request
+                    reject ? reject(response) : null;
+                } else {
+                    // Execute the resolve and see if it returns a promise
+                    let returnVal = resolve ? resolve(response) : null;
+                    if (returnVal && typeof (returnVal.done) === "function") {
+                        // Wait for the promise to complete
+                        returnVal.done(() => {
+                            // Set the wait flag
+                            this.base.waitFlags[this.responseIndex] = true;
+                        });
+                    } else {
                         // Set the wait flag
                         this.base.waitFlags[this.responseIndex] = true;
-                    });
-                } else {
-                    // Set the wait flag
-                    this.base.waitFlags[this.responseIndex] = true;
+                    }
                 }
             });
         }
 
         // See if this is a query request
-        if(this.targetInfo.requestType == RequestType.OData) {
+        if (this.targetInfo.requestType == RequestType.OData) {
             // Return the parent
             return this.parent;
         }
