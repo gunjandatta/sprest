@@ -36,22 +36,16 @@ export const ListForm: IListForm = {
             loadListData().then(
                 // Success
                 () => {
-                    // Ensure the list exists
-                    if (_info.list) {
-                        // See if the fields have been defined
-                        if (_props.fields) {
-                            // Process the fields
-                            processFields();
+                    // See if the fields have been defined
+                    if (_props.fields) {
+                        // Process the fields
+                        processFields();
 
-                            // Load the item data
-                            loadItem();
-                        } else {
-                            // Load the content type
-                            loadDefaultContentType();
-                        }
+                        // Load the item data
+                        loadItem();
                     } else {
-                        // Reject the promise
-                        _reject();
+                        // Load the content type
+                        loadDefaultContentType();
                     }
                 },
                 // Reject
@@ -322,13 +316,6 @@ export const ListForm: IListForm = {
                     .Fields()
                     // Execute the request
                     .execute(fields => {
-                        // Ensure the fields exist
-                        if (!fields.existsFl) {
-                            // Reject the promise
-                            reject(fields.response);
-                            return;
-                        }
-
                         // See if we are caching the data
                         if (_props.cacheKey) {
                             // Update the cache
