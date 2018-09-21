@@ -98,7 +98,7 @@ export const ListForm: IListForm = {
 
                     // Resolve the promise
                     loadDefaultFields(ct.results[0]);
-                });
+                }, _reject);
         }
 
         // Method to load the default fields
@@ -290,7 +290,7 @@ export const ListForm: IListForm = {
 
                         // Resolve the promise
                         _resolve(_info);
-                    });
+                    }, _reject);
             } else {
                 // Resolve the promise
                 _resolve(_info);
@@ -317,7 +317,7 @@ export const ListForm: IListForm = {
                         // Save the list and web url
                         _info.list = list;
                         _info.webUrl = _props.webUrl;
-                    })
+                    }, reject)
                     // Load the fields
                     .Fields()
                     // Execute the request
@@ -345,7 +345,7 @@ export const ListForm: IListForm = {
 
                         // Resolve the promise
                         resolve();
-                    });
+                    }, reject);
             });
         }
 
@@ -488,7 +488,7 @@ export const ListForm: IListForm = {
 
                         // Resolve the promise
                         resolve(attachments.results || []);
-                    });
+                    }, reject);
             } else {
                 // Resolve the promise
                 resolve([]);
@@ -510,7 +510,7 @@ export const ListForm: IListForm = {
 
                 // Resolve the promise
                 resolve(info);
-            });
+            }, reject);
         });
     },
 
@@ -535,7 +535,7 @@ export const ListForm: IListForm = {
                             .execute(() => {
                                 // Resolve the promise
                                 resolve(info);
-                            });
+                            }, reject);
 
                         // Attachment found
                         return;
@@ -598,7 +598,7 @@ export const ListForm: IListForm = {
                     ListForm.refreshItem(info).then(info => {
                         // Resolve the promise
                         resolve(info);
-                    });
+                    }, reject);
                 });
             } else {
                 // Set the metadata type
@@ -616,7 +616,7 @@ export const ListForm: IListForm = {
                             // Resolve the promise
                             resolve(info);
                         });
-                    });
+                    }, reject);
             }
         });
     },
@@ -660,7 +660,7 @@ export const ListForm: IListForm = {
                                     // Resolve the promise
                                     resolve(info);
                                 });
-                            });
+                            }, reject);
 
                     }
 
