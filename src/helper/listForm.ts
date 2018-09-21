@@ -332,7 +332,7 @@ export const ListForm: IListForm = {
 
                         // Resolve the promise
                         resolve();
-                    }, reject);
+                    }, reject, true);
             });
         }
 

@@ -296,7 +296,7 @@ exports.ListForm = {
                     loadFieldData(fields);
                     // Resolve the promise
                     resolve();
-                }, reject);
+                }, reject, true);
             });
         };
         // Method to process the fields
