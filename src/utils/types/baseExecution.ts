@@ -42,10 +42,18 @@ export interface IBaseExecution<Type = any, Result = Type> extends IBaseRequest 
 
     /**
      * Method to execute the request.
-     * @param resolve - The method to be executed after the request completes.
+     * @param resolve - The method to be executed if the request is successful.
      * @param waitFl - Flag to execute the request, after the previous requests have completed.
      */
     execute(resolve?: (value?: Result) => void, waitFl?: boolean): Type;
+
+    /**
+     * Method to execute the request.
+     * @param resolve - The method to be executed if the request is successful.
+     * @param reject - The method to be executed if the request fails.
+     * @param waitFl - Flag to execute the request, after the previous requests have completed.
+     */
+    execute(resolve?: (value?: Result) => void, reject?: (value?: Result) => void, waitFl?: boolean): Type;
 
     /**
      * Method to execute the request synchronously.

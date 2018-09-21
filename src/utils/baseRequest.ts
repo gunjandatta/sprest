@@ -96,7 +96,7 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
     }
 
     // Method to execute the request
-    executeRequest(asyncFl: boolean, callback?: (...args) => void) {
+    executeRequest(asyncFl: boolean, callback?: (response: any, errorFl: boolean) => void) {
         let isBatchRequest = this.base && this.base.batchRequests && this.base.batchRequests.length > 0;
         let targetInfo = isBatchRequest ? Batch.getTargetInfo(this.base.batchRequests) : new TargetInfo(this.targetInfo);
 
@@ -105,18 +105,19 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
             // See if the not a batch request, and it already exists
             if (this.xhr && !isBatchRequest) {
                 // Execute the callback
-                callback ? callback(this) : null;
+                callback ? callback(this, false) : null;
             } else {
                 // Create the request
                 this.xhr = new XHRRequest(asyncFl, targetInfo, () => {
                     // Update the response and status
                     this.response = this.xhr.response;
                     this.status = this.xhr.status;
+                    let errorFl = !(this.status >= 200 && this.status < 300);
 
                     // See if we are returning a file buffer
                     if (this.requestType == RequestType.GetBuffer) {
                         // Execute the callback
-                        callback ? callback(this.response) : null;
+                        callback ? callback(this.response, errorFl) : null;
                     } else {
                         // Update the data object
                         this.updateDataObject(isBatchRequest);
@@ -124,7 +125,7 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
                         // Validate the data collection
                         isBatchRequest ? null : this.validateDataCollectionResults().then(() => {
                             // Execute the callback
-                            callback ? callback(this) : null;
+                            callback ? callback(this, errorFl) : null;
                         });
                     }
                 });
