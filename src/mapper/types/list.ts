@@ -1,6 +1,7 @@
 import { IBase } from "../../utils/types";
 import { Types } from "../..";
 import {
+    ComplexTypes,
     IContentType, IContentTypeResults, IContentTypes,
     IListItem, IListItemProps, IListItemQueryResult, IListItemResult, IListItemResults, IListItems,
     IView, IViewQueryResult, IViewResult, IViewResults, IViews
@@ -488,17 +489,17 @@ export interface IListQueryProps {
     /**
      * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
      */
-    DefaultDisplayFormUrl(): IBase<string>;
+    DefaultDisplayFormUrl(): IBase<ComplexTypes.DefaultDisplayFormUrl>;
 
     /**
      * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
      */
-    DefaultEditFormUrl(): IBase<string>;
+    DefaultEditFormUrl(): IBase<ComplexTypes.DefaultEditFormUrl>;
 
     /**
      * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
      */
-    DefaultNewFormUrl(): IBase<string>;
+    DefaultNewFormUrl(): IBase<ComplexTypes.DefaultNewFormUrl>;
 
     /**
      * Gets the default list view.
