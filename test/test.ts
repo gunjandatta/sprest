@@ -12,15 +12,14 @@ $REST.Search().postquery({
     }
 })
 
-Helper.SPConfig({
+$REST.Helper.SPConfig({
     ListCfg: [{
-        ContentTypes: [
-            { Name: "My Item" },
-            { Name: "My Document", ParentName: "Document" }
+        CustomFields: [
+            { name: "Location", title: "Location", type: $REST.Helper.SPCfgFieldType.Geolocation },
         ],
         ListInformation: {
             BaseTemplate: 100,
-            Title: "CT Demo"
+            Title: "Map"
         }
     }]
 }).install();

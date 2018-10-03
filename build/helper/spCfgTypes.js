@@ -9,13 +9,14 @@ exports.SPCfgFieldType = {
     Choice: 2,
     Currency: 3,
     Date: 4,
-    Lookup: 5,
-    MMS: 6,
-    Note: 7,
-    Number: 8,
-    Text: 9,
-    Url: 10,
-    User: 11
+    Geolocation: 5,
+    Lookup: 6,
+    MMS: 7,
+    Note: 8,
+    Number: 9,
+    Text: 10,
+    Url: 11,
+    User: 12
 };
 /**
  * SharePoint Configuration Types
