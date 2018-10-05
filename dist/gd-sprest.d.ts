@@ -11529,7 +11529,7 @@ declare module 'gd-sprest/mapper/types/view' {
         */
     export interface IViewQueryResult extends IViewMethods, IViewProps {
             /** A value that specifies the collection of fields in the list view. */
-            ViewFields: Types.SP.IResults<string>;
+            ViewFields: IViewFields;
     }
     /**
         * View Result
@@ -11554,7 +11554,7 @@ declare module 'gd-sprest/mapper/types/viewFieldCollection' {
             /** Contains an array of the view fields. */
             Items: {
                     /** The view field collection. */
-                    results: Array<any>;
+                    results: Array<string>;
             };
             /**
                 * Adds the field with the specified field internal name or display name to the collection.

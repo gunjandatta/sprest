@@ -11,7 +11,7 @@ export interface IViewFields extends IBase<IViewFields, IViewFields, IViewFields
     /** Contains an array of the view fields. */
     Items: {
         /** The view field collection. */
-        results: Array<any>;
+        results: Array<string>;
     };
     /**
      * Methods
