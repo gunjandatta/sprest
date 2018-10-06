@@ -8,6 +8,7 @@ exports.ListFormField = {
     // Method to create an instance of the list form field
     create: function (props) {
         var _fieldInfo = props || {};
+        var _reject = null;
         var _resolve = null;
         // Load the field
         var load = function () {
@@ -32,7 +33,7 @@ exports.ListFormField = {
                     _fieldInfo.field = field;
                     // Process the field
                     processField();
-                });
+                }, _reject);
             }
         };
         // Method to proces the field and save its information
@@ -111,8 +112,9 @@ exports.ListFormField = {
         };
         // Return a promise
         return new Promise(function (resolve, reject) {
-            // Save the resolve method
+            // Save the methods
             _resolve = resolve;
+            _reject = reject;
             // See if the field exists
             if (_fieldInfo.field) {
                 // Process the field
@@ -134,12 +136,6 @@ exports.ListFormField = {
                 .openWebById(info.lookupWebId)
                 // Execute the request
                 .execute(function (web) {
-                // Ensure the web exists
-                if (!web.existsFl) {
-                    // Reject the promise
-                    reject(web.response);
-                    return;
-                }
                 // Get the list
                 web.Lists()
                     // Get the list by id
@@ -154,16 +150,10 @@ exports.ListFormField = {
                 })
                     // Execute the request
                     .execute(function (items) {
-                    // Ensure the items exist
-                    if (!items.existsFl) {
-                        // Reject the promise
-                        reject(items.response);
-                        return;
-                    }
                     // Resolve the promise
                     resolve(items.results);
-                });
-            });
+                }, reject);
+            }, reject);
         });
     },
     // Method to load the mms data
@@ -197,15 +187,16 @@ exports.ListFormField = {
                 // Get the hidden field
                 .getByInternalNameOrTitle(info.name + "_0")
                 // Execute the request
-                .execute(function (field) {
-                // See if the field exists
-                if (field.existsFl) {
-                    // Resolve the promise
-                    resolve(field);
-                }
-                else {
-                    reject("Unable to find the hidden value field for '" + info.name + "'.");
-                }
+                .execute(
+            // Success
+            function (field) {
+                // Resolve the promise
+                resolve(field);
+            }, 
+            // Error
+            function () {
+                // Reject w/ a message
+                reject("Unable to find the hidden value field for '" + info.name + "'.");
             });
         });
     }

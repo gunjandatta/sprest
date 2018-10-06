@@ -13,6 +13,7 @@ export const ListFormField: IListFormField = {
     // Method to create an instance of the list form field
     create: (props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo> => {
         let _fieldInfo: IListFormFieldInfo = props || {} as any;
+        let _reject: (response: any) => void = null;
         let _resolve: (info: IListFormFieldInfo) => void = null;
 
         // Load the field
@@ -39,7 +40,7 @@ export const ListFormField: IListFormField = {
 
                         // Process the field
                         processField();
-                    });
+                    }, _reject);
             }
         }
 
@@ -129,8 +130,9 @@ export const ListFormField: IListFormField = {
 
         // Return a promise
         return new Promise((resolve, reject) => {
-            // Save the resolve method
+            // Save the methods
             _resolve = resolve;
+            _reject = reject;
 
             // See if the field exists
             if (_fieldInfo.field) {
@@ -140,7 +142,7 @@ export const ListFormField: IListFormField = {
                 // Load the field
                 load();
             }
-        }) as any;
+        });
     },
 
     // Method to load the lookup data
@@ -153,13 +155,6 @@ export const ListFormField: IListFormField = {
                 .openWebById(info.lookupWebId)
                 // Execute the request
                 .execute((web) => {
-                    // Ensure the web exists
-                    if (!web.existsFl) {
-                        // Reject the promise
-                        reject(web.response);
-                        return;
-                    }
-
                     // Get the list
                     web.Lists()
                         // Get the list by id
@@ -174,17 +169,10 @@ export const ListFormField: IListFormField = {
                         })
                         // Execute the request
                         .execute((items) => {
-                            // Ensure the items exist
-                            if (!items.existsFl) {
-                                // Reject the promise
-                                reject(items.response);
-                                return;
-                            }
-
                             // Resolve the promise
                             resolve(items.results);
-                        });
-                });
+                        }, reject);
+                }, reject);
         });
     },
 
@@ -222,15 +210,18 @@ export const ListFormField: IListFormField = {
                 // Get the hidden field
                 .getByInternalNameOrTitle(info.name + "_0")
                 // Execute the request
-                .execute(field => {
-                    // See if the field exists
-                    if (field.existsFl) {
+                .execute(
+                    // Success
+                    field => {
                         // Resolve the promise
                         resolve(field as any);
-                    } else {
+                    },
+                    // Error
+                    () => {
+                        // Reject w/ a message
                         reject("Unable to find the hidden value field for '" + info.name + "'.");
                     }
-                });
+                );
         });
     }
 };

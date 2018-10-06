@@ -123,6 +123,16 @@ exports.FieldSchemaXML = function (fieldInfo) {
         // Resolve the request
         _resolve(schemaXml);
     };
+    // Returns the schema xml for a geolocation field.
+    var createGeolocation = function (fieldInfo, props) {
+        var schemaXml = null;
+        // Set the field type
+        props["Type"] = "Geolocation";
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + " />";
+        // Resolve the request
+        _resolve(schemaXml);
+    };
     // Returns the schema xml for a lookup field.
     var createLookup = function (fieldInfo, props) {
         var schemaXml = null;
@@ -370,6 +380,10 @@ exports.FieldSchemaXML = function (fieldInfo) {
                 // Date/Time
                 case spCfg_1.SPCfgFieldType.Date:
                     createDate(fieldInfo, props);
+                    break;
+                // Geolocation
+                case spCfg_1.SPCfgFieldType.Geolocation:
+                    createGeolocation(fieldInfo, props);
                     break;
                 // Lookup
                 case spCfg_1.SPCfgFieldType.Lookup:

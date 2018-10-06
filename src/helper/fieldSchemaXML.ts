@@ -133,6 +133,20 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
         _resolve(schemaXml);
     }
 
+    // Returns the schema xml for a geolocation field.
+    let createGeolocation = (fieldInfo: IFieldInfo, props: object) => {
+        let schemaXml: string = null;
+
+        // Set the field type
+        props["Type"] = "Geolocation";
+
+        // Generate the schema
+        schemaXml = "<Field " + toString(props) + " />";
+
+        // Resolve the request
+        _resolve(schemaXml);
+    }
+
     // Returns the schema xml for a lookup field.
     let createLookup = (fieldInfo: IFieldInfoLookup, props: object) => {
         let schemaXml: string = null;
@@ -367,6 +381,10 @@ export const FieldSchemaXML = (fieldInfo: IFieldInfo): PromiseLike<string> => {
                 // Date/Time
                 case SPCfgFieldType.Date:
                     createDate(fieldInfo, props);
+                    break;
+                // Geolocation
+                case SPCfgFieldType.Geolocation:
+                    createGeolocation(fieldInfo, props);
                     break;
                 // Lookup
                 case SPCfgFieldType.Lookup:

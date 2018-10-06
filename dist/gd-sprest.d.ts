@@ -1995,6 +1995,7 @@ declare module 'gd-sprest/helper/types/spCfgTypes' {
         Choice: number;
         Currency: number;
         Date: number;
+        Geolocation: number;
         Lookup: number;
         MMS: number;
         Note: number;
@@ -4192,6 +4193,24 @@ declare module 'gd-sprest/mapper/types/complexTypes' {
             ResultTitleUrl: string;
             Table: SimpleDataTable;
             TableType: string;
+    }
+    /**
+        * Default Display Form Url
+        */
+    export interface DefaultDisplayFormUrl {
+            DefaultDisplayFormUrl: string;
+    }
+    /**
+        * Default Edit Form Url
+        */
+    export interface DefaultEditFormUrl {
+            DefaultEditFormUrl: string;
+    }
+    /**
+        * Default New Form Url
+        */
+    export interface DefaultNewFormUrl {
+            DefaultNewFormUrl: string;
     }
     /**
         * Document Library Information
@@ -7258,7 +7277,7 @@ declare module 'gd-sprest/mapper/types/limitedWebPartManager' {
 declare module 'gd-sprest/mapper/types/list' {
     import { IBase } from "gd-sprest/utils/types";
     import { Types } from "gd-sprest/";
-    import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemProps, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from "gd-sprest/mapper/types";
+    import { ComplexTypes, IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemProps, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from "gd-sprest/mapper/types";
     /**
         * List Creation Information
         */
@@ -7657,15 +7676,15 @@ declare module 'gd-sprest/mapper/types/list' {
             /**
                 * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
                 */
-            DefaultDisplayFormUrl(): IBase<string>;
+            DefaultDisplayFormUrl(): IBase<ComplexTypes.DefaultDisplayFormUrl>;
             /**
                 * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
                 */
-            DefaultEditFormUrl(): IBase<string>;
+            DefaultEditFormUrl(): IBase<ComplexTypes.DefaultEditFormUrl>;
             /**
                 * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
                 */
-            DefaultNewFormUrl(): IBase<string>;
+            DefaultNewFormUrl(): IBase<ComplexTypes.DefaultNewFormUrl>;
             /**
                 * Gets the default list view.
              */
@@ -11510,7 +11529,7 @@ declare module 'gd-sprest/mapper/types/view' {
         */
     export interface IViewQueryResult extends IViewMethods, IViewProps {
             /** A value that specifies the collection of fields in the list view. */
-            ViewFields: Types.SP.IResults<string>;
+            ViewFields: IViewFields;
     }
     /**
         * View Result
@@ -11535,7 +11554,7 @@ declare module 'gd-sprest/mapper/types/viewFieldCollection' {
             /** Contains an array of the view fields. */
             Items: {
                     /** The view field collection. */
-                    results: Array<any>;
+                    results: Array<string>;
             };
             /**
                 * Adds the field with the specified field internal name or display name to the collection.

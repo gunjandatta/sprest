@@ -257,6 +257,27 @@ export interface CustomResult {
 }
 
 /**
+ * Default Display Form Url
+ */
+export interface DefaultDisplayFormUrl {
+    DefaultDisplayFormUrl: string;
+}
+
+/**
+ * Default Edit Form Url
+ */
+export interface DefaultEditFormUrl {
+    DefaultEditFormUrl: string;
+}
+
+/**
+ * Default New Form Url
+ */
+export interface DefaultNewFormUrl {
+    DefaultNewFormUrl: string;
+}
+
+/**
  * Document Library Information
  */
 export interface DocumentLibraryInformation {

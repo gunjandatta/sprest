@@ -133,7 +133,7 @@ export interface IViewQueryProps {
  */
 export interface IViewQueryResult extends IViewMethods, IViewProps {
     /** A value that specifies the collection of fields in the list view. */
-    ViewFields: Types.SP.IResults<string>;
+    ViewFields: IViewFields;
 }
 /**
  * View Result
