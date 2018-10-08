@@ -5,20 +5,22 @@
 [![Gitter Chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/gd-sprest/Lobby)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://paypal.me/Dattabase)
 
-## Overview:
+## Overview
+
 The SharePoint REST Framework was designed for SharePoint 2013, but works in both SharePoint 2013/Online (Classic/Modern). This framework is designed to remove a lot of the overhead required for SharePoint development, allowing the developer to focus on the client requirements.
 
-### References
+## References
 
 - [gd-sprest](api) - An easy way to execute requests against the SharePoint 2013/Online REST api
-- [gd-sprest-bs](extras/bs) - Extends the [Bootstrap](https://getbootstrap.com) with components designed for SharePoint 2013/Online.
+- [gd-sprest-bs](extras/bs) - Extends the [Bootstrap Framework](https://getbootstrap.com) with components designed for SharePoint 2013/Online.
 - [gd-sprest-react](extras/react) - Extends the [Office Fabric React Framework](https://dev.office.com/fabric) with components designed for SharePoint 2013/Online.
 
-#### gd-sprest vs pnp-js-core
+## Core Library
 
 The gd-sprest library is similar to the pnp-js-core, with the main difference being the ability to be used within the browser console window. This feature provides a "Powershell-Like" experience within the browser console window. This feature was designed for developers working in restricted SharePoint environments, or do not have access to the server or powershell access. Some additional benefits of the library are listed below:
 
-- Designed to work in restricted SharePoint environments with limited access to the SharePoint Farm, Web App, Site Collection, Root Web, etc.
+- Designed to work in restricted SharePoint environments with limited access to the SharePoint Farm, Web App, Site Collection, Root Web, etc
+- Helper functions designed to help create solutions in restricted SharePoint environments
 - Ability to create resusable scripts/solutions
 - Intellisense is available for JavaScript/TypeScript
 - Ability to execute live requests from the browser console, helps to debug issues in production
