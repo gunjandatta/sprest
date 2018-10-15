@@ -7763,7 +7763,7 @@ declare module 'gd-sprest/mapper/types/list' {
             /**
                 * Gets a value that specifies the site that contains the list.
                 */
-            ParentWeb(): Types.SP.IWeb;
+            ParentWeb(): IBase<Types.SP.IWeb>;
             /**
                 * Gets the role assignments for the securable object.
                 */
