@@ -11,6 +11,8 @@ export interface IBaseHelper {
     response: string;
     /** The request's status. */
     status: number;
+    /** The xml object. */
+    xml: string | XMLDocument;
     /** Adds methods based on the object type. */
     addMethods(base: Base, data: any): any;
     /** Adds properties based on the object type. */
