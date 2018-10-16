@@ -122,11 +122,20 @@ export class BaseRequest extends BaseHelper implements Types.IBaseRequest {
                         // Update the data object
                         this.updateDataObject(isBatchRequest);
 
-                        // Validate the data collection
-                        isBatchRequest ? null : this.validateDataCollectionResults().then(() => {
-                            // Execute the callback
-                            callback ? callback(this, errorFl) : null;
-                        });
+                        // Ensure this isn't a batch request
+                        if (!isBatchRequest) {
+                            // See if this is an xml response
+                            if (this.xml) {
+                                // Execute the callback
+                                callback ? callback(this, errorFl) : null;
+                            } else {
+                                // Validate the data collection
+                                this.validateDataCollectionResults().then(() => {
+                                    // Execute the callback
+                                    callback ? callback(this, errorFl) : null;
+                                });
+                            }
+                        }
                     }
                 });
             }

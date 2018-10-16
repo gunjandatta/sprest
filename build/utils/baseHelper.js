@@ -191,6 +191,7 @@ var BaseHelper = /** @class */ (function () {
     };
     // Method to convert the input arguments into an object
     BaseHelper.prototype.updateDataObject = function (isBatchRequest) {
+        if (isBatchRequest === void 0) { isBatchRequest = false; }
         // Ensure the request was successful
         if (this.status >= 200 && this.status < 300) {
             // Return if we are expecting a buffer
@@ -203,11 +204,14 @@ var BaseHelper = /** @class */ (function () {
             var responses = isBatchRequest ? this.response.split("\n") : [this.response];
             for (var i = 0; i < responses.length; i++) {
                 var data = null;
-                // Try to convert the response
+                // Set the response
                 var response = responses[i];
                 response = response === "" && !isBatchRequest ? "{}" : response;
+                // Set the xml flag
+                var isXML = response.indexOf("<?xml") == 0;
+                // Try to convert the response
                 try {
-                    data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response);
+                    data = isXML ? response : JSON.parse(response);
                 }
                 catch (ex) {
                     continue;
@@ -216,8 +220,15 @@ var BaseHelper = /** @class */ (function () {
                 var obj = isBatchRequest ? Object.create(this) : this;
                 // Set the exists flag
                 obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
-                // See if the data properties exists
-                if (data.d) {
+                // See if this is xml
+                if (isXML) {
+                    // Create an XML object
+                    var parser = DOMParser ? new DOMParser() : null;
+                    // Set the xml
+                    this.xml = parser ? parser.parseFromString(data, "text/xml") : data;
+                }
+                // Else, see if the data properties exists
+                else if (data.d) {
                     // Save a reference to it
                     obj["d"] = data.d;
                     // Update the metadata
