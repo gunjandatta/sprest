@@ -90,7 +90,6 @@ fs.readFile("metadata.xml", "utf8", (err, xml) => {
     // Parse the xml
     parser(xml, function (err, xml) {
         let directories = {};
-        let mapper = {};
 
         // Parse the schemas
         let schemas = xml["edmx:Edmx"]["edmx:DataServices"][0].Schema;
@@ -102,12 +101,6 @@ fs.readFile("metadata.xml", "utf8", (err, xml) => {
             if (ns) {
                 // Set the directory name
                 directories[ns] = directories[ns] || {};
-
-                // Set the root namespace
-                let root = ns.split('.')[0];
-
-                // Update the mapper
-                mapper[ns] = 'import { ' + root + ' } from "/projects/sprest/def/lib";';
             } else { continue; }
 
             // Parse the schema
@@ -222,11 +215,15 @@ fs.readFile("metadata.xml", "utf8", (err, xml) => {
                             let refType = type.replace(/^Array\<|\>$/g, '');
                             refType = refType.substr(0, refType.lastIndexOf('.'));
 
-                            // Ensure the ref type exists
-                            if (mapper[refType]) {
-                                // Add the import
-                                fileImports.push(mapper[refType]);
-                            }
+                            // Set the root namespace
+                            let root = refType.split('.')[0];
+
+                            // Build the reference to the lib folder
+                            let refPath = "";
+                            for (let j = 0; j < dirName.split('.').length; j++) { refPath += "../"; }
+
+                            // Add the import
+                            fileImports.push('import { ' + root + ' } from "' + refPath + '";');
                         }
 
                         // Parse the properties
