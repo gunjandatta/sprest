@@ -1,3 +1,4 @@
+def/lib
 *.log
 .vscode
 node_modules

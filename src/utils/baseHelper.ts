@@ -10,6 +10,7 @@ export class BaseHelper implements Types.IBaseHelper {
     requestType: number;
     response: string;
     status: number;
+    xml: string | XMLDocument;
 
     // Method to add the base references
     addBaseReferences(base: Base, obj: any) {
@@ -216,7 +217,7 @@ export class BaseHelper implements Types.IBaseHelper {
     }
 
     // Method to convert the input arguments into an object
-    updateDataObject(isBatchRequest: boolean) {
+    updateDataObject(isBatchRequest: boolean = false) {
         // Ensure the request was successful
         if (this.status >= 200 && this.status < 300) {
             // Return if we are expecting a buffer
@@ -229,10 +230,15 @@ export class BaseHelper implements Types.IBaseHelper {
             for (let i = 0; i < responses.length; i++) {
                 let data = null;
 
-                // Try to convert the response
+                // Set the response
                 let response = responses[i];
                 response = response === "" && !isBatchRequest ? "{}" : response;
-                try { data = isBatchRequest && response.indexOf("<?xml") == 0 ? response : JSON.parse(response); }
+
+                // Set the xml flag
+                let isXML = response.indexOf("<?xml") == 0;
+
+                // Try to convert the response
+                try { data = isXML ? response : JSON.parse(response); }
                 catch (ex) { continue; }
 
                 // Set the object based on the request type
@@ -241,8 +247,16 @@ export class BaseHelper implements Types.IBaseHelper {
                 // Set the exists flag
                 obj["existsFl"] = typeof (obj["Exists"]) === "boolean" ? obj["Exists"] : data.error == null;
 
-                // See if the data properties exists
-                if (data.d) {
+                // See if this is xml
+                if (isXML) {
+                    // Create an XML object
+                    let parser = DOMParser ? new DOMParser() : null;
+
+                    // Set the xml
+                    this.xml = parser ? parser.parseFromString(data, "text/xml") : data;
+                }
+                // Else, see if the data properties exists
+                else if (data.d) {
                     // Save a reference to it
                     obj["d"] = data.d;
 

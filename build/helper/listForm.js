@@ -550,39 +550,58 @@ exports.ListForm = {
         // Return a promise
         return new Promise(function (resolve, reject) {
             // Method to add an attachment
-            var addAttachment = function (ev) {
+            var addAttachment = function (name, data) {
+                // Call the save event
+                onSave ? onSave({ name: name, data: data }) : null;
+                // Get the list
+                info.list
+                    // Get the item
+                    .Items(info.item.Id)
+                    // Get the attachments
+                    .AttachmentFiles()
+                    // Add the file
+                    .add(name, data)
+                    // Execute the request
+                    .execute(function () {
+                    // Refresh the item
+                    exports.ListForm.refreshItem(info).then(function (info) {
+                        // Remove the element
+                        document.body.removeChild(el);
+                        // Resolve the promise
+                        resolve(info);
+                    });
+                }, reject);
+            };
+            // Method to read the file
+            var readFile = function (ev) {
                 // Get the source file
                 var srcFile = ev.target["files"][0];
                 if (srcFile) {
                     var reader = new FileReader();
-                    // Call the save event
-                    onSave ? onSave() : null;
                     // Set the file loaded event
                     reader.onloadend = function (ev) {
                         var attachment = null;
                         var ext = srcFile.name.split(".");
                         ext = ext[ext.length - 1].toLowerCase();
-                        // Get the list
-                        info.list
-                            // Get the item
-                            .Items(info.item.Id)
-                            // Get the attachments
-                            .AttachmentFiles()
-                            // Add the file
-                            .add(srcFile.name, ev.target.result)
-                            // Execute the request
-                            .execute(function () {
-                            // Refresh the item
-                            exports.ListForm.refreshItem(info).then(function (info) {
-                                // Remove the element
-                                document.body.removeChild(el);
-                                // Resolve the promise
-                                resolve(info);
+                        // See if the info exists
+                        if (info) {
+                            // Add the attachment
+                            addAttachment(srcFile.name, ev.target.result);
+                        }
+                        else {
+                            // Remove the element
+                            document.body.removeChild(el);
+                            // Resolve the promise with the file information
+                            resolve({
+                                data: ev.target.result,
+                                name: srcFile.name
                             });
-                        }, reject);
+                        }
                     };
                     // Set the error
                     reader.onerror = function (ev) {
+                        // Remove the element
+                        document.body.removeChild(el);
                         // Reject the promise
                         reject(ev.target.error);
                     };
@@ -598,7 +617,7 @@ exports.ListForm = {
                 el.id = "listform-attachment";
                 el.type = "file";
                 el.hidden = true;
-                el.onchange = addAttachment;
+                el.onchange = readFile;
                 // Add the element to the body
                 document.body.appendChild(el);
             }

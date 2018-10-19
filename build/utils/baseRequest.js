@@ -111,11 +111,21 @@ var BaseRequest = /** @class */ (function (_super) {
                     else {
                         // Update the data object
                         _this.updateDataObject(isBatchRequest);
-                        // Validate the data collection
-                        isBatchRequest ? null : _this.validateDataCollectionResults().then(function () {
-                            // Execute the callback
-                            callback ? callback(_this, errorFl) : null;
-                        });
+                        // Ensure this isn't a batch request
+                        if (!isBatchRequest) {
+                            // See if this is an xml response
+                            if (_this.xml) {
+                                // Execute the callback
+                                callback ? callback(_this, errorFl) : null;
+                            }
+                            else {
+                                // Validate the data collection
+                                _this.validateDataCollectionResults().then(function () {
+                                    // Execute the callback
+                                    callback ? callback(_this, errorFl) : null;
+                                });
+                            }
+                        }
                     }
                 });
             }

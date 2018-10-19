@@ -1224,7 +1224,13 @@ declare module 'gd-sprest/helper/types/listForm' {
                 * @param info - The list form information.
                 * @param onSave - The save event triggered when a file is uploaded to the item.
                 */
-            showFileDialog(info: IListFormResult, onSave?: () => void): PromiseLike<IListFormResult>;
+            showFileDialog(): PromiseLike<IListFormAttachmentInfo>;
+            /**
+                * Method to show the file dialog.
+                * @param info - The list form information.
+                * @param onSave - The save event triggered when a file is uploaded to the item.
+                */
+            showFileDialog(info: IListFormResult, onSave?: (IListFormAttachmentInfo: any) => void): PromiseLike<IListFormResult>;
     }
     /**
         * List Form Attachment Information
@@ -7757,7 +7763,7 @@ declare module 'gd-sprest/mapper/types/list' {
             /**
                 * Gets a value that specifies the site that contains the list.
                 */
-            ParentWeb(): Types.SP.IWeb;
+            ParentWeb(): IBase<Types.SP.IWeb>;
             /**
                 * Gets the role assignments for the securable object.
                 */
@@ -12412,11 +12418,12 @@ declare module 'gd-sprest/utils/baseHelper' {
         requestType: number;
         response: string;
         status: number;
+        xml: string | XMLDocument;
         addBaseReferences(base: Base, obj: any): void;
         addMethods(base: Base, data: any, graphType?: string): void;
         addProperties(base: any, data: any): void;
         updateDataCollection(obj: any, results: any): void;
-        updateDataObject(isBatchRequest: boolean): void;
+        updateDataObject(isBatchRequest?: boolean): void;
         updateMetadata(base: any, data: any): void;
     }
 }
@@ -13195,6 +13202,8 @@ declare module 'gd-sprest/utils/types/baseHelper' {
         response: string;
         /** The request's status. */
         status: number;
+        /** The xml object. */
+        xml: string | XMLDocument;
         /** Adds methods based on the object type. */
         addMethods(base: Base, data: any): any;
         /** Adds properties based on the object type. */

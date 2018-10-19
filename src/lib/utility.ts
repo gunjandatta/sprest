@@ -1,7 +1,6 @@
 import { Types } from "../mapper";
 import { Base, RequestType } from "../utils";
 import { IUtility } from "./types";
-import { ITargetInfo } from "../utils/types";
 
 /**
  * Utility

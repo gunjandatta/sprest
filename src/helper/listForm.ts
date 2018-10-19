@@ -609,18 +609,41 @@ export const ListForm: IListForm = {
     },
 
     // Method to show a file dialog
-    showFileDialog: (info: IListFormResult, onSave?: () => void): PromiseLike<IListFormResult> => {
+    showFileDialog: (info?: IListFormResult, onSave?: (fileInfo: IListFormAttachmentInfo) => void): PromiseLike<any> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Method to add an attachment
-            let addAttachment = (ev) => {
+            let addAttachment = (name, data) => {
+                // Call the save event
+                onSave ? onSave({ name, data }) : null;
+
+                // Get the list
+                info.list
+                    // Get the item
+                    .Items(info.item.Id)
+                    // Get the attachments
+                    .AttachmentFiles()
+                    // Add the file
+                    .add(name, data)
+                    // Execute the request
+                    .execute(() => {
+                        // Refresh the item
+                        ListForm.refreshItem(info).then(info => {
+                            // Remove the element
+                            document.body.removeChild(el);
+
+                            // Resolve the promise
+                            resolve(info);
+                        });
+                    }, reject);
+            };
+
+            // Method to read the file
+            let readFile = (ev) => {
                 // Get the source file
                 let srcFile = ev.target["files"][0];
                 if (srcFile) {
                     let reader = new FileReader();
-
-                    // Call the save event
-                    onSave ? onSave() : null;
 
                     // Set the file loaded event
                     reader.onloadend = (ev: any) => {
@@ -629,30 +652,27 @@ export const ListForm: IListForm = {
                         let ext = srcFile.name.split(".") as any;
                         ext = ext[ext.length - 1].toLowerCase();
 
-                        // Get the list
-                        info.list
-                            // Get the item
-                            .Items(info.item.Id)
-                            // Get the attachments
-                            .AttachmentFiles()
-                            // Add the file
-                            .add(srcFile.name, ev.target.result)
-                            // Execute the request
-                            .execute(() => {
-                                // Refresh the item
-                                ListForm.refreshItem(info).then(info => {
-                                    // Remove the element
-                                    document.body.removeChild(el);
+                        // See if the info exists
+                        if (info) {
+                            // Add the attachment
+                            addAttachment(srcFile.name, ev.target.result);
+                        } else {
+                            // Remove the element
+                            document.body.removeChild(el);
 
-                                    // Resolve the promise
-                                    resolve(info);
-                                });
-                            }, reject);
-
+                            // Resolve the promise with the file information
+                            resolve({
+                                data: ev.target.result,
+                                name: srcFile.name
+                            });
+                        }
                     }
 
                     // Set the error
                     reader.onerror = (ev: any) => {
+                        // Remove the element
+                        document.body.removeChild(el);
+
                         // Reject the promise
                         reject(ev.target.error);
                     }
@@ -660,7 +680,7 @@ export const ListForm: IListForm = {
                     // Read the file
                     reader.readAsArrayBuffer(srcFile);
                 }
-            };
+            }
 
             // Create the file element
             let el = document.body.querySelector("#listform-attachment") as HTMLInputElement;
@@ -671,7 +691,7 @@ export const ListForm: IListForm = {
                 el.id = "listform-attachment";
                 el.type = "file";
                 el.hidden = true;
-                el.onchange = addAttachment;
+                el.onchange = readFile;
 
                 // Add the element to the body
                 document.body.appendChild(el);
