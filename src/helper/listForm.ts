@@ -1,3 +1,4 @@
+import { SP } from "gd-sprest-def";
 import { Helper, SPTypes, Types, Web } from "..";
 import { ODataQuery } from "../mapper/types"
 import {
@@ -450,7 +451,7 @@ export const ListForm: IListForm = {
     },
 
     // Method to load the item attachments
-    loadAttachments: (info: IListFormProps): PromiseLike<Array<Types.SP.IAttachment>> => {
+    loadAttachments: (info: IListFormProps): PromiseLike<Array<SP.Attachment>> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // Ensure the item id exists
@@ -539,7 +540,7 @@ export const ListForm: IListForm = {
     },
 
     // Method to save attachments to an existing item
-    saveAttachments: (info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<Types.SP.IAttachment>> => {
+    saveAttachments: (info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<SP.Attachment>> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             let itemId = info.item ? info.item.Id : info.itemId;

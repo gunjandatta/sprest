@@ -1,5 +1,6 @@
+import { SP } from "gd-sprest-def";
 import { IBase, IBaseCollection } from "../../utils/types";
-import { IGroup, IGroupCreationInformation, IGroupQueryResult, IGroupResult } from ".";
+import { IGroup, IGroupQueryResult, IGroupResult } from ".";
 /**
  * Methods
  */
@@ -8,7 +9,7 @@ export interface ISiteGroupsMethods {
      * Adds a site to the site collection.
      * @param groupInfo - The group creation information.
      */
-    add(groupInfo: IGroupCreationInformation): IBase<IGroup, IGroupResult>;
+    add(groupInfo: SP.GroupCreationInformation): IBase<IGroup, IGroupResult>;
     /**
      * Returns a group from the collection based on the member ID of the group.
      * @param id - The site group id.

@@ -1,9 +1,9 @@
+import { SP } from "gd-sprest-def";
 import { IBase, IBaseCollection } from "../../utils/types";
-import { IVersion } from ".";
 /**
  * Versions
  */
-export interface IVersions extends IBaseCollection<IVersion, IVersion, IVersion> {
+export interface IVersions extends IBaseCollection<SP.FileVersion> {
     /**
      * Deletes all versions in the collection.
      */
@@ -22,7 +22,7 @@ export interface IVersions extends IBaseCollection<IVersion, IVersion, IVersion>
      * Gets the version with the specified ID.
      * @param id - The version id to get.
      */
-    getById(id: any): IBase<IVersion>;
+    getById(id: any): IBase<SP.FileVersion>;
     /**
      * Method to get the next set of results.
      */
@@ -31,5 +31,5 @@ export interface IVersions extends IBaseCollection<IVersion, IVersion, IVersion>
      * Restores a version, by the specified label.
      * @param label - The version label to restore.
      */
-    restoreByLabel(label: any): IBase<IVersion>;
+    restoreByLabel(label: any): IBase<SP.FileVersion>;
 }

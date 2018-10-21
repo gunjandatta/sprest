@@ -26,7 +26,9 @@
   "peerDependencies": {
     "core-js": "^2.5.3"
   },
-  "dependencies": {},
+  "dependencies": {
+    "gd-sprest-def": "0.0.2"
+  },
   "devDependencies": {
     "@types/core-js": "^0.9.46",
     "babel": "^6.23.0",
@@ -35,11 +37,9 @@
     "babel-preset-env": "^1.7.0",
     "core-js": "^2.5.4",
     "dts-bundle": "^0.7.3",
-    "rimraf": "^2.6.2",
     "webpack": "^4.17.0",
     "webpack-cli": "^3.1.0",
-    "webpack-stream": "^4.0.3",
-    "xml2js": "^0.4.19"
+    "webpack-stream": "^4.0.3"
   },
   "scripts": {
     "all": "npm run build && npm run prod && npm run typings",

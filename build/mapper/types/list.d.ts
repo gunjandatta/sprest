@@ -1,182 +1,11 @@
+import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
 import { Types } from "../..";
-import { ComplexTypes, IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemProps, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from ".";
-/**
- * List Creation Information
- */
-export interface IListCreationInformation {
-    /** The list template type. */
-    BaseTemplate: number;
-    /** The list schema xml. */
-    CustomSchemaXml?: string;
-    /** The list of data source properties. */
-    DataSourceProperties?: Array<string>;
-    /** The list description. */
-    Description?: string;
-    /** The list document template type. */
-    DocumentTemplateType?: number;
-    /** Option to display the list on the quick launch. */
-    QuickLaunchOption?: number;
-    /** The list template feature id. */
-    TemplateFeatureId?: string;
-    /** The list name. */
-    Title: string;
-}
-/**
- * List Data Parameters
- */
-export interface IListDataParameters {
-    /** List Data Parameters */
-    AddRequiredFields?: boolean;
-    AllowMultipleValueFilterForTaxonomyFields?: boolean;
-    DatesInUtc?: boolean;
-    ExpandGroups?: boolean;
-    FirstGroupOnly?: boolean;
-    FolderServerRelativeUrl?: string;
-    ImageFieldsToTryRewriteToCdnUrls?: string;
-    OverrideViewXml?: string;
-    Paging?: string;
-    RenderOptions?: number;
-    ReplaceGroup?: boolean;
-    ViewXml?: string;
-    /** List Data Override Parameters */
-    CascDelWarnMessage?: string;
-    CustomAction?: string;
-    DrillDown?: string;
-    Field?: string;
-    FieldInternalName?: string;
-    Filter?: string;
-    FilterData?: string;
-    FilterData1?: string;
-    FilterData10?: string;
-    FilterData2?: string;
-    FilterData3?: string;
-    FilterData4?: string;
-    FilterData5?: string;
-    FilterData6?: string;
-    FilterData7?: string;
-    FilterData8?: string;
-    FilterData9?: string;
-    FilterField?: string;
-    FilterField1?: string;
-    FilterField10?: string;
-    FilterField2?: string;
-    FilterField3?: string;
-    FilterField4?: string;
-    FilterField5?: string;
-    FilterField6?: string;
-    FilterField7?: string;
-    FilterField8?: string;
-    FilterField9?: string;
-    FilterFields?: string;
-    FilterFields1?: string;
-    FilterFields10?: string;
-    FilterFields2?: string;
-    FilterFields3?: string;
-    FilterFields4?: string;
-    FilterFields5?: string;
-    FilterFields6?: string;
-    FilterFields7?: string;
-    FilterFields8?: string;
-    FilterFields9?: string;
-    FilterLookupId?: string;
-    FilterLookupId1?: string;
-    FilterLookupId10?: string;
-    FilterLookupId2?: string;
-    FilterLookupId3?: string;
-    FilterLookupId4?: string;
-    FilterLookupId5?: string;
-    FilterLookupId6?: string;
-    FilterLookupId7?: string;
-    FilterLookupId8?: string;
-    FilterLookupId9?: string;
-    FilterOp?: string;
-    FilterOp1?: string;
-    FilterOp10?: string;
-    FilterOp2?: string;
-    FilterOp3?: string;
-    FilterOp4?: string;
-    FilterOp5?: string;
-    FilterOp6?: string;
-    FilterOp7?: string;
-    FilterOp8?: string;
-    FilterOp9?: string;
-    FilterValue?: string;
-    FilterValue1?: string;
-    FilterValue10?: string;
-    FilterValue2?: string;
-    FilterValue3?: string;
-    FilterValue4?: string;
-    FilterValue5?: string;
-    FilterValue6?: string;
-    FilterValue7?: string;
-    FilterValue8?: string;
-    FilterValue9?: string;
-    FilterValues?: string;
-    FilterValues1?: string;
-    FilterValues10?: string;
-    FilterValues2?: string;
-    FilterValues3?: string;
-    FilterValues4?: string;
-    FilterValues5?: string;
-    FilterValues6?: string;
-    FilterValues7?: string;
-    FilterValues8?: string;
-    FilterValues9?: string;
-    GroupString?: string;
-    HasOverrideSelectCommand?: string;
-    ID?: string;
-    InplaceFullListSearch?: string;
-    InplaceSearchQuery?: string;
-    IsCSR?: string;
-    IsGroupRender?: string;
-    IsXslView?: string;
-    ListViewPageUrl?: string;
-    OverrideScope?: string;
-    OverrideSelectCommand?: string;
-    PageFirstRow?: string;
-    PageLastRow?: string;
-    RootFolder?: string;
-    SortDir?: string;
-    SortDir1?: string;
-    SortDir10?: string;
-    SortDir2?: string;
-    SortDir3?: string;
-    SortDir4?: string;
-    SortDir5?: string;
-    SortDir6?: string;
-    SortDir7?: string;
-    SortDir8?: string;
-    SortDir9?: string;
-    SortField?: string;
-    SortField1?: string;
-    SortField10?: string;
-    SortField2?: string;
-    SortField3?: string;
-    SortField4?: string;
-    SortField5?: string;
-    SortField6?: string;
-    SortField7?: string;
-    SortField8?: string;
-    SortField9?: string;
-    SortFields?: string;
-    SortFieldValues?: string;
-    View?: string;
-    ViewCount?: string;
-    ViewId?: string;
-    ViewPath?: string;
-    WebPartId?: string;
-}
-/**
- * List Data Source
- */
-export interface IListDataSource {
-    Properties: Array<string>;
-}
+import { IContentType, IContentTypeResults, IContentTypes, IListItem, IListItemQueryResult, IListItemResult, IListItemResults, IListItems, IView, IViewQueryResult, IViewResult, IViewResults, IViews } from ".";
 /**
  * List Data Stream
  */
-export interface IListDataStream<RowProps = IListItemProps> {
+export interface IListDataStream<RowProps = SP.ListItem> {
     FilterFields?: string;
     FilterLink: string;
     FirstRow: number;
@@ -186,22 +15,6 @@ export interface IListDataStream<RowProps = IListItemProps> {
     LastRow: number;
     Row: Array<RowProps>;
     RowLimit: number;
-}
-/**
- * List Template
- */
-export interface IListTemplate {
-    AllowsFolderCreation: boolean;
-    Description: string;
-    FeatureId: string;
-    Hidden: boolean;
-    ImageUrl: string;
-    InternalName: string;
-    IsCustomTemplate: boolean;
-    ListTemplateTypeKind: number;
-    Name: string;
-    OnQuickLaunch: boolean;
-    Unique: boolean;
 }
 /**
  * List Methods
@@ -241,7 +54,7 @@ export interface IListMethods {
      * Returns a collection of items from the list based on the specified query.
      * @query - The query that contains the change token.
      */
-    getListItemChangesSinceToken(query: Types.SP.ComplexTypes.ChangeLogItemQuery): IBase<IListItems, IListItemResults>;
+    getListItemChangesSinceToken(query: SP.ChangeLogItemQuery): IBase<IListItems, IListItemResults>;
     /**
      * Returns a collection of lookup fields that use this list as a data source and that have FieldLookup.IsRelationship set to true.
      */
@@ -287,99 +100,6 @@ export interface IListMethods {
     update(data: any): IBase;
 }
 /**
- * List Properties
- */
-export interface IListProps {
-    /** Gets a value that specifies whether the list supports content Types.SP. */
-    AllowContentTypes: boolean;
-    AllowDeletion: boolean;
-    /** Gets the list definition type on which the list is based. Represents a ListTemplateType value. See ListTemplateType in the .NET client object model reference for template type values. */
-    BaseTemplate: number;
-    /** Gets the base type for the list. Represents an SP.BaseType value: Generic List = 0; Document Library = 1; Discussion Board = 3; Survey = 4; Issue = 5. */
-    BaseType: number;
-    /**
-     * Gets a value that specifies the override of the web application's BrowserFileHandling property at the list level. Represents an SP.BrowserFileHandling value: Permissive = 0; Strict = 1.
-     */
-    BrowserFileHandling: number;
-    /** Gets or sets a value that specifies whether content types are enabled for the list. */
-    ContentTypesEnabled: boolean;
-    /** Gets a value that specifies when the list was created. */
-    Created: string;
-    CurrentChangeToken: Types.SP.IStringValue;
-    /** Gets a value that specifies the default workflow identifier for content approval on the list. Returns an empty GUID if there is no default content approval workflow. */
-    DefaultContentApprovalWorkflowId: string;
-    /** Gets or sets a value that specifies the description of the list. */
-    Description: string;
-    /** Gets or sets a value that specifies the reading order of the list. Returns ""NONE"", ""LTR"", or ""RTL"". */
-    Direction: string;
-    /** Gets or sets a value that specifies the server-relative URL of the document template for the list. Returns a server-relative URL if the base type is DocumentLibrary, otherwise returns null. */
-    DocumentTemplateUrl: string;
-    /** Gets or sets a value that specifies the minimum permission required to view minor versions and drafts within the list. Represents an SP.DraftVisibilityType value: Reader = 0; Author = 1; Approver = 2. */
-    DraftVersionVisibility: number;
-    EnableAssignToEmail: boolean;
-    /** Gets or sets a value that specifies whether list item attachments are enabled for the list. */
-    EnableAttachments: boolean;
-    /** Gets or sets a value that specifies whether new list folders can be added to the list. */
-    EnableFolderCreation: boolean;
-    /** Gets or sets a value that specifies whether minor versions are enabled for the list. */
-    EnableMinorVersions: boolean;
-    /** Gets or sets a value that specifies whether content approval is enabled for the list. */
-    EnableModeration: boolean;
-    /** Gets or sets a value that specifies whether historical versions of list items and documents can be created in the list. */
-    EnableVersioning: boolean;
-    /**  */
-    EntityTypeName: string;
-    ExcludeFromOfflineClient: boolean;
-    FileSavePostProcessingEnabled: boolean;
-    /** Gets or sets a value that indicates whether forced checkout is enabled for the document library. */
-    ForceCheckout: boolean;
-    /** Gets a value that specifies whether the list is an external list. */
-    HasExternalDataSource: boolean;
-    /** Gets or sets a Boolean value that specifies whether the list is hidden. If true, the server sets the OnQuickLaunch property to false. */
-    Hidden: boolean;
-    /** Gets the GUID that identifies the list in the database. */
-    Id: string;
-    /** Gets a value that specifies the URI for the icon of the list. */
-    ImageUrl: string;
-    /**  */
-    IrmEnabled: boolean;
-    /**  */
-    IrmExpire: boolean;
-    /**  */
-    IrmReject: boolean;
-    /** Gets or sets a value that specifies a flag that a client application can use to determine whether to display the list. */
-    IsApplicationList: boolean;
-    /** Gets a value that specifies whether the list is a gallery. */
-    IsCatalog: boolean;
-    /**  */
-    IsPrivate: boolean;
-    /** Gets a value that specifies the number of list items in the list. */
-    ItemCount: number;
-    /** Gets a value that specifies the last time a list item was deleted from the list. */
-    LastItemDeletedDate: string;
-    /** Gets a value that specifies the last time a list item, field, or property of the list was modified. */
-    LastItemModifiedDate: string;
-    ListExperienceOptions: number;
-    /**  */
-    ListItemEntityTypeFullName: string;
-    MajorVersionLimit: number;
-    MajorWithMinorVersionsLimit: number;
-    /** Gets or sets a value that indicates whether the list in a Meeting Workspace site contains data for multiple meeting instances within the site. */
-    MultipleDataList: boolean;
-    /** Gets or sets a value that specifies that the crawler must not crawl the list. */
-    NoCrawl: boolean;
-    /** Gets a value that specifies the server-relative URL of the site that contains the list. */
-    ParentWebUrl: string;
-    ParserDisabled: boolean;
-    ReadSecurity: number;
-    /** Gets a value that indicates whether folders can be created within the list. */
-    ServerTemplateCanCreateFolders: boolean;
-    /** Gets a value that specifies the feature identifier of the feature that contains the list schema for the list. Returns an empty GUID if the list schema is not contained within a feature. */
-    TemplateFeatureId: string;
-    /** Gets or sets the displayed title for the list. Its length must be <= 255 characters. */
-    Title: string;
-}
-/**
  * List Query Properties
  */
 export interface IListQueryProps {
@@ -395,19 +115,15 @@ export interface IListQueryProps {
     /**
      * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
      */
-    DataSource(): IBase<Array<string>>;
     /**
      * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
      */
-    DefaultDisplayFormUrl(): IBase<ComplexTypes.DefaultDisplayFormUrl>;
     /**
      * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
      */
-    DefaultEditFormUrl(): IBase<ComplexTypes.DefaultEditFormUrl>;
     /**
      * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
      */
-    DefaultNewFormUrl(): IBase<ComplexTypes.DefaultNewFormUrl>;
     /**
      * Gets the default list view.
     */
@@ -416,11 +132,9 @@ export interface IListQueryProps {
     /**
      * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
      */
-    EffectiveBasePermissions(): IBase<Types.SP.IBasePermissions>;
     /**
      * Gets a value that specifies the effective permissions on the list that are for the user export interface.
     */
-    EffectiveBasePermissionsForUI(): IBase<Types.SP.IBasePermissions>;
     /**
      * Gets the event receivers associated with the list.
     */
@@ -463,7 +177,6 @@ export interface IListQueryProps {
     /**
      * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
      */
-    IsSiteAssetsLibrary(): IBase<boolean>;
     /**
      * Gets the list items in the list.
      */
@@ -472,11 +185,10 @@ export interface IListQueryProps {
      * Gets the list item in the list.
      * @param id - The id of the list item.
      */
-    Items(id: number): IListItem;
+    Items(id: number | string): IListItem;
     /**
      * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
      */
-    OnQuickLaunch(): IBase<boolean>;
     /**
      * Gets a value that specifies the site that contains the list.
      */
@@ -502,7 +214,6 @@ export interface IListQueryProps {
     /**
      * Gets a value that specifies the list schema of the list.
      */
-    SchemaXml(): IBase<string>;
     Subscriptions(): IBase<IBase>;
     TitleResource(): IBase<Types.SP.IResourcePath>;
     /**
@@ -517,11 +228,9 @@ export interface IListQueryProps {
     /**
      * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
      */
-    ValidationFormula(): IBase<string>;
     /**
      * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
      */
-    ValidationMessage(): IBase<string>;
     /**
      * Gets the views in the list.
      */
@@ -531,16 +240,11 @@ export interface IListQueryProps {
      * @param id - The id of the view.
      */
     Views(id: string): IView;
-    /**
-     * Gets a value that specifies the collection of all workflow associations for the list.
-     */
-    WorkflowAssociations(): IBase<string>;
-    WriteSecurity(): IBase<number>;
 }
 /**
  * List Query Result
  */
-export interface IListQueryResult extends IListMethods, IListProps {
+export interface IListQueryResult extends IListMethods, SP.List {
     /**
      * Gets the content types that are associated with the list.
      */
@@ -548,19 +252,15 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
      */
-    DataSource: IListDataSource;
     /**
      * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
      */
-    DefaultDisplayFormUrl: string;
     /**
      * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
      */
-    DefaultEditFormUrl: string;
     /**
      * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
      */
-    DefaultNewFormUrl: string;
     /**
      * Gets the default list view.
     */
@@ -568,16 +268,13 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets the URL of the default view for the list.
      */
-    DefaultViewUrl: string;
     DescriptionResouce: Types.SP.IResourcePath;
     /**
      * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
      */
-    EffectiveBasePermissions: Types.SP.IBasePermissions;
     /**
      * Gets a value that specifies the effective permissions on the list that are for the user export interface.
     */
-    EffectiveBasePermissionsForUI: Types.SP.IBasePermissions;
     /**
      * Gets the event receivers associated with the list.
     */
@@ -597,7 +294,6 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
      */
-    HasUniqueRoleAssignments: boolean;
     /**
      * Gets a value that specifies the information rights management settings.
     */
@@ -605,7 +301,6 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
      */
-    IsSiteAssetsLibrary: boolean;
     /**
      * Gets the list items in the list.
      */
@@ -613,7 +308,6 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
      */
-    OnQuickLaunch: boolean;
     /**
      * Gets a value that specifies the site that contains the list.
      */
@@ -629,7 +323,6 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets a value that specifies the list schema of the list.
      */
-    SchemaXml: string;
     Subscriptions: Types.SP.IResults<Types.SP.ISubscription>;
     TitleResource: Types.SP.IResourcePath;
     /**
@@ -639,11 +332,9 @@ export interface IListQueryResult extends IListMethods, IListProps {
     /**
      * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
      */
-    ValidationFormula: string;
     /**
      * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
      */
-    ValidationMessage: string;
     /**
      * Gets the views in the list.
      */
@@ -657,7 +348,7 @@ export interface IListQueryResult extends IListMethods, IListProps {
 /**
  * List Result
  */
-export interface IListResult extends IListMethods, IListProps, IListQueryProps, IBase<IList, IListResult, IListQueryResult> {
+export interface IListResult extends IListMethods, SP.List, IListQueryProps, IBase<IList, IListResult, IListQueryResult> {
 }
 /**
  * List

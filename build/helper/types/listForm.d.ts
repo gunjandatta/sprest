@@ -1,3 +1,4 @@
+import { SP } from "gd-sprest-def";
 import { Types } from "../../mapper";
 /**
  * List Form
@@ -16,7 +17,7 @@ export interface IListForm {
      * Method to load the item attachments
      * @param info - The list form information.
     */
-    loadAttachments(info: IListFormProps): PromiseLike<Array<Types.IAttachment>>;
+    loadAttachments(info: IListFormProps): PromiseLike<Array<SP.Attachment>>;
     /**
      * Method to refresh the item.
      * @param info - The list form information.
@@ -31,7 +32,7 @@ export interface IListForm {
      * @param info - The list form information.
      * @param attachmentInfo - The attachment files to add.
      */
-    saveAttachments(info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<Types.IAttachment>>;
+    saveAttachments(info: IListFormProps, attachmentInfo: Array<IListFormAttachmentInfo>): PromiseLike<Array<SP.Attachment>>;
     /**
      * Method to save the item.
      * @param info - The list form information.
@@ -138,7 +139,7 @@ export interface IListFormProps {
  */
 export interface IListFormResult {
     /** The item attachments. */
-    attachments?: Array<Types.IAttachment>;
+    attachments?: Array<SP.Attachment>;
     /** The form fields. */
     fields: {
         [key: string]: Types.IFieldResult;

@@ -1,12 +1,12 @@
+import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
 import { Types } from "../..";
-import { ComplexTypes } from ".";
 /**
  * Email
  */
 export interface IEmail {
     /** A collection of additional email headers. */
-    AdditionalHeaders?: Array<ComplexTypes.KeyValue>;
+    AdditionalHeaders?: Array<SP.KeyValue>;
     /** A string or collection of email addresses to blind carbon copy the email to. */
     BCC?: Array<string>;
     /** A value that specifies the body of the email. */

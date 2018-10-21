@@ -1,3 +1,4 @@
+import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
 import { Types } from "../..";
 import { IContentType, IContentTypeResult, IList, IListResult } from ".";
@@ -41,27 +42,6 @@ export interface IListItemMethods {
     validateUpdateListItem(formValues: any, bNewDocumentUpdate: any): any;
 }
 /**
- * List Item Properties
- */
-export interface IListItemProps {
-    /**
-     * Gets a value that specifies the display name of the list item.
-     */
-    DisplayName: string;
-    /** Gets a value that specifies the effective permissions on the list item that are assigned to the current user. */
-    EffectiveBasePermissions: Types.SP.IBasePermissions;
-    /** Gets the effective base permissions for the current user, as they should be displayed in UI. */
-    EffectiveBasePermissionsForUI: Types.SP.IBasePermissions;
-    /** Gets a value that specifies whether the list item is a file or a list folder. Represents an SP.FileSystemObjectType value: Invalid = -1; File = 0; Folder = 1; Web = 2. */
-    FileSystemObjectType: number;
-    IconOverlay: string;
-    /** Gets a value that specifies the list item identifier. */
-    Id: number;
-    ServerRedirectedEmbedUrl: string;
-    /** Gets the title field value. */
-    Title?: string;
-}
-/**
  * List Item Query Properties
  */
 export interface IListItemQueryProps {
@@ -73,7 +53,7 @@ export interface IListItemQueryProps {
      * Gets the specified attachment file.
      * @param fileName - The filename of the attachment.
      */
-    AttachmentFiles(fileName: string): IBase<Types.SP.IAttachment>;
+    AttachmentFiles(fileName: string): IBase<SP.Attachment>;
     /**
      * Gets a value that specifies the content type of the list item.
      */
@@ -128,11 +108,11 @@ export interface IListItemQueryProps {
 /**
  * List Item Query Result
  */
-export interface IListItemQueryResult extends IListItemMethods, IListItemProps {
+export interface IListItemQueryResult extends IListItemMethods, SP.ListItem {
     /**
      * Get the attachment collection.
      */
-    AttachmentFiles: Types.SP.IAttachmentFilesMethods & Types.SP.IResults<Types.SP.IAttachment>;
+    AttachmentFiles: Types.SP.IAttachmentFilesMethods & Types.SP.IResults<SP.Attachment>;
     /**
      * Gets a value that specifies the content type of the list item.
      */
@@ -182,7 +162,7 @@ export interface IListItemQueryResult extends IListItemMethods, IListItemProps {
 /**
  * List Item Result
  */
-export interface IListItemResult extends IListItemMethods, IListItemProps, IListItemQueryProps, IBase<IListItem, IListItemResult, IListItemQueryResult> {
+export interface IListItemResult extends IListItemMethods, SP.ListItem, IListItemQueryProps, IBase<IListItem, IListItemResult, IListItemQueryResult> {
 }
 /**
  * List Item

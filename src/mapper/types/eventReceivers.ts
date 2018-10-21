@@ -1,6 +1,7 @@
+import { SP } from "gd-sprest-def";
 import { IBase, IBaseCollection } from "../../utils/types";
 import {
-    IEventReceiver, IEventReceiverDefinitionCreationInformation, IEventReceiverQueryResult, IEventReceiverResult
+    IEventReceiver, IEventReceiverQueryResult, IEventReceiverResult
 } from ".";
 
 /**
@@ -11,7 +12,7 @@ export interface IEventReceiversMethods {
      * Adds an event receiver to the collection.
      * @param parameters - The event receiver definition creation information.
      */
-    add(parameters: IEventReceiverDefinitionCreationInformation): IBase<IEventReceiver, IEventReceiverResult>;
+    add(parameters: SP.EventReceiverDefinitionCreationInformation): IBase<IEventReceiver, IEventReceiverResult>;
 
     /**
      * Gets an event receiver in the collection.

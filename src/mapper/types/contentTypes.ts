@@ -1,6 +1,7 @@
+import { SP } from "gd-sprest-def";
 import { IBase, IBaseCollection } from "../../utils/types";
 import {
-    IContentType, IContentTypeCreationInformation, IContentTypeQueryResult, IContentTypeResult
+    IContentType, IContentTypeQueryResult, IContentTypeResult
 } from ".";
 
 /**
@@ -11,7 +12,7 @@ export interface IContentTypesMethods {
      * Adds a content type to the collection.
      * @param parameters - The content type creation information.
      */
-    add(parameters: IContentTypeCreationInformation): IBase<IContentType, IContentTypeResult>;
+    add(parameters: SP.ContentTypeCreationInformation): IBase<IContentType, IContentTypeResult>;
 
     /**
      * Adds an existing content type to this collection.

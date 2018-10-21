@@ -1,3 +1,4 @@
+import { Microsoft } from "gd-sprest-def";
 import { Types } from "../../mapper";
 import { IBase, ITargetInfo } from "../../utils/types";
 /**
@@ -19,7 +20,7 @@ export interface ISearch {
      * Method to get the query from the search parameters.
      * @param parameters - The search parameters.
      */
-    getQuery: (parameters: Types.ComplexTypes.SearchRequest | Types.ComplexTypes.SearchSuggestion) => Array<string>;
+    getQuery: (parameters: Microsoft.Office.Server.Search.REST.SearchRequest) => Array<string>;
     /**
      * Method to get the url of a site, by its id.
      * @param id - The site id.

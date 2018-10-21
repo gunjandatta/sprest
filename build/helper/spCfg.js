@@ -100,10 +100,13 @@ exports.SPConfig = function (cfg, webUrl) {
                         contentTypes.add({
                             Description: cfgContentType.Description,
                             Group: cfgContentType.Group,
+                            /*
                             Id: {
                                 __metadata: { type: "SP.ContentTypeId" },
-                                StringValue: cfgContentType.Id ? cfgContentType.Id.StringValue : "0x0100" + lib_1.ContextInfo.generateGUID().replace("{", "").replace("-", "").replace("}", "")
+                                StringValue: cfgContentType.Id ? cfgContentType.Id.StringValue : "0x0100" + ContextInfo.generateGUID().replace("{", "").replace("-", "").replace("}", "")
                             },
+                            */
+                            Id: cfgContentType.Id || "0x0100" + lib_1.ContextInfo.generateGUID().replace("{", "").replace("-", "").replace("}", ""),
                             Name: cfgContentType.Name
                         }).execute(function (ct) {
                             // See if it was successful
@@ -160,7 +163,7 @@ exports.SPConfig = function (cfg, webUrl) {
                         updateFl = true;
                     }
                     // JSLink
-                    if (cfgContentType.ContentType.JSlink != cfgContentType.JSLink) {
+                    if (cfgContentType.ContentType.JSLink != cfgContentType.JSLink) {
                         // Update the configuration
                         cfgUpdate.JSLink = cfgContentType.JSLink;
                         // Log
@@ -423,7 +426,7 @@ exports.SPConfig = function (cfg, webUrl) {
                     // Add the view
                     views.add({
                         Title: cfgView.ViewName,
-                        ViewQuery: cfgView.ViewQuery
+                        Query: cfgView.ViewQuery
                     }).execute(function (view) {
                         // Ensure it exists
                         if (view.existsFl) {
@@ -789,10 +792,10 @@ exports.SPConfig = function (cfg, webUrl) {
     };
     // Method to update the base permissions
     var updateBasePermissions = function (values) {
-        var high = 0;
-        var low = 0;
-        // Parse the values
-        for (var i = 0; i < values.length; i++) {
+        var high = values.High;
+        var low = values.Low;
+        // See if this is an array
+        for (var i = 0; i < values["length"]; i++) {
             var value = values[i];
             // See if this is the full mask
             if (value == 65) {

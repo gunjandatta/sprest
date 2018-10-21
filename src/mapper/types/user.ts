@@ -1,3 +1,4 @@
+import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
 import { IGroup, ISiteGroupResults, ISiteGroups, IUser } from ".";
 
@@ -21,37 +22,6 @@ export interface IUserMethods {
 }
 
 /**
- * User Properties
- */
-export interface IUserProps {
-    /** Gets or sets the email address of the user. */
-    Email: string;
-
-    /** Gets a value that specifies the member identifier for the user or group. */
-    Id: string;
-
-    /** Gets a value that indicates whether this member should be hidden in the UI. */
-    IsHiddenInUI: boolean;
-
-    IsSharedByEmailGuestUser: boolean;
-
-    /** Gets or sets a Boolean value that specifies whether the user is a site collection administrator. */
-    IsSiteAdmin: boolean;
-
-    /** Gets the login name of the user. */
-    LoginName: string;
-
-    /** Gets a value containing the type of the principal. Represents a bitwise SP.PrincipalType value: None = 0; User = 1; DistributionList = 2; SecurityGroup = 4; SharePointGroup = 8; All = 15. */
-    PrincipalType: string;
-
-    /** Gets or sets a value that specifies the name of the principal. */
-    Title: string;
-
-    /** Gets the information of the user that contains the user's name identifier and the issuer of the user's name identifier. */
-    UserId: string;
-}
-
-/**
  * User Query Properties
  */
 export interface IUserQueryProps {
@@ -70,7 +40,7 @@ export interface IUserQueryProps {
 /**
  * User Query Result
  */
-export interface IUserQueryResult extends IUserMethods, IUserProps {
+export interface IUserQueryResult extends IUserMethods, SP.ObjectSharingInformationUser {
     /**
      * Gets the groups of which the user is a member.
      */
@@ -80,7 +50,7 @@ export interface IUserQueryResult extends IUserMethods, IUserProps {
 /**
  * User Result
  */
-export interface IUserResult extends IUserMethods, IUserProps, IUserQueryProps, IBase<IUser, IUserResult, IUserQueryResult> { }
+export interface IUserResult extends IUserMethods, SP.ObjectSharingInformationUser, IUserQueryProps, IBase<IUser, IUserResult, IUserQueryResult> { }
 
 /**
  * User

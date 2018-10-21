@@ -1,4 +1,4 @@
-import { IListDataParameters } from "../mapper/types";
+import { SP } from "gd-sprest-def";
 import { Base, Types } from "../utils";
 import { IList } from "./types";
 import { Web } from "./web";
@@ -47,7 +47,7 @@ List.getByEntityName = ((entityTypeName, callback, targetInfo?) => {
 }) as any;
 
 // Static method to get the list data from the SP.List.getListDataAsStream endpoint
-List.getDataAsStream = ((listFullUrl: string, parameters: IListDataParameters = {}) => {
+List.getDataAsStream = ((listFullUrl: string, parameters: SP.RenderListDataParameters = {}) => {
     let params = "?listFullUrl='" + listFullUrl + "'";
 
     // Parse the parameters

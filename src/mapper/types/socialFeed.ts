@@ -1,5 +1,5 @@
+import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
-import { Types } from "../..";
 
 /**
  * Social Feed
@@ -61,13 +61,13 @@ export interface ISocialFeed extends IBase<ISocialFeed> {
      * Creates a root post in the specified site feed.
      * @param accountName - The login name of the user.
      */
-    postToFeed(accountName: string, postInfo: Types.SP.ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
+    postToFeed(accountName: string, postInfo: SP.Social.SocialPostCreationData): IBase<ISocialRestThread>;
 
     /**
      * Creates a root post in the current user's feed.
      * @param creationData - The post creation data.
      */
-    postToMyFeed(creationData: Types.SP.ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
+    postToMyFeed(creationData: SP.Social.SocialPostCreationData): IBase<ISocialRestThread>;
 }
 
 /**
@@ -80,9 +80,9 @@ export interface ISocialRestActor extends IBase<ISocialRestActor> {
 
     FollowableItem?: string;
 
-    FollwableItemActor: Types.SP.ComplexTypes.SocialActor;
+    FollwableItemActor: SP.Social.SocialActor;
 
-    Me: Types.SP.ComplexTypes.SocialActor;
+    Me: SP.Social.SocialActor;
 
     /**
      * Methods
@@ -99,7 +99,7 @@ export interface ISocialRestFeed extends IBase<ISocialRestFeed> {
      * Properties
      */
 
-    SocialFeed: Types.SP.ComplexTypes.SocialFeed;
+    SocialFeed: SP.Social.SocialFeed;
 
     /**
      * Methods
@@ -108,7 +108,7 @@ export interface ISocialRestFeed extends IBase<ISocialRestFeed> {
     /**
      * Creates a root post in the user's feed.
      */
-    post(postInfo: Types.SP.ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
+    post(postInfo: SP.Social.SocialRestPostCreationData): ISocialRestThread;
 }
 
 /**
@@ -121,7 +121,7 @@ export interface ISocialRestThread extends IBase<ISocialRestThread> {
 
     ID?: string;
 
-    SocialThread: Types.SP.ComplexTypes.SocialThread;
+    SocialThread: SP.Social.SocialThread;
 
     /**
      * Methods
@@ -129,5 +129,5 @@ export interface ISocialRestThread extends IBase<ISocialRestThread> {
 
     delete(): IBase<ISocialRestThread>;
 
-    reply(restCreationData: Types.SP.ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
+    reply(restCreationData: SP.Social.SocialPostCreationData): IBase<ISocialRestThread>;
 }

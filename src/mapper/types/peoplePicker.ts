@@ -1,4 +1,4 @@
-import { IBase, ITargetInfo } from "../../utils/types";
+import { IBase } from "../../utils/types";
 import { IEntityData } from ".";
 
 /**

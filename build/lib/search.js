@@ -26,7 +26,7 @@ exports.Search = (function (url, targetInfo) {
         }, exports.Search.getQuery(settings));
     };
     /** The search suggest method */
-    search.suggest = function (settings) {
+    search["suggest"] = function (settings /*SearchSuggestion*/) {
         // Execute the request
         return search.executeMethod("query", {
             argNames: ["query"],
@@ -38,7 +38,7 @@ exports.Search = (function (url, targetInfo) {
     return search;
 });
 // Static method to compute the query
-exports.Search.getQuery = function (parameters) {
+exports.Search.getQuery = function (parameters /* | Types.ComplexTypes.SearchSuggestion*/) {
     var query = "";
     // Parse the parameters
     for (var key in parameters) {

@@ -1,3 +1,4 @@
+import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
 import { Types } from "../..";
 import { IRoleDefinition, IRoleDefinitions } from ".";
@@ -10,14 +11,6 @@ export interface IRoleAssignmentMethods {
      * Deletes the role assignment.
      */
     delete(): IBase;
-}
-
-/**
- * Role Assignment Properties
- */
-export interface IRoleAssignmentProps {
-    /** The unique identifier of the role assignment. */
-    PrincipalId: string;
 }
 
 /**
@@ -38,7 +31,7 @@ export interface IRoleAssignmentQueryProps {
 /**
  * Role Assignment Query Result
  */
-export interface IRoleAssignmentQueryResult extends IRoleAssignmentMethods, IRoleAssignmentProps {
+export interface IRoleAssignmentQueryResult extends IRoleAssignmentMethods, SP.RoleAssignment {
     /**
      * Gets the user or group that corresponds to the Role Assignment.
      */
@@ -53,7 +46,7 @@ export interface IRoleAssignmentQueryResult extends IRoleAssignmentMethods, IRol
 /**
  * Role Assignment Result
  */
-export interface IRoleAssignmentResult extends IRoleAssignmentMethods, IRoleAssignmentProps, IRoleAssignmentQueryProps, IBase<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
+export interface IRoleAssignmentResult extends IRoleAssignmentMethods, SP.RoleAssignment, IRoleAssignmentQueryProps, IBase<IRoleAssignment, IRoleAssignmentResult, IRoleAssignmentQueryResult> { }
 
 /**
  * Role Assignment

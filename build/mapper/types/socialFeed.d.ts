@@ -1,5 +1,5 @@
+import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
-import { Types } from "../..";
 /**
  * Social Feed
  */
@@ -50,12 +50,12 @@ export interface ISocialFeed extends IBase<ISocialFeed> {
      * Creates a root post in the specified site feed.
      * @param accountName - The login name of the user.
      */
-    postToFeed(accountName: string, postInfo: Types.SP.ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
+    postToFeed(accountName: string, postInfo: SP.Social.SocialPostCreationData): IBase<ISocialRestThread>;
     /**
      * Creates a root post in the current user's feed.
      * @param creationData - The post creation data.
      */
-    postToMyFeed(creationData: Types.SP.ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
+    postToMyFeed(creationData: SP.Social.SocialPostCreationData): IBase<ISocialRestThread>;
 }
 /**
  * Social Rest Actor
@@ -65,8 +65,8 @@ export interface ISocialRestActor extends IBase<ISocialRestActor> {
      * Properties
      */
     FollowableItem?: string;
-    FollwableItemActor: Types.SP.ComplexTypes.SocialActor;
-    Me: Types.SP.ComplexTypes.SocialActor;
+    FollwableItemActor: SP.Social.SocialActor;
+    Me: SP.Social.SocialActor;
     /**
      * Methods
      */
@@ -79,14 +79,14 @@ export interface ISocialRestFeed extends IBase<ISocialRestFeed> {
     /**
      * Properties
      */
-    SocialFeed: Types.SP.ComplexTypes.SocialFeed;
+    SocialFeed: SP.Social.SocialFeed;
     /**
      * Methods
      */
     /**
      * Creates a root post in the user's feed.
      */
-    post(postInfo: Types.SP.ComplexTypes.SocialRestPostCreationData): ISocialRestThread;
+    post(postInfo: SP.Social.SocialRestPostCreationData): ISocialRestThread;
 }
 /**
  * Social Rest Thread
@@ -96,10 +96,10 @@ export interface ISocialRestThread extends IBase<ISocialRestThread> {
      * Properties
      */
     ID?: string;
-    SocialThread: Types.SP.ComplexTypes.SocialThread;
+    SocialThread: SP.Social.SocialThread;
     /**
      * Methods
      */
     delete(): IBase<ISocialRestThread>;
-    reply(restCreationData: Types.SP.ComplexTypes.SocialPostCreationData): IBase<ISocialRestThread>;
+    reply(restCreationData: SP.Social.SocialPostCreationData): IBase<ISocialRestThread>;
 }

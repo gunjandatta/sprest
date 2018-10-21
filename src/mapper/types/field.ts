@@ -1,35 +1,5 @@
+import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
-import { SPTypes } from "../..";
-import { IResourcePath } from ".";
-
-/**
- * Field Creation Information 
- */
-export interface IFieldCreationInformation {
-    /** The choices. */
-    Choices?: { results: Array<string> };
-
-    /** The field type. */
-    FieldTypeKind: number;
-
-    /** Indicates whether only the first eight characters are used for the field name. */
-    IsCompactName?: boolean;
-
-    /** The name of the source lookup field. */
-    LookupFieldName?: string;
-
-    /** The ID of the target list for the source lookup field. */
-    LookupListId?: any;
-
-    /** The ID of the site that contains the list that is the source for the lookup field value. */
-    LookupWebId?: any;
-
-    /** A value that specifies whether the field requires a value. */
-    Required?: boolean;
-
-    /** A value that specifies the display name of the field. */
-    Title: string;
-}
 
 /**
  * Field Methods
@@ -160,18 +130,18 @@ export interface IFieldProps {
  * Field Query Properties
  */
 export interface IFieldQueryProps {
-    DescriptionResource(): IBase<IResourcePath>;
+    DescriptionResource(): IBase<SP.ResourcePath>;
 
-    TitleResource(): IBase<IResourcePath>;
+    TitleResource(): IBase<SP.ResourcePath>;
 }
 
 /**
  * Field Query Result
  */
 export interface IFieldQueryResult extends IFieldMethods, IFieldProps {
-    DescriptionResource: IResourcePath;
+    DescriptionResource: SP.ResourcePath;
 
-    TitleResource: IResourcePath;
+    TitleResource: SP.ResourcePath;
 }
 
 /**

@@ -1,5 +1,6 @@
+import { SP } from "gd-sprest-def";
 import { IBase, IBaseCollection } from "../../utils/types";
-import { IField, IFieldCreationInformation, IFieldQueryResult, IFieldResult } from ".";
+import { IField, IFieldQueryResult, IFieldResult } from ".";
 /**
  * Methods
  */
@@ -13,7 +14,7 @@ export interface IFieldsMethods {
      * Adds a field to the field collection.
      * @param parameters - The field creation information.
      */
-    addField(parameters: IFieldCreationInformation): IBase<IField, IFieldResult>;
+    addField(parameters: SP.FieldCreationInformation): IBase<IField, IFieldResult>;
     /**
      * Adds a secondary lookup field that depends on a primary lookup field for its relationship to the list where it gets its information.
      * @param displayName - The title of the new field.

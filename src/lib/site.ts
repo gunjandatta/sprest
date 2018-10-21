@@ -1,4 +1,3 @@
-import { IListDataParameters } from "../mapper/types";
 import { Base, Types } from "../utils";
 import { ISite } from "./types";
 

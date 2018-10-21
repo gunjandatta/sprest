@@ -1,7 +1,8 @@
+import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
 import { Types } from "../..";
 import {
-    IFile, IFileResult, IFileResults, IFiles,
+    IFile, IFileResults, IFiles,
     IFolderResults, IFolders
 } from ".";
 
@@ -30,43 +31,6 @@ export interface IFolderMethods {
      * @param data - The file properties to update.
      */
     update(data): IBase;
-}
-
-/**
- * Folder Properties
- */
-export interface IFolderProps {
-    /** Specifies the sequence in which content types are displayed. */
-    ContentTypeOrder: Types.SP.IStringValue;
-
-    /** Gets a value that specifies whether the file exists. */
-    Exists: boolean;
-
-    /** Gets a value that specifies the count of items in the list folder. */
-    ItemCount: number;
-
-    /** Indicates whether the folder is enabled for WOPI default action. */
-    IsWOPIEnabled: boolean;
-
-    /** Gets the name of the folder. */
-    Name: string;
-
-    ServerRelativePath: Types.SP.IResourcePath;
-
-    /** Gets the server-relative URL of the list folder. */
-    ServerRelativeUrl: string;
-
-    TimeCreated: string;
-
-    TimeLastModified: string;
-
-    /** Gets or sets a value that specifies the content type order. */
-    UniqueContentTypeOrder: Types.SP.IStringValue;
-
-    UniqueId: string;
-
-    /** Gets or sets a value that specifies folder-relative URL for the list folder welcome page. */
-    WelcomePage: string;
 }
 
 /**
@@ -116,7 +80,7 @@ export interface IFolderQueryProps {
 /**
  * Folder Query Result
  */
-export interface IFolderQueryResult extends IFolderMethods, IFolderProps {
+export interface IFolderQueryResult extends IFolderMethods, SP.Folder {
     /**
      * Gets the files contained in the folder.
      */
@@ -148,7 +112,7 @@ export interface IFolderQueryResult extends IFolderMethods, IFolderProps {
 /**
  * Folder Result
  */
-export interface IFolderResult extends IFolderMethods, IFolderProps, IFolderQueryProps, IFolderQueryProps, IBase<IFolder, IFolderResult, IFolderQueryResult> { }
+export interface IFolderResult extends IFolderMethods, SP.Folder, IFolderQueryProps, IFolderQueryProps, IBase<IFolder, IFolderResult, IFolderQueryResult> { }
 
 /**
  * Folder

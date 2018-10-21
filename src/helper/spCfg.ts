@@ -1,3 +1,4 @@
+import { SP } from "gd-sprest-def";
 export * from "./spCfgTypes";
 import { ContextInfo, Site, Web } from "../lib";
 import { SPTypes, Types } from "..";
@@ -107,10 +108,13 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                         contentTypes.add({
                             Description: cfgContentType.Description,
                             Group: cfgContentType.Group,
+                            /*
                             Id: {
                                 __metadata: { type: "SP.ContentTypeId" },
                                 StringValue: cfgContentType.Id ? cfgContentType.Id.StringValue : "0x0100" + ContextInfo.generateGUID().replace("{", "").replace("-", "").replace("}", "")
                             },
+                            */
+                            Id: cfgContentType.Id || "0x0100" + ContextInfo.generateGUID().replace("{", "").replace("-", "").replace("}", ""),
                             Name: cfgContentType.Name
                         }).execute((ct) => {
                             // See if it was successful
@@ -173,7 +177,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     }
 
                     // JSLink
-                    if (cfgContentType.ContentType.JSlink != cfgContentType.JSLink) {
+                    if (cfgContentType.ContentType.JSLink != cfgContentType.JSLink) {
                         // Update the configuration
                         cfgUpdate.JSLink = cfgContentType.JSLink;
 
@@ -363,7 +367,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to create the user custom actions
-    let createUserCustomActions = (customActions: Types.SP.IUserCustomActionResults, cfgCustomActions: Array<Types.SP.IUserCustomActionCreationInformation>): PromiseLike<void> => {
+    let createUserCustomActions = (customActions: Types.SP.IUserCustomActionResults, cfgCustomActions: Array<SP.UserCustomAction>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
@@ -455,7 +459,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
                     // Add the view
                     views.add({
                         Title: cfgView.ViewName,
-                        ViewQuery: cfgView.ViewQuery
+                        Query: cfgView.ViewQuery
                     }).execute((view) => {
                         // Ensure it exists
                         if (view.existsFl) {
@@ -727,7 +731,7 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
         });
     }
     // Method to remove the user custom actions
-    let removeUserCustomActions = (customActions: Types.SP.IUserCustomActionResults, cfgCustomActions: Array<Types.SP.IUserCustomActionCreationInformation>): PromiseLike<void> => {
+    let removeUserCustomActions = (customActions: Types.SP.IUserCustomActionResults, cfgCustomActions: Array<SP.UserCustomAction>): PromiseLike<void> => {
         // Return a promise
         return new Promise((resolve, reject) => {
             // See if the configuration type exists
@@ -847,12 +851,12 @@ export const SPConfig = (cfg: ISPConfigProps, webUrl?: string): ISPConfig => {
     }
 
     // Method to update the base permissions
-    let updateBasePermissions = (values: Array<number>) => {
-        let high = 0;
-        let low = 0;
+    let updateBasePermissions = (values: SP.BasePermissions) => {
+        let high = values.High;
+        let low = values.Low;
 
-        // Parse the values
-        for (let i = 0; i < values.length; i++) {
+        // See if this is an array
+        for (let i = 0; i < values["length"]; i++) {
             let value = values[i];
 
             // See if this is the full mask

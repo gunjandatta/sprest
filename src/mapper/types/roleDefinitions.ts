@@ -1,5 +1,4 @@
 import { IBase, IBaseCollection } from "../../utils/types";
-import { SPTypes } from "..";
 import { IRoleDefinition, IRoleDefinitionQueryResult, IRoleDefinitionResult, } from ".";
 
 /**

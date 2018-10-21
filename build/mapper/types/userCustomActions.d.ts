@@ -1,5 +1,6 @@
+import { SP } from "gd-sprest-def";
 import { IBase, IBaseCollection } from "../../utils/types";
-import { IUserCustomAction, IUserCustomActionCreationInformation, IUserCustomActionQueryResult, IUserCustomActionResult } from ".";
+import { IUserCustomAction, IUserCustomActionQueryResult, IUserCustomActionResult } from ".";
 /**
  * Methods
  */
@@ -8,7 +9,7 @@ export interface IUserCustomActionsMethods {
      * Adds a custom actino to the user custom action collection.
      * @param parameters - The user custom action information.
      */
-    add(parameters: IUserCustomActionCreationInformation): IBase<IUserCustomAction, IUserCustomActionResult>;
+    add(parameters: SP.UserCustomAction): IBase<IUserCustomAction, IUserCustomActionResult>;
     /**
      * Deletes all custom actions in the collection.
      */

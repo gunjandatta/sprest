@@ -1,5 +1,4 @@
 import { IBase } from "../../utils/types";
-import { SPTypes } from "../..";
 import { IWeb } from ".";
 
 /**

@@ -1,3 +1,4 @@
+import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
 import { Types } from "../..";
 import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from ".";
@@ -89,80 +90,10 @@ export interface ISiteMethods {
     updateClientObjectModelUseRemoteAPIsPermissionSetting(requireUseRemoteAPIs: any): IBase;
 }
 /**
- * Site Properties
- */
-export interface ISiteProps {
-    /** A value that specifies whether creation of declarative workflows can be used on this site collection. */
-    AllowCreationDeclarativeWorkflow: boolean;
-    /** Gets or sets a value that specifies whether a designer can be used on this site collection. */
-    AllowDesigner: boolean;
-    /** Gets or sets a value that specifies whether master page editing is allowed on this site collection. */
-    AllowMasterPageEditing: boolean;
-    /** Gets or sets a value that specifies whether this site collection can be reverted to its base template. */
-    AllowRevertFromTemplate: boolean;
-    AllowSaveDeclarativeWorkflowAsTemplate: boolean;
-    AllowSavePublishDeclarativeWorkflow: boolean;
-    /** Whether version to version upgrade is allowed on this site. */
-    AllowSelfServiceUpgrade: boolean;
-    /** Whether upgrade evaluation site collection is allowed. */
-    AllowSelfServiceUpgradeEvaluation: boolean;
-    AuditLogTrimmingRetention: number;
-    /** Property indicating whether or not this object can be upgraded. */
-    CanUpgrade: boolean;
-    Classification: string;
-    /** Gets the major version of this site collection for purposes of major version-level compatibility checks. */
-    CompatibilityLevel: string;
-    CurrentChangeToken: string;
-    DisableAppViews: boolean;
-    DisableCompanyWideSharingLinks: boolean;
-    DisableFlows: boolean;
-    ExternalSharingTipsEnabled: boolean;
-    GroupId: string;
-    /** Gets the GUID that identifies the site collection. */
-    Id: string;
-    /** Gets or sets the comment that is used in locking a site collection. */
-    LockIssue: string;
-    /** Gets a value that specifies the maximum number of list items allowed per operation before throttling will occur. */
-    MaxItemsPerThrottledOperation: number;
-    NeedsB2BUpgrade: boolean;
-    /** Specifies the primary URI of this site collection, including the host name, port number, and path. */
-    PrimaryUri: string;
-    /** Gets or sets a Boolean value that specifies whether the site collection is read-only, locked, and unavailable for write access. */
-    ReadOnly: boolean;
-    RequiredDesignerVersion: string;
-    SandboxedCodeActivationCapability: number;
-    ServerRelativePath: Types.SP.IResourcePath;
-    /** Gets the server-relative URL of the root Web site in the site collection. */
-    ServerRelativeUrl: string;
-    ShareByEmailEnabled: boolean;
-    ShowPeoplePickerSuggestionsForGuestUsers: boolean;
-    /** Property that indicates whether users will be able to share links to documents that can be accessed without logging in. */
-    ShareByLinkEnabled: boolean;
-    /** Gets or sets a value that specifies whether the URL structure of this site collection is viewable. */
-    ShowUrlStructure: boolean;
-    StatusBarLink: string;
-    StatusBarText: string;
-    TrimAuditLog: boolean;
-    /** Gets or sets a value that specifies whether the Visual Upgrade UI of this site collection is displayed. */
-    UIVersionConfigurationEnabled: boolean;
-    /** Specifies the upgrade information of this site collection. */
-    UpgradeInfo: Types.SP.IUpgradeInfo;
-    /** Specifies a date, after which site collection administrators will be reminded to upgrade the site collection. */
-    UpgradeReminderDate: string;
-    UpgradeScheduled: boolean;
-    UpgradeScheduledDate: string;
-    /** Specifies whether the site is currently upgrading. */
-    Upgrading: boolean;
-    /** Gets the full URL to the root Web site of the site collection, including host name, port number, and path. */
-    Url: string;
-    /** Gets a value that specifies usage information about the site, including bandwidth, storage, and the number of visits to the site collection. */
-    Usage: Types.SP.IUsageInfo;
-}
-/**
  * Site Query Properties
  */
 export interface ISiteQueryProps {
-    Audit(): IBase<Types.SP.IAudit>;
+    Audit(): IBase<SP.Audit>;
     /**
      * Gets the event receivers associated with the site.
     */
@@ -205,8 +136,8 @@ export interface ISiteQueryProps {
 /**
  * Site Query Result
  */
-export interface ISiteQueryResult extends ISiteMethods, ISiteProps {
-    Audit: Types.SP.IAudit;
+export interface ISiteQueryResult extends ISiteMethods, SP.Site {
+    Audit: SP.Audit;
     /**
      * Gets the event receivers associated with the site.
     */
@@ -234,7 +165,7 @@ export interface ISiteQueryResult extends ISiteMethods, ISiteProps {
 /**
  * Site Result
  */
-export interface ISiteResult extends ISiteMethods, ISiteProps, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {
+export interface ISiteResult extends ISiteMethods, SP.Site, ISiteQueryProps, IBase<ISite, ISiteResult, ISiteQueryResult> {
 }
 /**
  * Site Url

@@ -1,5 +1,6 @@
+import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
-import { ComplexTypes, IResults } from ".";
+import { IResults } from ".";
 /**
  * Person Properties
  */
@@ -55,7 +56,7 @@ export interface IPersonProperties extends IBase<IPersonProperties> {
     /**
      * The user profile properties for the user.
      */
-    UserProfileProperties: IResults<ComplexTypes.KeyValue>;
+    UserProfileProperties: IResults<SP.KeyValue>;
     /**
      * The URL of the user's profile page.
      */

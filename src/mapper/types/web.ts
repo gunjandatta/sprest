@@ -1,52 +1,7 @@
-import { IBase, IBaseCollection, ITargetInfo } from "../../utils/types";
+import { SP } from "gd-sprest-def";
+import { IBase } from "../../utils/types";
 import { Types } from "../..";
-import { ITenantAppCatalog, IWebInfo, IWebResult, IWebResults, IWebs } from ".";
-
-/**
- * Web Creation Information
- */
-export interface IWebCreationInformation {
-    /** The description of the new site. */
-    Description?: string;
-
-    /** The locale ID that specifies the language of the new site. */
-    Language?: number;
-
-    /** A value that specifies the title of the new site. */
-    Title: string;
-
-    /** The URL leaf name of the new site. The URL must not contain the following:
-        The characters ~, ", #, %, &, *, :, <, >, ?, \, {, |, or }
-        The string \x7f
-        Consecutive . or / characters
-        Starting ., /, or _ characters
-        Ending . or / characters
-    */
-    Url: string;
-
-    /** A value that specifies whether the new site will inherit permissions from its parent site. */
-    UseSamePermissionsAsParentSite?: boolean;
-
-    /** A value that specifies the name of the site template to be used for creating the new site. Use the GetAvailableWebTemplates method to get the names of available web templates on the site. */
-    WebTemplate: string;
-}
-
-/**
- * Web Information
- */
-export interface IWebInfo {
-    Configuration: number;
-    Created: string;
-    Description: string;
-    Id: string;
-    Language: number;
-    LastItemModifiedDate: string;
-    LastItemUserModifiedDate: string;
-    ServerRelativeUrl: string;
-    Title: string;
-    WebTemplate: string;
-    WebTemplateId: number;
-}
+import { ITenantAppCatalog, IWebResult, IWebResults, IWebs } from ".";
 
 /**
  * Web Methods
@@ -209,7 +164,7 @@ export interface IWebMethods {
      * @param nWebTemplateFilter - The ID of the template used in the site definition of the sites.
      * @param nConfigurationFilter - The ID of the site template used to provision the sites.
      */
-    getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): IBase<Types.SP.IResults<IWebInfo>>;
+    getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): IBase<Types.SP.IResults<SP.WebInformation>>;
 
     /**
      * Returns the user corresponding to the specified member identifier for the current site.
@@ -289,128 +244,23 @@ export interface IWebMethods {
 }
 
 /**
- * Web Properties
- */
-export interface IWebProps {
-    /** Gets a value that specifies whether the site allows RSS feeds. */
-    AllowRssFeeds: boolean;
-
-    /** The instance Id of the App Instance that this web represents. */
-    AppInstanceId: string;
-    /** Gets either the identifier (ID) of the site definition configuration that was used to create the site, or the ID of the site definition configuration from which the site template used to create the site was derived. */
-    Configuration: number;
-
-    /** Gets a value that specifies when the site was created. */
-    Created: string;
-
-    /** Gets or sets the URL for a custom master page file to apply to the website. */
-    CustomMasterUrl: string;
-
-    /** Gets or sets the description for the site. */
-    Description: string;
-
-    /** Determines if the Document Library Callout's WAC previewers are enabled or not. */
-    DocumentLibraryCalloutOfficeWebAppPreviewersDisabled: boolean;
-
-    /** Gets or sets a Boolean value that specifies whether the Web site should use Minimal Download Strategy. */
-    EnableMinimalDownload: boolean;
-
-    ExcludeFromOfflineClient: boolean;
-
-    /** Gets a value that specifies the site identifier for the site. */
-    Id: string;
-
-    /** Gets a value that specifies the LCID for the language that is used on the site. */
-    Language: boolean;
-
-    /** Gets a value that specifies when an item was last modified in the site. */
-    LastItemModifiedDate: string;
-
-    /** Gets or sets the URL of the master page that is used for the website. */
-    MasterUrl: string;
-
-    MembersCanShare: boolean;
-
-    NoCrawl: boolean;
-
-    NotificationsInOneDriveForBusinessEnabled: boolean;
-
-    NotificationsInSharePointEnabled: boolean;
-
-    OverwriteTranslationsOnChange: boolean;
-
-    PreviewFeaturesEnabled: boolean;
-
-    /** Gets or sets a value that specifies whether the Quick Launch area is enabled on the site. */
-    QuickLaunchEnabled: boolean;
-
-    /** Gets or sets a value that determines whether the recycle bin is enabled for the website. */
-    RecycleBinEnabled: boolean;
-
-    RequestAccessEmail: string;
-
-    /**
-     * Gets or sets a Boolean value that specifies whether the Web site can be saved as a site template.
-     */
-    SaveSiteAsTemplateEnabled: boolean;
-
-    ServerRelativePath: Types.SP.IResourcePath;
-
-    /** Gets or sets the server-relative URL for the Web site. */
-    ServerRelativeUrl: string;
-
-    SiteLogoDescription: string;
-
-    SiteLogoUrl: string;
-
-    /** Gets or sets a value that specifies whether the RSS feeds are enabled on the site. */
-    SyndicationEnabled: boolean;
-
-    TenantTagPolicyEnabled: boolean;
-
-    ThemeData: string;
-
-    ThemedCssFolderUrl: string;
-
-    ThirdPartyMdmEnabled: boolean;
-
-    /** Gets or sets the title for the Web site. */
-    Title: string;
-
-    /** Gets or sets value that specifies whether the tree view is enabled on the site. */
-    TreeViewEnabled: boolean;
-
-    /** Gets or sets the user export interface (UI) version of the Web site. */
-    UIVersion: number;
-
-    /** Gets or sets a value that specifies whether the settings UI for visual upgrade is shown or hidden. */
-    UIVersionConfigurationEnabled: boolean;
-
-    /** Gets the absolute URL for the website. */
-    Url: string;
-
-    /** Gets the name of the site definition or site template that was used to create the site. */
-    WebTemplate: string;
-}
-
-/**
  * Web Query Properties
  */
 export interface IWebQueryProps {
     /**
      * Specifies whether the current user can create declarative workflows. If not disabled on the Web application, the value is the same as the AllowCreateDeclarativeWorkflow property of the site collection. Default value: true.
      */
-    AllowCreateDeclarativeWorkflowForCurrentUser(): IBase<boolean>;
+    //AllowCreateDeclarativeWorkflowForCurrentUser(): IBase<boolean>;
 
     /**
      * Gets a value that specifies whether the current user is allowed to use a designer application to customize this site.
      */
-    AllowDesignerForCurrentUser(): IBase<boolean>;
+    //AllowDesignerForCurrentUser(): IBase<boolean>;
 
     /**
      * Gets a value that specifies whether the current user is allowed to edit the master page.
      */
-    AllowMasterPageEditingForCurrentUser(): IBase<boolean>;
+    //AllowMasterPageEditingForCurrentUser(): IBase<boolean>;
 
     /**
      * Property Bag
@@ -420,17 +270,17 @@ export interface IWebQueryProps {
     /**
      * Gets a value that specifies whether the current user is allowed to revert the site to a default site template.
      */
-    AllowRevertFromTemplateForCurrentUser(): IBase<boolean>;
+    //AllowRevertFromTemplateForCurrentUser(): IBase<boolean>;
 
     /**
      * Specifies whether the current user can save declarative workflows as a template. If not disabled on the Web application, the value is the same as the AllowSaveDeclarativeWorkflowAsTemplate property of the site collection. Default value: true.
      */
-    AllowSaveDeclarativeWorkflowAsTemplateForCurrentUser(): IBase<boolean>;
+    //AllowSaveDeclarativeWorkflowAsTemplateForCurrentUser(): IBase<boolean>;
 
     /**
      * Specifies whether the current user can save or publish declarative workflows. If not disabled on the Web application, the value is the same as the AllowSavePublishDeclarativeWorkflowAsTemplate property of the site collection. When enabled, can only be set by a site collection administrator. Default value: true.
      */
-    AllowSavePublishDeclarativeWorkflowForCurrentUser(): IBase<boolean>;
+    //AllowSavePublishDeclarativeWorkflowForCurrentUser(): IBase<boolean>;
 
     /**
      * Gets a collection of metadata for the Web site.
@@ -486,17 +336,17 @@ export interface IWebQueryProps {
 
     DataLeakagePreventionStatusInfo(): IBase;
 
-    DescriptionResource(): IBase<Types.SP.IResourcePath>;
+    DescriptionResource(): IBase<SP.ResourcePath>;
 
     /**
      * Gets the URL where the current user can download SharePoint Designer.
      */
-    DesignerDownloadUrlForCurrentUser(): IBase;
+    //DesignerDownloadUrlForCurrentUser(): IBase;
 
     /**
      * Represents the intersection of permissions of the app principal and the user principal. In the app-only case, this property returns only the permissions of the app principal. To check only user permissions (ignoring app permissions), use the GetUserEffectivePermissions method.
      */
-    EffectiveBasePermissions(): IBase<string>;
+    //EffectiveBasePermissions(): IBase<string>;
 
     /**
      * Gets the event receivers associated with the web.
@@ -518,7 +368,7 @@ export interface IWebQueryProps {
      * Gets the site features.
      * @param id - The id of the feature.
      */
-    Features(id:string): IBase<Types.SP.IFeature>;
+    Features(id: string): IBase<Types.SP.IFeature>;
 
     /**
      * Gets the fields in the web.
@@ -614,7 +464,7 @@ export interface IWebQueryProps {
     /**
      * Gets a value that specifies whether the current user is able to view the file system structure of this site.
      */
-    ShowUrlStructureForCurrentUser(): IBase;
+    //ShowUrlStructureForCurrentUser(): IBase;
 
     /**
      * Gets the site groups for the web.
@@ -646,7 +496,7 @@ export interface IWebQueryProps {
     /**
      * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
      */
-    SupportedUILanguageIds(): IBase<Number>;
+    //SupportedUILanguageIds(): IBase<number>;
 
     /** Gets the tenant app catalog. */
     TenantAppCatalog(): ITenantAppCatalog;
@@ -693,34 +543,7 @@ export interface IWebQueryProps {
 /**
  * Web Query Result
  */
-export interface IWebQueryResult extends IWebMethods, IWebProps {
-    /**
-     * Specifies whether the current user can create declarative workflows. If not disabled on the Web application, the value is the same as the AllowCreateDeclarativeWorkflow property of the site collection. Default value: true.
-     */
-    AllowCreateDeclarativeWorkflowForCurrentUser?: boolean;
-
-    AllowDesignerForCurrentUser?: boolean;
-
-    /**
-     * Specifies whether the current user is allowed to edit the master page.
-     */
-    AllowMasterPageEditingForCurrentUser?: boolean;
-
-    /**
-     * A value that specifies whether the current user is allowed to revert the site to a default site template.
-     */
-    AllowRevertFromTemplateForCurrentUser?: boolean;
-
-    /**
-     * Specifies whether the current user can save declarative workflows as a template. If not disabled on the Web application, the value is the same as the AllowSaveDeclarativeWorkflowAsTemplate property of the site collection. Default value: true.
-     */
-    AllowSaveDeclarativeWorkflowAsTemplateForCurrentUser?: boolean;
-
-    /**
-     * Specifies whether the current user can save or publish declarative workflows. If not disabled on the Web application, the value is the same as the AllowSavePublishDeclarativeWorkflowAsTemplate property of the site collection. When enabled, can only be set by a site collection administrator. Default value: true.
-     */
-    AllowSavePublishDeclarativeWorkflowForCurrentUser?: boolean;
-
+export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * A collection of metadata for the Web site.
      */
@@ -780,7 +603,7 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * Represents the intersection of permissions of the app principal and the user principal. In the app-only case, this property returns only the permissions of the app principal. To check only user permissions (ignoring app permissions), use the GetUserEffectivePermissions method.
      */
-    EffectiveBasePermissions: Types.SP.IBasePermissions;
+    //EffectiveBasePermissions: Types.SP.IBasePermissions;
 
     /**
      * Gets the event receivers associated with the web.
@@ -810,7 +633,7 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * The list definitions and list templates available for creating lists on the site.
      */
-    ListTemplates: Types.SP.IResults<Types.SP.IListTemplate>;
+    ListTemplates: Types.SP.IResults<SP.ListTemplate>;
 
     /**
      * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
@@ -848,11 +671,6 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     RootFolder: Types.SP.IFolderResult;
 
     /**
-     * Gets a value that specifies whether the current user is able to view the file system structure of this site.
-     */
-    ShowUrlStructureForCurrentUser: boolean;
-
-    /**
      * Gets the site groups for the web.
      */
     SiteGroups: Types.SP.ISiteGroupResults;
@@ -870,7 +688,7 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
      */
-    SupportedUILanguageIds: Types.SP.IResults<number>;
+    //SupportedUILanguageIds: Types.SP.IResults<number>;
 
     /** Gets the tenant app catalog. */
     TenantAppCatalog: ITenantAppCatalog;
@@ -890,15 +708,12 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
     /**
      * Represents key properties of the subsites of a site.
      */
-    WebInfos: Types.SP.IResults<IWebInfo>;
+    WebInfos: Types.SP.IResults<SP.WebInformation>;
 
     /**
      * A Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
      */
     Webs: IWebResults;
-
-    /** The name of the site definition or site template that was used to create the site. */
-    WebTemplate: string;
 
     /**
      * A value that specifies the collection of all workflow associations for the site.
@@ -912,19 +727,9 @@ export interface IWebQueryResult extends IWebMethods, IWebProps {
 }
 
 /**
- * Web Remote
- */
-export interface IWebRemote {
-    CanSendEmail: boolean;
-    ShareByEmailEnabled: boolean;
-    ShareByLinkEnabled: boolean;
-    Web: IWebProps;
-}
-
-/**
  * Web Result
  */
-export interface IWebResult extends IWebMethods, IWebProps, IWebQueryProps, IBase<IWeb, IWebResult, IWebQueryResult> { }
+export interface IWebResult extends IWebMethods, SP.Web, IWebQueryProps, IBase<IWeb, IWebResult, IWebQueryResult> { }
 
 /**
  * Web

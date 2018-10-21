@@ -1,3 +1,4 @@
+import { SP } from "gd-sprest-def";
 import * as Helper from "./helper";
 import * as Lib from "./lib";
 import * as Mapper from "./mapper";
@@ -134,7 +135,7 @@ export interface IREST {
      * @param listFullUrl - The absolute url of the list.
      * @param parameters - The optional list data parameters.
      */
-    ListDataAsStream: (listFullUrl: string, parameters?: Mapper.Types.IListDataParameters) => Util.Types.IBase<Mapper.Types.IListDataStream>;
+    ListDataAsStream: (listFullUrl: string, parameters?: SP.RenderListDataParameters) => Util.Types.IBase<Mapper.Types.IListDataStream>;
     /**
      * Use this api to interact with SharePoint navigation.
      */
@@ -158,7 +159,7 @@ export interface IREST {
      * Use this api to get a remote web.
      * @param requestUrl - The absolute url of the remote web.
      */
-    RemoteWeb: (requestUrl?: string) => Util.Types.IBase<Mapper.Types.IWebRemote>;
+    RemoteWeb: (requestUrl?: string) => Util.Types.IBase<SP.RemoteWeb>;
     /**
      * Use this api to interact with the SharePoint search service.
      * @param url - The optional url to execute the search against.

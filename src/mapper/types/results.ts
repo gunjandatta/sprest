@@ -1,4 +1,4 @@
-import { ComplexTypes } from ".";
+import { SP } from "gd-sprest-def";
 
 /**
  * App License
@@ -13,7 +13,7 @@ export interface AppLicense {
  */
 export interface ContentTypeId {
     /** The collection of content type ids. */
-    results: Array<ComplexTypes.ContentTypeId>;
+    results: Array<SP.ContentTypeId>;
 }
 
 /**
@@ -21,7 +21,7 @@ export interface ContentTypeId {
  */
 export interface CreatableItemInfo {
     /** The collection of creatable item information. */
-    results: Array<ComplexTypes.CreatableItemInfoCollection>;
+    results: Array<SP.CreatableItemInfoCollection>;
 }
 
 /**
@@ -45,7 +45,7 @@ export interface CustomResult {
  */
 export interface DataRow {
     /** The collection of data rows. */
-    results: Array<ComplexTypes.SimpleDataRow>;
+    results: Array<SP.SimpleDataRow>;
 }
 
 /**

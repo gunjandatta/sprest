@@ -1,3 +1,4 @@
+import { SP } from "gd-sprest-def";
 import { Types } from "../..";
 /**
  * Field Information
@@ -138,7 +139,7 @@ export interface IFieldInfoUser extends IFieldInfo {
 /**
  * SharePoint Configuration - Content Type Information
  */
-export interface ISPCfgContentTypeInfo extends Types.SP.IContentTypeCreationInformation {
+export interface ISPCfgContentTypeInfo extends SP.ContentTypeCreationInformation {
     /**
      * The content type. (This value is set internally.)
      */
@@ -147,10 +148,6 @@ export interface ISPCfgContentTypeInfo extends Types.SP.IContentTypeCreationInfo
      * The field references.
      */
     FieldRefs?: Array<string>;
-    /**
-     * The group name.
-     */
-    Group?: string;
     /**
      * The JSLink property.
      */
@@ -179,11 +176,11 @@ export interface ISPCfgCustomActionInfo {
     /**
      * Custom actions to be created at the site collection level.
      */
-    Site?: Array<Types.SP.IUserCustomActionCreationInformation>;
+    Site?: Array<SP.UserCustomAction>;
     /**
      * Custom actions to be created at the web level.
      */
-    Web?: Array<Types.SP.IUserCustomActionCreationInformation>;
+    Web?: Array<SP.UserCustomAction>;
 }
 /**
  * SharePoint Configuration - Field Information
@@ -207,11 +204,11 @@ export interface ISPCfgListInfo {
     /** The custom list fields. */
     CustomFields?: Array<ISPCfgFieldInfo>;
     /** The list creation information. */
-    ListInformation: Types.SP.IListCreationInformation;
+    ListInformation: SP.ListCreationInformation;
     /** The title display name. */
     TitleFieldDisplayName?: string;
     /** The user custom actions. */
-    UserCustomActions?: Array<Types.SP.IUserCustomActionCreationInformation>;
+    UserCustomActions?: Array<SP.UserCustomAction>;
     /** The view information. */
     ViewInformation?: Array<ISPCfgViewInfo>;
     /**

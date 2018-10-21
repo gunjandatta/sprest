@@ -1,5 +1,6 @@
+import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
-import { SPTypes, Types } from "../..";
+import { Types } from "../..";
 import { IFileVersionResult, IFileVersions } from ".";
 
 /**
@@ -137,72 +138,6 @@ export interface IFileMethods {
 }
 
 /**
- * File Properties
- */
-export interface IFileProps {
-    /** Gets a value that returns the comment used when a document is checked in to a document library. */
-    CheckInComment: string;
-
-    /** Gets a value that indicates how the file is checked out of a document library. Represents an SP.CheckOutType value: . The checkout state of a file is independent of its locked state. */
-    CheckOutType: number;
-
-    /** Returns internal version of content, used to validate document equality for read purposes. */
-    ContentTag: string;
-
-    /** Gets a value that specifies the customization status of the file. Represents an SP.CustomizedPageStatus value: None = 0; Uncustomized = 1; Customized = 2. */
-    CustomizedPageStatus: number;
-
-    /** Gets a value that specifies the ETag value. */
-    ETag: string;
-
-    /** Gets a value that specifies whether the file exists. */
-    Exists: boolean;
-
-    /** Gets the size of the file in bytes, excluding the size of any Web Parts that are used in the file. */
-    Length: number;
-
-    /** Gets a value that specifies the publishing level of the file. Represents an SP.FileLevel value: Published = 1; Draft = 2; Checkout = 255. */
-    Level: number;
-
-    LinkingUrl: string;
-
-    /** Gets a value that specifies the major version of the file. */
-    MajorVersion: number;
-
-    /** Gets a value that specifies the minor version of the file. */
-    MinorVersion: number;
-
-    /** Gets the name of the file including the extension. */
-    Name: string;
-
-    ServerRelativePath: Types.SP.IResourcePath;
-
-    /** Gets the relative URL of the file based on the URL for the server. */
-    ServerRelativeUrl: string;
-
-    SiteId: string;
-
-    /** Gets a value that specifies when the file was created. */
-    TimeCreated: string;
-
-    /** Gets a value that specifies when the file was last modified. */
-    TimeLastModified: string;
-
-    /** Gets a value that specifies the display name of the file. */
-    Title: string;
-
-    /** Gets a value that specifies the implementation-specific version identifier of the file. */
-    UiVersion: number;
-
-    /** Gets a value that specifies the implementation-specific version identifier of the file. */
-    UiVersionLabel: string;
-
-    UniqueId: string;
-
-    WebId: string;
-}
-
-/**
  * File Query Properties
  */
 export interface IFileQueryProps {
@@ -251,7 +186,7 @@ export interface IFileQueryProps {
 /**
  * File Query Result
  */
-export interface IFileQueryResult extends IFileMethods, IFileProps {
+export interface IFileQueryResult extends IFileMethods, SP.File {
     /**
      * Gets a value that specifies the user who added the file.
      */
@@ -297,7 +232,7 @@ export interface IFileQueryResult extends IFileMethods, IFileProps {
 /**
  * File Result
  */
-export interface IFileResult extends IFileMethods, IFileProps, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> { }
+export interface IFileResult extends IFileMethods, SP.File, IFileQueryProps, IBase<IFile, IFileResult, IFileQueryResult> { }
 
 /**
  * File

@@ -1,23 +1,5 @@
+import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
-/**
- * Event Receiver Definition Creation Information
- */
-export interface IEventReceiverDefinitionCreationInformation {
-    /** The event receiver type. */
-    EventType: number;
-    /** The strong name of the assembly that is used for receiving events. */
-    ReceiverAssembly?: string;
-    /** A string that represents the class that is used for receiving events. */
-    ReceiverClass?: string;
-    /** The name of the event receiver. */
-    ReceiverName: string;
-    /** The URL of a web service that is used for receiving events. */
-    ReceiverUrl?: string;
-    /** An integer that represents the relative sequence of the event. */
-    SequenceNumber?: number;
-    /** The execution synchronization of the event receiver. */
-    Synchronization?: number;
-}
 /**
  * Event Receiver Methods
  */
@@ -33,27 +15,6 @@ export interface IEventReceiverMethods {
     update(data: any): IBase;
 }
 /**
- * Event Receiver Properties
- */
-export interface IEventReceiverProps {
-    /** Specifies the type of event. */
-    EventType: number;
-    /** The strong name of the assembly that is used for receiving events. */
-    ReceiverAssembly?: string;
-    /** A string that represents the class that is used for receiving events. */
-    ReceiverClass?: string;
-    /** The unique identifier of the event receiver. */
-    ReceiverId?: string;
-    /** The name of the event receiver. */
-    ReceiverName: string;
-    /** The URL of a web service that is used for receiving events. */
-    ReceiverUrl?: string;
-    /** An integer that represents the relative sequence of the event. */
-    SequenceNumber?: number;
-    /** The execution synchronization of the event receiver. */
-    Synchronization?: number;
-}
-/**
  * Event Receiver Query Properties
  */
 export interface IEventReceiverQueryProps {
@@ -61,12 +22,12 @@ export interface IEventReceiverQueryProps {
 /**
  * Event Receiver Query Result
  */
-export interface IEventReceiverQueryResult extends IEventReceiverMethods, IEventReceiverProps {
+export interface IEventReceiverQueryResult extends IEventReceiverMethods, SP.EventReceiverDefinition {
 }
 /**
  * Event Receiver Result
  */
-export interface IEventReceiverResult extends IEventReceiverMethods, IEventReceiverProps, IEventReceiverQueryProps, IBase<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> {
+export interface IEventReceiverResult extends IEventReceiverMethods, SP.EventReceiverDefinition, IEventReceiverQueryProps, IBase<IEventReceiver, IEventReceiverResult, IEventReceiverQueryResult> {
 }
 /**
  * Event Receiver

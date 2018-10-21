@@ -1,5 +1,6 @@
+import { SP } from "gd-sprest-def";
 import { IBase, IBaseCollection } from "../../utils/types";
-import { IUser, IUserCreationInformation, IUserQueryResult, IUserResult } from ".";
+import { IUser, IUserQueryResult, IUserResult } from ".";
 /**
  * Methods
  */
@@ -8,7 +9,7 @@ export interface IUsersMethods {
      * Adds a site to the site collection.
      * @param userInfo - The user creation information.
      */
-    add(userInfo: IUserCreationInformation): IBase<IUser, IUserResult>;
+    add(userInfo: SP.UserCreationInformation): IBase<IUser, IUserResult>;
     /**
      * Gets the user with the specified email address.
      * @param email - The email of the user to get.

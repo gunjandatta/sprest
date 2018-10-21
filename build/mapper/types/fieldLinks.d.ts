@@ -1,19 +1,19 @@
+import { SP } from "gd-sprest-def";
 import { IBase, IBaseCollection } from "../../utils/types";
-import { IFieldLink } from ".";
 /**
  * Field Links
  */
-export interface IFieldLinks extends IBaseCollection<IFieldLink, IFieldLink, IFieldLink> {
+export interface IFieldLinks extends IBaseCollection<SP.FieldLink> {
     /**
      * Adds a content type to the collection.
      * @param data - The field link properties.
      */
-    add(data: any): IBase<IFieldLink>;
+    add(data: any): IBase<SP.FieldLink>;
     /**
      * Gets the field link by its id.
      * @param id - The id of the field.
      */
-    getById(id: any): IFieldLink & IBase<IFieldLink>;
+    getById(id: any): SP.FieldLink & IBase<SP.FieldLink>;
     /**
      * Method to get the next set of results.
      */

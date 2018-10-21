@@ -1,5 +1,6 @@
+import { SP } from "gd-sprest-def";
 import { IBase, IBaseCollection } from "../../utils/types";
-import { IView, IViewCreationInformation, IViewQueryResult, IViewResult } from ".";
+import { IView, IViewQueryResult, IViewResult } from ".";
 /**
  * Methods
  */
@@ -7,7 +8,7 @@ export interface IViewsMethods {
     /**
      * Adds a list view to the view collection.
      */
-    add(parameters: IViewCreationInformation): IBase<IView, IViewResult>;
+    add(parameters: SP.ViewCreationInformation): IBase<IView, IViewResult>;
     /**
      * Gets the list view with the specified ID.
      * @param id - The ID of the view.

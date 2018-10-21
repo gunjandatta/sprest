@@ -1,5 +1,4 @@
 import { Types } from "../..";
-import { SPTypes } from ".";
 
 /**
  * App License

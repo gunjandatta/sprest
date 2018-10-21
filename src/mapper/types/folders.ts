@@ -1,6 +1,6 @@
 import { IBase, IBaseCollection } from "../../utils/types";
 import {
-    IFolder, IFolderMethods, IFolderQueryResult, IFolderResult
+    IFolder, IFolderQueryResult, IFolderResult
 } from ".";
 
 /**

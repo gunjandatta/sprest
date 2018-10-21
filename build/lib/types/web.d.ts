@@ -1,3 +1,4 @@
+import { SP } from "gd-sprest-def";
 import { Types } from "../../mapper";
 import { IBase, ITargetInfo } from "../../utils/types";
 /**
@@ -14,5 +15,5 @@ export interface IWeb {
      * Method to get a remote web.
      * @param requestUrl - The absolute url of the remote web.
      */
-    getRemoteWeb(requestUrl: string): IBase<Types.IWebRemote>;
+    getRemoteWeb(requestUrl: string): IBase<SP.RemoteWeb>;
 }
