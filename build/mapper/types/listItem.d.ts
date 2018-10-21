@@ -112,7 +112,7 @@ export interface IListItemQueryResult extends IListItemMethods, SP.ListItem {
     /**
      * Get the attachment collection.
      */
-    AttachmentFiles: Types.SP.IAttachmentFilesMethods & Types.SP.IResults<SP.Attachment>;
+    AttachmentFiles: Types.SP.IAttachmentFilesMethods & Types.SP.Results.IResults<SP.Attachment>;
     /**
      * Gets a value that specifies the content type of the list item.
      */

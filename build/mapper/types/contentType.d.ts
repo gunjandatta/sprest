@@ -51,22 +51,22 @@ export interface IContentTypeQueryProps {
  * Content Type Query Result
  */
 export interface IContentTypeQueryResult extends IContentTypeMethods, SP.ContentType {
-    DescriptionResource: Types.SP.IResourcePath;
+    DescriptionResource: SP.ResourcePath;
     /**
      * Gets the column (also known as field) references in the content type.
      */
-    FieldLinks: Types.SP.IResults<SP.FieldLink>;
+    FieldLinks: Types.SP.Results.IResults<SP.FieldLink>;
     /**
      * Gets the fields for the content type.
      */
-    Fields: Types.SP.IResults<IFieldResult>;
-    NameResource: Types.SP.IResourcePath;
+    Fields: Types.SP.Results.IResults<IFieldResult>;
+    NameResource: SP.ResourcePath;
     /** Gets the parent content type of the content type. */
     Parent: IListResult | Types.SP.IWebResult;
     /**
      * Gets a value that specifies the collection of workflow associations for the content type.
      */
-    WorkflowAssociations: Types.SP.IResults<any>;
+    WorkflowAssociations: Types.SP.Results.IResults<any>;
 }
 /**
  * Content Type Result

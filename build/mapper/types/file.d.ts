@@ -165,7 +165,7 @@ export interface IFileQueryResult extends IFileMethods, SP.File {
      */
     CheckedOutByUser: Types.SP.IUserResult;
     EffectiveInformationRightsManagementSettings: IBase;
-    InformationRightsManagementSettings: Types.SP.IInformationRightsManagementSettings;
+    InformationRightsManagementSettings: SP.InformationRightsManagementSettings;
     /**
      * Gets a value that specifies the list item field values for the list item corresponding to the file.
      */
@@ -182,11 +182,11 @@ export interface IFileQueryResult extends IFileMethods, SP.File {
      * Property Bag
      */
     Properties: Types.SP.IPropertyValues;
-    VersionEvents: Types.SP.IResults<any>;
+    VersionEvents: Types.SP.Results.IResults<any>;
     /**
      * Gets a value that returns a collection of file version objects that represent the versions of the file.
      */
-    Versions: Types.SP.IResults<IFileVersionResult>;
+    Versions: Types.SP.Results.IResults<IFileVersionResult>;
 }
 /**
  * File Result

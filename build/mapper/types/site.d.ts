@@ -117,7 +117,7 @@ export interface ISiteQueryProps {
      */
     Owner(): Types.SP.IUser;
     /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-    RecycleBin(): IBase<Types.SP.IResults<Types.SP.IRecycleBinItem>>;
+    RecycleBin(): IBase<Types.SP.Results.IResults<SP.RecycleBinItem>>;
     /**
      * Gets a value that returns the top-level site of the site collection.
      */
@@ -141,17 +141,17 @@ export interface ISiteQueryResult extends ISiteMethods, SP.Site {
     /**
      * Gets the event receivers associated with the site.
     */
-    EventReceivers: Types.SP.IResults<Types.SP.IEventReceiverResult>;
+    EventReceivers: Types.SP.Results.IResults<Types.SP.IEventReceiverResult>;
     /**
      * Gets the site collection features.
      */
-    Features: Types.SP.IResults<Types.SP.IFeature>;
+    Features: Types.SP.Results.IResults<Types.SP.IFeature>;
     /**
      * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
      */
     Owner: Types.SP.IUserResult;
     /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-    RecycleBin: Types.SP.IResults<Types.SP.IRecycleBinItem>;
+    RecycleBin: Types.SP.Results.IResults<SP.RecycleBinItem>;
     /**
      * Gets a value that returns the top-level site of the site collection.
      */

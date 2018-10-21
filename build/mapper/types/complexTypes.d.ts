@@ -379,7 +379,7 @@ export interface FieldMultiLookupValue {
 /**
  * Field Multi-User
  */
-export interface FieldMultiUserValue extends Types.SP.IResults<FieldUserValue> {
+export interface FieldMultiUserValue extends Types.SP.Results.IResults<FieldUserValue> {
 }
 /**
  * Field Rating Scale Question Answer

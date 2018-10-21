@@ -1,6 +1,6 @@
 import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
-import { IResults } from ".";
+import { IResults } from "./results";
 
 /**
  * Person Properties

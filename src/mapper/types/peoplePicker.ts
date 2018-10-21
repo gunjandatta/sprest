@@ -1,5 +1,5 @@
 import { IBase } from "../../utils/types";
-import { IEntityData } from ".";
+import { IEntityData } from "./entityData";
 
 /**
  * People Picker Query

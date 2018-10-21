@@ -1,4 +1,4 @@
-import { Types } from "../..";
+import { SP } from "gd-sprest-def";
 import { Types as BaseTypes } from "../../utils";
 /**
  * Context Information
@@ -108,7 +108,7 @@ export interface IContextInformation {
     /** List Id */
     listId: string;
     /** List Permissions Mask */
-    listPermMask: Types.SP.IBasePermissions;
+    listPermMask: SP.BasePermissions;
     /** List Title */
     listTitle: string;
     /** List Url */
@@ -124,7 +124,7 @@ export interface IContextInformation {
     /** Page List Id */
     pageListId: string;
     /** Page Permissions Mask */
-    pagePermMask: Types.SP.IBasePermissions;
+    pagePermMask: SP.BasePermissions;
     /** Page Personalization Scope */
     pagePersonalizationScope: number;
     /** Prefer User Time Zone */
@@ -210,7 +210,7 @@ export interface IContextInformation {
     /** Web Logo Url */
     webLogoUrl: string;
     /** Web Permissions Mask */
-    webPermMask: Types.SP.IBasePermissions;
+    webPermMask: SP.BasePermissions;
     /** Web Server Relative Url */
     webServerRelativeUrl: string;
     /** Web Template */
@@ -242,7 +242,9 @@ export interface IContextInformation {
      * Method to get the web context information.
      * @param url - The relative url of the web.
      */
-    getWeb(url: string): BaseTypes.IBase<Types.SP.IContextWebInfo>;
+    getWeb(url: string): BaseTypes.IBase<{
+        GetContextWebInformation: SP.ContextWebInformation;
+    }>;
     /** The page context object from an SPFX project. */
     setPageContext(spfxPageContext: any): any;
 }

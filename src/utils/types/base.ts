@@ -40,7 +40,7 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
 /**
  * Base Collection Results
  */
-export interface IBaseCollectionResult<Result> extends Types.SP.IResults<Result> {
+export interface IBaseCollectionResult<Result> extends Types.SP.Results.IResults<Result> {
     /** True, if the object exists, false otherwise. */
     existsFl: boolean;
 
@@ -60,4 +60,4 @@ export interface IBaseCollectionResult<Result> extends Types.SP.IResults<Result>
 /**
  * Base Collection
  */
-export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.SP.IResults<Type>, IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> { }
+export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.SP.Results.IResults<Type>, IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> { }

@@ -40,7 +40,7 @@ export interface IRoleAssignmentQueryResult extends IRoleAssignmentMethods, SP.R
     /**
      * Gets the collection of role definition bindings for the role assignment.
      */
-    RoleDefinitionBindings: Types.SP.IResults<IRoleDefinition>;
+    RoleDefinitionBindings: Types.SP.Results.IResults<IRoleDefinition>;
 }
 
 /**

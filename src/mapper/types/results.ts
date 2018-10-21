@@ -1,11 +1,19 @@
 import { SP } from "gd-sprest-def";
 
 /**
+ * Results
+ */
+export interface IResults<P> {
+    /** The collection data */
+    results: Array<P>;
+}
+
+/**
  * App License
  */
 export interface AppLicense {
     /** The collection of app licenses. */
-    results: Array<AppLicense>;
+    results: Array<SP.AppLicense>;
 }
 
 /**
@@ -29,7 +37,7 @@ export interface CreatableItemInfo {
  */
 export interface CustomActionElement {
     /** The collection of custom action elements. */
-    results: Array<CustomActionElement>;
+    results: Array<SP.CustomActionElement>;
 }
 
 /**
@@ -53,7 +61,7 @@ export interface DataRow {
  */
 export interface KeyValue {
     /** The collection of key-value pairs. */
-    results: Array<KeyValue>;
+    results: Array<SP.KeyValue>;
 }
 
 /**
@@ -61,7 +69,7 @@ export interface KeyValue {
  */
 export interface ListDataValidationFailure {
     /** The collection of list data validation failures. */
-    results: Array<ListDataValidationFailure>;
+    results: Array<SP.ListDataValidationFailure>;
 }
 
 /**
@@ -69,7 +77,7 @@ export interface ListDataValidationFailure {
  */
 export interface MenuNode {
     /** The collection of menu nodes. */
-    results: Array<MenuNode>;
+    results: Array<SP.MenuNode>;
 }
 
 /**
@@ -93,7 +101,7 @@ export interface Object {
  */
 export interface ParameterInformation {
     /** The collection of parameter information. */
-    results: Array<ParameterInformation>;
+    results: Array<SP.ParameterInformation>;
 }
 
 /**
@@ -141,7 +149,7 @@ export interface RefinerEntry {
  */
 export interface SharedWithUser {
     /** The collection of shared users. */
-    results: Array<SharedWithUser>
+    results: Array<SP.SharedWithUser>
 }
 
 /**
@@ -206,5 +214,5 @@ export interface String {
  */
 export interface VisualizationField {
     /** The collection of visualization fields. */
-    results: Array<VisualizationField>;
+    results: Array<SP.VisualizationField>;
 }

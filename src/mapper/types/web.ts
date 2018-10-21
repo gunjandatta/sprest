@@ -1,7 +1,7 @@
 import { SP } from "gd-sprest-def";
 import { IBase } from "../../utils/types";
 import { Types } from "../..";
-import { ITenantAppCatalog, IWebResult, IWebResults, IWebs } from ".";
+import { IAppTiles, ITenantAppCatalog, IWebResult, IWebResults, IWebs } from ".";
 
 /**
  * Web Methods
@@ -164,7 +164,7 @@ export interface IWebMethods {
      * @param nWebTemplateFilter - The ID of the template used in the site definition of the sites.
      * @param nConfigurationFilter - The ID of the site template used to provision the sites.
      */
-    getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): IBase<Types.SP.IResults<SP.WebInformation>>;
+    getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): IBase<Types.SP.Results.IResults<SP.WebInformation>>;
 
     /**
      * Returns the user corresponding to the specified member identifier for the current site.
@@ -257,7 +257,7 @@ export interface IWebQueryProps {
      */
     AllProperties(): IBase;
 
-    AppTiles(): Types.SP.IAppTiles;
+    AppTiles(): IAppTiles;
 
     /**
      * Gets or sets the group of users who have been given contribute permissions to the Web site.
@@ -377,7 +377,7 @@ export interface IWebQueryProps {
     /**
      * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
      */
-    Navigation(): IBase<Types.SP.INavigation>;
+    Navigation(): IBase<SP.Navigation>;
 
     /**
      * Gets the parent website of the specified website.
@@ -456,7 +456,7 @@ export interface IWebQueryProps {
      */
     ThemeInfo(): IBase;
 
-    TitleResource(): IBase<Types.SP.IResourcePath>;
+    TitleResource(): IBase<SP.ResourcePath>;
 
     /**
      * Gets the user custom actions for the web.
@@ -522,12 +522,12 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * The collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
      */
-    AvailableContentTypes: Types.SP.IResults<Types.SP.IContentTypeResult>;
+    AvailableContentTypes: Types.SP.Results.IResults<Types.SP.IContentTypeResult>;
 
     /**
      * A value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
      */
-    AvailableFields: Types.SP.IResults<Types.SP.IFieldResult>;
+    AvailableFields: Types.SP.Results.IResults<Types.SP.IFieldResult>;
 
     ClientWebParts: IBase;
 
@@ -541,9 +541,7 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
      */
     CurrentUser: Types.SP.IUserResult;
 
-    DataLeakagePreventionStatusInfo: Types.SP.IContainsConfidentialInfo;
-
-    DescriptionResource: Types.SP.IResourcePath;
+    DescriptionResource: SP.ResourcePath;
 
     /**
      * Gets the URL where the current user can download SharePoint Designer.
@@ -558,7 +556,7 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * Gets the site features.
      */
-    Features: Types.SP.IResults<Types.SP.IFeature>;
+    Features: Types.SP.Results.IResults<Types.SP.IFeature>;
 
     /**
      * The fields in the web.
@@ -578,12 +576,12 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * The list definitions and list templates available for creating lists on the site.
      */
-    ListTemplates: Types.SP.IResults<SP.ListTemplate>;
+    ListTemplates: Types.SP.Results.IResults<SP.ListTemplate>;
 
     /**
      * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
      */
-    Navigation: Types.SP.INavigation;
+    Navigation: SP.Navigation;
 
     /**
      * Gets the parent website of the specified website.
@@ -598,12 +596,12 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * Specifies the collection of recycle bin items of the recycle bin of the site.
      */
-    RecycleBin: Types.SP.IResults<Types.SP.IRecycleBinItem>;
+    RecycleBin: Types.SP.Results.IResults<SP.RecycleBinItem>;
 
     /**
      * Gets the regional settings that are currently implemented on the website.
      */
-    RegionalSettings: Types.SP.IRegionalSettings;
+    RegionalSettings: SP.RegionalSettings;
 
     /**
      * Gets the role definitions for the web.
@@ -636,9 +634,9 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
      */
-    ThemeInfo: Types.SP.IThemeInfo;
+    ThemeInfo: SP.ThemeInfo;
 
-    TitleResource: Types.SP.IResourcePath;
+    TitleResource: SP.ResourcePath;
 
     /**
      * Gets the user custom actions for the web.
@@ -648,7 +646,7 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * Represents key properties of the subsites of a site.
      */
-    WebInfos: Types.SP.IResults<SP.WebInformation>;
+    WebInfos: Types.SP.Results.IResults<SP.WebInformation>;
 
     /**
      * A Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
@@ -658,12 +656,12 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * A value that specifies the collection of all workflow associations for the site.
      */
-    WorkflowAssociations: Types.SP.IResults<any>;
+    WorkflowAssociations: Types.SP.Results.IResults<any>;
 
     /**
      * A value that specifies the collection of workflow templates associated with the site.
      */
-    WorkflowTemplates: Types.SP.IResults<Types.SP.IWorkflowTemplate>;
+    WorkflowTemplates: Types.SP.Results.IResults<SP.Workflow.WorkflowTemplate>;
 }
 
 /**

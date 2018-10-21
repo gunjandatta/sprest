@@ -142,7 +142,7 @@ export interface IListQueryProps {
     */
     DefaultView(): IView;
 
-    DescriptionResouce(): IBase<Types.SP.IResourcePath>;
+    DescriptionResouce(): IBase<SP.ResourcePath>;
 
     /**
      * Gets the event receivers associated with the list.
@@ -232,7 +232,7 @@ export interface IListQueryProps {
 
     Subscriptions(): IBase<IBase>;
 
-    TitleResource(): IBase<Types.SP.IResourcePath>;
+    TitleResource(): IBase<SP.ResourcePath>;
 
     /**
      * Gets the user custom actions for the list.
@@ -271,7 +271,7 @@ export interface IListQueryResult extends IListMethods, SP.List {
     */
     DefaultView: IViewResult;
 
-    DescriptionResouce: Types.SP.IResourcePath;
+    DescriptionResouce: SP.ResourcePath;
 
     /**
      * Gets the event receivers associated with the list.
@@ -291,12 +291,12 @@ export interface IListQueryResult extends IListMethods, SP.List {
     /**
      * Gets the list forms in the list.
      */
-    Forms: Types.SP.IResults<Types.SP.IForm>;
+    Forms: Types.SP.Results.IResults<SP.Form>;
 
     /**
      * Gets a value that specifies the information rights management settings.
     */
-    InformationRightsManagementSettings: Types.SP.IInformationRightsManagementSettings;
+    InformationRightsManagementSettings: SP.InformationRightsManagementSettings;
 
     /**
      * Gets the list items in the list.
@@ -318,9 +318,9 @@ export interface IListQueryResult extends IListMethods, SP.List {
      */
     RootFolder: Types.SP.IFolderResult;
 
-    Subscriptions: Types.SP.IResults<Types.SP.ISubscription>;
+    Subscriptions: Types.SP.Results.IResults<SP.WorkflowServices.WorkflowSubscription>;
 
-    TitleResource: Types.SP.IResourcePath;
+    TitleResource: SP.ResourcePath;
 
     /**
      * Gets the user custom actions for the list.
@@ -335,7 +335,7 @@ export interface IListQueryResult extends IListMethods, SP.List {
     /**
      * Gets a value that specifies the collection of all workflow associations for the list.
      */
-    WorkflowAssociations: Types.SP.IResults<string>;
+    WorkflowAssociations: Types.SP.Results.IResults<string>;
 
     WriteSecurity: number;
 }
