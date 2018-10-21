@@ -691,10 +691,12 @@ declare module 'gd-sprest/mapper/sptypes' {
 }
 
 declare module 'gd-sprest/mapper/types' {
+    export * from "gd-sprest/mapper/types/appTiles";
     export * from "gd-sprest/mapper/types/attachment";
     export * from "gd-sprest/mapper/types/attachments";
     export * from "gd-sprest/mapper/types/contentType";
     export * from "gd-sprest/mapper/types/contentTypes";
+    export * from "gd-sprest/mapper/types/entityData";
     export * from "gd-sprest/mapper/types/eventReceiver";
     export * from "gd-sprest/mapper/types/eventReceivers";
     export * from "gd-sprest/mapper/types/features";
@@ -716,6 +718,7 @@ declare module 'gd-sprest/mapper/types' {
     export * from "gd-sprest/mapper/types/listItem";
     export * from "gd-sprest/mapper/types/lists";
     export * from "gd-sprest/mapper/types/navigation";
+    export * from "gd-sprest/mapper/types/odata";
     export * from "gd-sprest/mapper/types/peopleManager";
     export * from "gd-sprest/mapper/types/peoplePicker";
     export * from "gd-sprest/mapper/types/profileLoader";
@@ -732,7 +735,6 @@ declare module 'gd-sprest/mapper/types' {
     export * from "gd-sprest/mapper/types/tenantApp";
     export * from "gd-sprest/mapper/types/tenantAppCatalog";
     export * from "gd-sprest/mapper/types/tenantApps";
-    export * from "gd-sprest/mapper/types/types";
     export * from "gd-sprest/mapper/types/user";
     export * from "gd-sprest/mapper/types/userCustomAction";
     export * from "gd-sprest/mapper/types/userCustomActions";
@@ -3913,6 +3915,33 @@ declare module 'gd-sprest/mapper/userCustomAction' {
     };
 }
 
+declare module 'gd-sprest/mapper/types/appTiles' {
+    /**
+      * App Tiles
+      */
+    export interface IAppTiles {
+        AppId: string;
+        AppPrincipalId: string;
+        AppSource: number;
+        AppStatus: number;
+        AppType: number;
+        AssetId: string;
+        BaseTemplate: number;
+        ChildCount: number;
+        ContentMarket: string;
+        CustomSettingsUrl: string;
+        Description: string;
+        IsCorporateCatalogSite: boolean;
+        LastModified: string;
+        LastModifiedDate: string;
+        ProductId: string;
+        Target: string;
+        Thumbnail: string;
+        Title: string;
+        Version: number;
+    }
+}
+
 declare module 'gd-sprest/mapper/types/attachment' {
     import { SP } from "gd-sprest-def";
     import { IBase } from "gd-sprest/utils/types";
@@ -3999,22 +4028,22 @@ declare module 'gd-sprest/mapper/types/contentType' {
         * Content Type Query Result
         */
     export interface IContentTypeQueryResult extends IContentTypeMethods, SP.ContentType {
-            DescriptionResource: Types.SP.IResourcePath;
+            DescriptionResource: SP.ResourcePath;
             /**
                 * Gets the column (also known as field) references in the content type.
                 */
-            FieldLinks: Types.SP.IResults<SP.FieldLink>;
+            FieldLinks: Types.SP.Results.IResults<SP.FieldLink>;
             /**
                 * Gets the fields for the content type.
                 */
-            Fields: Types.SP.IResults<IFieldResult>;
-            NameResource: Types.SP.IResourcePath;
+            Fields: Types.SP.Results.IResults<IFieldResult>;
+            NameResource: SP.ResourcePath;
             /** Gets the parent content type of the content type. */
             Parent: IListResult | Types.SP.IWebResult;
             /**
                 * Gets a value that specifies the collection of workflow associations for the content type.
                 */
-            WorkflowAssociations: Types.SP.IResults<any>;
+            WorkflowAssociations: Types.SP.Results.IResults<any>;
     }
     /**
         * Content Type Result
@@ -4065,6 +4094,34 @@ declare module 'gd-sprest/mapper/types/contentTypes' {
         * Content Type Results
         */
     export interface IContentTypeResults extends IContentTypesMethods, IBaseCollection<IContentTypeResult, IContentTypeResult, IContentTypeQueryResult> {
+    }
+}
+
+declare module 'gd-sprest/mapper/types/entityData' {
+    /**
+      * Entity Data
+      */
+    export interface IEntityData {
+        /** Account Name */
+        AccountName?: string;
+        /** Department. */
+        Department?: string;
+        /** EMail */
+        Email?: string;
+        /** */
+        IsAltSecIdPresent?: boolean;
+        /** Mobile Phone */
+        MobilePhone?: string;
+        /** Object ID */
+        ObjectId?: string;
+        /** Principal Type */
+        PrincipalType?: string;
+        /** SharePoint Group ID */
+        SPGroupID?: string;
+        /** SharePoint User ID */
+        SPUserID?: string;
+        /** Title */
+        Title?: string;
     }
 }
 
@@ -4741,7 +4798,7 @@ declare module 'gd-sprest/mapper/types/file' {
                 */
             CheckedOutByUser: Types.SP.IUserResult;
             EffectiveInformationRightsManagementSettings: IBase;
-            InformationRightsManagementSettings: Types.SP.IInformationRightsManagementSettings;
+            InformationRightsManagementSettings: SP.InformationRightsManagementSettings;
             /**
                 * Gets a value that specifies the list item field values for the list item corresponding to the file.
                 */
@@ -4758,11 +4815,11 @@ declare module 'gd-sprest/mapper/types/file' {
                 * Property Bag
                 */
             Properties: Types.SP.IPropertyValues;
-            VersionEvents: Types.SP.IResults<any>;
+            VersionEvents: Types.SP.Results.IResults<any>;
             /**
                 * Gets a value that returns a collection of file version objects that represent the versions of the file.
                 */
-            Versions: Types.SP.IResults<IFileVersionResult>;
+            Versions: Types.SP.Results.IResults<IFileVersionResult>;
     }
     /**
         * File Result
@@ -5474,7 +5531,7 @@ declare module 'gd-sprest/mapper/types/list' {
                 * Gets the default list view.
              */
             DefaultView(): IView;
-            DescriptionResouce(): IBase<Types.SP.IResourcePath>;
+            DescriptionResouce(): IBase<SP.ResourcePath>;
             /**
                 * Gets the event receivers associated with the list.
              */
@@ -5546,7 +5603,7 @@ declare module 'gd-sprest/mapper/types/list' {
                 */
             RootFolder(url: string): Types.SP.IFile;
             Subscriptions(): IBase<IBase>;
-            TitleResource(): IBase<Types.SP.IResourcePath>;
+            TitleResource(): IBase<SP.ResourcePath>;
             /**
                 * Gets the user custom actions for the list.
                 */
@@ -5578,7 +5635,7 @@ declare module 'gd-sprest/mapper/types/list' {
                 * Gets the default list view.
              */
             DefaultView: IViewResult;
-            DescriptionResouce: Types.SP.IResourcePath;
+            DescriptionResouce: SP.ResourcePath;
             /**
                 * Gets the event receivers associated with the list.
              */
@@ -5594,11 +5651,11 @@ declare module 'gd-sprest/mapper/types/list' {
             /**
                 * Gets the list forms in the list.
                 */
-            Forms: Types.SP.IResults<Types.SP.IForm>;
+            Forms: Types.SP.Results.IResults<SP.Form>;
             /**
                 * Gets a value that specifies the information rights management settings.
              */
-            InformationRightsManagementSettings: Types.SP.IInformationRightsManagementSettings;
+            InformationRightsManagementSettings: SP.InformationRightsManagementSettings;
             /**
                 * Gets the list items in the list.
                 */
@@ -5615,8 +5672,8 @@ declare module 'gd-sprest/mapper/types/list' {
                 * Gets the root folder of the list.
                 */
             RootFolder: Types.SP.IFolderResult;
-            Subscriptions: Types.SP.IResults<Types.SP.ISubscription>;
-            TitleResource: Types.SP.IResourcePath;
+            Subscriptions: Types.SP.Results.IResults<SP.WorkflowServices.WorkflowSubscription>;
+            TitleResource: SP.ResourcePath;
             /**
                 * Gets the user custom actions for the list.
                 */
@@ -5628,7 +5685,7 @@ declare module 'gd-sprest/mapper/types/list' {
             /**
                 * Gets a value that specifies the collection of all workflow associations for the list.
                 */
-            WorkflowAssociations: Types.SP.IResults<string>;
+            WorkflowAssociations: Types.SP.Results.IResults<string>;
             WriteSecurity: number;
     }
     /**
@@ -5758,7 +5815,7 @@ declare module 'gd-sprest/mapper/types/listItem' {
             /**
                 * Get the attachment collection.
                 */
-            AttachmentFiles: Types.SP.IAttachmentFilesMethods & Types.SP.IResults<SP.Attachment>;
+            AttachmentFiles: Types.SP.IAttachmentFilesMethods & Types.SP.Results.IResults<SP.Attachment>;
             /**
                 * Gets a value that specifies the content type of the list item.
                 */
@@ -5866,8 +5923,8 @@ declare module 'gd-sprest/mapper/types/lists' {
 }
 
 declare module 'gd-sprest/mapper/types/navigation' {
+    import { SP } from "gd-sprest-def";
     import { IBase } from "gd-sprest/utils/types";
-    import { IMenuState } from "gd-sprest/mapper/types";
     /**
         * Navigation Methods
         */
@@ -5879,7 +5936,7 @@ declare module 'gd-sprest/mapper/types/navigation' {
                 * @param customProperties - (Optionally implemented by a site map data provider.) A comma-separated list of custom properties to return. Use the "\" character to escape a comma separator within a property.
                 * @param mapProviderName - Specifies which provider on the site is selected. If no SiteMapProvider used, "CurrentNavSiteMapProviderNoEncode" is used.
                 */
-            getMenuState(menuNodeKey?: number, depth?: number, customProperties?: string, mapProviderName?: string): IBase<IMenuState>;
+            getMenuState(menuNodeKey?: number, depth?: number, customProperties?: string, mapProviderName?: string): IBase<SP.MenuState>;
     }
     /**
         * Navigation Properties
@@ -5890,8 +5947,8 @@ declare module 'gd-sprest/mapper/types/navigation' {
         * Navigation Queryable Properties
         */
     export interface INavigationServiceRESTQueryProps {
-            MenuState(): IBase<IMenuState>;
-            MenuState(key: number): IBase<IMenuState>;
+            MenuState(): IBase<SP.MenuState>;
+            MenuState(key: number): IBase<SP.MenuState>;
     }
     /**
         * Navigation
@@ -5900,10 +5957,37 @@ declare module 'gd-sprest/mapper/types/navigation' {
     }
 }
 
+declare module 'gd-sprest/mapper/types/odata' {
+    /**
+        * OData Query
+        */
+    export interface ODataQuery {
+            /** An optional custom query string */
+            Custom?: string;
+            /** The properties to expand. */
+            Expand?: Array<string>;
+            /** The filters. */
+            Filter?: string;
+            /**
+                * Flag to get all items.
+                * Use this flag to get past the 5000 limit.
+                */
+            GetAllItems?: boolean;
+            /** The order by fields. */
+            OrderBy?: Array<string>;
+            /** The fields to select. */
+            Select?: Array<string>;
+            /** The number of results to skip. */
+            Skip?: number;
+            /** The max number of results to return. */
+            Top?: number;
+    }
+}
+
 declare module 'gd-sprest/mapper/types/peopleManager' {
     import { SP } from "gd-sprest-def";
     import { IBase } from "gd-sprest/utils/types";
-    import { IResults } from "gd-sprest/mapper/types";
+    import { IResults } from "gd-sprest/mapper/types/results";
     /**
         * Person Properties
         */
@@ -6073,7 +6157,7 @@ declare module 'gd-sprest/mapper/types/peopleManager' {
 
 declare module 'gd-sprest/mapper/types/peoplePicker' {
     import { IBase } from "gd-sprest/utils/types";
-    import { IEntityData } from "gd-sprest/mapper/types";
+    import { IEntityData } from "gd-sprest/mapper/types/entityData";
     /**
         * People Picker Query
         */
@@ -6201,11 +6285,18 @@ declare module 'gd-sprest/mapper/types/propertyValues' {
 declare module 'gd-sprest/mapper/types/results' {
     import { SP } from "gd-sprest-def";
     /**
+        * Results
+        */
+    export interface IResults<P> {
+            /** The collection data */
+            results: Array<P>;
+    }
+    /**
         * App License
         */
     export interface AppLicense {
             /** The collection of app licenses. */
-            results: Array<AppLicense>;
+            results: Array<SP.AppLicense>;
     }
     /**
         * Content Type Id
@@ -6226,7 +6317,7 @@ declare module 'gd-sprest/mapper/types/results' {
         */
     export interface CustomActionElement {
             /** The collection of custom action elements. */
-            results: Array<CustomActionElement>;
+            results: Array<SP.CustomActionElement>;
     }
     /**
         * Custom Result
@@ -6247,21 +6338,21 @@ declare module 'gd-sprest/mapper/types/results' {
         */
     export interface KeyValue {
             /** The collection of key-value pairs. */
-            results: Array<KeyValue>;
+            results: Array<SP.KeyValue>;
     }
     /**
         * List Data Validation Failure
         */
     export interface ListDataValidationFailure {
             /** The collection of list data validation failures. */
-            results: Array<ListDataValidationFailure>;
+            results: Array<SP.ListDataValidationFailure>;
     }
     /**
         * Menu Node
         */
     export interface MenuNode {
             /** The collection of menu nodes. */
-            results: Array<MenuNode>;
+            results: Array<SP.MenuNode>;
     }
     /**
         * Number
@@ -6282,7 +6373,7 @@ declare module 'gd-sprest/mapper/types/results' {
         */
     export interface ParameterInformation {
             /** The collection of parameter information. */
-            results: Array<ParameterInformation>;
+            results: Array<SP.ParameterInformation>;
     }
     /**
         * Personal Result Suggestion
@@ -6324,7 +6415,7 @@ declare module 'gd-sprest/mapper/types/results' {
         */
     export interface SharedWithUser {
             /** The collection of shared users. */
-            results: Array<SharedWithUser>;
+            results: Array<SP.SharedWithUser>;
     }
     /**
         * Social Actor
@@ -6380,7 +6471,7 @@ declare module 'gd-sprest/mapper/types/results' {
         */
     export interface VisualizationField {
             /** The collection of visualization fields. */
-            results: Array<VisualizationField>;
+            results: Array<SP.VisualizationField>;
     }
 }
 
@@ -6422,7 +6513,7 @@ declare module 'gd-sprest/mapper/types/roleAssignment' {
             /**
                 * Gets the collection of role definition bindings for the role assignment.
                 */
-            RoleDefinitionBindings: Types.SP.IResults<IRoleDefinition>;
+            RoleDefinitionBindings: Types.SP.Results.IResults<IRoleDefinition>;
     }
     /**
         * Role Assignment Result
@@ -6688,7 +6779,7 @@ declare module 'gd-sprest/mapper/types/site' {
                 */
             Owner(): Types.SP.IUser;
             /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-            RecycleBin(): IBase<Types.SP.IResults<Types.SP.IRecycleBinItem>>;
+            RecycleBin(): IBase<Types.SP.Results.IResults<SP.RecycleBinItem>>;
             /**
                 * Gets a value that returns the top-level site of the site collection.
                 */
@@ -6712,17 +6803,17 @@ declare module 'gd-sprest/mapper/types/site' {
             /**
                 * Gets the event receivers associated with the site.
              */
-            EventReceivers: Types.SP.IResults<Types.SP.IEventReceiverResult>;
+            EventReceivers: Types.SP.Results.IResults<Types.SP.IEventReceiverResult>;
             /**
                 * Gets the site collection features.
                 */
-            Features: Types.SP.IResults<Types.SP.IFeature>;
+            Features: Types.SP.Results.IResults<Types.SP.IFeature>;
             /**
                 * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
                 */
             Owner: Types.SP.IUserResult;
             /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-            RecycleBin: Types.SP.IResults<Types.SP.IRecycleBinItem>;
+            RecycleBin: Types.SP.Results.IResults<SP.RecycleBinItem>;
             /**
                 * Gets a value that returns the top-level site of the site collection.
                 */
@@ -7997,389 +8088,6 @@ declare module 'gd-sprest/mapper/types/tenantApps' {
     }
 }
 
-declare module 'gd-sprest/mapper/types/types' {
-    import { IUser } from "gd-sprest/mapper/types/user";
-    /**
-        * App Tiles
-        */
-    export interface IAppTiles {
-            AppId: string;
-            AppPrincipalId: string;
-            AppSource: number;
-            AppStatus: number;
-            AppType: number;
-            AssetId: string;
-            BaseTemplate: number;
-            ChildCount: number;
-            ContentMarket: string;
-            CustomSettingsUrl: string;
-            Description: string;
-            IsCorporateCatalogSite: boolean;
-            LastModified: string;
-            LastModifiedDate: string;
-            ProductId: string;
-            Target: string;
-            Thumbnail: string;
-            Title: string;
-            Version: number;
-    }
-    /**
-        * Base Permissions
-        */
-    export interface IBasePermissions {
-            High: number;
-            Low: number;
-    }
-    /**
-        * Contains Confidential Information
-        */
-    export interface IContainsConfidentialInfo {
-            ContainsConfidentialInfo: boolean;
-            ContainsConfidentialInfoLearnMoreUrl: string;
-            ExternalSharingTipsEnabled: boolean;
-            ExternalSharingTipsInfoLearnMoreUrl: string;
-    }
-    /**
-        * Context Information
-        */
-    export interface IContextInfo {
-            FormDigestTimeoutSeconds: number;
-            FormDigestValue: string;
-            LibraryVersion: string;
-            SiteFullUrl: string;
-            SupportedSchemaVersions: IResults<string>;
-            WebFullUrl: string;
-    }
-    /**
-        * Entity Data
-        */
-    export interface IEntityData {
-            /** Account Name */
-            AccountName?: string;
-            /** Department. */
-            Department?: string;
-            /** EMail */
-            Email?: string;
-            /** */
-            IsAltSecIdPresent?: boolean;
-            /** Mobile Phone */
-            MobilePhone?: string;
-            /** Object ID */
-            ObjectId?: string;
-            /** Principal Type */
-            PrincipalType?: string;
-            /** SharePoint Group ID */
-            SPGroupID?: string;
-            /** SharePoint User ID */
-            SPUserID?: string;
-            /** Title */
-            Title?: string;
-    }
-    /**
-        * Form
-        */
-    export interface IForm {
-            Id: string;
-            ResourcePath: IResourcePath;
-            ServerRelativeUrl: string;
-            FormType: number;
-    }
-    /**
-        * Information Rights Management Settings
-        */
-    export interface IInformationRightsManagementSettings {
-            AllowPrint: boolean;
-            AllowScript: boolean;
-            AllowWriteCopy: boolean;
-            DisableDocumentBrowserView: boolean;
-            DocumentAccessExpireDays: number;
-            DocumentLibraryProtectionExpireDate: string;
-            EnableDocumentAccessExpire: boolean;
-            EnableDocumentBrowserPublishingView: boolean;
-            EnableGroupProtection: boolean;
-            GroupName: string;
-            LicenseCacheExpireDays: number;
-            PolicyDescription: string;
-            PolicyTitle: string;
-            TemplateId: string;
-    }
-    /**
-        * Menu Node
-        */
-    export interface IMenuNode {
-            /** Node properties. */
-            CustomProperties: IResults<any>;
-            /** The URL of the navigation node relative to the URL of the parent navigation node. */
-            FriendlyUrlSegment: string;
-            /** Not part of documentation. */
-            IsDeleted: boolean;
-            /** Indicates whether the node is hidden in the navigation menu. During editing, all nodes temporarily become visible. */
-            IsHidden: boolean;
-            /** The identifier for the navigation node in the menu tree. */
-            Key: string;
-            /** The child nodes. */
-            Nodes: IResults<IMenuNode>;
-            /** The type of the navigation node. */
-            NodeType: number;
-            /**
-                * The relative or absolute URL of the navigation node.
-                * Site-relative URLs can start with the "~site" token and site collection-relative URLs can start with the "~sitecollection" token.
-                * Applies only to SimpleLink node types.
-                */
-            SimpleUrl: string;
-            /** The title of the navigation node. */
-            Title: string;
-    }
-    /**
-        * Menu State
-        */
-    export interface IMenuState {
-            /** The URL of the navigation node relative to the URL of the parent navigation node. */
-            FriendlyUrlPrefix: string;
-            /** The child nodes. */
-            Nodes: IResults<IMenuNode>;
-            /**
-                * The relative or absolute URL of the navigation node.
-                * Site-relative URLs can begin with the "~site" URL token and site collection-relative URLs can begin with the "~sitecollection" URL token.
-                * Applies only to SimpleLink node types.
-                */
-            SimpleUrl: string;
-            /**
-                * The string that replaces the "~sitecollection" token in site collection-relative links.
-                * For example, to get the Try Link command to work with the relative link ~sitecollection/Pages/MyPage.aspx, this value might be http://contoso.com/sites/site1/.
-                */
-            SPSitePrefix: string;
-            /**
-                * The string that replaces the "~site" token in site-relative links.
-                * For example, to get the Try Link command to work with the relative link ~site/Pages/MyPage.aspx, this value might be http://contoso.com/sites/site1/web1.
-                */
-            SPWebPrefix: string;
-            /** The identifier of the root node in the menu tree. */
-            StartingNodeKey: string;
-            /**
-                * The title of the root node in the menu tree.
-                * (Example: "Document Center")
-                */
-            StartingNodeTitle: string;
-            /**
-                * An implementation-specific value that the server uses to detect external changes.
-                * For example, it could be a change timestamp for the database or a monotonically increasing version number such as "2009-06-15T20:45:30Z".
-                */
-            Version: string;
-    }
-    /**
-        * Navigation
-        */
-    export interface INavigation {
-            QuickLaunch: IResults<INavigationNode>;
-            TopNavigationBar: IResults<INavigationNode>;
-    }
-    /**
-        * Navigation Node
-        */
-    export interface INavigationNode {
-            Id: number;
-            IsDocLib: boolean;
-            IsExternal: boolean;
-            IsVisible: boolean;
-            ListTemplateType: number;
-            Title: string;
-            Url: string;
-    }
-    /**
-        * OData Query
-        */
-    export interface ODataQuery {
-            /** An optional custom query string */
-            Custom?: string;
-            /** The properties to expand. */
-            Expand?: Array<string>;
-            /** The filters. */
-            Filter?: string;
-            /**
-                * Flag to get all items.
-                * Use this flag to get past the 5000 limit.
-                */
-            GetAllItems?: boolean;
-            /** The order by fields. */
-            OrderBy?: Array<string>;
-            /** The fields to select. */
-            Select?: Array<string>;
-            /** The number of results to skip. */
-            Skip?: number;
-            /** The max number of results to return. */
-            Top?: number;
-    }
-    /**
-        * Recycle Bin Item
-        */
-    export interface IRecycleBinItem {
-            Author: IUser;
-            AuthorEmail: string;
-            AuthorName: string;
-            DeletedBy: IUser;
-            DeletedByEmail: string;
-            DeletedByName: string;
-            DeletedDate: string;
-            DeletedDateLocalFormatted: string;
-            DirName: string;
-            DirNamePath: IResourcePath;
-            Id: string;
-            ItemState: number;
-            ItemType: number;
-            LeafName: string;
-            LeafNamePath: IResourcePath;
-            Size: string;
-            Title: string;
-    }
-    /**
-        * Regional Settings
-        */
-    export interface IRegionalSettings {
-            AdjustHijriDays: number;
-            AlternateCalendarType: number;
-            AM: string;
-            CalendarType: number;
-            Collation: number;
-            CollationLCID: number;
-            DateFormat: number;
-            DateSeparator: string;
-            DecimalSeparator: string;
-            DigitGrouping: string;
-            FirstDayOfWeek: number;
-            FirstWeekOfYear: number;
-            IsEastAsia: boolean;
-            IsRightToLeft: boolean;
-            IsUIRightToLeft: boolean;
-            ListSeparator: string;
-            LocaleId: number;
-            NegativeSign: string;
-            NegNumberMode: number;
-            PM: string;
-            PositiveSign: string;
-            ShowWeeks: boolean;
-            ThousandSeparator: string;
-            Time24: boolean;
-            TimeMarkerPosition: number;
-            TimeSeparator: string;
-            WorkDayEndHour: number;
-            WorkDays: number;
-            WorkDayStartHour: number;
-    }
-    /**
-        * Resource Path
-        */
-    export interface IResourcePath {
-            DecodedUrl: string;
-    }
-    /**
-        * Results
-        */
-    export interface IResults<P> {
-            /** The collection data */
-            results: Array<P>;
-    }
-    /**
-        * String Value
-        */
-    export interface IStringValue {
-            StringValue: string;
-    }
-    /**
-        * Subscription
-        */
-    export interface ISubscription {
-    }
-    /**
-        * Theme Information
-        */
-    export interface IThemeInfo {
-            AccessibleDescription: string;
-            ThemeBackgroundImageUri: string;
-    }
-    /**
-        * Upgrade Info
-        */
-    export interface IUpgradeInfo {
-            ErrorFile: string;
-            Errors: number;
-            LastUpdated: string;
-            LogFile: string;
-            RequestDate: string;
-            RetryCount: number;
-            StartTime: string;
-            Status: number;
-            UpgradeType: number;
-            Warnings: number;
-    }
-    /**
-        * Usage Information
-        */
-    export interface IUsageInfo {
-            Bandwidth: number;
-            DiscussionStorage: number;
-            Hits: number;
-            Storage: number;
-            StoragePercentageUsed: number;
-            Visits: number;
-    }
-    /**
-        * Visualization
-        */
-    export interface IVisualization {
-            DefaultScreen: IVisualizationStyleSet;
-            DetailView: IVisualizationStyleSet;
-            MediumScreen: IVisualizationStyleSet;
-            SmallScreen: IVisualizationStyleSet;
-            VisualizationAppInfo: IVisualizationAppInfo;
-            VisualizationType: number;
-    }
-    /**
-        * Visualization App Information
-        */
-    export interface IVisualizationAppInfo {
-            DesignUri: string;
-            Id: string;
-            RuntimeUri: string;
-    }
-    /**
-        * Visualization Field
-        */
-    export interface IVisualizationField {
-            InternalName: string;
-            Style: string;
-    }
-    /**
-        * Visualization Style Set
-        */
-    export interface IVisualizationStyleSet {
-            AspectRatio: string;
-            BackgroundColor: string;
-            Fields: IVisualizationField;
-            MinHeight: string;
-    }
-    /**
-        * Web Context Information
-        */
-    export interface IContextWebInfo {
-            GetContextWebInformation: IContextInfo;
-    }
-    /**
-        * Workflow Template
-        */
-    export interface IWorkflowTemplate {
-            AllowManual: boolean;
-            AssociationUrl: string;
-            AutoStartChange: boolean;
-            AutoStartCreate: boolean;
-            Description: string;
-            Id: string;
-            IsDeclarative: boolean;
-            Name: string;
-            PermissionsManual: IBasePermissions;
-    }
-}
-
 declare module 'gd-sprest/mapper/types/user' {
     import { SP } from "gd-sprest-def";
     import { IBase } from "gd-sprest/utils/types";
@@ -8995,7 +8703,7 @@ declare module 'gd-sprest/mapper/types/web' {
     import { SP } from "gd-sprest-def";
     import { IBase } from "gd-sprest/utils/types";
     import { Types } from "gd-sprest/";
-    import { ITenantAppCatalog, IWebResult, IWebResults, IWebs } from "gd-sprest/mapper/types";
+    import { IAppTiles, ITenantAppCatalog, IWebResult, IWebResults, IWebs } from "gd-sprest/mapper/types";
     /**
         * Web Methods
         */
@@ -9132,7 +8840,7 @@ declare module 'gd-sprest/mapper/types/web' {
                 * @param nWebTemplateFilter - The ID of the template used in the site definition of the sites.
                 * @param nConfigurationFilter - The ID of the site template used to provision the sites.
                 */
-            getSubwebsFilteredForCurrentUser(nWebTemplateFilter: any, nConfigurationFilter: any): IBase<Types.SP.IResults<SP.WebInformation>>;
+            getSubwebsFilteredForCurrentUser(nWebTemplateFilter: any, nConfigurationFilter: any): IBase<Types.SP.Results.IResults<SP.WebInformation>>;
             /**
                 * Returns the user corresponding to the specified member identifier for the current site.
                 * @param id - The user id.
@@ -9210,7 +8918,7 @@ declare module 'gd-sprest/mapper/types/web' {
                 * Gets a collection of metadata for the Web site.
                 */
             AllProperties(): IBase;
-            AppTiles(): Types.SP.IAppTiles;
+            AppTiles(): IAppTiles;
             /**
                 * Gets or sets the group of users who have been given contribute permissions to the Web site.
                 */
@@ -9305,7 +9013,7 @@ declare module 'gd-sprest/mapper/types/web' {
             /**
                 * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
                 */
-            Navigation(): IBase<Types.SP.INavigation>;
+            Navigation(): IBase<SP.Navigation>;
             /**
                 * Gets the parent website of the specified website.
                 */
@@ -9368,7 +9076,7 @@ declare module 'gd-sprest/mapper/types/web' {
                 * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
                 */
             ThemeInfo(): IBase;
-            TitleResource(): IBase<Types.SP.IResourcePath>;
+            TitleResource(): IBase<SP.ResourcePath>;
             /**
                 * Gets the user custom actions for the web.
                 */
@@ -9421,11 +9129,11 @@ declare module 'gd-sprest/mapper/types/web' {
             /**
                 * The collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
                 */
-            AvailableContentTypes: Types.SP.IResults<Types.SP.IContentTypeResult>;
+            AvailableContentTypes: Types.SP.Results.IResults<Types.SP.IContentTypeResult>;
             /**
                 * A value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
                 */
-            AvailableFields: Types.SP.IResults<Types.SP.IFieldResult>;
+            AvailableFields: Types.SP.Results.IResults<Types.SP.IFieldResult>;
             ClientWebParts: IBase;
             /**
                 * Gets the content types that are associated with the web.
@@ -9435,8 +9143,7 @@ declare module 'gd-sprest/mapper/types/web' {
                 * Gets the current user of the site.
                 */
             CurrentUser: Types.SP.IUserResult;
-            DataLeakagePreventionStatusInfo: Types.SP.IContainsConfidentialInfo;
-            DescriptionResource: Types.SP.IResourcePath;
+            DescriptionResource: SP.ResourcePath;
             /**
                 * Gets the URL where the current user can download SharePoint Designer.
                 */
@@ -9448,7 +9155,7 @@ declare module 'gd-sprest/mapper/types/web' {
             /**
                 * Gets the site features.
                 */
-            Features: Types.SP.IResults<Types.SP.IFeature>;
+            Features: Types.SP.Results.IResults<Types.SP.IFeature>;
             /**
                 * The fields in the web.
                 */
@@ -9464,11 +9171,11 @@ declare module 'gd-sprest/mapper/types/web' {
             /**
                 * The list definitions and list templates available for creating lists on the site.
                 */
-            ListTemplates: Types.SP.IResults<SP.ListTemplate>;
+            ListTemplates: Types.SP.Results.IResults<SP.ListTemplate>;
             /**
                 * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
                 */
-            Navigation: Types.SP.INavigation;
+            Navigation: SP.Navigation;
             /**
                 * Gets the parent website of the specified website.
                 */
@@ -9480,11 +9187,11 @@ declare module 'gd-sprest/mapper/types/web' {
             /**
                 * Specifies the collection of recycle bin items of the recycle bin of the site.
                 */
-            RecycleBin: Types.SP.IResults<Types.SP.IRecycleBinItem>;
+            RecycleBin: Types.SP.Results.IResults<SP.RecycleBinItem>;
             /**
                 * Gets the regional settings that are currently implemented on the website.
                 */
-            RegionalSettings: Types.SP.IRegionalSettings;
+            RegionalSettings: SP.RegionalSettings;
             /**
                 * Gets the role definitions for the web.
                 */
@@ -9510,8 +9217,8 @@ declare module 'gd-sprest/mapper/types/web' {
             /**
                 * The theming information for this site. This includes information like colors, fonts, border radii sizes etc.
                 */
-            ThemeInfo: Types.SP.IThemeInfo;
-            TitleResource: Types.SP.IResourcePath;
+            ThemeInfo: SP.ThemeInfo;
+            TitleResource: SP.ResourcePath;
             /**
                 * Gets the user custom actions for the web.
                 */
@@ -9519,7 +9226,7 @@ declare module 'gd-sprest/mapper/types/web' {
             /**
                 * Represents key properties of the subsites of a site.
                 */
-            WebInfos: Types.SP.IResults<SP.WebInformation>;
+            WebInfos: Types.SP.Results.IResults<SP.WebInformation>;
             /**
                 * A Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
                 */
@@ -9527,11 +9234,11 @@ declare module 'gd-sprest/mapper/types/web' {
             /**
                 * A value that specifies the collection of all workflow associations for the site.
                 */
-            WorkflowAssociations: Types.SP.IResults<any>;
+            WorkflowAssociations: Types.SP.Results.IResults<any>;
             /**
                 * A value that specifies the collection of workflow templates associated with the site.
                 */
-            WorkflowTemplates: Types.SP.IResults<Types.SP.IWorkflowTemplate>;
+            WorkflowTemplates: Types.SP.Results.IResults<SP.Workflow.WorkflowTemplate>;
     }
     /**
         * Web Result
@@ -9764,7 +9471,7 @@ declare module 'gd-sprest/utils/types' {
 }
 
 declare module 'gd-sprest/lib/types/contextInfo' {
-    import { Types } from "gd-sprest/";
+    import { SP } from "gd-sprest-def";
     import { Types as BaseTypes } from "gd-sprest/utils";
     /**
         * Context Information
@@ -9871,7 +9578,7 @@ declare module 'gd-sprest/lib/types/contextInfo' {
             /** List Id */
             listId: string;
             /** List Permissions Mask */
-            listPermMask: Types.SP.IBasePermissions;
+            listPermMask: SP.BasePermissions;
             /** List Title */
             listTitle: string;
             /** List Url */
@@ -9887,7 +9594,7 @@ declare module 'gd-sprest/lib/types/contextInfo' {
             /** Page List Id */
             pageListId: string;
             /** Page Permissions Mask */
-            pagePermMask: Types.SP.IBasePermissions;
+            pagePermMask: SP.BasePermissions;
             /** Page Personalization Scope */
             pagePersonalizationScope: number;
             /** Prefer User Time Zone */
@@ -9973,7 +9680,7 @@ declare module 'gd-sprest/lib/types/contextInfo' {
             /** Web Logo Url */
             webLogoUrl: string;
             /** Web Permissions Mask */
-            webPermMask: Types.SP.IBasePermissions;
+            webPermMask: SP.BasePermissions;
             /** Web Server Relative Url */
             webServerRelativeUrl: string;
             /** Web Template */
@@ -10002,7 +9709,9 @@ declare module 'gd-sprest/lib/types/contextInfo' {
                 * Method to get the web context information.
                 * @param url - The relative url of the web.
                 */
-            getWeb(url: string): BaseTypes.IBase<Types.SP.IContextWebInfo>;
+            getWeb(url: string): BaseTypes.IBase<{
+                    GetContextWebInformation: SP.ContextWebInformation;
+            }>;
             /** The page context object from an SPFX project. */
             setPageContext(spfxPageContext: any): any;
     }
@@ -10282,7 +9991,7 @@ declare module 'gd-sprest/utils/types/base' {
     /**
         * Base Collection Results
         */
-    export interface IBaseCollectionResult<Result> extends Types.SP.IResults<Result> {
+    export interface IBaseCollectionResult<Result> extends Types.SP.Results.IResults<Result> {
             /** True, if the object exists, false otherwise. */
             existsFl: boolean;
             /** Returns the next set of results, if paging exists. */
@@ -10297,7 +10006,7 @@ declare module 'gd-sprest/utils/types/base' {
     /**
         * Base Collection
         */
-    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.SP.IResults<Type>, IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
+    export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.SP.Results.IResults<Type>, IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> {
     }
 }
 
