@@ -83,6 +83,7 @@ export interface IListMethods {
      * @param itemId - The item id.
      * @param formId - The identifier of the form.
      * @param mode - The SP.ControlMode of the control used to display the item.
+     * Types of modes: 1 - Display, 2 - Edit, 3 - New
      */
     renderListFormData(itemId: any, formId: any, mode: number): IBase;
     /**
@@ -113,28 +114,10 @@ export interface IListQueryProps {
      */
     ContentTypes(id: string): IContentType;
     /**
-     * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
-     */
-    /**
-     * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
-     */
-    /**
-     * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-     */
-    /**
-     * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-     */
-    /**
      * Gets the default list view.
     */
     DefaultView(): IView;
     DescriptionResouce(): IBase<Types.SP.IResourcePath>;
-    /**
-     * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
-     */
-    /**
-     * Gets a value that specifies the effective permissions on the list that are for the user export interface.
-    */
     /**
      * Gets the event receivers associated with the list.
     */
@@ -175,9 +158,6 @@ export interface IListQueryProps {
     */
     InformationRightsManagementSettings(): IBase;
     /**
-     * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
-     */
-    /**
      * Gets the list items in the list.
      */
     Items(): IListItems;
@@ -186,9 +166,6 @@ export interface IListQueryProps {
      * @param id - The id of the list item.
      */
     Items(id: number | string): IListItem;
-    /**
-     * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
-     */
     /**
      * Gets a value that specifies the site that contains the list.
      */
@@ -211,9 +188,6 @@ export interface IListQueryProps {
      * @param url - The url of the file within the root folder.
      */
     RootFolder(url: string): Types.SP.IFile;
-    /**
-     * Gets a value that specifies the list schema of the list.
-     */
     Subscriptions(): IBase<IBase>;
     TitleResource(): IBase<Types.SP.IResourcePath>;
     /**
@@ -225,12 +199,6 @@ export interface IListQueryProps {
      * @param id - The id of the user custom action.
      */
     UserCustomActions(id: string): Types.SP.IUserCustomAction;
-    /**
-     * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
-     */
-    /**
-     * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
-     */
     /**
      * Gets the views in the list.
      */
@@ -250,31 +218,10 @@ export interface IListQueryResult extends IListMethods, SP.List {
      */
     ContentTypes: IContentTypeResults;
     /**
-     * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
-     */
-    /**
-     * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
-     */
-    /**
-     * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-     */
-    /**
-     * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-     */
-    /**
      * Gets the default list view.
     */
     DefaultView: IViewResult;
-    /**
-     * Gets the URL of the default view for the list.
-     */
     DescriptionResouce: Types.SP.IResourcePath;
-    /**
-     * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
-     */
-    /**
-     * Gets a value that specifies the effective permissions on the list that are for the user export interface.
-    */
     /**
      * Gets the event receivers associated with the list.
     */
@@ -292,22 +239,13 @@ export interface IListQueryResult extends IListMethods, SP.List {
      */
     Forms: Types.SP.IResults<Types.SP.IForm>;
     /**
-     * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
-     */
-    /**
      * Gets a value that specifies the information rights management settings.
     */
     InformationRightsManagementSettings: Types.SP.IInformationRightsManagementSettings;
     /**
-     * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
-     */
-    /**
      * Gets the list items in the list.
      */
     Items: IListItemResults;
-    /**
-     * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
-     */
     /**
      * Gets a value that specifies the site that contains the list.
      */
@@ -320,21 +258,12 @@ export interface IListQueryResult extends IListMethods, SP.List {
      * Gets the root folder of the list.
      */
     RootFolder: Types.SP.IFolderResult;
-    /**
-     * Gets a value that specifies the list schema of the list.
-     */
     Subscriptions: Types.SP.IResults<Types.SP.ISubscription>;
     TitleResource: Types.SP.IResourcePath;
     /**
      * Gets the user custom actions for the list.
      */
     UserCustomActions: Types.SP.IUserCustomActionResults;
-    /**
-     * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
-     */
-    /**
-     * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
-     */
     /**
      * Gets the views in the list.
      */

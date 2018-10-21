@@ -209,27 +209,9 @@ export interface IWebMethods {
  */
 export interface IWebQueryProps {
     /**
-     * Specifies whether the current user can create declarative workflows. If not disabled on the Web application, the value is the same as the AllowCreateDeclarativeWorkflow property of the site collection. Default value: true.
-     */
-    /**
-     * Gets a value that specifies whether the current user is allowed to use a designer application to customize this site.
-     */
-    /**
-     * Gets a value that specifies whether the current user is allowed to edit the master page.
-     */
-    /**
      * Property Bag
      */
     AllProperties(): IBase<Types.SP.IPropertyValues>;
-    /**
-     * Gets a value that specifies whether the current user is allowed to revert the site to a default site template.
-     */
-    /**
-     * Specifies whether the current user can save declarative workflows as a template. If not disabled on the Web application, the value is the same as the AllowSaveDeclarativeWorkflowAsTemplate property of the site collection. Default value: true.
-     */
-    /**
-     * Specifies whether the current user can save or publish declarative workflows. If not disabled on the Web application, the value is the same as the AllowSavePublishDeclarativeWorkflowAsTemplate property of the site collection. When enabled, can only be set by a site collection administrator. Default value: true.
-     */
     /**
      * Gets a collection of metadata for the Web site.
      */
@@ -272,12 +254,6 @@ export interface IWebQueryProps {
     CurrentUser(): Types.SP.IUser;
     DataLeakagePreventionStatusInfo(): IBase;
     DescriptionResource(): IBase<SP.ResourcePath>;
-    /**
-     * Gets the URL where the current user can download SharePoint Designer.
-     */
-    /**
-     * Represents the intersection of permissions of the app principal and the user principal. In the app-only case, this property returns only the permissions of the app principal. To check only user permissions (ignoring app permissions), use the GetUserEffectivePermissions method.
-     */
     /**
      * Gets the event receivers associated with the web.
     */
@@ -371,9 +347,6 @@ export interface IWebQueryProps {
      */
     RootFolder(url: string): Types.SP.IFile;
     /**
-     * Gets a value that specifies whether the current user is able to view the file system structure of this site.
-     */
-    /**
      * Gets the site groups for the web.
      */
     SiteGroups(): Types.SP.ISiteGroups;
@@ -395,9 +368,6 @@ export interface IWebQueryProps {
      * @param id - The user id.
      */
     SiteUsers(id: any): Types.SP.IUser;
-    /**
-     * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
-     */
     /** Gets the tenant app catalog. */
     TenantAppCatalog(): ITenantAppCatalog;
     /**
@@ -478,9 +448,6 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
      */
     DesignerDownloadUrlForCurrentUser: string;
     /**
-     * Represents the intersection of permissions of the app principal and the user principal. In the app-only case, this property returns only the permissions of the app principal. To check only user permissions (ignoring app permissions), use the GetUserEffectivePermissions method.
-     */
-    /**
      * Gets the event receivers associated with the web.
     */
     EventReceivers: Types.SP.IEventReceiverResults;
@@ -544,9 +511,6 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
      * The collection of all users that belong to the site collection.
      */
     SiteUsers: Types.SP.IUserResults;
-    /**
-     * Specifies the language code identifiers (LCIDs) of the languages that are enabled for the site.
-     */
     /** Gets the tenant app catalog. */
     TenantAppCatalog: ITenantAppCatalog;
     /**

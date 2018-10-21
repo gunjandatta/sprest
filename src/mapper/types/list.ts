@@ -96,13 +96,12 @@ export interface IListMethods {
      */
     renderListData(viewXml): IBase;
 
-    // 
-    // Types of modes: 1 - Display, 2 - Edit, 3 - New
     /**
      * Renders the list form data.
      * @param itemId - The item id.
      * @param formId - The identifier of the form.
      * @param mode - The SP.ControlMode of the control used to display the item.
+     * Types of modes: 1 - Display, 2 - Edit, 3 - New
      */
     renderListFormData(itemId, formId, mode: number): IBase;
 
@@ -139,41 +138,11 @@ export interface IListQueryProps {
     ContentTypes(id: string): IContentType;
 
     /**
-     * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
-     */
-    //DataSource(): IBase<Array<string>>;
-
-    /**
-     * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
-     */
-    //DefaultDisplayFormUrl(): IBase<{ DefaultDisplayFormUrl: string }>;
-
-    /**
-     * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-     */
-    //DefaultEditFormUrl(): IBase<{ DefaultEditFormUrl: string }>;
-
-    /**
-     * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-     */
-    //DefaultNewFormUrl(): IBase<{ DefaultNewFormUrl: string }>;
-
-    /**
      * Gets the default list view.
     */
     DefaultView(): IView;
 
     DescriptionResouce(): IBase<Types.SP.IResourcePath>;
-
-    /**
-     * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
-     */
-    //EffectiveBasePermissions(): IBase<Types.SP.IBasePermissions>;
-
-    /**
-     * Gets a value that specifies the effective permissions on the list that are for the user export interface.
-    */
-    //EffectiveBasePermissionsForUI(): IBase<Types.SP.IBasePermissions>;
 
     /**
      * Gets the event receivers associated with the list.
@@ -224,11 +193,6 @@ export interface IListQueryProps {
     InformationRightsManagementSettings(): IBase;
 
     /**
-     * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
-     */
-    //IsSiteAssetsLibrary(): IBase<boolean>;
-
-    /**
      * Gets the list items in the list.
      */
     Items(): IListItems;
@@ -238,11 +202,6 @@ export interface IListQueryProps {
      * @param id - The id of the list item.
      */
     Items(id: number | string): IListItem;
-
-    /**
-     * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
-     */
-    //OnQuickLaunch(): IBase<boolean>;
 
     /**
      * Gets a value that specifies the site that contains the list.
@@ -271,11 +230,6 @@ export interface IListQueryProps {
      */
     RootFolder(url: string): Types.SP.IFile;
 
-    /**
-     * Gets a value that specifies the list schema of the list.
-     */
-    //SchemaXml(): IBase<string>;
-
     Subscriptions(): IBase<IBase>;
 
     TitleResource(): IBase<Types.SP.IResourcePath>;
@@ -292,16 +246,6 @@ export interface IListQueryProps {
     UserCustomActions(id: string): Types.SP.IUserCustomAction;
 
     /**
-     * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
-     */
-    //ValidationFormula(): IBase<string>;
-
-    /**
-     * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
-     */
-    //ValidationMessage(): IBase<string>;
-
-    /**
      * Gets the views in the list.
      */
     Views(): IViews;
@@ -311,13 +255,6 @@ export interface IListQueryProps {
      * @param id - The id of the view.
      */
     Views(id: string): IView;
-
-    /**
-     * Gets a value that specifies the collection of all workflow associations for the list.
-     */
-    //WorkflowAssociations(): IBase<string>;
-
-    //WriteSecurity(): IBase<number>;
 }
 
 /**
@@ -330,46 +267,11 @@ export interface IListQueryResult extends IListMethods, SP.List {
     ContentTypes: IContentTypeResults;
 
     /**
-     * Gets the data source associated with the list, or null if the list is not a virtual list. Returns null if the HasExternalDataSource property is false.
-     */
-    //DataSource: SP.ListDataSource;
-
-    /**
-     * Gets a value that specifies the location of the default display form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL
-     */
-    //DefaultDisplayFormUrl: string;
-
-    /**
-     * Gets a value that specifies the URL of the edit form to use for list items in the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-     */
-    //DefaultEditFormUrl: string;
-
-    /**
-     * Gets a value that specifies the location of the default new form for the list. Clients specify a server-relative URL, and the server returns a site-relative URL.
-     */
-    //DefaultNewFormUrl: string;
-
-    /**
      * Gets the default list view.
     */
     DefaultView: IViewResult;
 
-    /**
-     * Gets the URL of the default view for the list.
-     */
-    //DefaultViewUrl: string;
-
     DescriptionResouce: Types.SP.IResourcePath;
-
-    /**
-     * Gets a value that specifies the effective permissions on the list that are assigned to the current user.
-     */
-    //EffectiveBasePermissions: Types.SP.IBasePermissions;
-
-    /**
-     * Gets a value that specifies the effective permissions on the list that are for the user export interface.
-    */
-    //EffectiveBasePermissionsForUI: Types.SP.IBasePermissions;
 
     /**
      * Gets the event receivers associated with the list.
@@ -392,29 +294,14 @@ export interface IListQueryResult extends IListMethods, SP.List {
     Forms: Types.SP.IResults<Types.SP.IForm>;
 
     /**
-     * Gets a value that specifies whether the role assignments are uniquely defined for this securable object or inherited from a parent securable object.
-     */
-    //HasUniqueRoleAssignments: boolean;
-
-    /**
      * Gets a value that specifies the information rights management settings.
     */
     InformationRightsManagementSettings: Types.SP.IInformationRightsManagementSettings;
 
     /**
-     * Gets a value that indicates whether the list is designated as a default asset location for images or other files which the users upload to their wiki pages.
-     */
-    //IsSiteAssetsLibrary: boolean;
-
-    /**
      * Gets the list items in the list.
      */
     Items: IListItemResults;
-
-    /**
-     * Gets or sets a value that specifies whether the list appears on the Quick Launch of the site. If true, the server sets the Hidden property to false.
-     */
-    //OnQuickLaunch: boolean;
 
     /**
      * Gets a value that specifies the site that contains the list.
@@ -431,11 +318,6 @@ export interface IListQueryResult extends IListMethods, SP.List {
      */
     RootFolder: Types.SP.IFolderResult;
 
-    /**
-     * Gets a value that specifies the list schema of the list.
-     */
-    //SchemaXml: string;
-
     Subscriptions: Types.SP.IResults<Types.SP.ISubscription>;
 
     TitleResource: Types.SP.IResourcePath;
@@ -444,16 +326,6 @@ export interface IListQueryResult extends IListMethods, SP.List {
      * Gets the user custom actions for the list.
      */
     UserCustomActions: Types.SP.IUserCustomActionResults;
-
-    /**
-     * Gets or sets a value that specifies the data validation criteria for a list item. Its length must be <= 1023.
-     */
-    //ValidationFormula: string;
-
-    /**
-     * Gets or sets a value that specifies the error message returned when data validation fails for a list item. Its length must be <= 1023.
-     */
-    //ValidationMessage: string;
 
     /**
      * Gets the views in the list.

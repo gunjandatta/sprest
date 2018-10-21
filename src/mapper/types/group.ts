@@ -12,26 +12,6 @@ export interface IGroupMethods { }
  */
 export interface IGroupQueryProps {
     /**
-     * Gets or sets a value that indicates whether the request to join or leave the group can be accepted automatically.
-     */
-    //AutoAcceptRequestToJoinLeave(): IBase<boolean>;
-
-    /**
-     * Gets a value that indicates whether the current user can edit the membership of the group.
-     */
-    //CanCurrentUserEditMembership(): IBase<boolean>;
-
-    /**
-     * Gets a value that indicates whether the current user can manage the group.
-     */
-    //CanCurrentUserManageGroup(): IBase<boolean>;
-
-    /**
-     * Gets a value that indicates whether the current user can view the membership of the group.
-     */
-    //CanCurrentUserViewMembership(): IBase<boolean>;
-
-    /**
      * Gets or sets the owner of the group which can be a user or another group assigned permissions to control security.
      */
     Owner(): IUser;

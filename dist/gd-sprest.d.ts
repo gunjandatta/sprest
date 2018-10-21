@@ -5440,6 +5440,7 @@ declare module 'gd-sprest/mapper/types/list' {
                 * @param itemId - The item id.
                 * @param formId - The identifier of the form.
                 * @param mode - The SP.ControlMode of the control used to display the item.
+                * Types of modes: 1 - Display, 2 - Edit, 3 - New
                 */
             renderListFormData(itemId: any, formId: any, mode: number): IBase;
             /**
@@ -5544,9 +5545,6 @@ declare module 'gd-sprest/mapper/types/list' {
                 * @param url - The url of the file within the root folder.
                 */
             RootFolder(url: string): Types.SP.IFile;
-            /**
-                * Gets a value that specifies the list schema of the list.
-                */
             Subscriptions(): IBase<IBase>;
             TitleResource(): IBase<Types.SP.IResourcePath>;
             /**
@@ -5580,9 +5578,6 @@ declare module 'gd-sprest/mapper/types/list' {
                 * Gets the default list view.
              */
             DefaultView: IViewResult;
-            /**
-                * Gets the URL of the default view for the list.
-                */
             DescriptionResouce: Types.SP.IResourcePath;
             /**
                 * Gets the event receivers associated with the list.
@@ -5620,9 +5615,6 @@ declare module 'gd-sprest/mapper/types/list' {
                 * Gets the root folder of the list.
                 */
             RootFolder: Types.SP.IFolderResult;
-            /**
-                * Gets a value that specifies the list schema of the list.
-                */
             Subscriptions: Types.SP.IResults<Types.SP.ISubscription>;
             TitleResource: Types.SP.IResourcePath;
             /**
