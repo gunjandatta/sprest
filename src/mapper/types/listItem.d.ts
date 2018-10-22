@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../../types";
+import * as Types from "../../mapper/types";
 import { IBase } from "../../utils/types";
 import {
     IContentType, IContentTypeResult,
@@ -59,7 +59,7 @@ export interface IListItemQueryProps {
     /**
      * Get the attachment collection.
      */
-    AttachmentFiles(): Types.SP.IAttachmentFiles;
+    AttachmentFiles(): Types.IAttachmentFiles;
 
     /**
      * Gets the specified attachment file.
@@ -90,7 +90,7 @@ export interface IListItemQueryProps {
     /**
      * Gets the file that is represented by the item from a document library.
      */
-    File(): Types.SP.IFile;
+    File(): Types.IFile;
 
     /**
      * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
@@ -100,7 +100,7 @@ export interface IListItemQueryProps {
     /**
      * Gets a folder object that is associated with a folder item.
      */
-    Folder(): Types.SP.IFolder;
+    Folder(): Types.IFolder;
 
     GetDlpPolicyTip(): IBase;
 
@@ -117,18 +117,18 @@ export interface IListItemQueryProps {
     /**
      * Property Bag
      */
-    Properties(): IBase<Types.SP.IPropertyValues>;
+    Properties(): IBase<Types.IPropertyValues>;
 
     /**
      * Gets the role assignments for the securable object.
      */
-    RoleAssignments(): Types.SP.IRoleAssignments;
+    RoleAssignments(): Types.IRoleAssignments;
 
     /**
      * Gets the role assignment(s) for the securable object.
      * @param id - The role assignment id.
      */
-    RoleAssignments(id: string): Types.SP.IRoleAssignment;
+    RoleAssignments(id: string): Types.IRoleAssignment;
 }
 
 /**
@@ -138,7 +138,7 @@ export interface IListItemQueryResult extends IListItemMethods, SP.ListItem {
     /**
      * Get the attachment collection.
      */
-    AttachmentFiles: Types.SP.IAttachmentFilesMethods & Types.SP.Results.IResults<SP.Attachment>;
+    AttachmentFiles: Types.IAttachmentFilesMethods & Types.Results.IResults<SP.Attachment>;
 
     /**
      * Gets a value that specifies the content type of the list item.
@@ -163,7 +163,7 @@ export interface IListItemQueryResult extends IListItemMethods, SP.ListItem {
     /**
      * Gets the file that is represented by the item from a document library.
      */
-    File: Types.SP.IFileResult;
+    File: Types.IFileResult;
 
     /**
      * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
@@ -173,7 +173,7 @@ export interface IListItemQueryResult extends IListItemMethods, SP.ListItem {
     /**
      * Gets a folder object that is associated with a folder item.
      */
-    Folder: Types.SP.IFolderResult;
+    Folder: Types.IFolderResult;
 
     GetDlpPolicyTip(): IBase;
 
@@ -195,7 +195,7 @@ export interface IListItemQueryResult extends IListItemMethods, SP.ListItem {
     /**
      * Gets the role assignments for the securable object.
      */
-    RoleAssignments: Types.SP.IRoleAssignmentResults;
+    RoleAssignments: Types.IRoleAssignmentResults;
 }
 
 /**

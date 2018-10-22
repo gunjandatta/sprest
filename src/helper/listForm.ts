@@ -1,7 +1,7 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../types";
 import { Helper, SPTypes, Web } from "..";
-import { ODataQuery } from "../mapper/types"
+import { IContentTypeQueryResult, IFieldLookup, IFieldResults, ODataQuery } from "../mapper/types"
+import { IBaseCollection } from "../utils/types";
 import {
     IListForm, IListFormAttachmentInfo,
     IListFormCache, IListFormResult, IListFormProps
@@ -62,7 +62,7 @@ export const ListForm: IListForm = {
                 // Try to parse the data
                 try {
                     // Parse the content type
-                    let ct = Helper.parse(_cacheData.ct) as Types.Util.IBaseCollection<Types.SP.IContentTypeQueryResult>;
+                    let ct = Helper.parse(_cacheData.ct) as IBaseCollection<IContentTypeQueryResult>;
 
                     // Load the default fields
                     loadDefaultFields(ct.results[0]);
@@ -98,7 +98,7 @@ export const ListForm: IListForm = {
         }
 
         // Method to load the default fields
-        let loadDefaultFields = (ct: Types.SP.IContentTypeQueryResult) => {
+        let loadDefaultFields = (ct: IContentTypeQueryResult) => {
             let fields = ct ? ct.FieldLinks.results : [];
             let formFields = {};
 
@@ -128,7 +128,7 @@ export const ListForm: IListForm = {
         }
 
         // Method to load the field data
-        let loadFieldData = (fields: Types.SP.IFieldResults) => {
+        let loadFieldData = (fields: IFieldResults) => {
             // Clear the fields
             _info.fields = {};
 
@@ -414,7 +414,7 @@ export const ListForm: IListForm = {
 
                     // Select the fields
                     query.Select.push(field.InternalName + "/Id");
-                    query.Select.push(field.InternalName + "/" + (field as Types.SP.IFieldLookup).LookupField);
+                    query.Select.push(field.InternalName + "/" + (field as IFieldLookup).LookupField);
                     break;
 
                 // User Field

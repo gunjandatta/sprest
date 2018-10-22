@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../../types";
+import * as Types from "../../mapper/types";
 import { IBase } from "../../utils/types";
 import { ISiteMethods, IWeb, IWebQueryResult, IWebResult } from ".";
 
@@ -114,32 +114,32 @@ export interface ISiteQueryProps {
     /**
      * Gets the event receivers associated with the site.
     */
-    EventReceivers(): Types.SP.IEventReceivers;
+    EventReceivers(): Types.IEventReceivers;
 
     /**
      * Gets the event receiver associated with the site.
      * @param id - The id of the event receiver.
     */
-    EventReceivers(id: string): Types.SP.IEventReceiver;
+    EventReceivers(id: string): Types.IEventReceiver;
 
     /**
      * Gets the site collection features.
      */
-    Features(): Types.SP.IFeatures;
+    Features(): Types.IFeatures;
 
     /**
      * Gets the site features.
      * @param id - The id of the feature.
      */
-    Features(id: string): IBase<Types.SP.IFeature>;
+    Features(id: string): IBase<Types.IFeature>;
 
     /**
      * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
      */
-    Owner(): Types.SP.IUser;
+    Owner(): Types.IUser;
 
     /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-    RecycleBin(): IBase<Types.SP.Results.IResults<SP.RecycleBinItem>>;
+    RecycleBin(): IBase<Types.Results.IResults<SP.RecycleBinItem>>;
 
     /**
      * Gets a value that returns the top-level site of the site collection.
@@ -151,13 +151,13 @@ export interface ISiteQueryProps {
     /**
      * Gets the user custom action for the list.
      */
-    UserCustomActions(): Types.SP.IUserCustomActions;
+    UserCustomActions(): Types.IUserCustomActions;
 
     /**
      * Gets the user custom action(s) for the list.
      * @param id - The id of the user custom action.
      */
-    UserCustomActions(id: string): Types.SP.IUserCustomAction;
+    UserCustomActions(id: string): Types.IUserCustomAction;
 }
 
 /**
@@ -169,32 +169,32 @@ export interface ISiteQueryResult extends ISiteMethods, SP.Site {
     /**
      * Gets the event receivers associated with the site.
     */
-    EventReceivers: Types.SP.Results.IResults<Types.SP.IEventReceiverResult>;
+    EventReceivers: Types.Results.IResults<Types.IEventReceiverResult>;
 
     /**
      * Gets the site collection features.
      */
-    Features: Types.SP.Results.IResults<Types.SP.IFeature>;
+    Features: Types.Results.IResults<Types.IFeature>;
 
     /**
      * Gets or sets the owner of the site collection. (Read-only in sandboxed solutions.)
      */
-    Owner: Types.SP.IUserResult;
+    Owner: Types.IUserResult;
 
     /** Gets a value that specifies the collection of recycle bin items for the site collection. */
-    RecycleBin: Types.SP.Results.IResults<SP.RecycleBinItem>;
+    RecycleBin: Types.Results.IResults<SP.RecycleBinItem>;
 
     /**
      * Gets a value that returns the top-level site of the site collection.
      */
     RootWeb: IWebResult;
 
-    SecondaryContact: Types.SP.IUserResult;
+    SecondaryContact: Types.IUserResult;
 
     /**
      * Gets the user custom action for the list.
      */
-    UserCustomActions: Types.SP.IUserCustomActionResults;
+    UserCustomActions: Types.IUserCustomActionResults;
 }
 
 /**

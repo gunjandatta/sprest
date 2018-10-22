@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../../types";
+import * as Types from "../../mapper/types";
 import { IBase } from "../../utils/types";
 import { IAppTiles, ITenantAppCatalog, IWebResult, IWebResults, IWebs } from ".";
 
@@ -50,7 +50,7 @@ export interface IWebMethods {
     /**
      * Checks whether the specified login name belongs to a valid user in the site. If the user doesn't exist, it will add the user to the site.
      */
-    ensureUser(loginName: string): IBase<Types.SP.IUser, Types.SP.IUserResult, Types.SP.IUserQueryResult>;
+    ensureUser(loginName: string): IBase<Types.IUser, Types.IUserResult, Types.IUserQueryResult>;
 
     /**
      * Sends data to an OData service.
@@ -92,7 +92,7 @@ export interface IWebMethods {
      * Returns the list gallery on the site.
      * @param galleryType - The gallery type. Represents a ListTemplateType value such as WebTemplateCatalog = 111, WebPartCatalog = 113 ListTemplateCatalog = 114, MasterPageCatalog = 116, SolutionCatalog = 121, ThemeCatalog = 123, DesignCatalog = 124, AppDataCatalog = 125.
      */
-    getCatalog(galleryType): Types.SP.IList & IBase<Types.SP.IList, Types.SP.IListResult, Types.SP.IListQueryResult>;
+    getCatalog(galleryType): Types.IList & IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
 
     /**
      * Returns the collection of all changes from the change log that have occurred within the scope of the site, based on the specified query.
@@ -127,19 +127,19 @@ export interface IWebMethods {
      * Returns the file object located at the specified server-relative URL.
      * @param url - The server relative url of the file.
      */
-    getFileByServerRelativeUrl(url): Types.SP.IFile & IBase<Types.SP.IFile, Types.SP.IFileResult, Types.SP.IFileQueryResult>;
+    getFileByServerRelativeUrl(url): Types.IFile & IBase<Types.IFile, Types.IFileResult, Types.IFileQueryResult>;
 
     /**
      * Returns the folder object located at the specified server-relative URL.
      * @param url - The server relative url of the folder.
      */
-    getFolderByServerRelativeUrl(url): Types.SP.IFolder & IBase<Types.SP.IFolder, Types.SP.IFolderResult, Types.SP.IFolderQueryResult>;
+    getFolderByServerRelativeUrl(url): Types.IFolder & IBase<Types.IFolder, Types.IFolderResult, Types.IFolderQueryResult>;
 
     /**
      * The list at the specified site-relative URL.
      * @param url - The server relative url of the list.
      */
-    getList(url): Types.SP.IList & IBase<Types.SP.IList, Types.SP.IListResult, Types.SP.IListQueryResult>;
+    getList(url): Types.IList & IBase<Types.IList, Types.IListResult, Types.IListQueryResult>;
 
     /**
      * The push notification subscriber over the site for the specified device application instance ID.
@@ -164,13 +164,13 @@ export interface IWebMethods {
      * @param nWebTemplateFilter - The ID of the template used in the site definition of the sites.
      * @param nConfigurationFilter - The ID of the site template used to provision the sites.
      */
-    getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): IBase<Types.SP.Results.IResults<SP.WebInformation>>;
+    getSubwebsFilteredForCurrentUser(nWebTemplateFilter, nConfigurationFilter): IBase<Types.Results.IResults<SP.WebInformation>>;
 
     /**
      * Returns the user corresponding to the specified member identifier for the current site.
      * @param id - The user id.
      */
-    getUserById(id): Types.SP.IUser & IBase<Types.SP.IUser, Types.SP.IUserResult, Types.SP.IUserQueryResult>;
+    getUserById(id): Types.IUser & IBase<Types.IUser, Types.IUserResult, Types.IUserQueryResult>;
 
     /**
      * The effective permissions that the specified user has within the current application scope.
@@ -250,7 +250,7 @@ export interface IWebQueryProps {
     /**
      * Property Bag
      */
-    AllProperties(): IBase<Types.SP.IPropertyValues>;
+    AllProperties(): IBase<Types.IPropertyValues>;
 
     /**
      * Gets a collection of metadata for the Web site.
@@ -262,47 +262,47 @@ export interface IWebQueryProps {
     /**
      * Gets or sets the group of users who have been given contribute permissions to the Web site.
      */
-    AssociatedMemberGroup(): Types.SP.IGroup;
+    AssociatedMemberGroup(): Types.IGroup;
 
     /**
      * Gets or sets the associated owner group of the Web site.
      */
-    AssociatedOwnerGroup(): Types.SP.IGroup;
+    AssociatedOwnerGroup(): Types.IGroup;
 
     /**
      * Gets or sets the associated visitor group of the Web site.
      */
-    AssociatedVisitorGroup(): Types.SP.IGroup;
+    AssociatedVisitorGroup(): Types.IGroup;
 
-    Author(): Types.SP.IUser;
+    Author(): Types.IUser;
 
     /**
      * Gets the collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
      */
-    AvailableContentTypes(): IBase<Types.SP.IContentTypes>;
+    AvailableContentTypes(): IBase<Types.IContentTypes>;
 
     /**
      * Gets a value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
      */
-    AvailableFields(): IBase<Types.SP.IFields>;
+    AvailableFields(): IBase<Types.IFields>;
 
     ClientWebParts(): IBase;
 
     /**
      * Gets the content types that are associated with the web.
      */
-    ContentTypes(): Types.SP.IContentTypes;
+    ContentTypes(): Types.IContentTypes;
 
     /**
      * Gets the content type that are associated with the web.
      * @param id - The id of the content type.
      */
-    ContentTypes(id: string): Types.SP.IContentType;
+    ContentTypes(id: string): Types.IContentType;
 
     /**
      * Gets the current user of the site.
      */
-    CurrentUser(): Types.SP.IUser;
+    CurrentUser(): Types.IUser;
 
     DataLeakagePreventionStatusInfo(): IBase;
 
@@ -311,57 +311,57 @@ export interface IWebQueryProps {
     /**
      * Gets the event receivers associated with the web.
     */
-    EventReceivers(): Types.SP.IEventReceivers;
+    EventReceivers(): Types.IEventReceivers;
 
     /**
      * Gets the event receiver associated with the web.
      * @param id - The id of the event receiver.
     */
-    EventReceivers(id: string): Types.SP.IEventReceiver;
+    EventReceivers(id: string): Types.IEventReceiver;
 
     /**
      * Gets the site features.
      */
-    Features(): Types.SP.IFeatures;
+    Features(): Types.IFeatures;
 
     /**
      * Gets the site features.
      * @param id - The id of the feature.
      */
-    Features(id: string): IBase<Types.SP.IFeature>;
+    Features(id: string): IBase<Types.IFeature>;
 
     /**
      * Gets the fields in the web.
      */
-    Fields(): Types.SP.IFields;
+    Fields(): Types.IFields;
 
     /**
      * Gets the field in the web.
      * @param internalNameOrTitle - The internal name or title of the field.
      */
-    Fields(internalNameOrTitle: string): Types.SP.IField;
+    Fields(internalNameOrTitle: string): Types.IField;
 
     /**
      * Gets the folders contained in the root folder.
      */
-    Folders(): Types.SP.IFolders;
+    Folders(): Types.IFolders;
 
     /**
      * Gets the folder contained in the root folder.
      * @param url - The url of the sub-folder within the current folder.
      */
-    Folders(url: string): Types.SP.IFolder;
+    Folders(url: string): Types.IFolder;
 
     /**
      * Gets the lists in the Web.
      */
-    Lists(): Types.SP.ILists;
+    Lists(): Types.ILists;
 
     /**
      * Gets the list in the Web.
      * @param name - The list name.
      */
-    Lists(name: string): Types.SP.IList;
+    Lists(name: string): Types.IList;
 
     /**
      * Gets the list definitions and list templates available for creating lists on the site.
@@ -402,35 +402,35 @@ export interface IWebQueryProps {
     /**
      * Gets the role definitions for the web.
      */
-    RoleDefinitions(): Types.SP.IRoleDefinitions;
+    RoleDefinitions(): Types.IRoleDefinitions;
 
     /**
      * Gets the role definitions for the web.
      * @param name - The role definition name.
      */
-    RoleDefinitions(name: string): Types.SP.IRoleDefinition;
+    RoleDefinitions(name: string): Types.IRoleDefinition;
 
     /**
      * Gets the root folder in the web.
      */
-    RootFolder(): Types.SP.IFolder;
+    RootFolder(): Types.IFolder;
 
     /**
      * Gets the file in the web's root folder.
      * @param url - (Optional) The url of the file within the root folder.
      */
-    RootFolder(url: string): Types.SP.IFile;
+    RootFolder(url: string): Types.IFile;
 
     /**
      * Gets the site groups for the web.
      */
-    SiteGroups(): Types.SP.ISiteGroups;
+    SiteGroups(): Types.ISiteGroups;
 
     /**
      * Gets the site groups for the web.
      * @param name - The group name.
      */
-    SiteGroups(name: string): Types.SP.IGroup;
+    SiteGroups(name: string): Types.IGroup;
 
     /**
      * Gets the UserInfo list of the site collection that contains the Web site.
@@ -440,13 +440,13 @@ export interface IWebQueryProps {
     /**
      * Gets the collection of all users that belong to the site collection.
      */
-    SiteUsers(): Types.SP.IUsers;
+    SiteUsers(): Types.IUsers;
 
     /**
      * Gets the collection of all users that belong to the site collection.
      * @param id - The user id.
      */
-    SiteUsers(id): Types.SP.IUser;
+    SiteUsers(id): Types.IUser;
 
     /** Gets the tenant app catalog. */
     TenantAppCatalog(): ITenantAppCatalog;
@@ -461,13 +461,13 @@ export interface IWebQueryProps {
     /**
      * Gets the user custom actions for the web.
      */
-    UserCustomActions(): Types.SP.IUserCustomActions;
+    UserCustomActions(): Types.IUserCustomActions;
 
     /**
      * Gets the user custom action for the web.
      * @param id - The id of the user custom action.
      */
-    UserCustomActions(id: string): Types.SP.IUserCustomAction;
+    UserCustomActions(id: string): Types.IUserCustomAction;
 
     /**
      * Represents key properties of the subsites of a site.
@@ -499,47 +499,47 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
      */
     AllProperties?: Array<string>;
 
-    AppTiles?: Types.SP.IAppTiles;
+    AppTiles?: Types.IAppTiles;
 
     /**
      * The group of users who have been given contribute permissions to the Web site.
      */
-    AssociatedMemberGroup: Types.SP.IGroupResult;
+    AssociatedMemberGroup: Types.IGroupResult;
 
     /**
      * The associated owner group of the Web site.
      */
-    AssociatedOwnerGroup: Types.SP.IGroupResult;
+    AssociatedOwnerGroup: Types.IGroupResult;
 
     /**
      * The associated visitor group of the Web site.
      */
-    AssociatedVisitorGroup: Types.SP.IGroupResult;
+    AssociatedVisitorGroup: Types.IGroupResult;
 
     /** */
-    Author: Types.SP.IUserResult;
+    Author: Types.IUserResult;
 
     /**
      * The collection of all content types that apply to the current scope, including those of the current Web site, as well as any parent Web sites.
      */
-    AvailableContentTypes: Types.SP.Results.IResults<Types.SP.IContentTypeResult>;
+    AvailableContentTypes: Types.Results.IResults<Types.IContentTypeResult>;
 
     /**
      * A value that specifies the collection of all fields available for the current scope, including those of the current site, as well as any parent sites.
      */
-    AvailableFields: Types.SP.Results.IResults<Types.SP.IFieldResult>;
+    AvailableFields: Types.Results.IResults<Types.IFieldResult>;
 
     ClientWebParts: IBase;
 
     /**
      * Gets the content types that are associated with the web.
      */
-    ContentTypes: Types.SP.IContentTypeResults;
+    ContentTypes: Types.IContentTypeResults;
 
     /**
      * Gets the current user of the site.
      */
-    CurrentUser: Types.SP.IUserResult;
+    CurrentUser: Types.IUserResult;
 
     DescriptionResource: SP.ResourcePath;
 
@@ -551,32 +551,32 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * Gets the event receivers associated with the web.
     */
-    EventReceivers: Types.SP.IEventReceiverResults;
+    EventReceivers: Types.IEventReceiverResults;
 
     /**
      * Gets the site features.
      */
-    Features: Types.SP.Results.IResults<Types.SP.IFeature>;
+    Features: Types.Results.IResults<Types.IFeature>;
 
     /**
      * The fields in the web.
      */
-    Fields: Types.SP.IFieldResults;
+    Fields: Types.IFieldResults;
 
     /**
      * The folders contained in the root folder.
      */
-    Folders: Types.SP.IFolderResults;
+    Folders: Types.IFolderResults;
 
     /**
      * Gets the lists in the Web.
      */
-    Lists: Types.SP.IListResults;
+    Lists: Types.IListResults;
 
     /**
      * The list definitions and list templates available for creating lists on the site.
      */
-    ListTemplates: Types.SP.Results.IResults<SP.ListTemplate>;
+    ListTemplates: Types.Results.IResults<SP.ListTemplate>;
 
     /**
      * Gets a value that specifies the navigation structure on the site, including the Quick Launch area and the top navigation bar.
@@ -596,7 +596,7 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * Specifies the collection of recycle bin items of the recycle bin of the site.
      */
-    RecycleBin: Types.SP.Results.IResults<SP.RecycleBinItem>;
+    RecycleBin: Types.Results.IResults<SP.RecycleBinItem>;
 
     /**
      * Gets the regional settings that are currently implemented on the website.
@@ -606,27 +606,27 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * Gets the role definitions for the web.
      */
-    RoleDefinitions: Types.SP.IRoleDefinitionResults;
+    RoleDefinitions: Types.IRoleDefinitionResults;
 
     /**
      * Gets the root folder in the web.
      */
-    RootFolder: Types.SP.IFolderResult;
+    RootFolder: Types.IFolderResult;
 
     /**
      * Gets the site groups for the web.
      */
-    SiteGroups: Types.SP.ISiteGroupResults;
+    SiteGroups: Types.ISiteGroupResults;
 
     /**
      * Gets the UserInfo list of the site collection that contains the Web site.
      */
-    SiteUserInfoList: Types.SP.IListResult;
+    SiteUserInfoList: Types.IListResult;
 
     /**
      * The collection of all users that belong to the site collection.
      */
-    SiteUsers: Types.SP.IUserResults;
+    SiteUsers: Types.IUserResults;
 
     /** Gets the tenant app catalog. */
     TenantAppCatalog: ITenantAppCatalog;
@@ -641,12 +641,12 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * Gets the user custom actions for the web.
      */
-    UserCustomActions: Types.SP.IUserCustomActionResults;
+    UserCustomActions: Types.IUserCustomActionResults;
 
     /**
      * Represents key properties of the subsites of a site.
      */
-    WebInfos: Types.SP.Results.IResults<SP.WebInformation>;
+    WebInfos: Types.Results.IResults<SP.WebInformation>;
 
     /**
      * A Web site collection object that represents all Web sites immediately beneath the Web site, excluding children of those Web sites.
@@ -656,12 +656,12 @@ export interface IWebQueryResult extends IWebMethods, SP.Web {
     /**
      * A value that specifies the collection of all workflow associations for the site.
      */
-    WorkflowAssociations: Types.SP.Results.IResults<any>;
+    WorkflowAssociations: Types.Results.IResults<any>;
 
     /**
      * A value that specifies the collection of workflow templates associated with the site.
      */
-    WorkflowTemplates: Types.SP.Results.IResults<SP.Workflow.WorkflowTemplate>;
+    WorkflowTemplates: Types.Results.IResults<SP.Workflow.WorkflowTemplate>;
 }
 
 /**

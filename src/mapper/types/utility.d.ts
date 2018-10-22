@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../../types";
+import * as Types from "../../mapper/types";
 import { IBase } from "../../utils/types";
 
 /**
@@ -178,7 +178,7 @@ export interface IUtility extends IUtilityMethods, IBase<IUtility> {
      * @param listUrl - The relative url to the library.
      * @param content - The html content.
      */
-    createWikiPage(pageUrl: string, content?: string): IBase<Types.SP.IFile, Types.SP.IFileResult, Types.SP.IFileQueryResult>;
+    createWikiPage(pageUrl: string, content?: string): IBase<Types.IFile, Types.IFileResult, Types.IFileQueryResult>;
 
     /**
      * Method to send an email.

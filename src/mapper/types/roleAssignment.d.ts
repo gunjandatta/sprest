@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../../types";
+import * as Types from "../../mapper/types";
 import { IBase } from "../../utils/types";
 import { IRoleDefinition, IRoleDefinitions } from ".";
 
@@ -20,7 +20,7 @@ export interface IRoleAssignmentQueryProps {
     /**
      * Gets the user or group that corresponds to the Role Assignment.
      */
-    Member(): IBase<Types.SP.IGroup | Types.SP.IUser>;
+    Member(): IBase<Types.IGroup | Types.IUser>;
 
     /**
      * Gets the collection of role definition bindings for the role assignment.
@@ -35,12 +35,12 @@ export interface IRoleAssignmentQueryResult extends IRoleAssignmentMethods, SP.R
     /**
      * Gets the user or group that corresponds to the Role Assignment.
      */
-    Member: Types.SP.IUser;
+    Member: Types.IUser;
 
     /**
      * Gets the collection of role definition bindings for the role assignment.
      */
-    RoleDefinitionBindings: Types.SP.Results.IResults<IRoleDefinition>;
+    RoleDefinitionBindings: Types.Results.IResults<IRoleDefinition>;
 }
 
 /**

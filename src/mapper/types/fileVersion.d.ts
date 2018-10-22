@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../../types";
+import * as Types from "../../mapper/types";
 import { IBase } from "../../utils/types";
 import {
     IFileVersion, IFileVersionQueryResult, IFileVersionResult
@@ -22,7 +22,7 @@ export interface IFileVersionQueryProps {
     /**
      * Gets a value that specifies the user that represents the creator of the file version.
      */
-    CreatedBy(): Types.SP.IUser;
+    CreatedBy(): Types.IUser;
 }
 
 /**
@@ -32,7 +32,7 @@ export interface IFileVersionQueryResult extends IFileVersionMethods, SP.FileVer
     /**
      * A value that specifies the user that represents the creator of the file version.
      */
-    CreatedBy: Types.SP.IUserResult;
+    CreatedBy: Types.IUserResult;
 }
 
 /**

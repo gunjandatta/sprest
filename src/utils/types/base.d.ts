@@ -1,4 +1,4 @@
-import * as Types from "../../types";
+import * as SP from "../../mapper/types";
 import { IBaseExecution, IRequestInfo } from ".";
 
 /**
@@ -29,7 +29,7 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
      * Queries the collection.
      * @param oData - The OData information.
      */
-    query?(query: Types.SP.ODataQuery): IBase<Result, QueryResult>;
+    query?(query: SP.ODataQuery): IBase<Result, QueryResult>;
 
     /**
      * Method to stringify the object.
@@ -40,7 +40,7 @@ export interface IBase<Type = any, Result = Type, QueryResult = Result> extends 
 /**
  * Base Collection Results
  */
-export interface IBaseCollectionResult<Result> extends Types.SP.Results.IResults<Result> {
+export interface IBaseCollectionResult<Result> extends SP.Results.IResults<Result> {
     /** True, if the object exists, false otherwise. */
     existsFl: boolean;
 
@@ -60,4 +60,4 @@ export interface IBaseCollectionResult<Result> extends Types.SP.Results.IResults
 /**
  * Base Collection
  */
-export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends Types.SP.Results.IResults<Type>, IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> { }
+export interface IBaseCollection<Type = any, Result = Type, QueryResult = Result> extends SP.Results.IResults<Type>, IBase<IBaseCollectionResult<Result>, IBaseCollectionResult<Result>, IBaseCollectionResult<QueryResult>> { }

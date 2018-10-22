@@ -1,4 +1,4 @@
-import * as Types from "../../types";
+import * as SP from "../../mapper/types";
 import { IBase, IBaseCollection } from "../../utils/types";
 import { ITenantApp, ITenantApps } from ".";
 
@@ -12,7 +12,7 @@ export interface ITenantAppCatalogMethods {
      * @param overwrite - Flag to overwrite the solution.
      * @param url - The file name of the solution.
      */
-    add(overwrite?: boolean, url?: string): IBase<Types.SP.IFile, Types.SP.IFileResult>;
+    add(overwrite?: boolean, url?: string): IBase<SP.IFile, SP.IFileResult>;
 
     /**
      * Deploy solution package in tenant app catalog

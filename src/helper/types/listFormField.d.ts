@@ -1,4 +1,5 @@
-import * as Types from "../../Types";
+import { ITermInfo } from "../../helper/types";
+import * as SP from "../../mapper/types";
 
 /**
  * List Form Field Information
@@ -8,7 +9,7 @@ export interface IListFormFieldInfo {
     defaultValue?: any;
 
     /** The list field. */
-    field?: Types.SP.IFieldResult | Types.SP.IFieldQueryResult;
+    field?: SP.IFieldResult | SP.IFieldQueryResult;
 
     /** The list name. */
     listName: string;
@@ -43,7 +44,7 @@ export interface IListFormChoiceFieldInfo extends IListFormFieldInfo {
     choices?: Array<string>;
 
     /** The list field. */
-    field?: Types.SP.IFieldChoice | Types.SP.IFieldMultiChoice;
+    field?: SP.IFieldChoice | SP.IFieldMultiChoice;
 
     /** Flag to determine if multiple values exist */
     multi?: boolean;
@@ -54,7 +55,7 @@ export interface IListFormChoiceFieldInfo extends IListFormFieldInfo {
  */
 export interface IListFormDateFieldInfo extends IListFormFieldInfo {
     /** The list field. */
-    field?: Types.SP.IFieldDateTime;
+    field?: SP.IFieldDateTime;
 
     /** Flag determining if we are displaying time */
     showTime?: boolean;
@@ -65,7 +66,7 @@ export interface IListFormDateFieldInfo extends IListFormFieldInfo {
  */
 export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
     /** The list field. */
-    field?: Types.SP.IFieldLookup;
+    field?: SP.IFieldLookup;
 
     /** The lookup field */
     lookupField?: string;
@@ -85,7 +86,7 @@ export interface IListFormLookupFieldInfo extends IListFormFieldInfo {
  */
 export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
     /** The list field. */
-    field?: Types.SP.IFieldManagedMetadata;
+    field?: SP.IFieldManagedMetadata;
 
     /** Flag to determine if multiple values exist */
     multi?: boolean;
@@ -100,7 +101,7 @@ export interface IListFormMMSFieldInfo extends IListFormFieldInfo {
     termStoreId?: string;
 
     /** The value field */
-    valueField?: Types.SP.IFieldNote;
+    valueField?: SP.IFieldNote;
 }
 
 /**
@@ -111,7 +112,7 @@ export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
     decimals?: number;
 
     /** The list field. */
-    field?: Types.SP.IFieldNumber | Types.SP.IFieldCurrency;
+    field?: SP.IFieldNumber | SP.IFieldCurrency;
 
     /** The maximum value */
     maxValue?: number;
@@ -128,7 +129,7 @@ export interface IListFormNumberFieldInfo extends IListFormFieldInfo {
  */
 export interface IListFormTextFieldInfo extends IListFormFieldInfo {
     /** The list field. */
-    field?: Types.SP.IFieldText | Types.SP.IFieldNote;
+    field?: SP.IFieldText | SP.IFieldNote;
 
     /** Flag determining if this is a note field */
     multiline?: boolean;
@@ -145,7 +146,7 @@ export interface IListFormTextFieldInfo extends IListFormFieldInfo {
  */
 export interface IListFormUrlFieldInfo extends IListFormFieldInfo {
     /** The list field. */
-    field?: Types.SP.IFieldUrl;
+    field?: SP.IFieldUrl;
 }
 
 /**
@@ -156,7 +157,7 @@ export interface IListFormUserFieldInfo extends IListFormFieldInfo {
     allowGroups?: boolean;
 
     /** The list field. */
-    field?: Types.SP.IFieldUser;
+    field?: SP.IFieldUser;
 
     /** Flag to determine if multiple values exist */
     multi?: boolean;
@@ -173,11 +174,11 @@ export interface IListFormField {
     create(props: IListFormFieldInfo): PromiseLike<IListFormFieldInfo>;
 
     /** Method to load the lookup data */
-    loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<Types.SP.IListItemQueryResult>>;
+    loadLookupData(info: IListFormLookupFieldInfo, queryTop?: number): PromiseLike<Array<SP.IListItemQueryResult>>;
 
     /** Method to load the mms data */
-    loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<Types.Helper.ITermInfo>>;
+    loadMMSData(info: IListFormMMSFieldInfo): PromiseLike<Array<ITermInfo>>;
 
     /** Method to load the mms value field */
-    loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<Types.SP.IFieldNote>;
+    loadMMSValueField(info: IListFormMMSFieldInfo): PromiseLike<SP.IFieldNote>;
 }

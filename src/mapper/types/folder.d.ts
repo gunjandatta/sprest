@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../../types";
+import * as Types from "../../mapper/types";
 import { IBase } from "../../utils/types";
 import {
     IFile, IFileResults, IFiles,
@@ -62,7 +62,7 @@ export interface IFolderQueryProps {
     /**
      * Specifies the list item field (2) values for the list item corresponding to the file.
      */
-    ListItemAllFields(): IBase<Types.SP.IListItem>;
+    ListItemAllFields(): IBase<Types.IListItem>;
 
     /**
      * Gets the parent list folder of the folder.
@@ -72,7 +72,7 @@ export interface IFolderQueryProps {
     /**
      * Property Bag
      */
-    Properties(): IBase<Types.SP.IPropertyValues>;
+    Properties(): IBase<Types.IPropertyValues>;
 
     StorageMetrics(): IBase;
 }
@@ -94,7 +94,7 @@ export interface IFolderQueryResult extends IFolderMethods, SP.Folder {
     /**
      * Specifies the list item field (2) values for the list item corresponding to the file.
      */
-    ListItemAllFields: Types.SP.IListItemResults;
+    ListItemAllFields: Types.IListItemResults;
 
     /**
      * Gets the parent list folder of the folder.
@@ -104,7 +104,7 @@ export interface IFolderQueryResult extends IFolderMethods, SP.Folder {
     /**
      * Property Bag
      */
-    Properties: Types.SP.IPropertyValues;
+    Properties: Types.IPropertyValues;
 
     StorageMetrics: any;
 }

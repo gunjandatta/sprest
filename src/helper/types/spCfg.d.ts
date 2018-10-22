@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../../types";
+import * as Types from "../../mapper/types";
 
 /**
  * Field Information
@@ -186,7 +186,7 @@ export interface ISPCfgContentTypeInfo extends SP.ContentTypeCreationInformation
     /**
      * The content type. (This value is set internally.)
      */
-    ContentType?: Types.SP.IContentTypeResult;
+    ContentType?: Types.IContentTypeResult;
 
     /**
      * The field references.
@@ -211,12 +211,12 @@ export interface ISPCfgContentTypeInfo extends SP.ContentTypeCreationInformation
     /**
      * Event triggered after the content type is created.
      */
-    onCreated?: (ct: Types.SP.IContentTypeResult) => void;
+    onCreated?: (ct: Types.IContentTypeResult) => void;
 
     /**
      * Event triggered after the content type is updated.
      */
-    onUpdated?: (ct: Types.SP.IContentTypeResult) => void;
+    onUpdated?: (ct: Types.IContentTypeResult) => void;
 }
 
 /**
@@ -241,19 +241,19 @@ export interface ISPCfgFieldInfo extends IFieldInfo {
     /**
      * Event triggered after the field is created.
      */
-    onCreated?: (field: Types.SP.IFieldResult) => void;
+    onCreated?: (field: Types.IFieldResult) => void;
 
     /**
      * Event triggered after the field is updated.
      */
-    onUpdated?: (field: Types.SP.IFieldResult) => void;
+    onUpdated?: (field: Types.IFieldResult) => void;
 }
 
 /**
  * SharePoint Configuration - List Information
  */
 export interface ISPCfgListInfo {
-    /** The content Types.SP. */
+    /** The content Types. */
     ContentTypes?: Array<ISPCfgContentTypeInfo>;
 
     /** The custom list fields. */
@@ -274,12 +274,12 @@ export interface ISPCfgListInfo {
     /**
      * Event triggered after the list is created or updated.
      */
-    onCreated?: (list: Types.SP.IListResult) => void;
+    onCreated?: (list: Types.IListResult) => void;
 
     /**
      * Event triggered after the list is updated.
      */
-    onUpdated?: (list: Types.SP.IListQueryResult) => void;
+    onUpdated?: (list: Types.IListQueryResult) => void;
 }
 
 /**
@@ -301,12 +301,12 @@ export interface ISPCfgViewInfo {
     /**
      * Event triggered after the view is created or updated.
      */
-    onCreated?: (view: Types.SP.IViewResult) => void;
+    onCreated?: (view: Types.IViewResult) => void;
 
     /**
      * Event triggered after the view is updated.
      */
-    onUpdated?: (view: Types.SP.IView) => void;
+    onUpdated?: (view: Types.IView) => void;
 }
 
 /**
@@ -325,12 +325,12 @@ export interface ISPCfgWebPartInfo {
     /**
      * Event triggered after the webpart file is created.
      */
-    onCreated?: (file: Types.SP.IFileResult) => void;
+    onCreated?: (file: Types.IFileResult) => void;
 
     /**
      * Event triggered after the webpart file is updated.
      */
-    onUpdated?: (file: Types.SP.IFileResult) => void;
+    onUpdated?: (file: Types.IFileResult) => void;
 }
 
 /**
@@ -355,7 +355,7 @@ export interface ISPConfig {
  * SharePoint Configuration - Properties
  */
 export interface ISPConfigProps {
-    /** The content Types.SP. */
+    /** The content Types. */
     ContentTypes?: Array<ISPCfgContentTypeInfo>;
 
     /** The custom action configuration. */

@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../../types";
+import * as Types from "../../mapper/types";
 import { IBase } from "../../utils/types";
 import {
     IContentType, IContentTypeResults, IContentTypes,
@@ -147,24 +147,24 @@ export interface IListQueryProps {
     /**
      * Gets the event receivers associated with the list.
     */
-    EventReceivers(): Types.SP.IEventReceivers;
+    EventReceivers(): Types.IEventReceivers;
 
     /**
      * Gets the event receiver associated with the list.
      * @param id - The id of the event receiver.
     */
-    EventReceivers(id: string): Types.SP.IEventReceiver;
+    EventReceivers(id: string): Types.IEventReceiver;
 
     /**
      * Gets the fields in the list.
      */
-    Fields(): Types.SP.IFields;
+    Fields(): Types.IFields;
 
     /**
      * Gets the field in the list.
      * @param internalNameOrTitle - The internal name or title of the field.
      */
-    Fields(internalNameOrTitle: string): Types.SP.IField;
+    Fields(internalNameOrTitle: string): Types.IField;
 
     /**
      * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
@@ -206,29 +206,29 @@ export interface IListQueryProps {
     /**
      * Gets a value that specifies the site that contains the list.
      */
-    ParentWeb(): IBase<Types.SP.IWeb>;
+    ParentWeb(): IBase<Types.IWeb>;
 
     /**
      * Gets the role assignments for the securable object.
      */
-    RoleAssignments(): Types.SP.IRoleAssignments;
+    RoleAssignments(): Types.IRoleAssignments;
 
     /**
      * Gets the role assignments for the securable object.
      * @param id - The role assignment id.
      */
-    RoleAssignments(id: string): Types.SP.IRoleAssignment;
+    RoleAssignments(id: string): Types.IRoleAssignment;
 
     /**
      * Gets the root folder of the list.
      */
-    RootFolder(): Types.SP.IFolder;
+    RootFolder(): Types.IFolder;
 
     /**
      * Gets the file in the root folder of the list.
      * @param url - The url of the file within the root folder.
      */
-    RootFolder(url: string): Types.SP.IFile;
+    RootFolder(url: string): Types.IFile;
 
     Subscriptions(): IBase<IBase>;
 
@@ -237,13 +237,13 @@ export interface IListQueryProps {
     /**
      * Gets the user custom actions for the list.
      */
-    UserCustomActions(): Types.SP.IUserCustomActions;
+    UserCustomActions(): Types.IUserCustomActions;
 
     /**
      * Gets the user custom action(s) for the list.
      * @param id - The id of the user custom action.
      */
-    UserCustomActions(id: string): Types.SP.IUserCustomAction;
+    UserCustomActions(id: string): Types.IUserCustomAction;
 
     /**
      * Gets the views in the list.
@@ -276,22 +276,22 @@ export interface IListQueryResult extends IListMethods, SP.List {
     /**
      * Gets the event receivers associated with the list.
     */
-    EventReceivers: Types.SP.IEventReceiverResults;
+    EventReceivers: Types.IEventReceiverResults;
 
     /**
      * Gets the fields in the list.
      */
-    Fields: Types.SP.IFieldResults;
+    Fields: Types.IFieldResults;
 
     /**
      * Gets the object where role assignments for this object are defined. If role assignments are defined directly on the current object, the current object is returned.
      */
-    FirstUniqueAncestorSecurableObject: Types.SP.IWebResult;
+    FirstUniqueAncestorSecurableObject: Types.IWebResult;
 
     /**
      * Gets the list forms in the list.
      */
-    Forms: Types.SP.Results.IResults<SP.Form>;
+    Forms: Types.Results.IResults<SP.Form>;
 
     /**
      * Gets a value that specifies the information rights management settings.
@@ -306,26 +306,26 @@ export interface IListQueryResult extends IListMethods, SP.List {
     /**
      * Gets a value that specifies the site that contains the list.
      */
-    ParentWeb: Types.SP.IWebResult;
+    ParentWeb: Types.IWebResult;
 
     /**
      * Gets the role assignments for the securable object.
      */
-    RoleAssignments: Types.SP.IRoleAssignmentResults;
+    RoleAssignments: Types.IRoleAssignmentResults;
 
     /**
      * Gets the root folder of the list.
      */
-    RootFolder: Types.SP.IFolderResult;
+    RootFolder: Types.IFolderResult;
 
-    Subscriptions: Types.SP.Results.IResults<SP.WorkflowServices.WorkflowSubscription>;
+    Subscriptions: Types.Results.IResults<SP.WorkflowServices.WorkflowSubscription>;
 
     TitleResource: SP.ResourcePath;
 
     /**
      * Gets the user custom actions for the list.
      */
-    UserCustomActions: Types.SP.IUserCustomActionResults;
+    UserCustomActions: Types.IUserCustomActionResults;
 
     /**
      * Gets the views in the list.
@@ -335,7 +335,7 @@ export interface IListQueryResult extends IListMethods, SP.List {
     /**
      * Gets a value that specifies the collection of all workflow associations for the list.
      */
-    WorkflowAssociations: Types.SP.Results.IResults<string>;
+    WorkflowAssociations: Types.Results.IResults<string>;
 
     WriteSecurity: number;
 }

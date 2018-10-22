@@ -1,4 +1,4 @@
-import { SP } from "../types";
+import * as SP from "../mapper/types";
 
 /**
  * OData

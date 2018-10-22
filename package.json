@@ -46,6 +46,6 @@
     "build": "tsc && webpack --mode=development",
     "lib": "cd def && node generate.js",
     "prod": "webpack --mode=production",
-    "typings": "dts-bundle --out ../dist/gd-sprest.d.ts --name gd-sprest --main ./build/index.d.ts"
+    "typings": "dts-bundle --out ../dist/gd-sprest.d.ts --name gd-sprest --main ./src/dev.d.ts"
   }
 }

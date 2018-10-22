@@ -209,7 +209,7 @@ exports.SPConfig = function (cfg, webUrl) {
             });
         });
     };
-    // Method to create the fields
+    // Method to create the fields`
     var createFields = function (fields, cfgFields) {
         // Return a promise
         return new Promise(function (resolve, reject) {

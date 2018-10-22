@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../../types";
+import * as Types from "../../mapper/types";
 import { IBase } from "../../utils/types";
 import { IFileVersionResult, IFileVersions } from ".";
 
@@ -144,12 +144,12 @@ export interface IFileQueryProps {
     /**
      * Gets a value that specifies the user who added the file.
      */
-    Author(): Types.SP.IUser;
+    Author(): Types.IUser;
 
     /**
      * Gets a value that returns the user who has checked out the file.
      */
-    CheckedOutByUser(): Types.SP.IUser;
+    CheckedOutByUser(): Types.IUser;
 
     EffectiveInformationRightsManagementSettings(): IBase;
 
@@ -163,17 +163,17 @@ export interface IFileQueryProps {
     /**
      * Gets a value that returns the user that owns the current lock on the file.
      */
-    LockedByUser(): Types.SP.IUser;
+    LockedByUser(): Types.IUser;
 
     /**
      * Gets a value that returns the user who last modified the file.
      */
-    ModifiedBy(): Types.SP.IUser;
+    ModifiedBy(): Types.IUser;
 
     /**
      * Property Bag
      */
-    Properties(): IBase<Types.SP.IPropertyValues>;
+    Properties(): IBase<Types.IPropertyValues>;
 
     VersionEvents(): IBase;
 
@@ -190,12 +190,12 @@ export interface IFileQueryResult extends IFileMethods, SP.File {
     /**
      * Gets a value that specifies the user who added the file.
      */
-    Author: Types.SP.IUserResult;
+    Author: Types.IUserResult;
 
     /**
      * Gets a value that returns the user who has checked out the file.
      */
-    CheckedOutByUser: Types.SP.IUserResult;
+    CheckedOutByUser: Types.IUserResult;
 
     EffectiveInformationRightsManagementSettings: IBase;
 
@@ -204,29 +204,29 @@ export interface IFileQueryResult extends IFileMethods, SP.File {
     /**
      * Gets a value that specifies the list item field values for the list item corresponding to the file.
      */
-    ListItemAllFields: Types.SP.IListItemResult;
+    ListItemAllFields: Types.IListItemResult;
 
     /**
      * Gets a value that returns the user that owns the current lock on the file.
      */
-    LockedByUser: Types.SP.IUserResult;
+    LockedByUser: Types.IUserResult;
 
     /**
      * Gets a value that returns the user who last modified the file.
      */
-    ModifiedBy: Types.SP.IUserResult;
+    ModifiedBy: Types.IUserResult;
 
     /**
      * Property Bag
      */
-    Properties: Types.SP.IPropertyValues;
+    Properties: Types.IPropertyValues;
 
-    VersionEvents: Types.SP.Results.IResults<any>;
+    VersionEvents: Types.Results.IResults<any>;
 
     /**
      * Gets a value that returns a collection of file version objects that represent the versions of the file.
      */
-    Versions: Types.SP.Results.IResults<IFileVersionResult>;
+    Versions: Types.Results.IResults<IFileVersionResult>;
 }
 
 /**

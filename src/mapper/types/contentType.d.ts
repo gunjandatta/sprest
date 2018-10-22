@@ -1,5 +1,5 @@
 import { SP } from "gd-sprest-def";
-import * as Types from "../../types";
+import * as Types from "../../mapper/types";
 import { IBase } from "../../utils/types";
 import { IFieldResult, IFields, IFieldLinks, IListResult } from ".";
 
@@ -67,22 +67,22 @@ export interface IContentTypeQueryResult extends IContentTypeMethods, SP.Content
     /**
      * Gets the column (also known as field) references in the content type.
      */
-    FieldLinks: Types.SP.Results.IResults<SP.FieldLink>;
+    FieldLinks: Types.Results.IResults<SP.FieldLink>;
 
     /**
      * Gets the fields for the content type.
      */
-    Fields: Types.SP.Results.IResults<IFieldResult>;
+    Fields: Types.Results.IResults<IFieldResult>;
 
     NameResource: SP.ResourcePath;
 
     /** Gets the parent content type of the content type. */
-    Parent: IListResult | Types.SP.IWebResult;
+    Parent: IListResult | Types.IWebResult;
 
     /**
      * Gets a value that specifies the collection of workflow associations for the content type.
      */
-    WorkflowAssociations: Types.SP.Results.IResults<any>;
+    WorkflowAssociations: Types.Results.IResults<any>;
 }
 
 /**
